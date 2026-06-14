@@ -1,0 +1,154 @@
+{
+  "schema_version": "authority_state_v1",
+  "scaffold_status": "INERT_CONFIG_ONLY_NO_RUNTIME_EFFECT",
+  "created_by_phase": "PHASE41_AUTHORITY_POLICY_CONFIG_SCAFFOLD_NOAPI",
+  "documentation": {
+    "purpose": "Machine-readable authority state scaffold for future core/authority.py.",
+    "runtime_effect": "None. No current tool imports or evaluates this file.",
+    "source_of_truth_note": "PROJECT_HANDOFF.md remains the human-readable project memory and authority source until a future approved migration.",
+    "default_doctrine": "Deny real, mutating, live, paper execution, secret update, service enablement, schema apply, and active hot-path mutation by default."
+  },
+  "project": {
+    "name": "TOKENOSKOBI",
+    "phase_family": "PHASE41_FAMILY",
+    "mode": "CONTROLLED_EXECUTION",
+    "status": "STABLE_MONITOR_MODE",
+    "human_authority_source": "PROJECT_HANDOFF.md"
+  },
+  "defaults": {
+    "deny_by_default": true,
+    "read_only_allowed": true,
+    "dryrun_allowed": true,
+    "real_apply_requires_explicit_approval": true,
+    "rollback_required_for_mutation": true,
+    "hot_path_is_sacred": true,
+    "no_uncontrolled_writes": true
+  },
+  "authority": {
+    "ai": {
+      "level": 0,
+      "allowed": false,
+      "reason": "AI_AUTHORITY_ZERO"
+    },
+    "trade": {
+      "level": 0,
+      "allowed": false,
+      "paper_allowed": false,
+      "live_allowed": false,
+      "reason": "TRADE_AUTHORITY_ZERO"
+    },
+    "write": {
+      "default": "denied",
+      "db_write_allowed": false,
+      "file_write_allowed": false,
+      "secret_write_allowed": false,
+      "dashboard_active_write_allowed": false,
+      "schema_apply_allowed": false
+    },
+    "dashboard": {
+      "mode": "preview_only",
+      "render_allowed": true,
+      "preview_write_allowed": true,
+      "active_panel_mutation_allowed": false,
+      "active_panel_mutation_requires_explicit_approval": true
+    },
+    "service": {
+      "enabled": false,
+      "start_allowed": false,
+      "enable_allowed": false,
+      "timer_allowed": false
+    },
+    "rpc": {
+      "allowed": false,
+      "payg_allowed": false,
+      "provider_test_allowed": false,
+      "requires_budget_guard": true,
+      "requires_explicit_approval": true
+    },
+    "secret": {
+      "status_allowed": true,
+      "read_raw_allowed": false,
+      "update_allowed": false,
+      "test_provider_allowed": false,
+      "redaction_required": true,
+      "authentication_required_for_update": true
+    },
+    "policy": {
+      "edit_allowed": false,
+      "apply_allowed": false,
+      "weaken_hardblock_allowed": false
+    },
+    "schema": {
+      "apply_allowed": false,
+      "live_apply_allowed": false,
+      "dryrun_required": true,
+      "rollback_required": true
+    },
+    "hot_path": {
+      "active_panel_8096_mutation_allowed": false,
+      "active_db_mutation_allowed": false,
+      "uncontrolled_write_allowed": false
+    }
+  },
+  "operation_classes": {
+    "read_only": {
+      "allowed": true,
+      "requires_approval": false
+    },
+    "dryrun": {
+      "allowed": true,
+      "requires_approval": false
+    },
+    "db_write": {
+      "allowed": false,
+      "requires_approval": true,
+      "requires_rollback": true
+    },
+    "file_write": {
+      "allowed": false,
+      "requires_approval": true
+    },
+    "secret_update": {
+      "allowed": false,
+      "requires_approval": true,
+      "requires_authentication": true
+    },
+    "rpc_call": {
+      "allowed": false,
+      "requires_approval": true,
+      "requires_budget_guard": true
+    },
+    "dashboard_active_mutation": {
+      "allowed": false,
+      "requires_approval": true
+    },
+    "service_enablement": {
+      "allowed": false,
+      "requires_approval": true
+    },
+    "schema_apply": {
+      "allowed": false,
+      "requires_approval": true,
+      "requires_backup": true,
+      "requires_dryrun": true
+    }
+  },
+  "future_consumers": [
+    "core/authority.py",
+    "core/policy.py",
+    "core/approval.py",
+    "tools/*",
+    "control_dashboard_engine_v1/*",
+    "systemd_drafts/*",
+    "future_schema_apply_tools"
+  ],
+  "audit": {
+    "known_issues": [
+      "PASSWORD_INPUT_MISSING",
+      "OLD_INTERNAL_PATH_STILL_PRESENT",
+      "POLICY_DRIFT_RISK",
+      "AUTHORITY_FRAGMENTATION"
+    ],
+    "migration_state": "scaffold_only_no_consumers"
+  }
+}
