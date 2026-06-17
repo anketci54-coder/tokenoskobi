@@ -122,3 +122,129 @@ Hız + Güç + Güvenlik
 Ama her zaman:
 
 DENGE
+
+================================================================
+PROJECT GOVERNANCE RULES V1
+================================================================
+
+RULE 1 — PHASE COMPLETION UPDATE
+
+Every successful phase closure must review:
+
+- PROJECT_HANDOFF.md
+- PROJECT_MASTER_STATE.md
+- PROJECT_TRUTH.md
+- ROADMAP_14_PHASES.md
+
+If architecture changes:
+
+- PROJECT_STRUCTURE_LOCK_V1.md
+
+must also be updated.
+
+RULE 2 — ARCHITECTURE CHANGE UPDATE
+
+Any new:
+
+- table
+- service
+- timer
+- runtime
+- engine
+- producer
+- consumer
+
+requires updates to:
+
+- PROJECT_TRUTH.md
+- PROJECT_STRUCTURE_LOCK_V1.md
+
+RULE 3 — PHILOSOPHY CHANGE UPDATE
+
+Any new doctrine, policy, AI rule, governance rule or risk doctrine requires updates to:
+
+- PROJECT_PHILOSOPHY.md
+
+and if needed:
+
+- MANIFESTO.md
+
+RULE 4 — ROADMAP CHANGE UPDATE
+
+Strategic roadmap changes require updating:
+
+- ROADMAP_14_PHASES.md
+
+RULE 5 — NO SILENT COMPLETION
+
+No phase is CLOSED until:
+
+- implementation complete
+- audit complete
+- handoff updated
+- state updated
+- required documents updated
+
+
+================================================================
+PROJECT GOVERNANCE RULES V1
+================================================================
+
+RULE 1 — PHASE COMPLETION UPDATE
+
+Every successful phase closure must review:
+
+- PROJECT_HANDOFF.md
+- PROJECT_MASTER_STATE.md
+- PROJECT_TRUTH.md
+- ROADMAP_14_PHASES.md
+
+If architecture changes:
+
+- PROJECT_STRUCTURE_LOCK_V1.md
+
+must also be updated.
+
+RULE 2 — ARCHITECTURE CHANGE UPDATE
+
+Any new:
+
+- table
+- service
+- timer
+- runtime
+- engine
+- producer
+- consumer
+
+requires updates to:
+
+- PROJECT_TRUTH.md
+- PROJECT_STRUCTURE_LOCK_V1.md
+
+RULE 3 — PHILOSOPHY CHANGE UPDATE
+
+Any new doctrine, policy, AI rule, governance rule or risk doctrine requires updates to:
+
+- PROJECT_PHILOSOPHY.md
+
+and if needed:
+
+- MANIFESTO.md
+
+RULE 4 — ROADMAP CHANGE UPDATE
+
+Strategic roadmap changes require updating:
+
+- ROADMAP_14_PHASES.md
+
+RULE 5 — NO SILENT COMPLETION
+
+No phase is CLOSED until:
+
+- implementation complete
+- audit complete
+- handoff updated
+- state updated
+- required documents updated
+

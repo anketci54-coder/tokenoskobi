@@ -43,3 +43,25 @@ and use it as the primary recovery source.
 PROJECT_HANDOFF.md = Human-readable project memory
 PROJECT_MASTER_STATE.md = Technical inventory
 
+
+================================================================
+DOCUMENTATION GOVERNANCE UPDATE 2026-06-16
+================================================================
+
+AUTHORITATIVE PROJECT MEMORY SET
+
+- PROJECT_HANDOFF.md
+- PROJECT_MASTER_STATE.md
+- PROJECT_TRUTH.md
+- PROJECT_STRUCTURE_LOCK_V1.md
+- PROJECT_PHILOSOPHY.md
+- ROADMAP_14_PHASES.md
+
+A phase is NOT considered CLOSED until required documentation has been updated.
+
+IMPLEMENTATION WITHOUT DOCUMENTATION UPDATE STATUS:
+
+IMPLEMENTED_BUT_NOT_DOCUMENTED
+
+
+================================================================
