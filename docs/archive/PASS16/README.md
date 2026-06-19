@@ -1,12 +1,30 @@
-# PASS16 Archive
+# PASS16 Almanac
 
-Bu klasör PASS16 ile ilgili tarihsel plan, audit, dry-run, post-audit ve closeout dokümanları için ayrılmıştır.
+PASS=PASS16
 
-Canonical özet için:
-- docs/ENG/
-- docs/TR/
-- PROJECT_MASTER_STATE.md
-- PROJECT_HANDOFF.md
+## AMAÇ
+TBD_FROM_CANONICAL_ATLAS
 
-Durum:
-Archive klasörü tarihsel kanıt deposudur, aktif runtime kaynağı değildir.
+## ENGINE
+TBD_FROM_ENGINE_ATLAS
+
+## PANEL
+TBD_FROM_PANEL_CROSSWALK
+
+## PHASE BAĞLANTILARI
+TBD_FROM_PHASE_POSITIONING
+
+## RUNTIME DURUMU
+TBD
+
+## TRADE AUTHORITY
+0
+
+## AI AUTHORITY
+0
+
+## AÇIK BOŞLUKLAR
+TBD
+
+## İLGİLİ DOKÜMANLAR
+TBD
