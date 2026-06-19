@@ -1,0 +1,61 @@
+# TOKENOSKOBI CLEAN V1 MANIFEST
+
+created_at_utc: 2026-05-06T18:02:08.617105+00:00
+
+## Root
+
+`/root/tokenoskobi_clean_v1`
+
+## Old system policy
+
+`/root/onchain-token-radar` is now treated as frozen/reference only.
+
+Rules:
+- Do not patch old root.
+- Do not continue old v0.x/v1 script chain.
+- Do not relink old orphan snapshots.
+- Do not import old dirty snapshots into Clean V1.
+- Keep old DB as forensic archive until controlled deletion is explicitly approved later.
+
+## Clean V1 rule
+
+First build the pipes, then run water.
+
+Order:
+1. Architecture
+2. Clean root
+3. Forensic Warehouse schema
+4. Identity + UID guard
+5. 3-5 pilot tokens
+6. Local snapshot validation
+7. Capped data refresh only after validation
+
+## Safety defaults
+
+- LIVE_ALLOWED = false
+- PAPER_ALLOWED = false
+- API_ALLOWED = false
+- TELEGRAM_ALLOWED = false
+- TIMER_ALLOWED = false
+- ALCHEMY_ALLOWED = false
+- JSON_RPC_ALLOWED = false
+
+================================================================
+AUTHORITATIVE DOCUMENT SET
+================================================================
+
+README.md
+MANIFESTO.md
+PROJECT_PHILOSOPHY.md
+PROJECT_HANDOFF.md
+PROJECT_MASTER_STATE.md
+PROJECT_TRUTH.md
+PROJECT_STRUCTURE_LOCK_V1.md
+ROADMAP_14_PHASES.md
+
+DOCUMENTATION GOVERNANCE
+
+Every phase closure requires documentation review and update.
+
+
+================================================================
