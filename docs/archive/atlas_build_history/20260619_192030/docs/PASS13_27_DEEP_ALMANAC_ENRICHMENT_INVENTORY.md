@@ -1,0 +1,185 @@
+# PASS13-27 DEEP ALMANAC ENRICHMENT INVENTORY
+
+MODE=READONLY_NOAPI
+NO_WRITE=true
+
+==================================================
+PASS13
+FILE=docs/archive/PASS13/README.md
+LINES=39
+STEP_COUNT=8
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS14
+FILE=docs/archive/PASS14/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS15
+FILE=docs/archive/PASS15/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS16
+FILE=docs/archive/PASS16/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS17
+FILE=docs/archive/PASS17/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS18
+FILE=docs/archive/PASS18/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS19
+FILE=docs/archive/PASS19/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS20
+FILE=docs/archive/PASS20/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS21
+FILE=docs/archive/PASS21/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS22
+FILE=docs/archive/PASS22/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS23
+FILE=docs/archive/PASS23/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS24
+FILE=docs/archive/PASS24/README.md
+LINES=34
+STEP_COUNT=3
+5:STATUS=PLAN_MODEL_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS25
+FILE=docs/archive/PASS25/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS26
+FILE=docs/archive/PASS26/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=SCHEMA_TEMPDB_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+
+==================================================
+PASS27
+FILE=docs/archive/PASS27/README.md
+LINES=36
+STEP_COUNT=5
+5:STATUS=ENGINE3_CONSOLIDATION_DOC_ONLY
+7:## AMAÇ
+13:## ENGINE
+16:## PANEL
+19:## ADIM ADIM NE YAPILDI?
+24:- PASS27_ENGINE_CONSOLIDATION_LOCK: Engine3 consolidation doc-only kilidi kondu.
+27:ENGINE3_CONSOLIDATION_DOC_ONLY
+
+TARGET_TEMPLATE:
+
+1. PASS AMACI
+2. ADIM ADIM NE YAPILDI
+3. NEYE HİZMET EDİYOR
+4. ÜRETİLEN ÇIKTILAR
+5. BESLEDİĞİ ENGINE
+6. BESLEDİĞİ PANEL
+7. SONRAKİ PASS
+
+
+FINAL_GATE=PASS_PASS13_27_DEEP_ALMANAC_ENRICHMENT_INVENTORY_NOAPI
+NEXT_SAFE_STEP=PASS13_27_DEEP_ALMANAC_ENRICHMENT_REAL_APPLY
