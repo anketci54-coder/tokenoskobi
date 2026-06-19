@@ -4,33 +4,39 @@ PASS=PASS20
 NAME=DECISION_INTELLIGENCE
 STATUS=SCHEMA_TEMPDB_ONLY
 
-## AMAÇ
-PASS20, DECISION_INTELLIGENCE capability katmanını tanımlar.
+## 1. PASS AMACI
+Karar bağlamını ve risk motoru tüketim katmanını tanımlar.
 
-## NEYE HİZMET EDER?
-Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
+## 2. NEYE HİZMET EDİYOR?
+Risk Engine için karar öncesi context üretir.
 
-## ENGINE
-Risk Engine
-
-## PANEL
-Komuta / Risk Güvenlik
-
-## ADIM ADIM NE YAPILDI?
+## 3. ADIM ADIM NE YAPILDI?
 - PASS20A: Decision evidence audit yapıldı.
 - PASS20B: Decision model planlandı.
 - PASS20C: Decision schema planlandı.
 - PASS20D: Decision schema dry-run çalıştırıldı.
 - PASS20E: Decision post-audit tamamlandı.
 
-## RUNTIME DURUMU
+## 4. ÜRETİLEN ÇIKTILAR
+- decision evidence model
+- decision_context target
+- decision post-audit proof
+
+## 5. BESLEDİĞİ ENGINE
+RISK_ENGINE
+
+## 6. BESLEDİĞİ PANEL
+Komuta / Risk Güvenlik
+
+## 7. SONRAKİ PASS
+PASS21 Execution Realism
+
+## 8. RUNTIME DURUMU
 SCHEMA_TEMPDB_ONLY
 
-## TRADE AUTHORITY
-0
+## 9. YETKİ
+TRADE_AUTHORITY=0
+AI_AUTHORITY=0
 
-## AI AUTHORITY
-0
-
-## NOT
-PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
+## 10. KANONİK NOT
+PASS capability/intelligence katmanıdır. PHASE implementation chronology katmanıdır. PASS, Phase'in çocuğu değildir; Phase PASS'i üretir, besler veya uygular.

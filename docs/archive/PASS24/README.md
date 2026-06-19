@@ -4,31 +4,37 @@ PASS=PASS24
 NAME=LAUNCH_INTELLIGENCE
 STATUS=PLAN_MODEL_ONLY
 
-## AMAÇ
-PASS24, LAUNCH_INTELLIGENCE capability katmanını tanımlar.
+## 1. PASS AMACI
+Yeni launch/candidate token keşif zekâsını tanımlar.
 
-## NEYE HİZMET EDER?
-Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
+## 2. NEYE HİZMET EDİYOR?
+Hunter Engine için launch candidate context üretir.
 
-## ENGINE
-Hunter Engine
-
-## PANEL
-Haber / Onchain / Komuta
-
-## ADIM ADIM NE YAPILDI?
+## 3. ADIM ADIM NE YAPILDI?
 - PASS24A: Launch evidence audit yapıldı.
 - PASS24B: Launch model planlandı.
 - PASS24C: Launch schema planlandı.
 
-## RUNTIME DURUMU
+## 4. ÜRETİLEN ÇIKTILAR
+- launch evidence audit
+- launch model plan
+- launch schema plan
+
+## 5. BESLEDİĞİ ENGINE
+HUNTER_ENGINE
+
+## 6. BESLEDİĞİ PANEL
+Haber / Onchain / Komuta
+
+## 7. SONRAKİ PASS
+PASS25 Historical Launch
+
+## 8. RUNTIME DURUMU
 PLAN_MODEL_ONLY
 
-## TRADE AUTHORITY
-0
+## 9. YETKİ
+TRADE_AUTHORITY=0
+AI_AUTHORITY=0
 
-## AI AUTHORITY
-0
-
-## NOT
-PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
+## 10. KANONİK NOT
+PASS capability/intelligence katmanıdır. PHASE implementation chronology katmanıdır. PASS, Phase'in çocuğu değildir; Phase PASS'i üretir, besler veya uygular.

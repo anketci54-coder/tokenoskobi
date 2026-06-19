@@ -4,33 +4,39 @@ PASS=PASS14
 NAME=DEPLOYER_INTELLIGENCE
 STATUS=SCHEMA_TEMPDB_ONLY
 
-## AMAÇ
-PASS14, DEPLOYER_INTELLIGENCE capability katmanını tanımlar.
+## 1. PASS AMACI
+Deployer davranışını, geçmişini ve risk bağlamını sınıflandırır.
 
-## NEYE HİZMET EDER?
-Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
+## 2. NEYE HİZMET EDİYOR?
+Risk motoruna deployer kaynaklı tehdit bağlamı sağlar.
 
-## ENGINE
-Prosecutor Engine
-
-## PANEL
-Risk Güvenlik / Onchain Veri
-
-## ADIM ADIM NE YAPILDI?
+## 3. ADIM ADIM NE YAPILDI?
 - PASS14A: Deployer outcome taxonomy audit yapıldı.
 - PASS14B: Deployer evidence model planlandı.
 - PASS14C: Deployer evidence schema planlandı.
 - PASS14D: Deployer schema dry-run çalıştırıldı.
 - PASS14E: Deployer schema post-audit tamamlandı.
 
-## RUNTIME DURUMU
+## 4. ÜRETİLEN ÇIKTILAR
+- deployer outcome taxonomy
+- deployer evidence model
+- deployer_risk_context target
+
+## 5. BESLEDİĞİ ENGINE
+PROSECUTOR_ENGINE
+
+## 6. BESLEDİĞİ PANEL
+Risk Güvenlik / Onchain Veri
+
+## 7. SONRAKİ PASS
+PASS15 Contract DNA
+
+## 8. RUNTIME DURUMU
 SCHEMA_TEMPDB_ONLY
 
-## TRADE AUTHORITY
-0
+## 9. YETKİ
+TRADE_AUTHORITY=0
+AI_AUTHORITY=0
 
-## AI AUTHORITY
-0
-
-## NOT
-PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
+## 10. KANONİK NOT
+PASS capability/intelligence katmanıdır. PHASE implementation chronology katmanıdır. PASS, Phase'in çocuğu değildir; Phase PASS'i üretir, besler veya uygular.

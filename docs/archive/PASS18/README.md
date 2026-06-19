@@ -4,33 +4,39 @@ PASS=PASS18
 NAME=TECHNICAL_SIGNAL_FAMILY
 STATUS=SCHEMA_TEMPDB_ONLY
 
-## AMAÇ
-PASS18, TECHNICAL_SIGNAL_FAMILY capability katmanını tanımlar.
+## 1. PASS AMACI
+Teknik sinyal ailesini canonical hale getirir.
 
-## NEYE HİZMET EDER?
-Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
+## 2. NEYE HİZMET EDİYOR?
+Technical Tactical Engine için momentum, trend, hacim ve formasyon sinyal ailesi üretir.
 
-## ENGINE
-Phase41 Technical Tactical
-
-## PANEL
-Teknik Analiz
-
-## ADIM ADIM NE YAPILDI?
+## 3. ADIM ADIM NE YAPILDI?
 - PASS18A: Technical signal evidence audit yapıldı.
 - PASS18B: Technical signal model planlandı.
 - PASS18C: Technical signal schema planlandı.
 - PASS18D: Technical signal schema dry-run çalıştırıldı.
 - PASS18E: Technical signal post-audit tamamlandı.
 
-## RUNTIME DURUMU
+## 4. ÜRETİLEN ÇIKTILAR
+- technical signal model
+- technical_signal_readmodel target
+- post-audit proof
+
+## 5. BESLEDİĞİ ENGINE
+PHASE41_TECHNICAL_TACTICAL
+
+## 6. BESLEDİĞİ PANEL
+Teknik Analiz
+
+## 7. SONRAKİ PASS
+PASS19 Learning Feedback
+
+## 8. RUNTIME DURUMU
 SCHEMA_TEMPDB_ONLY
 
-## TRADE AUTHORITY
-0
+## 9. YETKİ
+TRADE_AUTHORITY=0
+AI_AUTHORITY=0
 
-## AI AUTHORITY
-0
-
-## NOT
-PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
+## 10. KANONİK NOT
+PASS capability/intelligence katmanıdır. PHASE implementation chronology katmanıdır. PASS, Phase'in çocuğu değildir; Phase PASS'i üretir, besler veya uygular.

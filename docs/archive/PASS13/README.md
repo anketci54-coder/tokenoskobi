@@ -4,19 +4,13 @@ PASS=PASS13
 NAME=EVIDENCE_DICTIONARY
 STATUS=SCHEMA_TEMPDB_ONLY
 
-## AMAÇ
-PASS13, EVIDENCE_DICTIONARY capability katmanını tanımlar.
+## 1. PASS AMACI
+Evidence event sözlüğünü ve kanıt okuma omurgasını standartlaştırır.
 
-## NEYE HİZMET EDER?
-Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
+## 2. NEYE HİZMET EDİYOR?
+PASS13, tüm intelligence pipeline için ortak kanıt dili üretir. PASS5 evidence backbone üstüne oturur.
 
-## ENGINE
-Evidence Runtime
-
-## PANEL
-Sistem Kontrol / Evidence Drawer
-
-## ADIM ADIM NE YAPILDI?
+## 3. ADIM ADIM NE YAPILDI?
 - PASS13A: Evidence Dictionary plan oluşturuldu.
 - PASS13AA: Evidence dictionary coverage review yapıldı.
 - PASS13B: Evidence dictionary dry-run çalıştırıldı.
@@ -26,14 +20,27 @@ Sistem Kontrol / Evidence Drawer
 - PASS13F: Real apply plan hazırlandı.
 - PASS13G: Approval gate seviyesinde bırakıldı.
 
-## RUNTIME DURUMU
+## 4. ÜRETİLEN ÇIKTILAR
+- evidence dictionary model
+- evidence event readmodel target
+- schema/tempdb proof
+- approval-gate history
+
+## 5. BESLEDİĞİ ENGINE
+EVIDENCE_RUNTIME
+
+## 6. BESLEDİĞİ PANEL
+Sistem Kontrol / Evidence Drawer
+
+## 7. SONRAKİ PASS
+PASS14 Deployer Intelligence
+
+## 8. RUNTIME DURUMU
 SCHEMA_TEMPDB_ONLY
 
-## TRADE AUTHORITY
-0
+## 9. YETKİ
+TRADE_AUTHORITY=0
+AI_AUTHORITY=0
 
-## AI AUTHORITY
-0
-
-## NOT
-PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
+## 10. KANONİK NOT
+PASS capability/intelligence katmanıdır. PHASE implementation chronology katmanıdır. PASS, Phase'in çocuğu değildir; Phase PASS'i üretir, besler veya uygular.

@@ -4,33 +4,39 @@ PASS=PASS16
 NAME=MARKET_REGIME
 STATUS=SCHEMA_TEMPDB_ONLY
 
-## AMAÇ
-PASS16, MARKET_REGIME capability katmanını tanımlar.
+## 1. PASS AMACI
+Piyasa rejimini ve market structure durumunu bağlama çevirir.
 
-## NEYE HİZMET EDER?
-Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
+## 2. NEYE HİZMET EDİYOR?
+Priority Engine için hangi sinyalin ne kadar önemli olduğunu belirlemeye yardım eder.
 
-## ENGINE
-Priority Engine
-
-## PANEL
-Komuta / Teknik Analiz
-
-## ADIM ADIM NE YAPILDI?
+## 3. ADIM ADIM NE YAPILDI?
 - PASS16A: Market regime evidence audit yapıldı.
 - PASS16B: Market structure model planlandı.
 - PASS16C: Market structure schema planlandı.
 - PASS16D: Market structure schema dry-run çalıştırıldı.
 - PASS16E: Market structure post-audit tamamlandı.
 
-## RUNTIME DURUMU
+## 4. ÜRETİLEN ÇIKTILAR
+- market structure model
+- market_regime_context target
+- schema dry-run proof
+
+## 5. BESLEDİĞİ ENGINE
+PRIORITY_ENGINE
+
+## 6. BESLEDİĞİ PANEL
+Komuta / Teknik Analiz
+
+## 7. SONRAKİ PASS
+PASS17 Wallet Cluster
+
+## 8. RUNTIME DURUMU
 SCHEMA_TEMPDB_ONLY
 
-## TRADE AUTHORITY
-0
+## 9. YETKİ
+TRADE_AUTHORITY=0
+AI_AUTHORITY=0
 
-## AI AUTHORITY
-0
-
-## NOT
-PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
+## 10. KANONİK NOT
+PASS capability/intelligence katmanıdır. PHASE implementation chronology katmanıdır. PASS, Phase'in çocuğu değildir; Phase PASS'i üretir, besler veya uygular.
