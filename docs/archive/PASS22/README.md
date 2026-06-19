@@ -1,21 +1,30 @@
-# PASS22 Almanac
+# PASS22 Almanac — POSITION_SIZING
 
 PASS=PASS22
+NAME=POSITION_SIZING
+STATUS=SCHEMA_TEMPDB_ONLY
 
 ## AMAÇ
-TBD_FROM_CANONICAL_ATLAS
+PASS22, POSITION_SIZING capability katmanını tanımlar.
+
+## NEYE HİZMET EDER?
+Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
 
 ## ENGINE
-TBD_FROM_ENGINE_ATLAS
+Risk Engine
 
 ## PANEL
-TBD_FROM_PANEL_CROSSWALK
+Komuta / Risk Güvenlik
 
-## PHASE BAĞLANTILARI
-TBD_FROM_PHASE_POSITIONING
+## ADIM ADIM NE YAPILDI?
+- PASS22A: Position sizing audit yapıldı.
+- PASS22B: Position sizing model planlandı.
+- PASS22C: Position sizing schema planlandı.
+- PASS22D: Position sizing schema dry-run çalıştırıldı.
+- PASS22E: Position sizing post-audit tamamlandı.
 
 ## RUNTIME DURUMU
-TBD
+SCHEMA_TEMPDB_ONLY
 
 ## TRADE AUTHORITY
 0
@@ -23,8 +32,5 @@ TBD
 ## AI AUTHORITY
 0
 
-## AÇIK BOŞLUKLAR
-TBD
-
-## İLGİLİ DOKÜMANLAR
-TBD
+## NOT
+PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.

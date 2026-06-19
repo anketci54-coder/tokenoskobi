@@ -1,21 +1,33 @@
-# PASS13 Almanac
+# PASS13 Almanac — EVIDENCE_DICTIONARY
 
 PASS=PASS13
+NAME=EVIDENCE_DICTIONARY
+STATUS=SCHEMA_TEMPDB_ONLY
 
 ## AMAÇ
-TBD_FROM_CANONICAL_ATLAS
+PASS13, EVIDENCE_DICTIONARY capability katmanını tanımlar.
+
+## NEYE HİZMET EDER?
+Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
 
 ## ENGINE
-TBD_FROM_ENGINE_ATLAS
+Evidence Runtime
 
 ## PANEL
-TBD_FROM_PANEL_CROSSWALK
+Sistem Kontrol / Evidence Drawer
 
-## PHASE BAĞLANTILARI
-TBD_FROM_PHASE_POSITIONING
+## ADIM ADIM NE YAPILDI?
+- PASS13A: Evidence Dictionary plan oluşturuldu.
+- PASS13AA: Evidence dictionary coverage review yapıldı.
+- PASS13B: Evidence dictionary dry-run çalıştırıldı.
+- PASS13C: Apply plan hazırlandı.
+- PASS13D: Apply dry-run yapıldı.
+- PASS13E: Post-audit tamamlandı.
+- PASS13F: Real apply plan hazırlandı.
+- PASS13G: Approval gate seviyesinde bırakıldı.
 
 ## RUNTIME DURUMU
-TBD
+SCHEMA_TEMPDB_ONLY
 
 ## TRADE AUTHORITY
 0
@@ -23,8 +35,5 @@ TBD
 ## AI AUTHORITY
 0
 
-## AÇIK BOŞLUKLAR
-TBD
-
-## İLGİLİ DOKÜMANLAR
-TBD
+## NOT
+PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.

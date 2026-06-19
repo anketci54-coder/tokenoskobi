@@ -1,21 +1,28 @@
-# PASS24 Almanac
+# PASS24 Almanac — LAUNCH_INTELLIGENCE
 
 PASS=PASS24
+NAME=LAUNCH_INTELLIGENCE
+STATUS=PLAN_MODEL_ONLY
 
 ## AMAÇ
-TBD_FROM_CANONICAL_ATLAS
+PASS24, LAUNCH_INTELLIGENCE capability katmanını tanımlar.
+
+## NEYE HİZMET EDER?
+Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
 
 ## ENGINE
-TBD_FROM_ENGINE_ATLAS
+Hunter Engine
 
 ## PANEL
-TBD_FROM_PANEL_CROSSWALK
+Haber / Onchain / Komuta
 
-## PHASE BAĞLANTILARI
-TBD_FROM_PHASE_POSITIONING
+## ADIM ADIM NE YAPILDI?
+- PASS24A: Launch evidence audit yapıldı.
+- PASS24B: Launch model planlandı.
+- PASS24C: Launch schema planlandı.
 
 ## RUNTIME DURUMU
-TBD
+PLAN_MODEL_ONLY
 
 ## TRADE AUTHORITY
 0
@@ -23,8 +30,5 @@ TBD
 ## AI AUTHORITY
 0
 
-## AÇIK BOŞLUKLAR
-TBD
-
-## İLGİLİ DOKÜMANLAR
-TBD
+## NOT
+PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.

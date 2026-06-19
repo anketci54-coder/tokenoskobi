@@ -1,21 +1,30 @@
-# PASS21 Almanac
+# PASS21 Almanac — EXECUTION_REALISM
 
 PASS=PASS21
+NAME=EXECUTION_REALISM
+STATUS=SCHEMA_TEMPDB_ONLY
 
 ## AMAÇ
-TBD_FROM_CANONICAL_ATLAS
+PASS21, EXECUTION_REALISM capability katmanını tanımlar.
+
+## NEYE HİZMET EDER?
+Bu PASS, canonical intelligence pipeline içinde ilgili veri/kanıt/karar/öğrenme/yürütme bağlamını üretmek veya sınıflandırmak için oluşturuldu.
 
 ## ENGINE
-TBD_FROM_ENGINE_ATLAS
+Execution Layer
 
 ## PANEL
-TBD_FROM_PANEL_CROSSWALK
+Komuta / Sistem Kontrol
 
-## PHASE BAĞLANTILARI
-TBD_FROM_PHASE_POSITIONING
+## ADIM ADIM NE YAPILDI?
+- PASS21A: Execution realism audit yapıldı.
+- PASS21B: Execution realism model planlandı.
+- PASS21C: Execution realism schema planlandı.
+- PASS21D: Execution realism schema dry-run çalıştırıldı.
+- PASS21E: Execution realism post-audit tamamlandı.
 
 ## RUNTIME DURUMU
-TBD
+SCHEMA_TEMPDB_ONLY
 
 ## TRADE AUTHORITY
 0
@@ -23,8 +32,5 @@ TBD
 ## AI AUTHORITY
 0
 
-## AÇIK BOŞLUKLAR
-TBD
-
-## İLGİLİ DOKÜMANLAR
-TBD
+## NOT
+PASS capability/intelligence katmanıdır. PHASE ise implementation chronology katmanıdır.
