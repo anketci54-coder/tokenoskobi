@@ -1,22 +1,24 @@
-# 01 INDEX — Tokenoskobi / Coinoskobi
+# 01 INDEX - Tokenoskobi / Coinoskobi Canonical Kitapligi
 
-Bu klasör projenin sade canonical dokümantasyon kapısıdır.
+Bu klasor projenin tek sade giris kapisidir.
 
-Okuma sırası:
+## Okuma Sirasi
 
-1. [02_MANIFESTO.md](02_MANIFESTO.md)
-2. [03_ROADMAP.md](03_ROADMAP.md)
-3. [04_ALMANAC.md](04_ALMANAC.md)
-4. [05_ATLAS.md](05_ATLAS.md)
+1. 02_MANIFESTO.md
+2. 03_ROADMAP.md
+3. 04_ALMANAC.md
+4. 05_ATLAS.md
 
 ## Dosya Rolleri
 
-- MANIFESTO: Motto, kurallar, güvenlik doktrini, yetki sınırları.
-- ROADMAP: Nereden başladık, nereye geldik, nereye gidiyoruz.
-- ALMANAC: Tüm phase/pass tarihçesi, yapılanlar ve yapılacaklar.
-- ATLAS: Phase, pass, engine, panel bağlantı haritası.
+- INDEX: Okuma kapisi.
+- MANIFESTO: Motto, kurallar, guvenlik doktrini, AI ve trade yetki sinirlari.
+- ROADMAP: Nereden basladik, nereye geldik, nereye gidiyoruz.
+- ALMANAC: Phase, pass, yapilan isler, kapanislar, acik isler ve gelecek gorevler.
+- ATLAS: Phase, pass, engine, panel, risk ve authority baglanti haritasi.
 
 ## Canonical Kural
 
-Günlük okuma ve karar için bu 5 dosya esas alınır.
-Eski çalışma dokümanları ve audit çıktıları archive altında kalır.
+Gunluk okuma ve karar icin bu 5 dosya esas alinir.
+Eski audit, plan, discovery ve build-history dosyalari canonical degildir.
+

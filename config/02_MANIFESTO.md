@@ -1,47 +1,46 @@
-# 02 MANIFESTO — Tokenoskobi / Coinoskobi
+# 02 MANIFESTO - Tokenoskobi / Coinoskobi
 
-## Motto
+## Ana Motto
 
-Şimşek kadar hızlı, balyoz kadar güçlü, kale kadar güvenli, karınca kadar tutumlu.
+Simsek kadar hizli, balyoz kadar guclu, kale kadar guvenli, karinca kadar tutumlu.
 
-## Ana İlke
+## Kimlik
 
-Bu sistem hızlı karar destekleyen ama kör işlem yapmayan, kanıt temelli ve güvenlik öncelikli özel bir kripto istihbarat mimarisidir.
+Tokenoskobi / Coinoskobi kapali, tek operatorlu bir kripto istihbarat ve karar destek mimarisidir.
 
-## Kurallar
+Amac kor otomatik trade degildir. Amac; yeni token, launch, onchain olay, balina hareketi, teknik sinyal, risk isareti ve execution gercekciligini tek kokpitte okuyup guvenli karar destegi uretmektir.
 
-1. Evidence first: Kanıt yoksa karar yok.
-2. Risk Gate üstündür: Risk engeli skorla aşılamaz.
-3. AI authority = 0: AI önerir, karar vermez, trade açmaz.
-4. Trade authority = Engine 2 / Risk Engine sınırında tutulur.
-5. Live trade kapalıdır, açık onay olmadan açılmaz.
-6. Wallet signing kapalıdır, açık onay olmadan açılmaz.
-7. Paper / shadow test, live öncesi zorunlu ara katmandır.
-8. Provider/API kullanımı bounded ve gerekçeli olmalıdır.
-9. Sistem pahalı, hantal ve gereksiz servislerle şişirilmez.
-10. Hot path hızlı, cold path derin, risk path sert olmalıdır.
-11. Her phase kanıt, audit ve rollback disipliniyle ilerler.
-12. Panel karar destek kokpitidir; kör otomatik işlem ekranı değildir.
+## Temel Doktrin
 
-## Yetki Sınırları
+1. Kanit yoksa karar yok.
+2. Risk Gate her skorun ustundedir.
+3. AI onerir, karar vermez.
+4. Teknik analiz sinyal uretir, trade izni vermez.
+5. Haber, sosyal, balina ve launch sinyalleri context uretir.
+6. Paper / shadow / simulation live oncesi zorunlu ara basamaktir.
+7. Provider/API kullanimi bounded ve maliyet kontrolludur.
+8. Sistem server coplugune donusturulmez.
+9. Hot path hizli, risk path sert, cold path derin olmalidir.
+10. Her gercek degisiklik plan -> onay -> apply -> post-audit zincirinden gecer.
 
-AI_AUTHORITY=0  
-LIVE_TRADE=DISABLED  
-PAPER_TRADE=DISABLED_UNLESS_APPROVED  
-WALLET_SIGNING=DISABLED  
-TECHNICAL_SCORE_TRADE_AUTHORITY=0  
+## Yetki Sinirlari
+
+AI_AUTHORITY=0
+TECHNICAL_SCORE_TRADE_AUTHORITY=0
+NEWS_SOCIAL_TRADE_AUTHORITY=0
+WHALE_SIGNAL_TRADE_AUTHORITY=0
+PANEL_TRADE_AUTHORITY=0
 FINAL_RISK_AUTHORITY=RISK_ENGINE
+LIVE_TRADE=DISABLED
+PAPER_TRADE=DISABLED_UNLESS_APPROVED
+WALLET_SIGNING=DISABLED
+PRIVATE_KEY_HANDLING=FORBIDDEN
 
-## Güvenlik Doktrini
+## Yasaklar
 
-- Risk güvenlik merkezi en sert kapıdır.
-- Teknik analiz tek başına trade izni vermez.
-- Haber, balina, launch ve sosyal sinyaller yalnızca context üretir.
-- Position size, SL/TP, exit safety, gas, slippage, MEV ve liquidity olmadan işlem planı tamamlanmış sayılmaz.
+- Gizli anahtar, seed phrase, wallet secret istemek/yazmak yasaktir.
+- Onaysiz live trade acmak yasaktir.
+- Onaysiz paid provider call yapmak yasaktir.
+- Onaysiz runtime/service/panel degisikligi yapmak yasaktir.
+- Belirsiz kanitla kesin karar yazmak yasaktir.
 
-## Ekonomik Doktrin
-
-- Local/cache/free-first.
-- Paid API sadece gerekçeli ve bounded.
-- Gereksiz cloud/GPU/servis yok.
-- Server çöplüğe çevrilmez.

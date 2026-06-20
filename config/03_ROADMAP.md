@@ -1,56 +1,67 @@
-# 03 ROADMAP — Nereden Başladık, Nereye Geldik, Nereye Gidiyoruz
+# 03 ROADMAP - Nereden Basladik, Nereye Geldik, Nereye Gidiyoruz
 
-## Başlangıç
+## Baslangic
 
-Proje önce güvenli bir BSC/crypto radar ve panel fikri olarak başladı. İlk hedef kötü tokenların sisteme girmesini engellemekti.
+Proje kotu tokenlarin sisteme girmesini engelleyen guvenli bir crypto radar ve panel fikriyle basladi.
 
-## Ana Evrim
+Ilk hedefler:
+- BSC odakli guvenli tarama
+- onchain kanit
+- risk kapisi
+- panelde karar destegi
+- live trade kapali guvenli calisma
 
-1. Foundation katmanı kuruldu.
-2. Evidence backbone oluşturuldu.
-3. Onchain veri ve provider guard mantığı geliştirildi.
-4. Mass intake / fast snapshot mimarisi kuruldu.
-5. Whale, wallet, deployer, contract, risk ve reputation katmanları planlandı.
-6. Teknik / taktik motor Phase40 ile ciddi bir intelligence engine haline geldi.
-7. Phase41 ile command center, simulation drift, provider budget ve engine/panel bağlamları kilitlendi.
-8. PASS13-27 intelligence pipeline canonical olarak sınıflandırıldı.
-9. GitHub dokümantasyonu manifesto / roadmap / almanac / atlas / index düzenine indirgenmeye başlandı.
+## Foundation Donemi
 
-## Bugünkü Durum
+PASS0-8 foundation olarak siniflandirildi.
+Durum: PASS0_8_STATUS=LEGACY_FOUNDATION_PARTIALLY_CLASSIFIED
 
-DOC_REORG=COMPLETE  
-PASS_ALMANAC=COMPLETE  
-PHASE_ALMANAC=COMPLETE  
-MASTER_ATLAS=COMPLETE  
-GITHUB_SYNC=COMPLETE  
-LIVE_TRADE=DISABLED  
+## Intelligence Core
+
+PASS13-27 canonical intelligence pipeline olarak siniflandirildi.
+
+Ana basliklar:
+- PASS13 Evidence Dictionary
+- PASS14 Deployer Intelligence
+- PASS15 Contract DNA
+- PASS16 Market Regime
+- PASS17 Wallet Cluster
+- PASS18 Technical Signal
+- PASS19 Learning Feedback
+- PASS20 Decision Intelligence
+- PASS21 Execution Realism
+- PASS22 Position Sizing
+- PASS23 Portfolio Risk
+- PASS24 Launch Intelligence
+- PASS25 Historical Launch
+- PASS26 Launch Outcome
+- PASS27 Execution Accounting
+
+## Phase40
+
+Teknik analiz dekoratif olmaktan cikti. Technical Tactical Engine serious radar katmani oldu.
+
+## Phase41
+
+Command center, simulation drift, provider budget, engine atlas ve phase/pass/panel crosswalk kilitlendi.
+
+## Bugunku Durum
+
+DOC_REORG=COMPLETE
+CONFIG_CANONICAL_DOCS=COMPLETE
+PASS_ALMANAC=COMPLETE
+PHASE_ALMANAC=COMPLETE
+MASTER_ATLAS=COMPLETE
+GITHUB_SYNC=COMPLETE
+LIVE_TRADE=DISABLED
 AI_AUTHORITY=0
 
-## Tamamlanan Büyük Katmanlar
+## Sıradaki Ana Yon
 
-- PASS11 Alpha Watcher arşivi
-- PASS13-27 Deep Almanac
-- PHASE00-41 Almanac
-- Unified Master Atlas TR/ENG
-- Root review files tracking
-- Documentation archive cleanup
+1. Docs/root deflation
+2. Runtime / production untracked audit
+3. Visual Atlas uretimi
+4. Panel karar destek sadelestirme
+5. Paper/shadow guvenli alan plani
+6. Micro-live readiness sadece ayri acik onayla
 
-## Park Edilenler
-
-- Runtime / panel / data klasörleri ayrı audit konusu.
-- PASS0-8 foundation hâlâ kısmi arkeolojik sınıflandırma durumunda.
-- Live/paper/wallet/signing hâlâ kapalı.
-
-## Sıradaki Ana Yön
-
-1. Config canonical docs final polish.
-2. Atlas görsel harita üretimi.
-3. Runtime / production untracked varlık audit.
-4. Panel karar destek görünümünün sadeleştirilmesi.
-5. Paper/shadow güvenli alanlarının planlanması.
-6. Micro-live readiness sadece ayrıca açık onayla.
-
-## Güncelleme Kuralı
-
-Her büyük katman tamamlandığında bu ROADMAP güncellenir.
-Almanac detaylı tarih kitabıdır; Roadmap sadece yön ve durum haritasıdır.
