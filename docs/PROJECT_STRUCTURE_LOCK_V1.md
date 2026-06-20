@@ -1,0 +1,83 @@
+# PROJECT_STRUCTURE_NORMALIZATION_READONLY_NOAPI
+
+## LEGACY_PHASES
+PHASE00-12 = LEGACY_CORE
+
+## PASS_PIPELINE
+PHASE13
+└── PASS13
+PHASE14
+└── PASS14
+PHASE15
+└── PASS15
+PHASE16
+└── PASS16
+PHASE17
+└── PASS17
+PHASE18
+└── PASS18
+PHASE19
+└── PASS19
+PHASE20
+└── PASS20
+PHASE21
+└── PASS21
+PHASE22
+└── PASS22
+PHASE23
+└── PASS23
+PHASE24
+└── PASS24
+PHASE25
+└── PASS25
+PHASE26
+└── PASS26
+PHASE27
+└── PASS27
+
+## PHASE41
+PHASE41
+└── TECHNICAL_TACTICAL_ENGINE
+    ├── PASS01
+    ├── PASS02
+    ├── PASS03
+    ├── PASS04
+    ├── PASS05
+    ├── PASS06
+    ├── PASS07
+    ├── PASS08
+    ├── PASS09
+    ├── PASS10
+    ├── PASS11A
+    ├── PASS11B
+    └── PASS11C_PENDING_POST_AUDIT
+
+================================================================
+CANONICAL ENGINE MAP 2026-06-16
+================================================================
+
+ENGINE_1_DATA
+
+- tokens
+- pairs
+- news_raw_feed_events
+
+ENGINE_2_SCORE
+
+- token_score_100_events
+
+ENGINE_3_READMODEL
+
+- state_aggregated_token_readmodel_v1
+
+ENGINE_4_PANEL
+
+- active_panel_8096
+
+ENGINE_5_SUPPORT
+
+- known_wallet*
+- news_source*
+
+
+================================================================
