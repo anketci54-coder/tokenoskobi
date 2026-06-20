@@ -1,0 +1,421 @@
+{
+  "phase": "PHASE28B1_DATA_PROVENANCE_NO_SILENT_OVERWRITE_RULE_REPAIR_NOAPI",
+  "started_utc": "2026-06-08T05:00:39.213796+00:00",
+  "finished_utc": "2026-06-08T05:00:39.294984+00:00",
+  "final_gate": "PASS_PHASE28B1_DATA_PROVENANCE_NO_SILENT_OVERWRITE_RULE_REPAIR_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI",
+  "phase28a_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28a_center_inventory_gate_cascade_data_integrity_map_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28A_CENTER_INVENTORY_GATE_CASCADE_DATA_INTEGRITY_MAP_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION_CONTRACT_NOAPI"
+  },
+  "phase28b_review_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28b_data_provenance_and_canonicalization_contract_noapi.json",
+    "parse_error": null,
+    "ok_expected_review": true,
+    "reported_final_gate": "REVIEW_PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION_CONTRACT_NOAPI",
+    "reported_rc": 1,
+    "reported_failed_checks": [
+      "NO_SILENT_OVERWRITE_RULE_PRESENT"
+    ],
+    "reported_decision": "REVIEW_PHASE28B_BEFORE_PHASE28C"
+  },
+  "repair_contract": {
+    "repair_class": "PLAN_ONLY_CONTRACT_REPAIR_NO_LIVE_DB_WRITE",
+    "target": "data_layer_contract.CANONICAL.rules",
+    "reason": "PHASE28B reviewed because NO_SILENT_OVERWRITE_RULE_PRESENT was false.",
+    "added_rule": "No silent overwrite: canonical records are never destructively overwritten; new parser/schema/source interpretation creates a new canonical_version and supersedes previous canonical_uid with lineage.",
+    "canonical_overwrite_policy": {
+      "silent_overwrite_allowed": false,
+      "destructive_update_allowed": false,
+      "new_parser_version_requires_new_interpretation": true,
+      "new_schema_version_requires_new_interpretation": true,
+      "new_source_interpretation_requires_lineage": true,
+      "supersedes_canonical_uid_required": true,
+      "canonical_version_required": true,
+      "raw_hash_ref_required": true,
+      "evidence_ref_required": true
+    },
+    "future_implementation_boundary": {
+      "live_schema_apply_now": false,
+      "db_write_now": false,
+      "panel_write_now": false,
+      "runner_patch_now": false,
+      "service_timer_change_now": false,
+      "future_real_requires_explicit_approval": true,
+      "future_schema_must_be_temp_dryrun_first": true
+    }
+  },
+  "repaired_data_layer_contract": {
+    "RAW": {
+      "purpose": "Immutable source capture/reference.",
+      "write_policy_future": "append_only",
+      "must_have_fields": [
+        "raw_uid",
+        "source_name",
+        "source_ref",
+        "chain",
+        "fetched_at",
+        "observed_at",
+        "raw_payload_ref_or_body",
+        "raw_hash",
+        "ingest_run_id",
+        "fetcher_version",
+        "source_version",
+        "api_budget_context",
+        "created_at"
+      ],
+      "forbidden": [
+        "final_score",
+        "final_route",
+        "canonical_truth",
+        "destructive_update"
+      ],
+      "rules": [
+        "RAW can be compressed or file-referenced, but raw_hash must be stable.",
+        "RAW record is not interpretation.",
+        "RAW retention policy must protect future reprocessing."
+      ]
+    },
+    "STAGING": {
+      "purpose": "Parser/normalizer output before trust promotion.",
+      "write_policy_future": "append_versioned_interpretation",
+      "must_have_fields": [
+        "staging_uid",
+        "raw_uid",
+        "raw_hash",
+        "parser_version",
+        "schema_version",
+        "normalization_version",
+        "chain",
+        "token_address",
+        "pair_address",
+        "parsed_at",
+        "parse_status",
+        "normalization_status",
+        "confidence_level",
+        "freshness_state",
+        "source_minimum_ok",
+        "field_error_count",
+        "ambiguity_flags",
+        "created_at"
+      ],
+      "promotion_blockers": [
+        "parse_failed",
+        "schema_unknown",
+        "wrong_chain_suspected",
+        "token_pair_mismatch_suspected",
+        "missing_required_identity",
+        "single_weak_source_for_hard_veto",
+        "stale_critical_data",
+        "conflicting_sources"
+      ],
+      "rules": [
+        "STAGING may be wrong; therefore it cannot directly train AI or drive canonical truth.",
+        "STAGING can produce MORE_DATA or QUARANTINE, not final trust by itself."
+      ]
+    },
+    "VALIDATED": {
+      "purpose": "Evidence-backed interpreted data eligible for canonical consideration.",
+      "write_policy_future": "append_validation_result",
+      "must_have_fields": [
+        "validated_uid",
+        "staging_uid",
+        "raw_uid",
+        "raw_hash",
+        "parser_version",
+        "schema_version",
+        "validation_version",
+        "validation_status",
+        "evidence_ref",
+        "source_count",
+        "source_reliability_class",
+        "confidence_level",
+        "freshness_state",
+        "false_positive_risk",
+        "canonical_allowed",
+        "validated_at",
+        "created_at"
+      ],
+      "rules": [
+        "VALIDATED does not mean canonical by default.",
+        "canonical_allowed=True requires versioned, traceable, confidence-backed validation.",
+        "Weak data can remain validated as weak evidence but not canonical truth."
+      ]
+    },
+    "CANONICAL": {
+      "purpose": "Compact trusted current interpretation used by route/scoring/fast path.",
+      "write_policy_future": "versioned_upsert_with_lineage_no_silent_overwrite",
+      "must_have_fields": [
+        "canonical_uid",
+        "entity_uid",
+        "entity_type",
+        "chain",
+        "token_address",
+        "pair_address",
+        "canonical_state",
+        "canonical_version",
+        "parser_version",
+        "schema_version",
+        "source_version",
+        "raw_hash_ref",
+        "evidence_ref",
+        "confidence_level",
+        "freshness_state",
+        "valid_from",
+        "valid_until",
+        "created_at",
+        "supersedes_canonical_uid"
+      ],
+      "compact_fast_path_fields": [
+        "entity_uid",
+        "canonical_state",
+        "confidence_level",
+        "freshness_state",
+        "canonical_version",
+        "valid_until",
+        "emergency_brake_hint"
+      ],
+      "forbidden": [
+        "unversioned_interpretation",
+        "silent_overwrite",
+        "untraceable_source",
+        "quarantined_truth",
+        "single_weak_source_hard_veto",
+        "destructive_update"
+      ],
+      "rules": [
+        "CANONICAL must be compact and fast.",
+        "Heavy evidence belongs to sidecar/evidence/audit table.",
+        "If parser_version or schema_version changes, new interpretation is versioned.",
+        "Old canonical state is superseded, not erased.",
+        "No silent overwrite: canonical records are never destructively overwritten; new parser/schema/source interpretation creates a new canonical_version and supersedes previous canonical_uid with lineage."
+      ]
+    },
+    "QUARANTINE": {
+      "purpose": "Ambiguous, conflicting, stale, parser-failed, weak-source, or poison-risk data lifecycle.",
+      "write_policy_future": "append_or_update_review_state_only",
+      "must_have_fields": [
+        "quarantine_uid",
+        "raw_uid",
+        "staging_uid",
+        "raw_hash",
+        "parser_version",
+        "schema_version",
+        "quarantine_reason",
+        "source_name",
+        "chain",
+        "token_address",
+        "pair_address",
+        "confidence_level",
+        "freshness_state",
+        "first_seen_at",
+        "last_reviewed_at",
+        "review_state",
+        "next_review_action",
+        "retry_after",
+        "retention_policy",
+        "outcome"
+      ],
+      "states": [
+        "AUTO_REJECT",
+        "AUTO_RETRY",
+        "AUTO_ARCHIVE_RAW_ONLY",
+        "AUTO_PROMOTE_IF_SECOND_SOURCE_CONFIRMS",
+        "MANUAL_REVIEW_REQUIRED",
+        "KEEP_QUARANTINED",
+        "PROMOTE_TO_CANONICAL",
+        "REJECT_AS_BAD_DATA"
+      ],
+      "rules": [
+        "Quarantine is not a digital graveyard.",
+        "Every quarantine item needs a next_review_action.",
+        "Promotion requires evidence and version traceability."
+      ]
+    },
+    "EVIDENCE_SIDECAR": {
+      "purpose": "Heavy provenance, validation detail, cross-source proof, and audit trace.",
+      "write_policy_future": "append_only",
+      "must_have_fields": [
+        "evidence_ref",
+        "entity_uid",
+        "raw_uid_list",
+        "raw_hash_list",
+        "source_list",
+        "parser_version_list",
+        "schema_version_list",
+        "evidence_hash",
+        "evidence_quality_class",
+        "confidence_level",
+        "created_at"
+      ],
+      "rules": [
+        "Sidecar prevents canonical bloat.",
+        "Fast Path should not parse heavy evidence sidecar."
+      ]
+    }
+  },
+  "repair_checks": {
+    "CANONICAL_EXISTS": true,
+    "NO_SILENT_OVERWRITE_RULE_PRESENT": true,
+    "DESTRUCTIVE_OVERWRITE_FORBIDDEN": true,
+    "CANONICAL_VERSION_REQUIRED": true,
+    "PARSER_VERSION_REQUIRED": true,
+    "SCHEMA_VERSION_REQUIRED": true,
+    "RAW_HASH_REF_REQUIRED": true,
+    "EVIDENCE_REF_REQUIRED": true,
+    "SUPERSEDES_CANONICAL_UID_REQUIRED": true,
+    "WRITE_POLICY_VERSIONED": true
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "table_count": 284,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "REPAIR_CONTRACT_ONLY": true,
+    "NO_LIVE_SCHEMA_APPLY": true,
+    "NO_TEMP_DB_SCHEMA_APPLY": true,
+    "NO_PATCH": true,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "PROJECTED_RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "DB_WRITE": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "SERVICE_WRITE": false,
+    "TIMER_WRITE": false,
+    "RUNNER_WRITE": false,
+    "CANONICAL_WRITE": false,
+    "QUARANTINE_WRITE": false,
+    "STAGING_WRITE": false,
+    "RAW_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "PROTECTHOME_RELAX": false,
+    "BROAD_CHMOD": false,
+    "BLIND_RETRY": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE28A_PASS_AND_OPEN_28B": true,
+    "PHASE28B_EXPECTED_REVIEW_FOUND": true,
+    "PHASE28B_ONLY_NO_SILENT_OVERWRITE_FAILED": true,
+    "CANONICAL_EXISTS": true,
+    "NO_SILENT_OVERWRITE_RULE_PRESENT": true,
+    "DESTRUCTIVE_OVERWRITE_FORBIDDEN": true,
+    "CANONICAL_VERSION_REQUIRED": true,
+    "PARSER_VERSION_REQUIRED": true,
+    "SCHEMA_VERSION_REQUIRED": true,
+    "RAW_HASH_REF_REQUIRED": true,
+    "EVIDENCE_REF_REQUIRED": true,
+    "SUPERSEDES_CANONICAL_UID_REQUIRED": true,
+    "WRITE_POLICY_VERSIONED": true,
+    "DB_EXISTS": true,
+    "DB_INTEGRITY_OK": true,
+    "DB_QUICK_CHECK_OK": true,
+    "DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "SERVICE_UNIT_UNCHANGED": true,
+    "TIMER_UNIT_UNCHANGED": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI"
+}

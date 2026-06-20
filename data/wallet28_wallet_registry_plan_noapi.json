@@ -1,0 +1,325 @@
+{
+  "phase": "WALLET28_WALLET_REGISTRY_PLAN_NOAPI",
+  "stamp": "20260513_130845",
+  "final_gate": "PASS",
+  "action": "WALLET_REGISTRY_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "paid_wallet_intelligence_now": false,
+    "strategy": "manual seed + existing Alchemy selected reads + public labels + local confidence registry",
+    "blocked_for_mvp": [
+      "paid wallet intelligence",
+      "new paid whale feed",
+      "high-frequency global wallet scan",
+      "full mempool surveillance",
+      "new server",
+      "expensive AI wallet labeling"
+    ],
+    "allowed_for_mvp": [
+      "manual known wallet seed",
+      "existing Alchemy selected address checks",
+      "public explorer labels when available",
+      "local wallet confidence registry",
+      "low-frequency candidate-first checks",
+      "wallet-owner unknown state"
+    ]
+  },
+  "wallet_types": [
+    {
+      "type": "WHALE",
+      "meaning": "Büyük bakiye veya büyük işlem kapasitesi olan cüzdan.",
+      "panel_effect": "Ana panel alarmı, flow ve paper size kararına etki."
+    },
+    {
+      "type": "SMART_WALLET",
+      "meaning": "Geçmişte iyi giriş/çıkış veya kârlı davranış gösteren izlenen cüzdan.",
+      "panel_effect": "Takip edilen tokenla kesişirse fırsat skoru artar."
+    },
+    {
+      "type": "CEX_WALLET",
+      "meaning": "Borsa sıcak/soğuk cüzdanı veya yüksek güvenli public label.",
+      "panel_effect": "CEX inflow/outflow risk veya accumulation yorumu üretir."
+    },
+    {
+      "type": "DEPLOYER",
+      "meaning": "Token kontratını oluşturan veya proje dağıtım ilişkili cüzdan.",
+      "panel_effect": "Satış/transfer varsa risk alarmı."
+    },
+    {
+      "type": "LP_WALLET",
+      "meaning": "Likidite sağlayan veya çeken cüzdan.",
+      "panel_effect": "LP ekleme/çekme rug ve slippage kararını etkiler."
+    },
+    {
+      "type": "INSIDER",
+      "meaning": "Proje ekibi, erken dağıtım, vesting veya bağlantılı alt cüzdan ihtimali.",
+      "panel_effect": "Yüksek risk / yakın takip."
+    },
+    {
+      "type": "SCAM_RISK_WALLET",
+      "meaning": "Rug/scam/honeypot geçmişi veya yüksek risk hafızası olan cüzdan.",
+      "panel_effect": "Paper block veya morg/otopsi bağlantısı."
+    },
+    {
+      "type": "UNKNOWN_WATCH",
+      "meaning": "Sahibi bilinmeyen ama hareketi izlenmeye değer adres.",
+      "panel_effect": "Kesin owner yazılmaz; confidence düşük gösterilir."
+    }
+  ],
+  "tier_rules": {
+    "btc": [
+      {
+        "tier": "BTC_10_50",
+        "min_btc": 10,
+        "max_btc": 50,
+        "label": "küçük balina"
+      },
+      {
+        "tier": "BTC_50_100",
+        "min_btc": 50,
+        "max_btc": 100,
+        "label": "balina"
+      },
+      {
+        "tier": "BTC_100_250",
+        "min_btc": 100,
+        "max_btc": 250,
+        "label": "güçlü balina"
+      },
+      {
+        "tier": "BTC_250_1000",
+        "min_btc": 250,
+        "max_btc": 1000,
+        "label": "mega balina"
+      },
+      {
+        "tier": "BTC_1000_PLUS",
+        "min_btc": 1000,
+        "max_btc": null,
+        "label": "dev balina"
+      }
+    ],
+    "usd_value": [
+      {
+        "tier": "USD_100K_1M",
+        "min_usd": 100000,
+        "max_usd": 1000000,
+        "label": "izlenebilir"
+      },
+      {
+        "tier": "USD_1M_10M",
+        "min_usd": 1000000,
+        "max_usd": 10000000,
+        "label": "yüksek etki"
+      },
+      {
+        "tier": "USD_10M_100M",
+        "min_usd": 10000000,
+        "max_usd": 100000000,
+        "label": "kritik etki"
+      },
+      {
+        "tier": "USD_100M_PLUS",
+        "min_usd": 100000000,
+        "max_usd": null,
+        "label": "sistemik etki"
+      }
+    ]
+  },
+  "confidence_rules": [
+    "owner_confidence 90+ ise bilinen sahip gibi gösterilebilir.",
+    "owner_confidence 70-89 arası ise muhtemel sahip / yüksek güven etiketi.",
+    "owner_confidence 40-69 arası ise olası sahip / orta güven etiketi.",
+    "owner_confidence 0-39 arası ise owner unknown kalır.",
+    "Manual seed bile kaynak ve tarih taşımak zorunda.",
+    "Public label tek başına kesin sahiplik değildir.",
+    "Alt cüzdan bağlantısı en az ilişki tipi ve confidence ister.",
+    "CEX wallet label yanlışsa risk büyük; kesin olmayan etiket ana panele kesin dille düşmez.",
+    "Cüzdan hareketi tek başına trade sinyali değildir.",
+    "Takip edilen token ile kesişim varsa fusion skoruna girdi olur."
+  ],
+  "contract_fields": [
+    "wallet_uid",
+    "chain",
+    "address",
+    "address_norm",
+    "wallet_type",
+    "tier_label",
+    "owner_name",
+    "owner_type",
+    "owner_confidence",
+    "label_source",
+    "label_source_tier",
+    "label_seen_at_utc",
+    "manual_seed",
+    "is_cex_wallet",
+    "is_contract_wallet",
+    "is_deployer",
+    "is_lp_wallet",
+    "is_scam_risk",
+    "parent_wallet_uid",
+    "cluster_uid",
+    "subwallet_count",
+    "first_seen_at_utc",
+    "last_seen_at_utc",
+    "last_activity_at_utc",
+    "tracked_assets",
+    "watch_reason_tr",
+    "risk_flags",
+    "notes_tr",
+    "is_active_watch",
+    "is_mock",
+    "freshness_status"
+  ],
+  "event_fields": [
+    "wallet_event_id",
+    "observed_at_utc",
+    "wallet_uid",
+    "chain",
+    "address",
+    "wallet_type",
+    "owner_confidence",
+    "event_type",
+    "direction",
+    "from_address",
+    "to_address",
+    "from_entity",
+    "to_entity",
+    "asset_symbol",
+    "asset_address",
+    "amount_native",
+    "amount_usd",
+    "tracked_asset_intersection",
+    "cex_related",
+    "dex_related",
+    "bridge_related",
+    "lp_related",
+    "deployer_related",
+    "risk_score",
+    "impact_score",
+    "confidence_score",
+    "main_panel_flag",
+    "fusion_input_allowed",
+    "recommendation_tr",
+    "truth_state"
+  ],
+  "panel_rules": [
+    "Wallet owner kesin değilse owner unknown veya low confidence gösterilir.",
+    "10 BTC+ cüzdanlar BTC tier sistemine girer.",
+    "Takip edilen tokenla kesişen whale/smart wallet hareketi ana panel adayıdır.",
+    "Deployer satışı veya LP çekimi yüksek risk alarmıdır.",
+    "CEX inflow satış baskısı olarak yorumlanabilir ama tek başına kesin satış değildir.",
+    "CEX outflow accumulation ihtimali olabilir ama tek başına fırsat değildir.",
+    "Alt cüzdan ilişkisi confidence olmadan çizilmez.",
+    "Paid wallet intelligence şimdilik kapalı kalır.",
+    "Yanlış wallet label sistemi bozabileceği için conflict/review state zorunludur.",
+    "Wallet olayı paper trade izni değil, fusion girdisidir."
+  ],
+  "future_tables_plan": [
+    {
+      "table": "wallet_registry",
+      "purpose": "Genel cüzdan kimlik ve tier kayıtları",
+      "apply_now": false
+    },
+    {
+      "table": "wallet_labels",
+      "purpose": "Kaynak bazlı label ve owner confidence",
+      "apply_now": false
+    },
+    {
+      "table": "wallet_clusters",
+      "purpose": "Ana cüzdan / alt cüzdan ilişkileri",
+      "apply_now": false
+    },
+    {
+      "table": "wallet_activity_events",
+      "purpose": "Cüzdan hareket olayları",
+      "apply_now": false
+    },
+    {
+      "table": "wallet_asset_intersections",
+      "purpose": "Takip edilen token/coin ile kesişimler",
+      "apply_now": false
+    },
+    {
+      "table": "wallet_panel_alerts",
+      "purpose": "Ana panele düşecek wallet alarmı",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "Yeni ücretli wallet intelligence yok.",
+    "İlk aşamada manual known wallet seed kullanılacak.",
+    "Mevcut Alchemy sadece seçili adres/token teyidi için kullanılacak.",
+    "Her chain global wallet taraması yapılmayacak.",
+    "BTC 10+ tier mantığı plana dahil, gerçek veri bağlantısı sonraki faz.",
+    "Owner confidence düşükse kesin sahiplik dili kullanılmayacak.",
+    "Balina radarı görseli kurulabilir ama önce registry/contract sağlam olacak.",
+    "Wallet hareketi haber/flow/token lifecycle ile birleşmeden paper izni üretmeyecek."
+  ],
+  "next_modules": [
+    "TOKEN28_TOKEN_LIFECYCLE_PLAN_NOAPI",
+    "MORGUE28_DEAD_TOKEN_AUTOPSY_PLAN_NOAPI",
+    "RISK28_SECURITY_RISK_ENGINE_PLAN_NOAPI",
+    "FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI"
+  ],
+  "wallet_type_count": 8,
+  "btc_tier_count": 5,
+  "usd_tier_count": 4,
+  "confidence_rule_count": 10,
+  "contract_field_count": 31,
+  "event_field_count": 30,
+  "panel_rule_count": 10,
+  "future_table_count": 6,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_wallet_intelligence_enabled": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "TOKEN28_TOKEN_LIFECYCLE_PLAN_NOAPI",
+  "alternate_next_phase": "MORGUE28_DEAD_TOKEN_AUTOPSY_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_WALLET28_WALLET_REGISTRY_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/wallet28_wallet_registry_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

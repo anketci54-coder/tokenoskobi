@@ -1,0 +1,132 @@
+{"dependency": "PHASE8K", "json": "/root/tokenoskobi_clean_v1/data/phase8k_commercial_schema_final_review_noapi.json", "json_exists": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "phase8k_ok": true, "phase8k_summary": {"all_phase9_gates_pass": true, "backup_ready": true, "commercial_all_empty": true, "commercial_nonempty_count": 0, "commercial_runtime_allowed_now": false, "core_counts_unchanged_during_review": true, "effective_pass_count": 5, "failed_phase_count": 0, "failed_phase_keys": [], "live_allowed": false, "missing_index_count_now": 0, "missing_index_target_count_now": 0, "missing_table_count_now": 0, "panel_apply_allowed": false, "paper_allowed": false, "phase8_schema_chain_closed": true, "phase8e_closed": true, "phase9_next_allowed_mode": "PLAN_ONLY_NOAPI", "readmodel_count_ok": true, "required_schema_phase_count": 5, "rollback_executed": false, "statement_count": 43, "target_index_count": 27, "target_indexes_exist_now_count": 27, "target_table_count": 16, "target_tables_exist_now_count": 16}, "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE8K_COMMERCIAL_SCHEMA_FINAL_REVIEW_NOAPI.md", "report_exists": true, "row_type": "phase8k_dep", "rows": "/root/tokenoskobi_clean_v1/data/phase8k_commercial_schema_final_review_noapi_rows.jsonl", "rows_count": 164, "rows_exists": true}
+{"contract_key": "OBSERVATION_RUNTIME_PLAN_ONLY", "enabled_now": false, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "purpose": "Define commercial observation runtime architecture only.", "row_type": "runtime_contract", "runtime_apply_now": false}
+{"auto_execution_allowed": false, "capital_permission": false, "contract_key": "NO_TRADE_PERMISSION", "live_allowed": false, "paper_allowed": false, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "runtime_contract"}
+{"active_8096_mutation": false, "contract_key": "NO_PANEL_BINDING_NOW", "panel_apply_now": false, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "runtime_contract"}
+{"commercial_schema_exists": true, "contract_key": "COMMERCIAL_TABLES_EXIST_BUT_WRITES_DEFERRED", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "runtime_contract", "runtime_db_write_now": false}
+{"overflow_policy": "FIFO_OR_PRIORITY_EVICTION", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MAX_TOTAL_ACTIVE_FOLLOWUP_QUEUE_SIZE", "reason": "Prevent immortal/growing observation queue.", "row_type": "queue_policy", "value": 500}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MAX_REJECTED_TOKENS_PER_BATCH", "row_type": "queue_policy", "value": 50}
+{"hours": 24, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MAX_FOLLOWUP_BLOCK_WINDOW", "row_type": "queue_policy", "value": 28800}
+{"order": ["oldest_low_priority_trash", "lowest_evidence_quality", "no_liquidity_no_volume", "expired_wait_more_data", "protect_emergency_watch", "protect_high_potential_gray_zone"], "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "EVICTION_PRIORITY", "row_type": "queue_policy"}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "IMMORTAL_QUEUE_FORBIDDEN", "row_type": "queue_policy", "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MAX_WAIT_MORE_DATA_WINDOW_BLOCKS", "row_type": "wait_timeout", "status_after": "WAIT_TIMEOUT_EXPIRED", "status_before": "WAIT_MORE_DATA", "value": 1200}
+{"fallback_states": ["UNKNOWN_INSUFFICIENT_DATA", "EXPIRED_OBSERVATION", "BLOCKED_BY_INSUFFICIENT_DATA_TIMEOUT"], "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "WAIT_MORE_DATA_TIMEOUT_TO_EXPIRED", "row_type": "wait_timeout", "value": true}
+{"no_rpc_after_timeout": true, "no_system_guilt_after_timeout": true, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "REMOVE_TIMEOUT_FROM_ACTIVE_QUEUE", "row_type": "wait_timeout", "trade_permission": false, "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "DAILY_RPC_CREDIT_CAP", "row_type": "rpc_budget", "runtime_now": false, "value": 5000}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "PER_CYCLE_RPC_CALL_CAP", "row_type": "rpc_budget", "runtime_now": false, "value": 100}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "PER_TOKEN_FOLLOWUP_CAP", "row_type": "rpc_budget", "runtime_now": false, "value": 24}
+{"every_block_scan_forbidden": true, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "LOW_PRIORITY_SYNC_INTERVAL_BLOCKS", "row_type": "rpc_budget", "value": 100}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MAX_RAW_EVENTS_PER_CANDIDATE", "row_type": "rpc_budget", "value": 10000}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MISSED_OPPORTUNITY_REQUIRES_CLEAN_SELLABILITY", "requires_reasonable_gas": true, "requires_time_window": true, "requires_volume": true, "row_type": "missed_opportunity", "value": true}
+{"grants_trade_permission": false, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "SYSTEM_GUILT_IS_REVIEW_ONLY", "row_type": "missed_opportunity", "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "MISSED_OPPORTUNITY_DOES_NOT_OPEN_LIVE_ROUTE", "row_type": "missed_opportunity", "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "TIME_WINDOWED_SELLABILITY_REQUIRED", "row_type": "sellability", "single_point_check_allowed": false, "value": true}
+{"dust_sell_alone_clean": false, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "VOLUME_AWARE_SELLABILITY_REQUIRED", "row_type": "sellability", "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "SUCCESSFUL_ONCHAIN_SELL_SAMPLES_REQUIRED", "row_type": "sellability", "sample_types": ["swapped_out_events", "successful_wallet_sells", "sell_route_continuity"], "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "EXIT_LIQUIDITY_CONTINUITY_REQUIRED", "row_type": "sellability", "value": true}
+{"ceiling_multiplier_vs_normal_swap": 1.5, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "SELL_TRANSACTION_GAS_LIMIT_CEILING_CHECK", "row_type": "gas_trap", "value": true}
+{"future_position_reference_usd": 25.0, "max_ratio": 0.08, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "GAS_COST_TO_POSITION_SIZE_RATIO_CHECK", "row_type": "gas_trap", "value": true}
+{"clean_missed_opportunity": false, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "ABNORMAL_GAS_SELL_SAMPLE_TAG", "row_type": "gas_trap", "tag": "GAS_TRAP"}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "GAS_TRAP_IS_NOT_CLEAN_MISSED_OPPORTUNITY", "row_type": "gas_trap", "value": true}
+{"hard_safety_reasons": ["HONEYPOT", "NO_SELL_ROUTE", "LP_REMOVE", "BLACKLIST", "CONTRACT_RISK", "DEPLOYER_HARD_RISK", "FAKE_PAIR", "SEVERE_LIQUIDITY_RISK", "GLOBAL_HARD_BLOCK"], "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "A_REJECTION_BASED_ON_HARD_SAFETY_RULES_IS_NEVER_A_SYSTEM_GUILT", "row_type": "hard_rejection", "value": true}
+{"classification": "SAFETY_WALL_SUCCESS", "even_if_x10_or_x100": true, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "HARD_BLOCK_REJECTION_CAN_NOT_BECOME_MISSED_OPPORTUNITY", "row_type": "hard_rejection", "value": true}
+{"gray_review_reasons": ["WAIT_MORE_DATA", "INSUFFICIENT_EVIDENCE", "GRAY_ZONE_POLICY", "CONSERVATIVE_THRESHOLD", "MISSING_SELLABILITY_SAMPLE", "LOW_CONFIDENCE_DATA"], "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "ONLY_GRAY_ZONE_REJECTION_CAN_TRIGGER_SYSTEM_POLICY_REVIEW", "row_type": "hard_rejection", "value": true}
+{"cashflow_priority": true, "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "AVOIDED_LOSS_IS_SECONDARY_METRIC", "row_type": "avoided_loss", "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "AVOIDED_LOSS_CAN_NOT_ALONE_PASS_COMMERCIAL_SCORE", "row_type": "avoided_loss", "value": true}
+{"passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "policy_key": "AVOIDED_LOSS_EVIDENCE_TYPES", "row_type": "avoided_loss", "types": ["rug", "lp_remove", "honeypot", "sell_route_closed", "tax_spike", "blacklist"]}
+{"basis": "cashflow_first", "metric": "net_commercial_performance_score", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "priority": 1, "row_type": "scoreboard", "runtime_now": false}
+{"annual_cost_max_usd": 2000, "annual_cost_min_usd": 1500, "basis": "monthly_and_daily_break_even", "metric": "cost_recovery_progress", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "priority": 2, "row_type": "scoreboard", "runtime_now": false}
+{"basis": "time_windowed_volume_gas_adjusted_sellability", "metric": "missed_clean_opportunity_score", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "priority": 3, "row_type": "scoreboard", "runtime_now": false}
+{"basis": "secondary_not_cashflow", "metric": "avoided_loss_score", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "priority": 4, "row_type": "scoreboard", "runtime_now": false}
+{"basis": "entry_exit_liquidity_sell_route_tax_slippage_mev_time_window", "metric": "executable_opportunity_score", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "priority": 5, "row_type": "scoreboard", "runtime_now": false}
+{"mitigation": "MAX_TOTAL_ACTIVE_FOLLOWUP_QUEUE_SIZE and FIFO/priority eviction", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "risk": "observation_queue_growth", "row_type": "risk", "status": "guarded"}
+{"mitigation": "daily/per-cycle/per-token caps, no every-block scan", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "risk": "rpc_cost_spike", "row_type": "risk", "status": "guarded"}
+{"mitigation": "gas limit and gas-cost-to-position ratio checks", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "risk": "false_missed_opportunity_due_gas_trap", "row_type": "risk", "status": "guarded"}
+{"mitigation": "hard safety rejection never system guilt", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "risk": "hard_safety_rules_get_psychologically_weakened", "row_type": "risk", "status": "guarded"}
+{"mitigation": "MAX_WAIT_MORE_DATA_WINDOW_BLOCKS and queue eviction", "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "risk": "wait_more_data_immortal_state", "row_type": "risk", "status": "guarded"}
+{"allowed": true, "mode": "TEMP_DRYRUN_NOAPI", "order": 1, "phase": "PHASE9A_OBSERVATION_RUNTIME_TEMP_DRYRUN_NOAPI", "purpose": "Temp-only dry-run of observation queue/state transitions without live runtime.", "row_type": "roadmap"}
+{"allowed_after_9a_pass": true, "mode": "PLAN_ONLY_NOAPI", "order": 2, "phase": "PHASE9B_OBSERVATION_RUNTIME_APPLY_PLAN_NOAPI", "purpose": "Plan any future runtime/builder apply; no runtime enable.", "row_type": "roadmap"}
+{"allowed_now": false, "mode": "REAL_AFTER_EXPLICIT_APPROVAL_FUTURE", "order": 3, "phase": "PHASE9C_OBSERVATION_RUNTIME_REAL_AFTER_EXPLICIT_APPROVAL", "purpose": "Future controlled observation runtime install only after explicit approval; still no paper/live.", "row_type": "roadmap"}
+{"allowed_after_9c": true, "mode": "NOAPI_AUDIT", "order": 4, "phase": "PHASE9D_OBSERVATION_RUNTIME_POST_AUDIT_NOAPI", "purpose": "Post-audit after future real observation runtime install.", "row_type": "roadmap"}
+{"check": "PHASE8K_JSON_EXISTS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE8K_REPORT_EXISTS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE8K_ROWS_EXISTS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE8K_OK", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_SHA_MATCHES_EXPECTED", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_UNCHANGED_DURING_PLAN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ACTIVE_INDEX_UNCHANGED", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "HOSTS_UNCHANGED", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_HEALTH_START_OK", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_HEALTH_END_OK", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "READMODEL_COUNT_STILL_19", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RUNTIME_CONTRACT_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "QUEUE_POLICY_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "WAIT_TIMEOUT_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RPC_BUDGET_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SELLABILITY_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "GAS_TRAP_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "HARD_REJECTION_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "MISSED_OPPORTUNITY_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "AVOIDED_LOSS_ALL_PASS", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SCOREBOARD_PLAN_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RISK_REGISTER_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ROADMAP_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "FUTURE_RUNTIME_SCHEMA_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_API_RPC_FETCH_EXTERNAL", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_LIVE_DB_MUTATION", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_PANEL_ACTIVE_MUTATION", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_RUNTIME_PAPER_LIVE_NOW", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE8K_DEP_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RUNTIME_CONTRACT_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "QUEUE_POLICY_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "WAIT_TIMEOUT_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RPC_BUDGET_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "MISSED_OPPORTUNITY_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SELLABILITY_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "GAS_TRAP_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "HARD_REJECTION_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "AVOIDED_LOSS_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SCOREBOARD_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RISK_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ROADMAP_ROWS_WRITTEN", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "phase8k_json_exists", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8k_report_exists", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8k_rows_exists", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8k_ok", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_matches_expected", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged_during_plan", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_start_ok", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_end_ok", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_count_still_19", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "runtime_contract_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "queue_policy_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "wait_timeout_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "rpc_budget_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sellability_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "gas_trap_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_rejection_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "missed_opportunity_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "avoided_loss_all_pass", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "scoreboard_plan_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_register_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "future_runtime_schema_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_api_rpc_fetch_external", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_live_db_mutation", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_panel_active_mutation", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_runtime_paper_live_now", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8k_dep_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "runtime_contract_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "queue_policy_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "wait_timeout_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "rpc_budget_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "missed_opportunity_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sellability_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "gas_trap_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_rejection_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "avoided_loss_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "scoreboard_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_check_rows_written", "passed": true, "phase": "PHASE9_COMMERCIAL_OBSERVATION_RUNTIME_PLAN_NOAPI", "row_type": "pass_condition"}

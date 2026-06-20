@@ -1,0 +1,644 @@
+{
+  "phase": "PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI",
+  "started_utc": "2026-06-08T05:29:57.305707+00:00",
+  "finished_utc": "2026-06-08T05:29:57.394483+00:00",
+  "final_gate": "PASS_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI",
+  "phase28a_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28a_center_inventory_gate_cascade_data_integrity_map_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28A_CENTER_INVENTORY_GATE_CASCADE_DATA_INTEGRITY_MAP_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION_CONTRACT_NOAPI"
+  },
+  "phase28b1_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28b1_data_provenance_no_silent_overwrite_rule_repair_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28B1_DATA_PROVENANCE_NO_SILENT_OVERWRITE_RULE_REPAIR_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI"
+  },
+  "phase28c_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28c_hard_gate_and_emergency_brake_contract_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI"
+  },
+  "precomputed_matrix_contract": {
+    "contract_name": "precomputed_route_matrix_v1",
+    "core_rule": "Slow Path builds and validates the matrix; Fast Path only applies compact current matrix if gates clear and matrix is fresh.",
+    "matrix_is_authority": false,
+    "matrix_can_open_paper_live_wallet": false,
+    "emergency_brake_override": true,
+    "authority_gate_override": true,
+    "priority_order": [
+      "EMERGENCY_BRAKE",
+      "AUTHORITY_GATE",
+      "SYSTEM_GATE",
+      "DATA_GATE",
+      "RISK_GATE",
+      "MATRIX_FRESHNESS_GATE",
+      "PRECOMPUTED_ROUTE",
+      "FINAL_ROUTE"
+    ],
+    "builder_owner": "Slow Path / System Control + Command Decision audit layer",
+    "consumer_owner": "Fast Path / Command route applicator",
+    "required_matrix_fields": [
+      "matrix_uid",
+      "matrix_version",
+      "matrix_schema_version",
+      "builder_version",
+      "built_at",
+      "valid_from",
+      "valid_until",
+      "max_age_seconds",
+      "volatility_class",
+      "source_snapshot_ref",
+      "gate_contract_version",
+      "data_contract_version",
+      "route_rules_ref",
+      "matrix_hash",
+      "confidence_level",
+      "fallback_route",
+      "created_at"
+    ],
+    "fast_path_compact_fields": [
+      "matrix_uid",
+      "matrix_version",
+      "valid_until",
+      "matrix_age_class",
+      "matrix_route",
+      "matrix_confidence",
+      "fallback_route",
+      "emergency_brake_hint"
+    ],
+    "slow_path_builder_inputs": [
+      "system_gate_state",
+      "authority_gate_state",
+      "data_gate_state",
+      "risk_gate_state",
+      "opportunity_score_state",
+      "timing_score_state",
+      "market_volatility_state",
+      "matrix_previous_version",
+      "route_outcome_memory",
+      "validator_accepted_review_memory",
+      "source_reliability_snapshot",
+      "canonical_version_snapshot"
+    ],
+    "fast_path_forbidden_heavy_inputs": [
+      "raw_payload_body",
+      "full_news_text",
+      "deep_whale_cluster",
+      "large_evidence_sidecar",
+      "bulk_quarantine_payload",
+      "long_ai_commentary",
+      "panel_render_html",
+      "full_source_reliability_recompute"
+    ],
+    "freshness_policy": {
+      "FRESH": {
+        "condition": "now <= valid_until and matrix_age_seconds <= max_age_seconds",
+        "effect": "apply_matrix_if_gates_ok"
+      },
+      "STALE": {
+        "condition": "now > valid_until or matrix_age_seconds > max_age_seconds",
+        "effect": "degrade_route_to_watch_more_data_or_observe_only"
+      },
+      "EXPIRED": {
+        "condition": "matrix_missing_or_schema_mismatch_or_hash_invalid_or_valid_until_far_past",
+        "effect": "MORE_DATA_OR_OBSERVE_ONLY"
+      },
+      "BRAKE": {
+        "condition": "emergency_brake_state != none",
+        "effect": "ignore_matrix_apply_brake_route"
+      }
+    },
+    "volatility_refresh_policy": {
+      "LOW": {
+        "suggested_max_age_seconds": 300,
+        "route_mode": "normal_observation"
+      },
+      "MEDIUM": {
+        "suggested_max_age_seconds": 120,
+        "route_mode": "shorter_matrix_life"
+      },
+      "HIGH": {
+        "suggested_max_age_seconds": 30,
+        "route_mode": "fast_expiry_more_brake_sensitive"
+      },
+      "EXTREME": {
+        "suggested_max_age_seconds": 15,
+        "route_mode": "matrix_degrades_quickly_observe_only_bias"
+      }
+    },
+    "matrix_storage_rule": "Future matrix storage must be compact, versioned, hashable, and append/supersede, not destructive overwrite.",
+    "future_implementation_boundary": {
+      "live_schema_apply_now": false,
+      "db_write_now": false,
+      "panel_write_now": false,
+      "runner_patch_now": false,
+      "service_timer_change_now": false,
+      "future_tempdb_dryrun_required_before_live": true,
+      "future_real_requires_explicit_approval": true
+    }
+  },
+  "route_matrix_rules": [
+    {
+      "rule_id": "R001",
+      "priority": 1,
+      "inputs": {
+        "emergency_brake": "DATA_POISON_CONFIRMED"
+      },
+      "route": "DATA_POISON_BLOCK",
+      "route_strength": "hard",
+      "matrix_allowed_to_override": false,
+      "reason": "Data poison must block matrix."
+    },
+    {
+      "rule_id": "R002",
+      "priority": 2,
+      "inputs": {
+        "emergency_brake": "CONFIRMED_HARD_RISK"
+      },
+      "route": "REJECT",
+      "route_strength": "hard",
+      "matrix_allowed_to_override": false,
+      "reason": "Confirmed hard risk beats opportunity."
+    },
+    {
+      "rule_id": "R003",
+      "priority": 3,
+      "inputs": {
+        "authority_gate": "NO_ACTION_AUTHORITY"
+      },
+      "route": "OBSERVE_ONLY",
+      "route_strength": "hard",
+      "matrix_allowed_to_override": false,
+      "reason": "Authority closed prevents action."
+    },
+    {
+      "rule_id": "R004",
+      "priority": 4,
+      "inputs": {
+        "system_gate": "SYSTEM_BLOCK"
+      },
+      "route": "SYSTEM_BLOCK",
+      "route_strength": "hard",
+      "matrix_allowed_to_override": false,
+      "reason": "Real system failure blocks route."
+    },
+    {
+      "rule_id": "R005",
+      "priority": 5,
+      "inputs": {
+        "data_gate": "DATA_POISON_REVIEW"
+      },
+      "route": "DATA_REVIEW",
+      "route_strength": "review",
+      "matrix_allowed_to_override": false,
+      "reason": "Potential data poisoning needs review."
+    },
+    {
+      "rule_id": "R006",
+      "priority": 6,
+      "inputs": {
+        "data_gate": "MORE_DATA"
+      },
+      "route": "MORE_DATA",
+      "route_strength": "soft_block",
+      "matrix_allowed_to_override": false,
+      "reason": "Minimum data not met."
+    },
+    {
+      "rule_id": "R007",
+      "priority": 7,
+      "inputs": {
+        "risk_gate": "WEAK_SINGLE_SOURCE_RISK"
+      },
+      "route": "RISK_REVIEW",
+      "route_strength": "review",
+      "matrix_allowed_to_override": false,
+      "reason": "Weak single-source risk cannot become hard reject."
+    },
+    {
+      "rule_id": "R008",
+      "priority": 8,
+      "inputs": {
+        "risk_gate": "CONFIRMED_REJECT"
+      },
+      "route": "REJECT",
+      "route_strength": "hard",
+      "matrix_allowed_to_override": false,
+      "reason": "Confirmed risk reject."
+    },
+    {
+      "rule_id": "R009",
+      "priority": 9,
+      "inputs": {
+        "matrix_age_class": "EXPIRED"
+      },
+      "route": "MORE_DATA_OR_OBSERVE_ONLY",
+      "route_strength": "degrade",
+      "matrix_allowed_to_override": false,
+      "reason": "Expired matrix cannot drive route."
+    },
+    {
+      "rule_id": "R010",
+      "priority": 10,
+      "inputs": {
+        "matrix_age_class": "STALE"
+      },
+      "route": "WATCH_ONLY_OR_MORE_DATA",
+      "route_strength": "degrade",
+      "matrix_allowed_to_override": false,
+      "reason": "Stale matrix degrades route."
+    },
+    {
+      "rule_id": "R011",
+      "priority": 11,
+      "inputs": {
+        "all_gates": "CLEAR",
+        "matrix_age_class": "FRESH",
+        "opportunity": "HIGH",
+        "timing": "GOOD",
+        "risk": "LOW",
+        "authority": "PAPER_ALLOWED_LATER"
+      },
+      "route": "PAPER_CANDIDATE",
+      "route_strength": "candidate_only",
+      "matrix_allowed_to_override": false,
+      "reason": "Paper candidate only when authority later allows; no current action authority assumed."
+    },
+    {
+      "rule_id": "R012",
+      "priority": 12,
+      "inputs": {
+        "all_gates": "CLEAR",
+        "matrix_age_class": "FRESH",
+        "opportunity": "HIGH",
+        "timing": "WEAK",
+        "risk": "LOW"
+      },
+      "route": "WATCH_ONLY",
+      "route_strength": "observe",
+      "matrix_allowed_to_override": false,
+      "reason": "Opportunity without timing stays watch."
+    },
+    {
+      "rule_id": "R013",
+      "priority": 13,
+      "inputs": {
+        "all_gates": "CLEAR",
+        "matrix_age_class": "FRESH",
+        "opportunity": "VERY_HIGH",
+        "risk": "MEDIUM"
+      },
+      "route": "MOONSHOT_WATCH",
+      "route_strength": "observe",
+      "matrix_allowed_to_override": false,
+      "reason": "High opportunity with medium risk is watch, not blind action."
+    },
+    {
+      "rule_id": "R014",
+      "priority": 14,
+      "inputs": {
+        "all_gates": "CLEAR",
+        "matrix_age_class": "FRESH",
+        "opportunity": "LOW"
+      },
+      "route": "NO_ACTION",
+      "route_strength": "neutral",
+      "matrix_allowed_to_override": false,
+      "reason": "No opportunity."
+    }
+  ],
+  "matrix_build_lifecycle": {
+    "states": [
+      "DRAFT",
+      "VALIDATED_IN_SLOW_PATH",
+      "PUBLISHED_TO_FAST_PATH",
+      "ACTIVE",
+      "STALE",
+      "EXPIRED",
+      "SUPERSEDED",
+      "REJECTED"
+    ],
+    "transitions": [
+      {
+        "from": "DRAFT",
+        "to": "VALIDATED_IN_SLOW_PATH",
+        "requires": [
+          "route_rules_valid",
+          "gate_versions_match",
+          "data_contract_versions_match"
+        ]
+      },
+      {
+        "from": "VALIDATED_IN_SLOW_PATH",
+        "to": "PUBLISHED_TO_FAST_PATH",
+        "requires": [
+          "matrix_hash_created",
+          "valid_until_set",
+          "fallback_route_set"
+        ]
+      },
+      {
+        "from": "PUBLISHED_TO_FAST_PATH",
+        "to": "ACTIVE",
+        "requires": [
+          "fast_path_can_parse_compact_fields"
+        ]
+      },
+      {
+        "from": "ACTIVE",
+        "to": "STALE",
+        "requires": [
+          "valid_until_elapsed_or_volatility_refresh_required"
+        ]
+      },
+      {
+        "from": "STALE",
+        "to": "EXPIRED",
+        "requires": [
+          "max_age_exceeded_or_schema_mismatch_or_hash_invalid"
+        ]
+      },
+      {
+        "from": "ACTIVE",
+        "to": "SUPERSEDED",
+        "requires": [
+          "newer_matrix_version_published"
+        ]
+      },
+      {
+        "from": "DRAFT",
+        "to": "REJECTED",
+        "requires": [
+          "contract_validation_failed"
+        ]
+      }
+    ],
+    "rule": "Matrix lifecycle is append/supersede; no silent destructive replacement."
+  },
+  "matrix_drift_guard": {
+    "drift_risks": [
+      "market_volatility_changed_after_build",
+      "risk_state_changed_after_build",
+      "canonical_data_version_changed_after_build",
+      "parser_schema_version_changed_after_build",
+      "source_reliability_changed_after_build",
+      "emergency_brake_signal_seen_after_build"
+    ],
+    "guards": [
+      "matrix_valid_until",
+      "matrix_hash",
+      "canonical_version_snapshot",
+      "gate_contract_version",
+      "data_contract_version",
+      "emergency_brake_hint",
+      "volatility_class",
+      "fallback_route"
+    ],
+    "route_degrade_policy": {
+      "minor_drift": "WATCH_ONLY_OR_MORE_DATA",
+      "major_drift": "MORE_DATA_OR_OBSERVE_ONLY",
+      "critical_drift": "EMERGENCY_BRAKE_OR_BLOCK"
+    }
+  },
+  "future_matrix_test_cases": [
+    {
+      "case": "fresh_matrix_all_gates_clear_watch",
+      "matrix_age_class": "FRESH",
+      "gates": "CLEAR",
+      "matrix_route": "WATCH_ONLY",
+      "expected_final_route": "WATCH_ONLY"
+    },
+    {
+      "case": "stale_matrix_wants_paper",
+      "matrix_age_class": "STALE",
+      "gates": "CLEAR",
+      "matrix_route": "PAPER_CANDIDATE",
+      "expected_final_route": "WATCH_ONLY_OR_MORE_DATA"
+    },
+    {
+      "case": "expired_matrix_wants_watch",
+      "matrix_age_class": "EXPIRED",
+      "gates": "CLEAR",
+      "matrix_route": "WATCH_ONLY",
+      "expected_final_route": "MORE_DATA_OR_OBSERVE_ONLY"
+    },
+    {
+      "case": "brake_overrides_fresh_matrix",
+      "matrix_age_class": "FRESH",
+      "emergency_brake": "DATA_POISON_CONFIRMED",
+      "matrix_route": "PAPER_CANDIDATE",
+      "expected_final_route": "DATA_POISON_BLOCK"
+    },
+    {
+      "case": "authority_closed_overrides_matrix",
+      "matrix_age_class": "FRESH",
+      "authority": "NO_ACTION_AUTHORITY",
+      "matrix_route": "PAPER_CANDIDATE",
+      "expected_final_route": "OBSERVE_ONLY"
+    }
+  ],
+  "contract_checks": {
+    "MATRIX_NOT_AUTHORITY": true,
+    "MATRIX_CANNOT_OPEN_ACTION": true,
+    "EMERGENCY_BRAKE_OVERRIDE": true,
+    "AUTHORITY_GATE_OVERRIDE": true,
+    "PRIORITY_ORDER_OK": true,
+    "MATRIX_VERSION_FIELDS_PRESENT": true,
+    "MATRIX_VALID_UNTIL_PRESENT": true,
+    "MATRIX_HASH_PRESENT": true,
+    "FAST_PATH_COMPACT_FIELDS_OK": true,
+    "SLOW_PATH_INPUTS_PRESENT": true,
+    "FAST_PATH_HEAVY_INPUTS_FORBIDDEN": true,
+    "FRESHNESS_POLICY_PRESENT": true,
+    "STALE_DEGRADES_ROUTE": true,
+    "EXPIRED_MORE_DATA_OR_OBSERVE_ONLY": true,
+    "BRAKE_IGNORES_MATRIX": true,
+    "VOLATILITY_REFRESH_POLICY_PRESENT": true,
+    "EXTREME_MAX_AGE_15S": true,
+    "ROUTE_RULES_OK": true,
+    "FIRST_RULES_GATE_OK": true,
+    "AUTHORITY_RULE_PRESENT": true,
+    "WEAK_RISK_REVIEW_PRESENT": true,
+    "LIFECYCLE_STATES_OK": true,
+    "MATRIX_DRIFT_GUARD_PRESENT": true,
+    "FUTURE_MATRIX_TEST_CASES_OK": true,
+    "NO_LIVE_SCHEMA_APPLY_NOW": true,
+    "NO_DB_WRITE_NOW": true
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "table_count": 284,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "PLAN_ONLY": true,
+    "PRECOMPUTED_MATRIX_CONTRACT_ONLY": true,
+    "NO_LIVE_SCHEMA_APPLY": true,
+    "NO_TEMP_DB_SCHEMA_APPLY": true,
+    "NO_PATCH": true,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "PROJECTED_RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "DB_WRITE": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "SERVICE_WRITE": false,
+    "TIMER_WRITE": false,
+    "RUNNER_WRITE": false,
+    "CANONICAL_WRITE": false,
+    "QUARANTINE_WRITE": false,
+    "STAGING_WRITE": false,
+    "RAW_WRITE": false,
+    "MATRIX_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "PROTECTHOME_RELAX": false,
+    "BROAD_CHMOD": false,
+    "BLIND_RETRY": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE28A_PASS_AND_OPEN_28B": true,
+    "PHASE28B1_PASS_AND_OPEN_28C": true,
+    "PHASE28C_PASS_AND_OPEN_28D": true,
+    "MATRIX_NOT_AUTHORITY": true,
+    "MATRIX_CANNOT_OPEN_ACTION": true,
+    "EMERGENCY_BRAKE_OVERRIDE": true,
+    "AUTHORITY_GATE_OVERRIDE": true,
+    "PRIORITY_ORDER_OK": true,
+    "MATRIX_VERSION_FIELDS_PRESENT": true,
+    "MATRIX_VALID_UNTIL_PRESENT": true,
+    "MATRIX_HASH_PRESENT": true,
+    "FAST_PATH_COMPACT_FIELDS_OK": true,
+    "SLOW_PATH_INPUTS_PRESENT": true,
+    "FAST_PATH_HEAVY_INPUTS_FORBIDDEN": true,
+    "FRESHNESS_POLICY_PRESENT": true,
+    "STALE_DEGRADES_ROUTE": true,
+    "EXPIRED_MORE_DATA_OR_OBSERVE_ONLY": true,
+    "BRAKE_IGNORES_MATRIX": true,
+    "VOLATILITY_REFRESH_POLICY_PRESENT": true,
+    "EXTREME_MAX_AGE_15S": true,
+    "ROUTE_RULES_OK": true,
+    "FIRST_RULES_GATE_OK": true,
+    "AUTHORITY_RULE_PRESENT": true,
+    "WEAK_RISK_REVIEW_PRESENT": true,
+    "LIFECYCLE_STATES_OK": true,
+    "MATRIX_DRIFT_GUARD_PRESENT": true,
+    "FUTURE_MATRIX_TEST_CASES_OK": true,
+    "NO_LIVE_SCHEMA_APPLY_NOW": true,
+    "NO_DB_WRITE_NOW": true,
+    "DB_EXISTS": true,
+    "DB_INTEGRITY_OK": true,
+    "DB_QUICK_CHECK_OK": true,
+    "DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "SERVICE_UNIT_UNCHANGED": true,
+    "TIMER_UNIT_UNCHANGED": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI"
+}

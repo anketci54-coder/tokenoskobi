@@ -1,0 +1,292 @@
+{
+  "phase": "RISK28_SECURITY_RISK_ENGINE_PLAN_NOAPI",
+  "stamp": "20260513_134559",
+  "final_gate": "PASS",
+  "action": "SECURITY_RISK_ENGINE_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "paid_security_data_now": false,
+    "strategy": "local risk rules + lifecycle/morgue memory + free/cached source evidence + candidate-first checks",
+    "blocked_for_mvp": [
+      "paid honeypot/rug intelligence",
+      "paid MEV/mempool feed",
+      "premium audit database",
+      "high-frequency full-chain scanner",
+      "new server",
+      "live trading"
+    ],
+    "allowed_for_mvp": [
+      "local lifecycle risk flags",
+      "local morgue/autopsy memory",
+      "existing Alchemy selected checks later",
+      "free/limited DEX/pair references later",
+      "cached source evidence",
+      "paper-only risk decisions"
+    ]
+  },
+  "risk_domains": [
+    {
+      "domain": "IDENTITY_RISK",
+      "meaning": "Token/pair kimliği yanlış, fake pair veya source conflict.",
+      "hard_block": true
+    },
+    {
+      "domain": "SELLABILITY_RISK",
+      "meaning": "Satış engeli, honeypot veya sell function riski.",
+      "hard_block": true
+    },
+    {
+      "domain": "TAX_RISK",
+      "meaning": "Alım/satım tax oranı kârı veya çıkışı bozabilir.",
+      "hard_block": false
+    },
+    {
+      "domain": "LIQUIDITY_RISK",
+      "meaning": "Düşük likidite, LP çekimi veya derinlik zayıflığı.",
+      "hard_block": false
+    },
+    {
+      "domain": "DEPLOYER_RISK",
+      "meaning": "Deployer satış, mint, yetki, kontrat kontrolü veya şüpheli davranış.",
+      "hard_block": false
+    },
+    {
+      "domain": "HOLDER_RISK",
+      "meaning": "Holder yoğunlaşması, balina baskısı veya dağıtım problemi.",
+      "hard_block": false
+    },
+    {
+      "domain": "VOLUME_RISK",
+      "meaning": "Fake volume, wash trade veya hacim/likidite uyumsuzluğu.",
+      "hard_block": false
+    },
+    {
+      "domain": "SOURCE_RISK",
+      "meaning": "Kaynaklar arası çelişki, stale veri veya single-source zayıflığı.",
+      "hard_block": false
+    },
+    {
+      "domain": "MEV_SLIPPAGE_RISK",
+      "meaning": "Entry/exit slippage, sandwich veya order/liquidity oranı riski.",
+      "hard_block": false
+    },
+    {
+      "domain": "MORGUE_SIMILARITY_RISK",
+      "meaning": "Geçmiş ölü/rug/fail token patternlerine benzerlik.",
+      "hard_block": false
+    }
+  ],
+  "risk_levels": [
+    {
+      "level": "LOW",
+      "min_score": 0,
+      "max_score": 24,
+      "decision": "normal watch / paper mümkün"
+    },
+    {
+      "level": "MEDIUM",
+      "min_score": 25,
+      "max_score": 49,
+      "decision": "size düşür / teyit iste"
+    },
+    {
+      "level": "HIGH",
+      "min_score": 50,
+      "max_score": 74,
+      "decision": "çok küçük paper veya bekle"
+    },
+    {
+      "level": "CRITICAL",
+      "min_score": 75,
+      "max_score": 100,
+      "decision": "paper blocked / ana panel risk"
+    }
+  ],
+  "hard_blocks": [
+    "HONEYPOT_CONFIRMED",
+    "SELL_BLOCK_CONFIRMED",
+    "FAKE_PAIR_CONFIRMED",
+    "WRONG_PAIR_CONFIRMED",
+    "SOURCE_CONFLICT_CRITICAL",
+    "LIQUIDITY_REMOVED_CONFIRMED",
+    "SCAM_RISK_WALLET_CONFIRMED",
+    "MORGUE_HARD_MATCH",
+    "NO_TRUSTED_PRICE",
+    "NO_SELLABILITY_EVIDENCE"
+  ],
+  "contract_fields": [
+    "risk_event_id",
+    "observed_at_utc",
+    "token_uid",
+    "chain",
+    "asset_symbol",
+    "token_address",
+    "pair_address",
+    "source_name",
+    "source_tier",
+    "source_reliability",
+    "freshness_status",
+    "truth_state",
+    "identity_risk_score",
+    "sellability_risk_score",
+    "tax_risk_score",
+    "liquidity_risk_score",
+    "deployer_risk_score",
+    "holder_risk_score",
+    "volume_risk_score",
+    "source_risk_score",
+    "mev_slippage_risk_score",
+    "morgue_similarity_risk_score",
+    "total_risk_score",
+    "risk_level",
+    "hard_block_flag",
+    "hard_block_reason",
+    "paper_allowed",
+    "paper_size_multiplier",
+    "max_safe_order_usd",
+    "entry_slippage_estimate_pct",
+    "exit_slippage_estimate_pct",
+    "buy_tax_pct",
+    "sell_tax_pct",
+    "liquidity_usd",
+    "liquidity_delta_pct",
+    "holder_top10_pct",
+    "deployer_balance_pct",
+    "cex_inflow_signal",
+    "lp_pull_signal",
+    "morgue_similarity_case_id",
+    "recommendation_tr",
+    "panel_decision",
+    "is_mock"
+  ],
+  "scoring_rules": [
+    "Hard block varsa total score ne olursa olsun paper blocked.",
+    "Trusted price yoksa paper blocked.",
+    "Sellability kanıtı yoksa risk yüksek ve paper bekle.",
+    "Liquidity düşükse max_safe_order_usd düşer.",
+    "Order/liquidity oranı yüksekse slippage ve MEV riski artar.",
+    "Top holder yoğunlaşması yüksekse holder risk artar.",
+    "Deployer satış veya şüpheli hareket risk skorunu artırır.",
+    "Source conflict risk skorunu artırır ve ana panele review uyarısı verebilir.",
+    "Morgue similarity yüksekse lifecycle/star skoru düşer.",
+    "Risk skoru fusion ve paper size motoruna zorunlu girdi olur."
+  ],
+  "panel_rules": [
+    "Risk paneli korku yaymaz; açık neden ve skor gösterir.",
+    "Hard block varsa Paper Trade Adayı etiketi verilmez.",
+    "Risk 75+ ana panele kritik risk olarak düşer.",
+    "Risk 50-74 arası ana panelde dikkat veya size düşür uyarısı olabilir.",
+    "Risk 25-49 alt panelde görünür, fusion skoruna girer.",
+    "Risk 0-24 normal kabul edilir ama tek başına fırsat değildir.",
+    "UID/hash/debug kullanıcıya gösterilmez.",
+    "Veri yoksa risk düşük değil, NO_DATA / UNKNOWN olarak gösterilir.",
+    "Morgue benzerliği ayrı gösterilir.",
+    "MEV/slippage sonucu net PnL hesabına bağlanır."
+  ],
+  "future_tables_plan": [
+    {
+      "table": "risk_events",
+      "purpose": "Risk gözlem ve skor olayları",
+      "apply_now": false
+    },
+    {
+      "table": "risk_domain_scores",
+      "purpose": "Domain bazlı risk skorları",
+      "apply_now": false
+    },
+    {
+      "table": "risk_hard_blocks",
+      "purpose": "Paper/live block nedenleri",
+      "apply_now": false
+    },
+    {
+      "table": "risk_panel_alerts",
+      "purpose": "Ana panele düşecek risk uyarıları",
+      "apply_now": false
+    },
+    {
+      "table": "risk_morgue_similarity",
+      "purpose": "Morgue pattern benzerliği",
+      "apply_now": false
+    },
+    {
+      "table": "risk_outcome_feedback",
+      "purpose": "Risk skorlarının outcome doğruluğu",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "Yeni ücretli security/rug/MEV kaynağı yok.",
+    "Önce kural tabanlı risk motoru planlanacak.",
+    "Morgue pattern memory risk motoruna girdi olacak.",
+    "Sellability/honeypot teyidi eksikse sistem güvenli tarafta kalacak.",
+    "Risk motoru paper simulator öncesi zorunlu kapı olacak.",
+    "MEV/slippage ilk aşamada tahmini model olacak, paid mempool yok.",
+    "Risk skoru ana panelde açık ve anlaşılır dille gösterilecek.",
+    "Yama yok; genel risk contract ve future table planı var."
+  ],
+  "next_modules": [
+    "PAPER28_PAPER_TRADE_SIMULATOR_PLAN_NOAPI",
+    "FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI",
+    "AI28_TRAINING_DATASET_PLAN_NOAPI",
+    "PANEL30_STATIC_SHELL_REVIEW_NOAPI"
+  ],
+  "risk_domain_count": 10,
+  "risk_level_count": 4,
+  "hard_block_count": 10,
+  "contract_field_count": 43,
+  "scoring_rule_count": 10,
+  "panel_rule_count": 10,
+  "future_table_count": 6,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_security_data_enabled": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "PAPER28_PAPER_TRADE_SIMULATOR_PLAN_NOAPI",
+  "alternate_next_phase": "FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_RISK28_SECURITY_RISK_ENGINE_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/risk28_security_risk_engine_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

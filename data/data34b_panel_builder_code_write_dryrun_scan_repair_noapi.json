@@ -1,0 +1,165 @@
+{
+  "phase": "DATA34B_PANEL_BUILDER_CODE_WRITE_DRYRUN_SCAN_REPAIR_NOAPI",
+  "stamp": "20260513_150330",
+  "final_gate": "PASS",
+  "action": "PANEL_BUILDER_DRYRUN_SCANNER_REPAIR_REVIEW_CREATED",
+  "stable_base_ok": true,
+  "scanner_diagnosis": {
+    "prev_final_gate": "REVIEW_REQUIRED",
+    "prev_syntax_compile_ok": true,
+    "prev_scan_ok": false,
+    "forbidden_import_hits": [],
+    "forbidden_runtime_hits": [],
+    "forbidden_write_hits": [
+      "replace("
+    ],
+    "only_replace_hit": true,
+    "required_shape_ok": true,
+    "likely_false_positive": true,
+    "likely_false_positive_reason": "broad forbidden pattern replace( likely catches datetime.replace(microsecond=0), not file/path mutation"
+  },
+  "scanner_repair_rules": [
+    {
+      "old_rule": "forbid any replace(",
+      "new_rule": "forbid filesystem mutation patterns only: Path.replace, os.replace, .replace(target_path...) when used as file operation",
+      "reason": "datetime.replace(microsecond=0) is safe and should not fail scanner"
+    },
+    {
+      "old_rule": "broad open(",
+      "new_rule": "allow no open() in builder code unless read-only config later; still block write modes w/a/+",
+      "reason": "avoid false positives while keeping write safety"
+    },
+    {
+      "old_rule": "broad sqlite3.connect detector ambiguity",
+      "new_rule": "require ?mode=ro URI and block INSERT/UPDATE/DELETE/CREATE/DROP/ALTER/REPLACE SQL tokens",
+      "reason": "DB write safety should be SQL-intent based"
+    }
+  ],
+  "next_dryrun_scanner": {
+    "forbidden_imports": [
+      "import requests",
+      "from requests",
+      "import aiohttp",
+      "from aiohttp",
+      "import websocket",
+      "import urllib.request",
+      "import http.client",
+      "import socket"
+    ],
+    "forbidden_runtime_calls": [
+      "systemctl",
+      "subprocess.",
+      "os.system",
+      "popen(",
+      "curl ",
+      "wget ",
+      "ssh ",
+      "scp "
+    ],
+    "forbidden_file_mutations": [
+      ".write_text(",
+      ".write_bytes(",
+      "os.remove(",
+      "unlink(",
+      "Path.replace(",
+      "os.replace(",
+      "shutil.",
+      ".rename("
+    ],
+    "forbidden_sql_tokens": [
+      " INSERT ",
+      " UPDATE ",
+      " DELETE ",
+      " CREATE ",
+      " DROP ",
+      " ALTER ",
+      " REPLACE "
+    ],
+    "required_positive_checks": [
+      "?mode=ro",
+      "class PanelDataBuilder",
+      "class PanelQualityValidator",
+      "Writing is disabled",
+      "\"active_panel_apply_enabled\": False",
+      "\"db_write_enabled\": False",
+      "\"network_enabled\": False"
+    ]
+  },
+  "quality_checks": {
+    "previous_data34_review_required": true,
+    "previous_syntax_compile_ok": true,
+    "previous_scan_failed": true,
+    "previous_target_not_written": true,
+    "previous_builder_not_written": true,
+    "previous_active_panel_unchanged": true,
+    "only_replace_false_positive": true,
+    "repaired_scanner_rules_defined": true,
+    "data35_blocked": true,
+    "direct_write_blocked": true,
+    "active_apply_blocked": true
+  },
+  "decision": {
+    "review_result": "SCANNER_FALSE_POSITIVE_REPAIR_PLAN_READY",
+    "do_not_move_to_data35": true,
+    "rerun_data34_with_repaired_scanner": true,
+    "ready_for_direct_code_write": false,
+    "ready_for_active_apply": false,
+    "recommended_next_phase": "DATA34C_PANEL_BUILDER_CODE_WRITE_DRYRUN_REPAIRED_SCANNER_NOAPI"
+  },
+  "scanner_repair_rule_count": 3,
+  "quality_check_count": 11,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "APPENDED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "external_network": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "builder_code_written": false,
+  "target_file_written": false,
+  "panel_data_written": false,
+  "panel_data_file_written": false,
+  "public_copy": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "DATA34C_PANEL_BUILDER_CODE_WRITE_DRYRUN_REPAIRED_SCANNER_NOAPI",
+  "alternate_next_phase": "SCHEMA28_FULL_RADAR_SCHEMA_APPLY_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_DATA34B_PANEL_BUILDER_CODE_WRITE_DRYRUN_SCAN_REPAIR_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/data34b_panel_builder_code_write_dryrun_scan_repair_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

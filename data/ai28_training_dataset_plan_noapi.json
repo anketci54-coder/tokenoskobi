@@ -1,0 +1,298 @@
+{
+  "phase": "AI28_TRAINING_DATASET_PLAN_NOAPI",
+  "stamp": "20260513_140142",
+  "final_gate": "PASS",
+  "action": "AI_TRAINING_DATASET_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "ai_model_training_now": false,
+    "paid_ai_pipeline_now": false,
+    "backend_ai_calls_now": false,
+    "strategy": "plan dataset only; learn later from 30/60/90 day outcomes; no model training now",
+    "blocked_for_mvp": [
+      "paid AI training job",
+      "automatic AI trading decision",
+      "backend mass AI article analysis",
+      "paid feature store service",
+      "new ML server",
+      "live trade AI execution"
+    ],
+    "allowed_for_mvp": [
+      "dataset schema plan",
+      "feature registry plan",
+      "label/outcome plan",
+      "false positive memory plan",
+      "paper outcome learning plan",
+      "weekly manual review support"
+    ]
+  },
+  "learning_targets": [
+    {
+      "target": "NEWS_IMPACT",
+      "question": "Hangi haber gerçekten fiyat/likidite/wallet etkisi üretti?"
+    },
+    {
+      "target": "MACRO_IMPACT",
+      "question": "Hangi makro olay risk-on/risk-off kararını doğru etkiledi?"
+    },
+    {
+      "target": "FLOW_IMPACT",
+      "question": "Para akışı sinyali gerçekten fırsat/risk üretti mi?"
+    },
+    {
+      "target": "WALLET_IMPACT",
+      "question": "Hangi cüzdan hareketi değerli sinyal oldu?"
+    },
+    {
+      "target": "TOKEN_LIFECYCLE",
+      "question": "Hangi lifecycle aşaması small/future star sonucuna gitti?"
+    },
+    {
+      "target": "MORGUE_PATTERN",
+      "question": "Hangi ölüm/rug/fail patternleri erken yakalanabildi?"
+    },
+    {
+      "target": "RISK_ACCURACY",
+      "question": "Risk motoru hangi hard block veya uyarıda doğru/yanlış çıktı?"
+    },
+    {
+      "target": "PAPER_OUTCOME",
+      "question": "Hangi paper planları TP/SL/net PnL açısından başarılı oldu?"
+    },
+    {
+      "target": "MEV_COST",
+      "question": "MEV/slippage/gas tahmini net PnL'i ne kadar etkiledi?"
+    },
+    {
+      "target": "FUSION_DECISION",
+      "question": "Fusion skor bandı gerçek outcome ile ne kadar uyumlu oldu?"
+    }
+  ],
+  "feature_groups": [
+    "source_truth_features",
+    "news_features",
+    "macro_features",
+    "flow_features",
+    "wallet_features",
+    "token_lifecycle_features",
+    "major_coin_regime_features",
+    "risk_features",
+    "morgue_similarity_features",
+    "paper_trade_features",
+    "cost_mev_slippage_features",
+    "fusion_score_features",
+    "time_window_features"
+  ],
+  "label_sets": [
+    "CONFIRMED_OPPORTUNITY",
+    "WEAK_SIGNAL",
+    "FAILED_SIGNAL",
+    "FALSE_POSITIVE",
+    "TRUE_RISK",
+    "MISSED_RISK",
+    "TP1_HIT",
+    "TP2_HIT",
+    "TP3_HIT",
+    "SL_HIT",
+    "NET_PROFIT",
+    "NET_LOSS",
+    "NO_DATA",
+    "TOO_EARLY",
+    "MORGUE_CONFIRMED",
+    "REVIVAL_CONFIRMED"
+  ],
+  "dataset_contract_fields": [
+    "dataset_row_id",
+    "created_at_utc",
+    "source_event_id",
+    "candidate_id",
+    "token_uid",
+    "chain",
+    "asset_symbol",
+    "decision_time_utc",
+    "prediction_horizon",
+    "source_truth_score",
+    "news_impact_score",
+    "macro_score",
+    "flow_score",
+    "wallet_score",
+    "lifecycle_score",
+    "major_coin_regime_score",
+    "risk_score",
+    "mev_slippage_score",
+    "morgue_similarity_score",
+    "paper_readiness_score",
+    "fusion_score",
+    "decision_label",
+    "paper_candidate_allowed",
+    "suggested_position_size_usd",
+    "entry_price",
+    "sl_price",
+    "tp1_price",
+    "tp2_price",
+    "tp3_price",
+    "gas_estimate_usd",
+    "slippage_estimate_usd",
+    "mev_estimate_usd",
+    "outcome_window",
+    "actual_max_profit_pct",
+    "actual_max_drawdown_pct",
+    "actual_hit_tp1",
+    "actual_hit_tp2",
+    "actual_hit_tp3",
+    "actual_hit_sl",
+    "actual_gross_pnl_usd",
+    "actual_total_cost_usd",
+    "actual_net_pnl_usd",
+    "actual_net_pnl_pct",
+    "primary_label",
+    "secondary_labels",
+    "false_positive_flag",
+    "data_quality_status",
+    "is_training_eligible",
+    "is_mock"
+  ],
+  "training_windows": [
+    {
+      "window": "DAY_7",
+      "purpose": "çok erken kalite kontrol, eğitim için zayıf"
+    },
+    {
+      "window": "DAY_30",
+      "purpose": "ilk baseline/false positive inceleme"
+    },
+    {
+      "window": "DAY_60",
+      "purpose": "kalibrasyon ağırlık inceleme"
+    },
+    {
+      "window": "DAY_90",
+      "purpose": "ilk ciddi baseline model/dataset değerlendirme"
+    }
+  ],
+  "quality_rules": [
+    "Mock veri eğitim datasına giremez.",
+    "No-data outcome eğitim için ayrı etiketlenir, başarı/başarısızlık gibi sayılmaz.",
+    "Outcome penceresi dolmadan sonuç kesinleşmiş sayılmaz.",
+    "Paper trade olmayan adaylar da negative/neutral outcome için kayıtlanır.",
+    "False positive açık etiketlenir.",
+    "Hard block sonrası gerçekten rug/risk çıktıysa risk motoru ödüllendirilir.",
+    "Hard block sonrası fırsat kaçtıysa missed opportunity etiketi gerekir.",
+    "AI modeli eğitimden önce feature/label coverage raporu ister.",
+    "Her dataset row kaynak, zaman ve decision_label taşır.",
+    "Gizli/black-box skor yok; açıklanabilir feature kayıtları şart."
+  ],
+  "future_tables_plan": [
+    {
+      "table": "ai_feature_registry",
+      "purpose": "Feature isimleri, açıklamaları ve kaynak modülleri",
+      "apply_now": false
+    },
+    {
+      "table": "ai_training_dataset_rows",
+      "purpose": "Eğitim/kalibrasyon için satır bazlı veri",
+      "apply_now": false
+    },
+    {
+      "table": "ai_label_registry",
+      "purpose": "Outcome/etiket sözlüğü",
+      "apply_now": false
+    },
+    {
+      "table": "ai_outcome_windows",
+      "purpose": "7/30/60/90 gün outcome pencereleri",
+      "apply_now": false
+    },
+    {
+      "table": "ai_false_positive_cases",
+      "purpose": "Yanlış pozitif sinyallerin takibi",
+      "apply_now": false
+    },
+    {
+      "table": "ai_calibration_runs",
+      "purpose": "İleride yapılan kalibrasyon koşuları",
+      "apply_now": false
+    },
+    {
+      "table": "ai_model_audit_reports",
+      "purpose": "Model/dataset denetim raporları",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "AI eğitimi şimdi yok.",
+    "Önce outcome dataset planı ve feature/label registry kilitlenir.",
+    "İlk 30 gün sadece veri kalitesi ve false positive izlenir.",
+    "60 gün sonra kalibrasyon ağırlıkları incelenir.",
+    "90 gün sonra baseline model/dataset değerlendirme yapılabilir.",
+    "Backend içinde pahalı AI API döngüsü yok.",
+    "AI karar vermez; fusion/paper kararını kalibre etmeye yardım eder.",
+    "Yama yok; genel dataset contract ve future table planı var."
+  ],
+  "next_modules": [
+    "PANEL30_STATIC_SHELL_REVIEW_NOAPI",
+    "DATA30_PANEL_BUILDER_PLAN_NOAPI",
+    "SCHEMA28_FULL_RADAR_SCHEMA_APPLY_PLAN_NOAPI",
+    "SOURCE29_LOW_COST_SOURCE_REALITY_CHECK_NOAPI"
+  ],
+  "learning_target_count": 10,
+  "feature_group_count": 13,
+  "label_count": 16,
+  "dataset_contract_field_count": 49,
+  "training_window_count": 4,
+  "quality_rule_count": 10,
+  "future_table_count": 7,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "ai_model_training": false,
+  "backend_ai_calls": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "PANEL30_STATIC_SHELL_REVIEW_NOAPI",
+  "alternate_next_phase": "DATA30_PANEL_BUILDER_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_AI28_TRAINING_DATASET_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/ai28_training_dataset_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

@@ -1,0 +1,1144 @@
+{
+  "phase": "PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI",
+  "started_at": "2026-06-04T19:35:47.452817+00:00",
+  "finished_at": "2026-06-04T19:35:47.502259+00:00",
+  "final_gate": "PASS_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI",
+  "current_state": "REAL_WALLET_BATCH_BUILD_PLAN_READY_WAITING_PUBLIC_WALLET_INPUT",
+  "script_rc": 0,
+  "failed_checks": [],
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "plan_only": true,
+    "live_schema_apply": false,
+    "row_insert_update_delete": false,
+    "live_source_rows_written": 0,
+    "live_wallet_seed_rows_written": 0,
+    "target_batch_created_or_modified": false,
+    "real_wallet_batch_rows_written": 0,
+    "active_panel_write": false,
+    "preview_write": false,
+    "html_css_js_write": false,
+    "asset_write": false,
+    "nginx_or_auth_change": false,
+    "service_restart": false,
+    "timer_change": false,
+    "runner_start": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "token_specific_patch": false,
+    "source_list_written": true,
+    "manual_template_written": true,
+    "instructions_written": true,
+    "build_plan_written": true,
+    "next_stage_plan_written": true,
+    "checklist_may_be_touched_on_pass": true
+  },
+  "before": {
+    "db": {
+      "exists": true,
+      "sha256": "4f1f719f0e424af6531155367caf31fcc9ee901996cdda976d15843bb23be75c",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 280,
+      "known_wallet_table_presence": {
+        "known_wallet_source_registry_v1": true,
+        "known_wallet_seed_queue_v1": true,
+        "known_wallet_quarantine_seed_v1": true,
+        "known_wallet_label_quality_events_v1": true,
+        "known_wallet_label_conflict_events_v1": true,
+        "known_wallet_cex_classification_events_v1": true,
+        "known_wallet_mev_noise_classification_events_v1": true,
+        "known_wallet_shadow_label_events_v1": true,
+        "known_wallet_source_registry_readmodel_v1": true
+      },
+      "known_wallet_table_counts": {
+        "known_wallet_source_registry_v1": 8,
+        "known_wallet_seed_queue_v1": 0,
+        "known_wallet_quarantine_seed_v1": 0,
+        "known_wallet_label_quality_events_v1": 8,
+        "known_wallet_label_conflict_events_v1": 0,
+        "known_wallet_cex_classification_events_v1": 0,
+        "known_wallet_mev_noise_classification_events_v1": 0,
+        "known_wallet_shadow_label_events_v1": 0,
+        "known_wallet_source_registry_readmodel_v1": 0
+      },
+      "known_wallet_index_presence": {
+        "idx_known_wallet_source_registry_tier_status": true,
+        "idx_known_wallet_seed_queue_source_wallet": true,
+        "idx_known_wallet_seed_queue_chain_label": true,
+        "idx_known_wallet_quarantine_source_wallet": true,
+        "idx_known_wallet_label_quality_seed_check": true,
+        "idx_known_wallet_label_conflict_wallet": true,
+        "idx_known_wallet_cex_classification_wallet": true,
+        "idx_known_wallet_mev_noise_wallet": true,
+        "idx_known_wallet_shadow_label_wallet": true,
+        "idx_known_wallet_source_registry_readmodel_chain": true
+      },
+      "source_rows": [
+        {
+          "source_id": "SRC_ARKHAM_LABELS_MANUAL_REVIEW",
+          "source_name": "Arkham Labels Manual Review",
+          "source_type": "external_label_dataset",
+          "trust_tier": "A",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW",
+          "source_name": "Dune Community Datasets Manual Review",
+          "source_type": "community_dataset",
+          "trust_tier": "C",
+          "source_role": "LOW_TRUST_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW",
+          "source_name": "Explorer Public Tags Manual Review",
+          "source_type": "explorer_public_tags",
+          "trust_tier": "B",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+          "source_name": "Internal Reputation Ledger Link",
+          "source_type": "internal_reputation",
+          "trust_tier": "A",
+          "source_role": "INTERNAL_EVIDENCE_LINK",
+          "import_mode": "INTERNAL_LINK_PLAN_ONLY",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+          "source_name": "Manual Operator Confirmed List",
+          "source_type": "manual_operator_seed",
+          "trust_tier": "B",
+          "source_role": "MANUAL_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+          "source_name": "Nansen Labels Manual Review",
+          "source_type": "external_label_dataset",
+          "trust_tier": "A",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+          "source_name": "Official CEX Wallet Lists Manual Review",
+          "source_type": "official_cex_wallet_lists",
+          "trust_tier": "A",
+          "source_role": "CEX_EXEMPTION_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW",
+          "source_name": "Official Treasury Lists Manual Review",
+          "source_type": "official_treasury_wallet_lists",
+          "trust_tier": "A",
+          "source_role": "TREASURY_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      ],
+      "source_ids": [
+        "SRC_ARKHAM_LABELS_MANUAL_REVIEW",
+        "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW",
+        "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW",
+        "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+        "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+        "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+        "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+        "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW"
+      ],
+      "source_count": 8,
+      "source_forbidden_sum": {
+        "api_allowed": 0,
+        "external_network_allowed": 0,
+        "decision_allowed": 0,
+        "hard_deny_allowed": 0,
+        "clean_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase21h2_json_sha256": "72b8c3aa11735f33b00ceb9af2e1f6785b7dcd6970c6bf010faf863e21927bd2",
+    "phase21h3_json_sha256": "029a7c046baa0e1516a0b1f2e49aa10c75d7acb46580de4a1007a02943b96b17",
+    "target_batch_exists_before": false,
+    "target_batch_sha256_before": null,
+    "checklist_sha256": "1ecf4d826eee61f2fe5f798779a2fda1b8510ac96a3d38d7a29ff4691ad0d310"
+  },
+  "after_before_checklist": {
+    "db": {
+      "exists": true,
+      "sha256": "4f1f719f0e424af6531155367caf31fcc9ee901996cdda976d15843bb23be75c",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 280,
+      "known_wallet_table_presence": {
+        "known_wallet_source_registry_v1": true,
+        "known_wallet_seed_queue_v1": true,
+        "known_wallet_quarantine_seed_v1": true,
+        "known_wallet_label_quality_events_v1": true,
+        "known_wallet_label_conflict_events_v1": true,
+        "known_wallet_cex_classification_events_v1": true,
+        "known_wallet_mev_noise_classification_events_v1": true,
+        "known_wallet_shadow_label_events_v1": true,
+        "known_wallet_source_registry_readmodel_v1": true
+      },
+      "known_wallet_table_counts": {
+        "known_wallet_source_registry_v1": 8,
+        "known_wallet_seed_queue_v1": 0,
+        "known_wallet_quarantine_seed_v1": 0,
+        "known_wallet_label_quality_events_v1": 8,
+        "known_wallet_label_conflict_events_v1": 0,
+        "known_wallet_cex_classification_events_v1": 0,
+        "known_wallet_mev_noise_classification_events_v1": 0,
+        "known_wallet_shadow_label_events_v1": 0,
+        "known_wallet_source_registry_readmodel_v1": 0
+      },
+      "known_wallet_index_presence": {
+        "idx_known_wallet_source_registry_tier_status": true,
+        "idx_known_wallet_seed_queue_source_wallet": true,
+        "idx_known_wallet_seed_queue_chain_label": true,
+        "idx_known_wallet_quarantine_source_wallet": true,
+        "idx_known_wallet_label_quality_seed_check": true,
+        "idx_known_wallet_label_conflict_wallet": true,
+        "idx_known_wallet_cex_classification_wallet": true,
+        "idx_known_wallet_mev_noise_wallet": true,
+        "idx_known_wallet_shadow_label_wallet": true,
+        "idx_known_wallet_source_registry_readmodel_chain": true
+      },
+      "source_rows": [
+        {
+          "source_id": "SRC_ARKHAM_LABELS_MANUAL_REVIEW",
+          "source_name": "Arkham Labels Manual Review",
+          "source_type": "external_label_dataset",
+          "trust_tier": "A",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW",
+          "source_name": "Dune Community Datasets Manual Review",
+          "source_type": "community_dataset",
+          "trust_tier": "C",
+          "source_role": "LOW_TRUST_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW",
+          "source_name": "Explorer Public Tags Manual Review",
+          "source_type": "explorer_public_tags",
+          "trust_tier": "B",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+          "source_name": "Internal Reputation Ledger Link",
+          "source_type": "internal_reputation",
+          "trust_tier": "A",
+          "source_role": "INTERNAL_EVIDENCE_LINK",
+          "import_mode": "INTERNAL_LINK_PLAN_ONLY",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+          "source_name": "Manual Operator Confirmed List",
+          "source_type": "manual_operator_seed",
+          "trust_tier": "B",
+          "source_role": "MANUAL_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+          "source_name": "Nansen Labels Manual Review",
+          "source_type": "external_label_dataset",
+          "trust_tier": "A",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+          "source_name": "Official CEX Wallet Lists Manual Review",
+          "source_type": "official_cex_wallet_lists",
+          "trust_tier": "A",
+          "source_role": "CEX_EXEMPTION_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW",
+          "source_name": "Official Treasury Lists Manual Review",
+          "source_type": "official_treasury_wallet_lists",
+          "trust_tier": "A",
+          "source_role": "TREASURY_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      ],
+      "source_ids": [
+        "SRC_ARKHAM_LABELS_MANUAL_REVIEW",
+        "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW",
+        "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW",
+        "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+        "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+        "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+        "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+        "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW"
+      ],
+      "source_count": 8,
+      "source_forbidden_sum": {
+        "api_allowed": 0,
+        "external_network_allowed": 0,
+        "decision_allowed": 0,
+        "hard_deny_allowed": 0,
+        "clean_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase21h2_json_sha256": "72b8c3aa11735f33b00ceb9af2e1f6785b7dcd6970c6bf010faf863e21927bd2",
+    "phase21h3_json_sha256": "029a7c046baa0e1516a0b1f2e49aa10c75d7acb46580de4a1007a02943b96b17",
+    "target_batch_exists_after": false,
+    "target_batch_sha256_after": null,
+    "source_list_sha256": "e4b1dc2b6f477b32c8080347dd85c4376647cffdbca35fb0c364d5f13c2d5301",
+    "manual_batch_template_sha256": "2022f898e994bdfca8a72b6f6d0b9cea715a62a9768552a0025d6163b44516c4",
+    "manual_batch_instructions_sha256": "a6fe8fc3d2072ae1dfd04c96022f8bfc177944f76312e7ee2965780f47d4dcb2",
+    "build_plan_sha256": "baada6829c87c310b3b206adc0fe9d30fca0b389b841f0b96fa46b99a764b1e6",
+    "next_stage_plan_sha256": "5601b7d94ae210002bb91a1dfb766e5bc0c9bfd330a36cbda489920a5e513287",
+    "checklist_sha256_before_optional_write": "1ecf4d826eee61f2fe5f798779a2fda1b8510ac96a3d38d7a29ff4691ad0d310"
+  },
+  "immutability": {
+    "live_db_unchanged_during_plan": true,
+    "active_index_unchanged": true,
+    "handoff_unchanged": true,
+    "phase21h2_json_unchanged": true,
+    "phase21h3_json_unchanged": true,
+    "target_batch_unchanged": true
+  },
+  "live_counts": {
+    "source_count": 8,
+    "quality_count": 8,
+    "live_seed_queue_count": 0,
+    "live_quarantine_count": 0,
+    "live_cex_count": 0,
+    "live_mev_count": 0,
+    "live_shadow_count": 0,
+    "source_forbidden_total": 0
+  },
+  "source_recommendations": [
+    {
+      "lane": "CEX_EXEMPTION_CANDIDATE",
+      "wanted_count": 2,
+      "acceptable_label_types": [
+        "CEX_HOT_WALLET",
+        "CEX_COLD_WALLET",
+        "CEX_DEPOSIT_CLUSTER",
+        "CEX_WITHDRAWAL_CLUSTER"
+      ],
+      "preferred_sources": [
+        "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+        "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW"
+      ],
+      "purpose": "Test CEX exemption without treating CEX as root funder.",
+      "must_keep": {
+        "hard_merge_allowed": 0,
+        "root_funder_allowed": 0,
+        "decision_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      }
+    },
+    {
+      "lane": "TREASURY_OR_FUND_CANDIDATE",
+      "wanted_count": 2,
+      "acceptable_label_types": [
+        "TREASURY_WALLET",
+        "FUND_WALLET"
+      ],
+      "preferred_sources": [
+        "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW",
+        "SRC_ARKHAM_LABELS_MANUAL_REVIEW"
+      ],
+      "purpose": "Test known fund/treasury labels while suppressing inbound-dust buy interpretation.",
+      "must_keep": {
+        "decision_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      }
+    },
+    {
+      "lane": "DEPLOYER_FUNDER_CANDIDATE",
+      "wanted_count": 2,
+      "acceptable_label_types": [
+        "DEPLOYER_FUNDER",
+        "REPEAT_LAUNCHER"
+      ],
+      "preferred_sources": [
+        "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+        "SRC_MANUAL_OPERATOR_CONFIRMED_LIST"
+      ],
+      "purpose": "Test deployer/funder candidate route without hard decision.",
+      "must_keep": {
+        "hard_deny_allowed": 0,
+        "clean_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      }
+    },
+    {
+      "lane": "SCAM_RUG_LINKED_CANDIDATE",
+      "wanted_count": 2,
+      "acceptable_label_types": [
+        "SCAM_RUG_LINKED",
+        "BAD_FUNDER"
+      ],
+      "preferred_sources": [
+        "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+        "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW"
+      ],
+      "purpose": "Test quarantine and shadow label without hard deny.",
+      "must_keep": {
+        "import_blocked": 1,
+        "review_required": 1,
+        "hard_deny_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      }
+    },
+    {
+      "lane": "MEV_NOISE_CANDIDATE",
+      "wanted_count": 2,
+      "acceptable_label_types": [
+        "MEV_BOT",
+        "ARBITRAGE_BOT"
+      ],
+      "preferred_sources": [
+        "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+        "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW"
+      ],
+      "purpose": "Test MEV/noise suppression without investor-whale interpretation.",
+      "must_keep": {
+        "investor_whale_interpretation_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      }
+    },
+    {
+      "lane": "UNKNOWN_NEEDS_TEST",
+      "wanted_count": 2,
+      "acceptable_label_types": [
+        "UNKNOWN",
+        "UNKNOWN_LOW_TRUST"
+      ],
+      "preferred_sources": [
+        "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+        "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW"
+      ],
+      "purpose": "Test unknown wallet review/quarantine flow.",
+      "must_keep": {
+        "import_blocked": 1,
+        "review_required": 1,
+        "decision_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      }
+    }
+  ],
+  "template_rows": [
+    {
+      "seed_uid": "REAL_BNB_MANUAL_001",
+      "source_id": "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+      "chain": "BNB",
+      "wallet_address": "0xREPLACE_WITH_PUBLIC_WALLET_ADDRESS_ONLY",
+      "label_text": "replace_with_public_label_for_cex_exemption_candidate",
+      "label_type": "CEX_HOT_WALLET",
+      "trust_tier": "B",
+      "evidence_note": "Replace with manual public evidence note. Do not include secrets.",
+      "operator_review_status": "APPROVED_FOR_DRYRUN",
+      "source_reference": "Replace with public/manual reference or local note. No API keys.",
+      "expected_lane": "CEX_EXEMPTION_CANDIDATE",
+      "notes": "Test CEX exemption without treating CEX as root funder."
+    },
+    {
+      "seed_uid": "REAL_BNB_MANUAL_002",
+      "source_id": "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW",
+      "chain": "BNB",
+      "wallet_address": "0xREPLACE_WITH_PUBLIC_WALLET_ADDRESS_ONLY",
+      "label_text": "replace_with_public_label_for_treasury_or_fund_candidate",
+      "label_type": "TREASURY_WALLET",
+      "trust_tier": "B",
+      "evidence_note": "Replace with manual public evidence note. Do not include secrets.",
+      "operator_review_status": "APPROVED_FOR_DRYRUN",
+      "source_reference": "Replace with public/manual reference or local note. No API keys.",
+      "expected_lane": "TREASURY_OR_FUND_CANDIDATE",
+      "notes": "Test known fund/treasury labels while suppressing inbound-dust buy interpretation."
+    },
+    {
+      "seed_uid": "REAL_BNB_MANUAL_003",
+      "source_id": "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+      "chain": "BNB",
+      "wallet_address": "0xREPLACE_WITH_PUBLIC_WALLET_ADDRESS_ONLY",
+      "label_text": "replace_with_public_label_for_deployer_funder_candidate",
+      "label_type": "DEPLOYER_FUNDER",
+      "trust_tier": "B",
+      "evidence_note": "Replace with manual public evidence note. Do not include secrets.",
+      "operator_review_status": "APPROVED_FOR_DRYRUN",
+      "source_reference": "Replace with public/manual reference or local note. No API keys.",
+      "expected_lane": "DEPLOYER_FUNDER_CANDIDATE",
+      "notes": "Test deployer/funder candidate route without hard decision."
+    },
+    {
+      "seed_uid": "REAL_BNB_MANUAL_004",
+      "source_id": "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+      "chain": "BNB",
+      "wallet_address": "0xREPLACE_WITH_PUBLIC_WALLET_ADDRESS_ONLY",
+      "label_text": "replace_with_public_label_for_scam_rug_linked_candidate",
+      "label_type": "SCAM_RUG_LINKED",
+      "trust_tier": "B",
+      "evidence_note": "Replace with manual public evidence note. Do not include secrets.",
+      "operator_review_status": "APPROVED_FOR_DRYRUN",
+      "source_reference": "Replace with public/manual reference or local note. No API keys.",
+      "expected_lane": "SCAM_RUG_LINKED_CANDIDATE",
+      "notes": "Test quarantine and shadow label without hard deny."
+    },
+    {
+      "seed_uid": "REAL_BNB_MANUAL_005",
+      "source_id": "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+      "chain": "BNB",
+      "wallet_address": "0xREPLACE_WITH_PUBLIC_WALLET_ADDRESS_ONLY",
+      "label_text": "replace_with_public_label_for_mev_noise_candidate",
+      "label_type": "MEV_BOT",
+      "trust_tier": "B",
+      "evidence_note": "Replace with manual public evidence note. Do not include secrets.",
+      "operator_review_status": "APPROVED_FOR_DRYRUN",
+      "source_reference": "Replace with public/manual reference or local note. No API keys.",
+      "expected_lane": "MEV_NOISE_CANDIDATE",
+      "notes": "Test MEV/noise suppression without investor-whale interpretation."
+    },
+    {
+      "seed_uid": "REAL_BNB_MANUAL_006",
+      "source_id": "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+      "chain": "BNB",
+      "wallet_address": "0xREPLACE_WITH_PUBLIC_WALLET_ADDRESS_ONLY",
+      "label_text": "replace_with_public_label_for_unknown_needs_test",
+      "label_type": "UNKNOWN",
+      "trust_tier": "B",
+      "evidence_note": "Replace with manual public evidence note. Do not include secrets.",
+      "operator_review_status": "APPROVED_FOR_DRYRUN",
+      "source_reference": "Replace with public/manual reference or local note. No API keys.",
+      "expected_lane": "UNKNOWN_NEEDS_TEST",
+      "notes": "Test unknown wallet review/quarantine flow."
+    }
+  ],
+  "real_batch_build_plan": {
+    "phase": "PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI",
+    "created_at_utc": "2026-06-04T19:35:47.478170+00:00",
+    "target_batch_path": "/root/tokenoskobi_clean_v1/data/real_wallet_seed_input_batch_v1.jsonl",
+    "target_batch_currently_exists": false,
+    "target_batch_sha256_before": null,
+    "plan_only": true,
+    "will_create_target_batch_now": false,
+    "reason_no_target_write": "No real public wallet addresses were supplied yet. This phase only prepares the build plan and operator template.",
+    "max_first_batch_rows": 12,
+    "min_first_batch_rows": 1,
+    "recommended_first_batch_shape": [
+      {
+        "lane": "CEX_EXEMPTION_CANDIDATE",
+        "wanted_count": 2,
+        "acceptable_label_types": [
+          "CEX_HOT_WALLET",
+          "CEX_COLD_WALLET",
+          "CEX_DEPOSIT_CLUSTER",
+          "CEX_WITHDRAWAL_CLUSTER"
+        ],
+        "preferred_sources": [
+          "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+          "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW"
+        ],
+        "purpose": "Test CEX exemption without treating CEX as root funder.",
+        "must_keep": {
+          "hard_merge_allowed": 0,
+          "root_funder_allowed": 0,
+          "decision_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      },
+      {
+        "lane": "TREASURY_OR_FUND_CANDIDATE",
+        "wanted_count": 2,
+        "acceptable_label_types": [
+          "TREASURY_WALLET",
+          "FUND_WALLET"
+        ],
+        "preferred_sources": [
+          "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW",
+          "SRC_ARKHAM_LABELS_MANUAL_REVIEW"
+        ],
+        "purpose": "Test known fund/treasury labels while suppressing inbound-dust buy interpretation.",
+        "must_keep": {
+          "decision_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      },
+      {
+        "lane": "DEPLOYER_FUNDER_CANDIDATE",
+        "wanted_count": 2,
+        "acceptable_label_types": [
+          "DEPLOYER_FUNDER",
+          "REPEAT_LAUNCHER"
+        ],
+        "preferred_sources": [
+          "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+          "SRC_MANUAL_OPERATOR_CONFIRMED_LIST"
+        ],
+        "purpose": "Test deployer/funder candidate route without hard decision.",
+        "must_keep": {
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      },
+      {
+        "lane": "SCAM_RUG_LINKED_CANDIDATE",
+        "wanted_count": 2,
+        "acceptable_label_types": [
+          "SCAM_RUG_LINKED",
+          "BAD_FUNDER"
+        ],
+        "preferred_sources": [
+          "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+          "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW"
+        ],
+        "purpose": "Test quarantine and shadow label without hard deny.",
+        "must_keep": {
+          "import_blocked": 1,
+          "review_required": 1,
+          "hard_deny_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      },
+      {
+        "lane": "MEV_NOISE_CANDIDATE",
+        "wanted_count": 2,
+        "acceptable_label_types": [
+          "MEV_BOT",
+          "ARBITRAGE_BOT"
+        ],
+        "preferred_sources": [
+          "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+          "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW"
+        ],
+        "purpose": "Test MEV/noise suppression without investor-whale interpretation.",
+        "must_keep": {
+          "investor_whale_interpretation_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      },
+      {
+        "lane": "UNKNOWN_NEEDS_TEST",
+        "wanted_count": 2,
+        "acceptable_label_types": [
+          "UNKNOWN",
+          "UNKNOWN_LOW_TRUST"
+        ],
+        "preferred_sources": [
+          "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+          "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW"
+        ],
+        "purpose": "Test unknown wallet review/quarantine flow.",
+        "must_keep": {
+          "import_blocked": 1,
+          "review_required": 1,
+          "decision_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      }
+    ],
+    "required_fields": [
+      "seed_uid",
+      "source_id",
+      "chain",
+      "wallet_address",
+      "label_text",
+      "label_type",
+      "trust_tier",
+      "evidence_note",
+      "operator_review_status"
+    ],
+    "accepted_operator_review_status": [
+      "APPROVED_FOR_DRYRUN",
+      "MANUAL_REVIEWED"
+    ],
+    "strict_forbidden": [
+      "private key",
+      "seed phrase",
+      "mnemonic",
+      "API key",
+      "provider secret",
+      "password",
+      "session cookie",
+      "bearer token",
+      "synthetic/test/fake wallet row"
+    ],
+    "safe_public_input_only": true,
+    "next_possible_inputs": [
+      "User supplies 1-12 public wallet addresses with labels.",
+      "Server already has a local manual JSONL file copied to the target path.",
+      "A later NOAPI staging phase builds the target file from a manually prepared local source file."
+    ],
+    "next_phase_after_real_batch_exists": "PHASE21H3_REAL_WALLET_SEED_INPUT_BATCH_DRYRUN_NOAPI",
+    "future_real_phase_after_21h3_pass": "PHASE21I_WALLET_SEED_QUEUE_REAL_AFTER_EXPLICIT_APPROVAL",
+    "future_real_approval_sentence": "PHASE21I wallet seed queue real için onay veriyorum"
+  },
+  "next_stage_plan": {
+    "next_state": "WAIT_FOR_PUBLIC_WALLET_ADDRESSES_OR_LOCAL_BATCH_FILE",
+    "target_batch_path": "/root/tokenoskobi_clean_v1/data/real_wallet_seed_input_batch_v1.jsonl",
+    "template_path": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_manual_real_wallet_batch_template.jsonl",
+    "instructions_path": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_manual_batch_instructions.md",
+    "if_real_batch_ready": "Run PHASE21H3_REAL_WALLET_SEED_INPUT_BATCH_DRYRUN_NOAPI",
+    "if_user_wants_server_to_stage_batch_from_public_addresses": "Run PHASE21H5_REAL_WALLET_SEED_BATCH_STAGE_FROM_MANUAL_INPUT_NOAPI",
+    "phase21i_still_blocked": true,
+    "phase21i_unblock_condition": "21H3 passes with validated_count >= 1 and rejected_count = 0",
+    "approval_sentence_after_unblock": "PHASE21I wallet seed queue real için onay veriyorum"
+  },
+  "paper_live_ok": true,
+  "next_phase": "WAIT_FOR_PUBLIC_WALLET_ADDRESSES_OR_LOCAL_BATCH_FILE",
+  "optional_next_phase": "PHASE21H5_REAL_WALLET_SEED_BATCH_STAGE_FROM_MANUAL_INPUT_NOAPI",
+  "future_dryrun_phase": "PHASE21H3_REAL_WALLET_SEED_INPUT_BATCH_DRYRUN_NOAPI",
+  "future_real_phase": "PHASE21I_WALLET_SEED_QUEUE_REAL_AFTER_EXPLICIT_APPROVAL",
+  "future_real_approval_sentence": "PHASE21I wallet seed queue real için onay veriyorum",
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase21h4_real_wallet_seed_input_batch_build_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_rows.jsonl",
+    "source_list_jsonl": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_allowed_sources.jsonl",
+    "manual_batch_template_jsonl": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_manual_real_wallet_batch_template.jsonl",
+    "manual_batch_instructions_md": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_manual_batch_instructions.md",
+    "build_plan_json": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_build_plan.json",
+    "next_stage_plan_json": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547/phase21h4_real_wallet_seed_input_batch_build_plan_noapi_next_stage_plan.json",
+    "target_batch_path": "/root/tokenoskobi_clean_v1/data/real_wallet_seed_input_batch_v1.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE21H4_REAL_WALLET_SEED_INPUT_BATCH_BUILD_PLAN_NOAPI/20260604_223547"
+  },
+  "after_final": {
+    "db": {
+      "exists": true,
+      "sha256": "4f1f719f0e424af6531155367caf31fcc9ee901996cdda976d15843bb23be75c",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 280,
+      "known_wallet_table_presence": {
+        "known_wallet_source_registry_v1": true,
+        "known_wallet_seed_queue_v1": true,
+        "known_wallet_quarantine_seed_v1": true,
+        "known_wallet_label_quality_events_v1": true,
+        "known_wallet_label_conflict_events_v1": true,
+        "known_wallet_cex_classification_events_v1": true,
+        "known_wallet_mev_noise_classification_events_v1": true,
+        "known_wallet_shadow_label_events_v1": true,
+        "known_wallet_source_registry_readmodel_v1": true
+      },
+      "known_wallet_table_counts": {
+        "known_wallet_source_registry_v1": 8,
+        "known_wallet_seed_queue_v1": 0,
+        "known_wallet_quarantine_seed_v1": 0,
+        "known_wallet_label_quality_events_v1": 8,
+        "known_wallet_label_conflict_events_v1": 0,
+        "known_wallet_cex_classification_events_v1": 0,
+        "known_wallet_mev_noise_classification_events_v1": 0,
+        "known_wallet_shadow_label_events_v1": 0,
+        "known_wallet_source_registry_readmodel_v1": 0
+      },
+      "known_wallet_index_presence": {
+        "idx_known_wallet_source_registry_tier_status": true,
+        "idx_known_wallet_seed_queue_source_wallet": true,
+        "idx_known_wallet_seed_queue_chain_label": true,
+        "idx_known_wallet_quarantine_source_wallet": true,
+        "idx_known_wallet_label_quality_seed_check": true,
+        "idx_known_wallet_label_conflict_wallet": true,
+        "idx_known_wallet_cex_classification_wallet": true,
+        "idx_known_wallet_mev_noise_wallet": true,
+        "idx_known_wallet_shadow_label_wallet": true,
+        "idx_known_wallet_source_registry_readmodel_chain": true
+      },
+      "source_rows": [
+        {
+          "source_id": "SRC_ARKHAM_LABELS_MANUAL_REVIEW",
+          "source_name": "Arkham Labels Manual Review",
+          "source_type": "external_label_dataset",
+          "trust_tier": "A",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW",
+          "source_name": "Dune Community Datasets Manual Review",
+          "source_type": "community_dataset",
+          "trust_tier": "C",
+          "source_role": "LOW_TRUST_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW",
+          "source_name": "Explorer Public Tags Manual Review",
+          "source_type": "explorer_public_tags",
+          "trust_tier": "B",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+          "source_name": "Internal Reputation Ledger Link",
+          "source_type": "internal_reputation",
+          "trust_tier": "A",
+          "source_role": "INTERNAL_EVIDENCE_LINK",
+          "import_mode": "INTERNAL_LINK_PLAN_ONLY",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+          "source_name": "Manual Operator Confirmed List",
+          "source_type": "manual_operator_seed",
+          "trust_tier": "B",
+          "source_role": "MANUAL_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+          "source_name": "Nansen Labels Manual Review",
+          "source_type": "external_label_dataset",
+          "trust_tier": "A",
+          "source_role": "SEED_SIGNAL_NOT_DECISION",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+          "source_name": "Official CEX Wallet Lists Manual Review",
+          "source_type": "official_cex_wallet_lists",
+          "trust_tier": "A",
+          "source_role": "CEX_EXEMPTION_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        },
+        {
+          "source_id": "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW",
+          "source_name": "Official Treasury Lists Manual Review",
+          "source_type": "official_treasury_wallet_lists",
+          "trust_tier": "A",
+          "source_role": "TREASURY_SEED_SIGNAL",
+          "import_mode": "MANUAL_REVIEW_ONLY_NOAPI",
+          "review_status": "PLANNED",
+          "external_label_signal_only": 1,
+          "onchain_behavior_required": 1,
+          "api_allowed": 0,
+          "external_network_allowed": 0,
+          "decision_allowed": 0,
+          "hard_deny_allowed": 0,
+          "clean_allowed": 0,
+          "paper_allowed": 0,
+          "live_allowed": 0
+        }
+      ],
+      "source_ids": [
+        "SRC_ARKHAM_LABELS_MANUAL_REVIEW",
+        "SRC_DUNE_COMMUNITY_DATASETS_MANUAL_REVIEW",
+        "SRC_EXPLORER_PUBLIC_TAGS_MANUAL_REVIEW",
+        "SRC_INTERNAL_REPUTATION_LEDGER_LINK",
+        "SRC_MANUAL_OPERATOR_CONFIRMED_LIST",
+        "SRC_NANSEN_LABELS_MANUAL_REVIEW",
+        "SRC_OFFICIAL_CEX_WALLET_LISTS_MANUAL_REVIEW",
+        "SRC_OFFICIAL_TREASURY_LISTS_MANUAL_REVIEW"
+      ],
+      "source_count": 8,
+      "source_forbidden_sum": {
+        "api_allowed": 0,
+        "external_network_allowed": 0,
+        "decision_allowed": 0,
+        "hard_deny_allowed": 0,
+        "clean_allowed": 0,
+        "paper_allowed": 0,
+        "live_allowed": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "checklist_sha256": "9629418eb785547559531763097e169d78cb177bb336ab24090c0fe7f3ccdbce",
+    "source_list_sha256": "e4b1dc2b6f477b32c8080347dd85c4376647cffdbca35fb0c364d5f13c2d5301",
+    "manual_batch_template_sha256": "2022f898e994bdfca8a72b6f6d0b9cea715a62a9768552a0025d6163b44516c4",
+    "manual_batch_instructions_sha256": "a6fe8fc3d2072ae1dfd04c96022f8bfc177944f76312e7ee2965780f47d4dcb2",
+    "build_plan_sha256": "baada6829c87c310b3b206adc0fe9d30fca0b389b841f0b96fa46b99a764b1e6",
+    "next_stage_plan_sha256": "5601b7d94ae210002bb91a1dfb766e5bc0c9bfd330a36cbda489920a5e513287",
+    "target_batch_exists_final": false,
+    "target_batch_sha256_final": null
+  },
+  "checklist_touched": true
+}

@@ -1,0 +1,406 @@
+{
+  "phase": "COINOSKOBI_VIEW_MODEL_BUILDER_DRYRUN_NOAPI",
+  "stamp": "20260522_110646",
+  "mode": "VIEW_MODEL_BUILDER_DRYRUN_NOAPI",
+  "input_files": {
+    "pipeline_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_one_token_pipeline_sim_noapi.json",
+    "mev_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_sandwich_risk_engine_dryrun_noapi.json",
+    "signal_contract_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_signal_event_contract_dryrun_noapi.json"
+  },
+  "view_model_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_VIEW_MODEL_BUILDER_DRYRUN_NOAPI/20260522_110646/control_dashboard_view_model_dryrun.json",
+  "public_staging_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_VIEW_MODEL_BUILDER_DRYRUN_NOAPI/20260522_110646/control_dashboard_panel_data_staging_dryrun.json",
+  "view_model_sha": "974c56bb2ab701f46c5dce863db33faa324dba954bb38e33e481e6eaa665d483",
+  "public_staging_sha": "7f03ed3408bcc396e618fa3eb618bed4de5c80e292ad75d46bedb7d30d79a3e0",
+  "command_field_checks": {
+    "open_positions": true,
+    "action_history": true,
+    "live_decision": true,
+    "center_scores": true,
+    "paper_summary": true,
+    "sl_tp_status": true,
+    "watchlist": true
+  },
+  "content_checks": {
+    "has_command_center": true,
+    "has_centers_8": true,
+    "has_action_history": true,
+    "has_live_decision": true,
+    "has_center_scores": true,
+    "has_paper_summary": true,
+    "has_sl_tp_status": true,
+    "has_watchlist": true,
+    "has_risk_box": true,
+    "has_signal_strip": true,
+    "no_live_trade": true,
+    "no_paper_execution": true
+  },
+  "view_model": {
+    "schema_version": "control_dashboard_view_model_v1",
+    "phase": "COINOSKOBI_VIEW_MODEL_BUILDER_DRYRUN_NOAPI",
+    "generated_at": "20260522_110646",
+    "mode": "DRYRUN_ONLY",
+    "source": {
+      "pipeline_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_one_token_pipeline_sim_noapi.json",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "symbol": "SIMDEX",
+      "chain": "base"
+    },
+    "command_center": {
+      "open_positions": [],
+      "action_history": [
+        {
+          "order": 1,
+          "action": "Ham veri yakalandı",
+          "source": "DEX_NEW_PAIR_DISCOVERY",
+          "status": "OK",
+          "detail": "SIMDEX yeni pair adayı olarak simüle edildi."
+        },
+        {
+          "order": 2,
+          "action": "Kimlik eşleşti",
+          "source": "entity_identity_events_v1",
+          "status": "OK",
+          "detail": "tok_one_pipeline_sim_1 / pair_one_pipeline_sim_1"
+        },
+        {
+          "order": 3,
+          "action": "Merkez sinyalleri üretildi",
+          "source": "center_signal_events_v1",
+          "status": "OK",
+          "detail": "5 merkez sinyali."
+        },
+        {
+          "order": 4,
+          "action": "MEV / Sandwich kapısı çalıştı",
+          "source": "mev_sandwich_risk_events_v1",
+          "status": "REDUCE_SIZE",
+          "detail": "MEV score 38 / level MEDIUM"
+        },
+        {
+          "order": 5,
+          "action": "Komuta kararı üretildi",
+          "source": "command_decision_events_v1",
+          "status": "ENTRY_SIZE_REDUCE",
+          "detail": "Route ACTIVE_WATCH, paper capital 25.0"
+        }
+      ],
+      "live_decision": {
+        "token_uid": "tok_one_pipeline_sim_1",
+        "pair_uid": "pair_one_pipeline_sim_1",
+        "symbol": "SIMDEX",
+        "chain": "base",
+        "final_score": 63.66,
+        "route": "ACTIVE_WATCH",
+        "decision_type": "ENTRY_SIZE_REDUCE",
+        "mev_gate": "REDUCE_SIZE",
+        "mev_score": 38,
+        "mev_level": "MEDIUM",
+        "decision_label": "Pozisyon küçültülmüş paper izleme",
+        "warnings": [
+          "MEV_MEDIUM",
+          "SLIPPAGE_LIMIT_REQUIRED",
+          "ENTRY_SIZE_REDUCE"
+        ]
+      },
+      "center_scores": [
+        {
+          "key": "identity_score",
+          "label": "Kimlik",
+          "score": 82,
+          "severity": "HIGH"
+        },
+        {
+          "key": "source_score",
+          "label": "Kaynak",
+          "score": 75,
+          "severity": "HIGH"
+        },
+        {
+          "key": "liquidity_score",
+          "label": "Likidite",
+          "score": 68,
+          "severity": "MEDIUM"
+        },
+        {
+          "key": "activity_score",
+          "label": "Aktivite",
+          "score": 72,
+          "severity": "MEDIUM"
+        },
+        {
+          "key": "news_score",
+          "label": "Haber",
+          "score": 46,
+          "severity": "LOW"
+        },
+        {
+          "key": "launch_score",
+          "label": "Launch",
+          "score": 34,
+          "severity": "LOW"
+        },
+        {
+          "key": "wallet_score",
+          "label": "Cüzdan",
+          "score": 41,
+          "severity": "LOW"
+        },
+        {
+          "key": "technical_score",
+          "label": "Teknik",
+          "score": 61,
+          "severity": "MEDIUM"
+        },
+        {
+          "key": "risk_score",
+          "label": "Risk",
+          "score": 62,
+          "severity": "MEDIUM"
+        },
+        {
+          "key": "mev_score",
+          "label": "MEV Güvenliği",
+          "score": 62,
+          "severity": "MEDIUM"
+        },
+        {
+          "key": "lifecycle_score",
+          "label": "Yaşam",
+          "score": 50,
+          "severity": "MEDIUM"
+        }
+      ],
+      "paper_summary": {
+        "paper_status": "PLANNED_SIM",
+        "planned_count": 1,
+        "open_count": 0,
+        "closed_count": 0,
+        "cancelled_count": 0,
+        "capital_usd": 25.0,
+        "live_trade": false,
+        "execution": false
+      },
+      "sl_tp_status": {
+        "entry_mode": "PAPER_ONLY",
+        "capital_usd": 25.0,
+        "sl_pct": -1.5,
+        "tp1_pct": 2.0,
+        "tp2_pct": 4.0,
+        "mev_gate": "REDUCE_SIZE",
+        "entry_size_multiplier": 0.25
+      },
+      "watchlist": [
+        {
+          "token_uid": "tok_one_pipeline_sim_1",
+          "pair_uid": "pair_one_pipeline_sim_1",
+          "symbol": "SIMDEX",
+          "chain": "base",
+          "route": "ACTIVE_WATCH",
+          "decision_type": "ENTRY_SIZE_REDUCE",
+          "final_score": 63.66,
+          "mev_gate": "REDUCE_SIZE",
+          "mev_level": "MEDIUM",
+          "warnings": [
+            "MEV_MEDIUM",
+            "SLIPPAGE_LIMIT_REQUIRED",
+            "ENTRY_SIZE_REDUCE"
+          ],
+          "priority": "MEDIUM"
+        }
+      ],
+      "risk_box": {
+        "mev_gate": "REDUCE_SIZE",
+        "mev_score": 38,
+        "mev_level": "MEDIUM",
+        "hard_combos": [],
+        "warnings": [
+          "MEV_MEDIUM",
+          "SLIPPAGE_LIMIT_REQUIRED",
+          "ENTRY_SIZE_REDUCE"
+        ],
+        "status": "Pozisyon küçült"
+      },
+      "signal_strip": [
+        {
+          "center_key": "onchain",
+          "signal_type": "IDENTITY_AND_LIQUIDITY",
+          "score": 82,
+          "severity": "LOW",
+          "freshness": "FRESH"
+        },
+        {
+          "center_key": "onchain",
+          "signal_type": "ACTIVITY_HEALTH",
+          "score": 72,
+          "severity": "LOW",
+          "freshness": "FRESH"
+        },
+        {
+          "center_key": "technical",
+          "signal_type": "TECHNICAL_ENTRY_CONTEXT",
+          "score": 61,
+          "severity": "INFO",
+          "freshness": "FRESH"
+        },
+        {
+          "center_key": "wallet",
+          "signal_type": "WALLET_PRESSURE_LIGHT",
+          "score": 41,
+          "severity": "INFO",
+          "freshness": "UNKNOWN"
+        },
+        {
+          "center_key": "risk",
+          "signal_type": "MEV_SANDWICH_RISK",
+          "score": 38,
+          "severity": "MEDIUM",
+          "freshness": "FRESH"
+        }
+      ]
+    },
+    "centers": [
+      {
+        "key": "komuta",
+        "label": "Komuta Merkezi",
+        "status": "Simülasyon aktif",
+        "headline": "ENTRY_SIZE_REDUCE",
+        "score": 63.66,
+        "badge": "PAPER"
+      },
+      {
+        "key": "haber",
+        "label": "Haber Akış Merkezi",
+        "status": "Bu simülasyonda kaynak yok",
+        "headline": "Haber bekleniyor",
+        "score": 46,
+        "badge": "NARRATIVE"
+      },
+      {
+        "key": "onchain",
+        "label": "On-Chain Veri Merkezi",
+        "status": "Kimlik ve likidite simüle edildi",
+        "headline": "Identity OK",
+        "score": 82,
+        "badge": "ONCHAIN"
+      },
+      {
+        "key": "balina",
+        "label": "Balina Takip Merkezi",
+        "status": "Hafif cüzdan baskısı",
+        "headline": "Wallet light",
+        "score": 41,
+        "badge": "WALLET"
+      },
+      {
+        "key": "teknik",
+        "label": "Teknik Analiz Merkezi",
+        "status": "Nötr-pozitif simülasyon",
+        "headline": "Technical watch",
+        "score": 61,
+        "badge": "TA"
+      },
+      {
+        "key": "risk",
+        "label": "Risk & Güvenlik Merkezi",
+        "status": "Pozisyon küçült",
+        "headline": "MEV REDUCE_SIZE",
+        "score": 62,
+        "badge": "RISK"
+      },
+      {
+        "key": "yasam",
+        "label": "Yaşam Destek Merkezi",
+        "status": "Outcome placeholder hazır",
+        "headline": "Memory ready",
+        "score": 50,
+        "badge": "MEMORY"
+      },
+      {
+        "key": "sistem",
+        "label": "Sistem Kontrol Merkezi",
+        "status": "NoAPI dry-run",
+        "headline": "Live kapalı",
+        "score": 100,
+        "badge": "SYSTEM"
+      }
+    ],
+    "layout_contract": {
+      "left_nav_centers": [
+        "komuta",
+        "haber",
+        "onchain",
+        "balina",
+        "teknik",
+        "risk",
+        "yasam",
+        "sistem"
+      ],
+      "command_required_fields": [
+        "open_positions",
+        "action_history",
+        "live_decision",
+        "center_scores",
+        "paper_summary",
+        "sl_tp_status",
+        "watchlist"
+      ],
+      "visible_cards": [
+        "live_decision",
+        "center_scores",
+        "paper_summary",
+        "sl_tp_status",
+        "watchlist",
+        "risk_box",
+        "action_history"
+      ]
+    },
+    "system": {
+      "live_trade": false,
+      "paper_execution": false,
+      "api_calls": 0,
+      "panel_write": false,
+      "db_write": false
+    }
+  },
+  "live_counts_before": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "live_counts_after": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "live_db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "active_panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_VIEW_MODEL_BUILDER_TEMP_DB_EVENT_DRYRUN_NOAPI"
+}

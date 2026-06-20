@@ -1,0 +1,280 @@
+{
+  "phase": "PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "started_utc": "2026-05-28T19:52:48.289940+00:00",
+  "finished_utc": "2026-05-28T19:52:49.407121+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_TARGET2_DEPLOYER_DISCOVERY_REVIEW_NOAPI",
+  "prev_checks": {
+    "prev_json_exists": true,
+    "prev_json_path": "/root/tokenoskobi_clean_v1/data/phase3_target2_deployer_source_plan_noapi.json",
+    "prev_json_load_ok": true,
+    "prev_gate_pass": true,
+    "prev_final_gate": "PASS_PHASE3_TARGET2_DEPLOYER_SOURCE_PLAN_NOAPI",
+    "prev_next_phase": "PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "prev_approval_phrase": "PHASE3_TARGET2 deployer discovery real için onay veriyorum",
+    "prev_provider_plan_class": "TARGET2_DEPLOYER_SOURCE_RPC_FIRST_PLAN",
+    "prev_primary_source_present": true,
+    "prev_fallback_source_present": true
+  },
+  "target2": {
+    "token_uid": "tok_0e7ca8312d0054f728e57329",
+    "pair_uid": "pair_72f07696bc1236c057f3ce92",
+    "chain": "bnb",
+    "chain_id": null,
+    "token_address": "0x76a797a59ba2c17726896976b7b3747bfd1d220f",
+    "pair_address": "0x43beb5b09ac912c4288db731fe7c30507e252c2a",
+    "symbol_or_name": "TONCOIN",
+    "selection_score": 95,
+    "selection_reasons": [
+      "TOKEN_UID_PRESENT",
+      "TOKEN_ADDRESS_OK",
+      "PAIR_UID_PRESENT",
+      "PAIR_ADDRESS_OK",
+      "CHAIN_PRESENT",
+      "BNB_LIKE_CHAIN",
+      "PAIR_JOIN_SOURCE"
+    ]
+  },
+  "target_shape": {
+    "token_uid_present": true,
+    "pair_uid_present": true,
+    "chain": "bnb",
+    "chain_is_bnb_like": true,
+    "token_address_shape_ok": true,
+    "pair_address_shape_ok": true
+  },
+  "discovery": {
+    "target2": {
+      "token_uid": "tok_0e7ca8312d0054f728e57329",
+      "pair_uid": "pair_72f07696bc1236c057f3ce92",
+      "chain": "bnb",
+      "chain_id": null,
+      "token_address": "0x76a797a59ba2c17726896976b7b3747bfd1d220f",
+      "pair_address": "0x43beb5b09ac912c4288db731fe7c30507e252c2a",
+      "symbol_or_name": "TONCOIN",
+      "selection_score": 95,
+      "selection_reasons": [
+        "TOKEN_UID_PRESENT",
+        "TOKEN_ADDRESS_OK",
+        "PAIR_UID_PRESENT",
+        "PAIR_ADDRESS_OK",
+        "CHAIN_PRESENT",
+        "BNB_LIKE_CHAIN",
+        "PAIR_JOIN_SOURCE"
+      ]
+    },
+    "rpc_sources_sanitized": {
+      "primary": {
+        "path": "/root/tokenoskobi_clean_v1/.secrets/alchemy_bnb.env",
+        "key": "ALCHEMY_BNB_RPC_URL",
+        "role": "primary_code_block_tx_receipt_provider",
+        "present": true,
+        "url_shape_ok": true,
+        "url_masked": "https://bnb-***.g.alchemy.com/***",
+        "url_sha256": "a7116b7ae0195f2fd1f2c84e0cf909855d705cc15333822826a2aeefaa8c3014",
+        "secret_printed": false
+      },
+      "fallback": {
+        "path": "/root/tokenoskobi_clean_v1/.secrets/bsctrace_nodereal.env",
+        "key": "BSCTRACE_RPC_URL",
+        "role": "fallback_getlogs_provider",
+        "present": true,
+        "url_shape_ok": true,
+        "url_masked": "https://bsc-***.nodereal.io/***",
+        "url_sha256": "1b50580867c5a11c43f939739b1a7f9f5f0685c4357b6b39959ffefc976bfb08",
+        "secret_printed": false
+      }
+    },
+    "rpc_summary": {
+      "rpc_calls_made": 6,
+      "rpc_hard_max": 12,
+      "rpc_preferred_max": 10,
+      "rpc_call_budget_ok": true,
+      "scan_api_calls_made": 0,
+      "bscscan_loop_used": false,
+      "alchemy_getlogs_used": false,
+      "nodereal_getlogs_used": true
+    },
+    "evidence": {
+      "code_exists": true,
+      "code_hash": "a15b7422c41e09e981a76937a838a31d2fc281f061f244c4e75b919b82198000",
+      "latest_block": 100981812,
+      "latest_block_hex": "0x604dc34",
+      "windows": [
+        {
+          "label": "target2_zero_transfer_latest_minus_512",
+          "from": "0x604da34",
+          "to": "0x604dc34",
+          "width": 512
+        },
+        {
+          "label": "target2_zero_transfer_latest_minus_2048",
+          "from": "0x604d434",
+          "to": "0x604dc34",
+          "width": 2048
+        },
+        {
+          "label": "target2_zero_transfer_latest_minus_8192",
+          "from": "0x604bc34",
+          "to": "0x604dc34",
+          "width": 8192
+        },
+        {
+          "label": "target2_zero_transfer_latest_minus_32768",
+          "from": "0x6045c34",
+          "to": "0x604dc34",
+          "width": 32768
+        }
+      ],
+      "getlogs_ok_count": 4,
+      "getlogs_error_count": 0,
+      "getlogs_result_total": 0,
+      "candidate_logs_dedup_count": 0,
+      "zero_transfer_candidate_found": false,
+      "zero_transfer_tx_hash": null,
+      "zero_transfer_block": null,
+      "zero_transfer_log_index": null,
+      "receipt_contract_address": null,
+      "tx_from": null,
+      "tx_to": null,
+      "direct_contract_creation_match": false,
+      "provider_error_classes_seen": {},
+      "http_status_seen": {
+        "200": 6
+      }
+    },
+    "classification": {
+      "discovery_status": "NO_ZERO_TRANSFER_IN_BOUNDED_WINDOWS",
+      "deployer_status": "UNRESOLVED",
+      "token_state": "RAW_CANDIDATE_DEPLOYER_UNRESOLVED_REVIEW_REQUIRED",
+      "classification_reason": "Bounded windows returned no zero-address Transfer candidate; this is not full historical no-deployer proof.",
+      "watchlist_allowed": false,
+      "paper_allowed": false,
+      "clean_risk_allowed": false,
+      "panel_promotion_allowed": false,
+      "holder_distribution_allowed": false,
+      "lp_allowed": false,
+      "sellability_allowed": false,
+      "score_allowed": false,
+      "ordinary_transfer_used_as_deployer": false,
+      "empty_window_used_as_no_deployer": false,
+      "full_historical_deployer_proof": false
+    },
+    "next_recommended_phase": "PHASE3_TARGET2_DEPLOYER_DISCOVERY_REVIEW_NOAPI"
+  },
+  "phase3_gate": {
+    "target2_deployer_status": "UNRESOLVED",
+    "target2_token_state": "RAW_CANDIDATE_DEPLOYER_UNRESOLVED_REVIEW_REQUIRED",
+    "watchlist_allowed": false,
+    "paper_allowed": false,
+    "clean_risk_allowed": false,
+    "panel_promotion_allowed": false,
+    "holder_distribution_allowed": false,
+    "lp_allowed": false,
+    "sellability_allowed": false,
+    "score_allowed": false
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "system_events_count": 18,
+    "validation_runs_count": 18,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "explicit_approval_matched": true,
+    "previous_plan_confirmed": true,
+    "rpc_calls_made": 6,
+    "rpc_hard_max": 12,
+    "rpc_call_budget_ok": true,
+    "scan_api_calls_made": 0,
+    "bscscan_loop_used": false,
+    "alchemy_getlogs_used": false,
+    "external_rpc_calls_by_script": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "secret_urls_masked_only": true,
+    "raw_archive_only": true,
+    "watchlist_opened": false,
+    "paper_opened": false,
+    "clean_risk_opened": false,
+    "panel_promotion_opened": false,
+    "holder_lp_pipeline_advanced": false,
+    "sellability_pipeline_advanced": false,
+    "score_pipeline_advanced": false,
+    "ordinary_transfer_used_as_deployer": false,
+    "empty_window_used_as_no_deployer": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "report_write": true,
+    "json_write": true,
+    "raw_archive_write": true,
+    "work_dir_write": true,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "675ccd1066ba4c8e2e83a20cf468012b99ba6168de8a27689d4505b6f8214329",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "675ccd1066ba4c8e2e83a20cf468012b99ba6168de8a27689d4505b6f8214329",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_target2_deployer_discovery_real_after_explicit_approval.json",
+    "discovery_json": "/root/tokenoskobi_clean_v1/_PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL/20260528_225248/target2_deployer_discovery_result.json",
+    "raw_archive_sanitized": "/root/tokenoskobi_clean_v1/_PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL/20260528_225248/target2_deployer_discovery_raw_sanitized.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE3_TARGET2_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL/20260528_225248"
+  }
+}

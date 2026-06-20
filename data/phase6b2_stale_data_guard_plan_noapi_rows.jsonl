@@ -1,0 +1,57 @@
+{"blocks_rule": "evidence_age_blocks <= fresh_after_blocks", "can_grant_paper_live": false, "decision_effect": "State can support read-model summary only.", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_permission_effect": "NO_TRADE_PERMISSION_BUT_STATE_CAN_BE_USED_FOR_REVIEW", "row_type": "stale_status", "seconds_rule": "evidence_age_seconds <= fresh_after_seconds", "stale_status": "FRESH"}
+{"blocks_rule": "fresh_after_blocks < evidence_age_blocks <= stale_after_blocks", "can_grant_paper_live": false, "decision_effect": "Show caution; require recheck before any future route review.", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_permission_effect": "NO_TRADE_PERMISSION_RECHECK_REQUIRED", "row_type": "stale_status", "seconds_rule": "fresh_after_seconds < evidence_age_seconds <= stale_after_seconds", "stale_status": "AGING"}
+{"blocks_rule": "evidence_age_blocks > stale_after_blocks", "can_grant_paper_live": false, "decision_effect": "Degrade to WAIT_MORE_DATA / STALE_EVIDENCE.", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_permission_effect": "BLOCK", "row_type": "stale_status", "seconds_rule": "evidence_age_seconds > stale_after_seconds", "stale_status": "STALE"}
+{"blocks_rule": "evidence_age_blocks > expired_after_blocks", "can_grant_paper_live": false, "decision_effect": "Discard from decision binding until refreshed.", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_permission_effect": "BLOCK", "row_type": "stale_status", "seconds_rule": "evidence_age_seconds > expired_after_seconds", "stale_status": "EXPIRED"}
+{"blocks_rule": "last_updated_block is NULL or current_block is NULL", "can_grant_paper_live": false, "decision_effect": "Unknown freshness cannot produce route permission.", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_permission_effect": "BLOCK", "row_type": "stale_status", "seconds_rule": "last_updated_timestamp is NULL or current_timestamp is NULL", "stale_status": "UNKNOWN"}
+{"expired_after_blocks": 3000000, "expired_after_seconds": 7776000, "fresh_after_blocks": 200000, "fresh_after_seconds": 604800, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Creation proof is historical; can age slower but still must be traceable.", "row_type": "source_class", "source_class": "creation_receipt_evidence", "stale_after_blocks": 1000000, "stale_after_seconds": 2592000}
+{"expired_after_blocks": 24000, "expired_after_seconds": 72000, "fresh_after_blocks": 1200, "fresh_after_seconds": 3600, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Holder concentration can change quickly.", "row_type": "source_class", "source_class": "holder_distribution_evidence", "stale_after_blocks": 6000, "stale_after_seconds": 18000}
+{"expired_after_blocks": 1800, "expired_after_seconds": 5400, "fresh_after_blocks": 100, "fresh_after_seconds": 300, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Liquidity and exit depth are time-sensitive.", "row_type": "source_class", "source_class": "liquidity_evidence", "stale_after_blocks": 600, "stale_after_seconds": 1800}
+{"expired_after_blocks": 300, "expired_after_seconds": 900, "fresh_after_blocks": 20, "fresh_after_seconds": 60, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Sell route can switch quickly; stale sell-route cannot grant route review.", "row_type": "source_class", "source_class": "sell_route_evidence", "stale_after_blocks": 100, "stale_after_seconds": 300}
+{"expired_after_blocks": 300, "expired_after_seconds": 900, "fresh_after_blocks": 20, "fresh_after_seconds": 60, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Slippage/tax/price impact are highly time-sensitive.", "row_type": "source_class", "source_class": "execution_safety_evidence", "stale_after_blocks": 100, "stale_after_seconds": 300}
+{"expired_after_blocks": 1800, "expired_after_seconds": 5400, "fresh_after_blocks": 100, "fresh_after_seconds": 300, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "DEX microstructure signal decays quickly.", "row_type": "source_class", "source_class": "dex_microstructure_technical_evidence", "stale_after_blocks": 600, "stale_after_seconds": 1800}
+{"expired_after_blocks": 60, "expired_after_seconds": 180, "fresh_after_blocks": 5, "fresh_after_seconds": 15, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Emergency triggers must be processed immediately in future runtime.", "row_type": "source_class", "source_class": "emergency_monitor_trigger", "stale_after_blocks": 20, "stale_after_seconds": 60}
+{"expired_after_blocks": 3000000, "expired_after_seconds": 7776000, "fresh_after_blocks": 200000, "fresh_after_seconds": 604800, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "reason": "Memory is slow-moving but source freshness must still be visible.", "row_type": "source_class", "source_class": "negative_memory_evidence", "stale_after_blocks": 1000000, "stale_after_seconds": 2592000}
+{"decision_label_effect": "ALLOW_READMODEL_SUMMARY_ONLY", "input_stale_status": "FRESH", "paper_live_effect": "BLOCKED", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_effect": "NO_TRADE_PERMISSION", "row_type": "decision_effect"}
+{"decision_label_effect": "WAIT_MORE_DATA_OR_RECHECK_REQUIRED", "input_stale_status": "AGING", "paper_live_effect": "BLOCKED", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"decision_label_effect": "STALE_EVIDENCE", "input_stale_status": "STALE", "paper_live_effect": "BLOCKED", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"decision_label_effect": "WAIT_MORE_DATA", "input_stale_status": "EXPIRED", "paper_live_effect": "BLOCKED", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"decision_label_effect": "WAIT_MORE_DATA", "input_stale_status": "UNKNOWN", "paper_live_effect": "BLOCKED", "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"check": "phase6_json_exists", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6a_json_exists", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_json_exists", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_report_exists", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_rows_exists", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6_dependency_ok", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6a_dependency_ok", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_dependency_ok", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_expected", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_expected", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_expected", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "policy_sha_match", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_ok", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "stale_status_count_5", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "freshness_field_count_ge_12", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "source_class_count_8", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "decision_effect_count_5", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "dual_clock_guard_count_5", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_binding_count_4", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_non_fresh_block_or_recheck", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "unknown_blocks_route", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "expired_blocks_route", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "stale_degrades_to_stale_evidence", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sell_route_short_freshness", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_short_freshness", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "stale_status_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "freshness_field_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "source_class_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "decision_effect_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "block_wall_clock_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_binding_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "threshold_plan_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_rows_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "future_schema_sql_written", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_noapi_clean", "passed": true, "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI", "row_type": "pass_condition"}

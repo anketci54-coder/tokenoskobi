@@ -1,0 +1,348 @@
+{
+  "phase": "PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI",
+  "started_utc": "2026-05-28T18:19:01.275865+00:00",
+  "finished_utc": "2026-05-28T18:19:01.374944+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_EVIDENCE3P_RPC_PROVIDER_FALLBACK_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+  "next_real_phase": "PHASE3_EVIDENCE3P_RPC_PROVIDER_FALLBACK_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+  "approval_phrase": "PHASE3_EVIDENCE3P rpc provider fallback smoke real için onay veriyorum",
+  "target_from_previous_json": {
+    "token_name": "币安好友",
+    "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+    "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+    "chain": "bnb",
+    "chain_id": 56,
+    "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+    "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b"
+  },
+  "target_shape": {
+    "token_address_present": true,
+    "pair_address_present": true,
+    "token_address_shape_ok": true,
+    "pair_address_shape_ok": true,
+    "chain_present": true,
+    "chain_id_present": true
+  },
+  "prev_3n_checks": {
+    "prev_3n_json_exists": true,
+    "prev_3n_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3n_getlogs_repair_smoke_real_after_explicit_approval.json",
+    "prev_3n_json_load_ok": true,
+    "prev_3n_gate_pass": true,
+    "prev_3n_final_gate": "PASS_PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL",
+    "prev_3n_next_phase": "PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI",
+    "prev_3n_classification": "GETLOGS_PROVIDER_POLICY_BLOCKED",
+    "prev_3n_any_getlogs_ok": false,
+    "prev_3n_any_getlogs_http400": true,
+    "prev_3n_provider_error_classes_seen": {
+      "RANGE_LIMIT_OR_RANGE_POLICY": 3
+    },
+    "prev_3n_rpc_calls_made": 4,
+    "prev_3n_primary_rpc_key": "ALCHEMY_BNB_RPC_URL",
+    "prev_3n_primary_rpc_source_path": "/root/tokenoskobi_clean_v1/.secrets/alchemy_bnb.env"
+  },
+  "prev_3k1_checks": {
+    "prev_3k1_json_exists": true,
+    "prev_3k1_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3k1_rpc_config_source_review_noapi.json",
+    "prev_3k1_json_load_ok": true,
+    "prev_3k1_gate_pass": true,
+    "prev_3k1_final_gate": "PASS_PHASE3_EVIDENCE3K1_RPC_CONFIG_SOURCE_REVIEW_NOAPI",
+    "prev_3k1_config_decision": "SUPPORTED_RPC_CONFIG_SOURCE_FOUND",
+    "prev_3k1_candidate_count": 2,
+    "prev_3k1_unsupported_candidate_count": 1
+  },
+  "fallback_candidate_count": 1,
+  "fallback_decision": "FALLBACK_PROVIDER_CANDIDATE_FOUND_PLAN_3P_SMOKE",
+  "fallback_plan": {
+    "plan_mode": "NOAPI_PLAN_ONLY",
+    "current_phase_rpc_calls": 0,
+    "fallback_decision": "FALLBACK_PROVIDER_CANDIDATE_FOUND_PLAN_3P_SMOKE",
+    "primary_provider_policy": {
+      "provider_role": "PRIMARY_NON_LOG_RPC_PROVIDER",
+      "source_key": "ALCHEMY_BNB_RPC_URL",
+      "source_path": "/root/tokenoskobi_clean_v1/.secrets/alchemy_bnb.env",
+      "status": "KEEP_FOR_CODE_BLOCK_RECEIPT_IF_NEEDED",
+      "reason": "Alchemy BNB worked for blockNumber/code path, but getLogs smoke was provider-policy blocked.",
+      "allowed_future_methods": [
+        "eth_blockNumber",
+        "eth_getCode",
+        "eth_getTransactionReceipt",
+        "eth_getTransactionByHash",
+        "eth_getBlockByNumber"
+      ],
+      "blocked_future_methods_until_repair": [
+        "eth_getLogs"
+      ]
+    },
+    "fallback_candidates_sanitized": [
+      {
+        "source_type": "SECRET_FILE",
+        "source_path": "/root/tokenoskobi_clean_v1/.secrets/bsctrace_nodereal.env",
+        "key": "BSCTRACE_RPC_URL",
+        "key_supported_by_primary_3k": false,
+        "likely_chain": "bnb_or_bsc_likely",
+        "url_masked": "https://bsc-***.nodereal.io/***",
+        "url_sha256": "1b50580867c5a11c43f939739b1a7f9f5f0685c4357b6b39959ffefc976bfb08",
+        "value_printed": false,
+        "candidate_role": "FALLBACK_GETLOGS_PROVIDER_CANDIDATE"
+      }
+    ],
+    "preferred_fallback_sanitized": {
+      "source_type": "SECRET_FILE",
+      "source_path": "/root/tokenoskobi_clean_v1/.secrets/bsctrace_nodereal.env",
+      "key": "BSCTRACE_RPC_URL",
+      "key_supported_by_primary_3k": false,
+      "likely_chain": "bnb_or_bsc_likely",
+      "url_masked": "https://bsc-***.nodereal.io/***",
+      "url_sha256": "1b50580867c5a11c43f939739b1a7f9f5f0685c4357b6b39959ffefc976bfb08",
+      "value_printed": false,
+      "candidate_role": "FALLBACK_GETLOGS_PROVIDER_CANDIDATE"
+    },
+    "next_real_phase": "PHASE3_EVIDENCE3P_RPC_PROVIDER_FALLBACK_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+    "approval_phrase": "PHASE3_EVIDENCE3P rpc provider fallback smoke real için onay veriyorum",
+    "reason_for_fallback": {
+      "primary_provider": "Alchemy BNB",
+      "primary_getlogs_status": "GETLOGS_PROVIDER_POLICY_BLOCKED",
+      "primary_any_getlogs_ok": false,
+      "primary_any_getlogs_http400": true,
+      "primary_provider_error_classes_seen": {
+        "RANGE_LIMIT_OR_RANGE_POLICY": 3
+      },
+      "deployer_absence_not_proven": true
+    },
+    "hard_boundaries": {
+      "do_not_retry_alchemy_getlogs_same_strategy": true,
+      "do_not_scan_from_genesis": true,
+      "do_not_expand_random_range": true,
+      "do_not_use_topicless_pair_wide_query": true,
+      "do_not_make_token_specific_patch": true,
+      "fallback_provider_is_getlogs_smoke_only": true,
+      "full_deployer_discovery_in_3p": false,
+      "no_db_write": true,
+      "no_panel_write": true,
+      "no_paper_live": true,
+      "no_router_quote": true,
+      "no_gas_estimate": true,
+      "no_swap": true
+    },
+    "future_3p_call_budget": {
+      "hard_max_rpc_calls": 8,
+      "preferred_max_rpc_calls": 6,
+      "purpose": "fallback provider getLogs smoke only, not full deployer discovery",
+      "stop_on_first_provider_policy_error": true,
+      "stop_if_blockNumber_fails": true
+    },
+    "future_3p_provider_smoke_steps": [
+      {
+        "step": 1,
+        "provider_role": "fallback_getlogs_provider",
+        "method": "eth_blockNumber",
+        "max_calls": 1,
+        "purpose": "Check fallback provider health.",
+        "success_meaning": "FALLBACK_PROVIDER_HEALTH_OK",
+        "failure_meaning": "FALLBACK_PROVIDER_HEALTH_FAILED"
+      },
+      {
+        "step": 2,
+        "provider_role": "fallback_getlogs_provider",
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.token_address_from_previous_json>",
+          "fromBlock": "latest-32",
+          "toBlock": "latest",
+          "topics": [
+            "Transfer(address,address,uint256) topic0 only"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Check if fallback provider accepts token Transfer tiny-window logs.",
+        "success_meaning": "FALLBACK_TOKEN_TRANSFER_GETLOGS_ACCEPTED",
+        "failure_meaning": "FALLBACK_TOKEN_TRANSFER_GETLOGS_BLOCKED"
+      },
+      {
+        "step": 3,
+        "provider_role": "fallback_getlogs_provider",
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.token_address_from_previous_json>",
+          "fromBlock": "latest-32",
+          "toBlock": "latest",
+          "topics": [
+            "Transfer(address,address,uint256) topic0",
+            "zero-address topic"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Check if fallback accepts zero-address Transfer tiny-window filter. Not full deployer search.",
+        "success_meaning": "FALLBACK_ZERO_TRANSFER_FILTER_ACCEPTED",
+        "failure_meaning": "FALLBACK_ZERO_TRANSFER_FILTER_BLOCKED"
+      },
+      {
+        "step": 4,
+        "provider_role": "fallback_getlogs_provider",
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.pair_address_from_previous_json>",
+          "fromBlock": "latest-32",
+          "toBlock": "latest",
+          "topics": [
+            "Pair Sync topic0 only"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Check pair topic-filter logs without topicless broad query.",
+        "success_meaning": "FALLBACK_PAIR_SYNC_GETLOGS_ACCEPTED",
+        "failure_meaning": "FALLBACK_PAIR_SYNC_GETLOGS_BLOCKED"
+      },
+      {
+        "step": 5,
+        "provider_role": "fallback_getlogs_provider",
+        "method": "eth_getLogs",
+        "condition": "only if step 2 accepted",
+        "filter_template": {
+          "address": "<target.token_address_from_previous_json>",
+          "fromBlock": "latest-512",
+          "toBlock": "latest",
+          "topics": [
+            "Transfer(address,address,uint256) topic0 only"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Check slightly larger but still small window after tiny acceptance.",
+        "success_meaning": "FALLBACK_SMALL_RANGE_ACCEPTED",
+        "failure_meaning": "FALLBACK_RANGE_LIMIT_FOUND"
+      }
+    ],
+    "classification_policy_for_3p": {
+      "FALLBACK_GETLOGS_SMOKE_OK": {
+        "requirements": [
+          "fallback eth_blockNumber ok",
+          "at least one fallback eth_getLogs smoke call ok"
+        ],
+        "result": "fallback provider can support later bounded deployer log discovery plan",
+        "next_plan": "PHASE3_EVIDENCE3Q_BOUNDED_DEPLOYER_LOG_DISCOVERY_PLAN_NOAPI",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST",
+        "watchlist_allowed": false,
+        "paper_allowed": false,
+        "clean_risk_allowed": false
+      },
+      "FALLBACK_GETLOGS_BLOCKED": {
+        "requirements": [
+          "fallback eth_blockNumber ok",
+          "all fallback eth_getLogs smoke calls blocked or 400"
+        ],
+        "result": "fallback provider does not solve log access; keep ghost and plan explorer/non-log fallback review",
+        "next_plan": "PHASE3_EVIDENCE3Q_EXPLORER_OR_ARCHIVE_FALLBACK_PLAN_NOAPI",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST"
+      },
+      "FALLBACK_PROVIDER_HEALTH_FAILED": {
+        "requirements": [
+          "fallback eth_blockNumber fails"
+        ],
+        "result": "fallback provider unavailable; do not use without config/provider health repair",
+        "next_plan": "PHASE3_EVIDENCE3P1_RPC_PROVIDER_FALLBACK_CONFIG_SOURCE_REVIEW_NOAPI",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST"
+      }
+    },
+    "provider_role_matrix": {
+      "alchemy_bnb": {
+        "role": "primary_non_log_rpc",
+        "getLogs": "blocked_by_policy_in_3N",
+        "allowed": [
+          "blockNumber",
+          "getCode",
+          "receipt/tx/block context if needed"
+        ]
+      },
+      "fallback_candidate": {
+        "role": "log_provider_candidate",
+        "getLogs": "must pass 3P smoke before any bounded deployer discovery",
+        "allowed_now": "none_in_3O_plan_only"
+      }
+    }
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_evidence3o_rpc_provider_fallback_plan_noapi.json"
+  }
+}

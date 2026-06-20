@@ -1,0 +1,58 @@
+{
+  "phase": "COINOSKOBI_DOMAIN_ROLE_AND_DEPLOY_PLAN_NOAPI",
+  "stamp": "20260521_094649",
+  "mode": "NOAPI_PLAN_ONLY",
+  "current_baseline": {
+    "name": "ACTIVE_8096_PRODUCTION_V2_CONTROL_CENTER",
+    "active_url": "http://159.195.74.132:8096/",
+    "baseline_latest": "/root/tokenoskobi_clean_v1/baselines/ACTIVE_8096_PRODUCTION_V2_CURRENT",
+    "baseline_json": "/root/tokenoskobi_clean_v1/data/active_8096_production_v2_baseline_lock_noapi.json",
+    "active_index_sha": "6983f94e7a5a2465bfe914adfa7b148d3de31b58b6efa2ce95b5e9e182eb9691",
+    "active_data_sha": "a0a4e45466000bd7358b471a6724797216321a5cf8af6e062a0bb2976b13b253",
+    "baseline_json_sha": "df3a2b875c5625def98554a026627d80ba8817da7a844e1c5f46ff369491ade7"
+  },
+  "domains": {
+    "primary": "www.coinoskobi.com",
+    "secondary": "www.coinoskobi.xyz"
+  },
+  "role_options": {
+    "scenario_a": {
+      "primary": "public_brand_or_future_customer_production",
+      "secondary": "staging_test_internal_preview"
+    },
+    "scenario_b": {
+      "primary": "landing_page_public_brand",
+      "secondary": "live_panel_or_radar_access"
+    },
+    "scenario_c": {
+      "primary": "future_customer_panel",
+      "secondary": "admin_test_internal_ops"
+    },
+    "scenario_d": {
+      "primary": "reserved_until_final_public_production",
+      "secondary": "first_staging_domain"
+    }
+  },
+  "recommended_first_path": {
+    "step_1": "keep_8096_baseline_stable",
+    "step_2": "use_www_coinoskobi_xyz_first_for_staging_if_binding_needed",
+    "step_3": "reserve_www_coinoskobi_com_for_public_brand_or_customer_production",
+    "step_4": "run_dns_hosting_locator_before_any_real_change"
+  },
+  "next_phases": [
+    "COINOSKOBI_DOMAIN_DNS_AND_HOSTING_LOCATOR_NOAPI",
+    "COINOSKOBI_DOMAIN_ROLE_DECISION_FREEZE_NOAPI",
+    "COINOSKOBI_NGINX_SSL_APPLY_PLAN_NOAPI",
+    "COINOSKOBI_STAGING_DOMAIN_BIND_REAL_AFTER_EXPLICIT_APPROVAL"
+  ],
+  "safety": {
+    "dns_mutation": false,
+    "nginx_mutation": false,
+    "ssl_request": false,
+    "service_restart": false,
+    "active_panel_mutation": false,
+    "db_mutation": false,
+    "paper_live_trade": false,
+    "old_preview_delete": false
+  }
+}

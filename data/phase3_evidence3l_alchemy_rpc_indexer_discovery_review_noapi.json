@@ -1,0 +1,168 @@
+{
+  "phase": "PHASE3_EVIDENCE3L_ALCHEMY_RPC_INDEXER_DISCOVERY_REVIEW_NOAPI",
+  "started_utc": "2026-05-28T17:56:44.304881+00:00",
+  "finished_utc": "2026-05-28T17:56:44.391865+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_EVIDENCE3L_ALCHEMY_RPC_INDEXER_DISCOVERY_REVIEW_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_EVIDENCE3M_GETLOGS_STRATEGY_REPAIR_PLAN_NOAPI",
+  "target": {
+    "token_name": "币安好友",
+    "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+    "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+    "chain": "bnb",
+    "chain_id": 56,
+    "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+    "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b"
+  },
+  "prev_checks": {
+    "prev_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3k_alchemy_rpc_indexer_discovery_real_retry_after_explicit_approval.json",
+    "prev_json_source": "PRIMARY_DATA_JSON",
+    "prev_gate_pass": true,
+    "prev_final_gate": "PASS_PHASE3_EVIDENCE3K_RPC_INDEXER_RETRY_REAL",
+    "prev_hard_error_count": 0,
+    "prev_warning_count": 2,
+    "prev_next_phase": "PHASE3_EVIDENCE3L_ALCHEMY_RPC_INDEXER_DISCOVERY_REVIEW_NOAPI",
+    "prev_pass_confirmed": true,
+    "prev_next_phase_match": true
+  },
+  "raw_summary": {
+    "raw_archive_path": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_RETRY_AFTER_EXPLICIT_APPROVAL/20260528_204314/raw_rpc_archive_sanitized.jsonl",
+    "raw_archive_exists": true,
+    "raw_rpc_rows_read": 4,
+    "methods_seen": {
+      "eth_getCode": 1,
+      "eth_blockNumber": 1,
+      "eth_getLogs": 2
+    },
+    "error_classes_seen": {
+      "HTTP_ERROR:400": 2
+    },
+    "http_status_seen": {
+      "200": 2,
+      "400": 2
+    },
+    "rpc_ok_count": 2,
+    "http_ok_count": 2,
+    "secret_printed_any": false
+  },
+  "evidence_review": {
+    "code_exists": true,
+    "latest_block_present": true,
+    "zero_transfer_found": false,
+    "pair_earliest_found": false,
+    "direct_creation_match": false,
+    "token_log_http400": true,
+    "pair_log_http400": true,
+    "getlogs_method_seen": true,
+    "http_400_seen": true
+  },
+  "review_decision": {
+    "review_classification": "PARTIAL_RPC_EVIDENCE_LOG_QUERY_FAILED",
+    "deployer_status_review": "UNRESOLVED",
+    "token_state_review": "GHOST",
+    "reason": "eth_getCode and eth_blockNumber succeeded, but eth_getLogs returned HTTP 400; deployer absence is not proven.",
+    "previous_classification": "NO_DEPLOYER_EVIDENCE_FOUND_BOUNDED_RPC",
+    "previous_reason": "contract code exists but bounded RPC discovery did not prove deployer.",
+    "previous_classification_accepted_as_final": false,
+    "watchlist_allowed": false,
+    "paper_allowed": false,
+    "clean_risk_allowed": false,
+    "panel_promotion_allowed": false,
+    "reserves_nonzero_interpretation": "SUPPLEMENT_EVIDENCE_ONLY"
+  },
+  "repair_plan_hint": {
+    "do_not_retry_same_3k": true,
+    "do_not_expand_random_range": true,
+    "do_not_switch_to_nodereal_without_plan": true,
+    "do_not_make_token_specific_patch": true,
+    "next_plan_should_cover": [
+      "capture_provider_400_body_sanitized_if_available",
+      "test_getLogs_with_tiny_block_window",
+      "separate_token_transfer_logs_from_pair_logs",
+      "avoid_topics_empty_pair_wide_query",
+      "review Alchemy BNB getLogs range/policy",
+      "prepare optional generic NodeReal fallback only after plan"
+    ]
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3L_ALCHEMY_RPC_INDEXER_DISCOVERY_REVIEW_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_evidence3l_alchemy_rpc_indexer_discovery_review_noapi.json"
+  }
+}

@@ -1,0 +1,135 @@
+{"dependency": "PHASE8B", "json": "/root/tokenoskobi_clean_v1/data/phase8b_risk_tier_capital_policy_plan_noapi.json", "json_exists": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "phase8b_ok": true, "phase8b_plan_ok": true, "phase8b_summary": {"all_current_capital_zero": true, "all_paper_live_false": true, "capital_policy_count": 4, "capital_runtime_now": false, "db_unchanged_during_plan": true, "future_max_micro_risk_per_day_usd": 75.0, "future_max_micro_risk_per_position_usd": 25.0, "future_max_micro_risk_per_week_usd": 250.0, "future_max_total_micro_risk_basket_usd": 500.0, "hard_check_count": 13, "loss_limit_count": 5, "micro_budget_count": 4, "no_hard_block_bypass": true, "permission_lock_count": 10, "phase8a_ok": true, "phase8a_plan_ok": true, "phase8a_rows_count": 113, "promotion_rule_count": 4, "risk_count": 4, "risk_tier_count": 6, "roadmap_count": 3, "roi_binding_count": 4, "route_effect_count": 6}, "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE8B_RISK_TIER_CAPITAL_POLICY_PLAN_NOAPI.md", "report_exists": true, "row_type": "dependency", "rows": "/root/tokenoskobi_clean_v1/data/phase8b_risk_tier_capital_policy_plan_noapi_rows.jsonl", "rows_count": 111, "rows_exists": true}
+{"capital_now": false, "description": "Vur-kaç trade değil; yüksek potansiyelli ama riskli adayları kontrollü gözlem rotasına alır.", "live_now": false, "main_capital_access": false, "observation_only": true, "paper_now": false, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "route_key": "CONTROLLED_ASYMMETRIC_MICRO_OBSERVATION", "row_type": "observation_route", "runtime_now": false, "separate_micro_wallet_required_future": true, "tier": 2}
+{"critical_memory_bypass": false, "description": "Asimetrik mikro rota hard block, critical memory, honeypot, sell-route failure veya tax trap kapılarını aşamaz.", "hard_block_bypass": false, "honeypot_bypass": false, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "route_key": "MICRO_ROUTE_DOES_NOT_OVERRIDE_RISK", "row_type": "observation_route", "sell_route_bypass": false, "tax_trap_bypass": false}
+{"description": "Gözlem çıktısı paper/live izni değildir; sadece Phase8D ROI ve ilerideki paper planına veri sağlar.", "feeds_missed_opportunity_audit": true, "feeds_roi": true, "grants_live": false, "grants_paper": false, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "route_key": "OBSERVATION_OUTPUT_NOT_PERMISSION", "row_type": "observation_route"}
+{"blocks_route_if_false": true, "guard": "NO_HARD_BLOCK", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "NO_CRITICAL_NEGATIVE_MEMORY", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "SELL_ROUTE_AVAILABLE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "HONEYPOT_FALSE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "TAX_WITHIN_POLICY", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "LIQUIDITY_EXIT_POSSIBLE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "LP_REMOVE_NOT_CONFIRMED", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "BOUNDED_OBSERVATION_WINDOW_DEFINED", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": false, "guard": "MICRO_BUDGET_DEFINED_FUTURE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"blocks_route_if_false": true, "guard": "NO_PAPER_LIVE_NOW", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "entry_guard"}
+{"api_rpc_now": false, "eth_call_now": false, "failure_effect": "BLOCK_OBSERVATION_PROMOTION", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "SELL_ROUTE_RECHECK_REQUIRED_BEFORE_ANY_FUTURE_ENTRY", "required": true, "row_type": "sell_route", "runtime_now": false}
+{"api_rpc_now": false, "eth_call_now": false, "failure_effect": "NO_TP_PERMISSION", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "SELL_ROUTE_RECHECK_REQUIRED_BEFORE_ANY_FUTURE_TP", "required": true, "row_type": "sell_route", "runtime_now": false}
+{"effect": "TIER_3_EMERGENCY_NO_TOUCH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "SELL_ROUTE_ANOMALY_EMERGENCY", "required": true, "row_type": "sell_route", "trade_permission": false}
+{"failure_effect": "BLOCK_ROUTE", "guard": "HONEYPOT_STATIC_CHECK_FUTURE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required_before_future_runtime": true, "row_type": "honeypot_tax", "runtime_now": false}
+{"failure_effect": "EMERGENCY_REVIEW", "guard": "HONEYPOT_SWITCH_MONITOR_FUTURE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required_before_future_runtime": true, "row_type": "honeypot_tax", "runtime_now": false}
+{"failure_effect": "BLOCK_ROUTE", "guard": "BUY_SELL_TAX_WITHIN_POLICY", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required_before_future_runtime": true, "row_type": "honeypot_tax", "runtime_now": false}
+{"failure_effect": "EMERGENCY_REVIEW", "guard": "TAX_CHANGE_AFTER_ENTRY_EMERGENCY_FUTURE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required_before_future_runtime": true, "row_type": "honeypot_tax", "runtime_now": false}
+{"failure_effect": "BLOCK_ROUTE", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "MIN_EXIT_LIQUIDITY_REQUIRED", "required": true, "row_type": "liquidity_exit", "runtime_now": false}
+{"decision_view_exclusion_allowed": true, "emergency_watch_exclusion_allowed": false, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "LOW_VALUE_POOL_DECISION_EXCLUSION_ALLOWED", "required": true, "row_type": "liquidity_exit"}
+{"confirmed_lp_remove_effect": "TIER_3_EMERGENCY_NO_TOUCH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "LP_REMOVE_CONFIRMED_BLOCKS_ROUTE", "required": true, "row_type": "liquidity_exit"}
+{"phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "policy_key": "LIQUIDITY_WEIGHTED_CONTEXT_REQUIRED", "required": true, "row_type": "liquidity_exit", "small_noise_pool_cannot_global_block_unless_confirmed_critical": true}
+{"active_now": false, "description": "İleride paper/micro rota oluşursa ana para erken çıkarılır.", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "staged_tp", "sell_recheck_required": true, "stage": "TP0_CAPITAL_RECOVERY"}
+{"active_now": false, "description": "Kısmi kâr alımı; greedy hold yasak.", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "staged_tp", "sell_recheck_required": true, "stage": "TP1_PARTIAL_PROFIT"}
+{"active_now": false, "description": "Sadece rota sağlıklıysa devam.", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "staged_tp", "sell_recheck_required": true, "stage": "TP2_EXTENDED_RUN"}
+{"active_now": false, "description": "Moonbag sadece ana para çıktıktan sonra.", "future_required": true, "main_capital_at_risk": false, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "staged_tp", "stage": "MOONBAG_AFTER_CAPITAL_RECOVERY"}
+{"active_now": false, "effect": "DOWNGRADE_OR_CLOSE_OBSERVATION", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "time_stop", "stop_key": "MAX_BLOCKS_WITHOUT_THESIS_PROGRESS"}
+{"active_now": false, "effect": "DOWNGRADE_OR_CLOSE_OBSERVATION", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "time_stop", "stop_key": "MAX_WALL_CLOCK_WITHOUT_EVIDENCE"}
+{"active_now": false, "effect": "WAIT_MORE_DATA_OR_EXPIRED", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "time_stop", "stop_key": "STALE_EVIDENCE_TIMEOUT"}
+{"active_now": false, "effect": "BLOCKED_BY_INSUFFICIENT_DATA_REVIEW", "future_required": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "time_stop", "stop_key": "NO_ENDLESS_WAIT"}
+{"effect": "TIER_3_EMERGENCY_NO_TOUCH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "emergency_exit", "trade_permission": false, "trigger": "LP_REMOVE_CONFIRMED"}
+{"effect": "TIER_3_EMERGENCY_NO_TOUCH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "emergency_exit", "trade_permission": false, "trigger": "HONEYPOT_SWITCH_CONFIRMED"}
+{"effect": "TIER_3_EMERGENCY_NO_TOUCH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "emergency_exit", "trade_permission": false, "trigger": "SELL_ROUTE_ANOMALY"}
+{"effect": "TIER_3_EMERGENCY_NO_TOUCH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "emergency_exit", "trade_permission": false, "trigger": "TAX_TRAP_CONFIRMED"}
+{"effect": "TIER_0_REJECT_TRASH", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "emergency_exit", "trade_permission": false, "trigger": "CRITICAL_NEGATIVE_MEMORY_MATCH"}
+{"effect": "EMERGENCY_REVIEW", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "emergency_exit", "trade_permission": false, "trigger": "DEPLOYER_SUSPICIOUS_TRANSFER"}
+{"allowed": false, "description": "Kaybeden adaya ekleme yok.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "no_rescue", "rule_key": "NO_AVERAGING_DOWN"}
+{"allowed": false, "description": "Zarar kurtarma girişi yok.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "no_rescue", "rule_key": "NO_RESCUE_ENTRY"}
+{"allowed": false, "description": "Pozisyon büyütme kumarı yok.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "no_rescue", "rule_key": "NO_MARTINGALE"}
+{"allowed": false, "description": "Miktar küçük diye hard block bypass yok.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "no_rescue", "rule_key": "NO_HARD_BLOCK_BYPASS_FOR_SMALL_SIZE"}
+{"allowed": false, "description": "Ana sermaye mikro rotaya köprülenmez.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "no_rescue", "rule_key": "NO_MAIN_CAPITAL_BRIDGE"}
+{"active_now": false, "binding": "OBSERVATION_FEEDS_EXECUTABLE_OPPORTUNITY_SCORE", "description": "Gelecekte gözlem rotası fırsatın gerçekten girilip çıkılabilir olup olmadığını ölçer.", "metric": "executable_opportunity_score", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "roi_binding"}
+{"active_now": false, "binding": "MISSED_CLEAN_X_FEEDS_POLICY_REVIEW", "description": "Temiz x kaçırılırsa sistem katılığı review_required olur.", "metric": "missed_clean_x_count", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "roi_binding"}
+{"active_now": false, "binding": "EMERGENCY_TRIGGER_FEEDS_AVOIDED_LOSS", "description": "Engellenen zarar savunma metriği olarak kalır.", "metric": "avoided_loss_usd", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "roi_binding", "secondary_metric_only": true}
+{"avoided_loss_secondary": true, "binding": "NET_COMMERCIAL_SCORE_REMAINS_CASHFLOW_FIRST", "cashflow_priority": true, "description": "Ticari başarı nakit/uygulanabilir fırsat önceliklidir.", "metric": "net_commercial_performance_score", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "roi_binding"}
+{"grants_trade_permission": false, "output_field": "observation_status", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "observation_output", "values": ["NOT_ELIGIBLE", "OBSERVATION_CANDIDATE", "BLOCKED_BY_GUARD", "EMERGENCY_REVIEW", "FUTURE_PAPER_REVIEW_REQUIRED"]}
+{"grants_trade_permission": false, "output_field": "primary_block_reason", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "observation_output", "values": ["HARD_BLOCK", "SELL_ROUTE_FAIL", "HONEYPOT_RISK", "TAX_RISK", "LIQUIDITY_EXIT_FAIL", "STALE_EVIDENCE", "INSUFFICIENT_DATA"]}
+{"grants_trade_permission": false, "output_field": "next_required_evidence", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "observation_output", "values": ["SELL_RECHECK", "HONEYPOT_CHECK", "TAX_CHECK", "LIQUIDITY_EXIT_CHECK", "TIME_STOP_REVIEW", "ROI_REVIEW"]}
+{"grants_trade_permission": false, "output_field": "safe_sentence", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "observation_output", "values": ["işlem izni yok"]}
+{"mitigation": "paper/live/capital/runtime false; command sentence işlem izni yok.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "risk": "Gözlem rotası yanlışlıkla trade iznine dönüşebilir.", "risk_key": "OBSERVATION_ROUTE_TURNS_INTO_TRADE", "row_type": "risk", "severity": "CRITICAL"}
+{"mitigation": "sell recheck required for any future entry/TP.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "risk": "Sell route tekrar kontrol edilmeden TP/entry varsayımı yapılabilir.", "risk_key": "SELL_RECHECK_SKIPPED", "row_type": "risk", "severity": "CRITICAL"}
+{"mitigation": "moonbag only after capital recovery.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "risk": "Ana para çıkmadan moonbag mantığı sermayeyi riske atabilir.", "risk_key": "MOONBAG_BEFORE_CAPITAL_RECOVERY", "row_type": "risk", "severity": "HIGH"}
+{"mitigation": "time stop and stale evidence timeout required.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "risk": "Aday sonsuza kadar gözlemde kalabilir.", "risk_key": "ENDLESS_WAIT_LOOP", "row_type": "risk", "severity": "HIGH"}
+{"mitigation": "hard block bypass forbidden even for micro.", "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "risk": "Miktar küçük diye risk kapısı aşılabilir.", "risk_key": "SMALL_SIZE_HARD_BLOCK_BYPASS", "row_type": "risk", "severity": "CRITICAL"}
+{"mode": "PLAN_ONLY_NOAPI", "order": 1, "phase": "PHASE8D_COST_RECOVERY_SCOREBOARD_PLAN_NOAPI", "purpose": "Maliyet geri kazanımı, net ticari skor, missed/avoided ayrımı scoreboard planı.", "row_type": "roadmap"}
+{"mode": "FUTURE_PLAN_ONLY", "order": 2, "phase": "PHASE8E_COMMERCIAL_SCHEMA_APPLY_PLAN_NOAPI", "purpose": "8A/8B/8C/8D ticari şemaları için apply plan; real apply yok.", "row_type": "roadmap"}
+{"mode": "FUTURE_TEMP_ONLY", "order": 3, "phase": "PHASE8F_COMMERCIAL_TEMP_DB_DRYRUN_NOAPI", "purpose": "Ticari şemaları temp DB üzerinde deneme.", "row_type": "roadmap"}
+{"check": "PHASE8B_DEPENDENCY_OK", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_API_RPC_FETCH_EXTERNAL", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_LIVE_DB_MUTATION", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_SCHEMA_APPLY", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_PANEL_ACTIVE_MUTATION", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_PAPER_LIVE_PERMISSION", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "OBSERVATION_ONLY", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PAPER_NOW_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "LIVE_NOW_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RUNTIME_NOW_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "CAPITAL_NOW_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_HARD_BLOCK_BYPASS", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ALL_ENTRY_GUARDS_REQUIRED", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_RESCUE_RULES_ALL_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STAGED_TP_ACTIVE_NOW_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "TIME_STOP_ACTIVE_NOW_FALSE", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "EMERGENCY_TRIGGERS_NO_TRADE_PERMISSION", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "OUTPUT_GRANTS_NO_TRADE_PERMISSION", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NEXT_PHASE_8D_LOCKED", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "phase8b_json_exists", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8b_report_exists", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8b_rows_exists", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8b_ok", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8b_plan_ok", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_matches_expected", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged_during_plan", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_start_ok", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_end_ok", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "target_count_still_19", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "observation_route_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "entry_guard_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sell_route_policy_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "honeypot_tax_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "liquidity_exit_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "staged_tp_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "time_stop_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_exit_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_rescue_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roi_binding_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "observation_output_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_check_count", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_hard_checks_passed", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "observation_only_true", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "paper_now_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "live_now_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "runtime_now_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "capital_now_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_hard_block_bypass", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_entry_guards_required", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_rescue_all_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "staged_tp_active_now_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "time_stop_active_now_false", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_triggers_no_trade_permission", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "outputs_grant_no_trade_permission", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "future_schema_sql_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase8b_dep_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "observation_route_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "entry_guard_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sell_route_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "honeypot_tax_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "liquidity_exit_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "staged_tp_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "time_stop_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_exit_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_rescue_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roi_binding_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "observation_output_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_check_rows_written", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_noapi_clean", "passed": true, "phase": "PHASE8C_ASYMMETRIC_MICRO_ROUTE_OBSERVATION_PLAN_NOAPI", "row_type": "pass_condition"}

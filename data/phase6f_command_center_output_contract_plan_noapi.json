@@ -1,0 +1,844 @@
+{
+  "block_reason_rows": [
+    {
+      "paper_live_allowed": false,
+      "priority": 1,
+      "reason": "EMERGENCY_TRIGGER_ACTIVE",
+      "sentence": "Acil tetikleyici aktif; rota kapalı."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 2,
+      "reason": "CRITICAL_NEGATIVE_MEMORY",
+      "sentence": "Geçmiş negatif hafıza kritik; rota kapalı."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 3,
+      "reason": "HARD_BLOCK_TRUE",
+      "sentence": "Hard block var; işlem rotası yok."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 4,
+      "reason": "SELL_ROUTE_NOT_AVAILABLE",
+      "sentence": "Satış rotası açık kanıtlanmadı; rota yok."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 5,
+      "reason": "STALE_OR_UNKNOWN_EVIDENCE",
+      "sentence": "Veri bayat veya bilinmiyor; karar beklemede."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 6,
+      "reason": "EXECUTION_THRESHOLD_FAIL",
+      "sentence": "Execution eşiği geçilemedi; risk blokladı."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 7,
+      "reason": "TECHNICAL_DATA_MANIPULATED",
+      "sentence": "Teknik veri gürültülü/manipüle görünüyor."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 8,
+      "reason": "ASYMMETRIC_POLICY_REVIEW_ONLY",
+      "sentence": "Asimetrik rota sadece inceleme modunda."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 9,
+      "reason": "PAPER_LIVE_PERMISSION_LOCKED",
+      "sentence": "Paper/live izni bu fazda kapalı."
+    },
+    {
+      "paper_live_allowed": false,
+      "priority": 10,
+      "reason": "NO_BLOCK_BUT_NO_PERMISSION",
+      "sentence": "Blok görünmüyor ama işlem izni yok."
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "display_section_rows": [
+    {
+      "apply_now": false,
+      "fields": [
+        "token_symbol",
+        "chain",
+        "final_quality_label",
+        "route_effect"
+      ],
+      "order": 1,
+      "section": "decision_header"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "permission_status"
+      ],
+      "order": 2,
+      "section": "permission_lock"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "primary_block_reason",
+        "winning_rule"
+      ],
+      "order": 3,
+      "section": "primary_reason"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "next_required_evidence"
+      ],
+      "order": 4,
+      "section": "next_required_evidence"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "stale_status",
+        "evidence_age_blocks"
+      ],
+      "order": 5,
+      "section": "freshness"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "emergency_status",
+        "negative_memory_status",
+        "execution_status"
+      ],
+      "order": 6,
+      "section": "risk_layers"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "technical_status",
+        "asymmetric_status"
+      ],
+      "order": 7,
+      "section": "context_layers"
+    },
+    {
+      "apply_now": false,
+      "fields": [
+        "decision_summary_sentence",
+        "last_decision_timestamp"
+      ],
+      "order": 8,
+      "section": "human_summary"
+    }
+  ],
+  "fail_closed_rows": [
+    {
+      "fallback_label": "WAIT_MORE_DATA",
+      "locked": true,
+      "missing_output_field": "final_quality_label",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "fallback_label": "WAIT_MORE_DATA",
+      "locked": true,
+      "missing_output_field": "route_effect",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "fallback_label": "NO_PAPER_LIVE_PERMISSION",
+      "locked": true,
+      "missing_output_field": "permission_status",
+      "route_effect": "NO_TRADE_PERMISSION"
+    },
+    {
+      "fallback_label": "WAIT_MORE_DATA",
+      "locked": true,
+      "missing_output_field": "primary_block_reason",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "fallback_label": "WAIT_MORE_DATA",
+      "locked": true,
+      "missing_output_field": "winning_rule",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "fallback_label": "WAIT_MORE_DATA",
+      "locked": true,
+      "missing_output_field": "next_required_evidence",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "fallback_label": "STALE_EVIDENCE",
+      "locked": true,
+      "missing_output_field": "last_decision_timestamp",
+      "route_effect": "NO_ROUTE"
+    }
+  ],
+  "failed_checks": [
+    "permission_sentence_safe"
+  ],
+  "final_gate": "REVIEW_REQUIRED_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T07:54:51.036625+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_evidence_rows": [
+    {
+      "evidence": "refresh_sell_route",
+      "priority": 1,
+      "shown_when": "sell_route_status stale/unknown/unavailable"
+    },
+    {
+      "evidence": "refresh_liquidity_and_exit_depth",
+      "priority": 2,
+      "shown_when": "liquidity or exit_liquidity stale/unknown/fail"
+    },
+    {
+      "evidence": "refresh_tax_and_slippage",
+      "priority": 3,
+      "shown_when": "tax/slippage/price_impact stale/unknown/fail"
+    },
+    {
+      "evidence": "resolve_negative_memory_source",
+      "priority": 4,
+      "shown_when": "negative memory unconfirmed/ambiguous"
+    },
+    {
+      "evidence": "review_emergency_trigger_source",
+      "priority": 5,
+      "shown_when": "emergency trigger active/ambiguous"
+    },
+    {
+      "evidence": "verify_holder_wallet_flow",
+      "priority": 6,
+      "shown_when": "holder/whale/deployer flow suspicious"
+    },
+    {
+      "evidence": "wait_for_cleaner_dex_microstructure",
+      "priority": 7,
+      "shown_when": "technical evidence noisy/manipulated/insufficient"
+    },
+    {
+      "evidence": "no_action_permission_locked",
+      "priority": 8,
+      "shown_when": "review-only or permission locked"
+    }
+  ],
+  "next_phase": "REVIEW_PHASE6F_COMMAND_OUTPUT_FAILURES_NOAPI",
+  "output_field_rows": [
+    {
+      "apply_now": false,
+      "field": "token_uid",
+      "required": true,
+      "source": "readmodel_identity",
+      "visible": false
+    },
+    {
+      "apply_now": false,
+      "field": "token_symbol",
+      "required": true,
+      "source": "readmodel_identity",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "chain",
+      "required": true,
+      "source": "readmodel_identity",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "final_quality_label",
+      "required": true,
+      "source": "phase6e_decision_binding",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "route_effect",
+      "required": true,
+      "source": "phase6e_decision_binding",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "permission_status",
+      "required": true,
+      "source": "phase6e_permission_lock",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "primary_block_reason",
+      "required": true,
+      "source": "phase6e_decision_binding",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "winning_rule",
+      "required": true,
+      "source": "phase6e_precedence",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "next_required_evidence",
+      "required": true,
+      "source": "phase6e_fail_closed_or_recheck",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "stale_status",
+      "required": true,
+      "source": "phase6b2_stale_guard",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "emergency_status",
+      "required": true,
+      "source": "phase6c4_emergency_monitor",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "negative_memory_status",
+      "required": true,
+      "source": "phase6d_negative_memory",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "technical_status",
+      "required": true,
+      "source": "phase6c3_dex_technical",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "execution_status",
+      "required": true,
+      "source": "phase6c_thresholds",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "asymmetric_status",
+      "required": true,
+      "source": "phase6c2_asymmetric_policy",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "evidence_age_blocks",
+      "required": true,
+      "source": "phase6b2_stale_guard",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "last_decision_timestamp",
+      "required": true,
+      "source": "decision_builder_future",
+      "visible": true
+    },
+    {
+      "apply_now": false,
+      "field": "decision_summary_sentence",
+      "required": true,
+      "source": "phase6f_sentence_contract",
+      "visible": true
+    }
+  ],
+  "outputs": {
+    "block_reason_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_primary_block_reason_contract.jsonl",
+    "display_section_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_command_center_display_section_contract.jsonl",
+    "fail_closed_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_output_fail_closed_policy.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_future_command_center_output_contract_schema_plan_noapi.sql",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6f_command_center_output_contract_plan_noapi.json",
+    "next_evidence_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_next_required_evidence_contract.jsonl",
+    "output_field_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_command_center_output_field_contract.jsonl",
+    "panel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_panel_binding_plan_no_apply.jsonl",
+    "permission_status_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_permission_status_contract.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_command_center_output_contract_plan_noapi.json",
+    "readmodel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_readmodel_binding_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_command_output_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6f_command_center_output_contract_plan_noapi_rows.jsonl",
+    "status_badge_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_status_badge_contract.jsonl",
+    "summary_sentence_rows": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450/phase6f_turkish_summary_sentence_contract.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI/20260601_105450"
+  },
+  "panel_binding_rows": [
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Komuta ve Karar Merkezi",
+      "section": "decision_header"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Komuta ve Karar Merkezi",
+      "section": "permission_lock"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Komuta ve Karar Merkezi",
+      "section": "primary_reason"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Komuta ve Karar Merkezi",
+      "section": "next_required_evidence"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Risk Güvenlik Merkezi",
+      "section": "risk_layers"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Onchain Veri Merkezi",
+      "section": "freshness"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Teknik Analiz Merkezi",
+      "section": "context_layers"
+    },
+    {
+      "active_panel_write": false,
+      "apply_now": false,
+      "panel_area": "Sistem Kontrol Merkezi",
+      "section": "human_summary"
+    }
+  ],
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_fail_closed_locked": true,
+    "all_output_apply_false": true,
+    "all_panel_apply_false": true,
+    "all_permission_no_paper_live": true,
+    "all_status_no_paper_live": true,
+    "all_summary_no_paper_live": true,
+    "block_reason_count_10": true,
+    "block_reason_rows_written": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "display_section_count_8": true,
+    "display_section_rows_written": true,
+    "fail_closed_count_7": true,
+    "fail_closed_rows_written": true,
+    "future_schema_sql_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "next_evidence_count_8": true,
+    "next_evidence_rows_written": true,
+    "output_field_count_18": true,
+    "output_field_rows_written": true,
+    "panel_binding_count_8": true,
+    "panel_binding_rows_written": true,
+    "permission_sentence_safe": false,
+    "permission_status_count_5": true,
+    "permission_status_rows_written": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b2_dependency_ok": true,
+    "phase6b2_json_exists": true,
+    "phase6b_dependency_ok": true,
+    "phase6b_json_exists": true,
+    "phase6c2_dependency_ok": true,
+    "phase6c2_json_exists": true,
+    "phase6c3_dependency_ok": true,
+    "phase6c3_json_exists": true,
+    "phase6c4_dependency_ok": true,
+    "phase6c4_json_exists": true,
+    "phase6c_dependency_ok": true,
+    "phase6c_json_exists": true,
+    "phase6d_dependency_ok": true,
+    "phase6d_json_exists": true,
+    "phase6e_dependency_ok": true,
+    "phase6e_json_exists": true,
+    "phase6e_report_exists": true,
+    "phase6e_rows_exists": true,
+    "policy_sha_match": true,
+    "readmodel_binding_count_8": true,
+    "readmodel_binding_rows_written": true,
+    "required_core_outputs_present": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "status_badge_count_10": true,
+    "status_badge_rows_written": true,
+    "summary_sentence_count_10": true,
+    "summary_sentence_rows_written": true,
+    "visible_field_count_17": true
+  },
+  "permission_status_rows": [
+    {
+      "meaning": "Route closed by risk/fail-closed.",
+      "paper_live_allowed": false,
+      "permission_status": "NO_ROUTE"
+    },
+    {
+      "meaning": "More/fresher evidence required.",
+      "paper_live_allowed": false,
+      "permission_status": "WAIT_MORE_DATA"
+    },
+    {
+      "meaning": "Can be displayed for review only.",
+      "paper_live_allowed": false,
+      "permission_status": "REVIEW_ONLY"
+    },
+    {
+      "meaning": "Neutral result; does not grant action.",
+      "paper_live_allowed": false,
+      "permission_status": "NO_PERMISSION_CHANGE"
+    },
+    {
+      "meaning": "Explicit phase lock.",
+      "paper_live_allowed": false,
+      "permission_status": "NO_PAPER_LIVE_PERMISSION"
+    }
+  ],
+  "phase": "PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b2_ok": true,
+    "phase6b_ok": true,
+    "phase6c2_ok": true,
+    "phase6c3_ok": true,
+    "phase6c4_ok": true,
+    "phase6c_ok": true,
+    "phase6d_ok": true,
+    "phase6e_ok": true,
+    "phase6e_rows_count": 109
+  },
+  "policy_reference": {
+    "checked_count": 2,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "readmodel_binding_rows": [
+    {
+      "apply_now": false,
+      "field": "token_uid",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "final_quality_label",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "route_effect",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "permission_status",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "primary_block_reason",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "next_required_evidence",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "decision_summary_sentence",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "last_decision_timestamp",
+      "readmodel_table": "state_aggregated_token_command_output_v1",
+      "required": true
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "Output contract never maps review-only to trade permission.",
+      "risk_id": "PANEL_SHOWS_FALSE_SAFE",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "primary_block_reason and winning_rule are required.",
+      "risk_id": "PRIMARY_REASON_HIDDEN",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "next_required_evidence is required for WAIT_MORE_DATA/STALE states.",
+      "risk_id": "NEXT_EVIDENCE_MISSING",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "last_decision_timestamp and stale_status are required.",
+      "risk_id": "STALE_OUTPUT_VISIBLE_AS_CURRENT",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Panel binding is plan-only; active panel write false.",
+      "risk_id": "PANEL_MUTATION_ACCIDENT",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Summary sentences explicitly say işlem izni yok where relevant.",
+      "risk_id": "COPY_CONFUSES_REVIEW_WITH_ACTION",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Output fail-closed policy maps missing fields to no route/no trade.",
+      "risk_id": "MISSING_FIELD_LEAKS_PERMISSION",
+      "severity": "CRITICAL"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB schema dry-run for Phase6 readmodel/decision/output schemas.",
+      "temp_db_only": true
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6H_READMODEL_APPLY_PLAN_NOAPI",
+      "purpose": "Plan live schema apply only if temp dry-run passes."
+    },
+    {
+      "api_now": false,
+      "db_write_now": "requires_explicit_approval",
+      "order": 3,
+      "phase": "PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL",
+      "purpose": "Future real schema apply only after explicit approval."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6J_READMODEL_POST_AUDIT_NOAPI",
+      "purpose": "Post-audit after future real apply."
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "asymmetric_route_enabled_now": false,
+    "command_output_runtime_now": false,
+    "db_mutation": false,
+    "decision_apply_now": false,
+    "decision_binding_runtime_now": false,
+    "emergency_monitor_runtime_now": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "negative_memory_runtime_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_apply_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "technical_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T07:54:50.997808+00:00",
+  "status_badge_rows": [
+    {
+      "badge_tone": "terminal_block",
+      "paper_live_allowed": false,
+      "quality_label": "TRASH_REJECTED",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "badge_tone": "terminal_block",
+      "paper_live_allowed": false,
+      "quality_label": "EMERGENCY_BLOCKED",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "badge_tone": "risk_block",
+      "paper_live_allowed": false,
+      "quality_label": "BLOCKED_BY_RISK",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "badge_tone": "stale_wait",
+      "paper_live_allowed": false,
+      "quality_label": "STALE_EVIDENCE",
+      "route_effect": "WAIT_MORE_DATA"
+    },
+    {
+      "badge_tone": "missing_data",
+      "paper_live_allowed": false,
+      "quality_label": "WAIT_MORE_DATA",
+      "route_effect": "WAIT_MORE_DATA"
+    },
+    {
+      "badge_tone": "review_warning",
+      "paper_live_allowed": false,
+      "quality_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED",
+      "route_effect": "REVIEW_ONLY"
+    },
+    {
+      "badge_tone": "review_only",
+      "paper_live_allowed": false,
+      "quality_label": "EVIDENCE_READY_NO_TRADE_PERMISSION",
+      "route_effect": "REVIEW_ONLY"
+    },
+    {
+      "badge_tone": "review_only",
+      "paper_live_allowed": false,
+      "quality_label": "ROUTINE_SAFE_REVIEW_ONLY",
+      "route_effect": "REVIEW_ONLY"
+    },
+    {
+      "badge_tone": "speculative_review_only",
+      "paper_live_allowed": false,
+      "quality_label": "ASYMMETRIC_REVIEW_ONLY",
+      "route_effect": "REVIEW_ONLY"
+    },
+    {
+      "badge_tone": "neutral",
+      "paper_live_allowed": false,
+      "quality_label": "NO_PERMISSION_CHANGE",
+      "route_effect": "NO_PERMISSION_CHANGE"
+    }
+  ],
+  "summary": {
+    "all_output_apply_false": true,
+    "all_panel_apply_false": true,
+    "all_status_no_paper_live": true,
+    "block_reason_count": 10,
+    "display_section_count": 8,
+    "fail_closed_count": 7,
+    "next_evidence_count": 8,
+    "output_field_count": 18,
+    "panel_binding_count": 8,
+    "permission_sentence_safe": false,
+    "permission_status_count": 5,
+    "readmodel_binding_count": 8,
+    "required_core_outputs": true,
+    "status_badge_count": 10,
+    "summary_sentence_count": 10,
+    "visible_field_count": 17
+  },
+  "summary_sentence_rows": [
+    {
+      "label": "TRASH_REJECTED",
+      "paper_live_allowed": false,
+      "template": "Rota kapalı. Ana sebep: {primary_block_reason}. İşlem izni yok."
+    },
+    {
+      "label": "EMERGENCY_BLOCKED",
+      "paper_live_allowed": false,
+      "template": "Acil risk tetiklendi. {primary_block_reason}. Önce kanıt yenilenmeli."
+    },
+    {
+      "label": "BLOCKED_BY_RISK",
+      "paper_live_allowed": false,
+      "template": "Risk kapısı geçilemedi. {primary_block_reason}. Rota yok."
+    },
+    {
+      "label": "STALE_EVIDENCE",
+      "paper_live_allowed": false,
+      "template": "Veri bayat. {next_required_evidence} tamamlanmadan karar yok."
+    },
+    {
+      "label": "WAIT_MORE_DATA",
+      "paper_live_allowed": false,
+      "template": "Veri eksik. Sonraki kanıt: {next_required_evidence}."
+    },
+    {
+      "label": "NEGATIVE_MEMORY_REVIEW_REQUIRED",
+      "paper_live_allowed": false,
+      "template": "Negatif hafıza uyarısı var. Manuel inceleme gerekir."
+    },
+    {
+      "label": "EVIDENCE_READY_NO_TRADE_PERMISSION",
+      "paper_live_allowed": false,
+      "template": "Kanıtlar izlenebilir durumda; işlem izni yine kapalı."
+    },
+    {
+      "label": "ROUTINE_SAFE_REVIEW_ONLY",
+      "paper_live_allowed": false,
+      "template": "Rutin görünüm temiz olabilir; sadece inceleme modu."
+    },
+    {
+      "label": "ASYMMETRIC_REVIEW_ONLY",
+      "paper_live_allowed": false,
+      "template": "Yüksek riskli asimetrik fırsat olabilir; sadece inceleme modu."
+    },
+    {
+      "label": "NO_PERMISSION_CHANGE",
+      "paper_live_allowed": false,
+      "template": "Yeni izin yok. Durum sadece bilgi amaçlı."
+    }
+  ],
+  "warnings": [
+    "COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_ONLY_NO_RUNTIME",
+    "NO_ACTIVE_PANEL_WRITE_NOW",
+    "NO_READMODEL_OR_SCHEMA_APPLY_NOW",
+    "OUTPUT_REVIEW_ONLY_NOT_PAPER_OR_LIVE",
+    "SUMMARY_SENTENCES_MUST_NOT_IMPLY_TRADE_PERMISSION",
+    "FAIL_CLOSED_ON_MISSING_OUTPUT_FIELDS",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

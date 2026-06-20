@@ -1,0 +1,78 @@
+{
+  "phase": "COINOSKOBI_XYZ_PANEL_STAGING_BINDING_AUTH_PERMISSION_FIX_REAL_AFTER_EXPLICIT_APPROVAL",
+  "stamp": "20260524_161241",
+  "final_ok": true,
+  "final_decision": "PASS_XYZ_AUTH_PERMISSION_FIX_REAL_DONE",
+  "auth_file": "/etc/nginx/.htpasswd_coinoskobi_xyz_panel",
+  "auth_before": {
+    "exists": true,
+    "mode": "0o640",
+    "mode_dec": 416,
+    "uid": 0,
+    "gid": 0,
+    "owner": "root",
+    "group": "root",
+    "size": 53
+  },
+  "auth_after": {
+    "exists": true,
+    "mode": "0o640",
+    "mode_dec": 416,
+    "uid": 0,
+    "gid": 33,
+    "owner": "root",
+    "group": "www-data",
+    "size": 53
+  },
+  "auth_content_unchanged": true,
+  "worker_group": "www-data",
+  "nginx_test_rc": 0,
+  "nginx_reload_rc": 0,
+  "urls": {
+    "root": "https://www.coinoskobi.xyz/",
+    "roadmap": "https://www.coinoskobi.xyz/roadmap/",
+    "panel": "https://www.coinoskobi.xyz/panel/",
+    "mobile": "https://www.coinoskobi.xyz/mobile/"
+  },
+  "post_checks": {
+    "root_https_200": true,
+    "roadmap_https_200": true,
+    "panel_noauth_401": true,
+    "mobile_noauth_401": true,
+    "panel_auth_200": true,
+    "mobile_auth_200": true
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "active_risk_data_unchanged": true,
+    "active_mobile_index_unchanged": true,
+    "live_db_unchanged": true,
+    "auth_content_unchanged": true,
+    "nginx_target_unchanged": true,
+    "db_post_ok": true,
+    "integrity_after_ok": true,
+    "fk_after_ok": true
+  },
+  "db_after": {
+    "ok": true,
+    "integrity": "ok",
+    "fk": 0
+  },
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "backup_dir": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_XYZ_PANEL_STAGING_BINDING_AUTH_PERMISSION_FIX_REAL_AFTER_EXPLICIT_APPROVAL_20260524_161241",
+  "rollback_script": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_XYZ_PANEL_STAGING_BINDING_AUTH_PERMISSION_FIX_REAL_AFTER_EXPLICIT_APPROVAL_20260524_161241/ROLLBACK_XYZ_AUTH_PERMISSION_FIX.sh",
+  "credentials_file_used": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_XYZ_PANEL_STAGING_BINDING_REAL_AFTER_EXPLICIT_APPROVAL_20260524_155128/XYZ_PANEL_AUTH_CREDENTIALS_ROOT_ONLY.txt",
+  "auth_password_printed": false,
+  "db_write": 0,
+  "active_panel_write": 0,
+  "nginx_config_write": 0,
+  "auth_file_content_write": 0,
+  "auth_file_permission_write": 1,
+  "api_calls": 0,
+  "external_network_calls": 0,
+  "live_trade": 0,
+  "paper_trade_execution": 0,
+  "next_phase": "COINOSKOBI_XYZ_PANEL_STAGING_BINDING_POST_APPLY_AUDIT_NOAPI"
+}

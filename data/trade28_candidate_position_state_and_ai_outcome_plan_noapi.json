@@ -1,0 +1,430 @@
+{
+  "phase": "TRADE28_CANDIDATE_POSITION_STATE_AND_AI_OUTCOME_PLAN_NOAPI",
+  "stamp": "20260513_153151",
+  "final_gate": "PASS",
+  "action": "TRADE_CANDIDATE_POSITION_STATE_AND_AI_OUTCOME_PLAN_CREATED",
+  "stable_base_ok": true,
+  "trade_panel_purpose": {
+    "name": "DEX Aday İşlem Paneli",
+    "purpose": "Analiz motorlarından geçen adayları güvenli giriş, güvenli miktar, SL/TP, işlem durumu ve AI outcome kaydıyla yönetmek.",
+    "not_purpose": [
+      "CEX order book terminali değil",
+      "Kör al-sat butonu değil",
+      "Sadece fiyat tablosu değil",
+      "Live trade açma fazı değil"
+    ],
+    "chains": [
+      "Base",
+      "BSC",
+      "Ethereum",
+      "Solana"
+    ],
+    "first_mode": "paper_or_dryrun_state_tracking_only",
+    "live_trade_now": false
+  },
+  "candidate_row_fields": [
+    "candidate_id",
+    "created_at_utc",
+    "token_symbol",
+    "token_name",
+    "chain",
+    "dex_name",
+    "pool_or_pair",
+    "token_address",
+    "pool_address",
+    "age_minutes",
+    "liquidity_usd",
+    "market_cap_usd",
+    "volume_1h_usd",
+    "tx_1h",
+    "source_truth_score",
+    "wallet_score",
+    "flow_score",
+    "lifecycle_score",
+    "risk_score",
+    "mev_score",
+    "fusion_score",
+    "confidence_score",
+    "safe_entry_price",
+    "safe_entry_reason",
+    "safe_entry_amount_usd",
+    "max_safe_buy_usd",
+    "position_size_multiplier",
+    "sl_price",
+    "sl_reason",
+    "tp1_price",
+    "tp2_price",
+    "tp3_price",
+    "tp1_take_profit_pct",
+    "tp2_take_profit_pct",
+    "tp3_take_profit_pct",
+    "expected_gas_usd",
+    "expected_slippage_usd",
+    "expected_mev_cost_usd",
+    "expected_total_cost_usd",
+    "expected_net_reward_usd",
+    "risk_reward_ratio",
+    "sellability_status",
+    "buy_tax_pct",
+    "sell_tax_pct",
+    "lp_status",
+    "deployer_risk",
+    "holder_concentration_risk",
+    "entry_status",
+    "position_status",
+    "current_pnl_pct",
+    "current_pnl_usd",
+    "action_button_state",
+    "row_color_state",
+    "detail_drawer_available"
+  ],
+  "position_state_machine": [
+    {
+      "state": "WATCHING",
+      "color": "gray",
+      "meaning": "Aday izleniyor, işlem yok."
+    },
+    {
+      "state": "ENTRY_WAITING",
+      "color": "blue",
+      "meaning": "Güvenli giriş seviyesi bekleniyor."
+    },
+    {
+      "state": "READY_TO_BUY",
+      "color": "cyan",
+      "meaning": "Risk kapıları geçti, paper/dry-run alım hazır."
+    },
+    {
+      "state": "IN_POSITION",
+      "color": "green",
+      "meaning": "Al denildi; işlemde durumuna geçti."
+    },
+    {
+      "state": "TP1_HIT",
+      "color": "yellow",
+      "meaning": "TP1 geldi, kısmi başarı."
+    },
+    {
+      "state": "TP2_HIT",
+      "color": "purple",
+      "meaning": "TP2 geldi, güçlü başarı."
+    },
+    {
+      "state": "TP3_HIT",
+      "color": "gold",
+      "meaning": "TP3 geldi, tam hedef."
+    },
+    {
+      "state": "SL_HIT",
+      "color": "red",
+      "meaning": "SL geldi, zarar kaydı yapılacak."
+    },
+    {
+      "state": "RISK_STOPPED",
+      "color": "orange",
+      "meaning": "Risk veya veri sebebiyle işlem durduruldu."
+    },
+    {
+      "state": "CLOSED_PROFIT",
+      "color": "emerald",
+      "meaning": "İşlem kârla kapandı."
+    },
+    {
+      "state": "CLOSED_LOSS",
+      "color": "red_dark",
+      "meaning": "İşlem zararla kapandı."
+    },
+    {
+      "state": "MORGUE_REVIEW",
+      "color": "black",
+      "meaning": "Otopsi/morg incelemesine gitti."
+    }
+  ],
+  "row_action_rules": [
+    "Al butonu sadece READY_TO_BUY durumunda aktif olur.",
+    "Al denince satır IN_POSITION olur ve renk değişir.",
+    "Al denince entry_time_utc, entry_price, planned_size ve reason snapshot alınır.",
+    "Satıra tıklayınca detay drawer açılır.",
+    "TP1/TP2/TP3/SL alanları işlemden önce değişmez şekilde snapshotlanır.",
+    "SL gelirse toplam zarar, gas, slippage, MEV ve neden kaydedilir.",
+    "TP geldiyse hangi TP olduğu, kalan pozisyon ve net PnL kaydedilir.",
+    "Risk stop gelirse işlem gerekçesiyle kapanır.",
+    "Her state değişimi event olarak kayıtlanabilir tasarlanır.",
+    "Live trade bu fazda yok; state contract planı var."
+  ],
+  "detail_drawer_sections": [
+    {
+      "section": "İşlem Planı",
+      "fields": [
+        "neden_bu_token_secildi",
+        "güvenli_giriş_fiyatı",
+        "güvenli_giriş_miktarı",
+        "max_safe_buy",
+        "sl",
+        "tp1",
+        "tp2",
+        "tp3",
+        "beklenen_gas",
+        "beklenen_slippage",
+        "mev_riski",
+        "risk_reward"
+      ]
+    },
+    {
+      "section": "Analiz Kanıtları",
+      "fields": [
+        "fusion_skoru",
+        "risk_skoru",
+        "wallet_sinyali",
+        "flow_sinyali",
+        "lifecycle_durumu",
+        "haber_makro_etkisi",
+        "sellability",
+        "lp_durumu",
+        "deployer_riski",
+        "holder_yoğunluğu"
+      ]
+    },
+    {
+      "section": "İşlem Durumu",
+      "fields": [
+        "işlemde_mi",
+        "giriş_gerçekleşti_mi",
+        "anlık_fiyat",
+        "anlık_pnl",
+        "tp1_geldi_mi",
+        "tp2_geldi_mi",
+        "tp3_geldi_mi",
+        "sl_geldi_mi",
+        "pozisyon_açık_mı",
+        "pozisyon_kapalı_mı"
+      ]
+    },
+    {
+      "section": "Sonuç / Outcome",
+      "fields": [
+        "toplam_kâr",
+        "toplam_zarar",
+        "brüt_pnl",
+        "net_pnl",
+        "gas_maliyeti",
+        "slippage_maliyeti",
+        "mev_maliyeti",
+        "maksimum_kâr",
+        "maksimum_düşüş",
+        "işlem_süresi"
+      ]
+    },
+    {
+      "section": "AI Eğitim Notu",
+      "fields": [
+        "neden_başarılı_oldu",
+        "neden_başarısız_oldu",
+        "hangi_sinyal_doğru_çıktı",
+        "hangi_sinyal_false_positive_çıktı",
+        "risk_motoru_doğru_uyardı_mı",
+        "giriş_miktarı_doğru_muydu",
+        "sl_fazla_yakın_mıydı",
+        "tp_hedefleri_gerçekçi_miydi"
+      ]
+    }
+  ],
+  "outcome_event_fields": [
+    "event_id",
+    "candidate_id",
+    "position_id",
+    "event_time_utc",
+    "event_type",
+    "previous_state",
+    "new_state",
+    "price_at_event",
+    "pnl_pct_at_event",
+    "pnl_usd_at_event",
+    "gas_cost_usd",
+    "slippage_cost_usd",
+    "mev_cost_usd",
+    "net_pnl_usd",
+    "trigger_source",
+    "trigger_reason",
+    "ai_training_label",
+    "human_readable_reason_tr",
+    "data_quality_status",
+    "is_mock"
+  ],
+  "ai_training_labels": [
+    "GOOD_ENTRY_GOOD_OUTCOME",
+    "GOOD_ENTRY_BAD_OUTCOME",
+    "BAD_ENTRY_BAD_OUTCOME",
+    "TP1_SUCCESS",
+    "TP2_SUCCESS",
+    "TP3_SUCCESS",
+    "SL_LOSS",
+    "RISK_STOP_CORRECT",
+    "RISK_STOP_FALSE_POSITIVE",
+    "FUSION_TRUE_POSITIVE",
+    "FUSION_FALSE_POSITIVE",
+    "WALLET_SIGNAL_TRUE",
+    "WALLET_SIGNAL_FALSE",
+    "FLOW_SIGNAL_TRUE",
+    "FLOW_SIGNAL_FALSE",
+    "LIFECYCLE_SIGNAL_TRUE",
+    "LIFECYCLE_SIGNAL_FALSE",
+    "MEV_COST_UNDERESTIMATED",
+    "SL_TOO_TIGHT",
+    "TP_TOO_AMBITIOUS",
+    "SIZE_TOO_LARGE",
+    "SIZE_TOO_SMALL",
+    "NO_DATA_OUTCOME"
+  ],
+  "future_tables_plan": [
+    {
+      "table": "trade_candidates_v1",
+      "purpose": "Alım/Satım paneline düşen aday satırları",
+      "apply_now": false
+    },
+    {
+      "table": "trade_candidate_plan_snapshots_v1",
+      "purpose": "Güvenli giriş, miktar, SL/TP ve maliyet snapshot",
+      "apply_now": false
+    },
+    {
+      "table": "trade_position_state_events_v1",
+      "purpose": "WATCHING -> IN_POSITION -> TP/SL/closed state geçişleri",
+      "apply_now": false
+    },
+    {
+      "table": "trade_position_detail_drawer_v1",
+      "purpose": "Satır tıklanınca gösterilecek detay contract",
+      "apply_now": false
+    },
+    {
+      "table": "trade_outcome_events_v1",
+      "purpose": "Kâr/zarar, TP/SL, gas/slippage/MEV outcome olayları",
+      "apply_now": false
+    },
+    {
+      "table": "trade_ai_training_notes_v1",
+      "purpose": "AI için neden-sonuç ve label kayıtları",
+      "apply_now": false
+    },
+    {
+      "table": "trade_risk_stop_events_v1",
+      "purpose": "Risk sebebiyle durdurulan aday/işlem kayıtları",
+      "apply_now": false
+    }
+  ],
+  "panel_rules": [
+    "Alım/Satım paneli analizden geçen adayları gösterir; ham token listesi değildir.",
+    "Her satır güvenli giriş, güvenli miktar, SL ve TP alanlarını taşır.",
+    "Al denince satırın state'i IN_POSITION olur.",
+    "İşlemde olan satır renk ve durum etiketiyle açık görünür.",
+    "Satıra tıklayınca detay drawer açılır.",
+    "TP/SL planı entry anında snapshotlanır.",
+    "SL olursa toplam zarar ve neden kaydı tutulur.",
+    "TP gelirse hangi TP olduğu ve net sonuç tutulur.",
+    "Her sonuç AI eğitim datasına explainable label olarak gider.",
+    "Live trade bu fazda yok; paper/dry-run state contract planı var."
+  ],
+  "quality_rules": [
+    "Güvenli giriş fiyatı yoksa Al butonu aktif olmaz.",
+    "Güvenli giriş miktarı yoksa Al butonu aktif olmaz.",
+    "SL yoksa Al butonu aktif olmaz.",
+    "En az TP1 yoksa Al butonu aktif olmaz.",
+    "Risk hard block varsa Al butonu aktif olmaz.",
+    "Sellability unknown ise gerçek/live alım kilitli kalır.",
+    "PnL hesabı net ve brüt olarak ayrılır.",
+    "Maliyetler gas/slippage/MEV olarak ayrılır.",
+    "Outcome olmadan AI başarı iddiası yapılmaz.",
+    "Mock/paper/live durumu açıkça etiketlenir."
+  ],
+  "quality_checks": {
+    "stable_base_ok": true,
+    "candidate_row_field_count_ok": true,
+    "state_machine_count_ok": true,
+    "detail_drawer_section_count_ok": true,
+    "outcome_event_field_count_ok": true,
+    "ai_training_label_count_ok": true,
+    "future_table_count_ok": true,
+    "panel_rules_count_ok": true,
+    "quality_rules_count_ok": true,
+    "live_trade_disabled": true,
+    "db_schema_apply_disabled": true,
+    "panel_apply_disabled": true,
+    "builder_code_write_disabled": true
+  },
+  "decision": {
+    "trade_state_contract_ready": true,
+    "ai_outcome_contract_ready": true,
+    "safe_entry_amount_sl_tp_required": true,
+    "row_click_detail_required": true,
+    "live_trade_enabled_now": false,
+    "db_schema_apply_now": false,
+    "panel_apply_now": false,
+    "builder_code_write_now": false,
+    "recommended_next_phase": "DATA35_PANEL_BUILDER_CODE_WRITE_APPLY_PLAN_NOAPI",
+    "alternate_next_phase": "TRADE29_DEX_CANDIDATE_PANEL_DATA_CONTRACT_PLAN_NOAPI"
+  },
+  "candidate_row_field_count": 54,
+  "position_state_count": 12,
+  "row_action_rule_count": 10,
+  "detail_drawer_section_count": 5,
+  "outcome_event_field_count": 20,
+  "ai_training_label_count": 23,
+  "future_table_count": 7,
+  "panel_rule_count": 10,
+  "quality_rule_count": 10,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "APPENDED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "external_network": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "builder_code_written": false,
+  "target_file_written": false,
+  "panel_data_written": false,
+  "panel_data_file_written": false,
+  "public_copy": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "DATA35_PANEL_BUILDER_CODE_WRITE_APPLY_PLAN_NOAPI",
+  "alternate_next_phase": "TRADE29_DEX_CANDIDATE_PANEL_DATA_CONTRACT_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_TRADE28_CANDIDATE_POSITION_STATE_AND_AI_OUTCOME_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/trade28_candidate_position_state_and_ai_outcome_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

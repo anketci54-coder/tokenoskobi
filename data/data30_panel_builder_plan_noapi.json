@@ -1,0 +1,192 @@
+{
+  "phase": "DATA30_PANEL_BUILDER_PLAN_NOAPI",
+  "stamp": "20260513_142808",
+  "final_gate": "PASS",
+  "action": "PANEL_BUILDER_PLAN_CREATED",
+  "stable_base_ok": true,
+  "builder_principles": [
+    "Genel ve tekrar kullanılabilir panel data builder olacak.",
+    "Ürüne özel tek seferlik kod yazılmayacak.",
+    "Config/contract driven çalışacak.",
+    "DB read-only modda okunacak.",
+    "API/fetch builder içinde olmayacak.",
+    "Mock veri real veri gibi gösterilmeyecek.",
+    "Önce staging JSON üretilecek, sonra validation yapılacak.",
+    "Aktif 8096 apply ayrı explicit approval gerektirecek.",
+    "Yama/patch zinciri yok.",
+    "Gereksiz dosya kalabalığı yok."
+  ],
+  "builder_components": [
+    "config_loader",
+    "read_only_db_adapter",
+    "module_data_adapters",
+    "contract_mapper",
+    "freshness_gate",
+    "truth_state_gate",
+    "risk_visibility_gate",
+    "panel_priority_sorter",
+    "mock_guard",
+    "json_schema_validator",
+    "staging_writer",
+    "checksum_writer",
+    "public_copy_gate",
+    "panel_health_summary"
+  ],
+  "module_adapters": [
+    "source_truth_adapter",
+    "news_impact_adapter",
+    "macro_calendar_adapter",
+    "liquidity_flow_adapter",
+    "wallet_registry_adapter",
+    "token_lifecycle_adapter",
+    "morgue_autopsy_adapter",
+    "risk_engine_adapter",
+    "paper_trade_adapter",
+    "fusion_score_adapter",
+    "ai_dataset_summary_adapter"
+  ],
+  "panel_data_products": [
+    {
+      "file": "full_radar_main_panel_data_v1.json",
+      "purpose": "Ana beyin paneli",
+      "active_now": false
+    },
+    {
+      "file": "critical_alerts_data_v1.json",
+      "purpose": "Ana panele düşecek kritik uyarılar",
+      "active_now": false
+    },
+    {
+      "file": "tracked_candidates_data_v1.json",
+      "purpose": "Takipteki işlem/paper adayları",
+      "active_now": false
+    },
+    {
+      "file": "active_paper_positions_data_v1.json",
+      "purpose": "Aktif paper işlemler ve PnL",
+      "active_now": false
+    },
+    {
+      "file": "economic_calendar_data_v1.json",
+      "purpose": "Ekonomik takvim ve makro etki",
+      "active_now": false
+    },
+    {
+      "file": "wallet_whale_radar_data_v1.json",
+      "purpose": "Balina/cüzdan radar verisi",
+      "active_now": false
+    },
+    {
+      "file": "token_lifecycle_data_v1.json",
+      "purpose": "Token lifecycle ve yıldız radar",
+      "active_now": false
+    },
+    {
+      "file": "morgue_autopsy_data_v1.json",
+      "purpose": "Morg/otopsi öğrenme alanı",
+      "active_now": false
+    },
+    {
+      "file": "risk_mev_data_v1.json",
+      "purpose": "Risk/güvenlik/MEV özeti",
+      "active_now": false
+    },
+    {
+      "file": "fusion_decision_data_v1.json",
+      "purpose": "Fusion skor ve karar etiketleri",
+      "active_now": false
+    },
+    {
+      "file": "ai_calibration_summary_data_v1.json",
+      "purpose": "AI kalibrasyon/dataset özeti",
+      "active_now": false
+    }
+  ],
+  "data_quality_rules": [
+    "Her JSON meta.generated_at_utc taşımalı.",
+    "Her JSON meta.data_contract_version taşımalı.",
+    "Her JSON meta.is_mock taşımalı.",
+    "Stale veri ana panel kritik alanına çıkmamalı.",
+    "UID/hash/debug alanları kullanıcı görünümüne taşınmamalı.",
+    "Paper pozisyon varsa entry, SL, TP, anlık fiyat ve PnL zorunlu.",
+    "Risk hard block varsa paper candidate etiketi çıkmamalı.",
+    "Owner confidence düşükse wallet owner kesin yazılmamalı.",
+    "No-data alanları boş bırakılmayacak; 'veri yok' state üretilecek.",
+    "Mock/sample data public active panelde gerçek gibi görünmeyecek."
+  ],
+  "output_policy": {
+    "staging_dir": "/root/tokenoskobi_clean_v1/panel_data_staging",
+    "future_public_dir": "/root/tokenoskobi_clean_v1/public/full_radar_data",
+    "apply_now": false,
+    "active_8096_change_now": false,
+    "builder_code_write_now": false,
+    "data_file_write_for_panel_now": false,
+    "validation_required_before_public_copy": true,
+    "explicit_approval_required_for_apply": true
+  },
+  "future_phases": [
+    "DATA31_PANEL_BUILDER_DRYRUN_NOAPI",
+    "DATA32_PANEL_BUILDER_SCHEMA_AND_FIXTURES_NOAPI",
+    "DATA33_PANEL_BUILDER_STAGING_REAL_AFTER_APPROVAL",
+    "PANEL31_DESIGN_UPGRADE_STATIC_PREVIEW_NOAPI",
+    "PANEL32_ACTIVE_APPLY_PLAN_NOAPI",
+    "PANEL33_ACTIVE_APPLY_REAL_AFTER_EXPLICIT_APPROVAL"
+  ],
+  "builder_principle_count": 10,
+  "builder_component_count": 14,
+  "module_adapter_count": 11,
+  "panel_data_product_count": 11,
+  "data_quality_rule_count": 10,
+  "future_phase_count": 6,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "APPENDED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "builder_code_written": false,
+  "panel_data_written": false,
+  "data_file_written_for_panel": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "DATA31_PANEL_BUILDER_DRYRUN_NOAPI",
+  "alternate_next_phase": "SCHEMA28_FULL_RADAR_SCHEMA_APPLY_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_DATA30_PANEL_BUILDER_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/data30_panel_builder_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

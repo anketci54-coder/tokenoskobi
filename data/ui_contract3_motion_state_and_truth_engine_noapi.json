@@ -1,0 +1,434 @@
+{
+  "phase": "UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_NOAPI",
+  "stamp": "20260517_190819",
+  "failed_checks": [
+    "DOC_CONTENT_MISSING_TERMS"
+  ],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "docs_only": true
+  },
+  "contract": {
+    "contract_name": "Tokenoskobi / Coinoskobi Motion State & Truth Engine Contract v1",
+    "depends_on": [
+      "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI.md",
+      "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI.md"
+    ],
+    "core_rule": "Veriye göre konuş, veri yoksa konuşma. Motion varsa gerçek source data ve reason olmak zorunda.",
+    "motion_engine_purpose": "Living UI hareketlerini tek merkezi truth katmanından üretmek; panel içinde fake pulse/glow/radar yasaklamak.",
+    "motion_state_schema": {
+      "motion_uid": "unique motion state id",
+      "target_scope": "screen / module / card / icon / badge / radar",
+      "target_id": "e.g. token_yasam.klinik, whale.radar, haber.badge",
+      "state": "silent | calm | watch | active | critical | dead | revival | stale | blocked",
+      "intensity": "0.0 - 1.0",
+      "reason": "human-readable reason why motion exists",
+      "source_layer": "canonical owner layer",
+      "source_uid": "event/snapshot/news/wallet/lifecycle/risk uid",
+      "freshness_seconds": "age of source data",
+      "expires_at": "motion expiry time",
+      "visual_policy": "allowed visual behavior",
+      "fallback_behavior": "what to render if data is missing/stale"
+    },
+    "global_motion_rules": [
+      "No source_uid means no motion.",
+      "No reason means no motion.",
+      "Missing data renders silent/waiting state.",
+      "Stale data fades out; it does not keep flashing.",
+      "Fake demo/mock data cannot trigger production motion.",
+      "Motion is computed once in motion_state_layer; panels only read it.",
+      "Panel CSS/JS cannot invent critical, active, whale, morg, clinical or news states.",
+      "All motion must have expiry.",
+      "Motion intensity must be bounded and deterministic from source data.",
+      "TECH_PASS is not TRUTH_PASS; visual movement must prove source data."
+    ],
+    "state_definitions": {
+      "silent": {
+        "meaning": "No valid data or no event.",
+        "allowed_visuals": [
+          "static card",
+          "dim badge",
+          "no pulse",
+          "no radar movement"
+        ],
+        "forbidden_visuals": [
+          "glow",
+          "pulse",
+          "sweep",
+          "flash",
+          "alarm"
+        ]
+      },
+      "calm": {
+        "meaning": "Fresh data exists but no threshold is crossed.",
+        "allowed_visuals": [
+          "very subtle breathing background",
+          "stable icon"
+        ],
+        "forbidden_visuals": [
+          "alarm flash",
+          "critical glow"
+        ]
+      },
+      "watch": {
+        "meaning": "Low/medium attention; condition exists but not critical.",
+        "allowed_visuals": [
+          "soft pulse",
+          "low-intensity glow",
+          "slow scan"
+        ],
+        "forbidden_visuals": [
+          "red flash",
+          "panic alarm"
+        ]
+      },
+      "active": {
+        "meaning": "Fresh meaningful event exists.",
+        "allowed_visuals": [
+          "medium pulse",
+          "radar ripple",
+          "badge attention"
+        ],
+        "forbidden_visuals": [
+          "critical styling without critical threshold"
+        ]
+      },
+      "critical": {
+        "meaning": "Critical threshold crossed with fresh evidence.",
+        "allowed_visuals": [
+          "strong pulse",
+          "red/amber glow",
+          "short flash burst",
+          "alert badge"
+        ],
+        "forbidden_visuals": [
+          "infinite flashing without expiry"
+        ]
+      },
+      "dead": {
+        "meaning": "Lifecycle dead/morg state exists.",
+        "allowed_visuals": [
+          "cold low-frequency breath",
+          "blue/cyan dim glow",
+          "slow fade"
+        ],
+        "forbidden_visuals": [
+          "green revival motion without revival source"
+        ]
+      },
+      "revival": {
+        "meaning": "Real revival signal exists.",
+        "allowed_visuals": [
+          "green/cyan rising pulse",
+          "controlled wake animation"
+        ],
+        "forbidden_visuals": [
+          "revival effect from old/dead data"
+        ]
+      },
+      "stale": {
+        "meaning": "Data exists but freshness expired.",
+        "allowed_visuals": [
+          "fade/dim",
+          "stale badge"
+        ],
+        "forbidden_visuals": [
+          "active pulse",
+          "critical flash"
+        ]
+      },
+      "blocked": {
+        "meaning": "Hard block or safety stop exists.",
+        "allowed_visuals": [
+          "lock overlay",
+          "no trade motion",
+          "red static warning"
+        ],
+        "forbidden_visuals": [
+          "buy/sell encouragement animation"
+        ]
+      }
+    },
+    "module_motion_contracts": {
+      "whale_radar": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "onchain_layer",
+          "identity_layer",
+          "risk_layer"
+        ],
+        "required_source_data": [
+          "fresh whale event",
+          "amount or flow magnitude",
+          "wallet confidence",
+          "direction",
+          "freshness"
+        ],
+        "motion_rules": [
+          "No fresh whale event -> radar silent.",
+          "Event size controls ripple radius.",
+          "Wallet confidence controls opacity.",
+          "Risk score controls color temperature.",
+          "Freshness decay reduces intensity.",
+          "Expired event removes sweep."
+        ],
+        "expiry_policy": "default 5-15 minutes depending on event strength",
+        "forbidden": [
+          "rotating radar without whale event",
+          "fake whale icon movement",
+          "constant glow from mock data"
+        ]
+      },
+      "haber_badge_and_wave": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "news_layer"
+        ],
+        "required_source_data": [
+          "news_event_uid",
+          "importance_score",
+          "source_reliability",
+          "token_connection_score",
+          "freshness"
+        ],
+        "motion_rules": [
+          "Critical verified news -> badge pulse and lane highlight.",
+          "Rumor/low reliability -> softer watch state, not critical.",
+          "Token-linked news -> token card receives small impact marker.",
+          "General market flow -> no token-specific alarm."
+        ],
+        "expiry_policy": "freshness-based; old news fades to calm/stale",
+        "forbidden": [
+          "rumor shown as fact",
+          "critical pulse from unverified source",
+          "token alarm without token_connection_score"
+        ]
+      },
+      "token_yasam_olay": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "lifecycle_layer",
+          "onchain_layer"
+        ],
+        "required_source_data": [
+          "fresh event",
+          "event type",
+          "first evidence state",
+          "freshness"
+        ],
+        "motion_rules": [
+          "Fresh event -> short alarm pulse.",
+          "No event -> silent/calm.",
+          "Stale event -> dim."
+        ]
+      },
+      "token_yasam_adli": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "onchain_layer",
+          "identity_layer"
+        ],
+        "required_source_data": [
+          "relationship confidence",
+          "evidence count",
+          "investigation state"
+        ],
+        "motion_rules": [
+          "Evidence being reviewed -> slow scan.",
+          "High-confidence bad link -> amber/red glow.",
+          "No evidence -> no scan."
+        ]
+      },
+      "token_yasam_supheliler": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "onchain_layer",
+          "risk_layer"
+        ],
+        "required_source_data": [
+          "suspect wallet count",
+          "cluster confidence",
+          "highest risk actor"
+        ],
+        "motion_rules": [
+          "Fresh suspect activity -> pulse.",
+          "High cluster confidence -> stronger border glow.",
+          "No suspect data -> silent."
+        ]
+      },
+      "token_yasam_klinik": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "lifecycle_layer",
+          "market_layer",
+          "risk_layer"
+        ],
+        "required_source_data": [
+          "clinical_watch",
+          "recovery chance band",
+          "liquidity/volume trend",
+          "watch intensity"
+        ],
+        "motion_rules": [
+          "clinical_watch exists -> heartbeat-style low pulse.",
+          "Improving trend -> cyan/green recovery pulse.",
+          "Worsening trend -> amber/red weak pulse.",
+          "No clinical_watch -> no heartbeat."
+        ],
+        "forbidden": [
+          "constant heartbeat for every token",
+          "recovery effect without recovery source"
+        ]
+      },
+      "token_yasam_otopsi": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "lifecycle_layer",
+          "risk_layer",
+          "market_layer"
+        ],
+        "required_source_data": [
+          "autopsy_status",
+          "failure class",
+          "outcome memory"
+        ],
+        "motion_rules": [
+          "active autopsy -> slow purple scan.",
+          "completed autopsy -> static result badge.",
+          "no autopsy_status -> no scan."
+        ]
+      },
+      "token_yasam_morg": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "lifecycle_layer"
+        ],
+        "required_source_data": [
+          "morg_status",
+          "dead/archive count",
+          "revival_watch_count",
+          "historic outcome"
+        ],
+        "motion_rules": [
+          "morg_status exists -> cold blue/cyan slow breath.",
+          "revival signal exists -> separate revival pulse.",
+          "no morg_status -> no morg breath."
+        ],
+        "forbidden": [
+          "revival pulse without revival_signal",
+          "morg animation from fake archive count"
+        ]
+      },
+      "risk_panel": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "risk_layer",
+          "market_layer",
+          "onchain_layer"
+        ],
+        "required_source_data": [
+          "hard_block",
+          "risk_score",
+          "confidence",
+          "mev/slippage/liquidity warnings"
+        ],
+        "motion_rules": [
+          "hard_block -> static lock, no buy encouragement.",
+          "high risk -> amber/red warning pulse with expiry.",
+          "low risk with no event -> calm."
+        ]
+      },
+      "main_panel_trade_controls": {
+        "owner": "motion_state_layer",
+        "source_layers": [
+          "paper_trade_layer",
+          "risk_layer",
+          "market_layer"
+        ],
+        "required_source_data": [
+          "position_state",
+          "sl_status",
+          "tp_status",
+          "entry_plan",
+          "hard_block"
+        ],
+        "motion_rules": [
+          "hard_block disables buy/sell motion.",
+          "SL danger -> red controlled pulse.",
+          "TP approaching -> green/cyan controlled pulse.",
+          "No active position -> no SL/TP animation."
+        ]
+      }
+    },
+    "freshness_policy": {
+      "news": {
+        "active_window_seconds": 1800,
+        "stale_after_seconds": 7200
+      },
+      "whale": {
+        "active_window_seconds": 900,
+        "stale_after_seconds": 1800
+      },
+      "onchain": {
+        "active_window_seconds": 600,
+        "stale_after_seconds": 1800
+      },
+      "risk": {
+        "active_window_seconds": 900,
+        "stale_after_seconds": 3600
+      },
+      "lifecycle": {
+        "active_window_seconds": 3600,
+        "stale_after_seconds": 86400
+      },
+      "paper_trade": {
+        "active_window_seconds": 300,
+        "stale_after_seconds": 900
+      }
+    },
+    "truth_pass_requirements": [
+      "Every moving visual has source_layer.",
+      "Every moving visual has source_uid.",
+      "Every moving visual has reason.",
+      "Every moving visual has freshness_seconds.",
+      "Every moving visual has expiry.",
+      "No fake/mock source can set production motion.",
+      "Motion intensity can be traced to source data.",
+      "If source data disappears, motion becomes silent/stale."
+    ],
+    "product_pass_requirements": [
+      "Motion feels premium, not toy-like.",
+      "Motion does not distract from decision making.",
+      "Motion matches data severity.",
+      "No constant meaningless animation.",
+      "User visually understands why a module is alive.",
+      "Viewport-fit remains intact."
+    ],
+    "next_phase": "UI_CONTRACT4_VIEW_MODEL_SCHEMA_AND_SCREEN_FIT_RULES_NOAPI"
+  },
+  "doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_NOAPI_20260517_190819.md",
+  "latest_doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_NOAPI.md",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/ui_contract3_motion_state_and_truth_engine_noapi.json",
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "missing_terms": [
+    "No source_uid means no motion"
+  ],
+  "final_status": "FAIL",
+  "final_gate": "UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_REVIEW"
+}

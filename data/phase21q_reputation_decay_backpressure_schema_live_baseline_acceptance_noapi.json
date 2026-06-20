@@ -1,0 +1,108 @@
+{
+  "phase": "PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI",
+  "started_at": "2026-06-04T21:37:28.971559+00:00",
+  "finished_at": "2026-06-04T21:37:29.003165+00:00",
+  "final_gate": "PASS_PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI",
+  "script_rc": 0,
+  "failed_checks": [],
+  "baseline_name": "REPUTATION_DECAY_BACKPRESSURE_SCHEMA_V1_LIVE_BASELINE",
+  "baseline_accepted": true,
+  "acceptance_only": true,
+  "health_ok": true,
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "live_schema_apply": false,
+    "row_insert_update_delete_live_db": false,
+    "timer_change": false,
+    "worker_start": false,
+    "service_restart": false,
+    "active_panel_write": false,
+    "preview_write": false,
+    "paper_trade": false,
+    "live_trade": false
+  },
+  "immutability": {
+    "db_unchanged_during_acceptance": true,
+    "active_index_unchanged": true
+  },
+  "accepted_baseline": {
+    "phase": "PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI",
+    "created_at_utc": "2026-06-04T21:37:29.002671+00:00",
+    "baseline_name": "REPUTATION_DECAY_BACKPRESSURE_SCHEMA_V1_LIVE_BASELINE",
+    "baseline_accepted": true,
+    "acceptance_only": true,
+    "schema_live": true,
+    "planned_tables": [
+      "entity_reputation_summary_v1",
+      "entity_reputation_event_rollup_v1",
+      "backpressure_rollup_snapshot_v1",
+      "reputation_policy_registry_v1"
+    ],
+    "planned_tables_existing": [
+      "entity_reputation_summary_v1",
+      "entity_reputation_event_rollup_v1",
+      "backpressure_rollup_snapshot_v1",
+      "reputation_policy_registry_v1"
+    ],
+    "planned_table_count": 4,
+    "planned_indexes_existing": [
+      "idx_entity_reputation_summary_chain_type_entity",
+      "idx_entity_reputation_summary_risk_seen",
+      "idx_entity_reputation_summary_decay",
+      "idx_entity_rollup_entity_window",
+      "idx_entity_rollup_chain_type_seen",
+      "idx_backpressure_rollup_window",
+      "idx_backpressure_rollup_spike",
+      "idx_reputation_policy_registry_active",
+      "idx_reputation_policy_registry_name_version"
+    ],
+    "planned_index_count": 9,
+    "forbidden_tables_existing": [],
+    "new_tables_empty": true,
+    "planned_table_counts": {
+      "entity_reputation_summary_v1": 0,
+      "entity_reputation_event_rollup_v1": 0,
+      "backpressure_rollup_snapshot_v1": 0,
+      "reputation_policy_registry_v1": 0
+    },
+    "summary_and_decay_state_atomic": true,
+    "hot_path_rule": "1_ENTITY_1_ROW_1_INDEXED_QUERY",
+    "hot_path_table": "entity_reputation_summary_v1",
+    "raw_event_join_on_hot_path_allowed": false,
+    "entity_reputation_decay_state_v1_created": false,
+    "backpressure_metrics_v1_created": false,
+    "backpressure_hot_metrics_sqlite_allowed": false,
+    "backpressure_hot_state": "RAM_RUNTIME_ONLY",
+    "backpressure_sqlite_rollup": "LOW_FREQUENCY_ONLY",
+    "max_queue_depth_allowed": true,
+    "exact_hot_backpressure_fields_present": [],
+    "worker_enabled_now": false,
+    "timer_enabled_now": false,
+    "paper_live_ok": true,
+    "backup_db": "/root/tokenoskobi_clean_v1/backups/PHASE21O2_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_REAL_AFTER_EXPLICIT_APPROVAL_20260605_003255/tokenoskobi_clean_v1.sqlite.pre_phase21o2",
+    "backup_exists": true,
+    "rollback_script": "/root/tokenoskobi_clean_v1/backups/PHASE21O2_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_REAL_AFTER_EXPLICIT_APPROVAL_20260605_003255/ROLLBACK_PHASE21O2_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_REAL.sh",
+    "rollback_exists": true,
+    "db_unchanged_during_acceptance": true,
+    "active_index_unchanged": true
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase21q_reputation_decay_backpressure_schema_live_baseline_acceptance_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase21q_reputation_decay_backpressure_schema_live_baseline_acceptance_noapi_rows.jsonl",
+    "accepted_baseline_json": "/root/tokenoskobi_clean_v1/_PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI/20260605_003728/phase21q_reputation_decay_backpressure_schema_live_baseline_acceptance_noapi_accepted_live_schema_baseline.json",
+    "denge_note": "/root/tokenoskobi_clean_v1/_PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI/20260605_003728/phase21q_reputation_decay_backpressure_schema_live_baseline_acceptance_noapi_denge_baseline_acceptance_note.md",
+    "acceptance_rows": "/root/tokenoskobi_clean_v1/_PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI/20260605_003728/phase21q_reputation_decay_backpressure_schema_live_baseline_acceptance_noapi_acceptance_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE21Q_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_LIVE_BASELINE_ACCEPTANCE_NOAPI/20260605_003728"
+  },
+  "next_phase": "PHASE21R_REPUTATION_POLICY_REGISTRY_SEED_PLAN_NOAPI",
+  "checklist_touched": true,
+  "after_final": {
+    "db_sha256": "9b4acf0758242498067cceca28848e643d118548107d51560c008922fdca6a0b",
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "accepted_baseline_sha256": "6f99579770fd45bfd7980ac7b37ab6d5905bdc81596d2056cd93f1c6890d25d2",
+    "denge_note_sha256": "ab2d8038458992cae3290c6bb70a59c9521beb4979e6abf0fee83741904ec479",
+    "checklist_sha256": "9b542ebb6db527f6a1436eedff9c97f42aebd68f1a4e534e567c18e969a3c5d9"
+  }
+}

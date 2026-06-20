@@ -1,0 +1,46 @@
+{
+  "phase": "PASS17C_WALLET_CLUSTER_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "wallet_cluster_evidence_ledger_v1",
+      "purpose": "canonical_wallet_evidence"
+    },
+    {
+      "table": "wallet_cluster_registry_v1",
+      "purpose": "cluster_tracking"
+    },
+    {
+      "table": "wallet_relationship_registry_v1",
+      "purpose": "relationship_tracking"
+    },
+    {
+      "table": "wallet_entity_registry_v1",
+      "purpose": "entity_mapping"
+    },
+    {
+      "table": "wallet_provenance_registry_v1",
+      "purpose": "wallet_evidence_provenance"
+    }
+  ],
+  "required_rules": [
+    "RELATIONSHIP_BEFORE_ENTITY",
+    "PROVENANCE_REQUIRED",
+    "EVIDENCE_REQUIRED_FOR_CLUSTERING"
+  ],
+  "forbidden": [
+    "NO_CLUSTER_SCORE",
+    "NO_ENTITY_SCORE",
+    "NO_REPUTATION_SCORE",
+    "NO_MANUAL_LABELING",
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN"
+  ],
+  "decision": "PASS17C_ACCEPTED_READY_FOR_PASS17D"
+}

@@ -1,0 +1,33 @@
+{"row_type": "planned_real_step", "order": 1, "action": "BACKUP_LIVE_DB", "source": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite", "target": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_<STAMP>/tokenoskobi_clean_v1.sqlite.before_master_pipeline_schema_apply"}
+{"row_type": "planned_real_step", "order": 2, "action": "BACKUP_ACTIVE_PANEL_FILES_SHA_ONLY", "source": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html + /root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json", "target": "sha snapshot; no panel write"}
+{"row_type": "planned_real_step", "order": 3, "action": "RUN_SQLITE_SCHEMA_APPLY", "source": "/root/tokenoskobi_clean_v1/_COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_PLAN_NOAPI/20260522_101442/master_pipeline_schema_apply_v1.sql", "target": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"}
+{"row_type": "planned_real_step", "order": 4, "action": "VERIFY_9_TABLES_17_INDEXES", "source": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite", "target": "schema audit"}
+{"row_type": "planned_real_step", "order": 5, "action": "VERIFY_DB_INTEGRITY_AND_FK", "source": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite", "target": "integrity_check ok + fk 0"}
+{"row_type": "planned_real_step", "order": 6, "action": "VERIFY_NO_PANEL_NGINX_SERVICE_TIMER_TRADE_MUTATION", "source": "sha/listen snapshot", "target": "safety report"}
+{"row_type": "planned_real_step", "order": 7, "action": "WRITE_REAL_APPLY_REPORT_JSON_ROWS_ROLLBACK_PATH", "source": "audit outputs", "target": "reports/data"}
+{"row_type": "planned_table", "table": "raw_discovery_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "entity_identity_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "center_signal_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "mev_sandwich_risk_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "fusion_score_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "command_decision_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "paper_trade_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "outcome_memory_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_table", "table": "control_dashboard_view_model_events_v1", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_raw_discovery_events_v1_hash", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_raw_discovery_events_v1_chain_seen", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_entity_identity_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_entity_identity_events_v1_chain_contract", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_center_signal_events_v1_center_time", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_center_signal_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_mev_sandwich_risk_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_mev_sandwich_risk_events_v1_gate_level", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_fusion_score_events_v1_route_score", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_fusion_score_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_command_decision_events_v1_decision_time", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_command_decision_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_paper_trade_events_v1_status", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_paper_trade_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_outcome_memory_events_v1_type", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_outcome_memory_events_v1_token_pair", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}
+{"row_type": "planned_index", "index": "idx_control_dashboard_view_model_events_v1_scope_time", "exists_live_now": false, "planned_action": "CREATE_IF_NOT_EXISTS"}

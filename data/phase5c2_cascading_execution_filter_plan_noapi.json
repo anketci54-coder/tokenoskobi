@@ -1,0 +1,833 @@
+{
+  "base_counts": {
+    "center_signal_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "deployer_wallet_events": 0,
+    "fusion_score_events_v1": 0,
+    "holder_distribution_events": 0,
+    "holder_snapshots": 0,
+    "life_gate_decisions": 0,
+    "liquidity_snapshots": 46,
+    "live_data_quality_events": 99,
+    "market_snapshots": 46,
+    "outcome_memory_events_v1": 0,
+    "pairs": 19,
+    "paper_trade_executions": 0,
+    "paper_trade_plans": 2,
+    "paper_trade_positions": 0,
+    "tokens": 19
+  },
+  "db_error": null,
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "existing_future_columns": {
+    "cascading_execution_filter_eval_events_v1": [],
+    "cascading_execution_filter_policy_v1": [],
+    "execution_rpc_budget_guard_events_v1": []
+  },
+  "existing_future_tables": {
+    "cascading_execution_filter_eval_events_v1": false,
+    "cascading_execution_filter_policy_v1": false,
+    "execution_rpc_budget_guard_events_v1": false
+  },
+  "expected": {
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "phase5c_gate": "PASS_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+    "phase5c_next": "PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+    "policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84"
+  },
+  "failed_checks": [],
+  "failed_phase5c_checks": [],
+  "field_cost_matrix": [
+    {
+      "cost_tier": "FREE_DB_READ",
+      "field": "hard_block",
+      "future_rpc_required": false,
+      "stage_id": "STAGE1_STATIC_RISK_AND_IDENTITY_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "FREE_DB_READ",
+      "field": "quality_label",
+      "future_rpc_required": false,
+      "stage_id": "STAGE1_STATIC_RISK_AND_IDENTITY_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "CHEAP_CACHE_OR_SNAPSHOT",
+      "field": "minimum_pool_liquidity_usd",
+      "future_rpc_required": "ONLY_IF_CACHE_STALE_AFTER_APPROVAL",
+      "stage_id": "STAGE2_CACHED_LIQUIDITY_AND_FRESHNESS_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "CHEAP_CACHE_OR_SNAPSHOT",
+      "field": "exit_liquidity_usd",
+      "future_rpc_required": "ONLY_IF_CACHE_STALE_AFTER_APPROVAL",
+      "stage_id": "STAGE2_CACHED_LIQUIDITY_AND_FRESHNESS_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "CHEAP_MATH",
+      "field": "max_position_size_usd",
+      "future_rpc_required": false,
+      "stage_id": "STAGE3_SIZE_PRECHECK",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+      "field": "buy_price_impact_pct",
+      "future_rpc_required": true,
+      "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+      "field": "sell_price_impact_pct",
+      "future_rpc_required": true,
+      "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+      "field": "expected_slippage_pct",
+      "future_rpc_required": true,
+      "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+      "field": "sell_route_status",
+      "future_rpc_required": true,
+      "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+      "field": "tax_buy_pct",
+      "future_rpc_required": true,
+      "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+      "field": "tax_sell_pct",
+      "future_rpc_required": true,
+      "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+      "field": "mev_status",
+      "future_rpc_required": "MAY_REQUIRE_PROVIDER",
+      "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+      "field": "sandwich_exposure_status",
+      "future_rpc_required": "MAY_REQUIRE_PROVIDER",
+      "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+      "field": "protected_route_status",
+      "future_rpc_required": "MAY_REQUIRE_PROVIDER",
+      "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+      "unknown_action": "BLOCK"
+    },
+    {
+      "cost_tier": "MEDIUM_RPC_READ_OR_ESTIMATE",
+      "field": "gas_cost_sanity",
+      "future_rpc_required": true,
+      "stage_id": "STAGE7_GAS_AND_FINAL_PREFLIGHT",
+      "unknown_action": "BLOCK"
+    }
+  ],
+  "final_gate": "PASS_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI",
+  "finished_at_utc": "2026-05-31T20:57:01.154391+00:00",
+  "future_schema": [
+    {
+      "fields": [
+        "policy_uid TEXT PRIMARY KEY",
+        "policy_version TEXT NOT NULL",
+        "chain TEXT NOT NULL",
+        "stage_no INTEGER NOT NULL",
+        "stage_id TEXT NOT NULL",
+        "cost_tier TEXT NOT NULL",
+        "future_rpc_required TEXT NOT NULL",
+        "stop_if_fail INTEGER NOT NULL",
+        "fail_action TEXT NOT NULL",
+        "fields_json TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Hiyerarşik execution safety filtre sırası ve maliyet politikasını saklar.",
+      "table": "cascading_execution_filter_policy_v1"
+    },
+    {
+      "fields": [
+        "eval_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "route_type TEXT NOT NULL",
+        "current_stage_no INTEGER NOT NULL",
+        "current_stage_id TEXT NOT NULL",
+        "stage_result TEXT NOT NULL",
+        "stop_reason TEXT",
+        "rpc_calls_used INTEGER NOT NULL",
+        "eth_call_used INTEGER NOT NULL",
+        "router_quote_used INTEGER NOT NULL",
+        "execution_permission TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "İleride her token/pair için hangi aşamada durduğunu audit eder.",
+      "table": "cascading_execution_filter_eval_events_v1"
+    },
+    {
+      "fields": [
+        "budget_event_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "guard_id TEXT NOT NULL",
+        "guard_result TEXT NOT NULL",
+        "blocked_expensive_call INTEGER NOT NULL",
+        "saved_call_type TEXT",
+        "reason_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Pahalı sorguların sadece gerekli aşamada çalıştığını denetler.",
+      "table": "execution_rpc_budget_guard_events_v1"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "db_sha_start": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+  "outputs": {
+    "field_rows": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_field_execution_cost_matrix.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5c2_cascading_execution_filter_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_cascading_execution_filter_plan_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5c2_cascading_execution_filter_plan_noapi_rows.jsonl",
+    "rpc_budget_rows": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_rpc_budget_guard_matrix.jsonl",
+    "schema_plan_sql": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_future_cascading_filter_schema_plan_noapi.sql",
+    "stage_rows": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_cascading_filter_stage_matrix.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701"
+  },
+  "pass_conditions": {
+    "active_index_exists": true,
+    "active_index_sha_expected_match_start": true,
+    "active_index_unchanged": true,
+    "all_stages_stop_if_fail": true,
+    "all_unknown_required_fields_block": true,
+    "cascading_runtime_not_enabled": true,
+    "db_exists": true,
+    "db_readonly_health_ok": true,
+    "db_sha_expected_match_start": true,
+    "db_unchanged": true,
+    "field_cost_count_minimum": true,
+    "field_rows_written": true,
+    "heavy_eth_call_after_cheap_filters": true,
+    "hosts_exists": true,
+    "hosts_sha_expected_match_start": true,
+    "hosts_unchanged": true,
+    "micro_route_still_disabled": true,
+    "phase5c_dependency_all_pass": true,
+    "plan_json_written": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "rows_out_written": true,
+    "rpc_budget_rows_written": true,
+    "rpc_guard_count_minimum": true,
+    "safety_noapi_clean": true,
+    "schema_plan_sql_written": true,
+    "stage_count_minimum": true,
+    "stage_order_sequential": true,
+    "stage_rows_written": true
+  },
+  "phase": "PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI",
+  "phase5c_checks": {
+    "phase5c_failed_checks_none": true,
+    "phase5c_failed_phase5b_checks_none": true,
+    "phase5c_final_gate_pass": true,
+    "phase5c_json_exists": true,
+    "phase5c_next_phase_match": true,
+    "phase5c_report_exists": true,
+    "phase5c_rows_count_positive": true,
+    "phase5c_rows_exists": true,
+    "phase5c_safety_ok": true,
+    "phase5c_warnings_none": true
+  },
+  "phase5c_rows_count": 18,
+  "plan": {
+    "created_at_utc": "2026-05-31T20:57:01.150494+00:00",
+    "field_cost_matrix": [
+      {
+        "cost_tier": "FREE_DB_READ",
+        "field": "hard_block",
+        "future_rpc_required": false,
+        "stage_id": "STAGE1_STATIC_RISK_AND_IDENTITY_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "FREE_DB_READ",
+        "field": "quality_label",
+        "future_rpc_required": false,
+        "stage_id": "STAGE1_STATIC_RISK_AND_IDENTITY_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "CHEAP_CACHE_OR_SNAPSHOT",
+        "field": "minimum_pool_liquidity_usd",
+        "future_rpc_required": "ONLY_IF_CACHE_STALE_AFTER_APPROVAL",
+        "stage_id": "STAGE2_CACHED_LIQUIDITY_AND_FRESHNESS_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "CHEAP_CACHE_OR_SNAPSHOT",
+        "field": "exit_liquidity_usd",
+        "future_rpc_required": "ONLY_IF_CACHE_STALE_AFTER_APPROVAL",
+        "stage_id": "STAGE2_CACHED_LIQUIDITY_AND_FRESHNESS_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "CHEAP_MATH",
+        "field": "max_position_size_usd",
+        "future_rpc_required": false,
+        "stage_id": "STAGE3_SIZE_PRECHECK",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+        "field": "buy_price_impact_pct",
+        "future_rpc_required": true,
+        "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+        "field": "sell_price_impact_pct",
+        "future_rpc_required": true,
+        "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+        "field": "expected_slippage_pct",
+        "future_rpc_required": true,
+        "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+        "field": "sell_route_status",
+        "future_rpc_required": true,
+        "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+        "field": "tax_buy_pct",
+        "future_rpc_required": true,
+        "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+        "field": "tax_sell_pct",
+        "future_rpc_required": true,
+        "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+        "field": "mev_status",
+        "future_rpc_required": "MAY_REQUIRE_PROVIDER",
+        "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+        "field": "sandwich_exposure_status",
+        "future_rpc_required": "MAY_REQUIRE_PROVIDER",
+        "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+        "field": "protected_route_status",
+        "future_rpc_required": "MAY_REQUIRE_PROVIDER",
+        "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+        "unknown_action": "BLOCK"
+      },
+      {
+        "cost_tier": "MEDIUM_RPC_READ_OR_ESTIMATE",
+        "field": "gas_cost_sanity",
+        "future_rpc_required": true,
+        "stage_id": "STAGE7_GAS_AND_FINAL_PREFLIGHT",
+        "unknown_action": "BLOCK"
+      }
+    ],
+    "future_schema": [
+      {
+        "fields": [
+          "policy_uid TEXT PRIMARY KEY",
+          "policy_version TEXT NOT NULL",
+          "chain TEXT NOT NULL",
+          "stage_no INTEGER NOT NULL",
+          "stage_id TEXT NOT NULL",
+          "cost_tier TEXT NOT NULL",
+          "future_rpc_required TEXT NOT NULL",
+          "stop_if_fail INTEGER NOT NULL",
+          "fail_action TEXT NOT NULL",
+          "fields_json TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Hiyerarşik execution safety filtre sırası ve maliyet politikasını saklar.",
+        "table": "cascading_execution_filter_policy_v1"
+      },
+      {
+        "fields": [
+          "eval_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "route_type TEXT NOT NULL",
+          "current_stage_no INTEGER NOT NULL",
+          "current_stage_id TEXT NOT NULL",
+          "stage_result TEXT NOT NULL",
+          "stop_reason TEXT",
+          "rpc_calls_used INTEGER NOT NULL",
+          "eth_call_used INTEGER NOT NULL",
+          "router_quote_used INTEGER NOT NULL",
+          "execution_permission TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "İleride her token/pair için hangi aşamada durduğunu audit eder.",
+        "table": "cascading_execution_filter_eval_events_v1"
+      },
+      {
+        "fields": [
+          "budget_event_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "guard_id TEXT NOT NULL",
+          "guard_result TEXT NOT NULL",
+          "blocked_expensive_call INTEGER NOT NULL",
+          "saved_call_type TEXT",
+          "reason_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Pahalı sorguların sadece gerekli aşamada çalıştığını denetler.",
+        "table": "execution_rpc_budget_guard_events_v1"
+      }
+    ],
+    "hard_architecture_rules": [
+      "PHASE5C2 is NOAPI and plan-only.",
+      "No API/RPC/fetch/external network calls now.",
+      "No live DB schema apply now.",
+      "No panel write now.",
+      "No service/timer/Nginx/Auth/hosts mutation.",
+      "Cascading filter prevents heavy calls before cheap gates pass.",
+      "Static risk and identity filters run before liquidity checks.",
+      "Liquidity and freshness filters run before router quote.",
+      "Price impact and slippage checks run before sell/tax simulation.",
+      "Sell route and tax simulation run before MEV/protected route checks.",
+      "Final gas/preflight runs only after all earlier stages pass.",
+      "Micro Route remains disabled now.",
+      "Paper/live/watchlist/score remain locked.",
+      "Unknown required field blocks Micro Route and live."
+    ],
+    "latency_policy": {
+      "cache_before_rpc": true,
+      "cheap_first": true,
+      "heavy_eth_call_last": true,
+      "skip_expensive_calls_on_early_fail": true,
+      "unknown_blocks_execution": true
+    },
+    "phase": "PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI",
+    "rpc_budget_guard_matrix": [
+      {
+        "guard_id": "NO_RPC_BEFORE_STATIC_PASS",
+        "phase5c2_action_now": "PLAN_ONLY",
+        "protected_resource": "rpc_budget",
+        "rule": "Stage 1 fail ise hiçbir RPC/eth_call/router quote yapılmaz."
+      },
+      {
+        "guard_id": "NO_ROUTER_QUOTE_BEFORE_LIQUIDITY_PASS",
+        "phase5c2_action_now": "PLAN_ONLY",
+        "protected_resource": "router_quote_budget",
+        "rule": "minimum_pool_liquidity_usd veya exit_liquidity_usd geçmezse router quote yapılmaz."
+      },
+      {
+        "guard_id": "NO_TAX_SIM_BEFORE_IMPACT_PASS",
+        "phase5c2_action_now": "PLAN_ONLY",
+        "protected_resource": "eth_call_budget",
+        "rule": "price impact/slippage geçmeden buy/sell tax simülasyonu yapılmaz."
+      },
+      {
+        "guard_id": "NO_MEV_PROVIDER_BEFORE_SELL_ROUTE_PASS",
+        "phase5c2_action_now": "PLAN_ONLY",
+        "protected_resource": "provider_budget",
+        "rule": "sell route veya tax fail ise MEV/protected route kontrolüne geçilmez."
+      },
+      {
+        "guard_id": "NO_FINAL_PREFLIGHT_BEFORE_ALL_GATES_PASS",
+        "phase5c2_action_now": "PLAN_ONLY",
+        "protected_resource": "latency_budget",
+        "rule": "Tüm önceki aşamalar PASS olmadan gas/final preflight yok."
+      }
+    ],
+    "stage_matrix": [
+      {
+        "cost_tier": "FREE_LOCAL",
+        "fail_action": "STOP_PIPELINE_NO_EVALUATION",
+        "fields": [
+          "phase5c_final_gate",
+          "policy_sha",
+          "db_health",
+          "paper_live_lock"
+        ],
+        "future_rpc_required": false,
+        "purpose": "Önce sistem zemini temiz mi kontrol edilir.",
+        "source": "local_phase_outputs_and_policy_files",
+        "stage_id": "STAGE0_PHASE_AND_POLICY_GUARD",
+        "stage_no": 0,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "FREE_DB_READ",
+        "fail_action": "NO_MICRO_ROUTE_NO_PAPER_NO_LIVE",
+        "fields": [
+          "hard_block",
+          "quality_label",
+          "token_identity",
+          "pair_identity",
+          "known_reject",
+          "ghost_status",
+          "wait_more_data"
+        ],
+        "future_rpc_required": false,
+        "purpose": "En ucuz filtre; riskli veya kimliği bozuk token pahalı teste gitmez.",
+        "source": "local_db_and_previous_events",
+        "stage_id": "STAGE1_STATIC_RISK_AND_IDENTITY_FILTER",
+        "stage_no": 1,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "CHEAP_CACHE_OR_SNAPSHOT",
+        "fail_action": "NO_ROUTER_QUOTE_NO_ETH_CALL",
+        "fields": [
+          "minimum_pool_liquidity_usd",
+          "exit_liquidity_usd",
+          "quality_label",
+          "stale_data"
+        ],
+        "future_rpc_required": "ONLY_IF_CACHE_STALE_AFTER_APPROVAL",
+        "purpose": "Likidite yoksa router quote ve eth_call harcanmaz.",
+        "source": "latest_liquidity_snapshot_or_future_reserved_read",
+        "stage_id": "STAGE2_CACHED_LIQUIDITY_AND_FRESHNESS_FILTER",
+        "stage_no": 2,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "CHEAP_MATH",
+        "fail_action": "SIZE_DOWN_OR_BLOCK_BEFORE_RPC",
+        "fields": [
+          "requested_size_usd",
+          "rough_max_position_size_usd",
+          "liquidity_ratio"
+        ],
+        "future_rpc_required": false,
+        "purpose": "İşlem boyutu baştan saçmaysa ağır simülasyon yapılmaz.",
+        "source": "policy_thresholds_and_cached_liquidity",
+        "stage_id": "STAGE3_SIZE_PRECHECK",
+        "stage_no": 3,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+        "fail_action": "NO_SELL_TAX_SIMULATION_NO_MICRO_ROUTE",
+        "fields": [
+          "buy_price_impact_pct",
+          "sell_price_impact_pct",
+          "expected_slippage_pct"
+        ],
+        "future_rpc_required": true,
+        "purpose": "Price impact ve slippage geçmezse sell/tax simülasyonuna geçilmez.",
+        "source": "router_quote_or_pair_math_after_explicit_approval",
+        "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+        "stage_no": 4,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+        "fail_action": "HONEYPOT_OR_TAX_BLOCK_NO_EXECUTION",
+        "fields": [
+          "sell_route_status",
+          "tax_buy_pct",
+          "tax_sell_pct"
+        ],
+        "future_rpc_required": true,
+        "purpose": "En pahalı temel güvenlik simülasyonu sadece önceki filtreleri geçen tokena yapılır.",
+        "source": "router_buy_sell_simulation_after_explicit_approval",
+        "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+        "stage_no": 5,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+        "fail_action": "NO_LIVE_NO_MICRO_ROUTE",
+        "fields": [
+          "mev_status",
+          "sandwich_exposure_status",
+          "protected_route_status"
+        ],
+        "future_rpc_required": "MAY_REQUIRE_MEMPOOL_OR_ROUTE_PROVIDER",
+        "purpose": "Public mempool ve sandwich riski kontrol edilmeden live/micro açılmaz.",
+        "source": "mev_policy_route_status_and_future_provider",
+        "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+        "stage_no": 6,
+        "stop_if_fail": true
+      },
+      {
+        "cost_tier": "MEDIUM_RPC_READ_OR_ESTIMATE",
+        "fail_action": "NO_POSITION_OPEN",
+        "fields": [
+          "gas_cost_sanity",
+          "final_max_position_size_usd",
+          "execution_permission"
+        ],
+        "future_rpc_required": true,
+        "purpose": "Son maliyet ve boyut kontrolü; permission üretimi burada bile sadece ileride olur.",
+        "source": "gas_estimate_and_final_route_preflight_after_explicit_approval",
+        "stage_id": "STAGE7_GAS_AND_FINAL_PREFLIGHT",
+        "stage_no": 7,
+        "stop_if_fail": true
+      }
+    ]
+  },
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "rpc_budget_guard_matrix": [
+    {
+      "guard_id": "NO_RPC_BEFORE_STATIC_PASS",
+      "phase5c2_action_now": "PLAN_ONLY",
+      "protected_resource": "rpc_budget",
+      "rule": "Stage 1 fail ise hiçbir RPC/eth_call/router quote yapılmaz."
+    },
+    {
+      "guard_id": "NO_ROUTER_QUOTE_BEFORE_LIQUIDITY_PASS",
+      "phase5c2_action_now": "PLAN_ONLY",
+      "protected_resource": "router_quote_budget",
+      "rule": "minimum_pool_liquidity_usd veya exit_liquidity_usd geçmezse router quote yapılmaz."
+    },
+    {
+      "guard_id": "NO_TAX_SIM_BEFORE_IMPACT_PASS",
+      "phase5c2_action_now": "PLAN_ONLY",
+      "protected_resource": "eth_call_budget",
+      "rule": "price impact/slippage geçmeden buy/sell tax simülasyonu yapılmaz."
+    },
+    {
+      "guard_id": "NO_MEV_PROVIDER_BEFORE_SELL_ROUTE_PASS",
+      "phase5c2_action_now": "PLAN_ONLY",
+      "protected_resource": "provider_budget",
+      "rule": "sell route veya tax fail ise MEV/protected route kontrolüne geçilmez."
+    },
+    {
+      "guard_id": "NO_FINAL_PREFLIGHT_BEFORE_ALL_GATES_PASS",
+      "phase5c2_action_now": "PLAN_ONLY",
+      "protected_resource": "latency_budget",
+      "rule": "Tüm önceki aşamalar PASS olmadan gas/final preflight yok."
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "backfill_now": false,
+    "cascading_filter_runtime_enabled_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "full_rpc_url_printed": false,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "secret_printed": false,
+    "service_timer_mutation": false,
+    "watchlist_permission": false
+  },
+  "stage_matrix": [
+    {
+      "cost_tier": "FREE_LOCAL",
+      "fail_action": "STOP_PIPELINE_NO_EVALUATION",
+      "fields": [
+        "phase5c_final_gate",
+        "policy_sha",
+        "db_health",
+        "paper_live_lock"
+      ],
+      "future_rpc_required": false,
+      "purpose": "Önce sistem zemini temiz mi kontrol edilir.",
+      "source": "local_phase_outputs_and_policy_files",
+      "stage_id": "STAGE0_PHASE_AND_POLICY_GUARD",
+      "stage_no": 0,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "FREE_DB_READ",
+      "fail_action": "NO_MICRO_ROUTE_NO_PAPER_NO_LIVE",
+      "fields": [
+        "hard_block",
+        "quality_label",
+        "token_identity",
+        "pair_identity",
+        "known_reject",
+        "ghost_status",
+        "wait_more_data"
+      ],
+      "future_rpc_required": false,
+      "purpose": "En ucuz filtre; riskli veya kimliği bozuk token pahalı teste gitmez.",
+      "source": "local_db_and_previous_events",
+      "stage_id": "STAGE1_STATIC_RISK_AND_IDENTITY_FILTER",
+      "stage_no": 1,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "CHEAP_CACHE_OR_SNAPSHOT",
+      "fail_action": "NO_ROUTER_QUOTE_NO_ETH_CALL",
+      "fields": [
+        "minimum_pool_liquidity_usd",
+        "exit_liquidity_usd",
+        "quality_label",
+        "stale_data"
+      ],
+      "future_rpc_required": "ONLY_IF_CACHE_STALE_AFTER_APPROVAL",
+      "purpose": "Likidite yoksa router quote ve eth_call harcanmaz.",
+      "source": "latest_liquidity_snapshot_or_future_reserved_read",
+      "stage_id": "STAGE2_CACHED_LIQUIDITY_AND_FRESHNESS_FILTER",
+      "stage_no": 2,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "CHEAP_MATH",
+      "fail_action": "SIZE_DOWN_OR_BLOCK_BEFORE_RPC",
+      "fields": [
+        "requested_size_usd",
+        "rough_max_position_size_usd",
+        "liquidity_ratio"
+      ],
+      "future_rpc_required": false,
+      "purpose": "İşlem boyutu baştan saçmaysa ağır simülasyon yapılmaz.",
+      "source": "policy_thresholds_and_cached_liquidity",
+      "stage_id": "STAGE3_SIZE_PRECHECK",
+      "stage_no": 3,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "MEDIUM_RPC_READ_OR_ETH_CALL",
+      "fail_action": "NO_SELL_TAX_SIMULATION_NO_MICRO_ROUTE",
+      "fields": [
+        "buy_price_impact_pct",
+        "sell_price_impact_pct",
+        "expected_slippage_pct"
+      ],
+      "future_rpc_required": true,
+      "purpose": "Price impact ve slippage geçmezse sell/tax simülasyonuna geçilmez.",
+      "source": "router_quote_or_pair_math_after_explicit_approval",
+      "stage_id": "STAGE4_ROUTER_QUOTE_PRICE_IMPACT_FILTER",
+      "stage_no": 4,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "HEAVY_ETH_CALL_SIMULATION",
+      "fail_action": "HONEYPOT_OR_TAX_BLOCK_NO_EXECUTION",
+      "fields": [
+        "sell_route_status",
+        "tax_buy_pct",
+        "tax_sell_pct"
+      ],
+      "future_rpc_required": true,
+      "purpose": "En pahalı temel güvenlik simülasyonu sadece önceki filtreleri geçen tokena yapılır.",
+      "source": "router_buy_sell_simulation_after_explicit_approval",
+      "stage_id": "STAGE5_SELL_ROUTE_AND_TAX_SIMULATION",
+      "stage_no": 5,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "HEAVY_CONTEXTUAL_RISK",
+      "fail_action": "NO_LIVE_NO_MICRO_ROUTE",
+      "fields": [
+        "mev_status",
+        "sandwich_exposure_status",
+        "protected_route_status"
+      ],
+      "future_rpc_required": "MAY_REQUIRE_MEMPOOL_OR_ROUTE_PROVIDER",
+      "purpose": "Public mempool ve sandwich riski kontrol edilmeden live/micro açılmaz.",
+      "source": "mev_policy_route_status_and_future_provider",
+      "stage_id": "STAGE6_MEV_SANDWICH_AND_PROTECTED_ROUTE_FILTER",
+      "stage_no": 6,
+      "stop_if_fail": true
+    },
+    {
+      "cost_tier": "MEDIUM_RPC_READ_OR_ESTIMATE",
+      "fail_action": "NO_POSITION_OPEN",
+      "fields": [
+        "gas_cost_sanity",
+        "final_max_position_size_usd",
+        "execution_permission"
+      ],
+      "future_rpc_required": true,
+      "purpose": "Son maliyet ve boyut kontrolü; permission üretimi burada bile sadece ileride olur.",
+      "source": "gas_estimate_and_final_route_preflight_after_explicit_approval",
+      "stage_id": "STAGE7_GAS_AND_FINAL_PREFLIGHT",
+      "stage_no": 7,
+      "stop_if_fail": true
+    }
+  ],
+  "started_at_utc": "2026-05-31T20:57:01.132818+00:00",
+  "warnings": []
+}

@@ -1,0 +1,254 @@
+{
+  "apply_error_diag_rows": [
+    {
+      "apply_order": 21,
+      "error": "near \"no\": syntax error",
+      "error_class": "BASE_TABLE_CREATE_SQL_SYNTAX_ERROR",
+      "kind": "create_table",
+      "object_name": "state_aggregated_token_readmodel_v1",
+      "object_type": "table",
+      "statement_preview": "no DB mutation has been performed. CREATE TABLE IF NOT EXISTS \"state_aggregated_token_readmodel_v1\" ( \"state_uid\" TEXT PRIMARY KEY, \"token_uid\" TEXT NOT NULL, \"pair_uid\" TEXT, \"chain\" TEXT NOT NULL, \"token_address\" TEXT NOT NULL, \"pair_address\" TEXT, \"evidence_status\" TEXT NOT NULL, \"creation_proof_status\" TEXT NOT NULL, \"zero_mint_status\" TEXT NOT NULL, \"holder_evidence_status\" TEXT NOT NULL, \"deployer_evidence_stat",
+      "target_table": null
+    },
+    {
+      "apply_order": 58,
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "DEPENDENT_INDEX_TARGET_TABLE_MISSING",
+      "kind": "create_index",
+      "object_name": "idx_state_token_readmodel_chain_token",
+      "object_type": "index",
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_chain_token\" ON \"state_aggregated_token_readmodel_v1\" (\"chain\", \"token_address\")",
+      "target_table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_order": 59,
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "DEPENDENT_INDEX_TARGET_TABLE_MISSING",
+      "kind": "create_index",
+      "object_name": "idx_state_token_readmodel_decision",
+      "object_type": "index",
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_decision\" ON \"state_aggregated_token_readmodel_v1\" (\"decision_label\")",
+      "target_table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_order": 60,
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "DEPENDENT_INDEX_TARGET_TABLE_MISSING",
+      "kind": "create_index",
+      "object_name": "idx_state_token_readmodel_token_uid",
+      "object_type": "index",
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_token_uid\" ON \"state_aggregated_token_readmodel_v1\" (\"token_uid\")",
+      "target_table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_order": 61,
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "DEPENDENT_INDEX_TARGET_TABLE_MISSING",
+      "kind": "create_index",
+      "object_name": "idx_state_token_readmodel_updated",
+      "object_type": "index",
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_updated\" ON \"state_aggregated_token_readmodel_v1\" (\"updated_at_utc\")",
+      "target_table": "state_aggregated_token_readmodel_v1"
+    }
+  ],
+  "base_table_diag_rows": [
+    {
+      "base_table": "state_aggregated_token_readmodel_v1",
+      "base_table_apply_error": "near \"no\": syntax error",
+      "base_table_apply_error_found": true,
+      "base_table_create_statement_found": true,
+      "base_table_missing_after": true,
+      "diagnosis": "base table create statement did not apply; dependent indexes failed because table was absent",
+      "near_token": "no",
+      "root_cause_class": "BASE_TABLE_SQL_SYNTAX",
+      "statement_preview": "no DB mutation has been performed. CREATE TABLE IF NOT EXISTS \"state_aggregated_token_readmodel_v1\" ( \"state_uid\" TEXT PRIMARY KEY, \"token_uid\" TEXT NOT NULL, \"pair_uid\" TEXT, \"chain\" TEXT NOT NULL, \"token_address\" TEXT NOT NULL, \"pair_address\" TEXT, \"evidence_status\" TEXT NOT NULL, \"creation_proof_status\" TEXT NOT NULL, \"zero_mint_status\" TEXT NOT NULL, \"holder_evidence_status\" TEXT NOT NULL, \"deployer_evidence_status\" TEXT NOT NULL, \"risk_clearance_status\" TEXT NOT NULL, \"execution_safety_status\" TEXT NOT NULL, \"decision_label\" TEXT NOT NULL, \"recommended_route\" TEXT NOT NULL DEFAULT 'NO_ROUTE', \"blocked_reason\" TEXT, \"next_required_evidence\" TEXT, \"last_audit_phase\" TEXT NOT NULL, \"route_permission\" TEXT NOT NULL DEFAULT 'NO_TRADE_PERMISSION', \"payload_json\" TEXT NOT NULL DEFAULT '{}', \"created_at_utc\" TEXT NOT NULL, \"updated_at_utc\" TEXT NOT NULL )"
+    }
+  ],
+  "dependent_index_diag_rows": [
+    {
+      "diagnosis": "DEPENDENT_FAILURE_CAUSED_BY_BASE_TABLE_NOT_CREATED",
+      "index": "idx_state_token_readmodel_chain_token",
+      "index_apply_error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "index_apply_error_found": true,
+      "index_missing_after": true,
+      "target_table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "diagnosis": "DEPENDENT_FAILURE_CAUSED_BY_BASE_TABLE_NOT_CREATED",
+      "index": "idx_state_token_readmodel_decision",
+      "index_apply_error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "index_apply_error_found": true,
+      "index_missing_after": true,
+      "target_table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "diagnosis": "DEPENDENT_FAILURE_CAUSED_BY_BASE_TABLE_NOT_CREATED",
+      "index": "idx_state_token_readmodel_token_uid",
+      "index_apply_error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "index_apply_error_found": true,
+      "index_missing_after": true,
+      "target_table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "diagnosis": "DEPENDENT_FAILURE_CAUSED_BY_BASE_TABLE_NOT_CREATED",
+      "index": "idx_state_token_readmodel_updated",
+      "index_apply_error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "index_apply_error_found": true,
+      "index_missing_after": true,
+      "target_table": "state_aggregated_token_readmodel_v1"
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI",
+  "finished_at_utc": "2026-06-01T08:45:17.155157+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "live_health_end": {
+    "foreign_key_check_count": 0,
+    "index_count": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count": 214
+  },
+  "live_health_start": {
+    "foreign_key_check_count": 0,
+    "index_count": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count": 214
+  },
+  "next_phase": "PHASE6G4_BASE_READMODEL_TABLE_SQL_REPAIR_TEMP_DRYRUN_NOAPI",
+  "outputs": {
+    "apply_error_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_apply_error_diagnose.jsonl",
+    "base_table_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_base_readmodel_table_diagnose.jsonl",
+    "canonical_stmt_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_canonical_statement_diagnose.jsonl",
+    "dependent_index_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_dependent_index_failure_diagnose.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6g3_canonical_temp_dryrun_failure_diagnose_noapi.json",
+    "ordered_stmt_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_ordered_statement_diagnose.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_canonical_temp_dryrun_failure_diagnose_noapi.json",
+    "readiness_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_next_readiness.jsonl",
+    "repair_hint_rows": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517/phase6g3_repair_hints.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6g3_canonical_temp_dryrun_failure_diagnose_noapi_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_114517"
+  },
+  "pass_conditions": {
+    "active_index_unchanged": true,
+    "apply_error_count_5": true,
+    "apply_rows_exists": true,
+    "base_canonical_statement_found": true,
+    "base_table_error_count_1": true,
+    "base_table_missing_after": true,
+    "canonical_sql_exists": true,
+    "db_sha_expected": true,
+    "dependent_index_error_count_4": true,
+    "dependent_indexes_classified": true,
+    "dependent_indexes_missing_after_4": true,
+    "diagnose_rows_written": true,
+    "hosts_unchanged": true,
+    "index_canonical_statement_count_4": true,
+    "live_db_unchanged": true,
+    "live_health_end_ok": true,
+    "live_health_start_ok": true,
+    "object_choice_rows_exists": true,
+    "ordered_rows_exists": true,
+    "phase6g2_failed_expected": true,
+    "phase6g2_json_exists": true,
+    "phase6g2_live_safe": true,
+    "phase6g2_report_exists": true,
+    "phase6g2_review_required": true,
+    "phase6g2_rows_exists": true,
+    "root_cause_is_base_table": true,
+    "safety_noapi_clean": true
+  },
+  "phase": "PHASE6G3_CANONICAL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI",
+  "phase6g2_review": {
+    "phase6g2_failed_expected": true,
+    "phase6g2_live_safe": true,
+    "phase6g2_review_required": true
+  },
+  "repair_hints": [
+    {
+      "hint": "PHASE6G4_BASE_READMODEL_TABLE_SQL_REPAIR_TEMP_DRYRUN_NOAPI",
+      "reason": "state_aggregated_token_readmodel_v1 create statement failed; repair must canonicalize/replace only this base table create SQL in temp dry-run.",
+      "required": true
+    },
+    {
+      "dependent_indexes": [
+        "idx_state_token_readmodel_chain_token",
+        "idx_state_token_readmodel_decision",
+        "idx_state_token_readmodel_token_uid",
+        "idx_state_token_readmodel_updated"
+      ],
+      "hint": "DEPENDENT_INDEXES_SHOULD_NOT_BE_PATCHED_FIRST",
+      "reason": "The 4 missing indexes depend on state_aggregated_token_readmodel_v1; fix base table first, indexes should pass afterward.",
+      "required": true
+    },
+    {
+      "hint": "NO_LIVE_DB_ROLLBACK_NEEDED",
+      "reason": "Live DB was unchanged and only temp DB was mutated in 6G2.",
+      "required": true
+    },
+    {
+      "hint": "NO_PANEL_OR_RUNTIME_CHANGE",
+      "reason": "This remains schema temp dry-run repair only; no panel/readmodel/runtime/API.",
+      "required": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_db_mutation": false,
+    "live_trade_permission": false,
+    "panel_apply_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "runtime_enabled_now": false,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "temp_db_mutation": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T08:45:17.109444+00:00",
+  "summary": {
+    "apply_error_count": 5,
+    "base_table": "state_aggregated_token_readmodel_v1",
+    "base_table_error_count": 1,
+    "base_table_missing_after": true,
+    "dependent_index_error_count": 4,
+    "dependent_indexes_missing_after": [
+      "idx_state_token_readmodel_chain_token",
+      "idx_state_token_readmodel_decision",
+      "idx_state_token_readmodel_token_uid",
+      "idx_state_token_readmodel_updated"
+    ],
+    "diagnosis": "base table create statement did not apply; dependent indexes failed because table was absent",
+    "error_class_counts": {
+      "BASE_TABLE_CREATE_SQL_SYNTAX_ERROR": 1,
+      "DEPENDENT_INDEX_TARGET_TABLE_MISSING": 4
+    },
+    "near_token": "no",
+    "root_cause_class": "BASE_TABLE_SQL_SYNTAX"
+  },
+  "warnings": [
+    "DIAGNOSE_ONLY_NO_TEMP_APPLY",
+    "BASE_READMODEL_TABLE_CREATE_FAILURE_IS_ROOT_CAUSE",
+    "DEPENDENT_INDEX_FAILURES_ARE_SECONDARY",
+    "NO_LIVE_DB_PANEL_SCHEMA_RUNTIME_API_MUTATION",
+    "PHASE6G4_BASE_TABLE_SQL_REPAIR_REQUIRED"
+  ]
+}

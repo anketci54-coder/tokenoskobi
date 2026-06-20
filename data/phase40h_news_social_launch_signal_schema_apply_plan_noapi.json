@@ -1,0 +1,93 @@
+{
+  "phase": "PHASE40H_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_APPLY_PLAN_NOAPI",
+  "final_gate": "PASS_PHASE40H_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_APPLY_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE40I_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "checks": {
+    "PHASE40G_PASS": true,
+    "PHASE40G_DECISION_OPEN_40H": true,
+    "PHASE40G_TABLE_COUNTS_OK": true,
+    "APPLY_PLAN_WRITTEN": true,
+    "REAL_APPLY_REQUIRES_EXPLICIT_APPROVAL": true,
+    "BACKUP_REQUIRED_BEFORE_REAL_APPLY": true,
+    "NEWS_SOCIAL_SIGNAL_NOT_TRUTH": true,
+    "NO_TRADE_AUTH_FROM_NEWS_SOCIAL": true,
+    "NO_TRADE_AUTH_FROM_AI": true,
+    "ONCHAIN_CONFIRMATION_REQUIRED": true,
+    "RISK_SECURITY_GATE_REQUIRED": true,
+    "FALSE_NEGATIVE_MEMORY_HOT_LOOP_FALSE": true,
+    "LIVE_DB_INTEGRITY_OK": true,
+    "LIVE_DB_FOREIGN_KEYS_OK": true,
+    "LIVE_DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "NO_API_CALLS_NOW": true,
+    "NO_PAPER_TRADE_NOW": true,
+    "NO_LIVE_TRADE_NOW": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "integrity_info": {
+    "integrity": "ok",
+    "fk_error_count": 0,
+    "error": null
+  },
+  "existing_required_tables": [],
+  "apply_plan": {
+    "phase": "PHASE40H_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_APPLY_PLAN_NOAPI",
+    "created_at": "2026-06-09T15:26:39.051528+00:00",
+    "mode": "APPLY_PLAN_ONLY_NOAPI",
+    "opened_after": "PASS_PHASE40G_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_TEMPDB_DRYRUN_NOAPI",
+    "target_db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "required_tables": [
+      "news_social_sources_v1",
+      "news_social_launch_signals_v1",
+      "news_social_signal_evidence_links_v1",
+      "news_social_review_queue_v1",
+      "news_social_false_negative_memory_links_v1"
+    ],
+    "existing_required_tables": [],
+    "apply_sql_statement_count": 9,
+    "apply_sql": [
+      "CREATE TABLE IF NOT EXISTS news_social_sources_v1 (\n    source_uid TEXT PRIMARY KEY,\n    source_class TEXT NOT NULL,\n    source_name TEXT NOT NULL,\n    source_trust_level TEXT NOT NULL CHECK(source_trust_level IN ('low','medium','medium_high','high')),\n    official_required_for_high_confidence INTEGER NOT NULL CHECK(official_required_for_high_confidence IN (0,1)),\n    trade_authority INTEGER NOT NULL DEFAULT 0 CHECK(trade_authority = 0),\n    created_at TEXT NOT NULL\n);",
+      "CREATE TABLE IF NOT EXISTS news_social_launch_signals_v1 (\n    signal_uid TEXT PRIMARY KEY,\n    source_uid TEXT NOT NULL,\n    token_name_claim TEXT,\n    chain_claim TEXT,\n    contract_address_claim TEXT,\n    launch_time_claim TEXT,\n    officialness_score REAL NOT NULL DEFAULT 0 CHECK(officialness_score >= 0 AND officialness_score <= 100),\n    social_burst_score REAL NOT NULL DEFAULT 0 CHECK(social_burst_score >= 0 AND social_burst_score <= 100),\n    manipulation_risk_score REAL NOT NULL DEFAULT 0 CHECK(manipulation_risk_score >= 0 AND manipulation_risk_score <= 100),\n    onchain_confirmation_status TEXT NOT NULL CHECK(onchain_confirmation_status IN ('NOT_CHECKED','PENDING','CONFIRMED','REJECTED')),\n    risk_gate_status TEXT NOT NULL CHECK(risk_gate_status IN ('NOT_CHECKED','WAIT_MORE_DATA','PASS','REJECT')),\n    signal_truth_status TEXT NOT NULL DEFAULT 'NOT_TRUTH' CHECK(signal_truth_status = 'NOT_TRUTH'),\n    trade_authority INTEGER NOT NULL DEFAULT 0 CHECK(trade_authority = 0),\n    created_at TEXT NOT NULL,\n    FOREIGN KEY(source_uid) REFERENCES news_social_sources_v1(source_uid)\n);",
+      "CREATE TABLE IF NOT EXISTS news_social_signal_evidence_links_v1 (\n    evidence_uid TEXT PRIMARY KEY,\n    signal_uid TEXT NOT NULL,\n    evidence_type TEXT NOT NULL CHECK(evidence_type IN ('OFFICIAL_POST','EXCHANGE_NEWS','SOCIAL_BURST','LAUNCHPAD_CLAIM','KOL_MENTION','COMMUNITY_BURST')),\n    evidence_hash TEXT NOT NULL,\n    evidence_summary TEXT NOT NULL,\n    confirms_contract INTEGER NOT NULL CHECK(confirms_contract IN (0,1)),\n    confirms_onchain INTEGER NOT NULL CHECK(confirms_onchain IN (0,1)),\n    confirms_risk INTEGER NOT NULL CHECK(confirms_risk IN (0,1)),\n    trade_authority INTEGER NOT NULL DEFAULT 0 CHECK(trade_authority = 0),\n    created_at TEXT NOT NULL,\n    FOREIGN KEY(signal_uid) REFERENCES news_social_launch_signals_v1(signal_uid)\n);",
+      "CREATE TABLE IF NOT EXISTS news_social_review_queue_v1 (\n    review_uid TEXT PRIMARY KEY,\n    signal_uid TEXT NOT NULL,\n    review_status TEXT NOT NULL CHECK(review_status IN ('WAIT_MORE_DATA','READY_FOR_ONCHAIN_CHECK','READY_FOR_RISK_CHECK','REJECTED','ARCHIVED')),\n    review_reason TEXT NOT NULL,\n    deterministic_gate_required INTEGER NOT NULL DEFAULT 1 CHECK(deterministic_gate_required = 1),\n    ai_opinion_required INTEGER NOT NULL DEFAULT 0 CHECK(ai_opinion_required IN (0,1)),\n    trade_authority INTEGER NOT NULL DEFAULT 0 CHECK(trade_authority = 0),\n    created_at TEXT NOT NULL,\n    FOREIGN KEY(signal_uid) REFERENCES news_social_launch_signals_v1(signal_uid)\n);",
+      "CREATE TABLE IF NOT EXISTS news_social_false_negative_memory_links_v1 (\n    memory_uid TEXT PRIMARY KEY,\n    signal_uid TEXT NOT NULL,\n    linked_false_negative_case_uid TEXT,\n    linked_rwd_case_uid TEXT,\n    memory_role TEXT NOT NULL CHECK(memory_role IN ('AUTOPSY_INPUT','LEARNING_SUMMARY_INPUT','RWD_CONTEXT_INPUT')),\n    hot_loop_allowed INTEGER NOT NULL DEFAULT 0 CHECK(hot_loop_allowed = 0),\n    trade_authority INTEGER NOT NULL DEFAULT 0 CHECK(trade_authority = 0),\n    created_at TEXT NOT NULL,\n    FOREIGN KEY(signal_uid) REFERENCES news_social_launch_signals_v1(signal_uid)\n);",
+      "CREATE INDEX IF NOT EXISTS idx_news_social_launch_signals_source ON news_social_launch_signals_v1(source_uid);",
+      "CREATE INDEX IF NOT EXISTS idx_news_social_launch_signals_status ON news_social_launch_signals_v1(onchain_confirmation_status, risk_gate_status);",
+      "CREATE INDEX IF NOT EXISTS idx_news_social_review_queue_status ON news_social_review_queue_v1(review_status);",
+      "CREATE INDEX IF NOT EXISTS idx_news_social_memory_signal ON news_social_false_negative_memory_links_v1(signal_uid);"
+    ],
+    "backup_required_before_real_apply": true,
+    "real_apply_requires_explicit_approval": true,
+    "approval_phrase": "PHASE40I news social launch signal schema apply real için onay veriyorum",
+    "real_apply_phase": "PHASE40I_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "post_audit_phase": "PHASE40J_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_POST_AUDIT_NOAPI",
+    "safety_doctrine": {
+      "news_social_signal_is_not_truth": true,
+      "news_social_trade_authority": false,
+      "ai_trade_authority": false,
+      "onchain_confirmation_required": true,
+      "risk_security_gate_required": true,
+      "false_negative_memory_hot_loop": false,
+      "live_db_mutation_now": false,
+      "api_calls_now": false,
+      "paper_trade_now": false,
+      "live_trade_now": false
+    }
+  },
+  "before_sha": {
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "after_sha": {
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE40H_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_APPLY_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/phase40h_news_social_launch_signal_schema_apply_plan_noapi.json",
+  "rows": "/root/tokenoskobi_clean_v1/data/phase40h_news_social_launch_signal_schema_apply_plan_noapi_rows.jsonl"
+}

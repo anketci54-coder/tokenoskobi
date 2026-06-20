@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Haber Akış İstihbarat Merkezi</title>
+<style>
+:root{
+  --bg:#020913;--p:#06192b;--p2:#08213a;--line:#1b5f8d;--line2:#2ca9e8;
+  --txt:#f4f8ff;--mut:#92a7bd;--dim:#61758b;
+  --g:#35f0a0;--r:#ff4f72;--a:#ffbf3c;--b:#67d9ff;--v:#b56cff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif}
+body{
+  background:
+    radial-gradient(circle at 20% 10%,rgba(38,165,220,.20),transparent 30%),
+    radial-gradient(circle at 70% 30%,rgba(53,240,160,.10),transparent 28%),
+    linear-gradient(180deg,#020812,#031423);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;
+  background-image:linear-gradient(rgba(103,217,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(103,217,255,.055) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.shell{position:relative;z-index:2;height:100vh;padding:8px;display:grid;grid-template-columns:72px 1fr;gap:8px}
+.side{
+  border:1px solid rgba(80,190,255,.22);border-radius:14px;background:rgba(3,14,27,.88);
+  display:flex;flex-direction:column;align-items:center;padding:8px 5px;box-shadow:0 0 22px rgba(44,169,232,.12)
+}
+.logo{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(103,217,255,.45);color:var(--b);font-size:22px;box-shadow:0 0 18px rgba(103,217,255,.18);margin-bottom:8px}
+.nav{display:flex;flex-direction:column;gap:5px;width:100%}
+.n{height:48px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#b9c8d9;font-size:8.5px;text-align:center;position:relative}
+.n b{font-size:14px;color:#9dc8ff}
+.n.active{background:linear-gradient(180deg,rgba(32,105,190,.35),rgba(8,39,78,.55));border:1px solid rgba(103,217,255,.32);color:white}
+.badge{position:absolute;right:3px;top:3px;background:var(--r);color:#fff;border-radius:999px;min-width:15px;height:15px;font-size:9px;display:grid;place-items:center;font-weight:900}
+.main{min-width:0;display:grid;grid-template-rows:44px 1fr 26px;gap:7px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hgroup{display:flex;align-items:center;gap:9px;min-width:0}
+.zap{font-size:20px;color:#7da2ff;text-shadow:0 0 14px rgba(125,162,255,.5)}
+h1{margin:0;font-size:22px;line-height:1;font-weight:950;letter-spacing:.2px;white-space:nowrap}
+.sub{font-size:10px;color:var(--mut);margin-top:3px}
+.stat{display:flex;gap:7px;align-items:center;font-size:10px;color:#c7d5e2}
+.pill{padding:7px 10px;border:1px solid rgba(103,217,255,.20);border-radius:9px;background:rgba(4,16,31,.75)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g);margin-right:6px}
+.grid{
+  min-height:0;
+  display:grid;
+  grid-template-columns:1.05fr .85fr 1.05fr .72fr;
+  grid-template-rows:.72fr 1fr .78fr;
+  gap:8px;
+}
+.card{
+  min-width:0;min-height:0;overflow:hidden;border-radius:14px;border:1px solid rgba(70,178,255,.28);
+  background:linear-gradient(180deg,rgba(8,31,53,.88),rgba(3,14,27,.92));
+  box-shadow:0 0 22px rgba(44,169,232,.14), inset 0 0 0 1px rgba(255,255,255,.025);
+}
+.head{height:42px;display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1px solid rgba(80,180,255,.13)}
+.ico{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(103,217,255,.40);color:var(--b);background:rgba(39,180,255,.10);font-size:14px;flex:0 0 auto}
+.tt{font-size:12px;font-weight:950;line-height:1.05;white-space:nowrap}
+.ss{font-size:8.5px;color:var(--mut);margin-top:2px;white-space:nowrap}
+.body{padding:8px 10px;min-height:0}
+.sent{grid-column:1;grid-row:1}
+.decision{grid-column:2;grid-row:1}
+.effects{grid-column:3;grid-row:1}
+.health{grid-column:4;grid-row:1 / span 2}
+.news{grid-column:1;grid-row:2}
+.detect{grid-column:2;grid-row:2}
+.calendar{grid-column:3;grid-row:2}
+.drop{grid-column:1;grid-row:3}
+.alarm{grid-column:2 / span 2;grid-row:3}
+.kpi{grid-column:4;grid-row:3}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid rgba(80,180,255,.10);padding:6px 0;font-size:10px;color:#c9d6e4}
+.row:last-child{border-bottom:0}
+.row strong{font-size:13px}
+.green{color:var(--g)!important}.red{color:var(--r)!important}.amber{color:var(--a)!important}.blue{color:var(--b)!important}.violet{color:var(--v)!important}
+.mini3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;height:100%}
+.box{border:1px solid rgba(80,180,255,.15);background:rgba(3,14,27,.5);border-radius:10px;padding:7px;min-width:0}
+.box .l{font-size:8.5px;color:var(--mut);white-space:nowrap}
+.box .v{font-size:15px;font-weight:950;margin-top:5px}
+.gauge{display:grid;place-items:center;height:72px;position:relative}
+.arc{width:116px;height:58px;border-radius:116px 116px 0 0;background:conic-gradient(from 270deg at 50% 100%,var(--b),var(--g) 78deg,rgba(255,255,255,.12) 79deg 180deg);mask:radial-gradient(circle at 50% 100%,transparent 0 31px,#000 32px)}
+.num{position:absolute;bottom:0;font-size:25px;font-weight:950}
+.ver{font-size:15px;font-weight:950;text-align:center;color:var(--g)}
+.hint{text-align:center;font-size:8.5px;color:var(--mut);margin-top:2px}
+.sentwrap{display:grid;grid-template-columns:76px 1fr;gap:8px;align-items:center;height:100%}
+.donut{width:68px;height:68px;border-radius:50%;background:conic-gradient(var(--g) 0 60%,var(--r) 60% 80%,#d6dde3 80%);position:relative}
+.donut:after{content:"";position:absolute;inset:18px;background:#071424;border-radius:50%}
+.donut b{position:absolute;inset:0;display:grid;place-items:center;z-index:2;font-size:15px}
+.barline{display:grid;grid-template-columns:1fr 34px;align-items:center;gap:5px;margin:5px 0;font-size:9px}
+.meter{height:7px;background:#0c263e;border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;border-radius:99px}
+.item{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;border:1px solid rgba(80,180,255,.12);border-radius:10px;background:rgba(3,14,27,.42);padding:7px;margin-bottom:6px}
+.src{font-size:9px;color:#dce8f4;font-weight:900}
+.text{font-size:10px;color:#cfdae6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font-size:8px;font-weight:900;border-radius:999px;padding:4px 6px;background:rgba(53,240,160,.13);color:var(--g)}
+.tag.r{background:rgba(255,79,114,.13);color:var(--r)}
+.tag.a{background:rgba(255,191,60,.13);color:var(--a)}
+.spybox{height:100%;border:1px solid rgba(103,217,255,.35);border-radius:12px;background:radial-gradient(circle at 50% 35%,rgba(103,217,255,.18),transparent 45%),rgba(3,14,27,.5);position:relative;display:grid;place-items:center}
+.spy{width:96px;height:122px;position:relative}
+.spy:before{content:"";position:absolute;left:12px;right:12px;top:25px;height:16px;border:2px solid var(--b);border-radius:50%;box-shadow:0 0 14px rgba(103,217,255,.45)}
+.spy:after{content:"";position:absolute;left:31px;top:38px;width:34px;height:40px;border:2px solid var(--b);border-radius:50%;background:#061726;box-shadow:0 0 18px rgba(103,217,255,.35)}
+.coat{position:absolute;left:5px;right:5px;bottom:0;height:66px;background:#061726;clip-path:polygon(28% 0,72% 0,100% 100%,0 100%);border:2px solid var(--b);box-shadow:0 0 22px rgba(103,217,255,.24)}
+.btn{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);padding:7px 16px;border-radius:9px;border:1px solid rgba(103,217,255,.42);background:rgba(14,75,126,.70);color:#dff8ff;font-size:10px;font-weight:950}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;height:calc(100% - 0px)}
+.event{border:1px solid rgba(80,180,255,.14);border-radius:10px;background:rgba(3,14,27,.45);padding:7px;min-width:0}
+.event .d{font-size:8px;color:var(--mut)}
+.event .e{font-size:11px;font-weight:950;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.event .p{font-size:9px;margin-top:6px}
+.compact-list{display:grid;gap:6px}
+.kv{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(80,180,255,.10);padding:5px 0;font-size:10px}
+.kv span{color:var(--mut)}
+.kv b{font-size:11px}
+.alarmgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;height:100%}
+.warn{border:1px solid rgba(80,180,255,.14);border-radius:10px;background:rgba(3,14,27,.45);padding:7px}
+.warn .w1{font-size:11px;font-weight:950}
+.warn .w2{font-size:9px;color:var(--mut);margin-top:4px}
+.warn .w3{font-size:10px;font-weight:950;margin-top:7px}
+.footer{display:grid;grid-template-columns:repeat(8,1fr);gap:0;border:1px solid rgba(80,180,255,.20);border-radius:9px;overflow:hidden;background:rgba(3,14,27,.80);font-size:9px;color:var(--mut)}
+.footer div{display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(80,180,255,.10)}
+.footer div:last-child{border-right:0}
+.footer b{margin-left:5px;color:#fff}
+@media(max-width:1200px){
+  html,body{overflow:auto;height:auto}
+  .shell{display:block;height:auto}
+  .side{display:none}
+  .main{height:auto;display:block}
+  .top{display:block;margin-bottom:8px}
+  .stat{margin-top:8px;flex-wrap:wrap}
+  .grid{display:flex;flex-direction:column}
+  .card{min-height:190px;margin-bottom:8px}
+  .footer{grid-template-columns:repeat(2,1fr);height:auto;margin-top:8px}
+  .footer div{min-height:24px}
+}
+
+
+
+
+
+
+
+/* PANEL66F2_HABER_AKIS_CLEAN_HEIGHT_FILL_START */
+/* Eski 66D/66E/66F yükseklik blokları temizlendi. İç boşluk azaltıldı. Footer kapalı. */
+
+html,body{
+  width:100% !important;
+  height:100% !important;
+  min-height:100% !important;
+  overflow:hidden !important;
+}
+
+.shell{
+  height:100vh !important;
+  min-height:100vh !important;
+  max-height:100vh !important;
+  padding:8px 8px 2px 8px !important;
+}
+
+@supports (height:100dvh){
+  .shell{
+    height:100dvh !important;
+    min-height:100dvh !important;
+    max-height:100dvh !important;
+  }
+}
+
+.main{
+  height:100% !important;
+  min-height:0 !important;
+  grid-template-rows:42px minmax(0,1fr) 0px !important;
+  gap:6px !important;
+}
+
+.footer{
+  display:none !important;
+  height:0 !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+
+.grid{
+  height:100% !important;
+  min-height:0 !important;
+  grid-template-rows:.75fr 1.03fr .80fr !important;
+  gap:7px !important;
+}
+
+.card{
+  min-height:0 !important;
+  overflow:hidden !important;
+  position:relative !important;
+}
+
+.card .body{
+  padding-bottom:19px !important;
+}
+
+.action{
+  position:absolute !important;
+  left:10px !important;
+  right:10px !important;
+  bottom:4px !important;
+  height:15px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-size:8.6px !important;
+  font-weight:950 !important;
+  line-height:1 !important;
+  color:#69ecff !important;
+  border-top:1px solid rgba(80,180,255,.10) !important;
+  background:linear-gradient(180deg,rgba(3,14,27,0),rgba(3,14,27,.75)) !important;
+  text-shadow:0 0 8px rgba(105,236,255,.38) !important;
+  white-space:nowrap !important;
+  pointer-events:none !important;
+}
+
+.sent .body{
+  display:block !important;
+  padding-bottom:18px !important;
+}
+
+.sent-bars{
+  display:grid !important;
+  gap:5px !important;
+  margin-top:1px !important;
+}
+
+.sent-row{
+  display:grid !important;
+  grid-template-columns:70px 1fr 30px !important;
+  align-items:center !important;
+  gap:6px !important;
+  font-size:8.8px !important;
+  color:#d8e5f1 !important;
+}
+
+.sent-label{
+  display:flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  font-weight:850 !important;
+}
+
+.sent-dot{
+  width:8px !important;
+  height:8px !important;
+  border-radius:50% !important;
+  display:inline-block !important;
+}
+
+.sent-dot.g{background:var(--g) !important;box-shadow:0 0 10px rgba(53,240,160,.4) !important}
+.sent-dot.r{background:var(--r) !important;box-shadow:0 0 10px rgba(255,79,114,.4) !important}
+.sent-dot.n{background:#d6dde3 !important}
+.sent-dot.h{background:var(--a) !important;box-shadow:0 0 10px rgba(255,191,60,.35) !important}
+
+.sent-meter{
+  height:8px !important;
+  border-radius:999px !important;
+  overflow:hidden !important;
+  background:rgba(6,25,45,.92) !important;
+  border:1px solid rgba(80,180,255,.10) !important;
+}
+
+.sent-meter i{
+  display:block !important;
+  height:100% !important;
+  border-radius:999px !important;
+}
+
+.sent-value{
+  font-size:8.8px !important;
+  font-weight:950 !important;
+  text-align:right !important;
+}
+
+.sent-summary{
+  display:none !important;
+}
+
+.news .body > .row,
+.drop .body > .row{
+  display:none !important;
+}
+
+.news .item{
+  padding:6px !important;
+  margin-bottom:5px !important;
+}
+
+.drop .kv{
+  padding:5px 0 !important;
+}
+
+.decision .body{
+  padding-bottom:18px !important;
+}
+
+.gauge{
+  height:58px !important;
+}
+
+.arc{
+  width:104px !important;
+  height:52px !important;
+  border-radius:104px 104px 0 0 !important;
+}
+
+.num{
+  font-size:22px !important;
+}
+
+.ver{
+  font-size:13px !important;
+  margin-top:1px !important;
+}
+
+.hint{
+  display:none !important;
+}
+
+.detect .body{
+  padding-bottom:8px !important;
+}
+
+.detect .action{
+  bottom:5px !important;
+}
+
+.btn{
+  bottom:21px !important;
+  font-size:8.8px !important;
+  padding:6px 13px !important;
+}
+
+.alarmgrid{
+  gap:6px !important;
+}
+
+.warn{
+  padding:7px !important;
+}
+
+.kpi .body{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:0 10px !important;
+  padding-bottom:19px !important;
+}
+
+.health .body{
+  padding-bottom:20px !important;
+}
+
+@media(max-height:760px){
+  .shell{
+    padding-bottom:1px !important;
+  }
+  .grid{
+    grid-template-rows:.72fr 1fr .76fr !important;
+    gap:6px !important;
+  }
+  .head{
+    height:36px !important;
+  }
+  .card .body{
+    padding-bottom:18px !important;
+  }
+  .action{
+    bottom:3px !important;
+    height:14px !important;
+    font-size:8px !important;
+  }
+}
+/* PANEL66F2_HABER_AKIS_CLEAN_HEIGHT_FILL_END */
+
+
+
+
+
+
+
+
+/* PANEL66H_HABER_AKIS_DETECTIVE_FINAL_IMAGE_SWAP_START */
+.detect .body{
+  padding:7px 9px 22px 9px !important;
+}
+.detective-image-box{
+  height:100% !important;
+  display:grid !important;
+  place-items:center !important;
+}
+.detective-frame{
+  width:100% !important;
+  height:100% !important;
+  border-radius:12px !important;
+  overflow:hidden !important;
+  position:relative !important;
+  border:1px solid rgba(103,217,255,.38) !important;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(44,255,180,.14),transparent 45%),
+    linear-gradient(180deg,rgba(4,20,34,.96),rgba(1,8,18,.98)) !important;
+  box-shadow:
+    0 0 22px rgba(67,255,190,.17),
+    inset 0 0 0 1px rgba(255,255,255,.04) !important;
+}
+.detective-frame img{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  filter:contrast(1.07) saturate(1.08) brightness(.95) !important;
+}
+.detective-frame:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center,transparent 54%,rgba(2,8,19,.22) 100%),
+    linear-gradient(180deg,rgba(103,255,210,.04),transparent 35%,rgba(0,0,0,.12) 100%);
+}
+.detect .btn,
+.detect button,
+.spy,
+.coat{
+  display:none !important;
+}
+.detect .action{
+  bottom:4px !important;
+  height:17px !important;
+  color:#f2feff !important;
+  text-shadow:none !important;
+  filter:none !important;
+  opacity:1 !important;
+  font-size:9.4px !important;
+  font-weight:950 !important;
+  letter-spacing:0 !important;
+  background:linear-gradient(180deg,rgba(3,14,27,0),rgba(3,14,27,.94)) !important;
+  border-top:1px solid rgba(105,236,255,.16) !important;
+}
+/* PANEL66H_HABER_AKIS_DETECTIVE_FINAL_IMAGE_SWAP_END */
+
+
+
+
+
+/* PANEL66J_HABER_AKIS_DETECTIVE_X_ONLY_CROP_FIX_START */
+
+/* 66I geri alınır: üstten büyütme yok, şapka kesilmez.
+   Sadece sağ-sol genişletme hissi verilir. */
+
+.detect .body{
+  padding:5px 4px 22px 4px !important;
+}
+
+.detective-image-box{
+  height:100% !important;
+  display:grid !important;
+  place-items:center !important;
+  overflow:hidden !important;
+}
+
+.detective-frame{
+  width:calc(100% + 18px) !important;
+  height:100% !important;
+  margin-left:-9px !important;
+  margin-right:-9px !important;
+  margin-top:0 !important;
+  margin-bottom:0 !important;
+  border-radius:10px !important;
+  overflow:hidden !important;
+  position:relative !important;
+  border:1px solid rgba(103,255,210,.44) !important;
+  box-shadow:
+    0 0 22px rgba(67,255,190,.18),
+    inset 0 0 0 1px rgba(255,255,255,.05) !important;
+}
+
+.detective-frame img{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+
+  /* Kritik düzeltme:
+     cover/scale yerine fill kullanıyoruz.
+     Böylece üst-alt kırpma olmaz; şapka kesilmez.
+     Görsel sadece yatayda kartı doldurur gibi görünür. */
+  object-fit:fill !important;
+  object-position:center center !important;
+  transform:none !important;
+  transform-origin:center center !important;
+
+  filter:contrast(1.08) saturate(1.09) brightness(.96) !important;
+}
+
+/* Tüm kart altı detay/aksiyon yazıları net kalsın */
+.action{
+  color:#f8feff !important;
+  text-shadow:none !important;
+  filter:none !important;
+  opacity:1 !important;
+  font-size:10.2px !important;
+  font-weight:950 !important;
+  letter-spacing:.02px !important;
+  line-height:1 !important;
+  -webkit-font-smoothing:antialiased !important;
+  text-rendering:geometricPrecision !important;
+  background:
+    linear-gradient(180deg,rgba(3,14,27,0),rgba(3,14,27,.96)) !important;
+  border-top:1px solid rgba(105,236,255,.20) !important;
+  height:18px !important;
+  bottom:3px !important;
+  z-index:9 !important;
+}
+
+.detect .action{
+  font-size:10.4px !important;
+  color:#ffffff !important;
+  font-weight:1000 !important;
+}
+
+@media(max-height:760px){
+  .action{
+    font-size:9.4px !important;
+    height:16px !important;
+    bottom:3px !important;
+  }
+  .detect .action{
+    font-size:9.6px !important;
+  }
+}
+
+/* PANEL66J_HABER_AKIS_DETECTIVE_X_ONLY_CROP_FIX_END */
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <div class="logo">🕵</div>
+    <div class="nav">
+      <div class="n"><b>▦</b>Ana</div>
+      <div class="n active"><b>🌐</b>Haber<span class="badge">3</span></div>
+      <div class="n"><b>⛓</b>Onchain</div>
+      <div class="n"><b>🐋</b>Balina</div>
+      <div class="n"><b>🛡</b>Risk</div>
+      <div class="n"><b>♡</b>Yaşam</div>
+      <div class="n"><b>⚙</b>Sistem</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <div class="hgroup">
+        <div class="zap">ϟ</div>
+        <div><h1>HABER AKIŞ İSTİHBARAT MERKEZİ</h1><div class="sub">haber etkisi / takvim / drop / istihbarat akışı</div></div>
+      </div>
+      <div class="stat">
+        <span class="pill"><span class="dot"></span>Sistem Sağlığı: <b class="green">İyi</b></span>
+        <span class="pill">15 May 2025 15:53</span>
+        <span class="pill">🔔 3</span>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card sent">
+        <div class="head"><div class="ico">🔥</div><div><div class="tt">FUD / BULLISH SENTIMENT</div><div class="ss">temiz okunabilir duygu özeti</div></div></div>
+        <div class="body">
+          <div class="sent-bars">
+            <div class="sent-row">
+              <div class="sent-label"><span class="sent-dot g"></span>Bullish</div>
+              <div class="sent-meter"><i style="width:60%;background:var(--g)"></i></div>
+              <div class="sent-value green">60%</div>
+            </div>
+            <div class="sent-row">
+              <div class="sent-label"><span class="sent-dot r"></span>FUD</div>
+              <div class="sent-meter"><i style="width:20%;background:var(--r)"></i></div>
+              <div class="sent-value red">20%</div>
+            </div>
+            <div class="sent-row">
+              <div class="sent-label"><span class="sent-dot n"></span>Neutral</div>
+              <div class="sent-meter"><i style="width:20%;background:#d6dde3"></i></div>
+              <div class="sent-value">20%</div>
+            </div>
+            <div class="sent-row">
+              <div class="sent-label"><span class="sent-dot h"></span>High Impact</div>
+              <div class="sent-meter"><i style="width:75%;background:var(--a)"></i></div>
+              <div class="sent-value red">3</div>
+            </div>
+          </div>
+          <div class="sent-summary">
+            <div class="sent-chip"><span>Genel duygu</span><b class="green">Pozitif ağırlık</b></div>
+            <div class="sent-chip"><span>Risk notu</span><b class="amber">FUD izleniyor</b></div>
+          </div>
+        </div>
+      <div class="action">Duygu detayını aç →</div>
+      </article>
+
+      <article class="card decision">
+        <div class="head"><div class="ico">AI</div><div><div class="tt">KARAR ÖZETİ</div><div class="ss">AI skor göstergesi</div></div></div>
+        <div class="body">
+          <div class="gauge"><div class="arc"></div><div class="num">52</div></div>
+          <div class="ver">AI TAVSİYESİ: GÖZLEMLE</div>
+          <div class="hint">kademe bekle / alarm izle</div>
+        </div>
+      <div class="action">Karar detayını aç →</div>
+      </article>
+
+      <article class="card effects">
+        <div class="head"><div class="ico">〽</div><div><div class="tt">MİNİ ETKİ SİNYALLERİ</div><div class="ss">onchain / balina / risk özeti</div></div></div>
+        <div class="body mini3">
+          <div class="box"><div class="l">Onchain Etkisi</div><div class="v green">Pozitif</div><div class="l">Net akış</div><div class="v green">+$53.6M</div></div>
+          <div class="box"><div class="l">Balina Etkisi</div><div class="v green">Pozitif</div><div class="l">Birikim</div><div class="v green">+$18.2M</div></div>
+          <div class="box"><div class="l">Risk / MEV</div><div class="v amber">Orta</div><div class="l">Skor</div><div class="v amber">48/100</div></div>
+        </div>
+      <div class="action">Etki sinyallerini aç →</div>
+      </article>
+
+      <aside class="card health">
+        <div class="head"><div class="ico">♡</div><div><div class="tt">KAYNAK / SİSTEM</div><div class="ss">sağlık durumu</div></div></div>
+        <div class="body">
+          <div class="kv"><span>Haber Akışları</span><b class="green">İyi ●</b></div>
+          <div class="kv"><span>Sosyal Medya</span><b class="green">İyi ●</b></div>
+          <div class="kv"><span>Onchain API</span><b class="green">İyi ●</b></div>
+          <div class="kv"><span>Oracle / Fiyat</span><b class="green">İyi ●</b></div>
+          <div class="kv"><span>Whale İzleme</span><b class="green">İyi ●</b></div>
+          <br>
+          <div class="kv"><span>Piyasa</span><b class="green">Açık</b></div>
+          <div class="kv"><span>Volatilite</span><b class="amber">Orta</b></div>
+          <div class="kv"><span>Son güncelleme</span><b>15:53</b></div>
+        </div>
+      <div class="action">Kaynak / sistem detayını aç →</div>
+      </aside>
+
+      <article class="card news">
+        <div class="head"><div class="ico">▤</div><div><div class="tt">HABER KAYNAK AKIŞI</div><div class="ss">tablo değil, temiz kısa liste</div></div></div>
+        <div class="body">
+          <div class="item"><div class="src">CryptoBrief</div><div class="text">ETF başvurusu onay sürecinde ilerledi.</div><div class="tag">85</div></div>
+          <div class="item"><div class="src">DeFi Pulse</div><div class="text">Büyük cüzdanlar birikime devam ediyor.</div><div class="tag">72</div></div>
+          <div class="item"><div class="src">NewsBlock</div><div class="text">Regülasyon kaynaklı izleme mesajı geldi.</div><div class="tag a">50</div></div>
+          <div class="item"><div class="src">ChainWire</div><div class="text">Kısa vadeli volatilite uyarısı yayınlandı.</div><div class="tag r">25</div></div>
+          <div class="row"><span>Detay ekranı</span><strong class="blue">Tüm kaynak akışını aç →</strong></div>
+        </div>
+      <div class="action">Tüm kaynak akışını aç →</div>
+      </article>
+
+      <article class="card detect">
+        <div class="body detective-image-box">
+          <div class="detective-frame">
+            <img src="assets/haber_akis_forensic_detective_final_20260516_005900.jpeg" alt="Dedektif Analizi">
+          </div>
+        </div>
+        <div class="action">Dedektif analizini aç →</div>
+      </article>
+
+      <article class="card calendar">
+        <div class="head"><div class="ico">📅</div><div><div class="tt">KRİTİK TAKVİM</div><div class="ss">listing / unlock / TGE / ETF / regülasyon</div></div></div>
+        <div class="body timeline">
+          <div class="event"><div class="d">18 May</div><div class="e">Listing</div><div class="p red">Yüksek</div></div>
+          <div class="event"><div class="d">20 May</div><div class="e">Unlock</div><div class="p amber">Orta</div></div>
+          <div class="event"><div class="d">22 May</div><div class="e">TGE</div><div class="p red">Yüksek</div></div>
+          <div class="event"><div class="d">23 May</div><div class="e">ETF</div><div class="p red">Yüksek</div></div>
+          <div class="event"><div class="d">26 May</div><div class="e">Dava</div><div class="p amber">Orta</div></div>
+        </div>
+      <div class="action">Takvimi aç →</div>
+      </article>
+
+      <article class="card drop">
+        <div class="head"><div class="ico">◎</div><div><div class="tt">ICO / IDO / DROP RADARI</div><div class="ss">yaklaşan fırsatlar</div></div></div>
+        <div class="body compact-list">
+          <div class="kv"><span>LayerZero v2 / Airdrop</span><b class="violet">Yakında</b></div>
+          <div class="kv"><span>MetaDock / IDO</span><b class="green">Kaydedildi</b></div>
+          <div class="kv"><span>FluxChain / ICO</span><b class="amber">Erken</b></div>
+          <div class="kv"><span>BlockVerse / Launch</span><b class="green">Onaylı</b></div>
+        </div>
+      <div class="action">Drop radarını aç →</div>
+      </article>
+
+      <article class="card alarm">
+        <div class="head"><div class="ico">⚠</div><div><div class="tt">ALARM MERKEZİ</div><div class="ss">yüksek etki eşleşmeleri</div></div></div>
+        <div class="body alarmgrid">
+          <div class="warn"><div class="w1 red">Negatif haber + satış</div><div class="w2">2 kaynak doğrulandı</div><div class="w3 red">KRİTİK</div></div>
+          <div class="warn"><div class="w1 green">Balina birikimi + pozitif haber</div><div class="w2">4 cüzdan eşleşti</div><div class="w3 green">FIRSAT</div></div>
+          <div class="warn"><div class="w1 amber">Takvim olayı yaklaşıyor</div><div class="w2">TGE / listing / unlock</div><div class="w3 amber">İZLE</div></div>
+        </div>
+      <div class="action">Alarm merkezini aç →</div>
+      </article>
+
+      <aside class="card kpi">
+        <div class="body">
+          <div class="row"><span>Aktif uyarı</span><strong class="red">2</strong></div>
+          <div class="row"><span>Kritik olay</span><strong class="red">1</strong></div>
+          <div class="row"><span>High impact</span><strong class="red">3</strong></div>
+          <div class="row"><span>Veri oturumu</span><strong>00:14</strong></div>
+        </div>
+      <div class="action">Özet KPI detayını aç →</div>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <div>Aktif Uyarı <b class="red">2</b></div>
+      <div>Kritik Olay <b class="red">1</b></div>
+      <div>Piyasa <b class="green">Açık</b></div>
+      <div>Volatilite <b class="amber">Orta</b></div>
+      <div>Token <b>1,286</b></div>
+      <div>Cüzdan <b>312</b></div>
+      <div>High Impact <b class="red">3</b></div>
+      <div>Oturum <b>00:14</b></div>
+    </footer>
+  </main>
+</div>
+<script>window.__PANEL66C_100_FIT_SUMMARY_READY__=true;</script>
+
+
+<script>window.__PANEL66F2_CLEAN_HEIGHT_FILL_READY__=true;</script>
+
+
+<script>window.__PANEL66H_DETECTIVE_FINAL_IMAGE_SWAP_READY__=true;</script>
+
+<script>window.__PANEL66J_DETECTIVE_X_ONLY_CROP_FIX_READY__=true;</script>
+</body>
+</html>

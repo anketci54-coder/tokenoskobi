@@ -1,0 +1,51 @@
+{
+  "phase": "PASS19C_LEARNING_FEEDBACK_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "learning_feedback_ledger_v1",
+      "purpose": "canonical_learning_events"
+    },
+    {
+      "table": "learning_outcome_registry_v1",
+      "purpose": "outcome_tracking"
+    },
+    {
+      "table": "learning_lesson_registry_v1",
+      "purpose": "lesson_tracking"
+    },
+    {
+      "table": "false_negative_memory_registry_v1",
+      "purpose": "false_negative_memory"
+    },
+    {
+      "table": "false_positive_memory_registry_v1",
+      "purpose": "false_positive_memory"
+    },
+    {
+      "table": "learning_provenance_registry_v1",
+      "purpose": "learning_provenance"
+    }
+  ],
+  "required_rules": [
+    "OUTCOME_REQUIRED",
+    "LESSON_AFTER_OUTCOME",
+    "LEARNING_FROM_EVIDENCE_ONLY",
+    "PROVENANCE_REQUIRED",
+    "NO_RETROACTIVE_REWRITE"
+  ],
+  "forbidden": [
+    "NO_MODEL_SELF_MODIFICATION",
+    "NO_AUTO_WEIGHT_CHANGE",
+    "NO_AUTO_TRADE",
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN"
+  ],
+  "decision": "PASS19C_ACCEPTED_READY_FOR_PASS19D"
+}

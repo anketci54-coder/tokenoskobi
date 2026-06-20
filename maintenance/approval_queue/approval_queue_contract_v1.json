@@ -1,0 +1,122 @@
+{
+  "contract_schema": "coinoskobi_approval_queue_contract_v1",
+  "phase": "PHASE32D_APPROVAL_QUEUE_AND_ROLLBACK_REGISTRY_PLAN_NOAPI",
+  "created_utc": "2026-06-08T19:12:02.802401+00:00",
+  "purpose": "Hold validated AI proposals until explicit human approval is provided. Queue never executes changes by itself.",
+  "authority_boundary": {
+    "queue_can_execute": false,
+    "queue_can_apply": false,
+    "queue_can_restart_service": false,
+    "queue_can_change_timer": false,
+    "queue_can_trade": false,
+    "queue_can_connect_wallet": false,
+    "queue_can_sign_transaction": false,
+    "queue_can_store_secret": false
+  },
+  "proposal_entry_required_fields": [
+    "queue_id",
+    "proposal_id",
+    "created_utc",
+    "source_bundle_ref",
+    "proposal_ref",
+    "validator_ref",
+    "validator_decision",
+    "approval_required",
+    "approval_phrase_required",
+    "approval_scope",
+    "requested_target_phase",
+    "mutation_class",
+    "protected_areas_touched",
+    "rollback_required",
+    "backup_required",
+    "post_audit_required",
+    "status",
+    "expiry_policy",
+    "reject_reasons",
+    "review_reasons"
+  ],
+  "allowed_statuses": [
+    "REJECTED",
+    "REVIEW_REQUIRED",
+    "PLAN_ONLY_ALLOWED",
+    "DRYRUN_ALLOWED",
+    "PENDING_APPROVAL",
+    "APPROVED_FOR_GUARDED_PHASE",
+    "EXPIRED",
+    "CANCELLED",
+    "CLOSED_AFTER_POST_AUDIT"
+  ],
+  "status_transition_rules": [
+    {
+      "from": "REVIEW_REQUIRED",
+      "to": "PENDING_APPROVAL",
+      "requires": "manual_review"
+    },
+    {
+      "from": "PENDING_APPROVAL",
+      "to": "APPROVED_FOR_GUARDED_PHASE",
+      "requires": "exact_approval_phrase"
+    },
+    {
+      "from": "PENDING_APPROVAL",
+      "to": "EXPIRED",
+      "requires": "expiry_reached"
+    },
+    {
+      "from": "PENDING_APPROVAL",
+      "to": "CANCELLED",
+      "requires": "manual_cancel"
+    },
+    {
+      "from": "APPROVED_FOR_GUARDED_PHASE",
+      "to": "CLOSED_AFTER_POST_AUDIT",
+      "requires": "post_audit_pass"
+    }
+  ],
+  "approval_phrase_policy": {
+    "exact_match_required": true,
+    "phase_name_required": true,
+    "scope_required": true,
+    "wildcard_approval_forbidden": true,
+    "approval_cannot_cover_live_trade_by_default": true,
+    "approval_cannot_cover_wallet_or_signing": true
+  },
+  "mutation_class_policy": {
+    "PLAN_ONLY": "no approval needed",
+    "NOAPI_DRYRUN": "no approval needed if no persistent mutation",
+    "TEMPDB_DRYRUN": "no approval needed if temp-only and no network",
+    "FILE_DRYRUN": "no approval needed if under work dir only",
+    "REAL_APPLY_REQUEST": "approval required",
+    "SERVICE_TIMER_MUTATION": "approval required and post-audit required",
+    "RUNNER_MUTATION": "approval required and rollback required",
+    "LIVE_DB_MUTATION": "approval required, backup required, rollback required, post-audit required",
+    "ACTIVE_PANEL_MUTATION": "approval required, backup required, rollback required, post-audit required",
+    "LIVE_TRADE": "hard rejected until future micro-live readiness"
+  },
+  "protected_areas": [
+    "live_db",
+    "active_panel",
+    "runner",
+    "service_unit",
+    "timer_unit",
+    "state_capsule",
+    "nginx_auth",
+    "dns_ssl",
+    "paper_runtime",
+    "live_trade_runtime",
+    "wallet_or_signing"
+  ],
+  "hard_reject_if_touches": [
+    "live_trade_runtime",
+    "wallet_or_signing",
+    "private_key_access",
+    "auth_secret_access",
+    "risk_gate_weakening",
+    "hardblock_weakening"
+  ],
+  "storage_plan_future": {
+    "queue_file": "/root/tokenoskobi_clean_v1/maintenance/approval_queue/pending_approval_queue_v1.jsonl",
+    "history_file": "/root/tokenoskobi_clean_v1/maintenance/approval_queue/approval_history_v1.jsonl",
+    "no_file_created_in_phase32d": true
+  }
+}

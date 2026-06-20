@@ -1,0 +1,900 @@
+{
+  "phase": "PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+  "started_utc": "2026-06-08T19:01:40.626535+00:00",
+  "finished_utc": "2026-06-08T19:01:40.724098+00:00",
+  "final_gate": "PASS_PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE32D_APPROVAL_QUEUE_AND_ROLLBACK_REGISTRY_PLAN_NOAPI",
+  "ai_proposal_schema_out": "/root/tokenoskobi_clean_v1/_phase32c_ai_proposal_schema_and_validator_contract_noapi/20260608_220140/ai_proposal_schema_v1.json",
+  "validator_contract_out": "/root/tokenoskobi_clean_v1/_phase32c_ai_proposal_schema_and_validator_contract_noapi/20260608_220140/ai_proposal_validator_contract_v1.json",
+  "forbidden_action_matrix_out": "/root/tokenoskobi_clean_v1/_phase32c_ai_proposal_schema_and_validator_contract_noapi/20260608_220140/ai_forbidden_action_matrix_v1.json",
+  "proposal_lifecycle_out": "/root/tokenoskobi_clean_v1/_phase32c_ai_proposal_schema_and_validator_contract_noapi/20260608_220140/ai_proposal_lifecycle_contract_v1.md",
+  "validator_test_matrix_out": "/root/tokenoskobi_clean_v1/_phase32c_ai_proposal_schema_and_validator_contract_noapi/20260608_220140/ai_proposal_validator_test_matrix_v1.jsonl",
+  "ai_proposal_schema": {
+    "schema_name": "coinoskobi_ai_proposal_schema_v1",
+    "phase": "PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+    "created_utc": "2026-06-08T19:01:40.635602+00:00",
+    "purpose": "Constrain AI output to proposal-only objects. AI cannot apply changes.",
+    "proposal_object_required_fields": [
+      "proposal_id",
+      "created_utc",
+      "proposal_source",
+      "source_bundle_ref",
+      "target_phase",
+      "proposal_type",
+      "summary",
+      "planned_actions",
+      "forbidden_action_flags",
+      "safety_attestation",
+      "fast_path_impact",
+      "approval",
+      "rollback",
+      "validator_expectations"
+    ],
+    "proposal_type_allowed": [
+      "PLAN_ONLY",
+      "NOAPI_DRYRUN",
+      "TEMPDB_DRYRUN",
+      "FILE_DRYRUN",
+      "REAL_APPLY_REQUEST",
+      "POST_AUDIT",
+      "REVIEW_DIAGNOSIS"
+    ],
+    "planned_action_required_fields": [
+      "action_id",
+      "action_type",
+      "target_area",
+      "target_path_or_table",
+      "intent",
+      "expected_effect",
+      "requires_approval",
+      "rollback_required",
+      "touches_fast_path",
+      "touches_live_db",
+      "touches_runner",
+      "touches_panel",
+      "touches_service_timer",
+      "touches_ai_runtime",
+      "touches_trade_runtime"
+    ],
+    "forbidden_action_flags_required": [
+      "live_db_write",
+      "temp_db_write",
+      "state_file_write",
+      "active_panel_write",
+      "runner_patch",
+      "service_restart",
+      "service_start",
+      "timer_change",
+      "timer_enable",
+      "daemon_reload",
+      "local_ai_install",
+      "model_download",
+      "package_install",
+      "external_network_call",
+      "api_call",
+      "paper_trade",
+      "live_trade",
+      "wallet_connection",
+      "transaction_signing",
+      "private_key_access",
+      "auth_secret_access",
+      "risk_gate_weakening",
+      "hardblock_weakening",
+      "canonical_promotion",
+      "quarantine_promotion",
+      "fast_path_blocking",
+      "compact_state_write",
+      "delete_files",
+      "archive_move",
+      "nginx_auth_change",
+      "dns_ssl_change",
+      "reboot",
+      "shutdown",
+      "logout"
+    ],
+    "safety_attestation_required_fields": [
+      "no_secret_required",
+      "no_wallet_secret_required",
+      "no_fast_path_slowdown",
+      "does_not_weaken_risk_gate",
+      "does_not_weaken_hardblock",
+      "does_not_open_trade",
+      "does_not_override_quarantine",
+      "does_not_silent_overwrite_canonical",
+      "human_approval_required_for_apply"
+    ],
+    "approval_required_fields": [
+      "required",
+      "approval_phrase",
+      "approval_scope",
+      "approval_reason"
+    ],
+    "rollback_required_fields": [
+      "required",
+      "backup_required",
+      "rollback_script_required",
+      "post_audit_required",
+      "rollback_scope"
+    ],
+    "fast_path_impact_required_fields": [
+      "impact",
+      "blocking",
+      "expected_latency_change_ms",
+      "fast_path_waits_for_ai",
+      "fast_path_waits_for_bundle"
+    ],
+    "validator_possible_decisions": [
+      "REJECT",
+      "REVIEW_REQUIRED",
+      "PLAN_ONLY_ALLOWED",
+      "DRYRUN_ALLOWED",
+      "APPROVAL_REQUIRED"
+    ],
+    "hard_rule": "AI proposal is not permission to apply. Real apply requires explicit user approval and separate guarded phase."
+  },
+  "validator_contract": {
+    "contract_schema": "coinoskobi_ai_proposal_validator_contract_v1",
+    "phase": "PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+    "created_utc": "2026-06-08T19:01:40.636155+00:00",
+    "purpose": "Validate AI proposals before any dry-run or approval queue entry.",
+    "input_schema": "coinoskobi_ai_proposal_schema_v1",
+    "validator_steps": [
+      {
+        "step": 1,
+        "name": "parse_json",
+        "reject_on_fail": true
+      },
+      {
+        "step": 2,
+        "name": "required_fields_check",
+        "reject_on_fail": true
+      },
+      {
+        "step": 3,
+        "name": "source_bundle_ref_check",
+        "reject_on_fail": true
+      },
+      {
+        "step": 4,
+        "name": "secret_scan",
+        "reject_on_secret_hit": true
+      },
+      {
+        "step": 5,
+        "name": "forbidden_action_flags_check",
+        "reject_on_hard_forbidden": true
+      },
+      {
+        "step": 6,
+        "name": "fast_path_impact_check",
+        "reject_if_fast_path_waits_for_ai_or_bundle": true
+      },
+      {
+        "step": 7,
+        "name": "risk_gate_integrity_check",
+        "reject_if_weakened": true
+      },
+      {
+        "step": 8,
+        "name": "rollback_requirement_check",
+        "reject_real_apply_without_rollback": true
+      },
+      {
+        "step": 9,
+        "name": "approval_requirement_check",
+        "reject_real_apply_without_explicit_approval": true
+      },
+      {
+        "step": 10,
+        "name": "decision_emit",
+        "allowed_decisions": [
+          "REJECT",
+          "REVIEW_REQUIRED",
+          "PLAN_ONLY_ALLOWED",
+          "DRYRUN_ALLOWED",
+          "APPROVAL_REQUIRED"
+        ]
+      }
+    ],
+    "hard_reject_conditions": [
+      "proposal_missing_required_field",
+      "source_bundle_ref_missing",
+      "secret_like_text_detected",
+      "private_key_or_wallet_secret_requested",
+      "ai_attempts_apply",
+      "live_trade_requested",
+      "wallet_connection_requested",
+      "transaction_signing_requested",
+      "risk_gate_weakening_requested",
+      "hardblock_weakening_requested",
+      "quarantine_truth_override_requested",
+      "canonical_silent_overwrite_requested",
+      "fast_path_waits_for_ai",
+      "fast_path_waits_for_bundle",
+      "real_apply_without_approval",
+      "real_apply_without_backup",
+      "real_apply_without_rollback",
+      "real_apply_without_post_audit",
+      "service_timer_change_without_approval",
+      "runner_patch_without_approval",
+      "active_panel_write_without_approval",
+      "live_db_write_without_approval"
+    ],
+    "plan_only_allowed_conditions": [
+      "no forbidden hard flags true",
+      "no live mutation requested",
+      "no secret requested",
+      "fast_path_impact_none",
+      "rollback not required because no mutation",
+      "approval not required because plan only"
+    ],
+    "dryrun_allowed_conditions": [
+      "no live mutation requested",
+      "dryrun target isolated",
+      "no service/timer action",
+      "no runner patch",
+      "no active panel write",
+      "no external API unless explicitly future-approved",
+      "rollback not required if no persistent mutation"
+    ],
+    "approval_required_conditions": [
+      "proposal_type_REAL_APPLY_REQUEST",
+      "mutation_requested_but_not_hard_forbidden",
+      "backup_plan_present",
+      "rollback_script_plan_present",
+      "post_audit_plan_present",
+      "explicit_approval_phrase_present"
+    ],
+    "output_required_fields": [
+      "validator_decision",
+      "reject_reasons",
+      "review_reasons",
+      "approval_required",
+      "dryrun_allowed",
+      "forbidden_flags_seen",
+      "secret_scan_result",
+      "fast_path_impact_result",
+      "rollback_requirement_result",
+      "next_allowed_phase"
+    ],
+    "authority_boundary": "Validator may classify and gate proposals. Validator does not apply changes."
+  },
+  "forbidden_action_matrix": {
+    "matrix_schema": "coinoskobi_ai_forbidden_action_matrix_v1",
+    "phase": "PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+    "created_utc": "2026-06-08T19:01:40.636144+00:00",
+    "default_policy": "deny_by_default",
+    "flags": [
+      {
+        "flag": "live_db_write",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "temp_db_write",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "state_file_write",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "active_panel_write",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "runner_patch",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "service_restart",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "service_start",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "timer_change",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "timer_enable",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "daemon_reload",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "local_ai_install",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "model_download",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "package_install",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "external_network_call",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "api_call",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "paper_trade",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "live_trade",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "wallet_connection",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "transaction_signing",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "private_key_access",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "auth_secret_access",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "risk_gate_weakening",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "hardblock_weakening",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "canonical_promotion",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "quarantine_promotion",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "fast_path_blocking",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "compact_state_write",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "delete_files",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "archive_move",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "nginx_auth_change",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "dns_ssl_change",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": true,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": true,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "reboot",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "shutdown",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      },
+      {
+        "flag": "logout",
+        "default_policy": "REJECT_IF_TRUE",
+        "allowed_without_approval": false,
+        "allowed_in_plan_only": true,
+        "allowed_in_dryrun": false,
+        "real_apply_requires_explicit_approval": true,
+        "rollback_required_if_approved": false,
+        "notes": "AI cannot execute this action; at most it can request a future guarded phase."
+      }
+    ],
+    "always_reject_if_true": [
+      "live_trade",
+      "wallet_connection",
+      "transaction_signing",
+      "private_key_access",
+      "auth_secret_access",
+      "risk_gate_weakening",
+      "hardblock_weakening",
+      "reboot",
+      "shutdown",
+      "logout"
+    ],
+    "approval_may_allow_future_guarded_phase_but_not_ai_apply": [
+      "live_db_write",
+      "state_file_write",
+      "active_panel_write",
+      "runner_patch",
+      "service_restart",
+      "timer_change",
+      "compact_state_write",
+      "canonical_promotion",
+      "quarantine_promotion"
+    ]
+  },
+  "validator_test_matrix": [
+    {
+      "case_id": "T01_PLAN_ONLY_SAFE",
+      "proposal_type": "PLAN_ONLY",
+      "forbidden_true": [],
+      "expected_decision": "PLAN_ONLY_ALLOWED",
+      "reason": "Pure plan, no mutation, no forbidden flags."
+    },
+    {
+      "case_id": "T02_DRYRUN_SAFE",
+      "proposal_type": "NOAPI_DRYRUN",
+      "forbidden_true": [],
+      "expected_decision": "DRYRUN_ALLOWED",
+      "reason": "Read-only dry-run outside Fast Path."
+    },
+    {
+      "case_id": "T03_REAL_APPLY_NEEDS_APPROVAL",
+      "proposal_type": "REAL_APPLY_REQUEST",
+      "forbidden_true": [
+        "state_file_write"
+      ],
+      "expected_decision": "APPROVAL_REQUIRED",
+      "reason": "State write can only be future guarded phase with backup/rollback/post-audit and explicit approval."
+    },
+    {
+      "case_id": "T04_LIVE_TRADE_REJECT",
+      "proposal_type": "REAL_APPLY_REQUEST",
+      "forbidden_true": [
+        "live_trade"
+      ],
+      "expected_decision": "REJECT",
+      "reason": "Live trade remains locked."
+    },
+    {
+      "case_id": "T05_WALLET_REJECT",
+      "proposal_type": "REAL_APPLY_REQUEST",
+      "forbidden_true": [
+        "wallet_connection",
+        "transaction_signing"
+      ],
+      "expected_decision": "REJECT",
+      "reason": "Wallet/signing forbidden."
+    },
+    {
+      "case_id": "T06_FAST_PATH_WAIT_REJECT",
+      "proposal_type": "PLAN_ONLY",
+      "forbidden_true": [
+        "fast_path_blocking"
+      ],
+      "expected_decision": "REJECT",
+      "reason": "Fast Path cannot wait for AI/bundle."
+    },
+    {
+      "case_id": "T07_RISK_WEAKEN_REJECT",
+      "proposal_type": "PLAN_ONLY",
+      "forbidden_true": [
+        "risk_gate_weakening",
+        "hardblock_weakening"
+      ],
+      "expected_decision": "REJECT",
+      "reason": "Hard risk gate weakening forbidden."
+    },
+    {
+      "case_id": "T08_SECRET_ACCESS_REJECT",
+      "proposal_type": "PLAN_ONLY",
+      "forbidden_true": [
+        "auth_secret_access",
+        "private_key_access"
+      ],
+      "expected_decision": "REJECT",
+      "reason": "Secrets/private keys forbidden."
+    }
+  ],
+  "contract_secret_scan_hits": [],
+  "source_phase32b": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase32b_maintenance_state_reader_and_bundle_contract_noapi.json",
+    "parse_error": null,
+    "final_gate": "PASS_PHASE32B_MAINTENANCE_STATE_READER_AND_BUNDLE_CONTRACT_NOAPI",
+    "rc": 0,
+    "decision": "OPEN_PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI"
+  },
+  "source_phase32a": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase32a_maintenance_ai_control_center_plan_noapi.json",
+    "parse_error": null,
+    "final_gate": "PASS_PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+    "rc": 0
+  },
+  "source_phase31j": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase31j_state_capsule_post_audit_noapi.json",
+    "parse_error": null,
+    "final_gate": "PASS_PHASE31J_STATE_CAPSULE_POST_AUDIT_NOAPI",
+    "rc": 0
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "live_db": {
+      "exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "live_db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "live_db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "CONTRACT_ONLY": true,
+    "LIVE_SCHEMA_APPLY": false,
+    "LIVE_DB_WRITE": false,
+    "TEMP_DB_WRITE": false,
+    "STATE_FILE_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNNER_PATCH": false,
+    "SERVICE_TIMER_CHANGE": false,
+    "TIMER_FREQUENCY_CHANGE": false,
+    "COMPACT_STATE_WRITE": false,
+    "FAST_PATH_TOUCHED": false,
+    "MAINTENANCE_ONLY": true,
+    "AI_TOUCHED": false,
+    "AI_DAEMON_START": false,
+    "LOCAL_AI_INSTALL": false,
+    "MODEL_DOWNLOAD": false,
+    "PACKAGE_INSTALL": false,
+    "CANONICAL_PROMOTION": false,
+    "QUARANTINE_PROMOTION": false,
+    "DELETE": false,
+    "ARCHIVE_MOVE": false,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE32B_JSON_EXISTS": true,
+    "PHASE32B_JSON_PARSE_OK": true,
+    "PHASE32B_PASS": true,
+    "PHASE32B_RC_0": true,
+    "PHASE32B_FAILED_CHECKS_EMPTY": true,
+    "PHASE32B_OPEN_32C": true,
+    "PHASE32A_PASS": true,
+    "PHASE31J_PASS": true,
+    "STATE_DIR_EXISTS": true,
+    "STATE_FILES_PARSE_OK": true,
+    "CURRENT_STATE_NEXT_PHASE32A": true,
+    "HARD_RULES_AI_NOT_AUTHORITY": true,
+    "AI_PROPOSAL_SCHEMA_WRITTEN": true,
+    "VALIDATOR_CONTRACT_WRITTEN": true,
+    "FORBIDDEN_ACTION_MATRIX_WRITTEN": true,
+    "PROPOSAL_LIFECYCLE_WRITTEN": true,
+    "VALIDATOR_TEST_MATRIX_WRITTEN": true,
+    "AI_SCHEMA_NAME_OK": true,
+    "AI_SCHEMA_PROPOSAL_ONLY_RULE": true,
+    "AI_SCHEMA_REQUIRED_FIELDS_PRESENT": true,
+    "AI_SCHEMA_FORBIDDEN_FLAGS_COUNT": true,
+    "AI_SCHEMA_HAS_APPROVAL_FIELDS": true,
+    "AI_SCHEMA_HAS_ROLLBACK_FIELDS": true,
+    "FORBIDDEN_MATRIX_SCHEMA_OK": true,
+    "FORBIDDEN_MATRIX_DENY_BY_DEFAULT": true,
+    "FORBIDDEN_MATRIX_FLAGS_COUNT": true,
+    "FORBIDDEN_MATRIX_ALWAYS_REJECT_LIVE_TRADE": true,
+    "FORBIDDEN_MATRIX_ALWAYS_REJECT_WALLET": true,
+    "FORBIDDEN_MATRIX_ALWAYS_REJECT_RISK_WEAKEN": true,
+    "VALIDATOR_SCHEMA_OK": true,
+    "VALIDATOR_HAS_10_STEPS": true,
+    "VALIDATOR_REJECTS_SECRET": true,
+    "VALIDATOR_REJECTS_AI_APPLY": true,
+    "VALIDATOR_REJECTS_LIVE_TRADE": true,
+    "VALIDATOR_REJECTS_WALLET": true,
+    "VALIDATOR_REJECTS_RISK_WEAKEN": true,
+    "VALIDATOR_REJECTS_FAST_PATH_WAIT": true,
+    "VALIDATOR_REQUIRES_APPROVAL": true,
+    "VALIDATOR_REQUIRES_ROLLBACK": true,
+    "LIFECYCLE_AI_NO_APPLY": true,
+    "LIFECYCLE_FAST_PATH_SPEED": true,
+    "TEST_MATRIX_COUNT_8": true,
+    "TEST_MATRIX_HAS_SAFE_PLAN": true,
+    "TEST_MATRIX_HAS_LIVE_TRADE_REJECT": true,
+    "TEST_MATRIX_HAS_WALLET_REJECT": true,
+    "TEST_MATRIX_HAS_FAST_PATH_REJECT": true,
+    "CONTRACT_SECRET_SCAN_CLEAN": true,
+    "LIVE_DB_EXISTS": true,
+    "LIVE_DB_INTEGRITY_OK": true,
+    "LIVE_DB_QUICK_CHECK_OK": true,
+    "LIVE_DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "LIVE_DB_UNCHANGED_DURING_CONTRACT": true,
+    "ACTIVE_INDEX_UNCHANGED_DURING_CONTRACT": true,
+    "RUNNER_UNCHANGED_DURING_CONTRACT": true,
+    "SERVICE_UNIT_UNCHANGED_DURING_CONTRACT": true,
+    "TIMER_UNIT_UNCHANGED_DURING_CONTRACT": true,
+    "STATE_FILES_UNCHANGED_DURING_CONTRACT": true,
+    "NO_STATE_FILE_WRITE_NOW": true,
+    "NO_LIVE_DB_WRITE_NOW": true,
+    "NO_TEMP_DB_WRITE_NOW": true,
+    "NO_RUNNER_PATCH_NOW": true,
+    "NO_PANEL_WRITE_NOW": true,
+    "NO_SERVICE_TIMER_CHANGE_NOW": true,
+    "NO_AI_DAEMON_NOW": true,
+    "NO_LOCAL_AI_INSTALL_NOW": true,
+    "NO_EXTERNAL_NETWORK_NOW": true,
+    "NO_API_CALLS_NOW": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE32D_APPROVAL_QUEUE_AND_ROLLBACK_REGISTRY_PLAN_NOAPI"
+}

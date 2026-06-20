@@ -1,0 +1,109 @@
+{"can_block_route": true, "can_grant_route": false, "input_status": "REQUIRED", "layer": "stale_data_guard", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6B2"}
+{"can_block_route": true, "can_grant_route": false, "input_status": "REQUIRED", "layer": "execution_threshold_matrix", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6C"}
+{"can_block_route": true, "can_grant_route": false, "input_status": "REVIEW_ONLY", "layer": "asymmetric_speculative_policy", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6C2"}
+{"can_block_route": true, "can_grant_route": false, "input_status": "CONTEXT_AND_REVIEW_ONLY", "layer": "dex_microstructure_technical_evidence", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6C3"}
+{"can_block_route": true, "can_grant_route": false, "input_status": "REQUIRED_IF_PRESENT", "layer": "emergency_monitor_trigger", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6C4"}
+{"can_block_route": true, "can_grant_route": false, "input_status": "REQUIRED", "layer": "negative_memory_lookup", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6D"}
+{"can_block_route": false, "can_grant_route": false, "input_status": "OUTPUT_TARGET", "layer": "readmodel_state_summary", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "input_layer", "source_phase": "PHASE6B"}
+{"meaning": "LP remove, sell route anomaly, critical emergency state blocks first.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 1, "row_type": "precedence", "rule_group": "emergency_terminal_block"}
+{"meaning": "Critical confirmed memory blocks even if technical/asymmetric looks positive.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 2, "row_type": "precedence", "rule_group": "critical_negative_memory"}
+{"meaning": "Hard block or unavailable sell route blocks all routes.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 3, "row_type": "precedence", "rule_group": "hard_block_and_sell_route"}
+{"meaning": "Unknown/stale required fields degrade to WAIT_MORE_DATA/STALE_EVIDENCE.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 4, "row_type": "precedence", "rule_group": "stale_or_unknown_required_evidence"}
+{"meaning": "Liquidity, tax, slippage, price impact, MEV, gas, protected route failures block.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 5, "row_type": "precedence", "rule_group": "execution_threshold_fail"}
+{"meaning": "High/medium memory degrades or requires review.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 6, "row_type": "precedence", "rule_group": "negative_memory_noncritical"}
+{"meaning": "DEX technical evidence can support context but cannot override risk.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 7, "row_type": "precedence", "rule_group": "technical_evidence_quality"}
+{"meaning": "Asymmetric route remains review-only and disabled now.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 8, "row_type": "precedence", "rule_group": "asymmetric_policy_review_only"}
+{"meaning": "No negative memory hit does not mean safe.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 9, "row_type": "precedence", "rule_group": "no_known_negative_but_no_permission"}
+{"meaning": "Assign final decision label and route effect.", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "precedence": 10, "row_type": "precedence", "rule_group": "final_label_assignment"}
+{"if": "emergency_status in P0_BLOCK or LP_REMOVE or SELL_ROUTE_ANOMALY", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "emergency_block_overrides_all", "then_label": "EMERGENCY_BLOCKED"}
+{"if": "negative_memory_severity == CRITICAL", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "critical_memory_overrides_all_positive", "then_label": "TRASH_REJECTED"}
+{"if": "hard_block == True", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "hard_block_overrides_all", "then_label": "TRASH_REJECTED"}
+{"if": "sell_route_status != AVAILABLE", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "sell_route_unavailable_blocks", "then_label": "BLOCKED_BY_RISK"}
+{"if": "any_required_field == UNKNOWN", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "unknown_required_field_wait_more_data", "then_label": "WAIT_MORE_DATA"}
+{"if": "stale_status in STALE or EXPIRED or UNKNOWN", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "stale_required_evidence_blocks", "then_label": "STALE_EVIDENCE"}
+{"if": "any_execution_threshold_fail == True", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "execution_threshold_fail_blocks", "then_label": "BLOCKED_BY_RISK"}
+{"if": "negative_memory_severity == HIGH", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "high_memory_blocks_or_review", "then_label": "BLOCKED_BY_RISK"}
+{"if": "negative_memory_severity == MEDIUM", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "REVIEW_ONLY", "row_type": "binding_rule", "rule": "medium_memory_review_only", "then_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED"}
+{"if": "technical_status == NOISY_OR_MANIPULATED", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_ROUTE", "row_type": "binding_rule", "rule": "manipulated_technical_blocks_positive", "then_label": "WAIT_MORE_DATA"}
+{"if": "technical_status == SUPPORTIVE_REVIEW_ONLY and risk_gates_pass", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "REVIEW_ONLY", "row_type": "binding_rule", "rule": "technical_positive_review_only", "then_label": "EVIDENCE_READY_NO_TRADE_PERMISSION"}
+{"if": "asymmetric_policy_pass == True and all_blocks_false", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "REVIEW_ONLY", "row_type": "binding_rule", "rule": "asymmetric_review_only", "then_label": "ASYMMETRIC_REVIEW_ONLY"}
+{"if": "routine_thresholds_pass == True and all_blocks_false", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "REVIEW_ONLY", "row_type": "binding_rule", "rule": "routine_safe_review_only", "then_label": "ROUTINE_SAFE_REVIEW_ONLY"}
+{"if": "negative_memory_status == NO_MATCH", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_PERMISSION_CHANGE", "row_type": "binding_rule", "rule": "no_match_no_permission", "then_label": "NO_PERMISSION_CHANGE"}
+{"if": "any_case", "locked": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "route_effect": "NO_TRADE_PERMISSION", "row_type": "binding_rule", "rule": "paper_live_never_granted_here", "then_label": "NO_PAPER_LIVE_PERMISSION"}
+{"conflict": "technical_positive_vs_critical_memory", "locked": true, "output": "TRASH_REJECTED", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "critical_memory"}
+{"conflict": "technical_positive_vs_hard_block", "locked": true, "output": "TRASH_REJECTED", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "hard_block"}
+{"conflict": "asymmetric_positive_vs_sell_route_unavailable", "locked": true, "output": "BLOCKED_BY_RISK", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "sell_route_unavailable"}
+{"conflict": "routine_safe_vs_stale_evidence", "locked": true, "output": "STALE_EVIDENCE", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "stale_evidence"}
+{"conflict": "no_memory_match_vs_execution_unknown", "locked": true, "output": "WAIT_MORE_DATA", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "execution_unknown"}
+{"conflict": "asymmetric_positive_vs_emergency_trigger", "locked": true, "output": "EMERGENCY_BLOCKED", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "emergency_trigger"}
+{"conflict": "technical_positive_vs_manipulation_guard", "locked": true, "output": "WAIT_MORE_DATA_OR_BLOCKED_BY_RISK", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "manipulation_guard"}
+{"conflict": "paper_live_request_vs_phase_permission", "locked": true, "output": "NO_PAPER_LIVE_PERMISSION", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "conflict", "winner": "permission_lock"}
+{"allowed_now": false, "locked": true, "permission": "paper_trade", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "live_trade", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "watchlist_auto_add", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "score_runtime", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "micro_route_runtime", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "asymmetric_route_runtime", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "model_training", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"allowed_now": false, "locked": true, "permission": "telegram_alert", "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "permission_lock", "source_phase": "PHASE6E"}
+{"check": "phase6_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b2_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c2_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c3_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c4_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6d_json_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6d_report_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6d_rows_exists", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b2_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c2_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c3_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c4_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6d_dependency_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_expected", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_expected", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_expected", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "policy_sha_match", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_ok", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "input_layer_count_7", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "precedence_count_10", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "binding_rule_count_15", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "conflict_count_8", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "route_effect_count_7", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "quality_label_count_10", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "permission_lock_count_8", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "fail_closed_count_8", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_binding_count_8", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "command_output_count_7", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "all_binding_rules_locked", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "all_conflicts_locked", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "all_permissions_false", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "all_fail_closed_locked", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "all_route_effect_no_paper_live", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "all_quality_no_paper_live", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_precedence_first", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "critical_memory_before_technical", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_block_before_asymmetric", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "paper_live_never_granted", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "no_match_no_permission", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "input_layer_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "precedence_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "binding_rule_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "conflict_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "route_effect_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "quality_label_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "permission_lock_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "fail_closed_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_binding_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "command_output_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_rows_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "future_schema_sql_written", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_noapi_clean", "passed": true, "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI", "row_type": "pass_condition"}

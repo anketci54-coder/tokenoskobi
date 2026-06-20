@@ -1,0 +1,297 @@
+{
+  "phase": "SOURCE28_MULTI_SOURCE_TRUTH_ENGINE_PLAN_NOAPI",
+  "stamp": "20260513_125746",
+  "final_gate": "PASS",
+  "action": "MULTI_SOURCE_TRUTH_ENGINE_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "use_existing": [
+      "existing server",
+      "existing Alchemy account",
+      "existing ChatGPT Pro for manual development/analysis support"
+    ],
+    "blocked_for_mvp": [
+      "new paid wallet intelligence",
+      "premium market data subscription",
+      "expensive AI API batch analysis",
+      "new server",
+      "high-frequency multi-chain scan",
+      "paid MEV/mempool service"
+    ],
+    "allowed_for_mvp": [
+      "free/open public data",
+      "existing Alchemy with budget guard",
+      "RSS/news sources",
+      "official exchange announcements",
+      "manual seed lists",
+      "low-frequency cached refresh",
+      "candidate-first filtering"
+    ]
+  },
+  "source_tiers": [
+    {
+      "tier": "T0_LOCAL_ARCHIVE",
+      "trust": 90,
+      "cost": "existing",
+      "examples": [
+        "local DB",
+        "cached raw archive",
+        "validated lifecycle rows",
+        "paper/outcome DB"
+      ],
+      "role": "hafıza ve geçmiş outcome"
+    },
+    {
+      "tier": "T1_OFFICIAL",
+      "trust": 85,
+      "cost": "free/open",
+      "examples": [
+        "Binance announcements",
+        "official project blog",
+        "official chain status",
+        "official exchange pages"
+      ],
+      "role": "resmi haber/listeleme/duyuru teyidi"
+    },
+    {
+      "tier": "T2_EXISTING_RPC",
+      "trust": 75,
+      "cost": "already_paid_alchemy",
+      "examples": [
+        "Alchemy transfers",
+        "existing chain reads",
+        "selected address checks"
+      ],
+      "role": "seçili cüzdan/token doğrulama"
+    },
+    {
+      "tier": "T3_FREE_MARKET_AGGREGATOR",
+      "trust": 65,
+      "cost": "free/limited",
+      "examples": [
+        "DexScreener",
+        "GeckoTerminal",
+        "DefiLlama",
+        "CoinGecko free/limited"
+      ],
+      "role": "piyasa, likidite, DEX/pair ön tarama"
+    },
+    {
+      "tier": "T4_RSS_CURATED_NEWS",
+      "trust": 55,
+      "cost": "free",
+      "examples": [
+        "RSS feeds",
+        "curated crypto news feeds"
+      ],
+      "role": "haber gürültüsünü aday üretmek için kullanma"
+    },
+    {
+      "tier": "T5_MANUAL_SEED",
+      "trust": 70,
+      "cost": "free/manual",
+      "examples": [
+        "manual watched wallet list",
+        "manual token watchlist",
+        "manual macro event list"
+      ],
+      "role": "MVP döneminde kontrollü izleme"
+    },
+    {
+      "tier": "T9_PAID_LATER_ONLY",
+      "trust": 0,
+      "cost": "blocked_now",
+      "examples": [
+        "Nansen",
+        "Arkham paid",
+        "Glassnode paid",
+        "Blocknative paid",
+        "premium macro API"
+      ],
+      "role": "paper/outcome başarı kanıtlanmadan açılmaz"
+    }
+  ],
+  "truth_rules": [
+    "Tek kaynak = bilgi / düşük güven.",
+    "2 bağımsız kaynak aynıysa güven artar.",
+    "3 kaynak aynıysa ana panelde güçlü gösterilebilir.",
+    "Kaynaklar çelişirse conflict status üret.",
+    "Conflict varsa no-entry / paper bekle.",
+    "Stale data ana panele kritik alarm olarak düşmez.",
+    "Kaynak zamanı yoksa freshness düşük sayılır.",
+    "Wallet sahibi kesin değilse owner_confidence göster.",
+    "Mock veri real veri gibi gösterilmez.",
+    "Paid source şimdilik disabled kalır."
+  ],
+  "source_decision_states": [
+    "RAW_ONLY",
+    "SINGLE_SOURCE_INFO",
+    "MULTI_SOURCE_CONFIRMED",
+    "CONFLICT_REVIEW",
+    "STALE_IGNORE",
+    "INSUFFICIENT_EVIDENCE",
+    "MAIN_PANEL_ALERT_ALLOWED",
+    "PAPER_CANDIDATE_ALLOWED",
+    "PAPER_BLOCKED",
+    "PAID_SOURCE_REQUIRED_LATER"
+  ],
+  "module_source_map": {
+    "news_impact": {
+      "mvp_sources": [
+        "RSS curated",
+        "official exchange announcements",
+        "official project announcements"
+      ],
+      "paid_sources_now": [],
+      "refresh": "low-frequency / timer-led",
+      "notes": "Haber tek başına işlem izni vermez."
+    },
+    "economic_calendar": {
+      "mvp_sources": [
+        "manual high-impact macro calendar seed",
+        "free official calendar pages if available later"
+      ],
+      "paid_sources_now": [],
+      "refresh": "daily/manual-first",
+      "notes": "Başlangıçta CPI/FOMC/NFP gibi sınırlı yüksek etkili olaylar."
+    },
+    "market_liquidity": {
+      "mvp_sources": [
+        "DexScreener limited",
+        "GeckoTerminal limited",
+        "DefiLlama free",
+        "local cache"
+      ],
+      "paid_sources_now": [],
+      "refresh": "candidate-first cached refresh",
+      "notes": "Her tokenı değil, adayları doğrula."
+    },
+    "wallet_whale": {
+      "mvp_sources": [
+        "existing Alchemy selected address reads",
+        "manual watched wallet seed",
+        "explorer public labels when available"
+      ],
+      "paid_sources_now": [],
+      "refresh": "selected wallets only",
+      "notes": "Nansen/Arkham yok; wallet identity kesin konuşulmaz."
+    },
+    "token_lifecycle": {
+      "mvp_sources": [
+        "local DB",
+        "DexScreener/GeckoTerminal limited",
+        "existing Alchemy for selected checks"
+      ],
+      "paid_sources_now": [],
+      "refresh": "birth candidate -> selected follow-up",
+      "notes": "Gelecek yıldız / küçük yıldız için filtreli aday yaklaşımı."
+    },
+    "major_coin_regime": {
+      "mvp_sources": [
+        "free market data",
+        "local cache",
+        "manual macro context"
+      ],
+      "paid_sources_now": [],
+      "refresh": "periodic low-frequency",
+      "notes": "BTC/ETH/BNB/SOL rejimi küçük token riskini etkiler."
+    },
+    "risk_mev": {
+      "mvp_sources": [
+        "liquidity depth",
+        "order/liquidity ratio",
+        "local slippage model"
+      ],
+      "paid_sources_now": [],
+      "refresh": "on paper candidate only",
+      "notes": "Tenderly/Blocknative/paid MEV yok; önce tahmini risk modeli."
+    },
+    "paper_simulation": {
+      "mvp_sources": [
+        "local DB",
+        "cached price/liquidity",
+        "manual/current candidate rows"
+      ],
+      "paid_sources_now": [],
+      "refresh": "paper candidate only",
+      "notes": "Live trade yok; gerçekçi maliyet/PnL simülasyonu."
+    },
+    "morgue_autopsy": {
+      "mvp_sources": [
+        "local lifecycle archive",
+        "risk flags",
+        "paper outcomes"
+      ],
+      "paid_sources_now": [],
+      "refresh": "event/outcome based",
+      "notes": "Kaybedenlerden öğrenme ana veri kaynağı."
+    }
+  },
+  "future_engine_components": [
+    "source_registry",
+    "source_reliability_score",
+    "raw_archive_policy",
+    "freshness_gate",
+    "conflict_gate",
+    "consensus_score",
+    "cost_guard",
+    "rate_limit_guard",
+    "candidate_first_router",
+    "paid_source_blocker",
+    "panel_visibility_gate"
+  ],
+  "source_tier_count": 7,
+  "truth_rule_count": 10,
+  "module_source_count": 9,
+  "future_component_count": 11,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_source_enabled": false,
+  "new_monthly_cost_added": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "ECON28_MACRO_CALENDAR_PLAN_NOAPI",
+  "alternate_next_phase": "FLOW28_LIQUIDITY_FLOW_RADAR_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_SOURCE28_MULTI_SOURCE_TRUTH_ENGINE_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/source28_multi_source_truth_engine_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": "approval_policy_v1",
+  "scaffold_status": "INERT_CONFIG_ONLY_NO_RUNTIME_EFFECT",
+  "created_by_phase": "PHASE41_AUTHORITY_POLICY_CONFIG_SCAFFOLD_NOAPI",
+  "documentation": {
+    "purpose": "Approval policy scaffold for future core/approval.py.",
+    "runtime_effect": "None. Existing tools keep their current approval behavior until a future approved migration.",
+    "design_goal": "Consolidate real apply, DB write, RPC/PAYG, secret update, dashboard mutation, service enablement, and schema apply approvals."
+  },
+  "defaults": {
+    "deny_without_required_approval": true,
+    "approval_required_for_real_operations": true,
+    "dryrun_required_before_real": true,
+    "rollback_required_for_mutation": true,
+    "approval_expires_by_default": true,
+    "approval_must_match_operation": true
+  },
+  "approval_classes": {
+    "real_apply": {
+      "requires_explicit_approval": true,
+      "requires_dryrun": true,
+      "requires_rollback": true,
+      "risk_level": "critical"
+    },
+    "db_write": {
+      "requires_explicit_approval": true,
+      "requires_dryrun": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "risk_level": "critical"
+    },
+    "rpc_payg_call": {
+      "requires_explicit_approval": true,
+      "requires_budget_guard": true,
+      "requires_secret_redaction": true,
+      "risk_level": "high"
+    },
+    "secret_update": {
+      "requires_explicit_approval": true,
+      "requires_authentication": true,
+      "requires_secret_redaction": true,
+      "risk_level": "critical"
+    },
+    "secret_provider_test": {
+      "requires_explicit_approval": true,
+      "requires_authentication": true,
+      "requires_budget_guard": true,
+      "requires_secret_redaction": true,
+      "risk_level": "high"
+    },
+    "dashboard_active_mutation": {
+      "requires_explicit_approval": true,
+      "requires_preview": true,
+      "requires_rollback": true,
+      "risk_level": "high"
+    },
+    "service_enablement": {
+      "requires_explicit_approval": true,
+      "requires_disabled_default": true,
+      "risk_level": "high"
+    },
+    "schema_apply": {
+      "requires_explicit_approval": true,
+      "requires_dryrun": true,
+      "requires_backup": true,
+      "requires_rollback": true,
+      "risk_level": "critical"
+    }
+  },
+  "approval_record_contract": {
+    "operation_id": "stable unique operation identifier",
+    "operation_type": "one approval class key",
+    "caller": "tool, dashboard, service, or operator surface requesting approval",
+    "target": "database, path, provider, dashboard, service, or schema target",
+    "risk_level": "low|medium|high|critical",
+    "requested_mode": "dryrun|real|apply|enable|update|test",
+    "authority_decision_id": "future reference to core/authority.py decision",
+    "policy_decision_id": "future reference to core/policy.py decision",
+    "dryrun_artifact": "future optional path or identifier for dry-run result",
+    "rollback_artifact": "future optional path or identifier for rollback plan",
+    "approval_phrase": "future explicit phrase or signed approval token",
+    "approved_by": "future operator identity",
+    "approved_at_utc": "future approval timestamp",
+    "expires_at_utc": "future approval expiry timestamp"
+  },
+  "legacy_approval_sources": {
+    "payg_rpc_budget_guard_policy_v1.real_approval_phrase": {
+      "status": "legacy_until_migrated",
+      "current_scope": "PAYG RPC real approval"
+    },
+    "news_social_launch_signal_writer_v1.REAL_WRITE_CONFIRM": {
+      "status": "legacy_until_migrated",
+      "current_scope": "news/social DB write confirmation"
+    },
+    "control_dashboard_contract_v1.active_panel_mutation_requires_separate_explicit_approval": {
+      "status": "legacy_until_migrated",
+      "current_scope": "active dashboard mutation"
+    },
+    "systemd_drafts.future_approval_comments": {
+      "status": "legacy_until_migrated",
+      "current_scope": "service enable/start"
+    }
+  },
+  "future_consumers": [
+    "core/approval.py",
+    "core/authority.py",
+    "core/policy.py",
+    "tools/news_social_launch_signal_writer_v1.py",
+    "tools/payg_rpc_budget_guard_v1.py",
+    "tools/provider_secret_vault_handler_v1.py",
+    "control_dashboard_engine_v1/tools/control_dashboard_engine_v1.py",
+    "systemd_drafts/*",
+    "future_schema_apply_tools"
+  ],
+  "audit": {
+    "approval_mechanism_count_at_design": 10,
+    "migration_state": "scaffold_only_no_consumers"
+  }
+}

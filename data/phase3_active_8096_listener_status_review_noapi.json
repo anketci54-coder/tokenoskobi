@@ -1,0 +1,198 @@
+{
+  "phase": "PHASE3_ACTIVE_8096_LISTENER_STATUS_REVIEW_NOAPI",
+  "started_utc": "2026-05-28T23:16:08.827424+00:00",
+  "finished_utc": "2026-05-28T23:16:09.311768+00:00",
+  "final_gate": "PASS_PHASE3_ACTIVE_8096_LISTENER_STATUS_REVIEW_NOAPI",
+  "gate_pass": true,
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI",
+  "alternate_next_phase": "PHASE3_TARGET4_CANDIDATE_SELECTION_PLAN_NOAPI",
+  "previous_mapping_review": {
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_checkpoint_row_audit_mapping_review_noapi.json",
+    "exists": true,
+    "load_ok": true,
+    "final_gate": "REVIEW_REQUIRED_PHASE3_CHECKPOINT_ROW_AUDIT_MAPPING_REVIEW_NOAPI",
+    "gate_pass": false,
+    "hard_error_count": 1,
+    "hard_errors": [
+      "SAFETY_CHECK_FAILED:active_8096_listening=False"
+    ],
+    "review_class": "LOOKUP_MAPPING_FALSE_FAIL_CONFIRMED",
+    "root_cause_class": "CHECKPOINT_USED_TOO_NARROW_SOURCE_PHASE_LOOKUPS",
+    "safe_to_retry_checkpoint_with_repaired_mapping": true,
+    "failed_checkpoint_real_data_missing": false,
+    "target1_system_proof": true,
+    "target1_validation_proof": true,
+    "target2_system_proof": true,
+    "target2_validation_proof": true,
+    "target3_system_proof": true,
+    "target3_validation_proof": true
+  },
+  "listener_decision": {
+    "listener_status_class": "ACTIVE_8096_LISTENER_OK",
+    "root_cause_class": "NO_8096_LISTENER_PROBLEM_NOW",
+    "active_8096_listening": true,
+    "restore_plan_needed": false,
+    "restart_done_now": false,
+    "service_change_done_now": false,
+    "timer_change_done_now": false,
+    "pid_kill_done_now": false,
+    "next_phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI",
+    "next_if_8096_ok": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI",
+    "next_if_8096_down": "PHASE3_ACTIVE_8096_RESTORE_PLAN_NOAPI",
+    "alternate_next_phase": "PHASE3_TARGET4_CANDIDATE_SELECTION_PLAN_NOAPI",
+    "decision_note": "Do not retry Phase3 checkpoint until 8096 listener is OK or checkpoint policy explicitly excludes active panel listener from this checkpoint."
+  },
+  "port_status": {
+    "8096": true,
+    "8097": false,
+    "8098": false,
+    "8101": false,
+    "8143": true,
+    "8144": true,
+    "8145": true
+  },
+  "port_lines": {
+    "8096": [
+      "LISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))                                                                                                           "
+    ],
+    "8097": [],
+    "8098": [],
+    "8101": [],
+    "8143": [
+      "LISTEN 0      5            0.0.0.0:8143      0.0.0.0:*    users:((\"python3\",pid=970304,fd=3))                                                                                                           "
+    ],
+    "8144": [
+      "LISTEN 0      5            0.0.0.0:8144      0.0.0.0:*    users:((\"python3\",pid=1089135,fd=3))                                                                                                          "
+    ],
+    "8145": [
+      "LISTEN 0      5            0.0.0.0:8145      0.0.0.0:*    users:((\"python3\",pid=1089254,fd=3))                                                                                                          "
+    ]
+  },
+  "filesystem_audit": {
+    "base_exists": true,
+    "active_dir_exists": true,
+    "active_index_exists": true,
+    "active_index_size": 55241,
+    "active_index_sha256": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_data_dir_exists": true,
+    "active_data_files_count": 3,
+    "active_dir_listing": [
+      "data",
+      "index.html",
+      "index.html.before_v2_rollback_20260523_091610",
+      "mobile_pageflow",
+      "panel_assets",
+      "panel_v2"
+    ]
+  },
+  "index_probe": {
+    "active_index_contains_html": true,
+    "active_index_contains_tokenoskobi": true,
+    "active_index_contains_mobile": true,
+    "active_index_read_error": null
+  },
+  "process_checks": {
+    "python_panel_processes": "36471   36394 Ss   28-16:04:54 python main.py\n  38082       1 S    28-13:49:08 python3 /root/frankfurt-crypto-radar/scanner_fixed.py\n  63245       1 S    27-05:28:36 python3 bot.py\n 559310       1 Ssl  14-13:46:46 /usr/bin/python3 -m http.server 8096 --bind 0.0.0.0\n 970304       1 Sl    3-15:17:26 python3 -m http.server 8143 --bind 0.0.0.0\n1035976 1035932 Ss    2-16:27:36 python main.py\n1089135       1 Ss      18:12:37 python3 -m http.server 8144 --bind 0.0.0.0\n1089254       1 Ss      18:01:53 python3 -m http.server 8145 --bind 0.0.0.0\n1102677 1102654 Ssl     08:54:49 python main.py\n1108185 1107824 S+         00:00 python3 /tmp/PHASE3_ACTIVE_8096_LISTENER_STATUS_REVIEW_NOAPI.py",
+    "nginx_processes": "714261       1 Ss    7-16:09:07 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;\n 942271  714261 S     4-10:03:26 nginx: worker process\n 942272  714261 S     4-10:03:26 nginx: worker process\n 942273  714261 S     4-10:03:26 nginx: worker process\n 942274  714261 S     4-10:03:26 nginx: worker process",
+    "systemd_matching_units": "tokenoskobi-active-panel-8096.service                                                     loaded    active   running Tokenoskobi/Coinoskobi Active Panel 8096\n  tokenoskobi-news-radar-refresh.service                                                    loaded    inactive dead    Tokenoskobi News Radar Refresh Runner",
+    "systemd_matching_unit_files": "tokenoskobi-active-panel-8096.service                                         enabled         enabled\ntokenoskobi-news-radar-refresh.service                                        static          -\ntokenoskobi-news-radar-refresh.timer                                          enabled         enabled",
+    "journal_hint_only": "No journal read performed; this phase is listener/status review only."
+  },
+  "candidate_service_files": [
+    {
+      "path": "/etc/systemd/system/tokenoskobi-active-panel-8096.service",
+      "contains_8096_or_panel_hint": true,
+      "preview": "[Unit]\nDescription=Tokenoskobi/Coinoskobi Active Panel 8096\nAfter=network.target\n\n[Service]\nType=simple\nWorkingDirectory=/root/tokenoskobi_clean_v1/active_panel_8096/current\nExecStart=/usr/bin/python3 -m http.server 8096 --bind 0.0.0.0\nRestart=on-failure\nRestartSec=3\n\n[Install]\nWantedBy=multi-user.target"
+    },
+    {
+      "path": "/etc/systemd/system/tokenoskobi-news-radar-refresh.service",
+      "contains_8096_or_panel_hint": true,
+      "preview": "[Unit]\nDescription=Tokenoskobi News Radar Refresh Runner\nAfter=network-online.target\nWants=network-online.target\n\n[Service]\nType=oneshot\nUser=root\nWorkingDirectory=/root/tokenoskobi_clean_v1\nExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py\nTimeoutStartSec=70\nNice=5\nIOSchedulingClass=best-effort\nStandardOutput=append:/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.log\nStandardError=append:/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.err.log"
+    },
+    {
+      "path": "/etc/systemd/system/tokenoskobi-news-radar-refresh.timer",
+      "contains_8096_or_panel_hint": false,
+      "preview": "[Unit]\nDescription=Run Tokenoskobi News Radar Refresh every 20 minutes\n\n[Timer]\nOnActiveSec=20min\nOnUnitActiveSec=20min\nAccuracySec=30s\nRandomizedDelaySec=0\nPersistent=false\nUnit=tokenoskobi-news-radar-refresh.service\n\n[Install]\nWantedBy=timers.target"
+    }
+  ],
+  "db_counts_now": {
+    "tokens": 19,
+    "pairs": 19,
+    "system_events": 20,
+    "validation_runs": 20,
+    "risk_events": null,
+    "token_biographies": null,
+    "paper_trade_positions": 0,
+    "paper_trade_executions": 0
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_local_http_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "watchlist_opened": false,
+    "paper_opened": false,
+    "clean_risk_opened": false,
+    "panel_promotion_opened": false,
+    "target4_selected": false,
+    "target1_target2_or_target3_reopened": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "8f3a37998dda40bb5f856fb10cb49d173fc6878850fd8adbe9df993998a61cb5",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "8f3a37998dda40bb5f856fb10cb49d173fc6878850fd8adbe9df993998a61cb5",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_ACTIVE_8096_LISTENER_STATUS_REVIEW_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_active_8096_listener_status_review_noapi.json"
+  }
+}

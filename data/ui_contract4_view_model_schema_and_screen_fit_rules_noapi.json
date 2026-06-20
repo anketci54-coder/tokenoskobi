@@ -1,0 +1,397 @@
+{
+  "phase": "UI_CONTRACT4_VIEW_MODEL_SCHEMA_AND_SCREEN_FIT_RULES_NOAPI",
+  "stamp": "20260517_191207",
+  "failed_checks": [],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "docs_only": true
+  },
+  "contract": {
+    "contract_name": "Tokenoskobi / Coinoskobi View Model Schema & Screen Fit Rules v1",
+    "depends_on": [
+      "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI.md",
+      "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI.md",
+      "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_NOAPI.md"
+    ],
+    "core_rule": "Screen renders only view_model. Screen does not calculate, duplicate, invent or animate data by itself.",
+    "viewport_fit_baseline": {
+      "body": {
+        "height": "100vh",
+        "overflow": "hidden",
+        "rule": "Ana ekranlarda body vertical scroll yasak."
+      },
+      "screen_shell": {
+        "height": "100vh",
+        "display": "grid/flex",
+        "rule": "Header/content/footer veya sidebar/main alanları tek ekrana oturur."
+      },
+      "detail_surfaces": {
+        "allowed_scroll": true,
+        "surfaces": [
+          "drawer",
+          "modal",
+          "right_inspector",
+          "detail_tab"
+        ],
+        "rule": "Uzun veri sadece lokal detay yüzeyinde scroll yapabilir."
+      }
+    },
+    "breakpoints": {
+      "compact_laptop": {
+        "width": "1280-1365",
+        "height": "720-800",
+        "density": "compact",
+        "rules": [
+          "font sizes compact",
+          "cards use dense spacing",
+          "summary-first rendering",
+          "no large decorative empty areas",
+          "detail drawer preferred over inline tables"
+        ]
+      },
+      "standard_laptop": {
+        "width": "1366-1536",
+        "height": "768-900",
+        "density": "balanced",
+        "rules": [
+          "primary target layout",
+          "all main panels must fit",
+          "6-card Token Yaşam grid must fit",
+          "main panel token/action grid must fit"
+        ]
+      },
+      "desktop": {
+        "width": "1537+",
+        "height": "900+",
+        "density": "expanded",
+        "rules": [
+          "larger radar/icon surfaces allowed",
+          "more spacing allowed",
+          "still no body scroll",
+          "detail drawer may be wider"
+        ]
+      }
+    },
+    "view_model_global_schema": {
+      "screen_id": "string",
+      "generated_at": "iso timestamp",
+      "freshness_seconds": "number",
+      "data_status": "ok | partial | stale | missing | blocked",
+      "source_refs": "list of canonical source refs",
+      "summary": "screen-level summary fields",
+      "cards": "screen card view models",
+      "actions": "available actions and disabled reasons",
+      "motion_states": "read-only motion states from motion_state_layer",
+      "detail_refs": "ids for drawer/modal detail fetch",
+      "fit_profile": "compact_laptop | standard_laptop | desktop",
+      "warnings": "visible warnings",
+      "empty_state": "what to show when data missing"
+    },
+    "screen_view_models": {
+      "main_panel_vm": {
+        "owner": "view_model_layer",
+        "canonical_inputs": [
+          "identity_layer",
+          "market_layer",
+          "risk_layer",
+          "paper_trade_layer",
+          "lifecycle_layer",
+          "motion_state_layer"
+        ],
+        "fields": {
+          "tracked_tokens": [
+            "token_uid",
+            "symbol",
+            "chain",
+            "price",
+            "price_change",
+            "liquidity",
+            "risk_score",
+            "decision_state",
+            "position_state",
+            "sl_status",
+            "tp_status",
+            "freshness_seconds",
+            "motion_state_ref"
+          ],
+          "trade_controls": [
+            "buy_enabled",
+            "sell_enabled",
+            "buy_disabled_reason",
+            "sell_disabled_reason",
+            "max_safe_buy",
+            "position_size_suggestion",
+            "paper_live_mode"
+          ],
+          "summary_bar": [
+            "active_watch_count",
+            "critical_count",
+            "paper_position_count",
+            "hard_block_count",
+            "stale_data_count"
+          ]
+        },
+        "fit_rules": [
+          "Token list scroll değil pagination/compact rows kullanır.",
+          "Buy/Sell/SL/TP görünür kalır.",
+          "Detay drawer açılınca main grid ezilmez.",
+          "Ana ekranda raw tx/news/autopsy listesi basılmaz."
+        ]
+      },
+      "token_yasam_vm": {
+        "owner": "view_model_layer",
+        "canonical_inputs": [
+          "lifecycle_layer",
+          "identity_layer",
+          "market_layer",
+          "risk_layer",
+          "onchain_layer",
+          "motion_state_layer"
+        ],
+        "fields": {
+          "departments": {
+            "olay_yeri": [
+              "event_count",
+              "last_event_freshness",
+              "first_evidence_state",
+              "motion_state_ref",
+              "detail_ref"
+            ],
+            "adli": [
+              "investigation_state",
+              "relationship_confidence",
+              "evidence_count",
+              "motion_state_ref",
+              "detail_ref"
+            ],
+            "supheliler": [
+              "suspect_wallet_count",
+              "highest_risk_actor",
+              "cluster_confidence",
+              "motion_state_ref",
+              "detail_ref"
+            ],
+            "klinik": [
+              "clinical_state",
+              "recovery_chance_band",
+              "watch_intensity",
+              "motion_state_ref",
+              "detail_ref"
+            ],
+            "otopsi": [
+              "autopsy_status",
+              "failure_class",
+              "outcome_memory_state",
+              "motion_state_ref",
+              "detail_ref"
+            ],
+            "morg": [
+              "morg_status",
+              "archived_dead_count",
+              "revival_watch_count",
+              "cold_state_status",
+              "motion_state_ref",
+              "detail_ref"
+            ]
+          }
+        },
+        "fit_rules": [
+          "6 departman kartı tek ekranda kalır.",
+          "Kartlar sadece özet gösterir.",
+          "Detaylar drawer/tab ile açılır.",
+          "Klinik/Otopsi/Morg detayları ana karta yığılmaz.",
+          "Departman motion_state_ref yoksa ikon statik kalır."
+        ]
+      },
+      "haber_panel_vm": {
+        "owner": "view_model_layer",
+        "canonical_inputs": [
+          "news_layer",
+          "identity_layer",
+          "motion_state_layer"
+        ],
+        "fields": {
+          "lanes": [
+            "critical_verified",
+            "token_linked",
+            "general_market",
+            "risk_security",
+            "narrative"
+          ],
+          "news_cards": [
+            "news_event_uid",
+            "title",
+            "translated_title",
+            "importance_score",
+            "source_reliability",
+            "token_connection_score",
+            "freshness_seconds",
+            "motion_state_ref",
+            "detail_ref"
+          ]
+        },
+        "fit_rules": [
+          "Top news lanes fit screen.",
+          "Full article detail drawer’da açılır.",
+          "Rumor critical gibi gösterilmez.",
+          "Token-specific alarm için token_connection_score gerekir."
+        ]
+      },
+      "whale_panel_vm": {
+        "owner": "view_model_layer",
+        "canonical_inputs": [
+          "onchain_layer",
+          "identity_layer",
+          "risk_layer",
+          "motion_state_layer"
+        ],
+        "fields": {
+          "radar": [
+            "radar_state",
+            "active_event_count",
+            "largest_event",
+            "freshness_seconds",
+            "motion_state_refs"
+          ],
+          "top_events": [
+            "event_uid",
+            "wallet",
+            "amount",
+            "direction",
+            "chain",
+            "confidence",
+            "risk_score",
+            "freshness_seconds",
+            "detail_ref"
+          ]
+        },
+        "fit_rules": [
+          "Radar sadece fresh whale event ile hareket eder.",
+          "Event yoksa radar silent state.",
+          "Wallet history drawer’da açılır.",
+          "Top events sınırlı sayıda gösterilir."
+        ]
+      },
+      "risk_panel_vm": {
+        "owner": "view_model_layer",
+        "canonical_inputs": [
+          "risk_layer",
+          "market_layer",
+          "onchain_layer",
+          "identity_layer",
+          "motion_state_layer"
+        ],
+        "fields": {
+          "risk_cards": [
+            "hard_block",
+            "risk_score",
+            "confidence",
+            "max_safe_buy",
+            "position_size_suggestion",
+            "liquidity_capacity",
+            "slippage_risk",
+            "mev_risk",
+            "gas_risk",
+            "detail_ref"
+          ]
+        },
+        "fit_rules": [
+          "Risk summary cards fit screen.",
+          "Formula/calculation detail drawer’da açılır.",
+          "Hard block varsa buy animation yok.",
+          "Risk verisi yoksa risk kartı unknown/silent olur."
+        ]
+      },
+      "paper_panel_vm": {
+        "owner": "view_model_layer",
+        "canonical_inputs": [
+          "paper_trade_layer",
+          "risk_layer",
+          "market_layer",
+          "identity_layer",
+          "motion_state_layer"
+        ],
+        "fields": {
+          "paper_plans": [
+            "plan_uid",
+            "token_uid",
+            "entry_plan",
+            "sl_status",
+            "tp_status",
+            "position_state",
+            "outcome_state",
+            "paper_live_mode",
+            "detail_ref"
+          ]
+        },
+        "fit_rules": [
+          "Active paper plans fit screen.",
+          "Execution/outcome detail drawer’da açılır.",
+          "Paper/live ayrımı her zaman görünür.",
+          "Gerçek live trade izinsiz görünmez/çalışmaz."
+        ]
+      }
+    },
+    "detail_model_rules": {
+      "detail_ref": "Primary cards carry detail_ref only; heavy data loads in detail surface.",
+      "detail_surfaces": {
+        "drawer": "Default for token/news/wallet/risk detail.",
+        "modal": "Short confirmation or focused review.",
+        "right_inspector": "Desktop wide screen optional.",
+        "department_detail_tab": "Token Yaşam department internal detail."
+      },
+      "forbidden": [
+        "primary screen long raw table",
+        "primary screen full log dump",
+        "primary screen repeated same metric",
+        "motion state generated inside detail component"
+      ]
+    },
+    "fit_pass_requirements": [
+      "body scrollHeight <= viewport height for primary screen",
+      "critical controls visible without scroll",
+      "sidebar visible without scroll",
+      "main content not clipped",
+      "detail surfaces local-scroll only",
+      "laptop and desktop fit profiles both pass"
+    ],
+    "data_pass_requirements": [
+      "all view model fields map to canonical layer",
+      "no duplicate calculation in panel",
+      "no hardcoded production metrics",
+      "missing data returns explicit empty_state",
+      "motion_states are read-only references"
+    ],
+    "product_pass_requirements": [
+      "screen looks premium",
+      "density feels intentional",
+      "motion does not distract",
+      "icons and text are balanced",
+      "user can understand state quickly",
+      "no cheap/fake effect"
+    ],
+    "next_phase": "UI_CONTRACT5_PANEL_IMPLEMENTATION_GATES_NOAPI"
+  },
+  "doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/UI_CONTRACT4_VIEW_MODEL_SCHEMA_AND_SCREEN_FIT_RULES_NOAPI_20260517_191207.md",
+  "latest_doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT4_VIEW_MODEL_SCHEMA_AND_SCREEN_FIT_RULES_NOAPI.md",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_UI_CONTRACT4_VIEW_MODEL_SCHEMA_AND_SCREEN_FIT_RULES_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/ui_contract4_view_model_schema_and_screen_fit_rules_noapi.json",
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "final_status": "PASS",
+  "final_gate": "UI_CONTRACT4_VIEW_MODEL_SCHEMA_AND_SCREEN_FIT_RULES_READY"
+}

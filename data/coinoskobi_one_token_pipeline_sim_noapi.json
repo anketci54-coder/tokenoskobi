@@ -1,0 +1,408 @@
+{
+  "phase": "COINOSKOBI_ONE_TOKEN_PIPELINE_SIM_NOAPI",
+  "stamp": "20260522_110120",
+  "mode": "ONE_TOKEN_FULL_PIPELINE_TEMP_DB_SIM_NOAPI",
+  "temp_db": "/root/tokenoskobi_clean_v1/_COINOSKOBI_ONE_TOKEN_PIPELINE_SIM_NOAPI/20260522_110120/one_token_pipeline_sim_temp.sqlite",
+  "input_files": {
+    "mev_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_sandwich_risk_engine_dryrun_noapi.json",
+    "mev_plan_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_sandwich_risk_engine_plan_noapi.json",
+    "signal_contract_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_signal_event_contract_dryrun_noapi.json"
+  },
+  "token": {
+    "token_uid": "tok_one_pipeline_sim_1",
+    "pair_uid": "pair_one_pipeline_sim_1",
+    "chain": "base",
+    "token_address": "0x1111111111111111111111111111111111111111",
+    "pair_address": "0x2222222222222222222222222222222222222222",
+    "symbol": "SIMDEX",
+    "name": "Simulated Dex Radar Token",
+    "source_group": "DEX_NEW_PAIR_DISCOVERY",
+    "source_name": "ONE_TOKEN_PIPELINE_SIM",
+    "content_hash": "one_token_pipeline_sim_hash_1"
+  },
+  "market": {
+    "liquidity_usd": 12000,
+    "entry_size_usd": 300,
+    "price_impact_pct": 1.8,
+    "slippage_required_pct": 2.2,
+    "tx_burst_1m": 18,
+    "buy_sell_imbalance": 0.45,
+    "pool_age_minutes": 80,
+    "same_window_swap_cluster": 1,
+    "known_bot_wallet_touch": false,
+    "gas_spike_ratio": 1.2,
+    "volume_1h_usd": 6200,
+    "tx_1h": 91
+  },
+  "mev": {
+    "component_scores": {
+      "LIQUIDITY_DEPTH_RISK": 0,
+      "ENTRY_SIZE_POOL_RATIO_RISK": 14,
+      "PRICE_IMPACT_RISK": 6,
+      "SLIPPAGE_REQUIRED_RISK": 5,
+      "TX_BURST_RISK": 6,
+      "BUY_SELL_IMBALANCE_RISK": 2,
+      "POOL_AGE_RISK": 2,
+      "BOT_PATTERN_BONUS_RISK": 3
+    },
+    "entry_size_pool_ratio": 0.025,
+    "raw_score": 38,
+    "mev_score": 38,
+    "mev_level": "MEDIUM",
+    "entry_gate": "REDUCE_SIZE",
+    "decision_type": "ENTRY_SIZE_REDUCE",
+    "entry_size_multiplier": 0.25,
+    "severity": "MEDIUM",
+    "route_effect": "ACTIVE_WATCH_WITH_SIZE_REDUCTION",
+    "hard_combos": [],
+    "warnings": [
+      "MEV_MEDIUM",
+      "SLIPPAGE_LIMIT_REQUIRED",
+      "ENTRY_SIZE_REDUCE"
+    ]
+  },
+  "center_scores": {
+    "identity_score": 82,
+    "source_score": 75,
+    "liquidity_score": 68,
+    "activity_score": 72,
+    "news_score": 46,
+    "launch_score": 34,
+    "wallet_score": 41,
+    "technical_score": 61,
+    "risk_score": 62,
+    "mev_score": 62,
+    "lifecycle_score": 50
+  },
+  "fusion_final_score": 63.66,
+  "fusion_route": "ACTIVE_WATCH",
+  "command_decision": "ENTRY_SIZE_REDUCE",
+  "paper_status": "PLANNED_SIM",
+  "paper_capital_usd": 25.0,
+  "view_model": {
+    "generated_at": "2026-01-01T00:00:00Z",
+    "mode": "TEMP_SIM_ONLY",
+    "command_center": {
+      "open_positions": [],
+      "action_history": [
+        {
+          "action": "RAW_DISCOVERY",
+          "status": "OK"
+        },
+        {
+          "action": "IDENTITY_MATCH",
+          "status": "OK"
+        },
+        {
+          "action": "MEV_GATE",
+          "status": "REDUCE_SIZE"
+        },
+        {
+          "action": "COMMAND_DECISION",
+          "status": "ENTRY_SIZE_REDUCE"
+        }
+      ],
+      "live_decision": {
+        "token_uid": "tok_one_pipeline_sim_1",
+        "symbol": "SIMDEX",
+        "decision_type": "ENTRY_SIZE_REDUCE",
+        "route": "ACTIVE_WATCH",
+        "final_score": 63.66,
+        "mev_gate": "REDUCE_SIZE"
+      },
+      "center_scores": {
+        "identity_score": 82,
+        "source_score": 75,
+        "liquidity_score": 68,
+        "activity_score": 72,
+        "news_score": 46,
+        "launch_score": 34,
+        "wallet_score": 41,
+        "technical_score": 61,
+        "risk_score": 62,
+        "mev_score": 62,
+        "lifecycle_score": 50
+      },
+      "paper_summary": {
+        "paper_status": "PLANNED_SIM",
+        "capital_usd": 25.0,
+        "live_trade": false
+      },
+      "sl_tp_status": {
+        "entry_mode": "PAPER_ONLY",
+        "capital_usd": 25.0,
+        "sl_pct": -1.5,
+        "tp1_pct": 2.0,
+        "tp2_pct": 4.0,
+        "mev_gate": "REDUCE_SIZE",
+        "entry_size_multiplier": 0.25
+      },
+      "watchlist": [
+        {
+          "token_uid": "tok_one_pipeline_sim_1",
+          "symbol": "SIMDEX",
+          "route": "ACTIVE_WATCH",
+          "decision_type": "ENTRY_SIZE_REDUCE",
+          "warnings": [
+            "MEV_MEDIUM",
+            "SLIPPAGE_LIMIT_REQUIRED",
+            "ENTRY_SIZE_REDUCE"
+          ]
+        }
+      ]
+    },
+    "centers": {
+      "onchain": "identity/liquidity/activity ok",
+      "technical": "neutral-positive",
+      "wallet": "light pressure",
+      "risk": "MEV REDUCE_SIZE"
+    },
+    "system": {
+      "simulation": true,
+      "live_db_write": false,
+      "paper_execution": false,
+      "api_calls": 0
+    }
+  },
+  "pipeline_events": {
+    "raw": {
+      "raw_event_uid": "raw_one_pipeline_sim_1",
+      "source_group": "DEX_NEW_PAIR_DISCOVERY",
+      "source_name": "ONE_TOKEN_PIPELINE_SIM",
+      "chain": "base",
+      "raw_url_or_ref": "dryrun://one-token-pipeline/simdex",
+      "content_hash": "one_token_pipeline_sim_hash_1",
+      "seen_at_utc": "2026-01-01T00:00:00Z",
+      "payload_json": "{\"token\": {\"token_uid\": \"tok_one_pipeline_sim_1\", \"pair_uid\": \"pair_one_pipeline_sim_1\", \"chain\": \"base\", \"token_address\": \"0x1111111111111111111111111111111111111111\", \"pair_address\": \"0x2222222222222222222222222222222222222222\", \"symbol\": \"SIMDEX\", \"name\": \"Simulated Dex Radar Token\", \"source_group\": \"DEX_NEW_PAIR_DISCOVERY\", \"source_name\": \"ONE_TOKEN_PIPELINE_SIM\", \"content_hash\": \"one_token_pipeline_sim_hash_1\"}, \"market\": {\"liquidity_usd\": 12000, \"entry_size_usd\": 300, \"price_impact_pct\": 1.8, \"slippage_required_pct\": 2.2, \"tx_burst_1m\": 18, \"buy_sell_imbalance\": 0.45, \"pool_age_minutes\": 80, \"same_window_swap_cluster\": 1, \"known_bot_wallet_touch\": false, \"gas_spike_ratio\": 1.2, \"volume_1h_usd\": 6200, \"tx_1h\": 91}}"
+    },
+    "entity": {
+      "entity_uid": "entity_one_pipeline_sim_1",
+      "raw_event_uid": "raw_one_pipeline_sim_1",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "chain": "base",
+      "token_address": "0x1111111111111111111111111111111111111111",
+      "pair_address": "0x2222222222222222222222222222222222222222",
+      "symbol": "SIMDEX",
+      "name": "Simulated Dex Radar Token",
+      "identity_status": "IDENTITY_OBSERVED",
+      "quality_flags_json": "[\"PAIR_BIRTH_NOT_TOKEN_BIRTH\", \"SIMULATED_ENTITY\"]",
+      "evidence_json": "{\"raw_event_uid\": \"raw_one_pipeline_sim_1\"}"
+    },
+    "center_signals": [
+      {
+        "signal_uid": "signal_identity_one_pipeline_sim_1",
+        "center_key": "onchain",
+        "signal_type": "IDENTITY_AND_LIQUIDITY",
+        "score": 82,
+        "severity": "LOW",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "liquidity_usd": 12000,
+          "tx_1h": 91
+        }
+      },
+      {
+        "signal_uid": "signal_activity_one_pipeline_sim_1",
+        "center_key": "onchain",
+        "signal_type": "ACTIVITY_HEALTH",
+        "score": 72,
+        "severity": "LOW",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "volume_1h_usd": 6200,
+          "tx_1h": 91
+        }
+      },
+      {
+        "signal_uid": "signal_technical_one_pipeline_sim_1",
+        "center_key": "technical",
+        "signal_type": "TECHNICAL_ENTRY_CONTEXT",
+        "score": 61,
+        "severity": "INFO",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "note": "simulated technical neutral-positive"
+        }
+      },
+      {
+        "signal_uid": "signal_wallet_one_pipeline_sim_1",
+        "center_key": "wallet",
+        "signal_type": "WALLET_PRESSURE_LIGHT",
+        "score": 41,
+        "severity": "INFO",
+        "freshness": "UNKNOWN",
+        "evidence_json": {
+          "known_bot_wallet_touch": false
+        }
+      },
+      {
+        "signal_uid": "signal_mev_one_pipeline_sim_1",
+        "center_key": "risk",
+        "signal_type": "MEV_SANDWICH_RISK",
+        "score": 38,
+        "severity": "MEDIUM",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 0,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 14,
+            "PRICE_IMPACT_RISK": 6,
+            "SLIPPAGE_REQUIRED_RISK": 5,
+            "TX_BURST_RISK": 6,
+            "BUY_SELL_IMBALANCE_RISK": 2,
+            "POOL_AGE_RISK": 2,
+            "BOT_PATTERN_BONUS_RISK": 3
+          },
+          "hard_combos": [],
+          "entry_gate": "REDUCE_SIZE",
+          "warnings": [
+            "MEV_MEDIUM",
+            "SLIPPAGE_LIMIT_REQUIRED",
+            "ENTRY_SIZE_REDUCE"
+          ]
+        }
+      }
+    ],
+    "mev": {
+      "mev_uid": "mev_one_pipeline_sim_1",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "chain": "base",
+      "mev_level": "MEDIUM",
+      "sandwich_exposure": 0,
+      "swap_impact_pct": 1.8,
+      "slippage_required_pct": 2.2,
+      "tx_burst_score": 18,
+      "buy_sell_imbalance": 0.45,
+      "entry_gate": "REDUCE_SIZE",
+      "evidence_json": "{\"market\": {\"liquidity_usd\": 12000, \"entry_size_usd\": 300, \"price_impact_pct\": 1.8, \"slippage_required_pct\": 2.2, \"tx_burst_1m\": 18, \"buy_sell_imbalance\": 0.45, \"pool_age_minutes\": 80, \"same_window_swap_cluster\": 1, \"known_bot_wallet_touch\": false, \"gas_spike_ratio\": 1.2, \"volume_1h_usd\": 6200, \"tx_1h\": 91}, \"mev_calc\": {\"component_scores\": {\"LIQUIDITY_DEPTH_RISK\": 0, \"ENTRY_SIZE_POOL_RATIO_RISK\": 14, \"PRICE_IMPACT_RISK\": 6, \"SLIPPAGE_REQUIRED_RISK\": 5, \"TX_BURST_RISK\": 6, \"BUY_SELL_IMBALANCE_RISK\": 2, \"POOL_AGE_RISK\": 2, \"BOT_PATTERN_BONUS_RISK\": 3}, \"entry_size_pool_ratio\": 0.025, \"raw_score\": 38, \"mev_score\": 38, \"mev_level\": \"MEDIUM\", \"entry_gate\": \"REDUCE_SIZE\", \"decision_type\": \"ENTRY_SIZE_REDUCE\", \"entry_size_multiplier\": 0.25, \"severity\": \"MEDIUM\", \"route_effect\": \"ACTIVE_WATCH_WITH_SIZE_REDUCTION\", \"hard_combos\": [], \"warnings\": [\"MEV_MEDIUM\", \"SLIPPAGE_LIMIT_REQUIRED\", \"ENTRY_SIZE_REDUCE\"]}}"
+    },
+    "fusion": {
+      "fusion_uid": "fusion_one_pipeline_sim_1",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "chain": "base",
+      "score_json": "{\"identity_score\": 82, \"source_score\": 75, \"liquidity_score\": 68, \"activity_score\": 72, \"news_score\": 46, \"launch_score\": 34, \"wallet_score\": 41, \"technical_score\": 61, \"risk_score\": 62, \"mev_score\": 62, \"lifecycle_score\": 50}",
+      "final_score": 63.66,
+      "route": "ACTIVE_WATCH",
+      "hard_blocks_json": "[]",
+      "soft_warnings_json": "[\"MEV_MEDIUM\", \"SLIPPAGE_LIMIT_REQUIRED\", \"ENTRY_SIZE_REDUCE\"]"
+    },
+    "decision": {
+      "decision_uid": "decision_one_pipeline_sim_1",
+      "fusion_uid": "fusion_one_pipeline_sim_1",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "chain": "base",
+      "decision_type": "ENTRY_SIZE_REDUCE",
+      "entry_size_hint": 25.0,
+      "sl_tp_plan_json": "{\"entry_mode\": \"PAPER_ONLY\", \"capital_usd\": 25.0, \"sl_pct\": -1.5, \"tp1_pct\": 2.0, \"tp2_pct\": 4.0, \"mev_gate\": \"REDUCE_SIZE\", \"entry_size_multiplier\": 0.25}",
+      "reason_json": "{\"final_score\": 63.66, \"route\": \"ACTIVE_WATCH\", \"mev_level\": \"MEDIUM\", \"mev_score\": 38, \"warnings\": [\"MEV_MEDIUM\", \"SLIPPAGE_LIMIT_REQUIRED\", \"ENTRY_SIZE_REDUCE\"]}"
+    },
+    "paper": {
+      "paper_uid": "paper_one_pipeline_sim_1",
+      "decision_uid": "decision_one_pipeline_sim_1",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "chain": "base",
+      "paper_status": "PLANNED_SIM",
+      "entry_price": 0.0001,
+      "exit_price": null,
+      "pnl_pct": null,
+      "max_drawdown_pct": null,
+      "exit_reason": null,
+      "evidence_json": "{\"paper_plan_only\": true, \"capital_usd\": 25.0, \"decision_type\": \"ENTRY_SIZE_REDUCE\"}"
+    },
+    "outcome": {
+      "outcome_uid": "outcome_one_pipeline_sim_1",
+      "token_uid": "tok_one_pipeline_sim_1",
+      "pair_uid": "pair_one_pipeline_sim_1",
+      "chain": "base",
+      "outcome_type": "DRYRUN_OBSERVATION",
+      "mistake_tags_json": "[]",
+      "learning_notes_json": "{\"note\": \"one token full pipeline temp simulation only\", \"next\": \"real source adapter dryrun required before live ingestion\"}",
+      "linked_paper_uid": "paper_one_pipeline_sim_1",
+      "linked_decision_uid": "decision_one_pipeline_sim_1"
+    },
+    "view": {
+      "view_uid": "view_one_pipeline_sim_1",
+      "generated_at_utc": "2026-01-01T00:00:00Z",
+      "panel_scope": "SIM_ONLY",
+      "view_model_json": "{\"generated_at\": \"2026-01-01T00:00:00Z\", \"mode\": \"TEMP_SIM_ONLY\", \"command_center\": {\"open_positions\": [], \"action_history\": [{\"action\": \"RAW_DISCOVERY\", \"status\": \"OK\"}, {\"action\": \"IDENTITY_MATCH\", \"status\": \"OK\"}, {\"action\": \"MEV_GATE\", \"status\": \"REDUCE_SIZE\"}, {\"action\": \"COMMAND_DECISION\", \"status\": \"ENTRY_SIZE_REDUCE\"}], \"live_decision\": {\"token_uid\": \"tok_one_pipeline_sim_1\", \"symbol\": \"SIMDEX\", \"decision_type\": \"ENTRY_SIZE_REDUCE\", \"route\": \"ACTIVE_WATCH\", \"final_score\": 63.66, \"mev_gate\": \"REDUCE_SIZE\"}, \"center_scores\": {\"identity_score\": 82, \"source_score\": 75, \"liquidity_score\": 68, \"activity_score\": 72, \"news_score\": 46, \"launch_score\": 34, \"wallet_score\": 41, \"technical_score\": 61, \"risk_score\": 62, \"mev_score\": 62, \"lifecycle_score\": 50}, \"paper_summary\": {\"paper_status\": \"PLANNED_SIM\", \"capital_usd\": 25.0, \"live_trade\": false}, \"sl_tp_status\": {\"entry_mode\": \"PAPER_ONLY\", \"capital_usd\": 25.0, \"sl_pct\": -1.5, \"tp1_pct\": 2.0, \"tp2_pct\": 4.0, \"mev_gate\": \"REDUCE_SIZE\", \"entry_size_multiplier\": 0.25}, \"watchlist\": [{\"token_uid\": \"tok_one_pipeline_sim_1\", \"symbol\": \"SIMDEX\", \"route\": \"ACTIVE_WATCH\", \"decision_type\": \"ENTRY_SIZE_REDUCE\", \"warnings\": [\"MEV_MEDIUM\", \"SLIPPAGE_LIMIT_REQUIRED\", \"ENTRY_SIZE_REDUCE\"]}]}, \"centers\": {\"onchain\": \"identity/liquidity/activity ok\", \"technical\": \"neutral-positive\", \"wallet\": \"light pressure\", \"risk\": \"MEV REDUCE_SIZE\"}, \"system\": {\"simulation\": true, \"live_db_write\": false, \"paper_execution\": false, \"api_calls\": 0}}",
+      "source_counts_json": "{\"raw_discovery_events_v1\": 1, \"entity_identity_events_v1\": 1, \"center_signal_events_v1\": 5, \"mev_sandwich_risk_events_v1\": 1, \"fusion_score_events_v1\": 1, \"command_decision_events_v1\": 1, \"paper_trade_events_v1\": 1, \"outcome_memory_events_v1\": 1, \"control_dashboard_view_model_events_v1\": 1}"
+    }
+  },
+  "expected_temp_counts": {
+    "raw_discovery_events_v1": 1,
+    "entity_identity_events_v1": 1,
+    "center_signal_events_v1": 5,
+    "mev_sandwich_risk_events_v1": 1,
+    "fusion_score_events_v1": 1,
+    "command_decision_events_v1": 1,
+    "paper_trade_events_v1": 1,
+    "outcome_memory_events_v1": 1,
+    "control_dashboard_view_model_events_v1": 1
+  },
+  "temp_counts": {
+    "raw_discovery_events_v1": 1,
+    "entity_identity_events_v1": 1,
+    "center_signal_events_v1": 5,
+    "mev_sandwich_risk_events_v1": 1,
+    "fusion_score_events_v1": 1,
+    "command_decision_events_v1": 1,
+    "paper_trade_events_v1": 1,
+    "outcome_memory_events_v1": 1,
+    "control_dashboard_view_model_events_v1": 1
+  },
+  "temp_counts_match": true,
+  "temp_insert_ok": true,
+  "temp_insert_error": null,
+  "temp_integrity_check": "ok",
+  "temp_fk_error_count": 0,
+  "live_counts_before": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "live_counts_after": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "live_integrity_before": "ok",
+  "live_integrity_after": "ok",
+  "live_fk_error_count_before": 0,
+  "live_fk_error_count_after": 0,
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "live_db_write": 0,
+    "temp_db_write_only": true,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_VIEW_MODEL_BUILDER_DRYRUN_NOAPI"
+}

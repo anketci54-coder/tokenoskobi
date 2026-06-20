@@ -1,0 +1,69 @@
+{
+  "phase": "PASS25C_HISTORICAL_LAUNCH_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "launch_feature_vector_registry_v1",
+      "purpose": "normalized_feature_vectors"
+    },
+    {
+      "table": "launch_outcome_vector_registry_v1",
+      "purpose": "immutable_outcome_vectors"
+    },
+    {
+      "table": "analog_dataset_registry_v1",
+      "purpose": "dataset_versions"
+    },
+    {
+      "table": "analog_reference_registry_v1",
+      "purpose": "launch_analog_relationships"
+    },
+    {
+      "table": "project_dossier_cache_registry_v1",
+      "purpose": "deduplicated_project_cache"
+    },
+    {
+      "table": "launch_event_registry_v1",
+      "purpose": "event_only_storage"
+    }
+  ],
+  "versioning": [
+    "FEATURE_VECTOR_VERSION",
+    "OUTCOME_VECTOR_VERSION",
+    "ANALOG_DATASET_VERSION"
+  ],
+  "required_locks": [
+    "OUTCOME_FREEZE_REQUIRED",
+    "FEATURE_VERSIONING_REQUIRED",
+    "ANALOG_DATASET_VERSIONING",
+    "SURVIVORSHIP_BIAS_PROTECTION",
+    "NEGATIVE_EXAMPLES_REQUIRED",
+    "RUG_DATASET_REQUIRED",
+    "FAILED_PROJECT_DATASET_REQUIRED"
+  ],
+  "future_scores": [
+    "ANALOG_CONFIDENCE_SCORE",
+    "SURVIVAL_SCORE",
+    "FAILURE_SCORE",
+    "RUG_RISK_SCORE"
+  ],
+  "storage_rules": [
+    "EVENT_NOT_TIMESERIES",
+    "AUTO_COMPACT_REQUIRED",
+    "RAW_DATA_EXPIRY_REQUIRED",
+    "DEDUP_REQUIRED"
+  ],
+  "forbidden_storage": [
+    "MINUTE_CANDLES",
+    "FULL_SOCIAL_ARCHIVE",
+    "FULL_CHAT_ARCHIVE",
+    "UNLIMITED_RAW_DATA",
+    "DUPLICATE_PROJECT_DOSSIERS"
+  ],
+  "target": "MAXIMUM_LEARNING_MINIMUM_STORAGE",
+  "decision": "PASS25C_ACCEPTED_READY_FOR_PASS25D"
+}

@@ -1,0 +1,10 @@
+{
+  "phase": "PHASE21G_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_NOAPI",
+  "final_gate": "REVIEW_REQUIRED_UNHANDLED_EXCEPTION",
+  "script_rc": 2,
+  "failed_checks": [
+    "UNHANDLED_EXCEPTION"
+  ],
+  "traceback": "Traceback (most recent call last):\n  File \"/tmp/PHASE21G_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_NOAPI.py\", line 770, in <module>\n    temp_apply_audit = apply_dirty_seed_to_temp(TEMP_DB, dirty_rows)\n  File \"/tmp/PHASE21G_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_NOAPI.py\", line 469, in apply_dirty_seed_to_temp\n    insert_dict(conn, \"known_wallet_quarantine_seed_v1\", {\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        \"quarantine_uid\": f\"QUAR21G_{seed_uid}\",\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<13 lines>...\n        \"created_at_utc\": ts,\n        ^^^^^^^^^^^^^^^^^^^^^\n    })\n    ^^\n  File \"/tmp/PHASE21G_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_NOAPI.py\", line 206, in insert_dict\n    conn.execute(sql, [use[k] for k in keys])\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.IntegrityError: NOT NULL constraint failed: known_wallet_quarantine_seed_v1.trust_tier\n",
+  "finished_at": "2026-06-04T18:50:04.083231+00:00"
+}

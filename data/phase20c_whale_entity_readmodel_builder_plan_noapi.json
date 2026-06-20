@@ -1,0 +1,487 @@
+{
+  "phase": "PHASE20C_WHALE_ENTITY_READMODEL_BUILDER_PLAN_NOAPI",
+  "started_at": "2026-06-04T16:16:50.508556+00:00",
+  "finished_at": "2026-06-04T16:16:50.567557+00:00",
+  "final_gate": "PASS_PHASE20C_WHALE_ENTITY_READMODEL_BUILDER_PLAN_NOAPI",
+  "current_state": "WHALE_ENTITY_READMODEL_BUILDER_PLAN_READY_NOAPI",
+  "script_rc": 0,
+  "failed_checks": [],
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "live_db_mutation": false,
+    "live_schema_apply": false,
+    "temp_schema_apply": false,
+    "active_panel_write": false,
+    "preview_write": false,
+    "nginx_or_auth_change": false,
+    "service_restart": false,
+    "timer_change": false,
+    "runner_start": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "token_specific_patch": false,
+    "report_json_rows_write_only": true,
+    "checklist_may_be_touched_on_pass": true
+  },
+  "inputs": {
+    "db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "active_index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+    "handoff": "/root/tokenoskobi_clean_v1/data/phase20_new_screen_handoff_note_from_phase19w.md",
+    "phase20a_json": "/root/tokenoskobi_clean_v1/data/phase20a_whale_entity_intelligence_architecture_plan_noapi.json",
+    "phase20b_json": "/root/tokenoskobi_clean_v1/data/phase20b_whale_entity_data_contract_and_schema_dryrun_noapi.json",
+    "phase20a_final_gate": "PASS_PHASE20A_WHALE_ENTITY_ARCHITECTURE_PLAN_NOAPI",
+    "phase20b_final_gate": "PASS_PHASE20B_WHALE_ENTITY_DATA_CONTRACT_AND_SCHEMA_DRYRUN_NOAPI"
+  },
+  "before": {
+    "db": {
+      "exists": true,
+      "sha256": "6671d81b13697bee3c92aebd59fe499bd9207f0b979a37f31e1b6830eba2fa0f",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 264,
+      "important_counts": {
+        "tokens": 19,
+        "pairs": 19,
+        "liquidity_snapshots": 46,
+        "market_snapshots": 46,
+        "rejection_micro_log": 0,
+        "entity_reputation_ledger": 0,
+        "entity_reputation_evidence_events": 0,
+        "repeat_offender_fast_kill_cache": 0,
+        "external_reputation_comparison_events": 0,
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "whale_tables_live_presence": {
+        "whale_entity_registry_v1": false,
+        "whale_entity_wallet_links_v1": false,
+        "whale_entity_flow_events_v1": false,
+        "whale_entity_token_exposure_v1": false,
+        "whale_entity_evidence_events_v1": false,
+        "whale_entity_risk_links_v1": false,
+        "whale_entity_screen_readmodel_v1": false
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase20a_json_sha256": "91a29d88f864c690aafe9bc623159880d6f4b699c24e0ac5cc696914083e910c",
+    "phase20b_json_sha256": "e8b5699cc24d1e5007019125a0b7ff3676a82fccc9cb2fb93e782996ee22af17",
+    "checklist_sha256": "c72194594981ab14c7c67bb487aeaf0fb7a28f1701a37e896621fe615702da6f"
+  },
+  "after_before_checklist": {
+    "db": {
+      "exists": true,
+      "sha256": "6671d81b13697bee3c92aebd59fe499bd9207f0b979a37f31e1b6830eba2fa0f",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 264,
+      "important_counts": {
+        "tokens": 19,
+        "pairs": 19,
+        "liquidity_snapshots": 46,
+        "market_snapshots": 46,
+        "rejection_micro_log": 0,
+        "entity_reputation_ledger": 0,
+        "entity_reputation_evidence_events": 0,
+        "repeat_offender_fast_kill_cache": 0,
+        "external_reputation_comparison_events": 0,
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "whale_tables_live_presence": {
+        "whale_entity_registry_v1": false,
+        "whale_entity_wallet_links_v1": false,
+        "whale_entity_flow_events_v1": false,
+        "whale_entity_token_exposure_v1": false,
+        "whale_entity_evidence_events_v1": false,
+        "whale_entity_risk_links_v1": false,
+        "whale_entity_screen_readmodel_v1": false
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase20a_json_sha256": "91a29d88f864c690aafe9bc623159880d6f4b699c24e0ac5cc696914083e910c",
+    "phase20b_json_sha256": "e8b5699cc24d1e5007019125a0b7ff3676a82fccc9cb2fb93e782996ee22af17",
+    "checklist_sha256_before_optional_write": "c72194594981ab14c7c67bb487aeaf0fb7a28f1701a37e896621fe615702da6f"
+  },
+  "immutability": {
+    "live_db_unchanged": true,
+    "active_index_unchanged": true,
+    "handoff_unchanged": true,
+    "phase20a_json_unchanged": true,
+    "phase20b_json_unchanged": true
+  },
+  "readmodel_plan": {
+    "builder_name": "WHALE_ENTITY_SCREEN_READMODEL_BUILDER_V1_PLAN",
+    "purpose": "Balina Takip Merkezi ekranına hazır, hafif, cache/readmodel tabanlı JSON üretmek.",
+    "strict_position": "CRITICAL_PATH_DISALLOWED",
+    "critical_path_guards": {
+      "db_query_on_pre_intake": false,
+      "db_write_on_pre_intake": false,
+      "external_call_on_pre_intake": false,
+      "graph_traversal_on_pre_intake": false,
+      "blocking_disk_write_on_pre_intake": false,
+      "trade_signal_generation": false,
+      "paper_signal_generation": false,
+      "live_signal_generation": false
+    },
+    "readmodel_output_policy": {
+      "active_panel_write_now": false,
+      "preview_write_now": false,
+      "future_output_type": "JSON_READMODEL",
+      "future_output_target": "Balina Takip Merkezi data feed; aktif 8096 apply ayrı onay ister.",
+      "payload_size_policy": "small_summary_first_details_on_demand",
+      "unknown_policy": "UNKNOWN_NEEDS_TEST is a first-class state, not PASS."
+    }
+  },
+  "source_plan": [
+    {
+      "source": "whale_entity_registry_v1",
+      "role": "Entity ana kayıtlarını sağlar.",
+      "phase20c_status": "PLANNED_ONLY",
+      "required_before_real_builder": "20E schema real + later collector/readmodel phases"
+    },
+    {
+      "source": "whale_entity_wallet_links_v1",
+      "role": "Wallet/cluster/entity bağlarını sağlar.",
+      "phase20c_status": "PLANNED_ONLY",
+      "required_before_real_builder": "20E schema real + wallet link writer dry-run"
+    },
+    {
+      "source": "whale_entity_flow_events_v1",
+      "role": "Flow timeline için transfer/swap/LP/funding olaylarını sağlar.",
+      "phase20c_status": "PLANNED_ONLY",
+      "required_before_real_builder": "flow collector design/dry-run"
+    },
+    {
+      "source": "whale_entity_token_exposure_v1",
+      "role": "Token/pair exposure kartlarını sağlar.",
+      "phase20c_status": "PLANNED_ONLY",
+      "required_before_real_builder": "exposure summarizer dry-run"
+    },
+    {
+      "source": "whale_entity_evidence_events_v1",
+      "role": "Evidence drawer için kanıt satırlarını sağlar.",
+      "phase20c_status": "PLANNED_ONLY",
+      "required_before_real_builder": "evidence event writer dry-run"
+    },
+    {
+      "source": "whale_entity_risk_links_v1",
+      "role": "Risk Güvenlik Merkezi gate bağlantılarını sağlar.",
+      "phase20c_status": "PLANNED_ONLY",
+      "required_before_real_builder": "risk bridge dry-run"
+    },
+    {
+      "source": "rejection_micro_log / entity_reputation_ledger / repeat_offender_fast_kill_cache",
+      "role": "Faz 19 reputation/sabıka hattından özet risk bağlamı alır.",
+      "phase20c_status": "PLANNED_ONLY_READ_ONLY",
+      "required_before_real_builder": "read-only integration dry-run"
+    }
+  ],
+  "payload_sections": [
+    {
+      "section": "overview",
+      "fields": [
+        "generated_at_utc",
+        "chain_scope",
+        "entity_count",
+        "high_risk_entity_count",
+        "unknown_needs_test_count",
+        "blocked_count",
+        "freshness_status"
+      ],
+      "purpose": "Üst özet kutuları.",
+      "panel_dependency": "Balina Takip Merkezi üst bar"
+    },
+    {
+      "section": "entity_cards",
+      "fields": [
+        "entity_uid",
+        "entity_label",
+        "entity_type",
+        "status",
+        "confidence_band",
+        "risk_lane",
+        "last_seen_utc",
+        "linked_wallet_count",
+        "linked_token_count",
+        "evidence_count"
+      ],
+      "purpose": "Entity kartlarını besler.",
+      "panel_dependency": "Entity Cards"
+    },
+    {
+      "section": "wallet_cluster_summary",
+      "fields": [
+        "entity_uid",
+        "cluster_count",
+        "wallet_count",
+        "relation_types",
+        "unresolved_relation_count"
+      ],
+      "purpose": "Ağır graph yerine hafif özet sağlar.",
+      "panel_dependency": "Wallet Cluster Map summary mode"
+    },
+    {
+      "section": "flow_timeline",
+      "fields": [
+        "flow_uid",
+        "entity_uid",
+        "event_time_utc",
+        "flow_type",
+        "direction",
+        "amount_usd",
+        "token_address",
+        "pair_address",
+        "dust_flag",
+        "cex_mixer_flag"
+      ],
+      "purpose": "Son hareketleri zaman çizelgesi olarak gösterir.",
+      "panel_dependency": "Flow Timeline"
+    },
+    {
+      "section": "token_exposure",
+      "fields": [
+        "entity_uid",
+        "token_uid",
+        "pair_uid",
+        "exposure_type",
+        "exposure_direction",
+        "exposure_status",
+        "risk_lane"
+      ],
+      "purpose": "Entity-token/pair ilişkisini özetler.",
+      "panel_dependency": "Token Exposure Panel"
+    },
+    {
+      "section": "risk_links",
+      "fields": [
+        "entity_uid",
+        "risk_center_gate",
+        "risk_lane",
+        "severity",
+        "blocks_clean_route",
+        "blocks_paper_route",
+        "blocks_live_route",
+        "unresolved_tests"
+      ],
+      "purpose": "Risk Güvenlik Merkezi bağlantılarını gösterir.",
+      "panel_dependency": "Risk Center Links"
+    },
+    {
+      "section": "evidence_drawer",
+      "fields": [
+        "evidence_uid",
+        "entity_uid",
+        "evidence_type",
+        "evidence_source",
+        "evidence_strength",
+        "evidence_summary",
+        "external_label_signal_only",
+        "onchain_behavior_required"
+      ],
+      "purpose": "Her iddianın kanıtını açıklar.",
+      "panel_dependency": "Evidence Drawer"
+    },
+    {
+      "section": "unknowns_required_tests",
+      "fields": [
+        "entity_uid",
+        "unknown_type",
+        "required_test",
+        "blocking_reason",
+        "priority"
+      ],
+      "purpose": "Veri eksiklerini sıraya koyar.",
+      "panel_dependency": "Unknowns / Required Tests Queue"
+    }
+  ],
+  "builder_steps": [
+    {
+      "step": 1,
+      "name": "LOAD_READY_SUMMARIES_ONLY",
+      "description": "Ağır graph traversal yapmadan önceden üretilmiş summary/read tables okunur.",
+      "critical_path_allowed": false
+    },
+    {
+      "step": 2,
+      "name": "NORMALIZE_ENTITY_LANES",
+      "description": "OBSERVE/RISK_WATCH/HIGH_RISK_ENTITY/UNKNOWN_NEEDS_TEST/BLOCKED lane’leri normalize edilir.",
+      "critical_path_allowed": false
+    },
+    {
+      "step": 3,
+      "name": "APPLY_LABEL_SAFETY_RULES",
+      "description": "External label sinyal, onchain behavior kanıt kuralı uygulanır.",
+      "critical_path_allowed": false
+    },
+    {
+      "step": 4,
+      "name": "APPLY_CEX_AND_DUST_GUARDS",
+      "description": "CEX mixer ve inbound dust tuzakları panel payloadında açık flag olarak taşınır.",
+      "critical_path_allowed": false
+    },
+    {
+      "step": 5,
+      "name": "BUILD_SMALL_PAYLOAD",
+      "description": "Ekran için hafif JSON payload oluşturulur; detaylar drawer/on-demand mantığına bırakılır.",
+      "critical_path_allowed": false
+    },
+    {
+      "step": 6,
+      "name": "VALIDATE_PAYLOAD_CONTRACT",
+      "description": "Payload şema, zorunlu alan, lane ve trade/paper/live false kontrollerinden geçer.",
+      "critical_path_allowed": false
+    },
+    {
+      "step": 7,
+      "name": "WRITE_FUTURE_READMODEL_ONLY_AFTER_APPROVAL",
+      "description": "Bu fazda yazım yok. İleride ayrı dry-run/approval sonrası readmodel yazılabilir.",
+      "critical_path_allowed": false
+    }
+  ],
+  "validation_contract": [
+    {
+      "check": "payload_has_generated_at_utc",
+      "severity": "FAIL",
+      "reason": "Freshness yoksa panel yanıltır."
+    },
+    {
+      "check": "all_lanes_in_allowed_set",
+      "severity": "FAIL",
+      "reason": "Panel karar dili dağılmamalı."
+    },
+    {
+      "check": "trade_allowed_false_for_all",
+      "severity": "FAIL",
+      "reason": "Whale screen trade sinyali değildir."
+    },
+    {
+      "check": "paper_allowed_false_for_all",
+      "severity": "FAIL",
+      "reason": "Paper route ayrı risk onayı ister."
+    },
+    {
+      "check": "external_label_signal_only_preserved",
+      "severity": "FAIL",
+      "reason": "Dataset etiketi tek başına kanıt değildir."
+    },
+    {
+      "check": "unknowns_are_explicit",
+      "severity": "FAIL",
+      "reason": "Eksik veri temiz varsayılamaz."
+    },
+    {
+      "check": "cex_mixer_flag_explicit",
+      "severity": "WARN",
+      "reason": "CEX hot wallet root funder sayılmaz."
+    },
+    {
+      "check": "dust_flag_explicit",
+      "severity": "WARN",
+      "reason": "Inbound dust alım/sahiplik kanıtı sayılmaz."
+    },
+    {
+      "check": "payload_size_within_limit",
+      "severity": "WARN",
+      "reason": "Ekran hızlı ve sade kalmalı."
+    }
+  ],
+  "non_goals": [
+    "Aktif 8096 panel çizimi yok.",
+    "Preview üretimi yok.",
+    "Canlı DB schema apply yok.",
+    "Canlı DB row insert/update/delete yok.",
+    "API/RPC/external network yok.",
+    "Whale collector çalıştırma yok.",
+    "Graph traversal veya ağır analiz yok.",
+    "Paper/live sinyal yok.",
+    "Token-specific kod yok."
+  ],
+  "future_phase_chain": [
+    {
+      "phase": "PHASE20D_WHALE_ENTITY_SCREEN_WIREFRAME_PLAN_NOAPI",
+      "goal": "Balina Takip Merkezi ekran wireframe ve bölüm yerleşimini planlamak.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20E_WHALE_ENTITY_SCHEMA_REAL_AFTER_EXPLICIT_APPROVAL",
+      "goal": "Açık onaydan sonra canlı DB’de boş whale schema tablolarını oluşturmak.",
+      "requires_approval": true,
+      "approval_sentence": "PHASE20E whale entity schema real için onay veriyorum"
+    },
+    {
+      "phase": "PHASE20F_WHALE_ENTITY_SCHEMA_POST_AUDIT_NOAPI",
+      "goal": "20E sonrası canlı DB schema, FK, boş tablo ve core immutability kontrolü.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20G_WHALE_ENTITY_READMODEL_BUILDER_DRYRUN_NOAPI",
+      "goal": "Gerçek yazım yapmadan readmodel builder payloadını fixture/synthetic veriyle test etmek.",
+      "requires_approval": false
+    }
+  ],
+  "next_phase": "PHASE20D_WHALE_ENTITY_SCREEN_WIREFRAME_PLAN_NOAPI",
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE20C_WHALE_ENTITY_READMODEL_BUILDER_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase20c_whale_entity_readmodel_builder_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase20c_whale_entity_readmodel_builder_plan_noapi_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE20C_WHALE_ENTITY_READMODEL_BUILDER_PLAN_NOAPI/20260604_191650"
+  },
+  "after_final": {
+    "db": {
+      "exists": true,
+      "sha256": "6671d81b13697bee3c92aebd59fe499bd9207f0b979a37f31e1b6830eba2fa0f",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 264,
+      "important_counts": {
+        "tokens": 19,
+        "pairs": 19,
+        "liquidity_snapshots": 46,
+        "market_snapshots": 46,
+        "rejection_micro_log": 0,
+        "entity_reputation_ledger": 0,
+        "entity_reputation_evidence_events": 0,
+        "repeat_offender_fast_kill_cache": 0,
+        "external_reputation_comparison_events": 0,
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "whale_tables_live_presence": {
+        "whale_entity_registry_v1": false,
+        "whale_entity_wallet_links_v1": false,
+        "whale_entity_flow_events_v1": false,
+        "whale_entity_token_exposure_v1": false,
+        "whale_entity_evidence_events_v1": false,
+        "whale_entity_risk_links_v1": false,
+        "whale_entity_screen_readmodel_v1": false
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "checklist_sha256": "4901a0f9337b4be42b45070500e98c86bf74cdcf7b77a38f1b36c187468c413c"
+  },
+  "checklist_touched": true
+}

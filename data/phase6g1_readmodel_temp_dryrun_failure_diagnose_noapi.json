@@ -1,0 +1,220 @@
+{
+  "apply_error_rows": [
+    {
+      "error": "near \"no\": syntax error",
+      "error_class": "SQL_SYNTAX_ERROR",
+      "order": 1,
+      "statement_preview": "no DB mutation has been performed. CREATE TABLE IF NOT EXISTS \"state_aggregated_token_readmodel_v1\" ( \"state_uid\" TEXT PRIMARY KEY, \"token_uid\" TEXT NOT NULL, \"pair_uid\" TEXT, \"chain\" TEXT NOT NULL, \"token_address\" TEXT NOT NULL, \"pair_addr"
+    },
+    {
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "MISSING_REFERENCED_TABLE_OR_INDEX_TARGET",
+      "order": 9,
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_token_uid\" ON \"state_aggregated_token_readmodel_v1\" (\"token_uid\");"
+    },
+    {
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "MISSING_REFERENCED_TABLE_OR_INDEX_TARGET",
+      "order": 10,
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_chain_token\" ON \"state_aggregated_token_readmodel_v1\" (\"chain\", \"token_address\");"
+    },
+    {
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "MISSING_REFERENCED_TABLE_OR_INDEX_TARGET",
+      "order": 11,
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_decision\" ON \"state_aggregated_token_readmodel_v1\" (\"decision_label\");"
+    },
+    {
+      "error": "no such table: main.state_aggregated_token_readmodel_v1",
+      "error_class": "MISSING_REFERENCED_TABLE_OR_INDEX_TARGET",
+      "order": 12,
+      "statement_preview": "CREATE INDEX IF NOT EXISTS \"idx_state_token_readmodel_updated\" ON \"state_aggregated_token_readmodel_v1\" (\"updated_at_utc\");"
+    }
+  ],
+  "conflict_diag_rows": [
+    {
+      "conflict_class": "DUPLICATE_SCHEMA_VARIANTS_REVIEW_REQUIRED",
+      "object_name": "IF",
+      "object_type": "index",
+      "review_required": true,
+      "variant_count": 9
+    },
+    {
+      "conflict_class": "DUPLICATE_SCHEMA_VARIANTS_REVIEW_REQUIRED",
+      "object_name": "IF",
+      "object_type": "table",
+      "review_required": true,
+      "variant_count": 8
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI",
+  "finished_at_utc": "2026-06-01T08:21:22.933659+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "live_health_end": {
+    "foreign_key_check_count": 0,
+    "index_count": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count": 214
+  },
+  "live_health_start": {
+    "foreign_key_check_count": 0,
+    "index_count": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count": 214
+  },
+  "missing_object_diag_rows": [
+    {
+      "diagnosis": "PARSER_CAPTURED_IF_KEYWORD",
+      "likely_false_parser_object": true,
+      "object_name": "IF",
+      "object_type": "table"
+    },
+    {
+      "diagnosis": "PARSER_CAPTURED_IF_KEYWORD",
+      "likely_false_parser_object": true,
+      "object_name": "IF",
+      "object_type": "index"
+    }
+  ],
+  "next_phase": "PHASE6G2_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI",
+  "outputs": {
+    "apply_error_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_apply_error_diagnose.jsonl",
+    "canonical_sql_source_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_canonical_sql_source_diagnose.jsonl",
+    "conflict_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_schema_conflict_diagnose.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6g1_readmodel_temp_dryrun_failure_diagnose_noapi.json",
+    "missing_object_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_missing_object_diagnose.jsonl",
+    "object_parser_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_object_parser_diagnose.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_readmodel_temp_dryrun_failure_diagnose_noapi.json",
+    "readiness_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_next_readiness.jsonl",
+    "repair_hint_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_repair_hints.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6g1_readmodel_temp_dryrun_failure_diagnose_noapi_rows.jsonl",
+    "temp_db_object_rows": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122/phase6g1_temp_db_object_snapshot.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI/20260601_112122"
+  },
+  "pass_conditions": {
+    "active_index_unchanged": true,
+    "apply_error_count_5": true,
+    "apply_rows_exists": true,
+    "canonical_sql_exists": true,
+    "conflict_count_2": true,
+    "conflict_rows_exists": true,
+    "db_sha_expected": true,
+    "diagnose_rows_written": true,
+    "hosts_unchanged": true,
+    "if_parser_capture_confirmed": true,
+    "index_audit_rows_exists": true,
+    "live_db_unchanged": true,
+    "live_health_end_ok": true,
+    "live_health_start_ok": true,
+    "missing_object_count_2": true,
+    "phase6g_failed_expected": true,
+    "phase6g_json_exists": true,
+    "phase6g_live_safe": true,
+    "phase6g_report_exists": true,
+    "phase6g_review_required": true,
+    "phase6g_rows_exists": true,
+    "robust_parser_no_if_capture": true,
+    "safety_noapi_clean": true,
+    "schema_source_rows_exists": true,
+    "table_audit_rows_exists": true,
+    "temp_db_exists": true
+  },
+  "phase": "PHASE6G1_READMODEL_TEMP_DRYRUN_FAILURE_DIAGNOSE_NOAPI",
+  "phase6g_review": {
+    "phase6g_failed_expected": true,
+    "phase6g_live_safe": true,
+    "phase6g_review_required": true
+  },
+  "repair_hints": [
+    {
+      "hint": "REBUILD_PHASE6G_WITH_ROBUST_OBJECT_EXTRACTOR",
+      "reason": "Missing object IF indicates parser captured IF keyword from CREATE ... IF NOT EXISTS.",
+      "required": true
+    },
+    {
+      "conflict_object_names": [
+        "IF",
+        "IF"
+      ],
+      "hint": "CANONICALIZE_DUPLICATE_SCHEMA_VARIANTS",
+      "reason": "Schema conflict count is nonzero; choose one canonical create statement per object.",
+      "required": true
+    },
+    {
+      "error_class_counts": {
+        "MISSING_REFERENCED_TABLE_OR_INDEX_TARGET": 4,
+        "SQL_SYNTAX_ERROR": 1
+      },
+      "hint": "SKIP_OR_DEDUP_CREATE_STATEMENTS_AFTER_CANONICAL_OBJECT_CHOICE",
+      "reason": "Apply errors may be duplicate create attempts or variant conflicts.",
+      "required": true
+    },
+    {
+      "hint": "NO_LIVE_DB_ROLLBACK_NEEDED",
+      "reason": "Live DB was unchanged and temp DB only was mutated.",
+      "required": true
+    },
+    {
+      "hint": "NEXT_PHASE_PHASE6G2_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI",
+      "reason": "Repair should re-run temp dry-run with robust parser and canonicalized duplicate objects only.",
+      "required": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_db_mutation": false,
+    "live_trade_permission": false,
+    "panel_apply_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "runtime_enabled_now": false,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "temp_db_mutation": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T08:21:22.883651+00:00",
+  "summary": {
+    "apply_error_count": 5,
+    "conflict_count": 2,
+    "conflict_object_names": [
+      "IF",
+      "IF"
+    ],
+    "diagnosis": "PHASE6G_FAILED_DUE_SCHEMA_CONFLICTS_AND_IF_PARSER_CAPTURE_REPAIR_WITH_CANONICAL_TEMP_DRYRUN",
+    "error_class_counts": {
+      "MISSING_REFERENCED_TABLE_OR_INDEX_TARGET": 4,
+      "SQL_SYNTAX_ERROR": 1
+    },
+    "false_if_count": 2,
+    "missing_object_count": 2,
+    "old_parser_if_hits": 63,
+    "robust_parser_if_hits": 0
+  },
+  "warnings": [
+    "DIAGNOSE_ONLY_NO_TEMP_APPLY",
+    "NO_LIVE_DB_PANEL_SCHEMA_RUNTIME_API_MUTATION",
+    "PHASE6G_REVIEW_REQUIRED_CONFIRMED",
+    "PHASE6G2_CANONICAL_TEMP_DRYRUN_REPAIR_REQUIRED"
+  ]
+}

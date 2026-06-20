@@ -1,0 +1,54 @@
+{
+  "phase": "PASS21B_EXECUTION_REALISM_MODEL_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "execution_entities": [
+    "SIGNAL_EVENT",
+    "ENTRY_WINDOW",
+    "ENTRY_EXPIRY",
+    "ENTRY_FILL",
+    "NO_FILL_EVENT",
+    "POSITION_SIZE_PROPOSAL",
+    "EXIT_FEASIBILITY",
+    "LIQUIDITY_CAP",
+    "PORTFOLIO_CAP",
+    "RISK_CAP"
+  ],
+  "future_registries": [
+    "execution_signal_registry_v1",
+    "execution_window_registry_v1",
+    "execution_fill_registry_v1",
+    "execution_position_registry_v1",
+    "execution_latency_registry_v1",
+    "execution_exit_feasibility_registry_v1"
+  ],
+  "position_formula": [
+    "LIQUIDITY_CAP",
+    "EXIT_CAP",
+    "PORTFOLIO_CAP",
+    "RISK_CAP"
+  ],
+  "position_rule": "FINAL_POSITION=min(LIQUIDITY_CAP,EXIT_CAP,PORTFOLIO_CAP,RISK_CAP)",
+  "required_rules": [
+    "ENTRY_NOT_GUARANTEED",
+    "NO_FILL_ALLOWED",
+    "LIQUIDITY_FIRST",
+    "EXIT_FEASIBILITY_REQUIRED",
+    "WALLET_AWARE_SIZING",
+    "DECISION_NOT_EXECUTION"
+  ],
+  "forbidden": [
+    "NO_AUTO_TRADE",
+    "NO_FAKE_FILLS",
+    "NO_RETROACTIVE_ENTRY",
+    "NO_RETROACTIVE_EXIT",
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN"
+  ],
+  "decision": "PASS21B_ACCEPTED_READY_FOR_PASS21C"
+}

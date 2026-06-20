@@ -1,0 +1,500 @@
+{
+  "phase": "UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI",
+  "stamp": "20260517_190615",
+  "failed_checks": [],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "docs_only": true
+  },
+  "contract": {
+    "contract_name": "Tokenoskobi / Coinoskobi Screen Map & Data Ownership Contract v1",
+    "depends_on": "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI.md",
+    "global_rules": [
+      "Every screen must fit viewport without body vertical scroll.",
+      "Every displayed datum must have one canonical owner.",
+      "Screens consume view models; screens do not invent or duplicate calculations.",
+      "Motion state comes only from canonical data/state.",
+      "Missing data must render as silent/waiting/unknown, not fake activity.",
+      "Main panels show summaries; details open in drawer/modal/detail tab.",
+      "TECH_PASS is not PRODUCT_PASS."
+    ],
+    "canonical_layers": {
+      "identity_layer": {
+        "purpose": "Token, pair, chain, deployer, wallet and source identity ownership.",
+        "owned_data": [
+          "token_uid",
+          "chain",
+          "token_address",
+          "pair_address",
+          "symbol",
+          "name",
+          "deployer_address",
+          "identity_confidence"
+        ],
+        "may_be_read_by": [
+          "main_panel",
+          "token_yasam",
+          "onchain",
+          "risk",
+          "paper",
+          "whale"
+        ]
+      },
+      "market_layer": {
+        "purpose": "Price, liquidity, volume, tx, freshness and snapshot status.",
+        "owned_data": [
+          "price",
+          "liquidity",
+          "volume",
+          "tx_count",
+          "snapshot_age",
+          "source_freshness",
+          "market_quality"
+        ],
+        "may_be_read_by": [
+          "main_panel",
+          "onchain",
+          "risk",
+          "paper",
+          "token_yasam"
+        ]
+      },
+      "news_layer": {
+        "purpose": "News feed, reliability, importance, token connection and narrative impact.",
+        "owned_data": [
+          "news_event_uid",
+          "source",
+          "title",
+          "translated_title",
+          "importance_score",
+          "source_reliability",
+          "token_connection_score",
+          "risk_signal",
+          "narrative_tag",
+          "freshness"
+        ],
+        "may_be_read_by": [
+          "haber_panel",
+          "main_panel",
+          "fusion",
+          "risk"
+        ]
+      },
+      "onchain_layer": {
+        "purpose": "Transfer, holder, deployer, liquidity and wallet relationship signals.",
+        "owned_data": [
+          "holder_distribution",
+          "transfer_flow",
+          "liquidity_change",
+          "deployer_history",
+          "wallet_cluster_confidence",
+          "smart_money_signal",
+          "contract_risk_signal"
+        ],
+        "may_be_read_by": [
+          "onchain_panel",
+          "whale_panel",
+          "risk",
+          "token_yasam",
+          "fusion"
+        ]
+      },
+      "risk_layer": {
+        "purpose": "Hard blocks, soft risks, position sizing inputs and security state.",
+        "owned_data": [
+          "hard_block",
+          "risk_score",
+          "confidence",
+          "liquidity_capacity",
+          "slippage_risk",
+          "mev_risk",
+          "stop_distance",
+          "max_safe_buy",
+          "position_size_suggestion"
+        ],
+        "may_be_read_by": [
+          "main_panel",
+          "risk_panel",
+          "paper",
+          "fusion",
+          "token_yasam"
+        ]
+      },
+      "lifecycle_layer": {
+        "purpose": "Birth, active life, clinical watch, autopsy, morg and revival state.",
+        "owned_data": [
+          "lifecycle_state",
+          "birth_event",
+          "clinical_watch",
+          "autopsy_status",
+          "morg_status",
+          "revival_signal",
+          "outcome_record"
+        ],
+        "may_be_read_by": [
+          "token_yasam",
+          "main_panel",
+          "risk",
+          "fusion"
+        ]
+      },
+      "paper_trade_layer": {
+        "purpose": "Paper plans, simulated positions, SL/TP state and outcome tracking.",
+        "owned_data": [
+          "paper_plan",
+          "paper_position",
+          "entry_plan",
+          "sl_status",
+          "tp_status",
+          "position_state",
+          "execution_simulation",
+          "outcome"
+        ],
+        "may_be_read_by": [
+          "main_panel",
+          "paper_panel",
+          "risk",
+          "fusion"
+        ]
+      },
+      "motion_state_layer": {
+        "purpose": "Truth-based visual states for icons, radar, badges and alerts.",
+        "owned_data": [
+          "motion_state",
+          "motion_reason",
+          "motion_source_uid",
+          "motion_freshness",
+          "motion_intensity",
+          "motion_expiry"
+        ],
+        "may_be_read_by": [
+          "all_panels"
+        ],
+        "hard_rule": "No motion state without source data and reason."
+      }
+    },
+    "screen_map": {
+      "main_panel": {
+        "role": "Decision and operation center.",
+        "viewport_rule": "Must fit 100vh without body scroll.",
+        "primary_content": [
+          "tracked token/coin status",
+          "buy/sell controls",
+          "SL/TP status",
+          "paper/live state",
+          "position state",
+          "risk/decision summary",
+          "data freshness"
+        ],
+        "detail_behavior": "Click token opens detail drawer; main grid remains fit.",
+        "canonical_inputs": [
+          "identity_layer",
+          "market_layer",
+          "risk_layer",
+          "paper_trade_layer",
+          "lifecycle_layer",
+          "motion_state_layer"
+        ],
+        "must_not_duplicate": [
+          "news detail tables",
+          "full onchain raw transfer lists",
+          "autopsy full reports",
+          "source health logs"
+        ]
+      },
+      "haber_panel": {
+        "role": "News reliability, narrative, importance and token impact radar.",
+        "viewport_rule": "Headline lanes and top impact fit 100vh; article detail opens drawer.",
+        "primary_content": [
+          "critical news count",
+          "source reliability status",
+          "narrative lanes",
+          "token-linked news",
+          "general market flow",
+          "freshness"
+        ],
+        "detail_behavior": "Click news opens detail drawer with source, translation, scoring and linkage.",
+        "canonical_inputs": [
+          "news_layer",
+          "identity_layer",
+          "motion_state_layer"
+        ],
+        "must_not_duplicate": [
+          "full token risk model",
+          "paper trade position controls"
+        ]
+      },
+      "onchain_panel": {
+        "role": "Onchain evidence, transfer flow, holder and liquidity signal surface.",
+        "viewport_rule": "Summary lanes fit; raw tx table only in detail drawer.",
+        "primary_content": [
+          "holder distribution summary",
+          "flow direction",
+          "liquidity change summary",
+          "deployer/wallet signal summary",
+          "freshness"
+        ],
+        "detail_behavior": "Click opens evidence drawer with tx/wallet/source detail.",
+        "canonical_inputs": [
+          "onchain_layer",
+          "identity_layer",
+          "market_layer",
+          "motion_state_layer"
+        ],
+        "must_not_duplicate": [
+          "news scoring",
+          "full paper trade logs"
+        ]
+      },
+      "whale_panel": {
+        "role": "Whale and smart-money event radar.",
+        "viewport_rule": "Radar and top events fit; wallet history opens drawer.",
+        "primary_content": [
+          "whale movement summary",
+          "smart money confidence",
+          "wallet cluster confidence",
+          "flow direction",
+          "event freshness"
+        ],
+        "detail_behavior": "Click wallet/event opens wallet evidence drawer.",
+        "canonical_inputs": [
+          "onchain_layer",
+          "identity_layer",
+          "risk_layer",
+          "motion_state_layer"
+        ],
+        "motion_rules": [
+          "Radar sweep only if fresh whale event exists.",
+          "Pulse intensity follows event size and confidence.",
+          "No whale data means no whale animation."
+        ]
+      },
+      "risk_panel": {
+        "role": "Security, MEV, hard block, risk/reward and position sizing center.",
+        "viewport_rule": "Risk cards fit; formulas/details open drawer.",
+        "primary_content": [
+          "hard block state",
+          "risk score",
+          "confidence",
+          "max safe buy",
+          "position size suggestion",
+          "slippage/MEV/gas/liquidity warnings"
+        ],
+        "detail_behavior": "Click risk component opens calculation detail.",
+        "canonical_inputs": [
+          "risk_layer",
+          "market_layer",
+          "onchain_layer",
+          "identity_layer"
+        ],
+        "must_not_duplicate": [
+          "raw news list",
+          "full lifecycle report"
+        ]
+      },
+      "token_yasam": {
+        "role": "Lifecycle organism: Olay, Adli, Supheli, Klinik, Otopsi, Morg.",
+        "viewport_rule": "Six department cards fit in one screen; no body scroll.",
+        "primary_content": [
+          "six department summaries",
+          "lifecycle state",
+          "clinical count/status",
+          "autopsy count/status",
+          "morg count/status",
+          "revival watch"
+        ],
+        "detail_behavior": "Each department opens its own detail drawer/tab.",
+        "canonical_inputs": [
+          "lifecycle_layer",
+          "identity_layer",
+          "market_layer",
+          "risk_layer",
+          "onchain_layer",
+          "motion_state_layer"
+        ],
+        "departments": {
+          "olay_yeri": {
+            "summary_only": [
+              "event count",
+              "last event freshness",
+              "first evidence state"
+            ],
+            "detail_drawer": [
+              "timeline",
+              "first tx",
+              "first liquidity",
+              "first suspicious signal"
+            ]
+          },
+          "adli": {
+            "summary_only": [
+              "investigation state",
+              "relationship confidence",
+              "evidence count"
+            ],
+            "detail_drawer": [
+              "deployer links",
+              "wallet/source relationships",
+              "confidence reasoning"
+            ]
+          },
+          "supheliler": {
+            "summary_only": [
+              "suspect wallet count",
+              "highest risk actor",
+              "cluster confidence"
+            ],
+            "detail_drawer": [
+              "wallet list",
+              "cluster graph evidence",
+              "bad-wallet memory"
+            ]
+          },
+          "klinik": {
+            "summary_only": [
+              "clinical state",
+              "recovery chance band",
+              "watch intensity"
+            ],
+            "detail_drawer": [
+              "liquidity trend",
+              "volume trend",
+              "risk treatment plan",
+              "watch conditions"
+            ]
+          },
+          "otopsi": {
+            "summary_only": [
+              "autopsy status",
+              "failure class",
+              "outcome memory"
+            ],
+            "detail_drawer": [
+              "death cause",
+              "timeline",
+              "risk factors",
+              "lessons learned"
+            ]
+          },
+          "morg": {
+            "summary_only": [
+              "archived/dead count",
+              "revival watch count",
+              "cold-state status"
+            ],
+            "detail_drawer": [
+              "morg records",
+              "revival signals",
+              "historic outcome"
+            ]
+          }
+        },
+        "motion_rules": [
+          "Klinik pulse only if clinical_watch exists.",
+          "Morg cold breath only if morg_status exists.",
+          "Otopsi scan only if autopsy_status is active.",
+          "Olay alarm only if fresh event exists."
+        ]
+      },
+      "paper_panel": {
+        "role": "Paper trade simulator, plan, execution and outcome tracking.",
+        "viewport_rule": "Active paper plans fit; execution/outcome detail opens drawer.",
+        "primary_content": [
+          "paper plans",
+          "simulated positions",
+          "entry/sl/tp state",
+          "outcome summary",
+          "paper/live safety separation"
+        ],
+        "detail_behavior": "Click plan opens execution/outcome detail.",
+        "canonical_inputs": [
+          "paper_trade_layer",
+          "risk_layer",
+          "market_layer",
+          "identity_layer"
+        ]
+      },
+      "source_health_panel": {
+        "role": "Source/fetch/API health and reliability visibility.",
+        "viewport_rule": "Source status summary fits; logs open detail drawer.",
+        "primary_content": [
+          "source status",
+          "fetch enabled/disabled",
+          "api budget state",
+          "last successful update",
+          "stale/broken source warning"
+        ],
+        "detail_behavior": "Click source opens source detail/log.",
+        "canonical_inputs": [
+          "news_layer",
+          "market_layer",
+          "onchain_layer"
+        ]
+      },
+      "ai_calibration_panel": {
+        "role": "Learning, calibration, outcome memory and model confidence review.",
+        "viewport_rule": "Calibration summaries fit; training/outcome detail opens drawer.",
+        "primary_content": [
+          "calibration status",
+          "last outcome memory",
+          "confidence drift",
+          "model error classes"
+        ],
+        "detail_behavior": "Click calibration item opens learning detail.",
+        "canonical_inputs": [
+          "lifecycle_layer",
+          "paper_trade_layer",
+          "risk_layer",
+          "news_layer",
+          "onchain_layer"
+        ]
+      }
+    },
+    "duplicate_data_ban": {
+      "rule": "No screen owns another screen's canonical data.",
+      "examples": [
+        "Main Panel may show news impact summary but not re-score news.",
+        "Token Yaşam may show risk summary but not own risk calculation.",
+        "Risk Panel may show lifecycle state but not own morg/autopsy records.",
+        "Whale Panel may animate radar but motion must come from motion_state_layer."
+      ]
+    },
+    "detail_pattern": {
+      "allowed": [
+        "drawer",
+        "modal",
+        "right-side inspector",
+        "department detail tab inside same viewport"
+      ],
+      "forbidden": [
+        "body scroll for main screens",
+        "long tables directly in primary screen",
+        "duplicated card copies across panels",
+        "fake placeholder metrics as real"
+      ]
+    },
+    "next_phase": "UI_CONTRACT3_MOTION_STATE_AND_TRUTH_ENGINE_NOAPI"
+  },
+  "doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI_20260517_190615.md",
+  "latest_doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI.md",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/ui_contract2_screen_map_and_data_ownership_noapi.json",
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "final_status": "PASS",
+  "final_gate": "UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_READY"
+}

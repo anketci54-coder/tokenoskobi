@@ -1,0 +1,386 @@
+{
+  "phase": "DATA28_PANEL_DATA_CONTRACT_PLAN_NOAPI",
+  "stamp": "20260513_115944",
+  "final_gate": "PASS",
+  "action": "PANEL_DATA_CONTRACT_PLAN_CREATED",
+  "stable_base_ok": true,
+  "contract_count": 17,
+  "panel_data_files": {
+    "future_main_panel_json": "full_radar_main_panel_data_v1.json",
+    "future_economic_calendar_json": "economic_calendar_panel_data_v1.json",
+    "future_news_impact_json": "news_impact_panel_data_v1.json",
+    "future_wallet_whale_json": "wallet_whale_panel_data_v1.json",
+    "future_token_lifecycle_json": "token_lifecycle_panel_data_v1.json",
+    "future_morgue_autopsy_json": "morgue_autopsy_panel_data_v1.json",
+    "future_paper_simulation_json": "paper_simulation_panel_data_v1.json",
+    "future_fusion_json": "fusion_decision_panel_data_v1.json"
+  },
+  "contracts": {
+    "meta": {
+      "fields": [
+        "generated_at_utc",
+        "panel_version",
+        "data_contract_version",
+        "source_mode",
+        "is_mock",
+        "is_live_trade_enabled",
+        "is_paper_enabled",
+        "last_success_phase",
+        "health_status"
+      ],
+      "rule": "Panel her zaman veri modunu açık gösterecek: real / mock / mixed."
+    },
+    "main_kpi_cards": {
+      "fields": [
+        "critical_alert_count",
+        "watched_candidate_count",
+        "active_paper_trade_count",
+        "average_confidence_score",
+        "risk_regime_label",
+        "future_star_candidate_count",
+        "small_star_candidate_count",
+        "paper_runtime_status"
+      ],
+      "rule": "Ana ekran KPI kartları sadece güvenli ve açıklanabilir sayıları gösterir."
+    },
+    "critical_alerts": {
+      "fields": [
+        "alert_id",
+        "created_at_utc",
+        "severity",
+        "source_module",
+        "asset_symbol",
+        "chain",
+        "title_tr",
+        "short_reason_tr",
+        "impact_score",
+        "risk_score",
+        "recommended_action",
+        "main_panel_priority",
+        "expires_at_utc"
+      ],
+      "rule": "Ana panele sadece yüksek alaka veya yüksek risk uyarıları düşer."
+    },
+    "today_drivers": {
+      "fields": [
+        "driver_id",
+        "driver_type",
+        "event_time_utc",
+        "title_tr",
+        "why_it_matters_tr",
+        "possible_impact_tr",
+        "recommendation_tr",
+        "impact_score",
+        "confidence_score",
+        "panel_priority"
+      ],
+      "rule": "Bugün bizi etkileyecek 3-5 ana sürücü kısa ve net gösterilir."
+    },
+    "watch_candidates": {
+      "fields": [
+        "candidate_id",
+        "asset_symbol",
+        "asset_name",
+        "chain",
+        "candidate_type",
+        "reason_tr",
+        "confidence_score",
+        "risk_score",
+        "fusion_score",
+        "liquidity_usd",
+        "status_label",
+        "action_label"
+      ],
+      "rule": "İşleme girmemiş ama izlenen adaylar; paper izni ayrı hesaplanır."
+    },
+    "active_paper_trades": {
+      "fields": [
+        "paper_trade_id",
+        "asset_symbol",
+        "chain",
+        "entry_time_utc",
+        "entry_price",
+        "current_price",
+        "sl_price",
+        "tp1_price",
+        "tp2_price",
+        "tp3_price",
+        "position_size_usd",
+        "liquidity_at_entry_usd",
+        "pnl_pct",
+        "gross_pnl_usd",
+        "gas_cost_usd",
+        "slippage_cost_usd",
+        "mev_cost_usd",
+        "net_pnl_usd",
+        "status_label",
+        "entry_reason_tr"
+      ],
+      "rule": "Aktif paper işlem varsa giriş, SL, TP ve anlık PnL ana panelde net görünür. Live trade yok."
+    },
+    "organ_health": {
+      "fields": [
+        "module_name",
+        "module_status",
+        "last_update_utc",
+        "data_freshness_sec",
+        "real_data_available",
+        "mock_data_used",
+        "issue_count",
+        "health_score"
+      ],
+      "rule": "Alt paneller organ; ana panel organ sağlığını gösterir."
+    },
+    "economic_calendar": {
+      "fields": [
+        "event_id",
+        "event_time_utc",
+        "region",
+        "event_name",
+        "importance",
+        "previous_value",
+        "expected_value",
+        "actual_value",
+        "crypto_impact_tr",
+        "impact_direction",
+        "weight_score",
+        "main_panel_flag",
+        "recommendation_tr"
+      ],
+      "rule": "Yüksek etkili makro olaylar ana panele kısa açıklama ve tavsiyeyle düşer."
+    },
+    "news_impact": {
+      "fields": [
+        "news_id",
+        "published_at_utc",
+        "source_name",
+        "source_reliability",
+        "title_original",
+        "title_tr",
+        "summary_tr",
+        "class_label",
+        "impact_direction",
+        "impact_score",
+        "relevance_score",
+        "truth_score",
+        "risk_score",
+        "linked_assets",
+        "panel_decision"
+      ],
+      "rule": "Ham haber değil; etki, alaka, teyit ve risk skoru üretilir."
+    },
+    "wallet_whale": {
+      "fields": [
+        "wallet_event_id",
+        "event_time_utc",
+        "wallet_address",
+        "wallet_label",
+        "wallet_owner",
+        "owner_confidence",
+        "wallet_type",
+        "tier_label",
+        "asset_symbol",
+        "amount",
+        "usd_value",
+        "direction",
+        "from_entity",
+        "to_entity",
+        "linked_watched_asset",
+        "impact_score",
+        "main_panel_flag"
+      ],
+      "rule": "Cüzdan sahibi bilinmiyorsa kesin konuşulmaz; label confidence gösterilir."
+    },
+    "token_lifecycle": {
+      "fields": [
+        "token_uid",
+        "asset_symbol",
+        "chain",
+        "birth_time_utc",
+        "age_minutes",
+        "lifecycle_stage",
+        "first_pair_seen",
+        "first_liquidity_seen",
+        "first_trusted_price_seen",
+        "liquidity_usd",
+        "holder_count",
+        "holder_growth_pct",
+        "tx_count_1h",
+        "volume_1h_usd",
+        "risk_flags",
+        "star_class",
+        "status_label"
+      ],
+      "rule": "Yeni doğan, küçük yıldız, geleceğin yıldızı ve morg adayları ayrılır."
+    },
+    "morgue_autopsy": {
+      "fields": [
+        "case_id",
+        "token_uid",
+        "asset_symbol",
+        "chain",
+        "birth_time_utc",
+        "death_time_utc",
+        "life_duration_minutes",
+        "death_class",
+        "confirmed_cause",
+        "suspected_cause",
+        "max_pump_pct",
+        "max_drawdown_pct",
+        "liquidity_peak_usd",
+        "liquidity_final_usd",
+        "holder_peak",
+        "holder_final",
+        "lessons_tr",
+        "ai_feedback_label",
+        "revival_watch"
+      ],
+      "rule": "AI sadece kazananlardan değil, ölenlerden de öğrenir."
+    },
+    "major_coin_regime": {
+      "fields": [
+        "asset_symbol",
+        "regime_label",
+        "trend_score",
+        "volatility_score",
+        "dominance_score",
+        "liquidity_score",
+        "sentiment_score",
+        "risk_appetite_impact",
+        "small_token_size_effect"
+      ],
+      "rule": "Major coin ortamı küçük token paper size ve risk kararını etkiler."
+    },
+    "ico_drop_tge": {
+      "fields": [
+        "event_id",
+        "project_name",
+        "event_type",
+        "event_time_utc",
+        "chain",
+        "narrative",
+        "source_reliability",
+        "hype_score",
+        "risk_score",
+        "opportunity_score",
+        "unlock_pressure_score",
+        "panel_decision"
+      ],
+      "rule": "Pre-birth intelligence ve TGE/launch takibi ayrı tutulur."
+    },
+    "risk_mev": {
+      "fields": [
+        "risk_event_id",
+        "asset_symbol",
+        "chain",
+        "honeypot_risk",
+        "sellability_risk",
+        "tax_risk",
+        "lp_pull_risk",
+        "deployer_risk",
+        "holder_concentration_risk",
+        "entry_mev_risk",
+        "exit_mev_risk",
+        "sandwich_risk",
+        "max_safe_order_usd",
+        "mev_adjusted_net_pnl_estimate"
+      ],
+      "rule": "MEV risk 80+ ise paper yok; risk size ve PnL hesabını düşürür."
+    },
+    "fusion_decision": {
+      "fields": [
+        "fusion_id",
+        "asset_symbol",
+        "chain",
+        "news_score",
+        "macro_score",
+        "flow_score",
+        "wallet_score",
+        "lifecycle_score",
+        "major_coin_score",
+        "ico_score",
+        "risk_score",
+        "mev_score",
+        "morgue_similarity_score",
+        "paper_history_score",
+        "fusion_score",
+        "decision_label",
+        "decision_reason_tr"
+      ],
+      "rule": "Organlardan gelen veriler tek karar skoruna dönüşür."
+    },
+    "ai_calibration": {
+      "fields": [
+        "calibration_id",
+        "window_start_utc",
+        "window_end_utc",
+        "event_count",
+        "outcome_count",
+        "false_positive_rate",
+        "profitable_paper_count",
+        "loss_paper_count",
+        "calibration_score",
+        "top_learning_tr",
+        "next_improvement_tr"
+      ],
+      "rule": "AI kalibrasyon outcome verisi birikmeden gerçek model gibi gösterilmez."
+    }
+  },
+  "data_quality_rules": [
+    "Every row must have source_module and generated_at_utc.",
+    "Mock/sample data must carry is_mock=true.",
+    "Unknown wallet ownership must not be displayed as confirmed.",
+    "Live market price must not be faked.",
+    "Paper PnL must come from paper tables or explicit simulation rows.",
+    "Low confidence data must be labelled.",
+    "Contradicting sources must create conflict status.",
+    "Stale data must not create fresh alert.",
+    "UID/hash/debug fields stay hidden from user-facing cards.",
+    "Every main-panel alert must have reason and expiry."
+  ],
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "endpoint_created": false,
+  "data_file_written_for_panel": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "DATA29_PANEL_JSON_ENDPOINT_PLAN_NOAPI",
+  "alternate_next_phase": "PANEL29_STATIC_FULL_RADAR_SHELL_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_DATA28_PANEL_DATA_CONTRACT_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/data28_panel_data_contract_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

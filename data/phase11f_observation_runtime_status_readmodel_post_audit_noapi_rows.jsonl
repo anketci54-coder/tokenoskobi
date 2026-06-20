@@ -1,0 +1,126 @@
+{"dependency": "PHASE11E", "dependency_failed_checks": [], "dependency_gate": "PASS_PHASE11E_OBSERVATION_RUNTIME_STATUS_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL", "dependency_ok": true, "json": "/root/tokenoskobi_clean_v1/data/phase11e_observation_runtime_status_readmodel_real_after_explicit_approval.json", "json_exists": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE11E_OBSERVATION_RUNTIME_STATUS_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL.md", "report_exists": true, "row_type": "phase11e_dep", "rows": "/root/tokenoskobi_clean_v1/data/phase11e_observation_runtime_status_readmodel_real_after_explicit_approval_rows.jsonl", "rows_count": 148, "rows_exists": true}
+{"check": "status_table_exists", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_table"}
+{"check": "status_table_count_1", "count": 1, "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_table"}
+{"check": "status_field_count_37", "field_count": 37, "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_table"}
+{"check": "status_uid_primary_row_exists", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_table", "uid": "observation_runtime_status_latest"}
+{"exists": true, "index": "idx_observation_runtime_status_latest_updated_at", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_index"}
+{"exists": true, "index": "idx_observation_runtime_status_latest_effective_mode", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_index"}
+{"exists": true, "index": "idx_observation_runtime_status_latest_alarm", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_index"}
+{"exists": true, "index": "idx_observation_runtime_status_latest_safety", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_index"}
+{"check": "center_sentence_exact", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": "Servis zamanlayıcı aktif, fakat ticari runtime kapalı. İşlem izni yok."}
+{"check": "effective_mode_watch_only_no_trade", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": "watch_only_no_trade"}
+{"check": "trade_permission_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 0}
+{"check": "runtime_enabled_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 0}
+{"check": "commercial_runtime_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 0}
+{"check": "paper_live_panel_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "values": {"live_allowed": 0, "panel_apply_allowed": 0, "paper_allowed": 0}}
+{"check": "api_rpc_fetch_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 0}
+{"check": "ignore_transient_one", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 1}
+{"check": "isolated_status_table_only_one", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 1}
+{"check": "most_conservative_config_win_one", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 1}
+{"check": "rollback_ready_one", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "status_row", "value": 1}
+{"actual": 1, "guard": "STATUS_TABLE_MAX_ROWS", "max_rows": 1, "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "row_bound"}
+{"guard": "STATUS_UPSERT_ONLY", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "row_bound"}
+{"guard": "STATUS_INSERT_APPEND_FORBIDDEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "row_bound"}
+{"guard": "STATUS_HISTORY_TABLE_FORBIDDEN_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "row_bound"}
+{"guard": "STATUS_PRUNE_POLICY_SINGLE_ROW_OVERWRITE", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "row_bound"}
+{"classification": "STABLE_INACTIVE_REVIEW", "cmd": ["systemctl", "show", "tokenoskobi-phase9-observation-runtime.service", "--property=LoadState", "--property=ActiveState", "--property=SubState", "--property=UnitFileState", "--property=ExecMainStatus", "--property=Result", "--property=MainPID", "--property=NRestarts"], "item": "service_show_readonly", "literal_argv": true, "ok": true, "parsed": {"ActiveState": "inactive", "ExecMainStatus": "0", "LoadState": "loaded", "MainPID": "0", "NRestarts": "0", "Result": "success", "SubState": "dead", "UnitFileState": "disabled"}, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "rc": 0, "row_type": "systemd_readonly", "shell": false, "stderr": "", "stdout": "MainPID=0\nResult=success\nNRestarts=0\nExecMainStatus=0\nLoadState=loaded\nActiveState=inactive\nSubState=dead\nUnitFileState=disabled\n"}
+{"classification": "STABLE_ACTIVE", "cmd": ["systemctl", "show", "tokenoskobi-phase9-observation-runtime.timer", "--property=LoadState", "--property=ActiveState", "--property=SubState", "--property=UnitFileState", "--property=NextElapseUSecRealtime", "--property=LastTriggerUSec", "--property=Result"], "item": "timer_show_readonly", "literal_argv": true, "ok": true, "parsed": {"ActiveState": "active", "LastTriggerUSec": "Mon 2026-06-01 20:48:59 EEST", "LoadState": "loaded", "NextElapseUSecRealtime": "", "Result": "success", "SubState": "waiting", "UnitFileState": "enabled"}, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "rc": 0, "row_type": "systemd_readonly", "shell": false, "stderr": "", "stdout": "NextElapseUSecRealtime=\nLastTriggerUSec=Mon 2026-06-01 20:48:59 EEST\nResult=success\nLoadState=loaded\nActiveState=active\nSubState=waiting\nUnitFileState=enabled\n"}
+{"cmd": ["systemctl", "is-enabled", "tokenoskobi-phase9-observation-runtime.timer"], "item": "timer_is_enabled_readonly", "literal_argv": true, "ok": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "rc": 0, "row_type": "systemd_readonly", "shell": false, "stderr": "", "stdout": "enabled\n"}
+{"cmd": ["systemctl", "is-active", "tokenoskobi-phase9-observation-runtime.timer"], "item": "timer_is_active_readonly", "literal_argv": true, "ok": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "rc": 0, "row_type": "systemd_readonly", "shell": false, "stderr": "", "stdout": "active\n"}
+{"cmd": ["systemctl", "is-failed", "tokenoskobi-phase9-observation-runtime.service"], "item": "service_is_failed_readonly", "literal_argv": true, "ok": false, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "rc": 1, "row_type": "systemd_readonly", "shell": false, "stderr": "", "stdout": "inactive\n"}
+{"cmd": ["systemctl", "is-failed", "tokenoskobi-phase9-observation-runtime.timer"], "item": "timer_is_failed_readonly", "literal_argv": true, "ok": false, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "rc": 1, "row_type": "systemd_readonly", "shell": false, "stderr": "", "stdout": "active\n"}
+{"guard": "SYSTEMD_STATUS_COMMAND_ALLOWLIST", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "systemd_readonly"}
+{"guard": "SYSTEMD_SHELL_FALSE_REQUIRED", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "systemd_readonly"}
+{"guard": "SYSTEMCTL_LITERAL_ARGV_ONLY", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "systemd_readonly"}
+{"guard": "NO_DYNAMIC_SYSTEMCTL_ARGS", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "systemd_readonly"}
+{"guard": "NO_SYSTEMCTL_START_STOP_RESTART_ENABLE_DISABLE", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "systemd_readonly"}
+{"exists": true, "item": "backup_dir", "passed": true, "path": "/root/tokenoskobi_clean_v1/backups/PHASE11E_OBSERVATION_RUNTIME_STATUS_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_20260601_204842", "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "backup_rollback"}
+{"exists": true, "item": "backup_db", "passed": true, "path": "/root/tokenoskobi_clean_v1/backups/PHASE11E_OBSERVATION_RUNTIME_STATUS_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_20260601_204842/tokenoskobi_clean_v1.sqlite.pre_phase11e_status_readmodel_apply", "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "backup_rollback", "sha": "a13dc8b9a33a0b71086408c052d37a4d6fb6151832bcc414e9658e37793b6a8e"}
+{"exists": true, "item": "backup_sql", "passed": true, "path": "/root/tokenoskobi_clean_v1/backups/PHASE11E_OBSERVATION_RUNTIME_STATUS_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_20260601_204842/phase11e_status_readmodel_apply.sql", "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "backup_rollback"}
+{"executable": true, "exists": true, "item": "rollback_script", "passed": true, "path": "/root/tokenoskobi_clean_v1/backups/PHASE11E_OBSERVATION_RUNTIME_STATUS_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_20260601_204842/ROLLBACK_PHASE11E_STATUS_READMODEL_REAL.sh", "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "backup_rollback"}
+{"lock": "POST_AUDIT_ONLY_NO_DB_WRITE", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "DB_SHA_MATCHES_PHASE11E_AFTER", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "ACTIVE_INDEX_UNCHANGED", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "HOSTS_UNCHANGED", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "NO_SCHEMA_APPLY_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "NO_PANEL_APPLY_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "NO_SYSTEMCTL_MUTATION_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "NO_RUNTIME_ENABLE_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "NO_API_RPC_FETCH_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "NO_PAPER_LIVE_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "TRADE_PERMISSION_FALSE", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"lock": "ROLLBACK_READY", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "safety"}
+{"active_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d", "db_sha": "ae7efeaab7b358333d2805d1e1f831a72cc51c9c98685565929b7155db7ff479", "foreign_key_check_count": 0, "hosts_sha": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e", "integrity_check": "ok", "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "point": "start", "quick_check": "ok", "row_type": "db_health", "status_index_count": 4, "status_table_count": 1, "status_table_exists": true, "target_count": 19, "target_exists": true}
+{"active_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d", "db_sha": "ae7efeaab7b358333d2805d1e1f831a72cc51c9c98685565929b7155db7ff479", "foreign_key_check_count": 0, "hosts_sha": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e", "integrity_check": "ok", "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "point": "end", "quick_check": "ok", "row_type": "db_health", "status_index_count": 4, "status_table_count": 1, "status_table_exists": true, "target_count": 19, "target_exists": true}
+{"mode": "FINAL_REVIEW_NOAPI", "next_phase": "PHASE11G_OBSERVATION_RUNTIME_STATUS_READMODEL_FINAL_REVIEW_NOAPI", "panel_apply_allowed": false, "paper_live_allowed": false, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "ready_if_pass": true, "row_type": "readiness", "runtime_enabled_now": false, "status_index_count": 4, "status_table_count": 1, "status_table_exists": true, "trade_permission": false}
+{"check": "PHASE11E_JSON_EXISTS", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE11E_ROWS_EXISTS", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE11E_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_SHA_MATCHES_PHASE11E_AFTER", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_UNCHANGED_DURING_POST_AUDIT", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ACTIVE_INDEX_UNCHANGED", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "HOSTS_UNCHANGED", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_HEALTH_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_TABLE_AUDIT_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_INDEX_AUDIT_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_ROW_AUDIT_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ROW_BOUND_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "BACKUP_ROLLBACK_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SAFETY_OK", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "TARGET_COUNT_STILL_19", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_TABLE_COUNT_1", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_INDEX_COUNT_4", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "TRADE_PERMISSION_ZERO", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "RUNTIME_PAPER_LIVE_PANEL_ZERO", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_SCHEMA_APPLY_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_PANEL_APPLY_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_SYSTEMCTL_MUTATION_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_RUNTIME_ENABLE_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_API_RPC_FETCH_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "NO_PAPER_LIVE_NOW", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "PHASE11E_DEP_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_TABLE_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_INDEX_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "STATUS_ROW_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "ROW_BOUND_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SYSTEMD_READONLY_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "BACKUP_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "SAFETY_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "DB_HEALTH_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "READINESS_ROWS_WRITTEN", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "required": true, "row_type": "hard_check"}
+{"check": "phase11e_json_exists", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "phase11e_rows_exists", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "phase11e_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_matches_phase11e_after", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged_during_post_audit", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_table_audit_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_index_audit_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_row_audit_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "row_bound_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "backup_rollback_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_ok", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "target_count_still_19", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_table_count_1", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_index_count_4", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "trade_permission_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "runtime_paper_live_panel_zero", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "no_schema_apply_now", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "no_panel_apply_now", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "no_systemctl_mutation_now", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "no_runtime_enable_now", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "no_api_rpc_fetch_now", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "no_paper_live_now", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "phase11e_dep_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_table_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_index_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "status_row_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "row_bound_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "systemd_readonly_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "backup_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "readiness_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_check_rows_written", "passed": true, "phase": "PHASE11F_OBSERVATION_RUNTIME_STATUS_READMODEL_POST_AUDIT_NOAPI", "row_type": "pass_condition"}

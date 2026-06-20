@@ -1,0 +1,346 @@
+{
+  "phase": "PHASE20V_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_BASELINE_ACCEPTANCE_NOAPI",
+  "started_at": "2026-06-04T18:09:57.378540+00:00",
+  "finished_at": "2026-06-04T18:09:57.436875+00:00",
+  "final_gate": "PASS_PHASE20V_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_BASELINE_ACCEPTANCE_NOAPI",
+  "current_state": "KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_V1_LIVE_BASELINE_ACCEPTED",
+  "script_rc": 0,
+  "failed_checks": [],
+  "baseline_name": "KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_V1_LIVE_BASELINE",
+  "baseline_accepted": true,
+  "baseline_contract": {
+    "baseline_name": "KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_V1_LIVE_BASELINE",
+    "baseline_scope": "LIVE_SCHEMA_EMPTY_TABLES_ONLY",
+    "table_count": 9,
+    "index_count": 10,
+    "tables_empty": true,
+    "seed_rows_inserted": false,
+    "api_network_enabled": false,
+    "active_panel_changed": false,
+    "paper_trade_enabled": false,
+    "live_trade_enabled": false,
+    "allowed_next_steps": [
+      "known wallet source seed plan noapi",
+      "known wallet source seed dryrun noapi",
+      "source import quality gate dryrun noapi",
+      "readmodel builder plan noapi"
+    ],
+    "not_allowed_without_new_approval": [
+      "external API fetch",
+      "seed rows live write",
+      "runner/timer enable",
+      "active panel write",
+      "paper/live trade"
+    ]
+  },
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "acceptance_only": true,
+    "live_schema_apply": false,
+    "row_insert_update_delete": false,
+    "seed_rows_inserted": false,
+    "active_panel_write": false,
+    "preview_write": false,
+    "html_css_js_write": false,
+    "asset_write": false,
+    "nginx_or_auth_change": false,
+    "service_restart": false,
+    "timer_change": false,
+    "runner_start": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "token_specific_patch": false,
+    "report_json_rows_write_only": true,
+    "checklist_may_be_touched_on_pass": true
+  },
+  "inputs": {
+    "db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "active_index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+    "phase20l2_json": "/root/tokenoskobi_clean_v1/data/phase20l2_known_wallet_source_registry_schema_real_after_explicit_approval.json",
+    "phase20u_json": "/root/tokenoskobi_clean_v1/data/phase20u_known_wallet_source_registry_schema_real_post_audit_noapi.json",
+    "backup_db": "/root/tokenoskobi_clean_v1/backups/PHASE20L2_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_REAL_AFTER_EXPLICIT_APPROVAL_20260604_210040/tokenoskobi_clean_v1.sqlite.pre_phase20l2",
+    "rollback_script": "/root/tokenoskobi_clean_v1/backups/PHASE20L2_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_REAL_AFTER_EXPLICIT_APPROVAL_20260604_210040/ROLLBACK_PHASE20L2_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_REAL.sh"
+  },
+  "before": {
+    "db": {
+      "exists": true,
+      "sha256": "760f4a8c582ddf2466943ea19a93c3652da01f788b73375a4a649fee17671cd4",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 280,
+      "new_table_presence": {
+        "known_wallet_source_registry_v1": true,
+        "known_wallet_seed_queue_v1": true,
+        "known_wallet_quarantine_seed_v1": true,
+        "known_wallet_label_quality_events_v1": true,
+        "known_wallet_label_conflict_events_v1": true,
+        "known_wallet_cex_classification_events_v1": true,
+        "known_wallet_mev_noise_classification_events_v1": true,
+        "known_wallet_shadow_label_events_v1": true,
+        "known_wallet_source_registry_readmodel_v1": true
+      },
+      "new_table_counts": {
+        "known_wallet_source_registry_v1": 0,
+        "known_wallet_seed_queue_v1": 0,
+        "known_wallet_quarantine_seed_v1": 0,
+        "known_wallet_label_quality_events_v1": 0,
+        "known_wallet_label_conflict_events_v1": 0,
+        "known_wallet_cex_classification_events_v1": 0,
+        "known_wallet_mev_noise_classification_events_v1": 0,
+        "known_wallet_shadow_label_events_v1": 0,
+        "known_wallet_source_registry_readmodel_v1": 0
+      },
+      "new_index_presence": {
+        "idx_known_wallet_source_registry_tier_status": true,
+        "idx_known_wallet_seed_queue_source_wallet": true,
+        "idx_known_wallet_seed_queue_chain_label": true,
+        "idx_known_wallet_quarantine_source_wallet": true,
+        "idx_known_wallet_label_quality_seed_check": true,
+        "idx_known_wallet_label_conflict_wallet": true,
+        "idx_known_wallet_cex_classification_wallet": true,
+        "idx_known_wallet_mev_noise_wallet": true,
+        "idx_known_wallet_shadow_label_wallet": true,
+        "idx_known_wallet_source_registry_readmodel_chain": true
+      },
+      "required_column_missing": {},
+      "whale_table_counts": {
+        "whale_entity_registry_v1": 0,
+        "whale_entity_wallet_links_v1": 0,
+        "whale_entity_flow_events_v1": 0,
+        "whale_entity_token_exposure_v1": 0,
+        "whale_entity_evidence_events_v1": 0,
+        "whale_entity_risk_links_v1": 0,
+        "whale_entity_screen_readmodel_v1": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase20l2_json_sha256": "9f977abec62c82488ffad4a418f1d5afc59ad58f7c03fb74ac1fde684f04b558",
+    "phase20u_json_sha256": "d39069f13823e4bf19e27e1d9696724cd84a8a6320a554a0382964ac01abf3f1",
+    "checklist_sha256": "a63972f3efa10ceb681fe9357b31c741914341a013b0512f6ca3fc18704d9ec8"
+  },
+  "after_before_checklist": {
+    "db": {
+      "exists": true,
+      "sha256": "760f4a8c582ddf2466943ea19a93c3652da01f788b73375a4a649fee17671cd4",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 280,
+      "new_table_presence": {
+        "known_wallet_source_registry_v1": true,
+        "known_wallet_seed_queue_v1": true,
+        "known_wallet_quarantine_seed_v1": true,
+        "known_wallet_label_quality_events_v1": true,
+        "known_wallet_label_conflict_events_v1": true,
+        "known_wallet_cex_classification_events_v1": true,
+        "known_wallet_mev_noise_classification_events_v1": true,
+        "known_wallet_shadow_label_events_v1": true,
+        "known_wallet_source_registry_readmodel_v1": true
+      },
+      "new_table_counts": {
+        "known_wallet_source_registry_v1": 0,
+        "known_wallet_seed_queue_v1": 0,
+        "known_wallet_quarantine_seed_v1": 0,
+        "known_wallet_label_quality_events_v1": 0,
+        "known_wallet_label_conflict_events_v1": 0,
+        "known_wallet_cex_classification_events_v1": 0,
+        "known_wallet_mev_noise_classification_events_v1": 0,
+        "known_wallet_shadow_label_events_v1": 0,
+        "known_wallet_source_registry_readmodel_v1": 0
+      },
+      "new_index_presence": {
+        "idx_known_wallet_source_registry_tier_status": true,
+        "idx_known_wallet_seed_queue_source_wallet": true,
+        "idx_known_wallet_seed_queue_chain_label": true,
+        "idx_known_wallet_quarantine_source_wallet": true,
+        "idx_known_wallet_label_quality_seed_check": true,
+        "idx_known_wallet_label_conflict_wallet": true,
+        "idx_known_wallet_cex_classification_wallet": true,
+        "idx_known_wallet_mev_noise_wallet": true,
+        "idx_known_wallet_shadow_label_wallet": true,
+        "idx_known_wallet_source_registry_readmodel_chain": true
+      },
+      "required_column_missing": {},
+      "whale_table_counts": {
+        "whale_entity_registry_v1": 0,
+        "whale_entity_wallet_links_v1": 0,
+        "whale_entity_flow_events_v1": 0,
+        "whale_entity_token_exposure_v1": 0,
+        "whale_entity_evidence_events_v1": 0,
+        "whale_entity_risk_links_v1": 0,
+        "whale_entity_screen_readmodel_v1": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase20l2_json_sha256": "9f977abec62c82488ffad4a418f1d5afc59ad58f7c03fb74ac1fde684f04b558",
+    "phase20u_json_sha256": "d39069f13823e4bf19e27e1d9696724cd84a8a6320a554a0382964ac01abf3f1",
+    "checklist_sha256_before_optional_write": "a63972f3efa10ceb681fe9357b31c741914341a013b0512f6ca3fc18704d9ec8"
+  },
+  "immutability": {
+    "live_db_unchanged_during_acceptance": true,
+    "active_index_unchanged": true,
+    "handoff_unchanged": true,
+    "phase20l2_json_unchanged": true,
+    "phase20u_json_unchanged": true
+  },
+  "acceptance": {
+    "planned_table_count": 9,
+    "planned_index_count": 10,
+    "live_new_tables_created": true,
+    "live_new_tables_empty": true,
+    "live_new_indexes_created": true,
+    "live_required_columns_ok": true,
+    "backup_exists": true,
+    "rollback_exists": true,
+    "paper_live_ok": true,
+    "rule_count": 12,
+    "rules": [
+      {
+        "rule": "schema_real_apply_passed",
+        "ok": true
+      },
+      {
+        "rule": "post_audit_passed",
+        "ok": true
+      },
+      {
+        "rule": "live_new_tables_created",
+        "ok": true
+      },
+      {
+        "rule": "live_new_indexes_created",
+        "ok": true
+      },
+      {
+        "rule": "live_new_tables_empty",
+        "ok": true
+      },
+      {
+        "rule": "live_required_columns_ok",
+        "ok": true
+      },
+      {
+        "rule": "backup_exists",
+        "ok": true
+      },
+      {
+        "rule": "rollback_exists",
+        "ok": true
+      },
+      {
+        "rule": "active_8096_unchanged",
+        "ok": true
+      },
+      {
+        "rule": "no_seed_rows_inserted",
+        "ok": true
+      },
+      {
+        "rule": "paper_live_ok",
+        "ok": true
+      },
+      {
+        "rule": "schema_is_live_baseline_ready",
+        "ok": true
+      }
+    ]
+  },
+  "next_phase": "PHASE20W_KNOWN_WALLET_SOURCE_SEED_PLAN_NOAPI",
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE20V_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_BASELINE_ACCEPTANCE_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase20v_known_wallet_source_registry_schema_baseline_acceptance_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase20v_known_wallet_source_registry_schema_baseline_acceptance_noapi_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE20V_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_BASELINE_ACCEPTANCE_NOAPI/20260604_210957"
+  },
+  "after_final": {
+    "db": {
+      "exists": true,
+      "sha256": "760f4a8c582ddf2466943ea19a93c3652da01f788b73375a4a649fee17671cd4",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 280,
+      "new_table_presence": {
+        "known_wallet_source_registry_v1": true,
+        "known_wallet_seed_queue_v1": true,
+        "known_wallet_quarantine_seed_v1": true,
+        "known_wallet_label_quality_events_v1": true,
+        "known_wallet_label_conflict_events_v1": true,
+        "known_wallet_cex_classification_events_v1": true,
+        "known_wallet_mev_noise_classification_events_v1": true,
+        "known_wallet_shadow_label_events_v1": true,
+        "known_wallet_source_registry_readmodel_v1": true
+      },
+      "new_table_counts": {
+        "known_wallet_source_registry_v1": 0,
+        "known_wallet_seed_queue_v1": 0,
+        "known_wallet_quarantine_seed_v1": 0,
+        "known_wallet_label_quality_events_v1": 0,
+        "known_wallet_label_conflict_events_v1": 0,
+        "known_wallet_cex_classification_events_v1": 0,
+        "known_wallet_mev_noise_classification_events_v1": 0,
+        "known_wallet_shadow_label_events_v1": 0,
+        "known_wallet_source_registry_readmodel_v1": 0
+      },
+      "new_index_presence": {
+        "idx_known_wallet_source_registry_tier_status": true,
+        "idx_known_wallet_seed_queue_source_wallet": true,
+        "idx_known_wallet_seed_queue_chain_label": true,
+        "idx_known_wallet_quarantine_source_wallet": true,
+        "idx_known_wallet_label_quality_seed_check": true,
+        "idx_known_wallet_label_conflict_wallet": true,
+        "idx_known_wallet_cex_classification_wallet": true,
+        "idx_known_wallet_mev_noise_wallet": true,
+        "idx_known_wallet_shadow_label_wallet": true,
+        "idx_known_wallet_source_registry_readmodel_chain": true
+      },
+      "required_column_missing": {},
+      "whale_table_counts": {
+        "whale_entity_registry_v1": 0,
+        "whale_entity_wallet_links_v1": 0,
+        "whale_entity_flow_events_v1": 0,
+        "whale_entity_token_exposure_v1": 0,
+        "whale_entity_evidence_events_v1": 0,
+        "whale_entity_risk_links_v1": 0,
+        "whale_entity_screen_readmodel_v1": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "checklist_sha256": "bd5ec6e49d1f26741fd9917e6c371e360c5f2c3fa7d56ea5c81388551f589cbe"
+  },
+  "checklist_touched": true
+}

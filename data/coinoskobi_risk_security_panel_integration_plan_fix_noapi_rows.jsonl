@@ -1,0 +1,32 @@
+{"row_type": "old_missing_card", "slot_key": "risk.mev_shield", "missing_card": "mempool_risk_level"}
+{"row_type": "fixed_panel_slot", "slot_key": "risk.mev_shield", "center_key": "risk", "panel_label": "Risk & Güvenlik Merkezi", "sub_panel": "MEV / Sandwich Shield", "cards": ["mev_dynamic_slippage", "blocked_gate", "paper_only_gate"], "purpose": "MEV, dinamik slipaj, public-route güvenliği, blocked ve paper-only riskleri.", "active_write_now": false}
+{"row_type": "fixed_panel_slot", "slot_key": "risk.execution_security", "center_key": "risk", "panel_label": "Risk & Güvenlik Merkezi", "sub_panel": "Execution Security", "cards": ["risk_execution_summary"], "purpose": "Risk kararının işlem planına etkisini gösterir.", "active_write_now": false}
+{"row_type": "fixed_panel_slot", "slot_key": "komuta.live_decision_execution_plan", "center_key": "komuta", "panel_label": "Komuta Merkezi", "sub_panel": "Canlı Karar / İşlem Planı", "cards": ["normal_execution_plan", "vur_kac_execution_plan", "paper_only_execution_plan", "blocked_execution_plan"], "purpose": "Entry amount, entry level, dynamic slippage, SL/TP, tek TP, TP1/2/3 ve blocked reason.", "active_write_now": false}
+{"row_type": "fixed_panel_slot", "slot_key": "komuta.manual_auto_buttons", "center_key": "komuta", "panel_label": "Komuta Merkezi", "sub_panel": "Paper / Manuel / Auto Butonları", "cards": ["button_state_summary"], "purpose": "Paper, manuel normal, manuel vur-kaç, auto kilit ve live kapalı durumları.", "active_write_now": false}
+{"row_type": "fixed_panel_slot", "slot_key": "yasam.outcome_memory", "center_key": "yasam", "panel_label": "Yaşam Destek Merkezi", "sub_panel": "Outcome Memory / Tedavi Sonucu", "cards": ["execution_outcome_memory_stub"], "purpose": "Planlanan işlem ile ilerideki sonucu karşılaştırmak.", "active_write_now": false}
+{"row_type": "fixed_panel_slot", "slot_key": "yasam.morg_autopsy_route", "center_key": "yasam", "panel_label": "Yaşam Destek Merkezi", "sub_panel": "Morg / Otopsi Rotası", "cards": ["morg_autopsy_route_stub"], "purpose": "Blocked/critical vakaları adli/klinik incelemeye göndermek.", "active_write_now": false}
+{"row_type": "fixed_panel_slot", "slot_key": "sistem.live_auto_lock", "center_key": "sistem", "panel_label": "Sistem Kontrol", "sub_panel": "Execution Locks", "cards": ["live_auto_lock"], "purpose": "Live/auto kilitleri, schema health, no execution state.", "active_write_now": false}
+{"row_type": "display_rule", "rule_key": "normal_trade_display", "condition": "entry_mode=NORMAL", "show": ["entry_amount_usd", "entry_level", "dynamic_slippage_pct", "sl_price", "tp1_price", "tp2_price", "tp3_price"], "hide": ["single_tp_price"]}
+{"row_type": "display_rule", "rule_key": "vur_kac_display", "condition": "entry_mode=VUR_KAC", "show": ["entry_amount_usd", "entry_level", "dynamic_slippage_pct", "sl_price", "single_tp_price"], "hide": ["tp1_price", "tp2_price", "tp3_price"]}
+{"row_type": "display_rule", "rule_key": "blocked_display", "condition": "entry_mode=BLOCKED", "show": ["blocked_reason", "send_morg_autopsy"], "hide": ["entry_amount_usd", "entry_level", "tp1_price", "tp2_price", "tp3_price", "single_tp_price"]}
+{"row_type": "display_rule", "rule_key": "paper_only_display", "condition": "entry_mode=PAPER_ONLY", "show": ["paper_sim_start", "entry_amount_usd", "entry_level", "tp_policy"], "hide": ["manual_trade_plan", "manual_vur_kac_plan", "live_execution"]}
+{"row_type": "display_rule", "rule_key": "auto_live_display", "condition": "always", "show": ["auto_trade_locked=True", "live_execution=False"], "hide": ["any_live_execute_action"]}
+{"row_type": "planned_card_count", "center_key": "risk", "count": 4}
+{"row_type": "planned_card_count", "center_key": "komuta", "count": 5}
+{"row_type": "planned_card_count", "center_key": "yasam", "count": 2}
+{"row_type": "planned_card_count", "center_key": "sistem", "count": 1}
+{"row_type": "safety", "key": "active_index_unchanged", "value": true}
+{"row_type": "safety", "key": "active_data_unchanged", "value": true}
+{"row_type": "safety", "key": "live_db_unchanged", "value": true}
+{"row_type": "safety", "key": "listen_snapshot_unchanged", "value": true}
+{"row_type": "safety", "key": "db_write", "value": 0}
+{"row_type": "safety", "key": "api_calls", "value": 0}
+{"row_type": "safety", "key": "external_network_calls", "value": 0}
+{"row_type": "safety", "key": "active_panel_write", "value": 0}
+{"row_type": "safety", "key": "preview_write", "value": 0}
+{"row_type": "safety", "key": "nginx_change", "value": 0}
+{"row_type": "safety", "key": "service_restart", "value": 0}
+{"row_type": "safety", "key": "timer_change", "value": 0}
+{"row_type": "safety", "key": "live_trade", "value": 0}
+{"row_type": "safety", "key": "paper_trade_execution", "value": 0}
+{"row_type": "safety", "key": "auto_trade_execution", "value": 0}

@@ -1,0 +1,144 @@
+{
+  "plan_schema": "coinoskobi_maintenance_ai_control_center_plan_v1",
+  "phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+  "created_utc": "2026-06-08T18:45:22.128960+00:00",
+  "source_state_dir": "/root/tokenoskobi_clean_v1/state",
+  "source_current_state": "/root/tokenoskobi_clean_v1/state/CURRENT_STATE.json",
+  "source_next_action": "/root/tokenoskobi_clean_v1/state/NEXT_ACTION.md",
+  "source_hard_rules": "/root/tokenoskobi_clean_v1/state/HARD_RULES.md",
+  "source_roadmap": "/root/tokenoskobi_clean_v1/state/ROADMAP_CURRENT.json",
+  "last_successful_phase": "PHASE31F1",
+  "next_target_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+  "phase31_closed": true,
+  "mission": "Build a maintenance control plane that preserves Fast Path speed while enabling safe AI-assisted planning, audit, proposal, approval, apply and rollback workflows.",
+  "core_rule": "Fast Path must not wait for AI, maintenance bundle generation, proposal validation, report generation, or external model calls.",
+  "authority_model": {
+    "ai_authority": "proposal_only",
+    "human_authority": "explicit_approval_required_for_apply",
+    "runner_authority": "read_only_fast_path_runtime",
+    "db_authority": "guarded_migration_only_after_explicit_approval",
+    "live_trade_authority": "locked_off_until_future_micro_live_readiness_and_explicit_approval"
+  },
+  "components": [
+    {
+      "component": "State Capsule Reader",
+      "purpose": "Read current system position from /state without relying on chat memory.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "normalized current state summary"
+    },
+    {
+      "component": "Maintenance Bundle Generator",
+      "purpose": "Collect safe system context, recent phase reports, checks, hashes, errors and next action into a redacted bundle.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "maintenance_context_bundle_runtime.json"
+    },
+    {
+      "component": "AI Proposal Contract",
+      "purpose": "Allow AI to produce proposed actions only as structured plans with forbidden-action flags and rollback requirements.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "ai_proposal_candidate.json"
+    },
+    {
+      "component": "Proposal Validator",
+      "purpose": "Reject proposals that touch forbidden areas, weaken hard blocks, modify Fast Path incorrectly, or lack rollback.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "proposal_validation_result.json"
+    },
+    {
+      "component": "Approval Queue",
+      "purpose": "Hold validated proposals until explicit approval phrase is provided.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "pending_approval_queue.jsonl"
+    },
+    {
+      "component": "Apply Executor Boundary",
+      "purpose": "Define future executor boundaries; no executor implementation in Phase32A.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "apply_boundary_contract.md"
+    },
+    {
+      "component": "Rollback Registry",
+      "purpose": "Require every future real apply to register backup path, rollback script and post-audit gate.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "rollback_registry_contract.json"
+    },
+    {
+      "component": "Component Version Registry",
+      "purpose": "Track DB schema, runner, panel, timer, services, state capsule and adapters by sha/version.",
+      "writes_live": false,
+      "fast_path_dependency": "none",
+      "output": "component_version_registry_contract.json"
+    }
+  ],
+  "planned_files_for_future_phases": [
+    "/root/tokenoskobi_clean_v1/maintenance/control_center/maintenance_control_contract_v1.json",
+    "/root/tokenoskobi_clean_v1/maintenance/control_center/ai_proposal_schema_v1.json",
+    "/root/tokenoskobi_clean_v1/maintenance/control_center/proposal_validator_contract_v1.json",
+    "/root/tokenoskobi_clean_v1/maintenance/control_center/approval_queue_contract_v1.json",
+    "/root/tokenoskobi_clean_v1/maintenance/control_center/rollback_registry_contract_v1.json",
+    "/root/tokenoskobi_clean_v1/maintenance/control_center/component_version_registry_contract_v1.json"
+  ],
+  "explicitly_not_in_phase32a": [
+    "no live DB schema apply",
+    "no service/timer restart",
+    "no runner patch",
+    "no active panel write",
+    "no local AI install",
+    "no external network/API call",
+    "no paper/live trade",
+    "no wallet connection",
+    "no transaction signing"
+  ],
+  "phase32_sequence": [
+    "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+    "PHASE32B_MAINTENANCE_STATE_READER_AND_BUNDLE_CONTRACT_NOAPI",
+    "PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+    "PHASE32D_APPROVAL_QUEUE_AND_ROLLBACK_REGISTRY_PLAN_NOAPI",
+    "PHASE32E_CONTROL_CENTER_TEMPDB_DRYRUN_NOAPI",
+    "PHASE32F_CONTROL_CENTER_FILE_DRYRUN_NOAPI",
+    "PHASE32G_CONTROL_CENTER_REAL_APPLY_AFTER_EXPLICIT_APPROVAL",
+    "PHASE32H_CONTROL_CENTER_POST_AUDIT_NOAPI"
+  ],
+  "legacy_roadmap": {
+    "old_phase32_fast_path_compact_state_matrix_tempdb": "new_phase35",
+    "old_phase33_slow_path_learning_calibration_ledger": "new_phase36",
+    "old_phase34_opportunity_radar_scoring_dryrun": "new_phase37",
+    "old_phase35_paper_lifecycle_ledger_cost_risk_model": "new_phase38",
+    "old_phase36_shadow_paper_simulation": "new_phase39",
+    "old_phase37_micro_live_readiness_audit": "new_phase40"
+  },
+  "checkpoint": {
+    "checkpoint_phase": "PHASE31F1",
+    "active_index_sha": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_sha": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "live_db_sha": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "paper_runtime_zero": true,
+    "no_forbidden_actions": true
+  },
+  "bundle_policy": {
+    "do_not_include_secrets": true,
+    "redact_env": true,
+    "redact_tokens": true,
+    "redact_auth": true,
+    "include_hashes": true,
+    "include_recent_reports": true,
+    "include_failed_checks": true,
+    "include_next_action": true
+  },
+  "exit_criteria": {
+    "state_capsule_readable": true,
+    "maintenance_components_defined": true,
+    "ai_authority_limited_to_proposal": true,
+    "approval_required_for_apply": true,
+    "rollback_required_for_apply": true,
+    "fast_path_not_slowed": true,
+    "next_phase_opened": "PHASE32B_MAINTENANCE_STATE_READER_AND_BUNDLE_CONTRACT_NOAPI"
+  }
+}

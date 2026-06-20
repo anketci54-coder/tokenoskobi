@@ -1,0 +1,703 @@
+{
+  "accepted_schedule_source": "TimersMonotonic",
+  "cat_cadence_ok": true,
+  "checks": {
+    "cat_cadence_ok": true,
+    "cat_service_ok": true,
+    "cat_timer_ok": true,
+    "file_cadence_ok": true,
+    "forbidden_now_flags_all_false": true,
+    "fragment_matches_target": true,
+    "list_timers_ok": true,
+    "live_db_fk_ok": true,
+    "live_db_integrity_ok": true,
+    "live_db_quick_check_ok": true,
+    "live_db_read_ok": true,
+    "model_review_json_written": true,
+    "next_requirements_json_written": true,
+    "phase16h_json_exists": true,
+    "phase16h_json_parse_ok": true,
+    "phase16h_pass_ok": true,
+    "phase16i_fix1_json_exists": true,
+    "phase16i_fix1_json_parse_ok": true,
+    "phase16i_fix1_pass_ok": true,
+    "phase16i_json_exists": true,
+    "phase16i_json_parse_ok": true,
+    "phase16i_review_or_pass_ok": true,
+    "protected_audit_json_written": true,
+    "runner_mode_0750": true,
+    "runner_sha_expected": true,
+    "service_exec_main_status_zero": true,
+    "service_execstart_full_temp_cat": true,
+    "service_execstart_full_temp_file": true,
+    "service_need_daemon_reload_no": true,
+    "service_result_success": true,
+    "service_settled": true,
+    "show_service_ok": true,
+    "show_timer_ok": true,
+    "source_of_truth_json_written": true,
+    "systemd_audit_json_written": true,
+    "temp_db_exists": true,
+    "temp_db_integrity_ok": true,
+    "temp_lock_absent": true,
+    "temp_proof_audit_json_written": true,
+    "temp_status_json_parse_ok": true,
+    "timer_active": true,
+    "timer_enabled": true,
+    "timer_need_daemon_reload_no": true,
+    "timer_unit_sha_expected": true,
+    "timers_monotonic_has_entries": true,
+    "timers_monotonic_has_near_next_elapse": true,
+    "unit_audit_json_written": true,
+    "verify_ok": true
+  },
+  "decision": "ACCEPT_TIMERS_MONOTONIC_AS_SOURCE_OF_TRUTH",
+  "failed_checks": [],
+  "file_cadence_ok": true,
+  "final_gate": "PASS_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI",
+  "finished_at_utc": "2026-06-02T16:47:15.234198+00:00",
+  "forbidden_now_flags": {
+    "ACTIVE_PANEL_WRITE_NOW": false,
+    "ACTIVE_REFRESH_EXECSTART_NOW": false,
+    "ACTIVE_STATUS_JSON_WRITE_NOW": false,
+    "API_RPC_FETCH_NOW": false,
+    "LIVE_DB_WRITE_NOW": false,
+    "LIVE_TRADE_NOW": false,
+    "PAPER_TRADE_NOW": false,
+    "ROLLBACK_EXECUTE_NOW": false,
+    "ROOT_LOCK_FILE_WRITE_NOW": false,
+    "ROOT_LOG_FILE_WRITE_NOW": false,
+    "RUNNER_EXECUTE_NOW": false,
+    "RUNNER_SOURCE_PATCH_NOW": false,
+    "RUNNER_TARGET_WRITE_NOW": false,
+    "SCHEMA_APPLY_NOW": false,
+    "SERVICE_START_NOW": false,
+    "SERVICE_UNIT_WRITE_NOW": false,
+    "SYSTEMCTL_DAEMON_RELOAD_NOW": false,
+    "SYSTEMCTL_ENABLE_NOW": false,
+    "SYSTEMCTL_RESTART_NOW": false,
+    "SYSTEMCTL_START_NOW": false,
+    "TEMP_DB_WRITE_NOW": false,
+    "TEMP_LOCK_WRITE_NOW": false,
+    "TEMP_LOG_WRITE_NOW": false,
+    "TEMP_RUNTIME_DIR_CREATE_NOW": false,
+    "TEMP_STATUS_JSON_WRITE_NOW": false,
+    "TIMER_ENABLE_NOW": false,
+    "TIMER_RESTART_NOW": false,
+    "TIMER_START_NOW": false,
+    "TIMER_UNIT_WRITE_NOW": false,
+    "TRADE_PERMISSION": false,
+    "TRUE_STATUS_REFRESH_NOW": false
+  },
+  "global_next_elapse_monotonic": "1month 3d 13h 19min 9.028461s",
+  "global_next_elapse_seconds": 2899149,
+  "global_next_stale_or_long": true,
+  "json": "/root/tokenoskobi_clean_v1/data/phase16i_fix2_system_control_timer_cadence_model_review_noapi.json",
+  "live_db_audit": {
+    "db_path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "error": null,
+    "exists": true,
+    "fk_error_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "read_ok": true
+  },
+  "model_review": {
+    "decision": "ACCEPT_TIMERS_MONOTONIC_AS_SOURCE_OF_TRUTH",
+    "model_review_only": true,
+    "no_daemon_reload": true,
+    "no_patch_yama": true,
+    "no_restart": true,
+    "phase": "PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI",
+    "reason": "Timer unit is valid, systemd exposes TimersMonotonic with OnBootUSec=2min and next_elapse=2min, so prior audit should not fail only because top-level NextElapseUSecMonotonic is stale/long.",
+    "recommended_next_phase": "PHASE16I_FIX3_SYSTEM_CONTROL_TIMER_CADENCE_AUDIT_POLICY_REPAIR_PLAN_NOAPI",
+    "runtime": {
+      "fragment_matches_target": true,
+      "service_active_state": "inactive",
+      "service_exec_main_status": "0",
+      "service_need_daemon_reload": "no",
+      "service_result": "success",
+      "service_sub_state": "dead",
+      "timer_accuracy": "30s",
+      "timer_active_state": "active",
+      "timer_fragment_path": "/etc/systemd/system/coinoskobi-system-control-status-refresh.timer",
+      "timer_last_trigger": "Tue 2026-06-02 19:46:19 EEST",
+      "timer_need_daemon_reload": "no",
+      "timer_next_elapse": "",
+      "timer_next_elapse_monotonic": "1month 3d 13h 19min 9.028461s",
+      "timer_next_elapse_monotonic_seconds_estimate": 2899149,
+      "timer_on_active_top": null,
+      "timer_on_boot_top": null,
+      "timer_on_unit_active_top": null,
+      "timer_on_unit_inactive_top": null,
+      "timer_persistent": "yes",
+      "timer_sub_state": "waiting",
+      "timer_timers_calendar": null,
+      "timer_timers_monotonic_parsed": {
+        "contains_onboot_2min": true,
+        "contains_onunitinactive_5min": false,
+        "entries": [
+          {
+            "OnBootUSec": "2min",
+            "next_elapse": "2min"
+          }
+        ],
+        "has_entries": true,
+        "min_next_elapse_seconds": 120,
+        "next_elapse_values": [
+          "2min"
+        ],
+        "raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+        "trigger_fields": [
+          {
+            "OnBootUSec": "2min"
+          }
+        ]
+      },
+      "timer_timers_monotonic_raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+      "timer_unit_bound": "coinoskobi-system-control-status-refresh.service",
+      "timer_unit_file_state": "enabled"
+    },
+    "source_of_truth": {
+      "accepted_schedule_source": "TimersMonotonic",
+      "decision": "ACCEPT_TIMERS_MONOTONIC_AS_SOURCE_OF_TRUTH",
+      "future_audit_policy": {
+        "do_not_fail_timer_if": [
+          "Timer file cadence is correct",
+          "systemctl cat cadence is correct",
+          "systemd-analyze verify returns rc 0",
+          "TimersMonotonic has OnBootUSec=2min with next_elapse <= 180 seconds",
+          "Timer is active/enabled and NeedDaemonReload=no",
+          "Service is settled and not failed"
+        ],
+        "hard_fail_if": [
+          "TimersMonotonic has no near next_elapse",
+          "timer NeedDaemonReload=yes",
+          "timer inactive/disabled",
+          "service hard failed",
+          "unit file SHA changes unexpectedly"
+        ],
+        "still_warn_if": [
+          "Top-level NextElapseUSecMonotonic is stale/long",
+          "OnUnitInactiveSec=5min exists in unit file but is not yet visible in TimersMonotonic before first service cycle"
+        ]
+      },
+      "phase": "PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI",
+      "reason": "Timer unit is valid, systemd exposes TimersMonotonic with OnBootUSec=2min and next_elapse=2min, so prior audit should not fail only because top-level NextElapseUSecMonotonic is stale/long.",
+      "recommended_next_phase": "PHASE16I_FIX3_SYSTEM_CONTROL_TIMER_CADENCE_AUDIT_POLICY_REPAIR_PLAN_NOAPI",
+      "rejected_or_deprioritized_source": "Top-level NextElapseUSecMonotonic",
+      "timer_model_status": "MODEL_OK_AUDIT_POLICY_TOO_STRICT",
+      "why": {
+        "cat_cadence_ok": true,
+        "file_cadence_ok": true,
+        "global_next_stale_or_long": true,
+        "monotonic_source_good": true,
+        "service_is_settled": true,
+        "timer_is_clean": true,
+        "timers_monotonic": {
+          "contains_onboot_2min": true,
+          "contains_onunitinactive_5min": false,
+          "entries": [
+            {
+              "OnBootUSec": "2min",
+              "next_elapse": "2min"
+            }
+          ],
+          "has_entries": true,
+          "min_next_elapse_seconds": 120,
+          "next_elapse_values": [
+            "2min"
+          ],
+          "raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+          "trigger_fields": [
+            {
+              "OnBootUSec": "2min"
+            }
+          ]
+        },
+        "verify_ok": true
+      }
+    },
+    "timer_model_status": "MODEL_OK_AUDIT_POLICY_TOO_STRICT",
+    "unit": {
+      "cat_cadence_ok": true,
+      "expected_timer_sha": "af3447bef37ad708e5cb05335651daf0d5f158927faf10ae47e33a2a0b50afcb",
+      "file_cadence_ok": true,
+      "onunitinactive_present_in_file_but_not_runtime": true,
+      "service_execstart_cat": "/usr/bin/python3 /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_loop_runner.py --dryrun-once --source-db /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite --source-status-json /root/tokenoskobi_clean_v1/active_panel_8096/current/data/system_control_status_readmodel_view.json --temp-db /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.sqlite --temp-lock /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.lock --temp-log /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.log --temp-status-json /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_system_control_status_readmodel_view.json",
+      "service_execstart_file": "/usr/bin/python3 /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_loop_runner.py --dryrun-once --source-db /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite --source-status-json /root/tokenoskobi_clean_v1/active_panel_8096/current/data/system_control_status_readmodel_view.json --temp-db /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.sqlite --temp-lock /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.lock --temp-log /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.log --temp-status-json /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_system_control_status_readmodel_view.json",
+      "service_execstart_full_temp_cat": true,
+      "service_execstart_full_temp_file": true,
+      "timer_cat_directives": {
+        "AccuracySec": [
+          "30s"
+        ],
+        "OnActiveSec": [],
+        "OnBootSec": [
+          "2min"
+        ],
+        "OnCalendar": [],
+        "OnStartupSec": [],
+        "OnUnitActiveSec": [],
+        "OnUnitInactiveSec": [
+          "5min"
+        ],
+        "Persistent": [
+          "true"
+        ],
+        "RandomizedDelaySec": [],
+        "Unit": [
+          "coinoskobi-system-control-status-refresh.service"
+        ],
+        "WantedBy": [
+          "timers.target"
+        ],
+        "ordered": [
+          {
+            "kind": "comment",
+            "raw": "# /etc/systemd/system/coinoskobi-system-control-status-refresh.timer"
+          },
+          {
+            "kind": "section",
+            "raw": "[Unit]",
+            "section": "Unit"
+          },
+          {
+            "key": "Description",
+            "kind": "kv",
+            "raw": "Description=Coinoskobi system control status refresh timer",
+            "section": "Unit",
+            "value": "Coinoskobi system control status refresh timer"
+          },
+          {
+            "kind": "blank",
+            "raw": ""
+          },
+          {
+            "kind": "section",
+            "raw": "[Timer]",
+            "section": "Timer"
+          },
+          {
+            "key": "OnBootSec",
+            "kind": "kv",
+            "raw": "OnBootSec=2min",
+            "section": "Timer",
+            "value": "2min"
+          },
+          {
+            "key": "OnUnitInactiveSec",
+            "kind": "kv",
+            "raw": "OnUnitInactiveSec=5min",
+            "section": "Timer",
+            "value": "5min"
+          },
+          {
+            "key": "AccuracySec",
+            "kind": "kv",
+            "raw": "AccuracySec=30s",
+            "section": "Timer",
+            "value": "30s"
+          },
+          {
+            "key": "Persistent",
+            "kind": "kv",
+            "raw": "Persistent=true",
+            "section": "Timer",
+            "value": "true"
+          },
+          {
+            "key": "Unit",
+            "kind": "kv",
+            "raw": "Unit=coinoskobi-system-control-status-refresh.service",
+            "section": "Timer",
+            "value": "coinoskobi-system-control-status-refresh.service"
+          },
+          {
+            "kind": "blank",
+            "raw": ""
+          },
+          {
+            "kind": "section",
+            "raw": "[Install]",
+            "section": "Install"
+          },
+          {
+            "key": "WantedBy",
+            "kind": "kv",
+            "raw": "WantedBy=timers.target",
+            "section": "Install",
+            "value": "timers.target"
+          }
+        ],
+        "raw_timer_section": [
+          {
+            "key": "OnBootSec",
+            "kind": "kv",
+            "raw": "OnBootSec=2min",
+            "section": "Timer",
+            "value": "2min"
+          },
+          {
+            "key": "OnUnitInactiveSec",
+            "kind": "kv",
+            "raw": "OnUnitInactiveSec=5min",
+            "section": "Timer",
+            "value": "5min"
+          },
+          {
+            "key": "AccuracySec",
+            "kind": "kv",
+            "raw": "AccuracySec=30s",
+            "section": "Timer",
+            "value": "30s"
+          },
+          {
+            "key": "Persistent",
+            "kind": "kv",
+            "raw": "Persistent=true",
+            "section": "Timer",
+            "value": "true"
+          },
+          {
+            "key": "Unit",
+            "kind": "kv",
+            "raw": "Unit=coinoskobi-system-control-status-refresh.service",
+            "section": "Timer",
+            "value": "coinoskobi-system-control-status-refresh.service"
+          }
+        ]
+      },
+      "timer_file_directives": {
+        "AccuracySec": [
+          "30s"
+        ],
+        "OnActiveSec": [],
+        "OnBootSec": [
+          "2min"
+        ],
+        "OnCalendar": [],
+        "OnStartupSec": [],
+        "OnUnitActiveSec": [],
+        "OnUnitInactiveSec": [
+          "5min"
+        ],
+        "Persistent": [
+          "true"
+        ],
+        "RandomizedDelaySec": [],
+        "Unit": [
+          "coinoskobi-system-control-status-refresh.service"
+        ],
+        "WantedBy": [
+          "timers.target"
+        ],
+        "ordered": [
+          {
+            "kind": "section",
+            "raw": "[Unit]",
+            "section": "Unit"
+          },
+          {
+            "key": "Description",
+            "kind": "kv",
+            "raw": "Description=Coinoskobi system control status refresh timer",
+            "section": "Unit",
+            "value": "Coinoskobi system control status refresh timer"
+          },
+          {
+            "kind": "blank",
+            "raw": ""
+          },
+          {
+            "kind": "section",
+            "raw": "[Timer]",
+            "section": "Timer"
+          },
+          {
+            "key": "OnBootSec",
+            "kind": "kv",
+            "raw": "OnBootSec=2min",
+            "section": "Timer",
+            "value": "2min"
+          },
+          {
+            "key": "OnUnitInactiveSec",
+            "kind": "kv",
+            "raw": "OnUnitInactiveSec=5min",
+            "section": "Timer",
+            "value": "5min"
+          },
+          {
+            "key": "AccuracySec",
+            "kind": "kv",
+            "raw": "AccuracySec=30s",
+            "section": "Timer",
+            "value": "30s"
+          },
+          {
+            "key": "Persistent",
+            "kind": "kv",
+            "raw": "Persistent=true",
+            "section": "Timer",
+            "value": "true"
+          },
+          {
+            "key": "Unit",
+            "kind": "kv",
+            "raw": "Unit=coinoskobi-system-control-status-refresh.service",
+            "section": "Timer",
+            "value": "coinoskobi-system-control-status-refresh.service"
+          },
+          {
+            "kind": "blank",
+            "raw": ""
+          },
+          {
+            "kind": "section",
+            "raw": "[Install]",
+            "section": "Install"
+          },
+          {
+            "key": "WantedBy",
+            "kind": "kv",
+            "raw": "WantedBy=timers.target",
+            "section": "Install",
+            "value": "timers.target"
+          }
+        ],
+        "raw_timer_section": [
+          {
+            "key": "OnBootSec",
+            "kind": "kv",
+            "raw": "OnBootSec=2min",
+            "section": "Timer",
+            "value": "2min"
+          },
+          {
+            "key": "OnUnitInactiveSec",
+            "kind": "kv",
+            "raw": "OnUnitInactiveSec=5min",
+            "section": "Timer",
+            "value": "5min"
+          },
+          {
+            "key": "AccuracySec",
+            "kind": "kv",
+            "raw": "AccuracySec=30s",
+            "section": "Timer",
+            "value": "30s"
+          },
+          {
+            "key": "Persistent",
+            "kind": "kv",
+            "raw": "Persistent=true",
+            "section": "Timer",
+            "value": "true"
+          },
+          {
+            "key": "Unit",
+            "kind": "kv",
+            "raw": "Unit=coinoskobi-system-control-status-refresh.service",
+            "section": "Timer",
+            "value": "coinoskobi-system-control-status-refresh.service"
+          }
+        ]
+      },
+      "timer_unit_sha_current": "af3447bef37ad708e5cb05335651daf0d5f158927faf10ae47e33a2a0b50afcb"
+    },
+    "verify": {
+      "verify_rc": 0,
+      "verify_stderr": "/etc/systemd/system/coinoskobi-system-control-status-refresh.service:8: Invalid URL, ignoring: none",
+      "verify_stdout": ""
+    }
+  },
+  "model_review_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix2_timer_cadence_model_review.json",
+  "model_review_only": true,
+  "monotonic_source_good": true,
+  "next_phase": "PHASE16I_FIX3_SYSTEM_CONTROL_TIMER_CADENCE_AUDIT_POLICY_REPAIR_PLAN_NOAPI",
+  "next_requirements_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix3_next_requirements.json",
+  "no_daemon_reload": true,
+  "no_patch_yama": true,
+  "no_restart": true,
+  "onunitinactive_present_in_file_but_not_runtime": true,
+  "phase": "PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI",
+  "protected_audit": {
+    "active_index_sha": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "active_status_json_sha": "286c4a959d67ec60cb3487d6047dfe199616dbcf2b6d914810dd9072dc1422cc",
+    "current_sha": {
+      "ACTIVE_INDEX": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+      "ACTIVE_STATUS_VIEW": "286c4a959d67ec60cb3487d6047dfe199616dbcf2b6d914810dd9072dc1422cc",
+      "HOSTS": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+      "LIVE_DB": "497c435eae3f8c7f04853eb264a1a3c5e2ebecb379c1b3473d41ba47536430fb",
+      "LOCK_TARGET": null,
+      "LOG_TARGET": null,
+      "RUNNER_TARGET": "615b50c1e145ad6db93ae828fb1ad2b01061d3521475d9475eef41bc9d8b8beb",
+      "SERVICE_UNIT_TARGET": "9fcb934b0afc8a9275847bdc8e129988588edf6da6f462e2526d72bcfd32dc10",
+      "TEMP_DB": "2de666ecad4a76fa54ffd0b11a220c57da23843fc104b67d6fc1757192f07428",
+      "TEMP_LOG": "f3e3c5bd2b77322c32756554a49a9a7e347e8be5e3c362af39089d576240ae96",
+      "TEMP_STATUS_JSON": "397694b39800cbdfdf133c5aac509fecb1d254d48da6f317964f831c24c3540f",
+      "TIMER_UNIT_TARGET": "af3447bef37ad708e5cb05335651daf0d5f158927faf10ae47e33a2a0b50afcb"
+    },
+    "live_db_sha": "497c435eae3f8c7f04853eb264a1a3c5e2ebecb379c1b3473d41ba47536430fb",
+    "no_mutation_expected": true,
+    "root_lock_sha": null,
+    "root_log_sha": null,
+    "runner_sha_expected": true,
+    "service_unit_sha": "9fcb934b0afc8a9275847bdc8e129988588edf6da6f462e2526d72bcfd32dc10",
+    "timer_unit_sha": "af3447bef37ad708e5cb05335651daf0d5f158927faf10ae47e33a2a0b50afcb",
+    "timer_unit_sha_expected": true
+  },
+  "protected_audit_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix2_protected_file_audit.json",
+  "rc": 0,
+  "reason": "Timer unit is valid, systemd exposes TimersMonotonic with OnBootUSec=2min and next_elapse=2min, so prior audit should not fail only because top-level NextElapseUSecMonotonic is stale/long.",
+  "recommended_next_phase": "PHASE16I_FIX3_SYSTEM_CONTROL_TIMER_CADENCE_AUDIT_POLICY_REPAIR_PLAN_NOAPI",
+  "rejected_or_deprioritized_source": "Top-level NextElapseUSecMonotonic",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI.md",
+  "rows": "/root/tokenoskobi_clean_v1/data/phase16i_fix2_system_control_timer_cadence_model_review_noapi_rows.jsonl",
+  "rows_count": 3,
+  "service_is_settled": true,
+  "source_of_truth": {
+    "accepted_schedule_source": "TimersMonotonic",
+    "decision": "ACCEPT_TIMERS_MONOTONIC_AS_SOURCE_OF_TRUTH",
+    "future_audit_policy": {
+      "do_not_fail_timer_if": [
+        "Timer file cadence is correct",
+        "systemctl cat cadence is correct",
+        "systemd-analyze verify returns rc 0",
+        "TimersMonotonic has OnBootUSec=2min with next_elapse <= 180 seconds",
+        "Timer is active/enabled and NeedDaemonReload=no",
+        "Service is settled and not failed"
+      ],
+      "hard_fail_if": [
+        "TimersMonotonic has no near next_elapse",
+        "timer NeedDaemonReload=yes",
+        "timer inactive/disabled",
+        "service hard failed",
+        "unit file SHA changes unexpectedly"
+      ],
+      "still_warn_if": [
+        "Top-level NextElapseUSecMonotonic is stale/long",
+        "OnUnitInactiveSec=5min exists in unit file but is not yet visible in TimersMonotonic before first service cycle"
+      ]
+    },
+    "phase": "PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI",
+    "reason": "Timer unit is valid, systemd exposes TimersMonotonic with OnBootUSec=2min and next_elapse=2min, so prior audit should not fail only because top-level NextElapseUSecMonotonic is stale/long.",
+    "recommended_next_phase": "PHASE16I_FIX3_SYSTEM_CONTROL_TIMER_CADENCE_AUDIT_POLICY_REPAIR_PLAN_NOAPI",
+    "rejected_or_deprioritized_source": "Top-level NextElapseUSecMonotonic",
+    "timer_model_status": "MODEL_OK_AUDIT_POLICY_TOO_STRICT",
+    "why": {
+      "cat_cadence_ok": true,
+      "file_cadence_ok": true,
+      "global_next_stale_or_long": true,
+      "monotonic_source_good": true,
+      "service_is_settled": true,
+      "timer_is_clean": true,
+      "timers_monotonic": {
+        "contains_onboot_2min": true,
+        "contains_onunitinactive_5min": false,
+        "entries": [
+          {
+            "OnBootUSec": "2min",
+            "next_elapse": "2min"
+          }
+        ],
+        "has_entries": true,
+        "min_next_elapse_seconds": 120,
+        "next_elapse_values": [
+          "2min"
+        ],
+        "raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+        "trigger_fields": [
+          {
+            "OnBootUSec": "2min"
+          }
+        ]
+      },
+      "verify_ok": true
+    }
+  },
+  "source_of_truth_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix2_timer_source_of_truth_decision.json",
+  "stamp": "20260602_194715",
+  "started_at_utc": "2026-06-02T16:47:15.070773+00:00",
+  "systemd_audit_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix2_systemd_readonly_audit.json",
+  "temp_proof": {
+    "temp_db_audit": {
+      "db_path": "/root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.sqlite",
+      "error": null,
+      "exists": true,
+      "fk_error_count": 0,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "read_ok": true
+    },
+    "temp_db_exists": true,
+    "temp_db_sha": "2de666ecad4a76fa54ffd0b11a220c57da23843fc104b67d6fc1757192f07428",
+    "temp_db_size": 8192,
+    "temp_lock_exists": false,
+    "temp_log_exists": true,
+    "temp_log_sha": "f3e3c5bd2b77322c32756554a49a9a7e347e8be5e3c362af39089d576240ae96",
+    "temp_log_size": 19200,
+    "temp_runtime_dir_exists": true,
+    "temp_runtime_dir_mode": "0o750",
+    "temp_runtime_dir_owner": {
+      "gid": 0,
+      "uid": 0
+    },
+    "temp_status_json_exists": true,
+    "temp_status_json_keys": [
+      "active_status_json_write_now",
+      "api_rpc_fetch_enabled",
+      "data_age_seconds",
+      "dryrun_once",
+      "live_allowed",
+      "live_db_write_now",
+      "paper_allowed",
+      "runner_candidate",
+      "runtime_enabled_now",
+      "source_db_read_ok",
+      "source_status_json_parse_ok",
+      "source_status_table_exists",
+      "source_status_timestamp_utc",
+      "stale_model",
+      "temp_db_write_now",
+      "temp_status_json_write_now",
+      "timestamp_detected",
+      "trade_permission",
+      "ui_max_data_age_seconds",
+      "ui_state_model",
+      "updated_at_utc",
+      "visual_tone_model"
+    ],
+    "temp_status_json_parse_ok": true,
+    "temp_status_json_sha": "397694b39800cbdfdf133c5aac509fecb1d254d48da6f317964f831c24c3540f",
+    "temp_status_json_size": 738
+  },
+  "temp_proof_audit_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix2_temp_proof_audit.json",
+  "timer_is_clean": true,
+  "timer_model_status": "MODEL_OK_AUDIT_POLICY_TOO_STRICT",
+  "timers_monotonic": {
+    "contains_onboot_2min": true,
+    "contains_onunitinactive_5min": false,
+    "entries": [
+      {
+        "OnBootUSec": "2min",
+        "next_elapse": "2min"
+      }
+    ],
+    "has_entries": true,
+    "min_next_elapse_seconds": 120,
+    "next_elapse_values": [
+      "2min"
+    ],
+    "raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+    "trigger_fields": [
+      {
+        "OnBootUSec": "2min"
+      }
+    ]
+  },
+  "unit_audit_json": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715/phase16i_fix2_unit_file_readonly_audit.json",
+  "verify_ok": true,
+  "workdir": "/root/tokenoskobi_clean_v1/_PHASE16I_FIX2_SYSTEM_CONTROL_TIMER_CADENCE_MODEL_REVIEW_NOAPI/20260602_194715"
+}

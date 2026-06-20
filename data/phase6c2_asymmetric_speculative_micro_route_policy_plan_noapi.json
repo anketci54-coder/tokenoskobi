@@ -1,0 +1,691 @@
+{
+  "capital_risk_rows": [
+    {
+      "locked": true,
+      "meaning": "Assume full loss possible before future entry review.",
+      "rule": "capital_at_risk_predefined",
+      "runtime_now": false
+    },
+    {
+      "formula_policy": "min(loss_budget, exit_liquidity_cap, slippage_cap, gas_sanity_cap)",
+      "locked": true,
+      "rule": "max_position_size_formula_required",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "Asymmetric route cannot use normal position sizing.",
+      "rule": "tiny_cap_only_for_asymmetric_review",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "No adding size after entry.",
+      "rule": "position_resize_forbidden",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "Future sandbox budget must be isolated.",
+      "rule": "loss_budget_not_shared_with_core_capital",
+      "runtime_now": false
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "decision_effect_rows": [
+    {
+      "case": "hard_block_any",
+      "paper_live": false,
+      "quality_label": "TRASH_REJECTED",
+      "route_label": "NO_ROUTE"
+    },
+    {
+      "case": "sell_route_not_fresh",
+      "paper_live": false,
+      "quality_label": "WAIT_MORE_DATA",
+      "route_label": "NO_ROUTE"
+    },
+    {
+      "case": "required_field_unknown",
+      "paper_live": false,
+      "quality_label": "WAIT_MORE_DATA",
+      "route_label": "NO_ROUTE"
+    },
+    {
+      "case": "threshold_fails",
+      "paper_live": false,
+      "quality_label": "BLOCKED_BY_RISK",
+      "route_label": "NO_ROUTE"
+    },
+    {
+      "case": "all_asymmetric_review_gates_pass",
+      "paper_live": false,
+      "quality_label": "ASYMMETRIC_REVIEW_ONLY",
+      "route_label": "ASYMMETRIC_REVIEW_ONLY"
+    },
+    {
+      "case": "tp_zone_but_sell_recheck_missing",
+      "paper_live": false,
+      "quality_label": "WAIT_MORE_DATA",
+      "route_label": "TP_BLOCKED"
+    }
+  ],
+  "emergency_rows": [
+    {
+      "effect": "immediate_sell_route_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "deployer_transfer"
+    },
+    {
+      "effect": "immediate_sell_route_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "owner_wallet_move"
+    },
+    {
+      "effect": "immediate_liquidity_and_sell_route_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "lp_transfer"
+    },
+    {
+      "effect": "emergency_block_route_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "lp_remove"
+    },
+    {
+      "effect": "immediate_exit_liquidity_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "liquidity_drop"
+    },
+    {
+      "effect": "immediate_whale_risk_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "top_holder_transfer"
+    },
+    {
+      "effect": "immediate_route_health_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "whale_sell"
+    },
+    {
+      "effect": "immediate_tax_and_sell_sim_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "tax_change_signal"
+    },
+    {
+      "effect": "emergency_block_route_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "sell_route_anomaly"
+    },
+    {
+      "effect": "immediate_slippage_recheck_plan",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "slippage_spike"
+    }
+  ],
+  "entry_guard_rows": [
+    {
+      "effect": "NO_ROUTE",
+      "guard": "hard_block_false",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "sell_route_status_AVAILABLE",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "sell_route_freshness_FRESH",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "minimum_pool_liquidity_usd_above_asymmetric_floor",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "exit_liquidity_usd_above_asymmetric_floor",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "buy_sell_tax_below_asymmetric_limit",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "price_impact_and_slippage_below_asymmetric_limit",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "mev_sandwich_not_high",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "max_position_size_computable",
+      "required": true,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "negative_memory_no_terminal_hit",
+      "required": true,
+      "unknown_policy": "WAIT_MORE_DATA"
+    }
+  ],
+  "exit_guard_rows": [
+    {
+      "effect": "TP_BLOCKED_UNTIL_SELL_ROUTE_FRESH",
+      "guard": "tp_before_sell_route_recheck",
+      "required": true
+    },
+    {
+      "effect": "EXIT_REVIEW_REQUIRED",
+      "guard": "liquidity_drop_exit_guard",
+      "required": true
+    },
+    {
+      "effect": "EMERGENCY_BLOCK_ROUTE",
+      "guard": "sell_route_revert_exit_guard",
+      "required": true
+    },
+    {
+      "effect": "EXIT_REVIEW_REQUIRED",
+      "guard": "tax_sell_increase_exit_guard",
+      "required": true
+    },
+    {
+      "effect": "EXIT_REVIEW_REQUIRED",
+      "guard": "slippage_spike_exit_guard",
+      "required": true
+    },
+    {
+      "effect": "IMMEDIATE_RECHECK_REQUIRED",
+      "guard": "whale_deployer_move_exit_guard",
+      "required": true
+    },
+    {
+      "effect": "EXIT_REVIEW_REQUIRED",
+      "guard": "time_stop_exit_guard",
+      "required": true
+    },
+    {
+      "effect": "EXIT_REVIEW_REQUIRED",
+      "guard": "max_loss_exit_guard",
+      "required": true
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T07:34:41.602240+00:00",
+  "forbidden_rows": [
+    {
+      "forbidden_action": "hard_block_bypass",
+      "locked": true
+    },
+    {
+      "forbidden_action": "sell_route_unknown_entry",
+      "locked": true
+    },
+    {
+      "forbidden_action": "honeypot_suspected_entry",
+      "locked": true
+    },
+    {
+      "forbidden_action": "averaging_down",
+      "locked": true
+    },
+    {
+      "forbidden_action": "second_rescue_entry",
+      "locked": true
+    },
+    {
+      "forbidden_action": "position_resize_after_entry",
+      "locked": true
+    },
+    {
+      "forbidden_action": "tp_without_fresh_sell_recheck",
+      "locked": true
+    },
+    {
+      "forbidden_action": "stale_evidence_route_permission",
+      "locked": true
+    },
+    {
+      "forbidden_action": "paper_or_live_permission_from_policy_plan",
+      "locked": true
+    },
+    {
+      "forbidden_action": "technical_signal_overrides_execution_gate",
+      "locked": true
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "honeypot_rows": [
+    {
+      "effect": "NO_PROFIT_ASSUMED_UNTIL_SELL_PROVEN",
+      "guard": "honeypot_switch_after_entry",
+      "required_detection": "fresh sell route recheck before TP and after emergency events",
+      "risk": "Sell was available at entry but closes before TP1.",
+      "runtime_now": false
+    },
+    {
+      "effect": "TP1_BLOCKED_IF_SELL_ROUTE_STALE_OR_UNKNOWN",
+      "guard": "sell_recheck_before_tp1",
+      "required_detection": "TP1 cannot execute in future route unless sell route is freshly proven.",
+      "risk": "TP1 price visible but sell simulation may revert.",
+      "runtime_now": false
+    },
+    {
+      "effect": "EXIT_REVIEW_OR_BLOCK",
+      "guard": "tax_switch_guard",
+      "required_detection": "tax_sell_pct must be fresh before staged TP.",
+      "risk": "Tax changes after pump.",
+      "runtime_now": false
+    },
+    {
+      "effect": "NO_ROUTE",
+      "guard": "blacklist_max_tx_max_wallet_switch_guard",
+      "required_detection": "future simulation must detect revert or transfer restriction.",
+      "risk": "Contract behavior changes after entry.",
+      "runtime_now": false
+    }
+  ],
+  "next_phase": "PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+  "outputs": {
+    "capital_risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_capital_at_risk_and_position_size_plan.jsonl",
+    "decision_effect_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_route_decision_effect_matrix.jsonl",
+    "emergency_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_emergency_recheck_trigger_matrix.jsonl",
+    "entry_guard_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_entry_guard_matrix.jsonl",
+    "exit_guard_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_exit_guard_matrix.jsonl",
+    "forbidden_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_forbidden_action_matrix.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_future_asymmetric_route_policy_schema_plan_noapi.sql",
+    "honeypot_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_honeypot_switch_guard_matrix.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6c2_asymmetric_speculative_micro_route_policy_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_asymmetric_speculative_micro_route_policy_plan_noapi.json",
+    "policy_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_asymmetric_route_policy_matrix.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_asymmetric_route_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6c2_asymmetric_speculative_micro_route_policy_plan_noapi_rows.jsonl",
+    "sell_monitor_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_block_based_sell_route_monitor_plan.jsonl",
+    "staged_tp_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_staged_take_profit_policy.jsonl",
+    "time_stop_rows": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441/phase6c2_block_wall_clock_time_stop_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI/20260601_103441"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_entry_required": true,
+    "all_forbidden_locked": true,
+    "all_paper_live_false": true,
+    "all_policy_locked": true,
+    "averaging_down_forbidden": true,
+    "block_wall_time_required": true,
+    "capital_risk_rows_written": true,
+    "capital_rule_count_5": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "decision_effect_rows_written": true,
+    "emergency_rows_written": true,
+    "emergency_trigger_count_10": true,
+    "emergency_triggers_event_ledger": true,
+    "entry_guard_count_10": true,
+    "entry_guard_rows_written": true,
+    "exit_guard_count_8": true,
+    "exit_guard_rows_written": true,
+    "forbidden_count_10": true,
+    "forbidden_rows_written": true,
+    "future_schema_sql_written": true,
+    "hard_block_bypass_forbidden": true,
+    "honeypot_guard_count_4": true,
+    "honeypot_rows_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b2_dependency_ok": true,
+    "phase6b2_json_exists": true,
+    "phase6c_dependency_ok": true,
+    "phase6c_json_exists": true,
+    "phase6c_report_exists": true,
+    "phase6c_rows_exists": true,
+    "policy_count_8": true,
+    "policy_rows_written": true,
+    "policy_sha_match": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "sell_monitor_count_5": true,
+    "sell_monitor_rows_written": true,
+    "staged_tp_count_4": true,
+    "staged_tp_rows_written": true,
+    "time_stop_count_6": true,
+    "time_stop_rows_written": true,
+    "tp_requires_sell_recheck": true
+  },
+  "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b2_ok": true,
+    "phase6c_ok": true,
+    "phase6c_rows_count": 79
+  },
+  "policy_reference": {
+    "checked_count": 1,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "policy_rows": [
+    {
+      "locked": true,
+      "meaning": "High-risk x50-style route is policy-only/review-only now.",
+      "paper_live_allowed_now": false,
+      "policy": "asymmetric_speculative_micro_route_disabled_now",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "No asymmetric route if any hard block exists.",
+      "paper_live_allowed_now": false,
+      "policy": "hard_block_cannot_be_bypassed",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "Sell route must be AVAILABLE and fresh before any review-only route.",
+      "paper_live_allowed_now": false,
+      "policy": "sell_route_available_and_fresh_required",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "TP is not real profit until sell route recheck/simulation is fresh and valid.",
+      "paper_live_allowed_now": false,
+      "policy": "profit_not_real_until_sell_simulation_fresh",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "Max loss and max position must be computed before any future sandbox route.",
+      "paper_live_allowed_now": false,
+      "policy": "tiny_cap_max_loss_required",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "No rescue buy, no averaging down, no second entry.",
+      "paper_live_allowed_now": false,
+      "policy": "single_entry_no_averaging_down",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "Time stop uses blocks_since_entry and seconds_since_entry together.",
+      "paper_live_allowed_now": false,
+      "policy": "block_and_wall_clock_time_stop_required",
+      "runtime_now": false
+    },
+    {
+      "locked": true,
+      "meaning": "Trailing exit follows sell route/liquidity/tax/slippage health, not price alone.",
+      "paper_live_allowed_now": false,
+      "policy": "route_health_trailing_required",
+      "runtime_now": false
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "TP before fresh sell recheck is forbidden.",
+      "risk_id": "HONEYPOT_SWITCH_AT_TP",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Asymmetric route is review-only and cannot bypass hard blocks.",
+      "risk_id": "MICRO_ROUTE_PSYCHOLOGICAL_TRAP",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Capital-at-risk and max-position formula required.",
+      "risk_id": "LOSS_BUDGET_DRIFT",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Averaging down and rescue entries forbidden.",
+      "risk_id": "AVERAGING_DOWN_TRAP",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Block-time and wall-clock stop both required.",
+      "risk_id": "TIME_STOP_WRONG_CLOCK",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Event-ledger emergency triggers bypass periodic cadence in future runtime.",
+      "risk_id": "EMERGENCY_TRIGGER_LATENCY",
+      "severity": "HIGH"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+      "purpose": "Plan DEX-native technical evidence."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+      "purpose": "Plan event-ledger emergency monitor loop."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+      "purpose": "Plan negative memory lookup."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+      "purpose": "Bind all decision rules."
+    },
+    {
+      "db_write_now": false,
+      "order": 5,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB dry-run only after all plan phases.",
+      "temp_db_only": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "asymmetric_route_enabled_now": false,
+    "db_mutation": false,
+    "eth_call_now": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "sell_route_runtime_now": false,
+    "service_timer_mutation": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "sell_monitor_rows": [
+    {
+      "cadence_blocks": 20,
+      "cadence_seconds_hint": 60,
+      "risk_tier": "LOW_RISK_MONITOR",
+      "runtime_now": false
+    },
+    {
+      "cadence_blocks": 5,
+      "cadence_seconds_hint": 15,
+      "risk_tier": "MEDIUM_RISK_MONITOR",
+      "runtime_now": false
+    },
+    {
+      "cadence_blocks": 1,
+      "cadence_seconds_hint": 3,
+      "risk_tier": "HIGH_RISK_MONITOR",
+      "runtime_now": false
+    },
+    {
+      "cadence_blocks": 1,
+      "cadence_seconds_hint": 3,
+      "risk_tier": "TP_ZONE_MONITOR",
+      "runtime_now": false
+    },
+    {
+      "cadence_blocks": 0,
+      "cadence_seconds_hint": 0,
+      "risk_tier": "EMERGENCY_MONITOR",
+      "runtime_now": false
+    }
+  ],
+  "staged_tp_rows": [
+    {
+      "action": "sell route fresh + liquidity fresh + tax fresh required",
+      "condition": "before entry review",
+      "paper_live_now": false,
+      "tp_stage": "TP0_ENTRY_RECHECK"
+    },
+    {
+      "action": "fresh sell simulation required before principal extraction",
+      "condition": "first profit zone in future route",
+      "paper_live_now": false,
+      "tp_stage": "TP1_PRINCIPAL_RISK_REDUCTION"
+    },
+    {
+      "action": "fresh route-health recheck required",
+      "condition": "second profit zone in future route",
+      "paper_live_now": false,
+      "tp_stage": "TP2_PARTIAL_PROFIT"
+    },
+    {
+      "action": "route-health trailing required; price trailing alone forbidden",
+      "condition": "only after principal removed in future route",
+      "paper_live_now": false,
+      "tp_stage": "TP3_TINY_MOONBAG_ONLY"
+    }
+  ],
+  "started_at_utc": "2026-06-01T07:34:41.572527+00:00",
+  "summary": {
+    "all_entry_required": true,
+    "all_forbidden_locked": true,
+    "all_paper_live_false": true,
+    "all_policy_locked": true,
+    "averaging_down_forbidden": true,
+    "block_wall_time_required": true,
+    "capital_rule_count": 5,
+    "emergency_trigger_count": 10,
+    "emergency_triggers_event_ledger": true,
+    "entry_guard_count": 10,
+    "exit_guard_count": 8,
+    "forbidden_count": 10,
+    "hard_block_bypass_forbidden": true,
+    "honeypot_guard_count": 4,
+    "policy_count": 8,
+    "sell_monitor_count": 5,
+    "staged_tp_count": 4,
+    "time_stop_count": 6,
+    "tp_requires_sell_recheck": true
+  },
+  "time_stop_rows": [
+    {
+      "meaning": "Future runtime must record entry block.",
+      "required": true,
+      "stop": "entry_block_required"
+    },
+    {
+      "meaning": "Future runtime must record wall-clock entry timestamp.",
+      "required": true,
+      "stop": "entry_timestamp_required"
+    },
+    {
+      "meaning": "Block-based time stop primary.",
+      "required": true,
+      "stop": "blocks_since_entry_required"
+    },
+    {
+      "meaning": "Wall-clock time stop secondary.",
+      "required": true,
+      "stop": "seconds_since_entry_required"
+    },
+    {
+      "meaning": "If no momentum within planned block window, route review exits.",
+      "required": true,
+      "stop": "no_momentum_after_block_window"
+    },
+    {
+      "meaning": "If block/wall-clock diverge, mark NETWORK_TIMING_RISK.",
+      "required": true,
+      "stop": "network_lag_detected"
+    }
+  ],
+  "warnings": [
+    "ASYMMETRIC_ROUTE_POLICY_PLAN_ONLY_NO_RUNTIME",
+    "ASYMMETRIC_ROUTE_REVIEW_ONLY_NOT_PAPER_OR_LIVE",
+    "HARD_BLOCK_CANNOT_BE_BYPASSED",
+    "TP_REQUIRES_FRESH_SELL_ROUTE_RECHECK",
+    "HONEYPOT_SWITCH_GUARD_PLANNED_NOT_RUNTIME",
+    "BLOCK_AND_WALL_CLOCK_TIME_STOP_REQUIRED",
+    "NO_AVERAGING_DOWN_NO_RESCUE_ENTRY",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

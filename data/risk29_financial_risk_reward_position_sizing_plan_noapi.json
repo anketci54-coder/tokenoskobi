@@ -1,0 +1,500 @@
+{
+  "phase": "RISK29_FINANCIAL_RISK_REWARD_POSITION_SIZING_PLAN_NOAPI",
+  "stamp": "20260513_190454",
+  "final_gate": "PASS",
+  "action": "FINANCIAL_RISK_REWARD_POSITION_SIZING_PLAN_CREATED",
+  "stable_base_ok": true,
+  "risk_engine_purpose": {
+    "name": "Matematiksel Finansal Risk/Ödül ve Position Sizing Motoru",
+    "purpose": "DEX adayları için güvenli giriş miktarı, max kayıp, beklenen net getiri, risk/ödül ve risk-adjusted position size hesap contract'ını planlamak.",
+    "not_purpose": [
+      "Live trade açmak değil",
+      "Kesin fiyat tahmini üretmek değil",
+      "Hard block bypass etmek değil",
+      "Core Lab sinyalini tek başına trade iznine çevirmek değil"
+    ],
+    "first_mode": "paper_dryrun_calculation_contract_only",
+    "live_trade_now": false
+  },
+  "hard_blocks": [
+    "honeypot_confirmed",
+    "sell_route_missing",
+    "sellability_failed",
+    "fake_pair_confirmed",
+    "wrong_pair_or_alias_conflict",
+    "critical_source_conflict",
+    "lp_pull_confirmed",
+    "severe_deployer_rug_history",
+    "severe_holder_concentration",
+    "private_key_or_seed_required",
+    "chain_adapter_not_validated",
+    "risk_lock_active"
+  ],
+  "risk_inputs": [
+    "fusion_score",
+    "confidence_score",
+    "risk_score",
+    "source_truth_score",
+    "wallet_score",
+    "flow_score",
+    "lifecycle_score",
+    "mev_score",
+    "sellability_status",
+    "liquidity_usd",
+    "volume_1h_usd",
+    "tx_1h",
+    "buy_tax_pct",
+    "sell_tax_pct",
+    "gas_cost_usd",
+    "slippage_cost_usd",
+    "expected_mev_cost_usd",
+    "volatility_proxy",
+    "pool_age_minutes",
+    "market_regime_score",
+    "opportunity_class",
+    "pilot_mode",
+    "limit_mode",
+    "capital_base_usd",
+    "daily_budget_usd",
+    "chain_budget_usd",
+    "open_position_exposure_usd"
+  ],
+  "financial_formulas": [
+    {
+      "name": "gross_reward_to_tp1_usd",
+      "formula": "position_size_usd * ((tp1_price - entry_price) / entry_price)"
+    },
+    {
+      "name": "gross_loss_to_sl_usd",
+      "formula": "position_size_usd * ((entry_price - sl_price) / entry_price)"
+    },
+    {
+      "name": "total_cost_usd",
+      "formula": "gas_cost_usd + slippage_cost_usd + mev_cost_usd + buy_tax_usd + sell_tax_usd"
+    },
+    {
+      "name": "expected_net_value_usd",
+      "formula": "(tp_probability * expected_reward_usd) - (sl_probability * expected_loss_usd) - total_cost_usd"
+    },
+    {
+      "name": "risk_reward_ratio",
+      "formula": "expected_net_reward_usd / max_loss_usd"
+    },
+    {
+      "name": "liquidity_adjusted_max_buy_usd",
+      "formula": "liquidity_usd * liquidity_percent_limit"
+    },
+    {
+      "name": "risk_adjusted_multiplier",
+      "formula": "max(min_multiplier, 1 - normalized_risk_score)"
+    },
+    {
+      "name": "risk_adjusted_position_size_usd",
+      "formula": "base_position_size_usd * risk_adjusted_multiplier * confidence_multiplier"
+    },
+    {
+      "name": "final_safe_buy_usd",
+      "formula": "min(fixed_limit, capital_percent_limit, daily_remaining, chain_remaining, liquidity_adjusted_max_buy, risk_adjusted_position_size)"
+    },
+    {
+      "name": "max_loss_pct_of_capital",
+      "formula": "max_loss_usd / capital_base_usd"
+    }
+  ],
+  "position_sizing_rules": [
+    "Hard block varsa işlem yok.",
+    "Sellability verified değilse live/paper auto aday yok; yalnızca watch olabilir.",
+    "Risk yükseldikçe önerilen miktar düşer.",
+    "Fırsat yüksek ama risk orta/yüksek ise tamamen öldürme; küçük/mikro paper size üret.",
+    "Risk yüksek + ödül düşük ise işlem yok.",
+    "Likidite düşükse max safe buy otomatik düşer.",
+    "Slippage/MEV/gas toplam maliyet beklenen kazancı yiyorsa işlem yok.",
+    "SL yoksa işlem yok.",
+    "En az TP1 yoksa işlem yok.",
+    "Manuel Pilot eşiği Otomatik Pilot’tan daha düşük olabilir ama hard block bypass edemez.",
+    "Otomatik Pilot daha yüksek fusion/confidence eşiği ister.",
+    "Otomatik Pilot için günlük/zincir/token/toplam açık pozisyon limitleri zorunludur.",
+    "Vur Kaç için sadece TP1, küçük miktar, sıkı SL ve max holding time zorunludur.",
+    "Outcome olmadan AI başarı iddiası yapılamaz."
+  ],
+  "risk_bands": [
+    {
+      "band": "LOW_RISK",
+      "risk_score_min": 0,
+      "risk_score_max": 25,
+      "size_multiplier": 1.0,
+      "action": "normal_small_paper_size"
+    },
+    {
+      "band": "MEDIUM_RISK",
+      "risk_score_min": 26,
+      "risk_score_max": 50,
+      "size_multiplier": 0.5,
+      "action": "reduced_paper_size"
+    },
+    {
+      "band": "HIGH_RISK",
+      "risk_score_min": 51,
+      "risk_score_max": 75,
+      "size_multiplier": 0.15,
+      "action": "micro_size_or_watch"
+    },
+    {
+      "band": "EXTREME_RISK",
+      "risk_score_min": 76,
+      "risk_score_max": 100,
+      "size_multiplier": 0.0,
+      "action": "reject_or_watch_only"
+    },
+    {
+      "band": "HARD_BLOCK",
+      "risk_score_min": null,
+      "risk_score_max": null,
+      "size_multiplier": 0.0,
+      "action": "no_trade"
+    }
+  ],
+  "opportunity_class_sizing": [
+    {
+      "class": "FUTURE_STAR",
+      "tp_mode": "TP_LADDER",
+      "size_policy": "normal_small_if_risk_ok",
+      "max_holding_required": false
+    },
+    {
+      "class": "SMALL_STAR",
+      "tp_mode": "TP_LADDER",
+      "size_policy": "small_to_normal_paper",
+      "max_holding_required": false
+    },
+    {
+      "class": "WATCH_ONLY",
+      "tp_mode": "NONE",
+      "size_policy": "zero",
+      "max_holding_required": false
+    },
+    {
+      "class": "PAPER_CANDIDATE",
+      "tp_mode": "TP_LADDER",
+      "size_policy": "risk_adjusted_paper",
+      "max_holding_required": false
+    },
+    {
+      "class": "VUR_KAC",
+      "tp_mode": "SINGLE_TP",
+      "size_policy": "micro_or_small_only",
+      "max_holding_required": true
+    },
+    {
+      "class": "EXIT_FAST_CANDIDATE",
+      "tp_mode": "SINGLE_TP",
+      "size_policy": "micro_only",
+      "max_holding_required": true
+    },
+    {
+      "class": "MORGUE_REVIEW",
+      "tp_mode": "NONE",
+      "size_policy": "zero",
+      "max_holding_required": false
+    }
+  ],
+  "pilot_thresholds": {
+    "MANUEL_PILOT": {
+      "min_fusion_score": 60,
+      "min_confidence_score": 55,
+      "max_risk_score": 65,
+      "hard_block_allowed": false,
+      "requires_user_confirmation": true,
+      "live_trade_now": false
+    },
+    "OTOMATIK_PILOT": {
+      "min_fusion_score": 82,
+      "min_confidence_score": 75,
+      "max_risk_score": 35,
+      "hard_block_allowed": false,
+      "requires_user_confirmation": false,
+      "paper_dryrun_only_now": true,
+      "live_trade_now": false
+    }
+  },
+  "limit_modes": [
+    {
+      "mode": "fixed_amount_usd",
+      "description": "Token başına sabit maksimum para limiti."
+    },
+    {
+      "mode": "capital_percent",
+      "description": "Toplam sermayenin yüzdesine göre limit."
+    },
+    {
+      "mode": "daily_budget_percent",
+      "description": "Günlük bütçenin yüzdesine göre limit."
+    },
+    {
+      "mode": "chain_budget_percent",
+      "description": "Zincir bazlı bütçenin yüzdesine göre limit."
+    },
+    {
+      "mode": "liquidity_percent",
+      "description": "Pool likiditesinin küçük yüzdesine göre max safe buy."
+    },
+    {
+      "mode": "risk_adjusted_dynamic",
+      "description": "Risk skoru yükseldikçe dinamik düşen limit."
+    }
+  ],
+  "vur_kac_risk_rules": [
+    "Vur Kaç TP1-only çalışır.",
+    "Vur Kaç için TP2/TP3 yok.",
+    "Vur Kaç için max holding time zorunlu.",
+    "Vur Kaç için tight SL zorunlu.",
+    "Vur Kaç için küçük/mikro position size zorunlu.",
+    "Vur Kaç için slippage/MEV maliyeti düşük olmalı.",
+    "Vur Kaç için sellability verified olmalı.",
+    "Vur Kaç timeout olursa çıkış/close outcome label üretilir.",
+    "Vur Kaç risk stop alırsa işlem uzatılmaz.",
+    "Vur Kaç otomatik büyük alım yapamaz."
+  ],
+  "chain_specific_risk_rules": [
+    {
+      "chain": "Base",
+      "family": "EVM",
+      "risk_focus": [
+        "liquidity_depth",
+        "new_pair_age",
+        "aerodrome_uniswap_pool_slippage",
+        "mev_exposure",
+        "gas_cost"
+      ]
+    },
+    {
+      "chain": "BSC",
+      "family": "EVM",
+      "risk_focus": [
+        "honeypot_tax",
+        "deployer_rug_history",
+        "pancakeswap_liquidity",
+        "fake_volume",
+        "holder_concentration"
+      ]
+    },
+    {
+      "chain": "Ethereum",
+      "family": "EVM",
+      "risk_focus": [
+        "high_gas_cost",
+        "mev_sandwich",
+        "uniswap_pool_depth",
+        "net_reward_after_cost",
+        "slippage"
+      ]
+    },
+    {
+      "chain": "Solana",
+      "family": "Solana",
+      "risk_focus": [
+        "route_slippage",
+        "priority_fee",
+        "jupiter_quote_validity",
+        "pool_age",
+        "creator_wallet_risk"
+      ]
+    }
+  ],
+  "cost_components": [
+    "gas_cost_usd",
+    "priority_fee_usd",
+    "buy_tax_usd",
+    "sell_tax_usd",
+    "slippage_cost_usd",
+    "mev_cost_usd",
+    "route_fee_usd",
+    "failed_tx_cost_usd",
+    "opportunity_cost_note"
+  ],
+  "ai_outcome_calibration_fields": [
+    "planned_entry_price",
+    "actual_entry_price",
+    "planned_position_size_usd",
+    "actual_position_size_usd",
+    "planned_sl_price",
+    "actual_sl_price",
+    "planned_tp1_price",
+    "actual_tp1_price",
+    "planned_cost_usd",
+    "actual_cost_usd",
+    "planned_max_loss_usd",
+    "actual_max_loss_usd",
+    "planned_risk_reward_ratio",
+    "actual_risk_reward_ratio",
+    "planned_expected_net_value_usd",
+    "actual_net_pnl_usd",
+    "sizing_error_pct",
+    "cost_underestimate_pct",
+    "slippage_underestimate_pct",
+    "mev_underestimate_pct",
+    "risk_model_label",
+    "position_sizing_label"
+  ],
+  "future_tables_plan": [
+    {
+      "table": "financial_risk_reward_plans_v1",
+      "purpose": "Her aday için risk/ödül ve EV planı",
+      "apply_now": false
+    },
+    {
+      "table": "position_sizing_decisions_v1",
+      "purpose": "Önerilen güvenli miktar ve nedenleri",
+      "apply_now": false
+    },
+    {
+      "table": "candidate_cost_estimates_v1",
+      "purpose": "Gas/slippage/MEV/tax maliyet tahminleri",
+      "apply_now": false
+    },
+    {
+      "table": "risk_band_assignments_v1",
+      "purpose": "LOW/MED/HIGH/EXTREME risk band kayıtları",
+      "apply_now": false
+    },
+    {
+      "table": "pilot_threshold_decisions_v1",
+      "purpose": "Manuel/Otomatik Pilot eşik kararları",
+      "apply_now": false
+    },
+    {
+      "table": "vur_kac_sizing_rules_v1",
+      "purpose": "TP1-only Vur Kaç miktar ve süre kuralları",
+      "apply_now": false
+    },
+    {
+      "table": "risk_reward_outcome_calibration_v1",
+      "purpose": "Planlanan vs gerçekleşen outcome karşılaştırması",
+      "apply_now": false
+    },
+    {
+      "table": "risk_model_error_events_v1",
+      "purpose": "Yanlış risk/ödül veya maliyet tahmini olayları",
+      "apply_now": false
+    }
+  ],
+  "quality_rules": [
+    "Hard block varsa final_safe_buy_usd=0 olur.",
+    "Expected net value negatifse işlem yok veya watch-only olur.",
+    "Gas/slippage/MEV/tax maliyeti beklenen TP1 kazancını yerse işlem yok olur.",
+    "Vur Kaç her zaman TP1-only kalır.",
+    "Vur Kaç max holding time olmadan işlem adayı olmaz.",
+    "Risk yükseldikçe size multiplier düşer.",
+    "Otomatik Pilot manuelden daha sıkı eşik kullanır.",
+    "Live trade bu fazda açılmaz.",
+    "Risk/ödül planı outcome ile kalibre edilmeden başarı iddiası yapılmaz.",
+    "Core Lab risk gate override edemez.",
+    "Müşteriye görünen miktar öneridir, kullanıcı kendi seçimini yapar.",
+    "Private key/seed veya müşteri parası bu modülde tutulmaz."
+  ],
+  "quality_checks": {
+    "stable_base_ok": true,
+    "hard_block_count_ok": true,
+    "risk_input_count_ok": true,
+    "financial_formula_count_ok": true,
+    "position_sizing_rule_count_ok": true,
+    "risk_band_count_ok": true,
+    "opportunity_class_sizing_count_ok": true,
+    "pilot_thresholds_ready": true,
+    "auto_threshold_stricter_than_manual": true,
+    "limit_mode_count_ok": true,
+    "vur_kac_rule_count_ok": true,
+    "chain_specific_rules_count_ok": true,
+    "cost_component_count_ok": true,
+    "ai_outcome_calibration_field_count_ok": true,
+    "future_table_count_ok": true,
+    "quality_rule_count_ok": true,
+    "live_trade_disabled": true,
+    "schema_apply_disabled": true,
+    "panel_apply_disabled": true,
+    "builder_code_write_disabled": true
+  },
+  "decision": {
+    "financial_risk_reward_plan_ready": true,
+    "position_sizing_plan_ready": true,
+    "safe_amount_calculation_ready": true,
+    "vur_kac_sizing_ready": true,
+    "manual_auto_thresholds_ready": true,
+    "cost_model_contract_ready": true,
+    "ai_outcome_calibration_ready": true,
+    "hard_block_zero_trade_rule_ready": true,
+    "live_trade_enabled_now": false,
+    "db_schema_apply_now": false,
+    "panel_apply_now": false,
+    "builder_code_write_now": false,
+    "recommended_next_phase": "DATA35_PANEL_BUILDER_CODE_WRITE_APPLY_PLAN_NOAPI",
+    "alternate_next_phase": "OPS28_AI_BUSINESS_AGENTS_ROADMAP_PLAN_NOAPI"
+  },
+  "hard_block_count": 12,
+  "risk_input_count": 27,
+  "financial_formula_count": 10,
+  "position_sizing_rule_count": 14,
+  "risk_band_count": 5,
+  "opportunity_class_sizing_count": 7,
+  "limit_mode_count": 6,
+  "vur_kac_rule_count": 10,
+  "chain_specific_rule_count": 4,
+  "cost_component_count": 9,
+  "ai_outcome_calibration_field_count": 22,
+  "future_table_count": 8,
+  "quality_rule_count": 12,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "APPENDED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "external_network": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "builder_code_written": false,
+  "target_file_written": false,
+  "panel_data_written": false,
+  "panel_data_file_written": false,
+  "public_copy": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "DATA35_PANEL_BUILDER_CODE_WRITE_APPLY_PLAN_NOAPI",
+  "alternate_next_phase": "OPS28_AI_BUSINESS_AGENTS_ROADMAP_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_RISK29_FINANCIAL_RISK_REWARD_POSITION_SIZING_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/risk29_financial_risk_reward_position_sizing_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

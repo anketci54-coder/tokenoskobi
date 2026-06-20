@@ -1,0 +1,114 @@
+{
+  "contract_schema": "coinoskobi_maintenance_bundle_contract_v1",
+  "phase": "PHASE32B_MAINTENANCE_STATE_READER_AND_BUNDLE_CONTRACT_NOAPI",
+  "created_utc": "2026-06-08T18:53:49.252514+00:00",
+  "purpose": "Produce safe maintenance context for future AI/proposal workflows without exposing secrets or slowing Fast Path.",
+  "bundle_name": "maintenance_context_bundle_runtime_v1",
+  "source_priority": [
+    "/root/tokenoskobi_clean_v1/state/CURRENT_STATE.json",
+    "/root/tokenoskobi_clean_v1/state/NEXT_ACTION.md",
+    "/root/tokenoskobi_clean_v1/state/HARD_RULES.md",
+    "/root/tokenoskobi_clean_v1/state/ROADMAP_CURRENT.json",
+    "/root/tokenoskobi_clean_v1/state/LAST_GOOD_CHECKPOINT.json",
+    "/root/tokenoskobi_clean_v1/state/MAINTENANCE_CONTEXT_BUNDLE.json",
+    "/root/tokenoskobi_clean_v1/reports/LATEST_*.md",
+    "/root/tokenoskobi_clean_v1/data/*phase*.json"
+  ],
+  "include_sections": [
+    "current_state_summary",
+    "next_action",
+    "hard_rules_summary",
+    "roadmap_current",
+    "last_good_checkpoint",
+    "recent_phase_gates",
+    "failed_checks",
+    "protected_hashes",
+    "service_timer_status",
+    "live_db_readonly_health",
+    "rollback_registry_references",
+    "open_next_phase"
+  ],
+  "exclude_sections": [
+    "environment_variables",
+    "shell_history",
+    "auth_files",
+    "private_keys",
+    "api_keys",
+    "tokens",
+    "passwords",
+    "wallet_seed",
+    "wallet_private_key",
+    "basic_auth_password",
+    "netrc",
+    "ssh_private_keys"
+  ],
+  "ai_allowed_to_receive": [
+    "phase names",
+    "final gates",
+    "failed check names",
+    "file paths without secrets",
+    "hashes",
+    "state summaries",
+    "contracts",
+    "reports",
+    "safe snippets",
+    "next phase instruction"
+  ],
+  "ai_forbidden_to_receive": [
+    "API keys",
+    "private keys",
+    "passwords",
+    "wallet seed",
+    "wallet private key",
+    "raw auth headers",
+    "cookies",
+    "session tokens",
+    "bearer tokens",
+    "full .env contents",
+    "full shell history"
+  ],
+  "ai_allowed_actions": [
+    "summarize",
+    "classify",
+    "propose",
+    "draft dry-run plan",
+    "draft validator checks",
+    "identify risk",
+    "suggest rollback requirements"
+  ],
+  "ai_forbidden_actions": [
+    "apply changes",
+    "write live DB",
+    "patch runner",
+    "write active panel",
+    "restart service",
+    "enable timer",
+    "open live trade",
+    "connect wallet",
+    "sign transaction",
+    "weaken hard block",
+    "ignore risk gate"
+  ],
+  "fast_path_isolation": {
+    "bundle_generation_runs_inside_fast_path": false,
+    "ai_call_inside_fast_path": false,
+    "fast_path_waits_for_bundle": false,
+    "fast_path_waits_for_ai": false,
+    "fast_path_allowed_read": "compact state only in later phase"
+  },
+  "redaction_required": true,
+  "secret_scan_required": true,
+  "output_format": {
+    "json": "maintenance_context_bundle_runtime_v1.json",
+    "jsonl": "maintenance_context_bundle_runtime_v1_rows.jsonl",
+    "markdown": "maintenance_context_bundle_runtime_v1.md"
+  },
+  "source_state_snapshot": {
+    "last_successful_phase": "PHASE31F1",
+    "phase31_closed": true,
+    "next_target_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+    "checkpoint_phase": "PHASE31F1",
+    "roadmap_next_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+    "bundle_next_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI"
+  }
+}

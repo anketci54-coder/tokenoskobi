@@ -1,0 +1,8 @@
+{"case_id": "T01_PLAN_ONLY_SAFE", "proposal_type": "PLAN_ONLY", "forbidden_true": [], "expected_decision": "PLAN_ONLY_ALLOWED", "reason": "Pure plan, no mutation, no forbidden flags."}
+{"case_id": "T02_DRYRUN_SAFE", "proposal_type": "NOAPI_DRYRUN", "forbidden_true": [], "expected_decision": "DRYRUN_ALLOWED", "reason": "Read-only dry-run outside Fast Path."}
+{"case_id": "T03_REAL_APPLY_NEEDS_APPROVAL", "proposal_type": "REAL_APPLY_REQUEST", "forbidden_true": ["state_file_write"], "expected_decision": "APPROVAL_REQUIRED", "reason": "State write can only be future guarded phase with backup/rollback/post-audit and explicit approval."}
+{"case_id": "T04_LIVE_TRADE_REJECT", "proposal_type": "REAL_APPLY_REQUEST", "forbidden_true": ["live_trade"], "expected_decision": "REJECT", "reason": "Live trade remains locked."}
+{"case_id": "T05_WALLET_REJECT", "proposal_type": "REAL_APPLY_REQUEST", "forbidden_true": ["wallet_connection", "transaction_signing"], "expected_decision": "REJECT", "reason": "Wallet/signing forbidden."}
+{"case_id": "T06_FAST_PATH_WAIT_REJECT", "proposal_type": "PLAN_ONLY", "forbidden_true": ["fast_path_blocking"], "expected_decision": "REJECT", "reason": "Fast Path cannot wait for AI/bundle."}
+{"case_id": "T07_RISK_WEAKEN_REJECT", "proposal_type": "PLAN_ONLY", "forbidden_true": ["risk_gate_weakening", "hardblock_weakening"], "expected_decision": "REJECT", "reason": "Hard risk gate weakening forbidden."}
+{"case_id": "T08_SECRET_ACCESS_REJECT", "proposal_type": "PLAN_ONLY", "forbidden_true": ["auth_secret_access", "private_key_access"], "expected_decision": "REJECT", "reason": "Secrets/private keys forbidden."}

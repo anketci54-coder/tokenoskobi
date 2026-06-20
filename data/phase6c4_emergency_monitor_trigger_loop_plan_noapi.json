@@ -1,0 +1,655 @@
+{
+  "action_rows": [
+    {
+      "action": "immediate_sell_route_recheck_plan",
+      "effect": "sell_route_status becomes RECHECK_REQUIRED until fresh proof exists",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_liquidity_and_sell_route_recheck_plan",
+      "effect": "liquidity and sell route freshness invalidated",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "emergency_route_block_review_plan",
+      "effect": "route status becomes EMERGENCY_REVIEW_REQUIRED / NO_ROUTE",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_exit_liquidity_recheck_plan",
+      "effect": "exit liquidity must be refreshed before review route",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_whale_risk_recheck_plan",
+      "effect": "holder/whale risk state becomes RECHECK_REQUIRED",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_route_health_recheck_plan",
+      "effect": "route health state becomes RECHECK_REQUIRED",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_tax_and_sell_route_recheck_plan",
+      "effect": "tax/sell route state becomes RECHECK_REQUIRED",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_slippage_recheck_plan",
+      "effect": "slippage and max size become RECHECK_REQUIRED",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_max_size_recheck_plan",
+      "effect": "position cap must be recomputed before route review",
+      "eth_call_now": false,
+      "runtime_now": false
+    },
+    {
+      "action": "immediate_protected_route_status_recheck_plan",
+      "effect": "protected route missing may block asymmetric review",
+      "eth_call_now": false,
+      "runtime_now": false
+    }
+  ],
+  "cadence_rows": [
+    {
+      "bypassed_by_emergency": true,
+      "cadence_blocks": 20,
+      "cadence_seconds_hint": 60,
+      "mode": "PERIODIC_LOW",
+      "runtime_now": false
+    },
+    {
+      "bypassed_by_emergency": true,
+      "cadence_blocks": 5,
+      "cadence_seconds_hint": 15,
+      "mode": "PERIODIC_MEDIUM",
+      "runtime_now": false
+    },
+    {
+      "bypassed_by_emergency": true,
+      "cadence_blocks": 1,
+      "cadence_seconds_hint": 3,
+      "mode": "PERIODIC_HIGH",
+      "runtime_now": false
+    },
+    {
+      "bypassed_by_emergency": true,
+      "cadence_blocks": 1,
+      "cadence_seconds_hint": 3,
+      "mode": "TP_ZONE",
+      "runtime_now": false
+    },
+    {
+      "bypassed_by_emergency": false,
+      "cadence_blocks": 0,
+      "cadence_seconds_hint": 0,
+      "mode": "EMERGENCY",
+      "runtime_now": false
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "dedupe_rows": [
+    {
+      "locked": true,
+      "meaning": "Same trigger/token/block/action must not spam repeated work.",
+      "rule": "idempotency_key_required"
+    },
+    {
+      "locked": true,
+      "meaning": "Burst triggers coalesce per token unless severity escalates.",
+      "rule": "per_token_emergency_cooldown_plan"
+    },
+    {
+      "locked": true,
+      "meaning": "LP removal/sell route anomaly overrides cooldown.",
+      "rule": "severity_escalation_overrides_cooldown"
+    },
+    {
+      "locked": true,
+      "meaning": "Failed future recheck must be auditable.",
+      "rule": "dead_letter_for_failed_recheck_plan"
+    },
+    {
+      "locked": true,
+      "meaning": "Future runtime cannot exhaust RPC budget from trigger storm.",
+      "rule": "rate_limit_rpc_budget_guard_plan"
+    },
+    {
+      "locked": true,
+      "meaning": "Emergency events outrank normal technical/bulk events.",
+      "rule": "priority_queue_required"
+    }
+  ],
+  "event_source_rows": [
+    {
+      "requires_token_uid_binding": true,
+      "runtime_now": false,
+      "source_table_family": "future_deployer_owner_events",
+      "trigger_scope": "deployer_transfer owner_wallet_move"
+    },
+    {
+      "requires_token_uid_binding": true,
+      "runtime_now": false,
+      "source_table_family": "future_lp_liquidity_events",
+      "trigger_scope": "lp_transfer lp_remove liquidity_drop"
+    },
+    {
+      "requires_token_uid_binding": true,
+      "runtime_now": false,
+      "source_table_family": "future_holder_whale_events",
+      "trigger_scope": "top_holder_transfer whale_sell"
+    },
+    {
+      "requires_token_uid_binding": true,
+      "runtime_now": false,
+      "source_table_family": "future_execution_safety_events",
+      "trigger_scope": "tax_change_signal sell_route_anomaly slippage_spike price_impact_spike"
+    },
+    {
+      "requires_token_uid_binding": true,
+      "runtime_now": false,
+      "source_table_family": "future_protected_route_events",
+      "trigger_scope": "protected_route_unavailable"
+    }
+  ],
+  "failed_checks": [],
+  "failure_rows": [
+    {
+      "effect": "IGNORE_OR_REVIEW_NO_ROUTE",
+      "failure_mode": "trigger_without_token_binding",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "effect": "DEDUPE_OR_AGING_ONLY",
+      "failure_mode": "trigger_stale_or_duplicate",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA_RECHECK_REQUIRED",
+      "failure_mode": "recheck_budget_exhausted",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "effect": "BLOCKED_BY_RISK",
+      "failure_mode": "sell_route_recheck_failed",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "effect": "BLOCKED_BY_RISK",
+      "failure_mode": "liquidity_recheck_failed",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "failure_mode": "event_source_ambiguous",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "effect": "EMERGENCY_REVIEW_REQUIRED",
+      "failure_mode": "priority_queue_overflow",
+      "route_permission": "NO_ROUTE"
+    }
+  ],
+  "final_gate": "PASS_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T07:43:41.650008+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+  "outputs": {
+    "action_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_immediate_action_matrix.jsonl",
+    "cadence_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_periodic_bypass_and_cadence_policy.jsonl",
+    "dedupe_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_dedupe_and_rate_limit_policy.jsonl",
+    "event_source_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_event_ledger_source_contract.jsonl",
+    "failure_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_failure_mode_policy.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_future_emergency_monitor_trigger_loop_schema_plan_noapi.sql",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6c4_emergency_monitor_trigger_loop_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_emergency_monitor_trigger_loop_plan_noapi.json",
+    "priority_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_priority_lane_policy.jsonl",
+    "readmodel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_readmodel_binding_plan.jsonl",
+    "recheck_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_route_health_recheck_contract.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_emergency_monitor_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6c4_emergency_monitor_trigger_loop_plan_noapi_rows.jsonl",
+    "trigger_rows": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341/phase6c4_emergency_trigger_contract.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI/20260601_104341"
+  },
+  "pass_conditions": {
+    "action_count_10": true,
+    "action_rows_written": true,
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_actions_no_eth_call": true,
+    "all_dedupe_locked": true,
+    "all_failures_no_route": true,
+    "all_rechecks_no_eth_call": true,
+    "all_triggers_bypass_periodic": true,
+    "all_triggers_event_ledger": true,
+    "all_triggers_runtime_false": true,
+    "cadence_count_5": true,
+    "cadence_rows_written": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "dedupe_rows_written": true,
+    "dedupe_rule_count_6": true,
+    "emergency_cadence_zero": true,
+    "event_source_count_5": true,
+    "event_source_rows_written": true,
+    "failure_mode_count_7": true,
+    "failure_rows_written": true,
+    "future_schema_sql_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "lp_remove_blocks_route": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b2_dependency_ok": true,
+    "phase6b2_json_exists": true,
+    "phase6c2_dependency_ok": true,
+    "phase6c2_json_exists": true,
+    "phase6c3_dependency_ok": true,
+    "phase6c3_json_exists": true,
+    "phase6c3_report_exists": true,
+    "phase6c3_rows_exists": true,
+    "policy_sha_match": true,
+    "priority_lane_count_5": true,
+    "priority_p0_can_preempt": true,
+    "priority_rows_written": true,
+    "readmodel_binding_count_6": true,
+    "readmodel_binding_rows_written": true,
+    "recheck_count_8": true,
+    "recheck_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "sell_route_anomaly_emergency": true,
+    "trigger_count_12": true,
+    "trigger_rows_written": true
+  },
+  "phase": "PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b2_ok": true,
+    "phase6c2_ok": true,
+    "phase6c3_ok": true,
+    "phase6c3_rows_count": 86
+  },
+  "policy_reference": {
+    "checked_count": 2,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "priority_rows": [
+    {
+      "can_preempt_bulk_writes": true,
+      "lane": "P0_EMERGENCY_ROUTE_HEALTH",
+      "meaning": "sell route anomaly, lp_remove, tax change, liquidity collapse",
+      "priority": 0,
+      "runtime_now": false
+    },
+    {
+      "can_preempt_bulk_writes": true,
+      "lane": "P1_HIGH_RISK_WALLET_LIQUIDITY",
+      "meaning": "deployer/owner/whale/top holder/LP transfer",
+      "priority": 1,
+      "runtime_now": false
+    },
+    {
+      "can_preempt_bulk_writes": true,
+      "lane": "P2_EXECUTION_DEGRADATION",
+      "meaning": "slippage spike, price impact spike, protected route unavailable",
+      "priority": 2,
+      "runtime_now": false
+    },
+    {
+      "can_preempt_bulk_writes": false,
+      "lane": "P3_NORMAL_TECHNICAL_CONTEXT",
+      "meaning": "normal DEX microstructure updates",
+      "priority": 3,
+      "runtime_now": false
+    },
+    {
+      "can_preempt_bulk_writes": false,
+      "lane": "P4_BULK_BACKFILL_OR_LOW_PRIORITY",
+      "meaning": "historical/bulk/non-urgent writes",
+      "priority": 4,
+      "runtime_now": false
+    }
+  ],
+  "readmodel_binding_rows": [
+    {
+      "apply_now": false,
+      "field": "emergency_status",
+      "readmodel_table": "state_aggregated_token_readmodel_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "route_health_recheck_required",
+      "readmodel_table": "state_aggregated_token_readmodel_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "last_emergency_trigger",
+      "readmodel_table": "state_aggregated_token_readmodel_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "last_emergency_block",
+      "readmodel_table": "state_aggregated_token_readmodel_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "next_required_emergency_recheck",
+      "readmodel_table": "state_aggregated_token_missing_evidence_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "emergency_decision_effect",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    }
+  ],
+  "recheck_rows": [
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "sell_route_recheck",
+      "required_by": "deployer_transfer owner_wallet_move lp_transfer lp_remove tax_change_signal sell_route_anomaly"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "liquidity_recheck",
+      "required_by": "lp_transfer lp_remove liquidity_drop"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "exit_liquidity_recheck",
+      "required_by": "liquidity_drop whale_sell lp_remove"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "tax_recheck",
+      "required_by": "tax_change_signal sell_route_anomaly"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "slippage_recheck",
+      "required_by": "slippage_spike price_impact_spike liquidity_drop"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "max_position_size_recompute",
+      "required_by": "liquidity_drop slippage_spike price_impact_spike"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "protected_route_recheck",
+      "required_by": "protected_route_unavailable"
+    },
+    {
+      "eth_call_now": false,
+      "freshness_required": true,
+      "recheck": "negative_memory_recheck",
+      "required_by": "deployer_transfer owner_wallet_move top_holder_transfer"
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "Trigger source must be event_ledger with token binding.",
+      "risk_id": "EMERGENCY_TRIGGER_WITHOUT_LISTENER",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Dedupe, cooldown, priority queue and RPC budget guard planned.",
+      "risk_id": "TRIGGER_STORM_RPC_EXHAUSTION",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Emergency trigger bypasses periodic cadence.",
+      "risk_id": "PERIODIC_DELAY_DURING_HONEYPOT_SWITCH",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "No route permission if trigger cannot bind to token/pair.",
+      "risk_id": "AMBIGUOUS_EVENT_SOURCE",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "LP remove maps to emergency route block review.",
+      "risk_id": "LP_REMOVE_AFTER_ENTRY",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Sell-route anomaly is P0 emergency trigger.",
+      "risk_id": "SELL_ROUTE_ANOMALY_IGNORED",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "P0/P1 priority lanes outrank bulk writes.",
+      "risk_id": "EVENT_LEDGER_BACKLOG",
+      "severity": "HIGH"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+      "purpose": "Plan negative memory lookup after emergency trigger loop."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+      "purpose": "Bind stale, threshold, asymmetric, technical, emergency and memory rules."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+      "purpose": "Plan command center output contract."
+    },
+    {
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB schema dry-run only after all plan phases.",
+      "temp_db_only": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "asymmetric_route_enabled_now": false,
+    "db_mutation": false,
+    "emergency_monitor_runtime_now": false,
+    "eth_call_now": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "technical_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T07:43:41.608208+00:00",
+  "summary": {
+    "action_count": 10,
+    "all_actions_no_eth_call": true,
+    "all_dedupe_locked": true,
+    "all_failures_no_route": true,
+    "all_triggers_bypass_periodic": true,
+    "all_triggers_event_ledger": true,
+    "cadence_count": 5,
+    "dedupe_rule_count": 6,
+    "emergency_cadence_zero": true,
+    "event_source_count": 5,
+    "failure_mode_count": 7,
+    "lp_remove_blocks_route": true,
+    "priority_lane_count": 5,
+    "priority_p0_can_preempt": true,
+    "readmodel_binding_count": 6,
+    "recheck_count": 8,
+    "sell_route_anomaly_emergency": true,
+    "trigger_count": 12
+  },
+  "trigger_rows": [
+    {
+      "action": "immediate_sell_route_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "deployer_transfer"
+    },
+    {
+      "action": "immediate_sell_route_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "owner_wallet_move"
+    },
+    {
+      "action": "immediate_liquidity_and_sell_route_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "lp_transfer"
+    },
+    {
+      "action": "emergency_route_block_review_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "lp_remove"
+    },
+    {
+      "action": "immediate_exit_liquidity_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "liquidity_drop"
+    },
+    {
+      "action": "immediate_whale_risk_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "top_holder_transfer"
+    },
+    {
+      "action": "immediate_route_health_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "whale_sell"
+    },
+    {
+      "action": "immediate_tax_and_sell_route_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "tax_change_signal"
+    },
+    {
+      "action": "emergency_route_block_review_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "sell_route_anomaly"
+    },
+    {
+      "action": "immediate_slippage_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "slippage_spike"
+    },
+    {
+      "action": "immediate_max_size_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "price_impact_spike"
+    },
+    {
+      "action": "immediate_protected_route_status_recheck_plan",
+      "bypass_periodic": true,
+      "priority": "EMERGENCY",
+      "runtime_now": false,
+      "source": "event_ledger",
+      "trigger": "protected_route_unavailable"
+    }
+  ],
+  "warnings": [
+    "EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_ONLY_NO_RUNTIME",
+    "EVENT_LEDGER_SOURCE_REQUIRED_FOR_ALL_TRIGGERS",
+    "EMERGENCY_TRIGGERS_BYPASS_PERIODIC_CADENCE_IN_FUTURE_RUNTIME",
+    "NO_ETH_CALL_OR_RPC_NOW",
+    "DEDUPE_AND_RATE_LIMIT_REQUIRED_BEFORE_RUNTIME",
+    "LP_REMOVE_AND_SELL_ROUTE_ANOMALY_ARE_EMERGENCY_BLOCK_REVIEW_TRIGGERS",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

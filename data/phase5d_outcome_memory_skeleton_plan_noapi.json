@@ -1,0 +1,891 @@
+{
+  "base_counts": {
+    "center_signal_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "deployer_wallet_events": 0,
+    "fusion_score_events_v1": 0,
+    "holder_distribution_events": 0,
+    "holder_snapshots": 0,
+    "life_gate_decisions": 0,
+    "liquidity_snapshots": 46,
+    "live_data_quality_events": 99,
+    "market_snapshots": 46,
+    "outcome_memory_events_v1": 0,
+    "outcome_memory_events_v2": null,
+    "pairs": 19,
+    "paper_trade_executions": 0,
+    "paper_trade_outcomes": 0,
+    "paper_trade_plans": 2,
+    "paper_trade_positions": 0,
+    "tokens": 19
+  },
+  "db_error": null,
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "existing_future_columns": {
+    "model_feedback_candidate_events_v1": [],
+    "negative_memory_guard_events_v1": [],
+    "outcome_lesson_events_v1": [],
+    "outcome_memory_events_v2": [],
+    "outcome_observation_window_events_v1": [],
+    "replay_case_registry_v1": [],
+    "route_performance_memory_events_v1": [],
+    "token_lifecycle_autopsy_events_v1": []
+  },
+  "existing_future_tables": {
+    "model_feedback_candidate_events_v1": false,
+    "negative_memory_guard_events_v1": false,
+    "outcome_lesson_events_v1": false,
+    "outcome_memory_events_v2": false,
+    "outcome_observation_window_events_v1": false,
+    "replay_case_registry_v1": false,
+    "route_performance_memory_events_v1": false,
+    "token_lifecycle_autopsy_events_v1": false
+  },
+  "expected": {
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "phase5c2_gate": "PASS_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI",
+    "phase5c2_next": "PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+    "policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84"
+  },
+  "failed_checks": [],
+  "failed_phase5c2_checks": [],
+  "final_gate": "PASS_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+  "finished_at_utc": "2026-05-31T21:01:02.460917+00:00",
+  "future_schema": [
+    {
+      "fields": [
+        "outcome_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "linked_decision_uid TEXT",
+        "linked_preflight_uid TEXT",
+        "linked_paper_decision_uid TEXT",
+        "outcome_label TEXT NOT NULL",
+        "outcome_window TEXT NOT NULL",
+        "pnl_pct REAL",
+        "max_runup_pct REAL",
+        "max_drawdown_pct REAL",
+        "liquidity_change_pct REAL",
+        "evidence_hash TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Paper/decision sonrası outcome etiketleri için ana append-only hafıza tablosu.",
+      "table": "outcome_memory_events_v2"
+    },
+    {
+      "fields": [
+        "observation_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "linked_decision_uid TEXT",
+        "window_label TEXT NOT NULL",
+        "window_start_ts_utc TEXT NOT NULL",
+        "window_end_ts_utc TEXT NOT NULL",
+        "price_change_pct REAL",
+        "max_runup_pct REAL",
+        "max_drawdown_pct REAL",
+        "volume_change_pct REAL",
+        "liquidity_change_pct REAL",
+        "observation_quality TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "5m/15m/1h/4h/24h gibi gözlem pencerelerini outcome öncesi saklar.",
+      "table": "outcome_observation_window_events_v1"
+    },
+    {
+      "fields": [
+        "lesson_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT",
+        "linked_outcome_uid TEXT",
+        "lesson_id TEXT NOT NULL",
+        "lesson_family TEXT NOT NULL",
+        "severity TEXT NOT NULL",
+        "training_candidate INTEGER NOT NULL",
+        "requires_replay INTEGER NOT NULL",
+        "evidence_hash TEXT NOT NULL",
+        "lesson_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Hata, ders, false positive/negative ve iyileştirme adaylarını saklar.",
+      "table": "outcome_lesson_events_v1"
+    },
+    {
+      "fields": [
+        "autopsy_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "lifecycle_label TEXT NOT NULL",
+        "autopsy_reason TEXT NOT NULL",
+        "death_or_revival_signal TEXT",
+        "linked_risk_event_uid TEXT",
+        "linked_outcome_uid TEXT",
+        "preserve_record INTEGER NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Trash/risky/dead/revival sınıflandırmalarını silmeden morg/otopsi hafızasına alır.",
+      "table": "token_lifecycle_autopsy_events_v1"
+    },
+    {
+      "fields": [
+        "route_memory_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "route_type TEXT NOT NULL",
+        "linked_safety_event_uid TEXT",
+        "linked_filter_eval_uid TEXT",
+        "linked_outcome_uid TEXT",
+        "route_result TEXT NOT NULL",
+        "pnl_pct REAL",
+        "slippage_realized_pct REAL",
+        "gas_cost_usd REAL",
+        "lesson_candidate INTEGER NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Execution gate/cascading filter rota kombinasyonlarının paper sonrası performansını saklar.",
+      "table": "route_performance_memory_events_v1"
+    },
+    {
+      "fields": [
+        "replay_case_uid TEXT PRIMARY KEY",
+        "created_at_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT",
+        "case_family TEXT NOT NULL",
+        "case_label TEXT NOT NULL",
+        "linked_outcome_uid TEXT",
+        "linked_lesson_uid TEXT",
+        "evidence_bundle_hash TEXT NOT NULL",
+        "replay_status TEXT NOT NULL",
+        "training_allowed INTEGER NOT NULL",
+        "payload_json TEXT NOT NULL"
+      ],
+      "purpose": "Model feedback öncesi tekrar oynatılacak kanıtlı case kayıtları.",
+      "table": "replay_case_registry_v1"
+    },
+    {
+      "fields": [
+        "feedback_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "candidate_source TEXT NOT NULL",
+        "linked_replay_case_uid TEXT",
+        "linked_lesson_uid TEXT",
+        "candidate_label TEXT NOT NULL",
+        "candidate_quality TEXT NOT NULL",
+        "approved_for_training INTEGER NOT NULL",
+        "approval_required INTEGER NOT NULL",
+        "evidence_hash TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "3-5 ay sonrası AI/model eğitimine aday olabilecek kanıtlı outcome dersleri.",
+      "table": "model_feedback_candidate_events_v1"
+    },
+    {
+      "fields": [
+        "negative_guard_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT",
+        "negative_label TEXT NOT NULL",
+        "preserve_reason TEXT NOT NULL",
+        "deletion_allowed INTEGER NOT NULL",
+        "archive_allowed INTEGER NOT NULL",
+        "training_value_label TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Reject/trash/risky/dead kayıtlarının korunmasını denetler.",
+      "table": "negative_memory_guard_events_v1"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "db_sha_start": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "lesson_rule_matrix": [
+    {
+      "future_action": "Risk gate thresholds review candidate.",
+      "lesson_id": "FALSE_POSITIVE_RISK_PASS",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Risk gate pass dedi ama outcome loss/rug/deep_drawdown oldu."
+    },
+    {
+      "future_action": "Rejected-token autopsy and missed opportunity review.",
+      "lesson_id": "FALSE_NEGATIVE_MISSED_PUMP",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Reject/watch token sonradan strong pump yaptı."
+    },
+    {
+      "future_action": "Exit depth multiplier and sell impact threshold review.",
+      "lesson_id": "EXIT_LIQUIDITY_FAILURE",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Entry ok göründü ama exit liquidity/slippage failure oluştu."
+    },
+    {
+      "future_action": "Simulation provider and route model review.",
+      "lesson_id": "TAX_OR_SELL_ROUTE_MISREAD",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Sell route/tax simülasyonu ile gözlenen outcome uyuşmadı."
+    },
+    {
+      "future_action": "MEV/sandwich exposure model review.",
+      "lesson_id": "MEV_SANDWICH_UNDERDETECTED",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "MEV/sandwich risk düşük göründü ama outcome zararlı gerçekleşti."
+    },
+    {
+      "future_action": "Quality label freshness threshold review.",
+      "lesson_id": "STALE_DATA_DECISION_ERROR",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Stale data ile yanlış karar adayı üretildi."
+    },
+    {
+      "future_action": "Max position size formula review.",
+      "lesson_id": "MICRO_SIZE_TOO_BIG",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Max safe size fazla hesaplandı; drawdown/slippage yüksek oldu."
+    },
+    {
+      "future_action": "Which unknown fields can be filled cheaper/faster review.",
+      "lesson_id": "GOOD_BLOCKED_BY_UNKNOWN",
+      "requires_paper_evidence": true,
+      "training_allowed_now": false,
+      "trigger": "Unknown yüzünden bloklanan token sonra temiz performans verdi."
+    }
+  ],
+  "memory_layer_matrix": [
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "paper_route_decision_events_v1",
+        "execution_preflight_audit_events_v1",
+        "paper_observation_time_series_v1"
+      ],
+      "hard_rule": "Paper observation yoksa outcome runtime çalışmaz.",
+      "layer_id": "OUTCOME_INPUT_LINK_LAYER",
+      "purpose": "Paper/decision/preflight çıktılarının outcome memory tarafına bağlanacağı giriş katmanı.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "paper_observation_time_series_v1",
+        "market_ohlcv_time_series_v1",
+        "liquidity_depth_time_series_v1"
+      ],
+      "hard_rule": "Gerçek outcome etiketi tek snapshot ile verilmez; pencere bazlı gözlem gerekir.",
+      "layer_id": "WINDOW_OBSERVATION_LAYER",
+      "purpose": "5m/15m/1h/4h/24h gözlem pencerelerinde price/liquidity/drawdown/runup takibi.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "paper observation windows",
+        "decision context"
+      ],
+      "hard_rule": "Outcome label kanıt penceresi olmadan üretilmez.",
+      "layer_id": "OUTCOME_LABEL_LAYER",
+      "purpose": "WIN/LOSS/BREAKEVEN/MISSED_PUMP/AVOIDED_RUG gibi sonuç etiketlerini üretme iskeleti.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "outcome_label_layer"
+      ],
+      "hard_rule": "Ders kaydı evidence hash olmadan training adayı olamaz.",
+      "layer_id": "MISTAKE_AND_LESSON_LAYER",
+      "purpose": "Hata/öğrenme kaydı: erken giriş, geç çıkış, yanlış risk, eksik veri, false positive/false negative.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "risk_state_time_series_v1",
+        "token_lifecycle_autopsy_events_v1"
+      ],
+      "hard_rule": "Trash/risk/death sınıflandırmadır; deletion değildir.",
+      "layer_id": "NEGATIVE_MEMORY_GUARD_LAYER",
+      "purpose": "Çöp/risky/dead tokenların silinmeyip eğitim ve otopsi hafızasına alınması.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "liquidity_depth_time_series_v1",
+        "transaction_activity_time_series_v1",
+        "news_narrative_time_series_v1"
+      ],
+      "hard_rule": "Revival signal trade permission değildir.",
+      "layer_id": "REVIVAL_WATCH_LAYER",
+      "purpose": "Ölü/risky/rejected tokenların sonradan canlanma sinyallerini ayrı kayıtla takip etme iskeleti.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "cascading_execution_filter_eval_events_v1",
+        "execution_safety_gate_events_v2"
+      ],
+      "hard_rule": "Route performance live izni üretmez; sadece audit/öğrenme girdisi sağlar.",
+      "layer_id": "ROUTE_PERFORMANCE_MEMORY_LAYER",
+      "purpose": "Hangi rota/gate kombinasyonu ne sonuç verdi, bunu future paper sonrası ölçme.",
+      "runtime_enabled_now": false
+    },
+    {
+      "activation": "SKELETON_ONLY",
+      "depends_on": [
+        "outcome_lesson_events_v1",
+        "replay_case_registry_v1"
+      ],
+      "hard_rule": "Model feedback otomatik training değildir; sadece aday havuzu üretir.",
+      "layer_id": "MODEL_FEEDBACK_CANDIDATE_LAYER",
+      "purpose": "3-5 ay sonra model eğitimi için temiz ve kanıtlı aday olaylarını seçme iskeleti.",
+      "runtime_enabled_now": false
+    }
+  ],
+  "model_feedback_guard_matrix": [
+    {
+      "guard_id": "NO_MODEL_TRAINING_NOW",
+      "rule": "PHASE5D sadece iskelet planıdır; model eğitimi yok.",
+      "status_now": "LOCKED"
+    },
+    {
+      "guard_id": "NO_OUTCOME_RUNTIME_NOW",
+      "rule": "Paper observation data yoksa outcome runtime çalışmaz.",
+      "status_now": "LOCKED"
+    },
+    {
+      "guard_id": "NO_TRADE_PERMISSION_FROM_OUTCOME",
+      "rule": "Outcome memory hiçbir fazda tek başına paper/live izni üretmez.",
+      "status_now": "LOCKED"
+    },
+    {
+      "guard_id": "NEGATIVE_CASES_PRESERVED",
+      "rule": "Çöp/risky/dead/rejected tokenlar silinmez; morg/otopsi hafızasına ayrılır.",
+      "status_now": "LOCKED"
+    },
+    {
+      "guard_id": "EVIDENCE_HASH_REQUIRED_FOR_LESSON",
+      "rule": "Lesson/training adayı için source evidence hash ve linked event zorunlu.",
+      "status_now": "LOCKED"
+    },
+    {
+      "guard_id": "REPLAY_BEFORE_TRAINING",
+      "rule": "Model feedback önce replay case olarak doğrulanır; direkt training yok.",
+      "status_now": "LOCKED"
+    }
+  ],
+  "next_phase": "PHASE5E_SCHEMA_TEMP_DB_DRYRUN_NOAPI",
+  "outputs": {
+    "feedback_rows": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_model_feedback_guard_matrix.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5d_outcome_memory_skeleton_plan_noapi.json",
+    "lesson_rule_rows": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_outcome_lesson_rule_matrix.jsonl",
+    "memory_layer_rows": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_outcome_memory_layer_matrix.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_outcome_memory_skeleton_plan_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5d_outcome_memory_skeleton_plan_noapi_rows.jsonl",
+    "schema_plan_sql": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102"
+  },
+  "pass_conditions": {
+    "active_index_exists": true,
+    "active_index_sha_expected_match_start": true,
+    "active_index_unchanged": true,
+    "all_feedback_guards_locked": true,
+    "all_lesson_rules_require_paper": true,
+    "all_memory_runtime_disabled": true,
+    "all_training_now_false": true,
+    "db_exists": true,
+    "db_readonly_health_ok": true,
+    "db_sha_expected_match_start": true,
+    "db_unchanged": true,
+    "feedback_guard_count_minimum": true,
+    "feedback_rows_written": true,
+    "future_schema_count_minimum": true,
+    "hosts_exists": true,
+    "hosts_sha_expected_match_start": true,
+    "hosts_unchanged": true,
+    "lesson_rule_count_minimum": true,
+    "lesson_rule_rows_written": true,
+    "memory_layer_count_minimum": true,
+    "memory_layer_rows_written": true,
+    "model_training_disabled_now": true,
+    "negative_memory_guard_locked": true,
+    "no_model_training_guard_locked": true,
+    "no_outcome_runtime_guard_locked": true,
+    "outcome_runtime_disabled_now": true,
+    "phase5c2_dependency_all_pass": true,
+    "plan_json_written": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "rows_out_written": true,
+    "safety_noapi_clean": true,
+    "schema_plan_sql_written": true
+  },
+  "phase": "PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+  "phase5c2_checks": {
+    "phase5c2_failed_checks_none": true,
+    "phase5c2_failed_phase5c_checks_none": true,
+    "phase5c2_final_gate_pass": true,
+    "phase5c2_json_exists": true,
+    "phase5c2_next_phase_match": true,
+    "phase5c2_report_exists": true,
+    "phase5c2_rows_count_positive": true,
+    "phase5c2_rows_exists": true,
+    "phase5c2_safety_ok": true,
+    "phase5c2_warnings_none": true
+  },
+  "phase5c2_rows_count": 23,
+  "plan": {
+    "created_at_utc": "2026-05-31T21:01:02.455992+00:00",
+    "future_schema": [
+      {
+        "fields": [
+          "outcome_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "linked_decision_uid TEXT",
+          "linked_preflight_uid TEXT",
+          "linked_paper_decision_uid TEXT",
+          "outcome_label TEXT NOT NULL",
+          "outcome_window TEXT NOT NULL",
+          "pnl_pct REAL",
+          "max_runup_pct REAL",
+          "max_drawdown_pct REAL",
+          "liquidity_change_pct REAL",
+          "evidence_hash TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Paper/decision sonrası outcome etiketleri için ana append-only hafıza tablosu.",
+        "table": "outcome_memory_events_v2"
+      },
+      {
+        "fields": [
+          "observation_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "linked_decision_uid TEXT",
+          "window_label TEXT NOT NULL",
+          "window_start_ts_utc TEXT NOT NULL",
+          "window_end_ts_utc TEXT NOT NULL",
+          "price_change_pct REAL",
+          "max_runup_pct REAL",
+          "max_drawdown_pct REAL",
+          "volume_change_pct REAL",
+          "liquidity_change_pct REAL",
+          "observation_quality TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "5m/15m/1h/4h/24h gibi gözlem pencerelerini outcome öncesi saklar.",
+        "table": "outcome_observation_window_events_v1"
+      },
+      {
+        "fields": [
+          "lesson_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT",
+          "linked_outcome_uid TEXT",
+          "lesson_id TEXT NOT NULL",
+          "lesson_family TEXT NOT NULL",
+          "severity TEXT NOT NULL",
+          "training_candidate INTEGER NOT NULL",
+          "requires_replay INTEGER NOT NULL",
+          "evidence_hash TEXT NOT NULL",
+          "lesson_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Hata, ders, false positive/negative ve iyileştirme adaylarını saklar.",
+        "table": "outcome_lesson_events_v1"
+      },
+      {
+        "fields": [
+          "autopsy_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "lifecycle_label TEXT NOT NULL",
+          "autopsy_reason TEXT NOT NULL",
+          "death_or_revival_signal TEXT",
+          "linked_risk_event_uid TEXT",
+          "linked_outcome_uid TEXT",
+          "preserve_record INTEGER NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Trash/risky/dead/revival sınıflandırmalarını silmeden morg/otopsi hafızasına alır.",
+        "table": "token_lifecycle_autopsy_events_v1"
+      },
+      {
+        "fields": [
+          "route_memory_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "route_type TEXT NOT NULL",
+          "linked_safety_event_uid TEXT",
+          "linked_filter_eval_uid TEXT",
+          "linked_outcome_uid TEXT",
+          "route_result TEXT NOT NULL",
+          "pnl_pct REAL",
+          "slippage_realized_pct REAL",
+          "gas_cost_usd REAL",
+          "lesson_candidate INTEGER NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Execution gate/cascading filter rota kombinasyonlarının paper sonrası performansını saklar.",
+        "table": "route_performance_memory_events_v1"
+      },
+      {
+        "fields": [
+          "replay_case_uid TEXT PRIMARY KEY",
+          "created_at_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT",
+          "case_family TEXT NOT NULL",
+          "case_label TEXT NOT NULL",
+          "linked_outcome_uid TEXT",
+          "linked_lesson_uid TEXT",
+          "evidence_bundle_hash TEXT NOT NULL",
+          "replay_status TEXT NOT NULL",
+          "training_allowed INTEGER NOT NULL",
+          "payload_json TEXT NOT NULL"
+        ],
+        "purpose": "Model feedback öncesi tekrar oynatılacak kanıtlı case kayıtları.",
+        "table": "replay_case_registry_v1"
+      },
+      {
+        "fields": [
+          "feedback_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "candidate_source TEXT NOT NULL",
+          "linked_replay_case_uid TEXT",
+          "linked_lesson_uid TEXT",
+          "candidate_label TEXT NOT NULL",
+          "candidate_quality TEXT NOT NULL",
+          "approved_for_training INTEGER NOT NULL",
+          "approval_required INTEGER NOT NULL",
+          "evidence_hash TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "3-5 ay sonrası AI/model eğitimine aday olabilecek kanıtlı outcome dersleri.",
+        "table": "model_feedback_candidate_events_v1"
+      },
+      {
+        "fields": [
+          "negative_guard_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT",
+          "negative_label TEXT NOT NULL",
+          "preserve_reason TEXT NOT NULL",
+          "deletion_allowed INTEGER NOT NULL",
+          "archive_allowed INTEGER NOT NULL",
+          "training_value_label TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Reject/trash/risky/dead kayıtlarının korunmasını denetler.",
+        "table": "negative_memory_guard_events_v1"
+      }
+    ],
+    "hard_architecture_rules": [
+      "PHASE5D is NOAPI and plan-only.",
+      "No API/RPC/fetch/external network calls now.",
+      "No live DB schema apply now.",
+      "No panel write now.",
+      "No service/timer/Nginx/Auth/hosts mutation.",
+      "No paper/live/watchlist/score permission.",
+      "No model training now.",
+      "Outcome runtime remains disabled until paper observations exist.",
+      "Outcome label requires evidence window, not a single snapshot.",
+      "Negative cases are preserved, not deleted.",
+      "Trash/risky/dead is classification, not deletion.",
+      "Revival watch signal is not trade permission.",
+      "Lessons require linked evidence hash.",
+      "Replay case must exist before model feedback can become training candidate."
+    ],
+    "lesson_rule_matrix": [
+      {
+        "future_action": "Risk gate thresholds review candidate.",
+        "lesson_id": "FALSE_POSITIVE_RISK_PASS",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Risk gate pass dedi ama outcome loss/rug/deep_drawdown oldu."
+      },
+      {
+        "future_action": "Rejected-token autopsy and missed opportunity review.",
+        "lesson_id": "FALSE_NEGATIVE_MISSED_PUMP",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Reject/watch token sonradan strong pump yaptı."
+      },
+      {
+        "future_action": "Exit depth multiplier and sell impact threshold review.",
+        "lesson_id": "EXIT_LIQUIDITY_FAILURE",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Entry ok göründü ama exit liquidity/slippage failure oluştu."
+      },
+      {
+        "future_action": "Simulation provider and route model review.",
+        "lesson_id": "TAX_OR_SELL_ROUTE_MISREAD",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Sell route/tax simülasyonu ile gözlenen outcome uyuşmadı."
+      },
+      {
+        "future_action": "MEV/sandwich exposure model review.",
+        "lesson_id": "MEV_SANDWICH_UNDERDETECTED",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "MEV/sandwich risk düşük göründü ama outcome zararlı gerçekleşti."
+      },
+      {
+        "future_action": "Quality label freshness threshold review.",
+        "lesson_id": "STALE_DATA_DECISION_ERROR",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Stale data ile yanlış karar adayı üretildi."
+      },
+      {
+        "future_action": "Max position size formula review.",
+        "lesson_id": "MICRO_SIZE_TOO_BIG",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Max safe size fazla hesaplandı; drawdown/slippage yüksek oldu."
+      },
+      {
+        "future_action": "Which unknown fields can be filled cheaper/faster review.",
+        "lesson_id": "GOOD_BLOCKED_BY_UNKNOWN",
+        "requires_paper_evidence": true,
+        "training_allowed_now": false,
+        "trigger": "Unknown yüzünden bloklanan token sonra temiz performans verdi."
+      }
+    ],
+    "memory_layer_matrix": [
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "paper_route_decision_events_v1",
+          "execution_preflight_audit_events_v1",
+          "paper_observation_time_series_v1"
+        ],
+        "hard_rule": "Paper observation yoksa outcome runtime çalışmaz.",
+        "layer_id": "OUTCOME_INPUT_LINK_LAYER",
+        "purpose": "Paper/decision/preflight çıktılarının outcome memory tarafına bağlanacağı giriş katmanı.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "paper_observation_time_series_v1",
+          "market_ohlcv_time_series_v1",
+          "liquidity_depth_time_series_v1"
+        ],
+        "hard_rule": "Gerçek outcome etiketi tek snapshot ile verilmez; pencere bazlı gözlem gerekir.",
+        "layer_id": "WINDOW_OBSERVATION_LAYER",
+        "purpose": "5m/15m/1h/4h/24h gözlem pencerelerinde price/liquidity/drawdown/runup takibi.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "paper observation windows",
+          "decision context"
+        ],
+        "hard_rule": "Outcome label kanıt penceresi olmadan üretilmez.",
+        "layer_id": "OUTCOME_LABEL_LAYER",
+        "purpose": "WIN/LOSS/BREAKEVEN/MISSED_PUMP/AVOIDED_RUG gibi sonuç etiketlerini üretme iskeleti.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "outcome_label_layer"
+        ],
+        "hard_rule": "Ders kaydı evidence hash olmadan training adayı olamaz.",
+        "layer_id": "MISTAKE_AND_LESSON_LAYER",
+        "purpose": "Hata/öğrenme kaydı: erken giriş, geç çıkış, yanlış risk, eksik veri, false positive/false negative.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "risk_state_time_series_v1",
+          "token_lifecycle_autopsy_events_v1"
+        ],
+        "hard_rule": "Trash/risk/death sınıflandırmadır; deletion değildir.",
+        "layer_id": "NEGATIVE_MEMORY_GUARD_LAYER",
+        "purpose": "Çöp/risky/dead tokenların silinmeyip eğitim ve otopsi hafızasına alınması.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "liquidity_depth_time_series_v1",
+          "transaction_activity_time_series_v1",
+          "news_narrative_time_series_v1"
+        ],
+        "hard_rule": "Revival signal trade permission değildir.",
+        "layer_id": "REVIVAL_WATCH_LAYER",
+        "purpose": "Ölü/risky/rejected tokenların sonradan canlanma sinyallerini ayrı kayıtla takip etme iskeleti.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "cascading_execution_filter_eval_events_v1",
+          "execution_safety_gate_events_v2"
+        ],
+        "hard_rule": "Route performance live izni üretmez; sadece audit/öğrenme girdisi sağlar.",
+        "layer_id": "ROUTE_PERFORMANCE_MEMORY_LAYER",
+        "purpose": "Hangi rota/gate kombinasyonu ne sonuç verdi, bunu future paper sonrası ölçme.",
+        "runtime_enabled_now": false
+      },
+      {
+        "activation": "SKELETON_ONLY",
+        "depends_on": [
+          "outcome_lesson_events_v1",
+          "replay_case_registry_v1"
+        ],
+        "hard_rule": "Model feedback otomatik training değildir; sadece aday havuzu üretir.",
+        "layer_id": "MODEL_FEEDBACK_CANDIDATE_LAYER",
+        "purpose": "3-5 ay sonra model eğitimi için temiz ve kanıtlı aday olaylarını seçme iskeleti.",
+        "runtime_enabled_now": false
+      }
+    ],
+    "model_feedback_guard_matrix": [
+      {
+        "guard_id": "NO_MODEL_TRAINING_NOW",
+        "rule": "PHASE5D sadece iskelet planıdır; model eğitimi yok.",
+        "status_now": "LOCKED"
+      },
+      {
+        "guard_id": "NO_OUTCOME_RUNTIME_NOW",
+        "rule": "Paper observation data yoksa outcome runtime çalışmaz.",
+        "status_now": "LOCKED"
+      },
+      {
+        "guard_id": "NO_TRADE_PERMISSION_FROM_OUTCOME",
+        "rule": "Outcome memory hiçbir fazda tek başına paper/live izni üretmez.",
+        "status_now": "LOCKED"
+      },
+      {
+        "guard_id": "NEGATIVE_CASES_PRESERVED",
+        "rule": "Çöp/risky/dead/rejected tokenlar silinmez; morg/otopsi hafızasına ayrılır.",
+        "status_now": "LOCKED"
+      },
+      {
+        "guard_id": "EVIDENCE_HASH_REQUIRED_FOR_LESSON",
+        "rule": "Lesson/training adayı için source evidence hash ve linked event zorunlu.",
+        "status_now": "LOCKED"
+      },
+      {
+        "guard_id": "REPLAY_BEFORE_TRAINING",
+        "rule": "Model feedback önce replay case olarak doğrulanır; direkt training yok.",
+        "status_now": "LOCKED"
+      }
+    ],
+    "phase": "PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+    "runtime_policy": {
+      "model_training_now": false,
+      "negative_memory_preserved": true,
+      "outcome_runtime_enabled_now": false,
+      "paper_required_before_runtime": true,
+      "revival_signal_trade_permission": false,
+      "trash_delete_allowed": false
+    }
+  },
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "backfill_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "full_rpc_url_printed": false,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "secret_printed": false,
+    "service_timer_mutation": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-05-31T21:01:02.435998+00:00",
+  "warnings": []
+}

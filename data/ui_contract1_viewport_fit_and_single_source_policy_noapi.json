@@ -1,0 +1,157 @@
+{
+  "phase": "UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI",
+  "stamp": "20260517_190151",
+  "failed_checks": [
+    "EXPECTED_OUTPUT_MISSING"
+  ],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "docs_only": true
+  },
+  "contract": {
+    "contract_name": "Tokenoskobi / Coinoskobi Living UI Contract v1",
+    "core_principles": [
+      "Veriye göre konuş, veri yoksa konuşma.",
+      "Görsel efekt gerçek veri/state olmadan çalışmaz.",
+      "Ana ekranlarda dikey scroll yok; her ekran viewport içine oturur.",
+      "Her veri tek canonical source’dan gelir; farklı panellerde veri kopyalanmaz.",
+      "Ana ekran özet verir; detaylar drawer, modal veya detay sekmesiyle açılır.",
+      "Teknik PASS ürün PASS değildir; görsel kalite ve kullanım hissi ayrıca onaylanır.",
+      "Yama yok, ürüne özel tekil hack yok, gereksiz preview/script çöplüğü yok."
+    ],
+    "viewport_fit_policy": {
+      "main_rule": "Ana ekranlar ve alt paneller 100vh viewport içinde çalışır; kullanıcı temel ekranda aşağı scroll yapmaz.",
+      "allowed_scroll": [
+        "Sadece detay drawer/modal içinde uzun inceleme gerekiyorsa lokal scroll olabilir.",
+        "Rapor/dump/log detay ekranlarında ana panelden ayrı açılan okuma görünümünde scroll olabilir."
+      ],
+      "breakpoints": {
+        "laptop": {
+          "target_width_range": "1280-1536",
+          "target_height_range": "720-900",
+          "rule": "Yoğun ama okunabilir kompakt grid; ana ekranda scroll yok."
+        },
+        "desktop": {
+          "target_width_range": "1537+",
+          "target_height_range": "900+",
+          "rule": "Daha geniş grid, daha büyük radar/ikon; yine ana ekranda scroll yok."
+        }
+      },
+      "fail_conditions": [
+        "Ana ekranda vertical body scroll çıkması",
+        "Alt panelin ekran altına taşması",
+        "Kartların birbirini ezmesi",
+        "Kritik butonların görünmez kalması",
+        "Mobil/laptop/desktop ayrımı yapılmadan tek kaba layout kullanılması"
+      ]
+    },
+    "single_source_policy": {
+      "main_rule": "Bir veri sadece bir canonical yerde üretilir/saklanır; paneller bu verinin view model’ini okur.",
+      "forbidden": [
+        "Aynı token risk skorunu farklı dosyalarda ayrı ayrı hesaplamak",
+        "Aynı haber etkisini hem haber panelinde hem ana panelde farklı mantıkla üretmek",
+        "Panel içinde hardcoded fake metric basmak",
+        "Mock/demo veriyi canlı veri gibi göstermek"
+      ],
+      "required_layers": [
+        "canonical_data_layer",
+        "view_model_layer",
+        "screen_fit_layer",
+        "detail_layer",
+        "motion_state_layer"
+      ]
+    },
+    "living_ui_truth_policy": {
+      "main_rule": "Animasyon, glow, pulse, radar sweep, whale flash, badge hareketi gerçek data/state olmadan tetiklenmez.",
+      "state_examples": {
+        "calm": "Veri var ama eşik aşımı yok; hafif statik görünüm.",
+        "watch": "İzleme verisi var; düşük yoğunluklu dikkat durumu.",
+        "active": "Taze olay veya anlamlı hareket var; kontrollü canlılık.",
+        "critical": "Kritik eşik aşıldı; belirgin uyarı animasyonu.",
+        "dead": "Lifecycle dead/morg durumu; soğuk ve düşük frekanslı görünüm.",
+        "revival": "Canlanma sinyali gerçek veriye bağlıysa kontrollü yeşil/mavi hareket."
+      },
+      "no_data_behavior": [
+        "Veri yoksa animasyon yok.",
+        "Veri yoksa değer gösterme yok.",
+        "Veri yoksa panel 'veri yok / beklemede' der.",
+        "Eksik veride sistem tahmin gibi konuşmaz."
+      ]
+    },
+    "main_panel_contract": {
+      "purpose": "Takip edilen coin/tokenların işlem ve karar merkezi.",
+      "must_show": [
+        "Takip edilen coin/token durumu",
+        "Alım / satım kontrolleri",
+        "SL durumu",
+        "TP durumu",
+        "Pozisyon durumu",
+        "Paper/live ayrımı",
+        "Risk/karar özeti",
+        "Son veri tazeliği"
+      ],
+      "must_not_show": [
+        "Aşırı detay tablo yığını",
+        "Aynı verinin tekrarları",
+        "Veri olmayan fake hareket",
+        "Ana ekranda scroll gerektiren uzun açıklamalar"
+      ],
+      "detail_behavior": "Token detayına tıklanınca detay drawer/modal açılır; ana panel fit bozulmaz."
+    },
+    "token_yasam_contract": {
+      "purpose": "Token lifecycle, olay yeri, klinik, otopsi, morg ve adli inceleme merkezi.",
+      "departments": {
+        "olay_yeri": "Ana kartta olay özeti; detayda ilk izler, tx, zaman çizgisi.",
+        "adli": "Ana kartta soruşturma durumu; detayda wallet/deployer/source bağları.",
+        "supheliler": "Ana kartta riskli aktör sayısı; detayda wallet listesi ve ilişki güveni.",
+        "klinik": "Ana kartta yoğun bakım/iyileşme özeti; detayda tedavi/izleme metrikleri.",
+        "otopsi": "Ana kartta analiz bekleyen/bitmiş sayısı; detayda ölüm sebebi ve outcome.",
+        "morg": "Ana kartta arşiv/dead/revival watch özeti; detayda morg kayıtları."
+      },
+      "screen_rule": "6 departman kartı tek ekranda kalır; kartlarda özet, detaylar tıklanınca açılır.",
+      "motion_rule": "Her departman ikon hareketi sadece ilgili gerçek state varsa çalışır."
+    },
+    "pass_matrix": {
+      "TECH_PASS": "Kod çalıştı, dosyalar oluştu, hata yok.",
+      "DATA_PASS": "Veri canonical source’dan geliyor; tekrar/hardcode yok.",
+      "FIT_PASS": "Ekran scrollsuz viewport’a oturuyor.",
+      "TRUTH_PASS": "Efekt/animasyon gerçek veri/state ile tetikleniyor.",
+      "PRODUCT_PASS": "Görsel kalite, his, okunabilirlik ve kullanıcı onayı var."
+    },
+    "phase_policy": {
+      "plan": "Önce sözleşme/plan.",
+      "dry_run": "Sonra no-mutation dry-run.",
+      "apply_plan": "Gerçek değişiklik planı.",
+      "explicit_approval": "Açık onay olmadan gerçek apply yok.",
+      "real": "Sınırlı gerçek değişiklik.",
+      "post_audit": "Son audit ve PASS ayrımı."
+    },
+    "next_phase": "UI_CONTRACT2_SCREEN_MAP_AND_DATA_OWNERSHIP_NOAPI"
+  },
+  "doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI_20260517_190151.md",
+  "latest_doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI.md",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/ui_contract1_viewport_fit_and_single_source_policy_noapi.json",
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "missing_outputs": [
+    "/root/tokenoskobi_clean_v1/reports/LATEST_UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_NOAPI.md",
+    "/root/tokenoskobi_clean_v1/data/ui_contract1_viewport_fit_and_single_source_policy_noapi.json"
+  ],
+  "final_status": "FAIL",
+  "final_gate": "UI_CONTRACT1_VIEWPORT_FIT_AND_SINGLE_SOURCE_POLICY_REVIEW"
+}

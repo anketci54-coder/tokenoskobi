@@ -1,0 +1,329 @@
+{
+  "phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI",
+  "started_utc": "2026-05-28T23:24:35.816747+00:00",
+  "finished_utc": "2026-05-28T23:24:35.899009+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "USER_DECISION_TARGET4_OR_PAUSE_AFTER_CHECKPOINT",
+  "next_if_continue": "PHASE3_TARGET4_CANDIDATE_SELECTION_PLAN_NOAPI",
+  "next_if_pause": "STOP_PHASE3_CANDIDATE_LOOP_AFTER_CHECKPOINT",
+  "failed_checkpoint_review": {
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_close_current_targets_and_phase3_status_review_noapi.json",
+    "exists": true,
+    "load_ok": true,
+    "final_gate": "REVIEW_REQUIRED_PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_NOAPI",
+    "gate_pass": false,
+    "hard_error_count": 2,
+    "hard_errors": [
+      "TARGET1_VALIDATION_RUNS_MATCH_COUNT_LT_1:0",
+      "TARGET2_SYSTEM_EVENTS_MATCH_COUNT_LT_1:0"
+    ],
+    "expected_failed_errors_seen": [
+      "TARGET1_VALIDATION_RUNS_MATCH_COUNT_LT_1:0",
+      "TARGET2_SYSTEM_EVENTS_MATCH_COUNT_LT_1:0"
+    ],
+    "unexpected_failed_errors": [],
+    "missing_expected_failed_errors": [],
+    "checkpoint_class": "PHASE3_THREE_TARGETS_GHOST_CLOSED_CHECKPOINT_READY",
+    "all_three_targets_ghost": true,
+    "target1_closed": true,
+    "target2_closed": true,
+    "target3_closed": true,
+    "can_continue_target4": true,
+    "can_pause": true
+  },
+  "mapping_review": {
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_checkpoint_row_audit_mapping_review_noapi.json",
+    "exists": true,
+    "load_ok": true,
+    "final_gate": "REVIEW_REQUIRED_PHASE3_CHECKPOINT_ROW_AUDIT_MAPPING_REVIEW_NOAPI",
+    "gate_pass": false,
+    "hard_error_count": 1,
+    "hard_errors": [
+      "SAFETY_CHECK_FAILED:active_8096_listening=False"
+    ],
+    "review_class": "LOOKUP_MAPPING_FALSE_FAIL_CONFIRMED",
+    "root_cause_class": "CHECKPOINT_USED_TOO_NARROW_SOURCE_PHASE_LOOKUPS",
+    "failed_checkpoint_real_data_missing": false,
+    "safe_to_retry_checkpoint_with_repaired_mapping": true,
+    "target1_system_proof": true,
+    "target1_validation_proof": true,
+    "target2_system_proof": true,
+    "target2_validation_proof": true,
+    "target3_system_proof": true,
+    "target3_validation_proof": true,
+    "target1_system_mapping_status": "FOUND_BY_SOURCE_LIKE",
+    "target1_validation_mapping_status": "FOUND_BY_PHASE_LIKE",
+    "target2_system_mapping_status": "FOUND_BY_SOURCE_LIKE",
+    "target2_validation_mapping_status": "FOUND_BY_PHASE_LIKE",
+    "target3_system_mapping_status": "FOUND_BY_SOURCE_LIKE",
+    "target3_validation_mapping_status": "FOUND_BY_PHASE_LIKE"
+  },
+  "listener_review": {
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_active_8096_listener_status_review_noapi.json",
+    "exists": true,
+    "load_ok": true,
+    "final_gate": "PASS_PHASE3_ACTIVE_8096_LISTENER_STATUS_REVIEW_NOAPI",
+    "gate_pass": true,
+    "hard_error_count": 0,
+    "listener_status_class": "ACTIVE_8096_LISTENER_OK",
+    "root_cause_class": "NO_8096_LISTENER_PROBLEM_NOW",
+    "active_8096_listening": true,
+    "restore_plan_needed": false,
+    "next_phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI"
+  },
+  "route_review": {
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_target3_route_close_or_phase3_status_review_noapi.json",
+    "exists": true,
+    "load_ok": true,
+    "final_gate": "PASS_PHASE3_TARGET3_ROUTE_CLOSE_OR_PHASE3_STATUS_REVIEW_NOAPI",
+    "gate_pass": true,
+    "hard_error_count": 0,
+    "target1_route_closed": true,
+    "target2_route_closed": true,
+    "target3_route_closed": true,
+    "closed_targets_known": 3,
+    "closed_targets": [
+      {
+        "label": "TARGET1",
+        "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+        "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+        "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+        "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST",
+        "close_status": "REFERENCE_CLOSED_OR_GHOST_STAGED"
+      },
+      {
+        "label": "TARGET2",
+        "token_uid": "tok_0e7ca8312d0054f728e57329",
+        "pair_uid": "pair_72f07696bc1236c057f3ce92",
+        "token_address": "0x76a797a59ba2c17726896976b7b3747bfd1d220f",
+        "pair_address": "0x43beb5b09ac912c4288db731fe7c30507e252c2a",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST",
+        "close_status": "REFERENCE_CLOSED_OR_GHOST_STAGED"
+      },
+      {
+        "label": "TARGET3",
+        "token_uid": "tok_10271280659f01a02acd92d3",
+        "pair_uid": "pair_4e72824de14550a56d596179",
+        "token_address": "0x3fa61eb8351dd16a53bc5995780b13d3ae6d4444",
+        "pair_address": "0x12f34530b4f5f4ac0cb67c1e568aaabe680bd73d",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST",
+        "close_status": "GHOST_STAGED_AND_ROUTE_CLOSED"
+      }
+    ]
+  },
+  "closed_targets_audit": {
+    "closed_target_count": 3,
+    "labels": [
+      "TARGET1",
+      "TARGET2",
+      "TARGET3"
+    ],
+    "has_target1": true,
+    "has_target2": true,
+    "has_target3": true,
+    "unique_token_uid_count": 3,
+    "unique_pair_uid_count": 3,
+    "all_deployer_unresolved": true,
+    "all_token_state_ghost": true
+  },
+  "closed_targets": [
+    {
+      "label": "TARGET1",
+      "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+      "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+      "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+      "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b",
+      "deployer_status": "UNRESOLVED",
+      "token_state": "GHOST",
+      "close_status": "REFERENCE_CLOSED_OR_GHOST_STAGED"
+    },
+    {
+      "label": "TARGET2",
+      "token_uid": "tok_0e7ca8312d0054f728e57329",
+      "pair_uid": "pair_72f07696bc1236c057f3ce92",
+      "token_address": "0x76a797a59ba2c17726896976b7b3747bfd1d220f",
+      "pair_address": "0x43beb5b09ac912c4288db731fe7c30507e252c2a",
+      "deployer_status": "UNRESOLVED",
+      "token_state": "GHOST",
+      "close_status": "REFERENCE_CLOSED_OR_GHOST_STAGED"
+    },
+    {
+      "label": "TARGET3",
+      "token_uid": "tok_10271280659f01a02acd92d3",
+      "pair_uid": "pair_4e72824de14550a56d596179",
+      "token_address": "0x3fa61eb8351dd16a53bc5995780b13d3ae6d4444",
+      "pair_address": "0x12f34530b4f5f4ac0cb67c1e568aaabe680bd73d",
+      "deployer_status": "UNRESOLVED",
+      "token_state": "GHOST",
+      "close_status": "GHOST_STAGED_AND_ROUTE_CLOSED"
+    }
+  ],
+  "row_audits_repaired": {
+    "target1_system_events_match_count": 1,
+    "target1_validation_runs_match_count": 1,
+    "target2_system_events_match_count": 1,
+    "target2_validation_runs_match_count": 1,
+    "target3_system_events_match_count": 1,
+    "target3_validation_runs_match_count": 1,
+    "row_audit_method": "REPAIRED_LIKE_MAPPING_FROM_PHASE3_CHECKPOINT_ROW_AUDIT_MAPPING_REVIEW_NOAPI"
+  },
+  "checkpoint_decision": {
+    "checkpoint_class": "PHASE3_THREE_TARGETS_GHOST_CLOSED_CHECKPOINT_PASS_AFTER_ROW_MAPPING_REPAIR",
+    "closed_targets_known": 3,
+    "target1_closed": true,
+    "target2_closed": true,
+    "target3_closed": true,
+    "all_three_targets_ghost": true,
+    "row_mapping_false_fail_repaired": true,
+    "listener_review_ok": true,
+    "risk_pipeline_opened": false,
+    "watchlist_opened": false,
+    "paper_opened": false,
+    "clean_risk_opened": false,
+    "panel_promotion_opened": false,
+    "holder_distribution_opened": false,
+    "lp_opened": false,
+    "sellability_opened": false,
+    "score_opened": false,
+    "phase3_can_continue_with_target4": true,
+    "phase3_can_pause_after_checkpoint": true,
+    "recommended_decision": "USER_DECISION_REQUIRED_AFTER_PHASE3_CHECKPOINT",
+    "next_if_continue": "PHASE3_TARGET4_CANDIDATE_SELECTION_PLAN_NOAPI",
+    "next_if_pause": "STOP_PHASE3_CANDIDATE_LOOP_AFTER_CHECKPOINT",
+    "reason": "Three deployer-first targets are closed as GHOST. Previous checkpoint row errors were confirmed as narrow lookup mapping false-fail; listener review also passed."
+  },
+  "db_counts_now": {
+    "tokens": 19,
+    "pairs": 19,
+    "system_events": 20,
+    "validation_runs": 20,
+    "risk_events": null,
+    "token_biographies": null,
+    "paper_trade_positions": 0,
+    "paper_trade_executions": 0
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "current_port_status": {
+    "8096": true,
+    "8097": false,
+    "8098": false,
+    "8101": false,
+    "8143": true,
+    "8144": true,
+    "8145": true
+  },
+  "current_port_lines": {
+    "8096": [
+      "LISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))                                                                                                           "
+    ],
+    "8097": [],
+    "8098": [],
+    "8101": [],
+    "8143": [
+      "LISTEN 0      5            0.0.0.0:8143      0.0.0.0:*    users:((\"python3\",pid=970304,fd=3))                                                                                                           "
+    ],
+    "8144": [
+      "LISTEN 0      5            0.0.0.0:8144      0.0.0.0:*    users:((\"python3\",pid=1089135,fd=3))                                                                                                          "
+    ],
+    "8145": [
+      "LISTEN 0      5            0.0.0.0:8145      0.0.0.0:*    users:((\"python3\",pid=1089254,fd=3))                                                                                                          "
+    ]
+  },
+  "phase3_gate": {
+    "closed_targets_known": 3,
+    "target1_route_closed": true,
+    "target2_route_closed": true,
+    "target3_route_closed": true,
+    "watchlist_allowed": false,
+    "paper_allowed": false,
+    "clean_risk_allowed": false,
+    "panel_promotion_allowed": false,
+    "holder_distribution_allowed": false,
+    "lp_allowed": false,
+    "sellability_allowed": false,
+    "score_allowed": false
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "watchlist_opened": false,
+    "paper_opened": false,
+    "clean_risk_opened": false,
+    "panel_promotion_opened": false,
+    "holder_lp_pipeline_advanced": false,
+    "sellability_pipeline_advanced": false,
+    "score_pipeline_advanced": false,
+    "deployer_absence_inferred": false,
+    "ordinary_transfer_used_as_deployer": false,
+    "empty_chunk_used_as_no_deployer": false,
+    "full_historical_deployer_proof": false,
+    "target4_selected": false,
+    "target1_target2_or_target3_reopened": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listener_ok_by_prior_review": true,
+    "current_8096_snapshot_listening": true,
+    "current_8096_snapshot_not_hard_gate": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "8f3a37998dda40bb5f856fb10cb49d173fc6878850fd8adbe9df993998a61cb5",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "8f3a37998dda40bb5f856fb10cb49d173fc6878850fd8adbe9df993998a61cb5",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_RETRY_AFTER_ROW_MAPPING_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_close_current_targets_and_phase3_status_review_retry_after_row_mapping_noapi.json"
+  }
+}

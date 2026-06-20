@@ -1,0 +1,48 @@
+{"row_type": "decision", "decision": "PLAN_VIEWPORT_FIT_REPAIR_PREVIEW_ONLY", "source_preview": "http://159.195.74.132:8113/?v=production_center_separated", "planned_preview": "http://159.195.74.132:8114/?v=viewport_fit", "active_8096_mutation": false}
+{"row_type": "visual_feedback", "signal": "mobile_landscape_viewport_overflow", "planned": true}
+{"row_type": "visual_feedback", "signal": "center_chips_and_hero_cards_too_large_on_phone", "planned": true}
+{"row_type": "visual_feedback", "signal": "main_heading_too_large_and_clipped", "planned": true}
+{"row_type": "visual_feedback", "signal": "card_width_exceeds_safe_viewport", "planned": true}
+{"row_type": "visual_feedback", "signal": "dashboard_feels_like_responsive_wrapper_not_production_surface", "planned": true}
+{"row_type": "visual_feedback", "signal": "need_desktop_tablet_first_but_mobile_safe", "planned": true}
+{"row_type": "layout_risk_flag", "signal": "HEADLINE_TOO_LARGE_FOR_PHONE_LANDSCAPE", "planned": true}
+{"row_type": "layout_risk_flag", "signal": "NO_EXPLICIT_LANDSCAPE_VIEWPORT_GUARD", "planned": true}
+{"row_type": "layout_risk_flag", "signal": "CENTER_CHIPS_WIDE_ON_PHONE", "planned": true}
+{"row_type": "layout_risk_flag", "signal": "HERO_ICON_TOO_LARGE_ON_PHONE", "planned": true}
+{"row_type": "layout_risk_flag", "signal": "DESKTOP_GRID_OK_BUT_NEEDS_TABLET_SAFE_CLAMP", "planned": true}
+{"row_type": "planned_repair_rule", "area": "viewport_guard", "action": "Add html/body/app max-width and overflow-x clamp.", "css_target": "html, body, .production-app, .main, .topbar, .center-workspace", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "safe_shell_width", "action": "Replace wide shell behavior with width:min(100%,1440px) and safe padding.", "css_target": ".production-app", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "center_nav_fit", "action": "Desktop grid remains clean; mobile/landscape chips become compact horizontal scroll with fixed safe min/max widths.", "css_target": ".center-nav, .center-chip", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "hero_height_limit", "action": "Limit center hero height and icon size across tablet/mobile.", "css_target": ".center-hero, .center-hero-icon", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "headline_clamp", "action": "Clamp title sizes so they cannot exceed mobile safe viewport.", "css_target": ".topbar h2, .center-hero h2", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "module_card_compact", "action": "Reduce module card height/padding and use 2-col tablet, 1-col mobile safe layout.", "css_target": ".module-grid, .module-card", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "image_fit", "action": "Keep icons equal size, centered, with object-fit cover and no overflow.", "css_target": ".center-chip img, .center-hero-icon img, .module-icon img", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "debug_absence_guard", "action": "Preserve no-debug production rule: no circle_mask_v1, /merkez, PANEL46D, preview/styled label in customer copy.", "css_target": "content policy / copy policy", "customer_visible": false}
+{"row_type": "planned_repair_rule", "area": "visual_density", "action": "Reduce empty vertical gaps so preview feels like a control dashboard, not a stretched catalog.", "css_target": ".topbar, .center-workspace, .module-grid", "customer_visible": true}
+{"row_type": "planned_repair_rule", "area": "no_active_apply", "action": "Build repaired version only on a new preview port first.", "css_target": "safety boundary", "customer_visible": false}
+{"row_type": "post_build_check", "check": "8114 HTTP 200"}
+{"row_type": "post_build_check", "check": "active 8096 unchanged"}
+{"row_type": "post_build_check", "check": "DB unchanged"}
+{"row_type": "post_build_check", "check": "source 8113 unchanged"}
+{"row_type": "post_build_check", "check": "8 centers present"}
+{"row_type": "post_build_check", "check": "47 modules present"}
+{"row_type": "post_build_check", "check": "missing icons 0"}
+{"row_type": "post_build_check", "check": "fit_v1 refs 0"}
+{"row_type": "post_build_check", "check": "wrong owner rows 0"}
+{"row_type": "post_build_check", "check": "bad debug terms 0"}
+{"row_type": "post_build_check", "check": "viewport fit marker present"}
+{"row_type": "post_build_check", "check": "mobile landscape CSS guard present"}
+{"row_type": "post_build_check", "check": "no horizontal overflow risk markers in generated CSS"}
+{"row_type": "forbidden", "item": "active 8096 mutation"}
+{"row_type": "forbidden", "item": "DB mutation"}
+{"row_type": "forbidden", "item": "asset overwrite"}
+{"row_type": "forbidden", "item": "icon file generation"}
+{"row_type": "forbidden", "item": "style asset overwrite"}
+{"row_type": "forbidden", "item": "icon binding overwrite"}
+{"row_type": "forbidden", "item": "route map overwrite"}
+{"row_type": "forbidden", "item": "subject graph overwrite"}
+{"row_type": "forbidden", "item": "fit_v1 candidate binding"}
+{"row_type": "forbidden", "item": "service restart"}
+{"row_type": "forbidden", "item": "DNS/Nginx/SSL"}
+{"row_type": "forbidden", "item": "paper/live trade"}
+{"row_type": "forbidden", "item": "deleting old previews"}

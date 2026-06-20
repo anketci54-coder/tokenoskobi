@@ -1,0 +1,10 @@
+{
+  "phase": "PHASE21G2_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_SCHEMA_REPAIR_NOAPI",
+  "final_gate": "REVIEW_REQUIRED_UNHANDLED_EXCEPTION",
+  "script_rc": 2,
+  "failed_checks": [
+    "UNHANDLED_EXCEPTION"
+  ],
+  "traceback": "Traceback (most recent call last):\n  File \"/tmp/PHASE21G2_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_SCHEMA_REPAIR_NOAPI.py\", line 917, in <module>\n    temp_apply_audit = apply_dirty_seed_to_temp(TEMP_DB, dirty_rows)\n  File \"/tmp/PHASE21G2_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_SCHEMA_REPAIR_NOAPI.py\", line 592, in apply_dirty_seed_to_temp\n    filled = insert_dict_schema_aware(conn, \"known_wallet_quarantine_seed_v1\", {\n        \"quarantine_uid\": f\"QUAR21G2_{seed_uid}\",\n    ...<14 lines>...\n        \"created_at_utc\": ts,\n    }, row, actual_lane, ts)\n  File \"/tmp/PHASE21G2_WALLET_SEED_QUEUE_DIRTY_DATA_DRYRUN_SCHEMA_REPAIR_NOAPI.py\", line 512, in insert_dict_schema_aware\n    conn.execute(sql, [use[k] for k in keys])\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsqlite3.IntegrityError: CHECK constraint failed: import_blocked = 1\n",
+  "finished_at": "2026-06-04T18:58:07.123160+00:00"
+}

@@ -1,0 +1,32 @@
+{"row_type": "pipeline", "key": "news_to_decision", "owner": "pipeline_architecture", "summary": "fewer blind decisions; faster narrative detection"}
+{"row_type": "pipeline", "key": "onchain_validation", "owner": "pipeline_architecture", "summary": "less fake token exposure; lower hard-risk false positives"}
+{"row_type": "pipeline", "key": "whale_to_risk", "owner": "pipeline_architecture", "summary": "better early pressure detection; fewer trap pumps"}
+{"row_type": "pipeline", "key": "technical_to_risk", "owner": "pipeline_architecture", "summary": "better timing; lower entry into weak liquidity/volume"}
+{"row_type": "pipeline", "key": "risk_gate", "owner": "pipeline_architecture", "summary": "protects from bad buys; more realistic paper/live filters"}
+{"row_type": "pipeline", "key": "new_token_discovery", "owner": "pipeline_architecture", "summary": "earlier discovery without skipping validation"}
+{"row_type": "pipeline", "key": "lifecycle_forensics", "owner": "pipeline_architecture", "summary": "learns from dead/wrong assets; reduces repeated mistakes"}
+{"row_type": "pipeline", "key": "learning_feedback", "owner": "pipeline_architecture", "summary": "improves thresholds over 30-90 day validation"}
+{"row_type": "pipeline", "key": "system_health_to_command", "owner": "pipeline_architecture", "summary": "prevents decision on broken/stale runtime"}
+{"row_type": "pipeline", "key": "center_module_structure", "owner": "pipeline_architecture", "summary": "keeps UI/data mapping consistent and non-duplicated"}
+{"row_type": "score", "key": "news_score_100", "owner": "haber_akis_merkezi", "summary": "source_reliability,news_importance,token_relevance,freshness,multi_source_confirmation"}
+{"row_type": "score", "key": "onchain_score_100", "owner": "onchain_veri_merkezi", "summary": "token_identity,pair_verification,liquidity,holder_distribution,contract_control"}
+{"row_type": "score", "key": "whale_score_100", "owner": "balina_takip_merkezi", "summary": "large_transfer,smart_money_wallet,cex_in_out,wallet_history,wallet_risk"}
+{"row_type": "score", "key": "technical_score_100", "owner": "teknik_analiz_merkezi", "summary": "trend,momentum_rsi,volume,volatility,support_resistance,pattern"}
+{"row_type": "score", "key": "risk_score_100", "owner": "risk_guvenlik_merkezi", "summary": "hard_block,slippage_mev,exit_safety,liquidity_capacity,paper_trade_risk,contract_risk"}
+{"row_type": "score", "key": "lifecycle_score_100", "owner": "yasam_destek_merkezi", "summary": "clinical_state,forensics,suspect_wallets,morgue_status,autopsy_result"}
+{"row_type": "score", "key": "system_health_score_100", "owner": "sistem_kontrol_merkezi", "summary": "db_health,api_rpc_health,runner_health,timer_health,backup_status,data_missing"}
+{"row_type": "score", "key": "fusion_decision_score_100", "owner": "komuta_merkezi", "summary": "news_score_100,onchain_score_100,whale_score_100,technical_score_100,risk_score_100,system_health_score_100"}
+{"row_type": "source_category", "key": "news_announcement", "owner": "external_or_internal_source", "summary": "resmi duyuru, listing, launch, hack, regulation, narrative"}
+{"row_type": "source_category", "key": "onchain_rpc_explorer", "owner": "external_or_internal_source", "summary": "contract, transfer, holder, pair, liquidity event verification"}
+{"row_type": "source_category", "key": "dex_market_pair", "owner": "external_or_internal_source", "summary": "pair price, liquidity, volume, buy/sell tx, slippage context"}
+{"row_type": "source_category", "key": "wallet_whale", "owner": "external_or_internal_source", "summary": "smart money, early buyer, whale transfer, exchange in/out flow"}
+{"row_type": "source_category", "key": "security_risk", "owner": "external_or_internal_source", "summary": "honeypot, tax, mint, owner, proxy, LP lock, blacklist, sellability"}
+{"row_type": "source_category", "key": "technical_ohlcv", "owner": "external_or_internal_source", "summary": "trend, RSI/momentum, volume, volatility, support/resistance"}
+{"row_type": "performance_metric", "key": "missing_data_rate", "owner": "validation", "summary": "reduce missing/unknown evidence rows before any trade decision"}
+{"row_type": "performance_metric", "key": "false_positive_rate", "owner": "validation", "summary": "reduce high-score tokens that later die/rug/fail sellability"}
+{"row_type": "performance_metric", "key": "candidate_freshness_seconds", "owner": "validation", "summary": "make discovery and risk checks fresher"}
+{"row_type": "performance_metric", "key": "evidence_coverage_per_candidate", "owner": "validation", "summary": "each candidate should have news/onchain/liquidity/risk coverage"}
+{"row_type": "performance_metric", "key": "paper_trade_sim_realism", "owner": "validation", "summary": "include spread, slippage, liquidity capacity, gas/MEV where relevant"}
+{"row_type": "performance_metric", "key": "score_calibration_error", "owner": "validation", "summary": "scores should correlate with 30-90 day outcomes"}
+{"row_type": "performance_metric", "key": "avoidable_loss_count", "owner": "validation", "summary": "count candidates blocked by risk gate that later performed badly"}
+{"row_type": "performance_metric", "key": "missed_opportunity_count", "owner": "validation", "summary": "low-score tokens that later pump must be logged and analyzed"}

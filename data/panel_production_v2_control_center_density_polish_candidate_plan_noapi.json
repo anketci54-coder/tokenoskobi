@@ -1,0 +1,89 @@
+{
+  "phase": "PANEL_PRODUCTION_V2_CONTROL_CENTER_DENSITY_POLISH_PLAN_NOAPI",
+  "decision": "PLAN_DENSITY_POLISH_PREVIEW_ONLY",
+  "source_preview_url": "http://159.195.74.132:8119/?v=production_v2_control_center",
+  "source_preview_root": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_v2_control_center_reference_preview_20260521_071512",
+  "source_index": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_v2_control_center_reference_preview_20260521_071512/index.html",
+  "source_data": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_v2_control_center_reference_preview_20260521_071512/data/production_v2_control_center_data.json",
+  "planned_preview_port": 8120,
+  "planned_preview_url": "http://159.195.74.132:8120/?v=v2_density_polish",
+  "planned_preview_root_pattern": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_v2_control_center_density_polish_preview_<STAMP>",
+  "preserve": [
+    "left_sidebar_navigation",
+    "top_status_bar",
+    "central_master_logo_hero",
+    "right_summary_desktop_panel",
+    "8_centers",
+    "47_modules",
+    "center_ownership",
+    "no_debug_bad_terms",
+    "active_8096_unchanged",
+    "db_unchanged"
+  ],
+  "planned_rules": [
+    {
+      "area": "mobile_density",
+      "action": "components_and_special_engines_use_compact_2_column_grid_on_mobile",
+      "purpose": "Sistem bileşenleri tek kolon uzun liste gibi akmasın."
+    },
+    {
+      "area": "mobile_summary",
+      "action": "rightbar_summary_becomes_compact_top_summary_on_mobile",
+      "purpose": "Sağ sistem özeti mobilde kaybolmasın; üstte 4 küçük metrik kutusuna dönüşsün."
+    },
+    {
+      "area": "special_engine_icons",
+      "action": "replace_visible_emoji_icons_with_panel_style_glyph_badges_or_existing_asset_icons",
+      "purpose": "Emoji dili yerine panelin cyber/control-center ikon dili korunsun."
+    },
+    {
+      "area": "card_height",
+      "action": "reduce_component_card_height_padding_and_center_gap",
+      "purpose": "Ekrana daha fazla içerik sığsın, scroll yükü azalsın."
+    },
+    {
+      "area": "master_logo",
+      "action": "preserve_master_logo_top_center_on_selected_center_detail",
+      "purpose": "Alt sayfa/merkez açılınca master logo üst-orta hero alanında kalır."
+    },
+    {
+      "area": "desktop_tablet",
+      "action": "keep_desktop_left_sidebar_topbar_rightbar_layout",
+      "purpose": "Referans görseldeki desktop/tablet kontrol merkezi hissi korunur."
+    },
+    {
+      "area": "text_clamp",
+      "action": "clamp_long_module_names_and_descriptions",
+      "purpose": "Mobilde sağa taşma ve uzun başlık kırılması önlenir."
+    },
+    {
+      "area": "no_active_apply",
+      "action": "build_new_preview_on_8120_only",
+      "purpose": "Aktif 8096’ya dokunmadan görsel kontrol yapılır."
+    }
+  ],
+  "forbidden": [
+    "active_8096_mutation",
+    "db_mutation",
+    "asset_overwrite",
+    "icon_generation",
+    "service_restart",
+    "dns_nginx_ssl_mutation",
+    "paper_live_trade",
+    "delete_old_previews"
+  ],
+  "required_post_build_checks": [
+    "8120_http_200",
+    "active_8096_unchanged",
+    "db_unchanged",
+    "source_8119_unchanged",
+    "8_centers_present",
+    "47_modules_present",
+    "master_logo_top_center_marker_present",
+    "mobile_density_marker_present",
+    "compact_top_summary_marker_present",
+    "emoji_icons_removed_or_hidden",
+    "bad_debug_terms_zero",
+    "wrong_owner_rows_zero"
+  ]
+}

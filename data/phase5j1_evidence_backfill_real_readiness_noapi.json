@@ -1,0 +1,190 @@
+{
+  "backup_plan": {
+    "approval_required_exact": "PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL için onay veriyorum",
+    "backup_required_before_write": true,
+    "guards": [
+      "No API/RPC/fetch.",
+      "No panel mutation.",
+      "No service/timer/Nginx/Auth/hosts mutation.",
+      "No paper/live/watchlist/score permission.",
+      "Backup before write.",
+      "Post-backfill audit required.",
+      "Zero-mint remains WAIT_MORE_DATA, not creation proof.",
+      "Phase4 evidence is not risk clearance."
+    ],
+    "next_real_phase": "PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL",
+    "phase": "PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI",
+    "planned_backup_dir_template": "/root/tokenoskobi_clean_v1/backups/PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL_YYYYMMDD_HHMMSS",
+    "planned_live_db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "planned_rows_total": 30,
+    "real_backfill_allowed_now": false,
+    "rollback_required": true
+  },
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI",
+  "finished_at_utc": "2026-06-01T05:32:03.225155+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "db_sha_start": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "insert_error_count": 0,
+  "insert_ok_count": 30,
+  "live_target_counts": [
+    {
+      "dryrun_expected_delta": 4,
+      "live_row_count_now": 0,
+      "table": "data_quality_time_series_v1"
+    },
+    {
+      "dryrun_expected_delta": 18,
+      "live_row_count_now": 0,
+      "table": "deployer_receipt_evidence_events_v1"
+    },
+    {
+      "dryrun_expected_delta": 1,
+      "live_row_count_now": 0,
+      "table": "evidence_event_ledger_v1"
+    },
+    {
+      "dryrun_expected_delta": 7,
+      "live_row_count_now": 0,
+      "table": "initial_holder_evidence_events_v1"
+    }
+  ],
+  "next_phase": "PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL",
+  "outputs": {
+    "backup_plan_json": "/root/tokenoskobi_clean_v1/_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI/20260601_083203/phase5j1_real_backfill_backup_plan.json",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5j1_evidence_backfill_real_readiness_noapi.json",
+    "readiness_rows": "/root/tokenoskobi_clean_v1/_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI/20260601_083203/phase5j1_real_backfill_readiness.jsonl",
+    "refuse_script": "/root/tokenoskobi_clean_v1/_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI/20260601_083203/PHASE5K_EVIDENCE_BACKFILL_REAL_REFUSE_DRAFT.sh",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5j1_evidence_backfill_real_readiness_noapi_rows.jsonl",
+    "target_row_rows": "/root/tokenoskobi_clean_v1/_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI/20260601_083203/phase5j1_target_row_plan_review.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI/20260601_083203"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "backup_plan_written": true,
+    "db_health_ok": true,
+    "db_sha_expected_match_start": true,
+    "db_unchanged": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "phase5j_dependency_ok": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "readiness_rows_written": true,
+    "refuse_script_written": true,
+    "safety_noapi_clean": true,
+    "target_row_rows_written": true
+  },
+  "phase": "PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI",
+  "phase5j_rows_count": 34,
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 1,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 1,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "readiness_rows": [
+    {
+      "check": "phase5j_pass",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "phase5j_next_is_5k",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "phase5j_failed_checks_none",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "phase5j_planned_total_30",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "phase5j_temp_apply_ok",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "insert_ok_count_30",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "insert_error_count_0",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "table_deltas_all_match",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "live_target_tables_empty_now",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "db_health_ok",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "real_backfill_allowed_now_false",
+      "required": true,
+      "status": true
+    },
+    {
+      "check": "exact_approval_required",
+      "required": true,
+      "status": true
+    }
+  ],
+  "safety": {
+    "api_calls": 0,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "real_backfill_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T05:32:03.225111+00:00",
+  "table_delta_bad_count": 0
+}

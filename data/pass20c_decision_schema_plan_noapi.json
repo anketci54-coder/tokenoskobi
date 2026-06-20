@@ -1,0 +1,55 @@
+{
+  "phase": "PASS20C_DECISION_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "decision_candidate_registry_v1",
+      "purpose": "decision_candidates"
+    },
+    {
+      "table": "decision_evidence_registry_v1",
+      "purpose": "decision_evidence"
+    },
+    {
+      "table": "decision_explanation_registry_v1",
+      "purpose": "explainable_decisions"
+    },
+    {
+      "table": "decision_outcome_registry_v1",
+      "purpose": "decision_outcomes"
+    },
+    {
+      "table": "decision_provenance_registry_v1",
+      "purpose": "decision_provenance"
+    }
+  ],
+  "future_extensions": [
+    "adaptive_position_sizing_engine",
+    "liquidity_cap_engine",
+    "exit_feasibility_engine",
+    "entry_window_engine",
+    "signal_latency_engine"
+  ],
+  "required_rules": [
+    "EVIDENCE_FIRST",
+    "RISK_GATE_REQUIRED",
+    "EXPLAINABLE_DECISION_REQUIRED",
+    "PROVENANCE_REQUIRED",
+    "DECISION_NOT_TRADE"
+  ],
+  "forbidden": [
+    "NO_AI_AUTHORITY",
+    "NO_NEWS_AUTHORITY",
+    "NO_SIGNAL_AUTHORITY",
+    "NO_AUTO_TRADE",
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN"
+  ],
+  "decision": "PASS20C_ACCEPTED_READY_FOR_PASS20D"
+}

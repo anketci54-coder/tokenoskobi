@@ -1,0 +1,2107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Coinoskobi Mobile Pageflow Selector</title>
+<style>
+/* COINOSKOBI_MOBILE_STRICT_PAGEFLOW_SELECTOR_MARKER */
+/* MAIN_PANEL_BEHAVIOR=PAGE_FLOW */
+/* NOT_CAROUSEL */
+/* NOT_SLIDER */
+/* NOT_HORIZONTAL_SCROLL_WINDOW */
+
+* {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
+
+html {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  background: #020811;
+}
+
+body {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(28, 215, 210, .12), transparent 36%),
+    linear-gradient(180deg, #03101a 0%, #020811 55%, #01050b 100%);
+  color: #eaf5ff;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+  padding: env(safe-area-inset-top) 0 48px 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.app {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.topbar {
+  height: 56px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border-bottom: 1px solid rgba(51, 211, 255, .14);
+  background: rgba(2, 8, 17, .9);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+}
+
+.brand-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 36px;
+  border: 1px solid rgba(73, 218, 255, .35);
+  box-shadow: 0 0 16px rgba(73, 218, 255, .18);
+}
+
+.brand-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-text b {
+  display: block;
+  font-size: 13px !important;
+  line-height: 15px !important;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brand-text span {
+  display: block;
+  color: #93a4b7;
+  font-size: 10px !important;
+  line-height: 12px !important;
+  letter-spacing: 3px;
+  margin-top: 2px;
+}
+
+.port-pill {
+  flex: 0 0 auto;
+  font-size: 10px !important;
+  color: #d7e7ff;
+  border: 1px solid rgba(73, 218, 255, .24);
+  border-radius: 999px;
+  padding: 5px 7px;
+  background: rgba(10, 28, 45, .8);
+}
+
+.navbar {
+  width: 100%;
+  max-width: 100%;
+  padding: 8px 10px 7px;
+  border-bottom: 1px solid rgba(51, 211, 255, .12);
+  background: rgba(3, 12, 23, .94);
+}
+
+.navbar label {
+  display: block;
+  font-size: 9px !important;
+  line-height: 11px !important;
+  color: #7191a7;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+#centerSelect {
+  width: 100%;
+  max-width: 100%;
+  height: 34px;
+  border: 1px solid rgba(73, 218, 255, .25);
+  border-radius: 12px;
+  background: rgba(5, 18, 31, .96);
+  color: #eaf5ff;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  padding: 0 10px;
+  outline: none;
+}
+
+.center-view {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 10px 10px 14px;
+}
+
+.center-view.active {
+  display: block;
+}
+
+.center-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 8px 0 9px;
+  border-bottom: 1px solid rgba(73, 218, 255, .16);
+}
+
+.center-head-icon {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-icon {
+  width: 34px !important;
+  height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  border-radius: 50%;
+  border: 1px solid rgba(75, 219, 255, .32);
+  box-shadow: 0 0 16px rgba(48, 227, 215, .18);
+}
+
+.center-head-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.center-head h1 {
+  margin: 0;
+  font-size: 18px !important;
+  line-height: 21px !important;
+  max-height: 22px;
+  font-weight: 850;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.center-head p {
+  margin: 3px 0 0;
+  color: #94a6b8;
+  font-size: 11px !important;
+  line-height: 13px !important;
+  max-height: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 8px 7px;
+  border: 1px solid rgba(73, 218, 255, .26);
+  border-radius: 18px;
+  background: radial-gradient(circle at 50% 50%, rgba(23, 190, 180, .16), rgba(3, 12, 23, .35) 54%, rgba(1, 7, 14, .68));
+  overflow: hidden;
+}
+
+.hero-card {
+  height: 54px;
+  max-height: 54px;
+  border-radius: 14px;
+  border: 1px solid rgba(73, 218, 255, .14);
+  background: rgba(2, 8, 17, .54);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-card span {
+  font-size: 9px !important;
+  line-height: 11px !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8ea2b5;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-card strong {
+  display: block;
+  font-size: 16px !important;
+  line-height: 18px !important;
+  color: #31d468;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-card small {
+  font-size: 9px !important;
+  line-height: 10px !important;
+  color: #8ea2b5;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-medal {
+  width: 76px;
+  height: 76px;
+  max-width: 76px;
+  max-height: 76px;
+  border-radius: 50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(43, 225, 216, .18), rgba(6, 25, 37, .35) 58%, transparent 72%);
+}
+
+.hero-icon {
+  width: 60px !important;
+  height: 60px !important;
+  max-width: 60px !important;
+  max-height: 60px !important;
+  min-width: 60px !important;
+  min-height: 60px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(135, 231, 255, .28);
+  box-shadow: 0 0 18px rgba(77, 226, 218, .22);
+}
+
+.stats {
+  margin-top: 9px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 6px;
+}
+
+.stats div {
+  height: 46px;
+  border-radius: 13px;
+  border: 1px solid rgba(73, 218, 255, .12);
+  background: rgba(4, 13, 24, .72);
+  padding: 6px;
+  overflow: hidden;
+}
+
+.stats b {
+  display:block;
+  font-size: 15px !important;
+  line-height: 17px !important;
+}
+
+.stats span {
+  display:block;
+  margin-top:2px;
+  font-size: 9px !important;
+  line-height: 11px !important;
+  color:#8ea2b5;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.section {
+  margin-top: 12px;
+  border: 1px solid rgba(73, 218, 255, .13);
+  border-radius: 17px;
+  padding: 9px;
+  background: rgba(2, 9, 18, .56);
+  overflow: hidden;
+}
+
+.section-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+  margin-bottom:8px;
+}
+
+.section-head h2 {
+  margin:0;
+  font-size: 13px !important;
+  line-height: 15px !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  max-width: 68%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.section-head span {
+  font-size: 9px !important;
+  line-height: 11px !important;
+  color:#8295a8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.module-grid {
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 7px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.module-card {
+  height: 82px;
+  min-height: 82px;
+  max-height: 82px;
+  padding: 7px 6px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(8, 22, 38, .78), rgba(3, 10, 20, .86));
+  border: 1px solid rgba(73, 218, 255, .14);
+  box-shadow: inset 0 0 18px rgba(34, 220, 220, .035);
+}
+
+.module-icon-wrap {
+  height: 32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 0 4px 0;
+}
+
+.module-icon {
+  width: 30px !important;
+  height: 30px !important;
+  max-width: 30px !important;
+  max-height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(100, 226, 255, .26);
+  box-shadow: 0 0 10px rgba(45, 221, 214, .16);
+}
+
+.module-title {
+  font-size: 12px !important;
+  line-height: 14px !important;
+  height: 15px;
+  max-height: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+
+.module-status {
+  font-size: 10px !important;
+  line-height: 12px !important;
+  height: 13px;
+  max-height: 13px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  color: #35d86a;
+  margin-top: 2px;
+}
+
+.badge {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  color:#24c9d7;
+  font-weight:900;
+  background: radial-gradient(circle, rgba(32, 211, 220, .16), rgba(3, 12, 23, .8));
+}
+
+.module-icon.badge {
+  font-size: 10px !important;
+  line-height: 10px !important;
+}
+
+.center-icon.badge {
+  font-size: 12px !important;
+  line-height: 12px !important;
+}
+
+.hero-icon.badge {
+  font-size: 18px !important;
+  line-height: 18px !important;
+}
+
+.mini-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+}
+
+.mini-grid div {
+  height:46px;
+  border-radius:13px;
+  border:1px solid rgba(153, 91, 255, .22);
+  background:rgba(30, 12, 54, .35);
+  padding:7px;
+  display:grid;
+  grid-template-columns:28px 1fr;
+  grid-template-rows:17px 12px;
+  gap:0 6px;
+  overflow:hidden;
+}
+
+.mini-grid b {
+  grid-row:1 / span 2;
+  width:28px;
+  height:28px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px !important;
+  color:#bc6cff;
+  background:rgba(94, 45, 146, .22);
+  border:1px solid rgba(188,108,255,.25);
+}
+
+.mini-grid span {
+  font-size:11px !important;
+  line-height:13px !important;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-grid small {
+  font-size:9px !important;
+  line-height:11px !important;
+  color:#35d86a;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.risk-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+}
+
+.risk-card {
+  min-height:70px;
+  padding:8px;
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(4,13,24,.76);
+  border:1px solid rgba(73,218,255,.13);
+}
+
+.risk-title {
+  font-size:12px !important;
+  line-height:14px !important;
+  max-height:28px;
+  overflow:hidden;
+  font-weight:850;
+  color:#eef7ff;
+}
+
+.risk-status {
+  font-size:10px !important;
+  line-height:12px !important;
+  color:#35d86a;
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.risk-summary {
+  font-size:10px !important;
+  line-height:12px !important;
+  color:#8997a8;
+  margin-top:3px;
+  max-height:24px;
+  overflow:hidden;
+}
+
+.empty-note {
+  grid-column:1 / -1;
+  color:#8ea2b5;
+  font-size:11px !important;
+  padding:10px;
+  border:1px dashed rgba(73,218,255,.2);
+  border-radius:12px;
+}
+
+.audit-strip {
+  position: fixed;
+  z-index: 50;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  min-height: 26px;
+  border-radius: 10px;
+  border: 1px solid rgba(68, 255, 112, .5);
+  background: rgba(1, 8, 12, .92);
+  color: #dfffe7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px !important;
+  line-height: 11px !important;
+  padding: 5px 7px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.audit-strip.bad {
+  border-color: rgba(255, 79, 79, .65);
+  color: #ffd7d7;
+}
+</style>
+
+
+
+
+
+
+
+<style id="COINOSKOBI_MOBILE_PAGEFLOW_CARD_VERTICAL_FIT_FIX_STYLE">
+/* COINOSKOBI_MOBILE_PAGEFLOW_CARD_VERTICAL_FIT_FIX_BEGIN */
+html, body {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  text-size-adjust: 100% !important;
+  -webkit-text-size-adjust: 100% !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+body {
+  margin: 0 !important;
+}
+
+/* Ana pageflow sınırı */
+main,
+#app,
+.pageflow,
+.page-flow,
+.mobile-pageflow,
+.center-view,
+.mobile-view,
+.module-grid,
+.modules-grid,
+.card-grid,
+.cards,
+.module-list,
+.card-list {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+/* Kartları yatay taşırma ve dikey kırpma için sabitle */
+.module-card,
+.card,
+.panel-card,
+.status-card,
+.metric-card,
+.risk-card,
+[class*="module-card"],
+[class*="panel-card"],
+[class*="status-card"],
+[class*="metric-card"],
+[class*="risk-card"] {
+  width: auto !important;
+  max-width: calc(50vw - 18px) !important;
+  min-height: 104px !important;
+  height: 104px !important;
+  max-height: 104px !important;
+  padding: 8px 7px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 3px !important;
+  contain: layout paint !important;
+}
+
+/* Tek kolon/özet kartları tam geniş ise yine taşmasın */
+.summary-card,
+.hero-card,
+.wide-card,
+[class*="summary"],
+[class*="hero"] {
+  max-width: calc(100vw - 24px) !important;
+}
+
+/* İkonlar: küçük, sabit, kart içinde tam otursun */
+.module-card img,
+.card img,
+.panel-card img,
+.status-card img,
+.metric-card img,
+.risk-card img,
+[class*="module-card"] img,
+[class*="panel-card"] img,
+[class*="status-card"] img,
+[class*="metric-card"] img,
+[class*="risk-card"] img {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  object-fit: cover !important;
+  border-radius: 999px !important;
+  display: block !important;
+  margin: 0 auto 2px auto !important;
+  flex: 0 0 36px !important;
+}
+
+/* Kart başlığı: artık devleşmesin */
+.module-card h1,
+.module-card h2,
+.module-card h3,
+.module-card h4,
+.module-card .module-title,
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card .card-title,
+.panel-card h1,
+.panel-card h2,
+.panel-card h3,
+.panel-card h4,
+.status-card h1,
+.status-card h2,
+.status-card h3,
+.status-card h4,
+.metric-card h1,
+.metric-card h2,
+.metric-card h3,
+.metric-card h4,
+.risk-card h1,
+.risk-card h2,
+.risk-card h3,
+.risk-card h4,
+[class*="card"] h1,
+[class*="card"] h2,
+[class*="card"] h3,
+[class*="card"] h4,
+[class*="card"] [class*="title"],
+[class*="module"] [class*="title"],
+[class*="card"] [class*="name"],
+[class*="module"] [class*="name"],
+[class*="card"] [class*="label"],
+[class*="module"] [class*="label"] {
+  font-size: clamp(12px, 3.55vw, 15px) !important;
+  line-height: 1.08 !important;
+  font-weight: 800 !important;
+  letter-spacing: .01em !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 30px !important;
+  max-height: 34px !important;
+  margin: 0 !important;
+  padding: 0 2px !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  flex: 0 0 auto !important;
+}
+
+/* Durum satırı: kart içinde sabit ve küçük */
+.module-card .status,
+.module-card .state,
+.module-card [class*="status"],
+.module-card [class*="state"],
+.card .status,
+.card .state,
+.card [class*="status"],
+.card [class*="state"],
+.panel-card .status,
+.status-card .status,
+.metric-card .status,
+.risk-card .status,
+[class*="card"] .status,
+[class*="card"] .state,
+[class*="card"] [class*="status"],
+[class*="card"] [class*="state"] {
+  font-size: clamp(10px, 3.25vw, 13px) !important;
+  line-height: 1.05 !important;
+  max-height: 15px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #46d66a !important;
+  flex: 0 0 auto !important;
+}
+
+/* Büyük üst başlıklar kart fontundan ayrı ama taşmasın */
+.center-header h1,
+.center-title,
+header h1,
+h1 {
+  font-size: clamp(21px, 6.2vw, 26px) !important;
+  line-height: 1.1 !important;
+  max-width: calc(100vw - 28px) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: normal !important;
+}
+
+/* Üst özet sayı kutuları yatay taşmayı tetiklemesin */
+.stat-card,
+.kpi-card,
+[class*="stat"],
+[class*="kpi"] {
+  max-width: calc(50vw - 18px) !important;
+  overflow: hidden !important;
+}
+
+.stat-card *,
+.kpi-card *,
+[class*="stat"] *,
+[class*="kpi"] * {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Preview debug strip artık görünmesin */
+#coinoskobiTextClampAuditStrip,
+#mobileStrictAudit,
+#mobileAuditStrip,
+#mobileOverflowLocator,
+#coinoskobiOverflowLocator,
+.audit-strip,
+.debug-strip,
+[class*="debug"],
+[class*="Debug"],
+[class*="audit-strip"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Görsel kontrol için sadece marker, görünmez */
+#coinoskobiVerticalFitMarker {
+  display: none !important;
+}
+/* COINOSKOBI_MOBILE_PAGEFLOW_CARD_VERTICAL_FIT_FIX_END */
+</style>
+
+
+<script id="COINOSKOBI_MOBILE_PAGEFLOW_CARD_VERTICAL_FIT_FIX_SCRIPT">
+/* COINOSKOBI_MOBILE_PAGEFLOW_CARD_VERTICAL_FIT_FIX_JS_BEGIN */
+(function(){
+  function important(el, prop, val){
+    try { el.style.setProperty(prop, val, "important"); } catch(e) {}
+  }
+
+  function isCard(el){
+    if(!el || !el.className) return false;
+    var c = String(el.className).toLowerCase();
+    return c.indexOf("card") >= 0 || c.indexOf("module") >= 0 || c.indexOf("metric") >= 0 || c.indexOf("status") >= 0 || c.indexOf("risk") >= 0;
+  }
+
+  function titleCandidates(card){
+    return Array.from(card.querySelectorAll("h1,h2,h3,h4,.module-title,.card-title,.title,.name,.label,[class*='title'],[class*='name'],[class*='label']"))
+      .filter(function(el){
+        var t = (el.textContent || "").trim();
+        if(t.length < 2) return false;
+        if(el.children && el.children.length > 2) return false;
+        return true;
+      });
+  }
+
+  function statusCandidates(card){
+    return Array.from(card.querySelectorAll(".status,.state,[class*='status'],[class*='state']"))
+      .filter(function(el){
+        var t = (el.textContent || "").trim();
+        if(t.length < 2) return false;
+        if(el.children && el.children.length > 2) return false;
+        return true;
+      });
+  }
+
+  function fitNow(){
+    important(document.documentElement, "overflow-x", "hidden");
+    important(document.body, "overflow-x", "hidden");
+    important(document.body, "width", "100vw");
+    important(document.body, "max-width", "100vw");
+    important(document.documentElement, "-webkit-text-size-adjust", "100%");
+    important(document.body, "-webkit-text-size-adjust", "100%");
+
+    Array.from(document.querySelectorAll("#coinoskobiTextClampAuditStrip,#mobileStrictAudit,#mobileAuditStrip,#mobileOverflowLocator,#coinoskobiOverflowLocator,.audit-strip,.debug-strip,[class*='debug'],[class*='Debug'],[class*='audit-strip']")).forEach(function(el){
+      important(el, "display", "none");
+      important(el, "visibility", "hidden");
+      important(el, "opacity", "0");
+    });
+
+    var cards = Array.from(document.querySelectorAll(".module-card,.card,.panel-card,.status-card,.metric-card,.risk-card,[class*='module-card'],[class*='panel-card'],[class*='status-card'],[class*='metric-card'],[class*='risk-card']"));
+    cards.forEach(function(card){
+      important(card, "max-width", "calc(50vw - 18px)");
+      important(card, "min-height", "104px");
+      important(card, "height", "104px");
+      important(card, "max-height", "104px");
+      important(card, "padding", "8px 7px");
+      important(card, "overflow", "hidden");
+      important(card, "display", "flex");
+      important(card, "flex-direction", "column");
+      important(card, "align-items", "center");
+      important(card, "justify-content", "flex-start");
+      important(card, "gap", "3px");
+      important(card, "box-sizing", "border-box");
+
+      Array.from(card.querySelectorAll("img")).forEach(function(img){
+        important(img, "width", "36px");
+        important(img, "height", "36px");
+        important(img, "min-width", "36px");
+        important(img, "min-height", "36px");
+        important(img, "max-width", "36px");
+        important(img, "max-height", "36px");
+        important(img, "object-fit", "cover");
+        important(img, "border-radius", "999px");
+        important(img, "margin", "0 auto 2px auto");
+        important(img, "flex", "0 0 36px");
+      });
+
+      titleCandidates(card).forEach(function(el){
+        important(el, "font-size", "clamp(12px, 3.55vw, 15px)");
+        important(el, "line-height", "1.08");
+        important(el, "font-weight", "800");
+        important(el, "width", "100%");
+        important(el, "max-width", "100%");
+        important(el, "min-height", "30px");
+        important(el, "max-height", "34px");
+        important(el, "margin", "0");
+        important(el, "padding", "0 2px");
+        important(el, "text-align", "center");
+        important(el, "white-space", "normal");
+        important(el, "overflow", "hidden");
+        important(el, "text-overflow", "ellipsis");
+        important(el, "overflow-wrap", "anywhere");
+        important(el, "display", "-webkit-box");
+        important(el, "-webkit-line-clamp", "2");
+        important(el, "-webkit-box-orient", "vertical");
+        important(el, "flex", "0 0 auto");
+      });
+
+      statusCandidates(card).forEach(function(el){
+        important(el, "font-size", "clamp(10px, 3.25vw, 13px)");
+        important(el, "line-height", "1.05");
+        important(el, "max-height", "15px");
+        important(el, "margin", "0");
+        important(el, "padding", "0");
+        important(el, "white-space", "nowrap");
+        important(el, "overflow", "hidden");
+        important(el, "text-overflow", "ellipsis");
+        important(el, "color", "#46d66a");
+        important(el, "flex", "0 0 auto");
+      });
+    });
+
+    var marker = document.getElementById("coinoskobiVerticalFitMarker");
+    if(!marker){
+      marker = document.createElement("div");
+      marker.id = "coinoskobiVerticalFitMarker";
+      marker.textContent = "VERTICAL_FIT_OK";
+      document.body.appendChild(marker);
+    }
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", fitNow);
+  } else {
+    fitNow();
+  }
+  window.addEventListener("resize", function(){ setTimeout(fitNow, 80); });
+  window.addEventListener("hashchange", function(){ setTimeout(fitNow, 140); });
+  setTimeout(fitNow, 250);
+  setTimeout(fitNow, 900);
+  setTimeout(fitNow, 1800);
+})();
+/* COINOSKOBI_MOBILE_PAGEFLOW_CARD_VERTICAL_FIT_FIX_JS_END */
+</script>
+
+
+<style id="COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX_STYLE">
+/* COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX_BEGIN */
+.coinoskobi-icon-badge {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto 2px auto !important;
+  flex: 0 0 36px !important;
+  font-size: 10px !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  letter-spacing: .02em !important;
+  color: #68f5ff !important;
+  background: radial-gradient(circle at 50% 45%, rgba(31,180,195,.32), rgba(2,8,18,.85) 62%, rgba(0,0,0,.9)) !important;
+  border: 1px solid rgba(93,235,255,.28) !important;
+  box-shadow: 0 0 18px rgba(32,218,230,.18), inset 0 0 18px rgba(32,218,230,.08) !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+}
+
+.coinoskobi-icon-blocked-wrong,
+.coinoskobi-icon-duplicate-blocked {
+  outline: 1px solid rgba(255,185,70,.18) !important;
+}
+
+#coinoskobiIconTruthMarker {
+  display: none !important;
+}
+/* COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX_END */
+</style>
+
+
+<script id="COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX_SCRIPT">
+/* COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX_JS_BEGIN */
+(function(){
+  const PHASE = "COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX";
+
+  const DIRECT_BLOCK_LABELS = [
+    "rug / honeypot",
+    "rug/honeypot",
+    "rug honeypot",
+    "kilit kontrol",
+    "tx akış",
+    "tx akisi",
+    "kontrat risk",
+    "kontrat riski",
+    "slippage"
+  ];
+
+  function norm(s){
+    return String(s || "")
+      .toLocaleLowerCase("tr-TR")
+      .replaceAll("ı","i").replaceAll("ğ","g").replaceAll("ü","u")
+      .replaceAll("ş","s").replaceAll("ö","o").replaceAll("ç","c")
+      .replace(/\s+/g," ")
+      .trim();
+  }
+
+  function badgeText(title){
+    const n = norm(title);
+    if(n.includes("rug") || n.includes("honeypot")) return "R/H";
+    if(n.includes("kilit")) return "KK";
+    if(n.includes("tx")) return "TX";
+    if(n.includes("kontrat")) return "KR";
+    if(n.includes("slippage")) return "SL";
+    const parts = String(title || "").split(/[\/\s_-]+/).filter(Boolean);
+    let b = parts.slice(0,2).map(x => x[0]).join("").toUpperCase();
+    return b || "NA";
+  }
+
+  function cardSelector(){
+    return ".module-card,.card,.panel-card,.status-card,.metric-card,.risk-card,[class*='module-card'],[class*='panel-card'],[class*='status-card'],[class*='metric-card'],[class*='risk-card']";
+  }
+
+  function titleFromCard(card){
+    const selectors = [
+      "h1","h2","h3","h4",
+      ".module-title",".card-title",".title",".name",".label",
+      "[class*='title']","[class*='name']","[class*='label']"
+    ];
+    let best = "";
+    selectors.forEach(sel => {
+      card.querySelectorAll(sel).forEach(el => {
+        const t = (el.textContent || "").replace(/\s+/g," ").trim();
+        if(!t) return;
+        if(["normal","aktif","kapalı","kapali","modül","modul","uyarı","uyari","hata"].includes(norm(t))) return;
+        if(t.length > best.length && t.length <= 80) best = t;
+      });
+    });
+    if(best) return best;
+    const txt = (card.textContent || "").replace(/\s+/g," ").trim();
+    return txt.split(" Normal")[0].slice(0,60);
+  }
+
+  function shouldDirectBlock(title){
+    const n = norm(title);
+    return DIRECT_BLOCK_LABELS.some(x => n.includes(norm(x)));
+  }
+
+  function replaceIconWithBadge(card, reason){
+    if(!card || card.dataset.iconTruthFixed === "1") return false;
+    const title = titleFromCard(card);
+    const img = card.querySelector("img");
+    if(!img) return false;
+
+    const badge = document.createElement("div");
+    badge.className = "coinoskobi-icon-badge";
+    badge.textContent = badgeText(title);
+    badge.setAttribute("data-icon-truth-reason", reason);
+    badge.setAttribute("title", "İkon yok / yanlış eşleşme engellendi: " + title);
+
+    img.replaceWith(badge);
+    card.dataset.iconTruthFixed = "1";
+    card.dataset.iconTruthReason = reason;
+    card.classList.add(reason === "duplicate_icon_src" ? "coinoskobi-icon-duplicate-blocked" : "coinoskobi-icon-blocked-wrong");
+    return true;
+  }
+
+  function runIconTruthFix(){
+    const cards = Array.from(document.querySelectorAll(cardSelector()));
+    let directBlocked = 0;
+    let duplicateBlocked = 0;
+
+    cards.forEach(card => {
+      const title = titleFromCard(card);
+      if(shouldDirectBlock(title)){
+        if(replaceIconWithBadge(card, "unmade_or_wrong_icon_block")) directBlocked++;
+      }
+    });
+
+    const remaining = Array.from(document.querySelectorAll(cardSelector()))
+      .filter(c => c.dataset.iconTruthFixed !== "1" && c.querySelector("img"));
+
+    const bySrc = new Map();
+    remaining.forEach(card => {
+      const img = card.querySelector("img");
+      const src = img ? (img.getAttribute("src") || "") : "";
+      if(!src) return;
+      if(!bySrc.has(src)) bySrc.set(src, []);
+      bySrc.get(src).push(card);
+    });
+
+    bySrc.forEach((list, src) => {
+      const titles = Array.from(new Set(list.map(titleFromCard).map(norm).filter(Boolean)));
+      if(list.length > 1 && titles.length > 1){
+        list.forEach(card => {
+          if(replaceIconWithBadge(card, "duplicate_icon_src")) duplicateBlocked++;
+        });
+      }
+    });
+
+    let marker = document.getElementById("coinoskobiIconTruthMarker");
+    if(!marker){
+      marker = document.createElement("div");
+      marker.id = "coinoskobiIconTruthMarker";
+      document.body.appendChild(marker);
+    }
+    marker.textContent = "ICON_TRUTH_OK directBlocked=" + directBlocked + " duplicateBlocked=" + duplicateBlocked;
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", runIconTruthFix);
+  } else {
+    runIconTruthFix();
+  }
+  window.addEventListener("hashchange", function(){ setTimeout(runIconTruthFix, 120); });
+  window.addEventListener("resize", function(){ setTimeout(runIconTruthFix, 120); });
+  setTimeout(runIconTruthFix, 250);
+  setTimeout(runIconTruthFix, 900);
+  setTimeout(runIconTruthFix, 1800);
+})();
+/* COINOSKOBI_MOBILE_PAGEFLOW_ICON_TRUTH_FIX_JS_END */
+</script>
+
+</head>
+<body>
+<div class="app" id="app">
+  <div class="topbar">
+    <img class="brand-dot" src="panel_assets/center_icons_final/sistem_kontrol_merkezi.png" alt="">
+    <div class="brand-text"><b>COINOSKOBI</b><span>TOKENOSKOBI</span></div>
+    <div class="port-pill">8143 · pageflow</div>
+  </div>
+
+  <nav class="navbar">
+    <label>Merkez seç</label>
+    <select id="centerSelect"><option value="komuta_merkezi">Komuta Merkezi</option>
+<option value="haber_akis_merkezi">Haber Akış Merkezi</option>
+<option value="onchain_veri_merkezi">On-Chain Veri Merkezi</option>
+<option value="balina_takip_merkezi">Balina Takip Merkezi</option>
+<option value="teknik_analiz_merkezi">Teknik Analiz Merkezi</option>
+<option value="risk_guvenlik_merkezi">Risk &amp; Güvenlik Merkezi</option>
+<option value="yasam_destek_merkezi">Yaşam Destek Merkezi</option>
+<option value="sistem_kontrol_merkezi" selected>Sistem Kontrol Merkezi</option></select>
+  </nav>
+
+  
+    <section class="center-view" id="komuta_merkezi" data-center="komuta_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/komuta_merkezi/komuta_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Komuta Merkezi</h1>
+          <p>Canlı karar, pozisyon, SL/TP ve aksiyon kontrol alanı</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/komuta_merkezi/komuta_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>6</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/komuta_merkezi/canli_karar_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Canlı Karar</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/komuta_merkezi/paper_trade_ozeti_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Paper Trade Özeti</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/komuta_merkezi/acik_pozisyonlar_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Açık Pozisyonlar</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/komuta_merkezi/sl_tp_durumu_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">SL / TP Durumu</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/komuta_merkezi/aksiyon_gecmisi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Aksiyon Geçmişi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/komuta_merkezi/merkez_skorlari_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Merkez Skorları</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+    <section class="center-view" id="haber_akis_merkezi" data-center="haber_akis_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/haber_akis_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Haber Akış Merkezi</h1>
+          <p>Haber akışı, kaynak güveni, narrative ve etki skoru alanı</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/haber_akis_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>9</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/kritik_haber_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Kritik Haber</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/haber_etki_skoru_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Haber Etki Skoru</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/haber_gecmisi_arsiv_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Haber Geçmişi / Arşiv</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/kaynak_guvenilirligi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Kaynak Güvenilirliği</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/narrative_tema_takibi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Narrative / Tema Takibi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/kritik_takvim_launch_calendar_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Kritik Takvim / Launch Calendar</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/ico_ido_drop_radar_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">ICO / IDO / Drop Radar</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/airdrop_claim_takibi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Airdrop / Claim Takibi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/haber_akis_merkezi/ceviri_ve_ozet_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Çeviri ve Özet</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+    <section class="center-view" id="onchain_veri_merkezi" data-center="onchain_veri_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/onchain_veri_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>On-Chain Veri Merkezi</h1>
+          <p>Token kimliği, kontrat, holder, likidite ve deployer verileri</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/onchain_veri_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>6</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/token_kimlik_dogrulama_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Token Kimlik Kartı</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Likidite / Havuz</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/holder_dagilimi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Holder Dağılımı</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Kontrat Risk</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">TX Akış</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Deployer Analizi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+    <section class="center-view" id="balina_takip_merkezi" data-center="balina_takip_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/balina_takip_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Balina Takip Merkezi</h1>
+          <p>Whale wallet, akıllı para, büyük transfer ve borsa akışı</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/balina_takip_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>5</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/whale_wallet_izleme_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Whale Wallet İzleme</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/akilli_para_takibi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Akıllı Para Takibi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/buyuk_transfer_alarmi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Büyük Transfer Alarmı</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/borsa_giris_cikis_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Borsa Giriş / Çıkış</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/balina_takip_merkezi/wallet_risk_profili_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Wallet Risk Profili</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+    <section class="center-view" id="teknik_analiz_merkezi" data-center="teknik_analiz_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/teknik_analiz_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Teknik Analiz Merkezi</h1>
+          <p>Trend, hacim, momentum, volatilite ve destek/direnç alanı</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/teknik_analiz_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>5</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/trend_yonu_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Trend</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/hacim_analizi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Hacim</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/destek_direnc_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Destek / Direnç</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/momentum_rsi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Momentum</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/teknik_analiz_merkezi/volatilite_sikisma_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Volatilite</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+    <section class="center-view" id="risk_guvenlik_merkezi" data-center="risk_guvenlik_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/risk_guvenlik_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Risk &amp; Güvenlik Merkezi</h1>
+          <p>Risk skoru, rug/honeypot, slippage, MEV ve kilit kontrolü</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/risk_guvenlik_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>5</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/risk_skoru_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Risk Skoru</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Rug / Honeypot</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Slippage</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Kilit Kontrol</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Uyarı Sistemi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+        <section class="section">
+          <div class="section-head">
+            <h2>Risk Kartları</h2>
+            <span>text-only</span>
+          </div>
+          <div class="risk-grid">
+            
+      <article class="risk-card">
+        <div class="risk-title">Risk → İşlem Planı Özeti</div>
+        <div class="risk-status">● DRYRUN_OK</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">MEV / Dinamik Slipaj</div>
+        <div class="risk-status">● READY_DRYRUN</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Hard Block / Güvenlik Kapısı</div>
+        <div class="risk-status">● LOCKED</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">High Risk Paper-Only</div>
+        <div class="risk-status">● READY_DRYRUN</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Normal İşlem Planı</div>
+        <div class="risk-status">● NORMAL_READY</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Vur-Kaç Planı</div>
+        <div class="risk-status">● VUR_KAC_READY</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Bloklanan İşlem</div>
+        <div class="risk-status">● BLOCKED</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Paper-Only İşlem</div>
+        <div class="risk-status">● PAPER_ONLY</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Buton Durumu</div>
+        <div class="risk-status">● AUTO_LOCKED</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Outcome Memory Hazırlığı</div>
+        <div class="risk-status">● STUB_READY</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Morg / Otopsi Rotası</div>
+        <div class="risk-status">● BLOCK_ROUTE_READY</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+      <article class="risk-card">
+        <div class="risk-title">Live / Auto Kilit</div>
+        <div class="risk-status">● LOCKED</div>
+        <div class="risk-summary"></div>
+      </article>
+    
+          </div>
+        </section>
+        
+    </section>
+    
+    <section class="center-view" id="yasam_destek_merkezi" data-center="yasam_destek_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/yasam_destek_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Yaşam Destek Merkezi</h1>
+          <p>Klinik, morg, otopsi ve olay yeri inceleme merkezi</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/yasam_destek_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>6</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/klinik_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Klinik</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/morg_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Morg</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/otopsi_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Otopsi</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/olay_yeri_inceleme_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Olay Yeri İnceleme</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/adli_sorusturma_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Adli Soruşturma</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/yasam_destek_merkezi/supheliler_spam_cuzdanlar_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Şüpheliler / Spam Cüzdanlar</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+    <section class="center-view" id="sistem_kontrol_merkezi" data-center="sistem_kontrol_merkezi">
+      <header class="center-head">
+        <div class="center-head-icon"><img class="center-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/sistem_kontrol_merkezi_master_384.jpg" alt=""></div>
+        <div class="center-head-text">
+          <h1>Sistem Kontrol Merkezi</h1>
+          <p>Tüm sistem bileşenlerinin durumu ve kontrolü</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-card">
+          <span>Sağlık</span>
+          <strong>OK</strong>
+          <small>Tüm sistemler normal</small>
+        </div>
+        <div class="hero-medal">
+          <img class="hero-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/sistem_kontrol_merkezi_master_384.jpg" alt="">
+        </div>
+        <div class="hero-card">
+          <span>Modül</span>
+          <strong>5</strong>
+          <small>Aktif / Toplam</small>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><b>8</b><span>Merkez</span></div>
+        <div><b>47</b><span>Modül</span></div>
+        <div><b>0</b><span>Uyarı</span></div>
+        <div><b>0</b><span>Hata</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Sistem Bileşenleri</h2>
+          <span>sayfa akışı</span>
+        </div>
+        <div class="module-grid">
+          
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/worker_runner_durumu_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Sistem Sağlık</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/worker_runner_durumu_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Veri Zamanı</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/api_rpc_durumu_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">API Durum</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/panel_ui_durumu_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Panel Durum</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+
+      <article class="module-card" data-measure-card="1">
+        <div class="module-icon-wrap"><img class="module-icon" src="panel_assets/icons_panel_384/sistem_kontrol_merkezi/log_event_izleme_384.jpg" alt=""></div>
+        <div class="module-title" data-measure-title="1">Log İzleme</div>
+        <div class="module-status" data-measure-status="1">● Normal</div>
+      </article>
+    
+        </div>
+      </section>
+
+      <section class="section motors">
+        <div class="section-head">
+          <h2>Özel Sistem Motorları</h2>
+          <span>kontrol</span>
+        </div>
+        <div class="mini-grid">
+          <div><b>PS</b><span>Paper Simülasyon</span><small>● Normal</small></div>
+          <div><b>AI</b><span>AI Kalibrasyon</span><small>● Normal</small></div>
+          <div><b>OM</b><span>Outcome Memory</span><small>● Normal</small></div>
+          <div><b>BT</b><span>Backtest Motoru</span><small>● Normal</small></div>
+        </div>
+      </section>
+
+      
+    </section>
+    
+</div>
+
+<div id="auditStrip" class="audit-strip">PAGEFLOW ölçülüyor...</div>
+
+<script>
+(function(){
+  const select = document.getElementById('centerSelect');
+  const views = Array.from(document.querySelectorAll('.center-view'));
+  const strip = document.getElementById('auditStrip');
+
+  function showCenter(key){
+    views.forEach(v => {
+      if (v.dataset.center === key) {
+        v.classList.add('active');
+        v.style.display = 'block';
+      } else {
+        v.classList.remove('active');
+        v.style.display = 'none';
+      }
+    });
+    if (location.hash !== '#' + key) {
+      history.replaceState(null, '', '#' + key);
+    }
+    window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+    setTimeout(audit, 100);
+  }
+
+  const startKey = (location.hash || '').replace('#','') || 'sistem_kontrol_merkezi';
+  if ([...select.options].some(o => o.value === startKey)) select.value = startKey;
+  showCenter(select.value);
+
+  select.addEventListener('change', () => showCenter(select.value));
+
+  window.addEventListener('hashchange', () => {
+    const key = (location.hash || '').replace('#','');
+    if ([...select.options].some(o => o.value === key)) {
+      select.value = key;
+      showCenter(key);
+    }
+  });
+
+  function px(n){ return Math.round(Number(n) || 0); }
+
+  function audit(){
+    const sw = document.documentElement.scrollWidth;
+    const cw = document.documentElement.clientWidth;
+    const iw = window.innerWidth;
+    const dpr = window.devicePixelRatio || 1;
+    const activeCount = document.querySelectorAll('.center-view.active').length;
+
+    const bad = sw > cw + 1 || activeCount !== 1;
+    strip.classList.toggle('bad', bad);
+    strip.textContent =
+      (bad ? 'PAGEFLOW BAD' : 'PAGEFLOW OK') +
+      ' · VW:' + iw + ' CW:' + cw + ' SW:' + sw + ' DPR:' + dpr +
+      ' · activeViews:' + activeCount +
+      ' · noCarousel/noSlider';
+  }
+
+  window.addEventListener('load', audit);
+  window.addEventListener('resize', audit);
+  setInterval(audit, 1200);
+})();
+</script>
+</body>
+</html>

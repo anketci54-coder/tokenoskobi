@@ -1,0 +1,875 @@
+{
+  "core_fields": [
+    {
+      "field": "state_uid",
+      "meaning": "Immutable state row uid.",
+      "required": true,
+      "table_scope": "all",
+      "type": "TEXT PRIMARY KEY"
+    },
+    {
+      "field": "token_uid",
+      "meaning": "Canonical token UID.",
+      "required": true,
+      "table_scope": "all",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "pair_uid",
+      "meaning": "Canonical pair UID if available.",
+      "required": false,
+      "table_scope": "main",
+      "type": "TEXT"
+    },
+    {
+      "field": "chain",
+      "meaning": "Chain slug, BSC first.",
+      "required": true,
+      "table_scope": "all",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "token_address",
+      "meaning": "Token contract address.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "pair_address",
+      "meaning": "Pair/pool address.",
+      "required": false,
+      "table_scope": "main",
+      "type": "TEXT"
+    },
+    {
+      "field": "evidence_status",
+      "meaning": "COMPLETE / PARTIAL / WAIT_MORE_DATA / STALE_EVIDENCE.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "creation_proof_status",
+      "meaning": "CONFIRMED / UNPROVEN / WAIT_MORE_DATA / NOT_APPLICABLE.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "zero_mint_status",
+      "meaning": "Zero-mint token log match remains WAIT_MORE_DATA, not creation proof.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "holder_evidence_status",
+      "meaning": "Holder evidence state.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "deployer_evidence_status",
+      "meaning": "Deployer evidence state.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "risk_clearance_status",
+      "meaning": "No clearance unless mandatory risk evidence is fresh and passing.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "execution_safety_status",
+      "meaning": "BLOCKED / WAIT_MORE_DATA / THRESHOLDS_REQUIRED / READY_FOR_PAPER_REVIEW_ONLY.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "decision_label",
+      "meaning": "TRASH_REJECTED / GHOST / WAIT_MORE_DATA / STALE_EVIDENCE / BLOCKED_BY_RISK / EVIDENCE_READY_NO_TRADE_PERMISSION.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "recommended_route",
+      "meaning": "NO_ROUTE unless later policy permits review-only route.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL DEFAULT 'NO_ROUTE'"
+    },
+    {
+      "field": "blocked_reason",
+      "meaning": "Explicit block reason.",
+      "required": false,
+      "table_scope": "main",
+      "type": "TEXT"
+    },
+    {
+      "field": "next_required_evidence",
+      "meaning": "Next missing evidence required to progress.",
+      "required": false,
+      "table_scope": "main",
+      "type": "TEXT"
+    },
+    {
+      "field": "last_audit_phase",
+      "meaning": "Most recent phase validating this state.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "last_updated_block",
+      "meaning": "Latest source event block number.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "INTEGER"
+    },
+    {
+      "field": "last_updated_timestamp",
+      "meaning": "Latest source event timestamp.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "source_event_count",
+      "meaning": "How many event/evidence rows feed the state.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "INTEGER NOT NULL DEFAULT 0"
+    },
+    {
+      "field": "evidence_age_blocks",
+      "meaning": "Current block minus last_updated_block.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "INTEGER"
+    },
+    {
+      "field": "evidence_age_seconds",
+      "meaning": "Current timestamp minus last_updated_timestamp.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "INTEGER"
+    },
+    {
+      "field": "stale_after_blocks",
+      "meaning": "Block threshold for stale status.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "field": "stale_after_seconds",
+      "meaning": "Wall-clock threshold for stale status.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "field": "stale_status",
+      "meaning": "FRESH / AGING / STALE / EXPIRED / UNKNOWN.",
+      "required": true,
+      "table_scope": "freshness",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "route_permission",
+      "meaning": "No paper/live permission; future read-only route labels only.",
+      "required": true,
+      "table_scope": "main",
+      "type": "TEXT NOT NULL DEFAULT 'NO_TRADE_PERMISSION'"
+    },
+    {
+      "field": "payload_json",
+      "meaning": "Compact detail payload.",
+      "required": true,
+      "table_scope": "all",
+      "type": "TEXT NOT NULL DEFAULT '{}'"
+    },
+    {
+      "field": "created_at_utc",
+      "meaning": "Row creation timestamp.",
+      "required": true,
+      "table_scope": "all",
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "field": "updated_at_utc",
+      "meaning": "Row update timestamp.",
+      "required": true,
+      "table_scope": "all",
+      "type": "TEXT NOT NULL"
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "decision_labels": [
+    {
+      "label": "TRASH_REJECTED",
+      "meaning": "Hard block or terminal risk.",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "label": "GHOST",
+      "meaning": "Unresolved deployer/creation proof route closed or ghost staged.",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "label": "WAIT_MORE_DATA",
+      "meaning": "Evidence missing, unknown, or unproven.",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "label": "STALE_EVIDENCE",
+      "meaning": "Evidence exists but freshness expired.",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "label": "BLOCKED_BY_RISK",
+      "meaning": "Evidence may exist but risk/execution gate blocks.",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "label": "EVIDENCE_READY_NO_TRADE_PERMISSION",
+      "meaning": "Evidence state usable for review, not paper/live.",
+      "route_permission": "REVIEW_ONLY"
+    },
+    {
+      "label": "TECHNICAL_CONTEXT_ONLY",
+      "meaning": "Technical context exists but cannot bypass gates.",
+      "route_permission": "NO_ROUTE"
+    },
+    {
+      "label": "ASYMMETRIC_REVIEW_ONLY",
+      "meaning": "Future sandbox policy review only; no runtime permission now.",
+      "route_permission": "REVIEW_ONLY"
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T06:44:49.323181+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "index_plan": [
+    {
+      "apply_now": false,
+      "columns": [
+        "token_uid"
+      ],
+      "exists_now": false,
+      "index": "idx_state_token_readmodel_token_uid",
+      "missing_now": true,
+      "purpose": "Fast token state lookup.",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "chain",
+        "token_address"
+      ],
+      "exists_now": false,
+      "index": "idx_state_token_readmodel_chain_token",
+      "missing_now": true,
+      "purpose": "Chain/address lookup.",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "decision_label"
+      ],
+      "exists_now": false,
+      "index": "idx_state_token_readmodel_decision",
+      "missing_now": true,
+      "purpose": "Command center grouping.",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "updated_at_utc"
+      ],
+      "exists_now": false,
+      "index": "idx_state_token_readmodel_updated",
+      "missing_now": true,
+      "purpose": "Newest state ordering.",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "token_uid"
+      ],
+      "exists_now": false,
+      "index": "idx_state_freshness_token_uid",
+      "missing_now": true,
+      "purpose": "Freshness lookup.",
+      "table": "state_aggregated_token_freshness_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "stale_status"
+      ],
+      "exists_now": false,
+      "index": "idx_state_freshness_stale",
+      "missing_now": true,
+      "purpose": "Stale-state filtering.",
+      "table": "state_aggregated_token_freshness_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "token_uid"
+      ],
+      "exists_now": false,
+      "index": "idx_state_source_token_uid",
+      "missing_now": true,
+      "purpose": "Drilldown source lookup.",
+      "table": "state_aggregated_token_source_map_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "token_uid"
+      ],
+      "exists_now": false,
+      "index": "idx_state_risk_block_token_uid",
+      "missing_now": true,
+      "purpose": "Risk explanation lookup.",
+      "table": "state_aggregated_token_risk_block_reasons_v1"
+    },
+    {
+      "apply_now": false,
+      "columns": [
+        "token_uid"
+      ],
+      "exists_now": false,
+      "index": "idx_state_missing_evidence_token_uid",
+      "missing_now": true,
+      "purpose": "Next required evidence lookup.",
+      "table": "state_aggregated_token_missing_evidence_v1"
+    }
+  ],
+  "next_phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI",
+  "outputs": {
+    "decision_label_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_decision_label_contract.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_future_state_aggregated_readmodel_schema_plan_noapi.sql",
+    "index_plan_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_readmodel_index_plan.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6b_state_aggregated_readmodel_schema_gap_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_state_aggregated_readmodel_schema_gap_plan_noapi.json",
+    "readmodel_field_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_readmodel_field_contract.jsonl",
+    "readmodel_table_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_readmodel_target_table_gap_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_readmodel_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6b_state_aggregated_readmodel_schema_gap_plan_noapi_rows.jsonl",
+    "schema_gap_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_schema_gap_matrix.jsonl",
+    "source_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_source_evidence_binding_plan.jsonl",
+    "state_rule_rows": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449/phase6b_state_aggregation_rule_matrix.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI/20260601_094449"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "decision_label_rows_written": true,
+    "decision_labels_planned": true,
+    "freshness_fields_present": true,
+    "future_schema_sql_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "index_plan_rows_written": true,
+    "missing_target_indexes_expected": true,
+    "missing_target_tables_expected": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6a_dependency_ok": true,
+    "phase6a_json_exists": true,
+    "phase6a_report_exists": true,
+    "phase6a_rows_exists": true,
+    "policy_sha_match": true,
+    "readmodel_field_rows_written": true,
+    "readmodel_table_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "schema_gap_rows_written": true,
+    "source_binding_rows_written": true,
+    "source_bindings_planned": true,
+    "state_rule_rows_written": true,
+    "state_rules_locked": true,
+    "target_index_count_9": true,
+    "target_table_count_8": true
+  },
+  "phase": "PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6a_ok": true,
+    "phase6a_rows_count": 40
+  },
+  "policy_reference": {
+    "checked_count": 1,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "risk_rows": [
+    {
+      "mitigation": "State-aggregated token summary is primary; raw event drilldown only.",
+      "risk_id": "RAW_EVENT_GARBAGE_PANEL",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "last_updated_block/timestamp and stale_status required.",
+      "risk_id": "STALE_STATE_LOOKS_CLEAN",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "route_permission defaults to NO_TRADE_PERMISSION; paper/live locked.",
+      "risk_id": "DECISION_LABEL_IMPLIES_TRADE_PERMISSION",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Future builder must use single-writer queue and incremental updates.",
+      "risk_id": "READMODEL_WRITE_PRESSURE",
+      "severity": "MEDIUM"
+    },
+    {
+      "mitigation": "Technical evidence cannot bypass risk/execution gates.",
+      "risk_id": "TECHNICAL_SIGNAL_OVERREACH",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Negative memory summary table planned before decision binding.",
+      "risk_id": "NEGATIVE_MEMORY_NOT_BOUND",
+      "severity": "MEDIUM"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI",
+      "purpose": "Plan freshness/stale guard in detail."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI",
+      "purpose": "Plan hard numeric execution thresholds."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI",
+      "purpose": "Plan speculative route policy but keep disabled."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+      "purpose": "Plan DEX-native TA evidence."
+    },
+    {
+      "db_write_now": false,
+      "order": 5,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Apply schema to temp DB only after all plans.",
+      "temp_db_only": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "schema_gap_rows": [
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_readmodel_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_source_map_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_freshness_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_decision_labels_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_missing_evidence_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_risk_block_reasons_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_technical_evidence_summary_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "state_aggregated_token_negative_memory_summary_v1",
+      "object_type": "table"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_token_readmodel_token_uid",
+      "object_type": "index",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_token_readmodel_chain_token",
+      "object_type": "index",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_token_readmodel_decision",
+      "object_type": "index",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_token_readmodel_updated",
+      "object_type": "index",
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_freshness_token_uid",
+      "object_type": "index",
+      "table": "state_aggregated_token_freshness_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_freshness_stale",
+      "object_type": "index",
+      "table": "state_aggregated_token_freshness_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_source_token_uid",
+      "object_type": "index",
+      "table": "state_aggregated_token_source_map_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_risk_block_token_uid",
+      "object_type": "index",
+      "table": "state_aggregated_token_risk_block_reasons_v1"
+    },
+    {
+      "apply_now": false,
+      "exists_now": false,
+      "gap_status": "MISSING_PLANNED",
+      "object_name": "idx_state_missing_evidence_token_uid",
+      "object_type": "index",
+      "table": "state_aggregated_token_missing_evidence_v1"
+    }
+  ],
+  "source_bindings": [
+    {
+      "binding": "holder_evidence_status",
+      "source_table": "initial_holder_evidence_events_v1",
+      "state_effect": "Holder/initial transfer evidence summary."
+    },
+    {
+      "binding": "creation_proof_status",
+      "source_table": "deployer_receipt_evidence_events_v1",
+      "state_effect": "Creation proof / zero-mint WAIT_MORE_DATA separation."
+    },
+    {
+      "binding": "execution_safety_status",
+      "source_table": "execution_safety_gate_events_v1",
+      "state_effect": "Threshold and hard gate summary."
+    },
+    {
+      "binding": "recommended_route",
+      "source_table": "asymmetric_speculative_route_policy_events_v1",
+      "state_effect": "Review-only asymmetric sandbox policy label."
+    },
+    {
+      "binding": "technical_evidence_summary",
+      "source_table": "dex_microstructure_technical_evidence_events_v1",
+      "state_effect": "DEX-native technical evidence context."
+    },
+    {
+      "binding": "emergency_route_health",
+      "source_table": "emergency_monitor_trigger_events_v1",
+      "state_effect": "Emergency recheck requirement."
+    },
+    {
+      "binding": "negative_memory_summary",
+      "source_table": "negative_memory_lookup_events_v1",
+      "state_effect": "Prior bad pattern/deployer/holder memory."
+    },
+    {
+      "binding": "stale_status",
+      "source_table": "stale_evidence_guard_events_v1",
+      "state_effect": "Freshness gate."
+    }
+  ],
+  "started_at_utc": "2026-06-01T06:44:49.292531+00:00",
+  "state_rules": [
+    {
+      "effect": "Command Center shows state summary first, drilldown only on demand.",
+      "locked": true,
+      "rule": "raw_events_not_primary_view"
+    },
+    {
+      "effect": "One current clean state per token/pair scope.",
+      "locked": true,
+      "rule": "latest_state_per_token"
+    },
+    {
+      "effect": "STALE/EXPIRED/UNKNOWN cannot grant route permission.",
+      "locked": true,
+      "rule": "stale_blocks_route_permission"
+    },
+    {
+      "effect": "Evidence rows cannot imply paper/live readiness.",
+      "locked": true,
+      "rule": "evidence_not_risk_clearance"
+    },
+    {
+      "effect": "Zero-mint log match remains WAIT_MORE_DATA unless confirmed proof exists.",
+      "locked": true,
+      "rule": "zero_mint_not_creation_proof"
+    },
+    {
+      "effect": "DEX TA is evidence only, not a trade decision.",
+      "locked": true,
+      "rule": "technical_signal_cannot_override_risk"
+    },
+    {
+      "effect": "Known bad deployer/pattern degrades or blocks decision.",
+      "locked": true,
+      "rule": "negative_memory_hit_degrades_state"
+    },
+    {
+      "effect": "Relevant event-ledger trigger requires immediate route-health recheck in future runtime.",
+      "locked": true,
+      "rule": "emergency_trigger_sets_recheck_required"
+    }
+  ],
+  "summary": {
+    "decision_label_count": 8,
+    "existing_target_index_count": 0,
+    "existing_target_table_count": 0,
+    "field_count": 30,
+    "freshness_field_count": 8,
+    "missing_target_index_count": 9,
+    "missing_target_table_count": 8,
+    "source_binding_count": 8,
+    "state_rule_count": 8,
+    "target_index_count": 9,
+    "target_table_count": 8
+  },
+  "target_tables": [
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": true,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Token-level latest clean state summary for Command Center.",
+      "read_role": "command_center_primary_state",
+      "table": "state_aggregated_token_readmodel_v1",
+      "writer": "single_writer:future_readmodel_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": true,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Map state rows to source evidence/event rows without showing raw event garbage.",
+      "read_role": "audit_drilldown",
+      "table": "state_aggregated_token_source_map_v1",
+      "writer": "single_writer:future_readmodel_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": true,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Freshness and stale guard sidecar for token state.",
+      "read_role": "freshness_guard",
+      "table": "state_aggregated_token_freshness_v1",
+      "writer": "single_writer:future_readmodel_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": true,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Decision label contract without trade order permission.",
+      "read_role": "command_center_decision_label",
+      "table": "state_aggregated_token_decision_labels_v1",
+      "writer": "single_writer:future_decision_binding_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": false,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Track next required evidence to progress from WAIT_MORE_DATA.",
+      "read_role": "command_center_next_action",
+      "table": "state_aggregated_token_missing_evidence_v1",
+      "writer": "single_writer:future_readmodel_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": false,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Track active block reasons without producing route permission.",
+      "read_role": "risk_explanation",
+      "table": "state_aggregated_token_risk_block_reasons_v1",
+      "writer": "single_writer:future_risk_binding_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": false,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "DEX microstructure technical evidence summary only.",
+      "read_role": "technical_context_not_trade_signal",
+      "table": "state_aggregated_token_technical_evidence_summary_v1",
+      "writer": "single_writer:future_technical_readmodel_builder"
+    },
+    {
+      "apply_now": false,
+      "current_column_count": 0,
+      "current_row_count": null,
+      "exists_now": false,
+      "hot_table": false,
+      "missing_now": true,
+      "planned_now": true,
+      "purpose": "Negative memory lookup summary without model training.",
+      "read_role": "negative_memory_context",
+      "table": "state_aggregated_token_negative_memory_summary_v1",
+      "writer": "single_writer:future_memory_readmodel_builder"
+    }
+  ],
+  "warnings": [
+    "READMODEL_SCHEMA_GAP_PLAN_ONLY_NO_APPLY",
+    "ALL_TARGET_READMODEL_TABLES_MISSING_EXPECTED",
+    "RAW_EVENTS_NOT_PRIMARY_COMMAND_CENTER_VIEW",
+    "STALE_FIELDS_PLANNED_NOT_RUNTIME",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

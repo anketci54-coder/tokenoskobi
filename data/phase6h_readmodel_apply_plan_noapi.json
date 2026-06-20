@@ -1,0 +1,661 @@
+{
+  "apply_checklist_rows": [
+    {
+      "check": "verify_phase6g4_pass",
+      "order": 1,
+      "passed_now": true,
+      "required": true
+    },
+    {
+      "check": "verify_repaired_sql_sha",
+      "order": 2,
+      "passed_now": true,
+      "required": true
+    },
+    {
+      "check": "backup_live_db_before_real_apply",
+      "order": 3,
+      "passed_now": false,
+      "required": true
+    },
+    {
+      "check": "write_rollback_script_before_real_apply",
+      "order": 4,
+      "passed_now": false,
+      "required": true
+    },
+    {
+      "check": "apply_schema_inside_transaction",
+      "order": 5,
+      "passed_now": false,
+      "required": true
+    },
+    {
+      "check": "post_apply_integrity_quick_fk",
+      "order": 6,
+      "passed_now": false,
+      "required": true
+    },
+    {
+      "check": "verify_24_tables_39_indexes_after_real_apply",
+      "order": 7,
+      "passed_now": false,
+      "required": true
+    },
+    {
+      "check": "paper_live_watchlist_score_remain_false",
+      "order": 8,
+      "passed_now": true,
+      "required": true
+    },
+    {
+      "check": "no_panel_apply_in_real_schema_phase",
+      "order": 9,
+      "passed_now": true,
+      "required": true
+    }
+  ],
+  "approval_required_exact": "PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL için onay veriyorum",
+  "backup_plan": {
+    "approval_required_exact": "PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL için onay veriyorum",
+    "backup_before_write_required": true,
+    "canonical_sql_sha": "96e2c3fa1ae428153ec3ce9c08d5732b5a92276f4cbb24a7433a238e4aebbff2",
+    "expected_db_sha_before_apply": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "future_backup_db_pattern": "/root/tokenoskobi_clean_v1/backups/PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_YYYYMMDD_HHMMSS/tokenoskobi_clean_v1.sqlite.pre_phase6i_readmodel_schema_apply",
+    "future_backup_dir_pattern": "/root/tokenoskobi_clean_v1/backups/PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_YYYYMMDD_HHMMSS",
+    "future_phase": "PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL",
+    "future_rollback_script_pattern": "/root/tokenoskobi_clean_v1/backups/PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL_YYYYMMDD_HHMMSS/ROLLBACK_PHASE6I_READMODEL_SCHEMA_APPLY.sh",
+    "real_apply_allowed_now": false,
+    "rollback_required": true
+  },
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6H_READMODEL_APPLY_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T09:28:00.723365+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "canonical_sql_copy_sha": "96e2c3fa1ae428153ec3ce9c08d5732b5a92276f4cbb24a7433a238e4aebbff2",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "source_repaired_sql_sha": "96e2c3fa1ae428153ec3ce9c08d5732b5a92276f4cbb24a7433a238e4aebbff2"
+  },
+  "live_health_end": {
+    "foreign_key_check_count": 0,
+    "index_count": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count": 214
+  },
+  "live_health_start": {
+    "foreign_key_check_count": 0,
+    "index_count": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count": 214
+  },
+  "next_phase": "PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL",
+  "outputs": {
+    "apply_checklist": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_apply_checklist_noapi.jsonl",
+    "apply_plan_json": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_readmodel_apply_plan_noapi_detail.json",
+    "apply_plan_md": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_readmodel_apply_plan_noapi.md",
+    "backup_plan_json": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_backup_rollback_plan.json",
+    "canonical_sql_copy": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_repaired_canonical_sql_review_copy.sql",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6h_readmodel_apply_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_readmodel_apply_plan_noapi.json",
+    "readiness_rows": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_next_readiness.jsonl",
+    "refuse_script": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/PHASE6I_READMODEL_REAL_REFUSE_DRAFT.sh",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6H_READMODEL_APPLY_PLAN_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6h_readmodel_apply_plan_noapi_rows.jsonl",
+    "sql_review_rows": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_sql_review_rows.jsonl",
+    "target_index_rows": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_target_index_plan.jsonl",
+    "target_object_rows": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_target_object_plan.jsonl",
+    "target_table_rows": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800/phase6h_target_table_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6H_READMODEL_APPLY_PLAN_NOAPI/20260601_122800"
+  },
+  "pass_conditions": {
+    "active_index_unchanged": true,
+    "apply_checklist_written": true,
+    "approval_required_exact_present": true,
+    "backup_plan_written": true,
+    "backup_required": true,
+    "canonical_sql_copy_sha_match": true,
+    "canonical_sql_copy_written": true,
+    "db_sha_expected": true,
+    "hosts_unchanged": true,
+    "index_targets_all_in_plan": true,
+    "live_db_unchanged": true,
+    "live_health_end_ok": true,
+    "live_health_start_ok": true,
+    "phase6g4_json_exists": true,
+    "phase6g4_ok": true,
+    "phase6g4_report_exists": true,
+    "phase6g4_rows_exists": true,
+    "phase6g4_temp_ok": true,
+    "readiness_rows_written": true,
+    "real_apply_allowed_now_false": true,
+    "refuse_script_written": true,
+    "repaired_sql_source_exists": true,
+    "rollback_required": true,
+    "safety_noapi_clean": true,
+    "sql_review_rows_written": true,
+    "statement_count_positive": true,
+    "target_index_count_39": true,
+    "target_index_rows_written": true,
+    "target_object_rows_written": true,
+    "target_table_count_24": true,
+    "target_table_rows_written": true
+  },
+  "phase": "PHASE6H_READMODEL_APPLY_PLAN_NOAPI",
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_db_mutation": false,
+    "live_trade_permission": false,
+    "panel_apply_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "real_apply_allowed_now": false,
+    "rpc_calls": 0,
+    "runtime_enabled_now": false,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "temp_db_mutation": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T09:28:00.676584+00:00",
+  "summary": {
+    "backup_before_write_required": true,
+    "existing_target_index_count": 0,
+    "existing_target_table_count": 0,
+    "index_target_missing_from_plan_count": 0,
+    "live_db_unchanged": true,
+    "missing_target_index_count": 39,
+    "missing_target_table_count": 24,
+    "phase6g4_ok": true,
+    "phase6g4_temp_ok": true,
+    "real_apply_allowed_now": false,
+    "rollback_required": true,
+    "statement_count": 63,
+    "target_index_count": 39,
+    "target_table_count": 24
+  },
+  "target_index_rows": [
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_asym_guard_status",
+      "missing_in_live_now": true,
+      "target_table": "asymmetric_route_guard_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_asym_guard_token",
+      "missing_in_live_now": true,
+      "target_table": "asymmetric_route_guard_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_asym_policy_name",
+      "missing_in_live_now": true,
+      "target_table": "asymmetric_speculative_route_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_command_output_label",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_command_output_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_command_output_permission",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_command_output_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_command_output_route",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_command_output_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_command_output_token",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_command_output_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_decision_eval_label",
+      "missing_in_live_now": true,
+      "target_table": "decision_binding_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_decision_eval_route",
+      "missing_in_live_now": true,
+      "target_table": "decision_binding_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_decision_eval_token",
+      "missing_in_live_now": true,
+      "target_table": "decision_binding_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_decision_rule_policy_name",
+      "missing_in_live_now": true,
+      "target_table": "decision_binding_rule_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_decision_rule_policy_precedence",
+      "missing_in_live_now": true,
+      "target_table": "decision_binding_rule_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_dex_signal_policy_signal",
+      "missing_in_live_now": true,
+      "target_table": "dex_microstructure_signal_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_dex_tech_event_signal",
+      "missing_in_live_now": true,
+      "target_table": "dex_microstructure_technical_evidence_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_dex_tech_event_status",
+      "missing_in_live_now": true,
+      "target_table": "dex_microstructure_technical_evidence_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_dex_tech_event_token",
+      "missing_in_live_now": true,
+      "target_table": "dex_microstructure_technical_evidence_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_emergency_event_priority",
+      "missing_in_live_now": true,
+      "target_table": "emergency_monitor_trigger_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_emergency_event_token",
+      "missing_in_live_now": true,
+      "target_table": "emergency_monitor_trigger_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_emergency_event_trigger",
+      "missing_in_live_now": true,
+      "target_table": "emergency_monitor_trigger_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_emergency_policy_trigger",
+      "missing_in_live_now": true,
+      "target_table": "emergency_monitor_trigger_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_exec_threshold_eval_status",
+      "missing_in_live_now": true,
+      "target_table": "execution_threshold_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_exec_threshold_eval_token",
+      "missing_in_live_now": true,
+      "target_table": "execution_threshold_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_exec_threshold_policy_field",
+      "missing_in_live_now": true,
+      "target_table": "execution_threshold_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_negative_memory_event_key",
+      "missing_in_live_now": true,
+      "target_table": "negative_memory_lookup_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_negative_memory_event_severity",
+      "missing_in_live_now": true,
+      "target_table": "negative_memory_lookup_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_negative_memory_event_token",
+      "missing_in_live_now": true,
+      "target_table": "negative_memory_lookup_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_negative_memory_policy_key",
+      "missing_in_live_now": true,
+      "target_table": "negative_memory_lookup_policy_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_stale_eval_source_class",
+      "missing_in_live_now": true,
+      "target_table": "stale_data_guard_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_stale_eval_status",
+      "missing_in_live_now": true,
+      "target_table": "stale_data_guard_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_stale_eval_token_uid",
+      "missing_in_live_now": true,
+      "target_table": "stale_data_guard_evaluation_events_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_freshness_stale",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_freshness_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_freshness_token_uid",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_freshness_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_missing_evidence_token_uid",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_missing_evidence_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_risk_block_token_uid",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_risk_block_reasons_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_source_token_uid",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_source_map_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_token_readmodel_chain_token",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_readmodel_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_token_readmodel_decision",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_readmodel_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_token_readmodel_token_uid",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_readmodel_v1",
+      "target_table_in_plan": true
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "index": "idx_state_token_readmodel_updated",
+      "missing_in_live_now": true,
+      "target_table": "state_aggregated_token_readmodel_v1",
+      "target_table_in_plan": true
+    }
+  ],
+  "target_table_rows": [
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "asymmetric_route_guard_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "asymmetric_speculative_route_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "command_center_output_contract_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "decision_binding_evaluation_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "decision_binding_rule_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "dex_microstructure_signal_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "dex_microstructure_technical_evidence_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "emergency_monitor_trigger_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "emergency_monitor_trigger_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "execution_threshold_evaluation_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "execution_threshold_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "negative_memory_lookup_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "negative_memory_lookup_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "stale_data_guard_evaluation_events_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "stale_data_guard_policy_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_command_output_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_decision_labels_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_freshness_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_missing_evidence_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_negative_memory_summary_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_risk_block_reasons_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_source_map_v1"
+    },
+    {
+      "apply_plan_action": "CREATE_IF_NOT_EXISTS",
+      "exists_in_live_now": false,
+      "missing_in_live_now": true,
+      "table": "state_aggregated_token_technical_evidence_summary_v1"
+    }
+  ],
+  "warnings": [
+    "PLAN_ONLY_NO_LIVE_DB_SCHEMA_APPLY",
+    "REAL_APPLY_REQUIRES_EXPLICIT_APPROVAL",
+    "BACKUP_AND_ROLLBACK_REQUIRED_BEFORE_REAL_APPLY",
+    "NO_PANEL_OR_ACTIVE_8096_WRITE",
+    "NO_API_RPC_FETCH_EXTERNAL_CALLS",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION",
+    "LIVE_DB_MISSING_TARGET_TABLES_EXPECTED_FOR_FUTURE_APPLY",
+    "LIVE_DB_MISSING_TARGET_INDEXES_EXPECTED_FOR_FUTURE_APPLY"
+  ]
+}

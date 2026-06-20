@@ -1,0 +1,200 @@
+{
+  "phase": "PHASE40K_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_PLAN_NOAPI",
+  "created_at": "2026-06-09T15:39:59.780460+00:00",
+  "final_gate": "PASS_PHASE40K_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE40L_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_TEMPDB_DRYRUN_NOAPI",
+  "checks": {
+    "PHASE40J_PASS": true,
+    "PHASE40J_DECISION_OPEN_40K": true,
+    "PHASE40J_SCHEMA_LOCKS_CONFIRMED": true,
+    "PHASE40J_TABLE_COUNTS_ZERO_CONFIRMED": true,
+    "LIVE_DB_INTEGRITY_OK": true,
+    "LIVE_DB_FOREIGN_KEYS_OK": true,
+    "REQUIRED_TABLES_PRESENT_NOW": true,
+    "REQUIRED_INDEXES_PRESENT_NOW": true,
+    "NEWS_SOCIAL_TABLES_EMPTY_BEFORE_WRITE_PATH": true,
+    "WRITE_PATH_PLAN_WRITTEN": true,
+    "FAST_LEARNING_DOCTRINE_WRITTEN": true,
+    "NO_REPEAT_MISTAKE_DOCTRINE_WRITTEN": true,
+    "EARLY_OPPORTUNITY_PREDICTION_WRITTEN": true,
+    "RISK_REWARD_PRECALC_WRITTEN": true,
+    "NO_TRADE_AUTH_FROM_NEWS_SOCIAL": true,
+    "NO_TRADE_AUTH_FROM_AI": true,
+    "LIVE_DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "NO_API_CALLS_NOW": true,
+    "NO_PAPER_TRADE_NOW": true,
+    "NO_LIVE_TRADE_NOW": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "integrity": "ok",
+  "fk_error_count": 0,
+  "table_counts": {
+    "news_social_sources_v1": 0,
+    "news_social_launch_signals_v1": 0,
+    "news_social_signal_evidence_links_v1": 0,
+    "news_social_review_queue_v1": 0,
+    "news_social_false_negative_memory_links_v1": 0
+  },
+  "missing_tables": [],
+  "missing_indexes": [],
+  "write_path_plan": {
+    "phase": "PHASE40K_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_PLAN_NOAPI",
+    "created_at": "2026-06-09T15:39:59.772983+00:00",
+    "mode": "PLAN_ONLY_NOAPI",
+    "opened_after": "PASS_PHASE40J_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_POST_AUDIT_NOAPI",
+    "system_character": {
+      "coward_slow_system": false,
+      "miss_opportunities_by_default": false,
+      "anticipate_before_opportunity_arrives": true,
+      "mistakes_allowed_in_controlled_simulation": true,
+      "repeat_same_mistake_allowed": false,
+      "fast_learning_required": true,
+      "tactical_adaptation_required": true,
+      "field_application_required_after_gate": true,
+      "risk_management_required": true,
+      "profit_loss_expected_value_before_action": true
+    },
+    "write_path_scope": {
+      "external_fetch_now": false,
+      "api_calls_now": false,
+      "live_trade_now": false,
+      "paper_trade_now": false,
+      "db_write_now": false,
+      "this_phase_writes_plan_files_only": true,
+      "future_write_path_requires_tempdb_dryrun_first": true
+    },
+    "future_write_path_stages": [
+      {
+        "stage": 1,
+        "name": "intake_normalize",
+        "purpose": "Normalize raw news/social/launch claim into deterministic fields.",
+        "output": "normalized_signal_candidate",
+        "trade_authority": false
+      },
+      {
+        "stage": 2,
+        "name": "source_classify",
+        "purpose": "Classify official/exchange/social/KOL/community source and assign trust class.",
+        "output": "source_uid",
+        "trade_authority": false
+      },
+      {
+        "stage": 3,
+        "name": "idempotent_signature",
+        "purpose": "Generate stable duplicate-proof source_uid, signal_uid, evidence_uid and repeat_mistake_key.",
+        "output": "dedupe_keys",
+        "trade_authority": false
+      },
+      {
+        "stage": 4,
+        "name": "early_opportunity_prediction",
+        "purpose": "Estimate whether a launch/social burst can become an opportunity before full confirmation.",
+        "output": "pre_confirmation_watch_priority",
+        "trade_authority": false
+      },
+      {
+        "stage": 5,
+        "name": "risk_reward_precalc",
+        "purpose": "Calculate expected upside, likely loss, confidence and minimum evidence needed before any later route.",
+        "output": "expected_value_preview",
+        "trade_authority": false
+      },
+      {
+        "stage": 6,
+        "name": "schema_write_candidate",
+        "purpose": "Future approved writer inserts source/signal/evidence/review/memory rows.",
+        "output": "news_social_tables",
+        "trade_authority": false
+      },
+      {
+        "stage": 7,
+        "name": "review_queue_route",
+        "purpose": "Route to onchain check, risk check, reject, archive, or false-negative memory.",
+        "output": "review_queue",
+        "trade_authority": false
+      },
+      {
+        "stage": 8,
+        "name": "learning_feedback",
+        "purpose": "Connect outcome windows to false-negative memory and tactical learning.",
+        "output": "learning_case",
+        "trade_authority": false
+      }
+    ],
+    "planned_candidate_fields": {
+      "source_uid": "stable hash from source class/name/url hash",
+      "signal_uid": "stable hash from source + token claim + chain + contract claim + time bucket",
+      "evidence_uid": "stable hash from signal + evidence hash",
+      "token_name_claim": "raw claimed token name",
+      "chain_claim": "claimed chain",
+      "contract_address_claim": "nullable until official/onchain confirmed",
+      "launch_time_claim": "nullable",
+      "officialness_score": "0-100",
+      "social_burst_score": "0-100",
+      "manipulation_risk_score": "0-100",
+      "pre_launch_probability_score": "0-100 future field in writer view, not schema yet",
+      "expected_upside_score": "0-100 future field in writer view, not schema yet",
+      "expected_loss_score": "0-100 future field in writer view, not schema yet",
+      "risk_reward_preview": "must exist before route promotion",
+      "repeat_mistake_key": "hash used to prevent repeating same bad decision"
+    },
+    "risk_reward_doctrine": {
+      "before_any_future_candidate_promotion": [
+        "expected_upside_class",
+        "expected_loss_class",
+        "manipulation_risk_score",
+        "minimum_confirmation_needed",
+        "reject_reason_if_no_contract",
+        "reject_reason_if_no_onchain",
+        "reject_reason_if_risk_gate_fails",
+        "what_would_change_decision_later"
+      ],
+      "no_trade_without": [
+        "contract confirmation",
+        "onchain confirmation",
+        "risk security pass",
+        "liquidity/sellability confirmation",
+        "deterministic ledger approval"
+      ],
+      "ai_and_social_limits": {
+        "news_social_is_not_truth": true,
+        "ai_opinion_is_not_truth": true,
+        "claude_no_trade_authority": true,
+        "local_ai_no_hot_loop": true,
+        "paper_live_trade_auth_from_ai": false,
+        "paper_live_trade_auth_from_news_social": false
+      }
+    },
+    "learning_doctrine": {
+      "same_mistake_second_time_allowed": false,
+      "mistake_signature_required": true,
+      "false_negative_memory_link_required": true,
+      "post_window_review_required": [
+        "15m",
+        "1h",
+        "4h",
+        "24h"
+      ],
+      "tactic_update_required_after_repeated_pattern": true,
+      "controlled_error_budget_only": true
+    },
+    "next_phase": "PHASE40L_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_TEMPDB_DRYRUN_NOAPI"
+  },
+  "before_sha": {
+    "db": "4e7de8f03a5cb9cfffb8b316acf870af904d8b2f1a8c7bb2b9042d592202a5f6",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "after_sha": {
+    "db": "4e7de8f03a5cb9cfffb8b316acf870af904d8b2f1a8c7bb2b9042d592202a5f6",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE40K_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/phase40k_news_social_launch_signal_write_path_plan_noapi.json",
+  "rows": "/root/tokenoskobi_clean_v1/data/phase40k_news_social_launch_signal_write_path_plan_noapi_rows.jsonl"
+}

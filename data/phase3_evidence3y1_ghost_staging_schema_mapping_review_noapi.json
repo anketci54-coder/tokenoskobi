@@ -1,0 +1,402 @@
+{
+  "phase": "PHASE3_EVIDENCE3Y1_GHOST_STAGING_SCHEMA_MAPPING_REVIEW_NOAPI",
+  "started_utc": "2026-05-28T19:19:47.346202+00:00",
+  "finished_utc": "2026-05-28T19:19:47.454714+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_EVIDENCE3Y1_GHOST_STAGING_SCHEMA_MAPPING_REVIEW_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_EVIDENCE3Y2_DEPLOYER_UNRESOLVED_GHOST_STAGING_REAL_RETRY_AFTER_SCHEMA_MAPPING",
+  "next_real_phase": "PHASE3_EVIDENCE3Y2_DEPLOYER_UNRESOLVED_GHOST_STAGING_REAL_RETRY_AFTER_SCHEMA_MAPPING",
+  "approval_phrase": "PHASE3_EVIDENCE3Y2 deployer unresolved ghost staging real retry için onay veriyorum",
+  "prev_3y_checks": {
+    "prev_3y_json_exists": true,
+    "prev_3y_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3y_deployer_unresolved_ghost_staging_real_after_explicit_approval.json",
+    "prev_3y_json_load_ok": true,
+    "prev_3y_gate_pass": false,
+    "prev_3y_final_gate": "REVIEW_REQUIRED_PHASE3_EVIDENCE3Y_DEPLOYER_UNRESOLVED_GHOST_STAGING_REAL",
+    "prev_3y_next_phase": "STOP_AND_REVIEW_3Y_FAILURE_NOAPI",
+    "prev_3y_hard_error_count": 1,
+    "prev_3y_hard_errors": [
+      "DB_WRITE_TRANSACTION_FAILED:RuntimeError:NO_ALLOWED_TABLE_INSERTED_OR_DEDUP_SKIPPED"
+    ],
+    "prev_3y_db_write_attempted": true,
+    "prev_3y_db_write_committed": false,
+    "prev_3y_db_write_rolled_back": true,
+    "prev_3y_inserted_rows": 0,
+    "prev_3y_dedup_skipped_rows": 0,
+    "prev_3y_rows_exists": true,
+    "prev_3y_rows_count": 4
+  },
+  "prev_3x_checks": {
+    "prev_3x_json_exists": true,
+    "prev_3x_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3x_deployer_unresolved_ghost_decision_staging_plan_noapi.json",
+    "prev_3x_json_load_ok": true,
+    "prev_3x_gate_pass": true,
+    "prev_3x_final_gate": "PASS_PHASE3_EVIDENCE3X_DEPLOYER_UNRESOLVED_GHOST_DECISION_STAGING_PLAN_NOAPI",
+    "prev_3x_decision_type": "DEPLOYER_UNRESOLVED_GHOST_DECISION",
+    "prev_3x_deployer_status": "UNRESOLVED",
+    "prev_3x_token_state": "GHOST",
+    "prev_3x_reason_code": "DEPLOYER_UNRESOLVED_AFTER_BOUNDED_ADAPTIVE_SEARCH"
+  },
+  "expected_failures_confirmed": {
+    "system_events_required_source": true,
+    "validation_runs_required_decision": true,
+    "risk_events_absent": true,
+    "token_biographies_absent": true
+  },
+  "row_failures": {
+    "system_events": {
+      "exists": true,
+      "inserted": false,
+      "dedup_skipped": false,
+      "skip_reason": "UNMAPPED_REQUIRED_COLUMNS:['source']",
+      "error": null,
+      "delta": 0
+    },
+    "validation_runs": {
+      "exists": true,
+      "inserted": false,
+      "dedup_skipped": false,
+      "skip_reason": "UNMAPPED_REQUIRED_COLUMNS:['decision']",
+      "error": null,
+      "delta": 0
+    },
+    "risk_events": {
+      "exists": false,
+      "inserted": false,
+      "dedup_skipped": false,
+      "skip_reason": "TABLE_NOT_FOUND",
+      "error": null,
+      "delta": 0
+    },
+    "token_biographies": {
+      "exists": false,
+      "inserted": false,
+      "dedup_skipped": false,
+      "skip_reason": "TABLE_NOT_FOUND",
+      "error": null,
+      "delta": 0
+    }
+  },
+  "schema_mappings": {
+    "system_events": {
+      "table": "system_events",
+      "exists": true,
+      "count": 17,
+      "columns": [
+        {
+          "cid": 0,
+          "name": "event_uid",
+          "type": "TEXT",
+          "notnull": false,
+          "dflt_value": null,
+          "pk": true
+        },
+        {
+          "cid": 1,
+          "name": "created_at_utc",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 2,
+          "name": "event_type",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 3,
+          "name": "severity",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 4,
+          "name": "source",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 5,
+          "name": "details_json",
+          "type": "TEXT",
+          "notnull": false,
+          "dflt_value": null,
+          "pk": false
+        }
+      ],
+      "required_columns": [
+        "created_at_utc",
+        "event_type",
+        "severity",
+        "source"
+      ],
+      "planned_mapped_columns": [
+        "created_at_utc",
+        "details_json",
+        "event_type",
+        "severity",
+        "source"
+      ],
+      "planned_required_values": {
+        "created_at_utc": "<utc_now_at_real_write>",
+        "event_type": "DEPLOYER_UNRESOLVED_GHOST_DECISION",
+        "severity": "INFO",
+        "source": "PHASE3_EVIDENCE3Y_GHOST_STAGING"
+      },
+      "unmapped_required_columns": [],
+      "meaningful_mapped_columns": [
+        "source",
+        "event_type"
+      ],
+      "mapping_ready": true
+    },
+    "validation_runs": {
+      "table": "validation_runs",
+      "exists": true,
+      "count": 17,
+      "columns": [
+        {
+          "cid": 0,
+          "name": "run_uid",
+          "type": "TEXT",
+          "notnull": false,
+          "dflt_value": null,
+          "pk": true
+        },
+        {
+          "cid": 1,
+          "name": "created_at_utc",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 2,
+          "name": "phase",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 3,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 4,
+          "name": "decision",
+          "type": "TEXT",
+          "notnull": true,
+          "dflt_value": null,
+          "pk": false
+        },
+        {
+          "cid": 5,
+          "name": "details_json",
+          "type": "TEXT",
+          "notnull": false,
+          "dflt_value": null,
+          "pk": false
+        }
+      ],
+      "required_columns": [
+        "created_at_utc",
+        "phase",
+        "status",
+        "decision"
+      ],
+      "planned_mapped_columns": [
+        "created_at_utc",
+        "decision",
+        "details_json",
+        "phase",
+        "status"
+      ],
+      "planned_required_values": {
+        "created_at_utc": "<utc_now_at_real_write>",
+        "phase": "PHASE3_EVIDENCE3Y_DEPLOYER_UNRESOLVED_GHOST_STAGING_REAL_AFTER_EXPLICIT_APPROVAL",
+        "status": "PASS",
+        "decision": "DEPLOYER_UNRESOLVED_GHOST_DECISION"
+      },
+      "unmapped_required_columns": [],
+      "meaningful_mapped_columns": [
+        "decision",
+        "phase"
+      ],
+      "mapping_ready": true
+    },
+    "risk_events": {
+      "table": "risk_events",
+      "exists": false,
+      "count": null,
+      "columns": [],
+      "required_columns": [],
+      "planned_mapped_columns": [],
+      "planned_required_values": {},
+      "unmapped_required_columns": [],
+      "meaningful_mapped_columns": [],
+      "mapping_ready": false
+    },
+    "token_biographies": {
+      "table": "token_biographies",
+      "exists": false,
+      "count": null,
+      "columns": [],
+      "required_columns": [],
+      "planned_mapped_columns": [],
+      "planned_required_values": {},
+      "unmapped_required_columns": [],
+      "meaningful_mapped_columns": [],
+      "mapping_ready": false
+    }
+  },
+  "mapping_decision": {
+    "mapping_review_class": "GHOST_STAGING_SCHEMA_MAPPING_REPAIR_READY",
+    "system_events_mapping_ready": true,
+    "validation_runs_mapping_ready": true,
+    "system_events_source_mapped": true,
+    "validation_runs_decision_mapped": true,
+    "required_repair": {
+      "system_events.source": "PHASE3_EVIDENCE3Y_GHOST_STAGING",
+      "validation_runs.decision": "DEPLOYER_UNRESOLVED_GHOST_DECISION"
+    },
+    "next_phase": "PHASE3_EVIDENCE3Y2_DEPLOYER_UNRESOLVED_GHOST_STAGING_REAL_RETRY_AFTER_SCHEMA_MAPPING",
+    "approval_phrase": "PHASE3_EVIDENCE3Y2 deployer unresolved ghost staging real retry için onay veriyorum",
+    "retry_policy": {
+      "schema_aware": true,
+      "do_not_assume_table_columns": true,
+      "write_only_tables_with_mapping_ready": true,
+      "skip_tables_with_unmapped_required_columns": true,
+      "backup_and_rollback_required": true,
+      "do_not_open_watchlist_paper_clean_risk": true,
+      "do_not_advance_holder_lp_pipeline": true
+    }
+  },
+  "staging_payload_preview": {
+    "decision_type": "DEPLOYER_UNRESOLVED_GHOST_DECISION",
+    "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+    "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+    "chain": "bnb",
+    "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+    "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b",
+    "deployer_status": "UNRESOLVED",
+    "token_state": "GHOST",
+    "reason_code": "DEPLOYER_UNRESOLVED_AFTER_BOUNDED_ADAPTIVE_SEARCH"
+  },
+  "phase3_gate": {
+    "deployer_status": "UNRESOLVED",
+    "token_state": "GHOST",
+    "watchlist_allowed": false,
+    "paper_allowed": false,
+    "clean_risk_allowed": false,
+    "panel_promotion_allowed": false,
+    "holder_distribution_risk_pipeline_allowed": false,
+    "lp_lock_risk_pipeline_allowed": false,
+    "sellability_honeypot_pipeline_allowed": false,
+    "score_pipeline_allowed": false,
+    "reserves_nonzero": "SUPPLEMENT_EVIDENCE_ONLY"
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "watchlist_opened": false,
+    "paper_opened": false,
+    "clean_risk_opened": false,
+    "panel_promotion_opened": false,
+    "holder_lp_pipeline_advanced": false,
+    "score_pipeline_advanced": false,
+    "deployer_absence_inferred": false,
+    "ordinary_transfer_used_as_deployer": false,
+    "empty_chunk_used_as_no_deployer": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3Y1_GHOST_STAGING_SCHEMA_MAPPING_REVIEW_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_evidence3y1_ghost_staging_schema_mapping_review_noapi.json"
+  }
+}

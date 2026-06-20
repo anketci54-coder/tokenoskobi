@@ -1,0 +1,137 @@
+{
+  "phase": "UI_BUILD5_TOKEN_YASAM_LIVING_PREVIEW_PLAN_NOAPI",
+  "stamp": "20260517_193230",
+  "failed_checks": [],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "preview_generation_now": false,
+    "plan_only": true
+  },
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "build3_validation": {
+    "view_model_dir_created": false,
+    "motion_states_dir_created": false,
+    "screen_fit_dir_created": false,
+    "ui_components_dir_created": false,
+    "vm_has_six_departments": true,
+    "all_departments_have_detail_ref": true,
+    "all_departments_have_motion_state_ref": true,
+    "all_departments_no_fake_rule": true,
+    "primary_screen_body_scroll_allowed": false
+  },
+  "build4_validation": {
+    "motion_state_dir_created": false,
+    "view_model_dir_created": false,
+    "screen_fit_dir_created": false,
+    "ui_components_dir_created": false,
+    "has_six_department_motion_states": true,
+    "all_motion_states_have_reason": true,
+    "all_motion_states_have_source_layer": true,
+    "moving_states_have_source_uid": true,
+    "moving_states_have_freshness": true,
+    "moving_states_have_expiry": true,
+    "fake_motion_count": 0,
+    "panel_generated_motion_count": 0
+  },
+  "motion_summary": {
+    "department_count": 6,
+    "moving_count": 0,
+    "silent_count": 6,
+    "stale_count": 0,
+    "fake_motion_count": 0,
+    "panel_generated_motion_count": 0,
+    "truth_validation_error_count": 0
+  },
+  "preview_plan": {
+    "plan_name": "Token Yaşam Living Preview Plan",
+    "source_baseline": "/root/tokenoskobi_clean_v1/accepted_baselines/token_yasam_merkezi_final_panel64_20260515_175146",
+    "accepted_logo_preview": "/root/tokenoskobi_clean_v1/panel_previews/tokenyasam_left_logo_circle_bigger_cleanbg_latest",
+    "master_pack": "/root/tokenoskobi_clean_v1/panel_assets/token_yasam_master_pack_v1",
+    "planned_preview_port": 8104,
+    "planned_preview_prefix": "tokenyasam_living_preview",
+    "preview_generation_now": false,
+    "implementation_mode": "separate_preview_only_after_next_approval",
+    "layout_rules": [
+      "Do not rebuild accepted baseline layout.",
+      "Preserve left circular clean logo placement.",
+      "Six department cards remain summary-only.",
+      "Primary screen body scroll is forbidden.",
+      "No long tables/log dumps on primary screen.",
+      "Details open through drawer/tab/detail_ref only."
+    ],
+    "data_rules": [
+      "Use dry-run Token Yaşam VM shape from UI_BUILD3.",
+      "No production view_model file yet.",
+      "No hardcoded production metrics.",
+      "No duplicate canonical calculations.",
+      "Missing data renders empty_state/silent behavior."
+    ],
+    "motion_rules": [
+      "Use dry-run motion state shape from UI_BUILD4.",
+      "No source_uid means no motion.",
+      "Current moving_count is 0, so icons remain static unless real qualifying source appears later.",
+      "No fake pulse/glow/radar.",
+      "Panel reads motion_state_ref only; it does not invent motion."
+    ],
+    "fit_rules": [
+      "Fit target: 100vh primary screen.",
+      "Laptop fit and desktop fit must be checked in preview audit.",
+      "body scrollHeight > viewport height means FIT_FAIL.",
+      "Sidebar and six cards must remain visible.",
+      "Detail surfaces may local-scroll only."
+    ],
+    "product_rules": [
+      "TECH_PASS is not PRODUCT_PASS.",
+      "User visual approval required before baseline candidate.",
+      "If user rejects visual quality, stop coding and adjust design source/contract.",
+      "No preview can auto-promote to active 8096."
+    ],
+    "planned_output_if_next_phase_approved": {
+      "preview_dir_pattern": "/root/tokenoskobi_clean_v1/panel_previews/tokenyasam_living_preview_<STAMP>",
+      "latest_symlink": "/root/tokenoskobi_clean_v1/panel_previews/tokenyasam_living_preview_latest",
+      "url_pattern": "http://159.195.74.132:8104/?v=tokenyasam_living_preview_<STAMP>#token-yasam",
+      "report": "/root/tokenoskobi_clean_v1/reports/LATEST_UI_BUILD6_TOKEN_YASAM_LIVING_PREVIEW_AFTER_APPROVAL.md",
+      "json": "/root/tokenoskobi_clean_v1/data/ui_build6_token_yasam_living_preview_after_approval.json"
+    },
+    "next_required_approval_sentence": "UI_BUILD6_TOKEN_YASAM_LIVING_PREVIEW_AFTER_APPROVAL için onay veriyorum"
+  },
+  "gates": {
+    "TECH_GATE": {
+      "ready_for_next_phase": true,
+      "reason": "Required contracts/dry-runs passed if no failed checks."
+    },
+    "DATA_GATE": {
+      "ready_for_next_phase": true,
+      "reason": "Build3 VM dry-run mapped six departments with detail refs."
+    },
+    "TRUTH_GATE": {
+      "ready_for_next_phase": true,
+      "reason": "Build4 motion dry-run has six truth-gated states and fake_motion_count=0."
+    },
+    "FIT_GATE": {
+      "ready_for_next_phase": true,
+      "reason": "Build3 declares primary_screen_body_scroll_allowed=False; actual viewport test waits for preview."
+    },
+    "PRODUCT_GATE": {
+      "ready_for_next_phase": false,
+      "reason": "Requires user visual review after preview."
+    }
+  },
+  "final_status": "PASS",
+  "final_gate": "UI_BUILD5_TOKEN_YASAM_LIVING_PREVIEW_PLAN_READY"
+}

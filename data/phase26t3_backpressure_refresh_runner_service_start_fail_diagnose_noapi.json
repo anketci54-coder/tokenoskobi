@@ -1,0 +1,662 @@
+{
+  "active_index_expected_sha_match": true,
+  "active_index_sha256": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+  "checklist": {
+    "after_sha256": "1f05584d28e940820ea2f0b09bf9e036b61589f22a1dc365ff04781d77e91650",
+    "before_sha256": "c2dfff7a572a40a506c55a2f934599a965416293e4d552cf64e51d2f3eace433",
+    "changed": true,
+    "error": null,
+    "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_phase_checklist.jsonl",
+    "touched": true
+  },
+  "db_audit": {
+    "db_exists": true,
+    "db_sha256": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "error": null,
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "db_health_ok": true,
+  "diagnose_only": true,
+  "env_unit_audit": {
+    "env_presence": {
+      "COINOSKOBI_AUTO_AUTHORITY": true,
+      "COINOSKOBI_DENGE_MODE": true,
+      "COINOSKOBI_NORMAL_EXIT_REQUIRES_CACHE_FRESH": true,
+      "COINOSKOBI_NO_WALLET_SIGN_TRADE_POLICY": true,
+      "COINOSKOBI_SAFE_OBSERVATION_ENTER_FAST": true
+    },
+    "execstart": "/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once",
+    "group": null,
+    "missing_expected_env": [],
+    "protect_home": "true",
+    "systemctl_show_env": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "coinoskobi-backpressure-refresh-runner.service",
+        "-p",
+        "Environment",
+        "-p",
+        "User",
+        "-p",
+        "Group",
+        "-p",
+        "WorkingDirectory",
+        "-p",
+        "ExecStart"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "ExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once ; ignore_errors=no ; start_time=[Sun 2026-06-07 14:00:40 EEST] ; stop_time=[Sun 2026-06-07 14:00:40 EEST] ; pid=3504392 ; code=exited ; status=1 }\nEnvironment=COINOSKOBI_DENGE_MODE=1 COINOSKOBI_SAFE_OBSERVATION_ENTER_FAST=1 COINOSKOBI_NORMAL_EXIT_REQUIRES_CACHE_FRESH=1 COINOSKOBI_AUTO_AUTHORITY=0 COINOSKOBI_NO_WALLET_SIGN_TRADE_POLICY=1\nWorkingDirectory=/\nUser=\nGroup=",
+      "timeout": false
+    },
+    "unit_environment_lines": [
+      "COINOSKOBI_DENGE_MODE=1",
+      "COINOSKOBI_SAFE_OBSERVATION_ENTER_FAST=1",
+      "COINOSKOBI_NORMAL_EXIT_REQUIRES_CACHE_FRESH=1",
+      "COINOSKOBI_AUTO_AUTHORITY=0",
+      "COINOSKOBI_NO_WALLET_SIGN_TRADE_POLICY=1"
+    ],
+    "user": null,
+    "working_directory": "/"
+  },
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE26T3_BACKPRESSURE_REFRESH_RUNNER_SERVICE_START_FAIL_DIAGNOSE_NOAPI",
+  "hard_safety_failed": [],
+  "journal_audit": {
+    "combined_text": "\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: Starting coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service...\n2026-06-06T18:58:05+03:00 v2202604354387455154 (python3)[2257304]: coinoskobi-backpressure-refresh-runner.service: Changing to the requested working directory failed: No such file or directory\n2026-06-06T18:58:05+03:00 v2202604354387455154 (python3)[2257304]: coinoskobi-backpressure-refresh-runner.service: Failed at step CHDIR spawning /usr/bin/python3: No such file or directory\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=200/CHDIR\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: Starting coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service...\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired'\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610'\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI'\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py\", line 268, in <module>\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     raise SystemExit(main())\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:                      ~~~~^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py\", line 242, in main\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     write_json(CONFIG[\"temp_cache\"], temp_cache)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py\", line 36, in write_json\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     p.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: OSError: [Errno 30] Read-only file system: '/root/tokenoskobi_clean_v1'\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=1/FAILURE\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.\n",
+    "from_t2_audit": null,
+    "live_journal": {
+      "cmd": [
+        "journalctl",
+        "-u",
+        "coinoskobi-backpressure-refresh-runner.service",
+        "-n",
+        "160",
+        "--no-pager",
+        "--output=short-iso"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: Starting coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service...\n2026-06-06T18:58:05+03:00 v2202604354387455154 (python3)[2257304]: coinoskobi-backpressure-refresh-runner.service: Changing to the requested working directory failed: No such file or directory\n2026-06-06T18:58:05+03:00 v2202604354387455154 (python3)[2257304]: coinoskobi-backpressure-refresh-runner.service: Failed at step CHDIR spawning /usr/bin/python3: No such file or directory\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=200/CHDIR\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.\n2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: Starting coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service...\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired'\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610'\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI'\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py\", line 268, in <module>\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     raise SystemExit(main())\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:                      ~~~~^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py\", line 242, in main\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     write_json(CONFIG[\"temp_cache\"], temp_cache)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py\", line 36, in write_json\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     p.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\n2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: OSError: [Errno 30] Read-only file system: '/root/tokenoskobi_clean_v1'\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=1/FAILURE\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.\n2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.",
+      "timeout": false
+    }
+  },
+  "journal_pattern_audit": {
+    "ARGPARSE_USAGE": false,
+    "ASSERT_ERROR": false,
+    "AUTHORITY_SEEN": true,
+    "CACHE_ERROR": true,
+    "CHDIR_200_OLD": true,
+    "ENV_ERROR": true,
+    "FAST_RAID_BLOCK": false,
+    "FILE_NOT_FOUND": true,
+    "IMPORT_ERROR": false,
+    "JSON_ERROR": false,
+    "MODULE_NOT_FOUND": false,
+    "NORMAL_EXIT_REQUIRES_CACHE_FRESH": true,
+    "OPT_RUNNER_SEEN": true,
+    "PERMISSION_DENIED": false,
+    "PYTHON_TRACEBACK": true,
+    "ROOT_RUNNER_SEEN": false,
+    "SAFE_DOWNGRADE_SEEN": false,
+    "SQLITE_ERROR": false,
+    "STALE_ERROR": false,
+    "SYSTEM_EXIT_1": true
+  },
+  "mutation_checks": {
+    "ACTIVE_INDEX_UNCHANGED_DURING_DIAGNOSE": true,
+    "DB_UNCHANGED_DURING_DIAGNOSE": true,
+    "HOSTS_UNCHANGED_DURING_DIAGNOSE": true,
+    "SAFE_RUNNER_UNCHANGED_DURING_DIAGNOSE": true,
+    "SOURCE_CACHE_UNCHANGED_DURING_DIAGNOSE": true,
+    "SOURCE_INDEX_UNCHANGED_DURING_DIAGNOSE": true,
+    "SOURCE_MANIFEST_UNCHANGED_DURING_DIAGNOSE": true,
+    "SOURCE_RUNNER_UNCHANGED_DURING_DIAGNOSE": true,
+    "TARGET_SERVICE_UNCHANGED_DURING_DIAGNOSE": true,
+    "TARGET_TIMER_UNCHANGED_DURING_DIAGNOSE": true
+  },
+  "next_phase": "PHASE26T4_BACKPRESSURE_REFRESH_RUNNER_SERVICE_START_FAIL_REPAIR_PLAN_NOAPI",
+  "noapi": true,
+  "path_permission_audit": {
+    "failed": [],
+    "paths": [
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": true,
+        "is_file": false,
+        "mode": "0o755",
+        "path": "/",
+        "sha256": null,
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": true,
+        "is_file": false,
+        "mode": "0o755",
+        "path": "/opt",
+        "sha256": null,
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": true,
+        "is_file": false,
+        "mode": "0o755",
+        "path": "/opt/coinoskobi",
+        "sha256": null,
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": true,
+        "is_file": false,
+        "mode": "0o755",
+        "path": "/opt/coinoskobi/bin",
+        "sha256": null,
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": false,
+        "is_file": true,
+        "mode": "0o644",
+        "path": "/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py",
+        "sha256": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": false,
+        "is_file": true,
+        "mode": "0o750",
+        "path": "/root/tokenoskobi_clean_v1/tools/backpressure_readmodel_refresh_runner_v1.py",
+        "sha256": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": true,
+        "is_file": false,
+        "mode": "0o755",
+        "path": "/root/tokenoskobi_clean_v1",
+        "sha256": null,
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": false,
+        "is_file": true,
+        "mode": "0o644",
+        "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+        "sha256": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": true,
+        "is_file": false,
+        "mode": "0o755",
+        "path": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1",
+        "sha256": null,
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": false,
+        "is_file": true,
+        "mode": "0o644",
+        "path": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+        "sha256": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": false,
+        "is_file": true,
+        "mode": "0o644",
+        "path": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json",
+        "sha256": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+        "uid": 0
+      },
+      {
+        "exists": true,
+        "gid": 0,
+        "is_dir": false,
+        "is_file": true,
+        "mode": "0o644",
+        "path": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json",
+        "sha256": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+        "uid": 0
+      }
+    ]
+  },
+  "phase": "PHASE26T3_BACKPRESSURE_REFRESH_RUNNER_SERVICE_START_FAIL_DIAGNOSE_NOAPI",
+  "phase26t2_audit": {
+    "checks": {
+      "T2_EXECMAINSTATUS_1": true,
+      "T2_FAILED_ONLY_START": true,
+      "T2_JSON_EXISTS": true,
+      "T2_NEED_DAEMON_RELOAD_NO": true,
+      "T2_RC1_OBSERVED": true,
+      "T2_REPORT_EXISTS": true,
+      "T2_RESET_FAILED_RC0": true,
+      "T2_REVIEW_GATE_OBSERVED": true,
+      "T2_SERVICE_START_RC1": true
+    },
+    "failed": [],
+    "failed_checks": [
+      "SERVICE_START_RC0",
+      "SERVICE_SUCCESS_LIKE"
+    ],
+    "final_gate": "REVIEW_PHASE26T2_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_REAL_RETRY_AFTER_EXPLICIT_APPROVAL",
+    "path": "/root/tokenoskobi_clean_v1/data/phase26t2_backpressure_refresh_runner_manual_service_run_real_retry_after_explicit_approval.json",
+    "rc": 1,
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE26T2_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_REAL_RETRY_AFTER_EXPLICIT_APPROVAL.md",
+    "sha256": "6dd6aa7646482a0d35a6fcbb65bb247f746ee7f46938fa507efc3bad501ec210"
+  },
+  "post_sha256": {
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "hosts": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "safe_runner": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "source_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "source_runner": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "target_service": "5a9a017715749874945335c7b65611afc495838a82a04892d522390ea1ed0480",
+    "target_timer": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "pre_sha256": {
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "hosts": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "safe_runner": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "source_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "source_runner": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "target_service": "5a9a017715749874945335c7b65611afc495838a82a04892d522390ea1ed0480",
+    "target_timer": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "rc": 0,
+  "read_only_audit": true,
+  "repair_plan_bridge": {
+    "created_at_utc": "2026-06-07T11:15:22.372189+00:00",
+    "entry_allowed": true,
+    "next_phase": "PHASE26T4_BACKPRESSURE_REFRESH_RUNNER_SERVICE_START_FAIL_REPAIR_PLAN_NOAPI",
+    "no_real_retry_before_repair_plan": true,
+    "phase": "PHASE26T3_BACKPRESSURE_REFRESH_RUNNER_SERVICE_START_FAIL_DIAGNOSE_NOAPI",
+    "repair_hint": "Plan a path contract audit for every file opened by runner under systemd WorkingDirectory=/ and /opt runner path.",
+    "root_cause": "RUNNER_RUNTIME_FILE_PATH_NOT_FOUND",
+    "root_cause_confidence": "HIGH",
+    "service_start_failure": {
+      "service_active": "failed",
+      "service_show": "Result=exit-code\nNRestarts=0\nExecMainCode=1\nExecMainStatus=1\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once ; ignore_errors=no ; start_time=[Sun 2026-06-07 14:00:40 EEST] ; stop_time=[Sun 2026-06-07 14:00:40 EEST] ; pid=3504392 ; code=exited ; status=1 }\nEnvironment=COINOSKOBI_DENGE_MODE=1 COINOSKOBI_SAFE_OBSERVATION_ENTER_FAST=1 COINOSKOBI_NORMAL_EXIT_REQUIRES_CACHE_FRESH=1 COINOSKOBI_AUTO_AUTHORITY=0 COINOSKOBI_NO_WALLET_SIGN_TRADE_POLICY=1\nWorkingDirectory=/\nUser=\nGroup=\nLoadState=loaded\nActiveState=failed\nSubState=failed\nFragmentPath=/etc/systemd/system/coinoskobi-backpressure-refresh-runner.service\nUnitFileState=disabled\nNeedDaemonReload=no"
+    }
+  },
+  "root_cause_audit": {
+    "latest_error_lines": [
+      "2026-06-06T18:58:05+03:00 v2202604354387455154 (python3)[2257304]: coinoskobi-backpressure-refresh-runner.service: Changing to the requested working directory failed: No such file or directory",
+      "2026-06-06T18:58:05+03:00 v2202604354387455154 (python3)[2257304]: coinoskobi-backpressure-refresh-runner.service: Failed at step CHDIR spawning /usr/bin/python3: No such file or directory",
+      "2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.",
+      "2026-06-06T18:58:05+03:00 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired'",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610'",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: FileNotFoundError: [Errno 2] No such file or directory: '/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI'",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: During handling of the above exception, another exception occurred:",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: Traceback (most recent call last):",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 python3[3504392]: OSError: [Errno 30] Read-only file system: '/root/tokenoskobi_clean_v1'",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=1/FAILURE",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.",
+      "2026-06-07T14:00:40+03:00 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.",
+      "     Active: failed (Result: exit-code) since Sun 2026-06-07 14:00:40 EEST; 14min ago",
+      "    Process: 3504392 ExecStart=/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once (code=exited, status=1/FAILURE)",
+      "   Main PID: 3504392 (code=exited, status=1/FAILURE)",
+      "Jun 07 14:00:40 v2202604354387455154 python3[3504392]: OSError: [Errno 30] Read-only file system: '/root/tokenoskobi_clean_v1'",
+      "Jun 07 14:00:40 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=1/FAILURE",
+      "Jun 07 14:00:40 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.",
+      "Jun 07 14:00:40 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.",
+      "Result=exit-code",
+      "ExecMainStatus=1",
+      "ExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once ; ignore_errors=no ; start_time=[Sun 2026-06-07 14:00:40 EEST] ; stop_time=[Sun 2026-06-07 14:00:40 EEST] ; pid=3504392 ; code=exited ; status=1 }",
+      "ActiveState=failed",
+      "SubState=failed"
+    ],
+    "missing_env": [],
+    "patterns": {
+      "ARGPARSE_USAGE": false,
+      "ASSERT_ERROR": false,
+      "AUTHORITY_SEEN": true,
+      "CACHE_ERROR": true,
+      "CHDIR_200_OLD": true,
+      "ENV_ERROR": true,
+      "FAST_RAID_BLOCK": false,
+      "FILE_NOT_FOUND": true,
+      "IMPORT_ERROR": false,
+      "JSON_ERROR": false,
+      "MODULE_NOT_FOUND": false,
+      "NORMAL_EXIT_REQUIRES_CACHE_FRESH": true,
+      "OPT_RUNNER_SEEN": true,
+      "PERMISSION_DENIED": false,
+      "PYTHON_TRACEBACK": true,
+      "ROOT_RUNNER_SEEN": false,
+      "SAFE_DOWNGRADE_SEEN": false,
+      "SQLITE_ERROR": false,
+      "STALE_ERROR": false,
+      "SYSTEM_EXIT_1": true
+    },
+    "repair_hint": "Plan a path contract audit for every file opened by runner under systemd WorkingDirectory=/ and /opt runner path.",
+    "root_cause": "RUNNER_RUNTIME_FILE_PATH_NOT_FOUND",
+    "root_cause_confidence": "HIGH",
+    "source_output_failed": []
+  },
+  "runner_audit": {
+    "checks": {
+      "SAFE_RUNNER_EXISTS": true,
+      "SAFE_RUNNER_MODE_644": true,
+      "SAFE_RUNNER_SHA_EXPECTED": true,
+      "SAFE_RUNNER_SYNTAX_OK": true,
+      "SOURCE_RUNNER_EXISTS": true,
+      "SOURCE_RUNNER_SHA_EXPECTED": true,
+      "SOURCE_RUNNER_SYNTAX_OK": true
+    },
+    "failed": [],
+    "safe_runner": "/opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py",
+    "safe_runner_exists": true,
+    "safe_runner_mode": "0o644",
+    "safe_runner_sha256": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "safe_runner_syntax_error": null,
+    "safe_runner_syntax_ok": true,
+    "source_runner": "/root/tokenoskobi_clean_v1/tools/backpressure_readmodel_refresh_runner_v1.py",
+    "source_runner_exists": true,
+    "source_runner_mode": "0o750",
+    "source_runner_sha256": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "source_runner_syntax_error": null,
+    "source_runner_syntax_ok": true
+  },
+  "safety_audit": {
+    "checks": {
+      "ACTIVE_INDEX_EXPECTED_SHA_MATCH": true,
+      "DB_HEALTH_OK": true,
+      "DIAGNOSE_ONLY": true,
+      "MUTATION_CHECKS_ALL_TRUE": true,
+      "NOAPI": true,
+      "NO_FILE_DB_PANEL_API_TRADE_MUTATION": true,
+      "NO_SERVICE_TIMER_EXECUTION": true,
+      "PHASE26T2_REVIEW_VERIFIED": true,
+      "READ_ONLY_AUDIT": true,
+      "ROOT_CAUSE_CLASSIFIED": true,
+      "RUNNERS_OK": true,
+      "SOURCE_OUTPUT_OK": true,
+      "TARGET_SERVICE_OK": true,
+      "TARGET_TIMER_OK": true
+    },
+    "created_at_utc": "2026-06-07T11:15:22.372189+00:00",
+    "mutation_checks": {
+      "ACTIVE_INDEX_UNCHANGED_DURING_DIAGNOSE": true,
+      "DB_UNCHANGED_DURING_DIAGNOSE": true,
+      "HOSTS_UNCHANGED_DURING_DIAGNOSE": true,
+      "SAFE_RUNNER_UNCHANGED_DURING_DIAGNOSE": true,
+      "SOURCE_CACHE_UNCHANGED_DURING_DIAGNOSE": true,
+      "SOURCE_INDEX_UNCHANGED_DURING_DIAGNOSE": true,
+      "SOURCE_MANIFEST_UNCHANGED_DURING_DIAGNOSE": true,
+      "SOURCE_RUNNER_UNCHANGED_DURING_DIAGNOSE": true,
+      "TARGET_SERVICE_UNCHANGED_DURING_DIAGNOSE": true,
+      "TARGET_TIMER_UNCHANGED_DURING_DIAGNOSE": true
+    },
+    "phase": "PHASE26T3_BACKPRESSURE_REFRESH_RUNNER_SERVICE_START_FAIL_DIAGNOSE_NOAPI",
+    "safety_contract": {
+      "ACTIVE_PANEL_WRITE": false,
+      "AI_POLICY_EDIT": false,
+      "AI_SCORE_UPGRADE": false,
+      "API_CALLS": 0,
+      "AUTO_PILOT_ENABLE": false,
+      "DAEMON_RELOAD": false,
+      "DB_MUTATION": false,
+      "DIAGNOSE_ONLY": true,
+      "EXTERNAL_NETWORK_CALLS": 0,
+      "HARDBLOCK_WEAKENING": false,
+      "LIVE_SCHEMA_APPLY": false,
+      "LIVE_TRADE": false,
+      "NOAPI": true,
+      "PAPER_TRADE": false,
+      "POLICY_APPLY": false,
+      "PUBLIC_TARGET_WRITE": false,
+      "READ_ONLY_AUDIT": true,
+      "REAL_OPT_WRITE_NOW": false,
+      "REAL_SAFE_RUNNER_COPY_NOW": false,
+      "REAL_SYSTEMD_UNIT_WRITE": false,
+      "RUNNER_EXECUTE_NOW": false,
+      "SERVICE_RESET_FAILED": false,
+      "SERVICE_RESTART": false,
+      "SERVICE_START": false,
+      "SERVICE_STOP": false,
+      "SOURCE_RUNNER_WRITE": false,
+      "SYSTEMD_RUN": false,
+      "TARGET_SERVICE_WRITE_NOW": false,
+      "TARGET_TIMER_WRITE_NOW": false,
+      "TIMER_ENABLE": false,
+      "TIMER_START": false,
+      "TIMER_STOP": false,
+      "TRANSACTION_SIGNING": false,
+      "WALLET_CONNECTION": false,
+      "WORKER_START": false
+    }
+  },
+  "source_output_audit": {
+    "authority": {
+      "ai_policy_edit": false,
+      "ai_score_upgrade": false,
+      "auto_pilot_enable": false,
+      "hardblock_weakening": false,
+      "manual_hardblock_bypass": false,
+      "policy_apply": false,
+      "sign_send": false,
+      "trade": false
+    },
+    "cache_sha256": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "cache_state": "CACHE_VALID",
+    "checks": {
+      "SOURCE_AUTHORITY_ALL_FALSE": true,
+      "SOURCE_CACHE_EXISTS": true,
+      "SOURCE_CACHE_MISSING_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_PARSE_FAIL_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_PARSE_OK": true,
+      "SOURCE_CACHE_STALE_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_VALID": true,
+      "SOURCE_INDEX_EXISTS": true,
+      "SOURCE_INDEX_PARSE_OK": true,
+      "SOURCE_MANIFEST_EXISTS": true,
+      "SOURCE_MANIFEST_PARSE_OK": true,
+      "SOURCE_RUNTIME_BUCKET_LOOKUP_ONLY": true
+    },
+    "failed": [],
+    "index_sha256": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "manifest_sha256": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "runtime_bucket": "LOOKUP_ONLY"
+  },
+  "stamp": "20260607_141522",
+  "systemd_state_audit": {
+    "service_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "coinoskobi-backpressure-refresh-runner.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "failed",
+      "timeout": false
+    },
+    "service_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "coinoskobi-backpressure-refresh-runner.service"
+      ],
+      "rc": 1,
+      "stderr": "",
+      "stdout": "disabled",
+      "timeout": false
+    },
+    "service_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "coinoskobi-backpressure-refresh-runner.service",
+        "-p",
+        "LoadState",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "UnitFileState",
+        "-p",
+        "ExecMainStatus",
+        "-p",
+        "ExecMainCode",
+        "-p",
+        "Result",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "NeedDaemonReload",
+        "-p",
+        "NRestarts",
+        "-p",
+        "User",
+        "-p",
+        "Group",
+        "-p",
+        "WorkingDirectory",
+        "-p",
+        "ExecStart",
+        "-p",
+        "Environment"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "Result=exit-code\nNRestarts=0\nExecMainCode=1\nExecMainStatus=1\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once ; ignore_errors=no ; start_time=[Sun 2026-06-07 14:00:40 EEST] ; stop_time=[Sun 2026-06-07 14:00:40 EEST] ; pid=3504392 ; code=exited ; status=1 }\nEnvironment=COINOSKOBI_DENGE_MODE=1 COINOSKOBI_SAFE_OBSERVATION_ENTER_FAST=1 COINOSKOBI_NORMAL_EXIT_REQUIRES_CACHE_FRESH=1 COINOSKOBI_AUTO_AUTHORITY=0 COINOSKOBI_NO_WALLET_SIGN_TRADE_POLICY=1\nWorkingDirectory=/\nUser=\nGroup=\nLoadState=loaded\nActiveState=failed\nSubState=failed\nFragmentPath=/etc/systemd/system/coinoskobi-backpressure-refresh-runner.service\nUnitFileState=disabled\nNeedDaemonReload=no",
+      "timeout": false
+    },
+    "timer_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "coinoskobi-backpressure-refresh-runner.timer"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive",
+      "timeout": false
+    },
+    "timer_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "coinoskobi-backpressure-refresh-runner.timer"
+      ],
+      "rc": 1,
+      "stderr": "",
+      "stdout": "disabled",
+      "timeout": false
+    },
+    "timer_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "coinoskobi-backpressure-refresh-runner.timer",
+        "-p",
+        "LoadState",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "UnitFileState",
+        "-p",
+        "Result",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "NeedDaemonReload"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "Result=success\nLoadState=loaded\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/coinoskobi-backpressure-refresh-runner.timer\nUnitFileState=disabled\nNeedDaemonReload=no",
+      "timeout": false
+    }
+  },
+  "systemd_status_audit": {
+    "cmd": [
+      "systemctl",
+      "status",
+      "coinoskobi-backpressure-refresh-runner.service",
+      "--no-pager",
+      "-l"
+    ],
+    "rc": 3,
+    "stderr": "",
+    "stdout": "× coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service\n     Loaded: loaded (/etc/systemd/system/coinoskobi-backpressure-refresh-runner.service; disabled; preset: enabled)\n     Active: failed (Result: exit-code) since Sun 2026-06-07 14:00:40 EEST; 14min ago\n Invocation: 0c98f4a542e84861aaf5fc0ce676c961\n       Docs: file:///root/tokenoskobi_clean_v1/reports/LATEST_PHASE26I_BACKPRESSURE_REFRESH_RUNNER_SERVICE_TIMER_PLAN_NOAPI.md\n    Process: 3504392 ExecStart=/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once (code=exited, status=1/FAILURE)\n   Main PID: 3504392 (code=exited, status=1/FAILURE)\n   Mem peak: 7.9M\n        CPU: 82ms\n\nJun 07 14:00:40 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 728, in mkdir\nJun 07 14:00:40 v2202604354387455154 python3[3504392]:     self.parent.mkdir(parents=True, exist_ok=True)\nJun 07 14:00:40 v2202604354387455154 python3[3504392]:     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nJun 07 14:00:40 v2202604354387455154 python3[3504392]:   File \"/usr/lib/python3.13/pathlib/_local.py\", line 724, in mkdir\nJun 07 14:00:40 v2202604354387455154 python3[3504392]:     os.mkdir(self, mode)\nJun 07 14:00:40 v2202604354387455154 python3[3504392]:     ~~~~~~~~^^^^^^^^^^^^\nJun 07 14:00:40 v2202604354387455154 python3[3504392]: OSError: [Errno 30] Read-only file system: '/root/tokenoskobi_clean_v1'\nJun 07 14:00:40 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Main process exited, code=exited, status=1/FAILURE\nJun 07 14:00:40 v2202604354387455154 systemd[1]: coinoskobi-backpressure-refresh-runner.service: Failed with result 'exit-code'.\nJun 07 14:00:40 v2202604354387455154 systemd[1]: Failed to start coinoskobi-backpressure-refresh-runner.service - Coinoskobi Backpressure Refresh Runner DENGE dryrun service.",
+    "timeout": false
+  },
+  "target_unit_audit": {
+    "service_checks": {
+      "TARGET_SERVICE_EXECSTART_OPT": true,
+      "TARGET_SERVICE_EXISTS": true,
+      "TARGET_SERVICE_MODE_644": true,
+      "TARGET_SERVICE_SCRIPT_PATH_OPT": true,
+      "TARGET_SERVICE_SHA_EXPECTED": true,
+      "TARGET_SERVICE_WORKING_DIRECTORY_ROOT": true
+    },
+    "target_service": "/etc/systemd/system/coinoskobi-backpressure-refresh-runner.service",
+    "target_service_environment": [
+      "COINOSKOBI_DENGE_MODE=1",
+      "COINOSKOBI_SAFE_OBSERVATION_ENTER_FAST=1",
+      "COINOSKOBI_NORMAL_EXIT_REQUIRES_CACHE_FRESH=1",
+      "COINOSKOBI_AUTO_AUTHORITY=0",
+      "COINOSKOBI_NO_WALLET_SIGN_TRADE_POLICY=1"
+    ],
+    "target_service_execstart": "/usr/bin/python3 /opt/coinoskobi/bin/backpressure_readmodel_refresh_runner_v1.py --dryrun-once",
+    "target_service_failed": [],
+    "target_service_group": null,
+    "target_service_mode": "0o644",
+    "target_service_protect_home": "true",
+    "target_service_sha256": "5a9a017715749874945335c7b65611afc495838a82a04892d522390ea1ed0480",
+    "target_service_user": null,
+    "target_service_working_directory": "/",
+    "target_timer": "/etc/systemd/system/coinoskobi-backpressure-refresh-runner.timer",
+    "target_timer_failed": [],
+    "target_timer_mode": "0o644",
+    "target_timer_sha256": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_checks": {
+      "TARGET_TIMER_EXISTS": true,
+      "TARGET_TIMER_HAS_15S": true,
+      "TARGET_TIMER_MODE_644": true,
+      "TARGET_TIMER_POINTS_TO_SERVICE": true,
+      "TARGET_TIMER_SHA_EXPECTED": true
+    }
+  },
+  "utc": "2026-06-07T11:15:22.372189+00:00"
+}

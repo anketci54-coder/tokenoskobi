@@ -1,0 +1,128 @@
+{
+  "phase": "PHASE40F_NEWS_SOCIAL_LAUNCH_SIGNAL_INTEGRATION_PLAN_NOAPI",
+  "final_gate": "PASS_PHASE40F_NEWS_SOCIAL_LAUNCH_SIGNAL_INTEGRATION_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE40G_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_TEMPDB_DRYRUN_NOAPI",
+  "checks": {
+    "PHASE40E_PASS": true,
+    "NEWS_SOCIAL_PLAN_WRITTEN": true,
+    "LAUNCH_SIGNAL_MEMORY_PLAN_WRITTEN": true,
+    "NEWS_SOCIAL_SIGNAL_NOT_TRUTH": true,
+    "ONCHAIN_CONFIRMATION_REQUIRED": true,
+    "RISK_SECURITY_GATE_REQUIRED": true,
+    "NO_TRADE_AUTH_FROM_NEWS_SOCIAL": true,
+    "NO_TRADE_AUTH_FROM_AI": true,
+    "LIVE_DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "NO_API_CALLS_NOW": true,
+    "NO_PAPER_TRADE_NOW": true,
+    "NO_LIVE_TRADE_NOW": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "plan": {
+    "phase": "PHASE40F_NEWS_SOCIAL_LAUNCH_SIGNAL_INTEGRATION_PLAN_NOAPI",
+    "created_at": "2026-06-09T15:12:39.398865+00:00",
+    "mode": "PLAN_ONLY_NOAPI",
+    "opened_after": "PASS_PHASE40E_TECHNICAL_RWD_FALSE_NEGATIVE_AND_AI_CONTRACT_ANALYST_PLAN_NOAPI",
+    "purpose": "News/social/launch signals will be integrated as weak-to-medium evidence signals, never as direct trade authorization.",
+    "source_classes": [
+      {
+        "name": "official_project_announcement",
+        "role": "launch_or_upgrade_signal",
+        "trust": "medium",
+        "trade_authority": false
+      },
+      {
+        "name": "exchange_listing_or_watchlist_news",
+        "role": "visibility_and_liquidity_attention_signal",
+        "trust": "medium_high_if_official",
+        "trade_authority": false
+      },
+      {
+        "name": "launchpad_ido_presale_claim",
+        "role": "early_launch_context_only",
+        "trust": "low_until_contract_and_liquidity_confirmed",
+        "trade_authority": false
+      },
+      {
+        "name": "x_twitter_social_burst",
+        "role": "crowd_attention_signal",
+        "trust": "low",
+        "trade_authority": false
+      },
+      {
+        "name": "telegram_discord_social_burst",
+        "role": "community_activity_signal",
+        "trust": "low",
+        "trade_authority": false
+      },
+      {
+        "name": "kol_influencer_mention",
+        "role": "attention_signal_with_manipulation_risk",
+        "trust": "low",
+        "trade_authority": false
+      }
+    ],
+    "integration_rules": {
+      "news_social_signal_is_not_truth": true,
+      "official_source_required_for_high_confidence": true,
+      "contract_address_required_before_candidate_promotion": true,
+      "onchain_confirmation_required": true,
+      "risk_security_gate_required": true,
+      "liquidity_and_sellability_required": true,
+      "deterministic_ledger_remains_core_truth": true,
+      "paper_live_trade_permission_from_news_social": false,
+      "paper_live_trade_permission_from_ai": false,
+      "hot_loop_fetch_now": false,
+      "api_calls_now": false
+    },
+    "launch_signal_memory": {
+      "store_later_fields": [
+        "source_type",
+        "source_url_hash_or_id",
+        "detected_at",
+        "token_name_claim",
+        "chain_claim",
+        "contract_address_claim",
+        "launch_time_claim",
+        "officialness_score",
+        "social_burst_score",
+        "manipulation_risk_score",
+        "onchain_confirmation_status",
+        "risk_gate_status",
+        "final_system_decision"
+      ],
+      "decision_role": "candidate_context_and_review_queue_only",
+      "false_negative_link": true,
+      "rwd_link": true
+    },
+    "hard_blocks": [
+      "No external news/social fetch in this phase",
+      "No API calls in this phase",
+      "No live DB mutation in this phase",
+      "No active panel mutation in this phase",
+      "No runner mutation in this phase",
+      "No paper trade in this phase",
+      "No live trade in this phase",
+      "News/social signal cannot override deterministic risk ledger",
+      "News/social signal cannot authorize trade",
+      "AI opinion cannot authorize trade"
+    ],
+    "next_phase": "PHASE40G_NEWS_SOCIAL_LAUNCH_SIGNAL_SCHEMA_TEMPDB_DRYRUN_NOAPI"
+  },
+  "before_sha": {
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "after_sha": {
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE40F_NEWS_SOCIAL_LAUNCH_SIGNAL_INTEGRATION_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/phase40f_news_social_launch_signal_integration_plan_noapi.json",
+  "rows": "/root/tokenoskobi_clean_v1/data/phase40f_news_social_launch_signal_integration_plan_noapi_rows.jsonl"
+}

@@ -1,0 +1,67 @@
+{
+  "phase": "PASS23C_PORTFOLIO_RISK_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "portfolio_profile_registry_v1",
+      "purpose": "portfolio_state"
+    },
+    {
+      "table": "risk_budget_registry_v1",
+      "purpose": "risk_budget_tracking"
+    },
+    {
+      "table": "open_risk_registry_v1",
+      "purpose": "open_risk_tracking"
+    },
+    {
+      "table": "portfolio_health_registry_v1",
+      "purpose": "portfolio_health_score"
+    },
+    {
+      "table": "correlation_score_registry_v1",
+      "purpose": "correlation_scoring"
+    },
+    {
+      "table": "narrative_cluster_registry_v1",
+      "purpose": "narrative_exposure"
+    },
+    {
+      "table": "chain_cluster_registry_v1",
+      "purpose": "chain_exposure"
+    },
+    {
+      "table": "sector_cluster_registry_v1",
+      "purpose": "sector_exposure"
+    }
+  ],
+  "future_extensions": [
+    "wallet_cluster_correlation",
+    "deployer_correlation",
+    "whale_correlation",
+    "whale_cluster_cap",
+    "portfolio_defense_mode",
+    "portfolio_recovery_mode"
+  ],
+  "required_rules": [
+    "PORTFOLIO_FIRST",
+    "RISK_BUDGET_REQUIRED",
+    "CORRELATION_AWARE",
+    "NARRATIVE_AWARE",
+    "CHAIN_AWARE",
+    "SECTOR_AWARE"
+  ],
+  "forbidden": [
+    "NO_AUTO_TRADE",
+    "NO_POSITION_FORCE",
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN"
+  ],
+  "decision": "PASS23C_ACCEPTED_READY_FOR_PASS23D"
+}

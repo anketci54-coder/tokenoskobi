@@ -1,0 +1,422 @@
+{
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "db_sha_start": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "initial_holder_values": {
+    "done_214_paths": [
+      {
+        "path": "$.initial_holder.done_getlogs",
+        "value": 214,
+        "value_type": "int"
+      },
+      {
+        "path": "$.initial_holder.total_getlogs",
+        "value": 214,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[3].done",
+        "value": 214,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[3].total",
+        "value": 214,
+        "value_type": "int"
+      }
+    ],
+    "group_7_paths": [
+      {
+        "path": "$.deployer_receipts.receipt_group_count",
+        "value": 7,
+        "value_type": "int"
+      },
+      {
+        "path": "$.initial_holder.final_group_count",
+        "value": 7,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[4].final_group_count",
+        "value": 7,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[9].receipt_group_count",
+        "value": 7,
+        "value_type": "int"
+      }
+    ],
+    "remaining_0_paths": [
+      {
+        "path": "$.initial_holder.remaining_getlogs",
+        "value": 0,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[3].remaining",
+        "value": 0,
+        "value_type": "int"
+      }
+    ],
+    "total_214_paths": [
+      {
+        "path": "$.initial_holder.done_getlogs",
+        "value": 214,
+        "value_type": "int"
+      },
+      {
+        "path": "$.initial_holder.total_getlogs",
+        "value": 214,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[3].done",
+        "value": 214,
+        "value_type": "int"
+      },
+      {
+        "path": "$.tests[3].total",
+        "value": 214,
+        "value_type": "int"
+      }
+    ]
+  },
+  "next_phase": "PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI",
+  "outputs": {
+    "json": "/root/tokenoskobi_clean_v1/data/phase5i1_backfill_plan_failure_diagnose_noapi.json",
+    "phase4_path_rows": "/root/tokenoskobi_clean_v1/_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI/20260601_075129/phase5i1_phase4_matching_paths.jsonl",
+    "repair_hint_rows": "/root/tokenoskobi_clean_v1/_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI/20260601_075129/phase5i1_repair_hints.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5i1_backfill_plan_failure_diagnose_noapi_rows.jsonl",
+    "table_search_rows": "/root/tokenoskobi_clean_v1/_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI/20260601_075129/phase5i1_schema_table_search.jsonl",
+    "target_diag_rows": "/root/tokenoskobi_clean_v1/_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI/20260601_075129/phase5i1_target_mapping_diagnose.jsonl"
+  },
+  "phase": "PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI",
+  "phase4_path_match_count": 38,
+  "phase4_report_line_match_count": 40,
+  "phase5i_failed_checks": [
+    "phase4_hard_checks_all_pass",
+    "all_backfill_targets_chosen",
+    "chosen_target_tables_empty"
+  ],
+  "phase5i_failed_phase4_checks": [
+    "initial_holder_total_214",
+    "initial_holder_done_214",
+    "initial_holder_remaining_0",
+    "initial_holder_group_count_7"
+  ],
+  "phase5i_missing_targets": [
+    {
+      "plan_id": "phase4_source_manifest",
+      "planned_rows": 1,
+      "purpose": "Persist source manifest/hash/gate summary only in future dry-run/real backfill.",
+      "source": "phase4_final_review_noapi",
+      "target_logical_bucket": "phase4_run_manifest",
+      "target_table": null,
+      "write_now": false
+    }
+  ],
+  "phase5i_target_nonzero": [
+    {
+      "candidate_tables": [
+        "evidence_quality_events_v1",
+        "live_data_quality_events_v1",
+        "live_data_quality_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "live_data_quality_events",
+      "column_count": 15,
+      "columns": [
+        "quality_event_uid",
+        "created_at_utc",
+        "fetch_uid",
+        "staging_uid",
+        "token_uid",
+        "pair_uid",
+        "severity",
+        "event_type",
+        "event_reason",
+        "field_name",
+        "old_value",
+        "new_value",
+        "expected_rule",
+        "snapshot_blocked",
+        "manual_review_required"
+      ],
+      "current_row_count": 99,
+      "logical_bucket": "quality_events"
+    }
+  ],
+  "repair_hints": [
+    {
+      "classification": "LIKELY_SCRIPT_PATH_TOO_NARROW",
+      "issue": "phase4_initial_holder_path_mismatch",
+      "repair": "Use report-line fallback and/or search JSON scalar paths for INITIAL_HOLDER_GETLOGS_TOTAL/DONE/REMAINING/GROUP_COUNT instead of fixed dotted paths."
+    },
+    {
+      "classification": "TARGET_CANDIDATE_LIST_TOO_NARROW",
+      "issue": "missing_backfill_target",
+      "missing_targets": [
+        {
+          "plan_id": "phase4_source_manifest",
+          "planned_rows": 1,
+          "purpose": "Persist source manifest/hash/gate summary only in future dry-run/real backfill.",
+          "source": "phase4_final_review_noapi",
+          "target_logical_bucket": "phase4_run_manifest",
+          "target_table": null,
+          "write_now": false
+        }
+      ],
+      "repair": "Use actual Phase5 schema table list from phase5h table audit and choose canonical table by column compatibility, not only hardcoded names."
+    },
+    {
+      "classification": "EXISTING_LEGACY_TABLE_SELECTED",
+      "issue": "chosen_target_table_nonzero",
+      "repair": "Prefer newly created Phase5 schema tables with row_count 0 over legacy/nonzero tables for initial evidence backfill.",
+      "target_nonzero": [
+        {
+          "candidate_tables": [
+            "evidence_quality_events_v1",
+            "live_data_quality_events_v1",
+            "live_data_quality_events"
+          ],
+          "chosen_exists": true,
+          "chosen_table": "live_data_quality_events",
+          "column_count": 15,
+          "columns": [
+            "quality_event_uid",
+            "created_at_utc",
+            "fetch_uid",
+            "staging_uid",
+            "token_uid",
+            "pair_uid",
+            "severity",
+            "event_type",
+            "event_reason",
+            "field_name",
+            "old_value",
+            "new_value",
+            "expected_rule",
+            "snapshot_blocked",
+            "manual_review_required"
+          ],
+          "current_row_count": 99,
+          "logical_bucket": "quality_events"
+        }
+      ]
+    }
+  ],
+  "safety": {
+    "api_calls": 0,
+    "backfill_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "panel_mutation": false,
+    "paper_live_watchlist_score": false,
+    "rpc_calls": 0,
+    "service_timer_mutation": false
+  },
+  "table_search_count": 154,
+  "target_diag": [
+    {
+      "candidate_tables": [
+        "evidence_source_events_v1",
+        "source_evidence_events_v1",
+        "evidence_event_backbone_v1"
+      ],
+      "chosen_exists": false,
+      "chosen_table": null,
+      "columns": [],
+      "logical_bucket": "phase4_run_manifest",
+      "row_count": null
+    },
+    {
+      "candidate_tables": [
+        "initial_holder_transfer_mint_evidence_events_v1",
+        "initial_holder_evidence_events_v1",
+        "holder_distribution_events_v1",
+        "holder_distribution_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "initial_holder_evidence_events_v1",
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "holder_group_key",
+        "scan_window_json",
+        "transfer_mint_summary_json",
+        "risk_interpretation",
+        "source_object_uid",
+        "created_at_utc"
+      ],
+      "logical_bucket": "initial_holder_groups",
+      "row_count": 0
+    },
+    {
+      "candidate_tables": [
+        "deployer_receipt_evidence_events_v1",
+        "deployer_wallet_evidence_events_v1",
+        "deployer_wallet_events_v1",
+        "deployer_wallet_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "deployer_receipt_evidence_events_v1",
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "chain",
+        "tx_hash",
+        "receipt_found",
+        "token_log_match",
+        "creation_proof",
+        "zero_mint_unproven",
+        "interpretation_label",
+        "source_object_uid",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "logical_bucket": "deployer_receipts",
+      "row_count": 0
+    },
+    {
+      "candidate_tables": [
+        "evidence_quality_events_v1",
+        "live_data_quality_events_v1",
+        "live_data_quality_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "live_data_quality_events",
+      "columns": [
+        "quality_event_uid",
+        "created_at_utc",
+        "fetch_uid",
+        "staging_uid",
+        "token_uid",
+        "pair_uid",
+        "severity",
+        "event_type",
+        "event_reason",
+        "field_name",
+        "old_value",
+        "new_value",
+        "expected_rule",
+        "snapshot_blocked",
+        "manual_review_required"
+      ],
+      "logical_bucket": "quality_events",
+      "row_count": 99
+    },
+    {
+      "candidate_tables": [
+        "execution_safety_gate_events_v2",
+        "execution_preflight_audit_events_v1"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "execution_safety_gate_events_v2",
+      "columns": [
+        "safety_event_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "route_type",
+        "policy_uid",
+        "hard_block",
+        "sell_route_status",
+        "minimum_pool_liquidity_usd",
+        "exit_liquidity_usd",
+        "buy_price_impact_pct",
+        "sell_price_impact_pct",
+        "expected_slippage_pct",
+        "max_position_size_usd",
+        "tax_buy_pct",
+        "tax_sell_pct",
+        "mev_status",
+        "sandwich_exposure_status",
+        "gas_cost_sanity",
+        "protected_route_status",
+        "execution_permission",
+        "failed_gate_list_json",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "logical_bucket": "execution_gate_seed",
+      "row_count": 0
+    },
+    {
+      "candidate_tables": [
+        "cascading_execution_filter_eval_events_v1",
+        "execution_rpc_budget_guard_events_v1"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "cascading_execution_filter_eval_events_v1",
+      "columns": [
+        "eval_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "route_type",
+        "current_stage_no",
+        "current_stage_id",
+        "stage_result",
+        "stop_reason",
+        "rpc_calls_used",
+        "eth_call_used",
+        "router_quote_used",
+        "execution_permission",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "logical_bucket": "cascading_filter_seed",
+      "row_count": 0
+    },
+    {
+      "candidate_tables": [
+        "outcome_memory_events_v2",
+        "negative_memory_guard_events_v1",
+        "token_lifecycle_autopsy_events_v1"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "outcome_memory_events_v2",
+      "columns": [
+        "outcome_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "linked_decision_uid",
+        "linked_preflight_uid",
+        "linked_paper_decision_uid",
+        "outcome_label",
+        "outcome_window",
+        "pnl_pct",
+        "max_runup_pct",
+        "max_drawdown_pct",
+        "liquidity_change_pct",
+        "evidence_hash",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "logical_bucket": "outcome_memory_seed",
+      "row_count": 0
+    }
+  ],
+  "ts_utc": "2026-06-01T04:51:29.757013+00:00"
+}

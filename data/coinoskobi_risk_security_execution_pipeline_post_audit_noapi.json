@@ -1,0 +1,181 @@
+{
+  "phase": "COINOSKOBI_RISK_SECURITY_EXECUTION_PIPELINE_POST_AUDIT_NOAPI",
+  "stamp": "20260522_131736",
+  "mode": "POST_AUDIT_ONLY_NOAPI",
+  "inputs": {
+    "risk8_contract": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_center_8_center_connection_contract_plan_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_SECURITY_CENTER_8_CENTER_CONNECTION_CONTRACT_PLAN_NOAPI",
+      "next_phase": "COINOSKOBI_MEV_MEMPOOL_PROTECTION_LAYER_PLAN_NOAPI"
+    },
+    "risk_io_map": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_center_pipeline_io_map_plan_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_SECURITY_CENTER_PIPELINE_IO_MAP_PLAN_NOAPI",
+      "next_phase": "COINOSKOBI_MEV_MEMPOOL_PROTECTION_LAYER_PLAN_NOAPI"
+    },
+    "mev_mempool_plan": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_mempool_protection_layer_plan_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_MEV_MEMPOOL_PROTECTION_LAYER_PLAN_NOAPI",
+      "next_phase": "COINOSKOBI_RISK_ADJUSTED_EXECUTION_PLAN_ENGINE_PLAN_NOAPI"
+    },
+    "mev_dryrun": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_sandwich_risk_engine_dryrun_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_MEV_SANDWICH_RISK_ENGINE_DRYRUN_NOAPI",
+      "next_phase": "COINOSKOBI_ONE_TOKEN_PIPELINE_SIM_NOAPI"
+    },
+    "execution_plan": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_adjusted_execution_plan_engine_plan_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_ADJUSTED_EXECUTION_PLAN_ENGINE_PLAN_NOAPI",
+      "next_phase": "COINOSKOBI_RISK_ADJUSTED_EXECUTION_PLAN_ENGINE_DRYRUN_NOAPI"
+    },
+    "execution_dryrun": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_adjusted_execution_plan_engine_dryrun_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_ADJUSTED_EXECUTION_PLAN_ENGINE_DRYRUN_NOAPI",
+      "next_phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI"
+    },
+    "view_model_dryrun": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_view_model_execution_plan_dryrun_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI",
+      "next_phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_TEMP_DB_EVENT_DRYRUN_NOAPI"
+    },
+    "schema_repair_real": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_view_model_event_schema_strictness_repair_real_after_explicit_approval.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EVENT_SCHEMA_STRICTNESS_REPAIR_REAL_AFTER_EXPLICIT_APPROVAL",
+      "next_phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_TEMP_DB_EVENT_RETEST_AFTER_SCHEMA_REPAIR_NOAPI"
+    },
+    "schema_retest": {
+      "path": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_view_model_temp_db_event_retest_after_schema_repair_noapi.json",
+      "exists": true,
+      "parse_ok": true,
+      "error": null,
+      "final_ok": true,
+      "phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_TEMP_DB_EVENT_RETEST_AFTER_SCHEMA_REPAIR_NOAPI",
+      "next_phase": "COINOSKOBI_RISK_SECURITY_EXECUTION_PIPELINE_POST_AUDIT_NOAPI"
+    }
+  },
+  "dependency_checks": {
+    "risk8_contract_ok": true,
+    "risk_io_map_ok": true,
+    "mev_mempool_plan_ok": true,
+    "mev_dryrun_ok": true,
+    "execution_plan_ok": true,
+    "execution_dryrun_ok": true,
+    "view_model_dryrun_ok": true,
+    "schema_repair_real_ok": true,
+    "schema_retest_ok": true
+  },
+  "db_audit": {
+    "db_sha": "206784df0c659933b832db487b71f0399ae137a5f6cc7519c545c0c7e1f0a91a",
+    "table_count": 177,
+    "index_count": 293,
+    "target_table_exists": true,
+    "target_table_row_count": 0,
+    "old_table_exists": true,
+    "old_table_count": 0,
+    "source_counts_json_not_null": true,
+    "view_uid_pk": true,
+    "pipeline_counts": {
+      "raw_discovery_events_v1": 0,
+      "entity_identity_events_v1": 0,
+      "center_signal_events_v1": 0,
+      "mev_sandwich_risk_events_v1": 0,
+      "fusion_score_events_v1": 0,
+      "command_decision_events_v1": 0,
+      "paper_trade_events_v1": 0,
+      "outcome_memory_events_v1": 0,
+      "control_dashboard_view_model_events_v1": 0
+    },
+    "integrity": "ok",
+    "fk_error_count": 0
+  },
+  "execution_policy_audit": {
+    "scenario_count": 4,
+    "passed_scenario_count": 4,
+    "has_normal_tp123": true,
+    "has_vur_kac_single_tp": true,
+    "has_blocked_zero_entry": true,
+    "has_paper_only": true,
+    "all_live_false": true,
+    "all_auto_locked": true
+  },
+  "view_model_retest_audit": {
+    "view_model_schema_ok": true,
+    "scenario_count_4": true,
+    "passed_scenario_count_4": true,
+    "all_card_count_12": true,
+    "risk_card_count_4": true,
+    "command_card_count_5": true,
+    "yasam_card_count_2": true,
+    "system_card_count_1": true,
+    "temp_insert_ok": true,
+    "temp_source_counts_not_null": true,
+    "retrieved_parse_ok": true,
+    "retrieved_source_parse_ok": true,
+    "temp_fk_zero": true
+  },
+  "negative_test_pass_count": 5,
+  "negative_test_total": 5,
+  "center_audit": {
+    "fixed_center_count_8": true,
+    "no_9th_center": true,
+    "no_parallel_main_line": true,
+    "every_new_module_under_fixed_8": true,
+    "center_connection_count_14": true,
+    "center_key_violations_0": true
+  },
+  "warnings": [
+    "OLD_NULLABLE_BACKUP_TABLE_REMAINS_IN_LIVE_DB_FOR_ROLLBACK_CONTEXT"
+  ],
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged_during_audit": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "active_panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0,
+    "auto_trade_execution": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "final_decision": "PASS_RISK_SECURITY_EXECUTION_PIPELINE_POST_AUDIT_OK",
+  "next_phase": "COINOSKOBI_RISK_SECURITY_PANEL_INTEGRATION_PLAN_NOAPI"
+}

@@ -1,0 +1,227 @@
+{
+  "phase": "FLOW28_LIQUIDITY_FLOW_RADAR_PLAN_NOAPI",
+  "stamp": "20260513_130438",
+  "final_gate": "PASS",
+  "action": "LIQUIDITY_FLOW_RADAR_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "paid_flow_data_now": false,
+    "strategy": "free/open sources + existing Alchemy + local cache + candidate-first refresh",
+    "blocked_for_mvp": [
+      "premium liquidity terminal",
+      "paid institutional flow API",
+      "paid wallet intelligence feed",
+      "high-frequency global chain scan",
+      "new server",
+      "paid MEV/mempool feed"
+    ],
+    "allowed_for_mvp": [
+      "existing Alchemy selected reads",
+      "DexScreener/GeckoTerminal limited candidate checks",
+      "DefiLlama style free/public TVL/stablecoin references later",
+      "local DB/cache",
+      "manual watchlists",
+      "low-frequency refresh",
+      "candidate-first confirmation"
+    ]
+  },
+  "flow_classes": [
+    {
+      "class": "STABLECOIN_FLOW",
+      "meaning": "USDT/USDC/stablecoin arzı, giriş/çıkış ve likidite iştahı.",
+      "panel_effect": "Risk-on/risk-off ve küçük token paper size etkisi."
+    },
+    {
+      "class": "CEX_INFLOW_OUTFLOW",
+      "meaning": "Borsaya giriş satış baskısı, borsadan çıkış accumulation olabilir.",
+      "panel_effect": "Major coin ve takipli token alarmı."
+    },
+    {
+      "class": "DEX_LIQUIDITY",
+      "meaning": "Pair likiditesi, LP ekleme/çekme, derinlik değişimi.",
+      "panel_effect": "Paper size, slippage ve rug risk kararı."
+    },
+    {
+      "class": "BRIDGE_FLOW",
+      "meaning": "Chainler arası para geçişi.",
+      "panel_effect": "Hangi chain tarafında fırsat yoğunlaşıyor?"
+    },
+    {
+      "class": "CHAIN_TVL_FLOW",
+      "meaning": "Base/BSC/ETH/SOL/ARB/OP/AVAX/TON/SUI gibi ağların likidite yönü.",
+      "panel_effect": "Chain bazlı risk iştahı ve yeni token ortamı."
+    },
+    {
+      "class": "SECTOR_ROTATION",
+      "meaning": "AI, RWA, DeFi, meme, gaming, DePIN, wallet gibi narrative akışı.",
+      "panel_effect": "Yıldız radarı ve narrative güçleniyor kartları."
+    },
+    {
+      "class": "ANOMALY_SEISMIC_MOVE",
+      "meaning": "Olağandışı hacim, likidite, transfer veya netflow patlaması.",
+      "panel_effect": "Ana panel kritik uyarı."
+    }
+  ],
+  "contract_fields": [
+    "flow_event_id",
+    "observed_at_utc",
+    "flow_class",
+    "chain",
+    "asset_symbol",
+    "asset_address",
+    "pair_address",
+    "source_name",
+    "source_tier",
+    "source_reliability",
+    "is_cached",
+    "is_mock",
+    "freshness_status",
+    "direction",
+    "amount_native",
+    "amount_usd",
+    "inflow_usd",
+    "outflow_usd",
+    "netflow_usd",
+    "liquidity_before_usd",
+    "liquidity_after_usd",
+    "liquidity_delta_pct",
+    "volume_1h_usd",
+    "tx_1h",
+    "holder_related_signal",
+    "cex_related_signal",
+    "dex_related_signal",
+    "bridge_related_signal",
+    "risk_appetite_effect",
+    "paper_size_effect",
+    "slippage_effect",
+    "mev_effect",
+    "main_panel_flag",
+    "recommendation_tr",
+    "confidence_score",
+    "risk_score",
+    "truth_state"
+  ],
+  "scoring_rules": [
+    "Netflow pozitif + likidite artışı = risk iştahı artabilir.",
+    "CEX inflow büyürse satış baskısı riski artar.",
+    "CEX outflow büyürse accumulation ihtimali artar.",
+    "LP çekimi varsa risk skoru yükselir.",
+    "Likidite artışı tek başına fırsat değildir; tx/holder/volume ile teyit gerekir.",
+    "Volume artışı likidite artışı olmadan gelirse fake volume riski artar.",
+    "Bridge flow belirli chaine yoğunlaşıyorsa o chain watchlist güçlenir.",
+    "Stablecoin arzı/rezervi artıyorsa genel alım gücü pozitif sayılır.",
+    "MEV/slippage yüksekse paper size düşer.",
+    "Tek kaynaklı flow ana panele kritik diye düşmez."
+  ],
+  "panel_rules": [
+    "Ana panel sadece yüksek etki veya yüksek risk flow olayını gösterir.",
+    "Flow sinyali tek başına paper izni vermez.",
+    "Flow + haber + wallet + lifecycle birleşirse fusion skoru artar.",
+    "Stale flow ana panele düşmez.",
+    "Paid source olmadığı açıkça belirtilir.",
+    "Cüzdan sahibi kesin değilse flow sadece adres/etiket güveniyle gösterilir.",
+    "LP çekimi veya CEX inflow yüksekse risk kartı tetiklenir.",
+    "Takip edilen tokenla kesişen flow ana panel adayına dönüşebilir.",
+    "Düşük miktarlı sıradan transfer paneli kirletmez.",
+    "Paper pozisyon açıkken negatif flow varsa uyarı üretir."
+  ],
+  "future_tables_plan": [
+    {
+      "table": "flow_events",
+      "purpose": "Genel likidite/para akışı olayları",
+      "apply_now": false
+    },
+    {
+      "table": "flow_source_observations",
+      "purpose": "Kaynak bazlı flow gözlemleri",
+      "apply_now": false
+    },
+    {
+      "table": "flow_consensus_scores",
+      "purpose": "Çok kaynaklı flow teyit skoru",
+      "apply_now": false
+    },
+    {
+      "table": "flow_panel_alerts",
+      "purpose": "Ana panele düşecek flow uyarıları",
+      "apply_now": false
+    },
+    {
+      "table": "flow_outcome_windows",
+      "purpose": "Flow sinyali sonrası 15m/1h/4h/24h outcome",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "Yeni ücretli flow kaynağı yok.",
+    "İlk aşama candidate-first olacak; tüm chain taranmayacak.",
+    "Mevcut Alchemy sadece seçili cüzdan/token teyidi için kullanılacak.",
+    "Free/limited kaynaklar düşük frekans + cache ile kullanılacak.",
+    "Stablecoin/TVL/DEX likidite verisi önce plan, sonra dry-run ile bağlanacak.",
+    "Ana hedef para nereye akıyor sorusunu ucuz ama disiplinli cevaplamak.",
+    "Paper size, risk ve fusion kararlarında flow verisi yan girdi olacak.",
+    "Yanlış sinyal üretmemek için conflict/stale/no-data açık gösterilecek."
+  ],
+  "next_modules": [
+    "WALLET28_WALLET_REGISTRY_PLAN_NOAPI",
+    "TOKEN28_TOKEN_LIFECYCLE_PLAN_NOAPI",
+    "RISK28_SECURITY_RISK_ENGINE_PLAN_NOAPI",
+    "FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI"
+  ],
+  "flow_class_count": 7,
+  "contract_field_count": 37,
+  "scoring_rule_count": 10,
+  "panel_rule_count": 10,
+  "future_table_count": 5,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_flow_data_enabled": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "WALLET28_WALLET_REGISTRY_PLAN_NOAPI",
+  "alternate_next_phase": "TOKEN28_TOKEN_LIFECYCLE_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_FLOW28_LIQUIDITY_FLOW_RADAR_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/flow28_liquidity_flow_radar_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

@@ -1,0 +1,179 @@
+{
+  "phase": "PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+  "started_utc": "2026-05-28T18:06:50.310689+00:00",
+  "finished_utc": "2026-05-28T18:06:50.604895+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI",
+  "smoke": {
+    "target": {
+      "token_name": "币安好友",
+      "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+      "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+      "chain": "bnb",
+      "chain_id": 56,
+      "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+      "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b"
+    },
+    "rpc": {
+      "rpc_source": "PREV_3K_RETRY_RPC_SOURCE:/root/tokenoskobi_clean_v1/.secrets/alchemy_bnb.env:ALCHEMY_BNB_RPC_URL",
+      "rpc_key": "ALCHEMY_BNB_RPC_URL",
+      "rpc_source_path": "/root/tokenoskobi_clean_v1/.secrets/alchemy_bnb.env",
+      "rpc_source_sha256": "3bd62a9a7cdd365b1f6a6162a04611498d25901abd1037f2cfb47ce8267aa7fd",
+      "rpc_url_masked": "https://bnb-***.g.alchemy.com/***",
+      "rpc_url_sha256": "a7116b7ae0195f2fd1f2c84e0cf909855d705cc15333822826a2aeefaa8c3014",
+      "hard_max_calls": 8,
+      "preferred_max_calls": 6,
+      "actual_call_count": 4,
+      "secret_printed": false
+    },
+    "latest_block": 100967692,
+    "steps": [
+      {
+        "step": 2,
+        "label": "token_transfer_tiny_32",
+        "ok": false,
+        "error_class": "HTTP_ERROR:400",
+        "provider_error_class": "RANGE_LIMIT_OR_RANGE_POLICY",
+        "result_count": null,
+        "purpose": "Token Transfer topic-only tiny-window smoke."
+      },
+      {
+        "step": 3,
+        "label": "zero_transfer_tiny_32",
+        "ok": false,
+        "error_class": "HTTP_ERROR:400",
+        "provider_error_class": "RANGE_LIMIT_OR_RANGE_POLICY",
+        "result_count": null,
+        "purpose": "Zero-address Transfer tiny-window smoke."
+      },
+      {
+        "step": 4,
+        "label": "pair_sync_tiny_32",
+        "ok": false,
+        "error_class": "HTTP_ERROR:400",
+        "provider_error_class": "RANGE_LIMIT_OR_RANGE_POLICY",
+        "result_count": null,
+        "purpose": "Pair Sync topic tiny-window smoke. Topicless pair wide query is banned."
+      }
+    ],
+    "summary": {
+      "eth_blocknumber_ok": true,
+      "token_transfer_tiny_ok": false,
+      "zero_transfer_tiny_ok": false,
+      "pair_sync_tiny_ok": false,
+      "token_transfer_512_ok": false,
+      "any_getlogs_ok": false,
+      "any_getlogs_http400": true,
+      "provider_error_classes_seen": {
+        "RANGE_LIMIT_OR_RANGE_POLICY": 3
+      },
+      "http_status_seen": {
+        "200": 1,
+        "400": 3
+      }
+    },
+    "classification": {
+      "getlogs_repair_status": "GETLOGS_PROVIDER_POLICY_BLOCKED",
+      "deployer_status": "UNRESOLVED",
+      "token_state": "GHOST",
+      "watchlist_allowed": false,
+      "paper_allowed": false,
+      "clean_risk_allowed": false,
+      "reason": "Tiny-window getLogs still returned HTTP 400/provider policy error. Do not retry same strategy.",
+      "next_recommended_phase": "PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI"
+    }
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "explicit_approval_matched": true,
+    "previous_3m_pass_confirmed": true,
+    "rpc_source_resolved": true,
+    "rpc_calls_made": 4,
+    "rpc_hard_max": 8,
+    "rpc_call_budget_ok": true,
+    "full_deployer_discovery": false,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_value_printed": false,
+    "no_topicless_pair_wide_query": true,
+    "no_genesis_scan": true,
+    "no_random_range_expansion": true,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "raw_archive_only": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "raw_archive_write": true,
+    "work_dir_write": true,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_evidence3n_getlogs_repair_smoke_real_after_explicit_approval.json",
+    "smoke_json": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL/20260528_210650/getlogs_repair_smoke_result.json",
+    "raw_archive_sanitized": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL/20260528_210650/raw_rpc_archive_sanitized.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL/20260528_210650"
+  }
+}

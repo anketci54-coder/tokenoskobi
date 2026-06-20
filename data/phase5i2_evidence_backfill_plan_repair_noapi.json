@@ -1,0 +1,684 @@
+{
+  "backfill_plan": [
+    {
+      "bucket": "phase4_source_manifest",
+      "plan_id": "phase4_source_manifest",
+      "planned_rows": 1,
+      "source": "phase4_final_review_noapi",
+      "target_table": "evidence_event_ledger_v1",
+      "write_now": false
+    },
+    {
+      "bucket": "initial_holder_groups",
+      "plan_id": "initial_holder_group_evidence",
+      "planned_rows": 7,
+      "source": "phase4_initial_holder_transfer_mint_scan",
+      "target_table": "initial_holder_evidence_events_v1",
+      "write_now": false
+    },
+    {
+      "bucket": "deployer_receipts",
+      "plan_id": "deployer_receipt_evidence",
+      "planned_rows": 11,
+      "source": "phase4_deployer_creation_tx_receipts",
+      "target_table": "deployer_receipt_evidence_events_v1",
+      "write_now": false
+    },
+    {
+      "bucket": "deployer_receipt_groups",
+      "plan_id": "deployer_receipt_group_summary",
+      "planned_rows": 7,
+      "source": "phase4_deployer_receipt_groups",
+      "target_table": "deployer_receipt_evidence_events_v1",
+      "write_now": false
+    },
+    {
+      "bucket": "quality_guard_events",
+      "plan_id": "quality_guard_events",
+      "planned_rows": 4,
+      "source": "phase4_phase5_safety_guards",
+      "target_table": "data_quality_time_series_v1",
+      "write_now": false
+    }
+  ],
+  "choices": {
+    "deployer_receipt_groups": {
+      "bucket": "deployer_receipt_groups",
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "chain",
+        "tx_hash",
+        "receipt_found",
+        "token_log_match",
+        "creation_proof",
+        "zero_mint_unproven",
+        "interpretation_label",
+        "source_object_uid",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "phase5h_target_table": true,
+      "reasons": [
+        "name_has_deployer",
+        "name_has_receipt",
+        "name_has_evidence",
+        "fallback_name_has_deployer",
+        "col_has_token_uid",
+        "col_has_chain",
+        "col_has_payload_json",
+        "col_has_created_at_utc",
+        "row_count_zero",
+        "phase5h_target_schema_table",
+        "versioned_table"
+      ],
+      "row_count": 0,
+      "score": 167,
+      "table": "deployer_receipt_evidence_events_v1"
+    },
+    "deployer_receipts": {
+      "bucket": "deployer_receipts",
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "chain",
+        "tx_hash",
+        "receipt_found",
+        "token_log_match",
+        "creation_proof",
+        "zero_mint_unproven",
+        "interpretation_label",
+        "source_object_uid",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "phase5h_target_table": true,
+      "reasons": [
+        "name_has_deployer",
+        "name_has_receipt",
+        "name_has_evidence",
+        "fallback_name_has_deployer",
+        "col_has_token_uid",
+        "col_has_chain",
+        "col_has_payload_json",
+        "col_has_created_at_utc",
+        "row_count_zero",
+        "phase5h_target_schema_table",
+        "versioned_table"
+      ],
+      "row_count": 0,
+      "score": 167,
+      "table": "deployer_receipt_evidence_events_v1"
+    },
+    "initial_holder_groups": {
+      "bucket": "initial_holder_groups",
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "holder_group_key",
+        "scan_window_json",
+        "transfer_mint_summary_json",
+        "risk_interpretation",
+        "source_object_uid",
+        "created_at_utc"
+      ],
+      "phase5h_target_table": true,
+      "reasons": [
+        "name_has_holder",
+        "name_has_evidence",
+        "fallback_name_has_holder",
+        "col_has_token_uid",
+        "col_has_pair_uid",
+        "col_has_chain",
+        "col_has_created_at_utc",
+        "row_count_zero",
+        "phase5h_target_schema_table",
+        "versioned_table"
+      ],
+      "row_count": 0,
+      "score": 147,
+      "table": "initial_holder_evidence_events_v1"
+    },
+    "phase4_source_manifest": {
+      "bucket": "phase4_source_manifest",
+      "columns": [
+        "event_uid",
+        "event_ts_utc",
+        "source_phase",
+        "chain",
+        "token_uid",
+        "pair_uid",
+        "event_family",
+        "event_type",
+        "event_status",
+        "confidence",
+        "evidence_hash",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "phase5h_target_table": true,
+      "reasons": [
+        "name_has_evidence",
+        "name_has_event",
+        "col_has_payload_json",
+        "col_has_created_at_utc",
+        "col_has_event_ts_utc",
+        "row_count_zero",
+        "phase5h_target_schema_table",
+        "versioned_table"
+      ],
+      "row_count": 0,
+      "score": 132,
+      "table": "evidence_event_ledger_v1"
+    },
+    "quality_guard_events": {
+      "bucket": "quality_guard_events",
+      "columns": [
+        "quality_uid",
+        "event_ts_utc",
+        "source_family",
+        "source_uid",
+        "token_uid",
+        "pair_uid",
+        "quality_label",
+        "stale_data",
+        "missing_required_fields",
+        "parse_error",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "phase5h_target_table": true,
+      "reasons": [
+        "name_has_quality",
+        "fallback_name_has_data",
+        "fallback_name_has_quality",
+        "col_has_event_ts_utc",
+        "col_has_payload_json",
+        "col_has_created_at_utc",
+        "row_count_zero",
+        "phase5h_target_schema_table",
+        "versioned_table"
+      ],
+      "row_count": 0,
+      "score": 128,
+      "table": "data_quality_time_series_v1"
+    }
+  },
+  "chosen_nonzero": [],
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "failed_checks": [],
+  "failed_value_labels": [],
+  "field_mappings": [
+    {
+      "bucket": "phase4_source_manifest",
+      "field": "source_json_sha256",
+      "required": true,
+      "value": "7be482e905c75bf528a4116be932173a83837a3e03c97c890ee115169ac82195"
+    },
+    {
+      "bucket": "phase4_source_manifest",
+      "field": "source_rows_sha256",
+      "required": true,
+      "value": "75ddf4d8e85c8a6ce37231c3b0d6a69f0adf91a8b9e30da0c938e7ba1ea4ba59"
+    },
+    {
+      "bucket": "phase4_source_manifest",
+      "field": "source_report_sha256",
+      "required": true,
+      "value": "7be482e905c75bf528a4116be932173a83837a3e03c97c890ee115169ac82195"
+    },
+    {
+      "bucket": "initial_holder_groups",
+      "field": "getlogs_total",
+      "required": true,
+      "value": 214
+    },
+    {
+      "bucket": "initial_holder_groups",
+      "field": "getlogs_done",
+      "required": true,
+      "value": 214
+    },
+    {
+      "bucket": "initial_holder_groups",
+      "field": "getlogs_remaining",
+      "required": true,
+      "value": 0
+    },
+    {
+      "bucket": "initial_holder_groups",
+      "field": "group_count",
+      "required": true,
+      "value": 7
+    },
+    {
+      "bucket": "deployer_receipts",
+      "field": "receipt_rows",
+      "required": true,
+      "value": 11
+    },
+    {
+      "bucket": "deployer_receipts",
+      "field": "receipt_found",
+      "required": true,
+      "value": 11
+    },
+    {
+      "bucket": "deployer_receipts",
+      "field": "token_log_match",
+      "required": true,
+      "value": 11
+    },
+    {
+      "bucket": "deployer_receipts",
+      "field": "creation_proof",
+      "required": true,
+      "value": 2
+    },
+    {
+      "bucket": "deployer_receipts",
+      "field": "zero_mint_wait_more_data",
+      "required": true,
+      "value": 9
+    },
+    {
+      "bucket": "quality_guard_events",
+      "field": "risk_clearance",
+      "required": true,
+      "value": false
+    },
+    {
+      "bucket": "quality_guard_events",
+      "field": "paper_permission",
+      "required": true,
+      "value": false
+    },
+    {
+      "bucket": "quality_guard_events",
+      "field": "live_permission",
+      "required": true,
+      "value": false
+    },
+    {
+      "bucket": "quality_guard_events",
+      "field": "watchlist_score_permission",
+      "required": true,
+      "value": false
+    }
+  ],
+  "final_gate": "PASS_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI",
+  "finished_at_utc": "2026-06-01T04:54:43.394041+00:00",
+  "guards": [
+    {
+      "guard": "PLAN_ONLY_NO_DB_WRITE",
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_API_RPC_FETCH",
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_PANEL_SERVICE_TIMER_MUTATION",
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_PAPER_LIVE_WATCHLIST_SCORE",
+      "status": "LOCKED"
+    },
+    {
+      "guard": "ZERO_MINT_IS_WAIT_MORE_DATA_NOT_CREATION_PROOF",
+      "status": "LOCKED"
+    },
+    {
+      "guard": "PHASE4_EVIDENCE_IS_NOT_RISK_CLEARANCE",
+      "status": "LOCKED"
+    },
+    {
+      "guard": "REAL_BACKFILL_REQUIRES_EXPLICIT_APPROVAL_AFTER_DRYRUN",
+      "status": "LOCKED"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "db_sha_start": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "missing_targets": [],
+  "next_phase": "PHASE5J_EVIDENCE_BACKFILL_DRYRUN_NOAPI",
+  "outputs": {
+    "backfill_plan_rows": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_repaired_backfill_plan.jsonl",
+    "dryrun_sql": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_future_backfill_dryrun_template_noapi.sql",
+    "field_mapping_rows": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_repaired_field_mapping.jsonl",
+    "guard_rows": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_guard_rows.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5i2_evidence_backfill_plan_repair_noapi.json",
+    "phase4_value_rows": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_phase4_value_resolution.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_evidence_backfill_plan_repair_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5i2_evidence_backfill_plan_repair_noapi_rows.jsonl",
+    "target_score_rows": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443/phase5i2_target_score_matrix.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI/20260601_075443"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_backfill_targets_chosen": true,
+    "backfill_plan_rows_written": true,
+    "chosen_targets_empty": true,
+    "creation_proof_rows_limited_to_2": true,
+    "db_health_ok": true,
+    "db_sha_expected_match_start": true,
+    "db_unchanged": true,
+    "dryrun_sql_written": true,
+    "field_mapping_rows_written": true,
+    "guard_rows_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "phase4_initial_holder_values_resolved": true,
+    "phase4_receipt_tests_pass": true,
+    "phase4_value_rows_written": true,
+    "phase5i1_dependency_ok": true,
+    "planned_rows_total_30": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "safety_noapi_clean": true,
+    "target_score_rows_written": true,
+    "zero_mint_classified_wait_more_data": true
+  },
+  "phase": "PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI",
+  "planned_rows_total": 30,
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 2,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 2,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "receipt_checks": {
+    "receipt_creation_confirmed_2": true,
+    "receipt_group_count_7": true,
+    "receipt_rows_found_all": true,
+    "receipt_token_log_match_all": true,
+    "receipt_unproven_zero_mint_9": true
+  },
+  "resolved_values": [
+    {
+      "candidate_count": 8,
+      "candidates": [
+        {
+          "path": "$.initial_holder.total_getlogs",
+          "source": "json_path",
+          "value": 214
+        },
+        {
+          "path": "$.initial_holder.total_getlogs",
+          "source": "json_path",
+          "value": 214
+        },
+        {
+          "path": "$.initial_holder.total_getlogs",
+          "source": "json_path",
+          "value": 214
+        },
+        {
+          "line": 23,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_TOTAL=214",
+          "value": 214
+        },
+        {
+          "line": 23,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_TOTAL=214",
+          "value": 214
+        },
+        {
+          "line": 56,
+          "source": "report_line",
+          "text": "NAME=initial_holder_getlogs_complete PASSED=True TOTAL=214 DONE=214 REMAINING=0",
+          "value": 214
+        },
+        {
+          "line": 23,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_TOTAL=214",
+          "value": 214
+        },
+        {
+          "line": 56,
+          "source": "report_line",
+          "text": "NAME=initial_holder_getlogs_complete PASSED=True TOTAL=214 DONE=214 REMAINING=0",
+          "value": 214
+        }
+      ],
+      "expected_value": 214,
+      "found": true,
+      "label": "initial_holder_total_214",
+      "resolved_value": 214
+    },
+    {
+      "candidate_count": 8,
+      "candidates": [
+        {
+          "path": "$.initial_holder.done_getlogs",
+          "source": "json_path",
+          "value": 214
+        },
+        {
+          "path": "$.initial_holder.done_getlogs",
+          "source": "json_path",
+          "value": 214
+        },
+        {
+          "path": "$.initial_holder.done_getlogs",
+          "source": "json_path",
+          "value": 214
+        },
+        {
+          "line": 24,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_DONE=214",
+          "value": 214
+        },
+        {
+          "line": 24,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_DONE=214",
+          "value": 214
+        },
+        {
+          "line": 56,
+          "source": "report_line",
+          "text": "NAME=initial_holder_getlogs_complete PASSED=True TOTAL=214 DONE=214 REMAINING=0",
+          "value": 214
+        },
+        {
+          "line": 24,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_DONE=214",
+          "value": 214
+        },
+        {
+          "line": 56,
+          "source": "report_line",
+          "text": "NAME=initial_holder_getlogs_complete PASSED=True TOTAL=214 DONE=214 REMAINING=0",
+          "value": 214
+        }
+      ],
+      "expected_value": 214,
+      "found": true,
+      "label": "initial_holder_done_214",
+      "resolved_value": 214
+    },
+    {
+      "candidate_count": 8,
+      "candidates": [
+        {
+          "path": "$.initial_holder.remaining_getlogs",
+          "source": "json_path",
+          "value": 0
+        },
+        {
+          "path": "$.initial_holder.remaining_getlogs",
+          "source": "json_path",
+          "value": 0
+        },
+        {
+          "path": "$.initial_holder.remaining_getlogs",
+          "source": "json_path",
+          "value": 0
+        },
+        {
+          "line": 25,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_REMAINING=0",
+          "value": 0
+        },
+        {
+          "line": 25,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_REMAINING=0",
+          "value": 0
+        },
+        {
+          "line": 56,
+          "source": "report_line",
+          "text": "NAME=initial_holder_getlogs_complete PASSED=True TOTAL=214 DONE=214 REMAINING=0",
+          "value": 0
+        },
+        {
+          "line": 25,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_GETLOGS_REMAINING=0",
+          "value": 0
+        },
+        {
+          "line": 56,
+          "source": "report_line",
+          "text": "NAME=initial_holder_getlogs_complete PASSED=True TOTAL=214 DONE=214 REMAINING=0",
+          "value": 0
+        }
+      ],
+      "expected_value": 0,
+      "found": true,
+      "label": "initial_holder_remaining_0",
+      "resolved_value": 0
+    },
+    {
+      "candidate_count": 12,
+      "candidates": [
+        {
+          "path": "$.initial_holder.final_group_count",
+          "source": "json_path",
+          "value": 7
+        },
+        {
+          "path": "$.initial_holder.final_group_count",
+          "source": "json_path",
+          "value": 7
+        },
+        {
+          "path": "$.initial_holder.final_group_count",
+          "source": "json_path",
+          "value": 7
+        },
+        {
+          "path": "$.tests[4].final_group_count",
+          "source": "json_path",
+          "value": 7
+        },
+        {
+          "line": 27,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_FINAL_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 57,
+          "source": "report_line",
+          "text": "NAME=initial_holder_final_group_count_positive PASSED=True FINAL_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 27,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_FINAL_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 57,
+          "source": "report_line",
+          "text": "NAME=initial_holder_final_group_count_positive PASSED=True FINAL_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 27,
+          "source": "report_line",
+          "text": "INITIAL_HOLDER_FINAL_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 33,
+          "source": "report_line",
+          "text": "DEPLOYER_RECEIPT_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 57,
+          "source": "report_line",
+          "text": "NAME=initial_holder_final_group_count_positive PASSED=True FINAL_GROUP_COUNT=7",
+          "value": 7
+        },
+        {
+          "line": 62,
+          "source": "report_line",
+          "text": "NAME=receipt_group_count_7 PASSED=True RECEIPT_GROUP_COUNT=7",
+          "value": 7
+        }
+      ],
+      "expected_value": 7,
+      "found": true,
+      "label": "initial_holder_group_count_7",
+      "resolved_value": 7
+    }
+  ],
+  "safety": {
+    "api_calls": 0,
+    "backfill_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T04:54:43.393979+00:00",
+  "warnings": [
+    "PLAN_ONLY_NO_BACKFILL_EXECUTED",
+    "PHASE5I_REPAIR_READY_FOR_TEMP_DRYRUN"
+  ]
+}

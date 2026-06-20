@@ -1,0 +1,70 @@
+{
+  "contract_schema": "coinoskobi_rollback_registry_contract_v1",
+  "phase": "PHASE32D_APPROVAL_QUEUE_AND_ROLLBACK_REGISTRY_PLAN_NOAPI",
+  "created_utc": "2026-06-08T19:12:02.802428+00:00",
+  "purpose": "Every future real apply must register backup, rollback, protected resources, pre/post hashes and post-audit gate.",
+  "registry_entry_required_fields": [
+    "rollback_id",
+    "created_utc",
+    "source_phase",
+    "apply_phase",
+    "approval_ref",
+    "mutation_class",
+    "protected_areas_touched",
+    "backup_dir",
+    "backup_manifest",
+    "rollback_script",
+    "rollback_script_sha",
+    "rollback_test_policy",
+    "pre_hashes",
+    "post_hashes",
+    "post_audit_phase",
+    "post_audit_required",
+    "post_audit_result",
+    "restore_scope",
+    "emergency_stop_notes"
+  ],
+  "backup_manifest_required_fields": [
+    "files_backed_up",
+    "dirs_backed_up",
+    "db_backup_path",
+    "service_unit_backup_path",
+    "timer_unit_backup_path",
+    "active_panel_backup_path",
+    "runner_backup_path",
+    "state_backup_path",
+    "backup_created_utc"
+  ],
+  "pre_post_hash_required_for": [
+    "live_db",
+    "active_index",
+    "runner",
+    "service_unit",
+    "timer_unit",
+    "state_files",
+    "active_panel_data",
+    "risk_data",
+    "nginx_auth_if_touched"
+  ],
+  "rollback_script_policy": {
+    "must_exist_before_mutation": true,
+    "must_be_executable": true,
+    "must_not_delete_unrelated_files": true,
+    "must_restore_only_registered_scope": true,
+    "must_print_prompt_returned_no_logout": true,
+    "must_not_reboot_shutdown_logout": true
+  },
+  "post_audit_policy": {
+    "required_after_every_real_apply": true,
+    "must_check_live_db_health": true,
+    "must_check_hashes": true,
+    "must_check_service_timer_status": true,
+    "must_check_no_forbidden_actions": true,
+    "must_check_paper_live_zero_unless_explicit_trade_phase": true
+  },
+  "storage_plan_future": {
+    "registry_file": "/root/tokenoskobi_clean_v1/maintenance/rollback_registry/rollback_registry_v1.jsonl",
+    "latest_manifest": "/root/tokenoskobi_clean_v1/maintenance/rollback_registry/latest_rollback_manifest.json",
+    "no_file_created_in_phase32d": true
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "contract_schema": "coinoskobi_ai_proposal_validator_contract_v1",
+  "phase": "PHASE32C_AI_PROPOSAL_SCHEMA_AND_VALIDATOR_CONTRACT_NOAPI",
+  "created_utc": "2026-06-08T19:01:40.636155+00:00",
+  "purpose": "Validate AI proposals before any dry-run or approval queue entry.",
+  "input_schema": "coinoskobi_ai_proposal_schema_v1",
+  "validator_steps": [
+    {
+      "step": 1,
+      "name": "parse_json",
+      "reject_on_fail": true
+    },
+    {
+      "step": 2,
+      "name": "required_fields_check",
+      "reject_on_fail": true
+    },
+    {
+      "step": 3,
+      "name": "source_bundle_ref_check",
+      "reject_on_fail": true
+    },
+    {
+      "step": 4,
+      "name": "secret_scan",
+      "reject_on_secret_hit": true
+    },
+    {
+      "step": 5,
+      "name": "forbidden_action_flags_check",
+      "reject_on_hard_forbidden": true
+    },
+    {
+      "step": 6,
+      "name": "fast_path_impact_check",
+      "reject_if_fast_path_waits_for_ai_or_bundle": true
+    },
+    {
+      "step": 7,
+      "name": "risk_gate_integrity_check",
+      "reject_if_weakened": true
+    },
+    {
+      "step": 8,
+      "name": "rollback_requirement_check",
+      "reject_real_apply_without_rollback": true
+    },
+    {
+      "step": 9,
+      "name": "approval_requirement_check",
+      "reject_real_apply_without_explicit_approval": true
+    },
+    {
+      "step": 10,
+      "name": "decision_emit",
+      "allowed_decisions": [
+        "REJECT",
+        "REVIEW_REQUIRED",
+        "PLAN_ONLY_ALLOWED",
+        "DRYRUN_ALLOWED",
+        "APPROVAL_REQUIRED"
+      ]
+    }
+  ],
+  "hard_reject_conditions": [
+    "proposal_missing_required_field",
+    "source_bundle_ref_missing",
+    "secret_like_text_detected",
+    "private_key_or_wallet_secret_requested",
+    "ai_attempts_apply",
+    "live_trade_requested",
+    "wallet_connection_requested",
+    "transaction_signing_requested",
+    "risk_gate_weakening_requested",
+    "hardblock_weakening_requested",
+    "quarantine_truth_override_requested",
+    "canonical_silent_overwrite_requested",
+    "fast_path_waits_for_ai",
+    "fast_path_waits_for_bundle",
+    "real_apply_without_approval",
+    "real_apply_without_backup",
+    "real_apply_without_rollback",
+    "real_apply_without_post_audit",
+    "service_timer_change_without_approval",
+    "runner_patch_without_approval",
+    "active_panel_write_without_approval",
+    "live_db_write_without_approval"
+  ],
+  "plan_only_allowed_conditions": [
+    "no forbidden hard flags true",
+    "no live mutation requested",
+    "no secret requested",
+    "fast_path_impact_none",
+    "rollback not required because no mutation",
+    "approval not required because plan only"
+  ],
+  "dryrun_allowed_conditions": [
+    "no live mutation requested",
+    "dryrun target isolated",
+    "no service/timer action",
+    "no runner patch",
+    "no active panel write",
+    "no external API unless explicitly future-approved",
+    "rollback not required if no persistent mutation"
+  ],
+  "approval_required_conditions": [
+    "proposal_type_REAL_APPLY_REQUEST",
+    "mutation_requested_but_not_hard_forbidden",
+    "backup_plan_present",
+    "rollback_script_plan_present",
+    "post_audit_plan_present",
+    "explicit_approval_phrase_present"
+  ],
+  "output_required_fields": [
+    "validator_decision",
+    "reject_reasons",
+    "review_reasons",
+    "approval_required",
+    "dryrun_allowed",
+    "forbidden_flags_seen",
+    "secret_scan_result",
+    "fast_path_impact_result",
+    "rollback_requirement_result",
+    "next_allowed_phase"
+  ],
+  "authority_boundary": "Validator may classify and gate proposals. Validator does not apply changes."
+}

@@ -1,0 +1,271 @@
+{
+  "phase": "COINOSKOBI_RISK_SECURITY_PANEL_INTEGRATION_PLAN_FIX_NOAPI",
+  "stamp": "20260522_132326",
+  "mode": "PANEL_INTEGRATION_PLAN_FIX_ONLY_NOAPI",
+  "fix_summary": {
+    "old_missing_cards": [
+      {
+        "slot_key": "risk.mev_shield",
+        "missing_card": "mempool_risk_level"
+      }
+    ],
+    "removed_missing_card": "mempool_risk_level",
+    "fixed_slot": "risk.mev_shield",
+    "reason": "Use only existing view-model card keys; do not invent card keys."
+  },
+  "source_files": {
+    "failed_plan_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_panel_integration_plan_noapi.json",
+    "view_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_view_model_execution_plan_dryrun_noapi.json",
+    "view_model_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI/20260522_124014/risk_security_execution_view_model_dryrun.json",
+    "post_audit_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_execution_pipeline_post_audit_noapi.json",
+    "retest_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_view_model_temp_db_event_retest_after_schema_repair_noapi.json",
+    "risk8_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_center_8_center_connection_contract_plan_noapi.json"
+  },
+  "integration_contract": {
+    "data_source": "control_dashboard_view_model_events_v1 OR dryrun staging JSON",
+    "current_phase_source": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI/20260522_124014/risk_security_execution_view_model_dryrun.json",
+    "future_live_source": "latest control_dashboard_view_model_events_v1 row where panel_scope='RISK_SECURITY_EXECUTION'",
+    "active_panel_write_policy": "NO_WRITE_IN_THIS_PHASE",
+    "preview_policy": "next phase renders isolated preview only",
+    "target_preview_port": 8142,
+    "active_panel_port": 8096,
+    "no_9th_center": true,
+    "no_parallel_main_line": true,
+    "all_new_cards_under_fixed_8": true,
+    "fixed_reason": "Removed missing card key from risk.mev_shield and used only existing view-model cards."
+  },
+  "panel_slots": [
+    {
+      "slot_key": "risk.mev_shield",
+      "center_key": "risk",
+      "panel_label": "Risk & Güvenlik Merkezi",
+      "sub_panel": "MEV / Sandwich Shield",
+      "cards": [
+        "mev_dynamic_slippage",
+        "blocked_gate",
+        "paper_only_gate"
+      ],
+      "purpose": "MEV, dinamik slipaj, public-route güvenliği, blocked ve paper-only riskleri.",
+      "active_write_now": false
+    },
+    {
+      "slot_key": "risk.execution_security",
+      "center_key": "risk",
+      "panel_label": "Risk & Güvenlik Merkezi",
+      "sub_panel": "Execution Security",
+      "cards": [
+        "risk_execution_summary"
+      ],
+      "purpose": "Risk kararının işlem planına etkisini gösterir.",
+      "active_write_now": false
+    },
+    {
+      "slot_key": "komuta.live_decision_execution_plan",
+      "center_key": "komuta",
+      "panel_label": "Komuta Merkezi",
+      "sub_panel": "Canlı Karar / İşlem Planı",
+      "cards": [
+        "normal_execution_plan",
+        "vur_kac_execution_plan",
+        "paper_only_execution_plan",
+        "blocked_execution_plan"
+      ],
+      "purpose": "Entry amount, entry level, dynamic slippage, SL/TP, tek TP, TP1/2/3 ve blocked reason.",
+      "active_write_now": false
+    },
+    {
+      "slot_key": "komuta.manual_auto_buttons",
+      "center_key": "komuta",
+      "panel_label": "Komuta Merkezi",
+      "sub_panel": "Paper / Manuel / Auto Butonları",
+      "cards": [
+        "button_state_summary"
+      ],
+      "purpose": "Paper, manuel normal, manuel vur-kaç, auto kilit ve live kapalı durumları.",
+      "active_write_now": false
+    },
+    {
+      "slot_key": "yasam.outcome_memory",
+      "center_key": "yasam",
+      "panel_label": "Yaşam Destek Merkezi",
+      "sub_panel": "Outcome Memory / Tedavi Sonucu",
+      "cards": [
+        "execution_outcome_memory_stub"
+      ],
+      "purpose": "Planlanan işlem ile ilerideki sonucu karşılaştırmak.",
+      "active_write_now": false
+    },
+    {
+      "slot_key": "yasam.morg_autopsy_route",
+      "center_key": "yasam",
+      "panel_label": "Yaşam Destek Merkezi",
+      "sub_panel": "Morg / Otopsi Rotası",
+      "cards": [
+        "morg_autopsy_route_stub"
+      ],
+      "purpose": "Blocked/critical vakaları adli/klinik incelemeye göndermek.",
+      "active_write_now": false
+    },
+    {
+      "slot_key": "sistem.live_auto_lock",
+      "center_key": "sistem",
+      "panel_label": "Sistem Kontrol",
+      "sub_panel": "Execution Locks",
+      "cards": [
+        "live_auto_lock"
+      ],
+      "purpose": "Live/auto kilitleri, schema health, no execution state.",
+      "active_write_now": false
+    }
+  ],
+  "display_rules": [
+    {
+      "rule_key": "normal_trade_display",
+      "condition": "entry_mode=NORMAL",
+      "show": [
+        "entry_amount_usd",
+        "entry_level",
+        "dynamic_slippage_pct",
+        "sl_price",
+        "tp1_price",
+        "tp2_price",
+        "tp3_price"
+      ],
+      "hide": [
+        "single_tp_price"
+      ]
+    },
+    {
+      "rule_key": "vur_kac_display",
+      "condition": "entry_mode=VUR_KAC",
+      "show": [
+        "entry_amount_usd",
+        "entry_level",
+        "dynamic_slippage_pct",
+        "sl_price",
+        "single_tp_price"
+      ],
+      "hide": [
+        "tp1_price",
+        "tp2_price",
+        "tp3_price"
+      ]
+    },
+    {
+      "rule_key": "blocked_display",
+      "condition": "entry_mode=BLOCKED",
+      "show": [
+        "blocked_reason",
+        "send_morg_autopsy"
+      ],
+      "hide": [
+        "entry_amount_usd",
+        "entry_level",
+        "tp1_price",
+        "tp2_price",
+        "tp3_price",
+        "single_tp_price"
+      ]
+    },
+    {
+      "rule_key": "paper_only_display",
+      "condition": "entry_mode=PAPER_ONLY",
+      "show": [
+        "paper_sim_start",
+        "entry_amount_usd",
+        "entry_level",
+        "tp_policy"
+      ],
+      "hide": [
+        "manual_trade_plan",
+        "manual_vur_kac_plan",
+        "live_execution"
+      ]
+    },
+    {
+      "rule_key": "auto_live_display",
+      "condition": "always",
+      "show": [
+        "auto_trade_locked=True",
+        "live_execution=False"
+      ],
+      "hide": [
+        "any_live_execute_action"
+      ]
+    }
+  ],
+  "planned_card_count_by_center": {
+    "risk": 4,
+    "komuta": 5,
+    "yasam": 2,
+    "sistem": 1
+  },
+  "slot_missing_cards": [],
+  "center_key_violations": [],
+  "view_model_summary": {
+    "scenario_count": 4,
+    "passed_scenario_count": 4,
+    "normal_tp_policy": "TP1_TP2_TP3",
+    "vur_kac_tp_policy": "SINGLE_TP_ONLY",
+    "live_button_execution_locked": true,
+    "live_trade": false,
+    "paper_trade_execution": false,
+    "auto_trade_execution": false
+  },
+  "available_card_keys_by_center": {
+    "risk": [
+      "risk_execution_summary",
+      "mev_dynamic_slippage",
+      "blocked_gate",
+      "paper_only_gate"
+    ],
+    "komuta": [
+      "normal_execution_plan",
+      "vur_kac_execution_plan",
+      "blocked_execution_plan",
+      "paper_only_execution_plan",
+      "button_state_summary"
+    ],
+    "yasam": [
+      "execution_outcome_memory_stub",
+      "morg_autopsy_route_stub"
+    ],
+    "sistem": [
+      "live_auto_lock"
+    ]
+  },
+  "live_db_sha": "206784df0c659933b832db487b71f0399ae137a5f6cc7519c545c0c7e1f0a91a",
+  "active_index_sha": "6983f94e7a5a2465bfe914adfa7b148d3de31b58b6efa2ce95b5e9e182eb9691",
+  "active_data_sha": "a0a4e45466000bd7358b471a6724797216321a5cf8af6e062a0bb2976b13b253",
+  "db_counts": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "active_panel_write": 0,
+    "preview_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0,
+    "auto_trade_execution": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_RISK_SECURITY_PANEL_INTEGRATION_PREVIEW_8142_NOACTIVE"
+}

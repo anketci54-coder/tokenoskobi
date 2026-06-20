@@ -1,0 +1,289 @@
+{
+  "phase": "PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI",
+  "started_utc": "2026-05-28T17:09:26.938713+00:00",
+  "finished_utc": "2026-05-28T17:09:27.020132+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "next_phase": "PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "next_real_phase": "PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "approval_phrase": "PHASE3_EVIDENCE3K alchemy rpc indexer discovery real için onay veriyorum",
+  "real_phase_allowed_after_explicit_approval": true,
+  "target": {
+    "token_name": "币安好友",
+    "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+    "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+    "chain": "bnb",
+    "chain_id": 56,
+    "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+    "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b"
+  },
+  "prev_3i_checks": {
+    "prev_3i_json_exists": true,
+    "prev_3i_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3i_scan_provider_recovery_review_noapi.json",
+    "prev_3i_json_load_ok": true,
+    "final_gate": "PASS_PHASE3_EVIDENCE3I_SCAN_PROVIDER_RECOVERY_REVIEW_NOAPI",
+    "gate_pass": true,
+    "next_phase": "PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI",
+    "final_gate_match": true,
+    "gate_pass_match": true,
+    "next_phase_match": true
+  },
+  "rpc_indexer_plan": {
+    "phase": "PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "mode": "REAL_AFTER_EXPLICIT_APPROVAL_ONLY",
+    "current_phase_noapi": true,
+    "external_calls_in_this_phase": 0,
+    "target": {
+      "token_name": "币安好友",
+      "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+      "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+      "chain": "bnb",
+      "chain_id": 56,
+      "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+      "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b",
+      "quote_token_wbnb_like": "0xbb4cdb9cb6547b27531f4e98059f5a3ff26bc095c"
+    },
+    "reason": {
+      "scan_provider_loop_closed": true,
+      "bscscan_legacy_bad": true,
+      "etherscan_v2_chain56_bad": true,
+      "deployer_unresolved": true,
+      "token_state": "GHOST",
+      "reserves_nonzero_is_only_supplement": true
+    },
+    "rpc_method_plan_ordered": [
+      {
+        "step": 1,
+        "method": "eth_getCode",
+        "params": [
+          "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+          "latest"
+        ],
+        "purpose": "Confirm token contract code still exists on-chain.",
+        "max_calls": 1,
+        "evidence_class": "CONTRACT_CODE_EXISTS_OR_EMPTY",
+        "risk_note": "Code exists does not prove deployer."
+      },
+      {
+        "step": 2,
+        "method": "eth_getLogs",
+        "params_template": {
+          "address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x0000000000000000000000000000000000000000000000000000000000000000"
+          ],
+          "fromBlock": "BOUNDED_START_BLOCK_OR_SAFE_LOW_RANGE",
+          "toBlock": "BOUNDED_END_BLOCK_OR_LATEST"
+        },
+        "purpose": "Find earliest Transfer event from zero address. This can identify first mint tx.",
+        "max_calls": 6,
+        "evidence_class": "FIRST_ZERO_TRANSFER_MINT_CANDIDATE",
+        "risk_note": "Mint tx sender is deployer candidate only, not absolute proof if mint is proxied/factory-controlled."
+      },
+      {
+        "step": 3,
+        "method": "eth_getTransactionReceipt",
+        "params_template": [
+          "FIRST_ZERO_TRANSFER_TX_HASH"
+        ],
+        "purpose": "Read receipt for earliest zero-transfer tx and confirm token log location.",
+        "max_calls": 2,
+        "evidence_class": "EARLIEST_MINT_RECEIPT",
+        "risk_note": "Receipt confirms event context but not necessarily direct creator."
+      },
+      {
+        "step": 4,
+        "method": "eth_getTransactionByHash",
+        "params_template": [
+          "FIRST_ZERO_TRANSFER_TX_HASH"
+        ],
+        "purpose": "Extract tx.from as deployer/initializer candidate.",
+        "max_calls": 2,
+        "evidence_class": "TX_FROM_DEPLOYER_CANDIDATE",
+        "risk_note": "If tx.to is null and creates token contract, this is strong deployer evidence. If tx.to is non-null, it is only initializer/mint authority evidence."
+      },
+      {
+        "step": 5,
+        "method": "eth_getBlockByNumber",
+        "params_template": [
+          "BLOCK_OF_FIRST_ZERO_TRANSFER",
+          false
+        ],
+        "purpose": "Capture block timestamp and context for evidence ordering.",
+        "max_calls": 1,
+        "evidence_class": "FIRST_EVIDENCE_BLOCK_CONTEXT",
+        "risk_note": "Timestamp/context only; no creator proof by itself."
+      },
+      {
+        "step": 6,
+        "method": "eth_getLogs",
+        "params_template": {
+          "address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b",
+          "fromBlock": "BOUNDED_START_BLOCK_OR_SAFE_LOW_RANGE",
+          "toBlock": "BOUNDED_END_BLOCK_OR_LATEST"
+        },
+        "purpose": "Optional supplement: find earliest pair log if token logs are sparse.",
+        "max_calls": 4,
+        "evidence_class": "PAIR_EARLIEST_ACTIVITY_SUPPLEMENT",
+        "risk_note": "Pair activity does not solve token deployer by itself."
+      },
+      {
+        "step": 7,
+        "method": "eth_getTransactionByHash",
+        "params_template": [
+          "EARLIEST_PAIR_ACTIVITY_TX_HASH"
+        ],
+        "purpose": "Optional supplement: compare pair activity sender with token mint/initializer candidate.",
+        "max_calls": 2,
+        "evidence_class": "PAIR_TX_CONTEXT_SUPPLEMENT",
+        "risk_note": "Only corroborative."
+      }
+    ],
+    "call_budget_for_3k": {
+      "hard_max_rpc_calls": 18,
+      "preferred_max_rpc_calls": 12,
+      "no_router_quote": true,
+      "no_swap": true,
+      "no_gas_estimate": true,
+      "no_balance_sweep": true,
+      "no_db_write": true,
+      "no_panel_write": true,
+      "no_paper_live": true,
+      "raw_archive_only": true
+    },
+    "bounded_search_policy": {
+      "do_not_scan_unbounded_from_genesis": true,
+      "use_chunked_eth_getLogs": true,
+      "stop_after_first_valid_zero_transfer_candidate": true,
+      "stop_if_provider_returns_range_limit_or_rate_limit": true,
+      "if_no_zero_transfer_found": "RETURN_WAIT_MORE_DATA_NOT_DEPLOYER_PASS",
+      "if_tx_to_is_null_and_contract_address_equals_token": "DEPLOYER_STRONG_EVIDENCE_CANDIDATE",
+      "if_tx_to_is_not_null": "DEPLOYER_REMAINS_UNRESOLVED_INITIALIZER_ONLY"
+    },
+    "classification_policy": {
+      "DEPLOYER_STRONG_EVIDENCE_CANDIDATE": {
+        "requirements": [
+          "eth_getTransactionByHash tx.to is null",
+          "receipt.contractAddress equals token_address",
+          "tx.from present",
+          "code exists at token_address"
+        ],
+        "result": "candidate_deployer_found_pending_review",
+        "paper_allowed": false,
+        "watchlist_allowed": false,
+        "clean_risk_allowed": false
+      },
+      "INITIALIZER_OR_MINTER_CANDIDATE_ONLY": {
+        "requirements": [
+          "zero Transfer/mint tx found",
+          "tx.from present",
+          "tx.to is not null"
+        ],
+        "result": "deployer_unresolved_initializer_candidate_only",
+        "paper_allowed": false,
+        "watchlist_allowed": false,
+        "clean_risk_allowed": false
+      },
+      "NO_EVIDENCE_FOUND": {
+        "requirements": [
+          "no first mint tx found within bounded query",
+          "or provider returned ambiguous/range-limited data"
+        ],
+        "result": "deployer_unresolved_keep_ghost",
+        "paper_allowed": false,
+        "watchlist_allowed": false,
+        "clean_risk_allowed": false
+      }
+    },
+    "planned_outputs_for_3k": {
+      "raw_rpc_archive_jsonl": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL/<STAMP>/raw_rpc_archive_sanitized.jsonl",
+      "discovery_result_json": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL/<STAMP>/alchemy_rpc_indexer_discovery_result.json",
+      "summary_report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3K_ALCHEMY_RPC_INDEXER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL.md"
+    },
+    "approval_phrase": "PHASE3_EVIDENCE3K alchemy rpc indexer discovery real için onay veriyorum",
+    "real_phase_allowed_after_explicit_approval": true
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": true,
+    "plan_write": true,
+    "rows_write": true,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI/20260528_200926",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_evidence3j_alchemy_rpc_indexer_path_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase3_evidence3j_alchemy_rpc_indexer_path_plan_noapi_rows.jsonl",
+    "plan_md": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI/20260528_200926/alchemy_rpc_indexer_path_plan.md",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE3_EVIDENCE3J_ALCHEMY_RPC_INDEXER_PATH_PLAN_NOAPI/20260528_200926/alchemy_rpc_indexer_path_plan.json"
+  }
+}

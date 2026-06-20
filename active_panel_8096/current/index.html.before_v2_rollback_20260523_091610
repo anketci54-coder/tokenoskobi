@@ -1,0 +1,1436 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Coinoskobi Production V2 Control Center</title>
+<style>
+/* PANEL_PRODUCTION_V2_CONTROL_CENTER_REFERENCE_V1_BEGIN */
+:root{
+  --bg:#050A16;
+  --bg2:#07111F;
+  --panel:#081427;
+  --card:#0B1730;
+  --card2:#101F3A;
+  --active:#12385A;
+  --line:#1E3A5F;
+  --line2:rgba(125,211,252,.16);
+  --cyan:#38BDF8;
+  --green:#22C55E;
+  --yellow:#FACC15;
+  --red:#EF4444;
+  --text:#EAF2FF;
+  --muted:#8FA3BF;
+  --faint:#5F708B;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,Manrope,Arial,sans-serif}
+body{
+  background:
+    radial-gradient(circle at 52% 18%,rgba(56,189,248,.12),transparent 35%),
+    radial-gradient(circle at 80% 82%,rgba(34,197,94,.08),transparent 36%),
+    linear-gradient(135deg,#030712 0%,#050A16 44%,#07111F 100%);
+}
+.app{
+  width:100vw;height:100vh;
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr) 292px;
+  grid-template-rows:92px minmax(0,1fr);
+  overflow:hidden;
+}
+.sidebar{
+  grid-row:1/3;
+  background:linear-gradient(180deg,rgba(8,20,39,.96),rgba(3,7,18,.94));
+  border-right:1px solid var(--line);
+  padding:22px 18px;
+  overflow:hidden;
+}
+.brand{display:flex;gap:12px;align-items:center;padding:0 4px 22px;border-bottom:1px solid rgba(125,211,252,.13)}
+.brand-logo{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,var(--cyan),#081427 60%);display:grid;place-items:center;box-shadow:0 0 30px rgba(56,189,248,.18)}
+.brand-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.brand-title{font-size:22px;font-weight:900;letter-spacing:.08em}
+.brand-sub{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.12em;margin-top:2px}
+.nav-title{margin:18px 8px 10px;color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.nav{display:grid;gap:8px}
+.nav-btn{
+  width:100%;height:46px;border:1px solid rgba(125,211,252,.13);
+  background:linear-gradient(180deg,rgba(16,31,58,.72),rgba(8,20,39,.62));
+  color:var(--text);border-radius:9px;display:grid;grid-template-columns:34px 1fr;align-items:center;
+  padding:0 12px;text-align:left;cursor:pointer;transition:.15s ease;overflow:hidden;
+}
+.nav-btn.active{background:linear-gradient(90deg,rgba(18,56,90,.98),rgba(8,20,39,.84));border-color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(56,189,248,.18),0 0 22px rgba(56,189,248,.16)}
+.nav-ico{width:28px;height:28px;border-radius:8px;border:1px solid rgba(56,189,248,.25);display:grid;place-items:center;color:var(--cyan);font-weight:900}
+.nav-label{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar{
+  grid-column:2/4;
+  height:92px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(5,10,22,.92),rgba(5,10,22,.60));
+}
+.page-title{display:flex;gap:14px;align-items:center}
+.page-mark{width:34px;height:34px;border:1px solid var(--cyan);border-radius:10px;display:grid;place-items:center;color:var(--cyan)}
+.page-title h1{font-size:24px;margin:0;font-weight:900}
+.page-title p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.status-line{display:flex;align-items:center;gap:20px;color:var(--muted);font-size:13px}
+.status-pill{display:flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+.top-actions{display:flex;gap:12px}
+.action{width:48px;height:48px;border:1px solid rgba(56,189,248,.25);border-radius:50%;display:grid;place-items:center;color:var(--cyan);background:rgba(8,20,39,.62);font-size:20px}
+.main{
+  grid-column:2/3;
+  grid-row:2/3;
+  padding:22px;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:290px minmax(0,1fr);
+  gap:18px;
+}
+.hero{
+  position:relative;
+  border:1px solid var(--cyan);
+  border-radius:4px;
+  background:linear-gradient(180deg,rgba(8,20,39,.86),rgba(3,7,18,.82));
+  box-shadow:0 0 0 1px rgba(56,189,248,.10),inset 0 0 60px rgba(56,189,248,.05);
+  overflow:hidden;
+}
+.hero:before,.hero:after{content:"";position:absolute;inset:12px;border:1px solid rgba(56,189,248,.16);clip-path:polygon(0 10%,38% 10%,42% 0,60% 0,64% 10%,100% 10%,100% 90%,64% 90%,60% 100%,42% 100%,38% 90%,0 90%)}
+.hero:after{inset:26px;opacity:.55}
+.hero-inner{
+  position:relative;z-index:1;height:100%;
+  display:grid;grid-template-columns:1fr 320px 1fr;align-items:center;gap:22px;padding:26px 58px;
+}
+.health-box,.runtime-box{
+  border:1px solid rgba(125,211,252,.22);border-radius:7px;background:rgba(5,10,22,.58);
+  min-height:154px;display:grid;place-items:center;text-align:center;padding:18px;
+}
+.box-title{font-size:14px;font-weight:900;margin-bottom:14px}
+.check{width:72px;height:72px;border-radius:50%;border:2px solid var(--green);display:grid;place-items:center;color:var(--green);font-size:40px;margin:auto;box-shadow:0 0 22px rgba(34,197,94,.18)}
+.ok-text{margin-top:12px;color:var(--green);font-weight:900}
+.small{font-size:12px;color:var(--muted);margin-top:8px}
+.master-logo-wrap{
+  justify-self:center;align-self:center;text-align:center;
+}
+/* MASTER_LOGO_TOP_CENTER_ON_DETAIL */
+.master-logo{
+  width:230px;height:230px;border-radius:50%;display:grid;place-items:center;margin:auto;
+  background:radial-gradient(circle,rgba(56,189,248,.24),rgba(5,10,22,.8) 58%,transparent 70%);
+  filter:drop-shadow(0 0 30px rgba(56,189,248,.28));
+}
+.master-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;transform:scale(1.03)}
+.content{
+  min-height:0;overflow:hidden;
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:14px;
+}
+.section-card{
+  border:1px solid rgba(125,211,252,.15);border-radius:10px;background:linear-gradient(180deg,rgba(8,20,39,.82),rgba(3,7,18,.72));padding:16px;min-height:0;overflow:hidden;
+}
+.section-title{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin:0 0 12px}
+.components{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
+}
+.comp{
+  min-height:92px;border:1px solid rgba(56,189,248,.22);border-radius:8px;background:rgba(11,23,48,.62);
+  display:grid;place-items:center;text-align:center;padding:12px;overflow:hidden;
+}
+.comp-ico{font-size:26px;color:var(--cyan);margin-bottom:8px}
+.comp-name{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.comp-status{font-size:12px;color:#86EFAC;margin-top:6px}
+.module-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.module-mini{
+  min-height:78px;border:1px solid rgba(192,132,252,.25);border-radius:8px;background:linear-gradient(180deg,rgba(32,13,54,.45),rgba(11,23,48,.50));
+  display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:10px;padding:10px;overflow:hidden;
+}
+.module-mini img{width:40px;height:40px;border-radius:12px;object-fit:cover}
+.module-mini b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.module-mini span{font-size:11px;color:#86EFAC}
+.global-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rightbar{
+  grid-column:3/4;
+  grid-row:2/3;
+  padding:22px 18px 22px 0;
+  display:grid;grid-template-rows:264px 1fr 244px;gap:16px;overflow:hidden;
+}
+.sidebox{
+  border:1px solid rgba(125,211,252,.14);border-radius:9px;background:linear-gradient(180deg,rgba(8,20,39,.82),rgba(3,7,18,.72));
+  padding:18px;overflow:hidden;
+}
+.sidebox h3{font-size:15px;margin:0 0 18px;text-transform:uppercase}
+.metric{display:flex;justify-content:space-between;border-bottom:1px solid rgba(125,211,252,.10);padding:12px 4px;color:var(--muted)}
+.metric strong{color:var(--text)}
+.warn{color:#F59E0B!important}.err{color:var(--red)!important}
+.empty-alarm{height:150px;border:1px solid rgba(125,211,252,.10);border-radius:8px;display:grid;place-items:center;color:var(--muted);text-align:center}
+.quick{display:grid;gap:10px}
+.quick button{height:50px;border-radius:8px;border:1px solid rgba(125,211,252,.13);background:rgba(11,23,48,.62);color:var(--text);text-align:left;padding:0 14px;font-size:14px}
+@media(max-width:1100px){
+  .app{grid-template-columns:230px minmax(0,1fr);grid-template-rows:82px minmax(0,1fr)}
+  .rightbar{display:none}
+  .topbar{grid-column:2/3}
+  .hero-inner{grid-template-columns:1fr 240px 1fr;padding:22px}
+  .master-logo{width:190px;height:190px}
+  .components{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  html,body{overflow:auto}
+  .app{height:auto;min-height:100vh;display:block;overflow-x:hidden}
+  .sidebar{display:none}
+  .topbar{height:auto;padding:16px;display:block}
+  .status-line,.top-actions{display:none}
+  .main{display:block;padding:14px}
+  .hero{height:auto;margin-bottom:14px}
+  .hero-inner{display:block;text-align:center;padding:18px}
+  .health-box,.runtime-box{display:none}
+  .master-logo{width:160px;height:160px}
+  .components{grid-template-columns:1fr}
+  .module-strip{grid-template-columns:1fr}
+  .global-grid{grid-template-columns:1fr}
+}
+/* PANEL_PRODUCTION_V2_CONTROL_CENTER_REFERENCE_V1_END */
+</style>
+
+<style id="PANEL_PRODUCTION_V2_DENSITY_POLISH_V1">
+/* PANEL_PRODUCTION_V2_DENSITY_POLISH_V1_BEGIN */
+.mobile-summary-strip{display:none}
+.special-glyph{
+  width:40px;height:40px;border-radius:14px;
+  display:grid;place-items:center;
+  border:1px solid rgba(192,132,252,.34);
+  background:radial-gradient(circle at 50% 35%,rgba(192,132,252,.18),rgba(11,23,48,.72));
+  color:#C084FC;font-weight:900;font-size:13px;letter-spacing:.06em;
+  box-shadow:0 0 22px rgba(192,132,252,.10);
+}
+.comp{
+  min-height:76px!important;
+  padding:10px!important;
+}
+.comp img{
+  width:36px!important;
+  height:36px!important;
+  border-radius:12px!important;
+  object-fit:cover!important;
+}
+.comp-ico{font-size:22px!important;margin-bottom:5px!important}
+.comp-name{font-size:13px!important;line-height:1.15!important}
+.comp-status{font-size:11px!important;margin-top:4px!important}
+.module-mini{
+  min-height:66px!important;
+  padding:9px!important;
+  grid-template-columns:38px minmax(0,1fr)!important;
+}
+.module-mini b{font-size:12.5px!important}
+.module-mini span{font-size:11px!important}
+.hero{min-height:240px}
+.master-logo{width:200px!important;height:200px!important}
+.health-box,.runtime-box{min-height:132px!important}
+.section-card{padding:14px!important}
+.content{gap:12px!important}
+.components{gap:9px!important}
+.module-strip{gap:9px!important}
+@media(max-width:1100px){
+  .components{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .module-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .hero-inner{grid-template-columns:1fr 190px 1fr!important}
+  .master-logo{width:170px!important;height:170px!important}
+}
+@media(max-width:760px){
+  html,body{overflow:auto!important;overflow-x:hidden!important}
+  .app{display:block!important;min-height:100vh!important;overflow-x:hidden!important}
+  .topbar{padding:12px 14px!important}
+  .page-title h1{font-size:20px!important;line-height:1.12!important}
+  .page-title p{font-size:12px!important;line-height:1.25!important}
+  .main{display:block!important;padding:12px!important}
+  .mobile-summary-strip{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
+    margin:0 0 12px;
+  }
+  .mobile-summary-box{
+    min-height:58px;border:1px solid rgba(125,211,252,.14);
+    border-radius:13px;background:linear-gradient(180deg,rgba(8,20,39,.82),rgba(3,7,18,.72));
+    padding:9px 8px;overflow:hidden;
+  }
+  .mobile-summary-box b{display:block;font-size:18px;line-height:1;color:#EAF2FF}
+  .mobile-summary-box span{display:block;margin-top:5px;font-size:10.5px;color:#8FA3BF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hero{height:auto!important;min-height:170px!important;margin-bottom:12px!important}
+  .hero-inner{display:block!important;text-align:center!important;padding:14px!important}
+  .master-logo{width:132px!important;height:132px!important}
+  .health-box,.runtime-box{display:none!important}
+  .section-card{padding:12px!important;margin-bottom:12px!important}
+  .section-title{font-size:14px!important;margin-bottom:10px!important}
+  .components{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .comp{min-height:86px!important;padding:8px!important}
+  .comp img{width:34px!important;height:34px!important;margin-bottom:6px!important}
+  .comp-name{font-size:12.5px!important;line-height:1.1!important;white-space:normal!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .comp-status{font-size:10.5px!important}
+  .module-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .module-mini{min-height:62px!important;grid-template-columns:34px minmax(0,1fr)!important;padding:8px!important}
+  .special-glyph{width:32px;height:32px;border-radius:11px;font-size:10.5px}
+  .module-mini b{font-size:11.5px!important;line-height:1.12!important;white-space:normal!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .module-mini span{font-size:10px!important}
+  .global-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .rightbar{display:none!important}
+}
+@media(max-width:420px){
+  .mobile-summary-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .components{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .module-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:360px){
+  .components{grid-template-columns:1fr!important}
+  .module-strip{grid-template-columns:1fr!important}
+}
+/* PANEL_PRODUCTION_V2_DENSITY_POLISH_V1_END */
+</style>
+
+
+<!-- COINOSKOBI_VIEWPORT_DENSITY_PATCH_V1_START -->
+<style id="coinoskobi-viewport-density-patch-v1">
+/* Coinoskobi active 8096 density patch v1
+   Purpose: 100% browser zoom compact fit for 1366x768 / 1536x864.
+   Scope: visual density only. No DB/API/live/paper/auto behavior.
+*/
+
+:root {
+  --cx-density-card-pad: clamp(7px, 0.72vw, 12px);
+  --cx-density-gap: clamp(6px, 0.62vw, 11px);
+  --cx-density-radius: clamp(10px, 0.85vw, 16px);
+  --cx-density-font-xs: clamp(9px, 0.62vw, 11px);
+  --cx-density-font-sm: clamp(10.5px, 0.72vw, 12px);
+  --cx-density-font-md: clamp(12px, 0.86vw, 14px);
+  --cx-density-font-lg: clamp(15px, 1.05vw, 18px);
+}
+
+@media (max-width: 1536px), (max-height: 864px) {
+  body {
+    overflow-x: hidden !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 {
+    max-width: min(100%, 1420px) !important;
+    margin: clamp(8px, 1vh, 14px) auto !important;
+    padding: 0 clamp(8px, 0.8vw, 14px) clamp(10px, 1vh, 16px) !important;
+    font-size: var(--cx-density-font-sm) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-shell {
+    border-radius: var(--cx-density-radius) !important;
+    padding: clamp(8px, 0.9vw, 12px) !important;
+    max-height: calc(100vh - 96px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-head {
+    gap: var(--cx-density-gap) !important;
+    padding-bottom: clamp(6px, 0.7vh, 9px) !important;
+    margin-bottom: clamp(7px, 0.8vh, 10px) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 h2 {
+    font-size: var(--cx-density-font-lg) !important;
+    line-height: 1.12 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-head p {
+    font-size: var(--cx-density-font-xs) !important;
+    margin: 3px 0 0 !important;
+    line-height: 1.25 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-badges {
+    gap: 5px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-badges span {
+    padding: 4px 7px !important;
+    font-size: var(--cx-density-font-xs) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-slot {
+    border-radius: var(--cx-density-radius) !important;
+    padding: var(--cx-density-card-pad) !important;
+    margin: clamp(6px, 0.72vh, 9px) 0 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-slot-head {
+    gap: var(--cx-density-gap) !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 7px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-slot small {
+    font-size: var(--cx-density-font-xs) !important;
+    letter-spacing: .45px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-slot h3 {
+    font-size: var(--cx-density-font-md) !important;
+    margin-top: 2px !important;
+    line-height: 1.14 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-slot-code {
+    padding: 3px 6px !important;
+    font-size: var(--cx-density-font-xs) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-purpose {
+    font-size: var(--cx-density-font-xs) !important;
+    margin: 0 0 7px !important;
+    line-height: 1.28 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-cards {
+    grid-template-columns: repeat(auto-fit, minmax(174px, 1fr)) !important;
+    gap: var(--cx-density-gap) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-card {
+    border-radius: var(--cx-density-radius) !important;
+    padding: var(--cx-density-card-pad) !important;
+    min-height: 88px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-card h4 {
+    font-size: var(--cx-density-font-sm) !important;
+    line-height: 1.16 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-card .status {
+    padding: 2px 5px !important;
+    font-size: 9px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-card .value {
+    font-size: var(--cx-density-font-md) !important;
+    margin: 5px 0 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-card p {
+    font-size: var(--cx-density-font-xs) !important;
+    line-height: 1.25 !important;
+    margin: 5px 0 !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-kv {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+    margin-top: 5px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-kv div {
+    border-radius: 8px !important;
+    padding: 4px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-kv b {
+    font-size: 9px !important;
+    margin-bottom: 1px !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-kv span {
+    font-size: 10px !important;
+    line-height: 1.18 !important;
+  }
+}
+
+@media (max-width: 1366px), (max-height: 768px) {
+  #coinoskobi-risk-security-active-v1 .rs-shell {
+    max-height: calc(100vh - 78px) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-cards {
+    grid-template-columns: repeat(auto-fit, minmax(156px, 1fr)) !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-head p {
+    display: none !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-slot-code {
+    display: none !important;
+  }
+
+  #coinoskobi-risk-security-active-v1 .rs-card {
+    min-height: 76px !important;
+  }
+}
+</style>
+<!-- COINOSKOBI_VIEWPORT_DENSITY_PATCH_V1_END -->
+
+
+<!-- COINOSKOBI_GLOBAL_SHELL_DENSITY_PATCH_V1_START -->
+<style id="coinoskobi-global-shell-density-patch-v1">
+/* Coinoskobi active 8096 global shell density patch v1
+   Purpose: compact 100% browser zoom for 1366x768 / 1536x864.
+   Scope: common dashboard shell only. No DB/API/live/paper/auto behavior.
+   Keeps fixed 8-center architecture.
+*/
+
+:root {
+  --cx-shell-pad: clamp(6px, 0.72vw, 12px);
+  --cx-shell-gap: clamp(6px, 0.62vw, 11px);
+  --cx-shell-radius: clamp(9px, 0.82vw, 14px);
+  --cx-shell-xs: clamp(9px, 0.62vw, 11px);
+  --cx-shell-sm: clamp(10px, 0.72vw, 12px);
+  --cx-shell-md: clamp(12px, 0.86vw, 14px);
+  --cx-shell-lg: clamp(15px, 1.05vw, 18px);
+  --cx-shell-xl: clamp(18px, 1.3vw, 24px);
+}
+
+@media (max-width: 1536px), (max-height: 864px) {
+  body {
+    overflow-x: hidden !important;
+  }
+
+  :where(.dashboard-shell,.control-shell,.app-shell,.main-shell,.layout-shell,.shell,.dashboard,.control-dashboard,.panel-shell) {
+    gap: var(--cx-shell-gap) !important;
+    padding: var(--cx-shell-pad) !important;
+  }
+
+  :where(.main-layout,.dashboard-layout,.control-layout,.app-layout,.layout,.main-grid,.dashboard-grid,.content-grid) {
+    gap: var(--cx-shell-gap) !important;
+    grid-template-columns: minmax(170px, 210px) minmax(0, 1fr) minmax(190px, 260px) !important;
+  }
+
+  :where(.left-nav,.sidebar,.side-nav,.nav-panel,.navigation,.menu-panel) {
+    width: clamp(170px, 14vw, 210px) !important;
+    min-width: clamp(170px, 14vw, 210px) !important;
+    padding: clamp(7px, 0.75vw, 12px) !important;
+    gap: clamp(4px, 0.5vw, 8px) !important;
+  }
+
+  :where(.right-sidebar,.right-panel,.status-sidebar,.summary-sidebar,.side-panel) {
+    width: clamp(190px, 17vw, 260px) !important;
+    min-width: clamp(190px, 17vw, 260px) !important;
+    padding: clamp(7px, 0.75vw, 12px) !important;
+    gap: clamp(5px, 0.55vw, 9px) !important;
+    max-height: calc(100vh - 30px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  :where(.main-content,.content,.center-content,.workspace,.center-workspace,.page-content) {
+    gap: var(--cx-shell-gap) !important;
+    padding: clamp(7px, 0.75vw, 12px) !important;
+    max-height: calc(100vh - 26px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  :where(.hero,.center-hero,.module-hero,.header-card,.center-header,.top-card,.summary-hero) {
+    min-height: 72px !important;
+    max-height: 118px !important;
+    padding: clamp(8px, 0.85vw, 13px) !important;
+    margin: 0 0 clamp(6px, 0.65vw, 10px) 0 !important;
+    border-radius: var(--cx-shell-radius) !important;
+  }
+
+  :where(.hero h1,.center-hero h1,.header-card h1,.center-title,.page-title) {
+    font-size: var(--cx-shell-xl) !important;
+    line-height: 1.08 !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  :where(.hero h2,.center-hero h2,.header-card h2,.section-title,.panel-title) {
+    font-size: var(--cx-shell-lg) !important;
+    line-height: 1.1 !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  :where(.hero p,.center-hero p,.header-card p,.subtitle,.description,.muted) {
+    font-size: var(--cx-shell-xs) !important;
+    line-height: 1.25 !important;
+    margin: 2px 0 !important;
+  }
+
+  :where(.section,.panel,.module-section,.status-section,.system-section,.motor-section,.component-section) {
+    padding: clamp(7px, 0.72vw, 12px) !important;
+    margin: 0 0 clamp(6px, 0.64vw, 10px) 0 !important;
+    gap: var(--cx-shell-gap) !important;
+    border-radius: var(--cx-shell-radius) !important;
+  }
+
+  :where(.cards,.card-grid,.module-grid,.system-grid,.motor-grid,.status-grid,.component-grid) {
+    gap: var(--cx-shell-gap) !important;
+    grid-template-columns: repeat(auto-fit, minmax(156px, 1fr)) !important;
+  }
+
+  :where(.card,.module-card,.metric-card,.status-card,.motor-card,.system-card,.component-card,.summary-card,.action-card) {
+    min-height: 58px !important;
+    max-height: 132px !important;
+    padding: clamp(6px, 0.68vw, 10px) !important;
+    border-radius: var(--cx-shell-radius) !important;
+  }
+
+  :where(.card h3,.module-card h3,.metric-card h3,.status-card h3,.motor-card h3,.system-card h3,.component-card h3,.summary-card h3) {
+    font-size: var(--cx-shell-sm) !important;
+    line-height: 1.12 !important;
+    margin: 0 0 3px 0 !important;
+  }
+
+  :where(.card p,.module-card p,.metric-card p,.status-card p,.motor-card p,.system-card p,.component-card p,.summary-card p) {
+    font-size: var(--cx-shell-xs) !important;
+    line-height: 1.22 !important;
+    margin: 2px 0 !important;
+  }
+
+  :where(.counter,.big-number,.metric-value,.score-value,.value,.count) {
+    font-size: var(--cx-shell-lg) !important;
+    line-height: 1.05 !important;
+  }
+
+  :where(.badge,.pill,.chip,.tag,.status-badge) {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+    border-radius: 999px !important;
+  }
+
+  :where(.quick-actions,.actions,.button-row,.action-row) {
+    gap: clamp(4px, 0.5vw, 8px) !important;
+  }
+
+  :where(button,.btn,.action-button,.quick-button) {
+    font-size: var(--cx-shell-xs) !important;
+    padding: 5px 8px !important;
+    min-height: 28px !important;
+    border-radius: 9px !important;
+  }
+}
+
+@media (max-width: 1366px), (max-height: 768px) {
+  :where(.main-layout,.dashboard-layout,.control-layout,.app-layout,.layout,.main-grid,.dashboard-grid,.content-grid) {
+    grid-template-columns: minmax(150px, 185px) minmax(0, 1fr) minmax(170px, 230px) !important;
+  }
+
+  :where(.left-nav,.sidebar,.side-nav,.nav-panel,.navigation,.menu-panel) {
+    width: clamp(150px, 13vw, 185px) !important;
+    min-width: clamp(150px, 13vw, 185px) !important;
+  }
+
+  :where(.right-sidebar,.right-panel,.status-sidebar,.summary-sidebar,.side-panel) {
+    width: clamp(170px, 16vw, 230px) !important;
+    min-width: clamp(170px, 16vw, 230px) !important;
+  }
+
+  :where(.hero,.center-hero,.module-hero,.header-card,.center-header,.top-card,.summary-hero) {
+    min-height: 58px !important;
+    max-height: 94px !important;
+  }
+
+  :where(.cards,.card-grid,.module-grid,.system-grid,.motor-grid,.status-grid,.component-grid) {
+    grid-template-columns: repeat(auto-fit, minmax(136px, 1fr)) !important;
+  }
+
+  :where(.card,.module-card,.metric-card,.status-card,.motor-card,.system-card,.component-card,.summary-card,.action-card) {
+    min-height: 48px !important;
+    max-height: 112px !important;
+  }
+
+  :where(.optional-description,.long-description,.card-description,.hero-extra) {
+    display: none !important;
+  }
+}
+
+@media (max-width: 980px), (max-height: 560px) {
+  :where(.main-layout,.dashboard-layout,.control-layout,.app-layout,.layout,.main-grid,.dashboard-grid,.content-grid) {
+    grid-template-columns: minmax(118px, 150px) minmax(0, 1fr) !important;
+  }
+
+  :where(.right-sidebar,.right-panel,.status-sidebar,.summary-sidebar,.side-panel) {
+    display: none !important;
+  }
+
+  :where(.cards,.card-grid,.module-grid,.system-grid,.motor-grid,.status-grid,.component-grid) {
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)) !important;
+  }
+}
+</style>
+<!-- COINOSKOBI_GLOBAL_SHELL_DENSITY_PATCH_V1_END -->
+
+
+<!-- COINOSKOBI_GLOBAL_SHELL_DENSITY_V2_PATCH_START -->
+<style id="coinoskobi-global-shell-density-v2-patch">
+/* Coinoskobi active 8096 global shell density V2 replacement.
+   This block replaces the current V2 block.
+   Desktop 100 percent is relaxed to stop clipping and overlap.
+   Mobile portrait flow is preserved.
+   Mobile landscape stays compact but less crushed.
+   Visual shell only.
+*/
+
+:root {
+  --cx2r-left-desktop: clamp(176px, 12vw, 208px);
+  --cx2r-right-desktop: clamp(210px, 15vw, 250px);
+  --cx2r-gap: clamp(6px, 0.55vw, 10px);
+  --cx2r-pad: clamp(7px, 0.62vw, 11px);
+  --cx2r-radius: 10px;
+  --cx2r-xs: clamp(9px, 0.58vw, 10px);
+  --cx2r-sm: clamp(10px, 0.66vw, 12px);
+  --cx2r-title: clamp(18px, 1.35vw, 24px);
+}
+
+@media (min-width: 981px) and (max-width: 1700px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .sidebar {
+    width: var(--cx2r-left-desktop) !important;
+    min-width: var(--cx2r-left-desktop) !important;
+    max-width: var(--cx2r-left-desktop) !important;
+    padding: var(--cx2r-pad) !important;
+    gap: var(--cx2r-gap) !important;
+    overflow: hidden !important;
+  }
+
+  .main {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: var(--cx2r-pad) !important;
+    gap: var(--cx2r-gap) !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+
+  .content {
+    min-width: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: var(--cx2r-pad) !important;
+    gap: var(--cx2r-gap) !important;
+  }
+
+  .right-sidebar,
+  .side-panel,
+  .summary-sidebar {
+    width: var(--cx2r-right-desktop) !important;
+    min-width: var(--cx2r-right-desktop) !important;
+    max-width: var(--cx2r-right-desktop) !important;
+    padding: var(--cx2r-pad) !important;
+    gap: var(--cx2r-gap) !important;
+    overflow: hidden !important;
+  }
+
+  .hero {
+    min-height: 128px !important;
+    height: clamp(132px, 21vh, 184px) !important;
+    max-height: 188px !important;
+    padding: clamp(8px, 0.7vw, 12px) !important;
+    margin: 0 0 var(--cx2r-gap) 0 !important;
+    overflow: hidden !important;
+  }
+
+  .hero-inner {
+    min-height: 116px !important;
+    height: 100% !important;
+    max-height: 172px !important;
+    overflow: hidden !important;
+    display: grid !important;
+    grid-template-columns: minmax(260px, 1fr) minmax(118px, 174px) minmax(260px, 1fr) !important;
+    gap: var(--cx2r-gap) !important;
+    align-items: center !important;
+    padding: clamp(7px, 0.65vw, 10px) !important;
+  }
+
+  .hero img,
+  .hero-inner img {
+    max-width: clamp(104px, 10vw, 158px) !important;
+    max-height: clamp(104px, 18vh, 158px) !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .hero h1,
+  .main h1 {
+    font-size: var(--cx2r-title) !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+  }
+
+  .hero h2,
+  .section-card h2 {
+    font-size: clamp(13px, 0.95vw, 17px) !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+  }
+
+  .hero p,
+  .status-line,
+  .status-pill,
+  .nav-title,
+  .nav-label {
+    font-size: var(--cx2r-xs) !important;
+    line-height: 1.18 !important;
+  }
+
+  .section-card {
+    padding: var(--cx2r-pad) !important;
+    margin: 0 0 var(--cx2r-gap) 0 !important;
+    border-radius: var(--cx2r-radius) !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .components {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)) !important;
+    gap: var(--cx2r-gap) !important;
+  }
+
+  .components .metric,
+  .module-strip .metric,
+  .global-grid .metric,
+  .metric {
+    min-height: 58px !important;
+    max-height: none !important;
+    padding: clamp(6px, 0.55vw, 10px) !important;
+    border-radius: var(--cx2r-radius) !important;
+    overflow: hidden !important;
+  }
+
+  .metric img,
+  .components img,
+  .module-strip img,
+  .global-grid img {
+    max-width: clamp(24px, 2.2vw, 34px) !important;
+    max-height: clamp(24px, 2.2vw, 34px) !important;
+    object-fit: contain !important;
+  }
+
+  .metric h3,
+  .metric strong,
+  .metric b {
+    font-size: var(--cx2r-sm) !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+  }
+
+  .metric p,
+  .metric span {
+    font-size: var(--cx2r-xs) !important;
+    line-height: 1.12 !important;
+    margin: 0 !important;
+  }
+
+  .module-strip {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(152px, 1fr)) !important;
+    gap: var(--cx2r-gap) !important;
+    min-height: 52px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .global-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: var(--cx2r-gap) !important;
+    min-height: 58px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .quick,
+  .top-actions {
+    gap: var(--cx2r-gap) !important;
+  }
+
+  .quick button,
+  .action,
+  .nav-btn {
+    min-height: 30px !important;
+    padding: 5px 8px !important;
+    font-size: var(--cx2r-xs) !important;
+    border-radius: 8px !important;
+  }
+
+  .nav {
+    gap: clamp(4px, 0.42vw, 7px) !important;
+  }
+
+  .nav-btn {
+    height: clamp(32px, 4.8vh, 40px) !important;
+  }
+
+  .nav-ico {
+    width: clamp(20px, 1.9vw, 28px) !important;
+    height: clamp(20px, 1.9vw, 28px) !important;
+    min-width: clamp(20px, 1.9vw, 28px) !important;
+  }
+}
+
+@media (min-width: 981px) and (max-height: 820px) {
+  .hero {
+    min-height: 108px !important;
+    height: clamp(112px, 18vh, 148px) !important;
+    max-height: 152px !important;
+  }
+
+  .hero-inner {
+    min-height: 96px !important;
+    max-height: 138px !important;
+    grid-template-columns: minmax(240px, 1fr) minmax(102px, 142px) minmax(240px, 1fr) !important;
+  }
+
+  .hero img,
+  .hero-inner img {
+    max-width: clamp(88px, 8.5vw, 128px) !important;
+    max-height: clamp(88px, 15vh, 128px) !important;
+  }
+
+  .components .metric,
+  .module-strip .metric,
+  .global-grid .metric,
+  .metric {
+    min-height: 50px !important;
+  }
+}
+
+@media (max-width: 980px) and (orientation: portrait) {
+  html,
+  body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .main,
+  .content {
+    overflow-x: hidden !important;
+    max-height: none !important;
+  }
+
+  .hero,
+  .hero-inner {
+    overflow: visible !important;
+  }
+
+  .hero img,
+  .hero-inner img {
+    object-fit: contain !important;
+  }
+}
+
+@media (max-width: 980px) and (orientation: landscape) {
+  html,
+  body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .sidebar {
+    width: 118px !important;
+    min-width: 118px !important;
+    max-width: 118px !important;
+    padding: 4px !important;
+    gap: 4px !important;
+  }
+
+  .nav-title {
+    font-size: 9px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .nav {
+    gap: 3px !important;
+  }
+
+  .nav-btn {
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 3px 5px !important;
+    gap: 5px !important;
+    border-radius: 8px !important;
+  }
+
+  .nav-ico {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+  }
+
+  .nav-label {
+    font-size: 8.5px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .right-sidebar,
+  .side-panel,
+  .summary-sidebar {
+    display: none !important;
+  }
+
+  .main {
+    width: calc(100vw - 118px) !important;
+    max-width: calc(100vw - 118px) !important;
+    min-width: 0 !important;
+    padding: 5px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .content {
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 5px !important;
+    gap: 5px !important;
+  }
+
+  .top-actions,
+  .status-line {
+    transform: scale(0.9) !important;
+    transform-origin: right center !important;
+  }
+
+  .hero {
+    height: 76px !important;
+    min-height: 76px !important;
+    max-height: 84px !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+    margin-bottom: 5px !important;
+  }
+
+  .hero-inner {
+    height: 68px !important;
+    min-height: 68px !important;
+    max-height: 76px !important;
+    padding: 4px !important;
+    display: grid !important;
+    grid-template-columns: minmax(150px, 1fr) 72px minmax(140px, 0.9fr) !important;
+    gap: 5px !important;
+    align-items: center !important;
+    overflow: hidden !important;
+  }
+
+  .hero img,
+  .hero-inner img {
+    max-width: 68px !important;
+    max-height: 68px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .hero h1,
+  .main h1 {
+    font-size: 16px !important;
+    line-height: 1.02 !important;
+    margin: 0 !important;
+  }
+
+  .hero h2 {
+    font-size: 11px !important;
+    line-height: 1.02 !important;
+    margin: 0 !important;
+  }
+
+  .hero p,
+  .status-pill,
+  .status-line {
+    font-size: 8.5px !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+  }
+
+  .section-card {
+    padding: 5px !important;
+    margin: 0 0 5px 0 !important;
+    border-radius: 8px !important;
+    min-height: 36px !important;
+    overflow: visible !important;
+  }
+
+  .components {
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)) !important;
+    gap: 5px !important;
+  }
+
+  .module-strip,
+  .global-grid {
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)) !important;
+    gap: 5px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .metric {
+    min-height: 38px !important;
+    max-height: none !important;
+    padding: 4px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+
+  .metric img {
+    max-width: 20px !important;
+    max-height: 20px !important;
+  }
+
+  .metric h3,
+  .metric strong,
+  .metric b {
+    font-size: 8.5px !important;
+    line-height: 1.02 !important;
+    margin: 0 !important;
+  }
+
+  .metric p,
+  .metric span {
+    font-size: 7.5px !important;
+    line-height: 1.05 !important;
+    margin: 0 !important;
+  }
+
+  .empty-alarm,
+  .mobile-summary-strip,
+  .mobile-summary-box {
+    display: none !important;
+  }
+}
+</style>
+<!-- COINOSKOBI_GLOBAL_SHELL_DENSITY_V2_PATCH_END -->
+
+
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo"><img id="brandLogo" alt=""></div>
+      <div><div class="brand-title">COINOSKOBI</div><div class="brand-sub">TOKENOSKOBI</div></div>
+    </div>
+    <div class="nav-title">Ana Panel</div>
+    <div class="nav" id="mainNav"></div>
+    <div class="nav-title">Pilot Modları</div>
+    <div class="nav">
+      <button class="nav-btn"><span class="nav-ico">OM</span><span class="nav-label">Keşif Modu</span></button>
+      <button class="nav-btn"><span class="nav-ico">PS</span><span class="nav-label">Simülasyon Modu</span></button>
+      <button class="nav-btn"><span class="nav-ico">◇</span><span class="nav-label">Otonom Mod</span></button>
+    </div>
+    <div class="nav-title">Global Durumlar</div>
+    <div class="nav">
+      <button class="nav-btn"><span class="nav-ico">⬡</span><span class="nav-label">Genel Sağlık</span></button>
+      <button class="nav-btn"><span class="nav-ico">△</span><span class="nav-label">Sistem Alarmı</span></button>
+      <button class="nav-btn"><span class="nav-ico">▣</span><span class="nav-label">Veri Durumu</span></button>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <div class="page-title">
+      <div class="page-mark">⬡</div>
+      <div><h1 id="topTitle">Sistem Kontrol Merkezi</h1><p id="topDesc">Tüm sistem bileşenlerinin durumu ve kontrolü</p></div>
+    </div>
+    <div class="status-line">
+      <div>Sistem Durumu:<br><span class="status-pill"><i class="dot"></i>Normal</span></div>
+      <div>Son Güncelleme:<br><b>--:--:--</b></div>
+      <div>Paper Mode:<br><b>Aktif</b></div>
+      <div>Live:<br><b style="color:#EF4444">Kapalı</b></div>
+    </div>
+    <div class="top-actions"><div class="action">🔔</div><div class="action">⚙</div><div class="action">◯</div></div>
+  </header>
+
+  <main class="main">
+
+<div class="mobile-summary-strip" id="mobileSummaryStrip">
+  <div class="mobile-summary-box"><b>8</b><span>Merkez</span></div>
+  <div class="mobile-summary-box"><b id="mobileModuleCount">47</b><span>Modül</span></div>
+  <div class="mobile-summary-box"><b style="color:#FACC15">0</b><span>Uyarı</span></div>
+  <div class="mobile-summary-box"><b style="color:#22C55E">0</b><span>Hata</span></div>
+</div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="health-box">
+          <div><div class="box-title">GENEL SİSTEM SAĞLIĞI</div><div class="check">✓</div><div class="ok-text">SAĞLIKLI</div><div class="small">Tüm sistemler normal çalışıyor</div></div>
+        </div>
+        <div class="master-logo-wrap">
+          <div class="master-logo"><img id="masterLogo" alt=""></div>
+        </div>
+        <div class="runtime-box">
+          <div><div class="box-title">ÇALIŞMA SÜRESİ</div><h2>--:--:--</h2><div class="small">Uptime</div><hr style="border-color:rgba(125,211,252,.14)"><div class="box-title">AKTİF MODÜL</div><h2 id="activeModuleCount">- / -</h2><div class="small">Aktif / Toplam</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="section-card">
+        <h2 class="section-title">Sistem Bileşenleri</h2>
+        <div class="components" id="components"></div>
+      </div>
+      <div class="section-card">
+        <h2 class="section-title">Özel Sistem Motorları</h2>
+        <div class="module-strip" id="specialEngines"></div>
+      </div>
+      <div class="section-card">
+        <h2 class="section-title">Global Durumlar</h2>
+        <div class="global-grid">
+          <div class="comp"><div><div class="comp-ico">▣</div><div class="comp-name">Veri Yok Durumu</div><div class="comp-status">● Normal</div></div></div>
+          <div class="comp"><div><div class="comp-ico">🔧</div><div class="comp-name">Sistem Bakım Durumu</div><div class="comp-status">● Normal</div></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="rightbar">
+    <div class="sidebox">
+      <h3>Sistem Özeti</h3>
+      <div class="metric"><span>Toplam Merkez</span><strong>8</strong></div>
+      <div class="metric"><span>Toplam Modül</span><strong id="totalModules">47</strong></div>
+      <div class="metric"><span>Uyarı</span><strong class="warn">0</strong></div>
+      <div class="metric"><span>Hata</span><strong class="err">0</strong></div>
+    </div>
+    <div class="sidebox">
+      <h3>Son Alarmlar</h3>
+      <div class="empty-alarm">◇<br>Aktif alarm bulunmuyor.</div>
+    </div>
+    <div class="sidebox">
+      <h3>Hızlı İşlemler</h3>
+      <div class="quick">
+        <button>↻ Servisleri Yenile</button>
+        <button>▤ Sistem Kontrol Raporu</button>
+        <button>☷ Tüm Logları Görüntüle</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const PANEL_DATA = {"phase": "PANEL_PRODUCTION_V2_CONTROL_CENTER_REFERENCE_PREVIEW_BUILD_NOAPI", "generated_at": "2026-05-21 07:15:12", "source_data": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_center_separated_final_polish_preview_20260521_000105/data/production_center_separated_data.json", "centers": [{"key": "komuta_merkezi", "label": "Komuta Merkezi", "description": "Canlı karar, pozisyon, SL/TP ve aksiyon kontrol alanı", "icon": "panel_assets/icons_panel_384/komuta_merkezi/komuta_merkezi_master_384.jpg", "accent": "#38BDF8", "modules": [{"key": "canli_karar", "label": "Canlı Karar", "icon": "panel_assets/icons_panel_384/komuta_merkezi/canli_karar_384.jpg", "status": "Normal", "center_key": "komuta_merkezi"}, {"key": "paper_trade_ozeti", "label": "Paper Trade Özeti", "icon": "panel_assets/icons_panel_384/komuta_merkezi/paper_trade_ozeti_384.jpg", "status": "Normal", "center_key": "komuta_merkezi"}, {"key": "acik_pozisyonlar", "label": "Açık Pozisyonlar", "icon": "panel_assets/icons_panel_384/komuta_merkezi/acik_pozisyonlar_384.jpg", "status": "Normal", "center_key": "komuta_merkezi"}, {"key": "sl_tp_durumu", "label": "SL / TP Durumu", "icon": "panel_assets/icons_panel_384/komuta_merkezi/sl_tp_durumu_384.jpg", "status": "Normal", "center_key": "komuta_merkezi"}, {"key": "aksiyon_gecmisi", "label": "Aksiyon Geçmişi", "icon": "panel_assets/icons_panel_384/komuta_merkezi/aksiyon_gecmisi_384.jpg", "status": "Normal", "center_key": "komuta_merkezi"}, {"key": "merkez_skorlari", "label": "Merkez Skorları", "icon": "panel_assets/icons_panel_384/komuta_merkezi/merkez_skorlari_384.jpg", "status": "Normal", "center_key": "komuta_merkezi"}]}, {"key": "haber_akis_merkezi", "label": "Haber Akış Merkezi", "description": "Haber akışı, kaynak güveni, narrative ve etki skoru alanı", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/haber_akis_merkezi_master_384.jpg", "accent": "#C084FC", "modules": [{"key": "kritik_haber", "label": "Kritik Haber", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/kritik_haber_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "haber_etki_skoru", "label": "Haber Etki Skoru", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/haber_etki_skoru_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "haber_gecmisi_arsiv", "label": "Haber Geçmişi / Arşiv", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/haber_gecmisi_arsiv_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "kaynak_guvenilirligi", "label": "Kaynak Güvenilirliği", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/kaynak_guvenilirligi_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "narrative_tema_takibi", "label": "Narrative / Tema Takibi", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/narrative_tema_takibi_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "kritik_takvim_launch_calendar", "label": "Kritik Takvim / Launch Calendar", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/kritik_takvim_launch_calendar_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "ico_ido_drop_radar", "label": "ICO / IDO / Drop Radar", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/ico_ido_drop_radar_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "airdrop_claim_takibi", "label": "Airdrop / Claim Takibi", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/airdrop_claim_takibi_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}, {"key": "ceviri_ve_ozet", "label": "Çeviri ve Özet", "icon": "panel_assets/icons_panel_384/haber_akis_merkezi/ceviri_ve_ozet_384.jpg", "status": "Normal", "center_key": "haber_akis_merkezi"}]}, {"key": "onchain_veri_merkezi", "label": "On-Chain Veri Merkezi", "description": "Token kimliği, kontrat, holder, likidite ve deployer verileri", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/onchain_veri_merkezi_master_384.jpg", "accent": "#67E8F9", "modules": [{"key": "token_kimlik_karti", "label": "Token Kimlik Kartı", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/token_kimlik_dogrulama_384.jpg", "status": "Normal", "center_key": "onchain_veri_merkezi"}, {"key": "likidite_havuz", "label": "Likidite / Havuz", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg", "status": "Normal", "center_key": "onchain_veri_merkezi"}, {"key": "holder_dagilimi", "label": "Holder Dağılımı", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/holder_dagilimi_384.jpg", "status": "Normal", "center_key": "onchain_veri_merkezi"}, {"key": "kontrat_risk", "label": "Kontrat Risk", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg", "status": "Normal", "center_key": "onchain_veri_merkezi"}, {"key": "tx_akis", "label": "TX Akış", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg", "status": "Normal", "center_key": "onchain_veri_merkezi"}, {"key": "deployer_analizi", "label": "Deployer Analizi", "icon": "panel_assets/icons_panel_384/onchain_veri_merkezi/yeni_token_kesif_radari_384.jpg", "status": "Normal", "center_key": "onchain_veri_merkezi"}]}, {"key": "balina_takip_merkezi", "label": "Balina Takip Merkezi", "description": "Whale wallet, akıllı para, büyük transfer ve borsa akışı", "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/balina_takip_merkezi_master_384.jpg", "accent": "#5EEAD4", "modules": [{"key": "whale_wallet_i_zleme", "label": "Whale Wallet İzleme", "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/whale_wallet_izleme_384.jpg", "status": "Normal", "center_key": "balina_takip_merkezi"}, {"key": "akilli_para_takibi", "label": "Akıllı Para Takibi", "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/akilli_para_takibi_384.jpg", "status": "Normal", "center_key": "balina_takip_merkezi"}, {"key": "buyuk_transfer_alarmi", "label": "Büyük Transfer Alarmı", "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/buyuk_transfer_alarmi_384.jpg", "status": "Normal", "center_key": "balina_takip_merkezi"}, {"key": "borsa_giris_cikis", "label": "Borsa Giriş / Çıkış", "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/borsa_giris_cikis_384.jpg", "status": "Normal", "center_key": "balina_takip_merkezi"}, {"key": "wallet_risk_profili", "label": "Wallet Risk Profili", "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/wallet_risk_profili_384.jpg", "status": "Normal", "center_key": "balina_takip_merkezi"}]}, {"key": "teknik_analiz_merkezi", "label": "Teknik Analiz Merkezi", "description": "Trend, hacim, momentum, volatilite ve destek/direnç alanı", "icon": "panel_assets/icons_panel_384/teknik_analiz_merkezi/teknik_analiz_merkezi_master_384.jpg", "accent": "#86EFAC", "modules": [{"key": "trend", "label": "Trend", "icon": "panel_assets/icons_panel_384/teknik_analiz_merkezi/trend_yonu_384.jpg", "status": "Normal", "center_key": "teknik_analiz_merkezi"}, {"key": "hacim", "label": "Hacim", "icon": "panel_assets/icons_panel_384/teknik_analiz_merkezi/hacim_analizi_384.jpg", "status": "Normal", "center_key": "teknik_analiz_merkezi"}, {"key": "destek_direnc", "label": "Destek / Direnç", "icon": "panel_assets/icons_panel_384/teknik_analiz_merkezi/destek_direnc_384.jpg", "status": "Normal", "center_key": "teknik_analiz_merkezi"}, {"key": "momentum", "label": "Momentum", "icon": "panel_assets/icons_panel_384/teknik_analiz_merkezi/momentum_rsi_384.jpg", "status": "Normal", "center_key": "teknik_analiz_merkezi"}, {"key": "volatilite", "label": "Volatilite", "icon": "panel_assets/icons_panel_384/teknik_analiz_merkezi/volatilite_sikisma_384.jpg", "status": "Normal", "center_key": "teknik_analiz_merkezi"}]}, {"key": "risk_guvenlik_merkezi", "label": "Risk & Güvenlik Merkezi", "description": "Risk skoru, rug/honeypot, slippage, MEV ve kilit kontrolü", "icon": "panel_assets/icons_panel_384/risk_guvenlik_merkezi/risk_guvenlik_merkezi_master_384.jpg", "accent": "#FACC15", "modules": [{"key": "risk_skoru", "label": "Risk Skoru", "icon": "panel_assets/icons_panel_384/risk_guvenlik_merkezi/risk_skoru_384.jpg", "status": "Normal", "center_key": "risk_guvenlik_merkezi"}, {"key": "rug_honeypot", "label": "Rug / Honeypot", "icon": "panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg", "status": "Normal", "center_key": "risk_guvenlik_merkezi"}, {"key": "slippage", "label": "Slippage", "icon": "panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg", "status": "Normal", "center_key": "risk_guvenlik_merkezi"}, {"key": "kilit_kontrol", "label": "Kilit Kontrol", "icon": "panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg", "status": "Normal", "center_key": "risk_guvenlik_merkezi"}, {"key": "uyari_sistemi", "label": "Uyarı Sistemi", "icon": "panel_assets/icons_panel_384/risk_guvenlik_merkezi/slippage_mev_384.jpg", "status": "Normal", "center_key": "risk_guvenlik_merkezi"}]}, {"key": "yasam_destek_merkezi", "label": "Yaşam Destek Merkezi", "description": "Klinik, morg, otopsi ve olay yeri inceleme merkezi", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/yasam_destek_merkezi_master_384.jpg", "accent": "#EF4444", "modules": [{"key": "klinik", "label": "Klinik", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/klinik_384.jpg", "status": "Normal", "center_key": "yasam_destek_merkezi"}, {"key": "morg", "label": "Morg", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/morg_384.jpg", "status": "Normal", "center_key": "yasam_destek_merkezi"}, {"key": "otopsi", "label": "Otopsi", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/otopsi_384.jpg", "status": "Normal", "center_key": "yasam_destek_merkezi"}, {"key": "olay_yeri_i_nceleme", "label": "Olay Yeri İnceleme", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/olay_yeri_inceleme_384.jpg", "status": "Normal", "center_key": "yasam_destek_merkezi"}, {"key": "adli_sorusturma", "label": "Adli Soruşturma", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/adli_sorusturma_384.jpg", "status": "Normal", "center_key": "yasam_destek_merkezi"}, {"key": "supheliler_spam_cuzdanlar", "label": "Şüpheliler / Spam Cüzdanlar", "icon": "panel_assets/icons_panel_384/yasam_destek_merkezi/supheliler_spam_cuzdanlar_384.jpg", "status": "Normal", "center_key": "yasam_destek_merkezi"}]}, {"key": "sistem_kontrol_merkezi", "label": "Sistem Kontrol Merkezi", "description": "Tüm sistem bileşenlerinin durumu ve kontrolü", "icon": "panel_assets/icons_panel_384/sistem_kontrol_merkezi/sistem_kontrol_merkezi_master_384.jpg", "accent": "#22D3EE", "modules": [{"key": "sistem_saglik", "label": "Sistem Sağlık", "icon": "panel_assets/icons_panel_384/sistem_kontrol_merkezi/worker_runner_durumu_384.jpg", "status": "Normal", "center_key": "sistem_kontrol_merkezi"}, {"key": "veri_zamani", "label": "Veri Zamanı", "icon": "panel_assets/icons_panel_384/sistem_kontrol_merkezi/worker_runner_durumu_384.jpg", "status": "Normal", "center_key": "sistem_kontrol_merkezi"}, {"key": "api_durum", "label": "API Durum", "icon": "panel_assets/icons_panel_384/sistem_kontrol_merkezi/api_rpc_durumu_384.jpg", "status": "Normal", "center_key": "sistem_kontrol_merkezi"}, {"key": "panel_durum", "label": "Panel Durum", "icon": "panel_assets/icons_panel_384/sistem_kontrol_merkezi/panel_ui_durumu_384.jpg", "status": "Normal", "center_key": "sistem_kontrol_merkezi"}, {"key": "log_i_zleme", "label": "Log İzleme", "icon": "panel_assets/icons_panel_384/sistem_kontrol_merkezi/log_event_izleme_384.jpg", "status": "Normal", "center_key": "sistem_kontrol_merkezi"}]}], "system": {"status": "Normal", "last_update": "--:--:--", "paper_mode": "Aktif", "live_trade": "Kapalı", "risk_lock": "Aktif", "modules": 47, "centers": 8}};
+const CENTER_ORDER = ["komuta_merkezi", "haber_akis_merkezi", "onchain_veri_merkezi", "balina_takip_merkezi", "teknik_analiz_merkezi", "risk_guvenlik_merkezi", "yasam_destek_merkezi", "sistem_kontrol_merkezi"];
+let selected = "sistem_kontrol_merkezi";
+
+function byKey(k){ return PANEL_DATA.centers.find(c => c.key === k) || PANEL_DATA.centers[0]; }
+function safeIcon(path){ return path || byKey("sistem_kontrol_merkezi").icon; }
+
+function renderNav(){
+  const nav = document.getElementById("mainNav");
+  nav.innerHTML = "";
+  PANEL_DATA.centers.forEach(c=>{
+    const btn=document.createElement("button");
+    btn.className="nav-btn"+(c.key===selected?" active":"");
+    btn.innerHTML=`<span class="nav-ico">⬡</span><span class="nav-label">${c.label}</span>`;
+    btn.onclick=()=>{selected=c.key; renderAll();};
+    nav.appendChild(btn);
+  });
+}
+
+function renderTop(){
+  const c=byKey(selected);
+  document.getElementById("topTitle").textContent=c.label;
+  document.getElementById("topDesc").textContent=c.description;
+  document.getElementById("masterLogo").src=safeIcon(c.icon);
+  document.getElementById("brandLogo").src=byKey("sistem_kontrol_merkezi").icon;
+  document.getElementById("activeModuleCount").textContent=`${c.modules.length} / ${c.modules.length}`;
+  document.getElementById("totalModules").textContent=PANEL_DATA.system.modules;
+}
+
+function renderComponents(){
+  const c=byKey(selected);
+  const wrap=document.getElementById("components");
+  wrap.innerHTML="";
+  c.modules.forEach(m=>{
+    const div=document.createElement("div");
+    div.className="comp";
+    div.innerHTML=`<div><img src="${safeIcon(m.icon)}" style="width:42px;height:42px;border-radius:12px;object-fit:cover;margin-bottom:8px"><div class="comp-name">${m.label}</div><div class="comp-status">● Normal</div></div>`;
+    wrap.appendChild(div);
+  });
+}
+
+function renderSpecialEngines(){
+  const engines=[
+    ["Paper Simülasyon","PS"],
+    ["AI Kalibrasyon","AI"],
+    ["Outcome Memory","OM"],
+    ["Backtest Motoru","BT"]
+  ];
+  const wrap=document.getElementById("specialEngines");
+  wrap.innerHTML="";
+  engines.forEach(([name,ico])=>{
+    const div=document.createElement("div");
+    div.className="module-mini";
+    div.innerHTML=`<div style="font-size:28px;color:#C084FC">${ico}</div><div><b>${name}</b><span>● Normal</span></div>`;
+    wrap.appendChild(div);
+  });
+}
+
+function renderAll(){
+  renderNav();
+  renderTop();
+  renderComponents();
+  renderSpecialEngines();
+}
+renderAll();
+</script>
+
+<script id="PANEL_PRODUCTION_V2_DENSITY_POLISH_SCRIPT_V1">
+/* PANEL_PRODUCTION_V2_DENSITY_POLISH_SCRIPT_V1_BEGIN */
+(function(){
+  function replaceSpecialEngineEmojis(){
+    var map = {
+      "Paper Simülasyon": "PS",
+      "AI Kalibrasyon": "AI",
+      "Outcome Memory": "OM",
+      "Backtest Motoru": "BT"
+    };
+    document.querySelectorAll(".module-mini").forEach(function(card){
+      var name = card.querySelector("b") ? card.querySelector("b").textContent.trim() : "";
+      var first = card.children && card.children[0];
+      if(first && map[name]){
+        first.removeAttribute("style");
+        first.className = "special-glyph";
+        first.textContent = map[name];
+      }
+    });
+  }
+  function syncMobileSummary(){
+    var total = document.getElementById("totalModules");
+    var mobile = document.getElementById("mobileModuleCount");
+    if(total && mobile){ mobile.textContent = total.textContent || "47"; }
+  }
+  function runPolish(){
+    replaceSpecialEngineEmojis();
+    syncMobileSummary();
+  }
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", runPolish);
+  } else {
+    runPolish();
+  }
+  window.addEventListener("resize", runPolish);
+})();
+/* PANEL_PRODUCTION_V2_DENSITY_POLISH_SCRIPT_V1_END */
+</script>
+
+
+
+<script id="PANEL_PRODUCTION_V2_EMOJI_LITERAL_SAFE_REPAIR_V1">
+(function(){
+  var repl = [
+    [String.fromCodePoint(0x2659), "PS"],
+    [String.fromCodePoint(0x1F9E0), "AI"],
+    [String.fromCodePoint(0x25CE), "OM"],
+    [String.fromCodePoint(0x25A5), "BT"]
+  ];
+  function cleanNode(node){
+    if(node.nodeType === 3){
+      repl.forEach(function(pair){ node.nodeValue = node.nodeValue.split(pair[0]).join(pair[1]); });
+    }
+  }
+  function walk(root){
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var n;
+    while(n = walker.nextNode()){ cleanNode(n); }
+  }
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ walk(document.body); });
+  } else {
+    walk(document.body);
+  }
+})();
+</script>
+
+</body>
+<!-- COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_BLOCK_V1_START -->
+<style id="coinoskobi-risk-security-active-style-v1">
+#coinoskobi-risk-security-active-v1 { max-width:1480px;margin:22px auto;padding:0 18px 24px;font-family:Arial,Helvetica,sans-serif;color:#e7f7ff; }
+#coinoskobi-risk-security-active-v1 .rs-shell { border:1px solid rgba(66,232,255,.24);background:linear-gradient(180deg,rgba(10,28,41,.94),rgba(5,14,23,.94));border-radius:24px;padding:16px;box-shadow:0 18px 46px rgba(0,0,0,.25); }
+#coinoskobi-risk-security-active-v1 .rs-head { display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:1px solid rgba(66,232,255,.18);padding-bottom:12px;margin-bottom:14px; }
+#coinoskobi-risk-security-active-v1 h2 { margin:0;font-size:20px;color:#e7f7ff; }
+#coinoskobi-risk-security-active-v1 .rs-head p { margin:6px 0 0;color:#91b6c9;font-size:12px; }
+#coinoskobi-risk-security-active-v1 .rs-badges { display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end; }
+#coinoskobi-risk-security-active-v1 .rs-badges span { border:1px solid rgba(66,232,255,.22);background:rgba(4,18,28,.72);color:#42e8ff;padding:6px 9px;border-radius:999px;font-size:11px; }
+#coinoskobi-risk-security-active-v1 .rs-slot { border:1px solid rgba(66,232,255,.18);border-radius:20px;padding:14px;margin:13px 0;background:rgba(10,27,40,.70); }
+#coinoskobi-risk-security-active-v1 .rs-slot-head { display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:9px;margin-bottom:10px; }
+#coinoskobi-risk-security-active-v1 .rs-slot small { display:block;color:#42e8ff;font-weight:700;letter-spacing:.7px;font-size:10.5px;text-transform:uppercase; }
+#coinoskobi-risk-security-active-v1 .rs-slot h3 { margin:3px 0 0;font-size:17px;color:#f0fbff; }
+#coinoskobi-risk-security-active-v1 .rs-slot-code { color:#91b6c9;border:1px solid rgba(255,255,255,.10);padding:5px 8px;border-radius:999px;font-size:11px; }
+#coinoskobi-risk-security-active-v1 .rs-purpose { color:#91b6c9;font-size:12px;margin:0 0 12px; }
+#coinoskobi-risk-security-active-v1 .rs-cards { display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px; }
+#coinoskobi-risk-security-active-v1 .rs-card { border:1px solid rgba(66,232,255,.16);border-radius:16px;background:rgba(0,0,0,.24);padding:12px;min-height:126px; }
+#coinoskobi-risk-security-active-v1 .rs-card-top { display:flex;justify-content:space-between;gap:8px;align-items:flex-start; }
+#coinoskobi-risk-security-active-v1 .rs-card h4 { margin:0;color:#fff;font-size:14px; }
+#coinoskobi-risk-security-active-v1 .rs-card .status { color:#56ffa6;border:1px solid rgba(86,255,166,.22);border-radius:999px;padding:3px 6px;font-size:10px;font-weight:700; }
+#coinoskobi-risk-security-active-v1 .rs-card .value { color:#ffd166;font-size:16px;font-weight:800;margin:9px 0; }
+#coinoskobi-risk-security-active-v1 .rs-card p { color:#a9c9d8;font-size:12px;line-height:1.42;margin:8px 0; }
+#coinoskobi-risk-security-active-v1 .rs-kv { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px; }
+#coinoskobi-risk-security-active-v1 .rs-kv div { border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:6px;background:rgba(255,255,255,.03); }
+#coinoskobi-risk-security-active-v1 .rs-kv b { display:block;color:#91b6c9;font-size:10px;margin-bottom:2px; }
+#coinoskobi-risk-security-active-v1 .rs-kv span { font-size:11.5px;color:#e7f7ff;word-break:break-word; }
+</style>
+<section id="coinoskobi-risk-security-active-v1" data-center-mount="risk-security-komuta-yasam-sistem" data-no-9th-center="true">
+  <div class="rs-shell">
+    <div class="rs-head">
+      <div>
+        <h2>Risk & Güvenlik + Execution</h2>
+        <p>Risk, Komuta, Yaşam Destek ve Sistem Kontrol altına monte edildi. Live/auto kilitli.</p>
+      </div>
+      <div class="rs-badges">
+        <span>Normal: TP1/TP2/TP3</span>
+        <span>Vur-Kaç: Tek TP</span>
+        <span>Live: Kilitli</span>
+        <span>Auto: Kilitli</span>
+      </div>
+    </div>
+    <div id="coinoskobi-risk-security-active-content-v1">Risk güvenlik verisi yükleniyor...</div>
+  </div>
+</section>
+<script id="coinoskobi-risk-security-active-script-v1">
+(function(){
+  const root = document.getElementById('coinoskobi-risk-security-active-content-v1');
+  if(!root) return;
+  const esc = (v) => String(v === null || v === undefined ? '' : v)
+    .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#039;");
+  const centerTitle = {risk:'Risk & Güvenlik Merkezi',komuta:'Komuta Merkezi',yasam:'Yaşam Destek Merkezi',sistem:'Sistem Kontrol Merkezi'};
+  const cardHtml = (card) => {
+    const plan = card.plan || null;
+    let kv = '';
+    if(plan && typeof plan === 'object') {
+      const fields = [
+        ['Mod', plan.entry_mode], ['Sembol', plan.symbol], ['Risk', plan.risk_level], ['MEV', plan.mev_gate],
+        ['Miktar', plan.entry_amount_usd], ['Entry', plan.entry_level], ['Slipaj', plan.dynamic_slippage_pct],
+        ['TP', plan.tp_policy], ['SL', plan.sl_price], ['Tek TP', plan.single_tp_price],
+        ['TP1', plan.tp1_price], ['TP2', plan.tp2_price], ['TP3', plan.tp3_price]
+      ].filter(x => x[1] !== null && x[1] !== undefined);
+      kv = '<div class="rs-kv">' + fields.map(x => '<div><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span></div>').join('') + '</div>';
+    } else if(card.buttons && typeof card.buttons === 'object') {
+      kv = '<div class="rs-kv">' + Object.entries(card.buttons).map(x => '<div><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span></div>').join('') + '</div>';
+    }
+    return '<article class="rs-card">'
+      + '<div class="rs-card-top"><h4>'+esc(card.title || card.card_key)+'</h4><span class="status">'+esc(card.status || '')+'</span></div>'
+      + (card.value !== undefined && card.value !== null ? '<div class="value">'+esc(card.value)+'</div>' : '')
+      + '<p>'+esc(card.details || card.rule || '')+'</p>'
+      + kv
+      + '</article>';
+  };
+  fetch('data/risk_security_preview_data.json?v=20260522_164904', {cache:'no-store'})
+    .then(r => r.json())
+    .then(data => {
+      const cards = data.card_by_key || Object.fromEntries((data.cards || []).map(c => [c.card_key, c]));
+      const html = (data.panel_slots || []).map(slot => {
+        const slotCards = (slot.cards || []).map(k => cards[k]).filter(Boolean).map(cardHtml).join('');
+        return '<section class="rs-slot">'
+          + '<div class="rs-slot-head"><div><small>'+esc(centerTitle[slot.center_key] || slot.center_key)+'</small><h3>'+esc(slot.sub_panel)+'</h3></div><span class="rs-slot-code">'+esc(slot.slot_key)+'</span></div>'
+          + '<p class="rs-purpose">'+esc(slot.purpose || '')+'</p>'
+          + '<div class="rs-cards">'+slotCards+'</div>'
+          + '</section>';
+      }).join('');
+      root.innerHTML = html || 'Risk güvenlik kartı bulunamadı.';
+    })
+    .catch(err => {
+      root.innerHTML = '<div class="rs-card"><h4>Risk Security yüklenemedi</h4><p>'+esc(err.message || err)+'</p></div>';
+    });
+})();
+</script>
+<!-- COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_BLOCK_V1_END -->
+
+
+</html>

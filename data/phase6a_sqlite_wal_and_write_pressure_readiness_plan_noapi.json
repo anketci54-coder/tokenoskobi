@@ -1,0 +1,329 @@
+{
+  "buffer_plan_rows": [
+    {
+      "buffer": "in_memory_ring_buffer",
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Absorb short bursts of onchain/news/whale/technical events before durable write.",
+      "required": true
+    },
+    {
+      "buffer": "durable_spool_file_optional",
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Optional later fallback if process restarts before SQLite commit.",
+      "required": true
+    },
+    {
+      "buffer": "event_coalescing",
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Compress repeated low-value events into state updates for read-model.",
+      "required": true
+    },
+    {
+      "buffer": "backpressure_policy",
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "If queue grows, low-priority ingestion pauses before DB lock storm.",
+      "required": true
+    }
+  ],
+  "db_file_rows": [
+    {
+      "exists": true,
+      "file": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "sha256": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+      "size_bytes": 3981312
+    },
+    {
+      "exists": false,
+      "file": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite-wal",
+      "sha256": null,
+      "size_bytes": 0
+    },
+    {
+      "exists": false,
+      "file": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite-shm",
+      "sha256": null,
+      "size_bytes": 0
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T06:39:09.733957+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI",
+  "outputs": {
+    "buffer_plan_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_in_memory_buffer_plan.jsonl",
+    "db_file_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_db_file_snapshot.jsonl",
+    "index_pressure_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_index_pressure_classification.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6a_sqlite_wal_and_write_pressure_readiness_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_sqlite_wal_and_write_pressure_readiness_plan_noapi.json",
+    "queue_plan_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_single_writer_queue_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_write_pressure_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6a_sqlite_wal_and_write_pressure_readiness_plan_noapi_rows.jsonl",
+    "sqlite_pragma_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_sqlite_pragma_snapshot.jsonl",
+    "table_pressure_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_table_write_pressure_classification.jsonl",
+    "wal_readiness_rows": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909/phase6a_wal_readiness_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI/20260601_093909"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "buffer_plan_rows_written": true,
+    "busy_timeout_read": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "index_pressure_rows_written": true,
+    "journal_mode_not_changed_now": true,
+    "journal_mode_read": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6_report_exists": true,
+    "phase6_rows_exists": true,
+    "policy_sha_match": true,
+    "queue_plan_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "table_pressure_rows_written": true,
+    "wal_not_enabled_now": true,
+    "wal_readiness_rows_written": true
+  },
+  "phase": "PHASE6A_SQLITE_WAL_AND_WRITE_PRESSURE_READINESS_PLAN_NOAPI",
+  "phase6_dependency": {
+    "phase6_ok": true,
+    "phase6_rows_count": 65
+  },
+  "policy_reference": {
+    "checked_count": 1,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "queue_plan_rows": [
+    {
+      "component": "single_writer_queue",
+      "implementation_now": false,
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Serialize all future event/readmodel writes to avoid database is locked errors.",
+      "required": true
+    },
+    {
+      "component": "write_batcher",
+      "implementation_now": false,
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Batch low-priority event writes instead of per-event commits.",
+      "required": true
+    },
+    {
+      "component": "priority_lanes",
+      "implementation_now": false,
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Emergency monitor events must outrank low-priority telemetry.",
+      "required": true
+    },
+    {
+      "component": "idempotency_key",
+      "implementation_now": false,
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Prevent duplicate event insertion during retry.",
+      "required": true
+    },
+    {
+      "component": "write_retry_backoff",
+      "implementation_now": false,
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Handle temporary locks safely without losing events.",
+      "required": true
+    },
+    {
+      "component": "dead_letter_queue",
+      "implementation_now": false,
+      "phase6_now": "PLAN_ONLY",
+      "purpose": "Store failed writes outside hot path for manual review.",
+      "required": true
+    }
+  ],
+  "risk_rows": [
+    {
+      "current_impact": "LOW_NOW",
+      "mitigation": "Single-writer queue, batching, write pressure metrics, WAL approval plan later.",
+      "reason": "Current DB uses SQLite journal_mode delete; future event-heavy writes can lock.",
+      "risk_id": "SQLITE_WRITE_CONCURRENCY_LOCK",
+      "severity": "HIGH_FUTURE_RISK"
+    },
+    {
+      "current_impact": "LOW_NOW",
+      "mitigation": "Measure target table index count and avoid over-indexing hot event ledgers.",
+      "reason": "DB has 290 indexes; each insert can update indexes on target table.",
+      "risk_id": "INDEX_WRITE_AMPLIFICATION",
+      "severity": "MEDIUM_FUTURE_RISK"
+    },
+    {
+      "current_impact": "LOW_NOW",
+      "mitigation": "Incremental readmodel updates, stale guard fields, indexed token_uid/last_updated_block.",
+      "reason": "State-aggregated readmodel rebuilds may scan event tables.",
+      "risk_id": "READMODEL_REBUILD_PRESSURE",
+      "severity": "MEDIUM_FUTURE_RISK"
+    },
+    {
+      "current_impact": "LOW_NOW",
+      "mitigation": "Priority lanes and event-ledger driven immediate recheck plan.",
+      "reason": "Emergency monitor triggers must not wait behind bulk telemetry writes.",
+      "risk_id": "EMERGENCY_EVENT_PRIORITY",
+      "severity": "HIGH_FUTURE_RISK"
+    },
+    {
+      "current_impact": "LOW_NOW",
+      "mitigation": "Plan WAL enable only after explicit approval and backup/post-audit.",
+      "reason": "journal_mode is not WAL.",
+      "risk_id": "NO_WAL_CURRENTLY",
+      "severity": "MEDIUM_FUTURE_RISK"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "allowed_now": true,
+      "api_now": false,
+      "db_write_now": false,
+      "next_phase": "PHASE6B_STATE_AGGREGATED_READMODEL_SCHEMA_GAP_PLAN_NOAPI",
+      "order": 1,
+      "wal_enable_now": false
+    },
+    {
+      "allowed_now": false,
+      "db_write_now": false,
+      "later_phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI",
+      "order": 2
+    },
+    {
+      "allowed_now": false,
+      "db_write_now": false,
+      "later_phase": "PHASE6A2_SQLITE_WAL_ENABLE_PLAN_NOAPI",
+      "order": 3,
+      "requires_reason": "Only if write pressure plan says WAL is needed."
+    },
+    {
+      "allowed_now": false,
+      "db_write_now": "yes_if_approved_later",
+      "later_phase": "PHASE6A3_SQLITE_WAL_ENABLE_REAL_AFTER_EXPLICIT_APPROVAL",
+      "order": 4,
+      "requires_explicit_approval": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "journal_mode_change_now": false,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "sqlite_assessment": {
+    "busy_timeout_ms": 5000,
+    "current_status": "DELETE_JOURNAL_MODE_SINGLE_WRITER_RISK_IF_EVENT_RATE_GROWS",
+    "db_size_bytes": 3981312,
+    "estimated_db_size_from_pages": 3981312,
+    "high_write_pressure_candidate_count": 22,
+    "journal_mode_current": "delete",
+    "low_write_pressure_candidate_count": 48,
+    "medium_write_pressure_candidate_count": 113,
+    "page_count": 972,
+    "page_size": 4096,
+    "total_index_count": 290,
+    "total_table_count": 214,
+    "wal_enable_now": false,
+    "wal_enabled_now": false
+  },
+  "sqlite_pragmas": {
+    "auto_vacuum": 0,
+    "busy_timeout": 5000,
+    "cache_size": -2000,
+    "foreign_key_check_count": 0,
+    "freelist_count": 0,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "locking_mode": "normal",
+    "page_count": 972,
+    "page_size": 4096,
+    "quick_check": "ok",
+    "read_uncommitted": 0,
+    "schema_version": 508,
+    "synchronous": 2,
+    "temp_store": 0,
+    "user_version": 0,
+    "wal_autocheckpoint": 1000
+  },
+  "started_at_utc": "2026-06-01T06:39:09.672346+00:00",
+  "table_summary": {
+    "high_write_pressure_candidate_count": 22,
+    "low_write_pressure_candidate_count": 48,
+    "medium_write_pressure_candidate_count": 113,
+    "total_indexes": 290,
+    "total_tables": 214
+  },
+  "wal_plan_rows": [
+    {
+      "action_now": "READ_ONLY_NO_CHANGE",
+      "check": "current_journal_mode",
+      "risk": "delete mode can increase writer/reader blocking under event load",
+      "value": "delete"
+    },
+    {
+      "action_now": "FORBIDDEN_NOW",
+      "check": "wal_enable",
+      "risk": "WAL changes DB journaling state and must be explicit-approval real phase",
+      "value": false
+    },
+    {
+      "action_now": "READ_ONLY_NO_CHANGE",
+      "check": "wal_file_exists",
+      "risk": "If WAL exists unexpectedly, review before any apply",
+      "value": false
+    },
+    {
+      "action_now": "READ_ONLY_NO_CHANGE",
+      "check": "busy_timeout",
+      "risk": "Too low timeout may cause database is locked under burst writes",
+      "value": 5000
+    },
+    {
+      "action_now": "PLAN_ONLY",
+      "check": "future_phase_required",
+      "risk": "Do not silently enable WAL in NOAPI plan",
+      "value": "PHASE6A_WAL_ENABLE_PLAN_NOAPI_THEN_REAL_AFTER_EXPLICIT_APPROVAL"
+    }
+  ],
+  "warnings": [
+    "SQLITE_JOURNAL_MODE_DELETE_CURRENTLY",
+    "WAL_NOT_ENABLED_AND_NOT_CHANGED",
+    "WRITE_HEAVY_RISK_IS_FUTURE_RISK_NOT_CURRENT_FAILURE",
+    "SINGLE_WRITER_QUEUE_REQUIRED_BEFORE_HIGH_RATE_EVENT_INGESTION",
+    "IN_MEMORY_BUFFER_REQUIRED_BEFORE_STREAMING_OR_BURST_WRITES",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

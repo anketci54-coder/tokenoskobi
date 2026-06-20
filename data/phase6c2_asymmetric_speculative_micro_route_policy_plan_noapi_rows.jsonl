@@ -1,0 +1,82 @@
+{"locked": true, "meaning": "High-risk x50-style route is policy-only/review-only now.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "asymmetric_speculative_micro_route_disabled_now", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "No asymmetric route if any hard block exists.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "hard_block_cannot_be_bypassed", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "Sell route must be AVAILABLE and fresh before any review-only route.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "sell_route_available_and_fresh_required", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "TP is not real profit until sell route recheck/simulation is fresh and valid.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "profit_not_real_until_sell_simulation_fresh", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "Max loss and max position must be computed before any future sandbox route.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "tiny_cap_max_loss_required", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "No rescue buy, no averaging down, no second entry.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "single_entry_no_averaging_down", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "Time stop uses blocks_since_entry and seconds_since_entry together.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "block_and_wall_clock_time_stop_required", "row_type": "policy", "runtime_now": false}
+{"locked": true, "meaning": "Trailing exit follows sell route/liquidity/tax/slippage health, not price alone.", "paper_live_allowed_now": false, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "policy": "route_health_trailing_required", "row_type": "policy", "runtime_now": false}
+{"effect": "NO_ROUTE", "guard": "hard_block_false", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "sell_route_status_AVAILABLE", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "sell_route_freshness_FRESH", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "minimum_pool_liquidity_usd_above_asymmetric_floor", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "exit_liquidity_usd_above_asymmetric_floor", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "buy_sell_tax_below_asymmetric_limit", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "price_impact_and_slippage_below_asymmetric_limit", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "mev_sandwich_not_high", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "max_position_size_computable", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "BLOCK"}
+{"effect": "NO_ROUTE", "guard": "negative_memory_no_terminal_hit", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required": true, "row_type": "entry_guard", "unknown_policy": "WAIT_MORE_DATA"}
+{"effect": "NO_PROFIT_ASSUMED_UNTIL_SELL_PROVEN", "guard": "honeypot_switch_after_entry", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required_detection": "fresh sell route recheck before TP and after emergency events", "risk": "Sell was available at entry but closes before TP1.", "row_type": "honeypot_guard", "runtime_now": false}
+{"effect": "TP1_BLOCKED_IF_SELL_ROUTE_STALE_OR_UNKNOWN", "guard": "sell_recheck_before_tp1", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required_detection": "TP1 cannot execute in future route unless sell route is freshly proven.", "risk": "TP1 price visible but sell simulation may revert.", "row_type": "honeypot_guard", "runtime_now": false}
+{"effect": "EXIT_REVIEW_OR_BLOCK", "guard": "tax_switch_guard", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required_detection": "tax_sell_pct must be fresh before staged TP.", "risk": "Tax changes after pump.", "row_type": "honeypot_guard", "runtime_now": false}
+{"effect": "NO_ROUTE", "guard": "blacklist_max_tx_max_wallet_switch_guard", "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "required_detection": "future simulation must detect revert or transfer restriction.", "risk": "Contract behavior changes after entry.", "row_type": "honeypot_guard", "runtime_now": false}
+{"forbidden_action": "hard_block_bypass", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "sell_route_unknown_entry", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "honeypot_suspected_entry", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "averaging_down", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "second_rescue_entry", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "position_resize_after_entry", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "tp_without_fresh_sell_recheck", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "stale_evidence_route_permission", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "paper_or_live_permission_from_policy_plan", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"forbidden_action": "technical_signal_overrides_execution_gate", "locked": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "forbidden"}
+{"check": "phase6_json_exists", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b2_json_exists", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_json_exists", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_report_exists", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_rows_exists", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6_dependency_ok", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b2_dependency_ok", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_dependency_ok", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_expected", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_expected", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_expected", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "policy_sha_match", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_ok", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "policy_count_8", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "entry_guard_count_10", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "exit_guard_count_8", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "honeypot_guard_count_4", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sell_monitor_count_5", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "time_stop_count_6", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "capital_rule_count_5", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "staged_tp_count_4", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "forbidden_count_10", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_trigger_count_10", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_policy_locked", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_entry_required", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_forbidden_locked", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_triggers_event_ledger", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_paper_live_false", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "tp_requires_sell_recheck", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "block_wall_time_required", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "averaging_down_forbidden", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hard_block_bypass_forbidden", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "policy_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "entry_guard_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "exit_guard_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "honeypot_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "sell_monitor_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "time_stop_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "capital_risk_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "staged_tp_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "forbidden_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "decision_effect_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_rows_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "future_schema_sql_written", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_noapi_clean", "passed": true, "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI", "row_type": "pass_condition"}

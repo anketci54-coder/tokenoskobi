@@ -1,0 +1,158 @@
+{
+  "phase": "COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_PLAN_NOAPI",
+  "stamp": "20260522_101442",
+  "mode": "APPLY_PLAN_ONLY_NOAPI",
+  "dryrun_ok": true,
+  "real_phase": "COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "required_approval": "COINOSKOBI MASTER PIPELINE SCHEMA APPLY REAL için onay veriyorum",
+  "live_db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+  "apply_sql": "/root/tokenoskobi_clean_v1/_COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_PLAN_NOAPI/20260522_101442/master_pipeline_schema_apply_v1.sql",
+  "rollback_sql": "/root/tokenoskobi_clean_v1/_COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_PLAN_NOAPI/20260522_101442/master_pipeline_schema_rollback_v1.sql",
+  "post_audit_plan": "/root/tokenoskobi_clean_v1/_COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_PLAN_NOAPI/20260522_101442/master_pipeline_schema_post_apply_audit_plan.md",
+  "backup_dir_planned": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_<STAMP>",
+  "planned_tables": [
+    "raw_discovery_events_v1",
+    "entity_identity_events_v1",
+    "center_signal_events_v1",
+    "mev_sandwich_risk_events_v1",
+    "fusion_score_events_v1",
+    "command_decision_events_v1",
+    "paper_trade_events_v1",
+    "outcome_memory_events_v1",
+    "control_dashboard_view_model_events_v1"
+  ],
+  "planned_indexes": [
+    "idx_raw_discovery_events_v1_hash",
+    "idx_raw_discovery_events_v1_chain_seen",
+    "idx_entity_identity_events_v1_token_pair",
+    "idx_entity_identity_events_v1_chain_contract",
+    "idx_center_signal_events_v1_center_time",
+    "idx_center_signal_events_v1_token_pair",
+    "idx_mev_sandwich_risk_events_v1_token_pair",
+    "idx_mev_sandwich_risk_events_v1_gate_level",
+    "idx_fusion_score_events_v1_route_score",
+    "idx_fusion_score_events_v1_token_pair",
+    "idx_command_decision_events_v1_decision_time",
+    "idx_command_decision_events_v1_token_pair",
+    "idx_paper_trade_events_v1_status",
+    "idx_paper_trade_events_v1_token_pair",
+    "idx_outcome_memory_events_v1_type",
+    "idx_outcome_memory_events_v1_token_pair",
+    "idx_control_dashboard_view_model_events_v1_scope_time"
+  ],
+  "existing_planned_tables": [],
+  "existing_expected_indexes": [],
+  "new_tables_to_create": [
+    "raw_discovery_events_v1",
+    "entity_identity_events_v1",
+    "center_signal_events_v1",
+    "mev_sandwich_risk_events_v1",
+    "fusion_score_events_v1",
+    "command_decision_events_v1",
+    "paper_trade_events_v1",
+    "outcome_memory_events_v1",
+    "control_dashboard_view_model_events_v1"
+  ],
+  "new_indexes_to_create": [
+    "idx_raw_discovery_events_v1_hash",
+    "idx_raw_discovery_events_v1_chain_seen",
+    "idx_entity_identity_events_v1_token_pair",
+    "idx_entity_identity_events_v1_chain_contract",
+    "idx_center_signal_events_v1_center_time",
+    "idx_center_signal_events_v1_token_pair",
+    "idx_mev_sandwich_risk_events_v1_token_pair",
+    "idx_mev_sandwich_risk_events_v1_gate_level",
+    "idx_fusion_score_events_v1_route_score",
+    "idx_fusion_score_events_v1_token_pair",
+    "idx_command_decision_events_v1_decision_time",
+    "idx_command_decision_events_v1_token_pair",
+    "idx_paper_trade_events_v1_status",
+    "idx_paper_trade_events_v1_token_pair",
+    "idx_outcome_memory_events_v1_type",
+    "idx_outcome_memory_events_v1_token_pair",
+    "idx_control_dashboard_view_model_events_v1_scope_time"
+  ],
+  "planned_real_steps": [
+    {
+      "order": 1,
+      "action": "BACKUP_LIVE_DB",
+      "source": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "target": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_<STAMP>/tokenoskobi_clean_v1.sqlite.before_master_pipeline_schema_apply"
+    },
+    {
+      "order": 2,
+      "action": "BACKUP_ACTIVE_PANEL_FILES_SHA_ONLY",
+      "source": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html + /root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json",
+      "target": "sha snapshot; no panel write"
+    },
+    {
+      "order": 3,
+      "action": "RUN_SQLITE_SCHEMA_APPLY",
+      "source": "/root/tokenoskobi_clean_v1/_COINOSKOBI_MASTER_PIPELINE_SCHEMA_APPLY_PLAN_NOAPI/20260522_101442/master_pipeline_schema_apply_v1.sql",
+      "target": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "order": 4,
+      "action": "VERIFY_9_TABLES_17_INDEXES",
+      "source": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "target": "schema audit"
+    },
+    {
+      "order": 5,
+      "action": "VERIFY_DB_INTEGRITY_AND_FK",
+      "source": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "target": "integrity_check ok + fk 0"
+    },
+    {
+      "order": 6,
+      "action": "VERIFY_NO_PANEL_NGINX_SERVICE_TIMER_TRADE_MUTATION",
+      "source": "sha/listen snapshot",
+      "target": "safety report"
+    },
+    {
+      "order": 7,
+      "action": "WRITE_REAL_APPLY_REPORT_JSON_ROWS_ROLLBACK_PATH",
+      "source": "audit outputs",
+      "target": "reports/data"
+    }
+  ],
+  "forbidden_without_separate_approval": [
+    "live DB schema apply",
+    "live DB data insert",
+    "panel 8096 write",
+    "8141 preview write",
+    "nginx change",
+    "service restart",
+    "timer change",
+    "API/fetch/network call",
+    "paper/live trade execution",
+    "rollback execution"
+  ],
+  "safety": {
+    "db_write": false,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "panel_write": false,
+    "nginx_change": false,
+    "service_restart": false,
+    "timer_change": false,
+    "live_trade": false,
+    "paper_trade_execution": false,
+    "live_db_unchanged": true,
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "listen_snapshot_unchanged": true
+  },
+  "before": {
+    "active_index_sha": "6983f94e7a5a2465bfe914adfa7b148d3de31b58b6efa2ce95b5e9e182eb9691",
+    "active_data_sha": "a0a4e45466000bd7358b471a6724797216321a5cf8af6e062a0bb2976b13b253",
+    "db_sha": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+    "listen": "LISTEN 0      5            0.0.0.0:8141      0.0.0.0:*    users:((\"python3\",pid=768416,fd=3))                                                                                                           \nLISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))"
+  },
+  "after": {
+    "active_index_sha": "6983f94e7a5a2465bfe914adfa7b148d3de31b58b6efa2ce95b5e9e182eb9691",
+    "active_data_sha": "a0a4e45466000bd7358b471a6724797216321a5cf8af6e062a0bb2976b13b253",
+    "db_sha": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+    "listen": "LISTEN 0      5            0.0.0.0:8141      0.0.0.0:*    users:((\"python3\",pid=768416,fd=3))                                                                                                           \nLISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))"
+  }
+}

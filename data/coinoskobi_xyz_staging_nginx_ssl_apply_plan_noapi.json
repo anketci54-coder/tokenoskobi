@@ -1,0 +1,80 @@
+{
+  "phase": "COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI",
+  "stamp": "20260521_100438",
+  "final_decision": "PASS",
+  "mode": "NOAPI_NGINX_SSL_APPLY_PLAN_ONLY",
+  "target": {
+    "staging_domain": "www.coinoskobi.xyz",
+    "public_reserved_domain": "www.coinoskobi.com",
+    "vps_ip": "159.195.74.132",
+    "proxy_target": "http://127.0.0.1:8096"
+  },
+  "active_8096": {
+    "curl_rc": 0,
+    "http_code": 200,
+    "http_bytes": 35104
+  },
+  "server_readiness": {
+    "nginx_binary_available": 0,
+    "nginx_service_state": "inactive",
+    "certbot_available": 0,
+    "apt_get_available": 1,
+    "ufw_available": 0,
+    "ufw_status": "unknown",
+    "port_80_listen": 0,
+    "port_443_listen": 0,
+    "port_8096_listen": 1
+  },
+  "dns_dependency": {
+    "planned_dns_value": "159.195.74.132",
+    "rollback_dns_value": "redirect.natrocdn.com",
+    "dns_must_resolve_to_vps_before_ssl": true
+  },
+  "future_sequence": [
+    "COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_DRYRUN_NOAPI",
+    "COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "COINOSKOBI_XYZ_STAGING_DNS_BIND_REAL_AFTER_EXPLICIT_APPROVAL",
+    "COINOSKOBI_XYZ_STAGING_DNS_PROPAGATION_AUDIT_NOAPI",
+    "COINOSKOBI_XYZ_STAGING_SSL_REAL_AFTER_EXPLICIT_APPROVAL",
+    "COINOSKOBI_XYZ_STAGING_HTTPS_POST_AUDIT_NOAPI"
+  ],
+  "required_approval_phrases": {
+    "nginx_http_proxy_real": "COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL için onay veriyorum",
+    "dns_bind_real": "COINOSKOBI_XYZ_STAGING_DNS_BIND_REAL için onay veriyorum",
+    "ssl_real": "COINOSKOBI_XYZ_STAGING_SSL_REAL için onay veriyorum"
+  },
+  "outputs": {
+    "out_dir": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI/20260521_100438",
+    "plan_md": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI/20260521_100438/nginx_ssl_apply_plan.md",
+    "nginx_conf_draft": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI/20260521_100438/coinoskobi_xyz_staging_nginx.conf.DRAFT",
+    "rollback_md": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI/20260521_100438/nginx_ssl_rollback_plan.md",
+    "approval_md": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI/20260521_100438/explicit_approval_required.md",
+    "checklist_md": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI/20260521_100438/nginx_ssl_checklist.md",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_COINOSKOBI_XYZ_STAGING_NGINX_SSL_APPLY_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_nginx_ssl_apply_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_nginx_ssl_apply_plan_noapi_rows.jsonl"
+  },
+  "evidence": {
+    "baseline_json": "/root/tokenoskobi_clean_v1/data/active_8096_production_v2_baseline_lock_noapi.json",
+    "dns_values_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_dns_values_plan_noapi.json",
+    "role_freeze_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_domain_role_decision_freeze_noapi.json",
+    "dns_locator_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_domain_dns_and_hosting_locator_noapi.json",
+    "baseline_sha": "df3a2b875c5625def98554a026627d80ba8817da7a844e1c5f46ff369491ade7",
+    "dns_values_sha": "fb7118d890d4294c684f3a61f4e1a0fd7ab63cbd4f674cc98b2afd2330cf1847",
+    "role_freeze_sha": "6db889e00a8329646454f33199566c3e73768da2640be628a1734711ce4839d7",
+    "dns_locator_sha": "ca555ce17e7b308d3202ff1ffe0d655650ff01353e99c1b5868bfc522d6c6f46"
+  },
+  "safety": {
+    "noapi": true,
+    "dns_mutation": false,
+    "nginx_mutation": false,
+    "nginx_install": false,
+    "ssl_request": false,
+    "service_restart": false,
+    "firewall_change": false,
+    "active_panel_mutation": false,
+    "db_mutation": false,
+    "paper_live_trade": false
+  },
+  "warnings": 0
+}

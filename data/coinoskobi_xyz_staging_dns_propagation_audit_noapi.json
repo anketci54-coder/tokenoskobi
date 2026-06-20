@@ -1,0 +1,57 @@
+{
+  "phase": "COINOSKOBI_XYZ_STAGING_DNS_PROPAGATION_AUDIT_NOAPI",
+  "stamp": "20260521_103344",
+  "final_decision": "WAIT_PROPAGATION",
+  "target": {
+    "staging_domain": "www.coinoskobi.xyz",
+    "expected_vps_ip": "159.195.74.132",
+    "root_domain": "coinoskobi.xyz",
+    "expected_root_ip": "85.159.66.93"
+  },
+  "dns": {
+    "getent_www": "85.159.66.93    natroredirect.natrocdn.com www.coinoskobi.xyz redirect.natrocdn.com ",
+    "dig_a_www": "redirect.natrocdn.com. natroredirect.natrocdn.com. 85.159.66.93 ",
+    "dig_cname_www": "redirect.natrocdn.com. ",
+    "dig_a_root": "85.159.66.93 ",
+    "dig_1_1_1_1_a_www": "159.195.74.132 ",
+    "dig_8_8_8_8_a_www": "159.195.74.132 ",
+    "www_resolves_to_vps": false,
+    "root_unchanged": true,
+    "cname_removed": false,
+    "public_resolver_1_1_1_1_ok": true,
+    "public_resolver_8_8_8_8_ok": true
+  },
+  "nginx": {
+    "test_rc": 0,
+    "state": "active",
+    "enabled": "enabled",
+    "port_80": 1,
+    "port_443": 0,
+    "port_8096": 1
+  },
+  "http": {
+    "active_8096": {"rc": 0, "code": 200, "bytes": 35104},
+    "host_header": {"rc": 0, "code": 200, "bytes": 35104},
+    "forced_resolve": {"rc": 0, "code": 200, "bytes": 35104},
+    "direct_domain": {"rc": 0, "code": 200, "bytes": 19535}
+  },
+  "files": {
+    "out_dir": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_DNS_PROPAGATION_AUDIT_NOAPI/20260521_103344",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_COINOSKOBI_XYZ_STAGING_DNS_PROPAGATION_AUDIT_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_dns_propagation_audit_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_dns_propagation_audit_noapi_rows.jsonl",
+    "dns_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_DNS_PROPAGATION_AUDIT_NOAPI/20260521_103344/dns_outputs.txt"
+  },
+  "safety": {
+    "noapi": true,
+    "dns_mutation": false,
+    "nginx_mutation": false,
+    "ssl_request": false,
+    "certbot_run": false,
+    "active_panel_mutation": false,
+    "db_mutation": false,
+    "paper_live_trade": false
+  },
+  "warnings": 3,
+  "next_phase_if_pass": "COINOSKOBI_XYZ_STAGING_SSL_APPLY_PLAN_NOAPI"
+}

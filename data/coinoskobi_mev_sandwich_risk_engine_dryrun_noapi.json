@@ -1,0 +1,450 @@
+{
+  "phase": "COINOSKOBI_MEV_SANDWICH_RISK_ENGINE_DRYRUN_NOAPI",
+  "stamp": "20260522_105206",
+  "mode": "MEV_SANDWICH_RISK_ENGINE_CALC_DRYRUN_NOAPI",
+  "plan_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_sandwich_risk_engine_plan_noapi.json",
+  "signal_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_signal_event_contract_dryrun_noapi.json",
+  "sample_case_count": 3,
+  "passed_case_count": 3,
+  "case_results": [
+    {
+      "case": "LOW_RISK_DEEP_POOL",
+      "expected_gate": "ALLOW",
+      "actual_gate": "ALLOW",
+      "passed": true,
+      "input": {
+        "liquidity_usd": 80000,
+        "entry_size_usd": 100,
+        "price_impact_pct": 0.25,
+        "slippage_required_pct": 0.5,
+        "tx_burst_1m": 4,
+        "buy_sell_imbalance": 0.1,
+        "pool_age_minutes": 1440,
+        "same_window_swap_cluster": 0,
+        "known_bot_wallet_touch": false,
+        "gas_spike_ratio": 1.0
+      },
+      "calculation": {
+        "component_scores": {
+          "LIQUIDITY_DEPTH_RISK": 0,
+          "ENTRY_SIZE_POOL_RATIO_RISK": 0,
+          "PRICE_IMPACT_RISK": 0,
+          "SLIPPAGE_REQUIRED_RISK": 0,
+          "TX_BURST_RISK": 0,
+          "BUY_SELL_IMBALANCE_RISK": 0,
+          "POOL_AGE_RISK": 0,
+          "BOT_PATTERN_BONUS_RISK": 0
+        },
+        "entry_size_pool_ratio": 0.00125,
+        "raw_score": 0,
+        "mev_score": 0,
+        "mev_level": "LOW",
+        "entry_gate": "ALLOW",
+        "decision_type": "WATCH",
+        "route_effect": "NO_MEV_BLOCK",
+        "entry_size_multiplier": 1.0,
+        "severity": "LOW",
+        "hard_combos": [],
+        "warnings": []
+      }
+    },
+    {
+      "case": "MEDIUM_RISK_REDUCE_SIZE",
+      "expected_gate": "REDUCE_SIZE",
+      "actual_gate": "REDUCE_SIZE",
+      "passed": true,
+      "input": {
+        "liquidity_usd": 12000,
+        "entry_size_usd": 300,
+        "price_impact_pct": 1.8,
+        "slippage_required_pct": 2.2,
+        "tx_burst_1m": 18,
+        "buy_sell_imbalance": 0.45,
+        "pool_age_minutes": 80,
+        "same_window_swap_cluster": 1,
+        "known_bot_wallet_touch": false,
+        "gas_spike_ratio": 1.2
+      },
+      "calculation": {
+        "component_scores": {
+          "LIQUIDITY_DEPTH_RISK": 0,
+          "ENTRY_SIZE_POOL_RATIO_RISK": 14,
+          "PRICE_IMPACT_RISK": 6,
+          "SLIPPAGE_REQUIRED_RISK": 5,
+          "TX_BURST_RISK": 6,
+          "BUY_SELL_IMBALANCE_RISK": 2,
+          "POOL_AGE_RISK": 2,
+          "BOT_PATTERN_BONUS_RISK": 3
+        },
+        "entry_size_pool_ratio": 0.025,
+        "raw_score": 38,
+        "mev_score": 38,
+        "mev_level": "MEDIUM",
+        "entry_gate": "REDUCE_SIZE",
+        "decision_type": "ENTRY_SIZE_REDUCE",
+        "route_effect": "ACTIVE_WATCH_WITH_SIZE_REDUCTION",
+        "entry_size_multiplier": 0.25,
+        "severity": "MEDIUM",
+        "hard_combos": [],
+        "warnings": [
+          "MEV_MEDIUM",
+          "SLIPPAGE_LIMIT_REQUIRED",
+          "ENTRY_SIZE_REDUCE"
+        ]
+      }
+    },
+    {
+      "case": "HIGH_RISK_BLOCK_LOW_LIQ_HIGH_SLIPPAGE",
+      "expected_gate": "BLOCK",
+      "actual_gate": "BLOCK",
+      "passed": true,
+      "input": {
+        "liquidity_usd": 2200,
+        "entry_size_usd": 200,
+        "price_impact_pct": 6.4,
+        "slippage_required_pct": 6.0,
+        "tx_burst_1m": 34,
+        "buy_sell_imbalance": 0.82,
+        "pool_age_minutes": 18,
+        "same_window_swap_cluster": 4,
+        "known_bot_wallet_touch": true,
+        "gas_spike_ratio": 1.8
+      },
+      "calculation": {
+        "component_scores": {
+          "LIQUIDITY_DEPTH_RISK": 18,
+          "ENTRY_SIZE_POOL_RATIO_RISK": 20,
+          "PRICE_IMPACT_RISK": 18,
+          "SLIPPAGE_REQUIRED_RISK": 15,
+          "TX_BURST_RISK": 10,
+          "BUY_SELL_IMBALANCE_RISK": 8,
+          "POOL_AGE_RISK": 5,
+          "BOT_PATTERN_BONUS_RISK": 12
+        },
+        "entry_size_pool_ratio": 0.09090909090909091,
+        "raw_score": 106,
+        "mev_score": 100,
+        "mev_level": "HIGH",
+        "entry_gate": "BLOCK",
+        "decision_type": "ENTRY_BLOCKED",
+        "route_effect": "BLOCKED_WITH_REASON",
+        "entry_size_multiplier": 0.0,
+        "severity": "HIGH",
+        "hard_combos": [
+          "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+          "HIGH_IMPACT_NEW_POOL",
+          "BOT_TOUCH_WEAK_POOL",
+          "SANDWICH_CLUSTER_IMPACT"
+        ],
+        "warnings": [
+          "MEV_HIGH",
+          "ENTRY_BLOCKED",
+          "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+          "HIGH_IMPACT_NEW_POOL",
+          "BOT_TOUCH_WEAK_POOL",
+          "SANDWICH_CLUSTER_IMPACT"
+        ]
+      }
+    }
+  ],
+  "event_simulations": [
+    {
+      "case": "LOW_RISK_DEEP_POOL",
+      "center_signal_event": {
+        "center_key": "risk",
+        "token_uid": "tok_mev_dryrun_low_risk_deep_pool",
+        "pair_uid": "pair_mev_dryrun_low_risk_deep_pool",
+        "chain": "base",
+        "signal_type": "MEV_SANDWICH_RISK",
+        "score": 0,
+        "severity": "LOW",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 0,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 0,
+            "PRICE_IMPACT_RISK": 0,
+            "SLIPPAGE_REQUIRED_RISK": 0,
+            "TX_BURST_RISK": 0,
+            "BUY_SELL_IMBALANCE_RISK": 0,
+            "POOL_AGE_RISK": 0,
+            "BOT_PATTERN_BONUS_RISK": 0
+          },
+          "hard_combos": [],
+          "entry_gate": "ALLOW"
+        }
+      },
+      "mev_sandwich_risk_event": {
+        "token_uid": "tok_mev_dryrun_low_risk_deep_pool",
+        "pair_uid": "pair_mev_dryrun_low_risk_deep_pool",
+        "chain": "base",
+        "mev_level": "LOW",
+        "sandwich_exposure": 0,
+        "swap_impact_pct": 0.25,
+        "slippage_required_pct": 0.5,
+        "tx_burst_score": 4,
+        "buy_sell_imbalance": 0.1,
+        "entry_gate": "ALLOW",
+        "evidence_json": {
+          "liquidity_usd": 80000,
+          "entry_size_usd": 100,
+          "entry_size_pool_ratio": 0.00125,
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 0,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 0,
+            "PRICE_IMPACT_RISK": 0,
+            "SLIPPAGE_REQUIRED_RISK": 0,
+            "TX_BURST_RISK": 0,
+            "BUY_SELL_IMBALANCE_RISK": 0,
+            "POOL_AGE_RISK": 0,
+            "BOT_PATTERN_BONUS_RISK": 0
+          },
+          "hard_combos": [],
+          "warnings": []
+        }
+      },
+      "fusion_effect": {
+        "route_effect": "NO_MEV_BLOCK",
+        "soft_warnings": [],
+        "hard_blocks": []
+      },
+      "command_decision_effect": {
+        "decision_type": "WATCH",
+        "entry_size_multiplier": 1.0,
+        "reason": {
+          "mev_level": "LOW",
+          "mev_score": 0,
+          "entry_gate": "ALLOW",
+          "warnings": []
+        }
+      }
+    },
+    {
+      "case": "MEDIUM_RISK_REDUCE_SIZE",
+      "center_signal_event": {
+        "center_key": "risk",
+        "token_uid": "tok_mev_dryrun_medium_risk_reduce_size",
+        "pair_uid": "pair_mev_dryrun_medium_risk_reduce_size",
+        "chain": "base",
+        "signal_type": "MEV_SANDWICH_RISK",
+        "score": 38,
+        "severity": "MEDIUM",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 0,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 14,
+            "PRICE_IMPACT_RISK": 6,
+            "SLIPPAGE_REQUIRED_RISK": 5,
+            "TX_BURST_RISK": 6,
+            "BUY_SELL_IMBALANCE_RISK": 2,
+            "POOL_AGE_RISK": 2,
+            "BOT_PATTERN_BONUS_RISK": 3
+          },
+          "hard_combos": [],
+          "entry_gate": "REDUCE_SIZE"
+        }
+      },
+      "mev_sandwich_risk_event": {
+        "token_uid": "tok_mev_dryrun_medium_risk_reduce_size",
+        "pair_uid": "pair_mev_dryrun_medium_risk_reduce_size",
+        "chain": "base",
+        "mev_level": "MEDIUM",
+        "sandwich_exposure": 0,
+        "swap_impact_pct": 1.8,
+        "slippage_required_pct": 2.2,
+        "tx_burst_score": 18,
+        "buy_sell_imbalance": 0.45,
+        "entry_gate": "REDUCE_SIZE",
+        "evidence_json": {
+          "liquidity_usd": 12000,
+          "entry_size_usd": 300,
+          "entry_size_pool_ratio": 0.025,
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 0,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 14,
+            "PRICE_IMPACT_RISK": 6,
+            "SLIPPAGE_REQUIRED_RISK": 5,
+            "TX_BURST_RISK": 6,
+            "BUY_SELL_IMBALANCE_RISK": 2,
+            "POOL_AGE_RISK": 2,
+            "BOT_PATTERN_BONUS_RISK": 3
+          },
+          "hard_combos": [],
+          "warnings": [
+            "MEV_MEDIUM",
+            "SLIPPAGE_LIMIT_REQUIRED",
+            "ENTRY_SIZE_REDUCE"
+          ]
+        }
+      },
+      "fusion_effect": {
+        "route_effect": "ACTIVE_WATCH_WITH_SIZE_REDUCTION",
+        "soft_warnings": [
+          "MEV_MEDIUM",
+          "SLIPPAGE_LIMIT_REQUIRED",
+          "ENTRY_SIZE_REDUCE"
+        ],
+        "hard_blocks": []
+      },
+      "command_decision_effect": {
+        "decision_type": "ENTRY_SIZE_REDUCE",
+        "entry_size_multiplier": 0.25,
+        "reason": {
+          "mev_level": "MEDIUM",
+          "mev_score": 38,
+          "entry_gate": "REDUCE_SIZE",
+          "warnings": [
+            "MEV_MEDIUM",
+            "SLIPPAGE_LIMIT_REQUIRED",
+            "ENTRY_SIZE_REDUCE"
+          ]
+        }
+      }
+    },
+    {
+      "case": "HIGH_RISK_BLOCK_LOW_LIQ_HIGH_SLIPPAGE",
+      "center_signal_event": {
+        "center_key": "risk",
+        "token_uid": "tok_mev_dryrun_high_risk_block_low_liq_high_slippage",
+        "pair_uid": "pair_mev_dryrun_high_risk_block_low_liq_high_slippage",
+        "chain": "base",
+        "signal_type": "MEV_SANDWICH_RISK",
+        "score": 100,
+        "severity": "HIGH",
+        "freshness": "FRESH",
+        "evidence_json": {
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 18,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 20,
+            "PRICE_IMPACT_RISK": 18,
+            "SLIPPAGE_REQUIRED_RISK": 15,
+            "TX_BURST_RISK": 10,
+            "BUY_SELL_IMBALANCE_RISK": 8,
+            "POOL_AGE_RISK": 5,
+            "BOT_PATTERN_BONUS_RISK": 12
+          },
+          "hard_combos": [
+            "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+            "HIGH_IMPACT_NEW_POOL",
+            "BOT_TOUCH_WEAK_POOL",
+            "SANDWICH_CLUSTER_IMPACT"
+          ],
+          "entry_gate": "BLOCK"
+        }
+      },
+      "mev_sandwich_risk_event": {
+        "token_uid": "tok_mev_dryrun_high_risk_block_low_liq_high_slippage",
+        "pair_uid": "pair_mev_dryrun_high_risk_block_low_liq_high_slippage",
+        "chain": "base",
+        "mev_level": "HIGH",
+        "sandwich_exposure": 1,
+        "swap_impact_pct": 6.4,
+        "slippage_required_pct": 6.0,
+        "tx_burst_score": 34,
+        "buy_sell_imbalance": 0.82,
+        "entry_gate": "BLOCK",
+        "evidence_json": {
+          "liquidity_usd": 2200,
+          "entry_size_usd": 200,
+          "entry_size_pool_ratio": 0.09090909090909091,
+          "component_scores": {
+            "LIQUIDITY_DEPTH_RISK": 18,
+            "ENTRY_SIZE_POOL_RATIO_RISK": 20,
+            "PRICE_IMPACT_RISK": 18,
+            "SLIPPAGE_REQUIRED_RISK": 15,
+            "TX_BURST_RISK": 10,
+            "BUY_SELL_IMBALANCE_RISK": 8,
+            "POOL_AGE_RISK": 5,
+            "BOT_PATTERN_BONUS_RISK": 12
+          },
+          "hard_combos": [
+            "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+            "HIGH_IMPACT_NEW_POOL",
+            "BOT_TOUCH_WEAK_POOL",
+            "SANDWICH_CLUSTER_IMPACT"
+          ],
+          "warnings": [
+            "MEV_HIGH",
+            "ENTRY_BLOCKED",
+            "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+            "HIGH_IMPACT_NEW_POOL",
+            "BOT_TOUCH_WEAK_POOL",
+            "SANDWICH_CLUSTER_IMPACT"
+          ]
+        }
+      },
+      "fusion_effect": {
+        "route_effect": "BLOCKED_WITH_REASON",
+        "soft_warnings": [],
+        "hard_blocks": [
+          "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+          "HIGH_IMPACT_NEW_POOL",
+          "BOT_TOUCH_WEAK_POOL",
+          "SANDWICH_CLUSTER_IMPACT"
+        ]
+      },
+      "command_decision_effect": {
+        "decision_type": "ENTRY_BLOCKED",
+        "entry_size_multiplier": 0.0,
+        "reason": {
+          "mev_level": "HIGH",
+          "mev_score": 100,
+          "entry_gate": "BLOCK",
+          "warnings": [
+            "MEV_HIGH",
+            "ENTRY_BLOCKED",
+            "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+            "HIGH_IMPACT_NEW_POOL",
+            "BOT_TOUCH_WEAK_POOL",
+            "SANDWICH_CLUSTER_IMPACT"
+          ]
+        }
+      }
+    }
+  ],
+  "live_counts_before": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "live_counts_after": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "integrity_before": "ok",
+  "integrity_after": "ok",
+  "fk_error_count_before": 0,
+  "fk_error_count_after": 0,
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_ONE_TOKEN_PIPELINE_SIM_NOAPI"
+}

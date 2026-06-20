@@ -1,0 +1,630 @@
+{
+  "phase": "PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI",
+  "started_utc": "2026-06-08T05:43:40.241373+00:00",
+  "finished_utc": "2026-06-08T05:43:40.326931+00:00",
+  "final_gate": "PASS_PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE28F_AI_CALIBRATION_AND_LEARNING_BOUNDARY_PLAN_NOAPI",
+  "phase28a_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28a_center_inventory_gate_cascade_data_integrity_map_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28A_CENTER_INVENTORY_GATE_CASCADE_DATA_INTEGRITY_MAP_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION_CONTRACT_NOAPI"
+  },
+  "phase28b1_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28b1_data_provenance_no_silent_overwrite_rule_repair_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28B1_DATA_PROVENANCE_NO_SILENT_OVERWRITE_RULE_REPAIR_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI"
+  },
+  "phase28c_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28c_hard_gate_and_emergency_brake_contract_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI"
+  },
+  "phase28d_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28d_precomputed_route_matrix_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI"
+  },
+  "validator_trace_contract": {
+    "contract_name": "validator_raw_trace_and_severity_audit_v1",
+    "core_rule": "Validator emits categorized raw trace; Audit Layer owns severity classification.",
+    "validator_can_classify_final_severity": false,
+    "audit_layer_owns_severity": true,
+    "fail_cannot_be_silently_downgraded": true,
+    "accepted_review_requires_evidence_ref": true,
+    "representation_mismatch_is_not_safety_failure_by_default": true,
+    "trace_categories": [
+      "TRACE_TIMER",
+      "TRACE_SERVICE",
+      "TRACE_DB",
+      "TRACE_AUTHORITY",
+      "TRACE_WALLET",
+      "TRACE_DATA_SOURCE",
+      "TRACE_PARSER",
+      "TRACE_SCHEMA",
+      "TRACE_CANONICAL",
+      "TRACE_QUARANTINE",
+      "TRACE_ROUTE",
+      "TRACE_RISK",
+      "TRACE_MATRIX",
+      "TRACE_PANEL",
+      "TRACE_AI_CALIBRATION",
+      "TRACE_SYSTEM_GATE",
+      "TRACE_EMERGENCY_BRAKE"
+    ],
+    "raw_trace_required_fields": [
+      "trace_uid",
+      "trace_category",
+      "trace_code",
+      "trace_message",
+      "trace_source",
+      "source_file_or_unit",
+      "observed_value",
+      "expected_value",
+      "context_ref",
+      "evidence_ref",
+      "created_at",
+      "validator_version",
+      "contract_version"
+    ],
+    "raw_trace_forbidden_fields": [
+      "final_severity",
+      "final_route",
+      "hardblock_override",
+      "paper_decision",
+      "live_decision",
+      "wallet_permission",
+      "canonical_promotion"
+    ],
+    "severity_classes": {
+      "PASS": {
+        "rank": 0,
+        "meaning": "No issue or expected clean condition.",
+        "action": "continue"
+      },
+      "WARN": {
+        "rank": 1,
+        "meaning": "Non-blocking weak signal; monitor only.",
+        "action": "monitor"
+      },
+      "REVIEW": {
+        "rank": 2,
+        "meaning": "Needs review; not enough evidence for FAIL.",
+        "action": "review_before_promotion_or_route"
+      },
+      "ACCEPTED_REVIEW": {
+        "rank": 3,
+        "meaning": "Known false positive or representation mismatch accepted by direct evidence.",
+        "action": "document_acceptance_with_evidence_ref"
+      },
+      "FAIL": {
+        "rank": 4,
+        "meaning": "Confirmed safety, integrity, authority, or runtime failure.",
+        "action": "block_or_reject_according_to_gate"
+      }
+    },
+    "classification_rules": [
+      {
+        "rule_id": "S001",
+        "trace_category": "TRACE_AUTHORITY",
+        "pattern": "paper_live_wallet_action_attempt_when_authority_closed",
+        "severity": "FAIL",
+        "route_effect": "AUTHORITY_BLOCK",
+        "requires": [
+          "direct_current_evidence"
+        ],
+        "notes": "Authority violation is fail."
+      },
+      {
+        "rule_id": "S002",
+        "trace_category": "TRACE_WALLET",
+        "pattern": "eth_sendRawTransaction_or_private_key_or_transaction_signing",
+        "severity": "FAIL",
+        "route_effect": "AUTHORITY_BLOCK",
+        "requires": [
+          "direct_current_evidence"
+        ],
+        "notes": "Actual signing/sending is fail."
+      },
+      {
+        "rule_id": "S003",
+        "trace_category": "TRACE_WALLET",
+        "pattern": "wallet_sign_literal_inside_negative_policy",
+        "severity": "ACCEPTED_REVIEW",
+        "route_effect": "NO_BLOCK",
+        "requires": [
+          "context_ref",
+          "evidence_ref"
+        ],
+        "notes": "Negative policy text is not wallet action."
+      },
+      {
+        "rule_id": "S004",
+        "trace_category": "TRACE_TIMER",
+        "pattern": "systemctl_show_missing_oncalendar_but_unit_has_onboot_onunitactive",
+        "severity": "ACCEPTED_REVIEW",
+        "route_effect": "NO_BLOCK",
+        "requires": [
+          "direct_unit_file_evidence"
+        ],
+        "notes": "Timer trigger representation mismatch accepted by direct unit evidence."
+      },
+      {
+        "rule_id": "S005",
+        "trace_category": "TRACE_SERVICE",
+        "pattern": "oneshot_service_inactive_with_result_success_execmainstatus_0",
+        "severity": "PASS",
+        "route_effect": "NO_BLOCK",
+        "requires": [
+          "systemd_current_evidence"
+        ],
+        "notes": "Inactive oneshot after success is expected."
+      },
+      {
+        "rule_id": "S006",
+        "trace_category": "TRACE_DB",
+        "pattern": "db_integrity_or_quick_check_failed",
+        "severity": "FAIL",
+        "route_effect": "SYSTEM_BLOCK",
+        "requires": [
+          "db_current_evidence"
+        ],
+        "notes": "DB health failure blocks."
+      },
+      {
+        "rule_id": "S007",
+        "trace_category": "TRACE_DATA_SOURCE",
+        "pattern": "wrong_chain_or_wrong_pair_confirmed",
+        "severity": "FAIL",
+        "route_effect": "DATA_POISON_BLOCK",
+        "requires": [
+          "provenance_evidence",
+          "confidence_high_or_confirmed"
+        ],
+        "notes": "Confirmed data poison blocks."
+      },
+      {
+        "rule_id": "S008",
+        "trace_category": "TRACE_DATA_SOURCE",
+        "pattern": "single_weak_source_risk_claim",
+        "severity": "REVIEW",
+        "route_effect": "RISK_REVIEW",
+        "requires": [
+          "source_reliability_context"
+        ],
+        "notes": "Weak single source cannot become hard reject."
+      },
+      {
+        "rule_id": "S009",
+        "trace_category": "TRACE_PARSER",
+        "pattern": "parser_version_missing_or_schema_unknown",
+        "severity": "REVIEW",
+        "route_effect": "MORE_DATA",
+        "requires": [
+          "parser_context"
+        ],
+        "notes": "Parser/schema uncertainty blocks canonical promotion."
+      },
+      {
+        "rule_id": "S010",
+        "trace_category": "TRACE_CANONICAL",
+        "pattern": "canonical_silent_overwrite_attempt",
+        "severity": "FAIL",
+        "route_effect": "DATA_POISON_BLOCK",
+        "requires": [
+          "canonical_lineage_evidence"
+        ],
+        "notes": "Silent canonical overwrite is a hard fail."
+      },
+      {
+        "rule_id": "S011",
+        "trace_category": "TRACE_MATRIX",
+        "pattern": "matrix_expired_or_hash_invalid",
+        "severity": "REVIEW",
+        "route_effect": "MORE_DATA_OR_OBSERVE_ONLY",
+        "requires": [
+          "matrix_version_evidence"
+        ],
+        "notes": "Expired matrix cannot drive route."
+      },
+      {
+        "rule_id": "S012",
+        "trace_category": "TRACE_EMERGENCY_BRAKE",
+        "pattern": "emergency_brake_confirmed",
+        "severity": "FAIL",
+        "route_effect": "BRAKE_ROUTE",
+        "requires": [
+          "direct_current_evidence"
+        ],
+        "notes": "Emergency brake has highest priority."
+      }
+    ],
+    "downgrade_guard": {
+      "fail_to_review_allowed": false,
+      "fail_to_accepted_review_allowed": false,
+      "review_to_accepted_review_allowed_only_with_evidence_ref": true,
+      "accepted_review_must_reference_direct_evidence": true,
+      "accepted_review_must_preserve_original_trace": true
+    },
+    "trace_volume_control": {
+      "rule": "Raw trace must be categorized and compact; no log flood into audit.",
+      "dedupe_keys": [
+        "trace_category",
+        "trace_code",
+        "source_file_or_unit",
+        "observed_value",
+        "expected_value",
+        "context_ref"
+      ],
+      "aggregation_policy": "same_trace_code_same_context_can_be_counted_instead_of_repeated",
+      "max_tail_lines_per_trace": 20
+    },
+    "future_implementation_boundary": {
+      "live_schema_apply_now": false,
+      "db_write_now": false,
+      "panel_write_now": false,
+      "runner_patch_now": false,
+      "service_timer_change_now": false,
+      "future_tempdb_dryrun_required_before_live": true,
+      "future_real_requires_explicit_approval": true
+    }
+  },
+  "trace_to_gate_map": [
+    {
+      "trace_category": "TRACE_AUTHORITY",
+      "owned_by_gate": "AUTHORITY_GATE",
+      "possible_route_effects": [
+        "AUTHORITY_BLOCK",
+        "OBSERVE_ONLY",
+        "NO_ACTION_AUTHORITY"
+      ]
+    },
+    {
+      "trace_category": "TRACE_SERVICE",
+      "owned_by_gate": "SYSTEM_GATE",
+      "possible_route_effects": [
+        "SYSTEM_BLOCK",
+        "SYSTEM_CAUTION",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_TIMER",
+      "owned_by_gate": "SYSTEM_GATE",
+      "possible_route_effects": [
+        "SYSTEM_BLOCK",
+        "ACCEPTED_REVIEW",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_DB",
+      "owned_by_gate": "SYSTEM_GATE",
+      "possible_route_effects": [
+        "SYSTEM_BLOCK",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_DATA_SOURCE",
+      "owned_by_gate": "DATA_GATE",
+      "possible_route_effects": [
+        "DATA_POISON_BLOCK",
+        "MORE_DATA",
+        "DATA_REVIEW"
+      ]
+    },
+    {
+      "trace_category": "TRACE_PARSER",
+      "owned_by_gate": "DATA_GATE",
+      "possible_route_effects": [
+        "MORE_DATA",
+        "DATA_REVIEW",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_SCHEMA",
+      "owned_by_gate": "DATA_GATE",
+      "possible_route_effects": [
+        "MORE_DATA",
+        "DATA_REVIEW",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_CANONICAL",
+      "owned_by_gate": "DATA_GATE",
+      "possible_route_effects": [
+        "DATA_POISON_BLOCK",
+        "DATA_REVIEW",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_RISK",
+      "owned_by_gate": "RISK_GATE",
+      "possible_route_effects": [
+        "REJECT",
+        "RISK_REVIEW",
+        "WATCH_ONLY"
+      ]
+    },
+    {
+      "trace_category": "TRACE_MATRIX",
+      "owned_by_gate": "PRECOMPUTED_MATRIX",
+      "possible_route_effects": [
+        "MORE_DATA_OR_OBSERVE_ONLY",
+        "WATCH_ONLY",
+        "NO_BLOCK"
+      ]
+    },
+    {
+      "trace_category": "TRACE_EMERGENCY_BRAKE",
+      "owned_by_gate": "EMERGENCY_BRAKE",
+      "possible_route_effects": [
+        "SYSTEM_BLOCK",
+        "DATA_POISON_BLOCK",
+        "REJECT",
+        "AUTHORITY_BLOCK"
+      ]
+    }
+  ],
+  "validator_audit_test_cases": [
+    {
+      "case": "wallet_sign_negative_policy_text",
+      "trace_category": "TRACE_WALLET",
+      "trace_code": "wallet_sign_literal_inside_negative_policy",
+      "expected_severity": "ACCEPTED_REVIEW",
+      "expected_route_effect": "NO_BLOCK"
+    },
+    {
+      "case": "actual_transaction_signing",
+      "trace_category": "TRACE_WALLET",
+      "trace_code": "eth_sendRawTransaction_or_private_key_or_transaction_signing",
+      "expected_severity": "FAIL",
+      "expected_route_effect": "AUTHORITY_BLOCK"
+    },
+    {
+      "case": "timer_show_oncalendar_missing_but_direct_unit_trigger_ok",
+      "trace_category": "TRACE_TIMER",
+      "trace_code": "systemctl_show_missing_oncalendar_but_unit_has_onboot_onunitactive",
+      "expected_severity": "ACCEPTED_REVIEW",
+      "expected_route_effect": "NO_BLOCK"
+    },
+    {
+      "case": "db_integrity_failed",
+      "trace_category": "TRACE_DB",
+      "trace_code": "db_integrity_or_quick_check_failed",
+      "expected_severity": "FAIL",
+      "expected_route_effect": "SYSTEM_BLOCK"
+    },
+    {
+      "case": "single_weak_source_honeypot_claim",
+      "trace_category": "TRACE_DATA_SOURCE",
+      "trace_code": "single_weak_source_risk_claim",
+      "expected_severity": "REVIEW",
+      "expected_route_effect": "RISK_REVIEW"
+    },
+    {
+      "case": "canonical_silent_overwrite_attempt",
+      "trace_category": "TRACE_CANONICAL",
+      "trace_code": "canonical_silent_overwrite_attempt",
+      "expected_severity": "FAIL",
+      "expected_route_effect": "DATA_POISON_BLOCK"
+    },
+    {
+      "case": "expired_matrix",
+      "trace_category": "TRACE_MATRIX",
+      "trace_code": "matrix_expired_or_hash_invalid",
+      "expected_severity": "REVIEW",
+      "expected_route_effect": "MORE_DATA_OR_OBSERVE_ONLY"
+    },
+    {
+      "case": "emergency_brake_confirmed",
+      "trace_category": "TRACE_EMERGENCY_BRAKE",
+      "trace_code": "emergency_brake_confirmed",
+      "expected_severity": "FAIL",
+      "expected_route_effect": "BRAKE_ROUTE"
+    }
+  ],
+  "contract_checks": {
+    "VALIDATOR_RAW_TRACE_ONLY": true,
+    "AUDIT_LAYER_OWNS_SEVERITY": true,
+    "FAIL_CANNOT_BE_SILENTLY_DOWNGRADED": true,
+    "ACCEPTED_REVIEW_REQUIRES_EVIDENCE_REF": true,
+    "TRACE_CATEGORIES_OK": true,
+    "RAW_TRACE_REQUIRED_FIELDS_OK": true,
+    "RAW_TRACE_FORBIDDEN_FINAL_SEVERITY": true,
+    "RAW_TRACE_FORBIDDEN_ACTION_FIELDS": true,
+    "SEVERITY_CLASSES_OK": true,
+    "FAIL_RANK_HIGHEST": true,
+    "CLASSIFICATION_RULES_OK": true,
+    "AUTHORITY_FAIL_RULE_PRESENT": true,
+    "WALLET_SIGN_NEGATIVE_POLICY_ACCEPT_RULE_PRESENT": true,
+    "ACTUAL_TRANSACTION_SIGNING_FAIL_RULE_PRESENT": true,
+    "TIMER_REPRESENTATION_MISMATCH_ACCEPT_RULE_PRESENT": true,
+    "CANONICAL_SILENT_OVERWRITE_FAIL_RULE_PRESENT": true,
+    "MATRIX_EXPIRED_REVIEW_RULE_PRESENT": true,
+    "TRACE_TO_GATE_MAP_OK": true,
+    "TEST_CASES_OK": true,
+    "TRACE_VOLUME_CONTROL_PRESENT": true,
+    "NO_LIVE_SCHEMA_APPLY_NOW": true,
+    "NO_DB_WRITE_NOW": true
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "table_count": 284,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "PLAN_ONLY": true,
+    "VALIDATOR_TRACE_CONTRACT_ONLY": true,
+    "NO_LIVE_SCHEMA_APPLY": true,
+    "NO_TEMP_DB_SCHEMA_APPLY": true,
+    "NO_PATCH": true,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "PROJECTED_RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "DB_WRITE": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "SERVICE_WRITE": false,
+    "TIMER_WRITE": false,
+    "RUNNER_WRITE": false,
+    "CANONICAL_WRITE": false,
+    "QUARANTINE_WRITE": false,
+    "STAGING_WRITE": false,
+    "RAW_WRITE": false,
+    "MATRIX_WRITE": false,
+    "VALIDATOR_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "PROTECTHOME_RELAX": false,
+    "BROAD_CHMOD": false,
+    "BLIND_RETRY": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE28A_PASS_AND_OPEN_28B": true,
+    "PHASE28B1_PASS_AND_OPEN_28C": true,
+    "PHASE28C_PASS_AND_OPEN_28D": true,
+    "PHASE28D_PASS_AND_OPEN_28E": true,
+    "VALIDATOR_RAW_TRACE_ONLY": true,
+    "AUDIT_LAYER_OWNS_SEVERITY": true,
+    "FAIL_CANNOT_BE_SILENTLY_DOWNGRADED": true,
+    "ACCEPTED_REVIEW_REQUIRES_EVIDENCE_REF": true,
+    "TRACE_CATEGORIES_OK": true,
+    "RAW_TRACE_REQUIRED_FIELDS_OK": true,
+    "RAW_TRACE_FORBIDDEN_FINAL_SEVERITY": true,
+    "RAW_TRACE_FORBIDDEN_ACTION_FIELDS": true,
+    "SEVERITY_CLASSES_OK": true,
+    "FAIL_RANK_HIGHEST": true,
+    "CLASSIFICATION_RULES_OK": true,
+    "AUTHORITY_FAIL_RULE_PRESENT": true,
+    "WALLET_SIGN_NEGATIVE_POLICY_ACCEPT_RULE_PRESENT": true,
+    "ACTUAL_TRANSACTION_SIGNING_FAIL_RULE_PRESENT": true,
+    "TIMER_REPRESENTATION_MISMATCH_ACCEPT_RULE_PRESENT": true,
+    "CANONICAL_SILENT_OVERWRITE_FAIL_RULE_PRESENT": true,
+    "MATRIX_EXPIRED_REVIEW_RULE_PRESENT": true,
+    "TRACE_TO_GATE_MAP_OK": true,
+    "TEST_CASES_OK": true,
+    "TRACE_VOLUME_CONTROL_PRESENT": true,
+    "NO_LIVE_SCHEMA_APPLY_NOW": true,
+    "NO_DB_WRITE_NOW": true,
+    "DB_EXISTS": true,
+    "DB_INTEGRITY_OK": true,
+    "DB_QUICK_CHECK_OK": true,
+    "DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "SERVICE_UNIT_UNCHANGED": true,
+    "TIMER_UNIT_UNCHANGED": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE28F_AI_CALIBRATION_AND_LEARNING_BOUNDARY_PLAN_NOAPI"
+}

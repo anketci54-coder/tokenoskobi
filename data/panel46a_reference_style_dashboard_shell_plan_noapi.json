@@ -1,0 +1,352 @@
+{
+  "phase": "PANEL46A_REFERENCE_STYLE_DASHBOARD_SHELL_PLAN_NOAPI",
+  "stamp": "20260514_084008",
+  "final_gate": "PASS",
+  "action": "REFERENCE_STYLE_DASHBOARD_SHELL_PLAN_CREATED",
+  "data46_final_gate": "PASS",
+  "design_direction": {
+    "locked_style": "latest_created_icon_window_card_system",
+    "copy_reference_images_directly": false,
+    "preserve": [
+      "dark premium background",
+      "rounded window/card system",
+      "green action emphasis",
+      "compact icon-led navigation",
+      "mobile-first readability",
+      "manual pilot / simulation-only safety language",
+      "risk-aware amount presentation"
+    ],
+    "improve": [
+      "dashboard shell hierarchy",
+      "top summary cards",
+      "left navigation rail for desktop/tablet",
+      "right-side intelligence widgets only after data contract",
+      "cleaner module grouping",
+      "less oversized typography",
+      "no fake live trading claims"
+    ],
+    "forbidden_visual_direction": [
+      "direct screenshot clone",
+      "too much table density on mobile",
+      "fake wallet balance",
+      "fake premium sale pressure",
+      "real buy button before paper/live gates",
+      "unverified whale/news claims"
+    ]
+  },
+  "layout_plan": {
+    "phase": "PANEL46A_REFERENCE_STYLE_DASHBOARD_SHELL_PLAN_NOAPI",
+    "layout_name": "Coinoskobi Dashboard Shell V1",
+    "priority": "build around existing icon/window/card style",
+    "breakpoints": {
+      "mobile": "single-column card stack; current shortlist card style preserved",
+      "tablet": "top KPI row + module cards",
+      "desktop": "left icon sidebar + top KPI strip + central shortlist window + right safety/summary column"
+    },
+    "sections_priority_order": [
+      {
+        "order": 1,
+        "section": "Customer Shortlist Core",
+        "purpose": "READY_MANUAL / VUR_KAC / WATCHING candidates from verified inactive binding",
+        "data_source": "/root/tokenoskobi_clean_v1/public/customer_shortlist_real_binding_staging_v1/customer_shortlist_real_staging.json",
+        "status": "binding_verified_by_DATA46"
+      },
+      {
+        "order": 2,
+        "section": "Safety Strip",
+        "purpose": "DB/API/active apply/paper-live indicators always visible",
+        "status": "must remain visible"
+      },
+      {
+        "order": 3,
+        "section": "KPI Windows",
+        "purpose": "candidate counts, manual-ready count, vur-kac count, watching count, buy-enabled count",
+        "status": "mock first, then bind"
+      },
+      {
+        "order": 4,
+        "section": "Left Icon Navigation",
+        "purpose": "Radar, Shortlist, Whale/Wallet, Lifecycle, Risk/MEV, AI Calibration, Morg/Otopsi",
+        "status": "visual shell only in PANEL46B"
+      },
+      {
+        "order": 5,
+        "section": "Right Intelligence Column",
+        "purpose": "risk notes, latest verified events, system health",
+        "status": "show only available evidence; no fake claims"
+      },
+      {
+        "order": 6,
+        "section": "Module Expansion Slots",
+        "purpose": "future whale/news/lifecycle cards",
+        "status": "empty-state cards until real data exists"
+      }
+    ]
+  },
+  "ui_rules": {
+    "no_rush": true,
+    "priority_driven": true,
+    "active_panel_8096_protected": true,
+    "mobile_first": true,
+    "desktop_shell_allowed_in_preview": true,
+    "visual_language": {
+      "background": "dark/navy gradient",
+      "cards": "rounded glass windows",
+      "accent": "green for safe/manual/simulation; amber for caution; red/pink for high risk",
+      "icons": "simple line icons or emoji fallback; no external icon fetch",
+      "typography": "compact, not oversized",
+      "spacing": "dense but readable",
+      "buttons": "simulation/wait only; no live buy"
+    },
+    "copy_rules": {
+      "use": [
+        "Simülasyon",
+        "Alım kapalı",
+        "NEDEN LİSTEDE?",
+        "Miktar risk skoruna göre küçülür",
+        "Bot bizim. Kontrol senin."
+      ],
+      "avoid": [
+        "Gerçek al",
+        "Kesin kazanç",
+        "Premium baskısı",
+        "Canlı işlem açık",
+        "kanıtsız balina/haber iddiası"
+      ]
+    }
+  },
+  "module_sequence": [
+    {
+      "phase": "PANEL46B_DASHBOARD_SHELL_MOCK_PREVIEW_NOAPI",
+      "type": "mock_preview",
+      "writes": "isolated preview dir only",
+      "port": 8101,
+      "data": "mock + existing verified customer shortlist binding summary",
+      "active_panel": 0,
+      "db": 0,
+      "api": 0
+    },
+    {
+      "phase": "PANEL46C_DASHBOARD_SHELL_VISUAL_RECHECK_NOAPI",
+      "type": "post_preview_audit",
+      "writes": "report/json only",
+      "requires_user_screenshot": true,
+      "active_panel": 0,
+      "db": 0,
+      "api": 0
+    },
+    {
+      "phase": "PANEL46D_DASHBOARD_SHELL_POLISH_NOAPI",
+      "type": "optional_visual_polish",
+      "writes": "isolated preview only",
+      "active_panel": 0,
+      "db": 0,
+      "api": 0
+    },
+    {
+      "phase": "PANEL47_ACTIVE_PANEL_APPLY_PLAN_NOAPI",
+      "type": "plan_only",
+      "writes": "report/json only",
+      "active_panel": 0,
+      "db": 0,
+      "api": 0
+    }
+  ],
+  "data_contract": {
+    "dashboard_shell_contract": "dashboard_shell_v1_preview",
+    "source_binding": "/root/tokenoskobi_clean_v1/public/customer_shortlist_real_binding_staging_v1/customer_shortlist_real_staging.json",
+    "binding_summary": {
+      "exists": true,
+      "sha": "2c2f8b41329a3f127a9f17f1e64a4e90688d5458fbe5555aa961704befed366e",
+      "row_count": 10,
+      "ready_manual_count": 3,
+      "vur_kac_count": 3,
+      "watching_count": 4,
+      "buy_enabled_count": 0,
+      "simulation_only_count": 10
+    },
+    "allowed_preview_data": [
+      "candidate counts from customer shortlist binding",
+      "simulation-only state",
+      "safety indicators",
+      "mock shell labels for future modules"
+    ],
+    "forbidden_preview_data": [
+      "fake wallet balance",
+      "fake live profit",
+      "fake whale transfer",
+      "fake news impact",
+      "fake AI accuracy",
+      "fake live buy availability"
+    ],
+    "hard_rules": [
+      "buy_enabled must remain 0",
+      "paper/live remains 0",
+      "active panel apply remains 0 until separate explicit plan + approval",
+      "any future whale/news/lifecycle widgets must show empty state unless verified evidence exists"
+    ]
+  },
+  "mock_preview_plan": {
+    "next_phase": "PANEL46B_DASHBOARD_SHELL_MOCK_PREVIEW_NOAPI",
+    "preview_port": 8101,
+    "preview_dir_pattern": "/root/tokenoskobi_clean_v1/panel_previews/panel46b_dashboard_shell_mock_preview_<STAMP>",
+    "style_base": "latest_created_icon_window_card_system",
+    "must_include": [
+      "top app bar",
+      "compact safety badges",
+      "summary KPI cards",
+      "shortlist window using real staging binding rows",
+      "desktop left icon rail",
+      "right safety/info windows",
+      "mobile responsive card stack"
+    ],
+    "must_not_include": [
+      "active 8096 mutation",
+      "DB write",
+      "API/fetch",
+      "service/timer restart",
+      "paper/live write",
+      "real buy button"
+    ]
+  },
+  "binding": {
+    "exists": true,
+    "sha": "2c2f8b41329a3f127a9f17f1e64a4e90688d5458fbe5555aa961704befed366e",
+    "row_count": 10,
+    "ready_manual_count": 3,
+    "vur_kac_count": 3,
+    "watching_count": 4,
+    "buy_enabled_count": 0,
+    "simulation_only_count": 10
+  },
+  "checks": {
+    "data46_passed": true,
+    "data46_binding_verified": true,
+    "data46_ready_for_panel46a": true,
+    "design_direction_locked": true,
+    "customer_binding_exists": true,
+    "customer_binding_row_count_10": true,
+    "customer_binding_buy_enabled_zero": true,
+    "customer_binding_simulation_only_all": true,
+    "plan_json_written": true,
+    "layout_plan_written": true,
+    "ui_rules_written": true,
+    "module_sequence_written": true,
+    "data_contract_written": true,
+    "mock_preview_plan_written": true,
+    "copy_reference_images_directly_false": true,
+    "next_preview_port_8101": true,
+    "db_unchanged": true,
+    "wrapper_unchanged": true,
+    "original_unchanged": true,
+    "builder_unchanged": true,
+    "inactive_target_unchanged": true,
+    "customer_binding_unchanged": true,
+    "active_index_unchanged": true,
+    "active_panel_data_unchanged": true,
+    "active_dash_extra_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "db_fk_zero": true,
+    "paper_runtime_zero": true,
+    "service_result_success": true,
+    "service_exec_status_zero": true,
+    "timer_active_inactive": true,
+    "timer_enabled_enabled": true,
+    "runner_zero": true,
+    "lock_absent": true,
+    "panel_8096_listen": true,
+    "panel_8097_listen": true,
+    "panel_8098_listen": true,
+    "panel_8099_listen": true,
+    "panel_8100_listen": true,
+    "builder_compile_zero": true,
+    "builder_sha_expected": true
+  },
+  "failed_checks": [],
+  "failed_check_count": 0,
+  "decision": {
+    "dashboard_shell_plan_ready": true,
+    "style_direction_confirmed": "latest_created_icon_window_card_system",
+    "reference_images_direct_clone": false,
+    "panel46b_mock_preview_allowed_next": true,
+    "active_panel_apply_allowed_now": false,
+    "public_copy_to_active_panel_allowed_now": false,
+    "db_write_allowed_now": false,
+    "api_fetch_allowed_now": false,
+    "paper_live_allowed_now": false,
+    "customer_visible_now": false,
+    "admin_preview_only": true,
+    "next_phase": "PANEL46B_DASHBOARD_SHELL_MOCK_PREVIEW_NOAPI",
+    "alternate_next_phase": "PANEL46_CUSTOMER_SHORTLIST_ACTIVE_PANEL_APPLY_PLAN_NOAPI"
+  },
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "liquidity_snapshots": 45,
+    "market_snapshots": 45,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "panel_8099": "LISTEN",
+  "panel_8100": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "builder_unchanged": true,
+  "inactive_target_unchanged": true,
+  "customer_binding_unchanged": true,
+  "active_index_unchanged": true,
+  "active_panel_data_unchanged": true,
+  "active_dash_extra_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "APPENDED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "external_network": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "ui_file_written": false,
+  "preview_server_started": false,
+  "panel_data_written": false,
+  "panel_data_file_written": false,
+  "public_copy_to_active_panel": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "core_patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "out_dir": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008",
+  "plan_json": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008/panel46a_dashboard_shell_plan.json",
+  "layout_plan_file": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008/panel46a_layout_plan.json",
+  "ui_rules_file": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008/panel46a_ui_rules.json",
+  "module_sequence_file": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008/panel46a_module_sequence.jsonl",
+  "data_contract_file": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008/panel46a_dashboard_shell_data_contract_plan.json",
+  "mock_preview_plan_file": "/root/tokenoskobi_clean_v1/_panel46a_reference_style_dashboard_shell_plan_noapi/20260514_084008/panel46a_to_panel46b_mock_preview_plan.json",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PANEL46A_REFERENCE_STYLE_DASHBOARD_SHELL_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/panel46a_reference_style_dashboard_shell_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md",
+  "next_phase": "PANEL46B_DASHBOARD_SHELL_MOCK_PREVIEW_NOAPI",
+  "alternate_next_phase": "PANEL46_CUSTOMER_SHORTLIST_ACTIVE_PANEL_APPLY_PLAN_NOAPI"
+}

@@ -1,0 +1,143 @@
+{
+  "schema_version": "runtime_paths_v1",
+  "scaffold_status": "INERT_CONFIG_ONLY_NO_RUNTIME_EFFECT",
+  "created_by_phase": "PHASE41_AUTHORITY_POLICY_CONFIG_SCAFFOLD_NOAPI",
+  "documentation": {
+    "purpose": "Logical runtime path registry scaffold for future core/paths.py.",
+    "runtime_effect": "None. Existing hardcoded paths remain unchanged until a future approved migration.",
+    "design_goal": "Replace direct dependencies on /root/tokenoskobi_clean_v1 with logical path keys."
+  },
+  "root_policy": {
+    "legacy_root": "/root/tokenoskobi_clean_v1",
+    "legacy_root_status": "deprecated_but_currently_required",
+    "future_environment_override": "TOKENOSKOBI_ROOT",
+    "deny_unknown_absolute_write_targets": true,
+    "hot_path_mutation_default": "deny"
+  },
+  "paths": {
+    "repo_root": {
+      "kind": "root",
+      "default": ".",
+      "description": "Repository checkout root."
+    },
+    "runtime_root": {
+      "kind": "root",
+      "default": "/root/tokenoskobi_clean_v1",
+      "description": "Current legacy runtime root until path migration is approved."
+    },
+    "data_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/data",
+      "description": "Runtime data directory."
+    },
+    "sqlite_db": {
+      "kind": "file",
+      "default": "{data_dir}/tokenoskobi_clean_v1.sqlite",
+      "description": "Current runtime SQLite database path.",
+      "hot_path": true
+    },
+    "public_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/public",
+      "description": "Public generated output directory."
+    },
+    "active_panel_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/active_panel_8096/current",
+      "description": "Current active dashboard panel directory.",
+      "hot_path": true
+    },
+    "active_panel_data": {
+      "kind": "file",
+      "default": "{active_panel_dir}/data/production_v2_control_center_data.json",
+      "description": "Current active dashboard production data file.",
+      "hot_path": true
+    },
+    "panel_assets_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/panel_assets",
+      "description": "Panel asset root."
+    },
+    "panel_icons_final_dir": {
+      "kind": "directory",
+      "default": "{panel_assets_dir}/center_icons_final",
+      "description": "Final center icon asset root."
+    },
+    "panel_icons_dir": {
+      "kind": "directory",
+      "default": "{panel_assets_dir}/center_icons",
+      "description": "Fallback center icon asset root."
+    },
+    "secrets_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/.secrets",
+      "description": "Local untracked secret storage directory.",
+      "hot_path": true,
+      "tracked_in_git": false
+    },
+    "backups_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/backups",
+      "description": "Rollback and backup output directory."
+    },
+    "temp_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/tmp",
+      "description": "Future temporary runtime output directory."
+    },
+    "status_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/status",
+      "description": "Future status/report output directory."
+    },
+    "tools_dir": {
+      "kind": "directory",
+      "default": "{runtime_root}/tools",
+      "description": "Current legacy runtime tools directory."
+    }
+  },
+  "write_classes": {
+    "read_only": {
+      "allowed_by_default": true
+    },
+    "temp_output": {
+      "allowed_by_default": true,
+      "requires_hot_path_check": true
+    },
+    "status_output": {
+      "allowed_by_default": true,
+      "requires_hot_path_check": true
+    },
+    "preview_output": {
+      "allowed_by_default": true,
+      "requires_hot_path_check": true
+    },
+    "backup_output": {
+      "allowed_by_default": true,
+      "requires_hot_path_check": true
+    },
+    "secret_output": {
+      "allowed_by_default": false,
+      "requires_authority": true,
+      "requires_approval": true
+    },
+    "active_hot_path_output": {
+      "allowed_by_default": false,
+      "requires_authority": true,
+      "requires_approval": true,
+      "requires_rollback": true
+    }
+  },
+  "future_consumers": [
+    "core/paths.py",
+    "core/secrets.py",
+    "tools/*",
+    "control_dashboard_engine_v1/*",
+    "systemd_drafts/*",
+    "future_schema_apply_tools"
+  ],
+  "audit": {
+    "known_issue": "OLD_INTERNAL_PATH_STILL_PRESENT",
+    "migration_state": "scaffold_only_no_consumers"
+  }
+}

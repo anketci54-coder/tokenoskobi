@@ -1,0 +1,623 @@
+{
+  "all_target_table_audit_count": 37,
+  "backfill_rows": [
+    {
+      "plan_id": "phase4_source_manifest",
+      "planned_rows": 1,
+      "purpose": "Persist source manifest/hash/gate summary only in future dry-run/real backfill.",
+      "source": "phase4_final_review_noapi",
+      "target_logical_bucket": "phase4_run_manifest",
+      "target_table": null,
+      "write_now": false
+    },
+    {
+      "plan_id": "initial_holder_group_evidence",
+      "planned_rows": 7,
+      "purpose": "Persist 7 final initial-holder transfer/mint groups without risk clearance.",
+      "source": "phase4_initial_holder_getlogs",
+      "target_logical_bucket": "initial_holder_groups",
+      "target_table": "initial_holder_evidence_events_v1",
+      "write_now": false
+    },
+    {
+      "plan_id": "deployer_receipt_evidence",
+      "planned_rows": 11,
+      "purpose": "Persist 11 receipt rows with token_log_match, creation_proof and zero_mint_wait_more_data flags.",
+      "source": "phase4_deployer_creation_tx_receipts",
+      "target_logical_bucket": "deployer_receipts",
+      "target_table": "deployer_receipt_evidence_events_v1",
+      "write_now": false
+    },
+    {
+      "plan_id": "deployer_receipt_group_summary",
+      "planned_rows": 7,
+      "purpose": "Persist 7 deployer receipt group summaries.",
+      "source": "phase4_deployer_receipt_groups",
+      "target_logical_bucket": "deployer_receipts",
+      "target_table": "deployer_receipt_evidence_events_v1",
+      "write_now": false
+    },
+    {
+      "plan_id": "quality_guard_events",
+      "planned_rows": 4,
+      "purpose": "Persist explicit no-risk-clearance/no-paper/no-live/no-watchlist guard labels.",
+      "source": "phase4_and_phase5_safety_guards",
+      "target_logical_bucket": "quality_events",
+      "target_table": "live_data_quality_events",
+      "write_now": false
+    }
+  ],
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "failed_checks": [
+    "phase4_hard_checks_all_pass",
+    "all_backfill_targets_chosen",
+    "chosen_target_tables_empty"
+  ],
+  "failed_phase4_checks": [
+    "initial_holder_total_214",
+    "initial_holder_done_214",
+    "initial_holder_remaining_0",
+    "initial_holder_group_count_7"
+  ],
+  "failed_phase5h_checks": [],
+  "field_mappings": [
+    {
+      "field": "source_phase",
+      "required": true,
+      "source_value": "PHASE4_FINAL_REVIEW_NOAPI",
+      "target_bucket": "phase4_run_manifest"
+    },
+    {
+      "field": "source_json_sha256",
+      "required": true,
+      "source_value": "7be482e905c75bf528a4116be932173a83837a3e03c97c890ee115169ac82195",
+      "target_bucket": "phase4_run_manifest"
+    },
+    {
+      "field": "source_rows_sha256",
+      "required": true,
+      "source_value": "75ddf4d8e85c8a6ce37231c3b0d6a69f0adf91a8b9e30da0c938e7ba1ea4ba59",
+      "target_bucket": "phase4_run_manifest"
+    },
+    {
+      "field": "final_gate",
+      "required": true,
+      "source_value": "PASS_PHASE4_FINAL_REVIEW_NOAPI",
+      "target_bucket": "phase4_run_manifest"
+    },
+    {
+      "field": "getlogs_total",
+      "required": true,
+      "source_value": 214,
+      "target_bucket": "initial_holder_groups"
+    },
+    {
+      "field": "getlogs_done",
+      "required": true,
+      "source_value": 214,
+      "target_bucket": "initial_holder_groups"
+    },
+    {
+      "field": "getlogs_remaining",
+      "required": true,
+      "source_value": 0,
+      "target_bucket": "initial_holder_groups"
+    },
+    {
+      "field": "group_count",
+      "required": true,
+      "source_value": 7,
+      "target_bucket": "initial_holder_groups"
+    },
+    {
+      "field": "receipt_found",
+      "required": true,
+      "source_value": 11,
+      "target_bucket": "deployer_receipts"
+    },
+    {
+      "field": "token_log_match",
+      "required": true,
+      "source_value": 11,
+      "target_bucket": "deployer_receipts"
+    },
+    {
+      "field": "creation_proof",
+      "required": true,
+      "source_value": 2,
+      "target_bucket": "deployer_receipts"
+    },
+    {
+      "field": "zero_mint_wait_more_data",
+      "required": true,
+      "source_value": 9,
+      "target_bucket": "deployer_receipts"
+    },
+    {
+      "field": "risk_clearance",
+      "required": true,
+      "source_value": "False",
+      "target_bucket": "quality_events"
+    },
+    {
+      "field": "paper_permission",
+      "required": true,
+      "source_value": "False",
+      "target_bucket": "quality_events"
+    },
+    {
+      "field": "live_permission",
+      "required": true,
+      "source_value": "False",
+      "target_bucket": "quality_events"
+    },
+    {
+      "field": "watchlist_score_permission",
+      "required": true,
+      "source_value": "False",
+      "target_bucket": "quality_events"
+    }
+  ],
+  "final_gate": "REVIEW_REQUIRED_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T04:49:41.631323+00:00",
+  "guards": [
+    {
+      "guard": "NO_DB_WRITE_IN_PHASE5I",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_API_RPC_FETCH",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_PANEL_MUTATION",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_SERVICE_TIMER_MUTATION",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "NO_PAPER_LIVE_WATCHLIST_SCORE",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "ZERO_MINT_IS_WAIT_MORE_DATA_NOT_CREATION_PROOF",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "PHASE4_EVIDENCE_IS_NOT_RISK_CLEARANCE",
+      "required": true,
+      "status": "LOCKED"
+    },
+    {
+      "guard": "BACKFILL_REAL_REQUIRES_LATER_EXPLICIT_APPROVAL",
+      "required": true,
+      "status": "LOCKED"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "db_sha_start": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "missing_targets": [
+    {
+      "plan_id": "phase4_source_manifest",
+      "planned_rows": 1,
+      "purpose": "Persist source manifest/hash/gate summary only in future dry-run/real backfill.",
+      "source": "phase4_final_review_noapi",
+      "target_logical_bucket": "phase4_run_manifest",
+      "target_table": null,
+      "write_now": false
+    }
+  ],
+  "next_phase": "REVIEW_PHASE5I_BACKFILL_PLAN_FAILURES_NOAPI",
+  "outputs": {
+    "backfill_row_plan": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_backfill_row_plan.jsonl",
+    "dryrun_sql": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_future_backfill_dryrun_insert_template_noapi.sql",
+    "field_mapping_rows": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_field_mapping_plan.jsonl",
+    "guard_rows": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_backfill_guard_plan.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5i_evidence_backfill_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_evidence_backfill_plan_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5i_evidence_backfill_plan_noapi_rows.jsonl",
+    "source_audit_rows": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_source_evidence_audit.jsonl",
+    "target_mapping_rows": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941/phase5i_target_table_mapping_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI/20260601_074941"
+  },
+  "pass_conditions": {
+    "active_index_exists": true,
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_backfill_targets_chosen": false,
+    "backfill_row_plan_written": true,
+    "chosen_target_tables_empty": false,
+    "creation_proof_rows_limited_to_2": true,
+    "db_exists": true,
+    "db_health_ok": true,
+    "db_sha_expected_match_start": true,
+    "db_unchanged": true,
+    "dryrun_sql_written": true,
+    "field_mapping_rows_written": true,
+    "guard_rows_written": true,
+    "hosts_exists": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "phase4_hard_checks_all_pass": false,
+    "phase5h_dependency_all_pass": true,
+    "planned_rows_total_positive": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "safety_noapi_clean": true,
+    "source_audit_rows_written": true,
+    "target_mapping_rows_written": true,
+    "zero_mint_classified_wait_more_data": true
+  },
+  "phase": "PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI",
+  "phase4_checks": {
+    "creation_proof_2": true,
+    "deployer_receipt_group_count_7": true,
+    "initial_holder_done_214": false,
+    "initial_holder_group_count_7": false,
+    "initial_holder_remaining_0": false,
+    "initial_holder_total_214": false,
+    "phase4_closed_true": true,
+    "phase4_decision_match": true,
+    "phase4_gate_pass": true,
+    "phase4_json_exists": true,
+    "phase4_report_exists": true,
+    "phase4_rows_exists": true,
+    "receipt_found_11": true,
+    "receipt_rows_11": true,
+    "row_creation_confirmed_2_pass": true,
+    "row_receipt_group_7_pass": true,
+    "row_receipt_rows_found_all_pass": true,
+    "row_token_log_match_all_pass": true,
+    "row_unproven_zero_mint_9_pass": true,
+    "token_log_match_11": true,
+    "unproven_zero_mint_9": true
+  },
+  "phase5h_checks": {
+    "phase5h_all_indexes_exist": true,
+    "phase5h_all_tables_exist": true,
+    "phase5h_db_health_ok": true,
+    "phase5h_failed_checks_none": true,
+    "phase5h_final_gate_pass": true,
+    "phase5h_json_exists": true,
+    "phase5h_next_match": true,
+    "phase5h_paper_live_clean": true,
+    "phase5h_report_exists": true,
+    "phase5h_rows_exists": true,
+    "phase5h_safety_noapi_clean": true,
+    "phase5h_target_tables_zero": true
+  },
+  "planned_rows_total": 30,
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "row_plan": {
+    "creation_proof_rows": 2,
+    "deployer_receipt_group_rows": 7,
+    "deployer_receipt_rows": 11,
+    "execution_safety_seed_rows": 0,
+    "initial_holder_group_rows": 7,
+    "outcome_memory_seed_rows": 0,
+    "phase4_source_manifest_rows": 1,
+    "quality_guard_rows": 4,
+    "zero_mint_wait_more_data_rows": 9
+  },
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "backfill_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "full_rpc_url_printed": false,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "secret_printed": false,
+    "service_timer_mutation": false,
+    "watchlist_permission": false
+  },
+  "source_audit": [
+    {
+      "exists": true,
+      "purpose": "Phase 4 final summary and hard-check values",
+      "sha256": "7be482e905c75bf528a4116be932173a83837a3e03c97c890ee115169ac82195",
+      "source": "/root/tokenoskobi_clean_v1/data/phase4_final_review_noapi.json"
+    },
+    {
+      "exists": true,
+      "purpose": "Phase 4 test/evidence row stream",
+      "sha256": "75ddf4d8e85c8a6ce37231c3b0d6a69f0adf91a8b9e30da0c938e7ba1ea4ba59",
+      "source": "/root/tokenoskobi_clean_v1/data/phase4_final_review_noapi_rows.jsonl"
+    },
+    {
+      "exists": true,
+      "purpose": "Human-readable Phase 4 final review",
+      "sha256": "ee5a2ef9529166710b8cdda5a06b168a029a4a043ee88a87e7139ae37fead986",
+      "source": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE4_FINAL_REVIEW_NOAPI.md"
+    },
+    {
+      "exists": true,
+      "purpose": "Post-apply schema audit dependency",
+      "sha256": "9be2a5549f7d05e288f9918f7e468c57d2c1c2428cde06030398c8217513347e",
+      "source": "/root/tokenoskobi_clean_v1/data/phase5h_schema_apply_post_audit_noapi.json"
+    },
+    {
+      "exists": true,
+      "purpose": "Post-apply schema audit row stream",
+      "sha256": "38f246eb69a8f16a9ed86ab90ca60c4e479d56586f5a75dee64b1192855293de",
+      "source": "/root/tokenoskobi_clean_v1/data/phase5h_schema_apply_post_audit_noapi_rows.jsonl"
+    }
+  ],
+  "started_at_utc": "2026-06-01T04:49:41.585993+00:00",
+  "target_maps": [
+    {
+      "candidate_tables": [
+        "evidence_source_events_v1",
+        "source_evidence_events_v1",
+        "evidence_event_backbone_v1"
+      ],
+      "chosen_exists": false,
+      "chosen_table": null,
+      "column_count": 0,
+      "columns": [],
+      "current_row_count": null,
+      "logical_bucket": "phase4_run_manifest"
+    },
+    {
+      "candidate_tables": [
+        "initial_holder_transfer_mint_evidence_events_v1",
+        "initial_holder_evidence_events_v1",
+        "holder_distribution_events_v1",
+        "holder_distribution_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "initial_holder_evidence_events_v1",
+      "column_count": 10,
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "holder_group_key",
+        "scan_window_json",
+        "transfer_mint_summary_json",
+        "risk_interpretation",
+        "source_object_uid",
+        "created_at_utc"
+      ],
+      "current_row_count": 0,
+      "logical_bucket": "initial_holder_groups"
+    },
+    {
+      "candidate_tables": [
+        "deployer_receipt_evidence_events_v1",
+        "deployer_wallet_evidence_events_v1",
+        "deployer_wallet_events_v1",
+        "deployer_wallet_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "deployer_receipt_evidence_events_v1",
+      "column_count": 12,
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "chain",
+        "tx_hash",
+        "receipt_found",
+        "token_log_match",
+        "creation_proof",
+        "zero_mint_unproven",
+        "interpretation_label",
+        "source_object_uid",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "current_row_count": 0,
+      "logical_bucket": "deployer_receipts"
+    },
+    {
+      "candidate_tables": [
+        "evidence_quality_events_v1",
+        "live_data_quality_events_v1",
+        "live_data_quality_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "live_data_quality_events",
+      "column_count": 15,
+      "columns": [
+        "quality_event_uid",
+        "created_at_utc",
+        "fetch_uid",
+        "staging_uid",
+        "token_uid",
+        "pair_uid",
+        "severity",
+        "event_type",
+        "event_reason",
+        "field_name",
+        "old_value",
+        "new_value",
+        "expected_rule",
+        "snapshot_blocked",
+        "manual_review_required"
+      ],
+      "current_row_count": 99,
+      "logical_bucket": "quality_events"
+    },
+    {
+      "candidate_tables": [
+        "execution_safety_gate_events_v2",
+        "execution_preflight_audit_events_v1"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "execution_safety_gate_events_v2",
+      "column_count": 25,
+      "columns": [
+        "safety_event_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "route_type",
+        "policy_uid",
+        "hard_block",
+        "sell_route_status",
+        "minimum_pool_liquidity_usd",
+        "exit_liquidity_usd",
+        "buy_price_impact_pct",
+        "sell_price_impact_pct",
+        "expected_slippage_pct",
+        "max_position_size_usd",
+        "tax_buy_pct",
+        "tax_sell_pct",
+        "mev_status",
+        "sandwich_exposure_status",
+        "gas_cost_sanity",
+        "protected_route_status",
+        "execution_permission",
+        "failed_gate_list_json",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "current_row_count": 0,
+      "logical_bucket": "execution_gate_seed"
+    },
+    {
+      "candidate_tables": [
+        "cascading_execution_filter_eval_events_v1",
+        "execution_rpc_budget_guard_events_v1"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "cascading_execution_filter_eval_events_v1",
+      "column_count": 16,
+      "columns": [
+        "eval_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "route_type",
+        "current_stage_no",
+        "current_stage_id",
+        "stage_result",
+        "stop_reason",
+        "rpc_calls_used",
+        "eth_call_used",
+        "router_quote_used",
+        "execution_permission",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "current_row_count": 0,
+      "logical_bucket": "cascading_filter_seed"
+    },
+    {
+      "candidate_tables": [
+        "outcome_memory_events_v2",
+        "negative_memory_guard_events_v1",
+        "token_lifecycle_autopsy_events_v1"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "outcome_memory_events_v2",
+      "column_count": 17,
+      "columns": [
+        "outcome_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "linked_decision_uid",
+        "linked_preflight_uid",
+        "linked_paper_decision_uid",
+        "outcome_label",
+        "outcome_window",
+        "pnl_pct",
+        "max_runup_pct",
+        "max_drawdown_pct",
+        "liquidity_change_pct",
+        "evidence_hash",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "current_row_count": 0,
+      "logical_bucket": "outcome_memory_seed"
+    }
+  ],
+  "target_tables_current_nonzero": [
+    {
+      "candidate_tables": [
+        "evidence_quality_events_v1",
+        "live_data_quality_events_v1",
+        "live_data_quality_events"
+      ],
+      "chosen_exists": true,
+      "chosen_table": "live_data_quality_events",
+      "column_count": 15,
+      "columns": [
+        "quality_event_uid",
+        "created_at_utc",
+        "fetch_uid",
+        "staging_uid",
+        "token_uid",
+        "pair_uid",
+        "severity",
+        "event_type",
+        "event_reason",
+        "field_name",
+        "old_value",
+        "new_value",
+        "expected_rule",
+        "snapshot_blocked",
+        "manual_review_required"
+      ],
+      "current_row_count": 99,
+      "logical_bucket": "quality_events"
+    }
+  ],
+  "warnings": [
+    "SOME_BACKFILL_TARGET_TABLES_NOT_FOUND",
+    "SOME_TARGET_TABLES_ALREADY_NONZERO",
+    "PLAN_ONLY_NO_BACKFILL_EXECUTED"
+  ]
+}

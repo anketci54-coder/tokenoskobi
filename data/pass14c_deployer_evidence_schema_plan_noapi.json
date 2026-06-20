@@ -1,0 +1,55 @@
+{
+  "phase": "PASS14C_DEPLOYER_EVIDENCE_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "deployer_evidence_ledger_v1",
+      "purpose": "canonical_evidence_store"
+    },
+    {
+      "table": "deployer_history_registry_v1",
+      "purpose": "historical_deployments"
+    },
+    {
+      "table": "deployer_outcome_registry_v1",
+      "purpose": "outcome_tracking"
+    },
+    {
+      "table": "deployer_cluster_registry_v1",
+      "purpose": "wallet_relationships"
+    },
+    {
+      "table": "deployer_provenance_registry_v1",
+      "purpose": "evidence_provenance"
+    }
+  ],
+  "tier1_evidence": [
+    "DEPLOYER_HISTORY_EVENT",
+    "DEPLOYER_PREVIOUS_TOKEN_EVENT",
+    "DEPLOYER_HONEYPOT_LINK_EVENT",
+    "DEPLOYER_RUG_LINK_EVENT",
+    "DEPLOYER_CLUSTER_LINK_EVENT",
+    "DEPLOYER_FIRST_FUNDING_EVENT",
+    "DEPLOYER_FUNDING_SOURCE_EVENT",
+    "DEPLOYER_LP_BEHAVIOR_EVENT",
+    "DEPLOYER_PROVENANCE_EVENT"
+  ],
+  "tier2_longitudinal_evidence": [
+    "DEPLOYER_ABANDONED_LINK_EVENT",
+    "DEPLOYER_FAILED_LINK_EVENT",
+    "DEPLOYER_SUCCESS_LINK_EVENT",
+    "DEPLOYER_SURVIVAL_EVENT"
+  ],
+  "forbidden": [
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN",
+    "NO_DEPLOYER_SCORE"
+  ],
+  "decision": "PASS14C_ACCEPTED_READY_FOR_PASS14D"
+}

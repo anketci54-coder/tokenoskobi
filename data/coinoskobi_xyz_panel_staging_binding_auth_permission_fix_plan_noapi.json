@@ -1,0 +1,91 @@
+{
+  "phase": "COINOSKOBI_XYZ_PANEL_STAGING_BINDING_AUTH_PERMISSION_FIX_PLAN_NOAPI",
+  "stamp": "20260524_160832",
+  "final_ok": true,
+  "final_decision": "PASS_AUTH_PERMISSION_FIX_PLAN_READY_NOAPI",
+  "real_json_parse_ok": true,
+  "diag_json_parse_ok": true,
+  "diagnosed_problem": "nginx worker cannot read auth file",
+  "auth_permission_problem_confirmed": false,
+  "nginx_worker_user": "www-data",
+  "nginx_worker_group": "www-data",
+  "nginx_worker_source": "nginx_T_user_directive",
+  "auth_file": "/etc/nginx/.htpasswd_coinoskobi_xyz_panel",
+  "auth_stat": {
+    "exists": true,
+    "mode": "0o640",
+    "uid": 0,
+    "gid": 0,
+    "owner": "root",
+    "group": "root",
+    "size": 53
+  },
+  "etc_stat": {
+    "exists": true,
+    "mode": "0o755",
+    "uid": 0,
+    "gid": 0,
+    "owner": "root",
+    "group": "root",
+    "size": 4096
+  },
+  "etc_nginx_stat": {
+    "exists": true,
+    "mode": "0o755",
+    "uid": 0,
+    "gid": 0,
+    "owner": "root",
+    "group": "root",
+    "size": 4096
+  },
+  "nginx_target_stat": {
+    "exists": true,
+    "mode": "0o644",
+    "uid": 0,
+    "gid": 0,
+    "owner": "root",
+    "group": "root",
+    "size": 1767
+  },
+  "worker_read_test": {
+    "tested": true,
+    "rc": 0,
+    "out": "NOT_READABLE",
+    "worker_can_read": true
+  },
+  "planned_fix": {
+    "strategy": "chgrp_worker_group_and_chmod_640",
+    "commands": [
+      "chgrp www-data /etc/nginx/.htpasswd_coinoskobi_xyz_panel",
+      "chmod 640 /etc/nginx/.htpasswd_coinoskobi_xyz_panel"
+    ],
+    "reason": "keep file non-world-readable while allowing nginx worker group to read auth file"
+  },
+  "real_draft": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_PANEL_STAGING_BINDING_AUTH_PERMISSION_FIX_PLAN_NOAPI/20260524_160832/REAL_AUTH_PERMISSION_FIX_DRAFT_REFUSES_EXECUTION.sh",
+  "required_approval": "COINOSKOBI XYZ AUTH PERMISSION FIX REAL için onay veriyorum",
+  "db": {
+    "ok": true,
+    "integrity": "ok",
+    "fk": 0
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "active_risk_data_unchanged": true,
+    "active_mobile_index_unchanged": true,
+    "live_db_unchanged": true,
+    "auth_file_unchanged": true,
+    "nginx_target_unchanged": true
+  },
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "no_chmod": true,
+  "no_chown": true,
+  "no_chgrp": true,
+  "no_nginx_write": true,
+  "no_nginx_reload": true,
+  "no_db_write": true,
+  "no_active_panel_write": true,
+  "no_api_fetch": true,
+  "next_phase": "COINOSKOBI_XYZ_PANEL_STAGING_BINDING_AUTH_PERMISSION_FIX_REAL_AFTER_EXPLICIT_APPROVAL"
+}

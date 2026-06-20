@@ -1,0 +1,336 @@
+{
+  "phase": "COINOSKOBI_MEV_SANDWICH_RISK_ENGINE_PLAN_NOAPI",
+  "stamp": "20260522_104752",
+  "mode": "MEV_SANDWICH_RISK_ENGINE_PLAN_ONLY_NOAPI",
+  "engine_name": "MEV_SANDWICH_RISK_ENGINE_V1",
+  "purpose": "DEX yeni token/pair adaylarinda MEV, sandwich bot, slippage ve price impact riskini karar kapisina baglamak.",
+  "status": "PLAN_READY",
+  "input_phase": {
+    "signal_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_signal_event_contract_dryrun_noapi.json",
+    "signal_dryrun_final_ok": true,
+    "post_audit_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_master_pipeline_schema_post_apply_audit_noapi.json",
+    "post_audit_final_ok": true
+  },
+  "mev_inputs": [
+    {
+      "field": "liquidity_usd",
+      "type": "numeric",
+      "source": "onchain liquidity snapshot / DEX pool reserve",
+      "purpose": "Pool derinligini olcer.",
+      "risk_direction": "dusuk deger yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "entry_size_usd",
+      "type": "numeric",
+      "source": "command decision size hint / paper size",
+      "purpose": "Giris tutarinin pool derinligine oranini olcer.",
+      "risk_direction": "pool'a gore yuksek tutar yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "price_impact_pct",
+      "type": "numeric",
+      "source": "DEX quote simulation later / reserve math fallback",
+      "purpose": "Alim yapinca fiyatin ne kadar oynayacagini tahmin eder.",
+      "risk_direction": "yuksek etki yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "slippage_required_pct",
+      "type": "numeric",
+      "source": "quote/slippage estimator",
+      "purpose": "Islemin gecmesi icin gereken slippage toleransini olcer.",
+      "risk_direction": "yuksek slippage yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "tx_burst_1m",
+      "type": "numeric",
+      "source": "DEX swaps / pair tx count",
+      "purpose": "Son 1 dakikadaki islem patlamasini olcer.",
+      "risk_direction": "ani patlama yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "buy_sell_imbalance",
+      "type": "numeric",
+      "source": "swap side aggregation",
+      "purpose": "Buy/sell dengesizligini olcer.",
+      "risk_direction": "asiri dengesizlik yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "pool_age_minutes",
+      "type": "numeric",
+      "source": "pair birth / pool creation",
+      "purpose": "Pool yasini olcer.",
+      "risk_direction": "cok yeni pool yuksek risk",
+      "required_for_v1": true
+    },
+    {
+      "field": "same_window_swap_cluster",
+      "type": "numeric",
+      "source": "same block/window swap sequence",
+      "purpose": "Ayni blok veya kisa pencerede bot paterni arar.",
+      "risk_direction": "yuksek cluster yuksek risk",
+      "required_for_v1": false
+    },
+    {
+      "field": "known_bot_wallet_touch",
+      "type": "boolean",
+      "source": "wallet risk registry later",
+      "purpose": "Bilinen bot/MEV cluster temasi var mi bakar.",
+      "risk_direction": "true yuksek risk",
+      "required_for_v1": false
+    },
+    {
+      "field": "gas_spike_ratio",
+      "type": "numeric",
+      "source": "chain gas snapshot later",
+      "purpose": "Gaz ani yukselisini olcer.",
+      "risk_direction": "spike yuksek risk",
+      "required_for_v1": false
+    }
+  ],
+  "component_rules": [
+    {
+      "component": "LIQUIDITY_DEPTH_RISK",
+      "max_points": 25,
+      "logic": [
+        "liquidity_usd < 1000 => 25",
+        "liquidity_usd < 3000 => 18",
+        "liquidity_usd < 10000 => 10",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "ENTRY_SIZE_POOL_RATIO_RISK",
+      "max_points": 20,
+      "logic": [
+        "entry_size_usd / liquidity_usd >= 0.050 => 20",
+        "entry_size_usd / liquidity_usd >= 0.025 => 14",
+        "entry_size_usd / liquidity_usd >= 0.010 => 8",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "PRICE_IMPACT_RISK",
+      "max_points": 18,
+      "logic": [
+        "price_impact_pct >= 5.0 => 18",
+        "price_impact_pct >= 2.5 => 12",
+        "price_impact_pct >= 1.0 => 6",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "SLIPPAGE_REQUIRED_RISK",
+      "max_points": 15,
+      "logic": [
+        "slippage_required_pct >= 5.0 => 15",
+        "slippage_required_pct >= 3.0 => 10",
+        "slippage_required_pct >= 1.5 => 5",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "TX_BURST_RISK",
+      "max_points": 10,
+      "logic": [
+        "tx_burst_1m >= 30 => 10",
+        "tx_burst_1m >= 15 => 6",
+        "tx_burst_1m >= 6 => 3",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "BUY_SELL_IMBALANCE_RISK",
+      "max_points": 8,
+      "logic": [
+        "abs(buy_sell_imbalance) >= 0.80 => 8",
+        "abs(buy_sell_imbalance) >= 0.55 => 5",
+        "abs(buy_sell_imbalance) >= 0.30 => 2",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "POOL_AGE_RISK",
+      "max_points": 8,
+      "logic": [
+        "pool_age_minutes < 10 => 8",
+        "pool_age_minutes < 60 => 5",
+        "pool_age_minutes < 240 => 2",
+        "else => 0"
+      ]
+    },
+    {
+      "component": "BOT_PATTERN_BONUS_RISK",
+      "max_points": 12,
+      "logic": [
+        "same_window_swap_cluster high => +6",
+        "known_bot_wallet_touch true => +6",
+        "gas_spike_ratio high => +3 capped by max"
+      ]
+    }
+  ],
+  "gate_policy": [
+    {
+      "gate": "ALLOW",
+      "condition": "mev_score < 35 and no hard combo",
+      "command_output": "MEV_LOW / normal paper size allowed",
+      "entry_size_multiplier": 1.0
+    },
+    {
+      "gate": "REDUCE_SIZE",
+      "condition": "35 <= mev_score < 70 or medium impact/slippage",
+      "command_output": "MEV_MEDIUM / ENTRY_SIZE_REDUCE / SLIPPAGE_LIMIT_REQUIRED",
+      "entry_size_multiplier": 0.25
+    },
+    {
+      "gate": "BLOCK",
+      "condition": "mev_score >= 70 or hard combo",
+      "command_output": "MEV_HIGH / ENTRY_BLOCKED / SANDWICH_EXPOSURE_DETECTED",
+      "entry_size_multiplier": 0.0
+    }
+  ],
+  "hard_combos": [
+    {
+      "combo": "LOW_LIQUIDITY_HIGH_SLIPPAGE",
+      "condition": "liquidity_usd < 3000 and slippage_required_pct >= 5.0",
+      "gate": "BLOCK"
+    },
+    {
+      "combo": "HIGH_IMPACT_NEW_POOL",
+      "condition": "price_impact_pct >= 5.0 and pool_age_minutes < 60",
+      "gate": "BLOCK"
+    },
+    {
+      "combo": "BOT_TOUCH_WEAK_POOL",
+      "condition": "known_bot_wallet_touch true and liquidity_usd < 10000",
+      "gate": "BLOCK"
+    },
+    {
+      "combo": "SANDWICH_CLUSTER_IMPACT",
+      "condition": "same_window_swap_cluster high and price_impact_pct >= 2.5",
+      "gate": "BLOCK"
+    }
+  ],
+  "command_center_contract": {
+    "center_signal_event": {
+      "center_key": "risk",
+      "signal_type": "MEV_SANDWICH_RISK",
+      "severity_mapping": {
+        "ALLOW": "LOW",
+        "REDUCE_SIZE": "MEDIUM",
+        "BLOCK": "HIGH"
+      }
+    },
+    "mev_sandwich_risk_event": {
+      "mev_level": "LOW|MEDIUM|HIGH",
+      "entry_gate": "ALLOW|REDUCE_SIZE|BLOCK",
+      "evidence_json_required_keys": [
+        "liquidity_usd",
+        "entry_size_usd",
+        "price_impact_pct",
+        "slippage_required_pct",
+        "tx_burst_1m",
+        "buy_sell_imbalance",
+        "pool_age_minutes",
+        "component_scores",
+        "hard_combos"
+      ]
+    },
+    "fusion_score_effect": {
+      "ALLOW": "mev_score normal katkı",
+      "REDUCE_SIZE": "soft_warning + entry size multiplier",
+      "BLOCK": "hard block adayi veya BLOCKED_WITH_REASON route"
+    },
+    "command_decision_effect": {
+      "ALLOW": "WATCH veya PAPER_ENTRY_READY engellenmez",
+      "REDUCE_SIZE": "ENTRY_SIZE_REDUCE",
+      "BLOCK": "ENTRY_BLOCKED"
+    }
+  },
+  "sample_cases": [
+    {
+      "case": "LOW_RISK_DEEP_POOL",
+      "input": {
+        "liquidity_usd": 80000,
+        "entry_size_usd": 100,
+        "price_impact_pct": 0.25,
+        "slippage_required_pct": 0.5,
+        "tx_burst_1m": 4,
+        "buy_sell_imbalance": 0.1,
+        "pool_age_minutes": 1440,
+        "same_window_swap_cluster": 0,
+        "known_bot_wallet_touch": false,
+        "gas_spike_ratio": 1.0
+      },
+      "expected_gate": "ALLOW"
+    },
+    {
+      "case": "MEDIUM_RISK_REDUCE_SIZE",
+      "input": {
+        "liquidity_usd": 12000,
+        "entry_size_usd": 300,
+        "price_impact_pct": 1.8,
+        "slippage_required_pct": 2.2,
+        "tx_burst_1m": 18,
+        "buy_sell_imbalance": 0.45,
+        "pool_age_minutes": 80,
+        "same_window_swap_cluster": 1,
+        "known_bot_wallet_touch": false,
+        "gas_spike_ratio": 1.2
+      },
+      "expected_gate": "REDUCE_SIZE"
+    },
+    {
+      "case": "HIGH_RISK_BLOCK_LOW_LIQ_HIGH_SLIPPAGE",
+      "input": {
+        "liquidity_usd": 2200,
+        "entry_size_usd": 200,
+        "price_impact_pct": 6.4,
+        "slippage_required_pct": 6.0,
+        "tx_burst_1m": 34,
+        "buy_sell_imbalance": 0.82,
+        "pool_age_minutes": 18,
+        "same_window_swap_cluster": 4,
+        "known_bot_wallet_touch": true,
+        "gas_spike_ratio": 1.8
+      },
+      "expected_gate": "BLOCK"
+    }
+  ],
+  "output_tables": [
+    "center_signal_events_v1",
+    "mev_sandwich_risk_events_v1",
+    "fusion_score_events_v1",
+    "command_decision_events_v1",
+    "control_dashboard_view_model_events_v1"
+  ],
+  "future_phases": [
+    "COINOSKOBI_MEV_SANDWICH_RISK_ENGINE_DRYRUN_NOAPI",
+    "COINOSKOBI_ONE_TOKEN_PIPELINE_SIM_NOAPI",
+    "COINOSKOBI_VIEW_MODEL_BUILDER_DRYRUN_NOAPI",
+    "COINOSKOBI_PAPER_DECISION_DRYRUN_NOAPI"
+  ],
+  "validation_errors": [],
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0
+  },
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_MEV_SANDWICH_RISK_ENGINE_DRYRUN_NOAPI"
+}

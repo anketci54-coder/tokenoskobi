@@ -1,0 +1,173 @@
+{
+  "argparse_summary": {
+    "defined_flags": [
+      "--dryrun-once",
+      "--self-test",
+      "--source-db",
+      "--source-status-json",
+      "--temp-db",
+      "--temp-lock",
+      "--temp-log",
+      "--temp-status-json"
+    ],
+    "required_flags": [],
+    "return_2_locations": [
+      {
+        "line": 382,
+        "text": "return 2"
+      },
+      {
+        "line": 378,
+        "text": "return 2"
+      }
+    ],
+    "systemexit_2_locations": []
+  },
+  "branch_decision": {
+    "decision": "UNIT_EXECSTART_MISSING_DRYRUN_TEMP_AND_SOURCE_ARGS",
+    "patch_allowed_now": false,
+    "reason": "Runner dryrun-once branch appears designed for explicit source/temp paths, but service ExecStart only passes --dryrun-once.",
+    "recommended_next_phase": "PHASE15Q_FIX4_DRYRUN_ONCE_FULL_TEMP_EXECSTART_PLAN_NOAPI",
+    "retry_allowed_now": false,
+    "unit_decision": "plan_unit_execstart_with_all_existing_generic_temp_args_or_revert"
+  },
+  "branch_review_json": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145/phase15q_fix3_dryrun_once_branch_review.json",
+  "branch_review_only": true,
+  "checks": {
+    "argparse_parse_ok": true,
+    "branch_decision_made": true,
+    "branch_decision_no_patch_now": true,
+    "branch_decision_no_retry": true,
+    "branch_review_json_written": true,
+    "db_fk_ok": true,
+    "db_integrity_ok": true,
+    "db_quick_check_ok": true,
+    "db_read_ok": true,
+    "dryrun_once_flag_defined": true,
+    "forbidden_now_flags_all_false": true,
+    "journal_review_json_written": true,
+    "next_requirements_json_written": true,
+    "phase15p_json_exists": true,
+    "phase15p_json_parse_ok": true,
+    "phase15p_pass_ok": true,
+    "phase15q_fix1_json_exists": true,
+    "phase15q_fix1_json_parse_ok": true,
+    "phase15q_fix1_pass_ok": true,
+    "phase15q_fix2_json_exists": true,
+    "phase15q_fix2_json_parse_ok": true,
+    "phase15q_fix2_pass_ok": true,
+    "phase15q_json_exists": true,
+    "phase15q_json_parse_ok": true,
+    "phase15q_review_expected": true,
+    "runner_exists": true,
+    "runner_mode_0750": true,
+    "runner_sha_expected_ok": true,
+    "runner_source_read_ok": true,
+    "service_execstart_still_dryrun_once": true,
+    "service_unit_exists": true,
+    "source_excerpt_json_written": true,
+    "systemd_readonly_json_written": true,
+    "temp_arg_flags_defined": true,
+    "timer_unit_exists": true,
+    "unit_gap_decision_json_written": true,
+    "unit_missing_at_least_one_temp_arg": true
+  },
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI",
+  "finished_at_utc": "2026-06-02T11:51:45.788509+00:00",
+  "forbidden_now_flags": {
+    "ACTIVE_PANEL_WRITE_NOW": false,
+    "ACTIVE_STATUS_JSON_WRITE_NOW": false,
+    "API_RPC_FETCH_NOW": false,
+    "LIVE_DB_WRITE_NOW": false,
+    "LIVE_TRADE_NOW": false,
+    "LOCK_FILE_WRITE_NOW": false,
+    "LOG_FILE_WRITE_NOW": false,
+    "PAPER_TRADE_NOW": false,
+    "RAMDISK_DIRECT_APPLY_NOW": false,
+    "ROLLBACK_EXECUTE_NOW": false,
+    "RUNNER_EXECUTE_NOW": false,
+    "RUNNER_TARGET_WRITE_NOW": false,
+    "RUNTIME_ENABLE_NOW": false,
+    "SCHEMA_APPLY_NOW": false,
+    "SERVICE_START_NOW": false,
+    "SERVICE_UNIT_WRITE_NOW": false,
+    "SYSTEMCTL_DAEMON_RELOAD_NOW": false,
+    "SYSTEMCTL_ENABLE_NOW": false,
+    "SYSTEMCTL_RESTART_NOW": false,
+    "SYSTEMCTL_START_NOW": false,
+    "TIMER_ENABLE_NOW": false,
+    "TIMER_START_NOW": false,
+    "TIMER_UNIT_WRITE_NOW": false,
+    "TRADE_PERMISSION": false,
+    "WAL_ENABLE_NOW": false
+  },
+  "journal_review_json": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145/phase15q_fix3_journal_review_readonly.json",
+  "json": "/root/tokenoskobi_clean_v1/data/phase15q_fix3_dryrun_once_branch_review_noapi.json",
+  "next_phase": "PHASE15Q_FIX4_DRYRUN_ONCE_FULL_TEMP_EXECSTART_PLAN_NOAPI",
+  "next_requirements_json": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145/phase15q_fix4_next_requirements.json",
+  "no_patch_yama": true,
+  "no_retry": true,
+  "phase": "PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI",
+  "rc": 0,
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI.md",
+  "requirements": {
+    "defaults": {},
+    "dest_by_flag": {
+      "--source-db": "source_db",
+      "--source-status-json": "source_status_json",
+      "--temp-db": "temp_db",
+      "--temp-lock": "temp_lock",
+      "--temp-log": "temp_log",
+      "--temp-status-json": "temp_status_json"
+    },
+    "flag_presence_in_unit": {
+      "--source-db": false,
+      "--source-status-json": false,
+      "--temp-db": false,
+      "--temp-lock": false,
+      "--temp-log": false,
+      "--temp-status-json": false
+    },
+    "likely_temp_args_needed": true,
+    "missing_temp_flags_from_unit": [
+      "--source-db",
+      "--source-status-json",
+      "--temp-db",
+      "--temp-lock",
+      "--temp-log",
+      "--temp-status-json"
+    ],
+    "reason_bits": [
+      "runner defines dryrun-once together with temp/source path flags",
+      "runner source references temp path variables",
+      "current unit ExecStart has none of the dryrun temp/source flags"
+    ],
+    "source_has_all_temp_flags": true,
+    "source_has_temp_flags": {
+      "--source-db": true,
+      "--source-status-json": true,
+      "--temp-db": true,
+      "--temp-lock": true,
+      "--temp-log": true,
+      "--temp-status-json": true
+    }
+  },
+  "rows": "/root/tokenoskobi_clean_v1/data/phase15q_fix3_dryrun_once_branch_review_noapi_rows.jsonl",
+  "rows_count": 4,
+  "service_execstart": "/usr/bin/python3 /root/tokenoskobi_clean_v1/runtime/system_control_status_refresh_loop_runner.py --dryrun-once",
+  "source_excerpt_json": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145/phase15q_fix3_source_excerpts.json",
+  "stamp": "20260602_145145",
+  "started_at_utc": "2026-06-02T11:51:45.665415+00:00",
+  "systemd_readonly_json": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145/phase15q_fix3_systemd_readonly_state.json",
+  "systemd_state_summary": {
+    "service_active_state": "failed",
+    "service_exec_main_status": "2",
+    "service_result": "exit-code",
+    "service_sub_state": "failed",
+    "timer_active_state": "inactive",
+    "timer_unit_file_state": "disabled"
+  },
+  "unit_gap_decision_json": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145/phase15q_fix3_unit_gap_decision_noapi.json",
+  "workdir": "/root/tokenoskobi_clean_v1/_PHASE15Q_FIX3_DRYRUN_ONCE_BRANCH_REVIEW_NOAPI/20260602_145145"
+}

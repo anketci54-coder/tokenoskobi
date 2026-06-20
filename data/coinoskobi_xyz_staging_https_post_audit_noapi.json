@@ -1,0 +1,97 @@
+{
+  "phase": "COINOSKOBI_XYZ_STAGING_HTTPS_POST_AUDIT_NOAPI",
+  "stamp": "20260521_105911",
+  "final_decision": "PASS",
+  "domain": "www.coinoskobi.xyz",
+  "expected_ip": "159.195.74.132",
+  "certificate": {
+    "file": "/etc/letsencrypt/live/www.coinoskobi.xyz/fullchain.pem",
+    "key_file": "/etc/letsencrypt/live/www.coinoskobi.xyz/privkey.pem",
+    "exists": true,
+    "key_exists": true,
+    "subject": "subject=CN=www.coinoskobi.xyz",
+    "issuer": "issuer=C=US, O=Let's Encrypt, CN=E8",
+    "enddate": "notAfter=Aug 19 06:51:07 2026 GMT",
+    "days_left": "89",
+    "domain_match": true,
+    "valid_30d": true
+  },
+  "nginx": {
+    "conf": "/etc/nginx/sites-available/coinoskobi_xyz_staging.conf",
+    "enabled": "/etc/nginx/sites-enabled/coinoskobi_xyz_staging.conf",
+    "state": "active",
+    "enabled_state": "enabled",
+    "test_rc": 0,
+    "has_ssl_cert": true,
+    "has_ssl_key": true,
+    "has_proxy": true,
+    "has_redirect": true
+  },
+  "ports": {
+    "80": 1,
+    "443": 1,
+    "8096": 1
+  },
+  "dns": {
+    "local_ok": true,
+    "resolver_1111_ok": true,
+    "resolver_8888_ok": true,
+    "cname_removed": true,
+    "dig_local_a": "159.195.74.132 ",
+    "dig_local_cname": "",
+    "dig_1111": "159.195.74.132 ",
+    "dig_8888": "159.195.74.132 "
+  },
+  "http_https": {
+    "https_forced": {
+      "code": 200,
+      "bytes": 35104,
+      "panel_like": true
+    },
+    "https_direct": {
+      "code": 200,
+      "bytes": 35104,
+      "panel_like": true
+    },
+    "http_raw": {
+      "code": 301,
+      "redirect_ok": true
+    },
+    "http_follow": {
+      "code": 200,
+      "bytes": 35104,
+      "panel_like": true
+    },
+    "active_8096": {
+      "code": 200,
+      "bytes": 35104,
+      "panel_like": true
+    }
+  },
+  "certbot": {
+    "version": "certbot 4.0.0 ",
+    "timer_found": true
+  },
+  "rollback": {
+    "ready": true,
+    "script": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_XYZ_STAGING_SSL_REAL_AFTER_EXPLICIT_APPROVAL_20260521_104920/ROLLBACK_COINOSKOBI_XYZ_STAGING_SSL_REAL_AFTER_EXPLICIT_APPROVAL.sh"
+  },
+  "files": {
+    "out_dir": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_HTTPS_POST_AUDIT_NOAPI/20260521_105911",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_COINOSKOBI_XYZ_STAGING_HTTPS_POST_AUDIT_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_https_post_audit_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_https_post_audit_noapi_rows.jsonl"
+  },
+  "safety": {
+    "noapi": true,
+    "dns_mutation": false,
+    "nginx_mutation": false,
+    "ssl_request": false,
+    "certbot_run": false,
+    "db_mutation": false,
+    "panel_mutation": false,
+    "paper_live_trade": false
+  },
+  "warnings": 0,
+  "next_phase": "COINOSKOBI_XYZ_HTTPS_ACTIVE_LAYOUT_DENSITY_LOCATOR_NOAPI"
+}

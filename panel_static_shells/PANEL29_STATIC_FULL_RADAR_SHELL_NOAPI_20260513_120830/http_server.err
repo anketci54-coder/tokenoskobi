@@ -1,0 +1,43 @@
+212.108.152.34 - - [13/May/2026 12:10:11] "GET / HTTP/1.1" 200 -
+212.108.152.34 - - [13/May/2026 12:10:11] code 404, message File not found
+212.108.152.34 - - [13/May/2026 12:10:11] "GET /favicon.ico HTTP/1.1" 404 -
+212.108.152.34 - - [13/May/2026 12:21:02] "GET / HTTP/1.1" 200 -
+212.108.152.34 - - [13/May/2026 12:21:04] code 404, message File not found
+212.108.152.34 - - [13/May/2026 12:21:04] "GET /favicon.ico HTTP/1.1" 404 -
+212.108.152.34 - - [13/May/2026 13:02:49] "GET / HTTP/1.1" 304 -
+212.108.152.34 - - [13/May/2026 15:29:27] "GET / HTTP/1.1" 304 -
+46.252.96.125 - - [13/May/2026 20:16:59] code 404, message File not found
+46.252.96.125 - - [13/May/2026 20:16:59] "GET /favicon.ico HTTP/1.1" 404 -
+46.252.96.125 - - [13/May/2026 20:16:59] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('46.252.96.125', 35278)
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/http/server.py", line 1320, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/http/server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/lib/python3.13/socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+127.0.0.1 - - [13/May/2026 22:43:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/May/2026 22:43:16] "GET /?panel44g_cache_bust=20260513_224316 HTTP/1.1" 200 -
+127.0.0.1 - - [13/May/2026 22:43:16] "GET /index.html?panel44g_cache_bust=20260513_224316 HTTP/1.1" 200 -
+162.216.149.249 - - [14/May/2026 02:24:27] "GET / HTTP/1.1" 200 -

@@ -1,0 +1,50 @@
+{
+  "policy_schema": "coinoskobi_maintenance_bundle_redaction_policy_v1",
+  "phase": "PHASE32B_MAINTENANCE_STATE_READER_AND_BUNDLE_CONTRACT_NOAPI",
+  "created_utc": "2026-06-08T18:53:49.252526+00:00",
+  "redact_patterns": [
+    {
+      "name": "api_key_assignment",
+      "regex": "api[_-]?key\\s*[:=]\\s*['\\\"][^'\\\"]+"
+    },
+    {
+      "name": "secret_assignment",
+      "regex": "secret\\s*[:=]\\s*['\\\"][^'\\\"]+"
+    },
+    {
+      "name": "password_assignment",
+      "regex": "password\\s*[:=]\\s*['\\\"][^'\\\"]+"
+    },
+    {
+      "name": "private_key_assignment",
+      "regex": "private[_-]?key\\s*[:=]\\s*['\\\"][^'\\\"]+"
+    },
+    {
+      "name": "bearer_token",
+      "regex": "bearer\\s+[a-zA-Z0-9_\\-\\.]{20,}"
+    },
+    {
+      "name": "hex_private_key_like",
+      "regex": "0x[a-fA-F0-9]{64}"
+    },
+    {
+      "name": "netrc_machine_login_password",
+      "regex": "machine\\s+\\S+\\s+login\\s+\\S+\\s+password\\s+\\S+"
+    }
+  ],
+  "redaction_replacement": "[REDACTED]",
+  "reject_if_secret_hit_unredacted": true,
+  "never_read_paths": [
+    "/root/.ssh",
+    "/root/.netrc",
+    "/root/tokenoskobi_clean_v1/.env",
+    "/etc/nginx/.htpasswd",
+    "/etc/ssl/private"
+  ],
+  "allowed_path_roots": [
+    "/root/tokenoskobi_clean_v1/state",
+    "/root/tokenoskobi_clean_v1/reports",
+    "/root/tokenoskobi_clean_v1/data"
+  ],
+  "bundle_must_report_redaction_counts": true
+}

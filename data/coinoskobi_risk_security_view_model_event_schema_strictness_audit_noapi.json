@@ -1,0 +1,193 @@
+{
+  "phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EVENT_SCHEMA_STRICTNESS_AUDIT_NOAPI",
+  "stamp": "20260522_125805",
+  "mode": "SCHEMA_STRICTNESS_AUDIT_READONLY_NOAPI",
+  "target_table": "control_dashboard_view_model_events_v1",
+  "ddl_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EVENT_SCHEMA_STRICTNESS_AUDIT_NOAPI/20260522_125805/control_dashboard_view_model_events_v1_ddl.txt",
+  "ddl_sha": "6b1148827ee0edfe3f8fff0fe86e7e34030c0fbeec4bb6556e4a2c7a0c0128ef",
+  "schema_ok": true,
+  "required_table_exists": true,
+  "columns": [
+    {
+      "cid": 0,
+      "name": "view_uid",
+      "type": "TEXT",
+      "notnull": false,
+      "default": null,
+      "pk": true,
+      "raw_notnull": 0,
+      "raw_pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "generated_at_utc",
+      "type": "TEXT",
+      "notnull": true,
+      "default": null,
+      "pk": false,
+      "raw_notnull": 1,
+      "raw_pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "panel_scope",
+      "type": "TEXT",
+      "notnull": true,
+      "default": null,
+      "pk": false,
+      "raw_notnull": 1,
+      "raw_pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "view_model_json",
+      "type": "TEXT",
+      "notnull": true,
+      "default": null,
+      "pk": false,
+      "raw_notnull": 1,
+      "raw_pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "source_counts_json",
+      "type": "TEXT",
+      "notnull": false,
+      "default": "'{}'",
+      "pk": false,
+      "raw_notnull": 0,
+      "raw_pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "created_at_utc",
+      "type": "TEXT",
+      "notnull": false,
+      "default": "CURRENT_TIMESTAMP",
+      "pk": false,
+      "raw_notnull": 0,
+      "raw_pk": 0
+    }
+  ],
+  "indexes": [
+    {
+      "seq": 0,
+      "name": "idx_control_dashboard_view_model_events_v1_scope_time",
+      "unique": false,
+      "origin": "c",
+      "partial": false
+    },
+    {
+      "seq": 1,
+      "name": "sqlite_autoindex_control_dashboard_view_model_events_v1_1",
+      "unique": true,
+      "origin": "pk",
+      "partial": false
+    }
+  ],
+  "column_checks": [
+    {
+      "column": "view_uid",
+      "exists": true,
+      "actual_type": "TEXT",
+      "actual_not_null": false,
+      "actual_pk": true,
+      "expected_not_null": true,
+      "expected_pk": true,
+      "exists_ok": true,
+      "not_null_ok": true,
+      "pk_ok": true
+    },
+    {
+      "column": "generated_at_utc",
+      "exists": true,
+      "actual_type": "TEXT",
+      "actual_not_null": true,
+      "actual_pk": false,
+      "expected_not_null": true,
+      "expected_pk": false,
+      "exists_ok": true,
+      "not_null_ok": true,
+      "pk_ok": true
+    },
+    {
+      "column": "panel_scope",
+      "exists": true,
+      "actual_type": "TEXT",
+      "actual_not_null": true,
+      "actual_pk": false,
+      "expected_not_null": true,
+      "expected_pk": false,
+      "exists_ok": true,
+      "not_null_ok": true,
+      "pk_ok": true
+    },
+    {
+      "column": "view_model_json",
+      "exists": true,
+      "actual_type": "TEXT",
+      "actual_not_null": true,
+      "actual_pk": false,
+      "expected_not_null": true,
+      "expected_pk": false,
+      "exists_ok": true,
+      "not_null_ok": true,
+      "pk_ok": true
+    },
+    {
+      "column": "source_counts_json",
+      "exists": true,
+      "actual_type": "TEXT",
+      "actual_not_null": false,
+      "actual_pk": false,
+      "expected_not_null": true,
+      "expected_pk": false,
+      "exists_ok": true,
+      "not_null_ok": false,
+      "pk_ok": true
+    }
+  ],
+  "strictness_gaps": [
+    "source_counts_json_NULLABLE_BUT_EXPECTED_NOT_NULL"
+  ],
+  "source_counts_json_nullable": true,
+  "schema_repair_needed": true,
+  "recommended_next_phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EVENT_SCHEMA_STRICTNESS_REPAIR_PLAN_NOAPI",
+  "live_counts": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "integrity_check": "ok",
+  "fk_error_count": 0,
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "live_db_write": 0,
+    "temp_db_write": 0,
+    "schema_patch": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "active_panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0,
+    "auto_trade_execution": 0
+  },
+  "validation_errors": [
+    "COLUMN_NULLABILITY_GAP_source_counts_json"
+  ],
+  "final_ok": false,
+  "final_decision": "REVIEW_REQUIRED_SCHEMA_STRICTNESS_GAP_CONFIRMED_NOAPI",
+  "next_phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EVENT_SCHEMA_STRICTNESS_REPAIR_PLAN_NOAPI"
+}

@@ -1,0 +1,166 @@
+{
+  "phase": "PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI",
+  "started_at": "2026-06-04T21:23:21.905302+00:00",
+  "finished_at": "2026-06-04T21:23:21.947563+00:00",
+  "final_gate": "PASS_PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_FALSE_POSITIVE_NOAPI",
+  "script_rc": 0,
+  "failed_checks": [],
+  "review_only": true,
+  "field_semantics_review_ok": true,
+  "false_positive_confirmed": true,
+  "health_ok_live": true,
+  "health_ok_temp": true,
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "live_db_mutation": false,
+    "live_schema_apply": false,
+    "temp_schema_apply": false,
+    "row_insert_update_delete_live_db": false,
+    "timer_change": false,
+    "worker_start": false,
+    "service_restart": false,
+    "active_panel_write": false,
+    "preview_write": false,
+    "paper_trade": false,
+    "live_trade": false
+  },
+  "immutability": {
+    "live_db_unchanged": true,
+    "active_index_unchanged": true
+  },
+  "field_policy": {
+    "phase": "PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI",
+    "created_at_utc": "2026-06-04T21:23:21.943024+00:00",
+    "target_table": "backpressure_rollup_snapshot_v1",
+    "field_semantics_review_ok": true,
+    "false_positive_confirmed": true,
+    "forbidden_exact_hot_fields": [
+      "queue_depth",
+      "critical_queue_depth",
+      "medium_queue_depth",
+      "low_queue_depth",
+      "provider_latency_ms",
+      "last_check_latency_ms",
+      "current_provider_latency_ms",
+      "instant_latency_ms",
+      "per_second_queue_depth",
+      "per_second_latency_ms"
+    ],
+    "allowed_rollup_fields": [
+      "max_queue_depth",
+      "avg_latency_bucket",
+      "critical_processed",
+      "medium_processed",
+      "low_archived",
+      "provider_spike_detected",
+      "degrade_mode_used",
+      "window_start_utc",
+      "window_end_utc"
+    ],
+    "observed_fields": [
+      "snapshot_uid",
+      "window_start_utc",
+      "window_end_utc",
+      "critical_processed",
+      "medium_processed",
+      "low_archived",
+      "max_queue_depth",
+      "avg_latency_bucket",
+      "provider_spike_detected",
+      "degrade_mode_used",
+      "created_at_utc"
+    ],
+    "queue_depth_substring_hits": [
+      "max_queue_depth"
+    ],
+    "exact_hot_hits": [],
+    "allowed_rollup_hits": [
+      "snapshot_uid",
+      "window_start_utc",
+      "window_end_utc",
+      "critical_processed",
+      "medium_processed",
+      "low_archived",
+      "max_queue_depth",
+      "avg_latency_bucket",
+      "provider_spike_detected",
+      "degrade_mode_used",
+      "created_at_utc"
+    ],
+    "unknown_or_review": [],
+    "decision": {
+      "max_queue_depth": "ALLOWED_LOW_FREQUENCY_ROLLUP_AGGREGATE",
+      "queue_depth": "FORBIDDEN_EXACT_HOT_METRIC",
+      "provider_latency_ms": "FORBIDDEN_EXACT_HOT_METRIC",
+      "avg_latency_bucket": "ALLOWED_BUCKETIZED_ROLLUP",
+      "last_check_latency_ms": "FORBIDDEN_EXACT_HOT_METRIC"
+    },
+    "denge_rule": "substring_guard_yok_exact_field_semantics_var"
+  },
+  "next_plan": {
+    "next_phase": "PHASE21N5_REPUTATION_SCHEMA_DRYRUN_PRECISE_FIELD_TEMP_COPY_NOAPI",
+    "reason": "21N3 failed because max_queue_depth contains queue_depth substring but is allowed low-frequency rollup aggregate",
+    "precise_field_rule": {
+      "fail_on_exact_fields": [
+        "queue_depth",
+        "critical_queue_depth",
+        "medium_queue_depth",
+        "low_queue_depth",
+        "provider_latency_ms",
+        "last_check_latency_ms",
+        "current_provider_latency_ms",
+        "instant_latency_ms",
+        "per_second_queue_depth",
+        "per_second_latency_ms"
+      ],
+      "allow_fields": [
+        "max_queue_depth",
+        "avg_latency_bucket",
+        "critical_processed",
+        "medium_processed",
+        "low_archived",
+        "provider_spike_detected",
+        "degrade_mode_used",
+        "window_start_utc",
+        "window_end_utc"
+      ],
+      "do_not_fail_on": [
+        "max_queue_depth"
+      ],
+      "still_fail_on": [
+        "queue_depth",
+        "critical_queue_depth",
+        "medium_queue_depth",
+        "low_queue_depth",
+        "provider_latency_ms",
+        "last_check_latency_ms"
+      ]
+    },
+    "expected_result": {
+      "planned_tables_created": 4,
+      "forbidden_tables_created": 0,
+      "summary_decay_atomic": true,
+      "max_queue_depth_allowed": true,
+      "live_db_unchanged": true
+    }
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase21n4_backpressure_rollup_field_semantics_review_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase21n4_backpressure_rollup_field_semantics_review_noapi_rows.jsonl",
+    "field_review_rows": "/root/tokenoskobi_clean_v1/_PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI/20260605_002321/phase21n4_backpressure_rollup_field_semantics_review_noapi_field_semantics_rows.jsonl",
+    "field_policy": "/root/tokenoskobi_clean_v1/_PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI/20260605_002321/phase21n4_backpressure_rollup_field_semantics_review_noapi_field_semantics_policy.json",
+    "next_dryrun_plan": "/root/tokenoskobi_clean_v1/_PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI/20260605_002321/phase21n4_backpressure_rollup_field_semantics_review_noapi_next_precise_field_dryrun_plan.json",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE21N4_BACKPRESSURE_ROLLUP_FIELD_SEMANTICS_REVIEW_NOAPI/20260605_002321"
+  },
+  "next_phase": "PHASE21N5_REPUTATION_SCHEMA_DRYRUN_PRECISE_FIELD_TEMP_COPY_NOAPI",
+  "checklist_touched": true,
+  "after_final": {
+    "db_sha256": "5a107dd4d18c961c56c28a9a05f203d7ba09a44e32256d92318486359b699e05",
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "field_policy_sha256": "29a8a19e74761b022a8b8627e42f3b76047e15a2bd21046778e1d9928a6d4f0d",
+    "next_dryrun_plan_sha256": "25a5c00e21745c8bba3c39feb8c4ea295e036c48d450a8ae50c85c5a752cdbdf",
+    "checklist_sha256": "114d6ab022cdc853b71d9f50121a91c76f0f4c5e38720109bc87b16a2515e3bb"
+  }
+}

@@ -1,0 +1,849 @@
+{
+  "cascade_rows": [
+    {
+      "cost": "cheap",
+      "fields": [
+        "hard_block",
+        "stale_status"
+      ],
+      "name": "hard_block_and_freshness_gate",
+      "stage": 1,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "cheap",
+      "fields": [
+        "minimum_pool_liquidity_usd",
+        "exit_liquidity_usd"
+      ],
+      "name": "liquidity_floor_gate",
+      "stage": 2,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "medium_or_heavy_later",
+      "fields": [
+        "sell_route_status"
+      ],
+      "name": "sell_route_gate",
+      "stage": 3,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "heavy_later_eth_call",
+      "fields": [
+        "tax_buy_pct",
+        "tax_sell_pct"
+      ],
+      "name": "tax_gate",
+      "stage": 4,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "medium",
+      "fields": [
+        "buy_price_impact_pct",
+        "sell_price_impact_pct",
+        "expected_slippage_pct"
+      ],
+      "name": "price_impact_slippage_gate",
+      "stage": 5,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "medium_or_heavy_later",
+      "fields": [
+        "mev_status",
+        "sandwich_exposure_status",
+        "gas_cost_sanity",
+        "protected_route_status"
+      ],
+      "name": "mev_gas_protected_route_gate",
+      "stage": 6,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "computed",
+      "fields": [
+        "max_position_size_usd"
+      ],
+      "name": "max_position_size_gate",
+      "stage": 7,
+      "stop_if_fail": true
+    },
+    {
+      "cost": "cheap",
+      "fields": [
+        "quality_label"
+      ],
+      "name": "quality_label_assignment",
+      "stage": 8,
+      "stop_if_fail": false
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "decision_effect_rows": [
+    {
+      "case": "any_hard_block",
+      "decision_label": "TRASH_REJECTED",
+      "paper_live": false,
+      "route": "NO_ROUTE"
+    },
+    {
+      "case": "any_unknown_required_threshold",
+      "decision_label": "WAIT_MORE_DATA",
+      "paper_live": false,
+      "route": "NO_ROUTE"
+    },
+    {
+      "case": "any_stale_required_threshold",
+      "decision_label": "STALE_EVIDENCE",
+      "paper_live": false,
+      "route": "NO_ROUTE"
+    },
+    {
+      "case": "sell_route_not_available",
+      "decision_label": "BLOCKED_BY_RISK",
+      "paper_live": false,
+      "route": "NO_ROUTE"
+    },
+    {
+      "case": "threshold_floor_fail",
+      "decision_label": "BLOCKED_BY_RISK",
+      "paper_live": false,
+      "route": "NO_ROUTE"
+    },
+    {
+      "case": "routine_thresholds_pass",
+      "decision_label": "ROUTINE_SAFE_REVIEW_ONLY",
+      "paper_live": false,
+      "route": "REVIEW_ONLY"
+    },
+    {
+      "case": "asymmetric_thresholds_pass",
+      "decision_label": "ASYMMETRIC_REVIEW_ONLY",
+      "paper_live": false,
+      "route": "REVIEW_ONLY"
+    }
+  ],
+  "failed_checks": [],
+  "field_source_rows": [
+    {
+      "api_now": false,
+      "field": "hard_block",
+      "planned_source": "risk/event/readmodel guards",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "sell_route_status",
+      "planned_source": "future eth_call simulation or event-ledger sell anomaly",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "minimum_pool_liquidity_usd",
+      "planned_source": "future pool reserves/liquidity evidence",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "exit_liquidity_usd",
+      "planned_source": "future reserve depth / sell-side liquidity evidence",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "buy_price_impact_pct",
+      "planned_source": "future AMM quote simulation",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "sell_price_impact_pct",
+      "planned_source": "future AMM quote simulation",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "expected_slippage_pct",
+      "planned_source": "future price impact + volatility/liquidity buffer",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "max_position_size_usd",
+      "planned_source": "future computed cap from exit liquidity/slippage/loss budget",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "tax_buy_pct",
+      "planned_source": "future eth_call simulation",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "tax_sell_pct",
+      "planned_source": "future eth_call simulation",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "mev_status",
+      "planned_source": "future mempool/protected-route risk model",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "sandwich_exposure_status",
+      "planned_source": "future mempool/protected-route risk model",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "gas_cost_sanity",
+      "planned_source": "future gas estimate / expected edge or loss budget",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "protected_route_status",
+      "planned_source": "future protected route availability check",
+      "runtime_now": false
+    },
+    {
+      "api_now": false,
+      "field": "quality_label",
+      "planned_source": "future decision binding",
+      "runtime_now": false
+    }
+  ],
+  "final_gate": "PASS_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T07:01:32.549043+00:00",
+  "hard_block_rows": [
+    {
+      "condition": "hard_block == True",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "hard_block_true"
+    },
+    {
+      "condition": "sell_route_status != AVAILABLE",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "sell_route_unavailable"
+    },
+    {
+      "condition": "sell simulation reverts or route unknown",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "sell_route_revert"
+    },
+    {
+      "condition": "honeypot or sell-block pattern detected",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "honeypot_detected"
+    },
+    {
+      "condition": "minimum_pool_liquidity_usd < 2000",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "pool_liquidity_below_floor"
+    },
+    {
+      "condition": "exit_liquidity_usd < 1000",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "exit_liquidity_below_floor"
+    },
+    {
+      "condition": "tax_buy_pct > 20",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "tax_buy_above_20"
+    },
+    {
+      "condition": "tax_sell_pct > 20",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "tax_sell_above_20"
+    },
+    {
+      "condition": "expected_slippage_pct > 20",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "slippage_above_20"
+    },
+    {
+      "condition": "mev_status in HIGH or UNKNOWN",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "mev_high_or_unknown"
+    },
+    {
+      "condition": "execution evidence stale/expired/unknown",
+      "effect": "WAIT_MORE_DATA_OR_NO_ROUTE",
+      "locked": true,
+      "rule": "stale_execution_evidence"
+    },
+    {
+      "condition": "max_position_size_usd cannot be computed",
+      "effect": "NO_ROUTE",
+      "locked": true,
+      "rule": "max_position_uncomputable"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI",
+  "outputs": {
+    "cascade_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_cascading_threshold_stage_order.jsonl",
+    "decision_effect_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_threshold_decision_effect_matrix.jsonl",
+    "field_source_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_threshold_field_source_plan.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_future_execution_threshold_schema_plan_noapi.sql",
+    "hard_block_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_hard_block_rule_matrix.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6c_execution_threshold_matrix_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_execution_threshold_matrix_plan_noapi.json",
+    "quality_label_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_quality_label_contract.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_threshold_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_next_roadmap_lock.jsonl",
+    "route_class_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_route_class_threshold_policy.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6c_execution_threshold_matrix_plan_noapi_rows.jsonl",
+    "threshold_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_execution_threshold_matrix.jsonl",
+    "unknown_policy_rows": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132/phase6c_unknown_required_field_policy.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI/20260601_100132"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_hard_block_rules_locked": true,
+    "all_route_classes_paper_live_false": true,
+    "cascade_rows_written": true,
+    "cascade_stage_count_8": true,
+    "cascade_stop_count_ge_7": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "decision_effect_count_7": true,
+    "decision_effect_rows_written": true,
+    "field_source_count_15": true,
+    "field_source_rows_written": true,
+    "future_schema_sql_written": true,
+    "hard_block_rows_written": true,
+    "hard_block_rule_count_ge_10": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "liquidity_floor_hard_block": true,
+    "max_position_size_required": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b2_dependency_ok": true,
+    "phase6b2_json_exists": true,
+    "phase6b2_report_exists": true,
+    "phase6b2_rows_exists": true,
+    "phase6b_dependency_ok": true,
+    "phase6b_json_exists": true,
+    "policy_sha_match": true,
+    "quality_label_count_6": true,
+    "quality_label_rows_written": true,
+    "required_threshold_count_15": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "route_class_count_6": true,
+    "route_class_rows_written": true,
+    "safety_noapi_clean": true,
+    "sell_route_available_required": true,
+    "tax_gt_20_hard_block": true,
+    "threshold_field_count_15": true,
+    "threshold_rows_written": true,
+    "unknown_policy_all_defined": true,
+    "unknown_policy_rows_written": true
+  },
+  "phase": "PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b2_ok": true,
+    "phase6b2_rows_count": 57,
+    "phase6b_ok": true
+  },
+  "policy_reference": {
+    "checked_count": 1,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "quality_label_rows": [
+    {
+      "meaning": "Terminal block or hard threshold failure.",
+      "permission": "NO_ROUTE",
+      "quality_label": "TRASH_REJECTED"
+    },
+    {
+      "meaning": "Missing/unknown/stale/unproven required field.",
+      "permission": "NO_ROUTE",
+      "quality_label": "WAIT_MORE_DATA"
+    },
+    {
+      "meaning": "Evidence exists but risk or threshold gate blocks.",
+      "permission": "NO_ROUTE",
+      "quality_label": "BLOCKED_BY_RISK"
+    },
+    {
+      "meaning": "Read-model can summarize; no trading.",
+      "permission": "REVIEW_ONLY",
+      "quality_label": "EVIDENCE_READY_NO_TRADE_PERMISSION"
+    },
+    {
+      "meaning": "Routine threshold plan passes but no paper/live permission.",
+      "permission": "REVIEW_ONLY",
+      "quality_label": "ROUTINE_SAFE_REVIEW_ONLY"
+    },
+    {
+      "meaning": "High-risk sandbox review label only, not enabled.",
+      "permission": "REVIEW_ONLY",
+      "quality_label": "ASYMMETRIC_REVIEW_ONLY"
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "Hard floors and unknown-block policy are locked.",
+      "risk_id": "THRESHOLD_TOO_SOFT",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Hard block cannot be bypassed by asymmetric route.",
+      "risk_id": "MICRO_ROUTE_BYPASSES_HARD_BLOCK",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Sell route must be fresh and available; stale guard blocks.",
+      "risk_id": "SELL_ROUTE_ONE_TIME_PROOF",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Uncomputable max size blocks route.",
+      "risk_id": "MAX_POSITION_NOT_COMPUTABLE",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Unknown required execution fields block or wait more data.",
+      "risk_id": "TAX_OR_SLIPPAGE_UNKNOWN",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Protected route status can block high-risk asymmetric review.",
+      "risk_id": "PROTECTED_ROUTE_GAP",
+      "severity": "MEDIUM"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI",
+      "purpose": "Plan high-risk sandbox route policy with hard blocks preserved."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+      "purpose": "Plan DEX-native technical evidence."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+      "purpose": "Plan event-ledger emergency triggers."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+      "purpose": "Plan negative memory lookup."
+    },
+    {
+      "db_write_now": false,
+      "order": 5,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB schema dry-run only after all plan phases.",
+      "temp_db_only": true
+    }
+  ],
+  "route_class_rows": [
+    {
+      "condition": "hard_block true or terminal threshold failure",
+      "paper_live_allowed_now": false,
+      "permission": "NO_ROUTE",
+      "route_class": "TRASH_REJECTED"
+    },
+    {
+      "condition": "missing, unknown, stale, expired, or unproven required evidence",
+      "paper_live_allowed_now": false,
+      "permission": "NO_ROUTE",
+      "route_class": "WAIT_MORE_DATA"
+    },
+    {
+      "condition": "evidence exists but threshold/risk gate blocks",
+      "paper_live_allowed_now": false,
+      "permission": "NO_ROUTE",
+      "route_class": "BLOCKED_BY_RISK"
+    },
+    {
+      "condition": "fresh evidence and no hard block, but no paper/live permission",
+      "paper_live_allowed_now": false,
+      "permission": "REVIEW_ONLY",
+      "route_class": "EVIDENCE_READY_NO_TRADE_PERMISSION"
+    },
+    {
+      "condition": "routine thresholds pass, still no paper/live permission",
+      "paper_live_allowed_now": false,
+      "permission": "REVIEW_ONLY",
+      "route_class": "ROUTINE_SAFE_REVIEW_ONLY"
+    },
+    {
+      "condition": "asymmetric thresholds pass, hard block false, sell route fresh; still disabled",
+      "paper_live_allowed_now": false,
+      "permission": "REVIEW_ONLY",
+      "route_class": "ASYMMETRIC_REVIEW_ONLY"
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "threshold_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T07:01:32.513251+00:00",
+  "summary": {
+    "cascade_stage_count": 8,
+    "cascade_stop_count": 7,
+    "decision_effect_count": 7,
+    "field_source_count": 15,
+    "hard_block_rule_count": 12,
+    "quality_label_count": 6,
+    "required_threshold_count": 15,
+    "route_class_count": 6,
+    "threshold_field_count": 15,
+    "unknown_block_count": 15
+  },
+  "threshold_rows": [
+    {
+      "asymmetric_policy": "must_be_false",
+      "field": "hard_block",
+      "hard_block_policy": "true_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "must_be_false",
+      "runtime_now": false,
+      "source_class": "risk_guard",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "AVAILABLE_AND_FRESH",
+      "field": "sell_route_status",
+      "hard_block_policy": "HONEYPOT_DETECTED_OR_UNAVAILABLE_OR_REVERT_BLOCKS_ALL",
+      "required": true,
+      "routine_safe_policy": "AVAILABLE",
+      "runtime_now": false,
+      "source_class": "sell_route_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": ">=5000_AND_REVIEW_ONLY",
+      "field": "minimum_pool_liquidity_usd",
+      "hard_block_policy": "<2000_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": ">=50000",
+      "runtime_now": false,
+      "source_class": "liquidity_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": ">=2500_AND_REVIEW_ONLY",
+      "field": "exit_liquidity_usd",
+      "hard_block_policy": "<1000_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": ">=25000",
+      "runtime_now": false,
+      "source_class": "liquidity_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "<=3.0_AND_REVIEW_ONLY",
+      "field": "buy_price_impact_pct",
+      "hard_block_policy": ">10_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "<=1.0",
+      "runtime_now": false,
+      "source_class": "execution_safety_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "<=5.0_AND_REVIEW_ONLY",
+      "field": "sell_price_impact_pct",
+      "hard_block_policy": ">15_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "<=1.5",
+      "runtime_now": false,
+      "source_class": "execution_safety_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "<=6.0_AND_REVIEW_ONLY",
+      "field": "expected_slippage_pct",
+      "hard_block_policy": ">20_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "<=2.0",
+      "runtime_now": false,
+      "source_class": "execution_safety_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "computed_tiny_cap_review_only",
+      "field": "max_position_size_usd",
+      "hard_block_policy": "not_computable_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "computed_from_exit_liquidity_and_slippage",
+      "runtime_now": false,
+      "source_class": "position_sizing",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "<=10_AND_REVIEW_ONLY",
+      "field": "tax_buy_pct",
+      "hard_block_policy": ">20_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "<=3",
+      "runtime_now": false,
+      "source_class": "tax_simulation_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "<=10_AND_REVIEW_ONLY",
+      "field": "tax_sell_pct",
+      "hard_block_policy": ">20_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "<=3",
+      "runtime_now": false,
+      "source_class": "tax_simulation_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "LOW_OR_PROTECTED_REVIEW_ONLY",
+      "field": "mev_status",
+      "hard_block_policy": "HIGH_OR_UNKNOWN_BLOCKS_ROUTE",
+      "required": true,
+      "routine_safe_policy": "LOW_OR_PROTECTED",
+      "runtime_now": false,
+      "source_class": "mev_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "LOW_OR_MEDIUM_WITH_PROTECTED_ROUTE_REVIEW_ONLY",
+      "field": "sandwich_exposure_status",
+      "hard_block_policy": "HIGH_OR_UNKNOWN_BLOCKS_ROUTE",
+      "required": true,
+      "routine_safe_policy": "LOW",
+      "runtime_now": false,
+      "source_class": "mev_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "gas_cost_less_than_tiny_cap_loss_budget",
+      "field": "gas_cost_sanity",
+      "hard_block_policy": "gas_cost_exceeds_loss_or_edge_budget_blocks_route",
+      "required": true,
+      "routine_safe_policy": "gas_cost_less_than_expected_edge_budget",
+      "runtime_now": false,
+      "source_class": "gas_evidence",
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "asymmetric_policy": "AVAILABLE_REQUIRED_FOR_HIGH_RISK_REVIEW",
+      "field": "protected_route_status",
+      "hard_block_policy": "REQUIRED_BUT_UNAVAILABLE_BLOCKS_ROUTE",
+      "required": true,
+      "routine_safe_policy": "AVAILABLE_OR_NOT_REQUIRED_BY_POLICY",
+      "runtime_now": false,
+      "source_class": "protected_route_evidence",
+      "unknown_policy": "BLOCK_OR_REVIEW"
+    },
+    {
+      "asymmetric_policy": "ASYMMETRIC_REVIEW_ONLY",
+      "field": "quality_label",
+      "hard_block_policy": "TRASH_REJECTED_blocks_all_routes",
+      "required": true,
+      "routine_safe_policy": "PREMIUM_SAFE_OR_EVIDENCE_READY_NO_TRADE_PERMISSION",
+      "runtime_now": false,
+      "source_class": "decision_binding",
+      "unknown_policy": "WAIT_MORE_DATA"
+    }
+  ],
+  "unknown_policy_rows": [
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "hard_block",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "sell_route_status",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "minimum_pool_liquidity_usd",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "exit_liquidity_usd",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "buy_price_impact_pct",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "sell_price_impact_pct",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "expected_slippage_pct",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "max_position_size_usd",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "tax_buy_pct",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "tax_sell_pct",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "mev_status",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "sandwich_exposure_status",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "gas_cost_sanity",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "protected_route_status",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "BLOCK_OR_REVIEW"
+    },
+    {
+      "can_grant_route_on_unknown": false,
+      "field": "quality_label",
+      "required": true,
+      "route_effect": "BLOCK_OR_WAIT_MORE_DATA",
+      "runtime_now": false,
+      "unknown_policy": "WAIT_MORE_DATA"
+    }
+  ],
+  "warnings": [
+    "THRESHOLD_MATRIX_PLAN_ONLY_NO_RUNTIME",
+    "NUMERIC_THRESHOLDS_ARE_POLICY_DRAFT_NOT_TRADE_PERMISSION",
+    "UNKNOWN_REQUIRED_FIELDS_BLOCK_OR_WAIT_MORE_DATA",
+    "HARD_BLOCK_CANNOT_BE_BYPASSED_BY_MICRO_ROUTE",
+    "SELL_ROUTE_AVAILABLE_REQUIRED_FOR_ANY_REVIEW_ROUTE",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

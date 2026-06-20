@@ -1,0 +1,497 @@
+{
+  "backfill_rows": [
+    {
+      "check": "evidence_backfill_target_total_30",
+      "expected": 30,
+      "pass": true,
+      "value": 30
+    },
+    {
+      "check": "evidence_backfill_delta_total_30",
+      "expected": 30,
+      "pass": true,
+      "value": 30
+    },
+    {
+      "check": "target_counts_match_phase5k_after",
+      "expected": true,
+      "pass": true,
+      "value": true
+    },
+    {
+      "check": "target_deltas_match_expected",
+      "expected": true,
+      "pass": true,
+      "value": true
+    },
+    {
+      "check": "phase5l2_rollback_recommended_false",
+      "expected": false,
+      "pass": true,
+      "value": false
+    }
+  ],
+  "backfill_target_rows": [
+    {
+      "count_matches_phase5k_after": true,
+      "current_count": 4,
+      "delta_from_before": 4,
+      "delta_matches_expected": true,
+      "expected_delta": 4,
+      "phase5k_after": 4,
+      "phase5k_before": 0,
+      "table": "data_quality_time_series_v1"
+    },
+    {
+      "count_matches_phase5k_after": true,
+      "current_count": 18,
+      "delta_from_before": 18,
+      "delta_matches_expected": true,
+      "expected_delta": 18,
+      "phase5k_after": 18,
+      "phase5k_before": 0,
+      "table": "deployer_receipt_evidence_events_v1"
+    },
+    {
+      "count_matches_phase5k_after": true,
+      "current_count": 1,
+      "delta_from_before": 1,
+      "delta_matches_expected": true,
+      "expected_delta": 1,
+      "phase5k_after": 1,
+      "phase5k_before": 0,
+      "table": "evidence_event_ledger_v1"
+    },
+    {
+      "count_matches_phase5k_after": true,
+      "current_count": 7,
+      "delta_from_before": 7,
+      "delta_matches_expected": true,
+      "expected_delta": 7,
+      "phase5k_after": 7,
+      "phase5k_before": 0,
+      "table": "initial_holder_evidence_events_v1"
+    }
+  ],
+  "backup_rows": [
+    {
+      "backup_db": "/root/tokenoskobi_clean_v1/backups/PHASE5G_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_20260601_072835/tokenoskobi_clean_v1.sqlite.pre_phase5g_schema_apply",
+      "backup_exists": true,
+      "backup_sha": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+      "label": "phase5g_schema_apply",
+      "rollback_script": "/root/tokenoskobi_clean_v1/backups/PHASE5G_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_20260601_072835/ROLLBACK_PHASE5G_SCHEMA_APPLY.sh",
+      "rollback_script_exists": true
+    },
+    {
+      "backup_db": "/root/tokenoskobi_clean_v1/backups/PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL_20260601_084648/tokenoskobi_clean_v1.sqlite.pre_phase5k_evidence_backfill",
+      "backup_exists": true,
+      "backup_sha": "0a46b3733e366ba45bdc7eff14f03e45fba38f202d8ac43c2a8909dc73214354",
+      "label": "phase5k_evidence_backfill",
+      "rollback_script": "/root/tokenoskobi_clean_v1/backups/PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL_20260601_084648/ROLLBACK_PHASE5K_EVIDENCE_BACKFILL.sh",
+      "rollback_script_exists": true
+    }
+  ],
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "failed_checks": [
+    "all_required_phase_gates_pass"
+  ],
+  "final_gate": "REVIEW_REQUIRED_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI",
+  "finished_at_utc": "2026-06-01T06:01:25.683451+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "REVIEW_PHASE5M_FINAL_REVIEW_FAILURES_NOAPI",
+  "optional_review_rows": [
+    {
+      "exists": true,
+      "failed_checks": [
+        "temp_apply_ok",
+        "planned_tables_exist_in_temp_after",
+        "rows_out_written"
+      ],
+      "final_gate": "REVIEW_REQUIRED_PHASE5E_SCHEMA_TEMP_DB_DRYRUN_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/phase5e_schema_temp_db_dryrun_noapi.json",
+      "phase_key": "5E",
+      "review_phase": true
+    },
+    {
+      "exists": true,
+      "failed_checks": null,
+      "final_gate": null,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5e1_schema_temp_dryrun_failure_diagnose_noapi.json",
+      "phase_key": "5E1",
+      "review_phase": true
+    },
+    {
+      "exists": true,
+      "failed_checks": [
+        "phase4_hard_checks_all_pass",
+        "all_backfill_targets_chosen",
+        "chosen_target_tables_empty"
+      ],
+      "final_gate": "REVIEW_REQUIRED_PHASE5I_EVIDENCE_BACKFILL_PLAN_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/phase5i_evidence_backfill_plan_noapi.json",
+      "phase_key": "5I",
+      "review_phase": true
+    },
+    {
+      "exists": true,
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5I1_BACKFILL_PLAN_FAILURE_DIAGNOSE_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/phase5i1_backfill_plan_failure_diagnose_noapi.json",
+      "phase_key": "5I1",
+      "review_phase": true
+    },
+    {
+      "exists": true,
+      "failed_checks": [
+        "paper_live_clean"
+      ],
+      "final_gate": "REVIEW_REQUIRED_PHASE5L_EVIDENCE_BACKFILL_POST_AUDIT_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/phase5l_evidence_backfill_post_audit_noapi.json",
+      "phase_key": "5L",
+      "review_phase": true
+    },
+    {
+      "exists": true,
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/phase5l1_paper_live_clean_false_diagnose_noapi.json",
+      "phase_key": "5L1",
+      "review_phase": true
+    }
+  ],
+  "outputs": {
+    "backfill_audit_rows": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125/phase5m_backfill_final_audit.jsonl",
+    "backup_review_rows": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125/phase5m_backup_rollback_review.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5m_phase5_final_review_noapi.json",
+    "permission_lock_rows": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125/phase5m_permission_lock_review.jsonl",
+    "phase_chain_rows": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125/phase5m_phase_chain_review.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI.md",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125/phase5m_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5m_phase5_final_review_noapi_rows.jsonl",
+    "schema_audit_rows": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125/phase5m_schema_final_audit.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5M_PHASE5_FINAL_REVIEW_NOAPI/20260601_090125"
+  },
+  "paper_live_counts": {
+    "fusion_score_events_v1": 0,
+    "paper_trade_executions": 0,
+    "paper_trade_outcomes": 0,
+    "paper_trade_plans": 2,
+    "paper_trade_positions": 0
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_required_phase_gates_pass": false,
+    "backfill_checks_pass": true,
+    "db_health_ok": true,
+    "db_sha_current_expected": true,
+    "db_unchanged_during_final_review": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "paper_live_watchlist_score_not_enabled": true,
+    "permissions_locked": true,
+    "phase5g_backup_exists": true,
+    "phase5k_backup_exists": true,
+    "phase5l2_non_target_paper_live_classified": true,
+    "policy_sha_match": true,
+    "rollback_not_required": true,
+    "safety_noapi_clean": true,
+    "schema_checks_pass": true
+  },
+  "permission_rows": [
+    {
+      "locked": true,
+      "permission": "api_calls",
+      "value": 0
+    },
+    {
+      "locked": true,
+      "permission": "rpc_calls",
+      "value": 0
+    },
+    {
+      "locked": true,
+      "permission": "fetch_calls",
+      "value": 0
+    },
+    {
+      "locked": true,
+      "permission": "external_network_calls",
+      "value": 0
+    },
+    {
+      "locked": true,
+      "permission": "panel_mutation",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "service_timer_mutation",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "nginx_auth_hosts_mutation",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "paper_trade_permission",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "live_trade_permission",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "watchlist_permission",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "score_permission",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "micro_route_enabled_now",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "outcome_runtime_enabled_now",
+      "value": false
+    },
+    {
+      "locked": true,
+      "permission": "model_training_now",
+      "value": false
+    }
+  ],
+  "phase": "PHASE5M_PHASE5_FINAL_REVIEW_NOAPI",
+  "phase5_closed": false,
+  "phase_chain_rows": [
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5a_evidence_event_backbone_and_execution_safety_plan_noapi.json",
+      "phase_key": "5A"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5b_time_series_schema_gap_plan_noapi.json",
+      "phase_key": "5B"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5c_execution_safety_and_micro_route_plan_noapi.json",
+      "phase_key": "5C"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5c2_cascading_execution_filter_plan_noapi.json",
+      "phase_key": "5C2"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5d_outcome_memory_skeleton_plan_noapi.json",
+      "phase_key": "5D"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5e2_schema_canonical_temp_dryrun_repair_noapi.json",
+      "phase_key": "5E2"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5F_SCHEMA_APPLY_PLAN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5F_SCHEMA_APPLY_PLAN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5f_schema_apply_plan_noapi.json",
+      "phase_key": "5F"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5F1_SKIPPED_INDEX_AND_CANONICAL_SQL_REVIEW_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5F1_SKIPPED_INDEX_AND_CANONICAL_SQL_REVIEW_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5f1_skipped_index_and_canonical_sql_review_noapi.json",
+      "phase_key": "5F1"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5G_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+      "failed_checks": [
+        "counts_unchanged_except_schema"
+      ],
+      "final_gate": "REVIEW_REQUIRED_PHASE5G_SCHEMA_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+      "pass": false,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5g_schema_apply_real_after_explicit_approval.json",
+      "phase_key": "5G"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5G1_SCHEMA_APPLY_COUNT_DIFF_CLASSIFY_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5G1_SCHEMA_APPLY_COUNT_DIFF_CLASSIFY_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5g1_schema_apply_count_diff_classify_noapi.json",
+      "phase_key": "5G1"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5H_SCHEMA_APPLY_POST_AUDIT_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5H_SCHEMA_APPLY_POST_AUDIT_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5h_schema_apply_post_audit_noapi.json",
+      "phase_key": "5H"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5I2_EVIDENCE_BACKFILL_PLAN_REPAIR_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5i2_evidence_backfill_plan_repair_noapi.json",
+      "phase_key": "5I2"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5J_EVIDENCE_BACKFILL_DRYRUN_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5J_EVIDENCE_BACKFILL_DRYRUN_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5j_evidence_backfill_dryrun_noapi.json",
+      "phase_key": "5J"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5J1_EVIDENCE_BACKFILL_REAL_READINESS_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5j1_evidence_backfill_real_readiness_noapi.json",
+      "phase_key": "5J1"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5K_EVIDENCE_BACKFILL_REAL_AFTER_EXPLICIT_APPROVAL",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5k_evidence_backfill_real_after_explicit_approval.json",
+      "phase_key": "5K"
+    },
+    {
+      "exists": true,
+      "expected_gate": "PASS_PHASE5L2_EVIDENCE_BACKFILL_POST_AUDIT_REPAIR_NOAPI",
+      "failed_checks": [],
+      "final_gate": "PASS_PHASE5L2_EVIDENCE_BACKFILL_POST_AUDIT_REPAIR_NOAPI",
+      "pass": true,
+      "path": "/root/tokenoskobi_clean_v1/data/phase5l2_evidence_backfill_post_audit_repair_noapi.json",
+      "phase_key": "5L2"
+    }
+  ],
+  "policy_reference": {
+    "checked_count": 3,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "roadmap_rows": [
+    {
+      "allowed_now": true,
+      "api_now": false,
+      "db_write_now": false,
+      "next_phase": "PHASE6_EVIDENCE_READMODEL_AND_DECISION_BINDING_PLAN_NOAPI",
+      "order": 1,
+      "panel_mutation_now": false,
+      "paper_live_now": false,
+      "purpose": "Plan read-model layer that reads evidence/event tables and prepares command-center decision binding without paper/live."
+    },
+    {
+      "allowed_now": false,
+      "later_phase": "PHASE6B_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "order": 2,
+      "purpose": "Temp DB only dry-run for read-model materialization."
+    },
+    {
+      "allowed_now": false,
+      "later_phase": "PHASE6_REAL_READMODEL_APPLY_AFTER_EXPLICIT_APPROVAL",
+      "order": 3,
+      "purpose": "Only after plan/dry-run and explicit approval."
+    }
+  ],
+  "schema_rows": [
+    {
+      "check": "schema_37_tables_exist",
+      "expected": 37,
+      "pass": true,
+      "value": 37
+    },
+    {
+      "check": "schema_178_indexes_exist",
+      "expected": 178,
+      "pass": true,
+      "value": 178
+    },
+    {
+      "check": "schema_missing_tables_zero",
+      "expected": 0,
+      "pass": true,
+      "value": 0
+    },
+    {
+      "check": "schema_missing_indexes_zero",
+      "expected": 0,
+      "pass": true,
+      "value": 0
+    }
+  ],
+  "started_at_utc": "2026-06-01T06:01:25.623220+00:00",
+  "warnings": [
+    "NONZERO_PAPER_LIVE_TABLE_EXISTS_BUT_NOT_PHASE5_BACKFILL_TARGET",
+    "PHASE5_CLOSED_SCHEMA_AND_EVIDENCE_BACKFILL_COMPLETE",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION_GRANTED"
+  ]
+}

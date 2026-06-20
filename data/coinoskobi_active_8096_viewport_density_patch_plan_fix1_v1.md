@@ -1,0 +1,20 @@
+# COINOSKOBI_ACTIVE_8096_VIEWPORT_DENSITY_PATCH_PLAN_FIX1_NOAPI
+
+## Final
+
+`PASS_VIEWPORT_DENSITY_PATCH_PLAN_FIX1_READY_NOAPI`
+
+## Patch
+
+- Patch CSS: `/root/tokenoskobi_clean_v1/_COINOSKOBI_ACTIVE_8096_VIEWPORT_DENSITY_PATCH_PLAN_FIX1_NOAPI/20260522_190848/viewport_density_patch_v1.css`
+- Patch CSS SHA: `4cc450703e5bb603ff77aa4ab01231435c2123d01649395f8bde4732898784d5`
+- Target active index: `/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html`
+- Active write now: `0`
+
+## Required approval
+
+`COINOSKOBI ACTIVE 8096 VIEWPORT DENSITY PATCH REAL için onay veriyorum`
+
+## Next
+
+`COINOSKOBI_ACTIVE_8096_VIEWPORT_DENSITY_PATCH_REAL_AFTER_EXPLICIT_APPROVAL`

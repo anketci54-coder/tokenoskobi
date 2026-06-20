@@ -1,0 +1,312 @@
+{
+  "phase": "PHASE3_TARGET3_DEPLOYER_SOURCE_PLAN_NOAPI",
+  "started_utc": "2026-05-28T21:53:23.367202+00:00",
+  "finished_utc": "2026-05-28T21:53:23.453360+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_TARGET3_DEPLOYER_SOURCE_PLAN_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_TARGET3_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "approval_phrase": "PHASE3_TARGET3 deployer discovery real için onay veriyorum",
+  "alternate_next_phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_NOAPI",
+  "prev_checks": {
+    "prev_selection_json": "/root/tokenoskobi_clean_v1/data/phase3_target3_candidate_selection_plan_noapi.json",
+    "prev_selection_json_exists": true,
+    "prev_selection_json_load_ok": true,
+    "prev_final_gate": "PASS_PHASE3_TARGET3_CANDIDATE_SELECTION_PLAN_NOAPI",
+    "prev_gate_pass": true,
+    "prev_next_phase": "PHASE3_TARGET3_DEPLOYER_SOURCE_PLAN_NOAPI",
+    "prev_alternate_next_phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_NOAPI",
+    "prev_hard_error_count": 0,
+    "prev_warning_count": 0,
+    "prev_selection_class": "TARGET3_CANDIDATE_FOUND",
+    "prev_candidate_rows_total": 19,
+    "prev_excluded_candidate_count": 2,
+    "prev_eligible_candidate_count": 15,
+    "prev_target1_route_closed": true,
+    "prev_target2_route_closed": true,
+    "prev_target3_deployer_status": "UNKNOWN_NOT_QUERIED",
+    "prev_target3_token_state": "RAW_CANDIDATE_DEPLOYER_FIRST_REQUIRED",
+    "prev_target1_or_target2_reselected": false,
+    "route_json": "/root/tokenoskobi_clean_v1/data/phase3_target2_route_close_or_target3_selection_plan_noapi.json",
+    "route_json_exists": true,
+    "route_final_gate": "PASS_PHASE3_TARGET2_ROUTE_CLOSE_OR_TARGET3_SELECTION_PLAN_NOAPI",
+    "route_gate_pass": true
+  },
+  "target3": {
+    "token_uid": "tok_10271280659f01a02acd92d3",
+    "pair_uid": "pair_4e72824de14550a56d596179",
+    "chain": "bnb",
+    "chain_id": null,
+    "token_address": "0x3fa61eb8351dd16a53bc5995780b13d3ae6d4444",
+    "pair_address": "0x12f34530b4f5f4ac0cb67c1e568aaabe680bd73d",
+    "symbol_or_name": "小火種",
+    "selection_score": 100,
+    "selection_reasons": [
+      "TOKEN_UID_PRESENT",
+      "TOKEN_ADDRESS_OK",
+      "PAIR_UID_PRESENT",
+      "PAIR_ADDRESS_OK",
+      "CHAIN_PRESENT",
+      "BNB_LIKE_CHAIN",
+      "PAIR_JOIN_SOURCE",
+      "SYMBOL_OR_NAME_PRESENT"
+    ],
+    "selection_source": "PAIR_JOIN_SOURCE"
+  },
+  "target3_shape": {
+    "token_uid_present": true,
+    "pair_uid_present": true,
+    "chain_present": true,
+    "chain_is_bnb_like": true,
+    "chain_id_present": false,
+    "token_address_shape_ok": true,
+    "pair_address_shape_ok": true,
+    "symbol_or_name_present": true,
+    "selection_score": 100,
+    "selection_source": "PAIR_JOIN_SOURCE"
+  },
+  "target3_exclusion_check": {
+    "target3_is_excluded": false,
+    "exclude_reasons": []
+  },
+  "secret_sources_sanitized": [
+    {
+      "source_path": "/root/tokenoskobi_clean_v1/.secrets/alchemy_bnb.env",
+      "key": "ALCHEMY_BNB_RPC_URL",
+      "role": "primary_rpc_code_block_receipt_tx",
+      "value_present": true,
+      "url_shape_ok": true,
+      "url_masked": "https://bnb-***.g.alchemy.com/***",
+      "url_sha256": "a7116b7ae0195f2fd1f2c84e0cf909855d705cc15333822826a2aeefaa8c3014",
+      "secret_value_printed": false
+    },
+    {
+      "source_path": "/root/tokenoskobi_clean_v1/.secrets/bsctrace_nodereal.env",
+      "key": "BSCTRACE_RPC_URL",
+      "role": "fallback_rpc_getlogs",
+      "value_present": true,
+      "url_shape_ok": true,
+      "url_masked": "https://bsc-***.nodereal.io/***",
+      "url_sha256": "1b50580867c5a11c43f939739b1a7f9f5f0685c4357b6b39959ffefc976bfb08",
+      "secret_value_printed": false
+    }
+  ],
+  "source_history_review": {
+    "scan_provider_loop_status": "DO_NOT_REOPEN_BSCSCAN_LOOP_FOR_TARGET3_PLAN",
+    "reason": "Target1 scan-provider loop was bad and Target2 used RPC-first route; Target3 should stay RPC-first.",
+    "alchemy_role_from_previous_phases": "KEEP_FOR_ETH_GETCODE_BLOCK_RECEIPT_TX_IF_AVAILABLE",
+    "alchemy_getlogs_policy": "DO_NOT_USE_FOR_GETLOGS_UNLESS_SEPARATELY_REPAIRED",
+    "fallback_getlogs_provider_role": "USE_NODEREAL_BSCTRACE_FOR_BOUNDED_GETLOGS_IF_SOURCE_PRESENT",
+    "bscscan_contract_creation_role": "DISABLED_FOR_TARGET3_REAL_UNLESS_NEW_PROVIDER_HEALTH_PLAN_APPROVES",
+    "closed_target_exclusion_policy": "TARGET1_AND_TARGET2_EXCLUDED_FROM_TARGET3"
+  },
+  "provider_plan": {
+    "plan_class": "TARGET3_DEPLOYER_SOURCE_RPC_FIRST_PLAN",
+    "next_real_phase": "PHASE3_TARGET3_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "approval_phrase": "PHASE3_TARGET3 deployer discovery real için onay veriyorum",
+    "alternate_next_phase": "PHASE3_CLOSE_CURRENT_TARGETS_AND_PHASE3_STATUS_REVIEW_NOAPI",
+    "primary_source_present": true,
+    "fallback_getlogs_source_present": true,
+    "scan_api_provider_status": "DISABLED_IN_TARGET3_REAL_PLAN",
+    "target3_chain_policy": "BNB_RPC_FIRST"
+  },
+  "future_real_steps": [
+    {
+      "step": 1,
+      "provider_role": "primary_code_block_tx_receipt_provider",
+      "method": "eth_getCode",
+      "max_calls": 1,
+      "purpose": "Confirm Target3 token contract code exists."
+    },
+    {
+      "step": 2,
+      "provider_role": "primary_code_block_tx_receipt_provider",
+      "method": "eth_blockNumber",
+      "max_calls": 1,
+      "purpose": "Get latest block reference for bounded getLogs windows."
+    },
+    {
+      "step": 3,
+      "provider_role": "fallback_getlogs_provider",
+      "method": "eth_getLogs",
+      "max_calls": 4,
+      "purpose": "Bounded zero-address Transfer windows for deployer/creator candidate discovery. No genesis scan."
+    },
+    {
+      "step": 4,
+      "provider_role": "primary_code_block_tx_receipt_provider",
+      "method": "eth_getTransactionReceipt",
+      "max_calls": 2,
+      "purpose": "Only if zero-transfer candidate found; inspect receipt contractAddress."
+    },
+    {
+      "step": 5,
+      "provider_role": "primary_code_block_tx_receipt_provider",
+      "method": "eth_getTransactionByHash",
+      "max_calls": 2,
+      "purpose": "Only if zero-transfer candidate found; inspect tx.from / tx.to."
+    }
+  ],
+  "real_budget": {
+    "future_real_phase": "PHASE3_TARGET3_DEPLOYER_DISCOVERY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "approval_phrase": "PHASE3_TARGET3 deployer discovery real için onay veriyorum",
+    "hard_max_rpc_calls": 12,
+    "preferred_max_rpc_calls": 10,
+    "estimated_calls_if_no_candidate": 6,
+    "estimated_calls_if_candidate_found": 10,
+    "raw_archive_only": true,
+    "db_write_in_real_discovery": false,
+    "panel_write_in_real_discovery": false,
+    "paper_live_trade": false
+  },
+  "target3_gate": {
+    "target3_deployer_status": "UNKNOWN_NOT_QUERIED",
+    "target3_token_state": "RAW_CANDIDATE_DEPLOYER_FIRST_REQUIRED",
+    "watchlist_allowed": false,
+    "paper_allowed": false,
+    "clean_risk_allowed": false,
+    "panel_promotion_allowed": false,
+    "holder_distribution_allowed": false,
+    "lp_allowed": false,
+    "sellability_allowed": false,
+    "score_allowed": false,
+    "reserves_nonzero": "NOT_RELEVANT_TO_DEPLOYER_SOURCE_PLAN"
+  },
+  "hard_boundaries": {
+    "do_not_use_bscscan_loop": true,
+    "do_not_use_alchemy_getlogs_same_strategy": true,
+    "do_not_scan_from_genesis": true,
+    "do_not_random_expand_range": true,
+    "do_not_use_topicless_pair_wide_query": true,
+    "do_not_make_token_specific_patch": true,
+    "do_not_use_ordinary_transfer_as_deployer": true,
+    "do_not_use_empty_chunk_as_no_deployer": true,
+    "deployer_first_rule_required": true,
+    "watchlist_before_deployer_proof_forbidden": true,
+    "paper_before_deployer_proof_forbidden": true,
+    "clean_risk_before_deployer_proof_forbidden": true,
+    "holder_lp_sellability_score_before_deployer_review_forbidden": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live": true
+  },
+  "db_counts_now": {
+    "tokens": 19,
+    "pairs": 19,
+    "system_events": 19,
+    "validation_runs": 19,
+    "risk_events": null,
+    "token_biographies": null,
+    "paper_trade_positions": 0,
+    "paper_trade_executions": 0
+  },
+  "phase3_gate": {
+    "target1_route_closed": true,
+    "target2_route_closed": true,
+    "target3_deployer_status": "UNKNOWN_NOT_QUERIED",
+    "target3_token_state": "RAW_CANDIDATE_DEPLOYER_FIRST_REQUIRED",
+    "watchlist_allowed": false,
+    "paper_allowed": false,
+    "clean_risk_allowed": false,
+    "panel_promotion_allowed": false,
+    "holder_distribution_allowed": false,
+    "lp_allowed": false,
+    "sellability_allowed": false,
+    "score_allowed": false
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "secret_urls_masked_only": true,
+    "watchlist_opened": false,
+    "paper_opened": false,
+    "clean_risk_opened": false,
+    "panel_promotion_opened": false,
+    "holder_lp_pipeline_advanced": false,
+    "sellability_pipeline_advanced": false,
+    "score_pipeline_advanced": false,
+    "deployer_absence_inferred": false,
+    "ordinary_transfer_used_as_deployer": false,
+    "empty_chunk_used_as_no_deployer": false,
+    "full_historical_deployer_proof": false,
+    "target3_real_call_executed": false,
+    "target1_or_target2_reopened": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "51f40fc403f55266260862f6b18d65f291a662ac70db39eba640410d50f70141",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "51f40fc403f55266260862f6b18d65f291a662ac70db39eba640410d50f70141",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_TARGET3_DEPLOYER_SOURCE_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_target3_deployer_source_plan_noapi.json"
+  }
+}

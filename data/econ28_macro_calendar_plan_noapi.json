@@ -1,0 +1,311 @@
+{
+  "phase": "ECON28_MACRO_CALENDAR_PLAN_NOAPI",
+  "stamp": "20260513_130047",
+  "final_gate": "PASS",
+  "action": "MACRO_CALENDAR_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "paid_macro_api_now": false,
+    "strategy": "manual-first, free/open sources later, cache, low-frequency refresh",
+    "blocked_for_mvp": [
+      "paid macro calendar API",
+      "high-frequency macro feed",
+      "premium Bloomberg/Reuters style feed",
+      "AI-based full auto macro commentary"
+    ],
+    "allowed_for_mvp": [
+      "manual high-impact event seed",
+      "official/public calendar references later",
+      "local DB/cache",
+      "daily/weekly refresh",
+      "main-panel only for high-impact events"
+    ]
+  },
+  "macro_event_classes": [
+    {
+      "class": "INFLATION",
+      "events": [
+        "CPI",
+        "Core CPI",
+        "PPI",
+        "PCE",
+        "Core PCE"
+      ],
+      "crypto_effect": "Enflasyon yüksek gelirse riskli varlıklarda baskı; düşük gelirse risk-on ihtimali."
+    },
+    {
+      "class": "FED_RATE",
+      "events": [
+        "FOMC Rate Decision",
+        "FOMC Statement",
+        "Dot Plot",
+        "FOMC Minutes"
+      ],
+      "crypto_effect": "Faiz ve Fed tonu BTC/ETH/altcoin risk iştahını doğrudan etkiler."
+    },
+    {
+      "class": "LABOR",
+      "events": [
+        "NFP",
+        "Unemployment Rate",
+        "Initial Jobless Claims",
+        "JOLTS"
+      ],
+      "crypto_effect": "İstihdam gücü faiz beklentisini değiştirir; volatilite yaratır."
+    },
+    {
+      "class": "GROWTH",
+      "events": [
+        "GDP",
+        "Retail Sales",
+        "PMI",
+        "ISM Manufacturing",
+        "ISM Services"
+      ],
+      "crypto_effect": "Büyüme verisi risk-on/risk-off kararını etkiler."
+    },
+    {
+      "class": "LIQUIDITY",
+      "events": [
+        "DXY",
+        "US10Y",
+        "US2Y",
+        "Treasury Auction",
+        "QT/QE Signals"
+      ],
+      "crypto_effect": "Dolar/faiz/likidite koşulları kripto likidite iştahını değiştirir."
+    },
+    {
+      "class": "ETF_FLOW",
+      "events": [
+        "BTC ETF Flow",
+        "ETH ETF Flow",
+        "Institutional Flow"
+      ],
+      "crypto_effect": "Spot ETF akışı major coin ve altcoin risk iştahını etkiler."
+    },
+    {
+      "class": "REGULATORY",
+      "events": [
+        "SEC/CFTC/MiCA kararları",
+        "stablecoin bill",
+        "exchange enforcement"
+      ],
+      "crypto_effect": "Regülasyon haberleri risk ve narrative skorlarını değiştirir."
+    }
+  ],
+  "importance_tiers": [
+    {
+      "tier": "CRITICAL",
+      "main_panel": true,
+      "examples": [
+        "FOMC",
+        "CPI",
+        "NFP",
+        "PCE",
+        "major ETF shock",
+        "SEC/CFTC major decision"
+      ],
+      "rule": "Ana panele düşer, paper size/risk rejimini etkiler."
+    },
+    {
+      "tier": "HIGH",
+      "main_panel": true,
+      "examples": [
+        "PPI",
+        "PMI",
+        "GDP",
+        "Fed chair speech",
+        "US10Y/DXY extreme movement"
+      ],
+      "rule": "Ana panele kısa notla düşebilir."
+    },
+    {
+      "tier": "MEDIUM",
+      "main_panel": false,
+      "examples": [
+        "secondary Fed speakers",
+        "regional macro",
+        "moderate ETF flows"
+      ],
+      "rule": "Ekonomik takvim alt panelinde kalır."
+    },
+    {
+      "tier": "LOW",
+      "main_panel": false,
+      "examples": [
+        "low impact data",
+        "routine commentary"
+      ],
+      "rule": "Gizlenir veya sadece arşivlenir."
+    }
+  ],
+  "macro_contract_fields": [
+    "event_id",
+    "event_time_utc",
+    "region",
+    "event_name",
+    "event_class",
+    "importance_tier",
+    "previous_value",
+    "expected_value",
+    "actual_value",
+    "surprise_direction",
+    "surprise_score",
+    "crypto_impact_direction",
+    "crypto_impact_score",
+    "risk_appetite_effect",
+    "major_coin_effect",
+    "small_token_size_effect",
+    "paper_size_effect",
+    "main_panel_flag",
+    "recommendation_tr",
+    "source_name",
+    "source_tier",
+    "source_reliability",
+    "is_manual_seed",
+    "is_mock",
+    "freshness_status",
+    "outcome_tracking_required"
+  ],
+  "panel_rules": [
+    "CRITICAL olaylar ana panele düşer.",
+    "HIGH olaylar ana panele düşebilir; alaka ve zaman yakınlığına bakılır.",
+    "MEDIUM/LOW olaylar ana paneli kirletmez.",
+    "Event zamanı yaklaşınca ana panelde geri sayım gösterilir.",
+    "Beklenti/gerçekleşen verisi yoksa yorum düşük güvenle gösterilir.",
+    "Gerçekleşen veri beklentiden saparsa surprise_score hesaplanır.",
+    "Paper açıkken CRITICAL makro varsa position size azaltma veya yeni paper bekletme önerilir.",
+    "Makro olay tek başına trade sinyali değildir.",
+    "Makro etki fusion skoruna girdi olur.",
+    "Outcome takip edilmeden AI kalibrasyon iddiası yapılmaz."
+  ],
+  "outcome_windows": [
+    "event_time + 15m",
+    "event_time + 1h",
+    "event_time + 4h",
+    "event_time + 24h",
+    "event_time + 72h"
+  ],
+  "impact_outputs": {
+    "risk_appetite": [
+      "RISK_ON",
+      "RISK_OFF",
+      "MIXED",
+      "NEUTRAL"
+    ],
+    "major_coin_effect": [
+      "BTC_POSITIVE",
+      "BTC_NEGATIVE",
+      "ETH_POSITIVE",
+      "ALT_POSITIVE",
+      "ALT_NEGATIVE",
+      "MIXED"
+    ],
+    "paper_size_effect": [
+      "NO_CHANGE",
+      "REDUCE_SIZE",
+      "PAUSE_NEW_PAPER",
+      "ALLOW_NORMAL",
+      "WATCH_ONLY"
+    ],
+    "panel_decision": [
+      "SHOW_CRITICAL",
+      "SHOW_HIGH",
+      "SUB_PANEL_ONLY",
+      "HIDE_LOW_RELEVANCE"
+    ]
+  },
+  "future_tables_plan": [
+    {
+      "table": "macro_calendar_events",
+      "purpose": "Makro olay kayıtları",
+      "apply_now": false
+    },
+    {
+      "table": "macro_event_expectations",
+      "purpose": "Beklenti/önceki/gerçekleşen değerleri",
+      "apply_now": false
+    },
+    {
+      "table": "macro_event_impact_scores",
+      "purpose": "Kripto etki skorları",
+      "apply_now": false
+    },
+    {
+      "table": "macro_event_outcomes",
+      "purpose": "15m/1h/4h/24h/72h outcome takibi",
+      "apply_now": false
+    },
+    {
+      "table": "macro_panel_alerts",
+      "purpose": "Ana panele düşecek makro uyarılar",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "Başlangıçta paid macro API yok.",
+    "İlk sürüm manual high-impact seed ile çalışır.",
+    "Sadece CPI/FOMC/NFP/PCE/PMI/GDP/Fed konuşması gibi yüksek etki olayları takip edilir.",
+    "Her olay ana panele değil, sadece CRITICAL/HIGH olaylar ana panele düşer.",
+    "Veri çekme başlamadan önce schema/dry-run ayrı fazda planlanır.",
+    "Ekonomi takvimi fusion motoruna risk rejimi girdisi sağlar.",
+    "Paper trade açıkken makro risk paper size ve giriş bekleme kararına etki eder."
+  ],
+  "macro_event_class_count": 7,
+  "importance_tier_count": 4,
+  "contract_field_count": 26,
+  "panel_rule_count": 10,
+  "future_table_count": 5,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_macro_api_enabled": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "ECON29_CPI_FOMC_NFP_EVENT_REGISTRY_PLAN_NOAPI",
+  "alternate_next_phase": "FLOW28_LIQUIDITY_FLOW_RADAR_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_ECON28_MACRO_CALENDAR_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/econ28_macro_calendar_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

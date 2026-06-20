@@ -1,0 +1,56 @@
+{
+  "phase": "COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "stamp": "20260521_100655",
+  "final_decision": "PASS",
+  "explicit_approval": "COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL için onay veriyorum",
+  "target": {
+    "domain": "www.coinoskobi.xyz",
+    "proxy_target": "http://127.0.0.1:8096",
+    "vps_ip": "159.195.74.132"
+  },
+  "actions": {
+    "nginx_existed_before": false,
+    "nginx_installed_now": true,
+    "nginx_available_written": "/etc/nginx/sites-available/coinoskobi_xyz_staging.conf",
+    "nginx_enabled_symlink": "/etc/nginx/sites-enabled/coinoskobi_xyz_staging.conf",
+    "nginx_test_rc": 0,
+    "systemctl_enable_rc": 0,
+    "systemctl_restart_rc": 0
+  },
+  "ports": {
+    "before": {
+      "80": 0,
+      "443": 0,
+      "8096": 1
+    },
+    "after": {
+      "80": 1,
+      "443": 0,
+      "8096": 1
+    }
+  },
+  "http_checks": {
+    "active_8096_code": 200,
+    "active_8096_bytes": 35104,
+    "localhost_code": 200,
+    "localhost_bytes": 615,
+    "domain_local_code": 200,
+    "domain_local_bytes": 35104
+  },
+  "rollback": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL_AFTER_EXPLICIT_APPROVAL_20260521_100655/ROLLBACK_COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL_AFTER_EXPLICIT_APPROVAL.sh",
+  "files": {
+    "out_dir": "/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL_AFTER_EXPLICIT_APPROVAL/20260521_100655",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_REAL_AFTER_EXPLICIT_APPROVAL.md",
+    "json": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_nginx_http_proxy_real_after_explicit_approval.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/coinoskobi_xyz_staging_nginx_http_proxy_real_after_explicit_approval_rows.jsonl"
+  },
+  "safety": {
+    "dns_mutation": false,
+    "ssl_request": false,
+    "certbot_run": false,
+    "active_panel_mutation": false,
+    "db_mutation": false,
+    "paper_live_trade": false
+  },
+  "next_phase": "COINOSKOBI_XYZ_STAGING_NGINX_HTTP_PROXY_POST_AUDIT_NOAPI"
+}

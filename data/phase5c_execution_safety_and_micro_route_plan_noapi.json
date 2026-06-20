@@ -1,0 +1,762 @@
+{
+  "base_counts": {
+    "center_signal_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "deployer_wallet_events": 0,
+    "fusion_score_events_v1": 0,
+    "holder_distribution_events": 0,
+    "holder_snapshots": 0,
+    "life_gate_decisions": 0,
+    "liquidity_snapshots": 46,
+    "live_data_quality_events": 99,
+    "market_snapshots": 46,
+    "outcome_memory_events_v1": 0,
+    "pairs": 19,
+    "paper_trade_executions": 0,
+    "paper_trade_plans": 2,
+    "paper_trade_positions": 0,
+    "tokens": 19
+  },
+  "db_error": null,
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "execution_gate_count": 15,
+  "execution_gate_matrix": [
+    {
+      "domain": "risk",
+      "fail_action": "NO_PAPER_NO_LIVE_NO_MICRO_ROUTE",
+      "gate_id": "RISK_HARD_BLOCK_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "hard_block == 0 AND risk_status not in HARD_BLOCK",
+      "required_field": "hard_block",
+      "unknown_policy": "BLOCK_LIVE_AND_BLOCK_MICRO_ROUTE"
+    },
+    {
+      "domain": "route",
+      "fail_action": "NO_PAPER_NO_LIVE_NO_MICRO_ROUTE",
+      "gate_id": "SELL_ROUTE_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "sell_route_status == OPEN_CONFIRMED",
+      "required_field": "sell_route_status",
+      "unknown_policy": "BLOCK_ALL_EXECUTION"
+    },
+    {
+      "domain": "liquidity",
+      "fail_action": "NO_POSITION_OPEN",
+      "gate_id": "POOL_LIQUIDITY_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "minimum_pool_liquidity_usd >= policy_min_liquidity_usd",
+      "required_field": "minimum_pool_liquidity_usd",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "liquidity",
+      "fail_action": "NO_POSITION_OPEN",
+      "gate_id": "EXIT_LIQUIDITY_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "exit_liquidity_usd >= planned_exit_size_usd * policy_exit_depth_multiplier",
+      "required_field": "exit_liquidity_usd",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "price_impact",
+      "fail_action": "SIZE_DOWN_OR_BLOCK",
+      "gate_id": "BUY_PRICE_IMPACT_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "buy_price_impact_pct <= policy_max_buy_impact_pct",
+      "required_field": "buy_price_impact_pct",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "price_impact",
+      "fail_action": "SIZE_DOWN_OR_BLOCK",
+      "gate_id": "SELL_PRICE_IMPACT_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "sell_price_impact_pct <= policy_max_sell_impact_pct",
+      "required_field": "sell_price_impact_pct",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "slippage",
+      "fail_action": "SIZE_DOWN_OR_BLOCK",
+      "gate_id": "EXPECTED_SLIPPAGE_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "expected_slippage_pct <= policy_max_slippage_pct",
+      "required_field": "expected_slippage_pct",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "position_size",
+      "fail_action": "SIZE_DOWN_OR_BLOCK",
+      "gate_id": "MAX_POSITION_SIZE_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "requested_size_usd <= max_position_size_usd",
+      "required_field": "max_position_size_usd",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "tax",
+      "fail_action": "NO_POSITION_OPEN",
+      "gate_id": "TAX_BUY_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "tax_buy_pct <= policy_max_buy_tax_pct",
+      "required_field": "tax_buy_pct",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "tax",
+      "fail_action": "NO_POSITION_OPEN",
+      "gate_id": "TAX_SELL_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "tax_sell_pct <= policy_max_sell_tax_pct",
+      "required_field": "tax_sell_pct",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "mev",
+      "fail_action": "NO_LIVE_NO_MICRO_ROUTE",
+      "gate_id": "MEV_STATUS_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "mev_status in LOW_OR_PROTECTED",
+      "required_field": "mev_status",
+      "unknown_policy": "BLOCK_LIVE_AND_BLOCK_MICRO_ROUTE"
+    },
+    {
+      "domain": "mev",
+      "fail_action": "NO_LIVE_NO_MICRO_ROUTE",
+      "gate_id": "SANDWICH_EXPOSURE_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "sandwich_exposure_status in LOW_OR_CONTROLLED",
+      "required_field": "sandwich_exposure_status",
+      "unknown_policy": "BLOCK_LIVE_AND_BLOCK_MICRO_ROUTE"
+    },
+    {
+      "domain": "route",
+      "fail_action": "NO_LIVE",
+      "gate_id": "PROTECTED_ROUTE_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "protected_route_status in AVAILABLE_OR_NOT_REQUIRED_FOR_PAPER",
+      "required_field": "protected_route_status",
+      "unknown_policy": "BLOCK_LIVE"
+    },
+    {
+      "domain": "cost",
+      "fail_action": "NO_POSITION_OPEN",
+      "gate_id": "GAS_COST_SANITY_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "gas_cost_sanity == PASS",
+      "required_field": "gas_cost_sanity",
+      "unknown_policy": "BLOCK_EXECUTION"
+    },
+    {
+      "domain": "quality",
+      "fail_action": "NO_DECISION_NO_EXECUTION",
+      "gate_id": "DATA_QUALITY_GATE",
+      "live_allowed_on_unknown": false,
+      "micro_route_allowed_on_unknown": false,
+      "paper_allowed_on_unknown": false,
+      "pass_condition": "quality_label in PASS_OR_ACCEPTABLE",
+      "required_field": "quality_label",
+      "unknown_policy": "BLOCK_DECISION"
+    }
+  ],
+  "existing_future_columns": {
+    "execution_preflight_audit_events_v1": [],
+    "execution_safety_gate_events_v2": [],
+    "execution_safety_policy_v1": [],
+    "micro_route_size_plan_events_v1": []
+  },
+  "existing_future_tables": {
+    "execution_preflight_audit_events_v1": false,
+    "execution_safety_gate_events_v2": false,
+    "execution_safety_policy_v1": false,
+    "micro_route_size_plan_events_v1": false
+  },
+  "expected": {
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "phase5b_gate": "PASS_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI",
+    "phase5b_next": "PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+    "policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84"
+  },
+  "failed_checks": [],
+  "failed_phase5b_checks": [],
+  "final_gate": "PASS_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+  "finished_at_utc": "2026-05-31T20:36:21.205144+00:00",
+  "future_schema": [
+    {
+      "fields": [
+        "policy_uid TEXT PRIMARY KEY",
+        "policy_version TEXT NOT NULL",
+        "chain TEXT NOT NULL",
+        "route_type TEXT NOT NULL",
+        "min_pool_liquidity_usd REAL NOT NULL",
+        "max_buy_impact_pct REAL NOT NULL",
+        "max_sell_impact_pct REAL NOT NULL",
+        "max_expected_slippage_pct REAL NOT NULL",
+        "max_buy_tax_pct REAL NOT NULL",
+        "max_sell_tax_pct REAL NOT NULL",
+        "exit_depth_multiplier REAL NOT NULL",
+        "mev_required_status TEXT NOT NULL",
+        "protected_route_required INTEGER NOT NULL",
+        "live_allowed INTEGER NOT NULL",
+        "paper_allowed INTEGER NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Static execution safety thresholds and hard gate rules.",
+      "table": "execution_safety_policy_v1"
+    },
+    {
+      "fields": [
+        "safety_event_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "route_type TEXT NOT NULL",
+        "policy_uid TEXT",
+        "hard_block INTEGER NOT NULL",
+        "sell_route_status TEXT NOT NULL",
+        "minimum_pool_liquidity_usd REAL",
+        "exit_liquidity_usd REAL",
+        "buy_price_impact_pct REAL",
+        "sell_price_impact_pct REAL",
+        "expected_slippage_pct REAL",
+        "max_position_size_usd REAL",
+        "tax_buy_pct REAL",
+        "tax_sell_pct REAL",
+        "mev_status TEXT NOT NULL",
+        "sandwich_exposure_status TEXT NOT NULL",
+        "gas_cost_sanity TEXT NOT NULL",
+        "protected_route_status TEXT NOT NULL",
+        "execution_permission TEXT NOT NULL",
+        "failed_gate_list_json TEXT NOT NULL",
+        "payload_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Per-token/pair execution safety gate result events.",
+      "table": "execution_safety_gate_events_v2"
+    },
+    {
+      "fields": [
+        "size_plan_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "route_type TEXT NOT NULL",
+        "requested_size_usd REAL",
+        "max_safe_size_usd REAL",
+        "size_decision TEXT NOT NULL",
+        "linked_safety_event_uid TEXT",
+        "reason_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Future micro-route max size math plan output; never bypasses risk.",
+      "table": "micro_route_size_plan_events_v1"
+    },
+    {
+      "fields": [
+        "preflight_uid TEXT PRIMARY KEY",
+        "event_ts_utc TEXT NOT NULL",
+        "token_uid TEXT",
+        "pair_uid TEXT",
+        "chain TEXT NOT NULL",
+        "route_type TEXT NOT NULL",
+        "paper_allowed INTEGER NOT NULL",
+        "live_allowed INTEGER NOT NULL",
+        "failed_required_fields_json TEXT NOT NULL",
+        "passed_gate_list_json TEXT NOT NULL",
+        "blocked_reason_json TEXT NOT NULL",
+        "created_at_utc TEXT NOT NULL"
+      ],
+      "purpose": "Pre-execution checklist and audit trail before any future paper/live route.",
+      "table": "execution_preflight_audit_events_v1"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "db_sha_start": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "micro_route_permission_matrix": [
+    {
+      "live_permission": false,
+      "paper_permission": false,
+      "phase": "PHASE5C",
+      "reason": "Phase5C is plan-only and cannot activate execution.",
+      "route_mode": "MICRO_ROUTE_DISABLED_NOW",
+      "score_permission": false,
+      "watchlist_permission": false
+    },
+    {
+      "live_permission": false,
+      "paper_permission": "ONLY_AFTER_ALL_EXECUTION_SAFETY_GATES_PASS",
+      "phase": "FUTURE_AFTER_SCHEMA_AND_BACKFILL",
+      "reason": "Paper observation requires risk clear, sell route open, liquidity/impact/slippage/tax/MEV/gas fields present.",
+      "route_mode": "MICRO_ROUTE_FUTURE_PAPER_OBSERVE",
+      "score_permission": false,
+      "watchlist_permission": false
+    },
+    {
+      "live_permission": false,
+      "paper_permission": "N/A",
+      "phase": "NOT_ALLOWED_IN_PHASE5",
+      "reason": "Live remains locked. Protected route, MEV controls, max size math and explicit later approval required.",
+      "route_mode": "MICRO_ROUTE_FUTURE_LIVE",
+      "score_permission": false,
+      "watchlist_permission": false
+    }
+  ],
+  "next_phase": "PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI",
+  "outputs": {
+    "gate_matrix_rows": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_execution_safety_gate_matrix.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5c_execution_safety_and_micro_route_plan_noapi.json",
+    "micro_route_rows": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_micro_route_permission_matrix.jsonl",
+    "policy_json": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_execution_safety_policy_plan_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5c_execution_safety_and_micro_route_plan_noapi_rows.jsonl",
+    "schema_plan_sql": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_future_execution_safety_schema_plan_noapi.sql",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621"
+  },
+  "pass_conditions": {
+    "active_index_exists": true,
+    "active_index_sha_expected_match_start": true,
+    "active_index_unchanged": true,
+    "db_exists": true,
+    "db_readonly_health_ok": true,
+    "db_sha_expected_match_start": true,
+    "db_unchanged": true,
+    "gate_count_minimum": true,
+    "gate_matrix_written": true,
+    "hosts_exists": true,
+    "hosts_sha_expected_match_start": true,
+    "hosts_unchanged": true,
+    "micro_route_disabled_now": true,
+    "micro_route_matrix_written": true,
+    "phase5b_dependency_all_pass": true,
+    "policy_json_written": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "required_fields_count_minimum": true,
+    "rows_out_written": true,
+    "safety_noapi_clean": true,
+    "schema_plan_sql_written": true,
+    "unknown_blocks_live": true,
+    "unknown_blocks_micro_route": true
+  },
+  "phase": "PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+  "phase5b_checks": {
+    "phase5b_failed_checks_none": true,
+    "phase5b_failed_phase5a_checks_none": true,
+    "phase5b_final_gate_pass": true,
+    "phase5b_json_exists": true,
+    "phase5b_next_phase_match": true,
+    "phase5b_report_exists": true,
+    "phase5b_rows_count_positive": true,
+    "phase5b_rows_exists": true,
+    "phase5b_safety_ok": true,
+    "phase5b_warnings_none": true
+  },
+  "phase5b_rows_count": 12,
+  "policy_plan": {
+    "created_at_utc": "2026-05-31T20:36:21.201909+00:00",
+    "execution_gate_matrix": [
+      {
+        "domain": "risk",
+        "fail_action": "NO_PAPER_NO_LIVE_NO_MICRO_ROUTE",
+        "gate_id": "RISK_HARD_BLOCK_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "hard_block == 0 AND risk_status not in HARD_BLOCK",
+        "required_field": "hard_block",
+        "unknown_policy": "BLOCK_LIVE_AND_BLOCK_MICRO_ROUTE"
+      },
+      {
+        "domain": "route",
+        "fail_action": "NO_PAPER_NO_LIVE_NO_MICRO_ROUTE",
+        "gate_id": "SELL_ROUTE_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "sell_route_status == OPEN_CONFIRMED",
+        "required_field": "sell_route_status",
+        "unknown_policy": "BLOCK_ALL_EXECUTION"
+      },
+      {
+        "domain": "liquidity",
+        "fail_action": "NO_POSITION_OPEN",
+        "gate_id": "POOL_LIQUIDITY_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "minimum_pool_liquidity_usd >= policy_min_liquidity_usd",
+        "required_field": "minimum_pool_liquidity_usd",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "liquidity",
+        "fail_action": "NO_POSITION_OPEN",
+        "gate_id": "EXIT_LIQUIDITY_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "exit_liquidity_usd >= planned_exit_size_usd * policy_exit_depth_multiplier",
+        "required_field": "exit_liquidity_usd",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "price_impact",
+        "fail_action": "SIZE_DOWN_OR_BLOCK",
+        "gate_id": "BUY_PRICE_IMPACT_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "buy_price_impact_pct <= policy_max_buy_impact_pct",
+        "required_field": "buy_price_impact_pct",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "price_impact",
+        "fail_action": "SIZE_DOWN_OR_BLOCK",
+        "gate_id": "SELL_PRICE_IMPACT_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "sell_price_impact_pct <= policy_max_sell_impact_pct",
+        "required_field": "sell_price_impact_pct",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "slippage",
+        "fail_action": "SIZE_DOWN_OR_BLOCK",
+        "gate_id": "EXPECTED_SLIPPAGE_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "expected_slippage_pct <= policy_max_slippage_pct",
+        "required_field": "expected_slippage_pct",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "position_size",
+        "fail_action": "SIZE_DOWN_OR_BLOCK",
+        "gate_id": "MAX_POSITION_SIZE_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "requested_size_usd <= max_position_size_usd",
+        "required_field": "max_position_size_usd",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "tax",
+        "fail_action": "NO_POSITION_OPEN",
+        "gate_id": "TAX_BUY_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "tax_buy_pct <= policy_max_buy_tax_pct",
+        "required_field": "tax_buy_pct",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "tax",
+        "fail_action": "NO_POSITION_OPEN",
+        "gate_id": "TAX_SELL_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "tax_sell_pct <= policy_max_sell_tax_pct",
+        "required_field": "tax_sell_pct",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "mev",
+        "fail_action": "NO_LIVE_NO_MICRO_ROUTE",
+        "gate_id": "MEV_STATUS_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "mev_status in LOW_OR_PROTECTED",
+        "required_field": "mev_status",
+        "unknown_policy": "BLOCK_LIVE_AND_BLOCK_MICRO_ROUTE"
+      },
+      {
+        "domain": "mev",
+        "fail_action": "NO_LIVE_NO_MICRO_ROUTE",
+        "gate_id": "SANDWICH_EXPOSURE_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "sandwich_exposure_status in LOW_OR_CONTROLLED",
+        "required_field": "sandwich_exposure_status",
+        "unknown_policy": "BLOCK_LIVE_AND_BLOCK_MICRO_ROUTE"
+      },
+      {
+        "domain": "route",
+        "fail_action": "NO_LIVE",
+        "gate_id": "PROTECTED_ROUTE_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "protected_route_status in AVAILABLE_OR_NOT_REQUIRED_FOR_PAPER",
+        "required_field": "protected_route_status",
+        "unknown_policy": "BLOCK_LIVE"
+      },
+      {
+        "domain": "cost",
+        "fail_action": "NO_POSITION_OPEN",
+        "gate_id": "GAS_COST_SANITY_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "gas_cost_sanity == PASS",
+        "required_field": "gas_cost_sanity",
+        "unknown_policy": "BLOCK_EXECUTION"
+      },
+      {
+        "domain": "quality",
+        "fail_action": "NO_DECISION_NO_EXECUTION",
+        "gate_id": "DATA_QUALITY_GATE",
+        "live_allowed_on_unknown": false,
+        "micro_route_allowed_on_unknown": false,
+        "paper_allowed_on_unknown": false,
+        "pass_condition": "quality_label in PASS_OR_ACCEPTABLE",
+        "required_field": "quality_label",
+        "unknown_policy": "BLOCK_DECISION"
+      }
+    ],
+    "future_schema": [
+      {
+        "fields": [
+          "policy_uid TEXT PRIMARY KEY",
+          "policy_version TEXT NOT NULL",
+          "chain TEXT NOT NULL",
+          "route_type TEXT NOT NULL",
+          "min_pool_liquidity_usd REAL NOT NULL",
+          "max_buy_impact_pct REAL NOT NULL",
+          "max_sell_impact_pct REAL NOT NULL",
+          "max_expected_slippage_pct REAL NOT NULL",
+          "max_buy_tax_pct REAL NOT NULL",
+          "max_sell_tax_pct REAL NOT NULL",
+          "exit_depth_multiplier REAL NOT NULL",
+          "mev_required_status TEXT NOT NULL",
+          "protected_route_required INTEGER NOT NULL",
+          "live_allowed INTEGER NOT NULL",
+          "paper_allowed INTEGER NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Static execution safety thresholds and hard gate rules.",
+        "table": "execution_safety_policy_v1"
+      },
+      {
+        "fields": [
+          "safety_event_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "route_type TEXT NOT NULL",
+          "policy_uid TEXT",
+          "hard_block INTEGER NOT NULL",
+          "sell_route_status TEXT NOT NULL",
+          "minimum_pool_liquidity_usd REAL",
+          "exit_liquidity_usd REAL",
+          "buy_price_impact_pct REAL",
+          "sell_price_impact_pct REAL",
+          "expected_slippage_pct REAL",
+          "max_position_size_usd REAL",
+          "tax_buy_pct REAL",
+          "tax_sell_pct REAL",
+          "mev_status TEXT NOT NULL",
+          "sandwich_exposure_status TEXT NOT NULL",
+          "gas_cost_sanity TEXT NOT NULL",
+          "protected_route_status TEXT NOT NULL",
+          "execution_permission TEXT NOT NULL",
+          "failed_gate_list_json TEXT NOT NULL",
+          "payload_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Per-token/pair execution safety gate result events.",
+        "table": "execution_safety_gate_events_v2"
+      },
+      {
+        "fields": [
+          "size_plan_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "route_type TEXT NOT NULL",
+          "requested_size_usd REAL",
+          "max_safe_size_usd REAL",
+          "size_decision TEXT NOT NULL",
+          "linked_safety_event_uid TEXT",
+          "reason_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Future micro-route max size math plan output; never bypasses risk.",
+        "table": "micro_route_size_plan_events_v1"
+      },
+      {
+        "fields": [
+          "preflight_uid TEXT PRIMARY KEY",
+          "event_ts_utc TEXT NOT NULL",
+          "token_uid TEXT",
+          "pair_uid TEXT",
+          "chain TEXT NOT NULL",
+          "route_type TEXT NOT NULL",
+          "paper_allowed INTEGER NOT NULL",
+          "live_allowed INTEGER NOT NULL",
+          "failed_required_fields_json TEXT NOT NULL",
+          "passed_gate_list_json TEXT NOT NULL",
+          "blocked_reason_json TEXT NOT NULL",
+          "created_at_utc TEXT NOT NULL"
+        ],
+        "purpose": "Pre-execution checklist and audit trail before any future paper/live route.",
+        "table": "execution_preflight_audit_events_v1"
+      }
+    ],
+    "hard_architecture_rules": [
+      "PHASE5C is NOAPI and plan-only.",
+      "No API/RPC/fetch/external network calls.",
+      "No live DB schema apply.",
+      "No panel write.",
+      "No service/timer/Nginx/Auth/hosts mutation.",
+      "Micro Route never bypasses risk hard blocks.",
+      "Risk hard block, unknown sell route, unknown liquidity, unknown tax, unknown MEV, unknown gas, unknown protected route all block execution.",
+      "Paper is not enabled in PHASE5C.",
+      "Live is not enabled in PHASE5C.",
+      "Watchlist and score remain locked.",
+      "Max position size must be mathematical and route-specific.",
+      "Execution decision must be separate from raw signal.",
+      "Outcome Memory runtime waits for paper observations."
+    ],
+    "micro_route_permission_matrix": [
+      {
+        "live_permission": false,
+        "paper_permission": false,
+        "phase": "PHASE5C",
+        "reason": "Phase5C is plan-only and cannot activate execution.",
+        "route_mode": "MICRO_ROUTE_DISABLED_NOW",
+        "score_permission": false,
+        "watchlist_permission": false
+      },
+      {
+        "live_permission": false,
+        "paper_permission": "ONLY_AFTER_ALL_EXECUTION_SAFETY_GATES_PASS",
+        "phase": "FUTURE_AFTER_SCHEMA_AND_BACKFILL",
+        "reason": "Paper observation requires risk clear, sell route open, liquidity/impact/slippage/tax/MEV/gas fields present.",
+        "route_mode": "MICRO_ROUTE_FUTURE_PAPER_OBSERVE",
+        "score_permission": false,
+        "watchlist_permission": false
+      },
+      {
+        "live_permission": false,
+        "paper_permission": "N/A",
+        "phase": "NOT_ALLOWED_IN_PHASE5",
+        "reason": "Live remains locked. Protected route, MEV controls, max size math and explicit later approval required.",
+        "route_mode": "MICRO_ROUTE_FUTURE_LIVE",
+        "score_permission": false,
+        "watchlist_permission": false
+      }
+    ],
+    "phase": "PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI",
+    "required_execution_fields": [
+      "hard_block",
+      "sell_route_status",
+      "minimum_pool_liquidity_usd",
+      "exit_liquidity_usd",
+      "buy_price_impact_pct",
+      "sell_price_impact_pct",
+      "expected_slippage_pct",
+      "max_position_size_usd",
+      "tax_buy_pct",
+      "tax_sell_pct",
+      "mev_status",
+      "sandwich_exposure_status",
+      "gas_cost_sanity",
+      "protected_route_status",
+      "quality_label"
+    ]
+  },
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 2,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 2,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "backfill_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "full_rpc_url_printed": false,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "secret_printed": false,
+    "service_timer_mutation": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-05-31T20:36:21.182730+00:00",
+  "warnings": []
+}

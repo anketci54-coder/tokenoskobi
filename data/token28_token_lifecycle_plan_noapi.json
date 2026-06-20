@@ -1,0 +1,311 @@
+{
+  "phase": "TOKEN28_TOKEN_LIFECYCLE_PLAN_NOAPI",
+  "stamp": "20260513_131921",
+  "final_gate": "PASS",
+  "action": "TOKEN_LIFECYCLE_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "paid_token_lifecycle_data_now": false,
+    "strategy": "candidate-first lifecycle tracking using local DB, existing Alchemy selected checks, free DEX/pair references and cache",
+    "blocked_for_mvp": [
+      "high-frequency all-token scanner",
+      "paid new-pair firehose",
+      "premium holder intelligence",
+      "new server",
+      "expensive AI scoring loop",
+      "live trading"
+    ],
+    "allowed_for_mvp": [
+      "local DB lifecycle records",
+      "existing Alchemy selected token checks",
+      "free/limited DEX pair discovery later",
+      "manual seed token watchlist",
+      "candidate-first refresh",
+      "paper-only lifecycle outcome"
+    ]
+  },
+  "lifecycle_stages": [
+    {
+      "stage": "DISCOVERED",
+      "meaning": "Token veya pair ilk kez görüldü.",
+      "entry_rule": "Kimlik ve kaynak kaydı yeterli."
+    },
+    {
+      "stage": "BIRTH",
+      "meaning": "Token/pair doğum zamanı işaretlendi.",
+      "entry_rule": "Birth time veya first_seen güvenli."
+    },
+    {
+      "stage": "FIRST_PAIR",
+      "meaning": "İlk geçerli pair tespit edildi.",
+      "entry_rule": "Pair identity conflict yok."
+    },
+    {
+      "stage": "FIRST_LIQUIDITY",
+      "meaning": "İlk anlamlı likidite görüldü.",
+      "entry_rule": "Liquidity > minimum threshold ve kaynak taze."
+    },
+    {
+      "stage": "FIRST_TRUSTED_PRICE",
+      "meaning": "İlk güvenilir fiyat geldi.",
+      "entry_rule": "Price conflict yok veya conflict çözüldü."
+    },
+    {
+      "stage": "EARLY_FLOW",
+      "meaning": "İlk tx/volume/holder hareketi başladı.",
+      "entry_rule": "Tx/volume/holder alanı dolu."
+    },
+    {
+      "stage": "GROWTH",
+      "meaning": "Holder, likidite veya volume büyüyor.",
+      "entry_rule": "Çoklu ölçümde pozitif ivme."
+    },
+    {
+      "stage": "MOMENTUM",
+      "meaning": "Narrative, flow, wallet ve fiyat birlikte güçleniyor.",
+      "entry_rule": "Fusion girdileri destekliyor."
+    },
+    {
+      "stage": "DECAY",
+      "meaning": "Hacim, likidite veya holder ivmesi bozuluyor.",
+      "entry_rule": "Negatif momentum / tazelik kaybı."
+    },
+    {
+      "stage": "DEATH_OR_RUG",
+      "meaning": "Rug, LP çekimi, honeypot, ölme veya işlem dışı kalma.",
+      "entry_rule": "Morg/Otopsi adayı."
+    },
+    {
+      "stage": "REVIVAL_WATCH",
+      "meaning": "Düşüş sonrası yeniden canlanma ihtimali.",
+      "entry_rule": "Yeni flow/news/wallet hareketi."
+    }
+  ],
+  "star_classes": [
+    {
+      "class": "NEWBORN",
+      "meaning": "Yeni doğan; henüz veri az.",
+      "panel_decision": "Watch only / no paper"
+    },
+    {
+      "class": "SMALL_STAR",
+      "meaning": "Kısa-orta vadede para kazandırabilecek küçük genç yıldız.",
+      "panel_decision": "Paper candidate possible with strict size"
+    },
+    {
+      "class": "FUTURE_STAR",
+      "meaning": "Uzun vadeli büyük potansiyel adayı.",
+      "panel_decision": "Longer watch + outcome tracking"
+    },
+    {
+      "class": "HOT_BUT_RISKY",
+      "meaning": "Hızlı yükselen ama riskleri yüksek aday.",
+      "panel_decision": "Tiny paper or watch only"
+    },
+    {
+      "class": "MORGUE_CANDIDATE",
+      "meaning": "Ölme/rug/fake pair/honeypot riski yüksek.",
+      "panel_decision": "Paper blocked / autopsy"
+    },
+    {
+      "class": "REVIVAL_CANDIDATE",
+      "meaning": "Ölü/decay döneminden sonra canlanma izleniyor.",
+      "panel_decision": "Watch only until proof"
+    }
+  ],
+  "risk_flags": [
+    "FAKE_PAIR_RISK",
+    "WRONG_PAIR_RISK",
+    "HONEYPOT_RISK",
+    "SELLABILITY_RISK",
+    "BUY_TAX_RISK",
+    "SELL_TAX_RISK",
+    "LP_PULL_RISK",
+    "LOW_LIQUIDITY_RISK",
+    "HOLDER_CONCENTRATION_RISK",
+    "DEPLOYER_SELL_RISK",
+    "FAKE_VOLUME_RISK",
+    "PRICE_CONFLICT_RISK",
+    "SOURCE_CONFLICT_RISK",
+    "STALE_DATA_RISK",
+    "MEV_SLIPPAGE_RISK"
+  ],
+  "contract_fields": [
+    "token_uid",
+    "chain",
+    "token_address",
+    "pair_address",
+    "asset_symbol",
+    "asset_name",
+    "identity_status",
+    "identity_confidence",
+    "source_name",
+    "source_tier",
+    "source_reliability",
+    "first_seen_at_utc",
+    "token_birth_time_utc",
+    "pair_birth_time_utc",
+    "first_liquidity_time_utc",
+    "first_trusted_price_time_utc",
+    "age_minutes",
+    "lifecycle_stage",
+    "star_class",
+    "current_price_usd",
+    "opening_price_usd",
+    "price_change_pct",
+    "liquidity_usd",
+    "liquidity_delta_pct",
+    "volume_1h_usd",
+    "tx_1h",
+    "buy_count_1h",
+    "sell_count_1h",
+    "holder_count",
+    "holder_growth_pct",
+    "wallet_intersection_score",
+    "news_intersection_score",
+    "flow_score",
+    "risk_score",
+    "confidence_score",
+    "paper_candidate_allowed",
+    "paper_block_reason",
+    "risk_flags",
+    "freshness_status",
+    "truth_state",
+    "is_mock"
+  ],
+  "scoring_rules": [
+    "Birth verisi yoksa lifecycle score sınırlanır.",
+    "First trusted price yoksa paper adayı çıkmaz.",
+    "Liquidity düşükse paper size düşer veya block olur.",
+    "Holder büyümesi + tx artışı + liquidity artışı birlikteyse küçük yıldız skoru artar.",
+    "Wallet kesişimi varsa star sınıfı güçlenebilir.",
+    "Haber/narrative desteği varsa future star skoru artar.",
+    "Source conflict varsa paper blocked.",
+    "Honeypot/sellability şüphesi varsa paper blocked.",
+    "MEV/slippage yüksekse paper size düşer.",
+    "Morgue benzerliği yüksekse risk artar."
+  ],
+  "panel_rules": [
+    "Yeni doğan her token ana panele düşmez.",
+    "Ana panele sadece yüksek fırsat veya yüksek risk adayları düşer.",
+    "Small Star ve Future Star ayrı gösterilir.",
+    "Geleceğin yıldızı ile kısa vadeli küçük yıldız karıştırılmaz.",
+    "Risk flag varsa kullanıcıya açıkça gösterilir.",
+    "Veri yoksa 'veri yok' yazılır; tahmin uydurulmaz.",
+    "First trusted price yoksa değişim ve PnL hesaplanmaz.",
+    "Paper candidate için lifecycle + risk + liquidity + flow + wallet birlikte bakılır.",
+    "Death/rug/decay adayları Morg/Otopsi paneline yönlenir.",
+    "Revival watch kesin fırsat değil; sadece izleme sınıfıdır."
+  ],
+  "future_tables_plan": [
+    {
+      "table": "token_lifecycle_registry",
+      "purpose": "Token yaşam döngüsü ana kayıtları",
+      "apply_now": false
+    },
+    {
+      "table": "token_lifecycle_events",
+      "purpose": "Birth, liquidity, price, growth, decay olayları",
+      "apply_now": false
+    },
+    {
+      "table": "token_star_classifications",
+      "purpose": "Newborn/small/future/morgue/revival sınıfları",
+      "apply_now": false
+    },
+    {
+      "table": "token_lifecycle_scores",
+      "purpose": "Lifecycle ve yıldız skorları",
+      "apply_now": false
+    },
+    {
+      "table": "token_lifecycle_risk_flags",
+      "purpose": "Token risk bayrakları",
+      "apply_now": false
+    },
+    {
+      "table": "token_lifecycle_panel_alerts",
+      "purpose": "Ana panele düşecek token/lifecycle uyarıları",
+      "apply_now": false
+    },
+    {
+      "table": "token_lifecycle_outcomes",
+      "purpose": "Lifecycle sinyali sonrası outcome takip",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "Yeni ücretli token intelligence yok.",
+    "Tüm piyasayı tarama yok; candidate-first yaklaşım.",
+    "Mevcut DB ve mevcut Alchemy seçili doğrulamalar kullanılacak.",
+    "Small Star ve Future Star ayrı sınıflandırılacak.",
+    "Paper trade sadece güvenli veri tamamlanırsa aday olabilir.",
+    "Morg/Otopsi sistemi lifecycle ile doğrudan bağlı olacak.",
+    "Panelde mock/eksik veri real gibi gösterilmeyecek.",
+    "Sistem para kazandırabilecek küçük yıldızları da, geleceğin büyük yıldızlarını da ayrı izleyecek."
+  ],
+  "next_modules": [
+    "MORGUE28_DEAD_TOKEN_AUTOPSY_PLAN_NOAPI",
+    "RISK28_SECURITY_RISK_ENGINE_PLAN_NOAPI",
+    "PAPER28_PAPER_TRADE_SIMULATOR_PLAN_NOAPI",
+    "FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI"
+  ],
+  "lifecycle_stage_count": 11,
+  "star_class_count": 6,
+  "risk_flag_count": 15,
+  "contract_field_count": 41,
+  "scoring_rule_count": 10,
+  "panel_rule_count": 10,
+  "future_table_count": 7,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "ALREADY_TICKED",
+  "checklist_changed": false,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_token_lifecycle_data_enabled": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "MORGUE28_DEAD_TOKEN_AUTOPSY_PLAN_NOAPI",
+  "alternate_next_phase": "RISK28_SECURITY_RISK_ENGINE_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_TOKEN28_TOKEN_LIFECYCLE_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/token28_token_lifecycle_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

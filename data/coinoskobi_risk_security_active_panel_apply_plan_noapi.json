@@ -1,0 +1,123 @@
+{
+  "phase": "COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_APPLY_PLAN_NOAPI",
+  "stamp": "20260522_142444",
+  "mode": "ACTIVE_PANEL_APPLY_PLAN_ONLY_NOAPI",
+  "source_preview": {
+    "preview_review_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_panel_integration_preview_review_noapi.json",
+    "preview_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_panel_integration_preview_8142_noactive.json",
+    "preview_root": "/root/tokenoskobi_clean_v1/panel_previews/risk_security_panel_integration_preview_8142_20260522_132635",
+    "preview_index": "/root/tokenoskobi_clean_v1/panel_previews/risk_security_panel_integration_preview_8142_20260522_132635/index.html",
+    "preview_data": "/root/tokenoskobi_clean_v1/panel_previews/risk_security_panel_integration_preview_8142_20260522_132635/risk_security_preview_data.json"
+  },
+  "active_targets": {
+    "active_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
+    "active_index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+    "active_data": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json",
+    "active_data_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data"
+  },
+  "apply_strategy": {
+    "strategy_key": "ACTIVE_8096_INCREMENTAL_INTEGRATION",
+    "do_not_replace_active_shell": true,
+    "do_not_create_9th_center": true,
+    "do_not_change_nginx": true,
+    "do_not_restart_service": true,
+    "do_not_write_db": true,
+    "preserve_active_index_before_write": true,
+    "preserve_active_data_before_write": true,
+    "backup_required_before_real": true,
+    "rollback_required_before_real": true,
+    "real_apply_should_copy_preview_payload": true,
+    "real_apply_should_keep_8_centers": true
+  },
+  "planned_files": [
+    {
+      "target": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/risk_security_preview_data.json",
+      "source": "/root/tokenoskobi_clean_v1/panel_previews/risk_security_panel_integration_preview_8142_20260522_132635/risk_security_preview_data.json",
+      "action": "copy_preview_data_to_active_data_namespace",
+      "write_in_this_phase": false,
+      "real_phase_only": true
+    },
+    {
+      "target": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json",
+      "source": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json",
+      "action": "augment_existing_active_control_data_with_risk_security_integration_pointer",
+      "write_in_this_phase": false,
+      "real_phase_only": true
+    },
+    {
+      "target": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+      "source": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+      "action": "inject_or_enable_existing_risk_security_panel_sections_without_replacing_full_shell",
+      "write_in_this_phase": false,
+      "real_phase_only": true
+    }
+  ],
+  "planned_backup": {
+    "backup_dir_pattern": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_<STAMP>",
+    "backup_items": [
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json",
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/risk_security_preview_data.json",
+      "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_panel_integration_preview_8142_noactive.json",
+      "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_panel_integration_plan_fix_noapi.json",
+      "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_panel_integration_preview_review_noapi.json"
+    ],
+    "rollback_script_required": true
+  },
+  "required_approval_for_real": "COINOSKOBI RISK SECURITY ACTIVE PANEL APPLY REAL için onay veriyorum",
+  "rollback_plan": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_APPLY_PLAN_NOAPI/20260522_142444/RISK_SECURITY_ACTIVE_PANEL_ROLLBACK_PLAN.md",
+  "real_script_draft": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_APPLY_PLAN_NOAPI/20260522_142444/REAL_APPLY_DRAFT_REFUSES_EXECUTION.sh",
+  "real_script_draft_refuses_execution": true,
+  "plan_checks": {
+    "preview_review_ok": true,
+    "preview_review_next_phase_ok": true,
+    "preview_payload_ok": true,
+    "preview_only_true": true,
+    "preview_active_write_false": true,
+    "slot_count_7": true,
+    "display_rule_count_5": true,
+    "card_count_12": true,
+    "risk_cards_4": true,
+    "komuta_cards_5": true,
+    "yasam_cards_2": true,
+    "sistem_cards_1": true,
+    "normal_tp123": true,
+    "vur_kac_single_tp": true,
+    "live_locked": true,
+    "active_has_required_markers": true
+  },
+  "db_counts": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "integrity": "ok",
+  "fk_error_count": 0,
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "active_panel_write": 0,
+    "preview_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0,
+    "auto_trade_execution": 0,
+    "real_apply_executed": false
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_APPLY_REAL_AFTER_EXPLICIT_APPROVAL"
+}

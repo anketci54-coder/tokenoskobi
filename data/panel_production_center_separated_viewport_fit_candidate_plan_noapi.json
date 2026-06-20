@@ -1,0 +1,122 @@
+{
+  "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_PREVIEW_VIEWPORT_FIT_PLAN_NOAPI",
+  "created_at": "2026-05-20 22:40:17",
+  "source_preview_url": "http://159.195.74.132:8113/?v=production_center_separated",
+  "source_preview_root": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_center_separated_layout_20260520_220128",
+  "planned_preview_port": 8114,
+  "planned_preview_url": "http://159.195.74.132:8114/?v=viewport_fit",
+  "planned_preview_root": "/root/tokenoskobi_clean_v1/panel_previews/panel_production_center_separated_viewport_fit_preview_20260520_224017",
+  "build_strategy": "COPY_8113_PREVIEW_TO_8114_AND_INJECT_VIEWPORT_FIT_CSS_JS_ONLY",
+  "active_8096_mutation_allowed": false,
+  "db_mutation_allowed": false,
+  "asset_mutation_allowed": false,
+  "mobile_is_non_blocking_but_safe_fallback_required": true,
+  "visual_feedback": [
+    "mobile_landscape_viewport_overflow",
+    "center_chips_and_hero_cards_too_large_on_phone",
+    "main_heading_too_large_and_clipped",
+    "card_width_exceeds_safe_viewport",
+    "dashboard_feels_like_responsive_wrapper_not_production_surface",
+    "need_desktop_tablet_first_but_mobile_safe"
+  ],
+  "layout_risk_flags": [
+    "HEADLINE_TOO_LARGE_FOR_PHONE_LANDSCAPE",
+    "NO_EXPLICIT_LANDSCAPE_VIEWPORT_GUARD",
+    "CENTER_CHIPS_WIDE_ON_PHONE",
+    "HERO_ICON_TOO_LARGE_ON_PHONE",
+    "DESKTOP_GRID_OK_BUT_NEEDS_TABLET_SAFE_CLAMP"
+  ],
+  "planned_repair_rules": [
+    {
+      "area": "viewport_guard",
+      "action": "Add html/body/app max-width and overflow-x clamp.",
+      "css_target": "html, body, .production-app, .main, .topbar, .center-workspace",
+      "customer_visible": true
+    },
+    {
+      "area": "safe_shell_width",
+      "action": "Replace wide shell behavior with width:min(100%,1440px) and safe padding.",
+      "css_target": ".production-app",
+      "customer_visible": true
+    },
+    {
+      "area": "center_nav_fit",
+      "action": "Desktop grid remains clean; mobile/landscape chips become compact horizontal scroll with fixed safe min/max widths.",
+      "css_target": ".center-nav, .center-chip",
+      "customer_visible": true
+    },
+    {
+      "area": "hero_height_limit",
+      "action": "Limit center hero height and icon size across tablet/mobile.",
+      "css_target": ".center-hero, .center-hero-icon",
+      "customer_visible": true
+    },
+    {
+      "area": "headline_clamp",
+      "action": "Clamp title sizes so they cannot exceed mobile safe viewport.",
+      "css_target": ".topbar h2, .center-hero h2",
+      "customer_visible": true
+    },
+    {
+      "area": "module_card_compact",
+      "action": "Reduce module card height/padding and use 2-col tablet, 1-col mobile safe layout.",
+      "css_target": ".module-grid, .module-card",
+      "customer_visible": true
+    },
+    {
+      "area": "image_fit",
+      "action": "Keep icons equal size, centered, with object-fit cover and no overflow.",
+      "css_target": ".center-chip img, .center-hero-icon img, .module-icon img",
+      "customer_visible": true
+    },
+    {
+      "area": "debug_absence_guard",
+      "action": "Preserve no-debug production rule: no circle_mask_v1, /merkez, PANEL46D, preview/styled label in customer copy.",
+      "css_target": "content policy / copy policy",
+      "customer_visible": false
+    },
+    {
+      "area": "visual_density",
+      "action": "Reduce empty vertical gaps so preview feels like a control dashboard, not a stretched catalog.",
+      "css_target": ".topbar, .center-workspace, .module-grid",
+      "customer_visible": true
+    },
+    {
+      "area": "no_active_apply",
+      "action": "Build repaired version only on a new preview port first.",
+      "css_target": "safety boundary",
+      "customer_visible": false
+    }
+  ],
+  "post_build_checks": [
+    "8114 HTTP 200",
+    "active 8096 unchanged",
+    "DB unchanged",
+    "source 8113 unchanged",
+    "8 centers present",
+    "47 modules present",
+    "missing icons 0",
+    "fit_v1 refs 0",
+    "wrong owner rows 0",
+    "bad debug terms 0",
+    "viewport fit marker present",
+    "mobile landscape CSS guard present",
+    "no horizontal overflow risk markers in generated CSS"
+  ],
+  "forbidden": [
+    "active 8096 mutation",
+    "DB mutation",
+    "asset overwrite",
+    "icon file generation",
+    "style asset overwrite",
+    "icon binding overwrite",
+    "route map overwrite",
+    "subject graph overwrite",
+    "fit_v1 candidate binding",
+    "service restart",
+    "DNS/Nginx/SSL",
+    "paper/live trade",
+    "deleting old previews"
+  ],
+  "approval_phrase": "PANEL production center separated viewport fit preview build için onay veriyorum"
+}

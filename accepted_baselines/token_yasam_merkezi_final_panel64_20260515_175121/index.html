@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tokenoskobi / Coinoskobi - Token Yaşam Merkezi</title>
+<style>
+:root{
+  --bg:#020813;
+  --side:#061427;
+  --side2:#07182d;
+  --main:#03101f;
+  --card:#071a2f;
+  --card2:#061426;
+  --line:rgba(112,202,255,.18);
+  --line2:rgba(112,202,255,.09);
+  --text:#eff8ff;
+  --soft:#b8c9dc;
+  --muted:#7d91a8;
+  --green:#20f3aa;
+  --cyan:#5cd6ff;
+  --blue:#7ba7ff;
+  --red:#ff3a5c;
+  --yellow:#ffd35c;
+  --purple:#c57cff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+body{overflow:hidden}
+.shell{
+  width:100vw;height:100vh;
+  display:grid;
+  grid-template-columns:286px 1fr;
+  gap:16px;
+  padding:6px;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(28,243,170,.10), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(92,214,255,.09), transparent 28%),
+    linear-gradient(135deg,#010610,#061320 52%,#020813);
+}
+.sidebar{
+  min-height:0;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(32,243,170,.12), transparent 28%),
+    linear-gradient(180deg,rgba(7,24,45,.96),rgba(3,12,24,.96));
+  box-shadow:0 20px 50px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.015);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.brand{
+  padding:24px 20px 20px;
+  border-bottom:1px solid var(--line2);
+}
+.brand-main{display:flex;align-items:center;gap:13px}
+.logo{
+  width:58px;height:58px;border-radius:50%;position:relative;flex:0 0 auto;
+  border:2px solid rgba(32,243,170,.8);
+  box-shadow:0 0 26px rgba(32,243,170,.18), inset 0 0 0 8px rgba(32,243,170,.04);
+}
+.logo:before{content:"";position:absolute;inset:9px;border:1px solid rgba(32,243,170,.70);border-radius:50%}
+.logo:after{content:"";position:absolute;inset:22px;border-radius:50%;background:rgba(32,243,170,.95);box-shadow:0 0 18px rgba(32,243,170,.90)}
+.logo .ring{position:absolute;inset:16px;border:1px solid rgba(32,243,170,.44);border-radius:50%}
+.brand-title{font-size:21px;font-weight:950;line-height:1.05;letter-spacing:.15px}
+.brand-sub{margin-top:10px;font-size:11px;font-weight:800;letter-spacing:.88px;color:#8da0b6;text-transform:uppercase}
+
+.nav{flex:1;min-height:0;padding:16px 10px;overflow:hidden}
+.nav-item{
+  height:56px;position:relative;border-radius:8px;margin:3px 0;padding:0 44px 0 14px;
+  display:flex;align-items:center;gap:13px;color:#b8c9dc;
+  border:1px solid transparent;
+}
+.nav-item.active{
+  background:linear-gradient(135deg,rgba(54,116,255,.32),rgba(54,116,255,.12));
+  border-color:rgba(92,214,255,.18);
+  box-shadow:inset 0 0 0 1px rgba(92,214,255,.06),0 0 24px rgba(54,116,255,.12);
+}
+.nav-icon{
+  width:23px;height:23px;display:flex;align-items:center;justify-content:center;color:#a9c2df;flex:0 0 auto;
+}
+.nav-icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.75}
+.nav-label{font-weight:760;font-size:15px;white-space:nowrap}
+.badge{
+  position:absolute;right:10px;top:11px;min-width:22px;height:22px;border-radius:999px;
+  background:var(--red);color:#fff;border:1px solid rgba(255,255,255,.48);
+  box-shadow:0 0 16px rgba(255,58,92,.52);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:950;padding:0 6px;
+}
+.profile{
+  margin:0 14px 14px;padding:14px 8px;border-top:1px solid var(--line2);
+  display:flex;align-items:center;gap:12px;
+}
+.avatar{
+  width:48px;height:48px;border-radius:50%;background:rgba(54,116,255,.24);
+  color:#79d9ff;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:18px;
+}
+.profile-name{font-size:13px;font-weight:870}
+.admin{display:inline-block;margin-top:4px;padding:3px 7px;border-radius:6px;background:rgba(0,154,255,.20);color:#63d8ff;font-size:11px;font-weight:950}
+
+.main{
+  min-width:0;min-height:0;border:1px solid var(--line);border-radius:8px;
+  background:
+    radial-gradient(circle at 26% 0%, rgba(123,167,255,.07), transparent 26%),
+    radial-gradient(circle at 80% 12%, rgba(32,243,170,.07), transparent 26%),
+    linear-gradient(180deg,rgba(5,16,31,.98),rgba(2,8,18,.98));
+  box-shadow:0 24px 70px rgba(0,0,0,.32), inset 0 0 0 1px rgba(255,255,255,.012);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.header{
+  flex:0 0 auto;height:90px;padding:20px 30px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.title-left{display:flex;align-items:center;gap:14px}
+.wave{
+  width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  color:#7ba7ff;font-size:30px;font-weight:950;
+}
+.title{font-size:32px;font-weight:950;line-height:1;letter-spacing:-.4px}
+.subtitle{margin-top:7px;color:#aebed1;font-size:14px;font-weight:720}
+.status{
+  height:38px;border:1px solid var(--line2);border-radius:8px;background:rgba(0,0,0,.19);
+  padding:0 13px;display:flex;align-items:center;gap:14px;color:#9fb0c4;font-size:12px;font-weight:820;white-space:nowrap;
+}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--green);box-shadow:0 0 12px rgba(32,243,170,.75);margin-right:6px}
+.good{color:var(--green);font-weight:950}
+.workspace{flex:1;min-height:0;overflow:auto;padding:8px 16px 15px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{
+  min-height:312px;border:1px solid var(--line);border-radius:8px;padding:14px 14px 13px;
+  background:
+    radial-gradient(circle at 16% 10%, rgba(92,214,255,.08), transparent 32%),
+    linear-gradient(180deg,rgba(8,26,46,.87),rgba(5,17,31,.78));
+  box-shadow:0 18px 46px rgba(0,0,0,.24), inset 0 0 0 1px rgba(255,255,255,.014);
+  display:flex;flex-direction:column;gap:12px;
+}
+.card-head{display:grid;grid-template-columns:96px 1fr auto;gap:12px;align-items:start}
+.portrait{
+  width:86px;height:86px;border-radius:50%;position:relative;overflow:hidden;
+  border:1px solid rgba(92,214,255,.25);
+  background:
+    radial-gradient(circle at 48% 28%, rgba(255,255,255,.18), transparent 18%),
+    radial-gradient(circle at 50% 72%, rgba(92,214,255,.13), transparent 34%),
+    linear-gradient(135deg,rgba(92,214,255,.15),rgba(0,0,0,.28));
+  box-shadow:0 0 34px rgba(92,214,255,.13);
+}
+.portrait svg{width:100%;height:100%}
+.card-title{font-size:18px;font-weight:950;line-height:1.16;margin-top:6px}
+.card-result{margin-top:9px;font-size:16px;font-weight:950}
+.card-desc{margin-top:12px;color:#b3c1d2;font-size:13px;font-weight:710;line-height:1.43}
+.pill{
+  padding:7px 10px;border-radius:8px;font-size:11px;font-weight:950;border:1px solid rgba(255,255,255,.14);white-space:nowrap;
+}
+.pill.active{color:var(--green);background:rgba(32,243,170,.08);border-color:rgba(32,243,170,.35)}
+.pill.critical{color:#fff;background:rgba(255,58,92,.13);border-color:rgba(255,58,92,.44);box-shadow:0 0 20px rgba(255,58,92,.12)}
+.pill.watch{color:#9eb9ff;background:rgba(123,167,255,.08);border-color:rgba(123,167,255,.28)}
+.pill.purple{color:var(--purple);background:rgba(197,124,255,.10);border-color:rgba(197,124,255,.35)}
+.metrics{
+  margin-top:auto;border:1px solid var(--line2);border-radius:7px;overflow:hidden;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.metric{min-height:58px;padding:11px 13px;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2)}
+.metric:nth-child(2n){border-right:0}.metric:nth-last-child(-n+2){border-bottom:0}
+.ml{font-size:12px;font-weight:760;color:#8ea2b9}.mv{margin-top:6px;font-size:17px;font-weight:950}
+.green{color:var(--green)!important}.red{color:var(--red)!important}.yellow{color:var(--yellow)!important}.purple{color:var(--purple)!important}.blue{color:var(--blue)!important}.cyan{color:var(--cyan)!important}
+.action{text-align:center;font-size:14px;font-weight:950;padding-top:3px}
+.footer{
+  margin-top:14px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.032);
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));overflow:hidden;
+}
+.foot{min-height:72px;padding:14px 17px;border-right:1px solid var(--line2)}
+.foot:last-child{border-right:0}.fl{font-size:12px;font-weight:760;color:#91a4ba}.fv{margin-top:8px;font-size:19px;font-weight:950}
+.page{display:none;padding:30px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035)}
+.page h2{margin:0 0 10px;font-size:30px}.page p{color:#aebed1;font-weight:720}
+@media(max-width:1320px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.footer{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:880px){.shell{grid-template-columns:1fr}.sidebar{display:none}.grid{grid-template-columns:1fr}}
+
+/* PANEL56_ICON_POLISH_START */
+.portrait.p56{
+  background:
+    radial-gradient(circle at 42% 26%, rgba(255,255,255,.20), transparent 20%),
+    radial-gradient(circle at 52% 70%, rgba(92,214,255,.16), transparent 34%),
+    linear-gradient(135deg,rgba(92,214,255,.16),rgba(0,0,0,.30)) !important;
+}
+.portrait.p56 svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.p56-ring{
+  filter: drop-shadow(0 0 8px rgba(92,214,255,.26));
+}
+/* PANEL56_ICON_POLISH_END */
+
+
+/* PANEL57B_ICON_SHEET_CSS_START */
+.portrait.p57b-sheet{
+  background-image: url("assets/icon_sheet.png") !important;
+  background-repeat: no-repeat !important;
+  background-size: 300% 300% !important;
+  background-color: #071827 !important;
+  border: 1px solid rgba(92,214,255,.25) !important;
+  box-shadow:
+    0 0 34px rgba(92,214,255,.16),
+    inset 0 0 0 1px rgba(255,255,255,.035) !important;
+}
+.portrait.p57b-sheet::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  box-shadow: inset 0 0 0 3px rgba(5,16,31,.75), inset 0 0 32px rgba(0,0,0,.24);
+  pointer-events:none;
+}
+.portrait.p57b-clinic{background-position:0% 0% !important; box-shadow:0 0 34px rgba(32,243,170,.20), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+.portrait.p57b-scene{background-position:50% 0% !important; box-shadow:0 0 34px rgba(255,58,92,.18), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+.portrait.p57b-detective{background-position:100% 0% !important; box-shadow:0 0 34px rgba(92,214,255,.20), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+.portrait.p57b-autopsy{background-position:0% 50% !important; box-shadow:0 0 34px rgba(197,124,255,.18), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+.portrait.p57b-morg{background-position:50% 50% !important; box-shadow:0 0 34px rgba(123,167,255,.18), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+.portrait.p57b-wanted{background-position:100% 50% !important; box-shadow:0 0 34px rgba(255,58,92,.20), inset 0 0 0 1px rgba(255,255,255,.035) !important;}
+/* PANEL57B_ICON_SHEET_CSS_END */
+
+
+/* PANEL58_MOBILE_VIEWPORT_FIT_START */
+@media (max-width: 880px){
+  html, body{
+    width:100% !important;
+    min-height:100% !important;
+    height:auto !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+  }
+
+  body{
+    background:#020813 !important;
+  }
+
+  .shell{
+    display:block !important;
+    width:100% !important;
+    min-height:100vh !important;
+    height:auto !important;
+    padding:8px !important;
+    overflow:visible !important;
+  }
+
+  .sidebar{
+    display:none !important;
+  }
+
+  .main{
+    width:100% !important;
+    min-height:100vh !important;
+    height:auto !important;
+    overflow:visible !important;
+    border-radius:12px !important;
+  }
+
+  .header{
+    height:auto !important;
+    min-height:0 !important;
+    display:block !important;
+    padding:14px 14px 12px !important;
+    border-bottom:1px solid rgba(112,202,255,.08) !important;
+  }
+
+  .title-left{
+    display:flex !important;
+    align-items:flex-start !important;
+    gap:9px !important;
+    width:100% !important;
+  }
+
+  .wave{
+    width:28px !important;
+    height:28px !important;
+    min-width:28px !important;
+    font-size:21px !important;
+    margin-top:5px !important;
+  }
+
+  .title{
+    font-size:34px !important;
+    line-height:1.02 !important;
+    letter-spacing:-.6px !important;
+    max-width:calc(100vw - 72px) !important;
+    white-space:normal !important;
+    overflow:visible !important;
+  }
+
+  .subtitle{
+    margin-top:8px !important;
+    font-size:14px !important;
+    line-height:1.28 !important;
+    max-width:calc(100vw - 72px) !important;
+    color:rgba(237,248,255,.62) !important;
+  }
+
+  .status{
+    margin-top:12px !important;
+    width:100% !important;
+    height:36px !important;
+    min-height:36px !important;
+    justify-content:flex-start !important;
+    gap:10px !important;
+    padding:0 10px !important;
+    font-size:12px !important;
+    overflow:hidden !important;
+    white-space:nowrap !important;
+  }
+
+  .workspace{
+    padding:12px 10px 110px !important;
+    overflow:visible !important;
+  }
+
+  .grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:14px !important;
+  }
+
+  .card{
+    position:relative !important;
+    min-height:auto !important;
+    padding:14px !important;
+    border-radius:13px !important;
+  }
+
+  .card-head{
+    display:grid !important;
+    grid-template-columns:96px 1fr !important;
+    gap:12px !important;
+    align-items:start !important;
+  }
+
+  .portrait{
+    width:86px !important;
+    height:86px !important;
+    min-width:86px !important;
+  }
+
+  .pill{
+    position:absolute !important;
+    top:14px !important;
+    right:14px !important;
+    z-index:3 !important;
+    padding:8px 10px !important;
+    font-size:12px !important;
+  }
+
+  .card-title{
+    padding-right:88px !important;
+    font-size:25px !important;
+    line-height:1.12 !important;
+    margin-top:4px !important;
+  }
+
+  .card-result{
+    font-size:24px !important;
+    line-height:1.18 !important;
+    margin-top:12px !important;
+  }
+
+  .card-desc{
+    font-size:18px !important;
+    line-height:1.45 !important;
+    margin-top:22px !important;
+    color:rgba(237,248,255,.58) !important;
+  }
+
+  .metrics{
+    margin-top:20px !important;
+    grid-template-columns:1fr 1fr !important;
+  }
+
+  .metric{
+    min-height:74px !important;
+    padding:14px 16px !important;
+  }
+
+  .ml{
+    font-size:16px !important;
+    line-height:1.2 !important;
+  }
+
+  .mv{
+    font-size:24px !important;
+    line-height:1.1 !important;
+  }
+
+  .action{
+    font-size:20px !important;
+    padding:12px 0 4px !important;
+  }
+
+  .footer{
+    grid-template-columns:1fr 1fr !important;
+    margin-top:14px !important;
+    margin-bottom:20px !important;
+  }
+
+  .foot{
+    min-height:74px !important;
+    padding:13px 14px !important;
+  }
+
+  .fl{
+    font-size:14px !important;
+  }
+
+  .fv{
+    font-size:21px !important;
+  }
+}
+
+@media (max-width: 420px){
+  .title{
+    font-size:31px !important;
+    max-width:calc(100vw - 62px) !important;
+  }
+
+  .subtitle{
+    max-width:calc(100vw - 62px) !important;
+  }
+
+  .workspace{
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+
+  .card{
+    padding:13px !important;
+  }
+
+  .card-head{
+    grid-template-columns:86px 1fr !important;
+    gap:10px !important;
+  }
+
+  .portrait{
+    width:78px !important;
+    height:78px !important;
+    min-width:78px !important;
+  }
+
+  .card-title{
+    font-size:24px !important;
+    padding-right:82px !important;
+  }
+
+  .card-result{
+    font-size:23px !important;
+  }
+
+  .card-desc{
+    font-size:17px !important;
+  }
+
+  .metric{
+    padding:13px 14px !important;
+  }
+
+  .ml{
+    font-size:15px !important;
+  }
+
+  .mv{
+    font-size:23px !important;
+  }
+}
+/* PANEL58_MOBILE_VIEWPORT_FIT_END */
+
+
+/* PANEL59_ICON_SHEET_ZOOM_CENTER_START */
+.portrait.p59-clip{
+  background:#061426 !important;
+  position:relative !important;
+  overflow:hidden !important;
+  border-radius:50% !important;
+  border:1px solid rgba(92,214,255,.28) !important;
+  box-shadow:
+    0 0 34px rgba(92,214,255,.18),
+    inset 0 0 0 1px rgba(255,255,255,.04) !important;
+}
+
+.portrait.p59-clip img{
+  position:absolute !important;
+  width:360% !important;
+  height:360% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:fill !important;
+  display:block !important;
+  user-select:none !important;
+  pointer-events:none !important;
+}
+
+.portrait.p59-clip::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  pointer-events:none;
+  box-shadow:
+    inset 0 0 0 3px rgba(2,8,19,.70),
+    inset 0 0 22px rgba(0,0,0,.25);
+}
+
+.p59-clinic img{left:-10% !important; top:-10% !important;}
+.p59-scene img{left:-130% !important; top:-10% !important;}
+.p59-detective img{left:-250% !important; top:-10% !important;}
+.p59-autopsy img{left:-10% !important; top:-130% !important;}
+.p59-morg img{left:-130% !important; top:-130% !important;}
+.p59-wanted img{left:-250% !important; top:-130% !important;}
+
+.p59-clinic{box-shadow:0 0 36px rgba(32,243,170,.22), inset 0 0 0 1px rgba(255,255,255,.04) !important;}
+.p59-scene{box-shadow:0 0 36px rgba(255,58,92,.19), inset 0 0 0 1px rgba(255,255,255,.04) !important;}
+.p59-detective{box-shadow:0 0 36px rgba(92,214,255,.22), inset 0 0 0 1px rgba(255,255,255,.04) !important;}
+.p59-autopsy{box-shadow:0 0 36px rgba(197,124,255,.20), inset 0 0 0 1px rgba(255,255,255,.04) !important;}
+.p59-morg{box-shadow:0 0 36px rgba(123,167,255,.20), inset 0 0 0 1px rgba(255,255,255,.04) !important;}
+.p59-wanted{box-shadow:0 0 36px rgba(255,58,92,.22), inset 0 0 0 1px rgba(255,255,255,.04) !important;}
+/* PANEL59_ICON_SHEET_ZOOM_CENTER_END */
+
+
+/* PANEL62_FIVE_SEPARATE_ICONS_KEEP_MORG_START */
+.portrait.p62-img{
+  background:#061426 !important;
+  position:relative !important;
+  overflow:hidden !important;
+  border-radius:50% !important;
+  border:1px solid rgba(92,214,255,.30) !important;
+  box-shadow:
+    0 0 36px rgba(92,214,255,.18),
+    inset 0 0 0 1px rgba(255,255,255,.045) !important;
+}
+
+.portrait.p62-img img{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block !important;
+  user-select:none !important;
+  pointer-events:none !important;
+  border-radius:50% !important;
+}
+
+.portrait.p62-img::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  pointer-events:none;
+  box-shadow:
+    inset 0 0 0 3px rgba(2,8,19,.66),
+    inset 0 0 22px rgba(0,0,0,.22);
+}
+
+.p62-clinic{box-shadow:0 0 36px rgba(32,243,170,.24), inset 0 0 0 1px rgba(255,255,255,.045) !important;}
+.p62-scene{box-shadow:0 0 36px rgba(255,58,92,.21), inset 0 0 0 1px rgba(255,255,255,.045) !important;}
+.p62-detective{box-shadow:0 0 36px rgba(92,214,255,.24), inset 0 0 0 1px rgba(255,255,255,.045) !important;}
+.p62-autopsy{box-shadow:0 0 36px rgba(197,124,255,.22), inset 0 0 0 1px rgba(255,255,255,.045) !important;}
+.p62-wanted{box-shadow:0 0 36px rgba(255,58,92,.23), inset 0 0 0 1px rgba(255,255,255,.045) !important;}
+/* PANEL62_FIVE_SEPARATE_ICONS_KEEP_MORG_END */
+
+
+
+
+
+/* PANEL64_CLINIC_AGGRESSIVE_CROP_ONLY_START */
+/* Sadece Klinik: jpeg içindeki checker/boş alanı kesmek için güçlü merkez zoom */
+.p62-clinic,
+.portrait[data-panel62-icon="clinic_doctor"]{
+  background:#061426 !important;
+  overflow:hidden !important;
+}
+
+.p62-clinic img,
+.portrait[data-panel62-icon="clinic_doctor"] img{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  transform:translate(-50%, -50%) scale(3.35) !important;
+  transform-origin:center center !important;
+  border-radius:50% !important;
+}
+
+.p62-clinic::before,
+.portrait[data-panel62-icon="clinic_doctor"]::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:2;
+  background:
+    radial-gradient(circle at center,
+      transparent 0%,
+      transparent 63%,
+      rgba(2,8,19,.18) 78%,
+      rgba(2,8,19,.62) 100%);
+}
+
+.p62-clinic::after,
+.portrait[data-panel62-icon="clinic_doctor"]::after{
+  z-index:3 !important;
+}
+/* PANEL64_CLINIC_AGGRESSIVE_CROP_ONLY_END */
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-main">
+        <div class="logo"><div class="ring"></div></div>
+        <div class="brand-title">TOKENOSKOBI /<br>COINOSKOBI</div>
+      </div>
+      <div class="brand-sub">FULL RADAR INTELLIGENCE</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-item" data-nav="ana"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-6h4v6"/></svg></div><div class="nav-label">Ana Panel</div></div>
+      <div class="nav-item" data-nav="haber"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 14h4l9 4V6l-9 4H4z"/><path d="M8 14v4"/></svg></div><div class="nav-label">Haber Etki</div><div class="badge">1</div></div>
+      <div class="nav-item" data-nav="onchain"><div class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.8 10.8 15.2 7.2M8.8 13.2l6.4 3.6"/></svg></div><div class="nav-label">Onchain Akış</div><div class="badge">3</div></div>
+      <div class="nav-item" data-nav="balina"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M5 14c2 4 11 5 14-1 1.8-3.4-.5-6-3-5-1.5.6-2 2-2 2s-1-3-4-3"/><path d="M6 13H3m16 0 2-2m-2 2 2 2"/></svg></div><div class="nav-label">Balina / Cüzdan</div><div class="badge">2</div></div>
+      <div class="nav-item" data-nav="risk"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3 20 7v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg></div><div class="nav-label">Risk / MEV</div><div class="badge">1</div></div>
+      <div class="nav-item active" data-nav="yasam"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20.8 8.5c0 5.8-8.8 11-8.8 11s-8.8-5.2-8.8-11A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 8.8 2.5z"/><path d="M7 12h3l1-3 2 6 1-3h3"/></svg></div><div class="nav-label">Token Yaşam Merkezi</div><div class="badge">4</div></div>
+      <div class="nav-item" data-nav="paper"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h4"/><path d="M9 13h6M9 17h6"/></svg></div><div class="nav-label">Paper Simülasyon</div></div>
+      <div class="nav-item" data-nav="kaynak"><div class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4a13 13 0 0 1 0 16M12 4a13 13 0 0 0 0 16"/></svg></div><div class="nav-label">Kaynak / Fetch Sağlığı</div></div>
+      <div class="nav-item" data-nav="ai"><div class="nav-icon"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 15V9h2.2c1.2 0 1.8.7 1.8 1.6S12.4 12 11.2 12H9"/><path d="M15 9v6"/></svg></div><div class="nav-label">AI Kalibrasyon</div></div>
+      <div class="nav-item" data-nav="log"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 3h10l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h4"/></svg></div><div class="nav-label">Sistem Logları</div></div>
+      <div class="nav-item" data-nav="promo"><div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 14h4l10 4V6L8 10H4z"/><path d="M8 14v5"/></svg></div><div class="nav-label">Panel Yayın / Promotion</div></div>
+    </nav>
+
+    <div class="profile">
+      <div class="avatar">TK</div>
+      <div><div class="profile-name">Tokenoskopi Ekibi</div><span class="admin">ADMIN</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <div class="title-left">
+        <div class="wave">⌁</div>
+        <div>
+          <div class="title" id="pageTitle">Token Yaşam Merkezi</div>
+          <div class="subtitle" id="pageSubtitle">İç operasyon / adli / klinik takip ekranı</div>
+        </div>
+      </div>
+      <div class="status">
+        <span><span class="dot"></span>Sistem Sağlığı: <span class="good">İyi</span></span>
+        <span>|</span>
+        <span>15 Mayıs 2025 · 12:30</span>
+        <span>♧</span>
+      </div>
+    </header>
+
+    <section class="workspace" id="workspace">
+      <div class="grid">
+        <article class="card">
+          <div class="card-head">
+            <div class="portrait p62-img p62-clinic" data-panel62-icon="clinic_doctor"><img src="assets/clinic_doctor.jpeg" alt="Klinik / Yoğun Bakım"></div>
+            <div>
+              <div class="card-title">1. Klinik / Yoğun Bakım</div>
+              <div class="card-result green">2 token yoğun bakımda</div>
+              <div class="card-desc">Hayati durumu kritik olan token’lar klinik takibe alınır.</div>
+            </div>
+            <div class="pill active">ACTIVE</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="ml">Kritik Token</div><div class="mv green">2</div></div>
+            <div class="metric"><div class="ml">Revival Olasılığı</div><div class="mv yellow">Düşük %18</div></div>
+            <div class="metric"><div class="ml">İzlenen Cüzdan</div><div class="mv">128</div></div>
+            <div class="metric"><div class="ml">Son Değişim</div><div class="mv red">▼ 12%</div></div>
+          </div>
+          <div class="action green">İncelemeyi aç →</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="portrait p62-img p62-scene" data-panel62-icon="crime_scene"><img src="assets/crime_scene.jpeg" alt="Olay Yeri İnceleme"></div>
+            <div>
+              <div class="card-title">2. Olay Yeri İnceleme</div>
+              <div class="card-result red">1 şüpheli ölüm</div>
+              <div class="card-desc">Ani düşüş, rug, hack veya manipülasyon şüphesi olan olaylar.</div>
+            </div>
+            <div class="pill critical">CRITICAL</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="ml">Şüpheli Olay</div><div class="mv red">1</div></div>
+            <div class="metric"><div class="ml">Olası Sebep</div><div class="mv red">Rug Pull</div></div>
+            <div class="metric"><div class="ml">Kanıt Skoru</div><div class="mv">85 / 100</div></div>
+            <div class="metric"><div class="ml">Son Aktivite</div><div class="mv">12 dk önce</div></div>
+          </div>
+          <div class="action red">Detayı aç →</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="portrait p62-img p62-detective" data-panel62-icon="forensic_detective"><img src="assets/forensic_detective.jpeg" alt="Adli Soruşturma"></div>
+            <div>
+              <div class="card-title">3. Adli Soruşturma</div>
+              <div class="card-result green">1 aktif dosya</div>
+              <div class="card-desc">Şüpheli işlemler, bağlantılı cüzdanlar ve kanıt zincirleri.</div>
+            </div>
+            <div class="pill active">ACTIVE</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="ml">Aktif Dosya</div><div class="mv green">1</div></div>
+            <div class="metric"><div class="ml">Delil Zinciri</div><div class="mv green">47 öğe</div></div>
+            <div class="metric"><div class="ml">Şüpheli Cüzdan</div><div class="mv">23</div></div>
+            <div class="metric"><div class="ml">İlerleme</div><div class="mv">%60</div></div>
+          </div>
+          <div class="action green">Dosyayı aç →</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="portrait p62-img p62-autopsy" data-panel62-icon="autopsy_report"><img src="assets/autopsy_report.jpeg" alt="Otopsi"></div>
+            <div>
+              <div class="card-title">4. Otopsi</div>
+              <div class="card-result purple">1 otopsi sürüyor</div>
+              <div class="card-desc">Token ölümü sonrası teknik, onchain ve ekonomik analiz.</div>
+            </div>
+            <div class="pill purple">WATCH</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="ml">Otopsi Durumu</div><div class="mv purple">İnceleme Aşamasında</div></div>
+            <div class="metric"><div class="ml">Tahmini Sebep</div><div class="mv purple">Likidite Çöküşü</div></div>
+            <div class="metric"><div class="ml">İncelenen Veri</div><div class="mv">24.6M tx</div></div>
+            <div class="metric"><div class="ml">Tamamlanma</div><div class="mv">%42</div></div>
+          </div>
+          <div class="action purple">Detayı aç →</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="portrait p59-clip p59-morg" data-panel59-icon="morg_archive"><img src="assets/icon_sheet.png" alt="Morg"></div>
+            <div>
+              <div class="card-title">5. Morg</div>
+              <div class="card-result blue">Kesin ölü vakalar</div>
+              <div class="card-desc">Geri dönüş ihtimali olmayan token’ların arşivi.</div>
+            </div>
+            <div class="pill watch">WATCH</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="ml">Toplam Vaka</div><div class="mv blue">37</div></div>
+            <div class="metric"><div class="ml">Son Eklenen</div><div class="mv">2 gün önce</div></div>
+            <div class="metric"><div class="ml">Arşivlenen Cüzdan</div><div class="mv">312</div></div>
+            <div class="metric"><div class="ml">Toplam Hacim</div><div class="mv">$12.4M</div></div>
+          </div>
+          <div class="action blue">Arşivi aç →</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div class="portrait p62-img p62-wanted" data-panel62-icon="wanted_wallets"><img src="assets/wanted_wallets.jpeg" alt="Şüpheliler / Arananlar"></div>
+            <div>
+              <div class="card-title">6. Şüpheliler / Arananlar</div>
+              <div class="card-result red">3 spam cüzdan izleniyor</div>
+              <div class="card-desc">Riskli, spam veya kara listeye alınmış cüzdanlar ve adresler.</div>
+            </div>
+            <div class="pill critical">CRITICAL</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="ml">İzlenen Cüzdan</div><div class="mv red">3</div></div>
+            <div class="metric"><div class="ml">Risk Seviyesi</div><div class="mv red">Yüksek</div></div>
+            <div class="metric"><div class="ml">Eşleşen Uyarı</div><div class="mv">18</div></div>
+            <div class="metric"><div class="ml">Son Aktivite</div><div class="mv">36 dk önce</div></div>
+          </div>
+          <div class="action red">Listeyi aç →</div>
+        </article>
+      </div>
+
+      <div class="footer">
+        <div class="foot"><div class="fl">Toplam İzlenen Token</div><div class="fv">248</div></div>
+        <div class="foot"><div class="fl">Riskli Token</div><div class="fv red">17</div></div>
+        <div class="foot"><div class="fl">Toplam Şüpheli Cüzdan</div><div class="fv">148</div></div>
+        <div class="foot"><div class="fl">24s Uyarılar</div><div class="fv red">21</div></div>
+        <div class="foot"><div class="fl">Sistem Modu</div><div class="fv green">Tactical</div></div>
+        <div class="foot"><div class="fl">Veri Kaynağı</div><div class="fv green">12 / 12 Aktif</div></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  const title = document.getElementById("pageTitle");
+  const subtitle = document.getElementById("pageSubtitle");
+  const workspace = document.getElementById("workspace");
+  const tokenHTML = workspace.innerHTML;
+
+  const pages = {
+    ana:["Ana Panel","Teyitli özet / hızlı karar ekranı"],
+    haber:["Haber Etki","Haber kaynakları, önem sınıfları ve etki raporları"],
+    onchain:["Onchain Akış","Snapshot, confirmation ve transfer inceleme ekranı"],
+    balina:["Balina / Cüzdan","Cüzdan akışı, whale netflow ve smart wallet izleme"],
+    risk:["Risk / MEV","Slippage, MEV, sell-test ve güvenlik kapıları"],
+    paper:["Paper Simülasyon","Canlı işlem yok; sadece paper/dry-run izleme"],
+    kaynak:["Kaynak / Fetch Sağlığı","Kaynak güveni, fetch ve veri tazeliği"],
+    ai:["AI Kalibrasyon","Skor ve karar kalibrasyon ekranı"],
+    log:["Sistem Logları","Koşum, olay ve sistem kayıtları"],
+    promo:["Panel Yayın / Promotion","Test panelden aktif panele geçiş planları"]
+  };
+
+  function active(key){
+    document.querySelectorAll(".nav-item").forEach(x => x.classList.remove("active"));
+    const el = document.querySelector('.nav-item[data-nav="'+key+'"]');
+    if(el) el.classList.add("active");
+  }
+
+  function renderSimple(key){
+    const p = pages[key] || pages.ana;
+    title.textContent = p[0];
+    subtitle.textContent = p[1];
+    workspace.innerHTML = '<div class="page" style="display:block"><h2>'+p[0]+'</h2><p>'+p[1]+'</p><p>Bu 8101 preview fazında Token Yaşam Merkezi görsel kalite testi ana hedeftir. Veri bağlama sonraki fazda yapılacak.</p></div>';
+    active(key);
+  }
+
+  function renderYasam(){
+    title.textContent = "Token Yaşam Merkezi";
+    subtitle.textContent = "İç operasyon / adli / klinik takip ekranı";
+    workspace.innerHTML = tokenHTML;
+    active("yasam");
+  }
+
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const key = item.getAttribute("data-nav");
+      if(key === "yasam"){
+        history.replaceState(null,"","#token-yasam");
+        renderYasam();
+      }else{
+        history.replaceState(null,"","#"+key);
+        renderSimple(key);
+      }
+    });
+  });
+
+  if(location.hash && location.hash !== "#token-yasam"){
+    const key = location.hash.replace("#","");
+    if(pages[key]) renderSimple(key);
+  }else{
+    renderYasam();
+  }
+
+  window.__PANEL55_READY__ = true;
+  window.__PANEL56_ICON_POLISH_READY__ = true;
+  window.__PANEL57B_ICON_SHEET_READY__ = true;
+  window.__PANEL55_VISUAL_FIDELITY_REBUILD__ = true;
+  window.__PANEL55_BADGE_ONLY_LEFT_NAV__ = true;
+  window.__PANEL55_MORG_OTOPSI_LEFT_NAV_REMOVED__ = true;
+})();
+window.__PANEL58_MOBILE_FIT_READY__ = true;
+window.__PANEL59_ICON_ZOOM_READY__ = true;
+window.__PANEL62_FIVE_SEPARATE_ICONS_KEEP_MORG_READY__ = true;
+window.__PANEL63_CLINIC_ONLY_ZOOM_READY__ = true;
+window.__PANEL64_CLINIC_AGGRESSIVE_CROP_READY__ = true;
+</script>
+</body>
+</html>

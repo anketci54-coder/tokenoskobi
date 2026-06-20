@@ -1,0 +1,115 @@
+{
+  "phase": "DOMAIN_DNS_NGINX_SSL_PLAN_NOAPI",
+  "started_at": "2026-05-20 08:30:08",
+  "final_gate": "PASS",
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "dns_mutation": false,
+    "nginx_mutation": false,
+    "ssl_mutation": false,
+    "certbot_run": false,
+    "db_mutation": false,
+    "active_panel_mutation": false,
+    "route_map_mutation": false,
+    "plan_only": true,
+    "route_map_unchanged": true
+  },
+  "summary": {
+    "primary_domain": "www.coinoskobi.com",
+    "secondary_domain": "coinoskobi.xyz",
+    "ssl_status": "NOT_CONFIGURED",
+    "ssl_provider_plan": "LETS_ENCRYPT_LATER",
+    "public_ip_plan": "159.195.74.132",
+    "route_map_status": "ACTIVE_ROUTE_MAP_FILE_NOT_PANEL_BOUND",
+    "current_route_map_domain": "www.coinoskobi.com",
+    "route_counts": {
+      "center_routes": 8,
+      "node_routes": 77,
+      "pipeline_routes": 10
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "dns_plan": {
+    "primary": {
+      "host": "www.coinoskobi.com",
+      "record_type": "A",
+      "target_ip": "159.195.74.132",
+      "purpose": "canonical_customer_panel_domain",
+      "apply_now": false
+    },
+    "secondary": {
+      "host": "coinoskobi.xyz",
+      "record_type": "A",
+      "target_ip": "159.195.74.132",
+      "purpose": "secondary_redirect_or_landing_domain",
+      "apply_now": false
+    },
+    "optional_aliases_need_confirmation": [
+      {
+        "host": "coinoskobi.com",
+        "record_type": "A",
+        "target_ip": "159.195.74.132",
+        "purpose": "apex_to_www_redirect_if_domain_control_available",
+        "apply_now": false
+      },
+      {
+        "host": "www.coinoskobi.xyz",
+        "record_type": "A",
+        "target_ip": "159.195.74.132",
+        "purpose": "secondary_www_alias_if_wanted",
+        "apply_now": false
+      }
+    ]
+  },
+  "nginx_plan": {
+    "apply_now": false,
+    "future_server_names": [
+      "www.coinoskobi.com",
+      "coinoskobi.xyz"
+    ],
+    "future_optional_server_names_need_confirmation": [
+      "coinoskobi.com",
+      "www.coinoskobi.xyz"
+    ],
+    "future_reverse_proxy_target": "http://127.0.0.1:8096",
+    "future_static_panel_root_candidate": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
+    "notes": [
+      "No nginx file is written in this phase.",
+      "No active 8096 panel change is made in this phase.",
+      "Nginx apply must be a separate explicit approval phase after DNS is ready."
+    ]
+  },
+  "ssl_plan": {
+    "ssl_purchased": false,
+    "paid_ssl_required": false,
+    "planned_provider": "Let's Encrypt",
+    "apply_now": false,
+    "preconditions": [
+      "DNS A records must point to the server IP.",
+      "Nginx server_name must be configured.",
+      "HTTP challenge must be reachable on port 80."
+    ],
+    "future_certbot_hosts_primary": [
+      "www.coinoskobi.com"
+    ],
+    "future_certbot_hosts_secondary": [
+      "coinoskobi.xyz"
+    ],
+    "notes": [
+      "SSL is not configured in this phase.",
+      "SSL can be added later for free with Let's Encrypt.",
+      "No certbot command is executed in this phase."
+    ]
+  },
+  "domain_route_policy": {
+    "canonical_domain": "www.coinoskobi.com",
+    "secondary_domain": "coinoskobi.xyz",
+    "preferred_policy": "primary_www_canonical_secondary_redirect_later",
+    "planned_customer_base_url": "https://www.coinoskobi.com",
+    "planned_secondary_behavior": "redirect_or_landing_after_explicit_design_decision",
+    "route_map_domain_metadata_update_needed_later": true
+  },
+  "next_recommended_phase": "PANEL_ROUTE_MAP_POST_AUDIT_NOAPI_OR_DOMAIN_ROUTE_METADATA_V2_PLAN_NOAPI"
+}

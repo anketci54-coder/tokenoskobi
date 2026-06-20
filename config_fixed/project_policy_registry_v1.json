@@ -1,0 +1,249 @@
+{
+  "schema_version": "project_policy_registry_v1",
+  "scaffold_status": "INERT_CONFIG_ONLY_NO_RUNTIME_EFFECT",
+  "created_by_phase": "PHASE41_AUTHORITY_POLICY_CONFIG_SCAFFOLD_NOAPI",
+  "documentation": {
+    "purpose": "Canonical policy registry scaffold for future core/policy.py.",
+    "runtime_effect": "None. Existing tools keep their current behavior until a future approved migration.",
+    "relationship_to_existing_policy": "This file documents the intended consolidation target for policy rules currently spread across config, core, tools, dashboard contracts, schema comments, and systemd drafts."
+  },
+  "project": {
+    "name": "TOKENOSKOBI",
+    "phase_family": "PHASE41_FAMILY",
+    "human_policy_sources": [
+      "README.md",
+      "PROJECT_HANDOFF.md",
+      "MANIFESTO.md"
+    ],
+    "authority_source": "config/authority_state_v1.json"
+  },
+  "defaults": {
+    "deny_by_default": true,
+    "read_only_allowed": true,
+    "dryrun_allowed": true,
+    "real_apply_requires_explicit_approval": true,
+    "rollback_required_for_mutation": true,
+    "hot_path_is_sacred": true,
+    "no_uncontrolled_writes": true,
+    "no_phase_advancement_without_approval": true
+  },
+  "domains": {
+    "source_trust": {
+      "purpose": "Consolidate source trust and API-source allowance policy.",
+      "default_behavior": "deny_unknown_source",
+      "requires_identity": true,
+      "sources": {
+        "MANUAL_PILOT": {
+          "trusted": true,
+          "api_allowed": false,
+          "requires_identity": true,
+          "max_age_seconds": null
+        },
+        "LOCAL_PILOT_SEED": {
+          "trusted": true,
+          "api_allowed": false,
+          "requires_identity": true,
+          "max_age_seconds": null
+        },
+        "DEXSCREENER_CAPPED_REFRESH": {
+          "trusted": true,
+          "api_allowed": true,
+          "requires_identity": true,
+          "max_age_seconds": 900
+        }
+      }
+    },
+    "payg_rpc": {
+      "purpose": "Consolidate provider, chain, method, budget, and RPC/PAYG restrictions.",
+      "default_mode": "LOCKED_UNTIL_PHASE_APPROVED",
+      "payg_active": true,
+      "manual_approval_required_for_any_payg_real": true,
+      "allowed_chains": [
+        "base"
+      ],
+      "allowed_methods": [
+        "eth_blockNumber",
+        "eth_getBlockByNumber",
+        "eth_getCode",
+        "eth_getLogs",
+        "eth_getTransactionByHash",
+        "eth_getTransactionReceipt"
+      ],
+      "allowed_provider_keys": [
+        "ALCHEMY_BASE_RPC_URL"
+      ],
+      "limits": {
+        "global_daily_rpc_call_soft_cap": 50,
+        "global_daily_rpc_call_hard_cap": 100,
+        "single_phase_rpc_call_default_hard_cap": 12,
+        "single_phase_getlogs_call_default_hard_cap": 6,
+        "single_getlogs_block_span_default_soft_cap": 524288
+      },
+      "forbidden": {
+        "secret_print": true,
+        "full_url_print": true,
+        "ssl_verify_disabled": true,
+        "unknown_chain": true,
+        "unknown_provider": true,
+        "unplanned_rpc_method": true,
+        "unplanned_getlogs_range": true,
+        "unplanned_historical_scan": true,
+        "genesis_scan_without_budget": true
+      }
+    },
+    "db_write": {
+      "purpose": "Govern database mutations.",
+      "default": "deny",
+      "allowed_modes": [
+        "dryrun",
+        "temp_copy"
+      ],
+      "real_write_requires": [
+        "authority.write.db_write_allowed",
+        "explicit_approval",
+        "rollback_plan",
+        "backup_first",
+        "dryrun_result"
+      ],
+      "duplicate_handling_required": true,
+      "live_db_write_by_default": false
+    },
+    "file_write": {
+      "purpose": "Govern file writes by class and target.",
+      "default": "deny",
+      "allowed_classes": {
+        "temp_output": true,
+        "status_output": true,
+        "preview_output": true,
+        "backup_output": true,
+        "active_hot_path_output": false
+      },
+      "active_hot_path_requires_explicit_approval": true
+    },
+    "dashboard": {
+      "purpose": "Govern dashboard rendering, preview, asset, and active panel mutation policy.",
+      "render_allowed": true,
+      "preview_allowed": true,
+      "active_panel_mutation_allowed": false,
+      "active_panel_mutation_requires_separate_explicit_approval": true,
+      "preview_server_sprawl_forbidden": true,
+      "copy_assets_by_default": false,
+      "missing_asset_policy": "report_missing_show_neutral_placeholder"
+    },
+    "service": {
+      "purpose": "Govern service and timer start/enable/install behavior.",
+      "default": "disabled",
+      "start_allowed": false,
+      "enable_allowed": false,
+      "timer_allowed": false,
+      "drafts_are_not_installable_without_approval": true
+    },
+    "secret": {
+      "purpose": "Govern secret storage, status, update, raw read, provider tests, and redaction.",
+      "storage": {
+        "directory_key": "secrets_dir",
+        "directory_mode": "0700",
+        "file_mode": "0600",
+        "tracked_in_git": false
+      },
+      "status_allowed": true,
+      "raw_read_allowed": false,
+      "update_allowed": false,
+      "provider_test_allowed": false,
+      "requires_authentication": true,
+      "requires_redaction": true,
+      "forbid_secret_value_return": true
+    },
+    "paper_live": {
+      "purpose": "Separate dashboard display labels from execution authority.",
+      "paper_execution_allowed": false,
+      "live_execution_allowed": false,
+      "paper_display_allowed": true,
+      "display_must_not_imply_execution_authority": true
+    },
+    "schema_apply": {
+      "purpose": "Govern future schema apply or migration operations.",
+      "default": "deny",
+      "canonical_sql_reference_only": true,
+      "live_apply_allowed": false,
+      "requires": [
+        "authority.schema.apply_allowed",
+        "explicit_approval",
+        "backup_first",
+        "dryrun_migration_report",
+        "rollback_plan"
+      ]
+    },
+    "logging_redaction": {
+      "purpose": "Prevent secret, full URL, and sensitive payload leakage.",
+      "secret_print_forbidden": true,
+      "full_url_print_forbidden": true,
+      "large_payload_dump_forbidden": true,
+      "terminal_long_output_in_handoff_forbidden": true,
+      "redaction_required_fields": [
+        "secret",
+        "private_key",
+        "api_key",
+        "provider_url",
+        "raw_url",
+        "full_url"
+      ]
+    },
+    "path_governance": {
+      "purpose": "Govern logical path usage and future removal of hardcoded absolute roots.",
+      "hardcoded_absolute_root_deprecated": true,
+      "legacy_root": "/root/tokenoskobi_clean_v1",
+      "future_root_source": "config/runtime_paths_v1.json",
+      "hot_paths": [
+        "active_panel_8096/current",
+        "data/tokenoskobi_clean_v1.sqlite",
+        ".secrets"
+      ],
+      "hot_path_mutation_default": "deny"
+    },
+    "approval": {
+      "purpose": "Declare which operation classes require future core/approval.py decisions.",
+      "real_apply_requires_explicit_approval": true,
+      "db_write_requires_explicit_approval": true,
+      "rpc_real_requires_explicit_approval": true,
+      "secret_update_requires_explicit_approval": true,
+      "dashboard_active_mutation_requires_explicit_approval": true,
+      "service_enable_requires_explicit_approval": true,
+      "schema_apply_requires_explicit_approval": true
+    }
+  },
+  "decision_defaults": {
+    "allow_read_only": true,
+    "allow_dryrun": true,
+    "deny_real": true,
+    "deny_mutation": true,
+    "deny_live_trade": true,
+    "deny_paper_trade_execution": true,
+    "deny_secret_raw_read": true,
+    "deny_service_enable": true
+  },
+  "future_consumers": [
+    "core/policy.py",
+    "core/authority.py",
+    "core/approval.py",
+    "core/secrets.py",
+    "tools/*",
+    "control_dashboard_engine_v1/*",
+    "systemd_drafts/*",
+    "future_schema_apply_tools"
+  ],
+  "audit": {
+    "source_policy_count_at_design": 13,
+    "authority_source_count_at_design": 10,
+    "approval_mechanism_count_at_design": 10,
+    "known_drift_risks": [
+      "PAYG_POLICY_SPLIT",
+      "SOURCE_GATE_POLICY_SPLIT",
+      "SECRET_POLICY_SPLIT",
+      "DASHBOARD_MUTATION_POLICY_SPLIT",
+      "SCHEMA_APPLY_POLICY_SPLIT",
+      "PAPER_LIVE_WORDING_SPLIT"
+    ],
+    "migration_state": "scaffold_only_no_consumers"
+  }
+}

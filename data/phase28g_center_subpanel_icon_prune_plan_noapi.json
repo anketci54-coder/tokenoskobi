@@ -1,0 +1,3282 @@
+{
+  "phase": "PHASE28G_CENTER_SUBPANEL_ICON_PRUNE_PLAN_NOAPI",
+  "started_utc": "2026-06-08T06:26:23.262364+00:00",
+  "finished_utc": "2026-06-08T06:26:23.606132+00:00",
+  "final_gate": "PASS_PHASE28G_CENTER_SUBPANEL_ICON_PRUNE_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE28H_PHASE28_CLOSE_AUDIT_NOAPI",
+  "phase28a_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28a_center_inventory_gate_cascade_data_integrity_map_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28A_CENTER_INVENTORY_GATE_CASCADE_DATA_INTEGRITY_MAP_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION_CONTRACT_NOAPI"
+  },
+  "phase28b1_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28b1_data_provenance_no_silent_overwrite_rule_repair_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28B1_DATA_PROVENANCE_NO_SILENT_OVERWRITE_RULE_REPAIR_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI"
+  },
+  "phase28c_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28c_hard_gate_and_emergency_brake_contract_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI"
+  },
+  "phase28d_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28d_precomputed_route_matrix_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI"
+  },
+  "phase28e_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28e_validator_raw_trace_and_severity_audit_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28E_VALIDATOR_RAW_TRACE_AND_SEVERITY_AUDIT_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28F_AI_CALIBRATION_AND_LEARNING_BOUNDARY_PLAN_NOAPI"
+  },
+  "phase28f_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28f_ai_calibration_and_learning_boundary_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28F_AI_CALIBRATION_AND_LEARNING_BOUNDARY_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28G_CENTER_SUBPANEL_ICON_PRUNE_PLAN_NOAPI"
+  },
+  "center_prune_plan": [
+    {
+      "center_id": "command_decision",
+      "name_tr": "Komuta ve Karar Merkezi",
+      "center_class": "CORE_ROUTE",
+      "decision_role": "final_route_display_and_route_queue",
+      "fast_path_authority": "route_consumer_not_trade_authority",
+      "recommendation": "KEEP",
+      "direct_trade_authority": false,
+      "fast_path_allowed": true,
+      "subpanels": [
+        {
+          "name": "Karar Kuyruğu",
+          "decision": "KEEP",
+          "reason": "route görünürlüğü"
+        },
+        {
+          "name": "Route Matrix",
+          "decision": "KEEP",
+          "reason": "precomputed matrix sonucu"
+        },
+        {
+          "name": "Onay Kapısı",
+          "decision": "KEEP",
+          "reason": "authority görünürlüğü"
+        },
+        {
+          "name": "Sinyal Birleştirici",
+          "decision": "MERGE",
+          "merge_into": "Route Matrix",
+          "reason": "fazla karar kalabalığı"
+        },
+        {
+          "name": "Risk/Ödül Dengesi",
+          "decision": "KEEP",
+          "reason": "route açıklaması"
+        },
+        {
+          "name": "Manual Approval Log",
+          "decision": "PASSIVE",
+          "reason": "şimdilik audit görünürlüğü"
+        }
+      ]
+    },
+    {
+      "center_id": "system_control",
+      "name_tr": "Sistem Kontrol Merkezi",
+      "center_class": "CORE_GATE",
+      "decision_role": "system_gate_authority_boundary_ai_audit",
+      "fast_path_authority": "system_gate_state",
+      "recommendation": "KEEP",
+      "direct_trade_authority": false,
+      "fast_path_allowed": true,
+      "subpanels": [
+        {
+          "name": "Service Monitor",
+          "decision": "KEEP",
+          "reason": "system gate"
+        },
+        {
+          "name": "Timer Monitor",
+          "decision": "KEEP",
+          "reason": "system cadence"
+        },
+        {
+          "name": "Backpressure Runner",
+          "decision": "KEEP",
+          "reason": "runtime omurga"
+        },
+        {
+          "name": "DB Health",
+          "decision": "KEEP",
+          "reason": "system gate"
+        },
+        {
+          "name": "Panel Health",
+          "decision": "MERGE",
+          "merge_into": "System Health",
+          "reason": "bakım sadeliği"
+        },
+        {
+          "name": "Provider Budget",
+          "decision": "PASSIVE",
+          "reason": "NOAPI dönemde pasif"
+        },
+        {
+          "name": "Runtime Output",
+          "decision": "KEEP",
+          "reason": "runtime parse/audit"
+        },
+        {
+          "name": "AI Kalibrasyon ve Öğrenme",
+          "decision": "KEEP_SLOW_PATH_ONLY",
+          "reason": "AI Fast Path dışı"
+        }
+      ]
+    },
+    {
+      "center_id": "risk_security",
+      "name_tr": "Risk Güvenlik Merkezi",
+      "center_class": "CORE_GATE",
+      "decision_role": "risk_gate_emergency_brake_evidence",
+      "fast_path_authority": "risk_state_and_emergency_brake_hint",
+      "recommendation": "KEEP",
+      "direct_trade_authority": false,
+      "fast_path_allowed": true,
+      "subpanels": [
+        {
+          "name": "Hardblock Gate",
+          "decision": "KEEP",
+          "reason": "hard veto"
+        },
+        {
+          "name": "Honeypot Kontrol",
+          "decision": "KEEP",
+          "reason": "risk evidence"
+        },
+        {
+          "name": "Sellability",
+          "decision": "KEEP",
+          "reason": "exit safety"
+        },
+        {
+          "name": "Tax Risk",
+          "decision": "MERGE",
+          "merge_into": "Contract Risk",
+          "reason": "risk sadeleştirme"
+        },
+        {
+          "name": "Liquidity Risk",
+          "decision": "KEEP",
+          "reason": "risk gate"
+        },
+        {
+          "name": "LP Güvenliği",
+          "decision": "KEEP",
+          "reason": "liquidity safety"
+        },
+        {
+          "name": "Holder Risk",
+          "decision": "MERGE",
+          "merge_into": "Ownership Risk",
+          "reason": "holder/deployer birlikte"
+        },
+        {
+          "name": "Deployer Risk",
+          "decision": "MERGE",
+          "merge_into": "Ownership Risk",
+          "reason": "holder/deployer birlikte"
+        },
+        {
+          "name": "MEV / Sandwich",
+          "decision": "PASSIVE",
+          "reason": "ileride route cost"
+        },
+        {
+          "name": "Pair Authenticity",
+          "decision": "KEEP",
+          "reason": "data poison önleme"
+        }
+      ]
+    },
+    {
+      "center_id": "onchain_data",
+      "name_tr": "Onchain Veri Merkezi",
+      "center_class": "CORE_GATE",
+      "decision_role": "data_gate_canonical_integrity",
+      "fast_path_authority": "data_minimum_state_canonical_version_ok",
+      "recommendation": "KEEP",
+      "direct_trade_authority": false,
+      "fast_path_allowed": true,
+      "subpanels": [
+        {
+          "name": "Token Identity",
+          "decision": "KEEP",
+          "reason": "canonical identity"
+        },
+        {
+          "name": "Pair Identity",
+          "decision": "KEEP",
+          "reason": "canonical identity"
+        },
+        {
+          "name": "Liquidity Snapshot",
+          "decision": "KEEP",
+          "reason": "minimum data"
+        },
+        {
+          "name": "Tx / Volume",
+          "decision": "KEEP",
+          "reason": "minimum data"
+        },
+        {
+          "name": "Price Snapshot",
+          "decision": "KEEP",
+          "reason": "market data"
+        },
+        {
+          "name": "Birth / Pair Time",
+          "decision": "PASSIVE",
+          "reason": "context"
+        },
+        {
+          "name": "Source Freshness",
+          "decision": "KEEP",
+          "reason": "freshness gate"
+        },
+        {
+          "name": "Data Quality",
+          "decision": "KEEP",
+          "reason": "data gate"
+        },
+        {
+          "name": "Staging Gate",
+          "decision": "KEEP",
+          "reason": "anti-poisoning"
+        },
+        {
+          "name": "Quarantine Lifecycle",
+          "decision": "KEEP",
+          "reason": "anti-poisoning"
+        }
+      ]
+    },
+    {
+      "center_id": "whale_tracking",
+      "name_tr": "Balina Takip Merkezi",
+      "center_class": "EVIDENCE_PROVIDER",
+      "decision_role": "whale_evidence_only",
+      "fast_path_authority": "none_direct",
+      "recommendation": "KEEP_PASSIVE_EVIDENCE",
+      "direct_trade_authority": false,
+      "fast_path_allowed": false,
+      "subpanels": [
+        {
+          "name": "Top Holder Watch",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "evidence"
+        },
+        {
+          "name": "Whale Accumulation",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "opportunity evidence"
+        },
+        {
+          "name": "Whale Exit",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "risk evidence"
+        },
+        {
+          "name": "Deployer Wallet",
+          "decision": "MERGE",
+          "merge_into": "Ownership Risk",
+          "reason": "risk merkezine kanıt"
+        },
+        {
+          "name": "LP Holder Watch",
+          "decision": "MERGE",
+          "merge_into": "LP Güvenliği",
+          "reason": "risk merkezine kanıt"
+        },
+        {
+          "name": "Large Transfer Alert",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "event evidence"
+        },
+        {
+          "name": "Wallet Cluster",
+          "decision": "LATER",
+          "reason": "ağır analiz, şimdilik Fast Path dışı"
+        }
+      ]
+    },
+    {
+      "center_id": "news_flow",
+      "name_tr": "Haber Akış Merkezi",
+      "center_class": "EVIDENCE_PROVIDER",
+      "decision_role": "narrative_evidence_only",
+      "fast_path_authority": "none_direct",
+      "recommendation": "KEEP_PASSIVE_EVIDENCE",
+      "direct_trade_authority": false,
+      "fast_path_allowed": false,
+      "subpanels": [
+        {
+          "name": "News Radar",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "narrative evidence"
+        },
+        {
+          "name": "Narrative Trend",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "opportunity context"
+        },
+        {
+          "name": "Sector Heat",
+          "decision": "MERGE",
+          "merge_into": "Narrative Trend",
+          "reason": "panel sadeleştirme"
+        },
+        {
+          "name": "Community Organic",
+          "decision": "PASSIVE",
+          "reason": "güvenilirlik düşükse pasif"
+        },
+        {
+          "name": "Influencer Risk",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "pump risk"
+        },
+        {
+          "name": "Project Docs",
+          "decision": "PASSIVE",
+          "reason": "slow context"
+        },
+        {
+          "name": "Social Signal",
+          "decision": "MERGE",
+          "merge_into": "Narrative Trend",
+          "reason": "tekrar azaltma"
+        }
+      ]
+    },
+    {
+      "center_id": "technical_analysis",
+      "name_tr": "Teknik Analiz Merkezi",
+      "center_class": "EVIDENCE_PROVIDER",
+      "decision_role": "timing_evidence_only",
+      "fast_path_authority": "precomputed_timing_state_only",
+      "recommendation": "KEEP_EVIDENCE",
+      "direct_trade_authority": false,
+      "fast_path_allowed": false,
+      "subpanels": [
+        {
+          "name": "Momentum",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "timing evidence"
+        },
+        {
+          "name": "Volume Trend",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "timing evidence"
+        },
+        {
+          "name": "Volatility",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "matrix freshness"
+        },
+        {
+          "name": "Support / Resistance",
+          "decision": "LATER",
+          "reason": "ağır ve bakım yükü"
+        },
+        {
+          "name": "Short Pump Risk",
+          "decision": "MERGE",
+          "merge_into": "Risk Güvenlik / Pump Risk",
+          "reason": "risk merkezine kanıt"
+        },
+        {
+          "name": "Trend Strength",
+          "decision": "MERGE",
+          "merge_into": "Momentum",
+          "reason": "sadeleştirme"
+        }
+      ]
+    },
+    {
+      "center_id": "life_support",
+      "name_tr": "Yaşam Destek Merkezi",
+      "center_class": "EVIDENCE_PROVIDER",
+      "decision_role": "survival_evidence_only",
+      "fast_path_authority": "none_direct",
+      "recommendation": "KEEP_EVIDENCE",
+      "direct_trade_authority": false,
+      "fast_path_allowed": false,
+      "subpanels": [
+        {
+          "name": "Life Check",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "survival evidence"
+        },
+        {
+          "name": "Liquidity Retention",
+          "decision": "MERGE",
+          "merge_into": "Liquidity Risk",
+          "reason": "risk merkezine kanıt"
+        },
+        {
+          "name": "Tx Continuation",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "survival evidence"
+        },
+        {
+          "name": "Holder Growth",
+          "decision": "MERGE",
+          "merge_into": "Top Holder Watch",
+          "reason": "balina/holder kanıt"
+        },
+        {
+          "name": "Organic Volume",
+          "decision": "MERGE",
+          "merge_into": "Volume Trend",
+          "reason": "timing/data kanıt"
+        },
+        {
+          "name": "Survival Score",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "slow evidence"
+        },
+        {
+          "name": "Death Warning",
+          "decision": "KEEP_SLOW_PATH",
+          "reason": "risk support"
+        },
+        {
+          "name": "Morg / Autopsy Link",
+          "decision": "PASSIVE",
+          "reason": "audit/history"
+        }
+      ]
+    }
+  ],
+  "prune_policy": {
+    "allowed_statuses": [
+      "KEEP",
+      "KEEP_SLOW_PATH",
+      "KEEP_SLOW_PATH_ONLY",
+      "KEEP_PASSIVE_EVIDENCE",
+      "KEEP_EVIDENCE",
+      "MERGE",
+      "PASSIVE",
+      "LATER",
+      "REMOVE_LATER_AFTER_APPROVAL"
+    ],
+    "hard_rules": [
+      "No deletion in Phase28G.",
+      "No active panel mutation in Phase28G.",
+      "No DB mutation in Phase28G.",
+      "No icon mutation in Phase28G.",
+      "No service/timer/runner mutation in Phase28G.",
+      "8 centers may remain visually; only decision authority is pruned.",
+      "Fast Path accepts only core gate/route compact state.",
+      "Evidence centers cannot open route/action directly.",
+      "AI remains Slow Path + Audit only."
+    ],
+    "fast_path_allowed_center_classes": [
+      "CORE_ROUTE",
+      "CORE_GATE"
+    ],
+    "decision_authority_limit": [
+      "AUTHORITY_GATE",
+      "SYSTEM_GATE",
+      "DATA_GATE",
+      "RISK_GATE",
+      "PRECOMPUTED_MATRIX",
+      "ROUTE_DISPLAY"
+    ],
+    "asset_status_plan": {
+      "ACTIVE_KEEP": "currently used and fits locked center identity",
+      "CANDIDATE_KEEP": "possible future asset, not active authority",
+      "MERGE_CANDIDATE": "duplicate or similar visual role",
+      "PASSIVE_ARCHIVE_LATER": "old/unused but not deleted now",
+      "REMOVE_LATER_AFTER_APPROVAL": "only after explicit future cleanup approval"
+    }
+  },
+  "prune_counts": {
+    "center_count": 8,
+    "core_count": 4,
+    "evidence_count": 4,
+    "fast_path_allowed_count": 4,
+    "direct_trade_auth_count": 0,
+    "subpanel_count": 62,
+    "subpanel_status_counts": {
+      "KEEP": 24,
+      "MERGE": 14,
+      "PASSIVE": 7,
+      "KEEP_SLOW_PATH_ONLY": 1,
+      "KEEP_SLOW_PATH": 14,
+      "LATER": 2
+    },
+    "subpanels": [
+      {
+        "center_id": "command_decision",
+        "center_class": "CORE_ROUTE",
+        "name": "Karar Kuyruğu",
+        "decision": "KEEP",
+        "reason": "route görünürlüğü"
+      },
+      {
+        "center_id": "command_decision",
+        "center_class": "CORE_ROUTE",
+        "name": "Route Matrix",
+        "decision": "KEEP",
+        "reason": "precomputed matrix sonucu"
+      },
+      {
+        "center_id": "command_decision",
+        "center_class": "CORE_ROUTE",
+        "name": "Onay Kapısı",
+        "decision": "KEEP",
+        "reason": "authority görünürlüğü"
+      },
+      {
+        "center_id": "command_decision",
+        "center_class": "CORE_ROUTE",
+        "name": "Sinyal Birleştirici",
+        "decision": "MERGE",
+        "merge_into": "Route Matrix",
+        "reason": "fazla karar kalabalığı"
+      },
+      {
+        "center_id": "command_decision",
+        "center_class": "CORE_ROUTE",
+        "name": "Risk/Ödül Dengesi",
+        "decision": "KEEP",
+        "reason": "route açıklaması"
+      },
+      {
+        "center_id": "command_decision",
+        "center_class": "CORE_ROUTE",
+        "name": "Manual Approval Log",
+        "decision": "PASSIVE",
+        "reason": "şimdilik audit görünürlüğü"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "Service Monitor",
+        "decision": "KEEP",
+        "reason": "system gate"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "Timer Monitor",
+        "decision": "KEEP",
+        "reason": "system cadence"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "Backpressure Runner",
+        "decision": "KEEP",
+        "reason": "runtime omurga"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "DB Health",
+        "decision": "KEEP",
+        "reason": "system gate"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "Panel Health",
+        "decision": "MERGE",
+        "merge_into": "System Health",
+        "reason": "bakım sadeliği"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "Provider Budget",
+        "decision": "PASSIVE",
+        "reason": "NOAPI dönemde pasif"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "Runtime Output",
+        "decision": "KEEP",
+        "reason": "runtime parse/audit"
+      },
+      {
+        "center_id": "system_control",
+        "center_class": "CORE_GATE",
+        "name": "AI Kalibrasyon ve Öğrenme",
+        "decision": "KEEP_SLOW_PATH_ONLY",
+        "reason": "AI Fast Path dışı"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Hardblock Gate",
+        "decision": "KEEP",
+        "reason": "hard veto"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Honeypot Kontrol",
+        "decision": "KEEP",
+        "reason": "risk evidence"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Sellability",
+        "decision": "KEEP",
+        "reason": "exit safety"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Tax Risk",
+        "decision": "MERGE",
+        "merge_into": "Contract Risk",
+        "reason": "risk sadeleştirme"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Liquidity Risk",
+        "decision": "KEEP",
+        "reason": "risk gate"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "LP Güvenliği",
+        "decision": "KEEP",
+        "reason": "liquidity safety"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Holder Risk",
+        "decision": "MERGE",
+        "merge_into": "Ownership Risk",
+        "reason": "holder/deployer birlikte"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Deployer Risk",
+        "decision": "MERGE",
+        "merge_into": "Ownership Risk",
+        "reason": "holder/deployer birlikte"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "MEV / Sandwich",
+        "decision": "PASSIVE",
+        "reason": "ileride route cost"
+      },
+      {
+        "center_id": "risk_security",
+        "center_class": "CORE_GATE",
+        "name": "Pair Authenticity",
+        "decision": "KEEP",
+        "reason": "data poison önleme"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Token Identity",
+        "decision": "KEEP",
+        "reason": "canonical identity"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Pair Identity",
+        "decision": "KEEP",
+        "reason": "canonical identity"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Liquidity Snapshot",
+        "decision": "KEEP",
+        "reason": "minimum data"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Tx / Volume",
+        "decision": "KEEP",
+        "reason": "minimum data"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Price Snapshot",
+        "decision": "KEEP",
+        "reason": "market data"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Birth / Pair Time",
+        "decision": "PASSIVE",
+        "reason": "context"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Source Freshness",
+        "decision": "KEEP",
+        "reason": "freshness gate"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Data Quality",
+        "decision": "KEEP",
+        "reason": "data gate"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Staging Gate",
+        "decision": "KEEP",
+        "reason": "anti-poisoning"
+      },
+      {
+        "center_id": "onchain_data",
+        "center_class": "CORE_GATE",
+        "name": "Quarantine Lifecycle",
+        "decision": "KEEP",
+        "reason": "anti-poisoning"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Top Holder Watch",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "evidence"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Whale Accumulation",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "opportunity evidence"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Whale Exit",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "risk evidence"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Deployer Wallet",
+        "decision": "MERGE",
+        "merge_into": "Ownership Risk",
+        "reason": "risk merkezine kanıt"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "LP Holder Watch",
+        "decision": "MERGE",
+        "merge_into": "LP Güvenliği",
+        "reason": "risk merkezine kanıt"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Large Transfer Alert",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "event evidence"
+      },
+      {
+        "center_id": "whale_tracking",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Wallet Cluster",
+        "decision": "LATER",
+        "reason": "ağır analiz, şimdilik Fast Path dışı"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "News Radar",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "narrative evidence"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Narrative Trend",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "opportunity context"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Sector Heat",
+        "decision": "MERGE",
+        "merge_into": "Narrative Trend",
+        "reason": "panel sadeleştirme"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Community Organic",
+        "decision": "PASSIVE",
+        "reason": "güvenilirlik düşükse pasif"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Influencer Risk",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "pump risk"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Project Docs",
+        "decision": "PASSIVE",
+        "reason": "slow context"
+      },
+      {
+        "center_id": "news_flow",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Social Signal",
+        "decision": "MERGE",
+        "merge_into": "Narrative Trend",
+        "reason": "tekrar azaltma"
+      },
+      {
+        "center_id": "technical_analysis",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Momentum",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "timing evidence"
+      },
+      {
+        "center_id": "technical_analysis",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Volume Trend",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "timing evidence"
+      },
+      {
+        "center_id": "technical_analysis",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Volatility",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "matrix freshness"
+      },
+      {
+        "center_id": "technical_analysis",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Support / Resistance",
+        "decision": "LATER",
+        "reason": "ağır ve bakım yükü"
+      },
+      {
+        "center_id": "technical_analysis",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Short Pump Risk",
+        "decision": "MERGE",
+        "merge_into": "Risk Güvenlik / Pump Risk",
+        "reason": "risk merkezine kanıt"
+      },
+      {
+        "center_id": "technical_analysis",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Trend Strength",
+        "decision": "MERGE",
+        "merge_into": "Momentum",
+        "reason": "sadeleştirme"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Life Check",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "survival evidence"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Liquidity Retention",
+        "decision": "MERGE",
+        "merge_into": "Liquidity Risk",
+        "reason": "risk merkezine kanıt"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Tx Continuation",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "survival evidence"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Holder Growth",
+        "decision": "MERGE",
+        "merge_into": "Top Holder Watch",
+        "reason": "balina/holder kanıt"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Organic Volume",
+        "decision": "MERGE",
+        "merge_into": "Volume Trend",
+        "reason": "timing/data kanıt"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Survival Score",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "slow evidence"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Death Warning",
+        "decision": "KEEP_SLOW_PATH",
+        "reason": "risk support"
+      },
+      {
+        "center_id": "life_support",
+        "center_class": "EVIDENCE_PROVIDER",
+        "name": "Morg / Autopsy Link",
+        "decision": "PASSIVE",
+        "reason": "audit/history"
+      }
+    ]
+  },
+  "icon_inventory": {
+    "scan_dirs": [
+      "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final",
+      "/root/tokenoskobi_clean_v1/panel_assets/center_icons",
+      "/root/tokenoskobi_clean_v1/panel_assets",
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/panel_assets"
+    ],
+    "icon_file_count_limited": 790,
+    "icon_files_sample": [
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+        "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+        "suffix": ".png",
+        "size": 1328731,
+        "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+        "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+        "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+        "suffix": ".png",
+        "size": 1267159,
+        "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+        "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+        "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+        "suffix": ".png",
+        "size": 1160169,
+        "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+        "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+        "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+        "suffix": ".png",
+        "size": 1403081,
+        "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+        "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+        "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+        "suffix": ".png",
+        "size": 1384572,
+        "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+        "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+        "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+        "suffix": ".png",
+        "size": 1452734,
+        "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+        "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+        "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+        "suffix": ".png",
+        "size": 1402809,
+        "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+        "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+        "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+        "suffix": ".png",
+        "size": 1370653,
+        "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+        "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+        "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+        "suffix": ".png",
+        "size": 2202825,
+        "mtime_utc": "2026-05-16T20:08:28+00:00",
+        "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+        "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+        "suffix": ".png",
+        "size": 1781685,
+        "mtime_utc": "2026-05-16T20:01:23+00:00",
+        "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+        "relative": "panel_assets/center_icons/komuta_merkezi.png",
+        "suffix": ".png",
+        "size": 1586765,
+        "mtime_utc": "2026-05-16T19:58:20+00:00",
+        "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+        "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+        "suffix": ".png",
+        "size": 1972960,
+        "mtime_utc": "2026-05-16T20:03:32+00:00",
+        "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+        "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+        "suffix": ".png",
+        "size": 2031546,
+        "mtime_utc": "2026-05-16T20:11:59+00:00",
+        "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+        "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+        "suffix": ".png",
+        "size": 2251298,
+        "mtime_utc": "2026-05-16T20:15:03+00:00",
+        "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+        "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+        "suffix": ".png",
+        "size": 1985806,
+        "mtime_utc": "2026-05-16T20:10:08+00:00",
+        "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+        "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+        "suffix": ".png",
+        "size": 2136442,
+        "mtime_utc": "2026-05-16T20:13:37+00:00",
+        "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/haber_akis_images/forensic_detective.jpeg",
+        "relative": "panel_assets/haber_akis_images/forensic_detective.jpeg",
+        "suffix": ".jpeg",
+        "size": 423358,
+        "mtime_utc": "2026-05-15T21:53:52.945620+00:00",
+        "sha256": "6344665f35d22a3d1fd6e03d38313ec3c12956e528c2049c2a90df3c3c404400"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 7144,
+        "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+        "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 7509,
+        "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+        "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 7359,
+        "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+        "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 7016,
+        "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+        "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/sl_tp_durumu_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/sl_tp_durumu_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 6727,
+        "mtime_utc": "2026-05-20T07:42:35.134522+00:00",
+        "sha256": "35423b6c1f7fa11019a26ea9f62f9be6bb904ade1e925fb765a833cabf2e3068"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/yasam_destek_merkezi/klinik_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/yasam_destek_merkezi/klinik_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 6942,
+        "mtime_utc": "2026-05-20T07:42:35.186525+00:00",
+        "sha256": "0a5430c38462c641a61ad43d8e5b62de2a75aa67425c41128a980b6c845a64cf"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/yasam_destek_merkezi/morg_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/yasam_destek_merkezi/morg_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 7507,
+        "mtime_utc": "2026-05-20T07:42:35.242528+00:00",
+        "sha256": "82781512b80da836a6630ad675476de96708c78c67f8bc3ff94684244cf7dd04"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/yasam_destek_merkezi/otopsi_fit_v1_128.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/yasam_destek_merkezi/otopsi_fit_v1_128.jpg",
+        "suffix": ".jpg",
+        "size": 7202,
+        "mtime_utc": "2026-05-20T07:42:35.302531+00:00",
+        "sha256": "766ea595911a007c92af51f4795b4c799a68164f743c4ea345bf4c9e892d011e"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 38180,
+        "mtime_utc": "2026-05-20T07:42:34.894509+00:00",
+        "sha256": "7a14b174ffcc6801d82462ef87d3b4994c16497308f2d49ce0b0960a8e773d67"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 43012,
+        "mtime_utc": "2026-05-20T07:42:34.954512+00:00",
+        "sha256": "bd1ab61361827edfc49d0d01d71da17ffb2d53b8222ca4cd3ea1a719c1c88598"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/canli_karar_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/canli_karar_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 40205,
+        "mtime_utc": "2026-05-20T07:42:35.006515+00:00",
+        "sha256": "e3ffdd4c5ecf7b972d3eece4393e74f6cdded02d759643fd5b1d3d1a7051785b"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 37968,
+        "mtime_utc": "2026-05-20T07:42:35.058518+00:00",
+        "sha256": "d935be03374cb6e0885e0d7f63f5ceb62e7dbeb6a81f01481415aa1cc90b709a"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/sl_tp_durumu_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/komuta_merkezi/sl_tp_durumu_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 35693,
+        "mtime_utc": "2026-05-20T07:42:35.118521+00:00",
+        "sha256": "bab4b3c96a0ef0e904f213938d752932e4835ff7e01464c87bf5671a12c6c243"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/yasam_destek_merkezi/klinik_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/yasam_destek_merkezi/klinik_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 39675,
+        "mtime_utc": "2026-05-20T07:42:35.170524+00:00",
+        "sha256": "5c642f783807ebb841c65155a1d3f81707cda7198ac170c1c27ab71bec4758f7"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/yasam_destek_merkezi/morg_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/yasam_destek_merkezi/morg_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 46608,
+        "mtime_utc": "2026-05-20T07:42:35.226527+00:00",
+        "sha256": "945c45d2ab5d7467dc643d41f8be7c6bdf4f72ca6a9bfeeeacbd0960ef656dc8"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/yasam_destek_merkezi/otopsi_fit_v1_384.jpg",
+        "relative": "panel_assets/icon_fit_candidates/icons_panel_384_fit_v1/yasam_destek_merkezi/otopsi_fit_v1_384.jpg",
+        "suffix": ".jpg",
+        "size": 44340,
+        "mtime_utc": "2026-05-20T07:42:35.286530+00:00",
+        "sha256": "a095fb78f5587c646be2670d6bfb79e0ed09422871894300682fec6ffb11fb1b"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\akilli_para_takibi_source_v2_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\akilli_para_takibi_source_v2_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 221267,
+        "mtime_utc": "2026-05-19T21:46:51.444472+00:00",
+        "sha256": "73d6acb9d048453b530af7d485e5ce8868fd01632feb1aeca207cb0cd321126f"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\balance_tier_whale_siniflari_source_v1_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\balance_tier_whale_siniflari_source_v1_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 219231,
+        "mtime_utc": "2026-05-19T21:46:51.444472+00:00",
+        "sha256": "1bd5b0708db42e0c7f272cf16b45888d53b35bb0c45b721e85e11fb8d126f25b"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\balina_takip_merkezi_master_source_v1_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\balina_takip_merkezi_master_source_v1_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 174817,
+        "mtime_utc": "2026-05-19T21:46:51.448473+00:00",
+        "sha256": "d0a42ea85762d057281c3d5854e896b2848b52746ade25caad6bd59115f70317"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\borsa_giris_cikis_source_v2_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\borsa_giris_cikis_source_v2_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 210599,
+        "mtime_utc": "2026-05-19T21:46:51.448473+00:00",
+        "sha256": "830042f2d3ba868a5226f36b73372b0f614f23eb1d7f989749f25a8fbf305142"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\buyuk_transfer_alarmi_source_v1_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\buyuk_transfer_alarmi_source_v1_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 207015,
+        "mtime_utc": "2026-05-19T21:46:51.448473+00:00",
+        "sha256": "59e3480c9246ee0318eee1b25ad27db95ac7db69010153071d5d1a2c201a68bd"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\cuzdan_gecmisi_hafiza_source_v1_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\cuzdan_gecmisi_hafiza_source_v1_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 211195,
+        "mtime_utc": "2026-05-19T21:46:51.448473+00:00",
+        "sha256": "072a02bb82fe9e822d8f00160a72120311541e6d4612f5820500bc1b95028e66"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\wallet_risk_profili_source_v1_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\wallet_risk_profili_source_v1_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 199359,
+        "mtime_utc": "2026-05-19T21:46:51.448473+00:00",
+        "sha256": "9af15bbd4e227810d44e8d998bd4d6060eb23812461e121f36e977750135b7b4"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/balina takip merkezi\\whale_wallet_izleme_source_v1_3200 (2)_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/balina takip merkezi\\whale_wallet_izleme_source_v1_3200 (2)_1024.jpg",
+        "suffix": ".jpg",
+        "size": 177732,
+        "mtime_utc": "2026-05-19T21:46:51.452473+00:00",
+        "sha256": "afce3fe0279d3ca4d390c9c7994c566a6312e03ddcff287dd4501760f5ba7493"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\Gemini_Generated_Image_c91h7xc91h7xc91h_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\Gemini_Generated_Image_c91h7xc91h7xc91h_1024.jpg",
+        "suffix": ".jpg",
+        "size": 148957,
+        "mtime_utc": "2026-05-19T21:46:51.452473+00:00",
+        "sha256": "3c2db6f72dccd1f4b9b12c6c63c2d877e42a465cbba6cc5bd219cc7a2632e2bd"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\WhatsApp Image 2026-05-18 at 11.16.18_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\WhatsApp Image 2026-05-18 at 11.16.18_1024.jpg",
+        "suffix": ".jpg",
+        "size": 113423,
+        "mtime_utc": "2026-05-19T21:46:51.452473+00:00",
+        "sha256": "2eda9e5c22f701ec70b5524aa223a1ce5cd850db2172c4df01d261b272b1d65e"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\akilli_para_takibi_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\akilli_para_takibi_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 245184,
+        "mtime_utc": "2026-05-19T21:46:51.456473+00:00",
+        "sha256": "9f63d38e5f5ac8fc80762b6fd6a60c4df23613167b7a07d7072a413bfe483416"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\balance_tier_whale_siniflari_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\balance_tier_whale_siniflari_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 241351,
+        "mtime_utc": "2026-05-19T21:46:51.456473+00:00",
+        "sha256": "fe5e387c8046deb2ad3d7ab67d0a5fe084f3babc01ed0ff296757cbceb6047ec"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\balina_takip_merkezi_master_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\balina_takip_merkezi_master_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 190121,
+        "mtime_utc": "2026-05-19T21:46:51.456473+00:00",
+        "sha256": "1d19b1338c90cf2de1ae7c7b410f31bf05e35322e90517e07c33a04000eb6205"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\balina_takip_merkezi_master_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\balina_takip_merkezi_master_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 218974,
+        "mtime_utc": "2026-05-19T21:46:51.456473+00:00",
+        "sha256": "25897d1b86bfdea6e5a960c12e1533db5366459f70668ad1f2e6cfa818551ef3"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\borsa_giris_cikis_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\borsa_giris_cikis_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 232028,
+        "mtime_utc": "2026-05-19T21:46:51.460473+00:00",
+        "sha256": "31c5372208c59d09e679c502e12e6b735dd621bd582a7d1d7d9e650ef67b622e"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\buyuk_transfer_alarmi_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\buyuk_transfer_alarmi_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 227115,
+        "mtime_utc": "2026-05-19T21:46:51.460473+00:00",
+        "sha256": "138c6b79520da0eeae0726e68521cf878bf6df1286df4301a8c833f02af82a1e"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\cuzdan_gecmisi_hafiza_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\cuzdan_gecmisi_hafiza_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 234593,
+        "mtime_utc": "2026-05-19T21:46:51.460473+00:00",
+        "sha256": "1a4d08e3f3d4b1ebd6b57d6f578f2f1978ad6d8fbb51df879f3a92d4e5f11c66"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\wallet_risk_profili_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\wallet_risk_profili_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 219937,
+        "mtime_utc": "2026-05-19T21:46:51.460473+00:00",
+        "sha256": "f6d5d822c1428994fd520787ab1f2f0dabb1953fd38aa1b4af6ce0747d590dbb"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\balina\\whale_wallet_izleme_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\balina\\whale_wallet_izleme_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 194162,
+        "mtime_utc": "2026-05-19T21:46:51.464473+00:00",
+        "sha256": "99cb25db44f5fc5aa82a3cbbae18d2a3d0cc2c8848c745e57bf71672724e4b23"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\airdrop_claim_takibi_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\airdrop_claim_takibi_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 201445,
+        "mtime_utc": "2026-05-19T21:46:51.464473+00:00",
+        "sha256": "4ac92ecab4a51d3eec30c9024dd92df57fe33b763a5daf1e5d31c00b4fd7fd24"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\ceviri_ve_ozet_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\ceviri_ve_ozet_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 213949,
+        "mtime_utc": "2026-05-19T21:46:51.464473+00:00",
+        "sha256": "4d3a58fa812c7c76343804f52b30a8bd7803c5f5268717a23b1569ad82e6657c"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_akis_merkezi_master_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_akis_merkezi_master_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 206258,
+        "mtime_utc": "2026-05-19T21:46:51.468474+00:00",
+        "sha256": "49ce84a1a0f238202919533aaf3f6d5a769eb36317e3217d2666265e70f7a2cf"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_etki_skoru_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_etki_skoru_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 195384,
+        "mtime_utc": "2026-05-19T21:46:51.468474+00:00",
+        "sha256": "de0ca7a199d0997d888775dbeb4895b978715096f207fef18b9f88ea9fcad93f"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_etki_skoru_source_v3_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_etki_skoru_source_v3_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 199258,
+        "mtime_utc": "2026-05-19T21:46:51.468474+00:00",
+        "sha256": "dc19bde2ed8e7f42a44efefcabeb5ed4176381f2d7b18a1ae4a26b4f3f0a0a9f"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_gecmisi_arsiv_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\haber_gecmisi_arsiv_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 220665,
+        "mtime_utc": "2026-05-19T21:46:51.468474+00:00",
+        "sha256": "055180d8888d07eeac8302fd5d544fc859e0faa3932b15ae61ce97aab15da8e8"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\ico_ido_drop_radar_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\ico_ido_drop_radar_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 111023,
+        "mtime_utc": "2026-05-19T21:46:51.472474+00:00",
+        "sha256": "ae464329a45462dbb0b1eda807838b99398ecd6565ecb5812de9f5ed4cded91b"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kaynak_guvenilirligi_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kaynak_guvenilirligi_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 204468,
+        "mtime_utc": "2026-05-19T21:46:51.472474+00:00",
+        "sha256": "ad2343324463417da395f1b87bd4d4b466dc8e0ea2ebc5a633cdf1f421856739"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kaynak_guvenilirligi_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kaynak_guvenilirligi_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 239871,
+        "mtime_utc": "2026-05-19T21:46:51.472474+00:00",
+        "sha256": "737d5447a25568df9c405b46292fb39fd49db2a102efe2398e4a372aead01660"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kritik_haber_radari_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kritik_haber_radari_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 189933,
+        "mtime_utc": "2026-05-19T21:46:51.472474+00:00",
+        "sha256": "66080798d4be488267ca42be471695e2303e044009faf03f8a18b477e07a3b36"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kritik_haber_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kritik_haber_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 274534,
+        "mtime_utc": "2026-05-19T21:46:51.476474+00:00",
+        "sha256": "fadd314933b13caed47963fb91387246aa215e01121549047b501a2e823fa111"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kritik_takvim_launch_calendar_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\kritik_takvim_launch_calendar_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 236219,
+        "mtime_utc": "2026-05-19T21:46:51.476474+00:00",
+        "sha256": "3b9724df3299e7f073c140f2ce1d277424b28b6b11f5f31985a9b53f7ebabb93"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\narrative_tema_takibi_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\narrative_tema_takibi_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 192755,
+        "mtime_utc": "2026-05-19T21:46:51.476474+00:00",
+        "sha256": "d709c6f6d00953145c794ca261dedd1ee1c58f8791b1aa59a982fe07aa9b6488"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\haber\\vesting_unlock_takibi_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\haber\\vesting_unlock_takibi_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 223287,
+        "mtime_utc": "2026-05-19T21:46:51.480474+00:00",
+        "sha256": "a888ea600ef5f8b96aa7cb51ba95ba984f7f96b0781bbb16c1a44eb3f9ca56d3"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\acik_pozisyonlar_icon_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\acik_pozisyonlar_icon_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 171367,
+        "mtime_utc": "2026-05-19T21:46:51.480474+00:00",
+        "sha256": "39eb7a937c2fdb0551975b4444784ee2777a3b99e61e12d3912efa6cb428e6cc"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\aksiyon_gecmisi_icon_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\aksiyon_gecmisi_icon_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 199636,
+        "mtime_utc": "2026-05-19T21:46:51.480474+00:00",
+        "sha256": "ae1ee0b761bfd4580a8bcf5fc8a8da6195639684667b169b4c9fa60d8af0e398"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\canli_karar_icon_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\canli_karar_icon_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 176957,
+        "mtime_utc": "2026-05-19T21:46:51.480474+00:00",
+        "sha256": "21d40a0a756161965028ecdbeb126331ee84e64b518418a62e7dc6f84d95208a"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\canli_karar_icon_source_v3_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\canli_karar_icon_source_v3_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 257008,
+        "mtime_utc": "2026-05-19T21:46:51.480474+00:00",
+        "sha256": "4eee25f9ebe1f663abd37af9820cf6374030d95c54a415fbf820136c77c38373"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\komuta_merkezi_master_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\komuta_merkezi_master_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 176290,
+        "mtime_utc": "2026-05-19T21:46:51.484475+00:00",
+        "sha256": "f4b0b7d28a3d2e5f6ed0f3001aae97c9de1f3fcad4545baca3728f8f7326cd10"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\komuta_merkezi_master_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\komuta_merkezi_master_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 257880,
+        "mtime_utc": "2026-05-19T21:46:51.484475+00:00",
+        "sha256": "c3781f734ba202194f199a812ad32470727265f80154640a234d9c3af123fefa"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\merkez_skorlari_icon_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\merkez_skorlari_icon_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 174710,
+        "mtime_utc": "2026-05-19T21:46:51.484475+00:00",
+        "sha256": "fbc2aaa220f05b82fddf895c8b9795232ec868a7a49d55cd6b300ac53079e3d7"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\paper_trade_ozeti_icon_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\paper_trade_ozeti_icon_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 171530,
+        "mtime_utc": "2026-05-19T21:46:51.488475+00:00",
+        "sha256": "84e067493d6d4def9c97a5a39d606d72a7cac15e528956ebcd1256dd5378d9f9"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\sl_tp_durumu_icon_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\sl_tp_durumu_icon_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 163528,
+        "mtime_utc": "2026-05-19T21:46:51.488475+00:00",
+        "sha256": "1861314a6514d9d7c78d24ab3e312ef2d64c85f54b1ecca86a9600c2557c5b63"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\sl_tp_durumu_icon_source_v2_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\sl_tp_durumu_icon_source_v2_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 272674,
+        "mtime_utc": "2026-05-19T21:46:51.488475+00:00",
+        "sha256": "46ddc5b95bb398c3bccae3a3c274b9d491913f1a1ac19fdea5c88283f2e4ebcc"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\watchlist_shortlist_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\komuta\\watchlist_shortlist_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 205084,
+        "mtime_utc": "2026-05-19T21:46:51.492475+00:00",
+        "sha256": "079ba48fd64c3d69578e7102e7b01c0d529430baed361b825db5a3d7a3f798c1"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\onchain\\contract_mint_owner_izleme_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\onchain\\contract_mint_owner_izleme_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 231158,
+        "mtime_utc": "2026-05-19T21:46:51.492475+00:00",
+        "sha256": "bbf52701982e5f9922384d5bc3bb008feb554cadd17475b55f621d2ba5edab1c"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\onchain\\holder_dagilimi_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\onchain\\holder_dagilimi_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 229909,
+        "mtime_utc": "2026-05-19T21:46:51.492475+00:00",
+        "sha256": "8ea66ed317a3e313c4ea34e46ccbb1cd2d7ce6d34c952bf386a83a7564af3ded"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/panel_assets/icons_panel_1024/ek çalışmalar\\onchain\\likidite_hareketleri_source_v1_3200_1024.jpg",
+        "relative": "panel_assets/icons_panel_1024/ek çalışmalar\\onchain\\likidite_hareketleri_source_v1_3200_1024.jpg",
+        "suffix": ".jpg",
+        "size": 223539,
+        "mtime_utc": "2026-05-19T21:46:51.496475+00:00",
+        "sha256": "7361355ae4e88124cae954f9162f345ca99e3f32ed8b3dc23329bff6eb631b8e"
+      }
+    ],
+    "by_center": [
+      {
+        "center_id": "command_decision",
+        "name_tr": "Komuta ve Karar Merkezi",
+        "matched_icon_count": 698,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "system_control",
+        "name_tr": "Sistem Kontrol Merkezi",
+        "matched_icon_count": 686,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "risk_security",
+        "name_tr": "Risk Güvenlik Merkezi",
+        "matched_icon_count": 682,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "onchain_data",
+        "name_tr": "Onchain Veri Merkezi",
+        "matched_icon_count": 702,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "whale_tracking",
+        "name_tr": "Balina Takip Merkezi",
+        "matched_icon_count": 694,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "news_flow",
+        "name_tr": "Haber Akış Merkezi",
+        "matched_icon_count": 708,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/haber_akis_images/forensic_detective.jpeg",
+            "relative": "panel_assets/haber_akis_images/forensic_detective.jpeg",
+            "suffix": ".jpeg",
+            "size": 423358,
+            "mtime_utc": "2026-05-15T21:53:52.945620+00:00",
+            "sha256": "6344665f35d22a3d1fd6e03d38313ec3c12956e528c2049c2a90df3c3c404400"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "technical_analysis",
+        "name_tr": "Teknik Analiz Merkezi",
+        "matched_icon_count": 680,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      },
+      {
+        "center_id": "life_support",
+        "name_tr": "Yaşam Destek Merkezi",
+        "matched_icon_count": 682,
+        "matched_icons": [
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons_final/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 1328731,
+            "mtime_utc": "2026-05-17T09:01:13.227654+00:00",
+            "sha256": "6aa0b661ef5b663d843a27712ae07f134afe3ac861b0d6c97a2cbb92d8a825e4"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons_final/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1267159,
+            "mtime_utc": "2026-05-17T09:01:13.851688+00:00",
+            "sha256": "508f420eaffc41c09236d1a7f076702576fba69a01c62717e97ad02e86df1cff"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons_final/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1160169,
+            "mtime_utc": "2026-05-17T09:01:14.471723+00:00",
+            "sha256": "931ca7d0b71449077399fa46c44b0023b5ae13e27f33c78f3f8bb701a8ac94e2"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons_final/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1403081,
+            "mtime_utc": "2026-05-17T09:01:15.035754+00:00",
+            "sha256": "2ad1287b33add4a2b5d7c36ec103a49bc0111b6df67796d24bb6b95492469f2d"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons_final/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 1384572,
+            "mtime_utc": "2026-05-17T09:01:15.579784+00:00",
+            "sha256": "571bc49bc80bf8ed7bd7e5dcf2e12860d3c3bf5fefbe2cfecdf58f3a1841ccb1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons_final/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 1452734,
+            "mtime_utc": "2026-05-17T09:01:16.123815+00:00",
+            "sha256": "634474f3260278bf756504abcbf9e1374ebf0e58544e8405735ddf9ac09a6a09"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons_final/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1402809,
+            "mtime_utc": "2026-05-17T09:01:16.687846+00:00",
+            "sha256": "a10868c449740b24b9c8181f0ee27e077bce93cd0c9459df14e42d4aa6d3bd74"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons_final/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 1370653,
+            "mtime_utc": "2026-05-17T09:01:17.263878+00:00",
+            "sha256": "e7e37a535b95e36f73f266212e4be0cd276d39c4cf258942f1e095cf58cef50a"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/balina_takip_merkezi.png",
+            "relative": "panel_assets/center_icons/balina_takip_merkezi.png",
+            "suffix": ".png",
+            "size": 2202825,
+            "mtime_utc": "2026-05-16T20:08:28+00:00",
+            "sha256": "9bb6a2862182f5b62f81241d3a2c1daf2b856e93d18466033b889b79915f821f"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/haber_akis_merkezi.png",
+            "relative": "panel_assets/center_icons/haber_akis_merkezi.png",
+            "suffix": ".png",
+            "size": 1781685,
+            "mtime_utc": "2026-05-16T20:01:23+00:00",
+            "sha256": "0824e6d0762c2ddecfbc0cff92449570429fe34b7430bbd6aecbc82a37e78640"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/komuta_merkezi.png",
+            "relative": "panel_assets/center_icons/komuta_merkezi.png",
+            "suffix": ".png",
+            "size": 1586765,
+            "mtime_utc": "2026-05-16T19:58:20+00:00",
+            "sha256": "7190ea67c4467b3d6290d8017847a0026dadec1897a414cffd4ede228f77d3a3"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/onchain_veri_merkezi.png",
+            "relative": "panel_assets/center_icons/onchain_veri_merkezi.png",
+            "suffix": ".png",
+            "size": 1972960,
+            "mtime_utc": "2026-05-16T20:03:32+00:00",
+            "sha256": "d5e1dd3eb78b9c1774511e194c1b10720070d61eae15ac47be595ac2ac40671b"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "relative": "panel_assets/center_icons/risk_guvenlik_merkezi.png",
+            "suffix": ".png",
+            "size": 2031546,
+            "mtime_utc": "2026-05-16T20:11:59+00:00",
+            "sha256": "d4d063db34bca570f753da47a459fabd4f101fe99367a059af98f320d993bff1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "relative": "panel_assets/center_icons/sistem_kontrol_merkezi.png",
+            "suffix": ".png",
+            "size": 2251298,
+            "mtime_utc": "2026-05-16T20:15:03+00:00",
+            "sha256": "f1591f088f05473c5633b853d1e3f09d161ef78405e999fa88a3e9101d5610da"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "relative": "panel_assets/center_icons/teknik_analiz_merkezi.png",
+            "suffix": ".png",
+            "size": 1985806,
+            "mtime_utc": "2026-05-16T20:10:08+00:00",
+            "sha256": "2436cd6bbf3e70f6c284b8b67b2b93b2ad766f357a587098b6a9fbfa175fbea1"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/center_icons/yasam_destek_merkezi.png",
+            "relative": "panel_assets/center_icons/yasam_destek_merkezi.png",
+            "suffix": ".png",
+            "size": 2136442,
+            "mtime_utc": "2026-05-16T20:13:37+00:00",
+            "sha256": "c7b02d70f55690412ee32e66850bf5be6f3ecc36f6b566b228396fa33629e0ac"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/acik_pozisyonlar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7144,
+            "mtime_utc": "2026-05-20T07:42:34.910510+00:00",
+            "sha256": "4a4431cc4e5053b89c47c8e060d7aef5522f08942e33599883fff47393c8a6dc"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/aksiyon_gecmisi_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7509,
+            "mtime_utc": "2026-05-20T07:42:34.966513+00:00",
+            "sha256": "d833652f463a45bdb4a30d9df11831282e2832599c67ad8639af469fed6c7d00"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/canli_karar_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7359,
+            "mtime_utc": "2026-05-20T07:42:35.022516+00:00",
+            "sha256": "8089c9dd0d9be9e65a43fd089e8464d40e3f6b3b73c310acd74cf74c442b6850"
+          },
+          {
+            "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "relative": "panel_assets/icon_fit_candidates/icons_panel_128_fit_v1/komuta_merkezi/paper_trade_ozeti_fit_v1_128.jpg",
+            "suffix": ".jpg",
+            "size": 7016,
+            "mtime_utc": "2026-05-20T07:42:35.078519+00:00",
+            "sha256": "65eba75374fb24e94a856f02ad2a42ce473473afbf3ebe71fdea221e098e1f1a"
+          }
+        ],
+        "status": "FOUND"
+      }
+    ],
+    "mutation_now": false,
+    "delete_now": false
+  },
+  "active_panel_mentions": [
+    {
+      "center_id": "command_decision",
+      "name_tr": "Komuta ve Karar Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "Komuta"
+      ]
+    },
+    {
+      "center_id": "system_control",
+      "name_tr": "Sistem Kontrol Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "Sistem Kontrol Merkezi",
+        "Sistem"
+      ]
+    },
+    {
+      "center_id": "risk_security",
+      "name_tr": "Risk Güvenlik Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "risk_security",
+        "Risk"
+      ]
+    },
+    {
+      "center_id": "onchain_data",
+      "name_tr": "Onchain Veri Merkezi",
+      "found": false,
+      "matched_tokens": []
+    },
+    {
+      "center_id": "whale_tracking",
+      "name_tr": "Balina Takip Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "Balina Takip Merkezi",
+        "Balina"
+      ]
+    },
+    {
+      "center_id": "news_flow",
+      "name_tr": "Haber Akış Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "Haber Akış Merkezi",
+        "Haber"
+      ]
+    },
+    {
+      "center_id": "technical_analysis",
+      "name_tr": "Teknik Analiz Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "Teknik Analiz Merkezi",
+        "Teknik"
+      ]
+    },
+    {
+      "center_id": "life_support",
+      "name_tr": "Yaşam Destek Merkezi",
+      "found": true,
+      "matched_tokens": [
+        "Yaşam Destek Merkezi",
+        "Yaşam"
+      ]
+    }
+  ],
+  "active_data_inventory": {
+    "active_data_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data",
+    "exists": true,
+    "file_count_limited": 4,
+    "files": [
+      {
+        "path": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/dashboard_shell_compact.json",
+        "relative": "active_panel_8096/current/data/dashboard_shell_compact.json",
+        "suffix": ".json",
+        "size": 7619,
+        "mtime_utc": "2026-05-14T06:42:43.101521+00:00",
+        "sha256": "0eb2f2981ecd17b734eab57e71d622363b6b1424e4f669255554d88f6a0802a9"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/production_v2_control_center_data.json",
+        "relative": "active_panel_8096/current/data/production_v2_control_center_data.json",
+        "suffix": ".json",
+        "size": 21121,
+        "mtime_utc": "2026-05-22T13:49:04.894189+00:00",
+        "sha256": "667b084b285e5a5a6909addad3418d4bd002bae843e3df9532310767418c8c71"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/risk_security_preview_data.json",
+        "relative": "active_panel_8096/current/data/risk_security_preview_data.json",
+        "suffix": ".json",
+        "size": 17735,
+        "mtime_utc": "2026-05-22T13:49:04.894189+00:00",
+        "sha256": "d429d42a99a89cab556c686f29d51d60d6f2e74e0bfb6d8be5494f239fab30d9"
+      },
+      {
+        "path": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/system_control_status_readmodel_view.json",
+        "relative": "active_panel_8096/current/data/system_control_status_readmodel_view.json",
+        "suffix": ".json",
+        "size": 7413,
+        "mtime_utc": "2026-06-02T17:58:17.174290+00:00",
+        "sha256": "23b06b2e9fc76fbd0d832f8dd452e1aee51652bf5f20ba8aab5a4670c44d6da4"
+      }
+    ]
+  },
+  "contract_checks": {
+    "CENTER_COUNT_8": true,
+    "CORE_CENTER_COUNT_4": true,
+    "EVIDENCE_CENTER_COUNT_4": true,
+    "FAST_PATH_ALLOWED_ONLY_4": true,
+    "DIRECT_TRADE_AUTHORITY_ZERO": true,
+    "NON_CORE_NO_FAST_PATH": true,
+    "EVIDENCE_CENTERS_NO_DIRECT_TRADE_AUTHORITY": true,
+    "SUBPANEL_STATUS_ALLOWED": true,
+    "MERGE_TARGETS_PRESENT": true,
+    "SUBPANEL_COUNT_REASONABLE": true,
+    "KEEP_OR_MERGE_OR_PASSIVE_PRESENT": true,
+    "NO_REMOVE_NOW": true,
+    "PRUNE_POLICY_HAS_NO_DELETE_RULE": true,
+    "ASSET_DELETE_NOW_FALSE": true,
+    "ASSET_MUTATION_NOW_FALSE": true,
+    "ICON_INVENTORY_PRESENT": true,
+    "ACTIVE_PANEL_MENTION_AUDIT_PRESENT": true,
+    "ACTIVE_DATA_INVENTORY_PRESENT": true
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "table_count": 284,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "PLAN_ONLY": true,
+    "CENTER_SUBPANEL_ICON_PRUNE_PLAN_ONLY": true,
+    "NO_DELETE": true,
+    "NO_ASSET_MUTATION": true,
+    "NO_ICON_GENERATION": true,
+    "NO_LIVE_SCHEMA_APPLY": true,
+    "NO_TEMP_DB_SCHEMA_APPLY": true,
+    "NO_PATCH": true,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "PROJECTED_RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "DB_WRITE": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "SERVICE_WRITE": false,
+    "TIMER_WRITE": false,
+    "RUNNER_WRITE": false,
+    "CANONICAL_WRITE": false,
+    "QUARANTINE_WRITE": false,
+    "STAGING_WRITE": false,
+    "RAW_WRITE": false,
+    "MATRIX_WRITE": false,
+    "VALIDATOR_WRITE": false,
+    "AI_WRITE": false,
+    "ASSET_WRITE": false,
+    "ICON_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "PROTECTHOME_RELAX": false,
+    "BROAD_CHMOD": false,
+    "BLIND_RETRY": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE28A_PASS_AND_OPEN_28B": true,
+    "PHASE28B1_PASS_AND_OPEN_28C": true,
+    "PHASE28C_PASS_AND_OPEN_28D": true,
+    "PHASE28D_PASS_AND_OPEN_28E": true,
+    "PHASE28E_PASS_AND_OPEN_28F": true,
+    "PHASE28F_PASS_AND_OPEN_28G": true,
+    "CENTER_COUNT_8": true,
+    "CORE_CENTER_COUNT_4": true,
+    "EVIDENCE_CENTER_COUNT_4": true,
+    "FAST_PATH_ALLOWED_ONLY_4": true,
+    "DIRECT_TRADE_AUTHORITY_ZERO": true,
+    "NON_CORE_NO_FAST_PATH": true,
+    "EVIDENCE_CENTERS_NO_DIRECT_TRADE_AUTHORITY": true,
+    "SUBPANEL_STATUS_ALLOWED": true,
+    "MERGE_TARGETS_PRESENT": true,
+    "SUBPANEL_COUNT_REASONABLE": true,
+    "KEEP_OR_MERGE_OR_PASSIVE_PRESENT": true,
+    "NO_REMOVE_NOW": true,
+    "PRUNE_POLICY_HAS_NO_DELETE_RULE": true,
+    "ASSET_DELETE_NOW_FALSE": true,
+    "ASSET_MUTATION_NOW_FALSE": true,
+    "ICON_INVENTORY_PRESENT": true,
+    "ACTIVE_PANEL_MENTION_AUDIT_PRESENT": true,
+    "ACTIVE_DATA_INVENTORY_PRESENT": true,
+    "DB_EXISTS": true,
+    "DB_INTEGRITY_OK": true,
+    "DB_QUICK_CHECK_OK": true,
+    "DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "SERVICE_UNIT_UNCHANGED": true,
+    "TIMER_UNIT_UNCHANGED": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE28H_PHASE28_CLOSE_AUDIT_NOAPI"
+}

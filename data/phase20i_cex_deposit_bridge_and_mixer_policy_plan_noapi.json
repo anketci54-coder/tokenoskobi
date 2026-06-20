@@ -1,0 +1,507 @@
+{
+  "phase": "PHASE20I_CEX_DEPOSIT_BRIDGE_AND_MIXER_POLICY_PLAN_NOAPI",
+  "started_at": "2026-06-04T16:54:27.002105+00:00",
+  "finished_at": "2026-06-04T16:54:27.044514+00:00",
+  "final_gate": "PASS_PHASE20I_CEX_DEPOSIT_BRIDGE_AND_MIXER_POLICY_PLAN_NOAPI",
+  "current_state": "CEX_DEPOSIT_BRIDGE_AND_MIXER_POLICY_V1_PLAN_READY_NOAPI",
+  "script_rc": 0,
+  "failed_checks": [],
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "live_db_mutation": false,
+    "live_schema_apply": false,
+    "row_insert_update_delete": false,
+    "active_panel_write": false,
+    "preview_write": false,
+    "html_css_js_write": false,
+    "asset_write": false,
+    "nginx_or_auth_change": false,
+    "service_restart": false,
+    "timer_change": false,
+    "runner_start": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "token_specific_patch": false,
+    "plan_only": true,
+    "report_json_rows_write_only": true,
+    "checklist_may_be_touched_on_pass": true
+  },
+  "inputs": {
+    "db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "active_index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+    "phase20f_json": "/root/tokenoskobi_clean_v1/data/phase20f_whale_entity_schema_post_audit_noapi.json",
+    "phase20g_json": "/root/tokenoskobi_clean_v1/data/phase20g_known_wallet_source_registry_plan_noapi.json",
+    "phase20h_json": "/root/tokenoskobi_clean_v1/data/phase20h_source_trust_policy_and_label_quality_plan_noapi.json",
+    "phase20f_final_gate": "PASS_PHASE20F_WHALE_ENTITY_SCHEMA_POST_AUDIT_NOAPI",
+    "phase20g_final_gate": "PASS_PHASE20G_KNOWN_WALLET_SOURCE_REGISTRY_PLAN_NOAPI",
+    "phase20h_final_gate": "PASS_PHASE20H_SOURCE_TRUST_POLICY_AND_LABEL_QUALITY_PLAN_NOAPI"
+  },
+  "before": {
+    "db": {
+      "exists": true,
+      "sha256": "fb85ca2a38475448c70a7cef808d1979dd3253cd34e5e4ea1a0e868dd312dcd6",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 271,
+      "whale_table_counts": {
+        "whale_entity_registry_v1": 0,
+        "whale_entity_wallet_links_v1": 0,
+        "whale_entity_flow_events_v1": 0,
+        "whale_entity_token_exposure_v1": 0,
+        "whale_entity_evidence_events_v1": 0,
+        "whale_entity_risk_links_v1": 0,
+        "whale_entity_screen_readmodel_v1": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase20f_json_sha256": "3a4b12a01954d893346129580ce70bf96aca381c04d3a86d8451cbc22d77c21b",
+    "phase20g_json_sha256": "bb15cb05fcb34dd9f29c4c0cc3066cc5dc670181321caed625c3e99c6635fd1a",
+    "phase20h_json_sha256": "c37ac34a8fefdcd04e4e188bbfbe6c4813f396ab2fc019ec5d7f0c9bdef8a626",
+    "checklist_sha256": "2085901d8cdc38bec112b80285934f79f46c9504ef5a4b6c21091099b87ac0ea"
+  },
+  "after_before_checklist": {
+    "db": {
+      "exists": true,
+      "sha256": "fb85ca2a38475448c70a7cef808d1979dd3253cd34e5e4ea1a0e868dd312dcd6",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 271,
+      "whale_table_counts": {
+        "whale_entity_registry_v1": 0,
+        "whale_entity_wallet_links_v1": 0,
+        "whale_entity_flow_events_v1": 0,
+        "whale_entity_token_exposure_v1": 0,
+        "whale_entity_evidence_events_v1": 0,
+        "whale_entity_risk_links_v1": 0,
+        "whale_entity_screen_readmodel_v1": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "phase20f_json_sha256": "3a4b12a01954d893346129580ce70bf96aca381c04d3a86d8451cbc22d77c21b",
+    "phase20g_json_sha256": "bb15cb05fcb34dd9f29c4c0cc3066cc5dc670181321caed625c3e99c6635fd1a",
+    "phase20h_json_sha256": "c37ac34a8fefdcd04e4e188bbfbe6c4813f396ab2fc019ec5d7f0c9bdef8a626",
+    "checklist_sha256_before_optional_write": "2085901d8cdc38bec112b80285934f79f46c9504ef5a4b6c21091099b87ac0ea"
+  },
+  "immutability": {
+    "live_db_unchanged_during_plan": true,
+    "active_index_unchanged": true,
+    "handoff_unchanged": true,
+    "phase20f_json_unchanged": true,
+    "phase20g_json_unchanged": true,
+    "phase20h_json_unchanged": true
+  },
+  "cex_policy": {
+    "policy_name": "CEX_DEPOSIT_BRIDGE_AND_MIXER_POLICY_V1_PLAN",
+    "phase_scope": "PLAN_ONLY_NOAPI",
+    "manifesto": "CEX cüzdanı root funder kanıtı değildir; CEX bridge sadece probabilistic evidence üretir.",
+    "core_decision": "CEX üzerinden geçen ilişki hard entity merge değildir.",
+    "hard_rules": [
+      "CEX_HOT_WALLET root funder kabul edilmez.",
+      "CEX_COLD_WALLET root funder kabul edilmez.",
+      "CEX_DEPOSIT_CLUSTER tek başına aynı aktör kanıtı değildir.",
+      "CEX_WITHDRAWAL_CLUSTER tek başına aynı aktör kanıtı değildir.",
+      "Aynı deposit adresine gönderim güçlü sinyal olabilir ama hard merge değildir.",
+      "Borsa içi transfer görünmediği için CEX bridge daima probabilistic evidence olarak kalır.",
+      "CEX bridge tek başına HARD_DENY üretmez.",
+      "CEX bridge tek başına CLEAN üretmez.",
+      "CEX bridge tek başına PAPER/LIVE yolu açmaz.",
+      "CEX bridge evidence critical path üzerinde hesaplanmaz; async/cache/readmodel ile taşınır."
+    ]
+  },
+  "cex_address_classes": [
+    {
+      "class": "CEX_HOT_WALLET",
+      "meaning": "Borsa operasyonel sıcak cüzdanı.",
+      "root_funder_allowed": false,
+      "hard_entity_merge_allowed": false,
+      "decision_allowed": false,
+      "policy": "Exemption/mixer node olarak işaretlenir."
+    },
+    {
+      "class": "CEX_COLD_WALLET",
+      "meaning": "Borsa soğuk/custody cüzdanı.",
+      "root_funder_allowed": false,
+      "hard_entity_merge_allowed": false,
+      "decision_allowed": false,
+      "policy": "Custody/exemption node olarak işaretlenir."
+    },
+    {
+      "class": "CEX_DEPOSIT_ADDRESS",
+      "meaning": "Kişiye/hesaba özel veya cluster bazlı borsa yatırma adresi.",
+      "root_funder_allowed": false,
+      "hard_entity_merge_allowed": false,
+      "decision_allowed": false,
+      "policy": "Proxy deposit trap açısından bridge suspicion üretir."
+    },
+    {
+      "class": "CEX_WITHDRAWAL_ADDRESS",
+      "meaning": "Borsadan çıkış/withdrawal kaynaklı adres veya cluster.",
+      "root_funder_allowed": false,
+      "hard_entity_merge_allowed": false,
+      "decision_allowed": false,
+      "policy": "Para çıkış bağlantısı olarak izlenir; tek başına owner kanıtı değildir."
+    },
+    {
+      "class": "CEX_INTERNAL_ROUTER_OR_SWEEP",
+      "meaning": "Borsa iç transfer, sweep, consolidation veya router adresi.",
+      "root_funder_allowed": false,
+      "hard_entity_merge_allowed": false,
+      "decision_allowed": false,
+      "policy": "Graph kırıcı/mixer node olarak kabul edilir."
+    },
+    {
+      "class": "UNKNOWN_EXCHANGE_LIKE_ADDRESS",
+      "meaning": "Borsa benzeri davranış gösteren ama etiketi doğrulanmamış adres.",
+      "root_funder_allowed": false,
+      "hard_entity_merge_allowed": false,
+      "decision_allowed": false,
+      "policy": "UNKNOWN_NEEDS_TEST; CEX gibi davranıyor ama kanıt eksik."
+    }
+  ],
+  "bridge_evidence_types": [
+    {
+      "evidence_type": "SAME_CEX_DEPOSIT_ADDRESS",
+      "strength": "STRONG_SIGNAL_NOT_PROOF",
+      "description": "İki veya daha fazla cüzdan aynı CEX deposit adresine fon gönderiyor.",
+      "hard_merge_allowed": false,
+      "hard_deny_allowed": false,
+      "confidence_cap": 0.7
+    },
+    {
+      "evidence_type": "CEX_TIME_AMOUNT_CORRELATION",
+      "strength": "MEDIUM_SIGNAL",
+      "description": "Eski cüzdanın CEX girişinden sonra benzer zaman/miktar aralığında yeni cüzdana CEX çıkışı görülüyor.",
+      "hard_merge_allowed": false,
+      "hard_deny_allowed": false,
+      "confidence_cap": 0.55
+    },
+    {
+      "evidence_type": "RUG_PROCEEDS_TO_CEX_THEN_NEW_LAUNCH",
+      "strength": "HIGH_RISK_SIGNAL",
+      "description": "Sabıkalı flow CEX’e giriyor; sonrasında CEX çıkışlı yeni launch/funding davranışı izleniyor.",
+      "hard_merge_allowed": false,
+      "hard_deny_allowed": false,
+      "confidence_cap": 0.75
+    },
+    {
+      "evidence_type": "REPEATED_CEX_BRIDGE_PATTERN",
+      "strength": "HIGH_RISK_SIGNAL",
+      "description": "Aynı CEX bridge paterni birden fazla token/funding olayında tekrar ediyor.",
+      "hard_merge_allowed": false,
+      "hard_deny_allowed": false,
+      "confidence_cap": 0.8
+    },
+    {
+      "evidence_type": "CEX_WITHDRAWAL_TO_DEPLOYER_OR_LP_CONTROLLER",
+      "strength": "MEDIUM_HIGH_SIGNAL",
+      "description": "CEX çıkışı deployer, LP controller veya launch wallet’a fon sağlıyor.",
+      "hard_merge_allowed": false,
+      "hard_deny_allowed": false,
+      "confidence_cap": 0.65
+    },
+    {
+      "evidence_type": "CEX_AS_ONLY_LINK",
+      "strength": "WEAK_SIGNAL",
+      "description": "Tek bağlantı CEX giriş/çıkış; zaman/miktar/tekrar/evidence yok.",
+      "hard_merge_allowed": false,
+      "hard_deny_allowed": false,
+      "confidence_cap": 0.25
+    }
+  ],
+  "bridge_lanes": [
+    {
+      "lane": "CEX_EXEMPT",
+      "meaning": "Borsa adresi sinyal üretir ama root funder/owner değildir.",
+      "clean_allowed": false,
+      "paper_allowed": false,
+      "live_allowed": false
+    },
+    {
+      "lane": "CEX_BRIDGE_SUSPICION_LOW",
+      "meaning": "Zayıf CEX bridge şüphesi; sadece not/evidence.",
+      "clean_allowed": false,
+      "paper_allowed": false,
+      "live_allowed": false
+    },
+    {
+      "lane": "CEX_BRIDGE_SUSPICION_MEDIUM",
+      "meaning": "Zaman/miktar/source pattern ile orta şüphe.",
+      "clean_allowed": false,
+      "paper_allowed": false,
+      "live_allowed": false
+    },
+    {
+      "lane": "CEX_BRIDGE_SUSPICION_HIGH",
+      "meaning": "Tekrar eden CEX bridge + sabıka/funding/launch ilişkisi.",
+      "clean_allowed": false,
+      "paper_allowed": false,
+      "live_allowed": false
+    },
+    {
+      "lane": "CEX_BRIDGE_NEEDS_TEST",
+      "meaning": "CEX sınıfı veya ilişki belirsiz; ek test gerekir.",
+      "clean_allowed": false,
+      "paper_allowed": false,
+      "live_allowed": false
+    }
+  ],
+  "confidence_policy": [
+    {
+      "condition": "CEX_AS_ONLY_LINK",
+      "base_confidence": 0.1,
+      "max_confidence": 0.25,
+      "action": "No merge, no deny, keep as note."
+    },
+    {
+      "condition": "SAME_DEPOSIT_WITH_TIME_AMOUNT_CORRELATION",
+      "base_confidence": 0.35,
+      "max_confidence": 0.55,
+      "action": "Bridge suspicion medium; require repeat or sabıka evidence."
+    },
+    {
+      "condition": "SAME_DEPOSIT_REPEATED_ACROSS_LAUNCHES",
+      "base_confidence": 0.55,
+      "max_confidence": 0.7,
+      "action": "Bridge suspicion high; still no hard merge."
+    },
+    {
+      "condition": "RUG_PROCEEDS_TO_CEX_AND_NEW_LAUNCH_FUNDING",
+      "base_confidence": 0.65,
+      "max_confidence": 0.75,
+      "action": "High risk bridge evidence; route to risk link."
+    },
+    {
+      "condition": "CEX_BRIDGE_PLUS_DEPLOYER_FACTORY_LP_MATCH",
+      "base_confidence": 0.75,
+      "max_confidence": 0.85,
+      "action": "Strong entity candidate; hard merge still requires non-CEX evidence."
+    }
+  ],
+  "hard_merge_guards": [
+    {
+      "guard": "NO_HARD_MERGE_THROUGH_CEX_ONLY",
+      "rule": "CEX bridge tek başına entity merge yapamaz.",
+      "blocks": [
+        "same_entity_final",
+        "hard_deny",
+        "clean"
+      ]
+    },
+    {
+      "guard": "NON_CEX_EVIDENCE_REQUIRED_FOR_MERGE",
+      "rule": "Hard entity merge için CEX dışı kanıt gerekir: same deployer, factory, implementation, LP controller, funding wallet, repeated launch behavior.",
+      "blocks": [
+        "same_entity_final_without_non_cex_evidence"
+      ]
+    },
+    {
+      "guard": "CEX_DOES_NOT_CLEAN",
+      "rule": "CEX çıkışı fonun temiz olduğu anlamına gelmez.",
+      "blocks": [
+        "clean_route_from_cex"
+      ]
+    },
+    {
+      "guard": "CEX_DOES_NOT_SCAM_BY_ITSELF",
+      "rule": "CEX bağlantısı tek başına scam kanıtı değildir.",
+      "blocks": [
+        "hard_deny_from_cex_only"
+      ]
+    },
+    {
+      "guard": "CEX_BRIDGE_NOT_ON_CRITICAL_PATH",
+      "rule": "CEX bridge analizi critical path üzerinde graph traversal veya DB query yaptırmaz.",
+      "blocks": [
+        "critical_path_graph",
+        "critical_path_db_query",
+        "critical_path_external_call"
+      ]
+    }
+  ],
+  "required_future_fields": [
+    {
+      "future_field": "cex_address_class",
+      "target": "wallet/source seed/readmodel",
+      "purpose": "CEX hot/cold/deposit/withdrawal/internal router sınıfını taşır."
+    },
+    {
+      "future_field": "cex_bridge_evidence_type",
+      "target": "whale_entity_evidence_events_v1 or future cex bridge table",
+      "purpose": "CEX ilişkisinin türünü belirtir."
+    },
+    {
+      "future_field": "bridge_confidence",
+      "target": "wallet/entity link",
+      "purpose": "CEX üzerinden ilişki confidence skorunu taşır."
+    },
+    {
+      "future_field": "hard_merge_allowed",
+      "target": "wallet/entity link",
+      "purpose": "CEX-only durumunda false kalır."
+    },
+    {
+      "future_field": "non_cex_supporting_evidence_count",
+      "target": "entity cluster policy",
+      "purpose": "Hard merge veya güçlü cluster için CEX dışı kanıt sayısını gösterir."
+    },
+    {
+      "future_field": "cex_bridge_lane",
+      "target": "risk/readmodel",
+      "purpose": "LOW/MEDIUM/HIGH/NEEDS_TEST lane taşıması."
+    }
+  ],
+  "synthetic_test_cases": [
+    {
+      "case_id": "T01_CEX_ONLY_NO_MERGE",
+      "scenario": "wallet_a -> Binance deposit; Binance hot -> wallet_b. No other evidence.",
+      "expected_lane": "CEX_BRIDGE_SUSPICION_LOW",
+      "expected_merge": false,
+      "expected_hard_deny": false,
+      "expected_paper_live": false
+    },
+    {
+      "case_id": "T02_SAME_DEPOSIT_REPEAT_MEDIUM",
+      "scenario": "wallet_a and wallet_b repeatedly send to same CEX deposit with time/amount similarity.",
+      "expected_lane": "CEX_BRIDGE_SUSPICION_MEDIUM",
+      "expected_merge": false,
+      "expected_hard_deny": false,
+      "expected_paper_live": false
+    },
+    {
+      "case_id": "T03_RUG_TO_CEX_NEW_LAUNCH_HIGH",
+      "scenario": "rug proceeds enter CEX; later CEX withdrawal funds new launch deployer.",
+      "expected_lane": "CEX_BRIDGE_SUSPICION_HIGH",
+      "expected_merge": false,
+      "expected_hard_deny": false,
+      "expected_paper_live": false
+    },
+    {
+      "case_id": "T04_CEX_PLUS_NON_CEX_EVIDENCE_STRONG_CANDIDATE",
+      "scenario": "CEX bridge plus same factory, same LP controller, repeated launch behavior.",
+      "expected_lane": "CEX_BRIDGE_SUSPICION_HIGH",
+      "expected_merge": "candidate_only_until_policy_dryrun",
+      "expected_hard_deny": false,
+      "expected_paper_live": false
+    },
+    {
+      "case_id": "T05_CEX_HOT_AS_ROOT_FUNDER_BLOCKED",
+      "scenario": "Token funded from Binance hot wallet only.",
+      "expected_lane": "CEX_EXEMPT",
+      "expected_merge": false,
+      "expected_hard_deny": false,
+      "expected_paper_live": false
+    },
+    {
+      "case_id": "T06_UNKNOWN_EXCHANGE_LIKE_NEEDS_TEST",
+      "scenario": "Address behaves like CEX but source label is missing.",
+      "expected_lane": "CEX_BRIDGE_NEEDS_TEST",
+      "expected_merge": false,
+      "expected_hard_deny": false,
+      "expected_paper_live": false
+    }
+  ],
+  "phase_alignment": [
+    {
+      "phase": "PHASE20J_MEV_BOT_EXEMPTION_AND_ARBITRAGE_NOISE_POLICY_PLAN_NOAPI",
+      "relation": "CEX policy handles exchange/mixer trap; 20J handles MEV/arbitrage false whale trap."
+    },
+    {
+      "phase": "PHASE20K_BEHAVIORAL_SHADOW_LABELING_POLICY_PLAN_NOAPI",
+      "relation": "CEX bridge high risk can feed shadow label, but still cannot hard-deny alone."
+    },
+    {
+      "phase": "PHASE20L_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_DRYRUN_NOAPI",
+      "relation": "CEX classes and bridge fields may need source registry/quarantine schema support."
+    },
+    {
+      "phase": "PHASE20M_CEX_BRIDGE_POLICY_DRYRUN_NOAPI",
+      "relation": "Synthetic/temp dry-run for CEX bridge logic before any real writes."
+    }
+  ],
+  "next_phase_chain": [
+    {
+      "phase": "PHASE20J_MEV_BOT_EXEMPTION_AND_ARBITRAGE_NOISE_POLICY_PLAN_NOAPI",
+      "goal": "MEV/sandwich/arbitrage botları investor whale sınıfından ayırmak.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20K_BEHAVIORAL_SHADOW_LABELING_POLICY_PLAN_NOAPI",
+      "goal": "Fresh wallet / sabıkalı interaction / geçici shadow label politikasını kurmak.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20L_KNOWN_WALLET_SOURCE_REGISTRY_SCHEMA_DRYRUN_NOAPI",
+      "goal": "Source registry, seed, quarantine, CEX class fieldleri için temp schema dry-run.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20M_CEX_BRIDGE_POLICY_DRYRUN_NOAPI",
+      "goal": "CEX bridge synthetic cases ile temp/dry-run test.",
+      "requires_approval": false
+    }
+  ],
+  "next_phase": "PHASE20J_MEV_BOT_EXEMPTION_AND_ARBITRAGE_NOISE_POLICY_PLAN_NOAPI",
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE20I_CEX_DEPOSIT_BRIDGE_AND_MIXER_POLICY_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase20i_cex_deposit_bridge_and_mixer_policy_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase20i_cex_deposit_bridge_and_mixer_policy_plan_noapi_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE20I_CEX_DEPOSIT_BRIDGE_AND_MIXER_POLICY_PLAN_NOAPI/20260604_195426"
+  },
+  "after_final": {
+    "db": {
+      "exists": true,
+      "sha256": "fb85ca2a38475448c70a7cef808d1979dd3253cd34e5e4ea1a0e868dd312dcd6",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_count": 0,
+      "table_count": 271,
+      "whale_table_counts": {
+        "whale_entity_registry_v1": 0,
+        "whale_entity_wallet_links_v1": 0,
+        "whale_entity_flow_events_v1": 0,
+        "whale_entity_token_exposure_v1": 0,
+        "whale_entity_evidence_events_v1": 0,
+        "whale_entity_risk_links_v1": 0,
+        "whale_entity_screen_readmodel_v1": 0
+      },
+      "important_counts": {
+        "paper_trade_positions": 0,
+        "paper_trade_executions": 0,
+        "paper_trade_outcomes": 0,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null,
+        "live_positions": null
+      },
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "checklist_sha256": "ad8bc495ffdd4165dd4799b6a0ad5d99c177433ab62cc6eb9c6f4c83784c96f5"
+  },
+  "checklist_touched": true
+}

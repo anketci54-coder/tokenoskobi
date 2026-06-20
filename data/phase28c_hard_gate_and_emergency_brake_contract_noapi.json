@@ -1,0 +1,634 @@
+{
+  "phase": "PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI",
+  "started_utc": "2026-06-08T05:14:00.628592+00:00",
+  "finished_utc": "2026-06-08T05:14:00.742619+00:00",
+  "final_gate": "PASS_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI",
+  "phase28a_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28a_center_inventory_gate_cascade_data_integrity_map_plan_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28A_CENTER_INVENTORY_GATE_CASCADE_DATA_INTEGRITY_MAP_PLAN_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION_CONTRACT_NOAPI"
+  },
+  "phase28b1_dependency": {
+    "path": "/root/tokenoskobi_clean_v1/data/phase28b1_data_provenance_no_silent_overwrite_rule_repair_noapi.json",
+    "parse_error": null,
+    "ok": true,
+    "reported_final_gate": "PASS_PHASE28B1_DATA_PROVENANCE_NO_SILENT_OVERWRITE_RULE_REPAIR_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE28C_HARD_GATE_AND_EMERGENCY_BRAKE_CONTRACT_NOAPI"
+  },
+  "hard_gate_contract": {
+    "contract_name": "hard_gate_and_emergency_brake_contract_v1",
+    "core_rule": "Emergency Brake beats every matrix route; Authority Gate controls every action; hard gates never depend on slow panel rendering.",
+    "priority_order": [
+      "EMERGENCY_BRAKE",
+      "AUTHORITY_GATE",
+      "SYSTEM_GATE",
+      "DATA_GATE",
+      "RISK_GATE",
+      "PRECOMPUTED_MATRIX",
+      "ROUTE"
+    ],
+    "gates": {
+      "EMERGENCY_BRAKE": {
+        "order": 1,
+        "type": "instant_override",
+        "decision_power": "absolute_override",
+        "fast_path_required": true,
+        "can_override_matrix": true,
+        "can_override_scores": true,
+        "route_effects": [
+          "SYSTEM_BLOCK",
+          "AUTHORITY_BLOCK",
+          "DATA_POISON_BLOCK",
+          "REJECT",
+          "MORE_DATA",
+          "OBSERVE_ONLY"
+        ],
+        "trigger_classes": [
+          {
+            "trigger": "authority_violation_attempt",
+            "route_effect": "AUTHORITY_BLOCK",
+            "minimum_confidence": "CONFIRMED",
+            "notes": "If paper/live/wallet/action authority is closed, no matrix route can open action."
+          },
+          {
+            "trigger": "system_critical_failure",
+            "route_effect": "SYSTEM_BLOCK",
+            "minimum_confidence": "CONFIRMED",
+            "notes": "DB corruption, runner output unparseable, timer/service real failure, critical disk/memory failure."
+          },
+          {
+            "trigger": "data_poison_confirmed",
+            "route_effect": "DATA_POISON_BLOCK",
+            "minimum_confidence": "HIGH",
+            "notes": "Wrong chain, wrong token/pair identity, canonical version broken, parser/schema break affecting current entity."
+          },
+          {
+            "trigger": "confirmed_hard_risk",
+            "route_effect": "REJECT",
+            "minimum_confidence": "HIGH",
+            "notes": "Confirmed hard risk can reject; weak single-source claim cannot."
+          },
+          {
+            "trigger": "critical_stale_or_missing_data",
+            "route_effect": "MORE_DATA",
+            "minimum_confidence": "MEDIUM",
+            "notes": "Stale critical data degrades route; it is not automatically system failure."
+          }
+        ],
+        "false_positive_policy": "If trigger evidence is weak or representation-mismatch-only, route must degrade to REVIEW/MORE_DATA, not absolute block.",
+        "fast_path_fields": [
+          "emergency_brake_state",
+          "brake_reason",
+          "brake_confidence",
+          "brake_source",
+          "brake_valid_until"
+        ]
+      },
+      "AUTHORITY_GATE": {
+        "order": 2,
+        "type": "authority_control",
+        "decision_power": "absolute_action_lock",
+        "fast_path_required": true,
+        "route_effects": [
+          "OBSERVE_ONLY",
+          "NO_ACTION_AUTHORITY",
+          "AUTHORITY_BLOCK"
+        ],
+        "states": [
+          "NO_ACTION_AUTHORITY",
+          "OBSERVE_ONLY",
+          "PAPER_ALLOWED_LATER_AFTER_APPROVAL",
+          "LIVE_ALLOWED_LATER_AFTER_SEPARATE_APPROVAL"
+        ],
+        "current_expected_state": "NO_ACTION_AUTHORITY",
+        "rules": [
+          "No AI, score, route, panel, matrix, or validator can open paper/live/wallet without explicit authority.",
+          "Authority closed is not a system error; it is a safety boundary.",
+          "Authority Gate is checked before System/Data/Risk route action."
+        ],
+        "fast_path_fields": [
+          "action_authority",
+          "paper_authority",
+          "live_authority",
+          "wallet_authority",
+          "authority_version"
+        ]
+      },
+      "SYSTEM_GATE": {
+        "order": 3,
+        "type": "runtime_health",
+        "decision_power": "can_block_when_real_system_failure",
+        "fast_path_required": true,
+        "route_effects": [
+          "SYSTEM_READY",
+          "SYSTEM_CAUTION",
+          "SYSTEM_BLOCK",
+          "OBSERVE_ONLY"
+        ],
+        "inputs": [
+          "service_result",
+          "service_exec_main_status",
+          "timer_active",
+          "timer_enabled",
+          "db_integrity",
+          "db_quick_check",
+          "fk_count",
+          "runner_expected_sha",
+          "runtime_output_parse",
+          "disk_memory_cpu",
+          "journal_critical_errors"
+        ],
+        "rules": [
+          "System Gate blocks only real runtime/system failure.",
+          "Data stale alone does not equal SYSTEM_BLOCK.",
+          "Representation mismatch must become REVIEW unless supported by current direct evidence.",
+          "System Gate self-test is required in future phases."
+        ],
+        "self_test_backlog": [
+          "verify_system_gate_source_consistency",
+          "verify_timer_show_vs_unit_file_mismatch_handling",
+          "verify_validator_representation_mismatch_not_system_block",
+          "verify_service_success_inactive_oneshot_is_valid",
+          "verify_db_readonly_audit_does_not_mutate"
+        ],
+        "fast_path_fields": [
+          "system_state",
+          "system_confidence",
+          "system_valid_until",
+          "system_block_reason"
+        ]
+      },
+      "DATA_GATE": {
+        "order": 4,
+        "type": "data_minimum_and_integrity",
+        "decision_power": "can_force_more_data_or_data_review",
+        "fast_path_required": true,
+        "route_effects": [
+          "DATA_READY",
+          "MORE_DATA",
+          "DATA_REVIEW",
+          "DATA_POISON_BLOCK"
+        ],
+        "inputs": [
+          "entity_identity_confidence",
+          "chain_match",
+          "token_pair_match",
+          "canonical_version_ok",
+          "parser_version_ok",
+          "schema_version_ok",
+          "raw_hash_ref_present",
+          "freshness_state",
+          "source_minimum_ok"
+        ],
+        "rules": [
+          "No canonical interpretation without parser_version, schema_version, raw_hash_ref, evidence_ref, confidence, and provenance.",
+          "Weak or ambiguous data becomes MORE_DATA or DATA_REVIEW.",
+          "Confirmed poisoned data can trigger emergency brake.",
+          "Single-source weak data cannot become absolute hard veto or canonical truth."
+        ],
+        "fast_path_fields": [
+          "data_minimum_state",
+          "data_confidence",
+          "freshness_state",
+          "canonical_version_ok",
+          "data_valid_until"
+        ]
+      },
+      "RISK_GATE": {
+        "order": 5,
+        "type": "risk_veto_candidate",
+        "decision_power": "can_reject_only_when_confirmed",
+        "fast_path_required": true,
+        "route_effects": [
+          "RISK_CLEAR",
+          "RISK_REVIEW",
+          "REJECT",
+          "WATCH_ONLY",
+          "MORE_DATA"
+        ],
+        "inputs": [
+          "confirmed_hard_risk",
+          "weak_single_source_risk",
+          "sellability_state",
+          "liquidity_risk",
+          "contract_risk",
+          "holder_or_deployer_risk",
+          "risk_confidence"
+        ],
+        "rules": [
+          "Confirmed hard risk can reject.",
+          "Weak single-source risk becomes RISK_REVIEW, not absolute reject.",
+          "Risk Gate cannot weaken Authority Gate.",
+          "Risk Gate cannot promote quarantined data to canonical."
+        ],
+        "fast_path_fields": [
+          "risk_state",
+          "risk_confidence",
+          "hard_risk_confirmed",
+          "risk_valid_until"
+        ]
+      },
+      "PRECOMPUTED_MATRIX": {
+        "order": 6,
+        "type": "slow_path_prepared_route_matrix",
+        "decision_power": "route_support_only",
+        "fast_path_required": true,
+        "route_effects": [
+          "SYSTEM_BLOCK",
+          "REJECT",
+          "MORE_DATA",
+          "RISK_REVIEW",
+          "NO_ACTION",
+          "WATCH_ONLY",
+          "MICRO_OBSERVE",
+          "PAPER_CANDIDATE",
+          "MOONSHOT_WATCH"
+        ],
+        "rules": [
+          "Matrix is not authority.",
+          "Matrix is ignored when Emergency Brake fires.",
+          "Matrix is degraded when stale.",
+          "Matrix cannot open paper/live/wallet while Authority Gate is closed."
+        ],
+        "freshness_policy": {
+          "fresh": "apply_if_gates_ok",
+          "stale": "degrade_route",
+          "expired": "MORE_DATA_OR_OBSERVE_ONLY",
+          "brake": "ignore_matrix"
+        },
+        "fast_path_fields": [
+          "matrix_version",
+          "matrix_route",
+          "matrix_confidence",
+          "matrix_valid_until",
+          "matrix_age_class"
+        ]
+      }
+    }
+  },
+  "route_resolution_table": [
+    {
+      "priority": 1,
+      "condition": "EMERGENCY_BRAKE=data_poison_confirmed",
+      "route": "DATA_POISON_BLOCK",
+      "reason": "Poisoned data must not reach canonical/route."
+    },
+    {
+      "priority": 2,
+      "condition": "EMERGENCY_BRAKE=confirmed_hard_risk",
+      "route": "REJECT",
+      "reason": "Confirmed hard risk beats opportunity."
+    },
+    {
+      "priority": 3,
+      "condition": "AUTHORITY_GATE=NO_ACTION_AUTHORITY",
+      "route": "OBSERVE_ONLY",
+      "reason": "No authority means no action regardless of scores."
+    },
+    {
+      "priority": 4,
+      "condition": "SYSTEM_GATE=SYSTEM_BLOCK",
+      "route": "SYSTEM_BLOCK",
+      "reason": "Real system failure blocks route."
+    },
+    {
+      "priority": 5,
+      "condition": "DATA_GATE=MORE_DATA",
+      "route": "MORE_DATA",
+      "reason": "Data minimum not met."
+    },
+    {
+      "priority": 6,
+      "condition": "DATA_GATE=DATA_REVIEW",
+      "route": "DATA_REVIEW",
+      "reason": "Ambiguous or conflicting data requires review."
+    },
+    {
+      "priority": 7,
+      "condition": "RISK_GATE=RISK_REVIEW",
+      "route": "RISK_REVIEW",
+      "reason": "Weak or uncertain risk cannot become hard reject."
+    },
+    {
+      "priority": 8,
+      "condition": "RISK_GATE=REJECT",
+      "route": "REJECT",
+      "reason": "Confirmed risk reject."
+    },
+    {
+      "priority": 9,
+      "condition": "MATRIX=expired",
+      "route": "MORE_DATA_OR_OBSERVE_ONLY",
+      "reason": "Expired matrix cannot drive route."
+    },
+    {
+      "priority": 10,
+      "condition": "ALL_GATES_OK_AND_MATRIX_VALID",
+      "route": "MATRIX_ROUTE",
+      "reason": "Precomputed route is applied only after gates clear."
+    }
+  ],
+  "confidence_levels": {
+    "NONE": {
+      "rank": 0,
+      "meaning": "No evidence.",
+      "allowed_effect": "NO_DECISION"
+    },
+    "LOW": {
+      "rank": 1,
+      "meaning": "Weak/single-source/incomplete evidence.",
+      "allowed_effect": "MORE_DATA_OR_REVIEW"
+    },
+    "MEDIUM": {
+      "rank": 2,
+      "meaning": "Usable but not hard-veto quality.",
+      "allowed_effect": "WATCH_OR_REVIEW"
+    },
+    "HIGH": {
+      "rank": 3,
+      "meaning": "Strong evidence with provenance and freshness.",
+      "allowed_effect": "CAN_BLOCK_OR_REJECT_IF_GATE_RULE_MATCHES"
+    },
+    "CONFIRMED": {
+      "rank": 4,
+      "meaning": "Confirmed by direct current evidence or multiple reliable sources.",
+      "allowed_effect": "HARD_GATE_ALLOWED"
+    }
+  },
+  "emergency_brake_minimum_evidence": {
+    "authority_violation_attempt": "CONFIRMED",
+    "system_critical_failure": "CONFIRMED",
+    "data_poison_confirmed": "HIGH",
+    "confirmed_hard_risk": "HIGH",
+    "critical_stale_or_missing_data": "MEDIUM"
+  },
+  "fast_path_minimal_state_schema": {
+    "required_fields": [
+      "entity_uid",
+      "emergency_brake_state",
+      "authority_state",
+      "system_state",
+      "data_minimum_state",
+      "risk_state",
+      "matrix_route",
+      "matrix_valid_until",
+      "final_route",
+      "route_reason",
+      "decision_ts"
+    ],
+    "strictly_forbidden_heavy_fields": [
+      "raw_payload_body",
+      "full_news_text",
+      "deep_whale_cluster",
+      "large_evidence_sidecar",
+      "bulk_quarantine_payload",
+      "long_ai_commentary",
+      "panel_render_html"
+    ],
+    "rule": "Fast Path consumes compact state only; heavy evidence stays in Slow Path/audit."
+  },
+  "future_test_cases": [
+    {
+      "case": "authority_closed_matrix_says_paper_candidate",
+      "inputs": {
+        "emergency_brake": "none",
+        "authority": "NO_ACTION_AUTHORITY",
+        "system": "READY",
+        "data": "READY",
+        "risk": "CLEAR",
+        "matrix": "PAPER_CANDIDATE"
+      },
+      "expected_route": "OBSERVE_ONLY",
+      "why": "Authority gate beats matrix."
+    },
+    {
+      "case": "emergency_brake_data_poison_matrix_says_watch",
+      "inputs": {
+        "emergency_brake": "DATA_POISON_CONFIRMED",
+        "authority": "NO_ACTION_AUTHORITY",
+        "system": "READY",
+        "data": "READY",
+        "risk": "CLEAR",
+        "matrix": "WATCH_ONLY"
+      },
+      "expected_route": "DATA_POISON_BLOCK",
+      "why": "Emergency brake beats everything."
+    },
+    {
+      "case": "weak_single_source_honeypot_claim",
+      "inputs": {
+        "emergency_brake": "none",
+        "authority": "NO_ACTION_AUTHORITY",
+        "system": "READY",
+        "data": "READY",
+        "risk": "WEAK_SINGLE_SOURCE_RISK",
+        "matrix": "REJECT"
+      },
+      "expected_route": "RISK_REVIEW",
+      "why": "Weak single-source risk cannot become confirmed reject."
+    },
+    {
+      "case": "system_real_failure",
+      "inputs": {
+        "emergency_brake": "none",
+        "authority": "NO_ACTION_AUTHORITY",
+        "system": "SYSTEM_BLOCK",
+        "data": "READY",
+        "risk": "CLEAR",
+        "matrix": "WATCH_ONLY"
+      },
+      "expected_route": "SYSTEM_BLOCK",
+      "why": "System block beats matrix."
+    },
+    {
+      "case": "matrix_expired_all_else_ready",
+      "inputs": {
+        "emergency_brake": "none",
+        "authority": "NO_ACTION_AUTHORITY",
+        "system": "READY",
+        "data": "READY",
+        "risk": "CLEAR",
+        "matrix": "EXPIRED"
+      },
+      "expected_route": "MORE_DATA_OR_OBSERVE_ONLY",
+      "why": "Expired matrix cannot drive decision."
+    }
+  ],
+  "contract_checks": {
+    "PRIORITY_ORDER_OK": true,
+    "EMERGENCY_BRAKE_FIRST": true,
+    "AUTHORITY_BEFORE_SYSTEM": true,
+    "DATA_BEFORE_RISK": true,
+    "MATRIX_AFTER_GATES": true,
+    "REQUIRED_GATES_PRESENT": true,
+    "EMERGENCY_CAN_OVERRIDE_MATRIX_AND_SCORES": true,
+    "AUTHORITY_ABSOLUTE_ACTION_LOCK": true,
+    "WEAK_RISK_REVIEW_RULE_PRESENT": true,
+    "DATA_POISON_BRAKE_PRESENT": true,
+    "MATRIX_NOT_AUTHORITY_RULE_PRESENT": true,
+    "FAST_PATH_SCHEMA_LIGHT": true,
+    "CONFIDENCE_LEVELS_OK": true,
+    "EMERGENCY_MIN_EVIDENCE_OK": true,
+    "ROUTE_RESOLUTION_CASES_OK": true,
+    "FUTURE_TEST_CASES_OK": true
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "table_count": 284,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "PLAN_ONLY": true,
+    "HARD_GATE_CONTRACT_ONLY": true,
+    "NO_LIVE_SCHEMA_APPLY": true,
+    "NO_TEMP_DB_SCHEMA_APPLY": true,
+    "NO_PATCH": true,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "PROJECTED_RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "DB_WRITE": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "SERVICE_WRITE": false,
+    "TIMER_WRITE": false,
+    "RUNNER_WRITE": false,
+    "CANONICAL_WRITE": false,
+    "QUARANTINE_WRITE": false,
+    "STAGING_WRITE": false,
+    "RAW_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "PROTECTHOME_RELAX": false,
+    "BROAD_CHMOD": false,
+    "BLIND_RETRY": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE28A_PASS_AND_OPEN_28B": true,
+    "PHASE28B1_PASS_AND_OPEN_28C": true,
+    "PRIORITY_ORDER_OK": true,
+    "EMERGENCY_BRAKE_FIRST": true,
+    "AUTHORITY_BEFORE_SYSTEM": true,
+    "DATA_BEFORE_RISK": true,
+    "MATRIX_AFTER_GATES": true,
+    "REQUIRED_GATES_PRESENT": true,
+    "EMERGENCY_CAN_OVERRIDE_MATRIX_AND_SCORES": true,
+    "AUTHORITY_ABSOLUTE_ACTION_LOCK": true,
+    "WEAK_RISK_REVIEW_RULE_PRESENT": true,
+    "DATA_POISON_BRAKE_PRESENT": true,
+    "MATRIX_NOT_AUTHORITY_RULE_PRESENT": true,
+    "FAST_PATH_SCHEMA_LIGHT": true,
+    "CONFIDENCE_LEVELS_OK": true,
+    "EMERGENCY_MIN_EVIDENCE_OK": true,
+    "ROUTE_RESOLUTION_CASES_OK": true,
+    "FUTURE_TEST_CASES_OK": true,
+    "DB_EXISTS": true,
+    "DB_INTEGRITY_OK": true,
+    "DB_QUICK_CHECK_OK": true,
+    "DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "SERVICE_UNIT_UNCHANGED": true,
+    "TIMER_UNIT_UNCHANGED": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE28D_PRECOMPUTED_ROUTE_MATRIX_PLAN_NOAPI"
+}

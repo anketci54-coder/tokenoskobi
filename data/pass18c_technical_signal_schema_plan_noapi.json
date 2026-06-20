@@ -1,0 +1,47 @@
+{
+  "phase": "PASS18C_TECHNICAL_SIGNAL_SCHEMA_PLAN_NOAPI",
+  "mode": "PLAN_ONLY",
+  "db_writes": 0,
+  "api_calls": 0,
+  "panel_writes": 0,
+  "service_changes": 0,
+  "schema_plan": [
+    {
+      "table": "technical_signal_evidence_ledger_v1",
+      "purpose": "canonical_signal_evidence"
+    },
+    {
+      "table": "technical_signal_family_registry_v1",
+      "purpose": "signal_family_tracking"
+    },
+    {
+      "table": "technical_signal_observation_registry_v1",
+      "purpose": "signal_observation_tracking"
+    },
+    {
+      "table": "technical_signal_learning_registry_v1",
+      "purpose": "signal_learning_links"
+    },
+    {
+      "table": "technical_signal_provenance_registry_v1",
+      "purpose": "signal_provenance_tracking"
+    }
+  ],
+  "required_rules": [
+    "SIGNAL_NOT_DECISION",
+    "SIGNAL_NOT_TRADE",
+    "PROVENANCE_REQUIRED",
+    "LEARNING_LINK_ALLOWED",
+    "EVIDENCE_REQUIRED_FOR_SIGNAL"
+  ],
+  "forbidden": [
+    "NO_AUTO_TRADE",
+    "NO_SIGNAL_SCORE",
+    "NO_MANUAL_OVERRIDE",
+    "NO_REAL_DB_APPLY",
+    "NO_RPC",
+    "NO_API",
+    "NO_CHAIN_SCAN"
+  ],
+  "decision": "PASS18C_ACCEPTED_READY_FOR_PASS18D"
+}

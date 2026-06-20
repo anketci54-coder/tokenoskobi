@@ -1,0 +1,133 @@
+{
+  "phase": "PANEL_BOUND_PREVIEW_PLAN_NOAPI",
+  "started_at": "2026-05-20 09:51:42",
+  "final_gate": "PASS",
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "db_mutation": false,
+    "active_panel_mutation": false,
+    "preview_file_mutation": false,
+    "service_mutation": false,
+    "timer_mutation": false,
+    "dns_mutation": false,
+    "nginx_mutation": false,
+    "ssl_mutation": false,
+    "plan_only": true,
+    "source_files_unchanged": true,
+    "trade_execution_allowed": false,
+    "paper_trade_open_allowed": false
+  },
+  "sources": {
+    "icon_registry": {
+      "path": "/root/tokenoskobi_clean_v1/panel_assets/icon_registry_v1.json",
+      "sha256": "160dfcb5575fead6424c9ee44acf0570ffb8922156170ac98189e0cef316fc90"
+    },
+    "subject_graph": {
+      "path": "/root/tokenoskobi_clean_v1/panel_assets/subject_graph_pipeline_v1.json",
+      "sha256": "216340241a57bdd1dc1517746c4d698803b6fc5b513dcb25e9f77bb9932af97b"
+    },
+    "route_map": {
+      "path": "/root/tokenoskobi_clean_v1/panel_assets/panel_route_map_v1.json",
+      "sha256": "f27e9f61897a1dafa892c9fdb7df335943ffe12c96cc91345cf3b91fd1320266"
+    },
+    "icon_binding": {
+      "path": "/root/tokenoskobi_clean_v1/panel_assets/panel_icon_binding_v1.json",
+      "sha256": "6a444713434d6a6c59ad341448d8bdb8ac3bd96e108ce5f55d230cf2b5b29362"
+    },
+    "domain_plan": {
+      "path": "/root/tokenoskobi_clean_v1/data/domain_dns_nginx_ssl_plan_noapi.json",
+      "sha256": "06c011d1d47fa3fa55aaa0fb887f4277aa811aebe6b25146868d026917e51e63"
+    }
+  },
+  "summary": {
+    "icons": 77,
+    "nodes": 77,
+    "edges": 144,
+    "pipelines": 10,
+    "node_routes": 77,
+    "center_routes": 8,
+    "left_nav_bindings": 8,
+    "center_workspace_bindings": 8,
+    "pipeline_route_bindings": 10,
+    "planned_port": 8105,
+    "port_candidates": [
+      8105,
+      8106,
+      8107,
+      8108
+    ],
+    "currently_listening_candidate_ports": [],
+    "planned_preview_dir": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142",
+    "planned_sections": 5,
+    "missing_assets": 0,
+    "primary_domain": "www.coinoskobi.com",
+    "secondary_domain": "coinoskobi.xyz",
+    "ssl_status": "NOT_CONFIGURED",
+    "errors": [],
+    "warnings": []
+  },
+  "preview_plan": {
+    "planned_port": 8105,
+    "planned_url": "http://159.195.74.132:8105/",
+    "planned_files": {
+      "preview_root": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142",
+      "index_html": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142/index.html",
+      "data_json": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142/data/panel_bound_preview_data.json",
+      "route_map_json": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142/data/panel_route_map_v1.json",
+      "icon_binding_json": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142/data/panel_icon_binding_v1.json",
+      "subject_graph_json": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142/data/subject_graph_pipeline_v1.json",
+      "icon_registry_json": "/root/tokenoskobi_clean_v1/panel_previews/panel_bound_preview_20260520_095142/data/icon_registry_v1.json"
+    },
+    "planned_sections": [
+      {
+        "section_key": "left_nav",
+        "label_tr": "Sol Menü / 8 Merkez",
+        "data_source": "panel_icon_binding_v1.left_nav_bindings",
+        "icon_size": "128",
+        "live_data": false
+      },
+      {
+        "section_key": "center_workspace_grid",
+        "label_tr": "Merkez Workspace Kartları",
+        "data_source": "panel_icon_binding_v1.center_workspace_bindings",
+        "icon_size": "384",
+        "live_data": false
+      },
+      {
+        "section_key": "module_route_grid",
+        "label_tr": "Modül Route Kartları",
+        "data_source": "panel_icon_binding_v1.node_route_bindings",
+        "icon_size": "384",
+        "live_data": false
+      },
+      {
+        "section_key": "pipeline_map",
+        "label_tr": "Pipeline Haritası",
+        "data_source": "subject_graph_pipeline_v1.edges + panel_icon_binding_v1.pipeline_route_bindings",
+        "icon_size": "128/384",
+        "live_data": false
+      },
+      {
+        "section_key": "domain_status",
+        "label_tr": "Domain Durum Kartı",
+        "data_source": "domain_dns_nginx_ssl_plan_noapi",
+        "icon_size": "none",
+        "live_data": false
+      }
+    ],
+    "build_policy": {
+      "single_clean_preview_dir": true,
+      "no_active_8096": true,
+      "no_db": true,
+      "no_api": true,
+      "no_live_data": true,
+      "no_fake_live_values": true,
+      "copy_assets": false,
+      "use_existing_asset_paths": true,
+      "max_preview_output_mb_target": 2
+    }
+  },
+  "next_recommended_phase": "PANEL_BOUND_PREVIEW_BUILD_AFTER_APPROVAL",
+  "approval_phrase": "PANEL bound preview build için onay veriyorum"
+}

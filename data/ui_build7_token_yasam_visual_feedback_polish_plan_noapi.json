@@ -1,0 +1,164 @@
+{
+  "phase": "UI_BUILD7_TOKEN_YASAM_VISUAL_FEEDBACK_POLISH_PLAN_NOAPI",
+  "stamp": "20260517_204546",
+  "failed_checks": [],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "preview_generation_now": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "docs_only_plan": true
+  },
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "build6_url": "http://159.195.74.132:8104/?v=tokenyasam_living_preview_20260517_201554#token-yasam",
+  "build6_preview_dir": "/root/tokenoskobi_clean_v1/panel_previews/tokenyasam_living_preview_20260517_201554",
+  "build6_gates": {
+    "TECH_PASS": true,
+    "DATA_PASS": true,
+    "FIT_PASS_STATIC": true,
+    "TRUTH_PASS": true,
+    "PRODUCT_PASS": false
+  },
+  "build6_http": {
+    "ok": true,
+    "status": 200,
+    "bytes": 37001,
+    "has_marker": true,
+    "has_logo": true,
+    "has_token_yasam": true,
+    "has_nav_anchor": true,
+    "has_body_overflow_hidden": true,
+    "has_six_terms": true
+  },
+  "build6_motion_summary": {},
+  "feedback_items": [
+    {
+      "id": "LEFT_LOGO_POSITION_ACCEPTED",
+      "status": "ACCEPTED",
+      "user_feedback": "Soldaki logo tamam.",
+      "plan_action": "Mevcut sol logo konumu korunacak.",
+      "implementation_rule": "Logo yeri değiştirilmeyecek; sadece iç nabız rengi ve gerekirse asset polishing yapılacak."
+    },
+    {
+      "id": "LOGO_PULSE_COLOR_NOT_RED",
+      "status": "POLISH_REQUIRED",
+      "user_feedback": "Logo ortasından geçen nabız şekli kırmızı değil.",
+      "plan_action": "Logo içindeki nabız/heartbeat çizgisi kırmızı-canamlı vurguya çekilecek.",
+      "implementation_rule": "Öncelik CSS filter değil, mümkünse asset-level veya overlay-level temiz çözüm. Fake motion yok."
+    },
+    {
+      "id": "LEFT_NAV_TOO_LOW",
+      "status": "POLISH_REQUIRED",
+      "user_feedback": "Ana Panel ile başlayan sol menü liste altta kaldı.",
+      "plan_action": "Sol logo korunarak nav listesi yukarı çekilecek; sidebar iç boşlukları sıkılaştırılacak.",
+      "implementation_rule": "Nav readable kalacak; ikonlar ve badge hizası bozulmayacak."
+    },
+    {
+      "id": "DEPARTMENT_ICONS_NOT_SHARP",
+      "status": "POLISH_REQUIRED",
+      "user_feedback": "Olay Yeri İnceleme, Adli Soruşturma ve Şüpheliler ikonları net değil.",
+      "plan_action": "Bu 3 ikon için master_pack ve mevcut accepted assets karşılaştırılacak; netlik/fit/crop iyileştirilecek.",
+      "implementation_rule": "Klinik/Otopsi/Morg bozulmayacak. Yeni asset üretimi yok; mevcut kaynaklardan daha net kullanım planlanacak."
+    },
+    {
+      "id": "FIT_DRIFT_DOWNWARD",
+      "status": "FIT_REVIEW_REQUIRED",
+      "user_feedback": "Scroll ile hafif alta geçme eğilimi var.",
+      "plan_action": "Kart yükseklikleri, footer bandı, header boşluğu ve sidebar spacing sıkılaştırılacak.",
+      "implementation_rule": "Primary body scroll veya alt taşma görsel audit'te FIT_FAIL sayılacak."
+    }
+  ],
+  "plan": {
+    "plan_name": "Token Yaşam Visual Feedback Polish Plan",
+    "source_preview": "http://159.195.74.132:8104/?v=tokenyasam_living_preview_20260517_201554#token-yasam",
+    "source_preview_dir": "/root/tokenoskobi_clean_v1/panel_previews/tokenyasam_living_preview_20260517_201554",
+    "product_pass_current": false,
+    "product_pass_reason": "User visual feedback requires polish before PRODUCT_PASS.",
+    "accepted_now": [
+      "Sol logo konumu",
+      "6 departman düzeninin genel korunması",
+      "Morg ikonunun geri gelmesi",
+      "Fake motion olmaması"
+    ],
+    "must_fix_before_product_pass": [
+      "Logo heartbeat/pulse line must become red/canlı.",
+      "Left nav must move upward without breaking logo placement.",
+      "Olay/Adli/Şüpheliler icons must be sharper and better fitted.",
+      "Laptop viewport must not show downward scroll/overflow tendency.",
+      "Preview must remain separate 8104 only."
+    ],
+    "visual_polish_targets": {
+      "left_logo": {
+        "keep_position": true,
+        "change": "red heartbeat/pulse highlight",
+        "do_not": [
+          "move logo away from accepted place",
+          "create fake animation without source_uid",
+          "use huge slow-loading image"
+        ]
+      },
+      "left_nav": {
+        "change": "move nav list upward by reducing vertical gaps and sidebar spacing",
+        "do_not": [
+          "make labels unreadable",
+          "break badge alignment",
+          "cover footer/team box"
+        ]
+      },
+      "department_icons": {
+        "targets": [
+          "olay_yeri",
+          "adli",
+          "supheliler"
+        ],
+        "change": "sharpen display using better source/crop/fit from existing assets",
+        "do_not": [
+          "special-case only one card",
+          "break klinik/otopsi/morg",
+          "generate new images"
+        ]
+      },
+      "screen_fit": {
+        "change": "tighten header/card/footer spacing to remove downward overflow tendency",
+        "hard_fail": "primary body scroll or clipped footer/cards"
+      }
+    },
+    "next_preview_rules": [
+      "Only create a new 8104 preview after explicit approval.",
+      "Do not touch active 8096.",
+      "Do not touch Haber final 8101.",
+      "Do not touch Token Yaşam final 8102.",
+      "No DB/API/fetch/paper/live.",
+      "No yama/product-specific hack.",
+      "No image generation.",
+      "Use existing accepted assets only.",
+      "Keep PRODUCT_PASS false until user visually accepts."
+    ],
+    "next_phase": "UI_BUILD8_TOKEN_YASAM_VISUAL_POLISH_PREVIEW_AFTER_APPROVAL",
+    "next_required_approval_sentence": "UI_BUILD8_TOKEN_YASAM_VISUAL_POLISH_PREVIEW_AFTER_APPROVAL için onay veriyorum"
+  },
+  "gates": {
+    "TECH_PASS": true,
+    "DATA_PASS": true,
+    "FIT_PASS_STATIC": true,
+    "TRUTH_PASS": true,
+    "PRODUCT_PASS": false,
+    "VISUAL_FEEDBACK_CAPTURED": true,
+    "READY_FOR_BUILD8_PREVIEW_AFTER_APPROVAL": true
+  },
+  "final_status": "PASS",
+  "final_gate": "UI_BUILD7_TOKEN_YASAM_VISUAL_FEEDBACK_POLISH_PLAN_READY"
+}

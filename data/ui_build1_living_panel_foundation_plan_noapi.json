@@ -1,0 +1,165 @@
+{
+  "phase": "UI_BUILD1_LIVING_PANEL_FOUNDATION_PLAN_NOAPI",
+  "stamp": "20260517_191724",
+  "failed_checks": [],
+  "warnings": [],
+  "safety": {
+    "active_8096_write": false,
+    "haber_8101_write": false,
+    "token_yasam_8102_write": false,
+    "preview_8104_write": false,
+    "db_write": false,
+    "api": false,
+    "fetch": false,
+    "paper_live": false,
+    "panel_mutation": false,
+    "service_restart": false,
+    "timer_change": false,
+    "patch_yama": false,
+    "product_specific_hack": false,
+    "docs_only_plan": true
+  },
+  "plan": {
+    "plan_name": "Living Panel Foundation Plan v1",
+    "core_rule": "No panel implementation before data/view-model/motion/fit gates are testable.",
+    "foundation_objective": [
+      "Mevcut çalışan panel ruhunu bozmadan living UI altyapısı kurmak.",
+      "Panel içinde fake animasyon üretmemek.",
+      "Tüm hareketleri motion_state_layer üzerinden okumak.",
+      "Her ekranı viewport-fit zorunluluğuna bağlamak.",
+      "Veriyi tek canonical source’dan view_model olarak göstermek.",
+      "İlk hedefte aktif 8096’ya dokunmadan preview/dry-run planı hazırlamak."
+    ],
+    "foundation_layers": {
+      "canonical_data_layer": {
+        "status": "existing DB/source reality must be mapped; no new DB write in this phase",
+        "future_path_policy": "data contracts under docs + generated view model JSON under data/view_models only after dry-run approval"
+      },
+      "view_model_layer": {
+        "purpose": "Screens render view_model only.",
+        "future_dir": "/root/tokenoskobi_clean_v1/data/view_models",
+        "planned_files": [
+          "main_panel_vm.json",
+          "token_yasam_vm.json",
+          "haber_panel_vm.json",
+          "whale_panel_vm.json",
+          "risk_panel_vm.json",
+          "paper_panel_vm.json"
+        ],
+        "rule": "No hardcoded production metric inside panel."
+      },
+      "motion_state_layer": {
+        "purpose": "Truth-based animation state.",
+        "future_dir": "/root/tokenoskobi_clean_v1/data/motion_states",
+        "planned_files": [
+          "motion_state_snapshot.json",
+          "motion_state_policy.json"
+        ],
+        "rule": "No source_uid, no motion."
+      },
+      "screen_fit_layer": {
+        "purpose": "Viewport-fit testing and screen profiles.",
+        "future_dir": "/root/tokenoskobi_clean_v1/data/screen_fit",
+        "planned_files": [
+          "fit_profile_laptop.json",
+          "fit_profile_desktop.json",
+          "fit_test_result.json"
+        ],
+        "rule": "Primary body scroll means FIT_FAIL."
+      },
+      "visual_component_layer": {
+        "purpose": "Reusable UI components, not product-specific hacks.",
+        "future_dir": "/root/tokenoskobi_clean_v1/ui_components",
+        "planned_components": [
+          "living_badge",
+          "truth_motion_icon",
+          "viewport_shell",
+          "detail_drawer",
+          "radar_canvas",
+          "token_status_row",
+          "trade_control_strip"
+        ],
+        "rule": "Components read view_model and motion_state only."
+      }
+    },
+    "first_target_screen": {
+      "name": "Token Yaşam Merkezi",
+      "reason": "Logo placement and department layout recently stabilized; good candidate for first living UI foundation test.",
+      "source_baseline": "/root/tokenoskobi_clean_v1/accepted_baselines/token_yasam_merkezi_final_panel64_20260515_175146",
+      "accepted_logo_preview": "/root/tokenoskobi_clean_v1/panel_previews/tokenyasam_left_logo_circle_bigger_cleanbg_latest",
+      "master_asset_pack": "/root/tokenoskobi_clean_v1/panel_assets/token_yasam_master_pack_v1",
+      "constraints": [
+        "Do not rebuild the layout.",
+        "Do not touch active 8096.",
+        "Do not touch 8101 Haber final.",
+        "Do not touch 8102 Token Yaşam final.",
+        "Only preview after separate dry-run/build approval.",
+        "Use accepted circular logo placement if promoted later.",
+        "Six department cards remain summary-only.",
+        "Details open in drawer/tab.",
+        "No fake department pulse."
+      ]
+    },
+    "motion_truth_first_targets": {
+      "token_yasam_klinik": {
+        "allowed_motion": "heartbeat pulse",
+        "required_source": "clinical_watch",
+        "no_data": "static icon"
+      },
+      "token_yasam_morg": {
+        "allowed_motion": "cold slow breath",
+        "required_source": "morg_status",
+        "no_data": "static icon"
+      },
+      "token_yasam_otopsi": {
+        "allowed_motion": "slow scan",
+        "required_source": "active autopsy_status",
+        "no_data": "static icon"
+      },
+      "token_yasam_olay": {
+        "allowed_motion": "short alarm pulse",
+        "required_source": "fresh event",
+        "no_data": "static icon"
+      }
+    },
+    "implementation_gate_before_code": [
+      "Contracts 1-5 must exist.",
+      "Target screen source baseline must exist.",
+      "View model schema must be defined.",
+      "Motion source requirements must be defined.",
+      "Fit rules must be testable.",
+      "Preview directory must be separate.",
+      "No active apply.",
+      "No fake data.",
+      "No yama.",
+      "No product-specific hack."
+    ],
+    "future_phase_sequence": [
+      "UI_BUILD2_FOUNDATION_DRYRUN_NOAPI",
+      "UI_BUILD3_VIEW_MODEL_SNAPSHOT_DRYRUN_NOAPI",
+      "UI_BUILD4_MOTION_STATE_SNAPSHOT_DRYRUN_NOAPI",
+      "UI_BUILD5_TOKEN_YASAM_LIVING_PREVIEW_PLAN_NOAPI",
+      "UI_BUILD6_TOKEN_YASAM_LIVING_PREVIEW_AFTER_APPROVAL",
+      "UI_BUILD7_VISUAL_REVIEW_AND_PRODUCT_PASS_AUDIT_NOAPI"
+    ],
+    "hard_stop_conditions": [
+      "Missing canonical source for displayed data.",
+      "Any fake motion proposal.",
+      "Any primary body scroll.",
+      "Any active 8096 mutation.",
+      "Any duplicate metric calculation in panel.",
+      "Any hardcoded production value.",
+      "Any visual change that user rejects."
+    ],
+    "next_phase": "UI_BUILD2_FOUNDATION_DRYRUN_NOAPI"
+  },
+  "doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/UI_BUILD1_LIVING_PANEL_FOUNDATION_PLAN_NOAPI_20260517_191724.md",
+  "latest_doc": "/root/tokenoskobi_clean_v1/docs/ui_contracts/LATEST_UI_BUILD1_LIVING_PANEL_FOUNDATION_PLAN_NOAPI.md",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_UI_BUILD1_LIVING_PANEL_FOUNDATION_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/ui_build1_living_panel_foundation_plan_noapi.json",
+  "db_sha_before": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_sha_after": "3c6e1aafba1914a3e9bb30598980fde0d0891d25838c5b3d823ec4218ad4ff26",
+  "db_unchanged": true,
+  "final_status": "PASS",
+  "final_gate": "UI_BUILD1_LIVING_PANEL_FOUNDATION_PLAN_READY"
+}

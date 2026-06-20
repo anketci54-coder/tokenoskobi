@@ -1,0 +1,803 @@
+{
+  "binding_rule_rows": [
+    {
+      "if": "emergency_status in P0_BLOCK or LP_REMOVE or SELL_ROUTE_ANOMALY",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "emergency_block_overrides_all",
+      "then_label": "EMERGENCY_BLOCKED"
+    },
+    {
+      "if": "negative_memory_severity == CRITICAL",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "critical_memory_overrides_all_positive",
+      "then_label": "TRASH_REJECTED"
+    },
+    {
+      "if": "hard_block == True",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "hard_block_overrides_all",
+      "then_label": "TRASH_REJECTED"
+    },
+    {
+      "if": "sell_route_status != AVAILABLE",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "sell_route_unavailable_blocks",
+      "then_label": "BLOCKED_BY_RISK"
+    },
+    {
+      "if": "any_required_field == UNKNOWN",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "unknown_required_field_wait_more_data",
+      "then_label": "WAIT_MORE_DATA"
+    },
+    {
+      "if": "stale_status in STALE or EXPIRED or UNKNOWN",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "stale_required_evidence_blocks",
+      "then_label": "STALE_EVIDENCE"
+    },
+    {
+      "if": "any_execution_threshold_fail == True",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "execution_threshold_fail_blocks",
+      "then_label": "BLOCKED_BY_RISK"
+    },
+    {
+      "if": "negative_memory_severity == HIGH",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "high_memory_blocks_or_review",
+      "then_label": "BLOCKED_BY_RISK"
+    },
+    {
+      "if": "negative_memory_severity == MEDIUM",
+      "locked": true,
+      "route_effect": "REVIEW_ONLY",
+      "rule": "medium_memory_review_only",
+      "then_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED"
+    },
+    {
+      "if": "technical_status == NOISY_OR_MANIPULATED",
+      "locked": true,
+      "route_effect": "NO_ROUTE",
+      "rule": "manipulated_technical_blocks_positive",
+      "then_label": "WAIT_MORE_DATA"
+    },
+    {
+      "if": "technical_status == SUPPORTIVE_REVIEW_ONLY and risk_gates_pass",
+      "locked": true,
+      "route_effect": "REVIEW_ONLY",
+      "rule": "technical_positive_review_only",
+      "then_label": "EVIDENCE_READY_NO_TRADE_PERMISSION"
+    },
+    {
+      "if": "asymmetric_policy_pass == True and all_blocks_false",
+      "locked": true,
+      "route_effect": "REVIEW_ONLY",
+      "rule": "asymmetric_review_only",
+      "then_label": "ASYMMETRIC_REVIEW_ONLY"
+    },
+    {
+      "if": "routine_thresholds_pass == True and all_blocks_false",
+      "locked": true,
+      "route_effect": "REVIEW_ONLY",
+      "rule": "routine_safe_review_only",
+      "then_label": "ROUTINE_SAFE_REVIEW_ONLY"
+    },
+    {
+      "if": "negative_memory_status == NO_MATCH",
+      "locked": true,
+      "route_effect": "NO_PERMISSION_CHANGE",
+      "rule": "no_match_no_permission",
+      "then_label": "NO_PERMISSION_CHANGE"
+    },
+    {
+      "if": "any_case",
+      "locked": true,
+      "route_effect": "NO_TRADE_PERMISSION",
+      "rule": "paper_live_never_granted_here",
+      "then_label": "NO_PAPER_LIVE_PERMISSION"
+    }
+  ],
+  "command_output_rows": [
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "final_quality_label",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "route_effect",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "permission_status",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "primary_block_reason",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "next_required_evidence",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "winning_rule",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "consumer": "future_command_center",
+      "output_field": "last_decision_timestamp",
+      "required": true
+    }
+  ],
+  "conflict_rows": [
+    {
+      "conflict": "technical_positive_vs_critical_memory",
+      "locked": true,
+      "output": "TRASH_REJECTED",
+      "winner": "critical_memory"
+    },
+    {
+      "conflict": "technical_positive_vs_hard_block",
+      "locked": true,
+      "output": "TRASH_REJECTED",
+      "winner": "hard_block"
+    },
+    {
+      "conflict": "asymmetric_positive_vs_sell_route_unavailable",
+      "locked": true,
+      "output": "BLOCKED_BY_RISK",
+      "winner": "sell_route_unavailable"
+    },
+    {
+      "conflict": "routine_safe_vs_stale_evidence",
+      "locked": true,
+      "output": "STALE_EVIDENCE",
+      "winner": "stale_evidence"
+    },
+    {
+      "conflict": "no_memory_match_vs_execution_unknown",
+      "locked": true,
+      "output": "WAIT_MORE_DATA",
+      "winner": "execution_unknown"
+    },
+    {
+      "conflict": "asymmetric_positive_vs_emergency_trigger",
+      "locked": true,
+      "output": "EMERGENCY_BLOCKED",
+      "winner": "emergency_trigger"
+    },
+    {
+      "conflict": "technical_positive_vs_manipulation_guard",
+      "locked": true,
+      "output": "WAIT_MORE_DATA_OR_BLOCKED_BY_RISK",
+      "winner": "manipulation_guard"
+    },
+    {
+      "conflict": "paper_live_request_vs_phase_permission",
+      "locked": true,
+      "output": "NO_PAPER_LIVE_PERMISSION",
+      "winner": "permission_lock"
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "fail_closed_rows": [
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "missing_stale_status",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "missing_threshold_field",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "missing_sell_route_status",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "missing_negative_memory_status",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "missing_technical_quality",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "missing_emergency_status",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "source_conflict_unresolved",
+      "locked": true,
+      "route": "NO_ROUTE"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "guard": "rule_engine_error",
+      "locked": true,
+      "route": "NO_ROUTE"
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+  "finished_at_utc": "2026-06-01T07:50:54.559321+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "input_layer_rows": [
+    {
+      "can_block_route": true,
+      "can_grant_route": false,
+      "input_status": "REQUIRED",
+      "layer": "stale_data_guard",
+      "source_phase": "PHASE6B2"
+    },
+    {
+      "can_block_route": true,
+      "can_grant_route": false,
+      "input_status": "REQUIRED",
+      "layer": "execution_threshold_matrix",
+      "source_phase": "PHASE6C"
+    },
+    {
+      "can_block_route": true,
+      "can_grant_route": false,
+      "input_status": "REVIEW_ONLY",
+      "layer": "asymmetric_speculative_policy",
+      "source_phase": "PHASE6C2"
+    },
+    {
+      "can_block_route": true,
+      "can_grant_route": false,
+      "input_status": "CONTEXT_AND_REVIEW_ONLY",
+      "layer": "dex_microstructure_technical_evidence",
+      "source_phase": "PHASE6C3"
+    },
+    {
+      "can_block_route": true,
+      "can_grant_route": false,
+      "input_status": "REQUIRED_IF_PRESENT",
+      "layer": "emergency_monitor_trigger",
+      "source_phase": "PHASE6C4"
+    },
+    {
+      "can_block_route": true,
+      "can_grant_route": false,
+      "input_status": "REQUIRED",
+      "layer": "negative_memory_lookup",
+      "source_phase": "PHASE6D"
+    },
+    {
+      "can_block_route": false,
+      "can_grant_route": false,
+      "input_status": "OUTPUT_TARGET",
+      "layer": "readmodel_state_summary",
+      "source_phase": "PHASE6B"
+    }
+  ],
+  "next_phase": "PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+  "outputs": {
+    "binding_rule_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_decision_binding_rule_matrix.jsonl",
+    "command_output_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_command_output_bridge_plan.jsonl",
+    "conflict_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_conflict_resolution_policy.jsonl",
+    "fail_closed_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_fail_closed_guard_matrix.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_future_decision_binding_schema_plan_noapi.sql",
+    "input_layer_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_decision_input_layer_matrix.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6e_decision_binding_rule_matrix_noapi.json",
+    "permission_lock_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_permission_lock_matrix.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_decision_binding_rule_matrix_noapi.json",
+    "precedence_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_decision_precedence_order.jsonl",
+    "quality_label_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_quality_label_output_contract.jsonl",
+    "readmodel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_readmodel_binding_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_decision_binding_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_next_roadmap_lock.jsonl",
+    "route_effect_rows": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054/phase6e_route_effect_matrix.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6e_decision_binding_rule_matrix_noapi_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI/20260601_105054"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_binding_rules_locked": true,
+    "all_conflicts_locked": true,
+    "all_fail_closed_locked": true,
+    "all_permissions_false": true,
+    "all_quality_no_paper_live": true,
+    "all_route_effect_no_paper_live": true,
+    "binding_rule_count_15": true,
+    "binding_rule_rows_written": true,
+    "command_output_count_7": true,
+    "command_output_rows_written": true,
+    "conflict_count_8": true,
+    "conflict_rows_written": true,
+    "critical_memory_before_technical": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "emergency_precedence_first": true,
+    "fail_closed_count_8": true,
+    "fail_closed_rows_written": true,
+    "future_schema_sql_written": true,
+    "hard_block_before_asymmetric": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "input_layer_count_7": true,
+    "input_layer_rows_written": true,
+    "no_match_no_permission": true,
+    "paper_live_never_granted": true,
+    "permission_lock_count_8": true,
+    "permission_lock_rows_written": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b2_dependency_ok": true,
+    "phase6b2_json_exists": true,
+    "phase6b_dependency_ok": true,
+    "phase6b_json_exists": true,
+    "phase6c2_dependency_ok": true,
+    "phase6c2_json_exists": true,
+    "phase6c3_dependency_ok": true,
+    "phase6c3_json_exists": true,
+    "phase6c4_dependency_ok": true,
+    "phase6c4_json_exists": true,
+    "phase6c_dependency_ok": true,
+    "phase6c_json_exists": true,
+    "phase6d_dependency_ok": true,
+    "phase6d_json_exists": true,
+    "phase6d_report_exists": true,
+    "phase6d_rows_exists": true,
+    "policy_sha_match": true,
+    "precedence_count_10": true,
+    "precedence_rows_written": true,
+    "quality_label_count_10": true,
+    "quality_label_rows_written": true,
+    "readmodel_binding_count_8": true,
+    "readmodel_binding_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "route_effect_count_7": true,
+    "route_effect_rows_written": true,
+    "safety_noapi_clean": true
+  },
+  "permission_lock_rows": [
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "paper_trade",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "live_trade",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "watchlist_auto_add",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "score_runtime",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "micro_route_runtime",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "asymmetric_route_runtime",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "model_training",
+      "source_phase": "PHASE6E"
+    },
+    {
+      "allowed_now": false,
+      "locked": true,
+      "permission": "telegram_alert",
+      "source_phase": "PHASE6E"
+    }
+  ],
+  "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b2_ok": true,
+    "phase6b_ok": true,
+    "phase6c2_ok": true,
+    "phase6c3_ok": true,
+    "phase6c4_ok": true,
+    "phase6c_ok": true,
+    "phase6d_ok": true,
+    "phase6d_rows_count": 87
+  },
+  "policy_reference": {
+    "checked_count": 2,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "precedence_rows": [
+    {
+      "meaning": "LP remove, sell route anomaly, critical emergency state blocks first.",
+      "precedence": 1,
+      "rule_group": "emergency_terminal_block"
+    },
+    {
+      "meaning": "Critical confirmed memory blocks even if technical/asymmetric looks positive.",
+      "precedence": 2,
+      "rule_group": "critical_negative_memory"
+    },
+    {
+      "meaning": "Hard block or unavailable sell route blocks all routes.",
+      "precedence": 3,
+      "rule_group": "hard_block_and_sell_route"
+    },
+    {
+      "meaning": "Unknown/stale required fields degrade to WAIT_MORE_DATA/STALE_EVIDENCE.",
+      "precedence": 4,
+      "rule_group": "stale_or_unknown_required_evidence"
+    },
+    {
+      "meaning": "Liquidity, tax, slippage, price impact, MEV, gas, protected route failures block.",
+      "precedence": 5,
+      "rule_group": "execution_threshold_fail"
+    },
+    {
+      "meaning": "High/medium memory degrades or requires review.",
+      "precedence": 6,
+      "rule_group": "negative_memory_noncritical"
+    },
+    {
+      "meaning": "DEX technical evidence can support context but cannot override risk.",
+      "precedence": 7,
+      "rule_group": "technical_evidence_quality"
+    },
+    {
+      "meaning": "Asymmetric route remains review-only and disabled now.",
+      "precedence": 8,
+      "rule_group": "asymmetric_policy_review_only"
+    },
+    {
+      "meaning": "No negative memory hit does not mean safe.",
+      "precedence": 9,
+      "rule_group": "no_known_negative_but_no_permission"
+    },
+    {
+      "meaning": "Assign final decision label and route effect.",
+      "precedence": 10,
+      "rule_group": "final_label_assignment"
+    }
+  ],
+  "quality_label_rows": [
+    {
+      "paper_live_allowed": false,
+      "quality_label": "TRASH_REJECTED",
+      "route_effect": "NO_ROUTE",
+      "terminal": true
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "EMERGENCY_BLOCKED",
+      "route_effect": "NO_ROUTE",
+      "terminal": true
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "BLOCKED_BY_RISK",
+      "route_effect": "NO_ROUTE",
+      "terminal": true
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "STALE_EVIDENCE",
+      "route_effect": "WAIT_MORE_DATA",
+      "terminal": false
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "WAIT_MORE_DATA",
+      "route_effect": "WAIT_MORE_DATA",
+      "terminal": false
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED",
+      "route_effect": "REVIEW_ONLY",
+      "terminal": false
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "EVIDENCE_READY_NO_TRADE_PERMISSION",
+      "route_effect": "REVIEW_ONLY",
+      "terminal": false
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "ROUTINE_SAFE_REVIEW_ONLY",
+      "route_effect": "REVIEW_ONLY",
+      "terminal": false
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "ASYMMETRIC_REVIEW_ONLY",
+      "route_effect": "REVIEW_ONLY",
+      "terminal": false
+    },
+    {
+      "paper_live_allowed": false,
+      "quality_label": "NO_PERMISSION_CHANGE",
+      "route_effect": "NO_PERMISSION_CHANGE",
+      "terminal": false
+    }
+  ],
+  "readmodel_binding_rows": [
+    {
+      "apply_now": false,
+      "field": "final_quality_label",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "final_route_effect",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "primary_block_reason",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "winning_rule",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "decision_conflict_json",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "permission_lock_json",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "decision_summary",
+      "readmodel_table": "state_aggregated_token_readmodel_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "decision_block_reason",
+      "readmodel_table": "state_aggregated_token_risk_block_reasons_v1",
+      "required": true
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "Precedence order makes emergency/memory/hard-block win.",
+      "risk_id": "POSITIVE_LAYER_OVERRIDES_BLOCK",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "No memory match creates no permission change.",
+      "risk_id": "NO_MEMORY_MATCH_MARKED_SAFE",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Technical positive review-only; cannot grant paper/live.",
+      "risk_id": "TECHNICAL_SIGNAL_BECOMES_TRADE_SIGNAL",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Asymmetric remains review-only and loses to all blocks.",
+      "risk_id": "ASYMMETRIC_ROUTE_BYPASS",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Fail-closed guard returns WAIT_MORE_DATA/NO_ROUTE.",
+      "risk_id": "UNKNOWN_FIELD_LEAKS_PERMISSION",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Permission lock matrix denies all paper/live/watchlist/score.",
+      "risk_id": "PAPER_LIVE_PERMISSION_ACCIDENT",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Conflict rows define winners; unknown conflicts fail closed.",
+      "risk_id": "CONFLICT_UNRESOLVED",
+      "severity": "HIGH"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+      "purpose": "Plan command center output contract from decision matrix."
+    },
+    {
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB schema dry-run for all Phase6 schema plans.",
+      "temp_db_only": true
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6H_READMODEL_APPLY_PLAN_NOAPI",
+      "purpose": "Plan live schema apply after temp dry-run only."
+    },
+    {
+      "api_now": false,
+      "db_write_now": "requires_explicit_approval",
+      "order": 4,
+      "phase": "PHASE6I_READMODEL_REAL_AFTER_EXPLICIT_APPROVAL",
+      "purpose": "Future real schema apply only after approval."
+    }
+  ],
+  "route_effect_rows": [
+    {
+      "meaning": "Terminal block, risk block, stale/unknown, or missing evidence.",
+      "paper_live_allowed": false,
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "meaning": "Required evidence missing/unknown/unconfirmed.",
+      "paper_live_allowed": false,
+      "route_effect": "WAIT_MORE_DATA"
+    },
+    {
+      "meaning": "Can be shown for analysis; no paper/live action.",
+      "paper_live_allowed": false,
+      "route_effect": "REVIEW_ONLY"
+    },
+    {
+      "meaning": "High-risk route review label only; disabled now.",
+      "paper_live_allowed": false,
+      "route_effect": "ASYMMETRIC_REVIEW_ONLY"
+    },
+    {
+      "meaning": "Routine evidence review label only; disabled now.",
+      "paper_live_allowed": false,
+      "route_effect": "ROUTINE_SAFE_REVIEW_ONLY"
+    },
+    {
+      "meaning": "Input neither blocks nor grants permission.",
+      "paper_live_allowed": false,
+      "route_effect": "NO_PERMISSION_CHANGE"
+    },
+    {
+      "meaning": "Explicit final lock for all outputs in this phase.",
+      "paper_live_allowed": false,
+      "route_effect": "NO_TRADE_PERMISSION"
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "asymmetric_route_enabled_now": false,
+    "db_mutation": false,
+    "decision_apply_now": false,
+    "decision_binding_runtime_now": false,
+    "emergency_monitor_runtime_now": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "negative_memory_runtime_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "technical_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "started_at_utc": "2026-06-01T07:50:54.518035+00:00",
+  "summary": {
+    "all_binding_rules_locked": true,
+    "all_conflicts_locked": true,
+    "all_fail_closed_locked": true,
+    "all_permissions_false": true,
+    "binding_rule_count": 15,
+    "command_output_count": 7,
+    "conflict_count": 8,
+    "critical_memory_before_technical": true,
+    "emergency_precedence_first": true,
+    "fail_closed_count": 8,
+    "hard_block_before_asymmetric": true,
+    "input_layer_count": 7,
+    "no_match_no_permission": true,
+    "paper_live_never_granted": true,
+    "permission_lock_count": 8,
+    "precedence_count": 10,
+    "quality_label_count": 10,
+    "readmodel_binding_count": 8,
+    "route_effect_count": 7
+  },
+  "warnings": [
+    "DECISION_BINDING_RULE_MATRIX_PLAN_ONLY_NO_RUNTIME",
+    "EMERGENCY_MEMORY_HARD_BLOCKS_WIN_OVER_POSITIVE_SIGNALS",
+    "FAIL_CLOSED_ON_UNKNOWN_OR_MISSING_INPUTS",
+    "NO_MEMORY_MATCH_DOES_NOT_GRANT_PERMISSION",
+    "TECHNICAL_AND_ASYMMETRIC_SIGNALS_REVIEW_ONLY",
+    "PAPER_LIVE_WATCHLIST_SCORE_PERMISSION_LOCKED_FALSE",
+    "READMODEL_AND_DECISION_SCHEMA_NOT_APPLIED_NOW"
+  ]
+}

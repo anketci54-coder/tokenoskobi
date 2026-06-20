@@ -1,0 +1,609 @@
+{
+  "phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI",
+  "stamp": "20260522_124014",
+  "mode": "RISK_SECURITY_EXECUTION_VIEW_MODEL_DRYRUN_NOAPI",
+  "input_files": {
+    "exec_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_adjusted_execution_plan_engine_dryrun_noapi.json",
+    "exec_plan_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_adjusted_execution_plan_engine_plan_noapi.json",
+    "risk_8_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_center_8_center_connection_contract_plan_noapi.json",
+    "mev_mempool_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_mempool_protection_layer_plan_noapi.json"
+  },
+  "view_model_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI/20260522_124014/risk_security_execution_view_model_dryrun.json",
+  "panel_staging_out": "/root/tokenoskobi_clean_v1/_COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI/20260522_124014/risk_security_execution_panel_staging_dryrun.json",
+  "view_model_sha": "ad3531ff6a43a59a3f7d1c35884c0f7ae8a7d4c1b1dc1ada9bef60e6ef88167d",
+  "panel_staging_sha": "2b49fbbe588b311608b723b09713e196a7c7b9214bd22ba220318abc10f7c7b0",
+  "scenario_count": 4,
+  "passed_scenario_count": 4,
+  "card_counts": {
+    "risk": 4,
+    "command": 5,
+    "yasam": 2,
+    "sistem": 1,
+    "all": 12
+  },
+  "center_key_violations": [],
+  "view_model": {
+    "schema_version": "risk_security_execution_view_model_v1",
+    "phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_DRYRUN_NOAPI",
+    "generated_at": "20260522_124014",
+    "mode": "DRYRUN_ONLY_NO_ACTIVE_PANEL_WRITE",
+    "fixed_8_center_rule": {
+      "allowed_center_keys": [
+        "komuta",
+        "haber",
+        "onchain",
+        "balina",
+        "teknik",
+        "risk",
+        "yasam",
+        "sistem"
+      ],
+      "no_9th_center": true,
+      "no_parallel_main_line": true
+    },
+    "source": {
+      "exec_dryrun_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_adjusted_execution_plan_engine_dryrun_noapi.json",
+      "exec_plan_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_adjusted_execution_plan_engine_plan_noapi.json",
+      "risk_8_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_risk_security_center_8_center_connection_contract_plan_noapi.json",
+      "mev_mempool_json": "/root/tokenoskobi_clean_v1/data/coinoskobi_mev_mempool_protection_layer_plan_noapi.json"
+    },
+    "summary": {
+      "scenario_count": 4,
+      "passed_scenario_count": 4,
+      "normal_tp_policy": "TP1_TP2_TP3",
+      "vur_kac_tp_policy": "SINGLE_TP_ONLY",
+      "live_button_execution_locked": true,
+      "live_trade": false,
+      "paper_trade_execution": false,
+      "auto_trade_execution": false
+    },
+    "risk_security_center": {
+      "cards": [
+        {
+          "card_key": "risk_execution_summary",
+          "center_key": "risk",
+          "title": "Risk → İşlem Planı Özeti",
+          "status": "DRYRUN_OK",
+          "value": "4/4 senaryo geçti",
+          "details": "Risk seviyesi, MEV kapısı, slipaj ve buton durumları Komuta planına bağlandı."
+        },
+        {
+          "card_key": "mev_dynamic_slippage",
+          "center_key": "risk",
+          "title": "MEV / Dinamik Slipaj",
+          "status": "READY_DRYRUN",
+          "value": "LOW/MEDIUM hesaplı, HIGH/CRITICAL canlı kapalı",
+          "details": "Medium normal senaryoda 0.513%, vur-kaç senaryoda 0.426% slipaj üretildi."
+        },
+        {
+          "card_key": "blocked_gate",
+          "center_key": "risk",
+          "title": "Hard Block / Güvenlik Kapısı",
+          "status": "LOCKED",
+          "value": "BLOCKED -> entry 0",
+          "details": "Kontrat veya kaynak çelişkisi hard block ise paper/manuel kapalı, morg/otopsi rotası açık."
+        },
+        {
+          "card_key": "paper_only_gate",
+          "center_key": "risk",
+          "title": "High Risk Paper-Only",
+          "status": "READY_DRYRUN",
+          "value": "HIGH -> paper-only",
+          "details": "Yüksek riskte canlı/manuel kapalı; sadece paper gözlem planı üretilir."
+        }
+      ],
+      "execution_plan_inputs": [
+        {
+          "scenario_key": "normal_medium_reduce_size",
+          "symbol": "SIMNORM",
+          "risk_level": "MEDIUM",
+          "security_score": 63,
+          "mev_gate": "REDUCE_SIZE",
+          "entry_mode": "NORMAL",
+          "entry_amount_usd": 6.25,
+          "entry_level": 9.82e-05,
+          "dynamic_slippage_pct": 0.513,
+          "tp_policy": "TP1_TP2_TP3",
+          "sl_price": 9.64324e-05,
+          "single_tp_price": null,
+          "tp1_price": 0.000101146,
+          "tp2_price": 0.000104092,
+          "tp3_price": 0.000109984,
+          "paper_button": true,
+          "manual_button": true,
+          "manual_vur_kac_button": false,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        {
+          "scenario_key": "vur_kac_ready_single_tp",
+          "symbol": "SIMSCALP",
+          "risk_level": "MEDIUM",
+          "security_score": 58,
+          "mev_gate": "ALLOW",
+          "entry_mode": "VUR_KAC",
+          "entry_amount_usd": 8.75,
+          "entry_level": 0.00025,
+          "dynamic_slippage_pct": 0.426,
+          "tp_policy": "SINGLE_TP_ONLY",
+          "sl_price": 0.000247,
+          "single_tp_price": 0.0002555,
+          "tp1_price": null,
+          "tp2_price": null,
+          "tp3_price": null,
+          "paper_button": true,
+          "manual_button": false,
+          "manual_vur_kac_button": true,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        {
+          "scenario_key": "blocked_contract_or_conflict",
+          "symbol": "SIMBLOCK",
+          "risk_level": "CRITICAL",
+          "security_score": 92,
+          "mev_gate": "BLOCK",
+          "entry_mode": "BLOCKED",
+          "entry_amount_usd": 0.0,
+          "entry_level": null,
+          "dynamic_slippage_pct": null,
+          "tp_policy": "NONE",
+          "sl_price": null,
+          "single_tp_price": null,
+          "tp1_price": null,
+          "tp2_price": null,
+          "tp3_price": null,
+          "paper_button": false,
+          "manual_button": false,
+          "manual_vur_kac_button": false,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        {
+          "scenario_key": "high_risk_paper_only",
+          "symbol": "SIMPAPER",
+          "risk_level": "HIGH",
+          "security_score": 74,
+          "mev_gate": "PAPER_ONLY",
+          "entry_mode": "PAPER_ONLY",
+          "entry_amount_usd": 2.5,
+          "entry_level": 0.00109,
+          "dynamic_slippage_pct": null,
+          "tp_policy": "TP1_TP2_TP3",
+          "sl_price": 0.00107365,
+          "single_tp_price": null,
+          "tp1_price": 0.00111398,
+          "tp2_price": 0.00113905,
+          "tp3_price": 0.0011772,
+          "paper_button": true,
+          "manual_button": false,
+          "manual_vur_kac_button": false,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        }
+      ]
+    },
+    "command_center": {
+      "cards": [
+        {
+          "card_key": "normal_execution_plan",
+          "center_key": "komuta",
+          "title": "Normal İşlem Planı",
+          "status": "NORMAL_READY",
+          "plan": {
+            "scenario_key": "normal_medium_reduce_size",
+            "symbol": "SIMNORM",
+            "risk_level": "MEDIUM",
+            "security_score": 63,
+            "mev_gate": "REDUCE_SIZE",
+            "entry_mode": "NORMAL",
+            "entry_amount_usd": 6.25,
+            "entry_level": 9.82e-05,
+            "dynamic_slippage_pct": 0.513,
+            "tp_policy": "TP1_TP2_TP3",
+            "sl_price": 9.64324e-05,
+            "single_tp_price": null,
+            "tp1_price": 0.000101146,
+            "tp2_price": 0.000104092,
+            "tp3_price": 0.000109984,
+            "paper_button": true,
+            "manual_button": true,
+            "manual_vur_kac_button": false,
+            "auto_locked": true,
+            "live_execution": false,
+            "paper_trade_execution": false,
+            "passed": true
+          },
+          "rule": "Normal adaylarda TP1 / TP2 / TP3 aktif."
+        },
+        {
+          "card_key": "vur_kac_execution_plan",
+          "center_key": "komuta",
+          "title": "Vur-Kaç Planı",
+          "status": "VUR_KAC_READY",
+          "plan": {
+            "scenario_key": "vur_kac_ready_single_tp",
+            "symbol": "SIMSCALP",
+            "risk_level": "MEDIUM",
+            "security_score": 58,
+            "mev_gate": "ALLOW",
+            "entry_mode": "VUR_KAC",
+            "entry_amount_usd": 8.75,
+            "entry_level": 0.00025,
+            "dynamic_slippage_pct": 0.426,
+            "tp_policy": "SINGLE_TP_ONLY",
+            "sl_price": 0.000247,
+            "single_tp_price": 0.0002555,
+            "tp1_price": null,
+            "tp2_price": null,
+            "tp3_price": null,
+            "paper_button": true,
+            "manual_button": false,
+            "manual_vur_kac_button": true,
+            "auto_locked": true,
+            "live_execution": false,
+            "paper_trade_execution": false,
+            "passed": true
+          },
+          "rule": "Vur-kaç adaylarında sadece tek TP vardır; TP1/TP2/TP3 yok."
+        },
+        {
+          "card_key": "blocked_execution_plan",
+          "center_key": "komuta",
+          "title": "Bloklanan İşlem",
+          "status": "BLOCKED",
+          "plan": {
+            "scenario_key": "blocked_contract_or_conflict",
+            "symbol": "SIMBLOCK",
+            "risk_level": "CRITICAL",
+            "security_score": 92,
+            "mev_gate": "BLOCK",
+            "entry_mode": "BLOCKED",
+            "entry_amount_usd": 0.0,
+            "entry_level": null,
+            "dynamic_slippage_pct": null,
+            "tp_policy": "NONE",
+            "sl_price": null,
+            "single_tp_price": null,
+            "tp1_price": null,
+            "tp2_price": null,
+            "tp3_price": null,
+            "paper_button": false,
+            "manual_button": false,
+            "manual_vur_kac_button": false,
+            "auto_locked": true,
+            "live_execution": false,
+            "paper_trade_execution": false,
+            "passed": true
+          },
+          "rule": "Entry yok, paper/manuel yok, morg/otopsi rotası."
+        },
+        {
+          "card_key": "paper_only_execution_plan",
+          "center_key": "komuta",
+          "title": "Paper-Only İşlem",
+          "status": "PAPER_ONLY",
+          "plan": {
+            "scenario_key": "high_risk_paper_only",
+            "symbol": "SIMPAPER",
+            "risk_level": "HIGH",
+            "security_score": 74,
+            "mev_gate": "PAPER_ONLY",
+            "entry_mode": "PAPER_ONLY",
+            "entry_amount_usd": 2.5,
+            "entry_level": 0.00109,
+            "dynamic_slippage_pct": null,
+            "tp_policy": "TP1_TP2_TP3",
+            "sl_price": 0.00107365,
+            "single_tp_price": null,
+            "tp1_price": 0.00111398,
+            "tp2_price": 0.00113905,
+            "tp3_price": 0.0011772,
+            "paper_button": true,
+            "manual_button": false,
+            "manual_vur_kac_button": false,
+            "auto_locked": true,
+            "live_execution": false,
+            "paper_trade_execution": false,
+            "passed": true
+          },
+          "rule": "Yüksek riskte canlı/manuel kapalı, sadece paper planı."
+        },
+        {
+          "card_key": "button_state_summary",
+          "center_key": "komuta",
+          "title": "Buton Durumu",
+          "status": "AUTO_LOCKED",
+          "buttons": {
+            "paper_sim": "scenario based",
+            "manual_normal": "NORMAL only",
+            "manual_vur_kac": "VUR_KAC only",
+            "auto": "LOCKED",
+            "live": "FALSE"
+          },
+          "rule": "Canlı/auto işlem kapalı; tüm butonlar dry-run view-model verisidir."
+        }
+      ],
+      "action_buttons": {
+        "paper_sim_start": true,
+        "manual_trade_plan": true,
+        "manual_vur_kac_plan": true,
+        "auto_trade_locked": true,
+        "live_execution": false,
+        "send_morg_autopsy": true
+      }
+    },
+    "yasam_destek_center": {
+      "cards": [
+        {
+          "card_key": "execution_outcome_memory_stub",
+          "center_key": "yasam",
+          "title": "Outcome Memory Hazırlığı",
+          "status": "STUB_READY",
+          "details": "Planlanan entry/slippage/SL/TP ileride paper/outcome sonucu ile karşılaştırılacak."
+        },
+        {
+          "card_key": "morg_autopsy_route_stub",
+          "center_key": "yasam",
+          "title": "Morg / Otopsi Rotası",
+          "status": "BLOCK_ROUTE_READY",
+          "details": "BLOCKED senaryosu Yaşam Destek Merkezi’ne adli/klinik vaka olarak aktarılabilir."
+        }
+      ]
+    },
+    "sistem_kontrol_center": {
+      "cards": [
+        {
+          "card_key": "live_auto_lock",
+          "center_key": "sistem",
+          "title": "Live / Auto Kilit",
+          "status": "LOCKED",
+          "details": "live_trade=false, paper_trade_execution=false, auto_trade_execution=false."
+        }
+      ]
+    },
+    "all_cards": [
+      {
+        "card_key": "risk_execution_summary",
+        "center_key": "risk",
+        "title": "Risk → İşlem Planı Özeti",
+        "status": "DRYRUN_OK",
+        "value": "4/4 senaryo geçti",
+        "details": "Risk seviyesi, MEV kapısı, slipaj ve buton durumları Komuta planına bağlandı."
+      },
+      {
+        "card_key": "mev_dynamic_slippage",
+        "center_key": "risk",
+        "title": "MEV / Dinamik Slipaj",
+        "status": "READY_DRYRUN",
+        "value": "LOW/MEDIUM hesaplı, HIGH/CRITICAL canlı kapalı",
+        "details": "Medium normal senaryoda 0.513%, vur-kaç senaryoda 0.426% slipaj üretildi."
+      },
+      {
+        "card_key": "blocked_gate",
+        "center_key": "risk",
+        "title": "Hard Block / Güvenlik Kapısı",
+        "status": "LOCKED",
+        "value": "BLOCKED -> entry 0",
+        "details": "Kontrat veya kaynak çelişkisi hard block ise paper/manuel kapalı, morg/otopsi rotası açık."
+      },
+      {
+        "card_key": "paper_only_gate",
+        "center_key": "risk",
+        "title": "High Risk Paper-Only",
+        "status": "READY_DRYRUN",
+        "value": "HIGH -> paper-only",
+        "details": "Yüksek riskte canlı/manuel kapalı; sadece paper gözlem planı üretilir."
+      },
+      {
+        "card_key": "normal_execution_plan",
+        "center_key": "komuta",
+        "title": "Normal İşlem Planı",
+        "status": "NORMAL_READY",
+        "plan": {
+          "scenario_key": "normal_medium_reduce_size",
+          "symbol": "SIMNORM",
+          "risk_level": "MEDIUM",
+          "security_score": 63,
+          "mev_gate": "REDUCE_SIZE",
+          "entry_mode": "NORMAL",
+          "entry_amount_usd": 6.25,
+          "entry_level": 9.82e-05,
+          "dynamic_slippage_pct": 0.513,
+          "tp_policy": "TP1_TP2_TP3",
+          "sl_price": 9.64324e-05,
+          "single_tp_price": null,
+          "tp1_price": 0.000101146,
+          "tp2_price": 0.000104092,
+          "tp3_price": 0.000109984,
+          "paper_button": true,
+          "manual_button": true,
+          "manual_vur_kac_button": false,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        "rule": "Normal adaylarda TP1 / TP2 / TP3 aktif."
+      },
+      {
+        "card_key": "vur_kac_execution_plan",
+        "center_key": "komuta",
+        "title": "Vur-Kaç Planı",
+        "status": "VUR_KAC_READY",
+        "plan": {
+          "scenario_key": "vur_kac_ready_single_tp",
+          "symbol": "SIMSCALP",
+          "risk_level": "MEDIUM",
+          "security_score": 58,
+          "mev_gate": "ALLOW",
+          "entry_mode": "VUR_KAC",
+          "entry_amount_usd": 8.75,
+          "entry_level": 0.00025,
+          "dynamic_slippage_pct": 0.426,
+          "tp_policy": "SINGLE_TP_ONLY",
+          "sl_price": 0.000247,
+          "single_tp_price": 0.0002555,
+          "tp1_price": null,
+          "tp2_price": null,
+          "tp3_price": null,
+          "paper_button": true,
+          "manual_button": false,
+          "manual_vur_kac_button": true,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        "rule": "Vur-kaç adaylarında sadece tek TP vardır; TP1/TP2/TP3 yok."
+      },
+      {
+        "card_key": "blocked_execution_plan",
+        "center_key": "komuta",
+        "title": "Bloklanan İşlem",
+        "status": "BLOCKED",
+        "plan": {
+          "scenario_key": "blocked_contract_or_conflict",
+          "symbol": "SIMBLOCK",
+          "risk_level": "CRITICAL",
+          "security_score": 92,
+          "mev_gate": "BLOCK",
+          "entry_mode": "BLOCKED",
+          "entry_amount_usd": 0.0,
+          "entry_level": null,
+          "dynamic_slippage_pct": null,
+          "tp_policy": "NONE",
+          "sl_price": null,
+          "single_tp_price": null,
+          "tp1_price": null,
+          "tp2_price": null,
+          "tp3_price": null,
+          "paper_button": false,
+          "manual_button": false,
+          "manual_vur_kac_button": false,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        "rule": "Entry yok, paper/manuel yok, morg/otopsi rotası."
+      },
+      {
+        "card_key": "paper_only_execution_plan",
+        "center_key": "komuta",
+        "title": "Paper-Only İşlem",
+        "status": "PAPER_ONLY",
+        "plan": {
+          "scenario_key": "high_risk_paper_only",
+          "symbol": "SIMPAPER",
+          "risk_level": "HIGH",
+          "security_score": 74,
+          "mev_gate": "PAPER_ONLY",
+          "entry_mode": "PAPER_ONLY",
+          "entry_amount_usd": 2.5,
+          "entry_level": 0.00109,
+          "dynamic_slippage_pct": null,
+          "tp_policy": "TP1_TP2_TP3",
+          "sl_price": 0.00107365,
+          "single_tp_price": null,
+          "tp1_price": 0.00111398,
+          "tp2_price": 0.00113905,
+          "tp3_price": 0.0011772,
+          "paper_button": true,
+          "manual_button": false,
+          "manual_vur_kac_button": false,
+          "auto_locked": true,
+          "live_execution": false,
+          "paper_trade_execution": false,
+          "passed": true
+        },
+        "rule": "Yüksek riskte canlı/manuel kapalı, sadece paper planı."
+      },
+      {
+        "card_key": "button_state_summary",
+        "center_key": "komuta",
+        "title": "Buton Durumu",
+        "status": "AUTO_LOCKED",
+        "buttons": {
+          "paper_sim": "scenario based",
+          "manual_normal": "NORMAL only",
+          "manual_vur_kac": "VUR_KAC only",
+          "auto": "LOCKED",
+          "live": "FALSE"
+        },
+        "rule": "Canlı/auto işlem kapalı; tüm butonlar dry-run view-model verisidir."
+      },
+      {
+        "card_key": "execution_outcome_memory_stub",
+        "center_key": "yasam",
+        "title": "Outcome Memory Hazırlığı",
+        "status": "STUB_READY",
+        "details": "Planlanan entry/slippage/SL/TP ileride paper/outcome sonucu ile karşılaştırılacak."
+      },
+      {
+        "card_key": "morg_autopsy_route_stub",
+        "center_key": "yasam",
+        "title": "Morg / Otopsi Rotası",
+        "status": "BLOCK_ROUTE_READY",
+        "details": "BLOCKED senaryosu Yaşam Destek Merkezi’ne adli/klinik vaka olarak aktarılabilir."
+      },
+      {
+        "card_key": "live_auto_lock",
+        "center_key": "sistem",
+        "title": "Live / Auto Kilit",
+        "status": "LOCKED",
+        "details": "live_trade=false, paper_trade_execution=false, auto_trade_execution=false."
+      }
+    ]
+  },
+  "live_counts_before": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "live_counts_after": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "active_panel_write": 0,
+    "panel_staging_write_only": true,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0,
+    "auto_trade_execution": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_RISK_SECURITY_VIEW_MODEL_EXECUTION_PLAN_TEMP_DB_EVENT_DRYRUN_NOAPI"
+}

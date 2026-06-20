@@ -1,0 +1,325 @@
+{
+  "phase": "PHASE20A_WHALE_ENTITY_INTELLIGENCE_ARCHITECTURE_PLAN_NOAPI",
+  "started_at": "2026-06-04T16:07:57.708781+00:00",
+  "finished_at": "2026-06-04T16:07:57.750933+00:00",
+  "final_gate": "PASS_PHASE20A_WHALE_ENTITY_ARCHITECTURE_PLAN_NOAPI",
+  "current_state": "WHALE_ENTITY_ARCHITECTURE_PLANNED_NO_WRITES_TO_CORE",
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "db_mutation": false,
+    "schema_apply": false,
+    "active_panel_write": false,
+    "panel_preview_write": false,
+    "nginx_or_auth_change": false,
+    "service_restart": false,
+    "timer_change": false,
+    "runner_start": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "token_specific_patch": false,
+    "report_json_write_only": true
+  },
+  "inputs": {
+    "handoff_path": "/root/tokenoskobi_clean_v1/data/phase20_new_screen_handoff_note_from_phase19w.md",
+    "handoff_exists": true,
+    "handoff_loaded": true,
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "handoff_points": [
+      "# Phase 20 Yeni Ekran Handoff Notu",
+      "PHASE20A_WHALE_ENTITY_INTELLIGENCE_ARCHITECTURE_PLAN_NOAPI",
+      "- CEX exemption filter: Binance/OKX gibi borsa hot wallet adresleri kök funder sayılmayacak.",
+      "- Dust attack filter: bilinen cüzdana gelen inbound çöp transfer whale alımı sayılmayacak.",
+      "- External label sadece sinyal olacak; hard deny için tek başına otorite olmayacak."
+    ]
+  },
+  "before": {
+    "db": {
+      "db_exists": true,
+      "db_sha256": "6671d81b13697bee3c92aebd59fe499bd9207f0b979a37f31e1b6830eba2fa0f",
+      "sqlite_integrity": "ok",
+      "foreign_key_check_count": 0,
+      "table_counts": {
+        "tokens": 19,
+        "pairs": 19,
+        "liquidity_snapshots": 46,
+        "market_snapshots": 46,
+        "raw_events": null,
+        "confirmation_events": 0,
+        "radar_alerts": 0,
+        "whale_wallet_events": 0,
+        "wallet_cluster_links": 0,
+        "token_radar_scores": 0,
+        "reputation_micro_log_events": null,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null
+      },
+      "table_count_total": 264,
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "checklist_sha256": "1ab9abd4d66593945592d50c8df3fe33a870bb829e970905bd0506196e6fd8f7"
+  },
+  "after": {
+    "db": {
+      "db_exists": true,
+      "db_sha256": "6671d81b13697bee3c92aebd59fe499bd9207f0b979a37f31e1b6830eba2fa0f",
+      "sqlite_integrity": "ok",
+      "foreign_key_check_count": 0,
+      "table_counts": {
+        "tokens": 19,
+        "pairs": 19,
+        "liquidity_snapshots": 46,
+        "market_snapshots": 46,
+        "raw_events": null,
+        "confirmation_events": 0,
+        "radar_alerts": 0,
+        "whale_wallet_events": 0,
+        "wallet_cluster_links": 0,
+        "token_radar_scores": 0,
+        "reputation_micro_log_events": null,
+        "paper_positions": null,
+        "paper_orders": null,
+        "live_orders": null
+      },
+      "table_count_total": 264,
+      "error": null
+    },
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "handoff_sha256": "c47d83a2ce87121f3399c2cb12771ed99e01bfb76a28cedbe7bdad02b8c693a1",
+    "checklist_sha256_before_write": "1ab9abd4d66593945592d50c8df3fe33a870bb829e970905bd0506196e6fd8f7"
+  },
+  "immutability": {
+    "db_unchanged": true,
+    "active_index_unchanged": true
+  },
+  "health": {
+    "health_ok": true,
+    "sqlite_integrity": "ok",
+    "foreign_key_check_count": 0
+  },
+  "architecture_principles": [
+    {
+      "id": "P01_ENTITY_FIRST_NOT_WALLET_FIRST",
+      "rule": "Balina zekası tek cüzdan takibi değil; cüzdanlar entity/cluster altında anlamlandırılır.",
+      "reason": "Tek cüzdan seviyesi yanlış güven üretir; entity davranışı gerekir."
+    },
+    {
+      "id": "P02_EVIDENCE_BEFORE_LABEL",
+      "rule": "Her entity etiketi evidence_event ve confidence ile taşınır; kanıtsız whale etiketi yok.",
+      "reason": "Manifesto: veri varsa veri kadar konuş; kanıtsız bilgi yok."
+    },
+    {
+      "id": "P03_RISK_CENTER_HUB",
+      "rule": "Whale ekranı bağımsız karar motoru değil; Risk Güvenlik Merkezi’ne bağlanan istihbarat katmanıdır.",
+      "reason": "Wallet/whale sinyali kontrat, likidite, haber ve onchain riskle birleşmeden aksiyon üretmez."
+    },
+    {
+      "id": "P04_NO_TRADE_SIGNAL_IN_PHASE20",
+      "rule": "Faz 20A trade/paper/live sinyali üretmez; sadece mimari plan ve ileriki ekran veri sözleşmesi çıkarır.",
+      "reason": "Paper/live kilitli kalmalı."
+    },
+    {
+      "id": "P05_UNKNOWN_IS_A_STATE",
+      "rule": "Bilinmeyen deployer, holder, LP owner, cluster relation gibi durumlar PASS değil UNKNOWN/UNRESOLVED olarak tutulur.",
+      "reason": "Eksik veri temiz kabul edilmez."
+    },
+    {
+      "id": "P06_MVP_SMALL_CORE",
+      "rule": "İlk mimari küçük çekirdek olacak; aşırı modül ve süs eklenmeyecek.",
+      "reason": "Phase 17 anti-overengineering çizgisi korunur."
+    }
+  ],
+  "entity_model": [
+    {
+      "layer": "wallet",
+      "description": "Ham adres seviyesi; transfer, swap, LP, deployer, funding hareketleri burada görülür.",
+      "examples": [
+        "EOA",
+        "contract wallet",
+        "deployer candidate",
+        "LP interaction wallet"
+      ]
+    },
+    {
+      "layer": "cluster",
+      "description": "Birbiriyle ilişki ihtimali olan adres grubu; kesinlik seviyesi ayrı tutulur.",
+      "examples": [
+        "same funding source",
+        "same first interaction",
+        "repeated co-movement",
+        "LP/deployer adjacency"
+      ]
+    },
+    {
+      "layer": "entity",
+      "description": "Panelde gösterilecek anlamlı balina/aktör objesi; cluster + evidence + confidence birleşimidir.",
+      "examples": [
+        "known whale candidate",
+        "sniper cluster candidate",
+        "LP controller candidate",
+        "deployer-linked actor"
+      ]
+    },
+    {
+      "layer": "risk_link",
+      "description": "Entity davranışının Risk Güvenlik Merkezi’ne bağlandığı kontrol noktasıdır.",
+      "examples": [
+        "large pre-pump accumulation",
+        "LP removal proximity",
+        "deployer-adjacent flow",
+        "fresh wallet swarm"
+      ]
+    }
+  ],
+  "screen_modules": [
+    {
+      "module": "Whale Entity Overview",
+      "purpose": "Entity sayısı, açık soru sayısı, yüksek risk entity sayısı, izleme kuyruğu özeti.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Entity Cards",
+      "purpose": "Her entity için confidence, evidence count, linked token/pair, son hareket, risk bağlantısı.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Wallet Cluster Map",
+      "purpose": "Adresleri cluster/entity altında görselleştiren kontrollü harita.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Flow Timeline",
+      "purpose": "Büyük transfer, swap, LP hareketi, funding ve çıkış akışlarını zamana göre gösterir.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Token Exposure Panel",
+      "purpose": "Entity’nin hangi token/pair üzerinde ne tür etkileşim gösterdiğini listeler.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Risk Center Links",
+      "purpose": "Entity sinyalinin Risk Güvenlik Merkezi’nde hangi gate’e bağlanacağını gösterir.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Evidence Drawer",
+      "purpose": "Her etiketin neden verildiğini kanıt satırlarıyla gösterir.",
+      "phase20a_status": "PLAN_ONLY"
+    },
+    {
+      "module": "Unknowns / Required Tests Queue",
+      "purpose": "Eksik deployer, holder, LP, funding, reserve, token relation gibi testleri sıraya alır.",
+      "phase20a_status": "PLAN_ONLY"
+    }
+  ],
+  "future_data_contract": [
+    {
+      "future_table": "whale_entity_registry_v1",
+      "role": "Entity ana kayıtları; entity_uid, chain, status, confidence, first_seen, last_seen.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    },
+    {
+      "future_table": "whale_entity_wallet_links_v1",
+      "role": "Entity-cluster-wallet bağları; wallet_address, relation_type, evidence_uid, confidence.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    },
+    {
+      "future_table": "whale_entity_flow_events_v1",
+      "role": "Transfer/swap/LP/funding akış olayları; yön, tutar, token, tx hash, block time.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    },
+    {
+      "future_table": "whale_entity_token_exposure_v1",
+      "role": "Entity-token/pair exposure özeti; accumulation, distribution, LP contact, deployer adjacency.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    },
+    {
+      "future_table": "whale_entity_evidence_events_v1",
+      "role": "Her entity/cluster etiketi için kanıt satırı.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    },
+    {
+      "future_table": "whale_entity_risk_links_v1",
+      "role": "Risk Güvenlik Merkezi ile bağlantı; risk gate, severity, status, unresolved tests.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    },
+    {
+      "future_table": "whale_entity_screen_readmodel_v1",
+      "role": "Panel ekranının okuyacağı sade JSON/readmodel çıktısı.",
+      "phase20a_action": "PLAN_ONLY_NO_SCHEMA"
+    }
+  ],
+  "classification_lanes": [
+    {
+      "lane": "OBSERVE",
+      "meaning": "İzlenir; kanıt var ama risk/aksiyon yok.",
+      "trade_allowed": false
+    },
+    {
+      "lane": "RISK_WATCH",
+      "meaning": "Balina davranışı risk merkeziyle ilişkilidir; daha fazla kanıt gerekir.",
+      "trade_allowed": false
+    },
+    {
+      "lane": "HIGH_RISK_ENTITY",
+      "meaning": "Entity davranışı rug/LP/drain/deployer-risk gibi bloklayıcı senaryoya yakındır.",
+      "trade_allowed": false
+    },
+    {
+      "lane": "UNKNOWN_NEEDS_TEST",
+      "meaning": "Veri eksik; temiz veya riskli denemez.",
+      "trade_allowed": false
+    },
+    {
+      "lane": "BLOCKED",
+      "meaning": "Yeterli risk kanıtı nedeniyle watch/clean/paper rotası kapalıdır.",
+      "trade_allowed": false
+    }
+  ],
+  "future_phase_chain": [
+    {
+      "phase": "PHASE20B_WHALE_ENTITY_DATA_CONTRACT_AND_SCHEMA_DRYRUN_NOAPI",
+      "goal": "Sadece geçici DB veya dry-run doğrulama ile tablo sözleşmesini test etmek; canlı schema yok.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20C_WHALE_ENTITY_READMODEL_BUILDER_PLAN_NOAPI",
+      "goal": "Panelin okuyacağı whale entity JSON/readmodel builder planını çıkarmak.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20D_WHALE_ENTITY_SCREEN_WIREFRAME_PLAN_NOAPI",
+      "goal": "Aktif panel yazmadan ekran bölümlerini ve veri bağlarını planlamak.",
+      "requires_approval": false
+    },
+    {
+      "phase": "PHASE20E_WHALE_ENTITY_SCHEMA_REAL_AFTER_EXPLICIT_APPROVAL",
+      "goal": "Sadece açık onaydan sonra canlı DB’de boş schema tablolarını oluşturmak.",
+      "requires_approval": true,
+      "approval_sentence": "PHASE20E whale entity schema real için onay veriyorum"
+    }
+  ],
+  "hard_safety_rules": [
+    "API çağrısı yok",
+    "external network yok",
+    "DB row insert/update/delete yok",
+    "canlı schema apply yok",
+    "aktif 8096 panel yazımı yok",
+    "nginx/auth değişikliği yok",
+    "service restart yok",
+    "timer enable/disable yok",
+    "runner başlatma yok",
+    "paper/live trade yok",
+    "token-specific hack/yama yok"
+  ],
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE20A_WHALE_ENTITY_INTELLIGENCE_ARCHITECTURE_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase20a_whale_entity_intelligence_architecture_plan_noapi.json",
+    "rows_jsonl": "/root/tokenoskobi_clean_v1/data/phase20a_whale_entity_intelligence_architecture_plan_noapi_rows.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE20A_WHALE_ENTITY_INTELLIGENCE_ARCHITECTURE_PLAN_NOAPI/20260604_190757"
+  }
+}

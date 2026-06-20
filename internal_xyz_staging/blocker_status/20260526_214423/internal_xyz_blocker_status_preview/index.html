@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Internal Blocker Status Preview</title>
+  <style>
+    :root {
+      --bg:#050b12; --panel:#0b1420; --line:#1f3b4a; --text:#d8f7ff;
+      --muted:#85a8b5; --warn:#ffd166; --ok:#4ff0a8; --bad:#ff6b6b;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(circle at top,#0b2230,#050b12 60%); color:var(--text); font-family:Arial,sans-serif; }
+    .wrap { max-width:1180px; margin:0 auto; padding:24px; }
+    .top { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:18px; }
+    .title { font-size:26px; font-weight:800; letter-spacing:.03em; }
+    .badge { border:1px solid var(--line); border-radius:999px; padding:8px 12px; color:var(--warn); background:#09131d; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+    .card { border:1px solid var(--line); border-radius:18px; background:rgba(11,20,32,.86); padding:16px; box-shadow:0 0 24px rgba(0,220,255,.08); }
+    .card h2 { margin:0 0 12px; font-size:15px; color:#7ee7ff; letter-spacing:.08em; }
+    .row { display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid rgba(255,255,255,.06); padding:7px 0; }
+    .row:last-child { border-bottom:0; }
+    .k { color:var(--muted); }
+    .v { text-align:right; font-weight:700; }
+    .lock { color:var(--bad); }
+    .ok { color:var(--ok); }
+    .warn { color:var(--warn); }
+    .footer { margin-top:14px; color:var(--muted); font-size:13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="title">TOKENOSKOBI / COINOSKOBI INTERNAL BLOCKER STATUS</div>
+        <div class="footer">.xyz internal workspace preview only · COM exposure: NO · Active panel change: NO · Database change: NO</div>
+      </div>
+      <div class="badge">CURRENT DECISION: WAIT_MORE_DATA_WITH_MARKET_RISK_WATCH</div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>TARGET</h2>
+        <div class="row"><span class="k">Token</span><span class="v">币安好友</span></div>
+        <div class="row"><span class="k">Chain</span><span class="v">bnb</span></div>
+        <div class="row"><span class="k">Token UID</span><span class="v">tok_0e7297b7ee9e92cc0f16f592</span></div>
+        <div class="row"><span class="k">Pair UID</span><span class="v">pair_b8e97a69da61071e7cb09a5c</span></div>
+        <div class="row"><span class="k">Token address</span><span class="v">0xa4b79ddc...0e4444</span></div>
+        <div class="row"><span class="k">Pair address</span><span class="v">0x28c4720d...50bc7b</span></div>
+      </section>
+
+      <section class="card">
+        <h2>MARKET CONTEXT</h2>
+        <div class="row"><span class="k">Liquidity USD</span><span class="v">23591.65</span></div>
+        <div class="row"><span class="k">Price USD</span><span class="v">3.878e-05</span></div>
+        <div class="row"><span class="k">TX 1H</span><span class="v">3.0</span></div>
+        <div class="row"><span class="k">Volume 1H USD</span><span class="v">74.5</span></div>
+        <div class="row"><span class="k">Buy / Sell 1H</span><span class="v">2.0 / 1.0</span></div>
+        <div class="row"><span class="k">Price impact</span><span class="v">0.1261565229907563</span></div>
+      </section>
+
+      <section class="card">
+        <h2>GATE STATUS</h2>
+        <div class="row"><span class="k">Deployer</span><span class="v warn">WAIT_MORE_DATA_DEPLOYER</span></div>
+        <div class="row"><span class="k">Holder</span><span class="v warn">WAIT_MORE_DATA_HOLDER</span></div>
+        <div class="row"><span class="k">LP</span><span class="v warn">WAIT_MORE_DATA_LP</span></div>
+        <div class="row"><span class="k">MEV / Permission</span><span class="v ok">PROOF_STAGED_CLEAN_NO_HARD_BLOCK</span></div>
+      </section>
+
+      <section class="card">
+        <h2>EXECUTION LOCK</h2>
+        <div class="row"><span class="k">Candidate execution state</span><span class="v lock">DISABLED</span></div>
+        <div class="row"><span class="k">Real execution state</span><span class="v lock">DISABLED</span></div>
+        <div class="row"><span class="k">Automation enqueue state</span><span class="v lock">DISABLED</span></div>
+        <div class="row"><span class="k">Risk approval state</span><span class="v lock">DISABLED</span></div>
+      </section>
+
+      <section class="card">
+        <h2>REMAINING BLOCKERS</h2>
+        <div class="row"><span class="k">1</span><span class="v warn">DEPLOYER</span></div>
+        <div class="row"><span class="k">2</span><span class="v warn">HOLDER</span></div>
+        <div class="row"><span class="k">3</span><span class="v warn">LP</span></div>
+      </section>
+
+      <section class="card">
+        <h2>NEXT</h2>
+        <div class="row"><span class="k">Primary</span><span class="v">Q6B repaired review</span></div>
+        <div class="row"><span class="k">Alternative</span><span class="v">revisit source gaps</span></div>
+        <div class="row"><span class="k">Supplement</span><span class="v">route / MEV / gas simulation plan</span></div>
+      </section>
+    </div>
+
+    <div class="footer">Internal preview dry-run only. No API, database update, active panel change, enqueue action, or trading action.</div>
+  </div>
+</body>
+</html>

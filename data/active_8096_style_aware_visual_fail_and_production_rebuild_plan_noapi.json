@@ -1,0 +1,229 @@
+{
+  "phase": "ACTIVE_8096_STYLE_AWARE_VISUAL_FAIL_AND_PRODUCTION_REBUILD_PLAN_NOAPI",
+  "started_at": "2026-05-20 21:56:07",
+  "final_gate": "PASS",
+  "decision": "TECHNICAL_PASS_VISUAL_PRODUCT_FAIL_REBUILD_REQUIRED",
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "db_mutation": false,
+    "active_panel_mutation": false,
+    "asset_mutation": false,
+    "style_mutation": false,
+    "binding_mutation": false,
+    "service_restart": false,
+    "dns_nginx_ssl_mutation": false,
+    "plan_only": true,
+    "rollback_executed": false,
+    "source_files_unchanged": true,
+    "db_unchanged": true
+  },
+  "current_status": {
+    "active_url": "http://159.195.74.132:8096/?v=visual_fail_rebuild_plan",
+    "technical_pass": true,
+    "visual_fail_confirmed": true,
+    "technical_marker_count": 4,
+    "bad_test_marker_count": 0,
+    "active_static_counts": {
+      "circle_mask_v1": 22,
+      "route_path_merkez": 83,
+      "preview_word": 98,
+      "styled_word": 4
+    },
+    "http": {
+      "ok": true,
+      "status": 200,
+      "body_len": 81228,
+      "required_marker_count": 4,
+      "bad_test_marker_count": 0,
+      "circle_mask_count": 22,
+      "route_path_count": 83,
+      "preview_word_count": 98,
+      "styled_word_count": 4,
+      "error": null
+    },
+    "rollback_status": {
+      "replace_rollback": "/root/tokenoskobi_clean_v1/backups/active_8096_style_aware_panel_replace_real_20260520_212801/ROLLBACK_ACTIVE_8096_STYLE_AWARE_PANEL_REPLACE_REAL.sh",
+      "replace_rollback_exists": true,
+      "mobile_repair_rollback": "/root/tokenoskobi_clean_v1/backups/active_8096_mobile_layout_repair_real_20260520_214609/ROLLBACK_ACTIVE_8096_MOBILE_LAYOUT_REPAIR_REAL.sh",
+      "mobile_repair_rollback_exists": true
+    }
+  },
+  "visual_fail_signals": [
+    "wrong_icon_wrong_center_risk",
+    "catalog_layout_served_as_production",
+    "route_debug_text_visible",
+    "circle_mask_v1_badge_visible",
+    "oversized_cards_and_fonts",
+    "horizontal_overflow_on_mobile",
+    "module_center_separation_not_enforced"
+  ],
+  "asset_spine": {
+    "icon_registry_exists": true,
+    "icon_registry_sha256": "160dfcb5575fead6424c9ee44acf0570ffb8922156170ac98189e0cef316fc90",
+    "icon_registry_rough_count": 77,
+    "icon_binding_exists": true,
+    "icon_binding_sha256": "6a444713434d6a6c59ad341448d8bdb8ac3bd96e108ce5f55d230cf2b5b29362",
+    "icon_binding_rough_count": 15,
+    "route_map_exists": true,
+    "route_map_sha256": "f27e9f61897a1dafa892c9fdb7df335943ffe12c96cc91345cf3b91fd1320266",
+    "route_map_rough_count": 17,
+    "subject_graph_exists": true,
+    "subject_graph_sha256": "216340241a57bdd1dc1517746c4d698803b6fc5b513dcb25e9f77bb9932af97b",
+    "subject_graph_rough_count": 77,
+    "card_mask_style_exists": true,
+    "card_mask_style_sha256": "0183202bafec66c4e39d646d024172772da7662fe9d664580431815a852f90fa",
+    "card_mask_style_targets": 8
+  },
+  "center_policy": {
+    "komuta_merkezi": [
+      "canli_karar",
+      "paper_trade_ozeti",
+      "acik_pozisyonlar",
+      "sl_tp_durumu",
+      "aksiyon_gecmisi",
+      "merkez_skorlari"
+    ],
+    "haber_akis_merkezi": [
+      "haber_etki_skoru",
+      "kritik_haber",
+      "haber_gecmisi_arsiv",
+      "kaynak_guvenilirligi",
+      "narrative_tema_takibi",
+      "kritik_takvim_launch_calendar",
+      "ico_ido_drop_radar",
+      "airdrop_claim_takibi",
+      "ceviri_ve_ozet"
+    ],
+    "onchain_veri_merkezi": [
+      "token_kimlik_karti",
+      "likidite_havuz",
+      "holder_dagilimi",
+      "kontrat_risk",
+      "tx_akis",
+      "deployer_analizi"
+    ],
+    "balina_takip_merkezi": [
+      "whale_wallet_izleme",
+      "akilli_para_takibi",
+      "buyuk_transfer_alarmi",
+      "borsa_giris_cikis",
+      "wallet_risk_profili"
+    ],
+    "teknik_analiz_merkezi": [
+      "trend",
+      "hacim",
+      "destek_direnc",
+      "momentum",
+      "volatilite"
+    ],
+    "risk_guvenlik_merkezi": [
+      "risk_skoru",
+      "rug_honeypot",
+      "slippage",
+      "kilit_kontrol",
+      "uyari_sistemi"
+    ],
+    "yasam_destek_merkezi": [
+      "klinik",
+      "morg",
+      "otopsi",
+      "olay_yeri_inceleme",
+      "adli_sorusturma",
+      "supheliler_spam_cuzdanlar"
+    ],
+    "sistem_kontrol_merkezi": [
+      "sistem_saglik",
+      "veri_zamani",
+      "api_durum",
+      "panel_durum",
+      "log_izleme"
+    ]
+  },
+  "production_rules": [
+    {
+      "rule": "NO_CATALOG_LAYOUT_AS_PRODUCTION",
+      "status": "REQUIRED",
+      "details": "77 route/catalog cards must not be the customer production home."
+    },
+    {
+      "rule": "CENTER_SEPARATION",
+      "status": "REQUIRED",
+      "details": "Each center may show only its own modules/icons; cross-panel mixing forbidden."
+    },
+    {
+      "rule": "NO_DEBUG_VISIBLE",
+      "status": "REQUIRED",
+      "details": "circle_mask_v1, styled, preview, /merkez route paths hidden in customer view."
+    },
+    {
+      "rule": "MAIN_HOME_FIRST",
+      "status": "REQUIRED",
+      "details": "Main screen should show executive dashboard, selected center cards, and actionable summaries."
+    },
+    {
+      "rule": "CENTER_DETAIL_SECOND",
+      "status": "REQUIRED",
+      "details": "Opening a center should render its own workspace, not global catalog."
+    },
+    {
+      "rule": "DESKTOP_TABLET_PRIORITY",
+      "status": "REQUIRED",
+      "details": "Desktop/tablet production layout is priority; mobile is optional/non-blocking polish."
+    },
+    {
+      "rule": "PREVIEW_BEFORE_ACTIVE",
+      "status": "REQUIRED",
+      "details": "Next production rebuild must be built on a separate preview port before any active 8096 apply."
+    },
+    {
+      "rule": "SAFE_SOURCE_SPINE_ONLY",
+      "status": "REQUIRED",
+      "details": "Use icon_registry, icon_binding, route_map, subject_graph, style file as sources; do not overwrite them."
+    }
+  ],
+  "planned_next_steps": [
+    {
+      "step_no": 1,
+      "phase": "ACTIVE_8096_STYLE_AWARE_VISUAL_FAIL_RECORD_NOAPI",
+      "status": "DONE_IN_THIS_PHASE",
+      "purpose": "Record technical PASS but product/visual FAIL."
+    },
+    {
+      "step_no": 2,
+      "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_LAYOUT_PLAN_NOAPI",
+      "status": "NEXT",
+      "purpose": "Plan a real production customer/control layout with center separation."
+    },
+    {
+      "step_no": 3,
+      "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_PREVIEW_BUILD_AFTER_APPROVAL",
+      "status": "WAIT",
+      "purpose": "Build separate preview only, not active 8096."
+    },
+    {
+      "step_no": 4,
+      "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_PREVIEW_POST_AUDIT_NOAPI",
+      "status": "WAIT",
+      "purpose": "Audit wrong icon/wrong center/debug/overflow issues."
+    },
+    {
+      "step_no": 5,
+      "phase": "ACTIVE_8096_PRODUCTION_PANEL_APPLY_PLAN_NOAPI",
+      "status": "WAIT",
+      "purpose": "Only after visual acceptance of preview."
+    },
+    {
+      "step_no": 6,
+      "phase": "DOMAIN_DNS_CHECK_PLAN_NOAPI",
+      "status": "LATER",
+      "purpose": "Only after active 8096 production view is accepted."
+    }
+  ],
+  "outputs": {
+    "json": "/root/tokenoskobi_clean_v1/data/active_8096_style_aware_visual_fail_and_production_rebuild_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/active_8096_style_aware_visual_fail_and_production_rebuild_plan_rows_noapi.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_ACTIVE_8096_STYLE_AWARE_VISUAL_FAIL_AND_PRODUCTION_REBUILD_PLAN_NOAPI.md"
+  },
+  "next_recommended_phase": "PANEL_PRODUCTION_CENTER_SEPARATED_LAYOUT_PLAN_NOAPI"
+}

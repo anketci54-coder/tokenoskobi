@@ -1,0 +1,4634 @@
+{
+  "canonical_index_count": 178,
+  "canonical_table_count": 37,
+  "conflict_review": [
+    {
+      "all_sources": [
+        "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232550/phase5a_future_schema_plan_noapi.sql",
+        "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+        "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql"
+      ],
+      "candidate_count": 3,
+      "canonical_rule": "prefer_latest_phase_then_widest_definition",
+      "chosen_field_count": 17,
+      "chosen_fields": [
+        "outcome_uid",
+        "event_ts_utc",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "linked_decision_uid",
+        "linked_preflight_uid",
+        "linked_paper_decision_uid",
+        "outcome_label",
+        "outcome_window",
+        "pnl_pct",
+        "max_runup_pct",
+        "max_drawdown_pct",
+        "liquidity_change_pct",
+        "evidence_hash",
+        "payload_json",
+        "created_at_utc"
+      ],
+      "chosen_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "definition_variant_count": 2,
+      "review_required_before_live_apply": true,
+      "table": "outcome_memory_events_v2"
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI",
+  "finished_at_utc": "2026-05-31T21:09:36.376527+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "canonical_sql_sha": "6c0e171358b49fb3bb838f1ef07183897f37ca35942690d3147299e20a564f12",
+    "db_sha_end": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "db_sha_start": "668cb6080ca0101b27239b519ab2a32847d32332d1e2f435888e0328407b04ba",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "temp_db_sha": "06467214b22cf99f62b38d36eb2f873c008786557857d42d86c750760f078503"
+  },
+  "live_counts_after": {
+    "center_signal_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "deployer_wallet_events": 0,
+    "fusion_score_events_v1": 0,
+    "holder_distribution_events": 0,
+    "holder_snapshots": 0,
+    "life_gate_decisions": 0,
+    "liquidity_snapshots": 46,
+    "live_data_quality_events": 99,
+    "market_snapshots": 46,
+    "outcome_memory_events_v1": 0,
+    "outcome_memory_events_v2": null,
+    "pairs": 19,
+    "paper_trade_executions": 0,
+    "paper_trade_outcomes": 0,
+    "paper_trade_plans": 2,
+    "paper_trade_positions": 0,
+    "tokens": 19
+  },
+  "live_counts_before": {
+    "center_signal_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "deployer_wallet_events": 0,
+    "fusion_score_events_v1": 0,
+    "holder_distribution_events": 0,
+    "holder_snapshots": 0,
+    "life_gate_decisions": 0,
+    "liquidity_snapshots": 46,
+    "live_data_quality_events": 99,
+    "market_snapshots": 46,
+    "outcome_memory_events_v1": 0,
+    "outcome_memory_events_v2": null,
+    "pairs": 19,
+    "paper_trade_executions": 0,
+    "paper_trade_outcomes": 0,
+    "paper_trade_plans": 2,
+    "paper_trade_positions": 0,
+    "tokens": 19
+  },
+  "live_counts_unchanged": true,
+  "new_tables_in_temp": [
+    "cascading_execution_filter_eval_events_v1",
+    "cascading_execution_filter_policy_v1",
+    "command_decision_time_series_v1",
+    "data_quality_time_series_v1",
+    "deployer_receipt_evidence_events_v1",
+    "evidence_event_ledger_v1",
+    "evidence_object_store_v1",
+    "execution_preflight_audit_events_v1",
+    "execution_rpc_budget_guard_events_v1",
+    "execution_safety_gate_events_v1",
+    "execution_safety_gate_events_v2",
+    "execution_safety_policy_v1",
+    "execution_safety_time_series_v1",
+    "holder_distribution_time_series_v1",
+    "initial_holder_evidence_events_v1",
+    "liquidity_depth_time_series_v1",
+    "market_ohlcv_time_series_v1",
+    "micro_route_size_plan_events_v1",
+    "model_feedback_candidate_events_v1",
+    "negative_memory_guard_events_v1",
+    "news_impact_events_v1",
+    "news_narrative_time_series_v1",
+    "outcome_lesson_events_v1",
+    "outcome_memory_events_v2",
+    "outcome_observation_window_events_v1",
+    "paper_observation_time_series_v1",
+    "paper_route_decision_events_v1",
+    "replay_case_registry_v1",
+    "risk_gate_events_v1",
+    "risk_state_time_series_v1",
+    "route_performance_memory_events_v1",
+    "technical_signal_events_v1",
+    "token_lifecycle_autopsy_events_v1",
+    "token_time_series_events_v1",
+    "transaction_activity_time_series_v1",
+    "wallet_whale_flow_time_series_v1",
+    "whale_flow_events_v1"
+  ],
+  "next_phase": "PHASE5F_SCHEMA_APPLY_PLAN_NOAPI",
+  "outputs": {
+    "apply_rows": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935/phase5e2_canonical_temp_apply_results.jsonl",
+    "canonical_sql": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935/phase5e2_canonical_combined_schema_temp_apply_noapi.sql",
+    "canonical_table_rows": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935/phase5e2_canonical_table_choice.jsonl",
+    "index_rows": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935/phase5e2_canonical_index_choice.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5e2_schema_canonical_temp_dryrun_repair_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5e2_schema_canonical_temp_dryrun_repair_noapi_rows.jsonl",
+    "table_audit_rows": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935/phase5e2_canonical_temp_table_audit.jsonl",
+    "temp_db": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935/phase5e2_canonical_temp_schema_dryrun.sqlite",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI/20260601_000935"
+  },
+  "pass_conditions": {
+    "active_index_exists": true,
+    "active_index_sha_expected_match_start": true,
+    "active_index_unchanged": true,
+    "apply_rows_written": true,
+    "canonical_conflict_review_captured": true,
+    "canonical_sql_written": true,
+    "canonical_table_rows_written": true,
+    "db_exists": true,
+    "db_sha_expected_match_start": true,
+    "hosts_exists": true,
+    "hosts_sha_expected_match_start": true,
+    "hosts_unchanged": true,
+    "index_rows_written": true,
+    "live_counts_unchanged": true,
+    "live_db_readonly_health_ok": true,
+    "live_db_unchanged": true,
+    "outcome_memory_events_v2_canonicalized": true,
+    "phase5e1_json_exists": true,
+    "phase5e_json_exists": true,
+    "planned_table_count_positive": true,
+    "planned_tables_exist_in_temp_after": true,
+    "policy_match_paths_same": true,
+    "policy_sha_match_end": true,
+    "policy_sha_match_start": true,
+    "rows_out_written": true,
+    "safety_noapi_clean": true,
+    "source_read_errors_none": true,
+    "table_audit_rows_written": true,
+    "temp_apply_ok": true,
+    "temp_db_copy_ok": true,
+    "temp_db_integrity_ok_after": true,
+    "temp_error_none": true
+  },
+  "phase": "PHASE5E2_SCHEMA_CANONICAL_TEMP_DRYRUN_REPAIR_NOAPI",
+  "policy_reference": {
+    "expected_policy_sha": "3772bff2898935fdf60f72d88cada338f07a59db8f1bececf0347958ed234a84",
+    "policy_end": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    },
+    "policy_start": {
+      "checked_count": 3,
+      "match_found": true,
+      "matches": [
+        "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+      ]
+    }
+  },
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "backfill_now": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "full_rpc_url_printed": false,
+    "live_db_mutation": false,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "rpc_calls": 0,
+    "schema_apply_to_live_now": false,
+    "schema_apply_to_temp_now": true,
+    "score_permission": false,
+    "secret_printed": false,
+    "service_timer_mutation": false,
+    "temp_db_mutation": true,
+    "watchlist_permission": false
+  },
+  "skipped_index_count": 57,
+  "source_read_errors": [],
+  "sql_sources": [
+    {
+      "exists": true,
+      "schema_sql": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232550/phase5a_future_schema_plan_noapi.sql",
+      "sha256": "d1990c7911716954bda001c22380fbd45cea715b1a9b10d4b2660fa03eded690",
+      "size": 11529,
+      "source_kind": "phase5e_sql_sources"
+    },
+    {
+      "exists": true,
+      "schema_sql": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "sha256": "d1990c7911716954bda001c22380fbd45cea715b1a9b10d4b2660fa03eded690",
+      "size": 11529,
+      "source_kind": "phase5e_sql_sources"
+    },
+    {
+      "exists": true,
+      "schema_sql": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "sha256": "884238e27890e8a0537442599fc4dcdd5739dac1ab7ceca8351e82647e3d998b",
+      "size": 15009,
+      "source_kind": "phase5e_sql_sources"
+    },
+    {
+      "exists": true,
+      "schema_sql": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_future_execution_safety_schema_plan_noapi.sql",
+      "sha256": "a9b160bdf5e37fa13b21510518514791fd92cfbf106c9bff0f2583dc0d31cc14",
+      "size": 5712,
+      "source_kind": "phase5e_sql_sources"
+    },
+    {
+      "exists": true,
+      "schema_sql": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_future_cascading_filter_schema_plan_noapi.sql",
+      "sha256": "eb23acb3abf782b336d8224bb26ec495dcff258bd4ea9f9359a69750b1fa6506",
+      "size": 3810,
+      "source_kind": "phase5e_sql_sources"
+    },
+    {
+      "exists": true,
+      "schema_sql": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "sha256": "ea23c77a9aa03ac9afca08be52e3ec8fbf5e1f47c18f06252a2982cee568105d",
+      "size": 10557,
+      "source_kind": "phase5e_sql_sources"
+    }
+  ],
+  "started_at_utc": "2026-05-31T21:09:35.537105+00:00",
+  "table_audit": [
+    {
+      "canonical_field_count": 16,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_future_cascading_filter_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "cascading_execution_filter_eval_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "eval_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "current_stage_no",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "current_stage_id",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "stage_result",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "stop_reason",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "rpc_calls_used",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "eth_call_used",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "router_quote_used",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "execution_permission",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_future_cascading_filter_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "cascading_execution_filter_policy_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "policy_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "policy_version",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "stage_no",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "stage_id",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "cost_tier",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "future_rpc_required",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "stop_if_fail",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "fail_action",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "fields_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "command_decision_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "decision_series_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "decision_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "decision_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "hard_block_reason",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "linked_risk_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "linked_safety_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "reason_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "data_quality_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "quality_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "source_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "source_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "quality_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "stale_data",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "missing_required_fields",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "parse_error",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "deployer_receipt_evidence_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "tx_hash",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "receipt_found",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "token_log_match",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "creation_proof",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "zero_mint_unproven",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "interpretation_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "source_object_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 13,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "evidence_event_ledger_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "source_phase",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "event_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "event_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "event_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "confidence",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "evidence_hash",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 9,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "evidence_object_store_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "object_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "object_kind",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "source_phase",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "object_hash",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "object_summary_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_future_execution_safety_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "execution_preflight_audit_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "preflight_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "paper_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "live_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "failed_required_fields_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "passed_gate_list_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "blocked_reason_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 11,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C2_CASCADING_EXECUTION_FILTER_PLAN_NOAPI/20260531_235701/phase5c2_future_cascading_filter_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "execution_rpc_budget_guard_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "budget_event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "guard_id",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "guard_result",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "blocked_expensive_call",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "saved_call_type",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "reason_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 20,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "execution_safety_gate_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "safety_event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "minimum_pool_liquidity_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "buy_price_impact_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "sell_price_impact_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "expected_slippage_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "max_position_size_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "exit_liquidity_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "sell_route_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "tax_buy_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "tax_sell_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "mev_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "gas_cost_sanity",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "protected_route_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 17,
+          "default": null,
+          "name": "execution_permission",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 18,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 19,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 25,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_future_execution_safety_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "execution_safety_gate_events_v2",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "safety_event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "policy_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "hard_block",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "sell_route_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "minimum_pool_liquidity_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "exit_liquidity_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "buy_price_impact_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "sell_price_impact_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "expected_slippage_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "max_position_size_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "tax_buy_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "tax_sell_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 17,
+          "default": null,
+          "name": "mev_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 18,
+          "default": null,
+          "name": "sandwich_exposure_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 19,
+          "default": null,
+          "name": "gas_cost_sanity",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 20,
+          "default": null,
+          "name": "protected_route_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 21,
+          "default": null,
+          "name": "execution_permission",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 22,
+          "default": null,
+          "name": "failed_gate_list_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 23,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 24,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 17,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_future_execution_safety_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "execution_safety_policy_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "policy_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "policy_version",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "min_pool_liquidity_usd",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "max_buy_impact_pct",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "max_sell_impact_pct",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "max_expected_slippage_pct",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "max_buy_tax_pct",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "max_sell_tax_pct",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "exit_depth_multiplier",
+          "notnull": 1,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "mev_required_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "protected_route_required",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "live_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "paper_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 18,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "execution_safety_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "exec_series_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "buy_price_impact_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "sell_price_impact_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "expected_slippage_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "max_position_size_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "sell_route_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "tax_buy_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "tax_sell_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "mev_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "protected_route_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "execution_permission",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 17,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 13,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "holder_distribution_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "holder_series_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "holder_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "top1_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "top5_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "top10_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "new_holder_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "exiting_holder_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "distribution_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 10,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "initial_holder_evidence_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "holder_group_key",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "scan_window_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "transfer_mint_summary_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "risk_interpretation",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "source_object_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "liquidity_depth_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "depth_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "liquidity_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "base_reserve",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "quote_reserve",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "exit_liquidity_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "depth_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 17,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "market_ohlcv_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "candle_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "timeframe",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "open_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "close_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "open_price_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "high_price_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "low_price_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "close_price_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "volume_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "tx_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "buy_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "sell_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "source_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5C_EXECUTION_SAFETY_AND_MICRO_ROUTE_PLAN_NOAPI/20260531_233621/phase5c_future_execution_safety_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "micro_route_size_plan_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "size_plan_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "requested_size_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "max_safe_size_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "size_decision",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "linked_safety_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "reason_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "model_feedback_candidate_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "feedback_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "candidate_source",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "linked_replay_case_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "linked_lesson_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "candidate_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "candidate_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "approved_for_training",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "approval_required",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "evidence_hash",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "negative_memory_guard_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "negative_guard_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "negative_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "preserve_reason",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "deletion_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "archive_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "training_value_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 9,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "news_impact_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "news_event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "source_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "match_confidence",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "impact_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "impact_score",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "narrative_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 10,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "news_narrative_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "narrative_series_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "source_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "match_confidence",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "impact_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "impact_score",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "decay_window",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 14,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "outcome_lesson_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "lesson_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "linked_outcome_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "lesson_id",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "lesson_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "severity",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "training_candidate",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "requires_replay",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "evidence_hash",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "lesson_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 17,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": true,
+      "table": "outcome_memory_events_v2",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "outcome_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "linked_decision_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "linked_preflight_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "linked_paper_decision_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "outcome_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "outcome_window",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "pnl_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "max_runup_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "max_drawdown_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "liquidity_change_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "evidence_hash",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 17,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "outcome_observation_window_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "observation_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "linked_decision_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "window_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "window_start_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "window_end_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "price_change_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "max_runup_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "max_drawdown_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "volume_change_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "liquidity_change_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "observation_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 16,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "paper_observation_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "observation_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "paper_decision_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "window_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "price_change_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "max_runup_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "max_drawdown_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "liquidity_change_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "observation_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 10,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "paper_route_decision_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "paper_decision_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "linked_safety_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "decision_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "decision_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "max_paper_size_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "reason_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 13,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "replay_case_registry_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "replay_case_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "case_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "case_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "linked_outcome_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "linked_lesson_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "evidence_bundle_hash",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "replay_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "training_allowed",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 10,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "risk_gate_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "risk_event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "risk_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "risk_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "risk_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "hard_block",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "risk_state_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "risk_state_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "risk_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "risk_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "hard_block",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "wait_more_data",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "clearance_status",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 16,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "route_performance_memory_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "route_memory_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "route_type",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "linked_safety_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "linked_filter_eval_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "linked_outcome_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "route_result",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "pnl_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "slippage_realized_pct",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "gas_cost_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "lesson_candidate",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 14,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 15,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 10,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "technical_signal_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "signal_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "timeframe",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "signal_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "signal_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "signal_strength",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 13,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5D_OUTCOME_MEMORY_SKELETON_PLAN_NOAPI/20260601_000102/phase5d_future_outcome_memory_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "token_lifecycle_autopsy_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "autopsy_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "lifecycle_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "autopsy_reason",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "death_or_revival_signal",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "linked_risk_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "linked_outcome_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "preserve_record",
+          "notnull": 1,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "token_time_series_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "series_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "series_family",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "series_metric",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "numeric_value",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "text_value",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "quality_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 14,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "transaction_activity_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "activity_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "window_label",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "window_start_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "window_end_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "tx_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "buy_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "sell_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "volume_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "unique_wallet_count",
+          "notnull": 0,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "default": null,
+          "name": "activity_quality",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 13,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 12,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5B_TIME_SERIES_SCHEMA_GAP_PLAN_NOAPI/20260531_233313/phase5b_future_time_series_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "wallet_whale_flow_time_series_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "flow_series_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "pair_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "chain",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "wallet_cluster_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "flow_direction",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "flow_value_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "flow_token_amount",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "confidence",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "default": null,
+          "name": "source_event_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    },
+    {
+      "canonical_field_count": 10,
+      "canonical_source": "/root/tokenoskobi_clean_v1/_PHASE5A_EVIDENCE_EVENT_BACKBONE_AND_EXECUTION_SAFETY_PLAN_NOAPI/20260531_232825/phase5a_future_schema_plan_noapi.sql",
+      "exists_in_live_before": false,
+      "exists_in_temp_after": true,
+      "exists_in_temp_before": false,
+      "has_conflict": false,
+      "table": "whale_flow_events_v1",
+      "temp_columns": [
+        {
+          "cid": 0,
+          "default": null,
+          "name": "whale_event_uid",
+          "notnull": 0,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "default": null,
+          "name": "event_ts_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "default": null,
+          "name": "chain",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "default": null,
+          "name": "token_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "default": null,
+          "name": "wallet_cluster_uid",
+          "notnull": 0,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "default": null,
+          "name": "flow_direction",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "default": null,
+          "name": "flow_value_usd",
+          "notnull": 0,
+          "pk": 0,
+          "type": "REAL"
+        },
+        {
+          "cid": 7,
+          "default": null,
+          "name": "confidence",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "default": null,
+          "name": "payload_json",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "default": null,
+          "name": "created_at_utc",
+          "notnull": 1,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "temp_row_count": 0
+    }
+  ],
+  "temp_error": null,
+  "temp_health_after": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "temp_health_before": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "warnings": [
+    "SCHEMA_CONFLICT_CANONICALIZED_REVIEW_BEFORE_LIVE_APPLY",
+    "TEMP_DB_CREATED_NEW_TABLES_AS_EXPECTED",
+    "SOME_INDEXES_SKIPPED_DURING_CANONICALIZATION"
+  ]
+}

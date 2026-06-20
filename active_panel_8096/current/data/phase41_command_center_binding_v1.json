@@ -1,0 +1,140 @@
+{
+  "schema_version": "phase41_command_center_binding_v1",
+  "generated_at_utc": "2026-06-10T10:16:52.272159+00:00",
+  "phase": "PHASE41_IMPL_04_PANEL_BINDING_REAL_APPLY_AFTER_EXPLICIT_APPROVAL",
+  "mode": "panel_binding_real_apply_data_contract",
+  "authority": {
+    "trade_authority": 0,
+    "panel_execution_authority": 0,
+    "provider_external_fetch_authority": 0,
+    "paid_call_authority_now": 0,
+    "paper_engine_trade_authority": 0,
+    "paper_live_authority": 0,
+    "wallet_signing_authority": 0,
+    "ai_authority": 0,
+    "manual_approval_required": true,
+    "authority_probe_safe": true
+  },
+  "source_views": {
+    "v_phase41_command_center_latest_status": {
+      "row_count": 0,
+      "rows": []
+    },
+    "v_phase41_provider_budget_status": {
+      "row_count": 0,
+      "rows": []
+    },
+    "v_phase41_paper_outcome_memory_status": {
+      "row_count": 0,
+      "rows": []
+    }
+  },
+  "sections": [
+    {
+      "section_id": "score_overview",
+      "title": "Komuta Skor Özeti",
+      "source_view": "v_phase41_command_center_latest_status",
+      "fields": [
+        "display_lane",
+        "status_badge",
+        "technical_tactical_composite_score",
+        "attack_readiness_score",
+        "trap_risk_score",
+        "escape_readiness_score",
+        "opportunity_priority_score",
+        "trade_authority",
+        "panel_execution_authority"
+      ],
+      "authority": 0,
+      "write_now": true,
+      "panel_display": true
+    },
+    {
+      "section_id": "drift_status",
+      "title": "Simulation Drift Durumu",
+      "source_view": "v_phase41_command_center_latest_status",
+      "fields": [
+        "drift_class",
+        "blocks_micro_live",
+        "manual_review_required"
+      ],
+      "authority": 0,
+      "write_now": true,
+      "panel_display": true
+    },
+    {
+      "section_id": "provider_budget_status",
+      "title": "Provider Budget / Fetch Policy",
+      "source_view": "v_phase41_provider_budget_status",
+      "fields": [
+        "provider_tier",
+        "provider_name",
+        "method_name",
+        "cache_first_required",
+        "paid_provider_required",
+        "unbounded_fetch_blocked",
+        "external_fetch_authority",
+        "trade_authority",
+        "paid_call_authority_now"
+      ],
+      "authority": 0,
+      "write_now": true,
+      "panel_display": true
+    },
+    {
+      "section_id": "paper_outcome_memory_status",
+      "title": "Paper Outcome / Memory",
+      "source_view": "v_phase41_paper_outcome_memory_status",
+      "fields": [
+        "outcome_class",
+        "simulation_drift_class",
+        "paper_engine_trade_authority",
+        "paper_live_authority",
+        "memory_event_type",
+        "memory_trade_authority"
+      ],
+      "authority": 0,
+      "write_now": true,
+      "panel_display": true
+    },
+    {
+      "section_id": "authority_lock_status",
+      "title": "Yetki Kilidi",
+      "source_view": "all_phase41_views",
+      "fields": [
+        "trade_authority",
+        "panel_execution_authority",
+        "external_fetch_authority",
+        "paid_call_authority_now",
+        "paper_engine_trade_authority",
+        "paper_live_authority",
+        "memory_trade_authority"
+      ],
+      "authority": 0,
+      "write_now": true,
+      "panel_display": true
+    },
+    {
+      "section_id": "manual_review_queue",
+      "title": "Manual Review Queue",
+      "source_view": "v_phase41_command_center_latest_status",
+      "fields": [
+        "manual_review_required",
+        "display_lane",
+        "status_badge",
+        "created_at"
+      ],
+      "authority": 0,
+      "write_now": true,
+      "panel_display": true
+    }
+  ],
+  "status": {
+    "empty_initial_state_valid": true,
+    "panel_binding_active": true,
+    "display_only": true,
+    "execution_disabled": true,
+    "phase42_opened": false,
+    "paper_live_wallet_closed": true
+  }
+}

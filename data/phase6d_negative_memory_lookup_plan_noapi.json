@@ -1,0 +1,612 @@
+{
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "decision_effect_rows": [
+    {
+      "case": "critical_memory_match",
+      "decision_label": "TRASH_REJECTED",
+      "paper_live": false,
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "case": "high_memory_match",
+      "decision_label": "BLOCKED_BY_RISK",
+      "paper_live": false,
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "case": "medium_memory_match",
+      "decision_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED",
+      "paper_live": false,
+      "route_effect": "REVIEW_ONLY"
+    },
+    {
+      "case": "unconfirmed_memory_match",
+      "decision_label": "WAIT_MORE_DATA",
+      "paper_live": false,
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "case": "memory_source_ambiguous",
+      "decision_label": "WAIT_MORE_DATA",
+      "paper_live": false,
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "case": "no_memory_match",
+      "decision_label": "NO_NEGATIVE_MEMORY_MATCH",
+      "paper_live": false,
+      "route_effect": "NO_PERMISSION_CHANGE"
+    },
+    {
+      "case": "technical_positive_but_memory_negative",
+      "decision_label": "BLOCKED_BY_RISK",
+      "paper_live": false,
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "case": "asymmetric_positive_but_memory_critical",
+      "decision_label": "TRASH_REJECTED",
+      "paper_live": false,
+      "route_effect": "NO_ROUTE"
+    }
+  ],
+  "emergency_binding_rows": [
+    {
+      "effect": "IMMEDIATE_MEMORY_RECHECK_REQUIRED",
+      "emergency_trigger": "deployer_transfer",
+      "memory_recheck": "deployer_address owner_address creator_address",
+      "runtime_now": false
+    },
+    {
+      "effect": "IMMEDIATE_MEMORY_RECHECK_REQUIRED",
+      "emergency_trigger": "owner_wallet_move",
+      "memory_recheck": "owner_address deployer_address",
+      "runtime_now": false
+    },
+    {
+      "effect": "IMMEDIATE_LP_MEMORY_RECHECK_REQUIRED",
+      "emergency_trigger": "lp_transfer",
+      "memory_recheck": "lp_wallet_address pair_address",
+      "runtime_now": false
+    },
+    {
+      "effect": "IMMEDIATE_RUG_MEMORY_RECHECK_REQUIRED",
+      "emergency_trigger": "lp_remove",
+      "memory_recheck": "lp_wallet_address rug_or_autopsy_cause_code",
+      "runtime_now": false
+    },
+    {
+      "effect": "IMMEDIATE_ROUTE_FAILURE_MEMORY_RECHECK_REQUIRED",
+      "emergency_trigger": "sell_route_anomaly",
+      "memory_recheck": "route_failure_signature honeypot_switch_signature",
+      "runtime_now": false
+    },
+    {
+      "effect": "IMMEDIATE_HOLDER_MEMORY_RECHECK_REQUIRED",
+      "emergency_trigger": "top_holder_transfer",
+      "memory_recheck": "holder_cluster_hash",
+      "runtime_now": false
+    }
+  ],
+  "failed_checks": [],
+  "false_positive_rows": [
+    {
+      "locked": true,
+      "meaning": "Only confirmed memory can create terminal block.",
+      "policy": "confirmed_only_for_terminal_block"
+    },
+    {
+      "locked": true,
+      "meaning": "Unconfirmed match cannot invent cause.",
+      "policy": "unconfirmed_memory_wait_more_data"
+    },
+    {
+      "locked": true,
+      "meaning": "No automatic forgetting/decay in this phase.",
+      "policy": "memory_decay_requires_manual_policy"
+    },
+    {
+      "locked": true,
+      "meaning": "Address match must show source and reason.",
+      "policy": "address_reuse_requires_context"
+    },
+    {
+      "locked": true,
+      "meaning": "Autopsy cause must be CONFIRMED or marked unresolved.",
+      "policy": "cause_code_must_be_proven"
+    },
+    {
+      "locked": true,
+      "meaning": "No memory match does not mean safe; it only means no known negative hit.",
+      "policy": "no_positive_credit_from_clean_memory"
+    }
+  ],
+  "final_gate": "PASS_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T07:46:43.306115+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "lookup_rule_rows": [
+    {
+      "effect": "TRASH_REJECTED_OR_BLOCKED_BY_RISK",
+      "locked": true,
+      "match_scope": "deployer_address owner_address creator_address token_address route_failure_signature honeypot_switch_signature",
+      "rule": "critical_exact_match_blocks_route"
+    },
+    {
+      "effect": "BLOCKED_BY_RISK",
+      "locked": true,
+      "match_scope": "rug_or_autopsy_cause_code",
+      "rule": "confirmed_autopsy_cause_blocks_or_degrades"
+    },
+    {
+      "effect": "NEGATIVE_MEMORY_REVIEW_REQUIRED",
+      "locked": true,
+      "match_scope": "holder_cluster_hash",
+      "rule": "holder_cluster_match_degrades"
+    },
+    {
+      "effect": "LIQUIDITY_RECHECK_REQUIRED",
+      "locked": true,
+      "match_scope": "lp_wallet_address",
+      "rule": "lp_wallet_match_requires_liquidity_review"
+    },
+    {
+      "effect": "PAIR_REVIEW_REQUIRED",
+      "locked": true,
+      "match_scope": "pair_address",
+      "rule": "pair_address_match_requires_pair_review"
+    },
+    {
+      "effect": "WAIT_MORE_DATA",
+      "locked": true,
+      "match_scope": "any",
+      "rule": "unconfirmed_match_does_not_invent_cause"
+    },
+    {
+      "effect": "CAN_ONLY_DEGRADE_OR_BLOCK",
+      "locked": true,
+      "match_scope": "any",
+      "rule": "negative_memory_cannot_create_positive_signal"
+    },
+    {
+      "effect": "TECHNICAL_SIGNAL_IGNORED_IF_MEMORY_BLOCKS",
+      "locked": true,
+      "match_scope": "any",
+      "rule": "technical_positive_cannot_override_memory"
+    },
+    {
+      "effect": "ASYMMETRIC_ROUTE_BLOCKED_IF_MEMORY_CRITICAL",
+      "locked": true,
+      "match_scope": "any",
+      "rule": "asymmetric_route_cannot_bypass_memory"
+    },
+    {
+      "effect": "WAIT_MORE_DATA_OR_REVIEW_REQUIRED",
+      "locked": true,
+      "match_scope": "any",
+      "rule": "manual_review_required_for_ambiguous_memory"
+    }
+  ],
+  "match_severity_rows": [
+    {
+      "decision_label": "TRASH_REJECTED_OR_BLOCKED_BY_RISK",
+      "paper_live_allowed": false,
+      "route_effect": "NO_ROUTE",
+      "severity": "CRITICAL"
+    },
+    {
+      "decision_label": "BLOCKED_BY_RISK_OR_WAIT_MORE_DATA",
+      "paper_live_allowed": false,
+      "route_effect": "NO_ROUTE",
+      "severity": "HIGH"
+    },
+    {
+      "decision_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED",
+      "paper_live_allowed": false,
+      "route_effect": "REVIEW_ONLY",
+      "severity": "MEDIUM"
+    },
+    {
+      "decision_label": "CONTEXT_ONLY",
+      "paper_live_allowed": false,
+      "route_effect": "REVIEW_ONLY",
+      "severity": "LOW"
+    },
+    {
+      "decision_label": "WAIT_MORE_DATA",
+      "paper_live_allowed": false,
+      "route_effect": "NO_ROUTE",
+      "severity": "UNCONFIRMED"
+    }
+  ],
+  "memory_key_rows": [
+    {
+      "can_bypass_risk": false,
+      "key": "deployer_address",
+      "match_type": "exact",
+      "severity_if_confirmed": "CRITICAL",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "owner_address",
+      "match_type": "exact",
+      "severity_if_confirmed": "CRITICAL",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "creator_address",
+      "match_type": "exact",
+      "severity_if_confirmed": "CRITICAL",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "token_address",
+      "match_type": "exact",
+      "severity_if_confirmed": "CRITICAL",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "pair_address",
+      "match_type": "exact",
+      "severity_if_confirmed": "HIGH",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "holder_cluster_hash",
+      "match_type": "cluster_hash",
+      "severity_if_confirmed": "HIGH",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "lp_wallet_address",
+      "match_type": "exact_or_cluster",
+      "severity_if_confirmed": "HIGH",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "route_failure_signature",
+      "match_type": "signature_hash",
+      "severity_if_confirmed": "CRITICAL",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "honeypot_switch_signature",
+      "match_type": "signature_hash",
+      "severity_if_confirmed": "CRITICAL",
+      "unknown_policy": "NO_MATCH"
+    },
+    {
+      "can_bypass_risk": false,
+      "key": "rug_or_autopsy_cause_code",
+      "match_type": "cause_code",
+      "severity_if_confirmed": "HIGH",
+      "unknown_policy": "NO_MATCH"
+    }
+  ],
+  "next_phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+  "outputs": {
+    "decision_effect_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_negative_memory_decision_effect_matrix.jsonl",
+    "emergency_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_emergency_trigger_binding_plan.jsonl",
+    "false_positive_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_false_positive_and_decay_policy.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_future_negative_memory_lookup_schema_plan_noapi.sql",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6d_negative_memory_lookup_plan_noapi.json",
+    "lookup_rule_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_lookup_rule_matrix.jsonl",
+    "match_severity_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_match_severity_policy.jsonl",
+    "memory_key_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_negative_memory_key_contract.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_negative_memory_lookup_plan_noapi.json",
+    "readmodel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_readmodel_binding_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_negative_memory_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6d_negative_memory_lookup_plan_noapi_rows.jsonl",
+    "source_rows": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643/phase6d_negative_memory_source_table_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI/20260601_104643"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_decision_no_paper_live": true,
+    "all_false_positive_locked": true,
+    "all_keys_no_risk_bypass": true,
+    "all_lookup_rules_locked": true,
+    "all_severity_no_paper_live": true,
+    "all_sources_confirmed_only": true,
+    "asymmetric_cannot_override_memory": true,
+    "critical_memory_blocks_route": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "decision_effect_count_8": true,
+    "decision_effect_rows_written": true,
+    "emergency_binding_count_6": true,
+    "emergency_binding_rows_written": true,
+    "emergency_bindings_runtime_false": true,
+    "false_positive_policy_count_6": true,
+    "false_positive_rows_written": true,
+    "future_schema_sql_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "lookup_rule_count_10": true,
+    "lookup_rule_rows_written": true,
+    "match_severity_rows_written": true,
+    "memory_key_count_10": true,
+    "memory_key_rows_written": true,
+    "no_match_no_permission_change": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b_dependency_ok": true,
+    "phase6b_json_exists": true,
+    "phase6c2_dependency_ok": true,
+    "phase6c2_json_exists": true,
+    "phase6c3_dependency_ok": true,
+    "phase6c3_json_exists": true,
+    "phase6c4_dependency_ok": true,
+    "phase6c4_json_exists": true,
+    "phase6c4_report_exists": true,
+    "phase6c4_rows_exists": true,
+    "phase6c_dependency_ok": true,
+    "phase6c_json_exists": true,
+    "policy_sha_match": true,
+    "readmodel_binding_count_7": true,
+    "readmodel_binding_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "severity_count_5": true,
+    "source_count_8": true,
+    "source_rows_written": true,
+    "technical_cannot_override_memory": true
+  },
+  "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b_ok": true,
+    "phase6c2_ok": true,
+    "phase6c3_ok": true,
+    "phase6c4_ok": true,
+    "phase6c4_rows_count": 85,
+    "phase6c_ok": true
+  },
+  "policy_reference": {
+    "checked_count": 2,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "readmodel_binding_rows": [
+    {
+      "apply_now": false,
+      "field": "negative_memory_status",
+      "readmodel_table": "state_aggregated_token_negative_memory_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "highest_memory_severity",
+      "readmodel_table": "state_aggregated_token_negative_memory_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "matched_memory_keys_json",
+      "readmodel_table": "state_aggregated_token_negative_memory_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "memory_source_refs_json",
+      "readmodel_table": "state_aggregated_token_negative_memory_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "memory_decision_effect",
+      "readmodel_table": "state_aggregated_token_negative_memory_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "negative_memory_decision_effect",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "negative_memory_block_reason",
+      "readmodel_table": "state_aggregated_token_risk_block_reasons_v1",
+      "required": true
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "Lookup keys and source bindings planned before decision binding.",
+      "risk_id": "NEGATIVE_MEMORY_NOT_LOOKED_UP",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Terminal block requires confirmed memory, not unproven match.",
+      "risk_id": "FALSE_POSITIVE_TERMINAL_BLOCK",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "No memory hit does not create positive safety score.",
+      "risk_id": "NO_MATCH_FALSE_CONFIDENCE",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Technical positive cannot override negative memory.",
+      "risk_id": "TECHNICAL_SIGNAL_OVERRIDES_MEMORY",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Critical memory blocks asymmetric route.",
+      "risk_id": "ASYMMETRIC_ROUTE_BYPASSES_MEMORY",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Autopsy cause must be confirmed; unresolved remains WAIT_MORE_DATA.",
+      "risk_id": "CAUSE_INVENTION",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Ambiguous source creates WAIT_MORE_DATA/manual review.",
+      "risk_id": "MEMORY_SOURCE_AMBIGUOUS",
+      "severity": "MEDIUM"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+      "purpose": "Bind stale, threshold, asymmetric, technical, emergency and negative memory decisions."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+      "purpose": "Plan command center output contract."
+    },
+    {
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB schema dry-run only after all plan phases.",
+      "temp_db_only": true
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6H_READMODEL_APPLY_PLAN_NOAPI",
+      "purpose": "Plan live schema apply only after temp dry-run."
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "asymmetric_route_enabled_now": false,
+    "db_mutation": false,
+    "emergency_monitor_runtime_now": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "memory_lookup_now": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "negative_memory_runtime_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "technical_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "source_rows": [
+    {
+      "confirmed_only": true,
+      "purpose": "Confirmed dead/rug/honeypot/liquidity removed cases.",
+      "runtime_now": false,
+      "source": "morg_autopsy_records"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "Previous sell-route, slippage, tax, protected-route failures.",
+      "runtime_now": false,
+      "source": "route_failure_events"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "Hard-blocked routes and reasons.",
+      "runtime_now": false,
+      "source": "hard_block_events"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "Prior negative-memory hits and lessons.",
+      "runtime_now": false,
+      "source": "negative_memory_guard_events"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "Creator/deployer/owner wallet previous behavior.",
+      "runtime_now": false,
+      "source": "deployer_owner_history"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "Repeated holder concentration and bot-wallet clusters.",
+      "runtime_now": false,
+      "source": "holder_cluster_history"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "LP add/remove/transfer behavior by wallet.",
+      "runtime_now": false,
+      "source": "lp_wallet_history"
+    },
+    {
+      "confirmed_only": true,
+      "purpose": "Future paper outcome lessons only, never direct trade permission.",
+      "runtime_now": false,
+      "source": "paper_outcome_memory"
+    }
+  ],
+  "started_at_utc": "2026-06-01T07:46:43.268117+00:00",
+  "summary": {
+    "all_keys_no_risk_bypass": true,
+    "all_sources_confirmed_only": true,
+    "asymmetric_cannot_override_memory": true,
+    "critical_memory_blocks_route": true,
+    "decision_effect_count": 8,
+    "emergency_binding_count": 6,
+    "false_positive_policy_count": 6,
+    "lookup_rule_count": 10,
+    "memory_key_count": 10,
+    "no_match_no_permission_change": true,
+    "readmodel_binding_count": 7,
+    "severity_count": 5,
+    "source_count": 8,
+    "technical_cannot_override_memory": true
+  },
+  "warnings": [
+    "NEGATIVE_MEMORY_LOOKUP_PLAN_ONLY_NO_RUNTIME",
+    "NO_MEMORY_MATCH_DOES_NOT_MEAN_SAFE",
+    "UNCONFIRMED_MEMORY_DOES_NOT_INVENT_CAUSE",
+    "CRITICAL_MEMORY_BLOCKS_ROUTE",
+    "TECHNICAL_POSITIVE_CANNOT_OVERRIDE_NEGATIVE_MEMORY",
+    "ASYMMETRIC_ROUTE_CANNOT_BYPASS_CRITICAL_MEMORY",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "phase": "COINOSKOBI_XYZ_PANEL_STAGING_BINDING_FAILURE_DIAGNOSE_NOAPI",
+  "stamp": "20260524_155458",
+  "final_ok": true,
+  "final_decision": "PASS_XYZ_PANEL_STAGING_BINDING_FAILURE_DIAGNOSE_READY_NOAPI",
+  "diagnosis": {
+    "real_json_parse_ok": true,
+    "real_final_ok": false,
+    "plan_json_parse_ok": true,
+    "plan_final_ok": true,
+    "db": {
+      "ok": true,
+      "integrity": "ok",
+      "fk": 0
+    },
+    "nginx_t_has_target_conf": true,
+    "nginx_t_xyz_count": 10,
+    "xyz_server_names": [
+      "www.coinoskobi.xyz coinoskobi.xyz",
+      "www.coinoskobi.xyz coinoskobi.xyz"
+    ],
+    "nginx_target_exists": true,
+    "nginx_target_sha": "f9baab946eaa7ecee5fc0ad3021a4d4e409997de98749d4a981730552eda18c3",
+    "nginx_target_has_stage_header": true,
+    "nginx_target_has_panel_location": true,
+    "nginx_target_has_mobile_location": true,
+    "current_link_exists": true,
+    "current_link_is_symlink": true,
+    "current_link_target": "/var/www/coinoskobi_xyz_staging/releases/20260524_155128",
+    "current_index_exists": true,
+    "current_index_size": 11492,
+    "current_index_has_roadmap": true,
+    "auth_file_exists": true,
+    "auth_file_mode": "0o640",
+    "auth_line_count": 1,
+    "credentials_file_found": true,
+    "credentials_file": "/root/tokenoskobi_clean_v1/backups/COINOSKOBI_XYZ_PANEL_STAGING_BINDING_REAL_AFTER_EXPLICIT_APPROVAL_20260524_155128/XYZ_PANEL_AUTH_CREDENTIALS_ROOT_ONLY.txt",
+    "auth_available_for_test": true,
+    "curl": {
+      "root": {
+        "status": 200,
+        "size": 11492,
+        "has_stage_header": false,
+        "is_roadmap": true,
+        "looks_like_active_panel": true
+      },
+      "roadmap": {
+        "status": 200,
+        "size": 11492
+      },
+      "panel_noauth": {
+        "status": 401,
+        "size": 172
+      },
+      "mobile_noauth": {
+        "status": 401,
+        "size": 172
+      },
+      "panel_auth": {
+        "status": 500,
+        "size": 170
+      },
+      "mobile_auth": {
+        "status": 500,
+        "size": 170
+      }
+    },
+    "possible_causes": [
+      "NEW_XYZ_SERVER_BLOCK_NOT_HANDLING_REQUEST",
+      "AUTH_PROXY_OR_UPSTREAM_LOCATION_ERROR_CHECK_NGINX_ERROR_LOG",
+      "MULTIPLE_XYZ_SERVER_NAME_BLOCKS_PRESENT"
+    ],
+    "error_interest_count": 2,
+    "error_interest_tail": [
+      "2026/05/24 15:51:28 [crit] 940710#940710: *284029 open() \"/etc/nginx/.htpasswd_coinoskobi_xyz_panel\" failed (13: Permission denied), client: 127.0.0.1, server: www.coinoskobi.xyz, request: \"GET /panel/ HTTP/2.0\", host: \"www.coinoskobi.xyz\"",
+      "2026/05/24 15:51:28 [crit] 940711#940711: *284030 open() \"/etc/nginx/.htpasswd_coinoskobi_xyz_panel\" failed (13: Permission denied), client: 127.0.0.1, server: www.coinoskobi.xyz, request: \"GET /mobile/ HTTP/2.0\", host: \"www.coinoskobi.xyz\""
+    ]
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "active_risk_data_unchanged": true,
+    "active_mobile_index_unchanged": true,
+    "live_db_unchanged": true,
+    "nginx_target_unchanged_during_diagnose": true
+  },
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "no_nginx_write": true,
+  "no_nginx_reload": true,
+  "no_ssl_change": true,
+  "no_domain_change": true,
+  "no_active_panel_write": true,
+  "no_db_write": true,
+  "no_api_fetch": true,
+  "next_phase": "COINOSKOBI_XYZ_PANEL_STAGING_BINDING_SERVER_BLOCK_FIX_PLAN_NOAPI",
+  "recommendation": "New server block is likely not selected; inspect/disable conflicting xyz server blocks or set explicit default/server precedence in a planned fix."
+}

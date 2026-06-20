@@ -1,0 +1,270 @@
+{
+  "phase": "PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI",
+  "started_at": "2026-06-04T20:55:12.946925+00:00",
+  "finished_at": "2026-06-04T20:55:12.981018+00:00",
+  "final_gate": "PASS_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI",
+  "script_rc": 0,
+  "failed_checks": [],
+  "balance_calibrated": true,
+  "plan_only": true,
+  "health_ok": true,
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "db_mutation": false,
+    "live_schema_apply": false,
+    "row_insert_update_delete_live_db": false,
+    "timer_change": false,
+    "worker_start": false,
+    "service_restart": false,
+    "active_panel_write": false,
+    "preview_write": false,
+    "paper_trade": false,
+    "live_trade": false
+  },
+  "immutability": {
+    "live_db_unchanged": true,
+    "active_index_unchanged": true
+  },
+  "observed_counts": {
+    "known_wallet_source_registry_v1": 8,
+    "known_wallet_seed_queue_v1": 1,
+    "known_wallet_label_quality_events_v1": 9,
+    "known_wallet_cex_classification_events_v1": 1,
+    "known_wallet_quarantine_seed_v1": 0,
+    "known_wallet_mev_noise_classification_events_v1": 0,
+    "known_wallet_shadow_label_events_v1": 0,
+    "known_wallet_label_conflict_events_v1": 0,
+    "paper_trade_positions": 0,
+    "paper_trade_executions": 0,
+    "paper_trade_outcomes": 0,
+    "paper_positions": null,
+    "paper_orders": null,
+    "live_orders": null,
+    "live_positions": null
+  },
+  "decay_policy": {
+    "policy_name": "REPUTATION_DECAY_HYBRID_LAZY_PLUS_SCHEDULED_V1",
+    "phase": "PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI",
+    "created_at_utc": "2026-06-04T20:55:12.976166+00:00",
+    "core_rule": "decay_unutmak_degil_aktif_karar_agirligini_azaltmaktir",
+    "mode": "HYBRID_LAZY_PLUS_SCHEDULED",
+    "hot_path": {
+      "summary_table_only": true,
+      "full_raw_event_scan_allowed": false,
+      "max_indexed_queries_per_entity": 1,
+      "lazy_decay_allowed": true,
+      "lazy_decay_scope": "single_entity_only",
+      "lazy_decay_db_write_in_future": "only_after_explicit_schema_and_worker_approval",
+      "if_decay_expired_on_hot_path": "compute_lightweight_view_or_mark_stale_do_not_block",
+      "target_behavior": "hizli_okuma_korunur"
+    },
+    "scheduled_worker_future": {
+      "enabled_now": false,
+      "timer_change_now": false,
+      "future_requires_explicit_approval": true,
+      "initial_frequency_minutes": 60,
+      "minimum_frequency_minutes": 30,
+      "max_entities_per_run_initial": 250,
+      "max_entities_per_run_hard_cap": 500,
+      "max_runtime_seconds_initial": 20,
+      "db_lock_policy": "short_transaction_batches",
+      "if_system_busy": "skip_or_degrade_not_block",
+      "if_worker_fails": "mark_stale_continue_hot_path"
+    },
+    "score_decay": {
+      "hard_risk": {
+        "decay_to_zero": false,
+        "floor_score": 60,
+        "archive_policy": "hard_memory_archived_but_not_forgotten",
+        "decision": "manual_review_required_not_auto_trade"
+      },
+      "soft_risk": {
+        "decay_to_zero": true,
+        "half_life_days": 30,
+        "floor_score": 0,
+        "decision": "weakens_over_time"
+      },
+      "shadow_label": {
+        "ttl_hours_default": 48,
+        "ttl_blocks_default": 1000,
+        "expire_to": "cold_archive_or_passive_memory",
+        "decision": "temporary_risk_evidence_not_hard_deny"
+      },
+      "cex_noise": {
+        "decay_needed": false,
+        "role": "suppression_memory",
+        "decision": "not_root_funder_not_whale_buy"
+      },
+      "mev_noise": {
+        "decay_needed": false,
+        "role": "suppression_memory",
+        "decision": "not_investor_whale"
+      }
+    }
+  },
+  "memory_policy": {
+    "policy_name": "HOT_WARM_COLD_MEMORY_V1",
+    "phase": "PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI",
+    "hot_memory": {
+      "window_hours": 72,
+      "purpose": "live_decision_support_fast_path",
+      "storage_style": "summary_rows_and_recent_active_evidence",
+      "raw_event_scan_on_read": false
+    },
+    "warm_memory": {
+      "window_days": 30,
+      "purpose": "recent_pattern_context",
+      "storage_style": "aggregated_summary_plus_limited_event_refs",
+      "query_priority": "medium"
+    },
+    "cold_archive": {
+      "older_than_days": 30,
+      "purpose": "history_and_forensics",
+      "storage_style": "append_only_or_compressed_archive",
+      "active_decision_path": false
+    },
+    "bloat_guard": {
+      "same_entity_many_events": "aggregate_to_summary",
+      "raw_event_retention": "kept_but_not_hot_path",
+      "active_query_limit": "summary_first",
+      "no_full_table_scan_in_hot_path": true
+    }
+  },
+  "backpressure_policy": {
+    "policy_name": "PROVIDER_BACKPRESSURE_BALANCE_V1",
+    "phase": "PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI",
+    "enabled_now": false,
+    "provider_api_now": false,
+    "timer_or_worker_now": false,
+    "future_requires_explicit_approval": true,
+    "intake_modes": {
+      "critical": {
+        "examples": [
+          "known_cex_seed_hit",
+          "deployer_hard_memory",
+          "liquidity_rug_warning",
+          "honeypot_sell_block"
+        ],
+        "priority": 1,
+        "action": "process_first"
+      },
+      "medium": {
+        "examples": [
+          "soft_shadow_label",
+          "new_pair_observation",
+          "weak_reputation_hint"
+        ],
+        "priority": 2,
+        "action": "queue_with_delay_allowed"
+      },
+      "low": {
+        "examples": [
+          "duplicate_snapshot",
+          "low_value_noise",
+          "old_bridge_candidate"
+        ],
+        "priority": 3,
+        "action": "archive_or_sample"
+      }
+    },
+    "degrade_rules": {
+      "when_queue_high": "process_critical_only_then_medium",
+      "when_db_busy": "skip_low_priority_worker",
+      "when_provider_spike": "cap_intake_and_write_summaries",
+      "when_memory_bloat": "archive_low_value_old_events",
+      "never_do": [
+        "open_paper_or_live_trade_due_to_backpressure",
+        "promote_shadow_label_to_hard_deny_without_evidence",
+        "treat_cex_or_mev_as_whale_buy"
+      ]
+    },
+    "initial_caps_future": {
+      "max_new_entities_per_provider_tick": 100,
+      "max_raw_events_per_tick": 1000,
+      "max_db_write_batch_rows": 250,
+      "max_queue_age_for_critical_seconds": 60,
+      "low_priority_drop_or_archive_allowed": true
+    }
+  },
+  "balance_guard": {
+    "policy_name": "DENGE_MANIFESTO_OPERATIONAL_GUARD_V1",
+    "phase": "PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI",
+    "manifesto": "güvenli ama hantal değil, hızlı ama korumasız değil",
+    "calibration": {
+      "avoid_blind_guardrails": true,
+      "classify_false_positive": true,
+      "classify_real_risk": true,
+      "explain_every_block": true,
+      "fast_path_for_read_only_and_validated": true,
+      "hard_gate_for_real_write_provider_schema_paper_live": true,
+      "rollback_required_for_real_write": true,
+      "post_audit_required_for_real_write": true
+    },
+    "forbidden_now": {
+      "api_calls": 0,
+      "external_network_calls": 0,
+      "db_mutation": false,
+      "schema_apply": false,
+      "timer_change": false,
+      "worker_start": false,
+      "service_restart": false,
+      "panel_write": false,
+      "paper_trade": false,
+      "live_trade": false
+    },
+    "observed_live_baseline": {
+      "known_wallet_seed_queue_v1": 1,
+      "known_wallet_cex_classification_events_v1": 1,
+      "paper_live_ok": true
+    }
+  },
+  "next_schema_plan": {
+    "next_phase": "PHASE21M_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_PLAN_NOAPI",
+    "purpose": "plan summary tables and indexes only; no apply",
+    "candidate_tables": [
+      "entity_reputation_summary_v1",
+      "entity_reputation_decay_state_v1",
+      "entity_reputation_event_rollup_v1",
+      "intake_backpressure_queue_policy_v1",
+      "intake_backpressure_runtime_stats_v1"
+    ],
+    "candidate_indexes": [
+      "entity_uid",
+      "chain_entity",
+      "last_seen_at",
+      "last_decay_at",
+      "risk_bucket",
+      "priority_lane"
+    ],
+    "explicitly_not_next": [
+      "no real provider/API activation",
+      "no timer/worker start",
+      "no paper/live",
+      "no active panel mutation"
+    ]
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase21l_reputation_decay_backpressure_balance_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase21l_reputation_decay_backpressure_balance_plan_noapi_rows.jsonl",
+    "decay_policy": "/root/tokenoskobi_clean_v1/_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI/20260604_235512/phase21l_reputation_decay_backpressure_balance_plan_noapi_decay_policy.json",
+    "memory_policy": "/root/tokenoskobi_clean_v1/_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI/20260604_235512/phase21l_reputation_decay_backpressure_balance_plan_noapi_hot_warm_cold_memory_policy.json",
+    "backpressure_policy": "/root/tokenoskobi_clean_v1/_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI/20260604_235512/phase21l_reputation_decay_backpressure_balance_plan_noapi_backpressure_policy.json",
+    "balance_guard": "/root/tokenoskobi_clean_v1/_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI/20260604_235512/phase21l_reputation_decay_backpressure_balance_plan_noapi_denge_guard_manifest.json",
+    "next_schema_plan": "/root/tokenoskobi_clean_v1/_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI/20260604_235512/phase21l_reputation_decay_backpressure_balance_plan_noapi_next_schema_plan.json",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE21L_REPUTATION_DECAY_BACKPRESSURE_BALANCE_PLAN_NOAPI/20260604_235512"
+  },
+  "next_phase": "PHASE21M_REPUTATION_DECAY_BACKPRESSURE_SCHEMA_PLAN_NOAPI",
+  "checklist_touched": true,
+  "after_final": {
+    "db_sha256": "5a107dd4d18c961c56c28a9a05f203d7ba09a44e32256d92318486359b699e05",
+    "active_index_sha256": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "decay_policy_sha256": "075fcc7dba24728a15d0d62a709923b442193616d66c07c3ecf6434c3cc42a6b",
+    "memory_policy_sha256": "54915793cf49020e73b56b1bb834221aa4a399bac86fc43beafe2895c5ee4e7a",
+    "backpressure_policy_sha256": "4a8c11290faf7ac7d852ebed9f8b932d7fe48c5469ddcec02c60ba71f32b7ddb",
+    "balance_guard_sha256": "da90b3ae762df8c274ef126674de2d13eea6b26fd72fbde9411204ab3a47f4dc",
+    "next_schema_plan_sha256": "2d947563ebe7058824718ca0a690df798ba680f443b8ede82f5ee1b504e9105a",
+    "checklist_sha256": "3882235b0fe18e7e852c38c5c8bc21a22203d9f3afb7488d8f1b58d34a2ae740"
+  }
+}

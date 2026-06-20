@@ -1,0 +1,160 @@
+{
+  "phase": "COINOSKOBI_COM_PUBLIC_SITE_PLAN_NOAPI",
+  "stamp": "20260524_173509",
+  "generated_at_tr": "2026-05-24 17:35:09 TR",
+  "final_ok": true,
+  "final_decision": "PASS_COM_PUBLIC_SITE_PLAN_READY_NOAPI",
+  "domain_roles": {
+    ".xyz": {
+      "role": "staging / roadmap / auth protected panel",
+      "root": "https://www.coinoskobi.xyz/",
+      "roadmap": "https://www.coinoskobi.xyz/roadmap/",
+      "panel": "https://www.coinoskobi.xyz/panel/",
+      "mobile": "https://www.coinoskobi.xyz/mobile/",
+      "state": "ACTIVE"
+    },
+    ".com": {
+      "role": "public brand / customer-facing marketing site",
+      "root": "https://www.coinoskobi.com/",
+      "state": "PLAN_ONLY"
+    }
+  },
+  "public_pages": [
+    {
+      "name": "Ana Sayfa",
+      "route": "/",
+      "purpose": "Coinoskobi ne yapar, kim içindir, hangi problemi çözer.",
+      "public_level": "PUBLIC"
+    },
+    {
+      "name": "Ürün / Panel Tanıtımı",
+      "route": "/platform/",
+      "purpose": "Staging panel ekranlarından public dilde anlatım; iç panel linki verilmez.",
+      "public_level": "PUBLIC"
+    },
+    {
+      "name": "Roadmap",
+      "route": "/roadmap/",
+      "purpose": "Yapılanlar, sıradakiler, hedef tarihleri; gizli teknik path içermez.",
+      "public_level": "PUBLIC"
+    },
+    {
+      "name": "Güvenlik / Risk Yaklaşımı",
+      "route": "/risk/",
+      "purpose": "Live trade açmadan önce risk, simülasyon, paper ve onay kapıları anlatılır.",
+      "public_level": "PUBLIC"
+    },
+    {
+      "name": "İletişim / Bekleme Listesi",
+      "route": "/contact/",
+      "purpose": "İleride form veya mail yönlendirmesi; şu aşamada statik olabilir.",
+      "public_level": "PUBLIC_LATER"
+    }
+  ],
+  "public_copy_rules": [
+    "Public sitede server path gösterme: /root/tokenoskobi_clean_v1, /var/www, SQLite path yok.",
+    "Public sitede auth kullanıcı adı/şifre yok.",
+    "Public sitede private panel URL doğrudan öne çıkarılmaz; sadece 'korumalı demo/panel' ifadesi kullanılır.",
+    "Getiri vaadi yok; risk kontrollü, data-first, simulation-first anlatım.",
+    "Live trade/paper trade açık gibi gösterme; mevcut durum neyse onu yaz.",
+    ".xyz staging/internal; .com public marka olarak ayrılır."
+  ],
+  "roadmap_public": [
+    [
+      "DONE",
+      ".xyz staging/panel/roadmap aktif"
+    ],
+    [
+      "DONE",
+      "Mobil pageflow ve ikon doğruluk fix aktif"
+    ],
+    [
+      "DONE",
+      "Roadmap/status canlı .xyz üzerinde güncellendi"
+    ],
+    [
+      "NEXT",
+      ".com public site mimari plan"
+    ],
+    [
+      "NEXT",
+      ".com public preview"
+    ],
+    [
+      "NEXT",
+      ".com nginx/SSL/DNS preflight plan"
+    ],
+    [
+      "HOLD",
+      "Preview cleanup/archive"
+    ],
+    [
+      "TARGET",
+      "1 Eylül: stabil build / simülasyon hazırlığı"
+    ],
+    [
+      "TARGET",
+      "1 Ocak: doğrulanmış sistem hedefi"
+    ]
+  ],
+  "real_phase_plan": [
+    {
+      "phase": "COINOSKOBI_COM_PUBLIC_SITE_PREVIEW_NOAPI",
+      "mode": "preview-only",
+      "description": "Bu planın public site mockup/preview versiyonunu üretir; nginx/dns/ssl yazmaz."
+    },
+    {
+      "phase": "COINOSKOBI_COM_DOMAIN_SSL_NGINX_PREFLIGHT_NOAPI",
+      "mode": "read-only",
+      "description": ".com DNS/SSL/Nginx mevcut durumunu kontrol eder; eksik neyse planlar."
+    },
+    {
+      "phase": "COINOSKOBI_COM_PUBLIC_SITE_APPLY_PLAN_NOAPI",
+      "mode": "plan-only",
+      "description": "Canlı .com apply için release, rollback ve nginx planı çıkarır."
+    },
+    {
+      "phase": "COINOSKOBI_COM_PUBLIC_SITE_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+      "mode": "real-after-approval",
+      "description": "Ayrı açık onayla .com public site yayınlanır."
+    }
+  ],
+  "infrastructure_findings": {
+    "nginx_t_ok": true,
+    "nginx_com_hit_count": 1,
+    "nginx_xyz_hit_count": 13,
+    "com_www_cert_dir_exists": false,
+    "com_root_cert_dir_exists": false,
+    "xyz_complete_ok": true,
+    "locator_ok": true
+  },
+  "db": {
+    "ok": true,
+    "integrity": "ok",
+    "fk": 0
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "active_risk_data_unchanged": true,
+    "active_mobile_index_unchanged": true,
+    "live_db_unchanged": true,
+    "nginx_xyz_unchanged": true,
+    "auth_file_unchanged": true
+  },
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "preview_url": "http://159.195.74.132:8145/",
+  "preview_root": "/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_com_public_site_plan_preview_8145_20260524_173509",
+  "no_com_nginx_write": true,
+  "no_dns_change": true,
+  "no_ssl_change": true,
+  "no_xyz_change": true,
+  "no_active_panel_write": true,
+  "no_db_write": true,
+  "no_api_fetch": true,
+  "live_trade": 0,
+  "paper_trade_execution": 0,
+  "auth_password_printed": false,
+  "next_phase": "COINOSKOBI_COM_PUBLIC_SITE_PREVIEW_NOAPI"
+}

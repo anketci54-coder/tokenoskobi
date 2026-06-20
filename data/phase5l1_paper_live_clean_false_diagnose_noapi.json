@@ -1,0 +1,214 @@
+{
+  "classification": [
+    {
+      "issue": "pre_existing_or_unexpected_paper_live_nonzero",
+      "meaning": "Paper/live table has nonzero rows but is not one of the Phase5K target tables.",
+      "next_action": "Inspect sample rows and compare to Phase5K core audit before deciding rollback.",
+      "rollback_recommended_now": false,
+      "rows": [
+        {
+          "exists": true,
+          "nonzero": true,
+          "row_count": 2,
+          "samples": [
+            {
+              "chain": null,
+              "created_at_utc": "2026-05-09T13:41:27Z",
+              "entry_mode": "PAPER_PLAN_ONLY_NO_POSITION",
+              "entry_price": null,
+              "max_capital_usd": 100.0,
+              "missing_data_json": "{\"hard\": [], \"live_trade\": false, \"missing\": [], \"paper_position_open\": false, \"warnings\": []}",
+              "pair_address": null,
+              "pair_uid": null,
+              "plan_status": "PAPER_PLAN_CREATED_NO_POSITION_READY",
+              "plan_uid": "paper_plan_9ffd28d5fbf61b5b97ca8647c11c",
+              "reason_json": "{\"buy_tax\": 0.99, \"gas_gwei\": 0.006, \"impact_pct\": 0.028037, \"liquidity_usd\": 356571.2489, \"live_trade\": false, \"mev\": \"LOW\", \"morg_real_move\": false, \"no_token_specific_code\": true, \"paper_execution_open\": false, \"paper_outcome_open\": false, \"paper_plan_class\": \"PAPER_PLAN_READY_AFTER_SELL_CLASSIFIER_FIX\", \"paper_position_open\": false, \"phase\": \"PHASE22P3_PAPER_TRADE_PLAN_REAL_WRITE_AFTER_EXPLICIT_APPROVAL\", \"plan_uid\": \"paper_plan_9ffd28d5fbf61b5b97ca8647c11c\", \"planned_notional_usd\": 100.0, \"run_uid\": \"run_22p3_real_20260509_134127_39867e13\", \"score\": 100.0, \"sell_status\": \"SELLABLE_PASS\", \"sell_tax\": 0.99, \"source_phase\": \"PHASE22P2_PAPER_TRADE_PLAN_SCHEMA_DRYRUN_NOAPI\", \"source_rule\": \"P2 temp schema dry-run passed; P3 writes paper_trade_plans only after explicit approval.\"}",
+              "risk_usd": null,
+              "stop_price": null,
+              "suggested_capital_usd": 100.0,
+              "token_address": null,
+              "token_uid": null,
+              "tp1_price": null,
+              "tp2_price": null
+            },
+            {
+              "chain": null,
+              "created_at_utc": "2026-05-09T13:41:27Z",
+              "entry_mode": "PAPER_PLAN_ONLY_NO_POSITION",
+              "entry_price": null,
+              "max_capital_usd": 25.0,
+              "missing_data_json": "{\"hard\": [], \"live_trade\": false, \"missing\": [], \"paper_position_open\": false, \"warnings\": [\"THIN_LIQUIDITY_PAPER_CAUTION\"]}",
+              "pair_address": null,
+              "pair_uid": null,
+              "plan_status": "PAPER_PLAN_CREATED_NO_POSITION_CAUTION",
+              "plan_uid": "paper_plan_112df2fd0a56e3a0f037a3e129e8",
+              "reason_json": "{\"buy_tax\": 0.0, \"gas_gwei\": 0.05, \"impact_pct\": 0.039984, \"liquidity_usd\": 29485.01, \"live_trade\": false, \"mev\": \"LOW\", \"morg_real_move\": false, \"no_token_specific_code\": true, \"paper_execution_open\": false, \"paper_outcome_open\": false, \"paper_plan_class\": \"PAPER_PLAN_READY_CAUTION_AFTER_SELL_CLASSIFIER_FIX\", \"paper_position_open\": false, \"phase\": \"PHASE22P3_PAPER_TRADE_PLAN_REAL_WRITE_AFTER_EXPLICIT_APPROVAL\", \"plan_uid\": \"paper_plan_112df2fd0a56e3a0f037a3e129e8\", \"planned_notional_usd\": 25.0, \"run_uid\": \"run_22p3_real_20260509_134127_39867e13\", \"score\": 93.0, \"sell_status\": \"SELLABLE_PASS\", \"sell_tax\": 0.0, \"source_phase\": \"PHASE22P2_PAPER_TRADE_PLAN_SCHEMA_DRYRUN_NOAPI\", \"source_rule\": \"P2 temp schema dry-run passed; P3 writes paper_trade_plans only after explicit approval.\"}",
+              "risk_usd": null,
+              "stop_price": null,
+              "suggested_capital_usd": 25.0,
+              "token_address": null,
+              "token_uid": null,
+              "tp1_price": null,
+              "tp2_price": null
+            }
+          ],
+          "table": "paper_trade_plans"
+        }
+      ],
+      "severity": "REVIEW_REQUIRED"
+    }
+  ],
+  "db_health": {
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI",
+  "flagged_nonzero_count": 1,
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "PHASE5L2_EVIDENCE_BACKFILL_POST_AUDIT_REPAIR_NOAPI",
+  "outputs": {
+    "classification_rows": "/root/tokenoskobi_clean_v1/_PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI/20260601_085506/phase5l1_false_classification_review.jsonl",
+    "json": "/root/tokenoskobi_clean_v1/data/phase5l1_paper_live_clean_false_diagnose_noapi.json",
+    "paper_live_rows": "/root/tokenoskobi_clean_v1/_PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI/20260601_085506/phase5l1_paper_live_table_counts.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI.md",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase5l1_paper_live_clean_false_diagnose_noapi_rows.jsonl",
+    "target_overlap_rows": "/root/tokenoskobi_clean_v1/_PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI/20260601_085506/phase5l1_target_paper_overlap_audit.jsonl"
+  },
+  "paper_live_rows": [
+    {
+      "exists": true,
+      "nonzero": true,
+      "row_count": 2,
+      "samples": [
+        {
+          "chain": null,
+          "created_at_utc": "2026-05-09T13:41:27Z",
+          "entry_mode": "PAPER_PLAN_ONLY_NO_POSITION",
+          "entry_price": null,
+          "max_capital_usd": 100.0,
+          "missing_data_json": "{\"hard\": [], \"live_trade\": false, \"missing\": [], \"paper_position_open\": false, \"warnings\": []}",
+          "pair_address": null,
+          "pair_uid": null,
+          "plan_status": "PAPER_PLAN_CREATED_NO_POSITION_READY",
+          "plan_uid": "paper_plan_9ffd28d5fbf61b5b97ca8647c11c",
+          "reason_json": "{\"buy_tax\": 0.99, \"gas_gwei\": 0.006, \"impact_pct\": 0.028037, \"liquidity_usd\": 356571.2489, \"live_trade\": false, \"mev\": \"LOW\", \"morg_real_move\": false, \"no_token_specific_code\": true, \"paper_execution_open\": false, \"paper_outcome_open\": false, \"paper_plan_class\": \"PAPER_PLAN_READY_AFTER_SELL_CLASSIFIER_FIX\", \"paper_position_open\": false, \"phase\": \"PHASE22P3_PAPER_TRADE_PLAN_REAL_WRITE_AFTER_EXPLICIT_APPROVAL\", \"plan_uid\": \"paper_plan_9ffd28d5fbf61b5b97ca8647c11c\", \"planned_notional_usd\": 100.0, \"run_uid\": \"run_22p3_real_20260509_134127_39867e13\", \"score\": 100.0, \"sell_status\": \"SELLABLE_PASS\", \"sell_tax\": 0.99, \"source_phase\": \"PHASE22P2_PAPER_TRADE_PLAN_SCHEMA_DRYRUN_NOAPI\", \"source_rule\": \"P2 temp schema dry-run passed; P3 writes paper_trade_plans only after explicit approval.\"}",
+          "risk_usd": null,
+          "stop_price": null,
+          "suggested_capital_usd": 100.0,
+          "token_address": null,
+          "token_uid": null,
+          "tp1_price": null,
+          "tp2_price": null
+        },
+        {
+          "chain": null,
+          "created_at_utc": "2026-05-09T13:41:27Z",
+          "entry_mode": "PAPER_PLAN_ONLY_NO_POSITION",
+          "entry_price": null,
+          "max_capital_usd": 25.0,
+          "missing_data_json": "{\"hard\": [], \"live_trade\": false, \"missing\": [], \"paper_position_open\": false, \"warnings\": [\"THIN_LIQUIDITY_PAPER_CAUTION\"]}",
+          "pair_address": null,
+          "pair_uid": null,
+          "plan_status": "PAPER_PLAN_CREATED_NO_POSITION_CAUTION",
+          "plan_uid": "paper_plan_112df2fd0a56e3a0f037a3e129e8",
+          "reason_json": "{\"buy_tax\": 0.0, \"gas_gwei\": 0.05, \"impact_pct\": 0.039984, \"liquidity_usd\": 29485.01, \"live_trade\": false, \"mev\": \"LOW\", \"morg_real_move\": false, \"no_token_specific_code\": true, \"paper_execution_open\": false, \"paper_outcome_open\": false, \"paper_plan_class\": \"PAPER_PLAN_READY_CAUTION_AFTER_SELL_CLASSIFIER_FIX\", \"paper_position_open\": false, \"phase\": \"PHASE22P3_PAPER_TRADE_PLAN_REAL_WRITE_AFTER_EXPLICIT_APPROVAL\", \"plan_uid\": \"paper_plan_112df2fd0a56e3a0f037a3e129e8\", \"planned_notional_usd\": 25.0, \"run_uid\": \"run_22p3_real_20260509_134127_39867e13\", \"score\": 93.0, \"sell_status\": \"SELLABLE_PASS\", \"sell_tax\": 0.0, \"source_phase\": \"PHASE22P2_PAPER_TRADE_PLAN_SCHEMA_DRYRUN_NOAPI\", \"source_rule\": \"P2 temp schema dry-run passed; P3 writes paper_trade_plans only after explicit approval.\"}",
+          "risk_usd": null,
+          "stop_price": null,
+          "suggested_capital_usd": 25.0,
+          "token_address": null,
+          "token_uid": null,
+          "tp1_price": null,
+          "tp2_price": null
+        }
+      ],
+      "table": "paper_trade_plans"
+    },
+    {
+      "exists": true,
+      "nonzero": false,
+      "row_count": 0,
+      "samples": [],
+      "table": "paper_trade_positions"
+    },
+    {
+      "exists": true,
+      "nonzero": false,
+      "row_count": 0,
+      "samples": [],
+      "table": "paper_trade_executions"
+    },
+    {
+      "exists": true,
+      "nonzero": false,
+      "row_count": 0,
+      "samples": [],
+      "table": "paper_trade_outcomes"
+    },
+    {
+      "exists": true,
+      "nonzero": false,
+      "row_count": 0,
+      "samples": [],
+      "table": "fusion_score_events_v1"
+    }
+  ],
+  "phase": "PHASE5L1_PAPER_LIVE_CLEAN_FALSE_DIAGNOSE_NOAPI",
+  "rollback_recommended_now": false,
+  "safe_to_repair_audit": true,
+  "safety": {
+    "api_calls": 0,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "panel_mutation": false,
+    "paper_live_watchlist_score": false,
+    "rollback_executed": false,
+    "rpc_calls": 0,
+    "service_timer_mutation": false
+  },
+  "target_overlap_rows": [
+    {
+      "current_count": 4,
+      "expected_delta": 4,
+      "is_paper_live_named_table": false,
+      "phase5k_after": 4,
+      "phase5k_before": 0,
+      "target_table": "data_quality_time_series_v1"
+    },
+    {
+      "current_count": 18,
+      "expected_delta": 18,
+      "is_paper_live_named_table": false,
+      "phase5k_after": 18,
+      "phase5k_before": 0,
+      "target_table": "deployer_receipt_evidence_events_v1"
+    },
+    {
+      "current_count": 1,
+      "expected_delta": 1,
+      "is_paper_live_named_table": false,
+      "phase5k_after": 1,
+      "phase5k_before": 0,
+      "target_table": "evidence_event_ledger_v1"
+    },
+    {
+      "current_count": 7,
+      "expected_delta": 7,
+      "is_paper_live_named_table": false,
+      "phase5k_after": 7,
+      "phase5k_before": 0,
+      "target_table": "initial_holder_evidence_events_v1"
+    }
+  ],
+  "target_paper_overlap_count": 0,
+  "ts_utc": "2026-06-01T05:55:06.263112+00:00"
+}

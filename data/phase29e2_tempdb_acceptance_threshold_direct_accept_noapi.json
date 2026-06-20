@@ -1,0 +1,300 @@
+{
+  "phase": "PHASE29E2_TEMPDB_ACCEPTANCE_THRESHOLD_DIRECT_ACCEPT_NOAPI",
+  "started_utc": "2026-06-08T10:15:07.518343+00:00",
+  "finished_utc": "2026-06-08T10:15:07.601967+00:00",
+  "final_gate": "PASS_PHASE29E2_TEMPDB_ACCEPTANCE_THRESHOLD_DIRECT_ACCEPT_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE29F_SYSTEM_GATE_SELF_TEST_TEMPDB_POST_AUDIT_NOAPI",
+  "acceptance_classification": "PHASE29E_ACCEPTANCE_THRESHOLD_OVEREXPECTED_ACCEPTED_BY_DIRECT_EVIDENCE",
+  "direct_accept_contract": {
+    "acceptance_classification": "PHASE29E_ACCEPTANCE_THRESHOLD_OVEREXPECTED_ACCEPTED_BY_DIRECT_EVIDENCE",
+    "source_review_phase": "PHASE29E_SYSTEM_GATE_SELF_TEST_TEMPDB_DRYRUN_PLAN_NOAPI",
+    "detail_phase": "PHASE29E1_TEMPDB_ACCEPTANCE_EVENT_THRESHOLD_DETAIL_NOAPI",
+    "accepted_issue": "TEMP_ACCEPTANCE_EVENTS_PRESENT",
+    "why_accepted": [
+      "Phase29E expected at least 4 acceptance events.",
+      "Phase29E1 proved temp self-test results naturally produced 3 acceptance events.",
+      "Acceptance event count matched accepted result count exactly.",
+      "Temp DB integrity, quick check, and foreign keys were clean.",
+      "Temp results had zero failed results.",
+      "Hard fail events were present.",
+      "Live DB, active panel, runner, service unit, and timer unit remained unchanged.",
+      "No forbidden actions occurred.",
+      "The issue is threshold overexpectation, not missing temp DB event insertion."
+    ],
+    "accepted_threshold_rule": {
+      "strict_phase29e_threshold": 4,
+      "accepted_min_for_current_test_coverage": 3,
+      "accept_if": [
+        "acceptance_event_count == expected_acceptance_from_results",
+        "acceptance_event_count >= accepted_min_for_current_test_coverage",
+        "temp_db_integrity_ok",
+        "temp_db_fk_zero",
+        "temp_results_failed_zero",
+        "hard_fail_events_present",
+        "live_system_clean",
+        "no_forbidden_actions"
+      ]
+    },
+    "future_rule": "Future temp DB self-test threshold must be derived from accepted result rows, not a fixed hardcoded number.",
+    "no_patch_now": true,
+    "no_live_db_write": true,
+    "no_tempdb_write": true,
+    "no_runner_change": true,
+    "no_service_timer_change": true,
+    "recommended_next": "PHASE29F_SYSTEM_GATE_SELF_TEST_TEMPDB_POST_AUDIT_NOAPI"
+  },
+  "phase29e_expected_review": {
+    "final_gate": "REVIEW_PHASE29E_SYSTEM_GATE_SELF_TEST_TEMPDB_DRYRUN_PLAN_NOAPI",
+    "rc": 1,
+    "failed_checks": [
+      "TEMP_ACCEPTANCE_EVENTS_PRESENT"
+    ],
+    "decision": "REVIEW_PHASE29E_BEFORE_PHASE29F"
+  },
+  "phase29e1_detail": {
+    "final_gate": "PASS_PHASE29E1_TEMPDB_ACCEPTANCE_EVENT_THRESHOLD_DETAIL_NOAPI",
+    "rc": 0,
+    "decision": "OPEN_PHASE29E2_TEMPDB_ACCEPTANCE_THRESHOLD_DIRECT_ACCEPT_NOAPI",
+    "classification": "STRICT_THRESHOLD_OVEREXPECTED_BY_TEST_COVERAGE",
+    "detail": {
+      "temp_db_path": "/root/tokenoskobi_clean_v1/_phase29e_system_gate_self_test_tempdb_dryrun_plan_noapi/20260608_125401/phase29e_system_gate_self_test_tempdb_dryrun_plan_noapi_temp.sqlite",
+      "temp_db_exists": true,
+      "temp_db_sha256": "919b89b4811a17cf6a12c2fbce545968e45a6a642f031ce3bd71a19ba9cd6216",
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "fk_violation_count": 0,
+      "table_counts": {
+        "system_gate_self_test_runs": 1,
+        "system_gate_evidence_items": 7,
+        "system_gate_classification_rules": 19,
+        "system_gate_self_test_cases": 16,
+        "system_gate_self_test_results": 16,
+        "system_gate_acceptance_events": 3,
+        "system_gate_hard_fail_events": 10
+      },
+      "classification_rule_counts_by_severity": {
+        "ACCEPTED_REVIEW": 4,
+        "FAIL": 8,
+        "PASS": 1,
+        "PASS_OR_ACCEPTED_REVIEW": 1,
+        "REVIEW": 1,
+        "REVIEW_OR_FAIL": 3,
+        "WARN_OR_INFO": 1
+      },
+      "result_counts_by_severity": {
+        "ACCEPTED_REVIEW": 3,
+        "FAIL": 10,
+        "PASS": 1,
+        "REVIEW": 1,
+        "WARN_OR_INFO": 1
+      },
+      "result_counts_by_route_effect": {
+        "NO_BLOCK": 5,
+        "SYSTEM_BLOCK": 10,
+        "SYSTEM_CAUTION": 1
+      },
+      "acceptance_event_count": 3,
+      "acceptance_event_rows": [
+        {
+          "acceptance_uid": "accept_01",
+          "classification": "SYSTEMD_REPRESENTATION_MISMATCH",
+          "accepted_severity": "ACCEPTED_REVIEW",
+          "evidence_ref": "case_01",
+          "cannot_weaken_hard_gate": 1
+        },
+        {
+          "acceptance_uid": "accept_02",
+          "classification": "JSON_KEY_PATH_MISMATCH",
+          "accepted_severity": "ACCEPTED_REVIEW",
+          "evidence_ref": "case_02",
+          "cannot_weaken_hard_gate": 1
+        },
+        {
+          "acceptance_uid": "accept_11",
+          "classification": "MISSING_FIELD_WITH_DIRECT_EVIDENCE",
+          "accepted_severity": "ACCEPTED_REVIEW",
+          "evidence_ref": "case_11",
+          "cannot_weaken_hard_gate": 1
+        }
+      ],
+      "expected_acceptance_from_results": 3,
+      "expected_acceptance_from_rules": 5,
+      "hard_fail_event_count": 10,
+      "failed_result_count": 0,
+      "threshold_expected_by_29e": 4,
+      "threshold_reasonable_min_detail": 3,
+      "error": null
+    }
+  },
+  "tempdb_readonly_recheck": {
+    "temp_db_path": "/root/tokenoskobi_clean_v1/_phase29e_system_gate_self_test_tempdb_dryrun_plan_noapi/20260608_125401/phase29e_system_gate_self_test_tempdb_dryrun_plan_noapi_temp.sqlite",
+    "exists": true,
+    "sha256": "919b89b4811a17cf6a12c2fbce545968e45a6a642f031ce3bd71a19ba9cd6216",
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "fk_violation_count": 0,
+    "table_counts": {
+      "system_gate_self_test_runs": 1,
+      "system_gate_evidence_items": 7,
+      "system_gate_classification_rules": 19,
+      "system_gate_self_test_cases": 16,
+      "system_gate_self_test_results": 16,
+      "system_gate_acceptance_events": 3,
+      "system_gate_hard_fail_events": 10
+    },
+    "acceptance_event_count": 3,
+    "accepted_result_count": 3,
+    "hard_fail_event_count": 10,
+    "failed_result_count": 0,
+    "error": null
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "live_db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "live_db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "live_db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "safety": {
+    "NOAPI": true,
+    "DIRECT_ACCEPT_ONLY": true,
+    "TEMPDB_READ_ONLY": true,
+    "NO_TEMPDB_WRITE": true,
+    "NO_LIVE_DB_WRITE": true,
+    "NO_LIVE_SCHEMA_APPLY": true,
+    "NO_PATCH": true,
+    "NO_VALIDATOR_PATCH": true,
+    "NO_CLOSE_AUDIT_PATCH": true,
+    "NO_DELETE": true,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "PROJECTED_RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "SERVICE_WRITE": false,
+    "TIMER_WRITE": false,
+    "RUNNER_WRITE": false,
+    "CANONICAL_WRITE": false,
+    "QUARANTINE_WRITE": false,
+    "STAGING_WRITE": false,
+    "RAW_WRITE": false,
+    "MATRIX_WRITE": false,
+    "VALIDATOR_WRITE": false,
+    "AI_WRITE": false,
+    "ASSET_WRITE": false,
+    "ICON_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE29E_EXPECTED_REVIEW_FOUND": true,
+    "PHASE29E1_PASS_AND_OPEN_29E2": true,
+    "ACCEPTANCE_CLASSIFICATION_OK": true,
+    "DIRECT_ACCEPT_CONTRACT_OK": true,
+    "ACCEPTANCE_DIRECT_EVIDENCE_OK": true,
+    "ACCEPTANCE_EVENT_COUNT_3": true,
+    "EXPECTED_ACCEPTANCE_FROM_RESULTS_3": true,
+    "STRICT_THRESHOLD_WAS_4": true,
+    "ACCEPTED_MIN_IS_3": true,
+    "ACCEPTANCE_EVENTS_MATCH_ACCEPTED_RESULTS": true,
+    "TEMP_DB_EXISTS": true,
+    "TEMP_DB_READONLY_INTEGRITY_OK": true,
+    "TEMP_DB_READONLY_QUICK_OK": true,
+    "TEMP_DB_READONLY_FK_0": true,
+    "TEMP_DB_READONLY_ACCEPTANCE_MATCH": true,
+    "TEMP_DB_READONLY_HARD_FAIL_EVENTS_PRESENT": true,
+    "TEMP_DB_READONLY_FAILED_RESULTS_0": true,
+    "LIVE_DB_INTEGRITY_OK": true,
+    "LIVE_DB_QUICK_CHECK_OK": true,
+    "LIVE_DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "LIVE_DB_UNCHANGED_DURING_ACCEPT": true,
+    "ACTIVE_INDEX_UNCHANGED_DURING_ACCEPT": true,
+    "RUNNER_UNCHANGED_DURING_ACCEPT": true,
+    "SERVICE_UNIT_UNCHANGED_DURING_ACCEPT": true,
+    "TIMER_UNIT_UNCHANGED_DURING_ACCEPT": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "OPEN_PHASE29F_SYSTEM_GATE_SELF_TEST_TEMPDB_POST_AUDIT_NOAPI"
+}

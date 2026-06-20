@@ -1,0 +1,290 @@
+{
+  "phase": "PHASE3_EVIDENCE3M_GETLOGS_STRATEGY_REPAIR_PLAN_NOAPI",
+  "started_utc": "2026-05-28T18:02:21.071812+00:00",
+  "finished_utc": "2026-05-28T18:02:21.152189+00:00",
+  "gate_pass": true,
+  "final_gate": "PASS_PHASE3_EVIDENCE3M_GETLOGS_STRATEGY_REPAIR_PLAN_NOAPI",
+  "hard_error_count": 0,
+  "hard_errors": [],
+  "warning_count": 0,
+  "warnings": [],
+  "next_phase": "PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+  "next_real_phase": "PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+  "approval_phrase": "PHASE3_EVIDENCE3N getlogs repair smoke real için onay veriyorum",
+  "target_from_previous_json": {
+    "token_name": "币安好友",
+    "token_uid": "tok_0e7297b7ee9e92cc0f16f592",
+    "pair_uid": "pair_b8e97a69da61071e7cb09a5c",
+    "chain": "bnb",
+    "chain_id": 56,
+    "token_address": "0xa4b79ddc047d301e1cfa21e1d4b524d1260e4444",
+    "pair_address": "0x28c4720d18b3b1590f14a5dc50aefe89e950bc7b"
+  },
+  "target_shape": {
+    "token_address_present": true,
+    "pair_address_present": true,
+    "token_address_shape_ok": true,
+    "pair_address_shape_ok": true,
+    "chain_present": true,
+    "chain_id_present": true
+  },
+  "prev_3l_checks": {
+    "prev_3l_json_exists": true,
+    "prev_3l_json_path": "/root/tokenoskobi_clean_v1/data/phase3_evidence3l_alchemy_rpc_indexer_discovery_review_noapi.json",
+    "prev_3l_json_load_ok": true,
+    "prev_3l_gate_pass": true,
+    "prev_3l_final_gate": "PASS_PHASE3_EVIDENCE3L_ALCHEMY_RPC_INDEXER_DISCOVERY_REVIEW_NOAPI",
+    "prev_3l_next_phase": "PHASE3_EVIDENCE3M_GETLOGS_STRATEGY_REPAIR_PLAN_NOAPI",
+    "prev_3l_review_classification": "PARTIAL_RPC_EVIDENCE_LOG_QUERY_FAILED",
+    "prev_3l_deployer_status": "UNRESOLVED",
+    "prev_3l_token_state": "GHOST",
+    "prev_3l_token_log_http400": true,
+    "prev_3l_pair_log_http400": true,
+    "prev_3l_http400_seen": true,
+    "prev_3l_code_exists": true,
+    "prev_3l_latest_block_present": true
+  },
+  "prev_3l_ok": true,
+  "getlogs_repair_plan": {
+    "plan_mode": "NOAPI_PLAN_ONLY",
+    "current_phase_rpc_calls": 0,
+    "next_real_phase": "PHASE3_EVIDENCE3N_GETLOGS_REPAIR_SMOKE_REAL_AFTER_EXPLICIT_APPROVAL",
+    "approval_phrase": "PHASE3_EVIDENCE3N getlogs repair smoke real için onay veriyorum",
+    "reason_for_plan": {
+      "code_exists_confirmed_by_3k": true,
+      "latest_block_confirmed_by_3k": true,
+      "token_getlogs_http400": true,
+      "pair_getlogs_http400": true,
+      "deployer_absence_not_proven": true
+    },
+    "hard_boundaries": {
+      "do_not_retry_same_3k": true,
+      "do_not_expand_random_range": true,
+      "do_not_scan_from_genesis": true,
+      "do_not_use_topicless_pair_wide_query": true,
+      "do_not_switch_to_nodereal_without_plan": true,
+      "do_not_make_token_specific_patch": true,
+      "no_db_write": true,
+      "no_panel_write": true,
+      "no_paper_live": true,
+      "no_router_quote": true,
+      "no_gas_estimate": true,
+      "no_swap": true
+    },
+    "future_3n_call_budget": {
+      "hard_max_rpc_calls": 8,
+      "preferred_max_rpc_calls": 6,
+      "purpose": "getLogs format/range smoke only, not full deployer discovery",
+      "stop_on_first_http400_with_body_classification": true,
+      "stop_if_provider_rate_or_range_policy_error": true
+    },
+    "future_3n_sanitization_rules": {
+      "do_not_print_rpc_url": true,
+      "do_not_print_secret": true,
+      "archive_http_error_body_sanitized": true,
+      "max_error_body_chars": 800,
+      "strip_rpc_url_or_key_from_error_body": true,
+      "store_only_method_status_error_class_filter_shape": true
+    },
+    "getlogs_strategy_ordered": [
+      {
+        "step": 1,
+        "method": "eth_blockNumber",
+        "max_calls": 1,
+        "purpose": "Refresh latest block only for tiny-window smoke.",
+        "classification_if_fail": "PROVIDER_HEALTH_FAILED"
+      },
+      {
+        "step": 2,
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.token_address_from_previous_json>",
+          "fromBlock": "latest-32",
+          "toBlock": "latest",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Token Transfer topic-only tiny-window smoke. This checks whether token log filter format/range is accepted.",
+        "success_meaning": "GETLOGS_TOKEN_TRANSFER_FORMAT_ACCEPTED_EMPTY_OR_NONEMPTY",
+        "empty_result_meaning": "No evidence; format/range only accepted.",
+        "failure_meaning": "TOKEN_GETLOGS_FORMAT_OR_PROVIDER_POLICY_FAILED"
+      },
+      {
+        "step": 3,
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.token_address_from_previous_json>",
+          "fromBlock": "latest-32",
+          "toBlock": "latest",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x0000000000000000000000000000000000000000000000000000000000000000"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Zero-address Transfer tiny-window smoke. This is not a full deployer search.",
+        "success_meaning": "ZERO_TRANSFER_FILTER_FORMAT_ACCEPTED_EMPTY_OR_NONEMPTY",
+        "empty_result_meaning": "No recent mint evidence; not deployer absence.",
+        "failure_meaning": "ZERO_TRANSFER_FILTER_FORMAT_OR_PROVIDER_POLICY_FAILED"
+      },
+      {
+        "step": 4,
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.pair_address_from_previous_json>",
+          "fromBlock": "latest-32",
+          "toBlock": "latest",
+          "topics": [
+            "0x1c411e9a96e071241b9b22dbbbf56f6d3df2e1cf0fb7c685f7396b21239a6a"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Pair log smoke with Sync topic. Pair topics-empty wide query is banned.",
+        "success_meaning": "PAIR_TOPIC_FILTER_FORMAT_ACCEPTED_EMPTY_OR_NONEMPTY",
+        "empty_result_meaning": "No recent pair Sync in tiny range; not pair absence.",
+        "failure_meaning": "PAIR_GETLOGS_FORMAT_OR_PROVIDER_POLICY_FAILED"
+      },
+      {
+        "step": 5,
+        "method": "eth_getLogs",
+        "filter_template": {
+          "address": "<target.token_address_from_previous_json>",
+          "fromBlock": "latest-512",
+          "toBlock": "latest",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+          ]
+        },
+        "max_calls": 1,
+        "purpose": "Only if step 2 accepted. Slightly wider but still tiny transfer smoke.",
+        "success_meaning": "SMALL_RANGE_TOKEN_TRANSFER_ACCEPTED",
+        "failure_meaning": "RANGE_POLICY_LIMIT_OR_FILTER_POLICY_LIMIT"
+      }
+    ],
+    "classification_policy_for_3n": {
+      "GETLOGS_REPAIR_SMOKE_OK": {
+        "requirements": [
+          "eth_blockNumber ok",
+          "at least one token eth_getLogs smoke returns HTTP 200/RPC ok"
+        ],
+        "result": "format/range repair works; later bounded deployer discovery may be planned",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST",
+        "watchlist_allowed": false,
+        "paper_allowed": false,
+        "clean_risk_allowed": false
+      },
+      "GETLOGS_PROVIDER_POLICY_BLOCKED": {
+        "requirements": [
+          "eth_blockNumber ok",
+          "tiny-window eth_getLogs still HTTP 400 or provider policy error"
+        ],
+        "result": "Alchemy BNB getLogs unsuitable or request-shape rejected; plan fallback provider review",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST",
+        "next_plan": "PHASE3_EVIDENCE3O_RPC_PROVIDER_FALLBACK_PLAN_NOAPI"
+      },
+      "GETLOGS_RANGE_TOO_WIDE_CONFIRMED": {
+        "requirements": [
+          "latest-32 works",
+          "latest-512 or wider fails"
+        ],
+        "result": "use adaptive small chunks only after explicit plan",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST"
+      },
+      "GETLOGS_ERROR_BODY_INCONCLUSIVE": {
+        "requirements": [
+          "HTTP 400 body does not reveal class after sanitization"
+        ],
+        "result": "do not guess; keep GHOST and plan provider fallback review",
+        "deployer_status": "UNRESOLVED",
+        "token_state": "GHOST"
+      }
+    },
+    "future_full_discovery_not_in_3n": {
+      "full_backfill_or_deployer_search": false,
+      "reason": "3N is only getLogs repair smoke. Full deployer discovery needs a later plan after format succeeds.",
+      "possible_later_phase": "PHASE3_EVIDENCE3P_BOUNDED_DEPLOYER_LOG_DISCOVERY_PLAN_NOAPI"
+    }
+  },
+  "ports": {
+    "port_status": {
+      "8096": true,
+      "8142": false,
+      "8143": true,
+      "8144": true,
+      "8145": true,
+      "8146": false
+    },
+    "expected_keep_open_ports": [
+      8144,
+      8145
+    ],
+    "note": "8144 and 8145 are expected keep-open preview ports and are not hard errors."
+  },
+  "db_checks": {
+    "db_exists": true,
+    "db_integrity_check": "ok",
+    "db_quick_check": "ok",
+    "fk_error_count": 0,
+    "tokens_count": 19,
+    "pairs_count": 19,
+    "paper_table_counts_seen": {
+      "paper_trade_executions": 0,
+      "paper_trade_positions": 0
+    },
+    "live_table_counts_seen": {},
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true
+  },
+  "safety": {
+    "no_api_calls_by_script": true,
+    "no_external_network_calls_by_script": true,
+    "no_rpc_calls_by_script": true,
+    "no_fetch": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_active_8096_write": true,
+    "no_hosts_write": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_pid_kill": true,
+    "no_secret_print": true,
+    "secret_values_printed": false,
+    "no_router_quote": true,
+    "no_gas_estimate": true,
+    "no_swap": true,
+    "no_paper_live_trade": true,
+    "no_core_file_write": true,
+    "report_write": true,
+    "json_write": true,
+    "work_dir_write": false,
+    "db_unchanged": true,
+    "active_index_unchanged": true,
+    "hosts_unchanged": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "fk_zero": true,
+    "paper_runtime_zero": true,
+    "live_runtime_zero": true,
+    "active_8096_listening": true,
+    "expected_keep_open_ports_not_errors": true
+  },
+  "hashes_before": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "hashes_after": {
+    "db_sha": "b480f357cfd0f723ad92a40539ab03791663f19c50bffdf0b5389ad1ea44e3ca",
+    "active_index_sha": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "hosts_sha": "928b3e47a7b5d9c1166947481683f5a7aff81af3bdd93dd87cffc43fe0df6c84"
+  },
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE3_EVIDENCE3M_GETLOGS_STRATEGY_REPAIR_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase3_evidence3m_getlogs_strategy_repair_plan_noapi.json"
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "phase": "PHASE40M_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_APPLY_PLAN_NOAPI",
+  "created_at": "2026-06-09T15:49:48.886504+00:00",
+  "final_gate": "PASS_PHASE40M_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_APPLY_PLAN_NOAPI",
+  "rc": 0,
+  "failed_checks": [],
+  "decision": "OPEN_PHASE40N_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITER_TOOL_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "checks": {
+    "PHASE40L_PASS": true,
+    "PHASE40L_DECISION_OPEN_40M": true,
+    "PHASE40L_TEMPDB_WRITE_PATH_CONFIRMED": true,
+    "PHASE40L_LIVE_SAFETY_CONFIRMED": true,
+    "LIVE_DB_INTEGRITY_OK": true,
+    "LIVE_DB_FOREIGN_KEYS_OK": true,
+    "LIVE_REQUIRED_TABLES_PRESENT": true,
+    "LIVE_REQUIRED_INDEXES_PRESENT": true,
+    "LIVE_NEWS_SOCIAL_TABLES_EMPTY_BEFORE_APPLY_PLAN": true,
+    "WRITE_PATH_APPLY_PLAN_WRITTEN": true,
+    "NO_FAKE_SAMPLE_ROWS_IN_LIVE_DB_POLICY": true,
+    "NEXT_REAL_APPLY_WRITES_TOOL_NOT_SIGNAL_ROWS": true,
+    "WRITER_DEFAULT_DRY_RUN": true,
+    "WRITER_REAL_WRITE_REQUIRES_EXPLICIT_FLAG": true,
+    "WRITER_IDEMPOTENT_UIDS_REQUIRED": true,
+    "WRITER_DUPLICATE_SIGNAL_BLOCK_REQUIRED": true,
+    "NEWS_SOCIAL_SIGNAL_NOT_TRUTH": true,
+    "TRADE_AUTHORITY_ALWAYS_ZERO": true,
+    "DETERMINISTIC_GATE_REQUIRED": true,
+    "FALSE_NEGATIVE_MEMORY_HOT_LOOP_FALSE": true,
+    "FAST_LEARNING_POLICY_WRITTEN": true,
+    "NO_REPEAT_MISTAKE_POLICY_WRITTEN": true,
+    "LIVE_DB_UNCHANGED": true,
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "NO_API_CALLS_NOW": true,
+    "NO_PAPER_TRADE_NOW": true,
+    "NO_LIVE_TRADE_NOW": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "integrity": "ok",
+  "fk_error_count": 0,
+  "table_counts": {
+    "news_social_sources_v1": 0,
+    "news_social_launch_signals_v1": 0,
+    "news_social_signal_evidence_links_v1": 0,
+    "news_social_review_queue_v1": 0,
+    "news_social_false_negative_memory_links_v1": 0
+  },
+  "missing_tables": [],
+  "missing_indexes": [],
+  "write_path_apply_plan": {
+    "phase": "PHASE40M_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_APPLY_PLAN_NOAPI",
+    "created_at": "2026-06-09T15:49:48.881993+00:00",
+    "mode": "APPLY_PLAN_ONLY_NOAPI",
+    "opened_after": "PASS_PHASE40L_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_TEMPDB_DRYRUN_NOAPI",
+    "important_decision": {
+      "do_not_insert_fake_sample_rows_into_live_db": true,
+      "live_news_social_tables_must_stay_empty_until_real_or_user_provided_evidence": true,
+      "next_real_apply_writes_a_safe_writer_tool_not_signal_rows": true,
+      "writer_tool_must_be_offline_local_input_only_first": true,
+      "external_fetch_still_blocked": true,
+      "api_calls_still_blocked": true
+    },
+    "target_writer_tool": {
+      "path": "/root/tokenoskobi_clean_v1/tools/news_social_launch_signal_writer_v1.py",
+      "purpose": "Write user-provided or future-approved normalized launch/news/social evidence into the existing schema with deterministic IDs, duplicate protection, risk/reward preview, repeat-mistake memory, and review queue routing.",
+      "real_apply_phase": "PHASE40N_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITER_TOOL_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+      "post_audit_phase": "PHASE40O_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITER_TOOL_POST_AUDIT_NOAPI",
+      "approval_phrase": "PHASE40N news social launch signal writer tool apply real için onay veriyorum"
+    },
+    "writer_contract": {
+      "input_mode_v1": "local_json_file_only",
+      "external_fetch": false,
+      "api_calls": false,
+      "telegram_send": false,
+      "panel_write": false,
+      "runner_mutation": false,
+      "paper_trade": false,
+      "live_trade": false,
+      "requires_backup_before_live_db_write": true,
+      "supports_dry_run": true,
+      "dry_run_default": true,
+      "real_write_requires_explicit_flag": true,
+      "idempotent_uids": true,
+      "duplicate_signal_block": true,
+      "news_social_signal_is_not_truth": true,
+      "trade_authority_always_zero": true,
+      "deterministic_gate_required": true,
+      "false_negative_memory_hot_loop_false": true
+    },
+    "writer_stages": [
+      {
+        "stage": 1,
+        "name": "load_local_json",
+        "description": "Read a local JSON candidate file only; no URL fetch.",
+        "hard_block_if_missing": true
+      },
+      {
+        "stage": 2,
+        "name": "validate_required_fields",
+        "description": "Validate source_class, source_name, token_name_claim, chain_claim, evidence_type, evidence_hash, risk/reward fields.",
+        "hard_block_if_invalid": true
+      },
+      {
+        "stage": 3,
+        "name": "normalize_and_hash",
+        "description": "Generate source_uid, signal_uid, evidence_uid, review_uid, memory_uid and repeat_mistake_key deterministically.",
+        "hard_block_if_duplicate_logic_missing": true
+      },
+      {
+        "stage": 4,
+        "name": "risk_reward_precalc",
+        "description": "Calculate expected_upside_score, expected_loss_score, manipulation_risk_score and route label before any write.",
+        "hard_block_if_missing": true
+      },
+      {
+        "stage": 5,
+        "name": "route_review_queue",
+        "description": "Route to WAIT_MORE_DATA, READY_FOR_ONCHAIN_CHECK, READY_FOR_RISK_CHECK, REJECTED or ARCHIVED.",
+        "hard_block_if_unknown_route": true
+      },
+      {
+        "stage": 6,
+        "name": "repeat_mistake_memory",
+        "description": "Generate repeat mistake key and memory row; same mistake second repeat is not allowed.",
+        "hard_block_if_missing": true
+      },
+      {
+        "stage": 7,
+        "name": "dry_run_report",
+        "description": "Default path: print planned rows and checks without live DB mutation.",
+        "hard_block_if_disabled": true
+      },
+      {
+        "stage": 8,
+        "name": "real_write_after_approval_only",
+        "description": "Only future explicit approval can enable real DB insert with backup and rollback.",
+        "hard_block_if_no_approval": true
+      }
+    ],
+    "live_db_write_policy_for_future": {
+      "allow_fake_test_rows_in_live_db": false,
+      "allow_user_provided_evidence_rows_after_approval": true,
+      "allow_future_fetched_evidence_rows_after_fetch_pipeline_approval": true,
+      "must_store_review_queue": true,
+      "must_store_evidence_link": true,
+      "must_store_false_negative_memory_link": true,
+      "must_keep_trade_authority_zero": true,
+      "must_keep_signal_truth_status_not_truth": true,
+      "must_keep_hot_loop_zero": true
+    },
+    "fast_learning_policy": {
+      "early_opportunity_prediction": "watch_priority_only",
+      "risk_reward_before_action": true,
+      "same_mistake_second_repeat_allowed": false,
+      "mistake_signature_required": true,
+      "learning_windows": [
+        "15m",
+        "1h",
+        "4h",
+        "24h"
+      ],
+      "tactic_update_after_pattern": true,
+      "field_application_after_gate": true
+    },
+    "next_phase": "PHASE40N_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITER_TOOL_APPLY_REAL_AFTER_EXPLICIT_APPROVAL"
+  },
+  "before_sha": {
+    "db": "4e7de8f03a5cb9cfffb8b316acf870af904d8b2f1a8c7bb2b9042d592202a5f6",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "after_sha": {
+    "db": "4e7de8f03a5cb9cfffb8b316acf870af904d8b2f1a8c7bb2b9042d592202a5f6",
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE40M_NEWS_SOCIAL_LAUNCH_SIGNAL_WRITE_PATH_APPLY_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/phase40m_news_social_launch_signal_write_path_apply_plan_noapi.json",
+  "rows": "/root/tokenoskobi_clean_v1/data/phase40m_news_social_launch_signal_write_path_apply_plan_noapi_rows.jsonl"
+}

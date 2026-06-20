@@ -1,0 +1,177 @@
+{
+  "active_interpretation": {
+    "accepted_schedule_source": "TimersMonotonic",
+    "hard_fail_conditions": [
+      "timer inactive or disabled",
+      "timer NeedDaemonReload=yes",
+      "service NeedDaemonReload=yes",
+      "timer unit cadence invalid",
+      "systemctl cat timer cadence invalid",
+      "systemd-analyze verify failed",
+      "TimersMonotonic missing or no near next_elapse",
+      "service hard failed",
+      "unexpected timer unit SHA change",
+      "unexpected runner SHA change"
+    ],
+    "pass_conditions": [
+      "timer unit SHA expected",
+      "timer active and enabled",
+      "timer NeedDaemonReload=no",
+      "service NeedDaemonReload=no",
+      "service settled and not hard failed",
+      "TimersMonotonic contains OnBootUSec=2min and next_elapse <= 180 seconds",
+      "timer unit file and systemctl cat cadence match",
+      "systemd-analyze verify rc=0"
+    ],
+    "rejected_or_deprioritized_source": "Top-level NextElapseUSecMonotonic",
+    "warn_only_conditions": [
+      "top-level NextElapseUSecMonotonic stale/long when TimersMonotonic is good",
+      "top-level On* fields empty when TimersMonotonic is good",
+      "OnUnitInactiveSec=5min not visible before first successful cycle"
+    ]
+  },
+  "applied_at_utc": "2026-06-02T16:59:46.996987+00:00",
+  "artifact": "system_control_timer_cadence_audit_policy_v1",
+  "current_runtime_proof_at_apply": {
+    "global_next_elapse_monotonic": "1month 3d 13h 29min 49.018408s",
+    "global_next_elapse_seconds": 2899789,
+    "global_next_is_warning_only": true,
+    "service_active_state": "inactive",
+    "service_exec_main_status": "0",
+    "service_need_daemon_reload": "no",
+    "service_result": "success",
+    "service_sub_state": "dead",
+    "timer_active_state": "active",
+    "timer_need_daemon_reload": "no",
+    "timer_sub_state": "waiting",
+    "timer_unit_file_state": "enabled",
+    "timers_monotonic_parsed": {
+      "contains_onboot_2min": true,
+      "contains_onunitinactive_5min": false,
+      "entries": [
+        {
+          "OnBootUSec": "2min",
+          "next_elapse": "2min"
+        }
+      ],
+      "has_entries": true,
+      "min_next_elapse_seconds": 120,
+      "next_elapse_values": [
+        "2min"
+      ],
+      "raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+      "trigger_fields": [
+        {
+          "OnBootUSec": "2min"
+        }
+      ]
+    },
+    "timers_monotonic_raw": "{ OnBootUSec=2min ; next_elapse=2min }",
+    "verify_rc": 0
+  },
+  "decision": "ACCEPT_TIMERS_MONOTONIC_AS_SOURCE_OF_TRUTH",
+  "no_runtime_mutation": {
+    "active_status_json_write": false,
+    "api_rpc_fetch": false,
+    "daemon_reload": false,
+    "live_db_write": false,
+    "paper_live_trade": false,
+    "runner_execute": false,
+    "service_start": false,
+    "service_unit_write": false,
+    "timer_restart": false,
+    "timer_unit_write": false
+  },
+  "phase_applied": "PHASE16I_FIX4_SYSTEM_CONTROL_TIMER_CADENCE_AUDIT_POLICY_REPAIR_REAL_AFTER_EXPLICIT_APPROVAL",
+  "policy": {
+    "current_policy_preview": {
+      "hard_fail_hits": [],
+      "pass_hits": [
+        "file_cadence_ok",
+        "cat_cadence_ok",
+        "verify_ok",
+        "timer_is_clean",
+        "service_is_settled",
+        "timers_monotonic_source_good"
+      ],
+      "status": "PASS_WITH_WARNINGS",
+      "warn_hits": [
+        "top_level_next_elapse_stale_or_long",
+        "onunitinactive_5min_not_visible_until_after_first_cycle",
+        "top_level_on_fields_empty"
+      ]
+    },
+    "hard_fail_rule": {
+      "NeedDaemonReload_yes": "fail",
+      "TimersMonotonic_missing_or_no_near_next_elapse": "fail",
+      "service_hard_failed": "fail",
+      "systemctl_cat_cadence_missing": "fail",
+      "timer_inactive_or_disabled": "fail",
+      "unexpected_file_sha_change": "fail",
+      "unit_file_cadence_missing": "fail",
+      "verify_failed": "fail"
+    },
+    "pass_rule": {
+      "all_required": [
+        "timer unit SHA matches expected or approved candidate",
+        "timer ActiveState=active",
+        "timer UnitFileState=enabled",
+        "timer NeedDaemonReload=no",
+        "service NeedDaemonReload=no",
+        "unit file cadence valid",
+        "systemctl cat cadence valid",
+        "systemd-analyze verify rc=0",
+        "TimersMonotonic contains a near next_elapse <= 180s for OnBootSec=2min or approved first trigger",
+        "service not hard failed"
+      ]
+    },
+    "policy_name": "timer_cadence_audit_policy_v1",
+    "real_apply_scope_next": {
+      "no_active_status_json_write": true,
+      "no_api_rpc_fetch": true,
+      "no_daemon_reload": true,
+      "no_live_db_write": true,
+      "no_paper_live_trade": true,
+      "no_restart": true,
+      "no_runner_execute": true,
+      "no_service_unit_write": true,
+      "no_timer_unit_write": true,
+      "write_policy_artifact_only": true
+    },
+    "scope": "generic_systemd_timer_cadence_audit",
+    "source_of_truth_priority_order": [
+      "TimersMonotonic entries from systemctl show -a <timer>",
+      "timer unit file directives from /etc/systemd/system/*.timer",
+      "systemctl cat <timer>",
+      "systemd-analyze verify",
+      "top-level NextElapseUSecMonotonic only as warning/context"
+    ],
+    "thresholds": {
+      "initial_next_elapse_pass_max_seconds": 180,
+      "initial_onboot_expected_seconds": 120,
+      "later_cycle_next_elapse_pass_max_seconds": 360,
+      "onunitinactive_expected_seconds": 300
+    },
+    "warn_only_rule": {
+      "onunitinactive_not_visible_before_first_cycle": "warn only until first successful inactive-cycle observation",
+      "top_level_next_elapse_stale_or_long": "warn only when TimersMonotonic is good",
+      "top_level_on_fields_empty": "warn only when TimersMonotonic is good"
+    }
+  },
+  "protected_hashes_at_apply": {
+    "active_index_sha": "3de006dbeac5d5715265d60edf0e998d5879a43eef9a96f81fec110c06e8243a",
+    "active_status_json_sha": "286c4a959d67ec60cb3487d6047dfe199616dbcf2b6d914810dd9072dc1422cc",
+    "live_db_sha": "497c435eae3f8c7f04853eb264a1a3c5e2ebecb379c1b3473d41ba47536430fb",
+    "runner_sha": "615b50c1e145ad6db93ae828fb1ad2b01061d3521475d9475eef41bc9d8b8beb",
+    "service_unit_sha": "9fcb934b0afc8a9275847bdc8e129988588edf6da6f462e2526d72bcfd32dc10",
+    "timer_unit_sha": "af3447bef37ad708e5cb05335651daf0d5f158927faf10ae47e33a2a0b50afcb"
+  },
+  "scope": "generic_systemd_timer_cadence_audit",
+  "source_phase_outputs": {
+    "phase16i_fix1_json": "/root/tokenoskobi_clean_v1/data/phase16i_fix1_system_control_timer_runtime_deep_diagnose_noapi.json",
+    "phase16i_fix2_json": "/root/tokenoskobi_clean_v1/data/phase16i_fix2_system_control_timer_cadence_model_review_noapi.json",
+    "phase16i_fix3_json": "/root/tokenoskobi_clean_v1/data/phase16i_fix3_system_control_timer_cadence_audit_policy_repair_plan_noapi.json"
+  },
+  "status": "ACTIVE_POLICY",
+  "version": "1.0"
+}

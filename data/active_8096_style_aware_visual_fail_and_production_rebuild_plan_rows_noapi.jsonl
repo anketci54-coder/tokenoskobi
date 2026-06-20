@@ -1,0 +1,30 @@
+{"row_type": "visual_decision", "decision": "TECHNICAL_PASS_VISUAL_PRODUCT_FAIL", "technical_pass": true, "visual_fail_confirmed": true, "active_url": "http://159.195.74.132:8096/?v=visual_fail_rebuild_plan"}
+{"row_type": "visual_fail_signal", "signal": "wrong_icon_wrong_center_risk", "decision": "REBUILD_REQUIRED"}
+{"row_type": "visual_fail_signal", "signal": "catalog_layout_served_as_production", "decision": "REBUILD_REQUIRED"}
+{"row_type": "visual_fail_signal", "signal": "route_debug_text_visible", "decision": "REBUILD_REQUIRED"}
+{"row_type": "visual_fail_signal", "signal": "circle_mask_v1_badge_visible", "decision": "REBUILD_REQUIRED"}
+{"row_type": "visual_fail_signal", "signal": "oversized_cards_and_fonts", "decision": "REBUILD_REQUIRED"}
+{"row_type": "visual_fail_signal", "signal": "horizontal_overflow_on_mobile", "decision": "REBUILD_REQUIRED"}
+{"row_type": "visual_fail_signal", "signal": "module_center_separation_not_enforced", "decision": "REBUILD_REQUIRED"}
+{"row_type": "center_policy", "center": "komuta_merkezi", "allowed_module_count": 6, "allowed_modules": ["canli_karar", "paper_trade_ozeti", "acik_pozisyonlar", "sl_tp_durumu", "aksiyon_gecmisi", "merkez_skorlari"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "haber_akis_merkezi", "allowed_module_count": 9, "allowed_modules": ["haber_etki_skoru", "kritik_haber", "haber_gecmisi_arsiv", "kaynak_guvenilirligi", "narrative_tema_takibi", "kritik_takvim_launch_calendar", "ico_ido_drop_radar", "airdrop_claim_takibi", "ceviri_ve_ozet"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "onchain_veri_merkezi", "allowed_module_count": 6, "allowed_modules": ["token_kimlik_karti", "likidite_havuz", "holder_dagilimi", "kontrat_risk", "tx_akis", "deployer_analizi"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "balina_takip_merkezi", "allowed_module_count": 5, "allowed_modules": ["whale_wallet_izleme", "akilli_para_takibi", "buyuk_transfer_alarmi", "borsa_giris_cikis", "wallet_risk_profili"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "teknik_analiz_merkezi", "allowed_module_count": 5, "allowed_modules": ["trend", "hacim", "destek_direnc", "momentum", "volatilite"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "risk_guvenlik_merkezi", "allowed_module_count": 5, "allowed_modules": ["risk_skoru", "rug_honeypot", "slippage", "kilit_kontrol", "uyari_sistemi"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "yasam_destek_merkezi", "allowed_module_count": 6, "allowed_modules": ["klinik", "morg", "otopsi", "olay_yeri_inceleme", "adli_sorusturma", "supheliler_spam_cuzdanlar"], "cross_panel_mixing": false}
+{"row_type": "center_policy", "center": "sistem_kontrol_merkezi", "allowed_module_count": 5, "allowed_modules": ["sistem_saglik", "veri_zamani", "api_durum", "panel_durum", "log_izleme"], "cross_panel_mixing": false}
+{"row_type": "production_rule", "rule": "NO_CATALOG_LAYOUT_AS_PRODUCTION", "status": "REQUIRED", "details": "77 route/catalog cards must not be the customer production home."}
+{"row_type": "production_rule", "rule": "CENTER_SEPARATION", "status": "REQUIRED", "details": "Each center may show only its own modules/icons; cross-panel mixing forbidden."}
+{"row_type": "production_rule", "rule": "NO_DEBUG_VISIBLE", "status": "REQUIRED", "details": "circle_mask_v1, styled, preview, /merkez route paths hidden in customer view."}
+{"row_type": "production_rule", "rule": "MAIN_HOME_FIRST", "status": "REQUIRED", "details": "Main screen should show executive dashboard, selected center cards, and actionable summaries."}
+{"row_type": "production_rule", "rule": "CENTER_DETAIL_SECOND", "status": "REQUIRED", "details": "Opening a center should render its own workspace, not global catalog."}
+{"row_type": "production_rule", "rule": "DESKTOP_TABLET_PRIORITY", "status": "REQUIRED", "details": "Desktop/tablet production layout is priority; mobile is optional/non-blocking polish."}
+{"row_type": "production_rule", "rule": "PREVIEW_BEFORE_ACTIVE", "status": "REQUIRED", "details": "Next production rebuild must be built on a separate preview port before any active 8096 apply."}
+{"row_type": "production_rule", "rule": "SAFE_SOURCE_SPINE_ONLY", "status": "REQUIRED", "details": "Use icon_registry, icon_binding, route_map, subject_graph, style file as sources; do not overwrite them."}
+{"row_type": "roadmap_next_step", "step_no": 1, "phase": "ACTIVE_8096_STYLE_AWARE_VISUAL_FAIL_RECORD_NOAPI", "status": "DONE_IN_THIS_PHASE", "purpose": "Record technical PASS but product/visual FAIL."}
+{"row_type": "roadmap_next_step", "step_no": 2, "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_LAYOUT_PLAN_NOAPI", "status": "NEXT", "purpose": "Plan a real production customer/control layout with center separation."}
+{"row_type": "roadmap_next_step", "step_no": 3, "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_PREVIEW_BUILD_AFTER_APPROVAL", "status": "WAIT", "purpose": "Build separate preview only, not active 8096."}
+{"row_type": "roadmap_next_step", "step_no": 4, "phase": "PANEL_PRODUCTION_CENTER_SEPARATED_PREVIEW_POST_AUDIT_NOAPI", "status": "WAIT", "purpose": "Audit wrong icon/wrong center/debug/overflow issues."}
+{"row_type": "roadmap_next_step", "step_no": 5, "phase": "ACTIVE_8096_PRODUCTION_PANEL_APPLY_PLAN_NOAPI", "status": "WAIT", "purpose": "Only after visual acceptance of preview."}
+{"row_type": "roadmap_next_step", "step_no": 6, "phase": "DOMAIN_DNS_CHECK_PLAN_NOAPI", "status": "LATER", "purpose": "Only after active 8096 production view is accepted."}

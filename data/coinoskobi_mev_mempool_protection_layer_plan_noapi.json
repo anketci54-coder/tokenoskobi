@@ -1,0 +1,315 @@
+{
+  "phase": "COINOSKOBI_MEV_MEMPOOL_PROTECTION_LAYER_PLAN_NOAPI",
+  "stamp": "20260522_122435",
+  "mode": "MEV_MEMPOOL_PROTECTION_LAYER_PLAN_ONLY_NOAPI_FIXED",
+  "layer_mount": {
+    "center_key": "risk",
+    "center_label": "Risk & Güvenlik Merkezi",
+    "parent_panel": "MEV / Sandwich Shield",
+    "sub_panel": "Mempool Protection Layer",
+    "sub_sub_panels": [
+      "Pending Tx Observer",
+      "Sandwich Profitability Estimator",
+      "Dynamic Slippage Cap",
+      "Protected Route Recommendation",
+      "Public Mempool Block Gate",
+      "Future Scale Protection"
+    ],
+    "no_new_center": true,
+    "allowed_center_key": "risk"
+  },
+  "mempool_inputs": [
+    {
+      "field": "pending_tx_value_usd",
+      "source": "future_readonly_mempool_observer",
+      "required_now": false,
+      "status": "FUTURE_READONLY_ONLY",
+      "risk_use": "Pending işlemin büyüklüğü."
+    },
+    {
+      "field": "pending_tx_slippage_tolerance_pct",
+      "source": "future_readonly_mempool_observer",
+      "required_now": false,
+      "status": "FUTURE_READONLY_ONLY",
+      "risk_use": "Botun kullanabileceği slippage boşluğu."
+    },
+    {
+      "field": "pending_tx_priority_fee_usd",
+      "source": "future_gas_priority_snapshot",
+      "required_now": false,
+      "status": "FUTURE_READONLY_ONLY",
+      "risk_use": "Öncelik/gas maliyeti."
+    },
+    {
+      "field": "pool_depth_before_tx",
+      "source": "onchain_liquidity_context",
+      "required_now": true,
+      "status": "AVAILABLE_FROM_RISK_V1_CONTEXT",
+      "risk_use": "Pool sığlığı."
+    },
+    {
+      "field": "our_entry_size_usd",
+      "source": "command_execution_context",
+      "required_now": true,
+      "status": "AVAILABLE_FROM_COMMAND_CONTEXT",
+      "risk_use": "Bizim işlem boyutu / pool oranı."
+    },
+    {
+      "field": "estimated_price_impact_pct",
+      "source": "mev_v1_price_impact_estimator",
+      "required_now": true,
+      "status": "AVAILABLE_FROM_MEV_V1",
+      "risk_use": "Fiyat etkisi."
+    },
+    {
+      "field": "estimated_bot_profit_usd",
+      "source": "future_sandwich_profit_estimator",
+      "required_now": false,
+      "status": "FUTURE_FORMULA_DRYRUN_FIRST",
+      "risk_use": "Botun tahmini kârı."
+    },
+    {
+      "field": "estimated_gas_or_priority_cost_usd",
+      "source": "future_network_fee_snapshot",
+      "required_now": false,
+      "status": "FUTURE_READONLY_ONLY",
+      "risk_use": "Bot maliyeti."
+    },
+    {
+      "field": "tx_burst_1m",
+      "source": "market_activity_context",
+      "required_now": true,
+      "status": "AVAILABLE_FROM_MEV_V1",
+      "risk_use": "İşlem patlaması."
+    },
+    {
+      "field": "same_window_swap_cluster",
+      "source": "market_activity_context",
+      "required_now": false,
+      "status": "FUTURE_DRYRUN_ONLY",
+      "risk_use": "Aynı pencere bot cluster davranışı."
+    }
+  ],
+  "risk_formulas": [
+    {
+      "formula_key": "sandwich_profitability_ratio",
+      "formula": "estimated_bot_profit_usd / max(estimated_gas_or_priority_cost_usd, 0.01)",
+      "interpretation": "1.0 üstü bot için ekonomik olarak anlamlı olabilir.",
+      "status": "planned_future_readonly"
+    },
+    {
+      "formula_key": "public_mempool_exposure_score",
+      "formula": "slippage_tolerance_pct + price_impact_pct + tx_burst_factor + pool_shallow_factor",
+      "interpretation": "Public mempool görünürlük riski.",
+      "status": "planned_dryrun"
+    },
+    {
+      "formula_key": "dynamic_slippage_cap_pct",
+      "formula": "min_required_slippage + volatility_buffer - mev_penalty",
+      "interpretation": "İşlemi kurtaracak ama botlara boşluk bırakmayacak otomatik slipaj.",
+      "status": "planned_dryrun"
+    },
+    {
+      "formula_key": "protected_route_required",
+      "formula": "risk_level in HIGH/CRITICAL or sandwich_profitability_ratio >= 1.0",
+      "interpretation": "Protected/private route önerisi.",
+      "status": "planned_future_only"
+    }
+  ],
+  "gate_policy": [
+    {
+      "risk_level": "LOW",
+      "entry_effect": "ALLOW",
+      "slippage_policy": "auto_tight_cap",
+      "route_policy": "normal route allowed for tiny paper/manual context",
+      "button_effect": "paper/manual allowed"
+    },
+    {
+      "risk_level": "MEDIUM",
+      "entry_effect": "REDUCE_SIZE",
+      "slippage_policy": "dynamic cap required",
+      "route_policy": "protected route recommended if live scale grows",
+      "button_effect": "paper/manual reduced size only"
+    },
+    {
+      "risk_level": "HIGH",
+      "entry_effect": "PAPER_ONLY",
+      "slippage_policy": "public route unsafe",
+      "route_policy": "protected route required for future live",
+      "button_effect": "paper observation only"
+    },
+    {
+      "risk_level": "CRITICAL",
+      "entry_effect": "BLOCK",
+      "slippage_policy": "no entry",
+      "route_policy": "no public route no execution",
+      "button_effect": "disabled / morg-autopsy route"
+    }
+  ],
+  "micro_live_philosophy": {
+    "initial_live_style": "micro_sizing_shallow_water_quick_small_gains",
+    "mev_threat_assumption": "small size less attractive to MEV bots but still measured",
+    "early_priority": [
+      "tiny_entry",
+      "liquidity_aware_sizing",
+      "single_tp_for_vur_kac",
+      "dynamic_slippage",
+      "paper_manual_first",
+      "hard_block_unknown_or_conflict"
+    ],
+    "future_scale_priority": [
+      "readonly_mempool_observer",
+      "protected_route_recommendation",
+      "sandwich_profitability_estimator",
+      "larger_size_hard_gates"
+    ]
+  },
+  "forbidden_offensive_actions": [
+    {
+      "action": "honeypot_bot_trap",
+      "status": "FORBIDDEN_LIVE",
+      "reason": "offensive/ethical/legal risk"
+    },
+    {
+      "action": "salmonella_reverse_arb_bait",
+      "status": "FORBIDDEN_LIVE",
+      "reason": "offensive manipulation risk"
+    },
+    {
+      "action": "frontrun_counter_attack_execution",
+      "status": "FORBIDDEN_LIVE",
+      "reason": "offensive MEV execution"
+    },
+    {
+      "action": "bot_wallet_locking_or_trapping",
+      "status": "FORBIDDEN_LIVE",
+      "reason": "not part of production defense"
+    },
+    {
+      "action": "live_jit_liquidity_execution",
+      "status": "LAB_ONLY",
+      "reason": "lab/backtest only"
+    }
+  ],
+  "output_contract": [
+    {
+      "target": "center_signal_events_v1",
+      "center_key": "risk",
+      "signal_type": "MEV_MEMPOOL_PROTECTION",
+      "payload_keys": [
+        "mempool_risk_level",
+        "public_mempool_exposure_score",
+        "protected_route_required",
+        "evidence_json"
+      ]
+    },
+    {
+      "target": "mev_sandwich_risk_events_v1",
+      "center_key": "risk",
+      "signal_type": "MEV_SANDWICH_RISK_EXTENDED",
+      "payload_keys": [
+        "mev_level",
+        "entry_gate",
+        "slippage_required_pct",
+        "swap_impact_pct",
+        "evidence_json"
+      ]
+    },
+    {
+      "target": "fusion_score_events_v1",
+      "center_key": "risk",
+      "signal_type": "RISK_FUSION_EFFECT",
+      "payload_keys": [
+        "hard_blocks_json",
+        "soft_warnings_json",
+        "route"
+      ]
+    },
+    {
+      "target": "command_decision_events_v1",
+      "center_key": "komuta",
+      "signal_type": "COMMAND_ENTRY_GATE_EFFECT",
+      "payload_keys": [
+        "decision_type",
+        "entry_size_hint",
+        "sl_tp_plan_json",
+        "reason_json"
+      ]
+    },
+    {
+      "target": "control_dashboard_view_model_events_v1",
+      "center_key": "risk",
+      "signal_type": "RISK_PANEL_VIEW_MODEL",
+      "payload_keys": [
+        "risk_box",
+        "dynamic_slippage",
+        "protected_route",
+        "button_state"
+      ]
+    }
+  ],
+  "panel_cards": [
+    {
+      "card_key": "mempool_risk_level",
+      "title": "Mempool Risk Seviyesi",
+      "center_key": "risk",
+      "visible_in": "Risk & Güvenlik Merkezi / MEV Shield"
+    },
+    {
+      "card_key": "dynamic_slippage_cap",
+      "title": "Dinamik Slippage Cap",
+      "center_key": "risk",
+      "visible_in": "Risk & Güvenlik Merkezi / Dynamic Slippage"
+    },
+    {
+      "card_key": "protected_route_recommendation",
+      "title": "Protected Route Önerisi",
+      "center_key": "risk",
+      "visible_in": "Risk & Güvenlik Merkezi / Mempool Protection"
+    },
+    {
+      "card_key": "public_mempool_block_gate",
+      "title": "Public Mempool Block Gate",
+      "center_key": "risk",
+      "visible_in": "Risk & Güvenlik Merkezi / Final Security Gate"
+    },
+    {
+      "card_key": "execution_button_effect",
+      "title": "Buton Etkisi",
+      "center_key": "komuta",
+      "visible_in": "Komuta Merkezi / Manuel-Auto Butonları"
+    }
+  ],
+  "center_key_violations": [],
+  "live_counts_before": {
+    "raw_discovery_events_v1": 0,
+    "entity_identity_events_v1": 0,
+    "center_signal_events_v1": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "fusion_score_events_v1": 0,
+    "command_decision_events_v1": 0,
+    "paper_trade_events_v1": 0,
+    "outcome_memory_events_v1": 0,
+    "control_dashboard_view_model_events_v1": 0
+  },
+  "safety": {
+    "active_index_unchanged": true,
+    "active_data_unchanged": true,
+    "live_db_unchanged": true,
+    "listen_snapshot_unchanged": true,
+    "db_write": 0,
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "panel_write": 0,
+    "nginx_change": 0,
+    "service_restart": 0,
+    "timer_change": 0,
+    "live_trade": 0,
+    "paper_trade_execution": 0,
+    "mempool_connection": 0,
+    "private_rpc_connection": 0
+  },
+  "validation_errors": [],
+  "final_ok": true,
+  "next_phase": "COINOSKOBI_RISK_ADJUSTED_EXECUTION_PLAN_ENGINE_PLAN_NOAPI"
+}

@@ -1,0 +1,436 @@
+{
+  "active_index_expected_sha_match": true,
+  "active_index_sha256": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+  "approval_contract": {
+    "approval_required": true,
+    "approval_scope": "manual oneshot service start only; no timer enable/start",
+    "created_at_utc": "2026-06-06T11:48:33.252641+00:00",
+    "next_phase": "PHASE26R_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_REAL_AFTER_EXPLICIT_APPROVAL",
+    "phase": "PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI",
+    "required_phrase": "PHASE26R backpressure refresh runner manual service run real için onay veriyorum"
+  },
+  "checklist": {
+    "after_sha256": "9497c5c1c727511521680d0743cd855fa0b50ef2b691595e36118bdcb50b93ec",
+    "before_sha256": "9497c5c1c727511521680d0743cd855fa0b50ef2b691595e36118bdcb50b93ec",
+    "changed": false,
+    "error": null,
+    "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_phase_checklist.jsonl",
+    "touched": false
+  },
+  "db_health": {
+    "db_exists": true,
+    "db_sha256": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "error": null,
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "db_health_ok": true,
+  "denge_contract": {
+    "AUTONOMOUS_LOOP_STILL_FORBIDDEN": true,
+    "CURRENT_STATE": "systemd units loaded, inactive, disabled",
+    "LIVE_TRADE_STILL_FORBIDDEN": true,
+    "MOTTO": "Şimşek kadar hızlı, balyoz gibi vurucu, bir o kadar güvenli.",
+    "PURPOSE": "Test service wrapper path once without enabling recurring timer.",
+    "REAL_NEXT_SCOPE": "one-shot service start only",
+    "THIS_PHASE": "manual service run plan only",
+    "TIMER_STILL_FORBIDDEN": true
+  },
+  "failed_checks": [
+    "PHASE26P::MANUAL_SERVICE_RUN_PLAN_ALLOWED_NEXT",
+    "PHASE26P::TIMER_ENABLE_START_ALLOWED_NEXT_FALSE",
+    "PHASE26P_VERIFIED"
+  ],
+  "final_gate": "REVIEW_PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI",
+  "future_execution_boundary": {
+    "allowed_next_real_action": "systemctl start coinoskobi-backpressure-refresh-runner.service",
+    "allowed_reason": "single manual oneshot dryrun service execution",
+    "created_at_utc": "2026-06-06T11:48:33.252641+00:00",
+    "denge_rule": "manual service test before recurring timer",
+    "not_allowed_next": [
+      "systemctl enable coinoskobi-backpressure-refresh-runner.timer",
+      "systemctl start coinoskobi-backpressure-refresh-runner.timer",
+      "systemctl restart service",
+      "DB mutation",
+      "active panel write",
+      "API/provider/wallet/trade/policy",
+      "live/paper trade",
+      "autopilot"
+    ],
+    "phase": "PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI"
+  },
+  "manual_service_run_now": false,
+  "manual_service_run_plan": {
+    "api_provider_wallet_policy_forbidden": true,
+    "created_at_utc": "2026-06-06T11:48:33.252641+00:00",
+    "expected_next_after_real_run": "PHASE26S_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_POST_AUDIT_NOAPI",
+    "expected_runner_args": [
+      "--dryrun-once"
+    ],
+    "expected_runner_path": "/root/tokenoskobi_clean_v1/tools/backpressure_readmodel_refresh_runner_v1.py",
+    "expected_service_behavior": "oneshot service executes runner --dryrun-once and exits",
+    "future_approval_phrase": "PHASE26R backpressure refresh runner manual service run real için onay veriyorum",
+    "future_command": [
+      "systemctl",
+      "start",
+      "coinoskobi-backpressure-refresh-runner.service"
+    ],
+    "future_real_phase": "PHASE26R_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_REAL_AFTER_EXPLICIT_APPROVAL",
+    "live_trade_forbidden": true,
+    "manual_service_run_now": false,
+    "paper_trade_forbidden": true,
+    "phase": "PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI",
+    "plan_only": true,
+    "post_audit_required_after_real_run": true,
+    "timer_enable_forbidden": true,
+    "timer_start_forbidden": true,
+    "worker_loop_forbidden": true
+  },
+  "mutation_checks": {
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "DB_UNCHANGED": true,
+    "HOSTS_UNCHANGED": true,
+    "RUNNER_UNCHANGED": true,
+    "SOURCE_CACHE_UNCHANGED": true,
+    "SOURCE_INDEX_UNCHANGED": true,
+    "SOURCE_MANIFEST_UNCHANGED": true,
+    "TARGET_SERVICE_UNCHANGED": true,
+    "TARGET_TIMER_UNCHANGED": true
+  },
+  "next_phase": "PHASE26R_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_REAL_AFTER_EXPLICIT_APPROVAL",
+  "phase": "PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI",
+  "phase26p_audit": {
+    "checks": {
+      "AUTONOMOUS_LOOP_FALSE": true,
+      "MANUAL_SERVICE_RUN_PLAN_ALLOWED_NEXT": false,
+      "NEXT_PHASE_26Q_SEEN": true,
+      "PHASE26O2_VERIFIED_TRUE": true,
+      "PHASE26P_FAILED_EMPTY": true,
+      "PHASE26P_GATE_PASS": true,
+      "PHASE26P_JSON_EXISTS": true,
+      "PHASE26P_RC0": true,
+      "PHASE26P_REPORT_EXISTS": true,
+      "SERVICE_INACTIVE_SEEN": true,
+      "SERVICE_LOADSTATE_LOADED_SEEN": true,
+      "TIMER_DISABLED_SEEN": true,
+      "TIMER_ENABLE_START_ALLOWED_NEXT_FALSE": false,
+      "TIMER_INACTIVE_SEEN": true,
+      "TIMER_LOADSTATE_LOADED_SEEN": true
+    },
+    "failed": [
+      "MANUAL_SERVICE_RUN_PLAN_ALLOWED_NEXT",
+      "TIMER_ENABLE_START_ALLOWED_NEXT_FALSE"
+    ],
+    "json": "/root/tokenoskobi_clean_v1/data/phase26p_backpressure_refresh_runner_daemon_reload_post_audit_noapi.json",
+    "json_exists": true,
+    "json_sha256": "3671fe470daa778696fc1597c2f2c5f775f8bd15b339b34df5329c17c4c807dd",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE26P_BACKPRESSURE_REFRESH_RUNNER_DAEMON_RELOAD_POST_AUDIT_NOAPI.md",
+    "report_exists": true,
+    "report_sha256": "73648caa70afb697c84cd75f8db5d9d1e8097c6de7eb15f1589137239f7bb26e",
+    "reported_failed_checks": []
+  },
+  "phase26p_verified": false,
+  "plan_only": true,
+  "post_audit_contract": {
+    "created_at_utc": "2026-06-06T11:48:33.252641+00:00",
+    "future_post_audit_required": true,
+    "phase": "PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI",
+    "post_audit_must_verify": [
+      "service start command rc0",
+      "service ran as oneshot and returned inactive/dead",
+      "runner stdout/stderr captured from journal or command state",
+      "timer remains inactive/disabled",
+      "DB unchanged unless runner-declared dryrun output only",
+      "active panel unchanged",
+      "runner file unchanged",
+      "target unit files unchanged"
+    ]
+  },
+  "post_sha256": {
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "hosts": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "runner": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "source_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "target_service": "6b525aec75a593e0d41e9f0c96e3c4ab8169db74b9dd81ae2f009fdee9b53419",
+    "target_timer": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "pre_sha256": {
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "hosts": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "runner": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca",
+    "source_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "target_service": "6b525aec75a593e0d41e9f0c96e3c4ab8169db74b9dd81ae2f009fdee9b53419",
+    "target_timer": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80"
+  },
+  "rc": 1,
+  "runner_audit": {
+    "checks": {
+      "EXECUTABLE_DANGEROUS_CALLS_ZERO": true,
+      "HAS_DB_READONLY_MODE": true,
+      "HAS_DRYRUN_ONCE": true,
+      "HAS_SAFE_DOWNGRADE": true,
+      "RUNNER_COMPILE_OK": true,
+      "RUNNER_EXISTS": true,
+      "RUNNER_SHA_EXPECTED": true
+    },
+    "compile_error": null,
+    "compile_ok": true,
+    "executable_hits": {},
+    "exists": true,
+    "failed": [],
+    "path": "/root/tokenoskobi_clean_v1/tools/backpressure_readmodel_refresh_runner_v1.py",
+    "sha256": "3df756ff42c46a0354b029e74358458616e4433e88ff547d58fe8e06a76993ca"
+  },
+  "safety_audit": {
+    "created_at_utc": "2026-06-06T11:48:33.252641+00:00",
+    "mutation_checks": {
+      "ACTIVE_INDEX_UNCHANGED": true,
+      "DB_UNCHANGED": true,
+      "HOSTS_UNCHANGED": true,
+      "RUNNER_UNCHANGED": true,
+      "SOURCE_CACHE_UNCHANGED": true,
+      "SOURCE_INDEX_UNCHANGED": true,
+      "SOURCE_MANIFEST_UNCHANGED": true,
+      "TARGET_SERVICE_UNCHANGED": true,
+      "TARGET_TIMER_UNCHANGED": true
+    },
+    "phase": "PHASE26Q_BACKPRESSURE_REFRESH_RUNNER_MANUAL_SERVICE_RUN_PLAN_NOAPI",
+    "safety_contract": {
+      "ACTIVE_PANEL_WRITE": false,
+      "AI_POLICY_EDIT": false,
+      "AI_SCORE_UPGRADE": false,
+      "API_CALLS": 0,
+      "AUTO_PILOT_ENABLE": false,
+      "BACKUP_WRITE": false,
+      "DAEMON_RELOAD_NOW": false,
+      "DB_MUTATION": false,
+      "DEX_ROUTE_CALL": false,
+      "EXTERNAL_NETWORK_CALLS": 0,
+      "HARDBLOCK_WEAKENING": false,
+      "LIVE_SCHEMA_APPLY": false,
+      "LIVE_TRADE": false,
+      "MANUAL_SERVICE_RUN_NOW": false,
+      "PAPER_TRADE": false,
+      "PLAN_ONLY": true,
+      "POLICY_APPLY": false,
+      "PROVIDER_QUOTE": false,
+      "PUBLIC_TARGET_WRITE": false,
+      "ROLLBACK_WRITE": false,
+      "RUNNER_EXECUTE_NOW": false,
+      "RUNNER_FILE_WRITE": false,
+      "SERVICE_RESTART": false,
+      "SERVICE_START_NOW": false,
+      "TARGET_SERVICE_WRITE": false,
+      "TARGET_TIMER_WRITE": false,
+      "TIMER_ENABLE": false,
+      "TIMER_START": false,
+      "TRANSACTION_SIGNING": false,
+      "WALLET_CONNECTION": false,
+      "WORKER_START": false
+    }
+  },
+  "safety_contract": {
+    "ACTIVE_PANEL_WRITE": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "API_CALLS": 0,
+    "AUTO_PILOT_ENABLE": false,
+    "BACKUP_WRITE": false,
+    "DAEMON_RELOAD_NOW": false,
+    "DB_MUTATION": false,
+    "DEX_ROUTE_CALL": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "HARDBLOCK_WEAKENING": false,
+    "LIVE_SCHEMA_APPLY": false,
+    "LIVE_TRADE": false,
+    "MANUAL_SERVICE_RUN_NOW": false,
+    "PAPER_TRADE": false,
+    "PLAN_ONLY": true,
+    "POLICY_APPLY": false,
+    "PROVIDER_QUOTE": false,
+    "PUBLIC_TARGET_WRITE": false,
+    "ROLLBACK_WRITE": false,
+    "RUNNER_EXECUTE_NOW": false,
+    "RUNNER_FILE_WRITE": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_START_NOW": false,
+    "TARGET_SERVICE_WRITE": false,
+    "TARGET_TIMER_WRITE": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TRANSACTION_SIGNING": false,
+    "WALLET_CONNECTION": false,
+    "WORKER_START": false
+  },
+  "source_output_audit": {
+    "authority": {
+      "ai_policy_edit": false,
+      "ai_score_upgrade": false,
+      "auto_pilot_enable": false,
+      "hardblock_weakening": false,
+      "manual_hardblock_bypass": false,
+      "policy_apply": false,
+      "sign_send": false,
+      "trade": false
+    },
+    "cache_sha256": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "cache_state": "CACHE_VALID",
+    "checks": {
+      "SOURCE_AUTHORITY_ALL_FALSE": true,
+      "SOURCE_CACHE_EXISTS": true,
+      "SOURCE_CACHE_MISSING_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_PARSE_FAIL_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_PARSE_OK": true,
+      "SOURCE_CACHE_STALE_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_VALID": true,
+      "SOURCE_INDEX_CACHE_SHA_MATCH": true,
+      "SOURCE_INDEX_EXISTS": true,
+      "SOURCE_INDEX_MANIFEST_SHA_MATCH": true,
+      "SOURCE_INDEX_PARSE_OK": true,
+      "SOURCE_MANIFEST_CACHE_SHA_MATCH": true,
+      "SOURCE_MANIFEST_EXISTS": true,
+      "SOURCE_MANIFEST_PARSE_OK": true,
+      "SOURCE_RUNTIME_BUCKET_LOOKUP_ONLY": true
+    },
+    "failed": [],
+    "index_sha256": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "manifest_sha256": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "runtime_bucket": "LOOKUP_ONLY"
+  },
+  "stamp": "20260606_144833",
+  "systemd_state_audit": {
+    "checks": {
+      "SERVICE_LOADSTATE_LOADED": true,
+      "SERVICE_NOT_ACTIVE": true,
+      "SERVICE_NOT_ENABLED_OR_NOT_REQUIRED": true,
+      "SYSTEMD_READONLY_CALLS_ONLY": true,
+      "TIMER_LOADSTATE_LOADED": true,
+      "TIMER_NOT_ACTIVE": true,
+      "TIMER_NOT_ENABLED": true
+    },
+    "failed": [],
+    "note": "No daemon-reload/start/enable executed; only read-only systemctl state checks.",
+    "service_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "coinoskobi-backpressure-refresh-runner.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive",
+      "timeout": false
+    },
+    "service_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "coinoskobi-backpressure-refresh-runner.service"
+      ],
+      "rc": 1,
+      "stderr": "",
+      "stdout": "disabled",
+      "timeout": false
+    },
+    "service_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "coinoskobi-backpressure-refresh-runner.service",
+        "--property=LoadState,ActiveState,SubState,UnitFileState"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "LoadState=loaded\nActiveState=inactive\nSubState=dead\nUnitFileState=disabled",
+      "timeout": false
+    },
+    "timer_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "coinoskobi-backpressure-refresh-runner.timer"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive",
+      "timeout": false
+    },
+    "timer_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "coinoskobi-backpressure-refresh-runner.timer"
+      ],
+      "rc": 1,
+      "stderr": "",
+      "stdout": "disabled",
+      "timeout": false
+    },
+    "timer_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "coinoskobi-backpressure-refresh-runner.timer",
+        "--property=LoadState,ActiveState,SubState,UnitFileState"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "LoadState=loaded\nActiveState=inactive\nSubState=dead\nUnitFileState=disabled",
+      "timeout": false
+    }
+  },
+  "target_unit_audit": {
+    "service_checks": {
+      "TARGET_SERVICE_EXISTS": true,
+      "TARGET_SERVICE_HAS_AUTO_AUTHORITY_ZERO": true,
+      "TARGET_SERVICE_HAS_DENGE_ENV": true,
+      "TARGET_SERVICE_HAS_DRYRUN_ONCE": true,
+      "TARGET_SERVICE_HAS_NO_WALLET_SIGN_TRADE_POLICY": true,
+      "TARGET_SERVICE_HAS_ONESHOT": true,
+      "TARGET_SERVICE_HAS_RUNNER": true,
+      "TARGET_SERVICE_HAS_SERVICE_SECTION": true,
+      "TARGET_SERVICE_HAS_UNIT_SECTION": true,
+      "TARGET_SERVICE_MODE_0644": true,
+      "TARGET_SERVICE_NO_DAEMON_RELOAD": true,
+      "TARGET_SERVICE_NO_SYSTEMCTL": true,
+      "TARGET_SERVICE_SHA_MATCH": true
+    },
+    "service_failed": [],
+    "target_service": "/etc/systemd/system/coinoskobi-backpressure-refresh-runner.service",
+    "target_service_mode": "0o644",
+    "target_service_owner": {
+      "gid": 0,
+      "uid": 0
+    },
+    "target_service_sha256": "6b525aec75a593e0d41e9f0c96e3c4ab8169db74b9dd81ae2f009fdee9b53419",
+    "target_timer": "/etc/systemd/system/coinoskobi-backpressure-refresh-runner.timer",
+    "target_timer_mode": "0o644",
+    "target_timer_owner": {
+      "gid": 0,
+      "uid": 0
+    },
+    "target_timer_sha256": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_checks": {
+      "TARGET_TIMER_EXISTS": true,
+      "TARGET_TIMER_HAS_15S_INTERVAL": true,
+      "TARGET_TIMER_HAS_ACCURACY": true,
+      "TARGET_TIMER_HAS_ONBOOT": true,
+      "TARGET_TIMER_HAS_TIMER_SECTION": true,
+      "TARGET_TIMER_HAS_UNIT_SECTION": true,
+      "TARGET_TIMER_MODE_0644": true,
+      "TARGET_TIMER_NO_DAEMON_RELOAD": true,
+      "TARGET_TIMER_NO_SYSTEMCTL": true,
+      "TARGET_TIMER_PERSISTENT_FALSE": true,
+      "TARGET_TIMER_POINTS_TO_SERVICE": true,
+      "TARGET_TIMER_SHA_MATCH": true
+    },
+    "timer_failed": []
+  },
+  "utc": "2026-06-06T11:48:33.252641+00:00"
+}

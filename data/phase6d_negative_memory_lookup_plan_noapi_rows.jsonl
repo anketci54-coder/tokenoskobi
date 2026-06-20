@@ -1,0 +1,87 @@
+{"can_bypass_risk": false, "key": "deployer_address", "match_type": "exact", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "CRITICAL", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "owner_address", "match_type": "exact", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "CRITICAL", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "creator_address", "match_type": "exact", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "CRITICAL", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "token_address", "match_type": "exact", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "CRITICAL", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "pair_address", "match_type": "exact", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "HIGH", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "holder_cluster_hash", "match_type": "cluster_hash", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "HIGH", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "lp_wallet_address", "match_type": "exact_or_cluster", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "HIGH", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "route_failure_signature", "match_type": "signature_hash", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "CRITICAL", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "honeypot_switch_signature", "match_type": "signature_hash", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "CRITICAL", "unknown_policy": "NO_MATCH"}
+{"can_bypass_risk": false, "key": "rug_or_autopsy_cause_code", "match_type": "cause_code", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "memory_key", "severity_if_confirmed": "HIGH", "unknown_policy": "NO_MATCH"}
+{"effect": "TRASH_REJECTED_OR_BLOCKED_BY_RISK", "locked": true, "match_scope": "deployer_address owner_address creator_address token_address route_failure_signature honeypot_switch_signature", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "critical_exact_match_blocks_route"}
+{"effect": "BLOCKED_BY_RISK", "locked": true, "match_scope": "rug_or_autopsy_cause_code", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "confirmed_autopsy_cause_blocks_or_degrades"}
+{"effect": "NEGATIVE_MEMORY_REVIEW_REQUIRED", "locked": true, "match_scope": "holder_cluster_hash", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "holder_cluster_match_degrades"}
+{"effect": "LIQUIDITY_RECHECK_REQUIRED", "locked": true, "match_scope": "lp_wallet_address", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "lp_wallet_match_requires_liquidity_review"}
+{"effect": "PAIR_REVIEW_REQUIRED", "locked": true, "match_scope": "pair_address", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "pair_address_match_requires_pair_review"}
+{"effect": "WAIT_MORE_DATA", "locked": true, "match_scope": "any", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "unconfirmed_match_does_not_invent_cause"}
+{"effect": "CAN_ONLY_DEGRADE_OR_BLOCK", "locked": true, "match_scope": "any", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "negative_memory_cannot_create_positive_signal"}
+{"effect": "TECHNICAL_SIGNAL_IGNORED_IF_MEMORY_BLOCKS", "locked": true, "match_scope": "any", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "technical_positive_cannot_override_memory"}
+{"effect": "ASYMMETRIC_ROUTE_BLOCKED_IF_MEMORY_CRITICAL", "locked": true, "match_scope": "any", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "asymmetric_route_cannot_bypass_memory"}
+{"effect": "WAIT_MORE_DATA_OR_REVIEW_REQUIRED", "locked": true, "match_scope": "any", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "lookup_rule", "rule": "manual_review_required_for_ambiguous_memory"}
+{"case": "critical_memory_match", "decision_label": "TRASH_REJECTED", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"case": "high_memory_match", "decision_label": "BLOCKED_BY_RISK", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"case": "medium_memory_match", "decision_label": "NEGATIVE_MEMORY_REVIEW_REQUIRED", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "REVIEW_ONLY", "row_type": "decision_effect"}
+{"case": "unconfirmed_memory_match", "decision_label": "WAIT_MORE_DATA", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"case": "memory_source_ambiguous", "decision_label": "WAIT_MORE_DATA", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"case": "no_memory_match", "decision_label": "NO_NEGATIVE_MEMORY_MATCH", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_PERMISSION_CHANGE", "row_type": "decision_effect"}
+{"case": "technical_positive_but_memory_negative", "decision_label": "BLOCKED_BY_RISK", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"case": "asymmetric_positive_but_memory_critical", "decision_label": "TRASH_REJECTED", "paper_live": false, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "route_effect": "NO_ROUTE", "row_type": "decision_effect"}
+{"locked": true, "meaning": "Only confirmed memory can create terminal block.", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "policy": "confirmed_only_for_terminal_block", "row_type": "false_positive_policy"}
+{"locked": true, "meaning": "Unconfirmed match cannot invent cause.", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "policy": "unconfirmed_memory_wait_more_data", "row_type": "false_positive_policy"}
+{"locked": true, "meaning": "No automatic forgetting/decay in this phase.", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "policy": "memory_decay_requires_manual_policy", "row_type": "false_positive_policy"}
+{"locked": true, "meaning": "Address match must show source and reason.", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "policy": "address_reuse_requires_context", "row_type": "false_positive_policy"}
+{"locked": true, "meaning": "Autopsy cause must be CONFIRMED or marked unresolved.", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "policy": "cause_code_must_be_proven", "row_type": "false_positive_policy"}
+{"locked": true, "meaning": "No memory match does not mean safe; it only means no known negative hit.", "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "policy": "no_positive_credit_from_clean_memory", "row_type": "false_positive_policy"}
+{"check": "phase6_json_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_json_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_json_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c2_json_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c3_json_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c4_json_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c4_report_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c4_rows_exists", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6_dependency_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6b_dependency_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c_dependency_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c2_dependency_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c3_dependency_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "phase6c4_dependency_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_sha_expected", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_unchanged", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_expected", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "active_index_unchanged", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_expected", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "hosts_unchanged", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "policy_sha_match", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "db_health_ok", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "memory_key_count_10", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "source_count_8", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "lookup_rule_count_10", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "severity_count_5", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "decision_effect_count_8", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "false_positive_policy_count_6", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_binding_count_7", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_binding_count_6", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_keys_no_risk_bypass", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_sources_confirmed_only", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_lookup_rules_locked", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_severity_no_paper_live", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_decision_no_paper_live", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "all_false_positive_locked", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "critical_memory_blocks_route", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "no_match_no_permission_change", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "technical_cannot_override_memory", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "asymmetric_cannot_override_memory", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_bindings_runtime_false", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "memory_key_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "source_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "lookup_rule_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "match_severity_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "decision_effect_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "false_positive_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "readmodel_binding_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "emergency_binding_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "risk_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "roadmap_rows_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "future_schema_sql_written", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}
+{"check": "safety_noapi_clean", "passed": true, "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI", "row_type": "pass_condition"}

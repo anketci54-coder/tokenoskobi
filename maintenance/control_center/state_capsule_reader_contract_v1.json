@@ -1,0 +1,74 @@
+{
+  "contract_schema": "coinoskobi_state_capsule_reader_contract_v1",
+  "phase": "PHASE32B_MAINTENANCE_STATE_READER_AND_BUNDLE_CONTRACT_NOAPI",
+  "created_utc": "2026-06-08T18:53:49.252476+00:00",
+  "purpose": "Read persistent state without depending on chat memory.",
+  "state_dir": "/root/tokenoskobi_clean_v1/state",
+  "required_files": [
+    "CURRENT_STATE.json",
+    "NEXT_ACTION.md",
+    "HARD_RULES.md",
+    "ROADMAP_CURRENT.json",
+    "LAST_GOOD_CHECKPOINT.json",
+    "MAINTENANCE_CONTEXT_BUNDLE.json"
+  ],
+  "required_current_state_fields": [
+    "capsule_schema",
+    "source_of_truth_phase",
+    "last_successful_phase",
+    "phase31_closed",
+    "data_provenance_locked",
+    "canonical_raw_hash_required",
+    "quarantine_not_truth",
+    "fast_path_not_touched",
+    "ai_not_touched",
+    "next_target_phase",
+    "active_index_sha",
+    "runner_sha",
+    "live_db_sha_at_close"
+  ],
+  "required_hard_rules_phrases": [
+    "AI authority değildir",
+    "Sohbet hafızası source-of-truth değildir",
+    "Fast Path maintenance/AI tarafından yavaşlatılamaz",
+    "raw_hash",
+    "Quarantine truth değildir",
+    "Live trade ayrı açık onay olmadan kapalıdır"
+  ],
+  "required_next_action_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+  "next_reader_output": {
+    "normalized_state": {
+      "last_successful_phase": "PHASE31F1",
+      "next_target_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+      "phase31_closed": true,
+      "roadmap_next_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI",
+      "checkpoint_phase": "PHASE31F1",
+      "bundle_next_phase": "PHASE32A_MAINTENANCE_AI_CONTROL_CENTER_PLAN_NOAPI"
+    },
+    "health_gate_required": true,
+    "secret_scan_required": true,
+    "sha_validation_required": true
+  },
+  "forbidden_reader_actions": [
+    "live_db_write",
+    "temp_db_write",
+    "state_write",
+    "runner_patch",
+    "panel_write",
+    "service_restart",
+    "timer_change",
+    "ai_daemon_start",
+    "external_network_call",
+    "api_call",
+    "paper_trade",
+    "live_trade"
+  ],
+  "reader_exit_criteria": {
+    "all_state_files_exist": true,
+    "all_json_parse_ok": true,
+    "current_state_points_to_expected_next_phase": true,
+    "hard_rules_present": true,
+    "bundle_no_secret_policy_present": true,
+    "no_forbidden_actions": true
+  }
+}

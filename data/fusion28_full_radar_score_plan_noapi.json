@@ -1,0 +1,364 @@
+{
+  "phase": "FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI",
+  "stamp": "20260513_135849",
+  "final_gate": "PASS",
+  "action": "FULL_RADAR_FUSION_SCORE_PLAN_CREATED",
+  "stable_base_ok": true,
+  "cost_policy": {
+    "new_monthly_extra_cost_cap_usd": "0-50",
+    "preferred_new_monthly_extra_cost_usd": "0",
+    "paid_fusion_data_now": false,
+    "ai_model_training_now": false,
+    "live_trade_enabled": false,
+    "strategy": "rule-based fusion first; no paid source; no model training; no live/paper write",
+    "blocked_for_mvp": [
+      "paid signal provider",
+      "black-box buy/sell signal API",
+      "auto AI trading decision",
+      "live trade execution",
+      "new server",
+      "high-frequency scoring loop",
+      "unlimited backend AI calls"
+    ],
+    "allowed_for_mvp": [
+      "rule-based fusion score",
+      "local plan outputs",
+      "local DB/cache",
+      "risk-gated paper candidate decision",
+      "panel decision labels",
+      "outcome-ready scoring record plan"
+    ]
+  },
+  "fusion_inputs": [
+    {
+      "input": "source_truth_score",
+      "meaning": "Kaynak güveni, tazelik ve conflict durumu.",
+      "weight_hint": 10
+    },
+    {
+      "input": "news_impact_score",
+      "meaning": "Haber etkisi, alaka, teyit ve risk skoru.",
+      "weight_hint": 10
+    },
+    {
+      "input": "macro_score",
+      "meaning": "Ekonomik takvim / risk iştahı etkisi.",
+      "weight_hint": 8
+    },
+    {
+      "input": "flow_score",
+      "meaning": "Likidite ve para akışı gücü.",
+      "weight_hint": 12
+    },
+    {
+      "input": "wallet_score",
+      "meaning": "Balina/smart wallet/cüzdan kesişimi.",
+      "weight_hint": 12
+    },
+    {
+      "input": "lifecycle_score",
+      "meaning": "Token doğum, büyüme, momentum, decay aşaması.",
+      "weight_hint": 14
+    },
+    {
+      "input": "major_coin_regime_score",
+      "meaning": "BTC/ETH/BNB/SOL ve chain ortamı.",
+      "weight_hint": 8
+    },
+    {
+      "input": "risk_score",
+      "meaning": "Güvenlik, sellability, LP, holder, deployer ve source risk.",
+      "weight_hint": -18
+    },
+    {
+      "input": "mev_slippage_score",
+      "meaning": "MEV, slippage ve execution risk etkisi.",
+      "weight_hint": -8
+    },
+    {
+      "input": "morgue_similarity_score",
+      "meaning": "Ölü/rug/fail token pattern benzerliği.",
+      "weight_hint": -10
+    },
+    {
+      "input": "paper_readiness_score",
+      "meaning": "Entry, SL, TP, size, cost ve PnL planlanabilirliği.",
+      "weight_hint": 12
+    }
+  ],
+  "decision_labels": [
+    {
+      "label": "HIDE",
+      "meaning": "Gürültü / düşük alaka / veri zayıf.",
+      "panel": "gösterme"
+    },
+    {
+      "label": "WATCH",
+      "meaning": "İzlemeye değer ama işlem/paper yok.",
+      "panel": "alt panel / watchlist"
+    },
+    {
+      "label": "CRITICAL_RISK",
+      "meaning": "Risk yüksek; ana panele uyarı.",
+      "panel": "ana panel kritik risk"
+    },
+    {
+      "label": "NEW_OPPORTUNITY_RADAR",
+      "meaning": "Yeni fırsat radara girdi.",
+      "panel": "ana panel fırsat"
+    },
+    {
+      "label": "NARRATIVE_STRENGTHENING",
+      "meaning": "Narrative / tema güçleniyor.",
+      "panel": "narrative kartı"
+    },
+    {
+      "label": "SMALL_STAR_CANDIDATE",
+      "meaning": "Kısa-orta vadeli küçük yıldız adayı.",
+      "panel": "yıldız radar"
+    },
+    {
+      "label": "FUTURE_STAR_CANDIDATE",
+      "meaning": "Uzun vadeli yüksek potansiyel adayı.",
+      "panel": "yıldız radar"
+    },
+    {
+      "label": "PAPER_TRADE_CANDIDATE",
+      "meaning": "Paper trade için planlanabilir aday.",
+      "panel": "paper adayları"
+    },
+    {
+      "label": "PAPER_TRADE_BLOCKED",
+      "meaning": "Risk/veri/likidite/cost nedeniyle paper yok.",
+      "panel": "reddedildi"
+    },
+    {
+      "label": "MORGUE_REVIEW",
+      "meaning": "Ölüm/rug/fail pattern inceleme.",
+      "panel": "morg/otopsi"
+    }
+  ],
+  "score_bands": [
+    {
+      "band": "0_19",
+      "decision": "HIDE",
+      "meaning": "Panel gürültüsü veya veri yetersiz."
+    },
+    {
+      "band": "20_39",
+      "decision": "WATCH",
+      "meaning": "Alt panelde izleme."
+    },
+    {
+      "band": "40_59",
+      "decision": "WATCH_OR_NEW_RADAR",
+      "meaning": "Teyit ister, ana panel koşullu."
+    },
+    {
+      "band": "60_74",
+      "decision": "NEW_OPPORTUNITY_RADAR",
+      "meaning": "Ana panelde gösterilebilir."
+    },
+    {
+      "band": "75_89",
+      "decision": "PAPER_TRADE_CANDIDATE_IF_RISK_OK",
+      "meaning": "Risk kapısı uygunsa paper adayı."
+    },
+    {
+      "band": "90_100",
+      "decision": "HIGH_PRIORITY_PAPER_CANDIDATE_IF_ALL_GATES_OK",
+      "meaning": "Tüm kapılar uygunsa en güçlü paper adayı."
+    }
+  ],
+  "gates": [
+    "source_truth_gate",
+    "freshness_gate",
+    "identity_gate",
+    "trusted_price_gate",
+    "risk_hard_block_gate",
+    "sellability_gate",
+    "liquidity_gate",
+    "mev_slippage_gate",
+    "macro_pause_gate",
+    "morgue_similarity_gate",
+    "paper_readiness_gate"
+  ],
+  "contract_fields": [
+    "fusion_id",
+    "created_at_utc",
+    "candidate_id",
+    "token_uid",
+    "chain",
+    "asset_symbol",
+    "asset_name",
+    "source_truth_score",
+    "news_impact_score",
+    "macro_score",
+    "flow_score",
+    "wallet_score",
+    "lifecycle_score",
+    "major_coin_regime_score",
+    "risk_score",
+    "mev_slippage_score",
+    "morgue_similarity_score",
+    "paper_readiness_score",
+    "raw_opportunity_score",
+    "risk_adjusted_score",
+    "confidence_score",
+    "fusion_score",
+    "decision_label",
+    "decision_reason_tr",
+    "gate_pass_count",
+    "gate_fail_count",
+    "failed_gates",
+    "hard_block_flag",
+    "hard_block_reason",
+    "paper_candidate_allowed",
+    "paper_block_reason",
+    "suggested_position_size_usd",
+    "max_safe_order_usd",
+    "expected_net_reward_usd",
+    "expected_total_cost_usd",
+    "risk_reward_ratio",
+    "main_panel_flag",
+    "panel_priority",
+    "outcome_tracking_required",
+    "is_mock"
+  ],
+  "scoring_rules": [
+    "Hard block varsa fusion_score yüksek olsa bile paper candidate olmaz.",
+    "No trusted price varsa paper candidate olmaz.",
+    "Source conflict varsa decision en fazla WATCH olur.",
+    "Risk score yükseldikçe risk_adjusted_score düşer.",
+    "Morgue similarity yüksekse fırsat skoru düşer ve review etiketi oluşur.",
+    "Wallet + flow + lifecycle birlikte güçlenirse opportunity score artar.",
+    "News tek başına paper izni üretmez.",
+    "Macro critical pause varsa yeni paper adayları bekletilir.",
+    "MEV/slippage/cost net reward'ı bozuyorsa paper blocked.",
+    "Fusion sonucu outcome registry'ye izlenebilir formatta yazılmaya hazır olmalı."
+  ],
+  "panel_rules": [
+    "Ana panel sadece yüksek öncelikli fusion kararlarını gösterir.",
+    "Decision label kullanıcıya sade Türkçe gösterilir.",
+    "Fusion score alım sinyali değildir; paper karar destek skorudur.",
+    "Risk hard block varsa fırsat kartı değil risk kartı gösterilir.",
+    "Paper candidate için entry/SL/TP/cost planı da hazır olmalı.",
+    "Düşük alaka haberler fusion ile filtrelenir.",
+    "UID/hash/debug kullanıcı panelinde gizlenir.",
+    "Veri yoksa score uydurulmaz; insufficient evidence gösterilir.",
+    "Outcome takip edilmeden AI başarı iddiası yapılmaz.",
+    "Fusion score zaman içinde AI/outcome kalibrasyonuyla ayarlanır."
+  ],
+  "future_tables_plan": [
+    {
+      "table": "fusion_candidates",
+      "purpose": "Fusion değerlendirmesine giren adaylar",
+      "apply_now": false
+    },
+    {
+      "table": "fusion_component_scores",
+      "purpose": "Kaynak/haber/makro/flow/wallet/lifecycle/risk bileşen skorları",
+      "apply_now": false
+    },
+    {
+      "table": "fusion_gate_results",
+      "purpose": "Gate pass/fail ve block nedenleri",
+      "apply_now": false
+    },
+    {
+      "table": "fusion_decisions",
+      "purpose": "Final decision label ve panel kararı",
+      "apply_now": false
+    },
+    {
+      "table": "fusion_panel_alerts",
+      "purpose": "Ana panele düşen fusion uyarıları",
+      "apply_now": false
+    },
+    {
+      "table": "fusion_outcome_feedback",
+      "purpose": "Fusion skorlarının outcome doğruluğu",
+      "apply_now": false
+    },
+    {
+      "table": "fusion_calibration_rules",
+      "purpose": "AI/outcome sonrası ağırlık kalibrasyonu",
+      "apply_now": false
+    }
+  ],
+  "mvp_strategy": [
+    "İlk fusion motoru rule-based olacak; AI eğitimi yok.",
+    "Yeni ücretli signal/source yok.",
+    "Fusion score live trade sinyali değildir.",
+    "Paper candidate kararı risk ve paper readiness gate ile bağlı olacak.",
+    "Ana panel gürültüyü filtreleyecek; her haber/flow/wallet olayı gösterilmeyecek.",
+    "Outcome tracking için her karar açıklanabilir alanlarla kaydedilecek.",
+    "Ağırlıklar başlangıçta sabit planlanacak, 90 günlük outcome sonrası kalibre edilecek.",
+    "Yama yok; genel fusion contract ve future table planı var."
+  ],
+  "next_modules": [
+    "AI28_TRAINING_DATASET_PLAN_NOAPI",
+    "PANEL30_STATIC_SHELL_REVIEW_NOAPI",
+    "DATA30_PANEL_BUILDER_PLAN_NOAPI",
+    "SCHEMA28_FULL_RADAR_SCHEMA_APPLY_PLAN_NOAPI"
+  ],
+  "fusion_input_count": 11,
+  "decision_label_count": 10,
+  "score_band_count": 6,
+  "gate_count": 11,
+  "contract_field_count": 40,
+  "scoring_rule_count": 10,
+  "panel_rule_count": 10,
+  "future_table_count": 7,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "paid_fusion_data_enabled": false,
+  "ai_model_training": false,
+  "new_monthly_cost_added": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "AI28_TRAINING_DATASET_PLAN_NOAPI",
+  "alternate_next_phase": "PANEL30_STATIC_SHELL_REVIEW_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_FUSION28_FULL_RADAR_SCORE_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/fusion28_full_radar_score_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

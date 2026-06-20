@@ -1,0 +1,704 @@
+{
+  "cex_ta_rows": [
+    {
+      "allowed_when": "mature candle history + clean volume + sufficient liquidity + fresh sell route",
+      "can_bypass_risk": false,
+      "forbidden_as": "primary_decision_signal",
+      "indicator": "RSI",
+      "role": "optional_context_only"
+    },
+    {
+      "allowed_when": "mature candle history + liquidity support",
+      "can_bypass_risk": false,
+      "forbidden_as": "primary_decision_signal",
+      "indicator": "EMA",
+      "role": "optional_context_only"
+    },
+    {
+      "allowed_when": "mature candle history only",
+      "can_bypass_risk": false,
+      "forbidden_as": "primary_decision_signal",
+      "indicator": "MACD",
+      "role": "optional_context_only"
+    },
+    {
+      "allowed_when": "volume quality and liquidity support pass",
+      "can_bypass_risk": false,
+      "forbidden_as": "risk_override",
+      "indicator": "VWAP",
+      "role": "optional_context_if_volume_clean"
+    },
+    {
+      "allowed_when": "mature non-manipulated candle data",
+      "can_bypass_risk": false,
+      "forbidden_as": "entry_permission",
+      "indicator": "BOLLINGER",
+      "role": "optional_context_only"
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "decision_effect_rows": [
+    {
+      "case": "technical_data_missing",
+      "decision_effect": "WAIT_MORE_DATA",
+      "route_effect": "NO_ROUTE",
+      "technical_status": "INSUFFICIENT_DATA"
+    },
+    {
+      "case": "technical_data_stale",
+      "decision_effect": "WAIT_MORE_DATA",
+      "route_effect": "NO_ROUTE",
+      "technical_status": "STALE_EVIDENCE"
+    },
+    {
+      "case": "volume_noisy_or_manipulated",
+      "decision_effect": "BLOCKED_BY_RISK_OR_WAIT_MORE_DATA",
+      "route_effect": "NO_ROUTE",
+      "technical_status": "NOISY_OR_MANIPULATED"
+    },
+    {
+      "case": "positive_technical_but_risk_blocked",
+      "decision_effect": "BLOCKED_BY_RISK",
+      "route_effect": "NO_ROUTE",
+      "technical_status": "SUPPORTIVE_BUT_RISK_BLOCKED"
+    },
+    {
+      "case": "positive_technical_execution_unknown",
+      "decision_effect": "WAIT_MORE_DATA",
+      "route_effect": "NO_ROUTE",
+      "technical_status": "SUPPORTIVE_BUT_EXECUTION_UNKNOWN"
+    },
+    {
+      "case": "positive_technical_all_gates_review_only",
+      "decision_effect": "EVIDENCE_READY_NO_TRADE_PERMISSION",
+      "route_effect": "REVIEW_ONLY",
+      "technical_status": "SUPPORTIVE_REVIEW_ONLY"
+    },
+    {
+      "case": "cex_indicator_only_signal",
+      "decision_effect": "NO_DECISION_WITHOUT_DEX_MICROSTRUCTURE",
+      "route_effect": "NO_ROUTE",
+      "technical_status": "CONTEXT_ONLY"
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T07:39:50.711562+00:00",
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "liquidity_rows": [
+    {
+      "can_bypass_execution_gate": false,
+      "decision_use": "supports_or_rejects_price_momentum",
+      "metric": "liquidity_trend"
+    },
+    {
+      "can_bypass_execution_gate": false,
+      "decision_use": "detects exit feasibility decay",
+      "metric": "exit_liquidity_trend"
+    },
+    {
+      "can_bypass_execution_gate": false,
+      "decision_use": "detects LP support or rug-like movement",
+      "metric": "liquidity_added_removed_balance"
+    },
+    {
+      "can_bypass_execution_gate": false,
+      "decision_use": "detects hype vs wash-trade/manipulation",
+      "metric": "volume_to_liquidity_ratio"
+    },
+    {
+      "can_bypass_execution_gate": false,
+      "decision_use": "checks if momentum remains executable",
+      "metric": "slippage_support_trend"
+    },
+    {
+      "can_bypass_execution_gate": false,
+      "decision_use": "checks if price movement is tradable",
+      "metric": "price_impact_support_trend"
+    }
+  ],
+  "manipulation_rows": [
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_NOISY_OR_MANIPULATED",
+      "guard": "wash_trade_loop_detected"
+    },
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_NOISY_OR_MANIPULATED",
+      "guard": "same_wallet_repetitive_swaps"
+    },
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_LOW_INTEGRITY",
+      "guard": "single_wallet_moves_price"
+    },
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_REVIEW_REQUIRED",
+      "guard": "volume_liquidity_ratio_extreme"
+    },
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_INSUFFICIENT_DATA",
+      "guard": "candle_history_too_short"
+    },
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_STALE_EVIDENCE",
+      "guard": "stale_candles_or_stale_liquidity"
+    },
+    {
+      "blocks_positive_signal": true,
+      "effect": "technical_status_BLOCKED_BY_EXECUTION",
+      "guard": "sell_route_not_fresh"
+    }
+  ],
+  "next_phase": "PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+  "outputs": {
+    "cex_ta_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_cex_ta_optional_context_policy.jsonl",
+    "decision_effect_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_technical_decision_effect_matrix.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_future_dex_microstructure_technical_evidence_schema_plan_noapi.sql",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6c3_dex_microstructure_technical_evidence_plan_noapi.json",
+    "liquidity_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_liquidity_support_signal_plan.jsonl",
+    "manipulation_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_bot_wash_trade_manipulation_guard.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_dex_microstructure_technical_evidence_plan_noapi.json",
+    "quality_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_signal_quality_gate_matrix.jsonl",
+    "readmodel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_readmodel_binding_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_technical_evidence_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6c3_dex_microstructure_technical_evidence_plan_noapi_rows.jsonl",
+    "signal_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_dex_microstructure_signal_contract.jsonl",
+    "source_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_signal_source_plan.jsonl",
+    "wallet_rows": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950/phase6c3_wallet_holder_flow_signal_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI/20260601_103950"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_cex_no_risk_bypass": true,
+    "all_liquidity_no_execution_bypass": true,
+    "all_quality_gates_block_positive": true,
+    "all_signals_no_risk_bypass": true,
+    "all_wallet_no_risk_bypass": true,
+    "cex_only_no_decision": true,
+    "cex_policy_count_5": true,
+    "cex_ta_rows_written": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "decision_effect_count_7": true,
+    "decision_effect_rows_written": true,
+    "future_schema_sql_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "liquidity_metric_count_6": true,
+    "liquidity_rows_written": true,
+    "manipulation_blocks_positive_signal": true,
+    "manipulation_guard_count_7": true,
+    "manipulation_rows_written": true,
+    "optional_cex_signal_count_1": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6b2_dependency_ok": true,
+    "phase6b2_json_exists": true,
+    "phase6b_dependency_ok": true,
+    "phase6b_json_exists": true,
+    "phase6c2_dependency_ok": true,
+    "phase6c2_json_exists": true,
+    "phase6c2_report_exists": true,
+    "phase6c2_rows_exists": true,
+    "phase6c_dependency_ok": true,
+    "phase6c_json_exists": true,
+    "policy_sha_match": true,
+    "primary_signal_count_12": true,
+    "quality_gate_count_9": true,
+    "quality_rows_written": true,
+    "readmodel_binding_count_7": true,
+    "readmodel_binding_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "signal_count_13": true,
+    "signal_rows_written": true,
+    "source_count_13": true,
+    "source_rows_written": true,
+    "technical_positive_review_only": true,
+    "wallet_metric_count_6": true,
+    "wallet_rows_written": true
+  },
+  "phase": "PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6b2_ok": true,
+    "phase6b_ok": true,
+    "phase6c2_ok": true,
+    "phase6c2_rows_count": 82,
+    "phase6c_ok": true
+  },
+  "policy_reference": {
+    "checked_count": 2,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "quality_rows": [
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "minimum_candle_count",
+      "required": true,
+      "unknown_policy": "INSUFFICIENT_DATA"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "minimum_token_age",
+      "required": true,
+      "unknown_policy": "INSUFFICIENT_DATA"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "liquidity_support_required",
+      "required": true,
+      "unknown_policy": "INSUFFICIENT_DATA"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "sell_route_freshness_required",
+      "required": true,
+      "unknown_policy": "INSUFFICIENT_DATA"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "volume_quality_required",
+      "required": true,
+      "unknown_policy": "NOISY_OR_MANIPULATED"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "wallet_diversity_required",
+      "required": true,
+      "unknown_policy": "NOISY_OR_MANIPULATED"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "single_wallet_dominance_filter",
+      "required": true,
+      "unknown_policy": "NOISY_OR_MANIPULATED"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "bot_loop_filter",
+      "required": true,
+      "unknown_policy": "NOISY_OR_MANIPULATED"
+    },
+    {
+      "can_emit_positive_signal": false,
+      "quality_gate": "stale_signal_blocks_positive_context",
+      "required": true,
+      "unknown_policy": "STALE_EVIDENCE"
+    }
+  ],
+  "readmodel_binding_rows": [
+    {
+      "apply_now": false,
+      "field": "technical_status",
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "technical_confidence",
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "volume_quality",
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "liquidity_support_status",
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "wallet_diversity_status",
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "manipulation_status",
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "field": "can_bypass_risk_gate",
+      "fixed_value": false,
+      "readmodel_table": "state_aggregated_token_technical_evidence_summary_v1",
+      "required": true
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "RSI/EMA/MACD optional context only; cannot produce decision.",
+      "risk_id": "CEX_TA_FALSE_CONFIDENCE",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Volume quality and wallet diversity gates required.",
+      "risk_id": "FAKE_VOLUME_SIGNAL",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Momentum must be liquidity-adjusted.",
+      "risk_id": "LIQUIDITY_UNSUPPORTED_MOMENTUM",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Candle integrity and wallet-diversity guards block positive signal.",
+      "risk_id": "SINGLE_WALLET_PUMP",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "All signals have can_bypass_risk=False.",
+      "risk_id": "TECHNICAL_SIGNAL_OVERRIDES_RISK",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "Stale guard degrades to WAIT_MORE_DATA.",
+      "risk_id": "STALE_TECHNICAL_EVIDENCE",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "Sell route, slippage, price impact and liquidity support required.",
+      "risk_id": "EXECUTION_UNSUPPORTED_CHART",
+      "severity": "CRITICAL"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+      "purpose": "Plan event-ledger emergency monitor trigger loop."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6D_NEGATIVE_MEMORY_LOOKUP_PLAN_NOAPI",
+      "purpose": "Plan negative memory lookup."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6E_DECISION_BINDING_RULE_MATRIX_NOAPI",
+      "purpose": "Bind risk, technical, stale, negative memory and threshold decisions."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6F_COMMAND_CENTER_OUTPUT_CONTRACT_PLAN_NOAPI",
+      "purpose": "Plan command-center output contract."
+    },
+    {
+      "db_write_now": false,
+      "order": 5,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Temp DB dry-run only after all plan phases.",
+      "temp_db_only": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "asymmetric_route_enabled_now": false,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "technical_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "signal_rows": [
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "momentum",
+      "meaning": "Price/momentum only counts if supported by sufficient and stable liquidity.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "liquidity_adjusted_momentum"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "volume_delta",
+      "meaning": "Buy/sell pressure trend from DEX swaps, not CEX order book.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "buy_sell_pressure_momentum"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "relative_volume",
+      "meaning": "Unique wallet participation growth; filters bot-loop volume.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "unique_buyer_growth"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "sell_volume_context",
+      "meaning": "Unique seller acceleration warns distribution pressure.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "unique_seller_growth"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "volume",
+      "meaning": "Volume is interpreted relative to pool liquidity; high ratio can mean hype or manipulation.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "volume_liquidity_ratio"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "momentum",
+      "meaning": "Transaction cadence acceleration, separated from repeated bot patterns.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "tx_frequency_acceleration"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "none",
+      "meaning": "Top-holder concentration improving or worsening.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "holder_concentration_change"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "none",
+      "meaning": "Whale/deployer/owner token or LP movement risk.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "whale_deployer_flow"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "none",
+      "meaning": "Slippage deterioration invalidates clean chart signals.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "slippage_trend"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "none",
+      "meaning": "Price impact trend reveals shallow or worsening execution.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "price_impact_trend"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "rsi_macd_context_filter",
+      "meaning": "Candles are rated for usable history, non-bot pattern, non-single-wallet movement.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "candle_integrity_score"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "volume_quality_filter",
+      "meaning": "Flags fake volume, wallet loops, repetitive buy/sell behavior.",
+      "primary": true,
+      "runtime_now": false,
+      "signal": "bot_wash_trade_suspicion"
+    },
+    {
+      "can_bypass_risk": false,
+      "cex_replacement": "optional_context_only",
+      "meaning": "EMA/RSI can be context only when token age, candle count, liquidity, and volume quality are sufficient.",
+      "primary": false,
+      "runtime_now": false,
+      "signal": "ema_rsi_optional_context"
+    }
+  ],
+  "source_rows": [
+    {
+      "api_now": false,
+      "planned_source": "future price snapshots + liquidity evidence",
+      "runtime_now": false,
+      "signal": "liquidity_adjusted_momentum"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future swap events / DEX pair flow",
+      "runtime_now": false,
+      "signal": "buy_sell_pressure_momentum"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future swap wallet aggregation",
+      "runtime_now": false,
+      "signal": "unique_buyer_growth"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future swap wallet aggregation",
+      "runtime_now": false,
+      "signal": "unique_seller_growth"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future volume evidence + liquidity evidence",
+      "runtime_now": false,
+      "signal": "volume_liquidity_ratio"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future transaction event ledger",
+      "runtime_now": false,
+      "signal": "tx_frequency_acceleration"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future holder snapshots / holder events",
+      "runtime_now": false,
+      "signal": "holder_concentration_change"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future whale/deployer event ledger",
+      "runtime_now": false,
+      "signal": "whale_deployer_flow"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future execution safety evidence",
+      "runtime_now": false,
+      "signal": "slippage_trend"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future execution safety evidence",
+      "runtime_now": false,
+      "signal": "price_impact_trend"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future candle builder + manipulation guard",
+      "runtime_now": false,
+      "signal": "candle_integrity_score"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future wallet/tx pattern classifier",
+      "runtime_now": false,
+      "signal": "bot_wash_trade_suspicion"
+    },
+    {
+      "api_now": false,
+      "planned_source": "future mature candle context only",
+      "runtime_now": false,
+      "signal": "ema_rsi_optional_context"
+    }
+  ],
+  "started_at_utc": "2026-06-01T07:39:50.682765+00:00",
+  "summary": {
+    "all_cex_no_risk_bypass": true,
+    "all_signals_no_risk_bypass": true,
+    "cex_policy_count": 5,
+    "decision_effect_count": 7,
+    "liquidity_metric_count": 6,
+    "manipulation_blocks_positive_signal": true,
+    "manipulation_guard_count": 7,
+    "optional_cex_signal_count": 1,
+    "primary_signal_count": 12,
+    "quality_gate_count": 9,
+    "readmodel_binding_count": 7,
+    "signal_count": 13,
+    "source_count": 13,
+    "technical_positive_review_only": true,
+    "wallet_metric_count": 6
+  },
+  "wallet_rows": [
+    {
+      "can_bypass_risk": false,
+      "decision_use": "healthy participation growth",
+      "metric": "unique_buyer_count_delta"
+    },
+    {
+      "can_bypass_risk": false,
+      "decision_use": "distribution pressure",
+      "metric": "unique_seller_count_delta"
+    },
+    {
+      "can_bypass_risk": false,
+      "decision_use": "concentration risk change",
+      "metric": "top_holder_concentration_delta"
+    },
+    {
+      "can_bypass_risk": false,
+      "decision_use": "large-wallet pressure",
+      "metric": "whale_buy_sell_imbalance"
+    },
+    {
+      "can_bypass_risk": false,
+      "decision_use": "emergency/risk context",
+      "metric": "deployer_owner_wallet_flow"
+    },
+    {
+      "can_bypass_risk": false,
+      "decision_use": "filters bot-only activity",
+      "metric": "wallet_diversity_score"
+    }
+  ],
+  "warnings": [
+    "DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_ONLY_NO_RUNTIME",
+    "CEX_TA_OPTIONAL_CONTEXT_ONLY_NOT_PRIMARY_DECISION",
+    "TECHNICAL_SIGNAL_CANNOT_BYPASS_RISK_OR_EXECUTION_GATES",
+    "MANIPULATION_GUARDS_BLOCK_POSITIVE_SIGNAL",
+    "POSITIVE_TECHNICAL_STATUS_IS_REVIEW_ONLY_NOT_PAPER_OR_LIVE",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

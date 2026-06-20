@@ -1,0 +1,464 @@
+{
+  "phase": "PANEL43_CUSTOMER_SHORTLIST_UI_PREVIEW_PLAN_NOAPI",
+  "stamp": "20260513_203250",
+  "final_gate": "PASS",
+  "action": "CUSTOMER_SHORTLIST_UI_PREVIEW_PLAN_CREATED",
+  "shortlist_ui_goal": {
+    "name": "Customer Shortlist UI Preview",
+    "purpose": "Müşterinin sadece önüne düşen aday token/coin listesini görmesi.",
+    "not_purpose": [
+      "Admin JSON viewer değildir.",
+      "Ham veri/debug ekranı değildir.",
+      "Aktif 8096 panele apply değildir.",
+      "Gerçek alım satım değildir.",
+      "Private key/cüzdan yönetimi değildir."
+    ],
+    "planned_preview_port": 8100,
+    "customer_visible_now": false,
+    "preview_only": true
+  },
+  "initial_chains": [
+    "Base",
+    "BSC",
+    "Ethereum",
+    "Solana"
+  ],
+  "future_chain_policy": {
+    "adapter_based": true,
+    "future_chains": [
+      "Polygon",
+      "Arbitrum",
+      "Optimism",
+      "Avalanche",
+      "Fantom",
+      "Linea",
+      "Blast",
+      "TON",
+      "Sui",
+      "Aptos"
+    ],
+    "rule": "Yeni ağlar chain adapter ile eklenir; müşteri UI core mantığı bozulmaz."
+  },
+  "customer_visible_fields": [
+    "token_name",
+    "symbol",
+    "chain",
+    "dex",
+    "pair_age",
+    "liquidity_usd",
+    "volume_1h_usd",
+    "risk_badge",
+    "opportunity_class",
+    "entry_zone",
+    "safe_entry_price",
+    "safe_entry_amount_usd",
+    "max_safe_buy_usd",
+    "sl_price",
+    "tp1_price",
+    "tp2_price",
+    "tp3_price",
+    "tp_mode",
+    "vur_kac_flag",
+    "max_holding_time",
+    "pilot_mode_eligibility",
+    "manual_pilot_available",
+    "auto_pilot_available",
+    "position_state",
+    "trade_status_color",
+    "reason_short",
+    "cost_estimate",
+    "slippage_estimate",
+    "updated_at",
+    "action_button_state"
+  ],
+  "hidden_internal_fields": [
+    "token_uid",
+    "pair_uid",
+    "raw_hash",
+    "debug_id",
+    "internal_score_vector",
+    "source_conflict_debug",
+    "wallet_internal_graph",
+    "private_key",
+    "seed_phrase",
+    "admin_notes",
+    "system_trace",
+    "model_raw_prompt"
+  ],
+  "customer_layout_sections": [
+    {
+      "section": "Top Bar",
+      "content": [
+        "Coinoskobi logo/title",
+        "Manual Pilot toggle",
+        "Automatic Pilot toggle",
+        "Risk limit summary",
+        "Refresh status"
+      ]
+    },
+    {
+      "section": "Chain Filters",
+      "content": [
+        "Base",
+        "BSC",
+        "Ethereum",
+        "Solana",
+        "Future chain dropdown disabled/coming"
+      ]
+    },
+    {
+      "section": "Opportunity Tabs",
+      "content": [
+        "Yıldız Adayı",
+        "Vur Kaç",
+        "Güvenli İzleme",
+        "Paper Aday",
+        "Riskli İzle"
+      ]
+    },
+    {
+      "section": "Shortlist Cards",
+      "content": [
+        "Token",
+        "Chain",
+        "Risk color",
+        "Entry zone",
+        "Safe amount",
+        "SL/TP",
+        "Status"
+      ]
+    },
+    {
+      "section": "Trade Control Column",
+      "content": [
+        "Al button",
+        "İşlemde state",
+        "Manual/Auto mode",
+        "Limit mode",
+        "Estimated cost"
+      ]
+    },
+    {
+      "section": "Detail Drawer",
+      "content": [
+        "Neden önerildi",
+        "Riskler",
+        "Maliyet",
+        "SL/TP nedeni",
+        "Outcome geçmişi",
+        "AI eğitim etiketi"
+      ]
+    },
+    {
+      "section": "Risk/Reward Panel",
+      "content": [
+        "Expected net value",
+        "Max loss",
+        "R/R ratio",
+        "Max safe buy",
+        "Hard block status"
+      ]
+    },
+    {
+      "section": "Empty State",
+      "content": [
+        "Bugün uygun aday yoksa temiz ve güven veren boş ekran"
+      ]
+    }
+  ],
+  "visual_design_rules": [
+    "JSON viewer görünümü kullanılmayacak.",
+    "Müşteri ekranı sade, premium ve anlaşılır olacak.",
+    "Kart/tablo hibrit yapı kullanılacak.",
+    "Risk seviyesi renk ve metinle gösterilecek.",
+    "Müşteriye teknik UID/debug/ham veri gösterilmeyecek.",
+    "Vur Kaç adayları ayrı ve kısa vadeli etiketlenecek.",
+    "Manuel Pilot ve Otomatik Pilot üstte kayar buton olarak görünecek.",
+    "Otomatik Pilot preview'da pasif/disabled olabilir; canlı trade yok.",
+    "Al butonu preview'da simülasyon/disabled olacak.",
+    "Detay drawer müşteri dilinde kısa sebep anlatacak.",
+    "SL/TP ve miktar öneri olarak gösterilecek; kesin garanti dili yok.",
+    "Mobil görünüm öncelikli olacak."
+  ],
+  "state_badges": [
+    {
+      "state": "WATCHING",
+      "label": "İzlemede",
+      "color": "blue"
+    },
+    {
+      "state": "READY_MANUAL",
+      "label": "Manuel uygun",
+      "color": "green"
+    },
+    {
+      "state": "READY_AUTO_PAPER",
+      "label": "Otomatik paper uygun",
+      "color": "emerald"
+    },
+    {
+      "state": "IN_POSITION",
+      "label": "İşlemde",
+      "color": "amber"
+    },
+    {
+      "state": "TP1_HIT",
+      "label": "TP1 geldi",
+      "color": "green"
+    },
+    {
+      "state": "SL_HIT",
+      "label": "SL oldu",
+      "color": "red"
+    },
+    {
+      "state": "BLOCKED",
+      "label": "Bloklu",
+      "color": "gray"
+    },
+    {
+      "state": "VUR_KAC",
+      "label": "Vur Kaç",
+      "color": "purple"
+    }
+  ],
+  "mock_preview_rows": [
+    {
+      "token_name": "Alpha Base",
+      "symbol": "ALPHA",
+      "chain": "Base",
+      "opportunity_class": "Yıldız Adayı",
+      "risk_badge": "Orta Risk",
+      "risk_color": "amber",
+      "safe_entry_price": "$0.00042 - $0.00045",
+      "safe_entry_amount_usd": "$12",
+      "max_safe_buy_usd": "$25",
+      "sl_price": "$0.00037",
+      "tp1_price": "$0.00052",
+      "tp2_price": "$0.00061",
+      "tp3_price": "$0.00074",
+      "position_state": "READY_MANUAL",
+      "reason_short": "Likidite ve hacim artışı uyumlu; risk hâlâ sınırlı tutulmalı."
+    },
+    {
+      "token_name": "BSC Runner",
+      "symbol": "RUN",
+      "chain": "BSC",
+      "opportunity_class": "Vur Kaç",
+      "risk_badge": "Yüksek Risk / Küçük Miktar",
+      "risk_color": "red",
+      "safe_entry_price": "$0.0018 - $0.0019",
+      "safe_entry_amount_usd": "$3",
+      "max_safe_buy_usd": "$5",
+      "sl_price": "$0.00165",
+      "tp1_price": "$0.00215",
+      "tp2_price": "-",
+      "tp3_price": "-",
+      "position_state": "VUR_KAC",
+      "reason_short": "Kısa vadeli hacim fırsatı; sadece TP1 ve hızlı çıkış mantığı."
+    },
+    {
+      "token_name": "Solana Spark",
+      "symbol": "SPRK",
+      "chain": "Solana",
+      "opportunity_class": "İzleme",
+      "risk_badge": "Veri Eksik",
+      "risk_color": "gray",
+      "safe_entry_price": "Bekle",
+      "safe_entry_amount_usd": "$0",
+      "max_safe_buy_usd": "$0",
+      "sl_price": "-",
+      "tp1_price": "-",
+      "tp2_price": "-",
+      "tp3_price": "-",
+      "position_state": "WATCHING",
+      "reason_short": "Kaynak teyidi eksik; giriş yok, sadece izleme."
+    }
+  ],
+  "pilot_controls": {
+    "manual_pilot": {
+      "visible": true,
+      "default": true,
+      "live_trade_now": false,
+      "behavior": "Kullanıcı onayı olmadan işlem açmaz."
+    },
+    "auto_pilot": {
+      "visible": true,
+      "default": false,
+      "live_trade_now": false,
+      "behavior": "Preview/paper-only; yüksek eşik ve limit zorunlu."
+    },
+    "limit_modes": [
+      "fixed_amount_usd",
+      "capital_percent",
+      "daily_budget_percent",
+      "chain_budget_percent",
+      "liquidity_percent",
+      "risk_adjusted_dynamic"
+    ]
+  },
+  "preview_plan": {
+    "next_phase": "PANEL44_CUSTOMER_SHORTLIST_UI_PREVIEW_REAL_NOAPI",
+    "planned_port": 8100,
+    "planned_dir": "/root/tokenoskobi_clean_v1/panel_previews/panel44_customer_shortlist_ui_preview_<STAMP>",
+    "planned_latest_symlink": "/root/tokenoskobi_clean_v1/panel_previews/panel44_customer_shortlist_ui_preview_latest",
+    "data_mode": "mock_customer_rows_plus_contract_fields",
+    "customer_visible_now": false,
+    "admin_preview_only": true,
+    "active_panel_apply_allowed": false,
+    "db_write_allowed": false,
+    "api_fetch_allowed": false,
+    "paper_live_allowed": false
+  },
+  "allowed_writes_next_phase": [
+    "/root/tokenoskobi_clean_v1/panel_previews/panel44_customer_shortlist_ui_preview_<STAMP>",
+    "/root/tokenoskobi_clean_v1/run/panel44_customer_shortlist_ui_8100.pid",
+    "/root/tokenoskobi_clean_v1/reports/LATEST_PANEL44_CUSTOMER_SHORTLIST_UI_PREVIEW_REAL_NOAPI.md",
+    "/root/tokenoskobi_clean_v1/data/panel44_customer_shortlist_ui_preview_real_noapi.json",
+    "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_phase_journal.jsonl",
+    "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+  ],
+  "forbidden_writes_next_phase": [
+    "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py",
+    "/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+    "/root/tokenoskobi_clean_v1/tools/full_radar_panel_data_builder_v1.py",
+    "/root/tokenoskobi_clean_v1/public/index.html",
+    "/root/tokenoskobi_clean_v1/public/panel_data.json",
+    "/root/tokenoskobi_clean_v1/public/dashboard_extra_data.json",
+    "/root/tokenoskobi_clean_v1/public/full_radar_panel_data_staging_v1",
+    "/etc/systemd/system/",
+    "/root/tokenoskobi_clean_v1/data/*paper*",
+    "/root/tokenoskobi_clean_v1/data/*position*"
+  ],
+  "safety_rules": [
+    "PANEL44 aktif 8096 panele dokunmayacak.",
+    "PANEL44 sadece ayrı preview klasörü ve 8100 portu kullanacak.",
+    "PANEL44 müşteri visible değildir; admin preview only kalacak.",
+    "PANEL44 DB yazmayacak.",
+    "PANEL44 API/fetch/external network yapmayacak.",
+    "PANEL44 paper/live işlem açmayacak.",
+    "PANEL44 müşteri private key/cüzdan bilgisi istemeyecek.",
+    "PANEL44 gerçek alım butonunu disabled/simülasyon gösterecek.",
+    "PANEL44 ham UID/debug alanlarını göstermeyecek.",
+    "PANEL44 sonrası PANEL45 post-audit veya data binding plan gerekecek."
+  ],
+  "quality_checks": {
+    "panel42_passed": true,
+    "panel42_viewer_operational": true,
+    "panel42_safe_to_panel43": true,
+    "trade29_passed": true,
+    "trade29_customer_contract_ready": true,
+    "risk29_passed": true,
+    "risk29_position_sizing_ready": true,
+    "initial_chain_count_4": true,
+    "customer_visible_field_count_ok": true,
+    "hidden_internal_field_count_ok": true,
+    "layout_section_count_ok": true,
+    "visual_design_rule_count_ok": true,
+    "state_badge_count_ok": true,
+    "mock_preview_rows_count_ok": true,
+    "pilot_controls_ready": true,
+    "limit_modes_count_ok": true,
+    "preview_port_8100_free_now": true,
+    "builder_sha_expected": true,
+    "builder_compile_zero": true,
+    "db_integrity_ok": true,
+    "db_quick_ok": true,
+    "db_fk_zero": true,
+    "paper_runtime_zero": true,
+    "service_success": true,
+    "service_exec_zero": true,
+    "timer_inactive": true,
+    "timer_enabled": true,
+    "lock_absent": true,
+    "runner_zero": true,
+    "panel_8096_listen": true,
+    "panel_8097_listen": true,
+    "panel_8098_listen": true,
+    "panel_8099_listen": true,
+    "active_panel_apply_blocked": true,
+    "db_write_blocked": true,
+    "paper_live_blocked": true,
+    "allowed_write_scope_limited": true,
+    "forbidden_write_scope_defined": true,
+    "no_mutation_during_plan": true
+  },
+  "failed_checks": [],
+  "failed_check_count": 0,
+  "decision": {
+    "customer_shortlist_ui_plan_ready": true,
+    "customer_screen_replaces_bad_json_viewer": true,
+    "mock_preview_rows_ready": true,
+    "manual_auto_pilot_ui_ready": true,
+    "risk_reward_ui_ready": true,
+    "vur_kac_ui_ready": true,
+    "active_panel_apply_now": false,
+    "db_write_now": false,
+    "api_fetch_now": false,
+    "paper_live_now": false,
+    "safe_to_proceed_to_panel44": true,
+    "recommended_next_phase": "PANEL44_CUSTOMER_SHORTLIST_UI_PREVIEW_REAL_NOAPI",
+    "alternate_next_phase": "OPS28_AI_BUSINESS_AGENTS_ROADMAP_PLAN_NOAPI"
+  },
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "panel_8098": "LISTEN",
+  "panel_8099": "LISTEN",
+  "panel_8100": "NO_LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "builder_unchanged": true,
+  "active_index_unchanged": true,
+  "active_panel_data_unchanged": true,
+  "active_dash_extra_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "APPENDED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "fetch": false,
+  "external_network": false,
+  "schema_apply": false,
+  "endpoint_created": false,
+  "ui_file_written": false,
+  "viewer_file_written": false,
+  "builder_code_written": false,
+  "target_file_written": false,
+  "panel_data_written": false,
+  "panel_data_file_written": false,
+  "public_copy_to_active_panel": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_position_write": false,
+  "live_trade": false,
+  "next_phase": "PANEL44_CUSTOMER_SHORTLIST_UI_PREVIEW_REAL_NOAPI",
+  "alternate_next_phase": "OPS28_AI_BUSINESS_AGENTS_ROADMAP_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PANEL43_CUSTOMER_SHORTLIST_UI_PREVIEW_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/panel43_customer_shortlist_ui_preview_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}

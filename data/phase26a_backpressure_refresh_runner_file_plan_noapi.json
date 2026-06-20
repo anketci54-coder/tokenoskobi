@@ -1,0 +1,293 @@
+{
+  "active_index_expected_sha_match": true,
+  "active_index_sha256": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+  "apply_boundary_contract": {
+    "backup_required": true,
+    "explicit_approval_required": true,
+    "future_runner_file_apply_phase": "PHASE26D_BACKPRESSURE_REFRESH_RUNNER_FILE_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+    "not_in_future_apply_without_separate_approval": [
+      "service start/restart",
+      "timer enable/start",
+      "API/provider/dex call",
+      "wallet/sign/trade",
+      "policy apply",
+      "hardblock weakening",
+      "active panel write"
+    ],
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "post_audit_required": true,
+    "rollback_required": true,
+    "write_scope_future": "tools_runner_file_only"
+  },
+  "artifact_policy": {
+    "active_panel_write": false,
+    "api_wallet_trade_policy": false,
+    "db_mutation": false,
+    "minimal_artifacts": true,
+    "plan_only": true,
+    "public_target_write": false,
+    "runner_apply_now": false,
+    "runner_file_write_now": false,
+    "service_timer_worker_now": false
+  },
+  "audit_budget_rule": {
+    "AUDIT_BUDGET_RULE": true,
+    "FIELD_SPEED_OVER_BUREAUCRACY": true,
+    "HARD_GATE_FIRST": true,
+    "NO_EXTRA_REVIEW_LOOP_FOR_LITERAL_MISMATCH": true,
+    "SOFT_VALIDATION_DOES_NOT_BLOCK": true,
+    "VALID_CACHE_MOVES_FORWARD": true
+  },
+  "checklist": {
+    "after_sha256": "a41b536776703075f6ca2d00b61f866ab4b1252e3ad80c8fff616b308c322354",
+    "before_sha256": "a41b536776703075f6ca2d00b61f866ab4b1252e3ad80c8fff616b308c322354",
+    "changed": false,
+    "error": null,
+    "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_phase_checklist.jsonl",
+    "touched": false
+  },
+  "db_health": {
+    "db_exists": true,
+    "db_sha256": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "error": null,
+    "foreign_key_check_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok"
+  },
+  "dryrun_contract": {
+    "dryrun_scope": "temp runner file/projection only; no active runner file write",
+    "next_phase": "PHASE26B_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_NOAPI",
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "phase26b_expected": {
+      "active_panel_write": false,
+      "api_external_provider_dex_wallet_trade": false,
+      "compile_temp_runner": true,
+      "db_mode": "readonly",
+      "policy_or_hardblock_authority": false,
+      "public_target_write": false,
+      "run_temp_runner_dryrun_once": true,
+      "service_timer_worker": false,
+      "write_real_runner_file": false,
+      "write_temp_runner_file": true
+    }
+  },
+  "failed_checks": [
+    "PHASE25F::AUDIT_BUDGET_RULE_PRESENT",
+    "PHASE25F_VERIFIED"
+  ],
+  "final_gate": "REVIEW_PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+  "hot_path_locks": {
+    "CACHE_MISSING_BEHAVIOR": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "CACHE_PARSE_FAIL_BEHAVIOR": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "CACHE_SOURCE_CONFLICT_BEHAVIOR": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "CACHE_STALE_BEHAVIOR": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "HOT_PATH_AI_CALL_ALLOWED": false,
+    "HOT_PATH_DB_JOIN_ALLOWED": false,
+    "HOT_PATH_PRECOMPUTED_BUCKET_ONLY": true,
+    "HOT_PATH_PROVIDER_CALL_ALLOWED": false,
+    "HOT_PATH_RAW_EVENT_QUERY_ALLOWED": false,
+    "HOT_PATH_SCORE_COMPUTE_ALLOWED": false,
+    "HOT_PATH_WALLET_OR_SIGN_ALLOWED": false
+  },
+  "mutation_checks": {
+    "ACTIVE_INDEX_UNCHANGED": true,
+    "DB_UNCHANGED": true,
+    "HOSTS_UNCHANGED": true,
+    "PLANNED_RUNNER_UNCHANGED": true,
+    "SOURCE_CACHE_UNCHANGED": true,
+    "SOURCE_INDEX_UNCHANGED": true,
+    "SOURCE_MANIFEST_UNCHANGED": true
+  },
+  "next_phase": "PHASE26B_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_NOAPI",
+  "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+  "phase25f": {
+    "failed": [
+      "AUDIT_BUDGET_RULE_PRESENT"
+    ],
+    "verified": false
+  },
+  "phase27_bridge": {
+    "birth_listener_not_active_in_phase26a": true,
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "phase27_direction": "BSC Token Birth Listener / Early Warning Radar",
+    "phase27_not_include": [
+      "live trade",
+      "paper trade",
+      "wallet signing",
+      "policy auto-apply"
+    ],
+    "runner_before_listener_reason": "Stabilize local refresh pipeline before event-driven birth detection.",
+    "target_future_latency": {
+      "first_cache_panel_seconds": "5-15",
+      "first_hard_gate_seconds": "3-5",
+      "first_signal_seconds": "1-3"
+    }
+  },
+  "plan_only": true,
+  "post_sha256": {
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "hosts": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "planned_runner": null,
+    "source_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf"
+  },
+  "pre_sha256": {
+    "active_index": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "db": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "hosts": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "planned_runner": null,
+    "source_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf"
+  },
+  "rc": 1,
+  "runner_plan_contract": {
+    "created_at_utc": "2026-06-06T05:07:38.366377+00:00",
+    "next_phase": "PHASE26B_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_NOAPI",
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "planned_output_dir": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1",
+    "planned_runner_file": "/root/tokenoskobi_clean_v1/tools/backpressure_readmodel_refresh_runner_v1.py",
+    "planned_runner_state_dir": "/root/tokenoskobi_clean_v1/runtime/backpressure_refresh_runner_v1",
+    "purpose": "Plan a reusable backpressure refresh runner file without writing it yet.",
+    "runner_default_mode": "--dryrun-once",
+    "runner_file_write_now": false,
+    "runner_future_apply_requires_explicit_approval": true,
+    "runner_future_inputs": {
+      "db_readonly": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "source_cache": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+      "source_index": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json",
+      "source_manifest": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json"
+    },
+    "runner_future_outputs": {
+      "inactive_target_cache": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+      "inactive_target_index": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json",
+      "inactive_target_manifest": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json",
+      "temp_cache": "runtime/backpressure_refresh_runner_v1/<stamp>/backpressure_readmodel_refresh_cache_temp.json",
+      "temp_manifest": "runtime/backpressure_refresh_runner_v1/<stamp>/backpressure_readmodel_refresh_manifest_temp.json",
+      "temp_rows": "runtime/backpressure_refresh_runner_v1/<stamp>/backpressure_readmodel_refresh_rows_temp.jsonl"
+    },
+    "runner_mode": "local_readonly_to_inactive_staging",
+    "runner_must_never_do": [
+      "wallet connection",
+      "transaction signing",
+      "paper/live trade",
+      "policy apply",
+      "hardblock weakening",
+      "AI policy edit",
+      "provider quote",
+      "DEX route call",
+      "service/timer self-enable",
+      "active panel mutation"
+    ],
+    "runner_required_cli_modes": [
+      "--dryrun-once",
+      "--write-inactive-staging-after-explicit-approval",
+      "--healthcheck"
+    ]
+  },
+  "runner_source_contract": {
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "source_authority_all_false": true,
+    "source_cache": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+    "source_cache_sha256": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "source_index": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json",
+    "source_index_sha256": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "source_manifest": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json",
+    "source_manifest_sha256": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "source_ready_for_runner_consumption": true,
+    "source_runtime_bucket": "LOOKUP_ONLY",
+    "source_state": "CACHE_VALID"
+  },
+  "runtime_boundary_contract": {
+    "cache_missing_behavior": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "cache_parse_fail_behavior": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "cache_source_conflict_behavior": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "cache_stale_behavior": "SAFE_DOWNGRADE_NO_FAST_RAID",
+    "hot_path_ai_call_allowed": false,
+    "hot_path_db_join_allowed": false,
+    "hot_path_provider_call_allowed": false,
+    "hot_path_raw_event_query_allowed": false,
+    "hot_path_rule": "Runtime consumes precomputed bucket only.",
+    "hot_path_score_compute_allowed": false,
+    "hot_path_wallet_or_sign_allowed": false,
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "runner_cache_never_authorizes_policy_apply": true,
+    "runner_cache_never_authorizes_sign_send": true,
+    "runner_cache_never_authorizes_trade": true,
+    "runner_cache_never_enables_autopilot": true,
+    "runner_cache_never_weakens_hardblock": true
+  },
+  "safety_contract": {
+    "ACTIVE_PANEL_WRITE": false,
+    "AI_POLICY_EDIT": false,
+    "AI_SCORE_UPGRADE": false,
+    "API_CALLS": 0,
+    "AUTO_PILOT_ENABLE": false,
+    "DB_MUTATION": false,
+    "DEX_ROUTE_CALL": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "HARDBLOCK_WEAKENING": false,
+    "LIVE_SCHEMA_APPLY": false,
+    "LIVE_TRADE": false,
+    "PAPER_TRADE": false,
+    "PLAN_ONLY": true,
+    "POLICY_APPLY": false,
+    "PROVIDER_QUOTE": false,
+    "PUBLIC_TARGET_WRITE": false,
+    "RUNNER_FILE_APPLY_NOW": false,
+    "RUNNER_FILE_WRITE_NOW": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "TRANSACTION_SIGNING": false,
+    "WALLET_CONNECTION": false,
+    "WORKER_START": false
+  },
+  "service_timer_boundary": {
+    "manual_run_before_timer_required": true,
+    "phase": "PHASE26A_BACKPRESSURE_REFRESH_RUNNER_FILE_PLAN_NOAPI",
+    "planned_later_phase": "PHASE26F_SERVICE_TIMER_PLAN_NOAPI",
+    "service_timer_now": false,
+    "service_timer_requires_separate_phase": true,
+    "timer_enable_requires_explicit_approval": true,
+    "timer_frequency_not_locked_yet": true
+  },
+  "source_audit": {
+    "authority": {
+      "ai_policy_edit": false,
+      "ai_score_upgrade": false,
+      "auto_pilot_enable": false,
+      "hardblock_weakening": false,
+      "manual_hardblock_bypass": false,
+      "policy_apply": false,
+      "sign_send": false,
+      "trade": false
+    },
+    "cache_sha256": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "cache_state": "CACHE_VALID",
+    "checks": {
+      "SOURCE_AUTHORITY_ALL_FALSE": true,
+      "SOURCE_CACHE_EXISTS": true,
+      "SOURCE_CACHE_MISSING_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_PARSE_FAIL_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_PARSE_OK": true,
+      "SOURCE_CACHE_STALE_SAFE_DOWNGRADE": true,
+      "SOURCE_CACHE_VALID": true,
+      "SOURCE_INDEX_CACHE_SHA_MATCH": true,
+      "SOURCE_INDEX_EXISTS": true,
+      "SOURCE_INDEX_MANIFEST_SHA_MATCH": true,
+      "SOURCE_INDEX_PARSE_OK": true,
+      "SOURCE_MANIFEST_CACHE_SHA_MATCH": true,
+      "SOURCE_MANIFEST_EXISTS": true,
+      "SOURCE_MANIFEST_PARSE_OK": true,
+      "SOURCE_RUNTIME_BUCKET_LOOKUP_ONLY": true
+    },
+    "failed": [],
+    "index_sha256": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "manifest_sha256": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf",
+    "runtime_bucket": "LOOKUP_ONLY"
+  },
+  "stamp": "20260606_080738",
+  "utc": "2026-06-06T05:07:38.337724+00:00"
+}

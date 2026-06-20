@@ -1,0 +1,592 @@
+{
+  "block_wall_clock_rows": [
+    {
+      "guard": "dual_clock_required",
+      "locked": true,
+      "meaning": "Block count and wall-clock time must both be tracked."
+    },
+    {
+      "guard": "block_age_primary_for_onchain_state",
+      "locked": true,
+      "meaning": "Onchain state freshness primarily uses block delta."
+    },
+    {
+      "guard": "wall_clock_secondary_for_operational_staleness",
+      "locked": true,
+      "meaning": "Wall-clock catches process pauses, network lag, and delayed builders."
+    },
+    {
+      "guard": "unknown_current_block_blocks_route",
+      "locked": true,
+      "meaning": "If current block cannot be determined in future runtime, route permission is blocked."
+    },
+    {
+      "guard": "unknown_timestamp_blocks_route",
+      "locked": true,
+      "meaning": "If current time/reference timestamp is missing, route permission is blocked."
+    }
+  ],
+  "db_health": {
+    "busy_timeout": 5000,
+    "foreign_key_check_count": 0,
+    "index_count_total": 508,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "quick_check": "ok",
+    "table_count_total": 214
+  },
+  "decision_effect_rows": [
+    {
+      "decision_label_effect": "ALLOW_READMODEL_SUMMARY_ONLY",
+      "input_stale_status": "FRESH",
+      "paper_live_effect": "BLOCKED",
+      "route_effect": "NO_TRADE_PERMISSION"
+    },
+    {
+      "decision_label_effect": "WAIT_MORE_DATA_OR_RECHECK_REQUIRED",
+      "input_stale_status": "AGING",
+      "paper_live_effect": "BLOCKED",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "decision_label_effect": "STALE_EVIDENCE",
+      "input_stale_status": "STALE",
+      "paper_live_effect": "BLOCKED",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "decision_label_effect": "WAIT_MORE_DATA",
+      "input_stale_status": "EXPIRED",
+      "paper_live_effect": "BLOCKED",
+      "route_effect": "NO_ROUTE"
+    },
+    {
+      "decision_label_effect": "WAIT_MORE_DATA",
+      "input_stale_status": "UNKNOWN",
+      "paper_live_effect": "BLOCKED",
+      "route_effect": "NO_ROUTE"
+    }
+  ],
+  "failed_checks": [],
+  "final_gate": "PASS_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI",
+  "finished_at_utc": "2026-06-01T06:56:29.507592+00:00",
+  "freshness_fields": [
+    {
+      "decision_use": "Source block freshness.",
+      "field": "last_updated_block",
+      "required": true,
+      "type": "INTEGER"
+    },
+    {
+      "decision_use": "Source wall-clock freshness.",
+      "field": "last_updated_timestamp",
+      "required": true,
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "decision_use": "State evidence density.",
+      "field": "source_event_count",
+      "required": true,
+      "type": "INTEGER NOT NULL DEFAULT 0"
+    },
+    {
+      "decision_use": "Block-age guard.",
+      "field": "evidence_age_blocks",
+      "required": true,
+      "type": "INTEGER"
+    },
+    {
+      "decision_use": "Wall-clock-age guard.",
+      "field": "evidence_age_seconds",
+      "required": true,
+      "type": "INTEGER"
+    },
+    {
+      "decision_use": "FRESH boundary in blocks.",
+      "field": "fresh_after_blocks",
+      "required": true,
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "decision_use": "FRESH boundary in seconds.",
+      "field": "fresh_after_seconds",
+      "required": true,
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "decision_use": "STALE boundary in blocks.",
+      "field": "stale_after_blocks",
+      "required": true,
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "decision_use": "STALE boundary in seconds.",
+      "field": "stale_after_seconds",
+      "required": true,
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "decision_use": "EXPIRED boundary in blocks.",
+      "field": "expired_after_blocks",
+      "required": true,
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "decision_use": "EXPIRED boundary in seconds.",
+      "field": "expired_after_seconds",
+      "required": true,
+      "type": "INTEGER NOT NULL"
+    },
+    {
+      "decision_use": "Final freshness label.",
+      "field": "stale_status",
+      "required": true,
+      "type": "TEXT NOT NULL"
+    },
+    {
+      "decision_use": "Why status was assigned.",
+      "field": "freshness_reason",
+      "required": false,
+      "type": "TEXT"
+    },
+    {
+      "decision_use": "Reference block used by builder.",
+      "field": "current_block_reference",
+      "required": false,
+      "type": "INTEGER"
+    },
+    {
+      "decision_use": "Reference timestamp used by builder.",
+      "field": "current_timestamp_reference",
+      "required": false,
+      "type": "TEXT"
+    }
+  ],
+  "hashes": {
+    "active_index_sha_end": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "active_index_sha_start": "ab0fe1dd48de430b67f9b33c7a6c9ff187beec04c9621e5294a17516ecc6c25d",
+    "db_sha_end": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "db_sha_start": "06e2aacc566cd88a3fda4899d3c6f4b297324361a75f07b195acef3532e2ce21",
+    "hosts_sha_end": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e",
+    "hosts_sha_start": "2d129e9d929d6d093969897f361b64ff02fc7a01325fd10acf0da43e1317e87e"
+  },
+  "next_phase": "PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI",
+  "outputs": {
+    "block_wall_clock_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_block_wall_clock_guard_plan.jsonl",
+    "decision_effect_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_stale_decision_effect_matrix.jsonl",
+    "freshness_field_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_freshness_field_contract.jsonl",
+    "future_schema_sql": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_future_stale_data_guard_schema_plan_noapi.sql",
+    "json": "/root/tokenoskobi_clean_v1/data/phase6b2_stale_data_guard_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_stale_data_guard_plan_noapi.json",
+    "readmodel_binding_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_readmodel_binding_plan.jsonl",
+    "report": "/root/tokenoskobi_clean_v1/reports/LATEST_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI.md",
+    "risk_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_stale_guard_risk_register.jsonl",
+    "roadmap_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_next_roadmap_lock.jsonl",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase6b2_stale_data_guard_plan_noapi_rows.jsonl",
+    "source_class_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_source_freshness_class_matrix.jsonl",
+    "stale_status_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_stale_status_contract.jsonl",
+    "threshold_plan_rows": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629/phase6b2_stale_threshold_plan.jsonl",
+    "work_dir": "/root/tokenoskobi_clean_v1/_PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI/20260601_095629"
+  },
+  "pass_conditions": {
+    "active_index_expected": true,
+    "active_index_unchanged": true,
+    "all_non_fresh_block_or_recheck": true,
+    "block_wall_clock_rows_written": true,
+    "db_health_ok": true,
+    "db_sha_expected": true,
+    "db_unchanged": true,
+    "decision_effect_count_5": true,
+    "decision_effect_rows_written": true,
+    "dual_clock_guard_count_5": true,
+    "emergency_short_freshness": true,
+    "expired_blocks_route": true,
+    "freshness_field_count_ge_12": true,
+    "freshness_field_rows_written": true,
+    "future_schema_sql_written": true,
+    "hosts_expected": true,
+    "hosts_unchanged": true,
+    "phase6_dependency_ok": true,
+    "phase6_json_exists": true,
+    "phase6a_dependency_ok": true,
+    "phase6a_json_exists": true,
+    "phase6b_dependency_ok": true,
+    "phase6b_json_exists": true,
+    "phase6b_report_exists": true,
+    "phase6b_rows_exists": true,
+    "policy_sha_match": true,
+    "readmodel_binding_count_4": true,
+    "readmodel_binding_rows_written": true,
+    "risk_rows_written": true,
+    "roadmap_rows_written": true,
+    "safety_noapi_clean": true,
+    "sell_route_short_freshness": true,
+    "source_class_count_8": true,
+    "source_class_rows_written": true,
+    "stale_degrades_to_stale_evidence": true,
+    "stale_status_count_5": true,
+    "stale_status_rows_written": true,
+    "threshold_plan_rows_written": true,
+    "unknown_blocks_route": true
+  },
+  "phase": "PHASE6B2_STALE_DATA_GUARD_PLAN_NOAPI",
+  "phase_dependencies": {
+    "phase6_ok": true,
+    "phase6a_ok": true,
+    "phase6b_ok": true,
+    "phase6b_rows_count": 66
+  },
+  "policy_reference": {
+    "checked_count": 1,
+    "match_found": true,
+    "matches": [
+      "/root/tokenoskobi_clean_v1/config/payg_rpc_budget_guard_policy_v1.json"
+    ]
+  },
+  "readmodel_binding_rows": [
+    {
+      "apply_now": false,
+      "binding": "primary_freshness_sidecar",
+      "readmodel_table": "state_aggregated_token_freshness_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "binding": "stale_status_must_be_visible",
+      "readmodel_table": "state_aggregated_token_readmodel_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "binding": "stale_status_degrades_decision_label",
+      "readmodel_table": "state_aggregated_token_decision_labels_v1",
+      "required": true
+    },
+    {
+      "apply_now": false,
+      "binding": "STALE_or_EXPIRED_adds_recheck_to_next_required_evidence",
+      "readmodel_table": "state_aggregated_token_missing_evidence_v1",
+      "required": true
+    }
+  ],
+  "risk_rows": [
+    {
+      "mitigation": "stale_status visible and blocks route permission.",
+      "risk_id": "STALE_DATA_LOOKS_SAFE",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "sell_route_evidence has tight stale/expired thresholds.",
+      "risk_id": "SELL_ROUTE_STALE_PROFIT_ILLUSION",
+      "severity": "CRITICAL"
+    },
+    {
+      "mitigation": "liquidity_evidence freshness shorter than historical evidence.",
+      "risk_id": "LIQUIDITY_STALE_EXIT_RISK",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "dual-clock block and wall-clock guard required.",
+      "risk_id": "BLOCK_TIME_WALL_CLOCK_MISMATCH",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "emergency trigger freshness threshold is very short.",
+      "risk_id": "EMERGENCY_TRIGGER_DELAY",
+      "severity": "HIGH"
+    },
+    {
+      "mitigation": "UNKNOWN freshness always blocks route permission.",
+      "risk_id": "UNKNOWN_FRESHNESS_ROUTE_LEAK",
+      "severity": "CRITICAL"
+    }
+  ],
+  "roadmap_rows": [
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 1,
+      "phase": "PHASE6C_EXECUTION_THRESHOLD_MATRIX_PLAN_NOAPI",
+      "purpose": "Plan hard execution thresholds."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 2,
+      "phase": "PHASE6C2_ASYMMETRIC_SPECULATIVE_MICRO_ROUTE_POLICY_PLAN_NOAPI",
+      "purpose": "Plan high-risk sandbox route policy but keep disabled."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 3,
+      "phase": "PHASE6C3_DEX_MICROSTRUCTURE_TECHNICAL_EVIDENCE_PLAN_NOAPI",
+      "purpose": "Plan DEX-native technical evidence."
+    },
+    {
+      "api_now": false,
+      "db_write_now": false,
+      "order": 4,
+      "phase": "PHASE6C4_EMERGENCY_MONITOR_TRIGGER_LOOP_PLAN_NOAPI",
+      "purpose": "Plan event-ledger driven emergency triggers."
+    },
+    {
+      "db_write_now": false,
+      "order": 5,
+      "phase": "PHASE6G_READMODEL_TEMP_DB_DRYRUN_NOAPI",
+      "purpose": "Apply planned schema to temp DB only after all plans.",
+      "temp_db_only": true
+    }
+  ],
+  "safety": {
+    "active_8096_mutation": false,
+    "api_calls": 0,
+    "db_mutation": false,
+    "external_network_calls": 0,
+    "fetch_calls": 0,
+    "live_trade_permission": false,
+    "micro_route_enabled_now": false,
+    "model_training_now": false,
+    "nginx_auth_hosts_mutation": false,
+    "outcome_runtime_enabled_now": false,
+    "panel_mutation": false,
+    "paper_trade_permission": false,
+    "readmodel_apply_now": false,
+    "rpc_calls": 0,
+    "schema_apply_now": false,
+    "score_permission": false,
+    "service_timer_mutation": false,
+    "stale_guard_runtime_now": false,
+    "wal_enable_now": false,
+    "watchlist_permission": false
+  },
+  "source_class_rows": [
+    {
+      "expired_after_blocks": 3000000,
+      "expired_after_seconds": 7776000,
+      "fresh_after_blocks": 200000,
+      "fresh_after_seconds": 604800,
+      "reason": "Creation proof is historical; can age slower but still must be traceable.",
+      "source_class": "creation_receipt_evidence",
+      "stale_after_blocks": 1000000,
+      "stale_after_seconds": 2592000
+    },
+    {
+      "expired_after_blocks": 24000,
+      "expired_after_seconds": 72000,
+      "fresh_after_blocks": 1200,
+      "fresh_after_seconds": 3600,
+      "reason": "Holder concentration can change quickly.",
+      "source_class": "holder_distribution_evidence",
+      "stale_after_blocks": 6000,
+      "stale_after_seconds": 18000
+    },
+    {
+      "expired_after_blocks": 1800,
+      "expired_after_seconds": 5400,
+      "fresh_after_blocks": 100,
+      "fresh_after_seconds": 300,
+      "reason": "Liquidity and exit depth are time-sensitive.",
+      "source_class": "liquidity_evidence",
+      "stale_after_blocks": 600,
+      "stale_after_seconds": 1800
+    },
+    {
+      "expired_after_blocks": 300,
+      "expired_after_seconds": 900,
+      "fresh_after_blocks": 20,
+      "fresh_after_seconds": 60,
+      "reason": "Sell route can switch quickly; stale sell-route cannot grant route review.",
+      "source_class": "sell_route_evidence",
+      "stale_after_blocks": 100,
+      "stale_after_seconds": 300
+    },
+    {
+      "expired_after_blocks": 300,
+      "expired_after_seconds": 900,
+      "fresh_after_blocks": 20,
+      "fresh_after_seconds": 60,
+      "reason": "Slippage/tax/price impact are highly time-sensitive.",
+      "source_class": "execution_safety_evidence",
+      "stale_after_blocks": 100,
+      "stale_after_seconds": 300
+    },
+    {
+      "expired_after_blocks": 1800,
+      "expired_after_seconds": 5400,
+      "fresh_after_blocks": 100,
+      "fresh_after_seconds": 300,
+      "reason": "DEX microstructure signal decays quickly.",
+      "source_class": "dex_microstructure_technical_evidence",
+      "stale_after_blocks": 600,
+      "stale_after_seconds": 1800
+    },
+    {
+      "expired_after_blocks": 60,
+      "expired_after_seconds": 180,
+      "fresh_after_blocks": 5,
+      "fresh_after_seconds": 15,
+      "reason": "Emergency triggers must be processed immediately in future runtime.",
+      "source_class": "emergency_monitor_trigger",
+      "stale_after_blocks": 20,
+      "stale_after_seconds": 60
+    },
+    {
+      "expired_after_blocks": 3000000,
+      "expired_after_seconds": 7776000,
+      "fresh_after_blocks": 200000,
+      "fresh_after_seconds": 604800,
+      "reason": "Memory is slow-moving but source freshness must still be visible.",
+      "source_class": "negative_memory_evidence",
+      "stale_after_blocks": 1000000,
+      "stale_after_seconds": 2592000
+    }
+  ],
+  "stale_status_rows": [
+    {
+      "blocks_rule": "evidence_age_blocks <= fresh_after_blocks",
+      "can_grant_paper_live": false,
+      "decision_effect": "State can support read-model summary only.",
+      "route_permission_effect": "NO_TRADE_PERMISSION_BUT_STATE_CAN_BE_USED_FOR_REVIEW",
+      "seconds_rule": "evidence_age_seconds <= fresh_after_seconds",
+      "stale_status": "FRESH"
+    },
+    {
+      "blocks_rule": "fresh_after_blocks < evidence_age_blocks <= stale_after_blocks",
+      "can_grant_paper_live": false,
+      "decision_effect": "Show caution; require recheck before any future route review.",
+      "route_permission_effect": "NO_TRADE_PERMISSION_RECHECK_REQUIRED",
+      "seconds_rule": "fresh_after_seconds < evidence_age_seconds <= stale_after_seconds",
+      "stale_status": "AGING"
+    },
+    {
+      "blocks_rule": "evidence_age_blocks > stale_after_blocks",
+      "can_grant_paper_live": false,
+      "decision_effect": "Degrade to WAIT_MORE_DATA / STALE_EVIDENCE.",
+      "route_permission_effect": "BLOCK",
+      "seconds_rule": "evidence_age_seconds > stale_after_seconds",
+      "stale_status": "STALE"
+    },
+    {
+      "blocks_rule": "evidence_age_blocks > expired_after_blocks",
+      "can_grant_paper_live": false,
+      "decision_effect": "Discard from decision binding until refreshed.",
+      "route_permission_effect": "BLOCK",
+      "seconds_rule": "evidence_age_seconds > expired_after_seconds",
+      "stale_status": "EXPIRED"
+    },
+    {
+      "blocks_rule": "last_updated_block is NULL or current_block is NULL",
+      "can_grant_paper_live": false,
+      "decision_effect": "Unknown freshness cannot produce route permission.",
+      "route_permission_effect": "BLOCK",
+      "seconds_rule": "last_updated_timestamp is NULL or current_timestamp is NULL",
+      "stale_status": "UNKNOWN"
+    }
+  ],
+  "started_at_utc": "2026-06-01T06:56:29.477767+00:00",
+  "summary": {
+    "all_non_fresh_block_or_recheck": true,
+    "decision_effect_count": 5,
+    "dual_clock_guard_count": 5,
+    "emergency_short_freshness": true,
+    "expired_blocks_route": true,
+    "freshness_field_count": 15,
+    "readmodel_binding_count": 4,
+    "sell_route_short_freshness": true,
+    "source_class_count": 8,
+    "stale_degrades_to_stale_evidence": true,
+    "stale_status_count": 5,
+    "unknown_blocks_route": true
+  },
+  "threshold_plan_rows": [
+    {
+      "expired_after_blocks": 3000000,
+      "expired_after_seconds": 7776000,
+      "fresh_after_blocks": 200000,
+      "fresh_after_seconds": 604800,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "creation_receipt_evidence",
+      "stale_after_blocks": 1000000,
+      "stale_after_seconds": 2592000
+    },
+    {
+      "expired_after_blocks": 24000,
+      "expired_after_seconds": 72000,
+      "fresh_after_blocks": 1200,
+      "fresh_after_seconds": 3600,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "holder_distribution_evidence",
+      "stale_after_blocks": 6000,
+      "stale_after_seconds": 18000
+    },
+    {
+      "expired_after_blocks": 1800,
+      "expired_after_seconds": 5400,
+      "fresh_after_blocks": 100,
+      "fresh_after_seconds": 300,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "liquidity_evidence",
+      "stale_after_blocks": 600,
+      "stale_after_seconds": 1800
+    },
+    {
+      "expired_after_blocks": 300,
+      "expired_after_seconds": 900,
+      "fresh_after_blocks": 20,
+      "fresh_after_seconds": 60,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "sell_route_evidence",
+      "stale_after_blocks": 100,
+      "stale_after_seconds": 300
+    },
+    {
+      "expired_after_blocks": 300,
+      "expired_after_seconds": 900,
+      "fresh_after_blocks": 20,
+      "fresh_after_seconds": 60,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "execution_safety_evidence",
+      "stale_after_blocks": 100,
+      "stale_after_seconds": 300
+    },
+    {
+      "expired_after_blocks": 1800,
+      "expired_after_seconds": 5400,
+      "fresh_after_blocks": 100,
+      "fresh_after_seconds": 300,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "dex_microstructure_technical_evidence",
+      "stale_after_blocks": 600,
+      "stale_after_seconds": 1800
+    },
+    {
+      "expired_after_blocks": 60,
+      "expired_after_seconds": 180,
+      "fresh_after_blocks": 5,
+      "fresh_after_seconds": 15,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "emergency_monitor_trigger",
+      "stale_after_blocks": 20,
+      "stale_after_seconds": 60
+    },
+    {
+      "expired_after_blocks": 3000000,
+      "expired_after_seconds": 7776000,
+      "fresh_after_blocks": 200000,
+      "fresh_after_seconds": 604800,
+      "policy_now": "PLANNED_NOT_RUNTIME",
+      "source_class": "negative_memory_evidence",
+      "stale_after_blocks": 1000000,
+      "stale_after_seconds": 2592000
+    }
+  ],
+  "warnings": [
+    "STALE_GUARD_PLAN_ONLY_NO_RUNTIME",
+    "STALE_OR_EXPIRED_EVIDENCE_BLOCKS_ROUTE_PERMISSION",
+    "UNKNOWN_FRESHNESS_BLOCKS_ROUTE_PERMISSION",
+    "SELL_ROUTE_FRESHNESS_HAS_SHORT_THRESHOLD",
+    "EMERGENCY_TRIGGER_FRESHNESS_HAS_SHORT_THRESHOLD",
+    "NO_PAPER_LIVE_WATCHLIST_SCORE_PERMISSION"
+  ]
+}

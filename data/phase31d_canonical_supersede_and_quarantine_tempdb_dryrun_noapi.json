@@ -1,0 +1,469 @@
+{
+  "phase": "PHASE31D_CANONICAL_SUPERSEDE_AND_QUARANTINE_TEMPDB_DRYRUN_NOAPI",
+  "started_utc": "2026-06-08T15:41:34.298459+00:00",
+  "finished_utc": "2026-06-08T15:41:34.482683+00:00",
+  "final_gate": "REVIEW_PHASE31D_CANONICAL_SUPERSEDE_AND_QUARANTINE_TEMPDB_DRYRUN_NOAPI",
+  "rc": 1,
+  "failed_checks": [
+    "TEST_MATRIX_ALL_PASS",
+    "CANONICAL_MISSING_FIELDS_REJECT"
+  ],
+  "decision": "REVIEW_PHASE31D_BEFORE_PHASE31E",
+  "phase31c_dependency": {
+    "ok": true,
+    "parse_error": null,
+    "reported_final_gate": "PASS_PHASE31C_CANONICAL_SUPERSEDE_AND_QUARANTINE_LIFECYCLE_CONTRACT_NOAPI",
+    "reported_rc": 0,
+    "reported_decision": "OPEN_PHASE31D_CANONICAL_SUPERSEDE_AND_QUARANTINE_TEMPDB_DRYRUN_NOAPI"
+  },
+  "dryrun_contract": {
+    "contract_name": "canonical_supersede_and_quarantine_tempdb_dryrun_v1",
+    "core_rule": "Execute canonical supersede and quarantine lifecycle test cases in temp DB only. No live DB, panel, runner, service, or timer mutation.",
+    "mode": "NOAPI_TEMPDB_DRYRUN_ONLY",
+    "expected_case_count_min": 21,
+    "required_case_ids": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06",
+      "D07",
+      "D08",
+      "D09",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "D16",
+      "D17",
+      "D18",
+      "D19",
+      "D20",
+      "D21"
+    ],
+    "future_implementation_boundary": {
+      "live_schema_apply_now": false,
+      "live_db_write_now": false,
+      "temp_db_write_now": true,
+      "panel_write_now": false,
+      "runner_patch_now": false,
+      "service_timer_change_now": false,
+      "timer_frequency_change_now": false,
+      "compact_state_file_write_now": false,
+      "compact_state_db_write_now": false,
+      "canonical_promotion_now": false,
+      "quarantine_promotion_now": false,
+      "delete_now": false,
+      "archive_move_now": false,
+      "ai_model_execution_now": false,
+      "future_real_requires_explicit_approval": true
+    }
+  },
+  "temp_db": "/root/tokenoskobi_clean_v1/_phase31d_canonical_supersede_and_quarantine_tempdb_dryrun_noapi/20260608_184134/phase31d_canonical_supersede_and_quarantine_tempdb_dryrun_noapi_temp.sqlite",
+  "temp_db_audit": {
+    "exists": true,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_violation_count": 0,
+    "tables": [
+      "lifecycle_dryrun_decisions_v1",
+      "provenance_canonical_events_v1",
+      "provenance_evidence_sidecars_v1",
+      "provenance_quarantine_events_v1",
+      "provenance_raw_events_v1",
+      "provenance_schema_versions_v1",
+      "provenance_staging_events_v1",
+      "provenance_validated_events_v1"
+    ],
+    "indexes": [
+      "idx_p31d_canonical_entity_version",
+      "idx_p31d_canonical_status",
+      "idx_p31d_decision_case",
+      "idx_p31d_quarantine_status",
+      "idx_p31d_raw_hash",
+      "idx_p31d_staging_raw_uid",
+      "idx_p31d_validated_staging_uid"
+    ],
+    "table_counts": {
+      "lifecycle_dryrun_decisions_v1": 1,
+      "provenance_canonical_events_v1": 1,
+      "provenance_evidence_sidecars_v1": 1,
+      "provenance_quarantine_events_v1": 0,
+      "provenance_raw_events_v1": 1,
+      "provenance_schema_versions_v1": 1,
+      "provenance_staging_events_v1": 1,
+      "provenance_validated_events_v1": 1
+    },
+    "error": null
+  },
+  "test_matrix": [
+    {
+      "case_id": "D01",
+      "name": "canonical_v1_accept",
+      "expected_outcome": "ACCEPT",
+      "actual_outcome": "ACCEPT",
+      "ok": true,
+      "error": null
+    },
+    {
+      "case_id": "D02",
+      "name": "canonical_v2_without_supersedes_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "canonical_v2_plus_requires_supersedes_canonical_uid"
+    },
+    {
+      "case_id": "D03",
+      "name": "canonical_v2_same_entity_supersedes_accept",
+      "expected_outcome": "ACCEPT",
+      "actual_outcome": "ACCEPT",
+      "ok": true,
+      "error": null
+    },
+    {
+      "case_id": "D04",
+      "name": "canonical_v2_different_entity_supersedes_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "supersedes_must_belong_to_same_canonical_entity_uid"
+    },
+    {
+      "case_id": "D05",
+      "name": "canonical_duplicate_version_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "UNIQUE constraint failed: provenance_canonical_events_v1.canonical_entity_uid, provenance_canonical_events_v1.canonical_version"
+    },
+    {
+      "case_id": "D06",
+      "name": "canonical_same_validated_uid_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "UNIQUE constraint failed: provenance_canonical_events_v1.validated_uid"
+    },
+    {
+      "case_id": "D07",
+      "name": "canonical_missing_parser_version_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "NOT NULL constraint failed: provenance_canonical_events_v1.parser_version"
+    },
+    {
+      "case_id": "D08",
+      "name": "canonical_missing_schema_version_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "NOT NULL constraint failed: provenance_canonical_events_v1.schema_version"
+    },
+    {
+      "case_id": "D09",
+      "name": "canonical_missing_raw_hash_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "ACCEPT",
+      "ok": false,
+      "error": null
+    },
+    {
+      "case_id": "D10",
+      "name": "canonical_missing_source_hash_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "NOT NULL constraint failed: provenance_canonical_events_v1.source_hash"
+    },
+    {
+      "case_id": "D11",
+      "name": "canonical_missing_evidence_ref_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "NOT NULL constraint failed: provenance_canonical_events_v1.evidence_ref"
+    },
+    {
+      "case_id": "D12",
+      "name": "quarantine_truth_flag_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "CHECK constraint failed: truth_flag = 0"
+    },
+    {
+      "case_id": "D13",
+      "name": "quarantine_open_accept",
+      "expected_outcome": "ACCEPT",
+      "actual_outcome": "ACCEPT",
+      "ok": true,
+      "error": null
+    },
+    {
+      "case_id": "D14",
+      "name": "quarantine_promotion_review_not_truth_accept",
+      "expected_outcome": "ACCEPT",
+      "actual_outcome": "ACCEPT",
+      "ok": true,
+      "error": null
+    },
+    {
+      "case_id": "D15",
+      "name": "quarantine_restore_requires_plan_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "restore_requires_separate_plan_dryrun_approval_real_apply_post_audit"
+    },
+    {
+      "case_id": "D16",
+      "name": "quarantine_blocks_active_use_block",
+      "expected_outcome": "BLOCK",
+      "actual_outcome": "BLOCK",
+      "ok": true,
+      "error": "quarantine_blocks_active_use"
+    },
+    {
+      "case_id": "D17",
+      "name": "canonical_v1_with_supersedes_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "canonical_v1_must_not_supersede"
+    },
+    {
+      "case_id": "D18",
+      "name": "canonical_old_status_retained_superseded_accept",
+      "expected_outcome": "ACCEPT",
+      "actual_outcome": "ACCEPT",
+      "ok": true,
+      "error": null
+    },
+    {
+      "case_id": "D19",
+      "name": "quarantine_invalid_status_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "CHECK constraint failed: quarantine_status IN ('OPEN','REJECTED','PROMOTION_REVIEW','PROMOTED_BY_FUTURE_APPROVAL')"
+    },
+    {
+      "case_id": "D20",
+      "name": "canonical_delete_forbidden_reject",
+      "expected_outcome": "REJECT",
+      "actual_outcome": "REJECT",
+      "ok": true,
+      "error": "delete_forbidden_retention_required"
+    },
+    {
+      "case_id": "D21",
+      "name": "quarantine_cannot_open_paper_live_block",
+      "expected_outcome": "BLOCK",
+      "actual_outcome": "BLOCK",
+      "ok": true,
+      "error": "quarantine_cannot_open_paper_live"
+    }
+  ],
+  "test_summary": {
+    "case_count": 21,
+    "passed": 20,
+    "failed": 1,
+    "accept_cases": 5,
+    "reject_cases": 14,
+    "block_cases": 2,
+    "failed_cases": [
+      {
+        "case_id": "D09",
+        "name": "canonical_missing_raw_hash_reject",
+        "expected_outcome": "REJECT",
+        "actual_outcome": "ACCEPT",
+        "ok": false,
+        "error": null
+      }
+    ]
+  },
+  "system_state": {
+    "service": {
+      "unit": "coinoskobi-backpressure-refresh-runner.service",
+      "active": "inactive",
+      "enabled": "disabled",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "NeedDaemonReload": "no"
+    },
+    "timer": {
+      "unit": "coinoskobi-backpressure-refresh-runner.timer",
+      "active": "active",
+      "enabled": "enabled",
+      "NeedDaemonReload": "no",
+      "direct_trigger": {
+        "timer_file_exists": true,
+        "trigger_rows": [
+          {
+            "line_no": 5,
+            "section": "Timer",
+            "key": "OnBootSec",
+            "value": "60s",
+            "raw": "OnBootSec=60s"
+          },
+          {
+            "line_no": 6,
+            "section": "Timer",
+            "key": "OnUnitActiveSec",
+            "value": "15s",
+            "raw": "OnUnitActiveSec=15s"
+          }
+        ],
+        "onboot_60s_present": true,
+        "onunitactive_15s_present": true,
+        "expected_service_present": true
+      }
+    },
+    "live_db": {
+      "db_exists": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_violation_count": 0,
+      "table_count": 284,
+      "paper_runtime_sum": 0,
+      "error": null
+    }
+  },
+  "hashes": {
+    "live_db_before": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "live_db_after": "a1821c95cfa94ba91498b64ac300a26b4f21a9595751feec5c44880ede405485",
+    "active_index_expected": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "active_index_after": "4b2aafe52ca40cf20a7bf0d3cc05efeb51f5c398b8ace0cbd19886116765ee88",
+    "runner_expected": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "runner_after": "93dedd1503ee7e40a292becb15feb65446a34dd34db1557685b638fc2780e73e",
+    "service_before": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "service_after": "dad1d8826a8eec38d4725ab463d6212800fcc4bc2a9f6d74c2c3aa499f6b2597",
+    "timer_before": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "timer_after": "d9f75ee791ffa672e59d3befe79eb2bd1a79157e5b8d9b5ea63eead6e005ab80",
+    "temp_db_sha": "48514193edea7df125d10417333f856410b5a62b792d7455a40aee10814972bf"
+  },
+  "safety": {
+    "NOAPI": true,
+    "TEMPDB_DRYRUN_ONLY": true,
+    "LIVE_SCHEMA_APPLY": false,
+    "LIVE_DB_WRITE": false,
+    "TEMP_DB_WRITE": true,
+    "PANEL_WRITE": false,
+    "RUNNER_PATCH": false,
+    "SERVICE_TIMER_CHANGE": false,
+    "TIMER_FREQUENCY_CHANGE": false,
+    "COMPACT_STATE_WRITE": false,
+    "CANONICAL_PROMOTION": false,
+    "QUARANTINE_PROMOTION": false,
+    "DELETE": false,
+    "ARCHIVE_MOVE": false,
+    "SERVICE_START": false,
+    "SERVICE_RESTART": false,
+    "SERVICE_STOP": false,
+    "SERVICE_RESET_FAILED": false,
+    "TIMER_ENABLE": false,
+    "TIMER_START": false,
+    "TIMER_STOP": false,
+    "DAEMON_RELOAD": false,
+    "RUNNER_EXECUTE": false,
+    "SYSTEMD_RUN": false,
+    "ACTIVE_PANEL_WRITE": false,
+    "RAW_LIVE_WRITE": false,
+    "STAGING_LIVE_WRITE": false,
+    "CANONICAL_LIVE_WRITE": false,
+    "QUARANTINE_LIVE_WRITE": false,
+    "MATRIX_WRITE": false,
+    "VALIDATOR_WRITE": false,
+    "AI_WRITE": false,
+    "ASSET_WRITE": false,
+    "ICON_WRITE": false,
+    "EXTERNAL_NETWORK_CALLS": 0,
+    "API_CALLS": 0,
+    "PAPER_TRADE": false,
+    "LIVE_TRADE": false,
+    "WALLET_CONNECTION": false,
+    "TRANSACTION_SIGNING": false,
+    "AUTO_PILOT": false,
+    "POLICY_APPLY": false,
+    "HARDBLOCK_WEAKENING": false,
+    "REBOOT": false,
+    "SHUTDOWN": false,
+    "LOGOUT": false,
+    "PROMPT_RETURNED_NO_LOGOUT": true
+  },
+  "checks": {
+    "PHASE31C_PASS_AND_OPEN_31D": true,
+    "CONTRACT_NAME_OK": true,
+    "MODE_NOAPI_TEMPDB_DRYRUN_ONLY": true,
+    "TEMP_DB_CREATED": true,
+    "TEMP_DB_INTEGRITY_OK": true,
+    "TEMP_DB_QUICK_CHECK_OK": true,
+    "TEMP_DB_FOREIGN_KEY_0": true,
+    "TEMP_TABLE_COUNT_OK": true,
+    "TEMP_INDEX_COUNT_OK": true,
+    "TEST_CASE_COUNT_OK": true,
+    "REQUIRED_CASE_IDS_PRESENT": true,
+    "TEST_MATRIX_ALL_PASS": false,
+    "ACCEPT_CASES_PRESENT": true,
+    "REJECT_CASES_PRESENT": true,
+    "BLOCK_CASES_PRESENT": true,
+    "CANONICAL_V1_ACCEPT": true,
+    "CANONICAL_V2_WITHOUT_SUPERSEDES_REJECT": true,
+    "CANONICAL_V2_SAME_ENTITY_SUPERSEDES_ACCEPT": true,
+    "CANONICAL_V2_DIFFERENT_ENTITY_SUPERSEDES_REJECT": true,
+    "CANONICAL_DUPLICATE_VERSION_REJECT": true,
+    "CANONICAL_SAME_VALIDATED_UID_REJECT": true,
+    "CANONICAL_MISSING_FIELDS_REJECT": false,
+    "QUARANTINE_TRUTH_FLAG_REJECT": true,
+    "QUARANTINE_OPEN_ACCEPT": true,
+    "QUARANTINE_PROMOTION_REVIEW_NOT_TRUTH_ACCEPT": true,
+    "QUARANTINE_RESTORE_REQUIRES_PLAN_REJECT": true,
+    "QUARANTINE_BLOCKS_ACTIVE_USE": true,
+    "CANONICAL_V1_WITH_SUPERSEDES_REJECT": true,
+    "OLD_CANONICAL_RETAINED_SUPERSEDED": true,
+    "QUARANTINE_INVALID_STATUS_REJECT": true,
+    "CANONICAL_DELETE_FORBIDDEN_REJECT": true,
+    "QUARANTINE_CANNOT_OPEN_PAPER_LIVE": true,
+    "NO_LIVE_SCHEMA_APPLY_NOW": true,
+    "NO_LIVE_DB_WRITE_NOW": true,
+    "TEMP_DB_WRITE_ALLOWED": true,
+    "NO_RUNNER_PATCH_NOW": true,
+    "NO_SERVICE_TIMER_CHANGE_NOW": true,
+    "NO_CANONICAL_PROMOTION_NOW": true,
+    "NO_QUARANTINE_PROMOTION_NOW": true,
+    "NO_DELETE_NOW": true,
+    "NO_ARCHIVE_MOVE_NOW": true,
+    "LIVE_DB_EXISTS": true,
+    "LIVE_DB_INTEGRITY_OK": true,
+    "LIVE_DB_QUICK_CHECK_OK": true,
+    "LIVE_DB_FOREIGN_KEY_0": true,
+    "PAPER_RUNTIME_ZERO": true,
+    "ACTIVE_INDEX_EXISTS": true,
+    "ACTIVE_INDEX_EXPECTED_SHA": true,
+    "RUNNER_EXISTS": true,
+    "RUNNER_EXPECTED_SHA": true,
+    "SERVICE_SHOW_OK": true,
+    "TIMER_SHOW_OK": true,
+    "SERVICE_RESULT_SUCCESS": true,
+    "SERVICE_EXEC_MAIN_STATUS_0": true,
+    "SERVICE_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_ACTIVE": true,
+    "TIMER_ENABLED": true,
+    "TIMER_NEED_DAEMON_RELOAD_NO": true,
+    "TIMER_DIRECT_ONBOOT_60S": true,
+    "TIMER_DIRECT_ONUNITACTIVE_15S": true,
+    "TIMER_DIRECT_EXPECTED_SERVICE": true,
+    "LIVE_DB_UNCHANGED_DURING_DRYRUN": true,
+    "ACTIVE_INDEX_UNCHANGED_DURING_DRYRUN": true,
+    "RUNNER_UNCHANGED_DURING_DRYRUN": true,
+    "SERVICE_UNIT_UNCHANGED_DURING_DRYRUN": true,
+    "TIMER_UNIT_UNCHANGED_DURING_DRYRUN": true,
+    "NO_FORBIDDEN_ACTIONS": true
+  },
+  "next_phase": "REVIEW_PHASE31D_BEFORE_PHASE31E"
+}

@@ -1,0 +1,4092 @@
+{
+  "phase": "DATA_PIPELINE_SCORE_ARCHITECTURE_PLAN_V2_EDGE_SCHEMA_FIX_NOAPI",
+  "started_at": "2026-05-20 13:06:08",
+  "final_gate": "PASS",
+  "v2_fix": {
+    "reason": "V1 script assumed edge fields from_node/to_node; actual graph edge schema uses detected fields.",
+    "edge_from_field_counts": {
+      "from": 144
+    },
+    "edge_to_field_counts": {
+      "to": 144
+    },
+    "node_key_field_counts": {
+      "node_key": 77
+    },
+    "edge_schema_samples": [
+      {
+        "index": 0,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.kritik_haber",
+        "to_value": "haber_akis_merkezi.kaynak_guvenilirligi"
+      },
+      {
+        "index": 1,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.kaynak_guvenilirligi",
+        "to_value": "haber_akis_merkezi.haber_etki_skoru"
+      },
+      {
+        "index": 2,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.haber_etki_skoru",
+        "to_value": "haber_akis_merkezi.narrative_tema_takibi"
+      },
+      {
+        "index": 3,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.narrative_tema_takibi",
+        "to_value": "komuta_merkezi.watchlist_shortlist"
+      },
+      {
+        "index": 4,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.ceviri_ve_ozet",
+        "to_value": "haber_akis_merkezi.haber_etki_skoru"
+      },
+      {
+        "index": 5,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.haber_gecmisi_arsiv",
+        "to_value": "sistem_kontrol_merkezi.outcome_memory"
+      },
+      {
+        "index": 6,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.ico_ido_drop_radar",
+        "to_value": "haber_akis_merkezi.kritik_takvim_launch_calendar"
+      },
+      {
+        "index": 7,
+        "keys": [
+          "direction",
+          "edge_id",
+          "execution_permission",
+          "from",
+          "notes",
+          "order",
+          "pipeline",
+          "relation",
+          "to"
+        ],
+        "from_field": "from",
+        "to_field": "to",
+        "from_value": "haber_akis_merkezi.kritik_takvim_launch_calendar",
+        "to_value": "haber_akis_merkezi.vesting_unlock_takibi"
+      }
+    ],
+    "edge_ref_missing_count": 0,
+    "normalized_edge_count": 144
+  },
+  "safety": {
+    "api_calls": 0,
+    "external_network_calls": 0,
+    "db_mutation": false,
+    "db_read_only_schema_snapshot": true,
+    "active_panel_mutation": false,
+    "asset_mutation": false,
+    "schema_mutation": false,
+    "service_timer_mutation": false,
+    "paper_trade_open": false,
+    "live_trade": false,
+    "plan_only": true,
+    "source_files_unchanged": true,
+    "safe_shell_exit": true
+  },
+  "current_structures": {
+    "graph_nodes": 77,
+    "graph_edges": 144,
+    "graph_pipelines": 10,
+    "route_node_routes": 77,
+    "route_center_routes": 8,
+    "icon_registry_entries": 77,
+    "icon_binding_node_routes": 77,
+    "style_mask_rows": 8
+  },
+  "db_schema_snapshot": {
+    "db_exists": true,
+    "read_ok": true,
+    "table_count": 167,
+    "tables": [
+      "ai_dataset_registry_v1",
+      "ai_dataset_rows_v1",
+      "ai_feature_schema_registry_v1",
+      "ai_model_artifact_registry_v1",
+      "ai_training_run_registry_v1",
+      "alias_conflict_events",
+      "api_budget_spend_ledger",
+      "asymmetric_watch_events",
+      "autopsy_cases",
+      "autopsy_evidence_events",
+      "autopsy_lessons",
+      "autopsy_required_tests",
+      "birth_anchor_events",
+      "birth_candle_policy",
+      "birth_checkpoint_snapshots",
+      "birth_minute_candles",
+      "birth_missing_window_events",
+      "birth_momentum_acceleration_events",
+      "birth_momentum_policy",
+      "birth_momentum_warning_events",
+      "birth_momentum_window_metrics",
+      "birth_money_flow_events",
+      "birth_timeline_quality_events",
+      "buyer_seller_balance_events",
+      "confirmation_events",
+      "data_evidence_policy",
+      "deployer_wallet_events",
+      "dynamic_position_size_events",
+      "early_death_events",
+      "entry_exit_decision_logs",
+      "event_outcome_labels_v1",
+      "event_outcome_observations_v1",
+      "event_outcome_registry_v1",
+      "false_positive_events",
+      "fast_decay_events",
+      "gas_anomaly_events",
+      "high_risk_tiny_route_events",
+      "holder_distribution_events",
+      "holder_growth_events",
+      "holder_snapshots",
+      "hypothetical_position_simulations",
+      "known_wallet_registry",
+      "life_gate_decisions",
+      "life_signal_events",
+      "liquidity_alive_events",
+      "liquidity_birth_events",
+      "liquidity_snapshots",
+      "live_data_quality_events",
+      "live_fetch_ledger",
+      "live_refresh_queue",
+      "lp_wallet_events",
+      "market_snapshots",
+      "mev_outcome_events",
+      "mev_permission_gate_events",
+      "mev_risk_guard_events",
+      "mev_route_profiles",
+      "mev_sandwich_risk_events",
+      "min_received_guard_events",
+      "missed_opportunity_events",
+      "momentum_timeline_panel_rows",
+      "moonshot_memory_events",
+      "moonshot_narrative_bridge_events",
+      "moonshot_outcome_events",
+      "moonshot_source_pressure_events",
+      "moonshot_wallet_bridge_events",
+      "morgue_entries",
+      "morgue_route_decisions",
+      "narrative_events",
+      "narrative_outcome_events",
+      "narrative_signal_events_v2",
+      "narrative_token_match_events",
+      "negative_memory",
+      "news_raw_feed_events",
+      "news_score_component_events_v1",
+      "news_score_events_v1",
+      "news_signal_events",
+      "news_source_budget_ledger_v1",
+      "news_source_dedup_policy_v1",
+      "news_source_fetch_policy_v1",
+      "news_source_panel_lane_policy_v1",
+      "news_source_quality_stats_v1",
+      "news_source_registry",
+      "news_source_registry_v1",
+      "news_source_reliability_events",
+      "news_token_match_events",
+      "news_translation_cache_v1",
+      "news_translation_quality_events_v1",
+      "no_pair_memory",
+      "opening_baseline_events",
+      "opening_price_events",
+      "organic_volume_events",
+      "pair_birth_events",
+      "pair_verification_events",
+      "pairs",
+      "paper_decision_reports",
+      "paper_trade_costs",
+      "paper_trade_executions",
+      "paper_trade_outcomes",
+      "paper_trade_plans",
+      "paper_trade_positions",
+      "parsed_live_observation_staging",
+      "portfolio_heat_events",
+      "pre_trade_simulation_events",
+      "price_impact_events",
+      "private_route_guard_events",
+      "radar_alerts",
+      "radar_fusion_alert_events",
+      "raw_response_archive",
+      "risk_budget_profiles",
+      "risk_outcome_events",
+      "risk_route_decision_events",
+      "risk_to_morgue_transitions",
+      "route_quality_feedback_events",
+      "rug_evidence_events",
+      "rumor_filter_events",
+      "sandwich_exposure_events",
+      "schema_metadata",
+      "score_calibration_events",
+      "score_validation_events",
+      "sell_route_guard_events",
+      "sellability_events",
+      "slippage_estimates",
+      "smart_money_cluster_events",
+      "snapshot_commit_ledger",
+      "snapshot_strength_events",
+      "source_conflict_events",
+      "source_gate_decisions",
+      "source_reliability_ledger",
+      "staged_entry_plan_events",
+      "staged_exit_plan_events",
+      "stale_snapshot_blocks",
+      "stillborn_events",
+      "system_events",
+      "tiny_basket_candidate_events",
+      "token_archive_evidence",
+      "token_birth_events",
+      "token_death_events",
+      "token_hard_block_events",
+      "token_intelligence_summary",
+      "token_lifecycle",
+      "token_lifecycle_events",
+      "token_radar_scores",
+      "token_revival_watch_events",
+      "token_risk_events",
+      "token_score_100_events",
+      "token_score_component_events",
+      "token_score_evidence_events",
+      "token_score_policy_rules",
+      "token_score_snapshots",
+      "token_soft_weakness_events",
+      "token_status_history",
+      "tokens",
+      "trend_pressure_events",
+      "tx_flow_events",
+      "validation_runs",
+      "wallet_alert_events",
+      "wallet_balance_snapshots",
+      "wallet_cluster_links",
+      "wallet_link_graph_events",
+      "wallet_outcome_events",
+      "wallet_risk_events",
+      "wallet_source_registry",
+      "wallet_tier_events",
+      "wallet_token_entry_events",
+      "wallet_transfer_events",
+      "whale_movement_events",
+      "whale_wallet_events"
+    ],
+    "error": null
+  },
+  "normalized_edges": [
+    {
+      "edge_index": 0,
+      "from_node": "haber_akis_merkezi.kritik_haber",
+      "to_node": "haber_akis_merkezi.kaynak_guvenilirligi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "validates_source",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 1,
+      "from_node": "haber_akis_merkezi.kaynak_guvenilirligi",
+      "to_node": "haber_akis_merkezi.haber_etki_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_score",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 2,
+      "from_node": "haber_akis_merkezi.haber_etki_skoru",
+      "to_node": "haber_akis_merkezi.narrative_tema_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "updates_theme",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 3,
+      "from_node": "haber_akis_merkezi.narrative_tema_takibi",
+      "to_node": "komuta_merkezi.watchlist_shortlist",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "candidate_interest",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 4,
+      "from_node": "haber_akis_merkezi.ceviri_ve_ozet",
+      "to_node": "haber_akis_merkezi.haber_etki_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "summarizes_for_score",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 5,
+      "from_node": "haber_akis_merkezi.haber_gecmisi_arsiv",
+      "to_node": "sistem_kontrol_merkezi.outcome_memory",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "historical_context",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 6,
+      "from_node": "haber_akis_merkezi.ico_ido_drop_radar",
+      "to_node": "haber_akis_merkezi.kritik_takvim_launch_calendar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "adds_calendar_event",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 7,
+      "from_node": "haber_akis_merkezi.kritik_takvim_launch_calendar",
+      "to_node": "haber_akis_merkezi.vesting_unlock_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_supply_event",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 8,
+      "from_node": "haber_akis_merkezi.kritik_takvim_launch_calendar",
+      "to_node": "haber_akis_merkezi.airdrop_claim_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_claim_event",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 9,
+      "from_node": "haber_akis_merkezi.ico_ido_drop_radar",
+      "to_node": "onchain_veri_merkezi.yeni_token_kesif_radari",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "launch_to_onchain_watch",
+      "pipeline_key": "new_token_discovery",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 10,
+      "from_node": "haber_akis_merkezi.vesting_unlock_takibi",
+      "to_node": "risk_guvenlik_merkezi.risk_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "supply_pressure_risk",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 11,
+      "from_node": "haber_akis_merkezi.airdrop_claim_takibi",
+      "to_node": "komuta_merkezi.watchlist_shortlist",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "claim_opportunity_watch",
+      "pipeline_key": "news_to_decision",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 12,
+      "from_node": "onchain_veri_merkezi.yeni_token_kesif_radari",
+      "to_node": "onchain_veri_merkezi.token_kimlik_dogrulama",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "requires_identity_check",
+      "pipeline_key": "new_token_discovery",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 13,
+      "from_node": "onchain_veri_merkezi.token_kimlik_dogrulama",
+      "to_node": "onchain_veri_merkezi.pair_kontrat_dogrulama",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "requires_pair_check",
+      "pipeline_key": "onchain_validation",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 14,
+      "from_node": "onchain_veri_merkezi.pair_kontrat_dogrulama",
+      "to_node": "onchain_veri_merkezi.likidite_hareketleri",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "requires_liquidity_check",
+      "pipeline_key": "onchain_validation",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 15,
+      "from_node": "onchain_veri_merkezi.likidite_hareketleri",
+      "to_node": "onchain_veri_merkezi.holder_dagilimi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_holder_distribution",
+      "pipeline_key": "onchain_validation",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 16,
+      "from_node": "onchain_veri_merkezi.holder_dagilimi",
+      "to_node": "onchain_veri_merkezi.transaction_flow",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_flow",
+      "pipeline_key": "onchain_validation",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 17,
+      "from_node": "onchain_veri_merkezi.transaction_flow",
+      "to_node": "onchain_veri_merkezi.contract_mint_owner_izleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_contract_control",
+      "pipeline_key": "onchain_validation",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 18,
+      "from_node": "onchain_veri_merkezi.contract_mint_owner_izleme",
+      "to_node": "onchain_veri_merkezi.onchain_saglik_sinyali",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_health_signal",
+      "pipeline_key": "onchain_validation",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 19,
+      "from_node": "onchain_veri_merkezi.onchain_saglik_sinyali",
+      "to_node": "risk_guvenlik_merkezi.hard_block_kontrolu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "hard_block_precheck",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 20,
+      "from_node": "onchain_veri_merkezi.onchain_saglik_sinyali",
+      "to_node": "risk_guvenlik_merkezi.risk_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_risk_score",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 21,
+      "from_node": "balina_takip_merkezi.whale_wallet_izleme",
+      "to_node": "balina_takip_merkezi.buyuk_transfer_alarmi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "detects_large_transfer",
+      "pipeline_key": "whale_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 22,
+      "from_node": "balina_takip_merkezi.buyuk_transfer_alarmi",
+      "to_node": "balina_takip_merkezi.borsa_giris_cikis",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_exchange_flow",
+      "pipeline_key": "whale_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 23,
+      "from_node": "balina_takip_merkezi.borsa_giris_cikis",
+      "to_node": "balina_takip_merkezi.akilli_para_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_smart_money",
+      "pipeline_key": "whale_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 24,
+      "from_node": "balina_takip_merkezi.akilli_para_takibi",
+      "to_node": "balina_takip_merkezi.wallet_risk_profili",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "updates_wallet_risk",
+      "pipeline_key": "whale_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 25,
+      "from_node": "balina_takip_merkezi.wallet_risk_profili",
+      "to_node": "balina_takip_merkezi.cuzdan_gecmisi_hafiza",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "adds_wallet_memory",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 26,
+      "from_node": "balina_takip_merkezi.balance_tier_whale_siniflari",
+      "to_node": "balina_takip_merkezi.wallet_risk_profili",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "classifies_wallet_weight",
+      "pipeline_key": "whale_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 27,
+      "from_node": "balina_takip_merkezi.wallet_risk_profili",
+      "to_node": "risk_guvenlik_merkezi.risk_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_risk_score",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 28,
+      "from_node": "balina_takip_merkezi.akilli_para_takibi",
+      "to_node": "komuta_merkezi.watchlist_shortlist",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "smart_money_watch",
+      "pipeline_key": "whale_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 29,
+      "from_node": "teknik_analiz_merkezi.trend_yonu",
+      "to_node": "teknik_analiz_merkezi.destek_direnc",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "context_for_levels",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 30,
+      "from_node": "teknik_analiz_merkezi.destek_direnc",
+      "to_node": "teknik_analiz_merkezi.hacim_analizi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_level_volume",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 31,
+      "from_node": "teknik_analiz_merkezi.hacim_analizi",
+      "to_node": "teknik_analiz_merkezi.momentum_rsi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_momentum",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 32,
+      "from_node": "teknik_analiz_merkezi.momentum_rsi",
+      "to_node": "teknik_analiz_merkezi.volatilite_sikisma",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_volatility",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 33,
+      "from_node": "teknik_analiz_merkezi.volatilite_sikisma",
+      "to_node": "teknik_analiz_merkezi.formasyon_tespiti",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_pattern",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 34,
+      "from_node": "teknik_analiz_merkezi.formasyon_tespiti",
+      "to_node": "teknik_analiz_merkezi.al_sat_sinyal_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_signal_score",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 35,
+      "from_node": "teknik_analiz_merkezi.al_sat_sinyal_skoru",
+      "to_node": "risk_guvenlik_merkezi.sl_tp_plani",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "requires_trade_plan",
+      "pipeline_key": "technical_to_risk",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 36,
+      "from_node": "teknik_analiz_merkezi.al_sat_sinyal_skoru",
+      "to_node": "risk_guvenlik_merkezi.risk_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_risk_score",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 37,
+      "from_node": "risk_guvenlik_merkezi.hard_block_kontrolu",
+      "to_node": "risk_guvenlik_merkezi.risk_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "blocks_or_allows_risk_score",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 38,
+      "from_node": "risk_guvenlik_merkezi.risk_skoru",
+      "to_node": "risk_guvenlik_merkezi.likidite_kapasitesi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_capacity",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 39,
+      "from_node": "risk_guvenlik_merkezi.likidite_kapasitesi",
+      "to_node": "risk_guvenlik_merkezi.slippage_mev",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_execution_cost",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 40,
+      "from_node": "risk_guvenlik_merkezi.slippage_mev",
+      "to_node": "risk_guvenlik_merkezi.sl_tp_plani",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "sets_plan_bounds",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 41,
+      "from_node": "risk_guvenlik_merkezi.sl_tp_plani",
+      "to_node": "risk_guvenlik_merkezi.exit_guvenligi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_exit_safety",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 42,
+      "from_node": "risk_guvenlik_merkezi.exit_guvenligi",
+      "to_node": "risk_guvenlik_merkezi.paper_trade_risk",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "paper_risk_gate",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 43,
+      "from_node": "risk_guvenlik_merkezi.paper_trade_risk",
+      "to_node": "komuta_merkezi.canli_karar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "decision_gate",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 44,
+      "from_node": "risk_guvenlik_merkezi.paper_trade_risk",
+      "to_node": "komuta_merkezi.paper_trade_ozeti",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "paper_summary_feed",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 45,
+      "from_node": "risk_guvenlik_merkezi.hard_block_kontrolu",
+      "to_node": "yasam_destek_merkezi.olay_yeri_inceleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "send_to_forensics_if_blocked",
+      "pipeline_key": "lifecycle_forensics",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 46,
+      "from_node": "komuta_merkezi.watchlist_shortlist",
+      "to_node": "komuta_merkezi.merkez_skorlari",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_center_scores",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 47,
+      "from_node": "komuta_merkezi.merkez_skorlari",
+      "to_node": "komuta_merkezi.canli_karar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "decision_context",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 48,
+      "from_node": "komuta_merkezi.canli_karar",
+      "to_node": "komuta_merkezi.paper_trade_ozeti",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "paper_only_decision_summary",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 49,
+      "from_node": "komuta_merkezi.paper_trade_ozeti",
+      "to_node": "komuta_merkezi.acik_pozisyonlar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "paper_position_tracking",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 50,
+      "from_node": "komuta_merkezi.acik_pozisyonlar",
+      "to_node": "komuta_merkezi.sl_tp_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "tracks_sl_tp",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 51,
+      "from_node": "komuta_merkezi.sl_tp_durumu",
+      "to_node": "komuta_merkezi.aksiyon_gecmisi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "logs_action",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 52,
+      "from_node": "komuta_merkezi.aksiyon_gecmisi",
+      "to_node": "sistem_kontrol_merkezi.outcome_memory",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "stores_outcome",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 53,
+      "from_node": "yasam_destek_merkezi.olay_yeri_inceleme",
+      "to_node": "yasam_destek_merkezi.klinik",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "diagnose_asset_state",
+      "pipeline_key": "lifecycle_forensics",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 54,
+      "from_node": "yasam_destek_merkezi.klinik",
+      "to_node": "yasam_destek_merkezi.adli_sorusturma",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "escalate_if_suspicious",
+      "pipeline_key": "lifecycle_forensics",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 55,
+      "from_node": "yasam_destek_merkezi.adli_sorusturma",
+      "to_node": "yasam_destek_merkezi.supheliler_spam_cuzdanlar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "detect_suspects",
+      "pipeline_key": "lifecycle_forensics",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 56,
+      "from_node": "yasam_destek_merkezi.adli_sorusturma",
+      "to_node": "yasam_destek_merkezi.otopsi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "send_to_autopsy_if_dead",
+      "pipeline_key": "lifecycle_forensics",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 57,
+      "from_node": "yasam_destek_merkezi.otopsi",
+      "to_node": "yasam_destek_merkezi.morg",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "archive_dead_asset",
+      "pipeline_key": "lifecycle_forensics",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 58,
+      "from_node": "yasam_destek_merkezi.supheliler_spam_cuzdanlar",
+      "to_node": "risk_guvenlik_merkezi.hard_block_kontrolu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "suspect_wallet_hard_block",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 59,
+      "from_node": "yasam_destek_merkezi.morg",
+      "to_node": "sistem_kontrol_merkezi.outcome_memory",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "morgue_learning_memory",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 60,
+      "from_node": "sistem_kontrol_merkezi.servis_sagligi_health_check",
+      "to_node": "sistem_kontrol_merkezi.api_rpc_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_dependency",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 61,
+      "from_node": "sistem_kontrol_merkezi.api_rpc_durumu",
+      "to_node": "sistem_kontrol_merkezi.veritabani_durumu_db_health",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_data_dependency",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 62,
+      "from_node": "sistem_kontrol_merkezi.veritabani_durumu_db_health",
+      "to_node": "sistem_kontrol_merkezi.timer_scheduler_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_scheduler_dependency",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 63,
+      "from_node": "sistem_kontrol_merkezi.timer_scheduler_durumu",
+      "to_node": "sistem_kontrol_merkezi.worker_runner_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "checks_runner_dependency",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 64,
+      "from_node": "sistem_kontrol_merkezi.worker_runner_durumu",
+      "to_node": "sistem_kontrol_merkezi.log_event_izleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "logs_runtime",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 65,
+      "from_node": "sistem_kontrol_merkezi.log_event_izleme",
+      "to_node": "sistem_kontrol_merkezi.alarm_bildirim_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "creates_alert",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 66,
+      "from_node": "sistem_kontrol_merkezi.backup_snapshot_durumu",
+      "to_node": "sistem_kontrol_merkezi.veritabani_durumu_db_health",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "protects_db",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 67,
+      "from_node": "sistem_kontrol_merkezi.panel_ui_durumu",
+      "to_node": "sistem_kontrol_merkezi.alarm_bildirim_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "panel_health_alert",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 68,
+      "from_node": "sistem_kontrol_merkezi.paper_simulasyon_motoru",
+      "to_node": "komuta_merkezi.paper_trade_ozeti",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "paper_sim_output",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 69,
+      "from_node": "sistem_kontrol_merkezi.ai_kalibrasyon",
+      "to_node": "komuta_merkezi.merkez_skorlari",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "updates_scores",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 70,
+      "from_node": "sistem_kontrol_merkezi.outcome_memory",
+      "to_node": "sistem_kontrol_merkezi.ai_kalibrasyon",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "feeds_ai_calibration",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 71,
+      "from_node": "sistem_kontrol_merkezi.backtest_motoru",
+      "to_node": "sistem_kontrol_merkezi.ai_kalibrasyon",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "backtest_feedback",
+      "pipeline_key": "learning_feedback",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 72,
+      "from_node": "sistem_kontrol_merkezi.api_rpc_durumu",
+      "to_node": "global_durumlar.veri_yok_data_missing",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "missing_data_state",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 73,
+      "from_node": "sistem_kontrol_merkezi.veritabani_durumu_db_health",
+      "to_node": "global_durumlar.veri_yok_data_missing",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "db_data_missing_state",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 74,
+      "from_node": "sistem_kontrol_merkezi.servis_sagligi_health_check",
+      "to_node": "global_durumlar.sistem_bakim_hata_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "maintenance_state",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 75,
+      "from_node": "global_durumlar.veri_yok_data_missing",
+      "to_node": "komuta_merkezi.canli_karar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "blocks_fake_decision",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 76,
+      "from_node": "global_durumlar.sistem_bakim_hata_durumu",
+      "to_node": "komuta_merkezi.canli_karar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "blocks_decision_during_error",
+      "pipeline_key": "system_health_to_command",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 77,
+      "from_node": "pilot_modlari.manuel_pilot",
+      "to_node": "komuta_merkezi.canli_karar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "manual_review_required",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 78,
+      "from_node": "pilot_modlari.otomatik_pilot",
+      "to_node": "risk_guvenlik_merkezi.hard_block_kontrolu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "auto_requires_hard_block_gate",
+      "pipeline_key": "risk_gate",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 79,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.acik_pozisyonlar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 80,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.aksiyon_gecmisi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 81,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.canli_karar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 82,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.merkez_skorlari",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 83,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.paper_trade_ozeti",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 84,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.sl_tp_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 85,
+      "from_node": "komuta_merkezi.komuta_merkezi_master",
+      "to_node": "komuta_merkezi.watchlist_shortlist",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 86,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.airdrop_claim_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 87,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.ceviri_ve_ozet",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 88,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.haber_etki_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 89,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.haber_gecmisi_arsiv",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 90,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.ico_ido_drop_radar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 91,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.kaynak_guvenilirligi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 92,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.kritik_haber",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 93,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.kritik_takvim_launch_calendar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 94,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.narrative_tema_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 95,
+      "from_node": "haber_akis_merkezi.haber_akis_merkezi_master",
+      "to_node": "haber_akis_merkezi.vesting_unlock_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 96,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.contract_mint_owner_izleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 97,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.holder_dagilimi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 98,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.likidite_hareketleri",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 99,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.onchain_saglik_sinyali",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 100,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.pair_kontrat_dogrulama",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 101,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.token_kimlik_dogrulama",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 102,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.transaction_flow",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 103,
+      "from_node": "onchain_veri_merkezi.onchain_veri_merkezi_master",
+      "to_node": "onchain_veri_merkezi.yeni_token_kesif_radari",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 104,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.akilli_para_takibi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 105,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.balance_tier_whale_siniflari",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 106,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.borsa_giris_cikis",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 107,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.buyuk_transfer_alarmi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 108,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.cuzdan_gecmisi_hafiza",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 109,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.wallet_risk_profili",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 110,
+      "from_node": "balina_takip_merkezi.balina_takip_merkezi_master",
+      "to_node": "balina_takip_merkezi.whale_wallet_izleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 111,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.al_sat_sinyal_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 112,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.destek_direnc",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 113,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.formasyon_tespiti",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 114,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.hacim_analizi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 115,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.momentum_rsi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 116,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.trend_yonu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 117,
+      "from_node": "teknik_analiz_merkezi.teknik_analiz_merkezi_master",
+      "to_node": "teknik_analiz_merkezi.volatilite_sikisma",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 118,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.exit_guvenligi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 119,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.hard_block_kontrolu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 120,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.likidite_kapasitesi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 121,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.paper_trade_risk",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 122,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.risk_skoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 123,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.sl_tp_plani",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 124,
+      "from_node": "risk_guvenlik_merkezi.risk_guvenlik_merkezi_master",
+      "to_node": "risk_guvenlik_merkezi.slippage_mev",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 125,
+      "from_node": "yasam_destek_merkezi.yasam_destek_merkezi_master",
+      "to_node": "yasam_destek_merkezi.adli_sorusturma",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 126,
+      "from_node": "yasam_destek_merkezi.yasam_destek_merkezi_master",
+      "to_node": "yasam_destek_merkezi.klinik",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 127,
+      "from_node": "yasam_destek_merkezi.yasam_destek_merkezi_master",
+      "to_node": "yasam_destek_merkezi.morg",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 128,
+      "from_node": "yasam_destek_merkezi.yasam_destek_merkezi_master",
+      "to_node": "yasam_destek_merkezi.olay_yeri_inceleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 129,
+      "from_node": "yasam_destek_merkezi.yasam_destek_merkezi_master",
+      "to_node": "yasam_destek_merkezi.otopsi",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 130,
+      "from_node": "yasam_destek_merkezi.yasam_destek_merkezi_master",
+      "to_node": "yasam_destek_merkezi.supheliler_spam_cuzdanlar",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 131,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.ai_kalibrasyon",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 132,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.alarm_bildirim_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 133,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.api_rpc_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 134,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.backtest_motoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 135,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.backup_snapshot_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 136,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.log_event_izleme",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 137,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.outcome_memory",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 138,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.panel_ui_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 139,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.paper_simulasyon_motoru",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 140,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.servis_sagligi_health_check",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 141,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.timer_scheduler_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 142,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.veritabani_durumu_db_health",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    },
+    {
+      "edge_index": 143,
+      "from_node": "sistem_kontrol_merkezi.sistem_kontrol_merkezi_master",
+      "to_node": "sistem_kontrol_merkezi.worker_runner_durumu",
+      "from_field_detected": "from",
+      "to_field_detected": "to",
+      "relation": "center_contains_module",
+      "pipeline_key": "center_module_structure",
+      "original_keys": [
+        "direction",
+        "edge_id",
+        "execution_permission",
+        "from",
+        "notes",
+        "order",
+        "pipeline",
+        "relation",
+        "to"
+      ]
+    }
+  ],
+  "relation_counts": {
+    "validates_source": 1,
+    "feeds_score": 1,
+    "updates_theme": 1,
+    "candidate_interest": 1,
+    "summarizes_for_score": 1,
+    "historical_context": 1,
+    "adds_calendar_event": 1,
+    "checks_supply_event": 1,
+    "checks_claim_event": 1,
+    "launch_to_onchain_watch": 1,
+    "supply_pressure_risk": 1,
+    "claim_opportunity_watch": 1,
+    "requires_identity_check": 1,
+    "requires_pair_check": 1,
+    "requires_liquidity_check": 1,
+    "checks_holder_distribution": 1,
+    "checks_flow": 1,
+    "checks_contract_control": 1,
+    "feeds_health_signal": 1,
+    "hard_block_precheck": 1,
+    "feeds_risk_score": 3,
+    "detects_large_transfer": 1,
+    "checks_exchange_flow": 1,
+    "checks_smart_money": 1,
+    "updates_wallet_risk": 1,
+    "adds_wallet_memory": 1,
+    "classifies_wallet_weight": 1,
+    "smart_money_watch": 1,
+    "context_for_levels": 1,
+    "checks_level_volume": 1,
+    "feeds_momentum": 1,
+    "checks_volatility": 1,
+    "checks_pattern": 1,
+    "feeds_signal_score": 1,
+    "requires_trade_plan": 1,
+    "blocks_or_allows_risk_score": 1,
+    "checks_capacity": 1,
+    "checks_execution_cost": 1,
+    "sets_plan_bounds": 1,
+    "checks_exit_safety": 1,
+    "paper_risk_gate": 1,
+    "decision_gate": 1,
+    "paper_summary_feed": 1,
+    "send_to_forensics_if_blocked": 1,
+    "feeds_center_scores": 1,
+    "decision_context": 1,
+    "paper_only_decision_summary": 1,
+    "paper_position_tracking": 1,
+    "tracks_sl_tp": 1,
+    "logs_action": 1,
+    "stores_outcome": 1,
+    "diagnose_asset_state": 1,
+    "escalate_if_suspicious": 1,
+    "detect_suspects": 1,
+    "send_to_autopsy_if_dead": 1,
+    "archive_dead_asset": 1,
+    "suspect_wallet_hard_block": 1,
+    "morgue_learning_memory": 1,
+    "checks_dependency": 1,
+    "checks_data_dependency": 1,
+    "checks_scheduler_dependency": 1,
+    "checks_runner_dependency": 1,
+    "logs_runtime": 1,
+    "creates_alert": 1,
+    "protects_db": 1,
+    "panel_health_alert": 1,
+    "paper_sim_output": 1,
+    "updates_scores": 1,
+    "feeds_ai_calibration": 1,
+    "backtest_feedback": 1,
+    "missing_data_state": 1,
+    "db_data_missing_state": 1,
+    "maintenance_state": 1,
+    "blocks_fake_decision": 1,
+    "blocks_decision_during_error": 1,
+    "manual_review_required": 1,
+    "auto_requires_hard_block_gate": 1,
+    "center_contains_module": 65
+  },
+  "pipeline_edge_counts": {
+    "news_to_decision": 9,
+    "learning_feedback": 9,
+    "new_token_discovery": 2,
+    "risk_gate": 21,
+    "onchain_validation": 6,
+    "whale_to_risk": 6,
+    "technical_to_risk": 7,
+    "lifecycle_forensics": 6,
+    "system_health_to_command": 13,
+    "center_module_structure": 65
+  },
+  "source_categories": [
+    {
+      "source_category": "news_announcement",
+      "purpose": "resmi duyuru, listing, launch, hack, regulation, narrative",
+      "feeds_scores": [
+        "news_importance_score",
+        "news_reliability_score",
+        "news_token_relevance_score",
+        "news_risk_score"
+      ],
+      "free_first": true,
+      "paid_allowed_later": true,
+      "paid_roi_rule": "only_if_freshness_or_coverage_improves_score_quality",
+      "external_connections": [
+        "rss",
+        "official_blog",
+        "cex_announcement",
+        "project_announcement",
+        "calendar"
+      ]
+    },
+    {
+      "source_category": "onchain_rpc_explorer",
+      "purpose": "contract, transfer, holder, pair, liquidity event verification",
+      "feeds_scores": [
+        "onchain_identity_score",
+        "liquidity_health_score",
+        "holder_distribution_score",
+        "contract_control_score"
+      ],
+      "free_first": true,
+      "paid_allowed_later": true,
+      "paid_roi_rule": "only_if_missing_data_or_rate_limits_block_validation",
+      "external_connections": [
+        "rpc_provider",
+        "explorer_api",
+        "contract_events",
+        "token_transfers"
+      ]
+    },
+    {
+      "source_category": "dex_market_pair",
+      "purpose": "pair price, liquidity, volume, buy/sell tx, slippage context",
+      "feeds_scores": [
+        "market_activity_score",
+        "liquidity_capacity_score",
+        "execution_cost_score",
+        "sellability_score"
+      ],
+      "free_first": true,
+      "paid_allowed_later": true,
+      "paid_roi_rule": "only_if_latency_and_pair_coverage_improve_candidate_filtering",
+      "external_connections": [
+        "dex_screener_like",
+        "gecko_like",
+        "dex_subgraph_or_api",
+        "ohlcv_provider"
+      ]
+    },
+    {
+      "source_category": "wallet_whale",
+      "purpose": "smart money, early buyer, whale transfer, exchange in/out flow",
+      "feeds_scores": [
+        "whale_pressure_score",
+        "smart_money_score",
+        "wallet_risk_score",
+        "cex_flow_score"
+      ],
+      "free_first": true,
+      "paid_allowed_later": true,
+      "paid_roi_rule": "only_if_labels_or_wallet_graph_reduce_false_positive",
+      "external_connections": [
+        "wallet_label_provider",
+        "large_transfer_feed",
+        "cex_wallet_map",
+        "address_cluster"
+      ]
+    },
+    {
+      "source_category": "security_risk",
+      "purpose": "honeypot, tax, mint, owner, proxy, LP lock, blacklist, sellability",
+      "feeds_scores": [
+        "hard_block_score",
+        "sellability_score",
+        "contract_risk_score",
+        "rug_risk_score"
+      ],
+      "free_first": true,
+      "paid_allowed_later": true,
+      "paid_roi_rule": "paid_ok_if_prevents_high_risk_false_positive",
+      "external_connections": [
+        "security_api",
+        "contract_scanner",
+        "honeypot_checker",
+        "lp_lock_checker"
+      ]
+    },
+    {
+      "source_category": "technical_ohlcv",
+      "purpose": "trend, RSI/momentum, volume, volatility, support/resistance",
+      "feeds_scores": [
+        "technical_momentum_score",
+        "trend_score",
+        "volume_confirmation_score",
+        "volatility_risk_score"
+      ],
+      "free_first": true,
+      "paid_allowed_later": true,
+      "paid_roi_rule": "paid_ok_if_ohlcv_coverage_improves_backtest_and_paper_sim",
+      "external_connections": [
+        "ohlcv_api",
+        "exchange_public_klines",
+        "dex_ohlcv"
+      ]
+    }
+  ],
+  "pipeline_architecture": [
+    {
+      "pipeline_key": "news_to_decision",
+      "sequence": [
+        "news_raw",
+        "source_quality",
+        "dedup",
+        "translation_display",
+        "token_match",
+        "news_score_100",
+        "risk_gate",
+        "command_summary"
+      ],
+      "source_categories": [
+        "news_announcement"
+      ],
+      "writes_future_tables": [
+        "raw_source_events",
+        "normalized_evidence_events",
+        "score_events",
+        "decision_context_events"
+      ],
+      "outside_connections": [
+        "rss_or_announcement_feed",
+        "calendar_source",
+        "project_official_sources"
+      ],
+      "expected_benefit": "fewer blind decisions; faster narrative detection"
+    },
+    {
+      "pipeline_key": "onchain_validation",
+      "sequence": [
+        "token_identity",
+        "pair_check",
+        "contract_control",
+        "liquidity",
+        "holder_distribution",
+        "onchain_score_100",
+        "risk_gate"
+      ],
+      "source_categories": [
+        "onchain_rpc_explorer",
+        "dex_market_pair",
+        "security_risk"
+      ],
+      "writes_future_tables": [
+        "normalized_evidence_events",
+        "token_identity_events",
+        "liquidity_events",
+        "score_events"
+      ],
+      "outside_connections": [
+        "rpc_provider",
+        "explorer_api",
+        "dex_pair_api"
+      ],
+      "expected_benefit": "less fake token exposure; lower hard-risk false positives"
+    },
+    {
+      "pipeline_key": "whale_to_risk",
+      "sequence": [
+        "large_transfer",
+        "cex_flow",
+        "smart_money_check",
+        "wallet_history",
+        "wallet_risk",
+        "whale_score_100",
+        "risk_gate"
+      ],
+      "source_categories": [
+        "wallet_whale",
+        "onchain_rpc_explorer"
+      ],
+      "writes_future_tables": [
+        "wallet_observation_events",
+        "wallet_label_events",
+        "score_events"
+      ],
+      "outside_connections": [
+        "wallet_label_provider",
+        "transfer_feed",
+        "cex_wallet_map"
+      ],
+      "expected_benefit": "better early pressure detection; fewer trap pumps"
+    },
+    {
+      "pipeline_key": "technical_to_risk",
+      "sequence": [
+        "ohlcv",
+        "trend",
+        "momentum",
+        "volume",
+        "volatility",
+        "technical_score_100",
+        "risk_gate"
+      ],
+      "source_categories": [
+        "technical_ohlcv",
+        "dex_market_pair"
+      ],
+      "writes_future_tables": [
+        "ohlcv_events",
+        "technical_feature_events",
+        "score_events"
+      ],
+      "outside_connections": [
+        "ohlcv_provider",
+        "exchange_public_klines",
+        "dex_ohlcv"
+      ],
+      "expected_benefit": "better timing; lower entry into weak liquidity/volume"
+    },
+    {
+      "pipeline_key": "risk_gate",
+      "sequence": [
+        "hard_block",
+        "sellability",
+        "slippage_mev",
+        "liquidity_capacity",
+        "execution_cost",
+        "risk_score_100",
+        "decision_gate"
+      ],
+      "source_categories": [
+        "security_risk",
+        "dex_market_pair",
+        "onchain_rpc_explorer"
+      ],
+      "writes_future_tables": [
+        "risk_gate_events",
+        "hard_block_events",
+        "decision_gate_events"
+      ],
+      "outside_connections": [
+        "security_api",
+        "dex_liquidity_api",
+        "contract_scanner"
+      ],
+      "expected_benefit": "protects from bad buys; more realistic paper/live filters"
+    },
+    {
+      "pipeline_key": "new_token_discovery",
+      "sequence": [
+        "new_pair",
+        "token_identity",
+        "news_narrative",
+        "liquidity",
+        "wallet_early_buyers",
+        "watchlist_candidate"
+      ],
+      "source_categories": [
+        "dex_market_pair",
+        "onchain_rpc_explorer",
+        "news_announcement",
+        "wallet_whale"
+      ],
+      "writes_future_tables": [
+        "new_token_events",
+        "normalized_evidence_events",
+        "watchlist_events"
+      ],
+      "outside_connections": [
+        "new_pair_feed",
+        "rpc_provider",
+        "dex_pair_api"
+      ],
+      "expected_benefit": "earlier discovery without skipping validation"
+    },
+    {
+      "pipeline_key": "lifecycle_forensics",
+      "sequence": [
+        "clinical_state",
+        "incident_review",
+        "suspect_wallets",
+        "morgue",
+        "autopsy",
+        "outcome_memory"
+      ],
+      "source_categories": [
+        "onchain_rpc_explorer",
+        "wallet_whale",
+        "security_risk",
+        "dex_market_pair"
+      ],
+      "writes_future_tables": [
+        "lifecycle_events",
+        "forensics_events",
+        "autopsy_events",
+        "outcome_memory_events"
+      ],
+      "outside_connections": [
+        "historical_onchain",
+        "wallet_graph",
+        "security_scanner"
+      ],
+      "expected_benefit": "learns from dead/wrong assets; reduces repeated mistakes"
+    },
+    {
+      "pipeline_key": "learning_feedback",
+      "sequence": [
+        "outcome_memory",
+        "paper_result",
+        "score_calibration",
+        "missed_opportunity",
+        "false_positive",
+        "threshold_update"
+      ],
+      "source_categories": [
+        "internal_outcome_memory"
+      ],
+      "writes_future_tables": [
+        "outcome_memory_events",
+        "score_calibration_events",
+        "paper_simulation_events"
+      ],
+      "outside_connections": [
+        "none_internal_first"
+      ],
+      "expected_benefit": "improves thresholds over 30-90 day validation"
+    },
+    {
+      "pipeline_key": "system_health_to_command",
+      "sequence": [
+        "db_health",
+        "runner_health",
+        "timer_health",
+        "api_rpc_health",
+        "backup_status",
+        "data_missing",
+        "system_health_score_100",
+        "command_block_if_needed"
+      ],
+      "source_categories": [
+        "internal_system_health"
+      ],
+      "writes_future_tables": [
+        "system_health_events",
+        "data_quality_events",
+        "decision_gate_events"
+      ],
+      "outside_connections": [
+        "local_systemd",
+        "local_logs",
+        "local_db_health"
+      ],
+      "expected_benefit": "prevents decision on broken/stale runtime"
+    },
+    {
+      "pipeline_key": "center_module_structure",
+      "sequence": [
+        "subject_node",
+        "center",
+        "module",
+        "route",
+        "icon_binding",
+        "panel_section"
+      ],
+      "source_categories": [
+        "internal_ui_registry"
+      ],
+      "writes_future_tables": [
+        "none_plan_file_first"
+      ],
+      "outside_connections": [
+        "panel_files_only"
+      ],
+      "expected_benefit": "keeps UI/data mapping consistent and non-duplicated"
+    }
+  ],
+  "score_architecture": [
+    {
+      "score_key": "news_score_100",
+      "owner_center": "haber_akis_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "source_reliability",
+        "news_importance",
+        "token_relevance",
+        "freshness",
+        "multi_source_confirmation"
+      ],
+      "hard_rules": [
+        "news_only_never_trade",
+        "real_token_match_required",
+        "translation_display_only"
+      ],
+      "outputs_to": [
+        "risk_gate",
+        "komuta_merkezi.canli_karar",
+        "learning_feedback"
+      ],
+      "missing_policy": "score_low_confidence_not_zero"
+    },
+    {
+      "score_key": "onchain_score_100",
+      "owner_center": "onchain_veri_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "token_identity",
+        "pair_verification",
+        "liquidity",
+        "holder_distribution",
+        "contract_control"
+      ],
+      "hard_rules": [
+        "identity_required",
+        "pair_required",
+        "contract_control_flags_escalate_risk"
+      ],
+      "outputs_to": [
+        "risk_gate",
+        "new_token_discovery",
+        "komuta_merkezi.merkez_skorlari"
+      ],
+      "missing_policy": "insufficient_evidence_review"
+    },
+    {
+      "score_key": "whale_score_100",
+      "owner_center": "balina_takip_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "large_transfer",
+        "smart_money_wallet",
+        "cex_in_out",
+        "wallet_history",
+        "wallet_risk"
+      ],
+      "hard_rules": [
+        "suspicious_wallet_can_block",
+        "cex_inflow_may_increase_sell_pressure"
+      ],
+      "outputs_to": [
+        "risk_gate",
+        "watchlist_shortlist",
+        "learning_feedback"
+      ],
+      "missing_policy": "watch_only_until_wallet_context"
+    },
+    {
+      "score_key": "technical_score_100",
+      "owner_center": "teknik_analiz_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "trend",
+        "momentum_rsi",
+        "volume",
+        "volatility",
+        "support_resistance",
+        "pattern"
+      ],
+      "hard_rules": [
+        "technical_never_overrides_hard_risk",
+        "volume_confirmation_required"
+      ],
+      "outputs_to": [
+        "risk_gate",
+        "paper_trade_risk",
+        "sl_tp_plan"
+      ],
+      "missing_policy": "no_signal_when_ohlcv_missing"
+    },
+    {
+      "score_key": "risk_score_100",
+      "owner_center": "risk_guvenlik_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "hard_block",
+        "slippage_mev",
+        "exit_safety",
+        "liquidity_capacity",
+        "paper_trade_risk",
+        "contract_risk"
+      ],
+      "hard_rules": [
+        "hard_block_overrides_all_scores",
+        "sellability_required",
+        "liquidity_capacity_required"
+      ],
+      "outputs_to": [
+        "komuta_merkezi.canli_karar",
+        "paper_trade_ozeti",
+        "watchlist_shortlist"
+      ],
+      "missing_policy": "block_or_review_not_buy"
+    },
+    {
+      "score_key": "lifecycle_score_100",
+      "owner_center": "yasam_destek_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "clinical_state",
+        "forensics",
+        "suspect_wallets",
+        "morgue_status",
+        "autopsy_result"
+      ],
+      "hard_rules": [
+        "dead_assets_to_morgue",
+        "autopsy_updates_memory",
+        "spam_wallets_escalate_risk"
+      ],
+      "outputs_to": [
+        "outcome_memory",
+        "ai_calibration",
+        "risk_gate"
+      ],
+      "missing_policy": "manual_review_required"
+    },
+    {
+      "score_key": "system_health_score_100",
+      "owner_center": "sistem_kontrol_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "db_health",
+        "api_rpc_health",
+        "runner_health",
+        "timer_health",
+        "backup_status",
+        "data_missing"
+      ],
+      "hard_rules": [
+        "system_error_blocks_decision",
+        "data_missing_state_visible",
+        "no_trade_when_runtime_unhealthy"
+      ],
+      "outputs_to": [
+        "komuta_merkezi.canli_karar",
+        "alarm_bildirim_durumu",
+        "panel_ui_durumu"
+      ],
+      "missing_policy": "system_review"
+    },
+    {
+      "score_key": "fusion_decision_score_100",
+      "owner_center": "komuta_merkezi",
+      "range": "0-100",
+      "inputs": [
+        "news_score_100",
+        "onchain_score_100",
+        "whale_score_100",
+        "technical_score_100",
+        "risk_score_100",
+        "system_health_score_100"
+      ],
+      "hard_rules": [
+        "hard_risk_can_force_block",
+        "paper_only_before_live",
+        "no_fake_live_state",
+        "score_confidence_required"
+      ],
+      "outputs_to": [
+        "watchlist_shortlist",
+        "paper_trade_ozeti",
+        "canli_karar"
+      ],
+      "missing_policy": "insufficient_evidence_not_buy"
+    }
+  ],
+  "evidence_layers": [
+    {
+      "layer": "raw_source_layer",
+      "purpose": "store exact incoming source payload or source pointer",
+      "future_tables": [
+        "raw_source_events"
+      ],
+      "rules": [
+        "append_only",
+        "source_uid_required",
+        "fetched_at_required",
+        "do_not_score_directly"
+      ]
+    },
+    {
+      "layer": "normalized_evidence_layer",
+      "purpose": "convert all raw inputs to a common evidence shape",
+      "future_tables": [
+        "normalized_evidence_events"
+      ],
+      "rules": [
+        "token_uid_optional_until_matched",
+        "confidence_required",
+        "freshness_required",
+        "source_quality_required"
+      ]
+    },
+    {
+      "layer": "feature_layer",
+      "purpose": "derive reusable score features",
+      "future_tables": [
+        "feature_events"
+      ],
+      "rules": [
+        "feature_key_required",
+        "feature_value_typed",
+        "source_evidence_refs_required"
+      ]
+    },
+    {
+      "layer": "score_layer",
+      "purpose": "produce 0-100 score events with components",
+      "future_tables": [
+        "score_events",
+        "score_component_events"
+      ],
+      "rules": [
+        "score_100_required",
+        "confidence_required",
+        "missing_evidence_not_zero",
+        "hard_block_separate"
+      ]
+    },
+    {
+      "layer": "decision_gate_layer",
+      "purpose": "convert scores into route/bucket without executing trade",
+      "future_tables": [
+        "decision_gate_events"
+      ],
+      "rules": [
+        "trade_execution_false",
+        "paper_only_until_approved",
+        "hard_block_overrides",
+        "system_health_required"
+      ]
+    },
+    {
+      "layer": "outcome_memory_layer",
+      "purpose": "compare later outcome against earlier scores and decisions",
+      "future_tables": [
+        "outcome_memory_events",
+        "score_calibration_events"
+      ],
+      "rules": [
+        "30_90_day_validation",
+        "false_positive_tracking",
+        "missed_opportunity_tracking",
+        "hypothetical_pnl_tracking"
+      ]
+    }
+  ],
+  "performance_expectations": [
+    {
+      "metric_key": "missing_data_rate",
+      "target_direction": "down",
+      "early_target": "reduce missing/unknown evidence rows before any trade decision",
+      "paid_source_impact": "high_if_paid_source_fills_rpc_or_ohlcv_gaps"
+    },
+    {
+      "metric_key": "false_positive_rate",
+      "target_direction": "down",
+      "early_target": "reduce high-score tokens that later die/rug/fail sellability",
+      "paid_source_impact": "high_if_security_or_wallet_source_blocks bad candidates"
+    },
+    {
+      "metric_key": "candidate_freshness_seconds",
+      "target_direction": "down",
+      "early_target": "make discovery and risk checks fresher",
+      "paid_source_impact": "high_if_free feeds are delayed/rate-limited"
+    },
+    {
+      "metric_key": "evidence_coverage_per_candidate",
+      "target_direction": "up",
+      "early_target": "each candidate should have news/onchain/liquidity/risk coverage",
+      "paid_source_impact": "medium_high"
+    },
+    {
+      "metric_key": "paper_trade_sim_realism",
+      "target_direction": "up",
+      "early_target": "include spread, slippage, liquidity capacity, gas/MEV where relevant",
+      "paid_source_impact": "high_if_market_depth/slippage data improves"
+    },
+    {
+      "metric_key": "score_calibration_error",
+      "target_direction": "down",
+      "early_target": "scores should correlate with 30-90 day outcomes",
+      "paid_source_impact": "unknown_until_measured"
+    },
+    {
+      "metric_key": "avoidable_loss_count",
+      "target_direction": "up",
+      "early_target": "count candidates blocked by risk gate that later performed badly",
+      "paid_source_impact": "high_if_security/wallet/liquidity source prevents traps"
+    },
+    {
+      "metric_key": "missed_opportunity_count",
+      "target_direction": "down",
+      "early_target": "low-score tokens that later pump must be logged and analyzed",
+      "paid_source_impact": "medium_if_coverage improves early discovery"
+    }
+  ],
+  "paid_source_policy": {
+    "budget_rule": "start_low_budget_only_after_source_gap_is_measured",
+    "trial_window_days": 7,
+    "validation_window_days": "30-90",
+    "do_not_buy_paid_sources_for_vanity": true,
+    "paid_source_candidate_requirements": [
+      "measurable missing-data reduction",
+      "freshness improvement",
+      "coverage improvement",
+      "API reliability",
+      "dedup/source-quality compatibility",
+      "score-calibration improvement",
+      "false-positive reduction",
+      "paper-simulation improvement"
+    ],
+    "first_paid_categories_to_evaluate": [
+      "onchain_rpc_explorer",
+      "security_risk",
+      "dex_market_pair",
+      "wallet_whale",
+      "technical_ohlcv",
+      "news_announcement"
+    ],
+    "approval_required_before_subscription": true,
+    "web_research_required_before_price_decision": true
+  },
+  "future_table_plan": [
+    "raw_source_events",
+    "source_quality_events",
+    "normalized_evidence_events",
+    "feature_events",
+    "score_events",
+    "score_component_events",
+    "risk_gate_events",
+    "decision_gate_events",
+    "paper_simulation_events",
+    "outcome_memory_events",
+    "score_calibration_events",
+    "source_roi_events"
+  ],
+  "recommended_next_phases": [
+    "DATA_SOURCE_ROI_AND_BUDGET_PLAN_NOAPI",
+    "DATA_PIPELINE_SCHEMA_PLAN_NOAPI",
+    "SCORE_ENGINE_CONTRACT_PLAN_NOAPI",
+    "SOURCE_QUALITY_AND_MISSING_DATA_POLICY_PLAN_NOAPI"
+  ],
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,50 @@
+{"row_type": "engine_mount", "primary_center_key": "komuta", "primary_center_label": "Komuta Merkezi", "depends_on_center_keys": ["risk", "teknik", "onchain", "balina", "haber", "yasam", "sistem"], "parent_panel": "Canlı Karar / İşlem Planı", "sub_panels": ["Risk Adjusted Entry Amount", "Entry Level", "Dynamic Slippage", "SL / TP Planı", "Vur-Kaç Tek TP Planı", "Normal TP1 TP2 TP3 Planı", "Paper / Manuel / Auto Kilit Butonları", "Blocked Reason"], "no_new_center": true}
+{"row_type": "execution_input", "field": "risk_level", "source_center": "risk", "required": true, "use": "LOW/MEDIUM/HIGH/CRITICAL kararını taşır."}
+{"row_type": "execution_input", "field": "security_score", "source_center": "risk", "required": true, "use": "Genel güvenlik skoru."}
+{"row_type": "execution_input", "field": "mev_gate", "source_center": "risk", "required": true, "use": "ALLOW/REDUCE_SIZE/PAPER_ONLY/BLOCK etkisi."}
+{"row_type": "execution_input", "field": "liquidity_usd", "source_center": "onchain", "required": true, "use": "Entry amount ve exit kapasitesi hesaplar."}
+{"row_type": "execution_input", "field": "volume_1h_usd", "source_center": "onchain", "required": true, "use": "Vur-kaç canlılık filtresi."}
+{"row_type": "execution_input", "field": "tx_burst_1m", "source_center": "onchain", "required": true, "use": "Hızlı hareket ve bot/aktivite göstergesi."}
+{"row_type": "execution_input", "field": "buy_sell_imbalance", "source_center": "onchain", "required": true, "use": "Aşırı tek yönlü akış riski."}
+{"row_type": "execution_input", "field": "price_impact_pct", "source_center": "risk", "required": true, "use": "Pozisyon büyüklüğü ve slipaj sınırı."}
+{"row_type": "execution_input", "field": "dynamic_slippage_cap_pct", "source_center": "risk", "required": true, "use": "Otomatik slipaj."}
+{"row_type": "execution_input", "field": "technical_entry_zone", "source_center": "teknik", "required": true, "use": "Entry level önerisi."}
+{"row_type": "execution_input", "field": "technical_sl_level", "source_center": "teknik", "required": false, "use": "Teknik SL alternatifi."}
+{"row_type": "execution_input", "field": "technical_tp_levels", "source_center": "teknik", "required": false, "use": "Normal TP1/TP2/TP3 önerileri."}
+{"row_type": "execution_input", "field": "momentum_score", "source_center": "teknik", "required": true, "use": "Vur-kaç aday filtresi."}
+{"row_type": "execution_input", "field": "volatility_score", "source_center": "teknik", "required": true, "use": "SL ve slipaj tamponu."}
+{"row_type": "execution_input", "field": "wallet_risk", "source_center": "balina", "required": false, "use": "Entry amount düşürme veya block."}
+{"row_type": "execution_input", "field": "news_impact_score", "source_center": "haber", "required": false, "use": "Vur-kaç/narrative hız etkisi."}
+{"row_type": "execution_input", "field": "outcome_memory_hint", "source_center": "yasam", "required": false, "use": "Geçmiş pattern kalibrasyonu."}
+{"row_type": "execution_input", "field": "live_paper_lock_state", "source_center": "sistem", "required": true, "use": "Buton kilitleri ve live yasakları."}
+{"row_type": "entry_mode", "entry_mode": "WATCH_ONLY", "when": "data unknown, confidence low, opportunity not confirmed", "entry_amount_policy": "0", "tp_policy": "none", "button_policy": "watchlist only"}
+{"row_type": "entry_mode", "entry_mode": "NORMAL", "when": "risk LOW/MEDIUM, contract/sellability OK, liquidity sufficient, no hard block", "entry_amount_policy": "risk adjusted micro amount", "tp_policy": "TP1_TP2_TP3", "button_policy": "paper/manual allowed, auto locked"}
+{"row_type": "entry_mode", "entry_mode": "VUR_KAC", "when": "momentum high, volume burst, sellability OK, MEV not high, quick exit suitable", "entry_amount_policy": "smaller micro scalp amount", "tp_policy": "SINGLE_TP_ONLY", "button_policy": "vur-kac paper/manual allowed, auto locked"}
+{"row_type": "entry_mode", "entry_mode": "PAPER_ONLY", "when": "risk HIGH but not critical, future protected route required, live not allowed", "entry_amount_policy": "paper only simulated amount", "tp_policy": "depends on normal/vur-kac classification", "button_policy": "paper only"}
+{"row_type": "entry_mode", "entry_mode": "BLOCKED", "when": "critical risk, hard block, source conflict, sellability fail, live/paper lock", "entry_amount_policy": "0", "tp_policy": "none", "button_policy": "disabled / morg-autopsy"}
+{"row_type": "sizing_policy", "policy_key": "micro_base_capital", "formula": "base_capital_usd = min(user_micro_cap, liquidity_usd * 0.0025)", "purpose": "Sığ sularda küçük giriş.", "default_example": "10-25 USD micro start"}
+{"row_type": "sizing_policy", "policy_key": "risk_multiplier", "formula": "LOW=1.0, MEDIUM=0.35, HIGH=0.10 paper-only, CRITICAL=0", "purpose": "Risk seviyesi arttıkça miktar düşer.", "default_example": "MEDIUM riskte 25 USD -> 8.75 USD"}
+{"row_type": "sizing_policy", "policy_key": "mev_multiplier", "formula": "ALLOW=1.0, REDUCE_SIZE=0.25, PAPER_ONLY=0.0 live, BLOCK=0", "purpose": "MEV kapısı pozisyonu sınırlar.", "default_example": "REDUCE_SIZE ile giriş çeyreğe iner"}
+{"row_type": "sizing_policy", "policy_key": "wallet_news_penalty", "formula": "wallet_risk_high or negative_news => extra 0.25-0.60 multiplier", "purpose": "Cüzdan/haber riskinde küçük giriş veya blok.", "default_example": "riskli deployer -> pozisyon küçülür"}
+{"row_type": "sizing_policy", "policy_key": "liquidity_exit_cap", "formula": "entry_amount_usd <= liquidity_usd * max_pool_share_pct", "purpose": "Çıkış yapılamayacak büyüklüğü engeller.", "default_example": "poolun çok küçük yüzdesi"}
+{"row_type": "slippage_policy", "policy_key": "auto_slippage_low", "condition": "LOW risk, low impact", "range": "0.15%-0.40%", "effect": "normal micro route"}
+{"row_type": "slippage_policy", "policy_key": "auto_slippage_medium", "condition": "MEDIUM risk or MEV REDUCE_SIZE", "range": "0.40%-0.90%", "effect": "dynamic cap required"}
+{"row_type": "slippage_policy", "policy_key": "auto_slippage_high", "condition": "HIGH risk", "range": "no live public route", "effect": "paper/protected route only"}
+{"row_type": "slippage_policy", "policy_key": "auto_slippage_critical", "condition": "CRITICAL or hard block", "range": "none", "effect": "entry blocked"}
+{"row_type": "tp_sl_policy", "mode": "NORMAL", "tp_policy": "TP1_TP2_TP3", "required_outputs": ["entry_level", "sl_price", "tp1_price", "tp2_price", "tp3_price"], "default_logic": "TP1 yakın kâr, TP2 orta, TP3 koşarsa bırak; SL teknik/risk tabanlı.", "forbidden_outputs": []}
+{"row_type": "tp_sl_policy", "mode": "VUR_KAC", "tp_policy": "SINGLE_TP_ONLY", "required_outputs": ["entry_level", "sl_price_or_trailing_policy", "single_tp_price"], "default_logic": "Tek hedef; vur-kaçta TP1/TP2/TP3 yok.", "forbidden_outputs": ["tp1_price", "tp2_price", "tp3_price"]}
+{"row_type": "tp_sl_policy", "mode": "BLOCKED", "tp_policy": "NONE", "required_outputs": ["blocked_reason"], "default_logic": "İşlem yok.", "forbidden_outputs": ["entry_level", "tp1_price", "tp2_price", "tp3_price", "single_tp_price"]}
+{"row_type": "button_policy", "button_key": "paper_sim_start", "center_key": "komuta", "label": "Paper Sim Başlat", "enabled_when": ["NORMAL", "VUR_KAC", "PAPER_ONLY"], "live_execution": false}
+{"row_type": "button_policy", "button_key": "manual_trade_plan", "center_key": "komuta", "label": "Manuel İşlem Planı", "enabled_when": ["NORMAL"], "live_execution": false}
+{"row_type": "button_policy", "button_key": "manual_vur_kac_plan", "center_key": "komuta", "label": "Manuel Vur-Kaç Planı", "enabled_when": ["VUR_KAC"], "live_execution": false}
+{"row_type": "button_policy", "button_key": "auto_trade_locked", "center_key": "komuta", "label": "Auto Hazır Ama Kilitli", "enabled_when": ["FUTURE_EXPLICIT_APPROVAL_ONLY"], "live_execution": false}
+{"row_type": "button_policy", "button_key": "watchlist_add", "center_key": "komuta", "label": "Watchlist’e Al", "enabled_when": ["WATCH_ONLY", "NORMAL", "VUR_KAC"], "live_execution": false}
+{"row_type": "button_policy", "button_key": "send_morg_autopsy", "center_key": "komuta", "label": "Morg/Otopsi’ye Gönder", "enabled_when": ["BLOCKED", "CRITICAL"], "live_execution": false}
+{"row_type": "output_contract", "target_table": "command_decision_events_v1", "center_key": "komuta", "payload": ["entry_mode", "decision_type", "risk_adjusted_entry_amount_usd", "entry_level", "dynamic_slippage_pct", "sl_tp_plan_json", "button_state_json", "blocked_reason"]}
+{"row_type": "output_contract", "target_table": "paper_trade_events_v1", "center_key": "komuta", "payload": ["paper_status", "entry_amount_usd", "entry_level", "sl_price", "tp_policy", "evidence_json"]}
+{"row_type": "output_contract", "target_table": "fusion_score_events_v1", "center_key": "risk", "payload": ["execution_risk_adjustment", "entry_mode", "soft_warnings_json", "hard_blocks_json"]}
+{"row_type": "output_contract", "target_table": "control_dashboard_view_model_events_v1", "center_key": "komuta", "payload": ["execution_plan_card", "sl_tp_status", "button_state", "risk_box", "watchlist"]}
+{"row_type": "output_contract", "target_table": "outcome_memory_events_v1", "center_key": "yasam", "payload": ["execution_plan_id", "planned_entry_amount", "planned_sl_tp", "future_outcome_label"]}
+{"row_type": "sample_scenario", "scenario_key": "normal_medium_reduce_size", "risk_level": "MEDIUM", "mev_gate": "REDUCE_SIZE", "expected_entry_mode": "NORMAL", "expected_tp_policy": "TP1_TP2_TP3", "expected_button": "paper/manual reduced", "notes": "Normal aday ama risk nedeniyle küçük giriş."}
+{"row_type": "sample_scenario", "scenario_key": "vur_kac_ready", "risk_level": "MEDIUM", "mev_gate": "ALLOW", "expected_entry_mode": "VUR_KAC", "expected_tp_policy": "SINGLE_TP_ONLY", "expected_button": "vur-kac paper/manual", "notes": "Hızlı momentum, tek TP."}
+{"row_type": "sample_scenario", "scenario_key": "blocked_contract_or_conflict", "risk_level": "CRITICAL", "mev_gate": "BLOCK", "expected_entry_mode": "BLOCKED", "expected_tp_policy": "NONE", "expected_button": "disabled / morg-autopsy", "notes": "İşlem yok."}

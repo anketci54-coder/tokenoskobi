@@ -1,0 +1,160 @@
+{
+  "phase": "DATA29_PANEL_JSON_ENDPOINT_PLAN_NOAPI",
+  "stamp": "20260513_120311",
+  "final_gate": "PASS",
+  "action": "PANEL_JSON_ENDPOINT_PLAN_CREATED",
+  "stable_base_ok": true,
+  "endpoint_plan": {
+    "mode": "PLAN_ONLY_NO_ENDPOINT_CREATED",
+    "future_base_path": "/full_radar_api/",
+    "future_static_data_path": "/root/tokenoskobi_clean_v1/public/full_radar_data/",
+    "future_routes": [
+      {
+        "route": "/full_radar_api/main_panel",
+        "file": "full_radar_main_panel_data_v1.json",
+        "purpose": "Ana panel beyin verisi"
+      },
+      {
+        "route": "/full_radar_api/economic_calendar",
+        "file": "economic_calendar_panel_data_v1.json",
+        "purpose": "Ekonomik takvim ve makro olaylar"
+      },
+      {
+        "route": "/full_radar_api/news_impact",
+        "file": "news_impact_panel_data_v1.json",
+        "purpose": "Haber etki radarı"
+      },
+      {
+        "route": "/full_radar_api/wallet_whale",
+        "file": "wallet_whale_panel_data_v1.json",
+        "purpose": "Balina / cüzdan alarmı"
+      },
+      {
+        "route": "/full_radar_api/token_lifecycle",
+        "file": "token_lifecycle_panel_data_v1.json",
+        "purpose": "Token yaşam döngüsü ve yıldız avı"
+      },
+      {
+        "route": "/full_radar_api/morgue_autopsy",
+        "file": "morgue_autopsy_panel_data_v1.json",
+        "purpose": "Morg / otopsi öğrenme paneli"
+      },
+      {
+        "route": "/full_radar_api/paper_simulation",
+        "file": "paper_simulation_panel_data_v1.json",
+        "purpose": "Paper işlem ve PnL takibi"
+      },
+      {
+        "route": "/full_radar_api/fusion_decision",
+        "file": "fusion_decision_panel_data_v1.json",
+        "purpose": "Fusion karar motoru"
+      },
+      {
+        "route": "/full_radar_api/risk_mev",
+        "file": "risk_mev_panel_data_v1.json",
+        "purpose": "Risk / Güvenlik / MEV"
+      },
+      {
+        "route": "/full_radar_api/ai_calibration",
+        "file": "ai_calibration_panel_data_v1.json",
+        "purpose": "AI kalibrasyon özeti"
+      }
+    ]
+  },
+  "generator_plan": {
+    "future_runner_name": "full_radar_panel_data_builder_v1.py",
+    "execution_mode": "read_only_first",
+    "input_sources": [
+      "clean DB read-only views",
+      "news raw/scored rows",
+      "future macro calendar tables",
+      "future wallet event tables",
+      "future lifecycle tables",
+      "future paper simulation tables",
+      "future fusion decision tables"
+    ],
+    "output_mode": [
+      "write to staging folder first",
+      "validate JSON schema",
+      "checksum output",
+      "copy to public data folder only after approval"
+    ],
+    "safety_rules": [
+      "no DB mutation",
+      "no API fetch inside panel data builder",
+      "no service restart",
+      "no active panel mutation during plan",
+      "mock rows must be marked is_mock=true",
+      "unknown wallet labels must not be presented as confirmed"
+    ]
+  },
+  "cache_policy": {
+    "main_panel": "30-60 sec future refresh target",
+    "economic_calendar": "5-15 min or event-driven",
+    "news_impact": "timer-driven after news refresh",
+    "wallet_whale": "future event-driven / batch windows",
+    "token_lifecycle": "future staged refresh",
+    "paper_simulation": "future frequent refresh when paper positions open",
+    "risk_mev": "future on-demand plus scheduled",
+    "ai_calibration": "daily/weekly summary"
+  },
+  "validation_plan": [
+    "All JSON files must include meta.generated_at_utc.",
+    "All JSON files must include meta.is_mock.",
+    "All JSON files must include meta.data_contract_version.",
+    "User-facing rows must not show UID/hash/debug unless explicitly allowed.",
+    "Any active paper row must include entry, SL, TP, current price and PnL fields.",
+    "Wallet owner confidence must be present if wallet_owner is not empty.",
+    "Stale data must carry stale=true or not be promoted to main panel.",
+    "If a module has no real data, card displays 'veri yok' not fake real data.",
+    "Every main-panel alert must carry source_module and reason_tr.",
+    "Endpoint plan must not create live endpoint in this phase."
+  ],
+  "future_route_count": 10,
+  "service_result": "success",
+  "service_exec_main_status": "0",
+  "timer_active": "inactive",
+  "timer_enabled": "enabled",
+  "db": {
+    "integrity": "ok",
+    "quick": "ok",
+    "fk": 0,
+    "raw": 151,
+    "tokens": 19,
+    "pairs": 19,
+    "paper_positions": 0,
+    "paper_executions": 0,
+    "paper_outcomes": 0,
+    "paper_costs": 0,
+    "paper_runtime_zero": true
+  },
+  "wrapper_compile_rc": 0,
+  "original_compile_rc": 0,
+  "lock_exists": false,
+  "runner_process_count": 0,
+  "panel_8096": "LISTEN",
+  "panel_8097": "LISTEN",
+  "db_unchanged": true,
+  "wrapper_unchanged": true,
+  "original_unchanged": true,
+  "checklist_updated": true,
+  "checklist_action": "TICKED",
+  "checklist_changed": true,
+  "db_write": false,
+  "api": false,
+  "endpoint_created": false,
+  "public_data_written": false,
+  "data_file_written_for_panel": false,
+  "panel_apply": false,
+  "active_panel_changed": false,
+  "service_restart": false,
+  "timer_change": false,
+  "runner_change": false,
+  "patch_yama": false,
+  "paper_live": false,
+  "next_phase": "PANEL29_STATIC_FULL_RADAR_SHELL_NOAPI",
+  "alternate_next_phase": "SOURCE28_MULTI_SOURCE_TRUTH_ENGINE_PLAN_NOAPI",
+  "report": "/root/tokenoskobi_clean_v1/reports/LATEST_DATA29_PANEL_JSON_ENDPOINT_PLAN_NOAPI.md",
+  "json": "/root/tokenoskobi_clean_v1/data/data29_panel_json_endpoint_plan_noapi.json",
+  "checklist": "/root/tokenoskobi_clean_v1/data/tokenoskobi_coinoskobi_full_radar_v3_master_checklist.md"
+}
