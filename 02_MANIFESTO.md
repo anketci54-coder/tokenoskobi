@@ -1,46 +1,320 @@
-# 02 MANIFESTO - Tokenoskobi / Coinoskobi
+# 02 MANIFESTO - TOKENOSKOBI / COINOSKOBI
 
-## Ana Motto
+## ANA MOTTO
 
-Simsek kadar hizli, balyoz kadar guclu, kale kadar guvenli, karinca kadar tutumlu.
+Şimşek kadar hızlı.
+Balyoz kadar güçlü.
+Kale kadar güvenli.
+Karınca kadar tutumlu.
 
-## Kimlik
+---
 
-Tokenoskobi / Coinoskobi kapali, tek operatorlu bir kripto istihbarat ve karar destek mimarisidir.
+## VİZYON
 
-Amac kor otomatik trade degildir. Amac; yeni token, launch, onchain olay, balina hareketi, teknik sinyal, risk isareti ve execution gercekciligini tek kokpitte okuyup guvenli karar destegi uretmektir.
+Tokenoskobi;
 
-## Temel Doktrin
+rastgele sinyal üreten,
 
-1. Kanit yoksa karar yok.
-2. Risk Gate her skorun ustundedir.
-3. AI onerir, karar vermez.
-4. Teknik analiz sinyal uretir, trade izni vermez.
-5. Haber, sosyal, balina ve launch sinyalleri context uretir.
-6. Paper / shadow / simulation live oncesi zorunlu ara basamaktir.
-7. Provider/API kullanimi bounded ve maliyet kontrolludur.
-8. Sistem server coplugune donusturulmez.
-9. Hot path hizli, risk path sert, cold path derin olmalidir.
-10. Her gercek degisiklik plan -> onay -> apply -> post-audit zincirinden gecer.
+sosyal medya heyecanı kovalayan,
 
-## Yetki Sinirlari
+kör trade sistemi değildir.
+
+Amaç:
+
+kanıt toplamak,
+
+riski ölçmek,
+
+fırsatı değerlendirmek,
+
+kararı disiplinli şekilde desteklemektir.
+
+---
+
+## EVIDENCE FIRST DOKTRİNİ
+
+Önce kanıt.
+
+Sonra analiz.
+
+Sonra risk.
+
+Sonra fırsat.
+
+En son karar.
+
+Kural:
+
+EVIDENCE_FIRST=true
+
+Kanıt olmadan:
+
+- skor üretilmez
+- karar üretilmez
+- güven üretilmez
+
+---
+
+## RISK SUPREMACY DOKTRİNİ
+
+Risk her şeyden üstündür.
+
+Kural:
+
+RISK_GATE_SUPREMACY=true
+
+Aşağıdakiler Risk Gate'i geçersiz kılamaz:
+
+- Teknik analiz
+- Balina hareketi
+- Haber akışı
+- Sosyal medya
+- AI önerisi
+- Panel kararı
+
+Risk reddediyorsa sistem reddeder.
+
+---
+
+## UNKNOWN UNKNOWN DOKTRİNİ
+
+Bilinen saldırılar yeterli değildir.
+
+Kural:
+
+UNKNOWN_UNKNOWN_REQUIRED=true
+
+Sistem sadece:
+
+"Bu saldırı nedir?"
+
+sorusunu değil,
+
+"Bu davranış neden normal değil?"
+
+sorusunu da cevaplamak zorundadır.
+
+---
+
+## AI DOKTRİNİ
+
+AI yardımcıdır.
+
+AI yönetici değildir.
+
+AI trader değildir.
+
+AI otorite değildir.
+
+Kural:
 
 AI_AUTHORITY=0
-TECHNICAL_SCORE_TRADE_AUTHORITY=0
-NEWS_SOCIAL_TRADE_AUTHORITY=0
-WHALE_SIGNAL_TRADE_AUTHORITY=0
-PANEL_TRADE_AUTHORITY=0
-FINAL_RISK_AUTHORITY=RISK_ENGINE
+
+AI görevleri:
+
+- açıklama
+- özetleme
+- sınıflandırma
+- öneri
+
+AI görevleri dışında:
+
+- emir veremez
+- risk aşamaz
+- karar dayatamaz
+- trade başlatamaz
+
+---
+
+## TRADE DOKTRİNİ
+
+Trade motoru ile analiz motoru ayrı şeylerdir.
+
+Kural:
+
+TRADE_AUTHORITY=RISK_ENGINE_ONLY
+
+Karar zinciri:
+
+Evidence
+↓
+Risk
+↓
+Technical
+↓
+Opportunity
+↓
+Command Center
+
+Risk motoru onaylamadan işlem yoktur.
+
+---
+
+## LIVE TRADE DOKTRİNİ
+
+Canlı işlem varsayılan olarak kapalıdır.
+
+Kural:
+
 LIVE_TRADE=DISABLED
-PAPER_TRADE=DISABLED_UNLESS_APPROVED
+
+Ayrıca:
+
 WALLET_SIGNING=DISABLED
-PRIVATE_KEY_HANDLING=FORBIDDEN
 
-## Yasaklar
+Canlı işlem açılması:
 
-- Gizli anahtar, seed phrase, wallet secret istemek/yazmak yasaktir.
-- Onaysiz live trade acmak yasaktir.
-- Onaysiz paid provider call yapmak yasaktir.
-- Onaysiz runtime/service/panel degisikligi yapmak yasaktir.
-- Belirsiz kanitla kesin karar yazmak yasaktir.
+ayrı faz,
 
+ayrı onay,
+
+ayrı audit gerektirir.
+
+---
+
+## LEARNING DOKTRİNİ
+
+Öğrenme sistemi karar vermez.
+
+Öğrenme sistemi hafıza oluşturur.
+
+Görevleri:
+
+- False Positive
+- False Negative
+- Missed Opportunity
+- Avoided Loss
+- Calibration
+
+Öğrenme:
+
+otorite değil,
+
+geri besleme katmanıdır.
+
+---
+
+## SHADOW DOKTRİNİ
+
+Önce Shadow.
+
+Sonra gerçek.
+
+Asla tersi değil.
+
+Kural:
+
+SHADOW_BEFORE_REAL=true
+
+Aşamalar:
+
+Radar
+↓
+Shadow
+↓
+Paper
+↓
+Micro
+↓
+Controlled Live
+
+---
+
+## RUNTIME DOKTRİNİ
+
+Provider sınırlıdır.
+
+Bütçe sınırlıdır.
+
+Kaynak sınırlıdır.
+
+Kural:
+
+BOUNDED_RUNTIME=true
+
+Amaç:
+
+maksimum veri,
+
+minimum maliyet.
+
+---
+
+## DOKÜMANTASYON DOKTRİNİ
+
+Canonical doküman seti:
+
+01_INDEX.md
+02_MANIFESTO.md
+03_ROADMAP.md
+04_ALMANAC.md
+05_ATLAS.md
+
+Başka hiçbir doküman bu beşlinin yerini alamaz.
+
+---
+
+## CANONICAL GÜNCELLEME KURALI
+
+Yeni PASS kapanırsa:
+
+04_ALMANAC güncellenir.
+
+Yeni PHASE kapanırsa:
+
+03_ROADMAP güncellenir
+04_ALMANAC güncellenir
+05_ATLAS güncellenir
+
+INDEX normalde değişmez.
+
+MANIFESTO sadece doktrin değişirse güncellenir.
+
+---
+
+## YASAKLAR
+
+Yasak:
+
+- Kanıtsız karar
+- Kanıtsız güven
+- Risk bypass
+- AI authority
+- Doğrudan live trade
+- Sınırsız provider kullanımı
+- Kontrolsüz maliyet
+
+---
+
+## ALTIN KURALLAR
+
+Kural 1:
+Kanıt yoksa güven yok.
+
+Kural 2:
+Risk skordan üstündür.
+
+Kural 3:
+AI otorite değildir.
+
+Kural 4:
+Shadow canlıdan önce gelir.
+
+Kural 5:
+Önce hayatta kal.
+
+Kural 6:
+Kayıptan kaçınmak kazanç kadar değerlidir.
+
+Kural 7:
+Disiplin tahminden üstündür.
+
+Kural 8:
+Sistem amacı fırsat kovalamak değil,
+kötü fırsatları elemekten başlamaktır.
+
+Kural 9:
+Her şey ölçülür.
+
+Kural 10:
+Her şey sorgulanır.

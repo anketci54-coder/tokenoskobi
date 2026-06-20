@@ -1,0 +1,30 @@
+# CANONICAL DOCUMENTATION V1 LOCK
+
+STATUS=LOCKED
+
+ROOT_PUBLIC_DOCS:
+- README.md
+- 01_INDEX.md
+- 02_MANIFESTO.md
+- 03_ROADMAP.md
+- 04_ALMANAC.md
+- 05_ATLAS.md
+
+SUPPORT_DOCS_DIR=docs/
+CONFIG_MD_COUNT=0
+
+COVERAGE:
+- PASS0-PASS27D covered in 04_ALMANAC.md
+- PHASE0-PHASE41 covered in 04_ALMANAC.md
+- ROADMAP master timeline finalized in 03_ROADMAP.md
+- ATLAS master text map finalized in 05_ATLAS.md
+- MANIFESTO doctrine finalized in 02_MANIFESTO.md
+
+UPDATE_RULE:
+- New PASS closeout updates 04_ALMANAC.md
+- New PHASE closeout updates 03_ROADMAP.md, 04_ALMANAC.md, 05_ATLAS.md
+- New doctrine updates 02_MANIFESTO.md
+- Index changes only when navigation changes
+
+FINAL_GATE=PASS_CANONICAL_DOCUMENTATION_V1_LOCK_REAL_APPLY
+NEXT_SAFE_STEP=CANONICAL_DOCUMENTATION_V1_GITHUB_PUSH_REAL_APPLY
