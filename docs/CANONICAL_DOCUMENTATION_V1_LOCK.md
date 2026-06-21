@@ -239,3 +239,87 @@ HAREKAT_SUBAYI_EVOLUTION_CANONICALLY_BOUND_IN_V1
 
 NEXT_BRANCH_CANDIDATE:
 PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION_PLAN_NOAPI
+
+---
+
+## PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION
+
+STATUS=CANONICALLY_BOUND_IN_V1
+BRANCH=PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION
+SCOPE=V1_CAPABILITY_DEVELOPMENT
+ENGINE_TYPE=TRAINING_EXPORT_GPU_ORCHESTRATION
+TRADE_AUTHORITY=false
+AI_AUTHORITY=false
+WALLET_AUTHORITY=false
+AUTO_APPLY=false
+GPU_JOB_LAUNCH=false
+TRAINING_RUN=false
+FILE_TRANSFER=false
+RUNTIME_ENABLED=false
+PANEL_ENABLED=false
+API_ENABLED=false
+
+CONSTITUTION:
+TOKENOSKOBI_CONSTITUTION_V1
+SPEED_NEVER_DOWN=true
+SECURITY_NEVER_DOWN=true
+POWER_NEVER_DOWN=true
+
+DOCTRINE:
+Training improves intelligence.
+Training never blocks execution.
+GPU availability never blocks the live system.
+Learning may advise.
+Learning may not command.
+Risk Engine remains final gate.
+Trade authority remains zero.
+
+FUTURE_PANEL_BUTTON:
+EGITIME_GONDER
+
+FUTURE_COMPONENTS:
+- Training Bundle Builder
+- Sanitization Layer
+- GPU Job Orchestrator
+- Model Registry
+- Learning Ingestion Engine
+- Cost Controller
+- Training Approval Gates
+- Rollback and Model Versioning
+- Constitution Compliance Checks
+- Future War-Mode Compatibility
+
+SECURITY_RULES:
+- no_secrets
+- no_wallet_data
+- no_auth_files
+- no_api_keys
+- no_raw_live_db_export
+- sanitized_training_bundles_only
+
+GPU_RULES:
+- gpu_job_requires_manifest
+- gpu_job_requires_budget
+- gpu_job_requires_user_approval
+- gpu_shutdown_after_training
+- gpu_unavailable_does_not_block_system
+
+LEARNING_INGESTION_RULES:
+- sandbox_first
+- no_direct_live_activation
+- post_audit_required
+- rollback_required
+- human_approval_required
+
+PHASE_CHAIN:
+- PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION_PLAN_NOAPI
+- PHASE46B_TRAINING_EXPORT_SCHEMA_PLAN_NOAPI
+- PHASE46C_TRAINING_EXPORT_TEMPDB_DRYRUN_NOAPI
+- PHASE46D_TRAINING_EXPORT_POST_AUDIT_NOAPI
+- PHASE46E_TRAINING_EXPORT_CANONICAL_BINDING_REAL_APPLY
+
+CANONICAL_RESULT:
+TRAINING_EXPORT_GPU_ORCHESTRATION_CANONICALLY_BOUND_IN_V1
+
+NEXT_BRANCH_CANDIDATE:
+PHASE47_RUNTIME_TRUTH_VERIFIER_PLAN_NOAPI
