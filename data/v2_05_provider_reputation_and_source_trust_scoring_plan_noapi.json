@@ -1,0 +1,134 @@
+{
+  "phase": "V2_05_PROVIDER_REPUTATION_AND_SOURCE_TRUST_SCORING_PLAN_NOAPI",
+  "final_gate": "PASS_V2_05_PROVIDER_REPUTATION_AND_SOURCE_TRUST_SCORING_PLAN_NOAPI",
+  "decision": "PROVIDER_REPUTATION_SOURCE_TRUST_PLAN_ACCEPTED_READY_FOR_COMMIT_PUSH",
+  "utc": "2026-06-23T19:18:28Z",
+  "preconditions": {
+    "v2_04_prosecutor_evidence_request_pushed_verified": true,
+    "v1_status": "CLOSED_VERIFIED_GITHUB_SEALED",
+    "project_status": "TOKENOSKOBI_V1_FINAL_CLOSED"
+  },
+  "core_doctrine": {
+    "source_truth_not_assumed": true,
+    "provider_trust_is_not_single_score": true,
+    "provider_trust_is_contextual": true,
+    "cheap_provider_not_equal_good_provider": true,
+    "fast_provider_not_equal_trusted_provider": true,
+    "many_sources_not_equal_independent_sources": true,
+    "uncertainty_is_not_failure": true,
+    "low_trust_is_not_hard_block": true,
+    "silent_failure_forbidden": true
+  },
+  "trust_score_policy": {
+    "new_provider_default_trust": 0.0,
+    "trust_gain_slow": true,
+    "trust_loss_fast": true,
+    "trust_gain_for_low_value_events_capped": true,
+    "one_tampering_can_zero_trust": true,
+    "evidence_tampering_zeroes_trust": true
+  },
+  "non_recoverable_tampering_policy": {
+    "permanent_ban_for_tampering_no_recovery": true,
+    "recovery_only_for_degraded_quality": true,
+    "evidence_tampering_is_non_recoverable": true,
+    "hash_mismatch_is_non_recoverable": true,
+    "identity_rotation_after_tampering_is_attack": true,
+    "burn_and_churn_after_tampering_blocked": true
+  },
+  "echo_chamber_collusion_guard": {
+    "source_independence_not_assumed": true,
+    "historical_correlation_required": true,
+    "correlated_providers_clustered": true,
+    "echo_chamber_detection_required": true,
+    "cluster_counts_as_one_source": true,
+    "multi_source_corrob_requires_independent_clusters": true
+  },
+  "trust_adjusted_cost_engine": {
+    "trust_adjusted_cost_required": true,
+    "new_provider_virtual_cost_high": true,
+    "cheap_but_low_trust_cannot_win_by_cost_alone": true,
+    "low_trust_provider_requires_extra_corrob": true,
+    "cost_selection_must_consider_trust": true
+  },
+  "spectral_decision_tree": {
+    "binary_trust_forbidden": true,
+    "decision_classes": ["ALLOW", "WATCH", "RECHECK", "ESCALATE", "DOWNRANK", "BLOCK", "PERMABAN", "SHADOW_ONLY"],
+    "permaban_for_evidence_tampering": true
+  },
+  "over_quarantine_guard": {
+    "over_quarantine_guard_required": true,
+    "low_trust_source_can_still_observe": true,
+    "low_trust_source_cannot_decide_alone": true,
+    "correlation_is_suspicion_not_proof": true,
+    "market_break_regime_override_analysis_required": true,
+    "real_breakout_fast_recheck_required": true,
+    "quarantine_must_have_ttl": true,
+    "quarantine_exit_rule_required": true,
+    "confidence_recovery_only_for_degraded_quality": true
+  },
+  "observability": {
+    "explicit_reason_codes_required": true,
+    "silent_failure_forbidden": true,
+    "reason_code_required_for_all_decisions": true,
+    "trace_id_required": true,
+    "would_have_action_required": true,
+    "actual_action_required": true
+  },
+  "shadow_mode": {
+    "shadow_mode_required": true,
+    "shadow_mode_enabled": true,
+    "shadow_mode_does_not_apply_permaban": true,
+    "shadow_mode_does_not_apply_hard_block": true,
+    "shadow_decision_trace_required": true
+  },
+  "feature_freeze": {
+    "feature_freeze_after_v2_05": true,
+    "new_security_rule_addition_after_v2_05_requires_reopen_approval": true,
+    "next_phase_focus": "V2_06_HUNTER_PROSECUTOR_TRUST_ORCHESTRATOR_PLAN_NOAPI"
+  },
+  "authority_locks": {
+    "trade_authority": false,
+    "wallet_authority": false,
+    "live_trade": false,
+    "auto_apply": false,
+    "auto_patch": false,
+    "hard_block_bypass": false,
+    "provider_reputation_cannot_execute": true,
+    "provider_reputation_cannot_create_live_decision": true,
+    "message_bus_live_execution_forbidden": true
+  },
+  "planned_contract": {
+    "path": "data/protocol/provider_reputation_source_trust_v1_contract_plan_noapi.json",
+    "sha": "04cc8bab148bb816d5b117fb1eca200915db77e38de55e4df277639843504b02"
+  },
+  "source_refs": {
+    "current_head": "36bdc2a",
+    "remote_head": "36bdc2a",
+    "ahead_behind": "0 0",
+    "v2_00_sha": "e64dc5976565f4f1d16906898f25df4bc729ff5062bade52612c5d7073ae8096",
+    "v2_00_5_sha": "92704116346b96f19d5ed77148e22b66861117f3185d30177056db43ff3ccb71",
+    "v2_01_sha": "6a5c96b1dd527818b7b9a980e2796b28c590425d3c332c97187b71fabb9070f6",
+    "v2_02_sha": "789f9b823c186ce8180a63a3bfca1f985321fcf8b5b2c4fd5848470b35f726ee",
+    "v2_02a_sha": "d65cc30cc778501e31fe0a229ebed3aa13ec8230a2e99396fd2af3d7fab26525",
+    "v2_03_sha": "c89a1f9e6524e5456964f5d1b217c4b51aabd7fe2a70266baa5040fb6e650675",
+    "v2_04_sha": "c1d2247a03064b6e8e74ab3f081870768ba1d34dc97fcfca7e5c03702f83dc35",
+    "registry_contract_sha": "b8df6b150a2349cdd618f0480168dc8e4f96ef5fa5908a1ba30e847b6c16fe69",
+    "prosecutor_contract_sha": "595d146921e07a7f2d6e8942df25c1fe99c0123b9bb5b3fcc897c5ef67866883"
+  },
+  "protected_state": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "db_sha_changed": false,
+    "panel_sha_changed": false,
+    "protected_diff_empty": true
+  },
+  "db_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "hard_failures": [],
+  "next_safe_step": "COMMIT_PUSH_V2_05_PROVIDER_REPUTATION_AND_SOURCE_TRUST_SCORING_PLAN",
+  "commit_now": false,
+  "push_now": false
+}
