@@ -1,0 +1,95 @@
+{
+  "phase": "V2_02_CMP_V1_MESSAGE_PROTOCOL_PLAN_NOAPI",
+  "final_gate": "PASS_V2_02_CMP_V1_MESSAGE_PROTOCOL_PLAN_NOAPI",
+  "decision": "CMP_V1_MESSAGE_PROTOCOL_PLAN_ACCEPTED_READY_FOR_COMMIT_PUSH",
+  "utc": "2026-06-23T17:51:10Z",
+  "preconditions": {
+    "v2_00_charter_pushed_verified": true,
+    "v2_00_5_v1_frozen_baseline_pushed_verified": true,
+    "v2_01_gray_area_param_registry_pushed_verified": true,
+    "v1_status": "CLOSED_VERIFIED_GITHUB_SEALED",
+    "project_status": "TOKENOSKOBI_V1_FINAL_CLOSED",
+    "v1_baseline_is_reference_only": true,
+    "v2_must_not_mutate_v1_baseline": true
+  },
+  "cmp_v1_design": {
+    "mode": "PLAN_ONLY_NOAPI",
+    "active_runtime_protocol": false,
+    "protocol_name": "CMP_V1",
+    "protocol_role": "TOKENOSKOBI_V2_MESSAGE_NERVOUS_SYSTEM",
+    "flat_header_required": true,
+    "fixed_header_order_required": true,
+    "optional_header_fields_forbidden": true,
+    "nested_hot_path_header_forbidden": true,
+    "payload_type_required": true,
+    "payload_size_bytes_required": true,
+    "unknown_field_policy": "REJECT_MESSAGE",
+    "missing_field_policy": "REJECT_MESSAGE",
+    "fail_closed_on_protocol_violation": true
+  },
+  "hot_path_rules": {
+    "hot_path_file_io_forbidden": true,
+    "per_message_registry_json_parse_forbidden": true,
+    "registry_params_from_read_only_ram_snapshot": true,
+    "fixed_header_parse_first": true,
+    "payload_parse_after_header_validation": true,
+    "max_one_payload_decode_per_message": true,
+    "live_execution_command_forbidden": true
+  },
+  "security_guards": {
+    "ttl_required": true,
+    "cost_quota_required": true,
+    "context_version_required": true,
+    "registry_sha_required": true,
+    "idempotency_required": true,
+    "source_trust_required": true,
+    "evidence_refs_required_for_decision": true,
+    "kill_switch_awareness_required": true,
+    "replay_protection_required": true,
+    "dedup_required": true,
+    "fail_closed_on_validation_error": true,
+    "poison_message_quarantine_required": true
+  },
+  "authority_locks": {
+    "trade_authority": false,
+    "wallet_authority": false,
+    "live_trade": false,
+    "auto_apply": false,
+    "auto_patch": false,
+    "hard_block_bypass": false,
+    "message_bus_live_execution_forbidden": true,
+    "risk_decision_readonly_only": true,
+    "live_execute_payload_forbidden": true,
+    "wallet_payload_forbidden": true,
+    "secret_payload_forbidden": true
+  },
+  "planned_contract": {
+    "path": "data/protocol/cmp_v1_message_protocol_contract_plan_noapi.json",
+    "sha": "a45ca3040b296c4f05802bc11cd8f972951e4b80a1e801212446a23d1154cc34"
+  },
+  "source_refs": {
+    "current_head": "ac5b445",
+    "remote_head": "ac5b445",
+    "ahead_behind": "0 0",
+    "v2_00_sha": "e64dc5976565f4f1d16906898f25df4bc729ff5062bade52612c5d7073ae8096",
+    "v2_00_5_sha": "92704116346b96f19d5ed77148e22b66861117f3185d30177056db43ff3ccb71",
+    "v2_01_sha": "6a5c96b1dd527818b7b9a980e2796b28c590425d3c332c97187b71fabb9070f6",
+    "registry_contract_sha": "b8df6b150a2349cdd618f0480168dc8e4f96ef5fa5908a1ba30e847b6c16fe69"
+  },
+  "protected_state": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "db_sha_changed": false,
+    "panel_sha_changed": false,
+    "protected_diff_empty": true
+  },
+  "db_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "hard_failures": [],
+  "next_safe_step": "COMMIT_PUSH_V2_02_CMP_V1_MESSAGE_PROTOCOL_PLAN",
+  "commit_now": false,
+  "push_now": false
+}
