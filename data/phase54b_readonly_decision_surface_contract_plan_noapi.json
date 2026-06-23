@@ -1,0 +1,320 @@
+{
+  "phase": "PHASE54B_READONLY_DECISION_SURFACE_CONTRACT_PLAN_NOAPI",
+  "timestamp_utc": "2026-06-23T12:03:24.108162+00:00",
+  "final_gate": "PASS_PHASE54B_READONLY_DECISION_SURFACE_CONTRACT_PLAN_NOAPI",
+  "decision": "READONLY_DECISION_SURFACE_CONTRACT_PLAN_ACCEPTED_READY_FOR_PHASE54C_TEMPDB_DRYRUN",
+  "contract": {
+    "contract_name": "READONLY_DECISION_SURFACE_AND_EVIDENCE_BRIDGE_CONTRACT_V1",
+    "phase": "PHASE54B",
+    "authority": "observe_only",
+    "purpose": "Aday token/pair için kanıt, intelligence, memory ve risk çıktılarını tek karar yüzeyinde yetkisiz ve okunabilir göstermeyi planlamak.",
+    "surface_questions": [
+      "Hangi token/pair?",
+      "Giriş var mı?",
+      "Neden?",
+      "Kanıt nerede?",
+      "Engel ne?",
+      "Risk ne?",
+      "SL/TP planı var mı?",
+      "Vur-kaç uygun mu?",
+      "Atış Poligonu sonucu ne?",
+      "Sellability/liquidity uygun mu?",
+      "Gas/slippage sonrası net edge var mı?",
+      "Manuel onay gerekiyor mu?"
+    ],
+    "input_domains": [
+      {
+        "name": "candidate_identity",
+        "required_fields": [
+          "chain_id",
+          "token_address",
+          "pair_address",
+          "symbol",
+          "base_asset",
+          "quote_asset",
+          "source",
+          "first_seen_at",
+          "last_seen_at"
+        ],
+        "meaning": "Hangi token/pair sorusunu cevaplar."
+      },
+      {
+        "name": "risk_gate",
+        "required_fields": [
+          "risk_score",
+          "hard_block",
+          "risk_class",
+          "block_reasons",
+          "sellability_status",
+          "liquidity_status",
+          "tax_status",
+          "owner_deployer_status"
+        ],
+        "meaning": "Engel ve risk sorusunu cevaplar."
+      },
+      {
+        "name": "evidence_bridge",
+        "required_fields": [
+          "evidence_refs",
+          "evidence_count",
+          "evidence_strength",
+          "evidence_age_sec",
+          "prosecutor_verdict",
+          "prosecutor_reason"
+        ],
+        "meaning": "Kanıt nerede ve neden sorusunu cevaplar."
+      },
+      {
+        "name": "intelligence_context",
+        "required_fields": [
+          "background_context",
+          "news_social_context",
+          "launch_context",
+          "telegram_discord_context",
+          "counter_intelligence_flags",
+          "source_trust_score"
+        ],
+        "meaning": "Arka plan bağlamını gösterir; tek başına mahkumiyet veya giriş kararı vermez."
+      },
+      {
+        "name": "memory_context",
+        "required_fields": [
+          "threat_memory_hits",
+          "outcome_memory_hits",
+          "decision_memory_hits",
+          "false_positive_risk",
+          "false_negative_risk",
+          "similar_case_refs"
+        ],
+        "meaning": "Geçmiş benzer olaylardan gelen hafıza bağlamını gösterir."
+      },
+      {
+        "name": "fusion_summary",
+        "required_fields": [
+          "fusion_signal",
+          "confidence",
+          "opportunity_score",
+          "trap_risk",
+          "attack_ready_context",
+          "escape_risk",
+          "why_summary"
+        ],
+        "meaning": "Sinyalleri birleştirir; final risk kararı vermez."
+      },
+      {
+        "name": "execution_plan_readonly",
+        "required_fields": [
+          "entry_plan",
+          "sl_level",
+          "tp1_level",
+          "tp2_level",
+          "tp3_level",
+          "risk_reward",
+          "expected_net_edge_after_costs",
+          "slippage_limit",
+          "quote_ttl_sec"
+        ],
+        "meaning": "SL/TP, risk/reward ve maliyet sonrası beklenen edge görünürlüğü sağlar; execution açmaz."
+      },
+      {
+        "name": "sandbox_and_tactical_context",
+        "required_fields": [
+          "atis_poligonu_status",
+          "shadow_status",
+          "paper_status",
+          "vur_kac_suitability",
+          "simulation_drift",
+          "paper_outcome_refs"
+        ],
+        "meaning": "Atış Poligonu, shadow/paper ve vur-kaç uygunluğunu gösterir."
+      },
+      {
+        "name": "manual_approval",
+        "required_fields": [
+          "manual_approval_required",
+          "approval_reason",
+          "allowed_user_actions",
+          "forbidden_user_actions",
+          "last_gate_status"
+        ],
+        "meaning": "Kullanıcının neyi onaylayabileceğini ve neyin yasak olduğunu gösterir."
+      }
+    ],
+    "display_lanes": [
+      "NO_ENTRY",
+      "WATCH",
+      "SHADOW_CANDIDATE",
+      "PAPER_READY_CONTEXT",
+      "ATTACK_READY_CONTEXT",
+      "VUR_KAC_CONTEXT",
+      "HARD_BLOCK"
+    ],
+    "bridge_rules": [
+      "News/social/Telegram/Discord context cannot convict alone.",
+      "Fusion cannot override Risk Engine.",
+      "Risk hard block is non-overridable by AI.",
+      "No route is shown as actionable without sellability/liquidity visibility.",
+      "No entry context is complete without SL/TP visibility.",
+      "Hot path reads only precomputed/readmodel fields.",
+      "Heavy analysis stays async/deep path.",
+      "Decision surface is observe-only until separately approved phase.",
+      "Manual approval visibility is not execution authority."
+    ],
+    "next_contract_outputs": [
+      "phase54b_readonly_decision_surface_contract_v1.json",
+      "phase54b_evidence_bridge_field_map_v1.json",
+      "phase54b_decision_surface_display_lanes_v1.json",
+      "phase54b_authority_boundary_v1.json"
+    ],
+    "future_phase_candidates": {
+      "phase54c": "READONLY_DECISION_SURFACE_TEMPDB_DRYRUN_NOAPI",
+      "phase54d": "READONLY_DECISION_SURFACE_POST_AUDIT_NOAPI",
+      "phase54e": "READONLY_DECISION_SURFACE_CANONICAL_BINDING_REAL_APPLY_AFTER_APPROVAL"
+    },
+    "authority_boundary": {
+      "db_schema_write": false,
+      "active_panel_write": false,
+      "runtime_enable": false,
+      "service_restart": false,
+      "timer_change": false,
+      "nginx_change": false,
+      "provider_api_call": false,
+      "ai_call": false,
+      "wallet_authority": 0,
+      "signing_authority": 0,
+      "trade_authority": 0,
+      "paper_authority": 0,
+      "live_authority": 0,
+      "auto_apply": 0,
+      "auto_block": 0,
+      "risk_override": 0
+    }
+  },
+  "checks": {
+    "phase54a_pass_context": true,
+    "contract_has_identity": true,
+    "contract_has_risk_gate": true,
+    "contract_has_evidence_bridge": true,
+    "contract_has_memory": true,
+    "contract_has_sl_tp": true,
+    "contract_has_manual_approval": true,
+    "authority_trade_zero": true,
+    "authority_ai_zero": true,
+    "no_db_schema_write": true,
+    "no_panel_write": true,
+    "no_runtime_enable": true,
+    "no_provider_call": true
+  },
+  "db_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "schema_inventory": {
+    "total_objects": 300,
+    "candidate_objects": [
+      "archive_entity_reputation_evidence_events_20260616",
+      "archive_known_wallet_source_registry_readmodel_v1_20260616",
+      "archive_moonshot_memory_events_20260616",
+      "archive_phase41_command_center_score_snapshot_v1_20260616",
+      "archive_phase41_command_center_unified_readmodel_v1_20260616",
+      "archive_phase41_fast_source_agent_dryrun_event_v1_20260616",
+      "archive_phase41_outcome_memory_event_v1_20260616",
+      "archive_phase41_paper_position_lifecycle_v1_20260616",
+      "archive_phase41_provider_fetch_policy_v1_20260616",
+      "archive_phase41_provider_paid_call_reason_ledger_v1_20260616",
+      "archive_phase41_simulation_drift_snapshot_v1_20260616",
+      "archive_risk_budget_profiles_20260616",
+      "archive_risk_gate_events_v1_20260616",
+      "archive_risk_outcome_events_20260616",
+      "archive_risk_route_decision_events_20260616",
+      "archive_risk_state_time_series_v1_20260616",
+      "archive_risk_tier_capital_policy_v1_20260616",
+      "archive_risk_tier_transition_policy_v1_20260616",
+      "archive_risk_to_morgue_transitions_20260616",
+      "archive_state_aggregated_token_decision_labels_v1_20260616",
+      "archive_state_aggregated_token_missing_evidence_v1_20260616",
+      "archive_state_aggregated_token_negative_memory_summary_v1_20260616",
+      "archive_state_aggregated_token_risk_block_reasons_v1_20260616",
+      "archive_state_aggregated_token_technical_evidence_summary_v1_20260616",
+      "archive_wallet_risk_events_20260616",
+      "archive_whale_entity_evidence_events_v1_20260616",
+      "archive_whale_entity_risk_links_v1_20260616",
+      "archive_whale_entity_screen_readmodel_v1_20260616",
+      "autopsy_evidence_events",
+      "command_decision_events_v1",
+      "command_decision_time_series_v1",
+      "data_evidence_policy",
+      "decision_binding_evaluation_events_v1",
+      "decision_binding_rule_policy_v1",
+      "deployer_receipt_evidence_events_v1",
+      "dex_microstructure_technical_evidence_events_v1",
+      "entry_exit_decision_logs",
+      "evidence_event_ledger_v1",
+      "evidence_object_store_v1",
+      "fusion_score_events_v1",
+      "high_risk_tiny_route_events",
+      "initial_holder_evidence_events_v1",
+      "life_gate_decisions",
+      "mev_risk_guard_events",
+      "mev_sandwich_risk_events",
+      "mev_sandwich_risk_events_v1",
+      "morgue_route_decisions",
+      "negative_memory",
+      "negative_memory_guard_events_v1",
+      "negative_memory_lookup_events_v1",
+      "negative_memory_lookup_policy_v1",
+      "news_social_false_negative_memory_links_v1",
+      "news_social_signal_evidence_links_v1",
+      "no_pair_memory",
+      "outcome_memory_events_v1",
+      "outcome_memory_events_v2",
+      "paper_decision_reports",
+      "paper_route_decision_events_v1",
+      "radar_fusion_alert_events",
+      "route_performance_memory_events_v1",
+      "rug_evidence_events",
+      "source_gate_decisions",
+      "state_aggregated_token_readmodel_v1",
+      "token_archive_evidence",
+      "token_risk_events",
+      "token_score_evidence_events",
+      "v_phase41_command_center_latest_status",
+      "v_phase41_paper_outcome_memory_status",
+      "v_phase41_provider_budget_status"
+    ]
+  },
+  "before": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "active_panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "git_head": "9dc2a76",
+    "git_status_before": ""
+  },
+  "after": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "active_panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "git_head": "9dc2a76",
+    "git_status_after": "?? data/phase54b_readonly_decision_surface_contract_plan_noapi_rows.jsonl\n?? docs/phases/phase54/PHASE54B_READONLY_DECISION_SURFACE_CONTRACT_PLAN_NOAPI.md"
+  },
+  "protected_diff": "",
+  "hard_failures": [],
+  "review_notes": [],
+  "outputs": {
+    "report": "/root/tokenoskobi_clean_v1/docs/phases/phase54/PHASE54B_READONLY_DECISION_SURFACE_CONTRACT_PLAN_NOAPI.md",
+    "json": "/root/tokenoskobi_clean_v1/data/phase54b_readonly_decision_surface_contract_plan_noapi.json",
+    "rows": "/root/tokenoskobi_clean_v1/data/phase54b_readonly_decision_surface_contract_plan_noapi_rows.jsonl"
+  },
+  "next_safe_step": "PHASE54C_READONLY_DECISION_SURFACE_TEMPDB_DRYRUN_NOAPI",
+  "noapi_assertions": {
+    "db_schema_write": false,
+    "active_panel_write": false,
+    "runtime_enable": false,
+    "provider_api_call": false,
+    "ai_call": false,
+    "wallet_signing": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "commit_now": false,
+    "push_now": false
+  }
+}
