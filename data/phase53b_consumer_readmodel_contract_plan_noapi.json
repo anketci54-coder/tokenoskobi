@@ -1,0 +1,223 @@
+{
+  "contracts": [
+    {
+      "authority": "OBSERVE_ONLY",
+      "hot_path": "READMODEL_ONLY",
+      "id": "C53B_001",
+      "name": "intelligence_officer_output_readmodel_contract",
+      "purpose": "PHASE52 Intelligence Officer çıktısını karar katmanına yalnızca okunabilir sözleşme olarak taşır.",
+      "writes": "FORBIDDEN"
+    },
+    {
+      "authority": "NO_TRADE_NO_AI_NO_AUTO_BLOCK",
+      "hot_path": "NON_BLOCKING",
+      "id": "C53B_002",
+      "name": "consumer_boundary_contract",
+      "purpose": "Consumer sadece skor/kanıt/gerekçe okur; uygulama veya bloklama yapamaz.",
+      "writes": "FORBIDDEN"
+    },
+    {
+      "authority": "QUEUE_SIGNAL_ONLY",
+      "hot_path": "ASYNC_ONLY",
+      "id": "C53B_003",
+      "name": "async_deep_analysis_handoff_contract",
+      "purpose": "Derin analiz hot path dışında kalır; batch/ray çıktısı ile ilişkilendirilir.",
+      "writes": "PLAN_ONLY"
+    },
+    {
+      "authority": "NO_TOKEN_BY_TOKEN_PROCESS",
+      "hot_path": "BATCH_REQUIRED",
+      "id": "C53B_004",
+      "name": "ray_batch_multichain_identity_contract",
+      "purpose": "Token-by-token akış yasak; multi-chain ray batch kimliği korunur.",
+      "writes": "FORBIDDEN"
+    }
+  ],
+  "final_gate": "PASS_PHASE53B_CONSUMER_READMODEL_CONTRACT_PLAN_NOAPI",
+  "forbidden_after": {
+    "02_MANIFESTO.md": {
+      "exists": true,
+      "path": "02_MANIFESTO.md",
+      "sha256": "ed8e4dab3502856eb002893ce40cdbb85ec7c2333d62d1103b965e4284f6f3ff",
+      "size": 4493
+    },
+    "03_ROADMAP.md": {
+      "exists": true,
+      "path": "03_ROADMAP.md",
+      "sha256": "1e9a0e3c7ee3c8169681191dd0a7bc2e08bc06202c7a34310c61865a4b246666",
+      "size": 17438
+    },
+    "04_ALMANAC.md": {
+      "exists": true,
+      "path": "04_ALMANAC.md",
+      "sha256": "e29fae0e71a5bbe670586c804abedefd48f8db0c5d14086f272f6efb1ea7b6e9",
+      "size": 40133
+    },
+    "05_ATLAS.md": {
+      "exists": true,
+      "path": "05_ATLAS.md",
+      "sha256": "5a95eaa783bda9a5ef504b42722332acd2c3db033bbf3bd5a6ae6b0d093c317d",
+      "size": 20271
+    },
+    "active_panel_8096/current": {
+      "exists": true,
+      "path": "active_panel_8096/current",
+      "type": "dir"
+    },
+    "data/tokenoskobi_clean_v1.sqlite": {
+      "exists": true,
+      "path": "data/tokenoskobi_clean_v1.sqlite",
+      "sha256": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+      "size": 5500928
+    },
+    "docs/canonical/PROJECT_HANDOFF.md": {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_HANDOFF.md",
+      "sha256": "55539bbbd63257af9e0d829b92904393194bd8f11c634de1d89170912702df38",
+      "size": 28159
+    },
+    "docs/canonical/PROJECT_MASTER_STATE.md": {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_MASTER_STATE.md",
+      "sha256": "114942a4e5c5df849e1b99243e8166c1197e88b8c084d1b079699dc7dff28dd5",
+      "size": 227351
+    }
+  },
+  "forbidden_before": {
+    "02_MANIFESTO.md": {
+      "exists": true,
+      "path": "02_MANIFESTO.md",
+      "sha256": "ed8e4dab3502856eb002893ce40cdbb85ec7c2333d62d1103b965e4284f6f3ff",
+      "size": 4493
+    },
+    "03_ROADMAP.md": {
+      "exists": true,
+      "path": "03_ROADMAP.md",
+      "sha256": "1e9a0e3c7ee3c8169681191dd0a7bc2e08bc06202c7a34310c61865a4b246666",
+      "size": 17438
+    },
+    "04_ALMANAC.md": {
+      "exists": true,
+      "path": "04_ALMANAC.md",
+      "sha256": "e29fae0e71a5bbe670586c804abedefd48f8db0c5d14086f272f6efb1ea7b6e9",
+      "size": 40133
+    },
+    "05_ATLAS.md": {
+      "exists": true,
+      "path": "05_ATLAS.md",
+      "sha256": "5a95eaa783bda9a5ef504b42722332acd2c3db033bbf3bd5a6ae6b0d093c317d",
+      "size": 20271
+    },
+    "active_panel_8096/current": {
+      "exists": true,
+      "path": "active_panel_8096/current",
+      "type": "dir"
+    },
+    "data/tokenoskobi_clean_v1.sqlite": {
+      "exists": true,
+      "path": "data/tokenoskobi_clean_v1.sqlite",
+      "sha256": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+      "size": 5500928
+    },
+    "docs/canonical/PROJECT_HANDOFF.md": {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_HANDOFF.md",
+      "sha256": "55539bbbd63257af9e0d829b92904393194bd8f11c634de1d89170912702df38",
+      "size": 28159
+    },
+    "docs/canonical/PROJECT_MASTER_STATE.md": {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_MASTER_STATE.md",
+      "sha256": "114942a4e5c5df849e1b99243e8166c1197e88b8c084d1b079699dc7dff28dd5",
+      "size": 227351
+    }
+  },
+  "forbidden_unchanged": true,
+  "git": {
+    "branch": "main",
+    "expected": "130613e",
+    "head": "130613e"
+  },
+  "hard_failures": [],
+  "not_authorized": [
+    "REAL_APPLY",
+    "DB_WRITE",
+    "RUNTIME_CHANGE",
+    "PANEL_CHANGE",
+    "SERVICE_TIMER_NGINX_CHANGE",
+    "TRADE_AUTHORITY",
+    "WALLET_AUTHORITY",
+    "AI_AUTHORITY",
+    "AUTO_BLOCK",
+    "AUTO_APPLY"
+  ],
+  "phase": "PHASE53B_CONSUMER_READMODEL_CONTRACT_PLAN_NOAPI",
+  "read_docs": [
+    {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_MASTER_STATE.md",
+      "sha256": "114942a4e5c5df849e1b99243e8166c1197e88b8c084d1b079699dc7dff28dd5"
+    },
+    {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_HANDOFF.md",
+      "sha256": "55539bbbd63257af9e0d829b92904393194bd8f11c634de1d89170912702df38"
+    },
+    {
+      "exists": true,
+      "path": "docs/canonical/CANONICAL_V1_INTELLIGENCE_CORE.md",
+      "sha256": "e231043586b95ad54c6d98dfd4854c453c96d2468aba4b963c2613ffa5eb86e9"
+    },
+    {
+      "exists": true,
+      "path": "docs/canonical/MANIFESTO.md",
+      "sha256": "82a82893e5b46e9148a0f939eb14d609783209a47db83c1620de8f881f42277e"
+    },
+    {
+      "exists": true,
+      "path": "03_ROADMAP.md",
+      "sha256": "1e9a0e3c7ee3c8169681191dd0a7bc2e08bc06202c7a34310c61865a4b246666"
+    },
+    {
+      "exists": true,
+      "path": "04_ALMANAC.md",
+      "sha256": "e29fae0e71a5bbe670586c804abedefd48f8db0c5d14086f272f6efb1ea7b6e9"
+    },
+    {
+      "exists": true,
+      "path": "05_ATLAS.md",
+      "sha256": "5a95eaa783bda9a5ef504b42722332acd2c3db033bbf3bd5a6ae6b0d093c317d"
+    },
+    {
+      "exists": true,
+      "path": "docs/governance/DOCUMENT_GOVERNANCE_V1.md",
+      "sha256": "a90d371674601577954b0b66c55e856c3b8115802783a02dc1d3a33cec48070e"
+    },
+    {
+      "exists": true,
+      "path": "docs/phases/phase53/PHASE53A_CANONICAL_SCOPE_AND_GAP_MAP_PLAN_NOAPI.md",
+      "sha256": "8399d24c8ceb9a0963c7439bf1e784a8f4d0fc40d2f9cfe16dcaf7c09be42b6f"
+    },
+    {
+      "exists": true,
+      "path": "data/phase53a_canonical_scope_and_gap_map_plan_noapi.json",
+      "sha256": "e27ce36a48d3d621b47238171b49a91f81b8b9a02599d12d7a34db5af732aee6"
+    }
+  ],
+  "rules": {
+    "head_actual": "130613e",
+    "head_expected": "130613e",
+    "head_ok": true,
+    "no_db_write": true,
+    "no_panel_change": true,
+    "no_real_apply": true,
+    "no_runtime_change": true,
+    "no_service_timer_nginx_change": true,
+    "no_trade_wallet_ai_authority": true,
+    "phase53a_doc_exists": true,
+    "phase53a_json_exists": true,
+    "root_docs_not_updated_now": true
+  },
+  "safe_next_step": "PHASE53C_CONSUMER_READMODEL_CONTRACT_POST_AUDIT_NOAPI",
+  "ts": "2026-06-23T09:45:23.314880+00:00"
+}
