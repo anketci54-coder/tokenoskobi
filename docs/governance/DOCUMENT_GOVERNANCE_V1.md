@@ -96,3 +96,29 @@ Speed never down.
 Security never down.
 Power never down.
 Order never down.
+
+
+<!-- MANIFESTO_STRUCTURE_RULE:START -->
+## MANIFESTO STRUCTURE RULE
+
+MANIFESTO_APPEND_TO_END_FORBIDDEN=true
+
+MANIFESTO_UPDATE_UNDER_EXISTING_HEADINGS=true
+
+MANIFESTO_RANDOM_NEW_SECTION_FORBIDDEN=true
+
+MANIFESTO_PHASE_REPORT_FORBIDDEN=true
+
+MANIFESTO_PASS_REPORT_FORBIDDEN=true
+
+MANIFESTO_NEXT_STEP_FORBIDDEN=true
+
+MANIFESTO_GOVERNANCE_LOG_FORBIDDEN=true
+
+02_MANIFESTO.md must keep the fixed main heading system.
+
+Future additions must be placed under the correct existing heading.
+
+If no existing heading fits, a new main heading requires explicit approval before writing.
+<!-- MANIFESTO_STRUCTURE_RULE:END -->
+
