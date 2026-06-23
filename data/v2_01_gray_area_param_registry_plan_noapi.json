@@ -1,0 +1,105 @@
+{
+  "phase": "V2_01_GRAY_AREA_PARAM_REGISTRY_PLAN_NOAPI",
+  "final_gate": "PASS_V2_01_GRAY_AREA_PARAM_REGISTRY_PLAN_NOAPI",
+  "decision": "GRAY_AREA_PARAM_REGISTRY_PLAN_ACCEPTED_READY_FOR_COMMIT_PUSH",
+  "utc": "2026-06-23T17:44:25Z",
+  "preconditions": {
+    "v2_00_charter_pushed_verified": true,
+    "v2_00_5_v1_frozen_baseline_pushed_verified": true,
+    "v1_status": "CLOSED_VERIFIED_GITHUB_SEALED",
+    "project_status": "TOKENOSKOBI_V1_FINAL_CLOSED",
+    "v1_baseline_is_reference_only": true,
+    "v1_physical_lock_not_applied": true,
+    "v2_must_not_mutate_v1_baseline": true
+  },
+  "registry_design": {
+    "mode": "PLAN_ONLY_NOAPI",
+    "active_runtime_registry": false,
+    "registry_is_black_box": false,
+    "hot_path_file_io_forbidden": true,
+    "per_message_json_parse_forbidden": true,
+    "registry_load_policy": "LOAD_ON_START_OR_EXPLICIT_SAFE_RELOAD_ONLY",
+    "hot_path_access_policy": "READ_ONLY_RAM_SNAPSHOT",
+    "registry_memory_shape": "FLAT_KEY_VALUE_MAP",
+    "mmapped_future_allowed": true,
+    "active_registry_sha_required": true,
+    "active_registry_version_required": true
+  },
+  "registry_families": {
+    "speed_limits": true,
+    "budget_limits": true,
+    "ttl_freshness": true,
+    "source_trust": true,
+    "data_quality": true,
+    "uncertainty_lifetime": true,
+    "analysis_cost_limiter": true,
+    "alpha_priority_bypass": true,
+    "contextual_reset": true,
+    "review_queue_limiter": true,
+    "cmp_v1_message_protocol": true,
+    "outcome_memory_time_decay": true,
+    "kill_switch": true,
+    "authority_locks": true
+  },
+  "authority_locks": {
+    "trade_authority": false,
+    "wallet_authority": false,
+    "live_trade": false,
+    "auto_apply": false,
+    "auto_patch": false,
+    "hard_block_bypass": false,
+    "param_change_requires_human_review": true,
+    "message_bus_live_execution_forbidden": true
+  },
+  "mutation_rules": {
+    "param_change_requires_review": true,
+    "param_change_requires_audit": true,
+    "param_change_requires_commit": true,
+    "param_change_requires_rollback_plan": true,
+    "param_change_cannot_mutate_v1_baseline": true,
+    "param_change_cannot_enable_trade": true,
+    "param_change_cannot_enable_wallet": true,
+    "param_change_cannot_bypass_hard_block": true
+  },
+  "planned_contract": {
+    "path": "data/registry/v2_01_gray_area_param_registry_contract_plan_noapi.json",
+    "sha": "b8df6b150a2349cdd618f0480168dc8e4f96ef5fa5908a1ba30e847b6c16fe69"
+  },
+  "protected_state": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "db_sha_changed": false,
+    "panel_sha_changed": false,
+    "protected_diff_empty": true
+  },
+  "db_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "source_refs": {
+    "current_head": "c42ca3c",
+    "remote_head": "c42ca3c",
+    "ahead_behind": "0 0",
+    "v2_00_sha": "e64dc5976565f4f1d16906898f25df4bc729ff5062bade52612c5d7073ae8096",
+    "v2_00_5_sha": "92704116346b96f19d5ed77148e22b66861117f3185d30177056db43ff3ccb71"
+  },
+  "hard_failures": [],
+  "next_safe_step": "COMMIT_PUSH_V2_01_GRAY_AREA_PARAM_REGISTRY_PLAN",
+  "commit_now": false,
+  "push_now": false,
+  "red_team_pre_commit_bounds_fix": {
+    "applied": true,
+    "reason": "prevent_registry_poisoning_and_hot_path_starvation",
+    "param_bounds_enforced_on_load": true,
+    "missing_min_max_blocks_registry_activation": true,
+    "out_of_bounds_value_blocks_registry_activation": true,
+    "fail_closed_on_bounds_violation": true,
+    "hot_path_uses_validated_ram_snapshot_only": true,
+    "last_good_snapshot_required": true,
+    "rollback_required": true,
+    "planned_param_count": 27,
+    "all_planned_params_have_bounds": true,
+    "updated_registry_contract_sha": "b8df6b150a2349cdd618f0480168dc8e4f96ef5fa5908a1ba30e847b6c16fe69"
+  }
+}
