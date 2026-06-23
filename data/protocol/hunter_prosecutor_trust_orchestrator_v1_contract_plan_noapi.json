@@ -1,0 +1,263 @@
+{
+  "authority_locks": {
+    "auto_apply": false,
+    "auto_patch": false,
+    "hard_block_bypass": false,
+    "live_trade": false,
+    "message_bus_live_execution_forbidden": true,
+    "orchestrator_cannot_create_live_decision": true,
+    "orchestrator_cannot_execute": true,
+    "orchestrator_plan_only": true,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "backpressure_guard": {
+    "backpressure_must_not_block_hunter": true,
+    "backpressure_reason_code_required": true,
+    "bounded_queue_required_for_future_runtime": true,
+    "hunter_ingest_non_blocking_required": true,
+    "hunter_remains_lightweight_under_prosecutor_slowdown": true,
+    "orchestrator_cannot_wait_on_prosecutor_queue_flush": true,
+    "prosecutor_queue_backpressure_guard_required": true,
+    "prosecutor_queue_full_must_route_to_wait_or_shadow_summary": true,
+    "queue_overflow_silent_drop_forbidden": true,
+    "sync_blocking_forbidden": true
+  },
+  "binding_contracts": {
+    "hunter_to_orchestrator": {
+      "evidence_body_forbidden": true,
+      "evidence_refs_only": true,
+      "hunter_alert_cannot_create_decision": true,
+      "input_payload_type": "HUNTER_ALERT_V1"
+    },
+    "orchestrator_to_prosecutor": {
+      "async_evidence_fetch_queue_required": true,
+      "cache_first_evidence_lookup": true,
+      "decision_forbidden_until_evidence_verified": true,
+      "output_payload_type": "PROSECUTOR_EVIDENCE_REQUEST_V1",
+      "prosecutor_main_path_must_not_block_on_evidence_fetch": true
+    },
+    "orchestrator_to_trust": {
+      "read_cluster_id": true,
+      "read_provider_reputation_score": true,
+      "read_reason_code_policy": true,
+      "read_shadow_mode_policy": true,
+      "read_source_trust_score": true,
+      "trust_engine_cannot_execute": true
+    }
+  },
+  "feature_freeze_assertion": {
+    "feature_freeze_after_v2_05_respected": true,
+    "fix2_is_resource_discipline_not_rule_expansion": true,
+    "new_rule_sprawl_forbidden": true,
+    "no_new_mtu_rule_added": true,
+    "no_new_protocol_rule_added": true,
+    "no_new_security_rule_added": true,
+    "no_new_trust_rule_added": true,
+    "orchestrator_is_binding_only": true,
+    "v2_06_focus_is_execution_flow_plan": true
+  },
+  "fix1_note": "precheck_is_semantic_and_does_not_add_new_rules",
+  "fix2_note": "zero_copy_backpressure_trace_volume_and_immutable_trust_snapshot_added_as_orchestrator_resource_discipline_only",
+  "immutable_trust_snapshot_policy": {
+    "snapshot_ref_in_trace_required": true,
+    "transaction_uses_same_trust_snapshot_until_completion": true,
+    "trust_read_immutable_snapshot_required": true,
+    "trust_score_race_condition_guard_required": true,
+    "trust_snapshot_context_version_required": true,
+    "trust_snapshot_id_required": true,
+    "trust_snapshot_market_regime_id_required": true,
+    "trust_snapshot_timestamp_ns_required": true,
+    "trust_update_after_snapshot_does_not_mutate_inflight_decision": true
+  },
+  "main_loop_stages": [
+    {
+      "action": "accept_hunter_alert_reference_only",
+      "backpressure_must_not_block_hunter": true,
+      "calls_ai": false,
+      "calls_provider": false,
+      "hunter_ingest_non_blocking_required": true,
+      "name": "HUNTER_ALERT_INGEST",
+      "source_contract": "HUNTER_ALERT_V1",
+      "stage": 1,
+      "writes_db": false,
+      "writes_live_decision": false,
+      "zero_copy_ref_only": true
+    },
+    {
+      "action": "validate_flat_fixed_cmp_v1_header",
+      "fail_behavior": "REJECT_WITH_REASON_CODE",
+      "name": "CMP_HEADER_VALIDATE",
+      "source_contract": "CMP_V1",
+      "stage": 2,
+      "writes_live_decision": false
+    },
+    {
+      "action": "apply_existing_mtu_ttl_regime_context_checks",
+      "evidence_body_hot_message_allowed": false,
+      "fragmentation_hot_path_allowed": false,
+      "name": "MTU_TTL_REGIME_VALIDATE",
+      "source_contract": "CMP_V1_MTU_FRAGMENTATION_GUARD",
+      "stage": 3,
+      "writes_live_decision": false
+    },
+    {
+      "action": "read_provider_reputation_source_trust_cluster_and_shadow_policy",
+      "name": "TRUST_ENGINE_READ",
+      "source_contract": "PROVIDER_REPUTATION_SOURCE_TRUST_V1",
+      "source_independence_not_assumed": true,
+      "stage": 4,
+      "trust_is_contextual": true,
+      "trust_read_immutable_snapshot_required": true,
+      "trust_snapshot_ref_required": true,
+      "writes_live_decision": false
+    },
+    {
+      "action": "compute_allow_watch_recheck_escalate_downrank_block_permaban_shadow_only_as_would_have_action",
+      "actual_hard_block_forbidden_in_plan": true,
+      "binary_trust_forbidden": true,
+      "name": "SPECTRAL_ROUTE_COMPUTE",
+      "source_contract": "PROVIDER_REPUTATION_SOURCE_TRUST_V1",
+      "stage": 5,
+      "writes_live_decision": false
+    },
+    {
+      "action": "emit_explicit_reason_code_and_trace_record_plan",
+      "allow_watch_trace_summary_only": true,
+      "name": "REASON_TRACE_EMIT",
+      "silent_failure_forbidden": true,
+      "source_contract": "PROVIDER_REPUTATION_SOURCE_TRUST_V1",
+      "stage": 6,
+      "trace_id_required": true,
+      "trace_log_flood_guard_required": true,
+      "trace_verbose_only_for_anomaly": true,
+      "writes_live_decision": false
+    },
+    {
+      "action": "create_prosecutor_evidence_request_reference_only",
+      "cache_miss_cannot_create_decision": true,
+      "name": "PROSECUTOR_ASYNC_REQUEST_ENQUEUE",
+      "orchestrator_cannot_wait_on_prosecutor_queue_flush": true,
+      "prosecutor_queue_backpressure_guard_required": true,
+      "source_contract": "PROSECUTOR_EVIDENCE_REQUEST_V1",
+      "stage": 7,
+      "sync_blocking_forbidden": true,
+      "sync_wait_for_evidence_forbidden": true,
+      "writes_live_decision": false
+    },
+    {
+      "action": "hold_decision_until_evidence_verified",
+      "decision_forbidden_until_evidence_verified": true,
+      "name": "WAIT_EVIDENCE_STATE",
+      "source_contract": "PROSECUTOR_EVIDENCE_REQUEST_V1",
+      "stage": 8,
+      "writes_live_decision": false
+    }
+  ],
+  "mode": "PLAN_ONLY_NOAPI",
+  "non_goals": {
+    "no_ai_call": true,
+    "no_commit_push_in_plan": true,
+    "no_db_schema_write": true,
+    "no_external_api": true,
+    "no_new_protocol_rule": true,
+    "no_new_provider_rule": true,
+    "no_new_trust_rule": true,
+    "no_panel_write": true,
+    "no_provider_fetch": true,
+    "no_runtime_service": true,
+    "no_timer": true,
+    "no_trade": true,
+    "no_wallet": true
+  },
+  "orchestrator_inputs": {
+    "cmp_protocol": "CMP_V1",
+    "hunter_alert_payload": "HUNTER_ALERT_V1",
+    "prosecutor_request_payload": "PROSECUTOR_EVIDENCE_REQUEST_V1",
+    "registry_contract": "v2_01_gray_area_param_registry_contract_plan_noapi",
+    "trust_contract": "provider_reputation_source_trust_v1_contract_plan_noapi"
+  },
+  "orchestrator_resource_non_goals": {
+    "no_cpu_heavy_scoring_inside_orchestrator": true,
+    "no_evidence_body_load": true,
+    "no_heavy_transform": true,
+    "no_live_runtime": true,
+    "no_memory_bound_processing": true,
+    "no_new_mtu_rule": true,
+    "no_new_protocol_rule": true,
+    "no_new_trust_rule": true,
+    "no_payload_copy": true,
+    "no_sync_wait": true,
+    "no_unbounded_log": true,
+    "no_unbounded_queue": true
+  },
+  "purpose": "bind_existing_hunter_prosecutor_trust_contracts_into_observable_main_loop_without_new_rules",
+  "queue_state_plan": {
+    "db_apply_forbidden": true,
+    "live_decision_forbidden": true,
+    "states": [
+      "INGESTED",
+      "CMP_VALIDATED",
+      "TRUST_SCORED",
+      "ROUTED_SHADOW",
+      "PROSECUTOR_REQUEST_QUEUED",
+      "WAIT_EVIDENCE_ASYNC",
+      "EVIDENCE_VERIFIED_READY_FOR_FUTURE_DECISION_REVIEW",
+      "REJECTED_WITH_REASON_CODE"
+    ],
+    "sync_blocking_forbidden": true
+  },
+  "schema": "tokenoskobi_hunter_prosecutor_trust_orchestrator_v1_contract_plan_noapi_v1",
+  "shadow_mode_binding": {
+    "actual_action_in_plan": "ALLOW_OR_WATCH_WITH_TRACE",
+    "shadow_mode_does_not_apply_hard_block": true,
+    "shadow_mode_does_not_apply_permaban": true,
+    "shadow_mode_enabled_from_v2_05": true,
+    "shadow_review_before_enforcement_required": true,
+    "would_have_action_can_be_block_or_permaban": true
+  },
+  "status": "ORCHESTRATOR_PLAN_NOT_ACTIVE_RUNTIME",
+  "trace_contract": {
+    "actual_action_required": true,
+    "cluster_id_required": true,
+    "context_version_required": true,
+    "contract_sha_refs_required": true,
+    "evidence_hash_required": true,
+    "evidence_ref_required": true,
+    "market_regime_id_required": true,
+    "payload_type_required": true,
+    "provider_id_required": true,
+    "reason_code_required": true,
+    "registry_sha_required": true,
+    "silent_failure_forbidden": true,
+    "source_id_required": true,
+    "trace_id_required": true,
+    "would_have_action_required": true
+  },
+  "trace_volume_policy": {
+    "allow_watch_trace_summary_only": true,
+    "reason_code_still_required_for_all_decisions": true,
+    "shadow_mode_trace_summary_for_allow_watch": true,
+    "silent_failure_forbidden": true,
+    "summary_trace_keeps_trace_id_reason_code_actual_and_would_have_action": true,
+    "trace_log_flood_guard_required": true,
+    "trace_verbose_only_for_anomaly": true,
+    "trace_volume_must_not_create_disk_io_bottleneck": true,
+    "verbose_trace_for_anomaly_recheck_escalate": true,
+    "verbose_trace_for_downrank_block_permaban": true
+  },
+  "zero_copy_switch_discipline": {
+    "evidence_body_load_forbidden_by_orchestrator": true,
+    "header_only_touch_required": true,
+    "message_body_copy_forbidden_in_hot_path": true,
+    "orchestrator_is_switch_not_processor": true,
+    "orchestrator_is_zero_copy_required": true,
+    "orchestrator_memory_bound_guard_required": true,
+    "orchestrator_must_not_allocate_unbounded_buffers": true,
+    "orchestrator_must_not_parse_full_evidence_body": true,
+    "orchestrator_must_not_transform_payload_body": true,
+    "orchestrator_per_message_work_bounded": true,
+    "payload_deep_copy_forbidden_in_hot_path": true,
+    "pointer_ref_only_transfer_required": true
+  }
+}
