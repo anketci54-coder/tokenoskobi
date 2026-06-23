@@ -1066,3 +1066,44 @@ PHASE54 resmi olarak kilitlenmeden önce PHASE54A seçim kapısı açılmalıdı
 - PAPER_AUTHORITY=0
 - LIVE_AUTHORITY=0
 <!-- PHASE47_53_ARCHITECTURE_ATLAS_SYNC:END -->
+
+---
+
+## PHASE54 - Readonly Decision Surface and Evidence Bridge
+
+Mimari Rol:
+
+PHASE54, Intelligence Officer Runtime ve Consumer / Readmodel Contract çıktısını observe-only karar yüzeyine bağlar.
+
+Yeni Node:
+
+READONLY_DECISION_SURFACE
+
+Girdi Node’ları:
+
+- INTELLIGENCE_OFFICER_RUNTIME
+- CONSUMER_READMODEL_CONTRACT
+- EVIDENCE_BRIDGE
+- THREAT_MEMORY
+- OUTCOME_MEMORY
+- DECISION_MEMORY
+- PROSECUTOR_ENGINE
+- FUSION_ENGINE
+- RISK_ENGINE
+
+Çıktı Node’ları:
+
+- HUMAN_DECISION_CONTEXT
+- MANUAL_APPROVAL_VISIBILITY
+- SHADOW_CANDIDATE_CONTEXT
+- PAPER_READY_CONTEXT
+- NO_ENTRY_CONTEXT
+- HARD_BLOCK_CONTEXT
+
+Akış:
+
+INTELLIGENCE_OFFICER_RUNTIME -> CONSUMER_READMODEL_CONTRACT -> READONLY_DECISION_SURFACE -> RISK_ENGINE_FINAL_AUTHORITY
+
+Değişmeyen Kural:
+
+Risk Engine final authority olarak kalır. Readonly decision surface karar verir gibi görünmez; sadece kanıt, risk, hafıza, SL/TP bağlamı ve manuel onay görünürlüğü sağlar.

@@ -655,27 +655,26 @@ Consumer/readmodel contract kapandı, push edildi ve remote doğrulandı. PHASE5
 
 ---
 
-PHASE54A - NEXT SCOPE SELECTION
+PHASE54 - READONLY DECISION SURFACE AND EVIDENCE BRIDGE
 
 Kapsam:
 
-PHASE54 kapsam seçim kapısı.
+Evidence, intelligence, threat memory, outcome memory, decision memory, fusion summary, risk gate ve tactical context çıktılarının observe-only karar yüzeyine bağlanması.
 
 Amaç:
 
-PHASE54’ün resmi adını, kapsamını ve sınırlarını seçmek. En güçlü aday yön: READONLY_DECISION_SURFACE_AND_EVIDENCE_BRIDGE.
+Kullanıcıya hangi token, neden, hangi kanıtla, hangi riskle, hangi engelle ve hangi readonly SL/TP bağlamıyla izlenebileceğini tek karar yüzeyinde göstermek.
 
 Sonuç:
 
-PHASE54 henüz roadmap’e kapanmış faz gibi işlenmez. PHASE54 kapandıktan sonra bu dosyaya kapsam, amaç ve sonuç formatıyla ayrıca eklenir.
+Readonly decision surface contract, TempDB dry-run ve post-audit doğrulandı. Hard block bypass edilmedi; social/news tek başına karar üretmedi; SL/TP olmadan entry bağlamı tamamlanmadı; manual approval execution authority olmadı.
 
 ---
-
 BUGÜN NEREDEYİZ
 
 Mevcut durum:
 
-PHASE53=CLOSED_PUSHED_VERIFIED
+PHASE54=CANONICAL_DOC_UPDATE_LOCAL_APPLY
 
 REPO_GOVERNANCE=STABILIZED
 
@@ -687,17 +686,17 @@ AI_AUTHORITY=0
 
 WALLET_SIGNING=DISABLED
 
-CURRENT_HEAD=3417fe8
+CURRENT_HEAD=b6873ec
 
 ---
 
 SONRAKI HEDEF
 
-PHASE54A_CANONICAL_NEXT_SCOPE_SELECTION_PLAN_NOAPI
+PHASE54G_READONLY_DECISION_SURFACE_CANONICAL_DOC_UPDATE_POST_AUDIT_NOAPI
 
 Amaç:
 
-PHASE54 için readonly decision surface ve evidence bridge yönünü kanonik olarak seçmek.
+PHASE54 canonical doc update local apply sonrası post-audit doğrulaması yapmak.
 
 ---
 
