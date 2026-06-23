@@ -1,0 +1,194 @@
+{
+  "phase": "PHASE54C_READONLY_DECISION_SURFACE_TEMPDB_DRYRUN_NOAPI",
+  "timestamp_utc": "2026-06-23T12:14:42.985560+00:00",
+  "final_gate": "PASS_PHASE54C_READONLY_DECISION_SURFACE_TEMPDB_DRYRUN_NOAPI",
+  "decision": "READONLY_DECISION_SURFACE_TEMPDB_DRYRUN_ACCEPTED_READY_FOR_PHASE54D_POST_AUDIT",
+  "tempdb": "/tmp/PHASE54C_READONLY_DECISION_SURFACE_TEMPDB_DRYRUN_NOAPI_20260623_121442/phase54c_tempdb.sqlite",
+  "counts": {
+    "phase54c_candidate_identity_v1": 6,
+    "phase54c_risk_gate_v1": 6,
+    "phase54c_evidence_bridge_v1": 6,
+    "phase54c_intelligence_context_v1": 6,
+    "phase54c_memory_context_v1": 6,
+    "phase54c_fusion_summary_v1": 6,
+    "phase54c_execution_plan_readonly_v1": 6,
+    "phase54c_sandbox_tactical_context_v1": 6,
+    "phase54c_manual_approval_v1": 6,
+    "phase54c_readonly_decision_surface_v1": 6
+  },
+  "lane_counts": {
+    "ATTACK_READY_CONTEXT": 1,
+    "HARD_BLOCK": 1,
+    "NO_ENTRY": 1,
+    "SHADOW_CANDIDATE": 1,
+    "VUR_KAC_CONTEXT": 1,
+    "WATCH": 1
+  },
+  "validation": [
+    {
+      "check": "expected_lane",
+      "decision_id": "case_hard_block_scam",
+      "expected": "HARD_BLOCK",
+      "actual": "HARD_BLOCK",
+      "ok": true
+    },
+    {
+      "check": "expected_lane",
+      "decision_id": "case_watch_social_only",
+      "expected": "WATCH",
+      "actual": "WATCH",
+      "ok": true
+    },
+    {
+      "check": "expected_lane",
+      "decision_id": "case_shadow_candidate",
+      "expected": "SHADOW_CANDIDATE",
+      "actual": "SHADOW_CANDIDATE",
+      "ok": true
+    },
+    {
+      "check": "expected_lane",
+      "decision_id": "case_attack_ready_context",
+      "expected": "ATTACK_READY_CONTEXT",
+      "actual": "ATTACK_READY_CONTEXT",
+      "ok": true
+    },
+    {
+      "check": "expected_lane",
+      "decision_id": "case_vur_kac_context",
+      "expected": "VUR_KAC_CONTEXT",
+      "actual": "VUR_KAC_CONTEXT",
+      "ok": true
+    },
+    {
+      "check": "expected_lane",
+      "decision_id": "case_no_entry_missing_sltp",
+      "expected": "NO_ENTRY",
+      "actual": "NO_ENTRY",
+      "ok": true
+    }
+  ],
+  "surface_preview": [
+    {
+      "decision_id": "case_attack_ready_context",
+      "symbol": "ALPHA",
+      "display_lane": "ATTACK_READY_CONTEXT",
+      "girilir_mi": "SADECE_BAGLAM",
+      "neden": "Attack ready bağlamı var; manuel onay görünürlüğü execution değildir.",
+      "engel": "none",
+      "risk_ozeti": "risk_score=19.0; class=LOW; sell=PASS; liq=PASS",
+      "sl_tp_ozeti": "SL=0.94 TP1=1.1 RR=2.1",
+      "manuel_onay": "required=1; reason=attack context requires human approval",
+      "authority_state": "observe_only; trade=0; ai=0; wallet=0; signing=0; auto_apply=0; auto_block=0"
+    },
+    {
+      "decision_id": "case_hard_block_scam",
+      "symbol": "SCAMX",
+      "display_lane": "HARD_BLOCK",
+      "girilir_mi": "HAYIR",
+      "neden": "Risk hard block var. AI/manual bypass yok.",
+      "engel": "honeypot;sellability_fail;fake_volume",
+      "risk_ozeti": "risk_score=96.0; class=HIGH_RISK; sell=FAIL; liq=WEAK",
+      "sl_tp_ozeti": "SL/TP yok",
+      "manuel_onay": "required=0; reason=hard block cannot be bypassed",
+      "authority_state": "observe_only; trade=0; ai=0; wallet=0; signing=0; auto_apply=0; auto_block=0"
+    },
+    {
+      "decision_id": "case_no_entry_missing_sltp",
+      "symbol": "NOSL",
+      "display_lane": "NO_ENTRY",
+      "girilir_mi": "HAYIR",
+      "neden": "SL/TP olmadan entry bağlamı tamamlanmaz.",
+      "engel": "missing_sl_tp_plan",
+      "risk_ozeti": "risk_score=34.0; class=WATCH; sell=PASS; liq=PASS",
+      "sl_tp_ozeti": "SL/TP yok",
+      "manuel_onay": "required=0; reason=missing SL/TP means no entry",
+      "authority_state": "observe_only; trade=0; ai=0; wallet=0; signing=0; auto_apply=0; auto_block=0"
+    },
+    {
+      "decision_id": "case_shadow_candidate",
+      "symbol": "BASEA",
+      "display_lane": "SHADOW_CANDIDATE",
+      "girilir_mi": "SADECE_SHADOW",
+      "neden": "Shadow izleme uygun.",
+      "engel": "none",
+      "risk_ozeti": "risk_score=28.0; class=LOW; sell=PASS; liq=PASS",
+      "sl_tp_ozeti": "SL=0.93 TP1=1.12 RR=1.7",
+      "manuel_onay": "required=1; reason=young token requires observation",
+      "authority_state": "observe_only; trade=0; ai=0; wallet=0; signing=0; auto_apply=0; auto_block=0"
+    },
+    {
+      "decision_id": "case_vur_kac_context",
+      "symbol": "FAST",
+      "display_lane": "VUR_KAC_CONTEXT",
+      "girilir_mi": "SADECE_BAGLAM",
+      "neden": "Vur-kaç bağlamı var; execution yetkisi yok.",
+      "engel": "none",
+      "risk_ozeti": "risk_score=24.0; class=LOW; sell=PASS; liq=PASS",
+      "sl_tp_ozeti": "SL=0.965 TP1=1.045 RR=1.55",
+      "manuel_onay": "required=1; reason=vur-kac context requires manual approval and fresh quote",
+      "authority_state": "observe_only; trade=0; ai=0; wallet=0; signing=0; auto_apply=0; auto_block=0"
+    },
+    {
+      "decision_id": "case_watch_social_only",
+      "symbol": "HYPE",
+      "display_lane": "WATCH",
+      "girilir_mi": "HAYIR",
+      "neden": "Social/news tek başına karar veremez.",
+      "engel": "insufficient_onchain_evidence",
+      "risk_ozeti": "risk_score=41.0; class=WATCH; sell=UNKNOWN; liq=UNKNOWN",
+      "sl_tp_ozeti": "SL/TP yok",
+      "manuel_onay": "required=0; reason=evidence insufficient",
+      "authority_state": "observe_only; trade=0; ai=0; wallet=0; signing=0; auto_apply=0; auto_block=0"
+    }
+  ],
+  "query_plan": [
+    {
+      "id": 3,
+      "parent": 0,
+      "notused": 0,
+      "detail": "SEARCH phase54c_readonly_decision_surface_v1 USING INDEX idx_p54c_surface_hot (chain_id=? AND token_address=?)"
+    }
+  ],
+  "tempdb_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "live_db_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "before": {
+    "live_db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "active_panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "git_head": "00bd258",
+    "git_status_before": ""
+  },
+  "after": {
+    "live_db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "active_panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "git_head": "00bd258",
+    "git_status_after": "?? data/phase54c_readonly_decision_surface_tempdb_dryrun_noapi_rows.jsonl"
+  },
+  "protected_diff": "",
+  "hard_failures": [],
+  "next_safe_step": "PHASE54D_READONLY_DECISION_SURFACE_POST_AUDIT_NOAPI",
+  "noapi_assertions": {
+    "live_db_write": false,
+    "db_schema_apply": false,
+    "active_panel_write": false,
+    "runtime_enable": false,
+    "service_restart": false,
+    "timer_change": false,
+    "nginx_change": false,
+    "provider_api_call": false,
+    "ai_call": false,
+    "wallet_signing": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "commit_now": false,
+    "push_now": false
+  }
+}
