@@ -1,0 +1,134 @@
+{
+  "checks": {
+    "contracts_complete": true,
+    "forbidden_diff_empty": true,
+    "head_ok": true,
+    "no_commit": true,
+    "no_push": true,
+    "not_authorized_complete": true,
+    "phase53b_doc_exists": true,
+    "phase53b_forbidden_unchanged": true,
+    "phase53b_gate_ok": true,
+    "phase53b_hard_failures_empty": true,
+    "phase53b_json_exists": true,
+    "push_deferred_until_phase53_final": true
+  },
+  "contracts_seen": [
+    {
+      "authority": "OBSERVE_ONLY",
+      "hot_path": "READMODEL_ONLY",
+      "id": "C53B_001",
+      "name": "intelligence_officer_output_readmodel_contract",
+      "purpose": "PHASE52 Intelligence Officer çıktısını karar katmanına yalnızca okunabilir sözleşme olarak taşır.",
+      "writes": "FORBIDDEN"
+    },
+    {
+      "authority": "NO_TRADE_NO_AI_NO_AUTO_BLOCK",
+      "hot_path": "NON_BLOCKING",
+      "id": "C53B_002",
+      "name": "consumer_boundary_contract",
+      "purpose": "Consumer sadece skor/kanıt/gerekçe okur; uygulama veya bloklama yapamaz.",
+      "writes": "FORBIDDEN"
+    },
+    {
+      "authority": "QUEUE_SIGNAL_ONLY",
+      "hot_path": "ASYNC_ONLY",
+      "id": "C53B_003",
+      "name": "async_deep_analysis_handoff_contract",
+      "purpose": "Derin analiz hot path dışında kalır; batch/ray çıktısı ile ilişkilendirilir.",
+      "writes": "PLAN_ONLY"
+    },
+    {
+      "authority": "NO_TOKEN_BY_TOKEN_PROCESS",
+      "hot_path": "BATCH_REQUIRED",
+      "id": "C53B_004",
+      "name": "ray_batch_multichain_identity_contract",
+      "purpose": "Token-by-token akış yasak; multi-chain ray batch kimliği korunur.",
+      "writes": "FORBIDDEN"
+    }
+  ],
+  "final_gate": "PASS_PHASE53C_LOCAL_POST_AUDIT_NOAPI",
+  "forbidden_before": {
+    "02_MANIFESTO.md": {
+      "exists": true,
+      "path": "02_MANIFESTO.md",
+      "sha256": "ed8e4dab3502856eb002893ce40cdbb85ec7c2333d62d1103b965e4284f6f3ff",
+      "size": 4493
+    },
+    "03_ROADMAP.md": {
+      "exists": true,
+      "path": "03_ROADMAP.md",
+      "sha256": "1e9a0e3c7ee3c8169681191dd0a7bc2e08bc06202c7a34310c61865a4b246666",
+      "size": 17438
+    },
+    "04_ALMANAC.md": {
+      "exists": true,
+      "path": "04_ALMANAC.md",
+      "sha256": "e29fae0e71a5bbe670586c804abedefd48f8db0c5d14086f272f6efb1ea7b6e9",
+      "size": 40133
+    },
+    "05_ATLAS.md": {
+      "exists": true,
+      "path": "05_ATLAS.md",
+      "sha256": "5a95eaa783bda9a5ef504b42722332acd2c3db033bbf3bd5a6ae6b0d093c317d",
+      "size": 20271
+    },
+    "active_panel_8096/current": {
+      "exists": true,
+      "path": "active_panel_8096/current",
+      "type": "dir"
+    },
+    "data/tokenoskobi_clean_v1.sqlite": {
+      "exists": true,
+      "path": "data/tokenoskobi_clean_v1.sqlite",
+      "sha256": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+      "size": 5500928
+    },
+    "docs/canonical/PROJECT_HANDOFF.md": {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_HANDOFF.md",
+      "sha256": "55539bbbd63257af9e0d829b92904393194bd8f11c634de1d89170912702df38",
+      "size": 28159
+    },
+    "docs/canonical/PROJECT_MASTER_STATE.md": {
+      "exists": true,
+      "path": "docs/canonical/PROJECT_MASTER_STATE.md",
+      "sha256": "114942a4e5c5df849e1b99243e8166c1197e88b8c084d1b079699dc7dff28dd5",
+      "size": 227351
+    }
+  },
+  "forbidden_diff": "",
+  "git": {
+    "branch": "main",
+    "expected": "58b3397",
+    "head": "58b3397"
+  },
+  "hard_failures": [],
+  "not_authorized_seen": [
+    "AI_AUTHORITY",
+    "AUTO_APPLY",
+    "AUTO_BLOCK",
+    "DB_WRITE",
+    "PANEL_CHANGE",
+    "REAL_APPLY",
+    "RUNTIME_CHANGE",
+    "SERVICE_TIMER_NGINX_CHANGE",
+    "TRADE_AUTHORITY",
+    "WALLET_AUTHORITY"
+  ],
+  "phase": "PHASE53C_CONSUMER_READMODEL_CONTRACT_POST_AUDIT_NOAPI",
+  "phase53b_doc": {
+    "exists": true,
+    "path": "docs/phases/phase53/PHASE53B_CONSUMER_READMODEL_CONTRACT_PLAN_NOAPI.md",
+    "sha256": "46faafabdd7599b85e18e3ff1f02b4663316145deb31975ec8f901c472880688"
+  },
+  "phase53b_json": {
+    "exists": true,
+    "path": "data/phase53b_consumer_readmodel_contract_plan_noapi.json",
+    "sha256": "a62484a03276fdb43d3f4739f61fa5196de26b3ac54c1103456ebafa44011908"
+  },
+  "push_policy": "NO_GIT_PUSH_UNTIL_PHASE53_FINAL",
+  "safe_next_step": "PHASE53D_CONSUMER_READMODEL_CONTRACT_LOCAL_ACCEPTANCE_NOAPI",
+  "ts": "2026-06-23T09:49:44.725764+00:00",
+  "warnings": []
+}
