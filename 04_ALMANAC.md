@@ -1077,89 +1077,89 @@ Bağlandığı alanlar:
 Sonraki bağlantı:
 - Yeni phase kapanışlarında Roadmap, Almanac ve Atlas güncellenir.
 
-### PHASE41 - Command binding / simulation drift / provider policy / canonicalization
+###
 
-Amaç:
-- Command binding / simulation drift / provider policy / canonicalization aşamasını proje roadmap içinde temsil etmek.
+## PHASE41–PHASE53 Chronicle
 
-Sonuç:
-- Engine, phase, pass, panel ve canonical dokümantasyon bağları kilitlendi.
+Bu bölüm PHASE41’den PHASE53’e kadar olan gelişmeleri düzenli tarihçe olarak tutar.
 
-Bağlandığı alanlar:
-- Command Center / Simulation Drift / Provider Policy / Documentation Canonicalization
+Roadmap kapsam / amaç / sonuç anlatır.
 
-Sonraki bağlantı:
-- Yeni phase kapanışlarında Roadmap, Almanac ve Atlas güncellenir.
+Almanac alt basamak, ne yapıldı, sonuç ve yetki durumunu kaydeder.
 
-## CANONICAL UPDATE RULE
-
-- Yeni PASS kapanırsa: 04_ALMANAC.md güncellenir.
-- Yeni PHASE kapanırsa: 03_ROADMAP.md, 04_ALMANAC.md ve 05_ATLAS.md güncellenir.
-- Yeni engine/panel bağı oluşursa: 05_ATLAS.md güncellenir.
-- Doktrin değişirse: 02_MANIFESTO.md güncellenir.
+Ham key=value dump, GitHub logu, local/remote head yığını ve governance operasyon satırları burada tutulmaz.
 
 ---
 
-## PHASE42_UNKNOWN_ANOMALY_ENGINE
+## PHASE41 - Command Binding / Simulation Drift / Provider Policy / Canonicalization
 
-STATUS=CANONICALLY_BOUND_IN_V1
-BRANCH=PHASE42_UNKNOWN_ANOMALY_ENGINE
-SCOPE=V1_CAPABILITY_DEVELOPMENT
-ENGINE_TYPE=UNKNOWN_ANOMALY_DETECTION
-KNOWN_ATTACK_LIBRARY=false
-TRADE_AUTHORITY=false
-AI_AUTHORITY=false
-RUNTIME_ENABLED=false
-PANEL_ENABLED=false
-API_ENABLED=false
+Tarih:
 
-CORE_QUESTION:
-Why does this token behavior not look like normal token life?
+2026-06-10 sonrası.
 
-PHASE_CHAIN:
+Ne Yapıldı:
+
+Command Center readmodel binding, simulation drift, provider budget policy, paper/shadow lifecycle, canonical documentation ve stabilization hatları bir araya getirildi.
+
+Alt Basamaklar:
+
+- PHASE41A_COMMAND_CENTER_SCORE_READMODEL_BINDING_PLAN_NOAPI
+- PHASE41E_PROVIDER_BUDGET_AND_FETCH_POLICY_ROADMAP_PLAN_NOAPI
+- PHASE41_IMPL_02_DB_SCHEMA_REAL_APPLY_POST_AUDIT_NOAPI
+- PHASE41_IMPL_03_COMMAND_CENTER_BINDING_DRYRUN_NOAPI
+- PHASE41_IMPL_08_SHADOW_TO_PAPER_SANDBOX_AFTER_EXPLICIT_APPROVAL
+- PHASE41_STABILIZATION_B_PERFORMANCE_BASELINE_CPU_IO_AUDIT_NOAPI
+
+Sonuç:
+
+Engine, phase, pass, panel ve canonical dokümantasyon bağları kilitlendi. PHASE41, ileri engine fazlarına geçmeden önce komuta merkezi ve dokümantasyon omurgasını toparlayan ana bağlayıcı faz oldu.
+
+Yetki Durumu:
+
+Trade açılmadı. AI authority açılmadı. Wallet/signing açılmadı. Runtime/live execution açılmadı.
+
+---
+
+## PHASE42 - Unknown Anomaly Engine
+
+Tarih:
+
+2026-06-21 / 2026-06-22.
+
+Ne Yapıldı:
+
+Known attack library yaklaşımının tek başına yeterli olmayacağı kabul edildi. Sistem, token davranışının neden normal token yaşamına benzemediğini sorgulayan Unknown Anomaly Engine yönüne geçti.
+
+Alt Basamaklar:
+
 - PHASE42A_UNKNOWN_ANOMALY_ENGINE_ARCHITECTURE_PLAN_NOAPI
 - PHASE42B_UNKNOWN_ANOMALY_ENGINE_SCHEMA_PLAN_NOAPI
 - PHASE42C_UNKNOWN_ANOMALY_ENGINE_TEMPDB_DRYRUN_NOAPI
 - PHASE42D_UNKNOWN_ANOMALY_ENGINE_POST_AUDIT_NOAPI
 - PHASE42E_UNKNOWN_ANOMALY_ENGINE_CANONICAL_BINDING_REAL_APPLY
 
-CANONICAL_RESULT:
-UNKNOWN_ANOMALY_ENGINE_CANONICALLY_BOUND_IN_V1
+Sonuç:
 
-NEXT_BRANCH_CANDIDATE:
-PHASE43_PROSECUTOR_ENGINE
+Unknown Anomaly Engine kanonik olarak V1 kabiliyet hattına bağlandı. Bu faz trade veya AI authority açmadı; sadece anomali şüphesini üreten engine yönünü tanımladı.
+
+Yetki Durumu:
+
+Trade authority yok. AI authority yok. Runtime/panel/API etkinleştirilmedi.
 
 ---
 
-## PHASE43_PROSECUTOR_ENGINE
+## PHASE43 - Prosecutor Engine
 
-STATUS=CANONICALLY_BOUND_IN_V1
-BRANCH=PHASE43_PROSECUTOR_ENGINE
-SCOPE=V1_CAPABILITY_DEVELOPMENT
-ENGINE_TYPE=PROSECUTOR_EVIDENCE_WEIGHING
-TRADE_AUTHORITY=false
-AI_AUTHORITY=false
-RUNTIME_ENABLED=false
-PANEL_ENABLED=false
-API_ENABLED=false
+Tarih:
 
-CORE_QUESTION:
-Why is this token guilty, suspicious, or clean?
+2026-06-21 / 2026-06-22.
 
-DOCTRINE:
-Hunter finds candidates.
-Unknown Anomaly Engine raises suspicion.
-Prosecutor Engine weighs evidence.
+Ne Yapıldı:
 
-VERDICT_CLASSES:
-- CLEAN
-- WATCH
-- SUSPICIOUS
-- HIGH_RISK
-- GUILTY
-- INSUFFICIENT_EVIDENCE
+Unknown Anomaly Engine tarafından üretilen şüphelerin kanıtla tartılması için Prosecutor Engine tasarlandı. Engine, tokenın temiz, izlenecek, şüpheli, yüksek riskli, suçlu veya yetersiz kanıt sınıfında değerlendirilmesi için kanıt tartma katmanı oluşturdu.
 
-PHASE_CHAIN:
+Alt Basamaklar:
+
 - PHASE43_PROSECUTOR_ENGINE_PLAN_NOAPI
 - PHASE43B_PROSECUTOR_ENGINE_SCHEMA_PLAN_NOAPI
 - PHASE43C_PROSECUTOR_ENGINE_TEMPDB_DRYRUN_NOAPI
@@ -1167,62 +1167,28 @@ PHASE_CHAIN:
 - PHASE43E_PROSECUTOR_ENGINE_CANONICAL_BINDING_REAL_APPLY
 - PHASE43E_CANONICAL_BINDING_REPAIR_REAL_APPLY
 
-CANONICAL_RESULT:
-PROSECUTOR_ENGINE_CANONICALLY_BOUND_IN_V1
+Sonuç:
 
-NEXT_BRANCH_CANDIDATE:
-PHASE44_INTELLIGENCE_FUSION_ENGINE
+Prosecutor Engine kanonik olarak V1 kabiliyet hattına bağlandı. Hunter bulur, Unknown Anomaly şüphe üretir, Prosecutor kanıtı tartar doktrini netleşti.
+
+Yetki Durumu:
+
+Trade authority yok. AI authority yok. Runtime/panel/API etkinleştirilmedi.
 
 ---
 
-## PHASE44_INTELLIGENCE_FUSION_ENGINE
+## PHASE44 - Intelligence Fusion Engine
 
-STATUS=CANONICALLY_BOUND_IN_V1
-BRANCH=PHASE44_INTELLIGENCE_FUSION_ENGINE
-SCOPE=V1_CAPABILITY_DEVELOPMENT
-ENGINE_TYPE=INTELLIGENCE_FUSION_FINAL_SIGNAL
-TRADE_AUTHORITY=false
-AI_AUTHORITY=false
-RUNTIME_ENABLED=false
-PANEL_ENABLED=false
-API_ENABLED=false
+Tarih:
 
-CONSTITUTION:
-TOKENOSKOBI_CONSTITUTION_V1
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
+2026-06-21 / 2026-06-22.
 
-DOCTRINE:
-Hunter finds.
-Unknown Anomaly suspects.
-Prosecutor weighs evidence.
-Fusion combines.
-Risk Engine locks final safety decision.
+Ne Yapıldı:
 
-FINAL_FUSION_SIGNAL:
-- GIRILIR_MI
-- NEDEN
-- ENGEL
-- RISK
-- FIRSAT
-- YASAM_EVRESI
-- MANUEL_ONAY_GEREKIR_MI
-- EVIDENCE_REFS
-- CONFIDENCE
-- ROUTE_RECOMMENDATION
+Hunter, Unknown Anomaly, Prosecutor, Risk, lifecycle, social/news ve technical bağlamlarını tek final sinyal yüzeyinde birleştirecek Fusion Engine yönü kuruldu.
 
-GUARDRAILS:
-LATENCY_GUARD=true
-HOT_PATH_NEVER_WAITS=true
-FUSION_PARALLEL_READ_MODEL=true
-OVERFITTING_GUARD=true
-EXPLAINABILITY_REQUIRED=true
-SOCIAL_MANIPULATION_GUARD=true
-NEWS_SOCIAL_CAN_NEVER_CONVICT_ALONE=true
-RISK_ENGINE_FINAL_GATE=true
+Alt Basamaklar:
 
-PHASE_CHAIN:
 - PHASE44A_TOKENOSKOBI_CONSTITUTION_V1_PLAN_NOAPI
 - PHASE44B_INTELLIGENCE_FUSION_ENGINE_PLAN_NOAPI
 - PHASE44C_INTELLIGENCE_FUSION_ENGINE_SCHEMA_PLAN_NOAPI
@@ -1230,536 +1196,302 @@ PHASE_CHAIN:
 - PHASE44E_INTELLIGENCE_FUSION_ENGINE_POST_AUDIT_NOAPI
 - PHASE44F_INTELLIGENCE_FUSION_ENGINE_CANONICAL_BINDING_REAL_APPLY
 
-CANONICAL_RESULT:
-INTELLIGENCE_FUSION_ENGINE_CANONICALLY_BOUND_IN_V1
+Sonuç:
 
-NEXT_BRANCH_CANDIDATE:
-PHASE45_HAREKAT_SUBAYI_EVOLUTION_PLAN_NOAPI
+Fusion Engine kanonik olarak V1 kabiliyet hattına bağlandı. Fusion karar vermez; sinyalleri birleştirir. Risk Engine final güvenlik kapısı olarak kalır.
+
+Yetki Durumu:
+
+Trade authority yok. AI authority yok. Risk bypass yok. Hot path bekletilmedi.
 
 ---
 
-## PHASE45_HAREKAT_SUBAYI_EVOLUTION
+## PHASE45 - Harekât Subayı Evolution
 
-STATUS=CANONICALLY_BOUND_IN_V1
-BRANCH=PHASE45_HAREKAT_SUBAYI_EVOLUTION
-SCOPE=V1_CAPABILITY_DEVELOPMENT
-ENGINE_TYPE=HYBRID_AI_OPERATIONS_OFFICER
-PANEL_ROLE=HAREKAT_SUBAYI
-TRADE_AUTHORITY=false
-AI_AUTHORITY=false
-WALLET_AUTHORITY=false
-AUTO_APPLY=false
-RUNTIME_ENABLED=false
-PANEL_ENABLED=false
-API_ENABLED=false
+Tarih:
 
-CONSTITUTION:
-TOKENOSKOBI_CONSTITUTION_V1
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
+2026-06-22.
 
-DOCTRINE:
-Harekât Subayı observes.
-Harekât Subayı explains.
-Harekât Subayı diagnoses.
-Harekât Subayı proposes.
-Human approves.
-System applies only through approved phases.
-Post-audit verifies.
+Ne Yapıldı:
 
-HYBRID_AI_MODEL:
-- LOCAL_SMALL_AI_FIRST
-- API_FALLBACK_AI_BUDGET_GUARDED
-- TOKEN_BUDGET_REQUIRED
-- DAILY_COST_CEILING_REQUIRED
-- PER_QUESTION_TOKEN_CEILING_REQUIRED
+Panelde kullanıcıya açıklama, teşhis, kök neden, onarım planı, rollback planı, post-audit önerisi ve eğitim aktarımı rehberliği verecek Harekât Subayı rolü tanımlandı.
 
-CORE_CAPABILITIES:
-- panel_chat_explanation
-- runtime_diagnosis
-- root_cause_analysis
-- repair_plan_suggestion
-- paste_run_code_suggestion
-- rollback_plan_suggestion
-- post_audit_suggestion
-- training_export_guidance
+Alt Basamaklar:
 
-TRAINING_EXPORT_BUTTON:
-EGITIME_GONDER
-
-TRAINING_EXPORT_SECURITY:
-- no_secrets
-- no_wallet_data
-- no_auth_files
-- no_api_keys
-- no_raw_live_db_to_gpu
-- sanitized_training_bundles_only
-
-PHASE_CHAIN:
 - PHASE45_HAREKAT_SUBAYI_EVOLUTION_PLAN_NOAPI
 - PHASE45B_HAREKAT_SUBAYI_SCHEMA_PLAN_NOAPI
 - PHASE45C_HAREKAT_SUBAYI_TEMPDB_DRYRUN_NOAPI
 - PHASE45D_HAREKAT_SUBAYI_POST_AUDIT_NOAPI
 - PHASE45E_HAREKAT_SUBAYI_CANONICAL_BINDING_REAL_APPLY
 
-CANONICAL_RESULT:
-HAREKAT_SUBAYI_EVOLUTION_CANONICALLY_BOUND_IN_V1
+Sonuç:
 
-NEXT_BRANCH_CANDIDATE:
-PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION_PLAN_NOAPI
+Harekât Subayı, sistemi yöneten değil açıklayan ve öneren hybrid AI operations officer olarak kanonikleşti. İnsan onayı ve post-audit disiplini korunur.
+
+Yetki Durumu:
+
+Trade authority yok. AI authority yok. Wallet authority yok. Auto apply yok. Runtime/panel/API canlı etkinlik yok.
 
 ---
 
-## PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION
+## PHASE46 - Training Export and GPU Orchestration
 
-STATUS=CANONICALLY_BOUND_IN_V1
-BRANCH=PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION
-SCOPE=V1_CAPABILITY_DEVELOPMENT
-ENGINE_TYPE=TRAINING_EXPORT_GPU_ORCHESTRATION
-TRADE_AUTHORITY=false
-AI_AUTHORITY=false
-WALLET_AUTHORITY=false
-AUTO_APPLY=false
-GPU_JOB_LAUNCH=false
-TRAINING_RUN=false
-FILE_TRANSFER=false
-RUNTIME_ENABLED=false
-PANEL_ENABLED=false
-API_ENABLED=false
+Tarih:
 
-CONSTITUTION:
-TOKENOSKOBI_CONSTITUTION_V1
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
+2026-06-22.
 
-DOCTRINE:
-Training improves intelligence.
-Training never blocks execution.
-GPU availability never blocks the live system.
-Learning may advise.
-Learning may not command.
-Risk Engine remains final gate.
-Trade authority remains zero.
+Ne Yapıldı:
 
-FUTURE_PANEL_BUTTON:
-EGITIME_GONDER
+Eğitime gönderilecek verinin nasıl sanitize edileceği, GPU işlerinin nasıl onaylanacağı, model registry ve training ingestion sınırları planlandı.
 
-FUTURE_COMPONENTS:
-- Training Bundle Builder
-- Sanitization Layer
-- GPU Job Orchestrator
-- Model Registry
-- Learning Ingestion Engine
-- Cost Controller
-- Training Approval Gates
-- Rollback and Model Versioning
-- Constitution Compliance Checks
-- Future War-Mode Compatibility
+Alt Basamaklar:
 
-SECURITY_RULES:
-- no_secrets
-- no_wallet_data
-- no_auth_files
-- no_api_keys
-- no_raw_live_db_export
-- sanitized_training_bundles_only
-
-GPU_RULES:
-- gpu_job_requires_manifest
-- gpu_job_requires_budget
-- gpu_job_requires_user_approval
-- gpu_shutdown_after_training
-- gpu_unavailable_does_not_block_system
-
-LEARNING_INGESTION_RULES:
-- sandbox_first
-- no_direct_live_activation
-- post_audit_required
-- rollback_required
-- human_approval_required
-
-PHASE_CHAIN:
 - PHASE46_TRAINING_EXPORT_AND_GPU_ORCHESTRATION_PLAN_NOAPI
 - PHASE46B_TRAINING_EXPORT_SCHEMA_PLAN_NOAPI
 - PHASE46C_TRAINING_EXPORT_TEMPDB_DRYRUN_NOAPI
 - PHASE46D_TRAINING_EXPORT_POST_AUDIT_NOAPI
 - PHASE46E_TRAINING_EXPORT_CANONICAL_BINDING_REAL_APPLY
 
-CANONICAL_RESULT:
-TRAINING_EXPORT_GPU_ORCHESTRATION_CANONICALLY_BOUND_IN_V1
+Sonuç:
 
-NEXT_BRANCH_CANDIDATE:
-PHASE47_RUNTIME_TRUTH_VERIFIER_PLAN_NOAPI
+Training intelligence iyileştirir ama execution'ı bloke etmez doktrini kanonikleşti. GPU yokluğu canlı sistemi engellemez. Learning önerir, komut vermez.
 
-PHASE47_TOKEN_LIFECYCLE_INTELLIGENCE
-STATUS=CANONICALLY_BOUND_IN_V1
-BRANCH=PHASE47_TOKEN_LIFECYCLE_INTELLIGENCE
-ENGINE_TYPE=TOKEN_LIFECYCLE_INTELLIGENCE
-LIFECYCLE_TRACKING=true
-SANITIZATION_REQUIRED=true
-QUARANTINE_REQUIRED=true
-DISCOVERY_LAG_TRACKING=true
-FAST_READMODEL_REQUIRED=true
-FINAL_GATE=PASS_PHASE47E_TOKEN_LIFECYCLE_POST_AUDIT_NOAPI
+Yetki Durumu:
 
-PHASE48_THREAT_MEMORY_AND_OUTCOME_INTELLIGENCE=CANONICALLY_BOUND
-PHASE48_STATUS=ACTIVE_BRANCH
-NEXT_SAFE_STEP=PHASE48_FINAL_POST_AUDIT_NOAPI
-
-CANONICAL_V1_SCALABILITY_DOCTRINE=ACTIVE
-
-TOKEN_BY_TOKEN_PROCESS=false
-
-RAY_BATCH_REQUIRED=true
-
-MULTI_CHAIN_REQUIRED=true
-
-FULL_ANALYSIS_REQUIRED=true
-
-HOT_PATH_READMODEL_ONLY=true
-
-ASYNC_DEEP_ANALYSIS_REQUIRED=true
-
-TENS_OF_THOUSANDS_TOKEN_SUPPORT_REQUIRED=true
-
-DEX_ROUTER_AWARE_REQUIRED=true
-
-ICO_IDO_AIRDROP_TRACKING_REQUIRED=true
-
-UNISWAP_REQUIRED=true
-PANCAKESWAP_REQUIRED=true
-ONEINCH_REQUIRED=true
-
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
-DENGE_DENGE_DENGE=true
-
-PHASE50_RAY_DECISION_MEMORY_AND_LIFECYCLE_REASONING=CANONICALLY_BOUND
-
-RAY_DECISION_MEMORY_ACTIVE=true
-
-TOKEN_LIFE_CENTER_BINDING=true
-KLINIK=true
-OLAY_YERI=true
-ADLI_SORUSTURMA=true
-OTOPSI=true
-MORG=true
-
-ELIMINATED_TOKEN_FOLLOWUP_REQUIRED=true
-DISCARD_REASON_REQUIRED=true
-POST_DISCARD_OUTCOME_REQUIRED=true
-MISSED_OPPORTUNITY_CANDIDATE=true
-FALSE_NEGATIVE_CANDIDATE=true
-CORRECT_REJECTION_CANDIDATE=true
-
-HOT_PATH_READMODEL_ONLY=true
-TOKEN_BY_TOKEN_PROCESS=false
-RAY_BATCH_REQUIRED=true
-
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
-DENGE_DENGE_DENGE=true
-
-NEXT_SAFE_STEP=PHASE50_FINAL_POST_AUDIT_NOAPI
-
-PHASE51A_100K_MULTI_CHAIN_RAY_STRESS_TATBIKAT=CANONICALLY_BOUND
-
-100K_MULTI_CHAIN_RAY_STRESS_VERIFIED=true
-TOTAL_TOKENS=100000
-CHAIN_COUNT=12
-DEX_COUNT=6
-HOT_PATH_OK=true
-P99_LOOKUP_MS=0.133
-TOKENS_PER_SECOND=177482.83
-LIVE_DB_UNCHANGED=true
-
-TOKEN_BY_TOKEN_PROCESS=false
-RAY_BATCH_REQUIRED=true
-MULTI_CHAIN_REQUIRED=true
-DEX_ROUTER_AWARE_REQUIRED=true
-HOT_PATH_READMODEL_ONLY=true
-
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
-DENGE_DENGE_DENGE=true
-
-NEXT_SAFE_STEP=PHASE51A_FINAL_POST_AUDIT_NOAPI
-
-PHASE51_BACKGROUND_INTELLIGENCE_OFFICER=CANONICALLY_BOUND
-
-BACKGROUND_INTELLIGENCE_OFFICER_ACTIVE=true
-NEWS_MONITORING=true
-SOCIAL_SIGNAL_MONITORING=true
-LAUNCH_RADAR_MONITORING=true
-ICO_IDO_AIRDROP_MONITORING=true
-SCAM_TACTIC_MONITORING=true
-MEV_TACTIC_MONITORING=true
-SANDWICH_TACTIC_MONITORING=true
-RUG_PATTERN_MONITORING=true
-HONEYPOT_PATTERN_MONITORING=true
-DEX_EXPLOIT_MONITORING=true
-COUNTER_INTELLIGENCE_NOTES=true
-
-THREAT_MEMORY_CANDIDATE=true
-OPPORTUNITY_MEMORY_CANDIDATE=true
-DECISION_MEMORY_CANDIDATE=true
-PROSECUTOR_REVIEW_CANDIDATE=true
-FUSION_CONTEXT_CANDIDATE=true
-HAREKAT_SUBAYI_BRIEF=true
-
-HOT_PATH_BLOCKS=false
-RISK_GATE_WEAKENS=false
-NEWS_SOCIAL_CAN_NEVER_CONVICT_ALONE=true
-
-TRADE_AUTHORITY=0
-AI_AUTHORITY=0
-RISK_OVERRIDE=0
-AUTO_POLICY_EDIT=0
-AUTO_BLOCK=0
-AUTO_APPLY=0
-WALLET_AUTHORITY=0
-SIGNING_AUTHORITY=0
-HUMAN_APPROVAL_REQUIRED=true
-
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
-DENGE_DENGE_DENGE=true
-
-NEXT_SAFE_STEP=PHASE51_FINAL_POST_AUDIT_NOAPI
-
-PHASE52_INTELLIGENCE_OFFICER_RUNTIME=CANONICALLY_BOUND
-
-INTELLIGENCE_OFFICER_RUNTIME_ACTIVE=true
-
-SOURCE_LAYER_ACTIVE=true
-COLLECTION_LAYER_ACTIVE=true
-DEDUPLICATION_LAYER_ACTIVE=true
-TRUST_SCORING_LAYER_ACTIVE=true
-CLASSIFICATION_LAYER_ACTIVE=true
-COUNTER_INTELLIGENCE_LAYER_ACTIVE=true
-MEMORY_CANDIDATE_LAYER_ACTIVE=true
-BRIEFING_LAYER_ACTIVE=true
-HUMAN_REVIEW_LAYER_ACTIVE=true
-
-THREAT_MEMORY_BINDING=true
-OPPORTUNITY_MEMORY_BINDING=true
-DECISION_MEMORY_BINDING=true
-PROSECUTOR_BINDING=true
-FUSION_BINDING=true
-HAREKAT_SUBAYI_BINDING=true
-
-NEWS_EVENT_SUPPORT=true
-SOCIAL_EVENT_SUPPORT=true
-SCAM_EVENT_SUPPORT=true
-MEV_EVENT_SUPPORT=true
-SANDWICH_EVENT_SUPPORT=true
-RUG_EVENT_SUPPORT=true
-HONEYPOT_EVENT_SUPPORT=true
-EXPLOIT_EVENT_SUPPORT=true
-LAUNCH_EVENT_SUPPORT=true
-ICO_IDO_AIRDROP_SUPPORT=true
-
-TRADE_AUTHORITY=0
-AI_AUTHORITY=0
-AUTO_BLOCK=0
-AUTO_APPLY=0
-AUTO_POLICY_EDIT=0
-RISK_OVERRIDE=0
-WALLET_AUTHORITY=0
-SIGNING_AUTHORITY=0
-
-HUMAN_APPROVAL_REQUIRED=true
-
-HOT_PATH_BLOCKS=false
-EXECUTION_PATH_TOUCH=false
-
-SPEED_NEVER_DOWN=true
-SECURITY_NEVER_DOWN=true
-POWER_NEVER_DOWN=true
-DENGE_DENGE_DENGE=true
-
-NEXT_SAFE_STEP=PHASE52_FINAL_POST_AUDIT_NOAPI
-
-DOCUMENT_GOVERNANCE_V1=CANONICALLY_BOUND
-DOCUMENT_SINGLE_SOURCE_OF_TRUTH=true
-NO_DUPLICATE_DOCS=true
-NO_MIRROR_DOCS=true
-STRUCTURED_ARCHIVE_REQUIRED=true
-ARCHIVE_IS_NOT_TRASH=true
-ROOT_ONLY_CANONICAL_SUMMARY=true
-PHASE_DIRECTORY_REQUIRED=true
-PHASE_FILES_UNDER_DOCS_PHASES=true
-NO_DELETE_WITHOUT_EXPLICIT_APPROVAL=true
-NO_MASS_MOVE_WITHOUT_DRYRUN_MANIFEST=true
-NEXT_REPO_GOVERNANCE_STEP=REPO_GOVERNANCE_PASS02_REORG_DRYRUN_MANIFEST_NOAPI
-
-PHASE_CLOSE_DOCUMENT_UPDATE_RULE=CANONICALLY_BOUND
-EVERY_PHASE_CLOSE_MUST_UPDATE_MANIFESTO=true
-EVERY_PHASE_CLOSE_MUST_UPDATE_ROADMAP=true
-EVERY_PHASE_CLOSE_MUST_UPDATE_ALMANAC=true
-EVERY_PHASE_CLOSE_MUST_UPDATE_ATLAS=true
-EVERY_PHASE_CLOSE_MUST_UPDATE_PROJECT_MASTER_STATE=true
-EVERY_PHASE_CLOSE_MUST_UPDATE_PROJECT_HANDOFF=true
-EVERY_PHASE_CLOSE_MUST_CREATE_DOCS_PHASE_FOLDER=true
-NO_DUPLICATE_DOCS=true
-DOCUMENT_SINGLE_SOURCE_OF_TRUTH=true
-ARCHIVE_IS_NOT_TRASH=true
-
-<!-- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI:START -->
-## PHASE53 Chronicle
-UTC: 2026-06-23T10:11:18.468969+00:00. PHASE53 established observe-only consumer/readmodel bridge after PHASE52. Push deferred until final tests.
-<!-- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI:END -->
-
-<!-- PHASE47_53_CHRONICLE_SYNC:START -->
-## PHASE47–PHASE53 Chronicle Addendum
-
-Bu bölüm PHASE47’den PHASE53’e kadar olan gelişmeleri tarihsel kayıt olarak tutar.  
-Roadmap kapsam anlatır; Atlas mimari harita çıkarır; Almanac ne zaman ne kapandı, hangi karar alındı ve sistem hangi duruma geçti bunu kaydeder.
+Trade authority yok. AI authority yok. Wallet authority yok. GPU job launch yok. Training run yok. File transfer yok.
 
 ---
 
-### 2026-06-22 — PHASE47 TOKEN_LIFECYCLE_INTELLIGENCE CLOSED
+## PHASE47 - Token Lifecycle Intelligence
 
-**Event:** PHASE47 completed the Token Lifecycle Intelligence layer.
+Tarih:
 
-**Canonical Meaning:** Token artık yalnızca kontrat, fiyat veya anlık fırsat olarak değil; doğum, büyüme, risk, klinik durum, ölüm ve morg süreci olan yaşam nesnesi olarak izlenmeye başlandı.
+2026-06-22.
 
-**Main Additions:** Token birth tracking, liquidity lifecycle awareness, holder distribution awareness, deployer/owner behavior tracking, token clinical state, incident/autopsy/morgue classification.
+Ne Yapıldı:
 
-**Authority Status:** TRADE_AUTHORITY=0, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0, AUTO_APPLY=0, AUTO_BLOCK=0.
+Token yaşam döngüsünü izleyen taxonomy, schema, sanitization, quarantine ve fast readmodel yönleri kuruldu. Token doğum, likidite, holder, deployer, klinik, olay yeri, otopsi ve morg bağlamıyla ele alındı.
 
-**Result:** PHASE47 closed as the lifecycle intelligence foundation.
+Alt Basamaklar:
 
----
+- PHASE47_TOKEN_LIFECYCLE_INTELLIGENCE_FAST_READMODEL_PLAN_NOAPI
+- PHASE47B_TOKEN_LIFECYCLE_EVENT_TAXONOMY_PLAN_NOAPI
+- PHASE47C_TOKEN_LIFECYCLE_SCHEMA_AND_SANITIZATION_PLAN_NOAPI
+- PHASE47D_TOKEN_LIFECYCLE_TEMPDB_DRYRUN_NOAPI
+- PHASE47E_TOKEN_LIFECYCLE_POST_AUDIT_NOAPI
+- PHASE47F_TOKEN_LIFECYCLE_CANONICAL_BINDING_REAL_APPLY
 
-### 2026-06-22 — PHASE48 THREAT_MEMORY_AND_OUTCOME_INTELLIGENCE CLOSED
+Sonuç:
 
-**Event:** PHASE48 completed Threat Memory and Outcome Intelligence.
+Token tekil fırsat değil, yaşam döngüsü olan izlenebilir varlık olarak modellendi.
 
-**Canonical Meaning:** System moved from one-time risk detection toward memory-backed intelligence.
+Yetki Durumu:
 
-**Main Additions:** Threat memory, outcome memory, false positive memory, false negative memory, avoided loss memory, missed opportunity memory, exit failure memory, rug/trap/scam behavior memory.
-
-**Architecture Impact:** Unknown Anomaly Engine, Prosecutor Engine, Fusion Engine, Risk Engine and future Decision Memory gained historical memory context.
-
-**Authority Status:** AI_AUTHORITY=0, RISK_OVERRIDE=0, AUTO_BLOCK=0, TRADE_AUTHORITY=0.
-
-**Result:** PHASE48 closed as historical risk/outcome memory layer.
-
----
-
-### 2026-06-22 — PHASE49 SCALABILITY_AND_RAY_BATCH CLOSED
-
-**Event:** PHASE49 completed scalability and ray/batch doctrine.
-
-**Canonical Meaning:** Token-by-token processing was rejected as the long-term model and ray/batch direction was locked.
-
-**Main Decisions:** TOKEN_BY_TOKEN_PROCESS=false, RAY_BATCH_REQUIRED=true, MULTI_CHAIN_REQUIRED=true, HOT_PATH_READMODEL_ONLY=true, ASYNC_DEEP_ANALYSIS_REQUIRED=true.
-
-**Authority Status:** LIVE_TRADE=disabled, PAPER_TRADE=disabled, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0.
-
-**Result:** PHASE49 closed as scalability and high-throughput doctrine layer.
+Trade açılmadı. Wallet/signing açılmadı. Auto apply yok. Auto block yok.
 
 ---
 
-### 2026-06-22 — PHASE50 RAY_DECISION_MEMORY CLOSED
+## PHASE48 - Threat Memory and Outcome Intelligence
 
-**Event:** PHASE50 completed Ray Decision Memory and lifecycle reasoning direction.
+Tarih:
 
-**Canonical Meaning:** Ray/batch outputs became connected to memory, outcome reasoning and future decision context.
+2026-06-22.
 
-**Main Additions:** Ray decision memory, fusion memory, lifecycle reasoning, opportunity memory, evidence-linked reasoning, threat/outcome feedback.
+Ne Yapıldı:
 
-**Architecture Impact:** PHASE49 scale direction and PHASE48 memory direction were connected.
+Tehdit hafızası, outcome memory, false positive, false negative, avoided loss, missed opportunity ve exit failure gibi geçmiş sonuç katmanları kuruldu.
 
-**Authority Status:** AI final decision authority not opened, Risk Engine bypass not opened, trade execution not opened, auto apply not opened.
+Alt Basamaklar:
 
-**Result:** PHASE50 closed as the decision-memory bridge for ray/batch intelligence.
+- PHASE48_THREAT_MEMORY_AND_OUTCOME_INTELLIGENCE_PLAN_NOAPI
+- PHASE48B_THREAT_MEMORY_SCHEMA_PLAN_NOAPI
+- PHASE48C_THREAT_MEMORY_TEMPDB_DRYRUN_NOAPI
+- PHASE48D_THREAT_MEMORY_POST_AUDIT_NOAPI
+- PHASE48E_THREAT_MEMORY_CANONICAL_BINDING_REAL_APPLY
 
----
+Sonuç:
 
-### 2026-06-22 — PHASE51A 100K_MULTI_CHAIN_RAY_STRESS CLOSED
+Sistem sadece anlık risk bakan yapı olmaktan çıktı; geçmiş sonuçlardan beslenen tehdit ve outcome memory yönü kazandı.
 
-**Event:** PHASE51A completed 100K multi-chain ray stress validation.
+Yetki Durumu:
 
-**Canonical Meaning:** Future high-volume token intelligence must remain batch/ray based and must not block the hot path.
-
-**Main Validated Points:** Multi-chain pressure direction, ray/batch processing, hot path non-blocking doctrine, readmodel-first access, async deep analysis separation, authority boundaries under scale.
-
-**Authority Status:** DB live schema write not opened, runtime trade not opened, wallet/signing not opened, AI authority not opened.
-
-**Result:** PHASE51A closed as high-scale stress doctrine proof.
+AI karar yetkisi açılmadı. Risk override açılmadı. Auto block yok. Trade authority yok.
 
 ---
 
-### 2026-06-22 — PHASE51 BACKGROUND_INTELLIGENCE_OFFICER CLOSED
+## PHASE49 - Scalability and Ray Batch
 
-**Event:** PHASE51 completed Background Intelligence Officer layer.
+Tarih:
 
-**Canonical Meaning:** System gained a background intelligence role that watches opportunity, risk, memory and context without decision authority.
+2026-06-22.
 
-**Main Additions:** Background signal observation, opportunity context monitoring, threat context monitoring, memory linkage, evidence preparation, non-blocking intelligence flow.
+Ne Yapıldı:
 
-**Architecture Impact:** Hunter discovers, Background Intelligence Officer observes and prepares context, Prosecutor validates, Risk Engine decides, Human overrides.
+Token-by-token işlem modelinin uzun vadede uygun olmadığı netleşti. Çok zincirli ray/batch mimarisi, full analysis, DEX/router awareness, ICO/IDO/airdrop kapsamı ve hot path readmodel-only kuralı tanımlandı.
 
-**Authority Status:** Officer cannot trade, auto-block, override risk, or mutate DB/runtime/panel/service.
+Alt Basamaklar:
 
-**Result:** PHASE51 closed as background intelligence officer concept layer.
+- PHASE49A_100_COIN_BURST_RESPONSE_TATBIKAT_TEMPDB_NOAPI
+- PHASE49A_RAY_BATCH_RESPONSE_RECHECK_TEMPDB_NOAPI
+- PHASE49B_RAY_BATCH_AND_FULL_ANALYSIS_SCALABILITY_DOCTRINE_PLAN_NOAPI
+- PHASE49C_SCALABILITY_DOCTRINE_POST_AUDIT_NOAPI
+- PHASE49D_SCALABILITY_DOCTRINE_CANONICAL_BINDING_REAL_APPLY
 
----
+Sonuç:
 
-### 2026-06-22 — PHASE52 INTELLIGENCE_OFFICER_RUNTIME CLOSED AND GITHUB SEALED
+Sistemin ölçek yönü çok zincirli, batch tabanlı, hızlı ama güvenli hale geldi. Ağır analiz async/deep path üzerinde kalacak şekilde ayrıldı.
 
-**Event:** PHASE52 completed and was GitHub sealed.
+Yetki Durumu:
 
-**Canonical Meaning:** Background Intelligence Officer concept became a runtime architecture direction.
-
-**Main Additions:** Observe-only runtime, authority-zero runtime, hot path non-blocking rule, async intelligence preparation, evidence/memory linkage, consumer/readmodel contract requirement.
-
-**Architecture Impact:** PHASE52 created the need for PHASE53 Consumer / Readmodel Contract.
-
-**Authority Status:** TRADE_AUTHORITY=0, AI_AUTHORITY=0, AUTO_APPLY=0, AUTO_BLOCK=0, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0.
-
-**Result:** PHASE52 closed as CLOSED_VERIFIED_GITHUB_SEALED.
+Live trade yok. Paper trade yok. Sınırsız provider/API yok. Wallet/signing yok.
 
 ---
 
-### 2026-06-23 — PHASE53 CONSUMER_READMODEL_CONTRACT CLOSED AND REMOTE VERIFIED
+## PHASE50 - Ray Decision Memory and Lifecycle Reasoning
 
-**Event:** PHASE53 completed, pushed and remote verified.
+Tarih:
 
-**Canonical Meaning:** Intelligence Officer Runtime output gained an observe-only consumer/readmodel contract layer.
+2026-06-22.
 
-**Main Chain:**  
-`PHASE52_INTELLIGENCE_OFFICER_RUNTIME` → `PHASE53_CONSUMER_READMODEL_CONTRACT` → `OBSERVE_ONLY_DECISION_SURFACE`
+Ne Yapıldı:
 
-**Main Substeps:** PHASE53A scope/gap map, PHASE53B contract plan, PHASE53C post-audit, PHASE53D acceptance, PHASE53E closure plan, PHASE53F doc apply, PHASE53G tests, PHASE53H commit, PHASE53I audit, PHASE53J push gate, PHASE53K push, PHASE53L post-push audit, PHASE53M remote seal.
+Ray/batch çıktılarının decision memory, lifecycle reasoning, opportunity memory, eliminated token follow-up ve discard outcome hafızasıyla bağlanması planlandı ve kanonikleştirildi.
 
-**Final Verification:** LOCAL_HEAD=7e482a9, REMOTE_HEAD=7e482a9, AHEAD=0, BEHIND=0, WORKTREE_STATUS=CLEAN, PHASE53_STATUS=CLOSED_PUSHED_VERIFIED.
+Alt Basamaklar:
 
-**Authority Status:** TRADE_AUTHORITY=0, AI_AUTHORITY=0, AUTO_APPLY=0, AUTO_BLOCK=0, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0, PAPER_AUTHORITY=0, LIVE_AUTHORITY=0.
+- PHASE50_RAY_DECISION_MEMORY_AND_LIFECYCLE_REASONING_PLAN_NOAPI
+- PHASE50B_RAY_DECISION_MEMORY_SCHEMA_PLAN_NOAPI
+- PHASE50C_RAY_DECISION_MEMORY_TEMPDB_DRYRUN_NOAPI
+- PHASE50D_RAY_DECISION_MEMORY_POST_AUDIT_NOAPI
+- PHASE50E_RAY_DECISION_MEMORY_CANONICAL_BINDING_REAL_APPLY
 
-**Result:** PHASE53 closed as CLOSED_PUSHED_VERIFIED.
+Sonuç:
 
----
+Ray/batch ölçek mimarisi ile memory/reasoning katmanı birbirine bağlandı. Sistem geçmiş sonuçları karar bağlamına taşıyacak yöne geçti.
 
-### After PHASE53 — Next Canonical Direction
+Yetki Durumu:
 
-**Next Safe Step:** `PHASE54A_CANONICAL_NEXT_SCOPE_SELECTION_PLAN_NOAPI`
-
-**Strongest Candidate Direction:** `READONLY_DECISION_SURFACE_AND_EVIDENCE_BRIDGE`
-
-**Reason:** PHASE52 produced Intelligence Officer Runtime. PHASE53 produced Consumer / Readmodel Contract. The next missing bridge is how intelligence, evidence, threat memory and decision memory become visible to the observe-only decision surface.
-
-**Still Not Authorized:** DB write, runtime change, panel change, service/timer/nginx change, trade authority, wallet authority, signing authority, AI authority, auto apply, auto block.
+AI final decision authority yok. Risk Engine bypass yok. Trade execution yok. Auto apply yok.
 
 ---
 
-**Updated UTC:** `2026-06-23T10:54:33.825445+00:00`
-<!-- PHASE47_53_CHRONICLE_SYNC:END -->
+## PHASE51A - 100K Multi-Chain Ray Stress Tatbikat
+
+Tarih:
+
+2026-06-22.
+
+Ne Yapıldı:
+
+100K token, 12 chain ve 6 DEX varsayımıyla ray/batch stres tatbikatı yapıldı. Hot path, token-by-token yasağı, readmodel-only yaklaşımı ve authority sınırları ölçek altında doğrulandı.
+
+Alt Basamaklar:
+
+- PHASE51A_100K_MULTI_CHAIN_RAY_STRESS_TATBIKAT_TEMPDB_NOAPI
+- PHASE51A_100K_MULTI_CHAIN_RAY_STRESS_POST_AUDIT_NOAPI
+- PHASE51A_100K_MULTI_CHAIN_RAY_STRESS_CANONICAL_BINDING_REAL_APPLY
+- PHASE51A_POST_PUSH_CANONICAL_AUDIT_NOAPI
+
+Sonuç:
+
+100K ölçek tatbikatı ray/batch yönünü doğruladı. Hot path readmodel-only kalmalı, ağır analiz async/deep path üzerinde çalışmalı kuralı güçlendi.
+
+Yetki Durumu:
+
+DB live schema write yok. Runtime trade yok. Wallet/signing yok. AI authority yok.
+
+---
+
+## PHASE51 - Background Intelligence Officer
+
+Tarih:
+
+2026-06-22.
+
+Ne Yapıldı:
+
+Arka planda news, social, launch, ICO/IDO/airdrop, scam tactic, MEV/sandwich/rug/honeypot ve counter-intelligence izleyen Background Intelligence Officer yönü kuruldu.
+
+Alt Basamaklar:
+
+- PHASE51_BACKGROUND_INTELLIGENCE_OFFICER_PLAN_NOAPI
+- PHASE51B_BACKGROUND_INTELLIGENCE_SCHEMA_PLAN_NOAPI
+- PHASE51C_BACKGROUND_INTELLIGENCE_TEMPDB_DRYRUN_NOAPI
+- PHASE51C_BACKGROUND_INTELLIGENCE_TEMPDB_DRYRUN_RECHECK_NOAPI
+- PHASE51D_BACKGROUND_INTELLIGENCE_POST_AUDIT_NOAPI
+- PHASE51E_BACKGROUND_INTELLIGENCE_CANONICAL_BINDING_REAL_APPLY
+
+Sonuç:
+
+Sistem yalnızca aktif sorgu geldiğinde çalışan yapı olmaktan çıktı; arka planda bağlam toplayan, açıklayan ve karar yüzeyine hazırlık yapan istihbarat subayı yönü kazandı.
+
+Yetki Durumu:
+
+Officer trade açamaz. Risk override yapamaz. Auto policy edit yapamaz. Auto block/apply yapamaz. Wallet/signing yok.
+
+---
+
+## PHASE52 - Intelligence Officer Runtime
+
+Tarih:
+
+2026-06-22.
+
+Ne Yapıldı:
+
+Source, collection, deduplication, trust scoring, classification, counter-intelligence, memory candidate, briefing ve human review katmanları olan Intelligence Officer Runtime yönü tanımlandı.
+
+Alt Basamaklar:
+
+- PHASE52_INTELLIGENCE_OFFICER_RUNTIME_ARCHITECTURE_PLAN_NOAPI
+- PHASE52B_INTELLIGENCE_OFFICER_RUNTIME_SCHEMA_PLAN_NOAPI
+- PHASE52C_INTELLIGENCE_OFFICER_TEMPDB_DRYRUN_NOAPI
+- PHASE52D_INTELLIGENCE_OFFICER_POST_AUDIT_NOAPI
+- PHASE52E_INTELLIGENCE_OFFICER_CANONICAL_BINDING_REAL_APPLY
+- PHASE52_POST_PUSH_CANONICAL_AUDIT_NOAPI
+
+Sonuç:
+
+Observe-only, authority-zero ve hot path’i bekletmeyen Intelligence Officer Runtime yönü kanonik hale geldi. PHASE53 consumer/readmodel contract ihtiyacı doğdu.
+
+Yetki Durumu:
+
+Trade authority yok. AI authority yok. Auto block/apply yok. Risk override yok. Wallet/signing yok. Execution path touch yok.
+
+---
+
+## PHASE53 - Consumer / Readmodel Contract
+
+Tarih:
+
+2026-06-23.
+
+Ne Yapıldı:
+
+PHASE52 Intelligence Officer Runtime çıktılarının observe-only consumer/readmodel contract üzerinden karar yüzeyine nasıl taşınacağı belirlendi. Local test, doc apply, push gate, GitHub push, post-push audit ve final remote seal zinciri tamamlandı.
+
+Alt Basamaklar:
+
+- PHASE53A_CANONICAL_SCOPE_AND_GAP_MAP_PLAN_NOAPI
+- PHASE53B_CONSUMER_READMODEL_CONTRACT_PLAN_NOAPI
+- PHASE53C_CONSUMER_READMODEL_CONTRACT_POST_AUDIT_NOAPI
+- PHASE53D_CONSUMER_READMODEL_CONTRACT_LOCAL_ACCEPTANCE_NOAPI
+- PHASE53E_FINAL_PHASE_CLOSURE_DOC_UPDATE_PLAN_NOAPI
+- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI
+- PHASE53G_FINAL_LOCAL_POST_AUDIT_AND_TESTS_NOAPI
+- PHASE53H_LOCAL_COMMIT_PREPARE_NO_PUSH
+- PHASE53I_LOCAL_COMMIT_POST_AUDIT_NOAPI
+- PHASE53J_FINAL_PUSH_APPROVAL_GATE_NOAPI
+- PHASE53K_FINAL_GITHUB_PUSH_AFTER_APPROVAL
+- PHASE53L_POST_PUSH_CANONICAL_AUDIT_NOAPI
+- PHASE53M_FINAL_SEAL_AND_PUSH_LOCAL_RECORDS
+
+Sonuç:
+
+Consumer/readmodel contract kapandı, push edildi ve remote doğrulandı. PHASE53 sonrası doğal eksik halka, evidence ve intelligence çıktılarının readonly decision surface’e bağlanması oldu.
+
+Yetki Durumu:
+
+Trade authority yok. AI authority yok. Auto apply yok. Auto block yok. Wallet/signing yok. Paper/live authority yok.
+
+---
