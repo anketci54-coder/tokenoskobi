@@ -1697,3 +1697,40 @@ PHASE59 Release Candidate and Freeze planına geçilebilir.
 Yetki Durumu:
 
 Yeni engine, runtime, memory, intelligence layer, authority, DB schema apply, active panel write, provider/API call, AI call, trade, wallet/signing ve paper/live trade açılmadı.
+
+---
+
+## PHASE59F - Release Candidate Minor Doc Marker Fix Local Apply
+
+Tarih:
+
+2026-06-23.
+
+Ne Yapıldı:
+
+PHASE59 release candidate içinde kalan provider/external-call minor evidence marker gap canonical dokümana bağlandı.
+
+Bu işlem ürün motoru, yeni runtime, yeni engine veya yeni authority değildir.
+
+Eklenen markerlar:
+
+- PROVIDER_EXTERNAL_EVIDENCE_MARKER_STATUS=MINOR_DOC_FIXED
+- PROVIDER_EXTERNAL_RUNTIME_BLOCKER=0
+- PROVIDER_EXTERNAL_CALL_EXECUTED=0
+- PROVIDER_PAID_CALL_EXECUTED=0
+- PROVIDER_SECRET_READ=0
+- PHASE58_PROVIDER_CLASSIFICATION=MINOR_EVIDENCE_MARKER_GAP_NOT_RUNTIME_BLOCKER
+- PHASE59_RC_CLASSIFICATION=READY_FOR_FREEZE_WITH_MINOR_DOC_MARKER_FIX
+- RC_BLOCKER=0
+
+Koruma:
+
+DB değişmedi.
+
+Active panel değişmedi.
+
+Runtime/service/timer/Nginx/provider/API/AI/secret/trade/wallet/paper-live tarafına dokunulmadı.
+
+Sonraki güvenli adım:
+
+PHASE59G_RELEASE_CANDIDATE_MINOR_DOC_MARKER_FIX_POST_AUDIT_NOAPI
