@@ -344,8 +344,27 @@ NO_DUPLICATE_DOCS=true
 DOCUMENT_SINGLE_SOURCE_OF_TRUTH=true
 ARCHIVE_IS_NOT_TRASH=true
 
-
 <!-- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI:START -->
 ## PHASE53 Consumer / Readmodel Doctrine
 PHASE53 binds PHASE52 Intelligence Officer Runtime output as observe-only consumer/readmodel contract. TRADE_AUTHORITY=0, AI_AUTHORITY=0, AUTO_APPLY=0, AUTO_BLOCK=0, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0 remain closed.
 <!-- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI:END -->
+
+
+<!-- CANONICAL_DOCUMENTATION_DOCTRINE_AFTER_PHASE53:START -->
+## Canonical Documentation Doctrine
+
+ROADMAP_ROOT_ONLY=true  
+ROADMAP_SINGLE_SOURCE=03_ROADMAP.md  
+NO_SECOND_ROADMAP=true  
+CANONICAL_ROADMAP_MD_FORBIDDEN=true  
+
+01_INDEX.md is the root navigation document.  
+02_MANIFESTO.md is the doctrine and permanent decision document.  
+03_ROADMAP.md is the only official roadmap.  
+04_ALMANAC.md is the historical chronicle.  
+05_ATLAS.md is the architecture atlas.  
+docs/canonical/CANONICAL_PHASE_LEDGER.md is the short phase close ledger.
+
+Permanent architectural, doctrine, authority or workflow decisions must be reflected in 02_MANIFESTO.md when they change system behavior.
+<!-- CANONICAL_DOCUMENTATION_DOCTRINE_AFTER_PHASE53:END -->
+

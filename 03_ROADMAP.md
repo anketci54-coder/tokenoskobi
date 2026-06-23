@@ -235,7 +235,6 @@ Her phase/pass kapanisinda:
 01_INDEX.md sadece okuma sirasi degisirse guncellenir.
 02_MANIFESTO.md sadece doktrin degisirse guncellenir.
 
-
 ---
 
 ## PHASE42_UNKNOWN_ANOMALY_ENGINE
@@ -766,8 +765,280 @@ DOCUMENT_SINGLE_SOURCE_OF_TRUTH=true
 NO_DUPLICATE_DOCS=true
 PHASE_FILES_UNDER_DOCS_PHASES=true
 
-
 <!-- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI:START -->
 ## PHASE53 Local Closure Candidate
 PHASE53A=PASS, PHASE53B=PASS, PHASE53C=PASS_LOCAL, PHASE53D=PASS_LOCAL, PHASE53E=PASS_LOCAL, PHASE53F=LOCAL_DOC_APPLY_CANDIDATE. NO_GIT_PUSH_UNTIL_PHASE53_FINAL=true. Safe next: PHASE53G_FINAL_LOCAL_POST_AUDIT_AND_TESTS_NOAPI.
 <!-- PHASE53F_FINAL_CANONICAL_DOC_UPDATE_LOCAL_APPLY_NOAPI:END -->
+
+<!-- PHASE47_53_DETAILED_ROADMAP_SYNC:START -->
+## PHASE47–PHASE53 Detailed Roadmap Addendum
+
+Bu bölüm PHASE47’den PHASE53’e kadar kapanan ileri mimari fazları detaylandırır.  
+Bu dosya root altındaki tek resmi roadmap’tir: `03_ROADMAP.md`.
+
+---
+
+### PHASE47 — TOKEN_LIFECYCLE_INTELLIGENCE
+
+**Durum:** CLOSED
+
+**Amaç:**  
+Token’ın doğumdan ölüme kadar tüm yaşam döngüsünü izleyen istihbarat katmanını kurmak.
+
+**Kapsam:**
+
+- Token doğumu
+- İlk likidite oluşumu
+- İlk holder dağılımı
+- Deployer / owner davranışı
+- Likidite sağlığı
+- Holder yoğunlaşması
+- Whale hareketleri
+- Risk belirtileri
+- Klinik / olay yeri / otopsi / morg sınıfları
+- Token ölüm / terk / rug sonrası kayıt
+
+**Mimari Bağ:**  
+Token Yaşam Merkezi, Risk Güvenlik Merkezi, Onchain Veri Merkezi, Balina Takip Merkezi ve Evidence Engine arasında yaşam döngüsü ilişkisi kuruldu.
+
+**Çıktı:**  
+Token artık tekil işlem fırsatı değil, yaşam döngüsü olan izlenen ve hafızaya alınan bir nesne olarak modellenir.
+
+**Açılmayan Yetkiler:**  
+Trade, wallet, signing, auto-apply, auto-block açılmadı.
+
+---
+
+### PHASE48 — THREAT_MEMORY_AND_OUTCOME_INTELLIGENCE
+
+**Durum:** CLOSED
+
+**Amaç:**  
+Tehditleri, hataları, kaçırılan fırsatları ve geçmiş sonuçları hafızaya almak.
+
+**Kapsam:**
+
+- Threat memory
+- Outcome memory
+- False positive memory
+- False negative memory
+- Avoided loss memory
+- Missed opportunity memory
+- Exit failure memory
+- Rug / trap / scam pattern memory
+- Liquidity failure memory
+- Whale behavior memory
+
+**Mimari Bağ:**  
+Unknown Anomaly Engine, Prosecutor Engine, Risk Engine, Fusion Engine ve Decision Memory hattına geçmiş olay hafızası sağlandı.
+
+**Çıktı:**  
+Sistem “geçmişte buna benzeyen davranış ne sonuç verdi?” sorusunu cevaplayacak hafıza yönüne geçti.
+
+**Açılmayan Yetkiler:**  
+AI karar yetkisi, risk override, auto-block, trade authority açılmadı.
+
+---
+
+### PHASE49 — SCALABILITY_AND_RAY_BATCH
+
+**Durum:** CLOSED
+
+**Amaç:**  
+Tek tek token işleyen hantal yapı yerine, çok zincirli ray/batch tabanlı yüksek ölçekli tarama mimarisini kurmak.
+
+**Kapsam:**
+
+- Token-by-token process reddedildi
+- Ray/batch işlem zorunlu hale getirildi
+- Multi-chain zorunlu hale getirildi
+- Hot path sadece hazır readmodel okuyacak
+- Ağır analiz async / cold / deep path üzerinde çalışacak
+- 12–15 chain yönü korundu
+- DEX / swap / ICO / IDO / airdrop alanları gelecek kapsama alındı
+
+**Mimari Bağ:**  
+Hunter Engine hızlı keşif yapar; Prosecutor Engine doğrular; Risk Engine karar sınırını korur; deep analysis hot path’i bekletmez.
+
+**Çıktı:**  
+Sistemin büyüme yönü çok zincirli, batch tabanlı, hızlı ama güvenli olarak kilitlendi.
+
+**Açılmayan Yetkiler:**  
+Live trade, paper trade, sınırsız provider/API, wallet/signing açılmadı.
+
+---
+
+### PHASE50 — RAY_DECISION_MEMORY
+
+**Durum:** CLOSED
+
+**Amaç:**  
+Ray/batch tarama sonuçlarını karar hafızası ve yaşam döngüsü aklıyla bağlamak.
+
+**Kapsam:**
+
+- Ray decision memory
+- Fusion memory
+- Lifecycle reasoning
+- Opportunity memory
+- Threat/outcome feedback
+- Risk memory
+- Decision trail
+- Evidence-linked reasoning
+
+**Mimari Bağ:**  
+PHASE49 ölçekli ray/batch yapısı ile PHASE48 tehdit/sonuç hafızası bağlandı.
+
+**Çıktı:**  
+Çok zincirli batch sinyallerinin geçmiş sonuç hafızasıyla değerlendirileceği karar hafızası yönü kuruldu.
+
+**Açılmayan Yetkiler:**  
+AI final decision authority, Risk Engine bypass, trade execution, auto-apply açılmadı.
+
+---
+
+### PHASE51A — 100K_MULTI_CHAIN_RAY_STRESS
+
+**Durum:** CLOSED
+
+**Amaç:**  
+Çok zincirli ray/batch mimarisinin yüksek hacimli stres altında ayakta kalıp kalmadığını test etmek.
+
+**Kapsam:**
+
+- Multi-chain batch yaklaşımı
+- Ray tabanlı paralel düşünme
+- Token-by-token işlemden kaçınma
+- Hot path’in beklememesi
+- Readmodel-first yaklaşım
+- Deep analysis’in async kalması
+- Risk ve authority kilitlerinin korunması
+
+**Mimari Bağ:**  
+PHASE49 ölçeklenebilirlik kararları ve PHASE50 karar hafızası stres senaryosu ile doğrulandı.
+
+**Çıktı:**  
+Büyük ölçek için ray/batch mimarisine bağlı kalma kuralı güçlendirildi.
+
+**Açılmayan Yetkiler:**  
+DB live schema değişikliği, runtime live trade, wallet/signing, AI authority açılmadı.
+
+---
+
+### PHASE51 — BACKGROUND_INTELLIGENCE_OFFICER
+
+**Durum:** CLOSED
+
+**Amaç:**  
+Arka planda fırsat, risk, tehdit ve hafıza bağlarını izleyen istihbarat subayı mantığını kurmak.
+
+**Kapsam:**
+
+- Fırsat sinyallerini izlemek
+- Tehdit belirtilerini izlemek
+- Memory/outcome bağlarını toplamak
+- Hunter / Prosecutor / Risk / Fusion katmanları arasındaki sinyal akışını anlamlandırmak
+- Hot path’i bekletmeden arka plan değerlendirmesi yapmak
+
+**Mimari Bağ:**  
+Hunter keşfeder; Background Intelligence Officer bağlam üretir; Prosecutor kanıtlar; Risk Engine karar sınırını korur.
+
+**Çıktı:**  
+Arka plan istihbarat subayı katmanı kanonik hale geldi.
+
+**Açılmayan Yetkiler:**  
+Officer trade kararı veremez, risk override yapamaz, auto-block yapamaz, DB/runtime/panel değiştiremez.
+
+---
+
+### PHASE52 — INTELLIGENCE_OFFICER_RUNTIME
+
+**Durum:** CLOSED_VERIFIED_GITHUB_SEALED
+
+**Amaç:**  
+Background Intelligence Officer mantığını runtime mimarisi seviyesinde netleştirmek.
+
+**Kapsam:**
+
+- Observe-only çalışma
+- Authority zero
+- Hot path’i bekletmeme
+- Readmodel / contract uyumluluğu
+- Evidence ve memory bağlantısı
+- Async değerlendirme
+- Decision surface’e yetkisiz hazırlık
+
+**Mimari Bağ:**  
+PHASE52, PHASE51’in arka plan subayı fikrini runtime seviyesine taşıdı ve PHASE53 consumer/readmodel sözleşmesi ihtiyacını doğurdu.
+
+**Çıktı:**  
+Intelligence Officer Runtime kapandı ve GitHub’da doğrulandı.
+
+**Açılmayan Yetkiler:**  
+TRADE_AUTHORITY=0, AI_AUTHORITY=0, AUTO_APPLY=0, AUTO_BLOCK=0, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0.
+
+---
+
+### PHASE53 — CONSUMER_READMODEL_CONTRACT
+
+**Durum:** CLOSED_PUSHED_VERIFIED
+
+**Amaç:**  
+PHASE52 Intelligence Officer Runtime çıktılarının hangi consumer/readmodel sözleşmesiyle okunacağını belirlemek.
+
+**Kapsam:**
+
+- PHASE53A canonical scope/gap map
+- PHASE53B consumer/readmodel contract plan
+- PHASE53C local post-audit
+- PHASE53D local acceptance
+- PHASE53E closure document update plan
+- PHASE53F canonical document local apply
+- PHASE53G final local post-audit and tests
+- PHASE53H local commit
+- PHASE53I local commit post-audit
+- PHASE53J final push approval gate
+- PHASE53K GitHub push
+- PHASE53L post-push audit
+- PHASE53M final remote seal
+
+**Ana sözleşmeler:**
+
+- Intelligence Officer output readmodel contract
+- Consumer boundary contract
+- Async deep analysis handoff contract
+- Ray batch multi-chain identity contract
+
+**Mimari Bağ:**  
+`PHASE52_INTELLIGENCE_OFFICER_RUNTIME` → `PHASE53_CONSUMER_READMODEL_CONTRACT` → `OBSERVE_ONLY_DECISION_SURFACE`
+
+**Final doğrulama:**
+
+- LOCAL_HEAD=7e482a9
+- REMOTE_HEAD=7e482a9
+- AHEAD=0
+- BEHIND=0
+- WORKTREE_STATUS=CLEAN
+- PHASE53_STATUS=CLOSED_PUSHED_VERIFIED
+
+**Açılmayan Yetkiler:**  
+TRADE_AUTHORITY=0, AI_AUTHORITY=0, AUTO_APPLY=0, AUTO_BLOCK=0, WALLET_AUTHORITY=0, SIGNING_AUTHORITY=0, PAPER_AUTHORITY=0, LIVE_AUTHORITY=0.
+
+---
+
+### PHASE54A — NEXT SCOPE SELECTION
+
+**Durum:** NEXT_SAFE_STEP
+
+**Amaç:**  
+PHASE54’ün resmi adını ve kapsamını kanonik olarak seçmek.
+
+**En güçlü aday:**  
+`READONLY_DECISION_SURFACE_AND_EVIDENCE_BRIDGE`
+
+**Gerekçe:**  
+PHASE52 Intelligence Officer Runtime kapandı. PHASE53 Consumer / Readmodel Contract kapandı. Eksik kalan halka, üretilen intelligence/evidence/threat/memory çıktılarının karar yüzeyine nasıl taşınacağıdır.
+
+**Yetki sınırları:**  
+DB write yok, runtime change yok, panel change yok, service/timer/nginx change yok, trade/wallet/signing yok, AI authority yok, auto-apply yok, auto-block yok.
+<!-- PHASE47_53_DETAILED_ROADMAP_SYNC:END -->

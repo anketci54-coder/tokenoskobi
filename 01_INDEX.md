@@ -22,3 +22,20 @@ Bu klasor projenin tek sade giris kapisidir.
 Gunluk okuma ve karar icin bu 5 dosya esas alinir.
 Eski audit, plan, discovery ve build-history dosyalari canonical degildir.
 
+
+<!-- CANONICAL_ROOT_DOCUMENTS_AFTER_PHASE53:START -->
+## Canonical Root Documents
+
+- 01_INDEX.md — root navigation
+- 02_MANIFESTO.md — doctrine and permanent decisions
+- 03_ROADMAP.md — single official roadmap
+- 04_ALMANAC.md — historical chronicle
+- 05_ATLAS.md — architecture atlas
+- docs/canonical/PROJECT_MASTER_STATE.md — current canonical state
+- docs/canonical/PROJECT_HANDOFF.md — continuation handoff
+- docs/canonical/CANONICAL_PHASE_LEDGER.md — phase close ledger
+
+ROADMAP_SINGLE_SOURCE=03_ROADMAP.md  
+NO_SECOND_ROADMAP=true
+<!-- CANONICAL_ROOT_DOCUMENTS_AFTER_PHASE53:END -->
+
