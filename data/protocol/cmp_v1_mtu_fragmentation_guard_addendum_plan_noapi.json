@@ -1,0 +1,120 @@
+{
+  "schema": "tokenoskobi_cmp_v1_mtu_fragmentation_guard_addendum_plan_noapi_v1",
+  "mode": "PLAN_ONLY_NOAPI",
+  "status": "ADDENDUM_PLAN_NOT_ACTIVE_RUNTIME",
+  "parent_protocol": "CMP_V1",
+  "purpose": "prevent_oversized_payload_truncation_fragmentation_and_hot_path_poisoning",
+  "red_team_finding": {
+    "message_fragmentation_risk": true,
+    "risk": "oversized_payload_or_truncated_payload_can_change_message_meaning_and_poison_deterministic_decision",
+    "truncate_is_forbidden": true,
+    "fragmentation_in_hot_path_is_forbidden": true,
+    "oversized_message_must_not_be_partially_processed": true
+  },
+  "mtu_contract": {
+    "cmp_mtu_bytes_required": true,
+    "cmp_mtu_bytes": 65536,
+    "header_max_bytes_required": true,
+    "header_max_bytes": 1024,
+    "payload_max_bytes_by_type_required": true,
+    "payload_size_bytes_must_match": true,
+    "payload_size_mismatch_policy": "REJECT_MESSAGE",
+    "oversized_header_policy": "REJECT_MESSAGE",
+    "oversized_payload_policy": "REJECT_MESSAGE",
+    "oversized_message_policy": "REJECT_AND_QUARANTINE",
+    "truncate_forbidden": true,
+    "partial_payload_decode_forbidden": true,
+    "fragmentation_forbidden_in_hot_path": true,
+    "reassembly_forbidden_in_hot_path": true,
+    "fail_closed_on_mtu_violation": true
+  },
+  "payload_max_bytes_by_type": {
+    "HUNTER_ALERT_V1": 4096,
+    "PROSECUTOR_EVIDENCE_REQUEST_V1": 4096,
+    "RISK_DECISION_READONLY_V1": 4096,
+    "SIMULATED_DECISION_V1": 4096,
+    "REVIEW_QUEUE_ITEM_V1": 4096,
+    "MARKET_CONTEXT_V1": 8192,
+    "KILL_SWITCH_STATE_V1": 1024,
+    "OUTCOME_MEMORY_EVENT_V1": 8192
+  },
+  "evidence_transport_rule": {
+    "evidence_body_not_in_hot_message": true,
+    "evidence_refs_only_in_hot_message": true,
+    "large_evidence_body_cold_path_only": true,
+    "payload_refs_max_count_required": true,
+    "payload_refs_max_count": 32,
+    "evidence_ref_max_bytes": 128,
+    "raw_html_or_large_json_forbidden_in_hot_payload": true,
+    "secret_material_forbidden_in_payload": true
+  },
+  "protocol_violation_event": {
+    "minimal_event_required": true,
+    "minimal_event_payload_type": "PROTOCOL_VIOLATION_EVENT_V1",
+    "minimal_event_header_only": true,
+    "include_original_payload_body": false,
+    "include_original_message_id": true,
+    "include_violation_reason": true,
+    "include_source_army": true,
+    "include_payload_type": true,
+    "include_declared_payload_size": true,
+    "include_max_allowed_payload_size": true,
+    "include_registry_sha": true,
+    "risk_engine_receives_only_minimal_violation_event": true,
+    "risk_engine_must_not_parse_oversized_payload": true
+  },
+  "validation_order_addendum": [
+    "CHECK_HEADER_MAX_BYTES",
+    "CHECK_CMP_MTU_BYTES",
+    "CHECK_PAYLOAD_TYPE_MAX_BYTES",
+    "CHECK_PAYLOAD_SIZE_BYTES_MATCH",
+    "REJECT_TRUNCATED_PAYLOAD",
+    "REJECT_OVERSIZED_PAYLOAD",
+    "QUARANTINE_OVERSIZED_MESSAGE",
+    "EMIT_MINIMAL_PROTOCOL_VIOLATION_EVENT",
+    "DO_NOT_ROUTE_ORIGINAL_PAYLOAD"
+  ],
+  "quarantine_rule": {
+    "oversized_message_quarantine_required": true,
+    "quarantine_original_payload_body_policy": "HASH_ONLY_OR_COLD_STORAGE_FUTURE",
+    "hot_path_quarantine_body_storage_forbidden": true,
+    "source_trust_penalty_allowed": true,
+    "source_trust_penalty_requires_reason": true,
+    "repeat_violation_can_trigger_source_block_review": true
+  },
+  "authority_locks": {
+    "trade_authority": false,
+    "wallet_authority": false,
+    "live_trade": false,
+    "auto_apply": false,
+    "auto_patch": false,
+    "hard_block_bypass": false,
+    "message_bus_live_execution_forbidden": true,
+    "oversized_message_cannot_become_decision": true
+  },
+  "contract_version": "v1.1_rate_limited_violation_events",
+  "violation_event_rate_limiter": {
+    "protocol_violation_event_rate_limit_required": true,
+    "max_violation_events_per_source_per_sec": 5,
+    "max_global_violation_events_per_sec": 50,
+    "violation_event_aggregation_window_sec": 10,
+    "repeated_violation_summary_event_required": true,
+    "event_spam_coalesce_required": true,
+    "quarantine_continues_even_when_event_suppressed": true,
+    "source_trust_penalty_on_repeated_protocol_violation": true,
+    "source_trust_penalty_requires_reason": true,
+    "repeat_violation_can_trigger_source_block_review": true,
+    "minimal_event_can_be_suppressed_by_rate_limiter": true,
+    "first_violation_event_allowed": true,
+    "summary_event_payload_type": "PROTOCOL_VIOLATION_SUMMARY_EVENT_V1",
+    "summary_event_body_policy": "COUNTERS_ONLY_NO_ORIGINAL_PAYLOAD",
+    "risk_engine_receives_summary_not_spam": true,
+    "hot_path_counter_only_when_rate_limited": true,
+    "fail_closed_payload_reject_remains_active_when_event_suppressed": true
+  },
+  "red_team_rate_limiter_fix": {
+    "finding": "minimal_protocol_violation_events_can_dos_message_bus",
+    "fix": "per_source_and_global_rate_limit_with_coalesced_summary",
+    "applied": true
+  }
+}
