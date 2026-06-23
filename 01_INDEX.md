@@ -39,3 +39,25 @@ ROADMAP_SINGLE_SOURCE=03_ROADMAP.md
 NO_SECOND_ROADMAP=true
 <!-- CANONICAL_ROOT_DOCUMENTS_AFTER_PHASE53:END -->
 
+
+---
+
+## V1 Closure Reading Order
+
+Canonical closure mode reading order:
+
+1. 02_MANIFESTO.md
+2. 03_ROADMAP.md
+3. 05_ATLAS.md
+4. docs/canonical/PROJECT_MASTER_STATE.md
+5. docs/canonical/PROJECT_HANDOFF.md
+6. docs/canonical/CANONICAL_PHASE_LEDGER.md
+7. 04_ALMANAC.md
+
+Current closure path:
+
+PHASE57 -> PHASE58 -> PHASE59 -> PHASE60
+
+Current mode:
+
+CLOSURE_NOT_BUILD

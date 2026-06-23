@@ -1134,3 +1134,27 @@ PHASE59 sonrası yeni engine, yeni mimari, yeni doctrine ve yeni scope yoktur. S
 Authority Kuralı:
 
 Risk Engine final authority olarak kalır. Trade, wallet, signing, paper/live ve AI authority kapalıdır.
+
+---
+
+## V1 Documentation Consolidation Map
+
+Dokümantasyon Akışı:
+
+MANIFESTO -> ROADMAP -> ATLAS -> MASTER_STATE -> HANDOFF -> PHASE_LEDGER -> ALMANAC
+
+Kapanış Akışı:
+
+PHASE57 -> PHASE58 -> PHASE59 -> PHASE60
+
+Audit Bağı:
+
+PHASE57 canonical consolidation sonrası PHASE58 full system read-only audit başlar.
+
+Freeze Bağı:
+
+PHASE59 release candidate and freeze sonrası yeni engine, mimari, doctrine ve scope açılmaz.
+
+Final Seal Bağı:
+
+PHASE60 Tokenoskobi V1 final closure and GitHub seal fazıdır.

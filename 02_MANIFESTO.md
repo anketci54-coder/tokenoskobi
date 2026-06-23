@@ -377,3 +377,39 @@ Kural 8: Sistem amacı fırsat kovalamak değil, kötü fırsatları elemekten b
 Kural 9: Her şey ölçülür.
 
 Kural 10: Her şey sorgulanır.
+
+---
+
+## V1 Closure Doctrine
+
+V1 kapanış hattında odak BUILD değil CLOSURE.
+
+PHASE57 sonrası yeni engine yok.
+
+Yeni runtime yok.
+
+Yeni memory yok.
+
+Yeni intelligence layer yok.
+
+Yeni authority yok.
+
+DB schema apply yok.
+
+Active panel write yok.
+
+Provider/API call yok.
+
+AI call yok.
+
+Trade yok.
+
+Wallet/signing yok.
+
+Paper/live trade yok.
+
+PHASE59 release candidate and freeze sonrası yeni engine, yeni mimari, yeni doctrine ve yeni scope açılmaz. Sadece kritik hata düzeltmesi yapılabilir.
+
+V1 final hedefi:
+
+PHASE60_TOKENOSKOBI_V1_FINAL_CLOSURE_AND_GITHUB_SEAL
