@@ -1,0 +1,123 @@
+{
+  "phase": "V2_04_PROSECUTOR_EVIDENCE_REQUEST_V1_SCHEMA_PLAN_NOAPI",
+  "final_gate": "PASS_V2_04_PROSECUTOR_EVIDENCE_REQUEST_V1_SCHEMA_PLAN_NOAPI",
+  "decision": "PROSECUTOR_EVIDENCE_REQUEST_V1_SCHEMA_PLAN_ACCEPTED_READY_FOR_COMMIT_PUSH",
+  "utc": "2026-06-23T18:57:06Z",
+  "preconditions": {
+    "v2_00_charter_pushed_verified": true,
+    "v2_00_5_v1_frozen_baseline_pushed_verified": true,
+    "v2_01_registry_pushed_verified": true,
+    "v2_02_cmp_v1_pushed_verified": true,
+    "v2_02a_mtu_guard_pushed_verified": true,
+    "v2_03_hunter_alert_v1_pushed_verified": true,
+    "v1_status": "CLOSED_VERIFIED_GITHUB_SEALED",
+    "project_status": "TOKENOSKOBI_V1_FINAL_CLOSED"
+  },
+  "prosecutor_evidence_request_v1": {
+    "payload_type": "PROSECUTOR_EVIDENCE_REQUEST_V1",
+    "source_army": "PROSECUTOR_ARMY",
+    "target_component": "EVIDENCE_RUNTIME_READONLY_ADAPTER",
+    "flat_payload_required": true,
+    "payload_max_bytes": 4096,
+    "evidence_body_forbidden": true,
+    "evidence_refs_only": true,
+    "secret_material_forbidden": true,
+    "live_execution_payload_forbidden": true
+  },
+  "cache_first_async_fetch": {
+    "cache_first_evidence_lookup": true,
+    "evidence_cache_key_required": true,
+    "evidence_cache_lookup_first": true,
+    "evidence_cache_hash_verify_required": true,
+    "async_evidence_fetch_queue_required": true,
+    "prosecutor_no_sync_wait_on_cache_miss": true,
+    "prosecutor_main_path_must_not_block_on_evidence_fetch": true,
+    "wait_evidence_async_state_required": true,
+    "pending_evidence_ttl_required": true,
+    "pending_evidence_ttl_sec": 30,
+    "stale_evidence_pending_quarantine_required": true,
+    "decision_forbidden_until_evidence_verified": true,
+    "cache_miss_cannot_create_decision": true,
+    "async_fetch_failure_cannot_create_decision": true
+  },
+  "evidence_integrity": {
+    "evidence_id_required": true,
+    "evidence_hash_required": true,
+    "evidence_hash_algorithm": "SHA256",
+    "evidence_ref_hash_check_required": true,
+    "prosecutor_must_recompute_evidence_hash_on_fetch": true,
+    "evidence_fetch_result_must_recheck_hash": true,
+    "evidence_hash_mismatch_is_tampering": true,
+    "evidence_tampering_is_not_protocol_violation": true,
+    "evidence_tampering_class": "EVIDENCE_TAMPERING"
+  },
+  "temporal_revalidation": {
+    "request_time_ns_required": true,
+    "hunter_event_time_ns_required": true,
+    "market_regime_id_required": true,
+    "context_version_required": true,
+    "evidence_fetch_result_must_recheck_regime_id": true,
+    "evidence_fetch_result_must_recheck_context_version": true,
+    "evidence_fetch_result_must_recheck_ttl": true,
+    "stale_message_quarantine_required": true
+  },
+  "trust_cost_reputation_handoff": {
+    "source_trust_score_required": true,
+    "provider_id_required": true,
+    "provider_reputation_score_required": true,
+    "trust_adjusted_cost_units_required": true,
+    "cheap_but_low_trust_cannot_win_by_cost_alone": true,
+    "provider_reputation_update_candidate_required": true,
+    "v2_05_provider_reputation_layer_required": true,
+    "provider_reputation_next_phase": "V2_05_PROVIDER_REPUTATION_AND_SOURCE_TRUST_SCORING_PLAN_NOAPI"
+  },
+  "authority_locks": {
+    "trade_authority": false,
+    "wallet_authority": false,
+    "live_trade": false,
+    "auto_apply": false,
+    "auto_patch": false,
+    "hard_block_bypass": false,
+    "prosecutor_evidence_request_cannot_create_decision": true,
+    "decision_forbidden_until_evidence_verified": true,
+    "cache_miss_cannot_create_decision": true,
+    "async_fetch_failure_cannot_create_decision": true,
+    "evidence_tampering_cannot_create_decision": true,
+    "message_bus_live_execution_forbidden": true
+  },
+  "planned_contract": {
+    "path": "data/protocol/prosecutor_evidence_request_v1_schema_contract_plan_noapi.json",
+    "sha": "595d146921e07a7f2d6e8942df25c1fe99c0123b9bb5b3fcc897c5ef67866883"
+  },
+  "source_refs": {
+    "current_head": "add74f7",
+    "remote_head": "add74f7",
+    "ahead_behind": "0 0",
+    "v2_00_sha": "e64dc5976565f4f1d16906898f25df4bc729ff5062bade52612c5d7073ae8096",
+    "v2_00_5_sha": "92704116346b96f19d5ed77148e22b66861117f3185d30177056db43ff3ccb71",
+    "v2_01_sha": "6a5c96b1dd527818b7b9a980e2796b28c590425d3c332c97187b71fabb9070f6",
+    "v2_02_sha": "789f9b823c186ce8180a63a3bfca1f985321fcf8b5b2c4fd5848470b35f726ee",
+    "v2_02a_sha": "d65cc30cc778501e31fe0a229ebed3aa13ec8230a2e99396fd2af3d7fab26525",
+    "v2_03_sha": "c89a1f9e6524e5456964f5d1b217c4b51aabd7fe2a70266baa5040fb6e650675",
+    "cmp_contract_sha": "a45ca3040b296c4f05802bc11cd8f972951e4b80a1e801212446a23d1154cc34",
+    "mtu_contract_sha": "ebbfc50b756edcc182614649659025dcd94aa90f704abd9db69e3d3efdc1286d",
+    "hunter_contract_sha": "84f664006d6671a1f5fae45e60f24eca3ab71a386adb0d31f88e2423c256fb03",
+    "registry_contract_sha": "b8df6b150a2349cdd618f0480168dc8e4f96ef5fa5908a1ba30e847b6c16fe69"
+  },
+  "protected_state": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "panel_sha": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9",
+    "db_sha_changed": false,
+    "panel_sha_changed": false,
+    "protected_diff_empty": true
+  },
+  "db_health": {
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_count": 0
+  },
+  "hard_failures": [],
+  "next_safe_step": "COMMIT_PUSH_V2_04_PROSECUTOR_EVIDENCE_REQUEST_V1_SCHEMA_PLAN",
+  "commit_now": false,
+  "push_now": false
+}
