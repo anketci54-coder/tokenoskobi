@@ -1,0 +1,214 @@
+{
+  "authority_escalation_threshold_plan": {
+    "live_trade_now": false,
+    "plan_only": true,
+    "requirements": [
+      "human_approval_required",
+      "sellability_gt_zero_required",
+      "liquidity_depth_threshold_required",
+      "slippage_ceiling_required",
+      "exit_route_exists_required",
+      "order_transmission_latency_budget_pass_required",
+      "mev_rug_sell_block_risk_pass_required",
+      "two_independent_source_clusters_required",
+      "fresh_anchor_required",
+      "proof_of_origin_clean_required",
+      "audit_summary_hash_present_required",
+      "dryrun_to_shadow_to_readonly_sequence_required",
+      "kill_switch_test_required",
+      "rollback_plan_required"
+    ],
+    "trade_authority_now": false,
+    "wallet_authority_now": false
+  },
+  "boundaries": {
+    "ai_call_count": 0,
+    "auto_apply": false,
+    "auto_patch": false,
+    "external_api_call_count": 0,
+    "hard_block_bypass": false,
+    "live_db_write_count": 0,
+    "live_trade": false,
+    "message_bus_live_execution_forbidden": true,
+    "panel_write_count": 0,
+    "provider_call_count": 0,
+    "runtime_started_count": 0,
+    "service_timer_nginx_change_count": 0,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "core_rule": "READONLY_ADAPTER_TO_LIVE_INFRA_PLAN_WITHOUT_WEAKENING_FIREWALLS",
+  "decision": "PRODUCTIZATION_IS_NOT_BYPASS",
+  "doctrine": {
+    "canonical_files_only": true,
+    "no_patch_doctrine": true,
+    "no_product_specific_hack": true,
+    "no_unnecessary_file_sprawl": true,
+    "productization_does_not_weaken_firewalls": true,
+    "productization_is_not_bypass": true,
+    "server_cleanliness_required": true,
+    "tmp_output_allowed_only_for_dryrun": true
+  },
+  "integration_route": [
+    {
+      "live_db_write_allowed": false,
+      "order": 1,
+      "panel_write_allowed": false,
+      "provider_call_allowed": false,
+      "purpose": "cache_first_and_immutable_archive_first",
+      "stage": "LOCAL_ARCHIVE_CACHE_ADAPTER"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 2,
+      "panel_write_allowed": false,
+      "provider_call_allowed": "future_approval_required",
+      "purpose": "block_anchor_and_receipt_validation",
+      "stage": "ONCHAIN_READONLY_NODE_ADAPTER"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 3,
+      "panel_write_allowed": false,
+      "provider_call_allowed": "future_approval_required",
+      "purpose": "liquidity_depth_sellability_slippage_context",
+      "stage": "DEX_POOL_LIQUIDITY_READONLY_ADAPTER"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 4,
+      "panel_write_allowed": false,
+      "provider_call_allowed": "future_approval_required",
+      "purpose": "market_depth_spread_volatility_context",
+      "stage": "CEX_ORDERBOOK_MARKET_READONLY_ADAPTER"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 5,
+      "panel_write_allowed": false,
+      "provider_call_allowed": "future_approval_required",
+      "purpose": "passive_context_only_no_decision_authority",
+      "stage": "NEWS_SOCIAL_PASSIVE_INTELLIGENCE_ADAPTER"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 6,
+      "panel_write_allowed": false,
+      "provider_call_allowed": false,
+      "purpose": "summary_hash_fingerprint_count_severity_distribution_panel_model",
+      "stage": "OBSERVABILITY_PROJECTION_ADAPTER"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 7,
+      "panel_write_allowed": false,
+      "provider_call_allowed": false,
+      "purpose": "schema_proposal_only_tempdb_to_live_db_mapping",
+      "stage": "LIVE_DB_PERSISTENCE_GATE_PLAN"
+    },
+    {
+      "live_db_write_allowed": false,
+      "order": 8,
+      "panel_write_allowed": false,
+      "provider_call_allowed": false,
+      "purpose": "future_trade_wallet_live_gate_thresholds",
+      "stage": "AUTHORITY_ESCALATION_GATE_PLAN"
+    }
+  ],
+  "mode": "PLAN_ONLY_NOAPI",
+  "observability_panel_projection_plan": {
+    "panel_write_now": false,
+    "plan_only": true,
+    "projection_fields": [
+      "summary_hash",
+      "coalesced_reason_count",
+      "severity_distribution",
+      "top_fingerprints",
+      "affected_token_or_pool_scope",
+      "decision_blocked_or_observe_only_state",
+      "audit_trail_pointer",
+      "market_storm_vs_attack_mode_badge",
+      "proof_of_origin_collision_badge",
+      "no_exit_route_badge"
+    ],
+    "raw_reason_code_flood_to_panel_forbidden": true
+  },
+  "phase": "V2_13_REAL_EVIDENCE_ADAPTER_PRODUCTIZATION_PLAN_NOAPI",
+  "plan_axes": [
+    "PROVIDER_INTEGRATION_ROUTE",
+    "TEMPDB_TO_LIVE_DB_PERSISTENCE_PLAN",
+    "OBSERVABILITY_PANEL_PROJECTION_PLAN",
+    "AUTHORITY_ESCALATION_THRESHOLD_PLAN"
+  ],
+  "provider_naming_policy": {
+    "lineage_self_attestation_is_not_proof": true,
+    "proof_of_origin_required_before_independence": true,
+    "provider_specific_hack_allowed": false,
+    "providers_selected_by_criteria_not_brand": true,
+    "tier1_provider_names_hardcoded": false
+  },
+  "provider_tier_requirements": [
+    "independent_source_cluster_required",
+    "freshness_sla_required",
+    "block_hash_or_block_height_anchor_required",
+    "payload_validity_before_trust_required",
+    "proof_of_origin_fingerprint_required",
+    "historical_reliability_score_required",
+    "malformed_or_null_rate_threshold_required",
+    "rate_limit_and_cost_profile_required",
+    "outage_behavior_profile_required",
+    "lineage_self_attestation_rejected"
+  ],
+  "schema": "tokenoskobi_real_evidence_adapter_productization_plan_v1_contract_noapi",
+  "source_refs": {
+    "v2_12_json": {
+      "path": "data/v2_12_real_evidence_adapter_post_push_audit_noapi.json",
+      "sha": "80935dc42bd003cbbbaf982fed0250b2808d13beb5b5485fa887bb2f7d972860"
+    },
+    "v2_12_report": {
+      "path": "docs/phases/v2/V2_12_REAL_EVIDENCE_ADAPTER_POST_PUSH_AUDIT_NOAPI.md",
+      "sha": "bc7b998b8288f7b4394874e72f7304c53d7eed909af82e042ce3795e8a219ac0"
+    },
+    "v2_12_rows": {
+      "path": "data/v2_12_real_evidence_adapter_post_push_audit_noapi_rows.jsonl",
+      "sha": "a6f1a460ea09f1dfae084c43633a040631b1b95c29e6adf50882b427ded374c6"
+    }
+  },
+  "status": "PRODUCTIZATION_PLAN_NOT_RUNTIME",
+  "tempdb_to_live_db_persistence_plan": {
+    "live_db_write_now": false,
+    "migration_applied_now": false,
+    "plan_only": true,
+    "schema_proposal_only": true,
+    "table_families": [
+      {
+        "applied_now": false,
+        "requires_hash": true,
+        "source": "coalesced_reason_code_summary",
+        "table_family": "evidence_event_summary_v1_plan",
+        "write_mode": "schema_proposal_only"
+      },
+      {
+        "applied_now": false,
+        "requires_hash": true,
+        "source": "proof_of_origin_fingerprint",
+        "table_family": "source_fingerprint_summary_v1_plan",
+        "write_mode": "schema_proposal_only"
+      },
+      {
+        "applied_now": false,
+        "requires_hash": true,
+        "source": "market_storm_not_attack_observation",
+        "table_family": "market_storm_observation_v1_plan",
+        "write_mode": "schema_proposal_only"
+      },
+      {
+        "applied_now": false,
+        "requires_hash": true,
+        "source": "sellability_liquidity_slippage_latency",
+        "table_family": "exit_route_readiness_v1_plan",
+        "write_mode": "schema_proposal_only"
+      }
+    ]
+  }
+}
