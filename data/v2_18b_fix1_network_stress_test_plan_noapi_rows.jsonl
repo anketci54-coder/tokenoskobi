@@ -1,0 +1,51 @@
+{"decision": "NETWORK_STRESS_PLAN_ACCEPTED_READY_FOR_TEMPDB_DRYRUN", "final_gate": "PASS_V2_18B_FIX1_NETWORK_STRESS_TEST_PLAN_NOAPI", "kind": "summary"}
+{"expected_action": "ALLOW_IF_QUOTE_FRESH", "jitter_ms": 40, "kind": "stress_profile", "latency_p50_ms": 120, "latency_p95_ms": 220, "latency_p99_ms": 280, "profile": "BASELINE_GOOD_RPC", "ttl_sec": 5}
+{"expected_action": "REQUOTE_OR_WAIT", "jitter_ms": 420, "kind": "stress_profile", "latency_p50_ms": 220, "latency_p95_ms": 650, "latency_p99_ms": 1100, "profile": "JITTER_SPIKE", "ttl_sec": 5}
+{"expected_action": "HARD_BLOCK_STALE_QUOTE", "jitter_ms": 900, "kind": "stress_profile", "latency_p50_ms": 480, "latency_p95_ms": 1200, "latency_p99_ms": 2400, "profile": "QUOTE_TTL_EXPIRY", "ttl_sec": 2}
+{"expected_action": "CANCEL_OR_SHADOW_ONLY", "jitter_ms": 1400, "kind": "stress_profile", "latency_p50_ms": 350, "latency_p95_ms": 1500, "latency_p99_ms": 4000, "profile": "PENDING_TX_DELAY", "ttl_sec": 4}
+{"expected_action": "BACKPRESSURE_AND_NO_ENTRY", "jitter_ms": 2100, "kind": "stress_profile", "latency_p50_ms": 700, "latency_p95_ms": 2500, "latency_p99_ms": 6000, "profile": "MEMPOOL_CONGESTION", "ttl_sec": 3}
+{"expected_action": "WAIT_FOR_CONFIRMATION", "jitter_ms": 1000, "kind": "stress_profile", "latency_p50_ms": 500, "latency_p95_ms": 1800, "latency_p99_ms": 3500, "profile": "REORG_MOCK", "ttl_sec": 4}
+{"expected_action": "PROVIDER_DEGRADED_ROUTE_BLOCK", "jitter_ms": 3500, "kind": "stress_profile", "latency_p50_ms": 1000, "latency_p95_ms": 4500, "latency_p99_ms": 9000, "profile": "RPC_DEGRADED_PROVIDER", "ttl_sec": 2}
+{"gate": "HOT_PATH_WAIT_FORBIDDEN", "hard_block": true, "kind": "gate", "rule": "latency is modeled, never slept"}
+{"gate": "STALE_QUOTE_CANNOT_TRADE", "hard_block": true, "kind": "gate", "rule": "latency_ms > ttl_window => quote invalid"}
+{"gate": "PENDING_TX_CANNOT_FORCE_ENTRY", "hard_block": true, "kind": "gate", "rule": "pending pressure downgrades to wait/cancel"}
+{"gate": "REORG_RISK_REQUIRES_CONFIRMATION", "hard_block": true, "kind": "gate", "rule": "mock reorg blocks entry until stable snapshot"}
+{"gate": "BACKPRESSURE_NO_HUMAN_OVERLOAD", "hard_block": true, "kind": "gate", "rule": "network pressure cannot expand human gateway beyond top3"}
+{"gate": "NO_PROVIDER_CALL_NOW", "hard_block": true, "kind": "gate", "rule": "plan only, no RPC/API/provider call"}
+{"gate": "NO_TRADE_NO_WALLET", "hard_block": true, "kind": "gate", "rule": "no buy/sell/signing authority"}
+{"action": "ALLOW_SHADOW_CANDIDATE_ONLY", "condition": "quote_fresh_and_latency_ok", "kind": "decision_matrix"}
+{"action": "HARD_BLOCK_REQUOTE_REQUIRED", "condition": "quote_ttl_expired", "kind": "decision_matrix"}
+{"action": "CANCEL_OR_WAIT", "condition": "pending_tx_delay_high", "kind": "decision_matrix"}
+{"action": "WAIT_CONFIRMATION", "condition": "reorg_risk_detected", "kind": "decision_matrix"}
+{"action": "BACKPRESSURE_DOWNRANK", "condition": "mempool_congestion_high", "kind": "decision_matrix"}
+{"action": "PROVIDER_ROUTE_BLOCK_NO_CALL", "condition": "rpc_degraded", "kind": "decision_matrix"}
+{"action": "SUPPRESS_TO_WATCHLIST", "condition": "human_top3_overflow", "kind": "decision_matrix"}
+{"actual": "0381e7c", "expected": "0381e7c", "kind": "assertion", "name": "head_is_0381e7c", "status": "PASS"}
+{"actual": "0381e7c", "expected": "0381e7c", "kind": "assertion", "name": "origin_matches_head", "status": "PASS"}
+{"actual": "0381e7c", "expected": "0381e7c", "kind": "assertion", "name": "remote_matches_head", "status": "PASS"}
+{"actual": "0 0", "expected": "0 0", "kind": "assertion", "name": "ahead_behind_zero", "status": "PASS"}
+{"actual": "", "expected": "", "kind": "assertion", "name": "status_clean_before", "status": "PASS"}
+{"actual": "ok", "expected": "ok", "kind": "assertion", "name": "db_integrity_ok", "status": "PASS"}
+{"actual": "ok", "expected": "ok", "kind": "assertion", "name": "db_quick_ok", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "db_fk_zero", "status": "PASS"}
+{"actual": "", "expected": "", "kind": "assertion", "name": "protected_diff_empty_before", "status": "PASS"}
+{"actual": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b", "expected": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b", "kind": "assertion", "name": "lock_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "seal_json_exists", "status": "PASS"}
+{"actual": "16ac70621dfa7c424a350435967f808ed33c4a04cc52a865d27f632c94d3a4ec", "expected": "16ac70621dfa7c424a350435967f808ed33c4a04cc52a865d27f632c94d3a4ec", "kind": "assertion", "name": "seal_json_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "seal_report_exists", "status": "PASS"}
+{"actual": "7d38a4411b4020ff69d968d470ffbf7f727d5e03fb3c7ec93b14f8572e69e44b", "expected": "7d38a4411b4020ff69d968d470ffbf7f727d5e03fb3c7ec93b14f8572e69e44b", "kind": "assertion", "name": "seal_report_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "seal_rows_exists", "status": "PASS"}
+{"actual": "4e4a42d97c1ce224b3fc48a0a46f1bddffea21da9c8899e36bf72026e35a6102", "expected": "4e4a42d97c1ce224b3fc48a0a46f1bddffea21da9c8899e36bf72026e35a6102", "kind": "assertion", "name": "seal_rows_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "seal_contract_exists", "status": "PASS"}
+{"actual": "da2356aee1de367e77fc48bc587b980b91c044421905c8df29f9da9ceeab546c", "expected": "da2356aee1de367e77fc48bc587b980b91c044421905c8df29f9da9ceeab546c", "kind": "assertion", "name": "seal_contract_sha", "status": "PASS"}
+{"actual": "PASS_V2_18A_FIX1_FP_TRACE_DEDUP_RECHECK_PATH_CORRECTION_NOAPI", "expected": "PASS", "kind": "assertion", "name": "seal_corrective_gate_pass", "status": "PASS"}
+{"actual": "17", "expected": "17", "kind": "assertion", "name": "seal_fp_token_count", "status": "PASS"}
+{"actual": "13", "expected": "13", "kind": "assertion", "name": "seal_fn_token_count", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "seal_hizdan_taviz_false", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "db_sha_unchanged", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "panel_sha_unchanged", "status": "PASS"}
+{"actual": "", "expected": "", "kind": "assertion", "name": "protected_diff_empty_after", "status": "PASS"}
+{"actual": "7", "expected": "7", "kind": "assertion", "name": "stress_profile_count", "status": "PASS"}
+{"actual": "7", "expected": "7", "kind": "assertion", "name": "gate_count", "status": "PASS"}
+{"actual": "7", "expected": "7", "kind": "assertion", "name": "decision_matrix_count", "status": "PASS"}
+{"kind": "next_safe_step", "value": "V2_18B_FIX1_NETWORK_STRESS_TEST_TEMPDB_DRYRUN_NOAPI"}

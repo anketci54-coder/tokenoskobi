@@ -1,0 +1,156 @@
+{
+  "authority": {
+    "auto_apply": 0,
+    "auto_execute": 0,
+    "auto_patch": 0,
+    "external_api_call_now": 0,
+    "live_db_write": 0,
+    "live_trade": 0,
+    "panel_write": 0,
+    "provider_call_now": 0,
+    "real_buy_count": 0,
+    "real_sell_count": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "decision_matrix": [
+    {
+      "action": "ALLOW_SHADOW_CANDIDATE_ONLY",
+      "condition": "quote_fresh_and_latency_ok"
+    },
+    {
+      "action": "HARD_BLOCK_REQUOTE_REQUIRED",
+      "condition": "quote_ttl_expired"
+    },
+    {
+      "action": "CANCEL_OR_WAIT",
+      "condition": "pending_tx_delay_high"
+    },
+    {
+      "action": "WAIT_CONFIRMATION",
+      "condition": "reorg_risk_detected"
+    },
+    {
+      "action": "BACKPRESSURE_DOWNRANK",
+      "condition": "mempool_congestion_high"
+    },
+    {
+      "action": "PROVIDER_ROUTE_BLOCK_NO_CALL",
+      "condition": "rpc_degraded"
+    },
+    {
+      "action": "SUPPRESS_TO_WATCHLIST",
+      "condition": "human_top3_overflow"
+    }
+  ],
+  "depends_on": "PASS_COMMIT_PUSH_V2_18A_FIX1_AND_FP_TRACE_DEDUP_RECHECK_EVIDENCE_SEAL",
+  "gates": [
+    {
+      "gate": "HOT_PATH_WAIT_FORBIDDEN",
+      "hard_block": true,
+      "rule": "latency is modeled, never slept"
+    },
+    {
+      "gate": "STALE_QUOTE_CANNOT_TRADE",
+      "hard_block": true,
+      "rule": "latency_ms > ttl_window => quote invalid"
+    },
+    {
+      "gate": "PENDING_TX_CANNOT_FORCE_ENTRY",
+      "hard_block": true,
+      "rule": "pending pressure downgrades to wait/cancel"
+    },
+    {
+      "gate": "REORG_RISK_REQUIRES_CONFIRMATION",
+      "hard_block": true,
+      "rule": "mock reorg blocks entry until stable snapshot"
+    },
+    {
+      "gate": "BACKPRESSURE_NO_HUMAN_OVERLOAD",
+      "hard_block": true,
+      "rule": "network pressure cannot expand human gateway beyond top3"
+    },
+    {
+      "gate": "NO_PROVIDER_CALL_NOW",
+      "hard_block": true,
+      "rule": "plan only, no RPC/API/provider call"
+    },
+    {
+      "gate": "NO_TRADE_NO_WALLET",
+      "hard_block": true,
+      "rule": "no buy/sell/signing authority"
+    }
+  ],
+  "hizdan_taviz": false,
+  "hot_path_never_waits": true,
+  "mode": "PLAN_ONLY_NOAPI",
+  "network_latency_mode": "MODELED_NOT_SLEPT",
+  "phase": "V2_18B_FIX1_NETWORK_STRESS_TEST_PLAN_NOAPI",
+  "previous_head": "0381e7c",
+  "schema": "v2_18b_fix1_network_stress_test_plan_v1_noapi",
+  "stress_profiles": [
+    {
+      "expected_action": "ALLOW_IF_QUOTE_FRESH",
+      "jitter_ms": 40,
+      "latency_p50_ms": 120,
+      "latency_p95_ms": 220,
+      "latency_p99_ms": 280,
+      "profile": "BASELINE_GOOD_RPC",
+      "ttl_sec": 5
+    },
+    {
+      "expected_action": "REQUOTE_OR_WAIT",
+      "jitter_ms": 420,
+      "latency_p50_ms": 220,
+      "latency_p95_ms": 650,
+      "latency_p99_ms": 1100,
+      "profile": "JITTER_SPIKE",
+      "ttl_sec": 5
+    },
+    {
+      "expected_action": "HARD_BLOCK_STALE_QUOTE",
+      "jitter_ms": 900,
+      "latency_p50_ms": 480,
+      "latency_p95_ms": 1200,
+      "latency_p99_ms": 2400,
+      "profile": "QUOTE_TTL_EXPIRY",
+      "ttl_sec": 2
+    },
+    {
+      "expected_action": "CANCEL_OR_SHADOW_ONLY",
+      "jitter_ms": 1400,
+      "latency_p50_ms": 350,
+      "latency_p95_ms": 1500,
+      "latency_p99_ms": 4000,
+      "profile": "PENDING_TX_DELAY",
+      "ttl_sec": 4
+    },
+    {
+      "expected_action": "BACKPRESSURE_AND_NO_ENTRY",
+      "jitter_ms": 2100,
+      "latency_p50_ms": 700,
+      "latency_p95_ms": 2500,
+      "latency_p99_ms": 6000,
+      "profile": "MEMPOOL_CONGESTION",
+      "ttl_sec": 3
+    },
+    {
+      "expected_action": "WAIT_FOR_CONFIRMATION",
+      "jitter_ms": 1000,
+      "latency_p50_ms": 500,
+      "latency_p95_ms": 1800,
+      "latency_p99_ms": 3500,
+      "profile": "REORG_MOCK",
+      "ttl_sec": 4
+    },
+    {
+      "expected_action": "PROVIDER_DEGRADED_ROUTE_BLOCK",
+      "jitter_ms": 3500,
+      "latency_p50_ms": 1000,
+      "latency_p95_ms": 4500,
+      "latency_p99_ms": 9000,
+      "profile": "RPC_DEGRADED_PROVIDER",
+      "ttl_sec": 2
+    }
+  ]
+}
