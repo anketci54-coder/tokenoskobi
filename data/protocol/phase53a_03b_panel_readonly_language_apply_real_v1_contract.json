@@ -1,0 +1,88 @@
+{
+  "backup_tar": "/root/tokenoskobi_runtime_backups/PHASE53A_03B_PANEL_READONLY_LANGUAGE_APPLY_REAL_AFTER_EXPLICIT_APPROVAL_20260624_190222.tar.gz",
+  "db_write": false,
+  "explicit_approval": true,
+  "mode": "PANEL_READONLY_LANGUAGE_APPLY_REAL",
+  "next_safe_step": "PHASE53A_03B_PANEL_READONLY_LANGUAGE_POST_APPLY_AUDIT_NOAPI",
+  "panel_write": true,
+  "patch_allowed_now": true,
+  "phase": "PHASE53A_03B_PANEL_READONLY_LANGUAGE_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "provider_fetch": false,
+  "rewrite_rules": [
+    {
+      "pattern": "\\bauto[ _-]?trade[ _-]?execution\\b",
+      "replacement": "readonly auto-action boundary"
+    },
+    {
+      "pattern": "\\bpaper[ _-]?trade[ _-]?execution\\b",
+      "replacement": "paper observation boundary"
+    },
+    {
+      "pattern": "\\blive[ _-]?button[ _-]?execution[ _-]?locked\\b",
+      "replacement": "readonly action boundary locked"
+    },
+    {
+      "pattern": "\\blive[ _-]?execution[ _-]?locked\\b",
+      "replacement": "readonly action boundary locked"
+    },
+    {
+      "pattern": "\\bpaper[ _-]?execution[ _-]?live[ _-]?write\\b",
+      "replacement": "readonly paper observation boundary"
+    },
+    {
+      "pattern": "\\bpanel[ _-]?execution[ _-]?authority\\b",
+      "replacement": "panel readonly authority boundary"
+    },
+    {
+      "pattern": "\\bwallet[ _-]?signing[ _-]?authority\\b",
+      "replacement": "wallet risk boundary"
+    },
+    {
+      "pattern": "\\brisk[ _-]?execution[ _-]?summary\\b",
+      "replacement": "risk readonly summary"
+    },
+    {
+      "pattern": "\\bnormal[ _-]?execution[ _-]?plan\\b",
+      "replacement": "normal readonly observation plan"
+    },
+    {
+      "pattern": "\\bexecution\\b",
+      "replacement": "readonly boundary"
+    },
+    {
+      "pattern": "\\bexecute\\b",
+      "replacement": "readonly review"
+    },
+    {
+      "pattern": "\\btrade\\b",
+      "replacement": "market-risk review"
+    },
+    {
+      "pattern": "\\bwallet\\b",
+      "replacement": "wallet-risk context"
+    },
+    {
+      "pattern": "\\bentry\\b",
+      "replacement": "entry condition observed"
+    },
+    {
+      "pattern": "\\bapply\\b",
+      "replacement": "proposal review"
+    },
+    {
+      "pattern": "\\baction\\b",
+      "replacement": "readonly observation"
+    }
+  ],
+  "runtime_change": false,
+  "schema": "phase53a_03b_panel_readonly_language_apply_real_v1",
+  "scope": [
+    "active_panel_8096/current/data/production_v2_control_center_data.json",
+    "active_panel_8096/current/data/risk_security_preview_data.json",
+    "active_panel_8096/current/mobile_pageflow/index.html",
+    "active_panel_8096/current/panel_v2/data/panel_v2_model.json",
+    "active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_model.json",
+    "active_panel_8096/current/panel_v2/index.html"
+  ],
+  "service_change": false
+}

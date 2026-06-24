@@ -19,7 +19,7 @@
         },
         {
           "key": "paper_trade_ozeti",
-          "label": "Paper Trade Özeti",
+          "label": "Paper market-risk review Özeti",
           "icon": "panel_assets/icons_panel_384/komuta_merkezi/paper_trade_ozeti_384.jpg",
           "status": "Normal",
           "center_key": "komuta_merkezi"
@@ -180,13 +180,13 @@
     {
       "key": "balina_takip_merkezi",
       "label": "Balina Takip Merkezi",
-      "description": "Whale wallet, akıllı para, büyük transfer ve borsa akışı",
+      "description": "Whale wallet-risk context, akıllı para, büyük transfer ve borsa akışı",
       "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/balina_takip_merkezi_master_384.jpg",
       "accent": "#5EEAD4",
       "modules": [
         {
           "key": "whale_wallet_i_zleme",
-          "label": "Whale Wallet İzleme",
+          "label": "Whale wallet-risk context İzleme",
           "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/whale_wallet_izleme_384.jpg",
           "status": "Normal",
           "center_key": "balina_takip_merkezi"
@@ -214,7 +214,7 @@
         },
         {
           "key": "wallet_risk_profili",
-          "label": "Wallet Risk Profili",
+          "label": "wallet-risk context Risk Profili",
           "icon": "panel_assets/icons_panel_384/balina_takip_merkezi/wallet_risk_profili_384.jpg",
           "status": "Normal",
           "center_key": "balina_takip_merkezi"
@@ -439,9 +439,9 @@
         "slot_key": "risk.execution_security",
         "center_key": "risk",
         "panel_label": "Risk & Güvenlik Merkezi",
-        "sub_panel": "Execution Security",
+        "sub_panel": "readonly boundary Security",
         "cards": [
-          "risk_execution_summary"
+          "risk readonly summary"
         ],
         "purpose": "Risk kararının işlem planına etkisini gösterir.",
         "active_write_now": false
@@ -452,12 +452,12 @@
         "panel_label": "Komuta Merkezi",
         "sub_panel": "Canlı Karar / İşlem Planı",
         "cards": [
-          "normal_execution_plan",
+          "normal readonly observation plan",
           "vur_kac_execution_plan",
           "paper_only_execution_plan",
           "blocked_execution_plan"
         ],
-        "purpose": "Entry amount, entry level, dynamic slippage, SL/TP, tek TP, TP1/2/3 ve blocked reason.",
+        "purpose": "entry condition observed amount, entry condition observed level, dynamic slippage, SL/TP, tek TP, TP1/2/3 ve blocked reason.",
         "active_write_now": false
       },
       {
@@ -497,11 +497,11 @@
         "slot_key": "sistem.live_auto_lock",
         "center_key": "sistem",
         "panel_label": "Sistem Kontrol",
-        "sub_panel": "Execution Locks",
+        "sub_panel": "readonly boundary Locks",
         "cards": [
           "live_auto_lock"
         ],
-        "purpose": "Live/auto kilitleri, schema health, no execution state.",
+        "purpose": "Live/auto kilitleri, schema health, no readonly boundary state.",
         "active_write_now": false
       }
     ],
@@ -566,15 +566,15 @@
         "hide": [
           "manual_trade_plan",
           "manual_vur_kac_plan",
-          "live_execution"
+          "readonly_boundary_status"
         ]
       },
       {
         "rule_key": "auto_live_display",
         "condition": "always",
         "show": [
-          "auto_trade_locked=True",
-          "live_execution=False"
+          "policy_blocked_state=True",
+          "readonly_boundary_status=False"
         ],
         "hide": [
           "any_live_execute_action"

@@ -32,9 +32,9 @@
       "slot_key": "risk.execution_security",
       "center_key": "risk",
       "panel_label": "Risk & Güvenlik Merkezi",
-      "sub_panel": "Execution Security",
+      "sub_panel": "readonly boundary Security",
       "cards": [
-        "risk_execution_summary"
+        "risk readonly summary"
       ],
       "purpose": "Risk kararının işlem planına etkisini gösterir.",
       "active_write_now": false
@@ -45,12 +45,12 @@
       "panel_label": "Komuta Merkezi",
       "sub_panel": "Canlı Karar / İşlem Planı",
       "cards": [
-        "normal_execution_plan",
+        "normal readonly observation plan",
         "vur_kac_execution_plan",
         "paper_only_execution_plan",
         "blocked_execution_plan"
       ],
-      "purpose": "Entry amount, entry level, dynamic slippage, SL/TP, tek TP, TP1/2/3 ve blocked reason.",
+      "purpose": "entry condition observed amount, entry condition observed level, dynamic slippage, SL/TP, tek TP, TP1/2/3 ve blocked reason.",
       "active_write_now": false
     },
     {
@@ -90,11 +90,11 @@
       "slot_key": "sistem.live_auto_lock",
       "center_key": "sistem",
       "panel_label": "Sistem Kontrol",
-      "sub_panel": "Execution Locks",
+      "sub_panel": "readonly boundary Locks",
       "cards": [
         "live_auto_lock"
       ],
-      "purpose": "Live/auto kilitleri, schema health, no execution state.",
+      "purpose": "Live/auto kilitleri, schema health, no readonly boundary state.",
       "active_write_now": false
     }
   ],
@@ -159,15 +159,15 @@
       "hide": [
         "manual_trade_plan",
         "manual_vur_kac_plan",
-        "live_execution"
+        "readonly_boundary_status"
       ]
     },
     {
       "rule_key": "auto_live_display",
       "condition": "always",
       "show": [
-        "auto_trade_locked=True",
-        "live_execution=False"
+        "policy_blocked_state=True",
+        "readonly_boundary_status=False"
       ],
       "hide": [
         "any_live_execute_action"
@@ -176,7 +176,7 @@
   ],
   "cards": [
     {
-      "card_key": "risk_execution_summary",
+      "card_key": "risk readonly summary",
       "center_key": "risk",
       "title": "Risk → İşlem Planı Özeti",
       "status": "DRYRUN_OK",
@@ -196,7 +196,7 @@
       "center_key": "risk",
       "title": "Hard Block / Güvenlik Kapısı",
       "status": "LOCKED",
-      "value": "BLOCKED -> entry 0",
+      "value": "BLOCKED -> entry condition observed 0",
       "details": "Kontrat veya kaynak çelişkisi hard block ise paper/manuel kapalı, morg/otopsi rotası açık."
     },
     {
@@ -208,7 +208,7 @@
       "details": "Yüksek riskte canlı/manuel kapalı; sadece paper gözlem planı üretilir."
     },
     {
-      "card_key": "normal_execution_plan",
+      "card_key": "normal readonly observation plan",
       "center_key": "komuta",
       "title": "Normal İşlem Planı",
       "status": "NORMAL_READY",
@@ -298,7 +298,7 @@
         "paper_trade_execution": false,
         "passed": true
       },
-      "rule": "Entry yok, paper/manuel yok, morg/otopsi rotası."
+      "rule": "entry condition observed yok, paper/manuel yok, morg/otopsi rotası."
     },
     {
       "card_key": "paper_only_execution_plan",
@@ -350,7 +350,7 @@
       "center_key": "yasam",
       "title": "Outcome Memory Hazırlığı",
       "status": "STUB_READY",
-      "details": "Planlanan entry/slippage/SL/TP ileride paper/outcome sonucu ile karşılaştırılacak."
+      "details": "Planlanan entry condition observed/slippage/SL/TP ileride paper/outcome sonucu ile karşılaştırılacak."
     },
     {
       "card_key": "morg_autopsy_route_stub",
@@ -364,12 +364,12 @@
       "center_key": "sistem",
       "title": "Live / Auto Kilit",
       "status": "LOCKED",
-      "details": "live_trade=false, paper_trade_execution=false, auto_trade_execution=false."
+      "details": "live_trade=false, paper observation boundary=false, readonly auto-readonly observation boundary=false."
     }
   ],
   "card_by_key": {
     "risk_execution_summary": {
-      "card_key": "risk_execution_summary",
+      "card_key": "risk readonly summary",
       "center_key": "risk",
       "title": "Risk → İşlem Planı Özeti",
       "status": "DRYRUN_OK",
@@ -389,7 +389,7 @@
       "center_key": "risk",
       "title": "Hard Block / Güvenlik Kapısı",
       "status": "LOCKED",
-      "value": "BLOCKED -> entry 0",
+      "value": "BLOCKED -> entry condition observed 0",
       "details": "Kontrat veya kaynak çelişkisi hard block ise paper/manuel kapalı, morg/otopsi rotası açık."
     },
     "paper_only_gate": {
@@ -401,7 +401,7 @@
       "details": "Yüksek riskte canlı/manuel kapalı; sadece paper gözlem planı üretilir."
     },
     "normal_execution_plan": {
-      "card_key": "normal_execution_plan",
+      "card_key": "normal readonly observation plan",
       "center_key": "komuta",
       "title": "Normal İşlem Planı",
       "status": "NORMAL_READY",
@@ -491,7 +491,7 @@
         "paper_trade_execution": false,
         "passed": true
       },
-      "rule": "Entry yok, paper/manuel yok, morg/otopsi rotası."
+      "rule": "entry condition observed yok, paper/manuel yok, morg/otopsi rotası."
     },
     "paper_only_execution_plan": {
       "card_key": "paper_only_execution_plan",
@@ -543,7 +543,7 @@
       "center_key": "yasam",
       "title": "Outcome Memory Hazırlığı",
       "status": "STUB_READY",
-      "details": "Planlanan entry/slippage/SL/TP ileride paper/outcome sonucu ile karşılaştırılacak."
+      "details": "Planlanan entry condition observed/slippage/SL/TP ileride paper/outcome sonucu ile karşılaştırılacak."
     },
     "morg_autopsy_route_stub": {
       "card_key": "morg_autopsy_route_stub",
@@ -557,7 +557,7 @@
       "center_key": "sistem",
       "title": "Live / Auto Kilit",
       "status": "LOCKED",
-      "details": "live_trade=false, paper_trade_execution=false, auto_trade_execution=false."
+      "details": "live_trade=false, paper observation boundary=false, readonly auto-readonly observation boundary=false."
     }
   }
 }
