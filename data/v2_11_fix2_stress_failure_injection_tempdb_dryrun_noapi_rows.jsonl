@@ -1,0 +1,49 @@
+{"ai_called_rows": 0, "audit_summary_hash_rows": 1, "audit_summary_lost_rows": 0, "corroboration_accepted_rows": 0, "decision": "STRESS_FAILURE_INJECTION_TEMPDB_DRYRUN_ACCEPTED_READY_FOR_COMMIT_PUSH", "exit_live_trade_rows": 0, "exit_route_approved_rows": 0, "exit_trade_authority_rows": 0, "exit_wallet_authority_rows": 0, "external_api_called_rows": 0, "field_level_fingerprint_collision_rows": 1, "final_gate": "PASS_V2_11_FIX2_STRESS_FAILURE_INJECTION_TEMPDB_DRYRUN_NOAPI", "format_pattern_collision_rows": 1, "full_log_written_under_pressure_rows": 0, "hot_path_blocked_rows": 0, "io_budget_exceeded_rows": 1, "kind": "v2_11_fix2_summary", "liquidity_depth_zero_rows": 1, "live_db_write_rows": 0, "live_decision_created_rows": 0, "log_coalesced_rows": 5000, "log_pressure_detected_rows": 1, "metadata_independent_claim_rows": 2, "metadata_trusted_as_proof_rows": 0, "no_exit_route_rows": 1, "order_sent_rows": 0, "panel_write_rows": 0, "payload_fingerprint_collision_rows": 1, "phase": "V2_11_FIX2_STRESS_FAILURE_INJECTION_TEMPDB_DRYRUN_NOAPI", "proof_of_origin_collision_rows": 1, "provider_called_rows": 0, "reason_code_flood_event_rows": 5000, "reason_code_missing_rows": 0, "reason_code_rows": 3, "result_mismatch_rows": 0, "rounding_pattern_collision_rows": 1, "sellability_zero_rows": 1, "stress_case_rows": 3}
+{"kind": "fix2_contract", "path": "data/protocol/stress_failure_injection_tempdb_dryrun_v1_contract_noapi.json", "sha": "1be27378d8b5a62475b57f68671340c926a01d26848af07ca7fc4337a9a57c44"}
+{"kind": "tempdb_file", "path": "/tmp/V2_11_FIX2_STRESS_FAILURE_INJECTION_TEMPDB_DRYRUN_NOAPI_20260624_083556/v2_11_fix2_stress_failure_injection_tempdb.sqlite", "sha": "c8a9a92f1586a7cafe8cc618ed0ac260a8163965e2eef9ddd3530cc3dbd1d70a"}
+{"foreign_key_check_count": 0, "integrity_check": "ok", "kind": "tempdb_health", "quick_check": "ok"}
+{"case_id": "REASON_CODE_FLOOD_IO_BUDGET", "expected_reason_code": "WARN_REASON_CODE_FLOOD_COALESCED_AUDIT_SUMMARY_HASHED", "expected_result": "LOG_PRESSURE_COALESCED_HOT_PATH_PROTECTED", "input_event_count": 5000, "kind": "stress_case", "stress_name": "Reason Code Flood", "stress_vector": "5000_warning_error_events_try_to_bomb_audit_io"}
+{"case_id": "SAFE_EXTRACTION_AUTHORITY_GAP", "expected_reason_code": "WARN_EXIT_NOT_ASSUMED_LIQUIDITY_GONE_NO_EXIT_ROUTE", "expected_result": "NO_EXIT_ROUTE_ORDER_NOT_SENT", "input_event_count": 1, "kind": "stress_case", "stress_name": "Safe Extraction Illusion", "stress_vector": "sellability_zero_liquidity_depth_zero_no_exit_route"}
+{"case_id": "LINEAGE_DECAY_PROOF_OF_ORIGIN_COLLISION", "expected_reason_code": "ERR_PROOF_OF_ORIGIN_COLLISION_METADATA_NOT_TRUSTED", "expected_result": "CORROBORATION_REJECTED_PROOF_OF_ORIGIN_COLLISION", "input_event_count": 2, "kind": "stress_case", "stress_name": "Lineage Decay", "stress_vector": "metadata_claims_independence_but_payload_fingerprint_collides"}
+{"case_id": "LINEAGE_DECAY_PROOF_OF_ORIGIN_COLLISION", "kind": "reason_code_dump", "reason_code": "ERR_PROOF_OF_ORIGIN_COLLISION_METADATA_NOT_TRUSTED"}
+{"case_id": "REASON_CODE_FLOOD_IO_BUDGET", "kind": "reason_code_dump", "reason_code": "WARN_REASON_CODE_FLOOD_COALESCED_AUDIT_SUMMARY_HASHED"}
+{"case_id": "SAFE_EXTRACTION_AUTHORITY_GAP", "kind": "reason_code_dump", "reason_code": "WARN_EXIT_NOT_ASSUMED_LIQUIDITY_GONE_NO_EXIT_ROUTE"}
+{"actual_value": "3", "assertion_name": "stress_case_rows", "expected_value": "3", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "3", "assertion_name": "reason_code_rows", "expected_value": "3", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "reason_code_missing_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "5000", "assertion_name": "reason_code_flood_event_rows", "expected_value": "5000", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "log_pressure_detected_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "audit_summary_hash_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "audit_summary_lost_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "hot_path_blocked_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "full_log_written_under_pressure_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "io_budget_exceeded_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "sellability_zero_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "liquidity_depth_zero_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "exit_route_approved_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "no_exit_route_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "order_sent_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "exit_trade_authority_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "exit_wallet_authority_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "exit_live_trade_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "2", "assertion_name": "metadata_independent_claim_rows", "expected_value": "2", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "metadata_trusted_as_proof_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "payload_fingerprint_collision_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "proof_of_origin_collision_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "corroboration_accepted_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "field_level_fingerprint_collision_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "rounding_pattern_collision_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "format_pattern_collision_rows", "expected_value": "1", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "result_mismatch_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "live_decision_created_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "live_db_write_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "panel_write_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "provider_called_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "external_api_called_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "ai_called_rows", "expected_value": "0", "kind": "tempdb_assertion", "status": "PASS"}
+{"actual_value": "5000", "assertion_name": "log_coalesced_rows_gt_zero", "expected_value": ">0", "kind": "tempdb_assertion", "status": "PASS"}
+{"kind": "audit_summary_hash", "value": "93fa251e2346f54ceabc587065fe95261cb2d49f3c645b441e5066800cdc2b70"}
+{"audit_summary_hash_required": true, "audit_summary_loss_forbidden": true, "corroboration_rejected_on_proof_of_origin_collision": true, "exit_discipline_is_not_execution_authority": true, "exit_not_assumed_if_liquidity_gone": true, "field_level_fingerprint_required": true, "hot_path_block_forbidden": true, "kind": "stress_discipline", "metadata_lineage_is_not_proof": true, "order_sent_forbidden_when_no_exit_route": true, "payload_fingerprint_required": true, "proof_of_origin_required": true, "reason_code_coalesce_by_fingerprint": true, "reason_code_io_budget_required": true, "reason_code_rate_limit_required": true, "rounding_format_pattern_collision_detected": true, "sellability_required_before_exit_decision": true}
+{"kind": "protected_state", "live_db_sha_changed": false, "panel_sha_changed": false, "protected_diff_empty": true}
+{"kind": "next_safe_step", "value": "COMMIT_PUSH_V2_11_FIX2_STRESS_FAILURE_INJECTION_TEMPDB_DRYRUN"}
+{"items": [], "kind": "hard_failures"}
