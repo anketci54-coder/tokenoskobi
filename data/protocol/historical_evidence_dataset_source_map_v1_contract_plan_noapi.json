@@ -1,0 +1,281 @@
+{
+  "dataset_lifecycle": {
+    "block_height_or_hash_anchor_required": true,
+    "normalization_lineage_required": true,
+    "normalized_dataset_separate": true,
+    "paid_dataset_requires_explicit_human_approval": true,
+    "provenance_required": true,
+    "quality_score_required": true,
+    "raw_archive_first": true,
+    "raw_archive_mutation_forbidden": true,
+    "raw_hash_required": true,
+    "target_years_configurable_required": true,
+    "vendor_license_metadata_required": true
+  },
+  "feature_freeze_scope": {
+    "adapter_input_validation_layer": true,
+    "no_new_protocol_wire_format_added": true,
+    "not_a_live_decision_rule": true,
+    "not_a_trade_rule": true,
+    "not_a_wallet_rule": true,
+    "source_firewall_is_data_ingress_safety_boundary": true
+  },
+  "mode": "PLAN_ONLY_NOAPI",
+  "phase": "V2_10_REAL_EVIDENCE_RUNTIME_READONLY_ADAPTER_PLAN_NOAPI",
+  "purpose": "define_clean_historical_and_realtime_evidence_source_boundaries_before_any_real_data_adapter_runtime",
+  "schema": "tokenoskobi_historical_evidence_dataset_source_map_v1_contract_plan_noapi",
+  "source_categories": [
+    {
+      "candidate_sources": [
+        "CoinGecko",
+        "CoinMarketCap",
+        "Coin Metrics"
+      ],
+      "category": "PRICE_OHLCV_VOLUME_MARKET_CAP",
+      "decision_role": "context_only_until_two_independent_sources_confirm",
+      "paid_validator_candidates": [
+        "Kaiko",
+        "Coin Metrics",
+        "CoinMarketCap Pro"
+      ],
+      "purpose": "historical_price_volume_market_cap_regime_context",
+      "required_keys": [
+        "asset_id",
+        "chain",
+        "timestamp_or_block_anchor",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "market_cap",
+        "source_id",
+        "raw_hash"
+      ]
+    },
+    {
+      "candidate_sources": [
+        "Google BigQuery Blockchain Analytics",
+        "Dune",
+        "Explorer APIs",
+        "RPC archive node"
+      ],
+      "category": "ONCHAIN_TRANSFERS_HOLDERS_CONTRACT_EVENTS",
+      "decision_role": "evidence_candidate_requires_hash_or_block_height_anchor",
+      "paid_validator_candidates": [
+        "Bitquery",
+        "Alchemy",
+        "Covalent",
+        "QuickNode Streams"
+      ],
+      "purpose": "holder_flow_deployer_owner_lp_tax_event_contract_behavior",
+      "required_keys": [
+        "chain",
+        "block_number",
+        "tx_hash",
+        "log_index",
+        "contract_address",
+        "event_signature",
+        "source_id",
+        "raw_hash"
+      ]
+    },
+    {
+      "candidate_sources": [
+        "DefiLlama",
+        "Dune",
+        "Explorer logs"
+      ],
+      "category": "DEX_TRADES_LIQUIDITY_POOLS_TVL",
+      "decision_role": "liquidity_context_and_exit_feasibility_guard",
+      "paid_validator_candidates": [
+        "Bitquery",
+        "Kaiko DeFi",
+        "CoinMarketCap DEX"
+      ],
+      "purpose": "pool_state_trade_flow_liquidity_depth_slippage_context",
+      "required_keys": [
+        "chain",
+        "dex",
+        "pool_address",
+        "block_number",
+        "tx_hash",
+        "reserve0",
+        "reserve1",
+        "liquidity_usd",
+        "source_id",
+        "raw_hash"
+      ]
+    },
+    {
+      "candidate_sources": [
+        "Exchange public market data",
+        "CoinMarketCap",
+        "CoinGecko"
+      ],
+      "category": "CEX_TRADES_ORDERBOOK_LIQUIDATIONS",
+      "decision_role": "cross_market_context_only_until_validated",
+      "paid_validator_candidates": [
+        "Kaiko",
+        "Coin Metrics",
+        "Amberdata"
+      ],
+      "purpose": "market_depth_spread_liquidity_regime_and_exchange_flow_context",
+      "required_keys": [
+        "exchange",
+        "symbol",
+        "timestamp",
+        "bid_ask_or_trade_ref",
+        "volume",
+        "spread_or_price",
+        "source_id",
+        "raw_hash"
+      ]
+    },
+    {
+      "candidate_sources": [
+        "GDELT",
+        "RSS",
+        "project official channels",
+        "exchange announcements"
+      ],
+      "category": "NEWS_SOCIAL_ANNOUNCEMENTS",
+      "decision_role": "contextual_evidence_not_trade_authority",
+      "paid_validator_candidates": [
+        "CryptoPanic paid tiers",
+        "news data vendors"
+      ],
+      "purpose": "historical_event_context_regulation_attack_launch_unlock_listings",
+      "required_keys": [
+        "published_at",
+        "url_or_source_ref",
+        "title_hash",
+        "language",
+        "entity_map",
+        "source_id",
+        "raw_hash"
+      ]
+    },
+    {
+      "candidate_sources": [
+        "GoPlus",
+        "Honeypot.is",
+        "TokenSniffer",
+        "Chainabuse",
+        "Dune exploit queries",
+        "Explorer labels"
+      ],
+      "category": "SCAM_RUG_HONEYPOT_EXPLOIT_LABELS",
+      "decision_role": "label_signal_only_never_single_source_final_truth",
+      "paid_validator_candidates": [
+        "Bitquery labels",
+        "security vendor datasets"
+      ],
+      "purpose": "risk_label_candidates_and_negative_memory_seed",
+      "required_keys": [
+        "chain",
+        "contract_address",
+        "label",
+        "label_source",
+        "observed_at",
+        "evidence_ref",
+        "source_id",
+        "raw_hash"
+      ]
+    },
+    {
+      "candidate_sources": [
+        "Tokenoskobi internal shadow outcomes",
+        "TempDB dryrun output",
+        "future readonly runtime archive"
+      ],
+      "category": "INTERNAL_OUTCOME_MEMORY",
+      "decision_role": "learning_feedback_only_no_live_trade_authority",
+      "paid_validator_candidates": [],
+      "purpose": "own_false_positive_avoided_loss_missed_opportunity_and_replay_learning_memory",
+      "required_keys": [
+        "case_id",
+        "decision_path",
+        "would_have_action",
+        "observed_outcome",
+        "reason_code",
+        "evidence_refs",
+        "raw_hash"
+      ]
+    }
+  ],
+  "source_firewall": {
+    "api_200_empty_json_is_failure": true,
+    "api_200_malformed_json_is_failure": true,
+    "api_latency_stale_data_guard_required": true,
+    "block_height_or_hash_anchor_required": true,
+    "cache_first": true,
+    "candidate_source_cannot_decide_alone": true,
+    "clean_data_required": true,
+    "data_null_rejection_policy": true,
+    "data_quality_score_required": true,
+    "empty_json_cannot_create_evidence": true,
+    "fail_safe_state": "STALE_OR_MISSING_EVIDENCE_WAIT_EVIDENCE",
+    "first_breach_route": "SOURCE_SUSPICIOUS",
+    "hash_based_immutability": true,
+    "historical_data_required": true,
+    "immutable_archive_first": true,
+    "low_quality_is_not_tampering": true,
+    "malformed_is_quality_failure_until_tampering_evidence": true,
+    "no_auto_paid_call_without_approval": true,
+    "no_external_call_in_this_phase": true,
+    "no_live_trade_authority": true,
+    "normalized_data_separate_required": true,
+    "null_breach_cannot_create_live_decision": true,
+    "null_or_malformed_threshold": 0.1,
+    "paid_data_allowed_with_explicit_approval": true,
+    "raw_data_immutable_archive_required": true,
+    "real_evidence_source_firewall": true,
+    "repeated_breach_route": "DOWNRANK_OR_QUARANTINE",
+    "source_cluster_independence_required": true,
+    "source_poisoning_guard_required": true,
+    "source_provenance_required": true,
+    "source_truth_not_assumed": true,
+    "stale_data_cannot_decide": true,
+    "tampering_or_hash_mismatch_route": "QUARANTINE_OR_PERMABAN",
+    "tier_1_is_high_trust_not_absolute_truth": true,
+    "two_independent_sources_required": true,
+    "uncertainty_never_forced_to_decision": true,
+    "uncertainty_routing_matrix_required": true,
+    "validator_source_cannot_override_hash_mismatch": true,
+    "vendor_outage_is_fail_safe_not_fail_open": true,
+    "vendor_trust_score_required": true
+  },
+  "status": "SOURCE_MAP_PLANNED_NOT_FETCHED",
+  "strategic_raid_doctrine": {
+    "battlefield_context_first": true,
+    "confirmed_heavy_strike_only": true,
+    "cost_discipline": true,
+    "enemy_profile_first": true,
+    "fast_mobility": true,
+    "intelligence_first": true,
+    "live_trade_authority_required_for_real_strike": true,
+    "safe_extraction": true,
+    "short_exposure": true,
+    "tokenoskobi_strategic_raid_doctrine_v1": true,
+    "uncertainty_never_forced_to_decision": true,
+    "v2_current_state_is_readonly_shadow_and_evidence": true
+  },
+  "uncertainty_routing_matrix": {
+    "evidence_tampering": "PERMABAN_CANDIDATE",
+    "hash_mismatch": "QUARANTINE",
+    "low_quality_is_not_tampering": true,
+    "null_or_malformed_first_breach": "SOURCE_SUSPICIOUS",
+    "null_or_malformed_repeated_breach": "DOWNRANK_OR_QUARANTINE",
+    "quality_score_0_00_to_0_19": "REJECT_OR_DOWNRANK",
+    "quality_score_0_20_to_0_39": "SOURCE_SUSPICIOUS",
+    "quality_score_0_40_to_0_59": "WAIT_EVIDENCE",
+    "quality_score_0_60_to_0_79": "RECHECK",
+    "quality_score_0_80_to_1_00": "VERIFIED_CANDIDATE",
+    "uncertainty_cannot_create_live_decision": true,
+    "uncertainty_cannot_override_hard_block": true,
+    "uncertainty_requires_reason_code": true,
+    "uncertainty_routing_matrix_v1": true,
+    "vendor_outage": "STALE_OR_MISSING_EVIDENCE_WAIT_EVIDENCE"
+  }
+}
