@@ -1,0 +1,552 @@
+{
+  "authority_locks": {
+    "ai_authority": 0,
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paper_trade": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "core_doctrine": [
+    "Decision Bridge != Execution Bridge",
+    "AI Opinion != Risk Verdict",
+    "Confidence != Permission",
+    "Hard-Block is absorbing state",
+    "Consumer Binding != Action Binding"
+  ],
+  "gap_classes": [
+    "AUTHORITY_LEAK",
+    "CONSUMER_OVERREACH",
+    "DECISION_BRIDGE_EXECUTION_RISK",
+    "AI_AUTHORITY_DRIFT",
+    "HARD_BLOCK_BYPASS_PATH",
+    "EVIDENCE_CHAIN_BREAK",
+    "READONLY_BOUNDARY_BREAK",
+    "GOVERNANCE_DRIFT",
+    "PANEL_ACTION_CONFUSION",
+    "RUNTIME_TO_TRADE_SHADOW_LINK",
+    "AUTO_APPLY_DRIFT",
+    "CONFIDENCE_PERMISSION_CONFUSION"
+  ],
+  "governance_reference": "PASS09 / ae2a627",
+  "leak_vectors": [
+    {
+      "blocked_by": [
+        "POLICY_01",
+        "POLICY_02"
+      ],
+      "bridge": "Decision Bridge",
+      "consumer": "Consumer",
+      "gap_class": "AUTHORITY_LEAK",
+      "leak_vector": "action_payload_or_trade_intent_in_analysis",
+      "severity": "CRITICAL",
+      "source": "Intelligence Officer",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_05",
+        "POLICY_06"
+      ],
+      "bridge": "Risk Engine",
+      "consumer": "Risk Verdict",
+      "gap_class": "AI_AUTHORITY_DRIFT",
+      "leak_vector": "ai_opinion_modifies_deterministic_verdict",
+      "severity": "CRITICAL",
+      "source": "Intelligence Officer",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_08",
+        "POLICY_09"
+      ],
+      "bridge": "Consumer Binding",
+      "consumer": "Panel",
+      "gap_class": "PANEL_ACTION_CONFUSION",
+      "leak_vector": "ai_summary_displayed_as_command",
+      "severity": "HIGH",
+      "source": "Intelligence Officer",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_04",
+        "POLICY_05",
+        "POLICY_06"
+      ],
+      "bridge": "Risk Engine",
+      "consumer": "Final Risk State",
+      "gap_class": "HARD_BLOCK_BYPASS_PATH",
+      "leak_vector": "hard_block_soften_or_override",
+      "severity": "CRITICAL",
+      "source": "Decision Bridge",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_03",
+        "POLICY_04",
+        "POLICY_07"
+      ],
+      "bridge": "Execution Boundary",
+      "consumer": "Trade",
+      "gap_class": "DECISION_BRIDGE_EXECUTION_RISK",
+      "leak_vector": "advisory_context_becomes_trade_signal",
+      "severity": "CRITICAL",
+      "source": "Decision Bridge",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_02",
+        "POLICY_04",
+        "POLICY_07"
+      ],
+      "bridge": "Execution Boundary",
+      "consumer": "Wallet",
+      "gap_class": "RUNTIME_TO_TRADE_SHADOW_LINK",
+      "leak_vector": "wallet_instruction_or_approve_payload",
+      "severity": "CRITICAL",
+      "source": "Decision Bridge",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_04",
+        "POLICY_07"
+      ],
+      "bridge": "Runner Queue",
+      "consumer": "Paper Live",
+      "gap_class": "AUTO_APPLY_DRIFT",
+      "leak_vector": "advisory_event_triggers_runner",
+      "severity": "CRITICAL",
+      "source": "Decision Bridge",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_07",
+        "POLICY_08"
+      ],
+      "bridge": "Panel",
+      "consumer": "User",
+      "gap_class": "PANEL_ACTION_CONFUSION",
+      "leak_vector": "manual_action_confusion_from_ui_language",
+      "severity": "HIGH",
+      "source": "Consumer Binding",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_08",
+        "POLICY_10"
+      ],
+      "bridge": "Action Surface",
+      "consumer": "Trade Wallet",
+      "gap_class": "AUTHORITY_LEAK",
+      "leak_vector": "button_shadow_action",
+      "severity": "CRITICAL",
+      "source": "Panel",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_05",
+        "POLICY_06"
+      ],
+      "bridge": "Decision Bridge",
+      "consumer": "Permission Semantics",
+      "gap_class": "CONFIDENCE_PERMISSION_CONFUSION",
+      "leak_vector": "confidence_score_interpreted_as_permission",
+      "severity": "CRITICAL",
+      "source": "Confidence Score",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_05"
+      ],
+      "bridge": "Decision Bridge",
+      "consumer": "Final Verdict",
+      "gap_class": "AI_AUTHORITY_DRIFT",
+      "leak_vector": "summary_used_as_risk_verdict",
+      "severity": "CRITICAL",
+      "source": "AI Summary",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_09",
+        "POLICY_10"
+      ],
+      "bridge": "Decision Bridge",
+      "consumer": "Consumer Binding",
+      "gap_class": "EVIDENCE_CHAIN_BREAK",
+      "leak_vector": "missing_evidence_treated_as_allow",
+      "severity": "HIGH",
+      "source": "Evidence Chain",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_02",
+        "POLICY_04"
+      ],
+      "bridge": "Service Callback",
+      "consumer": "Trade Wallet Service",
+      "gap_class": "RUNTIME_TO_TRADE_SHADOW_LINK",
+      "leak_vector": "runtime_callback_to_execution_service",
+      "severity": "CRITICAL",
+      "source": "Runtime Hook",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_06",
+        "POLICY_08"
+      ],
+      "bridge": "Consumer Binding",
+      "consumer": "Panel",
+      "gap_class": "HARD_BLOCK_BYPASS_PATH",
+      "leak_vector": "downstream_consumer_downgrades_risk_verdict",
+      "severity": "HIGH",
+      "source": "Risk Engine",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_06",
+        "POLICY_10"
+      ],
+      "bridge": "Decision Bridge",
+      "consumer": "Risk Context",
+      "gap_class": "HARD_BLOCK_BYPASS_PATH",
+      "leak_vector": "provider_degraded_softened_by_confidence",
+      "severity": "CRITICAL",
+      "source": "Provider Degraded State",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_06",
+        "POLICY_10"
+      ],
+      "bridge": "Consumer Binding",
+      "consumer": "Hard Cap State",
+      "gap_class": "GOVERNANCE_DRIFT",
+      "leak_vector": "human_review_invalidates_hard_cap",
+      "severity": "CRITICAL",
+      "source": "Human Review",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "PASS09",
+        "ae2a627",
+        "POLICY_01-10"
+      ],
+      "bridge": "Roadmap",
+      "consumer": "Future Runtime",
+      "gap_class": "GOVERNANCE_DRIFT",
+      "leak_vector": "wording_allows_autonomous_action",
+      "severity": "HIGH",
+      "source": "Governance Text",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_03",
+        "POLICY_04",
+        "POLICY_07"
+      ],
+      "bridge": "External System",
+      "consumer": "Signal Receiver",
+      "gap_class": "READONLY_BOUNDARY_BREAK",
+      "leak_vector": "consumer_sends_executable_signal",
+      "severity": "CRITICAL",
+      "source": "Consumer",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_04",
+        "POLICY_07"
+      ],
+      "bridge": "Queue Runner",
+      "consumer": "Runtime Job",
+      "gap_class": "DECISION_BRIDGE_EXECUTION_RISK",
+      "leak_vector": "bridge_triggers_runner_job",
+      "severity": "CRITICAL",
+      "source": "Bridge",
+      "verdict": "BLOCKED"
+    },
+    {
+      "blocked_by": [
+        "POLICY_02",
+        "POLICY_04"
+      ],
+      "bridge": "Auto Apply",
+      "consumer": "Patch Apply",
+      "gap_class": "AUTO_APPLY_DRIFT",
+      "leak_vector": "advisory_data_becomes_auto_patch",
+      "severity": "CRITICAL",
+      "source": "Bridge",
+      "verdict": "BLOCKED"
+    }
+  ],
+  "mandatory_rules": [
+    {
+      "id": "RULE_01",
+      "name": "Advisory data cannot become intent",
+      "pseudo": "IF payload.type in ['trade_intent','wallet_instruction','order_payload','execution_signal'] THEN allowed=false AND classify=AUTHORITY_LEAK"
+    },
+    {
+      "id": "RULE_02",
+      "name": "Hard-Block cannot be downgraded",
+      "pseudo": "IF risk_engine.hard_block == true THEN final_state=HARD_BLOCK AND downstream_override_allowed=false"
+    },
+    {
+      "id": "RULE_03",
+      "name": "AI cannot override deterministic rule",
+      "pseudo": "IF ai_opinion conflicts with risk_engine.verdict THEN final_state=risk_engine.verdict"
+    },
+    {
+      "id": "RULE_04",
+      "name": "Confidence is not permission",
+      "pseudo": "IF confidence_score >= threshold THEN permission_granted=false"
+    },
+    {
+      "id": "RULE_05",
+      "name": "Consumer Binding is display only",
+      "pseudo": "IF consumer_output includes action_button OR execution_route THEN allowed=false AND classify=PANEL_ACTION_CONFUSION"
+    },
+    {
+      "id": "RULE_06",
+      "name": "Missing evidence cannot allow",
+      "pseudo": "IF evidence_ref missing THEN route=REVIEW_OR_HARD_BLOCK AND allow=false"
+    }
+  ],
+  "metrics": {
+    "AI_AUTHORITY": 0,
+    "AUTO_APPLY": 0,
+    "BLOCKED_LEAK_VECTOR_COUNT": 20,
+    "CODE_APPLY": 0,
+    "CRITICAL_LEAK_VECTOR_COUNT": 15,
+    "DB_WRITE": 0,
+    "DECISION_BRIDGE_IS_EXECUTION_BRIDGE": 0,
+    "GAP_CLASS_COUNT": 12,
+    "HARD_BLOCK_BYPASS": 0,
+    "HIGH_LEAK_VECTOR_COUNT": 5,
+    "LEAK_VECTOR_COUNT": 20,
+    "LIVE_TRADE": 0,
+    "MANDATORY_RULE_COUNT": 6,
+    "PANEL_WRITE": 0,
+    "PAPER_TRADE": 0,
+    "POLICY_COUNT": 10,
+    "PROVIDER_FETCH": 0,
+    "RUNTIME_CHANGE": 0,
+    "SERVICE_CHANGE": 0,
+    "SURFACE_COUNT": 6,
+    "TRADE_AUTHORITY": 0,
+    "WALLET_AUTHORITY": 0
+  },
+  "mode": "GAP_MAP_NOAPI",
+  "next_safe_step": "PHASE53A_02_CONSUMER_BINDING_GAP_MAP_NOAPI",
+  "phase": "PHASE53A_01_AUTHORITY_BOUNDARY_AND_BINDING_GAP_MAP_NOAPI",
+  "policies": [
+    {
+      "blocks": [
+        "AUTHORITY_LEAK",
+        "READONLY_BOUNDARY_BREAK"
+      ],
+      "id": "POLICY_01",
+      "name": "IO_OBSERVATION_ONLY",
+      "rule": "Intelligence Officer may emit observation, context, explanation, and evidence references only."
+    },
+    {
+      "blocks": [
+        "AUTHORITY_LEAK",
+        "RUNTIME_TO_TRADE_SHADOW_LINK"
+      ],
+      "id": "POLICY_02",
+      "name": "NO_ACTION_PAYLOAD",
+      "rule": "Intelligence Officer must not emit action_payload, trade_intent, wallet_instruction, order_route, auto_apply, or override_request."
+    },
+    {
+      "blocks": [
+        "DECISION_BRIDGE_EXECUTION_RISK"
+      ],
+      "id": "POLICY_03",
+      "name": "DECISION_BRIDGE_ADVISORY_ONLY",
+      "rule": "Decision Bridge may transport advisory context only."
+    },
+    {
+      "blocks": [
+        "DECISION_BRIDGE_EXECUTION_RISK",
+        "AUTO_APPLY_DRIFT"
+      ],
+      "id": "POLICY_04",
+      "name": "NO_EXECUTION_CONVERSION",
+      "rule": "Decision Bridge must not convert advisory context into execution intent."
+    },
+    {
+      "blocks": [
+        "AI_AUTHORITY_DRIFT",
+        "CONFIDENCE_PERMISSION_CONFUSION"
+      ],
+      "id": "POLICY_05",
+      "name": "RISK_ENGINE_PRECEDENCE",
+      "rule": "Risk Engine deterministic verdict has precedence over AI opinion."
+    },
+    {
+      "blocks": [
+        "HARD_BLOCK_BYPASS_PATH"
+      ],
+      "id": "POLICY_06",
+      "name": "HARD_BLOCK_ABSORBING_STATE",
+      "rule": "HARD_BLOCK, HARD_CAP, PROVIDER_DEGRADED, WALLET_RISK, and TRADE_DISABLED states are non-overridable."
+    },
+    {
+      "blocks": [
+        "CONSUMER_OVERREACH",
+        "READONLY_BOUNDARY_BREAK"
+      ],
+      "id": "POLICY_07",
+      "name": "CONSUMER_READONLY_ONLY",
+      "rule": "Consumer Binding is read-only unless a later explicitly approved phase defines otherwise."
+    },
+    {
+      "blocks": [
+        "PANEL_ACTION_CONFUSION"
+      ],
+      "id": "POLICY_08",
+      "name": "PANEL_NO_ACTION_CONFUSION",
+      "rule": "Panel display must not imply action authority."
+    },
+    {
+      "blocks": [
+        "EVIDENCE_CHAIN_BREAK"
+      ],
+      "id": "POLICY_09",
+      "name": "EVIDENCE_REF_REQUIRED",
+      "rule": "Evidence reference is mandatory for every bridged risk context."
+    },
+    {
+      "blocks": [
+        "EVIDENCE_CHAIN_BREAK",
+        "HARD_BLOCK_BYPASS_PATH"
+      ],
+      "id": "POLICY_10",
+      "name": "MISSING_EVIDENCE_REVIEW_OR_BLOCK",
+      "rule": "Missing evidence routes to REVIEW or HARD_BLOCK, never ALLOW."
+    }
+  ],
+  "previous_head": "92b0fd2",
+  "schema": "phase53a_01_authority_boundary_and_binding_gap_map_v1_noapi",
+  "scope": "Authority Surface Inventory and Leak Vector Matrix for Intelligence Officer to Decision Bridge to Consumer Binding.",
+  "source_v2_19_seal": "data/v2_19_real_market_risk_analysis_readonly_seal.json",
+  "surfaces": [
+    {
+      "allowed": [
+        "observation",
+        "risk_context",
+        "evidence_ref",
+        "confidence_note",
+        "anomaly_summary"
+      ],
+      "authority": 0,
+      "forbidden": [
+        "action_payload",
+        "trade_intent",
+        "wallet_instruction",
+        "order_payload",
+        "hard_block_override"
+      ],
+      "role": "observe_explain_reference_evidence",
+      "surface": "Intelligence Officer"
+    },
+    {
+      "allowed": [
+        "decision_support_context",
+        "risk_explanation",
+        "readonly_binding_payload"
+      ],
+      "authority": 0,
+      "forbidden": [
+        "execution_payload",
+        "trade_permission",
+        "wallet_permission",
+        "hard_block_soften"
+      ],
+      "role": "transport_advisory_context",
+      "surface": "Decision Bridge"
+    },
+    {
+      "allowed": [
+        "WATCH",
+        "WAIT_FRESH_BUNDLE",
+        "REVIEW",
+        "HARD_BLOCK",
+        "QUARANTINE"
+      ],
+      "authority": "deterministic_risk_only",
+      "forbidden": [
+        "ai_based_override",
+        "confidence_based_allow",
+        "consumer_based_soften"
+      ],
+      "role": "deterministic_risk_verdict",
+      "surface": "Risk Engine"
+    },
+    {
+      "allowed": [
+        "readonly_view",
+        "risk_card",
+        "evidence_panel",
+        "classification_display"
+      ],
+      "authority": 0,
+      "forbidden": [
+        "buy_button_action",
+        "wallet_connect_action",
+        "paper_trade_start",
+        "override_button"
+      ],
+      "role": "readonly_display_binding",
+      "surface": "Consumer Binding"
+    },
+    {
+      "allowed": [
+        "review_evidence",
+        "show_risk_context",
+        "show_audit_context"
+      ],
+      "authority": 0,
+      "forbidden": [
+        "buy",
+        "sell",
+        "execute",
+        "approve_trade",
+        "override_hard_block"
+      ],
+      "role": "display_only",
+      "surface": "Panel Surface"
+    },
+    {
+      "allowed": [],
+      "authority": 0,
+      "forbidden": [
+        "callback",
+        "hook",
+        "payload",
+        "order",
+        "wallet_instruction",
+        "paper_live_toggle"
+      ],
+      "role": "closed_boundary",
+      "surface": "Trade Wallet Paper Live Boundary"
+    }
+  ]
+}

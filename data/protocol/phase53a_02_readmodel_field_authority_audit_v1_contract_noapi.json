@@ -1,0 +1,131 @@
+{
+  "authority_locks": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paper_trade": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "forbidden_field_patterns": [
+    {
+      "name": "PERMISSION",
+      "regex": "(^|[_\\-.])permission($|[_\\-.])|permissions"
+    },
+    {
+      "name": "ALLOWED",
+      "regex": "(^|[_\\-.])allowed($|[_\\-.])|allow(ed)?$"
+    },
+    {
+      "name": "PAYLOAD",
+      "regex": "(^|[_\\-.])payload($|[_\\-.])|payloads"
+    },
+    {
+      "name": "ACTION",
+      "regex": "(^|[_\\-.])action($|[_\\-.])|actions"
+    },
+    {
+      "name": "EXECUTE",
+      "regex": "execute|execution|executable"
+    },
+    {
+      "name": "TRADE",
+      "regex": "(^|[_\\-.])trade($|[_\\-.])|trading|live_trade|paper_trade"
+    },
+    {
+      "name": "WALLET",
+      "regex": "wallet|wallet_connect|connect_wallet"
+    },
+    {
+      "name": "BUY_SIGNAL",
+      "regex": "buy_signal|buy|long_entry"
+    },
+    {
+      "name": "SELL_SIGNAL",
+      "regex": "sell_signal|sell|exit_signal"
+    },
+    {
+      "name": "SWAP",
+      "regex": "swap|route_execute"
+    },
+    {
+      "name": "APPROVE",
+      "regex": "approve|approval"
+    },
+    {
+      "name": "CONFIRM",
+      "regex": "confirm|confirmation"
+    },
+    {
+      "name": "AUTO_APPLY",
+      "regex": "auto_apply|autoapply|auto-apply"
+    },
+    {
+      "name": "OVERRIDE",
+      "regex": "override|bypass"
+    },
+    {
+      "name": "ORDER",
+      "regex": "order_payload|order|send_order"
+    },
+    {
+      "name": "SIGN_SEND",
+      "regex": "sign|signing|send_raw|sendtx|send_tx"
+    }
+  ],
+  "mode": "READMODEL_FIELD_AUTHORITY_AUDIT_NOAPI",
+  "next_safe_step": "REVIEW_PHASE53A_02_READMODEL_FIELD_AUTHORITY_AUDIT_NOAPI",
+  "patch_allowed_now": false,
+  "phase": "PHASE53A_02_READMODEL_FIELD_AUTHORITY_AUDIT_NOAPI",
+  "requires_explicit_approval": true,
+  "safe_schema_contract": {
+    "allowed_consumer_fields": [
+      "risk_state",
+      "classification",
+      "evidence_ref",
+      "reason_code",
+      "review_required",
+      "display_hint",
+      "readonly_context",
+      "blocked_by_policy",
+      "observation_status",
+      "policy_state",
+      "snapshot_version",
+      "ttl_valid"
+    ],
+    "forbidden_consumer_fields": [
+      "trade_permission",
+      "wallet_permission",
+      "execute_allowed",
+      "buy_signal",
+      "sell_signal",
+      "action_payload",
+      "order_payload",
+      "auto_apply",
+      "override_allowed",
+      "route_execute",
+      "wallet_connect",
+      "approve_trade",
+      "confirm_trade",
+      "sign_payload",
+      "send_payload"
+    ],
+    "rewrite_field_guidance": {
+      "action_payload": "evidence_ref",
+      "auto_apply": "proposal_review_only",
+      "buy_signal": "entry_condition_observed",
+      "execute_allowed": "readonly_review_required",
+      "order_payload": "route_risk_context",
+      "override_allowed": "blocked_by_policy",
+      "sell_signal": "exit_condition_observed",
+      "trade_permission": "risk_state",
+      "wallet_permission": "wallet_risk_context"
+    }
+  },
+  "scan_scope": [
+    "sqlite_schema_readonly",
+    "active_panel_json_models",
+    "selected_data_readmodel_json"
+  ],
+  "schema": "phase53a_02_readmodel_field_authority_audit_v1_noapi"
+}

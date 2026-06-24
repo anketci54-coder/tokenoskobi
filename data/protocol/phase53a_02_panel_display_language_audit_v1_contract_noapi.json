@@ -1,0 +1,148 @@
+{
+  "action_terms": [
+    {
+      "name": "BUY",
+      "regex": "\\bbuy\\b"
+    },
+    {
+      "name": "SELL",
+      "regex": "\\bsell\\b"
+    },
+    {
+      "name": "TRADE",
+      "regex": "\\btrade\\b|\\btrading\\b|\\blive_trade\\b|\\bpaper_trade\\b|\\btrade_authority\\b"
+    },
+    {
+      "name": "SWAP",
+      "regex": "\\bswap\\b"
+    },
+    {
+      "name": "EXECUTE",
+      "regex": "\\bexecute\\b|\\bexecution\\b"
+    },
+    {
+      "name": "APPROVE",
+      "regex": "\\bapprove\\b|\\bapproval\\b"
+    },
+    {
+      "name": "CONFIRM",
+      "regex": "\\bconfirm\\b|\\bconfirmation\\b"
+    },
+    {
+      "name": "WALLET_CONNECT",
+      "regex": "\\bwallet\\s*connect\\b|\\bconnect\\s*wallet\\b"
+    },
+    {
+      "name": "WALLET",
+      "regex": "\\bwallet\\b|\\bwallet_authority\\b"
+    },
+    {
+      "name": "AUTO_APPLY",
+      "regex": "\\bauto\\s*apply\\b|\\bauto_apply\\b"
+    },
+    {
+      "name": "APPLY",
+      "regex": "\\bapply\\b"
+    },
+    {
+      "name": "OVERRIDE",
+      "regex": "\\boverride\\b"
+    },
+    {
+      "name": "ORDER",
+      "regex": "\\border\\b|\\border_payload\\b"
+    },
+    {
+      "name": "POSITION",
+      "regex": "\\bposition\\b"
+    },
+    {
+      "name": "ENTRY",
+      "regex": "\\bentry\\b"
+    },
+    {
+      "name": "EXIT",
+      "regex": "\\bexit\\b"
+    }
+  ],
+  "authority_locks": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paper_trade": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "core_risk": "PANEL_ACTION_CONFUSION",
+  "mode": "READONLY_PANEL_AUDIT_NOAPI",
+  "negative_tests": [
+    {
+      "forbidden_display": [
+        "Trade Failed",
+        "Execution Failed",
+        "Order Blocked",
+        "Buy Blocked",
+        "Sell Blocked"
+      ],
+      "required_display": [
+        "ReadOnly Observation Blocked",
+        "Risk Observation Restricted",
+        "Policy Blocked",
+        "Evidence Review Required"
+      ],
+      "test": "RISK_STATE=HARD_BLOCK"
+    },
+    {
+      "forbidden_display": [
+        "Buy",
+        "Sell",
+        "Execute",
+        "Approve Trade",
+        "Confirm Trade",
+        "Wallet Connect"
+      ],
+      "required_display": [
+        "Review Evidence",
+        "Show Risk Context",
+        "Show Evidence Ref"
+      ],
+      "test": "Consumer output action button"
+    },
+    {
+      "forbidden_display": [
+        "Permission Granted",
+        "Trade Ready",
+        "Execute"
+      ],
+      "required_display": [
+        "Confidence Note",
+        "Risk Context",
+        "Review Required"
+      ],
+      "test": "High confidence score"
+    }
+  ],
+  "next_safe_step": "PHASE53A_02_PANEL_READONLY_DISPLAY_LANGUAGE_REWRITE_PLAN_NOAPI",
+  "phase": "PHASE53A_02_PANEL_DISPLAY_LANGUAGE_AUDIT_NOAPI",
+  "safe_replacements": {
+    "APPLY": "READONLY_PROPOSAL_CONTEXT",
+    "APPROVE": "EVIDENCE_REVIEW_ACKNOWLEDGE",
+    "AUTO_APPLY": "PROPOSAL_REVIEW_ONLY",
+    "BUY": "ENTRY_CONDITION_OBSERVED",
+    "CONFIRM": "EVIDENCE_REVIEW_ACKNOWLEDGE",
+    "ENTRY": "ENTRY_CONDITION_OBSERVED",
+    "EXECUTE": "READONLY_REVIEW",
+    "EXIT": "EXIT_CONDITION_OBSERVED",
+    "ORDER": "ORDERBOOK_OR_ROUTE_CONTEXT",
+    "OVERRIDE": "POLICY_BLOCKED",
+    "POSITION": "EXPOSURE_CONTEXT",
+    "SELL": "EXIT_CONDITION_OBSERVED",
+    "SWAP": "ROUTE_RISK_CONTEXT",
+    "TRADE": "MARKET_RISK_CONTEXT",
+    "WALLET": "WALLET_RISK_CONTEXT",
+    "WALLET_CONNECT": "WALLET_SURFACE_OBSERVATION"
+  },
+  "scan_target": "active_panel_8096/current",
+  "schema": "phase53a_02_panel_display_language_audit_v1_noapi",
+  "source_head": "61caff7"
+}

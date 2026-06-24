@@ -1,0 +1,105 @@
+{
+  "authority_locks": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paper_trade": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "mode": "BRIDGE_TO_CONSUMER_PAYLOAD_SCHEMA_AUDIT_NOAPI",
+  "next_safe_step": "PHASE53A_02_BRIDGE_TO_CONSUMER_PAYLOAD_MASKING_CONTRACT_PLAN_NOAPI",
+  "patch_allowed_now": false,
+  "payload_contract": {
+    "allowed_fields": [
+      "blocked_by_policy",
+      "classification",
+      "display_hint",
+      "evidence_count",
+      "evidence_ref",
+      "hard_block_state",
+      "observation_status",
+      "policy_state",
+      "quarantine_state",
+      "readonly_context",
+      "reason_code",
+      "review_required",
+      "risk_context",
+      "risk_state",
+      "snapshot_version",
+      "source_state",
+      "stale_state",
+      "ttl_valid"
+    ],
+    "bridge_to_consumer_rules": [
+      {
+        "rule": "Consumer payload may include only allowed_fields plus false/zero authority-lock defense fields.",
+        "rule_id": "BCP_RULE_01"
+      },
+      {
+        "rule": "Forbidden fields must be masked before Consumer Binding.",
+        "rule_id": "BCP_RULE_02"
+      },
+      {
+        "rule": "Fields matching permission/allowed/action/mutation/trigger/payload/execute/order/wallet/trade require mask or rename review.",
+        "rule_id": "BCP_RULE_03"
+      },
+      {
+        "rule": "Masked field must not be displayed in panel or exported into Consumer payload.",
+        "rule_id": "BCP_RULE_04"
+      },
+      {
+        "rule": "Hard-block and policy states render as readonly observation state, never as failed trade/execution.",
+        "rule_id": "BCP_RULE_05"
+      },
+      {
+        "rule": "Missing evidence_ref routes to review_required, never allow/permission.",
+        "rule_id": "BCP_RULE_06"
+      }
+    ],
+    "forbidden_fields": [
+      "action",
+      "action_payload",
+      "action_plan",
+      "api_fetch_allowed",
+      "apply_order",
+      "apply_plan_action",
+      "approve_trade",
+      "auto_apply",
+      "buy_signal",
+      "confirm_trade",
+      "db_mutation_allowed",
+      "execute_allowed",
+      "live_allowed",
+      "order",
+      "order_payload",
+      "override_allowed",
+      "paper_allowed",
+      "paper_live_allowed",
+      "payload_json",
+      "planned_action",
+      "planned_icon_action",
+      "planned_layout_action",
+      "route_execute",
+      "sell_signal",
+      "send_payload",
+      "sign_payload",
+      "trade_execution_allowed",
+      "trade_permission",
+      "trigger_allowed",
+      "wallet_connect",
+      "wallet_permission"
+    ]
+  },
+  "phase": "PHASE53A_02_BRIDGE_TO_CONSUMER_PAYLOAD_SCHEMA_AUDIT_NOAPI",
+  "requires_explicit_approval": true,
+  "scan_scope": [
+    "active_panel_8096/current/data",
+    "active_panel_8096/current/panel_v2/data",
+    "active_panel_8096/current/mobile_pageflow/data",
+    "selected_data_bridge_binding_consumer_readmodel_json",
+    "active_db_bridge_readmodel_schema"
+  ],
+  "schema": "phase53a_02_bridge_to_consumer_payload_schema_audit_v1_noapi",
+  "source_masking_plan": "data/phase53a_02_readmodel_field_authority_masking_plan_noapi.json"
+}

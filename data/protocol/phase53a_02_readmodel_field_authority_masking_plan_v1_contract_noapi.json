@@ -1,0 +1,104 @@
+{
+  "authority_locks": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paper_trade": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "forbidden_consumer_fields": [
+    "trade_permission",
+    "wallet_permission",
+    "execute_allowed",
+    "trade_execution_allowed",
+    "db_mutation_allowed",
+    "api_fetch_allowed",
+    "paper_live_allowed",
+    "paper_allowed",
+    "live_allowed",
+    "action",
+    "action_plan",
+    "planned_action",
+    "apply_plan_action",
+    "planned_layout_action",
+    "planned_icon_action",
+    "order",
+    "apply_order",
+    "payload_json",
+    "action_payload",
+    "order_payload",
+    "buy_signal",
+    "sell_signal",
+    "auto_apply",
+    "override_allowed",
+    "trigger_allowed",
+    "route_execute",
+    "wallet_connect",
+    "approve_trade",
+    "confirm_trade",
+    "sign_payload",
+    "send_payload"
+  ],
+  "mask_rules": [
+    {
+      "rule": "Only allow SAFE_FIELD_ALLOWLIST fields into Consumer Payload.",
+      "rule_id": "MASK_RULE_01",
+      "source": "Consumer Binding Projection"
+    },
+    {
+      "rule": "Drop or remap any field matching permission, allowed, action, mutation, trigger, payload, execute, order, wallet, trade unless explicitly classified as SAFE_CONTEXT_KEEP.",
+      "rule_id": "MASK_RULE_02",
+      "source": "Decision Bridge Payload"
+    },
+    {
+      "rule": "Never expose archive_* or *_20260616 authority fields to active Consumer Binding.",
+      "rule_id": "MASK_RULE_03",
+      "source": "Archive/Legacy"
+    },
+    {
+      "rule": "Never derive active UI/Consumer fields from *_plan_noapi, *_rows_noapi, docs, reports, or archive plans.",
+      "rule_id": "MASK_RULE_04",
+      "source": "Plan/Audit Artifacts"
+    },
+    {
+      "rule": "Preserve negative authority-lock fields only as defense text, never as permission state.",
+      "rule_id": "MASK_RULE_05",
+      "source": "Authority Locks"
+    },
+    {
+      "rule": "Missing or masked field routes to REVIEW_REQUIRED or READONLY_CONTEXT, never ALLOW.",
+      "rule_id": "MASK_RULE_06",
+      "source": "Payload Contract"
+    }
+  ],
+  "mode": "READMODEL_MASKING_PLAN_NOAPI",
+  "next_safe_step": "PHASE53A_02_BRIDGE_TO_CONSUMER_PAYLOAD_SCHEMA_AUDIT_NOAPI",
+  "patch_allowed_now": false,
+  "phase": "PHASE53A_02_READMODEL_FIELD_AUTHORITY_MASKING_PLAN_NOAPI",
+  "red_team_orphan_policy": "All source ORPHAN_CANDIDATE fields are marked as RED_TEAM_ORPHAN_CANDIDATE or stricter masking class, but no deletion/patch is allowed now.",
+  "requires_explicit_approval": true,
+  "safe_field_allowlist": [
+    "risk_state",
+    "classification",
+    "evidence_ref",
+    "reason_code",
+    "review_required",
+    "display_hint",
+    "readonly_context",
+    "blocked_by_policy",
+    "observation_status",
+    "policy_state",
+    "snapshot_version",
+    "ttl_valid",
+    "risk_context",
+    "evidence_count",
+    "source_state",
+    "stale_state",
+    "quarantine_state",
+    "hard_block_state"
+  ],
+  "schema": "phase53a_02_readmodel_field_authority_masking_plan_v1_noapi",
+  "source_audit": "data/phase53a_02_readmodel_field_authority_audit_noapi.json",
+  "source_audit_gate": "FAIL_PHASE53A_02_READMODEL_FIELD_AUTHORITY_AUDIT_NOAPI"
+}
