@@ -1,0 +1,251 @@
+{
+  "authority": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paper_trade": 0,
+    "provider_call_now": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "components": [
+    {
+      "authority": 0,
+      "id": "READONLY_MARKET_RISK_SCOPE",
+      "purpose": "Define V2_19 as real-market risk analysis plan only; no live read is executed in this phase."
+    },
+    {
+      "authority": 0,
+      "id": "REAL_MARKET_SOURCE_CONTRACT_PLAN",
+      "purpose": "Plan future readonly market sources such as provider health, latency, mempool, quote freshness, and risk snapshots."
+    },
+    {
+      "authority": 0,
+      "id": "READONLY_PROVIDER_BOUNDARY",
+      "purpose": "Future provider calls must be read-only, budgeted, bounded, logged, and explicitly approved before real read."
+    },
+    {
+      "authority": 0,
+      "id": "LIVE_RISK_SNAPSHOT_SCHEMA_PLAN",
+      "purpose": "Plan snapshot fields for latency bucket, quote age, pending tx pressure, reorg/provider risk, mempool pressure, and confidence score."
+    },
+    {
+      "authority": 0,
+      "id": "EFFECTIVE_BACKPRESSURE_LIVE_BINDING",
+      "purpose": "Bind V2_18C_FIX1 formula to future readonly snapshots without granting execution authority."
+    },
+    {
+      "authority": 0,
+      "id": "RED_ZONE_DETECTOR_PLAN",
+      "purpose": "Detect provider degraded, stale quote, reorg, mempool congestion, and hard-cap conditions as alert-only outputs."
+    },
+    {
+      "authority": 0,
+      "id": "JITTER_AND_LATENCY_GUARD_PLAN",
+      "purpose": "Plan green/yellow/red latency handling while preserving hot path wait zero."
+    },
+    {
+      "authority": 0,
+      "id": "MEMPOOL_CONGESTION_GUARD_PLAN",
+      "purpose": "Classify congestion as risk signal, not trade permission."
+    },
+    {
+      "authority": 0,
+      "id": "QUOTE_TTL_AND_FRESHNESS_GUARD_PLAN",
+      "purpose": "Reject stale snapshots and mark WAIT_FRESH_BUNDLE without blocking hot path execution loops."
+    },
+    {
+      "authority": 0,
+      "id": "HARD_CAP_IMMUTABILITY_GUARD",
+      "purpose": "Hard cap and provider degraded cannot be bypassed by opportunity, confidence, AI, or human convenience."
+    },
+    {
+      "authority": 0,
+      "id": "READONLY_EVIDENCE_LEDGER_PLAN",
+      "purpose": "Plan evidence references for future real-market risk snapshots without writing live DB in this phase."
+    },
+    {
+      "authority": 0,
+      "id": "PANEL_READMODEL_FUTURE_BINDING_PLAN",
+      "purpose": "Plan future panel/readmodel display of risk map as observer-only, not executor."
+    },
+    {
+      "authority": 0,
+      "id": "PRODUCTION_BENCHMARK_DEFERRED_GUARD",
+      "purpose": "Keep microsecond performance claims false until separate production benchmark evidence exists."
+    },
+    {
+      "authority": 0,
+      "id": "NO_TRADE_NO_WALLET_CONSTITUTION",
+      "purpose": "Trade, wallet, paper, live execution, and auto-apply remain zero."
+    }
+  ],
+  "conditions": [
+    "V2_19 plan phase performs no real provider, API, RPC, explorer, Telegram, Discord, or external fetch.",
+    "Future real-market readonly read requires separate explicit approval.",
+    "EffectiveBackpressure formula may be bound only to snapshot fields.",
+    "Snapshot fields must be O(1) and bounded.",
+    "Hard cap is non-overridable.",
+    "Provider degraded is non-overridable RED.",
+    "Opportunity or confidence cannot bypass RED.",
+    "Outputs are risk classifications, not trade permissions.",
+    "Panel/readmodel can display risk state only after separate apply approval.",
+    "DB schema/write is forbidden in this plan phase.",
+    "DB and panel SHA must remain unchanged.",
+    "Trade, wallet, paper, live execution remain disabled.",
+    "AI may summarize later but cannot decide, override, or trade.",
+    "Hot path wait count target remains zero.",
+    "Real sleep count target remains zero.",
+    "Microsecond performance claim remains false.",
+    "Production benchmark remains separate future proof.",
+    "Evidence references must be versioned and auditable.",
+    "Old V2_18 fail artifacts must remain absent.",
+    "Next phase must be TempDB dry-run before any real readonly fetch."
+  ],
+  "goal": "Plan readonly real-market risk analysis using V2_18C_FIX1 backpressure discipline and V2_18D replay evidence.",
+  "hard_fail_rules": [
+    "TRADE_AUTHORITY_NONZERO",
+    "WALLET_AUTHORITY_NONZERO",
+    "LIVE_TRADE_NONZERO",
+    "PAPER_TRADE_NONZERO",
+    "PROVIDER_CALL_IN_PLAN_PHASE",
+    "EXTERNAL_FETCH_IN_PLAN_PHASE",
+    "DB_SCHEMA_OR_LIVE_WRITE",
+    "PANEL_WRITE",
+    "SERVICE_TIMER_NGINX_CHANGE",
+    "HOT_PATH_WAIT_NONZERO",
+    "REAL_SLEEP_NONZERO",
+    "HARD_BLOCK_BYPASS_NONZERO",
+    "PROVIDER_DEGRADED_NOT_RED",
+    "MICROSECOND_PRODUCTION_CLAIM_TRUE",
+    "AI_AUTHORITY_NONZERO",
+    "AUTO_APPLY_NONZERO"
+  ],
+  "hot_path_never_waits": true,
+  "metrics_plan": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "hard_block_bypass_reference": 0,
+    "legacy_block_fix1_allow_reference": 8935,
+    "live_trade": 0,
+    "microsecond_performance_claim": false,
+    "missed_signal_candidate_reference": 8935,
+    "opportunity_cost_recovery_reference": 8935,
+    "paper_trade": 0,
+    "performance_proof_deferred_to_production_benchmark": true,
+    "provider_call_now": 0,
+    "provider_degraded_block_reference": 14285,
+    "readonly_runtime_now": 0,
+    "real_market_fetch_now": 0,
+    "source_v2_18d_head": "d11bf1a",
+    "trade_authority": 0,
+    "unsafe_recovery_reference": 0,
+    "wallet_authority": 0
+  },
+  "mode": "PLAN_NOAPI",
+  "next_safe_step": "V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_TEMPDB_DRYRUN_NOAPI",
+  "o1_snapshot_only": true,
+  "phase": "V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_PLAN_NOAPI",
+  "previous_head": "d11bf1a",
+  "readonly_runtime_now": false,
+  "readonly_sources": [
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "provider_health",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "latency_jitter",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "mempool_pressure",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "quote_ttl_freshness",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "reorg_risk_signal",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "market_pair_liquidity_snapshot",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "volume_volatility_snapshot",
+      "trade_authority": 0
+    },
+    {
+      "fetch_now": 0,
+      "future_mode": "READONLY_AFTER_EXPLICIT_APPROVAL",
+      "source": "risk_evidence_reference",
+      "trade_authority": 0
+    }
+  ],
+  "real_market_fetch_now": false,
+  "risk_outputs": [
+    {
+      "meaning": "Clean enough snapshot; observation allowed only.",
+      "output": "GREEN_OBSERVE",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Signal can be watched but requires friction/risk note.",
+      "output": "YELLOW_OBSERVE_WITH_FRICTION",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Hard block or degraded provider alert; no execution.",
+      "output": "RED_HARD_BLOCK_ALERT",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Snapshot stale or skewed; wait for fresh evidence.",
+      "output": "WAIT_FRESH_BUNDLE",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Provider degraded remains non-overridable RED.",
+      "output": "PROVIDER_DEGRADED_BLOCK",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Congestion produces risk classification only.",
+      "output": "MEMPOOL_CONGESTION_RISK",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Latency/jitter spike produces risk classification only.",
+      "output": "JITTER_SPIKE_RISK",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Reorg risk is alert-only and hard-cap eligible.",
+      "output": "REORG_RISK_ALERT",
+      "trade_authority": 0
+    },
+    {
+      "meaning": "Human review may see evidence but cannot auto-execute.",
+      "output": "HUMAN_REVIEW_ONLY",
+      "trade_authority": 0
+    }
+  ],
+  "schema": "v2_19_real_market_risk_analysis_readonly_plan_v1_noapi",
+  "source_v2_18d_seal": "data/v2_18d_opportunity_cost_and_missed_signal_replay_seal.json"
+}
