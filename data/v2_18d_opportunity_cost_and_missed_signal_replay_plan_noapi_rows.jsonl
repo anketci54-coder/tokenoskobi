@@ -1,0 +1,96 @@
+{"depends_on": "bc8a2c2", "kind": "phase", "phase": "V2_18D_OPPORTUNITY_COST_AND_MISSED_SIGNAL_REPLAY_PLAN_NOAPI", "previous_head": "bc8a2c2"}
+{"authority": 0, "id": "REPLAY_SCOPE_CONTRACT", "kind": "component", "purpose": "Compare legacy/backpressure-heavy policy against V2_18C_FIX1 controlled-courage policy on the same event surface."}
+{"authority": 0, "id": "DUAL_POLICY_SIMULATION_MATRIX", "kind": "component", "purpose": "Run LEGACY_POLICY and FIX1_POLICY labels side-by-side without trade, provider, wallet, or DB writes."}
+{"authority": 0, "id": "OPPORTUNITY_COST_DELTA_CALCULATOR", "kind": "component", "purpose": "Quantify candidates released by FIX1 where legacy policy would have downranked or blocked."}
+{"authority": 0, "id": "MISSED_SIGNAL_CANDIDATE_DETECTOR", "kind": "component", "purpose": "Flag candidates where legacy/fix1 disagreement may represent false negative recovery."}
+{"authority": 0, "id": "AVOIDED_LOSS_MEMORY_GUARD", "kind": "component", "purpose": "Separate true opportunity recovery from unsafe false-positive recovery."}
+{"authority": 0, "id": "HARD_CAP_IMMUTABILITY_GUARD", "kind": "component", "purpose": "Ensure hard caps, red zone, provider degraded, and stale quote protections cannot be weakened by opportunity-cost logic."}
+{"authority": 0, "id": "PROVIDER_DEGRADED_ZERO_TOLERANCE_RULE", "kind": "component", "purpose": "Provider degraded remains mandatory RED; no missed-signal replay can override it."}
+{"authority": 0, "id": "O1_SNAPSHOT_REPLAY_CONTRACT", "kind": "component", "purpose": "Replay uses fixed snapshot fields only and does not perform graph searches, API fetches, sleeps, loops over external data, or AI inference."}
+{"authority": 0, "id": "HUMAN_GATEWAY_REVIEW_ONLY", "kind": "component", "purpose": "Recovered opportunity candidates are review labels only, never execution permissions."}
+{"authority": 0, "id": "FALSE_NEGATIVE_MEMORY_STUB", "kind": "component", "purpose": "Prepare future memory labels for missed signal cases without writing live learning tables."}
+{"authority": 0, "id": "FIX_REGRESSION_TRIGGER", "kind": "component", "purpose": "If FIX1 shows unsafe recovery, route back to V2_18C_FIX protocol instead of advancing."}
+{"authority": 0, "id": "EVIDENCE_CHAIN_PURER", "kind": "component", "purpose": "Bind replay conclusions to committed V2_18C_FIX1 seal artifacts and exclude old FAIL artifacts."}
+{"classification": "OPPORTUNITY_COST_RECOVERY_REVIEW", "kind": "replay_rule", "meaning": "Candidate was blocked/downranked by legacy but allowed or allowed-with-friction by FIX1.", "rule": "LEGACY_BLOCK_FIX1_ALLOW", "trade_authority": 0}
+{"classification": "RISK_DISCIPLINE_GAIN_REVIEW", "kind": "replay_rule", "meaning": "Candidate was allowed by legacy but blocked by FIX1.", "rule": "LEGACY_ALLOW_FIX1_BLOCK", "trade_authority": 0}
+{"classification": "NO_RECOVERY_SOFT_RISK", "kind": "replay_rule", "meaning": "Both policies backpressure without hard cap.", "rule": "BLOCK_BOTH_SOFT", "trade_authority": 0}
+{"classification": "HARD_BLOCK_IMMUTABLE", "kind": "replay_rule", "meaning": "Both policies hard-block or requote.", "rule": "HARD_BLOCK_BOTH", "trade_authority": 0}
+{"classification": "NON_OVERRIDEABLE_RED_ZONE", "kind": "replay_rule", "meaning": "Provider degraded stays RED under all policies.", "rule": "PROVIDER_DEGRADED_BLOCK", "trade_authority": 0}
+{"classification": "CONTROLLED_COURAGE_REVIEW", "kind": "replay_rule", "meaning": "FIX1 recovers candidate but keeps yellow/friction label.", "rule": "FIX1_ALLOW_WITH_FRICTION", "trade_authority": 0}
+{"classification": "FALSE_NEGATIVE_REVIEW_ONLY", "kind": "replay_rule", "meaning": "Recovered candidate enters future replay evidence queue only.", "rule": "MISSED_SIGNAL_REPLAY_CANDIDATE", "trade_authority": 0}
+{"classification": "AVOIDED_LOSS_REVIEW_ONLY", "kind": "replay_rule", "meaning": "Blocked candidate would likely have failed under risk labels.", "rule": "AVOIDED_LOSS_REPLAY_CANDIDATE", "trade_authority": 0}
+{"kind": "hard_fail_rule", "name": "TRADE_AUTHORITY_NONZERO"}
+{"kind": "hard_fail_rule", "name": "WALLET_AUTHORITY_NONZERO"}
+{"kind": "hard_fail_rule", "name": "PROVIDER_CALL_NONZERO"}
+{"kind": "hard_fail_rule", "name": "REAL_BUY_OR_SELL_NONZERO"}
+{"kind": "hard_fail_rule", "name": "HOT_PATH_WAIT_NONZERO"}
+{"kind": "hard_fail_rule", "name": "REAL_SLEEP_NONZERO"}
+{"kind": "hard_fail_rule", "name": "HARD_BLOCK_OUTSIDE_RED_NONZERO"}
+{"kind": "hard_fail_rule", "name": "PROVIDER_DEGRADED_NOT_RED"}
+{"kind": "hard_fail_rule", "name": "OLD_FAIL_ARTIFACT_INCLUDED"}
+{"kind": "hard_fail_rule", "name": "DB_OR_PANEL_SHA_CHANGED"}
+{"kind": "hard_fail_rule", "name": "STATUS_DIRTY_UNEXPECTED"}
+{"kind": "hard_fail_rule", "name": "O1_SNAPSHOT_ONLY_FALSE"}
+{"kind": "hard_fail_rule", "name": "MICROSECOND_PRODUCTION_CLAIM_TRUE"}
+{"kind": "metric_plan", "name": "legacy_baseline_backpressure_pct_reference", "value": 60.9268}
+{"kind": "metric_plan", "name": "fix1_baseline_backpressure_pct_reference", "value": 28.8534}
+{"kind": "metric_plan", "name": "opportunity_delta_pct_reference", "value": 32.0734}
+{"kind": "metric_plan", "name": "target_replay_mode", "value": "TEMPDB_DRYRUN_NOAPI"}
+{"kind": "metric_plan", "name": "trade_authority", "value": 0}
+{"kind": "metric_plan", "name": "wallet_authority", "value": 0}
+{"kind": "metric_plan", "name": "provider_call", "value": 0}
+{"kind": "metric_plan", "name": "hot_path_wait", "value": 0}
+{"kind": "metric_plan", "name": "hard_cap_bypass", "value": 0}
+{"kind": "metric_plan", "name": "old_fail_artifacts_included", "value": 0}
+{"kind": "metric_plan", "name": "microsecond_performance_claim", "value": false}
+{"kind": "metric_plan", "name": "performance_proof_deferred_to_production_benchmark", "value": true}
+{"kind": "condition", "text": "Replay compares old policy and FIX1 policy on identical modeled event rows."}
+{"kind": "condition", "text": "Opportunity recovery is not trade permission."}
+{"kind": "condition", "text": "Missed signal memory is review-only."}
+{"kind": "condition", "text": "Hard cap and provider degraded are non-overridable."}
+{"kind": "condition", "text": "Red zone remains immutable."}
+{"kind": "condition", "text": "Green/yellow recovery cannot bypass safety gates."}
+{"kind": "condition", "text": "TempDB only; no live DB/schema/panel write."}
+{"kind": "condition", "text": "No provider/API/external fetch."}
+{"kind": "condition", "text": "No wallet/signing/live/paper trade."}
+{"kind": "condition", "text": "No AI provider call."}
+{"kind": "condition", "text": "No service/timer/Nginx change."}
+{"kind": "condition", "text": "O(1) snapshot-only fields."}
+{"kind": "condition", "text": "Hot path wait count must remain zero."}
+{"kind": "condition", "text": "Real sleep count must remain zero."}
+{"kind": "condition", "text": "Microsecond performance claim remains false."}
+{"kind": "condition", "text": "Production benchmark remains future proof requirement."}
+{"kind": "condition", "text": "Old V2_18C failed dry-run artifacts remain excluded."}
+{"kind": "condition", "text": "If unsafe recovered opportunity is found, return to FIX protocol."}
+{"kind": "next_safe_step", "value": "V2_18D_OPPORTUNITY_COST_AND_MISSED_SIGNAL_REPLAY_TEMPDB_DRYRUN_NOAPI"}
+{"actual": "bc8a2c2", "expected": "bc8a2c2", "kind": "assertion", "name": "head_is_bc8a2c2", "status": "PASS"}
+{"actual": "bc8a2c2", "expected": "bc8a2c2", "kind": "assertion", "name": "origin_matches_head", "status": "PASS"}
+{"actual": "bc8a2c2", "expected": "bc8a2c2", "kind": "assertion", "name": "remote_matches_head", "status": "PASS"}
+{"actual": "0 0", "expected": "0 0", "kind": "assertion", "name": "ahead_behind_zero", "status": "PASS"}
+{"actual": "[]", "expected": "[]", "kind": "assertion", "name": "status_clean_or_only_target_outputs", "status": "PASS"}
+{"actual": "ok", "expected": "ok", "kind": "assertion", "name": "db_integrity_ok", "status": "PASS"}
+{"actual": "ok", "expected": "ok", "kind": "assertion", "name": "db_quick_ok", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "db_fk_zero", "status": "PASS"}
+{"actual": "", "expected": "", "kind": "assertion", "name": "protected_diff_empty_before", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "panel_exists", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "data/protocol/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal_v1_contract.json_exists", "status": "PASS"}
+{"actual": "3be5c275d3bb923e1f099e7e050fbdcfcec47ea819517e183b899c6f639a4e30", "expected": "3be5c275d3bb923e1f099e7e050fbdcfcec47ea819517e183b899c6f639a4e30", "kind": "assertion", "name": "data/protocol/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal_v1_contract.json_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "data/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal.json_exists", "status": "PASS"}
+{"actual": "e0d1261373c87053f65b72b0d5c47248a6a501ab4eca8ed204f0a13220c0f330", "expected": "e0d1261373c87053f65b72b0d5c47248a6a501ab4eca8ed204f0a13220c0f330", "kind": "assertion", "name": "data/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal.json_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "data/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal_rows.jsonl_exists", "status": "PASS"}
+{"actual": "2b9a786b46cefd8ed5cb5493f278ee3dcb638168883e5d082f96e01c18306cb3", "expected": "2b9a786b46cefd8ed5cb5493f278ee3dcb638168883e5d082f96e01c18306cb3", "kind": "assertion", "name": "data/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal_rows.jsonl_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "docs/phases/v2/V2_18C_FIX1_BACKPRESSURE_THRESHOLD_RETUNE_DRYRUN_AND_POST_AUDIT_SEAL.md_exists", "status": "PASS"}
+{"actual": "16d0c0dbcc2b3c83b888c003d678fcd5899f19430d26469028cd1b72b1f5314c", "expected": "16d0c0dbcc2b3c83b888c003d678fcd5899f19430d26469028cd1b72b1f5314c", "kind": "assertion", "name": "docs/phases/v2/V2_18C_FIX1_BACKPRESSURE_THRESHOLD_RETUNE_DRYRUN_AND_POST_AUDIT_SEAL.md_sha", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "old_fail_absent_data/protocol/v2_18c_backpressure_threshold_calibration_tempdb_dryrun_v1_contract_noapi.json", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "old_fail_absent_data/v2_18c_backpressure_threshold_calibration_tempdb_dryrun_noapi.json", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "old_fail_absent_data/v2_18c_backpressure_threshold_calibration_tempdb_dryrun_noapi_rows.jsonl", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "old_fail_absent_docs/phases/v2/V2_18C_BACKPRESSURE_THRESHOLD_CALIBRATION_TEMPDB_DRYRUN_NOAPI.md", "status": "PASS"}
+{"actual": "PASS_V2_18C_FIX1_BACKPRESSURE_THRESHOLD_RETUNE_TEMPDB_DRYRUN_NOAPI", "expected": "PASS_V2_18C_FIX1_BACKPRESSURE_THRESHOLD_RETUNE_TEMPDB_DRYRUN_NOAPI", "kind": "assertion", "name": "prev_dryrun_gate_pass", "status": "PASS"}
+{"actual": "PASS_V2_18C_FIX1_BACKPRESSURE_THRESHOLD_RETUNE_POST_AUDIT_NOAPI", "expected": "PASS_V2_18C_FIX1_BACKPRESSURE_THRESHOLD_RETUNE_POST_AUDIT_NOAPI", "kind": "assertion", "name": "prev_post_gate_pass", "status": "PASS"}
+{"actual": "28.8534", "expected": "25-30", "kind": "assertion", "name": "prev_baseline_target", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "prev_hard_block_outside_red_zero", "status": "PASS"}
+{"actual": "14285", "expected": "14285", "kind": "assertion", "name": "prev_provider_degraded_red", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "prev_hot_wait_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "prev_provider_call_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "prev_trade_authority_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "prev_wallet_authority_zero", "status": "PASS"}

@@ -1,0 +1,173 @@
+{
+  "authority": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "provider_call": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "components": [
+    {
+      "authority": 0,
+      "id": "REPLAY_SCOPE_CONTRACT",
+      "purpose": "Compare legacy/backpressure-heavy policy against V2_18C_FIX1 controlled-courage policy on the same event surface."
+    },
+    {
+      "authority": 0,
+      "id": "DUAL_POLICY_SIMULATION_MATRIX",
+      "purpose": "Run LEGACY_POLICY and FIX1_POLICY labels side-by-side without trade, provider, wallet, or DB writes."
+    },
+    {
+      "authority": 0,
+      "id": "OPPORTUNITY_COST_DELTA_CALCULATOR",
+      "purpose": "Quantify candidates released by FIX1 where legacy policy would have downranked or blocked."
+    },
+    {
+      "authority": 0,
+      "id": "MISSED_SIGNAL_CANDIDATE_DETECTOR",
+      "purpose": "Flag candidates where legacy/fix1 disagreement may represent false negative recovery."
+    },
+    {
+      "authority": 0,
+      "id": "AVOIDED_LOSS_MEMORY_GUARD",
+      "purpose": "Separate true opportunity recovery from unsafe false-positive recovery."
+    },
+    {
+      "authority": 0,
+      "id": "HARD_CAP_IMMUTABILITY_GUARD",
+      "purpose": "Ensure hard caps, red zone, provider degraded, and stale quote protections cannot be weakened by opportunity-cost logic."
+    },
+    {
+      "authority": 0,
+      "id": "PROVIDER_DEGRADED_ZERO_TOLERANCE_RULE",
+      "purpose": "Provider degraded remains mandatory RED; no missed-signal replay can override it."
+    },
+    {
+      "authority": 0,
+      "id": "O1_SNAPSHOT_REPLAY_CONTRACT",
+      "purpose": "Replay uses fixed snapshot fields only and does not perform graph searches, API fetches, sleeps, loops over external data, or AI inference."
+    },
+    {
+      "authority": 0,
+      "id": "HUMAN_GATEWAY_REVIEW_ONLY",
+      "purpose": "Recovered opportunity candidates are review labels only, never execution permissions."
+    },
+    {
+      "authority": 0,
+      "id": "FALSE_NEGATIVE_MEMORY_STUB",
+      "purpose": "Prepare future memory labels for missed signal cases without writing live learning tables."
+    },
+    {
+      "authority": 0,
+      "id": "FIX_REGRESSION_TRIGGER",
+      "purpose": "If FIX1 shows unsafe recovery, route back to V2_18C_FIX protocol instead of advancing."
+    },
+    {
+      "authority": 0,
+      "id": "EVIDENCE_CHAIN_PURER",
+      "purpose": "Bind replay conclusions to committed V2_18C_FIX1 seal artifacts and exclude old FAIL artifacts."
+    }
+  ],
+  "conditions": [
+    "Replay compares old policy and FIX1 policy on identical modeled event rows.",
+    "Opportunity recovery is not trade permission.",
+    "Missed signal memory is review-only.",
+    "Hard cap and provider degraded are non-overridable.",
+    "Red zone remains immutable.",
+    "Green/yellow recovery cannot bypass safety gates.",
+    "TempDB only; no live DB/schema/panel write.",
+    "No provider/API/external fetch.",
+    "No wallet/signing/live/paper trade.",
+    "No AI provider call.",
+    "No service/timer/Nginx change.",
+    "O(1) snapshot-only fields.",
+    "Hot path wait count must remain zero.",
+    "Real sleep count must remain zero.",
+    "Microsecond performance claim remains false.",
+    "Production benchmark remains future proof requirement.",
+    "Old V2_18C failed dry-run artifacts remain excluded.",
+    "If unsafe recovered opportunity is found, return to FIX protocol."
+  ],
+  "fail_artifacts_excluded": true,
+  "goal": "Replay legacy policy versus FIX1 policy to quantify opportunity cost recovery, missed signal candidates, avoided-loss labels, and unsafe-recovery regressions.",
+  "hard_fail_rules": [
+    "TRADE_AUTHORITY_NONZERO",
+    "WALLET_AUTHORITY_NONZERO",
+    "PROVIDER_CALL_NONZERO",
+    "REAL_BUY_OR_SELL_NONZERO",
+    "HOT_PATH_WAIT_NONZERO",
+    "REAL_SLEEP_NONZERO",
+    "HARD_BLOCK_OUTSIDE_RED_NONZERO",
+    "PROVIDER_DEGRADED_NOT_RED",
+    "OLD_FAIL_ARTIFACT_INCLUDED",
+    "DB_OR_PANEL_SHA_CHANGED",
+    "STATUS_DIRTY_UNEXPECTED",
+    "O1_SNAPSHOT_ONLY_FALSE",
+    "MICROSECOND_PRODUCTION_CLAIM_TRUE"
+  ],
+  "hot_path_never_waits": true,
+  "mode": "PLAN_NOAPI",
+  "next_safe_step": "V2_18D_OPPORTUNITY_COST_AND_MISSED_SIGNAL_REPLAY_TEMPDB_DRYRUN_NOAPI",
+  "o1_snapshot_only": true,
+  "old_fail_forbidden": [
+    "data/protocol/v2_18c_backpressure_threshold_calibration_tempdb_dryrun_v1_contract_noapi.json",
+    "data/v2_18c_backpressure_threshold_calibration_tempdb_dryrun_noapi.json",
+    "data/v2_18c_backpressure_threshold_calibration_tempdb_dryrun_noapi_rows.jsonl",
+    "docs/phases/v2/V2_18C_BACKPRESSURE_THRESHOLD_CALIBRATION_TEMPDB_DRYRUN_NOAPI.md"
+  ],
+  "phase": "V2_18D_OPPORTUNITY_COST_AND_MISSED_SIGNAL_REPLAY_PLAN_NOAPI",
+  "previous_seal_head": "bc8a2c2",
+  "replay_rules": [
+    {
+      "classification": "OPPORTUNITY_COST_RECOVERY_REVIEW",
+      "meaning": "Candidate was blocked/downranked by legacy but allowed or allowed-with-friction by FIX1.",
+      "rule": "LEGACY_BLOCK_FIX1_ALLOW",
+      "trade_authority": 0
+    },
+    {
+      "classification": "RISK_DISCIPLINE_GAIN_REVIEW",
+      "meaning": "Candidate was allowed by legacy but blocked by FIX1.",
+      "rule": "LEGACY_ALLOW_FIX1_BLOCK",
+      "trade_authority": 0
+    },
+    {
+      "classification": "NO_RECOVERY_SOFT_RISK",
+      "meaning": "Both policies backpressure without hard cap.",
+      "rule": "BLOCK_BOTH_SOFT",
+      "trade_authority": 0
+    },
+    {
+      "classification": "HARD_BLOCK_IMMUTABLE",
+      "meaning": "Both policies hard-block or requote.",
+      "rule": "HARD_BLOCK_BOTH",
+      "trade_authority": 0
+    },
+    {
+      "classification": "NON_OVERRIDEABLE_RED_ZONE",
+      "meaning": "Provider degraded stays RED under all policies.",
+      "rule": "PROVIDER_DEGRADED_BLOCK",
+      "trade_authority": 0
+    },
+    {
+      "classification": "CONTROLLED_COURAGE_REVIEW",
+      "meaning": "FIX1 recovers candidate but keeps yellow/friction label.",
+      "rule": "FIX1_ALLOW_WITH_FRICTION",
+      "trade_authority": 0
+    },
+    {
+      "classification": "FALSE_NEGATIVE_REVIEW_ONLY",
+      "meaning": "Recovered candidate enters future replay evidence queue only.",
+      "rule": "MISSED_SIGNAL_REPLAY_CANDIDATE",
+      "trade_authority": 0
+    },
+    {
+      "classification": "AVOIDED_LOSS_REVIEW_ONLY",
+      "meaning": "Blocked candidate would likely have failed under risk labels.",
+      "rule": "AVOIDED_LOSS_REPLAY_CANDIDATE",
+      "trade_authority": 0
+    }
+  ],
+  "schema": "v2_18d_opportunity_cost_and_missed_signal_replay_plan_v1_noapi",
+  "source_v2_18c_fix1_seal": "data/v2_18c_fix1_backpressure_threshold_retune_dryrun_and_post_audit_seal.json"
+}
