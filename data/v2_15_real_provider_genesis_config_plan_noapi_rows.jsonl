@@ -1,0 +1,89 @@
+{"accepted_candidate_rows": 0, "ai_called_rows": 0, "allowlist_required_reject_rows": 1, "candidate_rows": 7, "config_activated_rows": 0, "config_hash_required_reject_rows": 1, "decision": "PROVIDER_GENESIS_CONFIG_PLAN_ACCEPTED_READY_FOR_COMMIT_PUSH", "dryrun_required_reject_rows": 1, "dual_approval_independence_reject_rows": 1, "external_api_called_rows": 0, "final_gate": "PASS_V2_15_REAL_PROVIDER_GENESIS_CONFIG_PLAN_NOAPI", "fingerprint_required_reject_rows": 1, "genesis_case_rows": 10, "genesis_reason_code_missing_rows": 0, "genesis_reason_code_rows": 10, "kind": "v2_15_summary", "live_db_write_rows": 0, "live_trade_rows": 0, "panel_write_rows": 0, "patch_rows": 0, "phase": "V2_15_REAL_PROVIDER_GENESIS_CONFIG_PLAN_NOAPI", "product_specific_hack_rows": 0, "provider_called_rows": 0, "provider_specific_name_rows": 0, "real_endpoint_rows": 0, "result_mismatch_rows": 0, "rollback_required_reject_rows": 1, "schema_required_reject_rows": 1, "secret_printed_rows": 0, "secret_read_rows": 0, "server_sprawl_rows": 0, "trade_authority_rows": 0, "wallet_authority_rows": 0}
+{"kind": "contract", "path": "data/protocol/real_provider_genesis_config_plan_v1_contract_noapi.json", "sha": "09622ed85da97dce6fda370e3c5853368071cbe2ae41a21b4faf019938d56bbf"}
+{"foreign_key_check_count": 0, "integrity_check": "ok", "kind": "tempdb", "path": "/tmp/V2_15_REAL_PROVIDER_GENESIS_CONFIG_PLAN_NOAPI_20260624_065511/v2_15_provider_genesis_config_tempdb.sqlite", "quick_check": "ok", "sha": "cbe372befef6fa9357baf7a19b861158ef155fa0ce08c80478ec680465db5a28"}
+{"case_id": "GENESIS_SCHEMA_REQUIRED", "expected_reason_code": "ERR_GENESIS_SCHEMA_REQUIRED", "expected_result": "REJECT_UNSCHEMATIC_CONFIG", "kind": "genesis_case", "purpose": "provider genesis config must have schema"}
+{"case_id": "ENDPOINT_ALLOWLIST_REQUIRED", "expected_reason_code": "ERR_ENDPOINT_NOT_ALLOWLISTED", "expected_result": "REJECT_UNALLOWLISTED_ENDPOINT", "kind": "genesis_case", "purpose": "endpoint must match approved allowlist pattern"}
+{"case_id": "ENDPOINT_FINGERPRINT_REQUIRED", "expected_reason_code": "ERR_ENDPOINT_FINGERPRINT_MISSING", "expected_result": "REJECT_WITHOUT_FINGERPRINT", "kind": "genesis_case", "purpose": "endpoint must have TLS or endpoint fingerprint proof"}
+{"case_id": "CONFIG_HASH_IMMUTABLE_REQUIRED", "expected_reason_code": "ERR_CONFIG_HASH_MISSING", "expected_result": "REJECT_UNHASHED_CONFIG", "kind": "genesis_case", "purpose": "config must be hash sealed before activation"}
+{"case_id": "DUAL_APPROVAL_INDEPENDENCE_REQUIRED", "expected_reason_code": "ERR_DUAL_APPROVAL_INDEPENDENCE_MISSING", "expected_result": "REJECT_SAME_HOST_APPROVAL", "kind": "genesis_case", "purpose": "dual approval must be independent host/device/network"}
+{"case_id": "PHISHING_ENDPOINT_REJECTED", "expected_reason_code": "ERR_PHISHING_ENDPOINT_REJECTED", "expected_result": "REJECT_PHISHING_ENDPOINT", "kind": "genesis_case", "purpose": "lookalike/phishing endpoint must be rejected"}
+{"case_id": "DRYRUN_ONLY_REQUIRED", "expected_reason_code": "ERR_GENESIS_DRYRUN_REQUIRED", "expected_result": "REJECT_DIRECT_ACTIVATION", "kind": "genesis_case", "purpose": "genesis config must pass dryrun before activation"}
+{"case_id": "ROLLBACK_PATH_REQUIRED", "expected_reason_code": "ERR_GENESIS_ROLLBACK_PATH_REQUIRED", "expected_result": "REJECT_WITHOUT_ROLLBACK", "kind": "genesis_case", "purpose": "genesis config must include rollback path"}
+{"case_id": "SECRET_VALUE_NEVER_READ_OR_PRINTED", "expected_reason_code": "ERR_SECRET_VALUE_ACCESS_FORBIDDEN", "expected_result": "BLOCK_SECRET_READ_PRINT", "kind": "genesis_case", "purpose": "secret values must not be read or printed"}
+{"case_id": "PROVIDER_ACTIVATION_FORBIDDEN_NOW", "expected_reason_code": "ERR_PROVIDER_ACTIVATION_FORBIDDEN_NOW", "expected_result": "BLOCK_ACTIVATION_NOW", "kind": "genesis_case", "purpose": "no provider activation in NOAPI plan"}
+{"case_id": "CONFIG_HASH_IMMUTABLE_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_CONFIG_HASH_MISSING"}
+{"case_id": "DRYRUN_ONLY_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_GENESIS_DRYRUN_REQUIRED"}
+{"case_id": "DUAL_APPROVAL_INDEPENDENCE_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_DUAL_APPROVAL_INDEPENDENCE_MISSING"}
+{"case_id": "ENDPOINT_ALLOWLIST_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_ENDPOINT_NOT_ALLOWLISTED"}
+{"case_id": "ENDPOINT_FINGERPRINT_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_ENDPOINT_FINGERPRINT_MISSING"}
+{"case_id": "GENESIS_SCHEMA_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_GENESIS_SCHEMA_REQUIRED"}
+{"case_id": "PHISHING_ENDPOINT_REJECTED", "kind": "reason_code_dump", "reason_code": "ERR_PHISHING_ENDPOINT_REJECTED"}
+{"case_id": "PROVIDER_ACTIVATION_FORBIDDEN_NOW", "kind": "reason_code_dump", "reason_code": "ERR_PROVIDER_ACTIVATION_FORBIDDEN_NOW"}
+{"case_id": "ROLLBACK_PATH_REQUIRED", "kind": "reason_code_dump", "reason_code": "ERR_GENESIS_ROLLBACK_PATH_REQUIRED"}
+{"case_id": "SECRET_VALUE_NEVER_READ_OR_PRINTED", "kind": "reason_code_dump", "reason_code": "ERR_SECRET_VALUE_ACCESS_FORBIDDEN"}
+{"activation_now_forbidden": true, "approval_nonce_required": true, "approval_replay_protection_required": true, "config_hash_required": true, "dryrun_only_before_activation": true, "dual_approval_independent_device_required": true, "dual_approval_independent_network_required": true, "endpoint_allowlist_required": true, "endpoint_tls_or_endpoint_fingerprint_required": true, "genesis_provider_config_is_attack_surface": true, "kind": "genesis_rules", "manual_config_untrusted": true, "phishing_endpoint_reject_required": true, "rollback_path_required": true, "schema_required": true, "secret_value_print_forbidden": true, "secret_value_read_forbidden": true}
+{"ai_call_count": 0, "auto_apply": false, "auto_patch": false, "config_activation_count": 0, "external_api_call_count": 0, "hard_block_bypass": false, "kind": "boundaries", "live_db_write_count": 0, "live_trade": false, "message_bus_live_execution_forbidden": true, "no_product_specific_hack": true, "no_provider_specific_name": true, "no_real_endpoint": true, "panel_write_count": 0, "plan_only": true, "provider_call_count": 0, "secret_print_count": 0, "secret_read_count": 0, "tempdb_simulation": true, "trade_authority": false, "wallet_authority": false}
+{"kind": "protected_state", "live_db_sha_after": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5", "live_db_sha_before": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5", "live_db_sha_changed": false, "panel_sha_after": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9", "panel_sha_before": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9", "panel_sha_changed": false, "protected_diff_empty": true}
+{"foreign_key_check_count": 0, "integrity_check": "ok", "kind": "live_db_health", "quick_check": "ok"}
+{"actual_value": "f35e06e", "assertion_name": "current_head_is_f35e06e", "expected_value": "f35e06e", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "f35e06e", "assertion_name": "remote_head_matches_local", "expected_value": "f35e06e", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "f35e06e", "assertion_name": "origin_main_matches_local", "expected_value": "f35e06e", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0 0", "assertion_name": "ahead_behind_zero", "expected_value": "0 0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "[]", "assertion_name": "status_clean_or_v2_15_only", "expected_value": "[]", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "docs/phases/v2/V2_14_PRODUCTIZATION_POST_PUSH_AUDIT_NOAPI.md_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "data/v2_14_productization_post_push_audit_noapi.json_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "data/v2_14_productization_post_push_audit_noapi_rows.jsonl_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "data/tokenoskobi_clean_v1.sqlite_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "active_panel_8096/current/index.html_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "d70d599889c6e7cec1dd0155f7e6ce69aea612abbd2c0dadc3cbf413a7cba3dc", "assertion_name": "v2_14_report_sha", "expected_value": "d70d599889c6e7cec1dd0155f7e6ce69aea612abbd2c0dadc3cbf413a7cba3dc", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "5b01dd3d7f4501627180320c651098261e3ff8e6624873fb97ae5dac80595fd7", "assertion_name": "v2_14_json_sha", "expected_value": "5b01dd3d7f4501627180320c651098261e3ff8e6624873fb97ae5dac80595fd7", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "582e657f858f34a7daae24d4cb3cfeb76249700f00c5beef7e748c825ff8efb8", "assertion_name": "v2_14_rows_sha", "expected_value": "582e657f858f34a7daae24d4cb3cfeb76249700f00c5beef7e748c825ff8efb8", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_14_json_valid", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "PASS_V2_14_PRODUCTIZATION_POST_PUSH_AUDIT_NOAPI", "assertion_name": "v2_14_gate_pass", "expected_value": "PASS_V2_14_PRODUCTIZATION_POST_PUSH_AUDIT_NOAPI", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "v2_14_audit_fail_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_14_base13_verified", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_14_fix1_verified", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "False", "assertion_name": "v2_14_db_unchanged", "expected_value": "False", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "False", "assertion_name": "v2_14_panel_unchanged", "expected_value": "False", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_14_protected_empty", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "db_integrity_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "db_quick_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "db_fk_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "", "assertion_name": "protected_diff_empty_before", "expected_value": "", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "10", "assertion_name": "genesis_case_rows", "expected_value": "10", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "10", "assertion_name": "genesis_reason_code_rows", "expected_value": "10", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "genesis_reason_code_missing_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "7", "assertion_name": "candidate_rows", "expected_value": "7", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "accepted_candidate_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "schema_required_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "allowlist_required_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "fingerprint_required_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "config_hash_required_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "dual_approval_independence_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "dryrun_required_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "rollback_required_reject_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "provider_specific_name_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "real_endpoint_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "provider_called_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "external_api_called_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "ai_called_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "live_db_write_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "panel_write_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "secret_read_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "secret_printed_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "config_activated_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "trade_authority_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "wallet_authority_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "live_trade_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "patch_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "product_specific_hack_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "server_sprawl_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "result_mismatch_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "tempdb_integrity_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "tempdb_quick_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "tempdb_fk_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "False", "assertion_name": "db_sha_unchanged", "expected_value": "False", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "False", "assertion_name": "panel_sha_unchanged", "expected_value": "False", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "", "assertion_name": "protected_diff_empty_after", "expected_value": "", "kind": "audit_assertion", "status": "PASS"}
+{"kind": "next_safe_step", "value": "COMMIT_PUSH_V2_15_REAL_PROVIDER_GENESIS_CONFIG_PLAN"}
+{"items": [], "kind": "failures"}

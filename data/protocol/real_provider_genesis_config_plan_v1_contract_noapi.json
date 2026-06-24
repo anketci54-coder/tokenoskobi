@@ -1,0 +1,85 @@
+{
+  "boundaries": {
+    "ai_call_count": 0,
+    "auto_apply": false,
+    "auto_patch": false,
+    "config_activation_count": 0,
+    "external_api_call_count": 0,
+    "hard_block_bypass": false,
+    "live_db_write_count": 0,
+    "live_trade": false,
+    "message_bus_live_execution_forbidden": true,
+    "no_product_specific_hack": true,
+    "no_provider_specific_name": true,
+    "no_real_endpoint": true,
+    "panel_write_count": 0,
+    "plan_only": true,
+    "provider_call_count": 0,
+    "secret_print_count": 0,
+    "secret_read_count": 0,
+    "tempdb_simulation": true,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "cases": [
+    "GENESIS_SCHEMA_REQUIRED",
+    "ENDPOINT_ALLOWLIST_REQUIRED",
+    "ENDPOINT_FINGERPRINT_REQUIRED",
+    "CONFIG_HASH_IMMUTABLE_REQUIRED",
+    "DUAL_APPROVAL_INDEPENDENCE_REQUIRED",
+    "PHISHING_ENDPOINT_REJECTED",
+    "DRYRUN_ONLY_REQUIRED",
+    "ROLLBACK_PATH_REQUIRED",
+    "SECRET_VALUE_NEVER_READ_OR_PRINTED",
+    "PROVIDER_ACTIVATION_FORBIDDEN_NOW"
+  ],
+  "core_rule": "GENESIS_CONFIG_IS_UNTRUSTED_UNTIL_SCHEMA_HASH_ALLOWLIST_FINGERPRINT_DUAL_APPROVAL_DRYRUN_ROLLBACK_PASS",
+  "genesis_rules": {
+    "activation_now_forbidden": true,
+    "approval_nonce_required": true,
+    "approval_replay_protection_required": true,
+    "config_hash_required": true,
+    "dryrun_only_before_activation": true,
+    "dual_approval_independent_device_required": true,
+    "dual_approval_independent_network_required": true,
+    "endpoint_allowlist_required": true,
+    "endpoint_tls_or_endpoint_fingerprint_required": true,
+    "genesis_provider_config_is_attack_surface": true,
+    "manual_config_untrusted": true,
+    "phishing_endpoint_reject_required": true,
+    "rollback_path_required": true,
+    "schema_required": true,
+    "secret_value_print_forbidden": true,
+    "secret_value_read_forbidden": true
+  },
+  "mode": "PLAN_ONLY_TEMPDB_SIMULATION_NOAPI",
+  "phase": "V2_15_REAL_PROVIDER_GENESIS_CONFIG_PLAN_NOAPI",
+  "required_reason_codes": {
+    "CONFIG_HASH_IMMUTABLE_REQUIRED": "ERR_CONFIG_HASH_MISSING",
+    "DRYRUN_ONLY_REQUIRED": "ERR_GENESIS_DRYRUN_REQUIRED",
+    "DUAL_APPROVAL_INDEPENDENCE_REQUIRED": "ERR_DUAL_APPROVAL_INDEPENDENCE_MISSING",
+    "ENDPOINT_ALLOWLIST_REQUIRED": "ERR_ENDPOINT_NOT_ALLOWLISTED",
+    "ENDPOINT_FINGERPRINT_REQUIRED": "ERR_ENDPOINT_FINGERPRINT_MISSING",
+    "GENESIS_SCHEMA_REQUIRED": "ERR_GENESIS_SCHEMA_REQUIRED",
+    "PHISHING_ENDPOINT_REJECTED": "ERR_PHISHING_ENDPOINT_REJECTED",
+    "PROVIDER_ACTIVATION_FORBIDDEN_NOW": "ERR_PROVIDER_ACTIVATION_FORBIDDEN_NOW",
+    "ROLLBACK_PATH_REQUIRED": "ERR_GENESIS_ROLLBACK_PATH_REQUIRED",
+    "SECRET_VALUE_NEVER_READ_OR_PRINTED": "ERR_SECRET_VALUE_ACCESS_FORBIDDEN"
+  },
+  "schema": "tokenoskobi_real_provider_genesis_config_plan_v1_contract_noapi",
+  "source_refs": {
+    "v2_14_json": {
+      "path": "data/v2_14_productization_post_push_audit_noapi.json",
+      "sha": "5b01dd3d7f4501627180320c651098261e3ff8e6624873fb97ae5dac80595fd7"
+    },
+    "v2_14_report": {
+      "path": "docs/phases/v2/V2_14_PRODUCTIZATION_POST_PUSH_AUDIT_NOAPI.md",
+      "sha": "d70d599889c6e7cec1dd0155f7e6ce69aea612abbd2c0dadc3cbf413a7cba3dc"
+    },
+    "v2_14_rows": {
+      "path": "data/v2_14_productization_post_push_audit_noapi_rows.jsonl",
+      "sha": "582e657f858f34a7daae24d4cb3cfeb76249700f00c5beef7e748c825ff8efb8"
+    }
+  },
+  "status": "PROVIDER_GENESIS_CONFIG_PLAN_NOT_RUNTIME"
+}
