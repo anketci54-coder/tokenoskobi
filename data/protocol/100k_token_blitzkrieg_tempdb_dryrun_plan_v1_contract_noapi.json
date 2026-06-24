@@ -1,0 +1,353 @@
+{
+  "acceptance_criteria": [
+    {
+      "criteria_id": "ACCEPT_PROFILE_100K",
+      "expected_result": "MAX_INPUT_TOKENS_100000_WINDOW_100S",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_100K_PROFILE_DECLARED",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_NO_REAL_RUNTIME",
+      "expected_result": "PLAN_ONLY_NO_100K_INSERT",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_NO_REAL_100K_RUNTIME",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_TEMPDB_ONLY",
+      "expected_result": "NO_LIVE_DB_WRITE",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_TEMPDB_ONLY",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_4_STAGE_PIPELINE",
+      "expected_result": "FILTERS_DEFINED",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_4_STAGE_PIPELINE",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_OBSERVABILITY",
+      "expected_result": "LATENCY_BACKPRESSURE_FP_FN_DEFINED",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_OBSERVABILITY_METRICS",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_GUARDS",
+      "expected_result": "MEMORY_DEADLOCK_BACKPRESSURE_DEFINED",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_SURVIVAL_GUARDS",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_NO_PROVIDER",
+      "expected_result": "NO_PROVIDER_CALL",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_PROVIDER_CALL_ZERO",
+      "required": true
+    },
+    {
+      "criteria_id": "ACCEPT_NO_WALLET",
+      "expected_result": "NO_EXECUTION_AUTHORITY",
+      "hard_fail_if_missing": true,
+      "reason_code": "OK_WALLET_TRADE_ZERO",
+      "required": true
+    }
+  ],
+  "boundaries": {
+    "actual_100k_rows_inserted": false,
+    "ai_call_count": 0,
+    "auto_apply": false,
+    "auto_execute": false,
+    "auto_patch": false,
+    "external_api_call_count": 0,
+    "hard_block_bypass": false,
+    "live_db_write_count": 0,
+    "live_trade": false,
+    "message_bus_live_execution_forbidden": true,
+    "paid_call_executed_count": 0,
+    "panel_write_count": 0,
+    "plan_only": true,
+    "provider_call_count": 0,
+    "secret_print_count": 0,
+    "secret_read_count": 0,
+    "tempdb_plan_simulation": true,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "guardrails": [
+    {
+      "action_on_breach": "STOP",
+      "guard_id": "MASTER_CONTROL_LOCK_REQUIRED",
+      "guard_name": "master control lock must match before dry-run",
+      "hard_fail_if_missing": true,
+      "threshold": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b"
+    },
+    {
+      "action_on_breach": "STOP",
+      "guard_id": "DO_NOT_BRANCH_REQUIRED",
+      "guard_name": "do_not_branch must remain true",
+      "hard_fail_if_missing": true,
+      "threshold": "true"
+    },
+    {
+      "action_on_breach": "FLOW_CONTROL_PAUSE",
+      "guard_id": "MEMORY_PRESSURE_GUARD",
+      "guard_name": "memory pressure guard",
+      "hard_fail_if_missing": true,
+      "threshold": ">=0.80"
+    },
+    {
+      "action_on_breach": "DROP_TO_WARM_OR_PAUSE",
+      "guard_id": "QUEUE_BACKPRESSURE_GUARD",
+      "guard_name": "queue depth backpressure",
+      "hard_fail_if_missing": true,
+      "threshold": ">=5000"
+    },
+    {
+      "action_on_breach": "ABORT_DRYRUN",
+      "guard_id": "DEADLOCK_WATCHDOG",
+      "guard_name": "no stage may stall",
+      "hard_fail_if_missing": true,
+      "threshold": ">2s stage stall"
+    },
+    {
+      "action_on_breach": "MARK_LATENCY_BREACH",
+      "guard_id": "HOT_PATH_LATENCY_GUARD",
+      "guard_name": "hot path latency target",
+      "hard_fail_if_missing": true,
+      "threshold": ">100ms"
+    },
+    {
+      "action_on_breach": "FAIL_AUDIT",
+      "guard_id": "REASON_CODE_COVERAGE_GUARD",
+      "guard_name": "all decisions must carry reason",
+      "hard_fail_if_missing": true,
+      "threshold": "<1.0"
+    },
+    {
+      "action_on_breach": "FAIL_AUDIT",
+      "guard_id": "PROVIDER_CALL_ZERO_GUARD",
+      "guard_name": "provider calls forbidden",
+      "hard_fail_if_missing": true,
+      "threshold": "0 only"
+    },
+    {
+      "action_on_breach": "FAIL_AUDIT",
+      "guard_id": "WALLET_TRADE_ZERO_GUARD",
+      "guard_name": "wallet/trade forbidden",
+      "hard_fail_if_missing": true,
+      "threshold": "0 only"
+    }
+  ],
+  "mode": "PLAN_ONLY_TEMPDB_SCHEMA_AND_ACCEPTANCE_NOAPI",
+  "observability_metrics": [
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "microbatch_latency_us",
+      "metric_name": "microbatch latency",
+      "required": true,
+      "unit": "microseconds"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "hot_path_latency_ms",
+      "metric_name": "hot path latency",
+      "required": true,
+      "unit": "milliseconds"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "tokens_per_second",
+      "metric_name": "ingress throughput",
+      "required": true,
+      "unit": "tokens/sec"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "queue_depth",
+      "metric_name": "pipeline queue depth",
+      "required": true,
+      "unit": "rows"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "memory_pressure_ratio",
+      "metric_name": "memory pressure ratio",
+      "required": true,
+      "unit": "ratio"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "backpressure_trigger_count",
+      "metric_name": "backpressure trigger count",
+      "required": true,
+      "unit": "count"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "deadlock_watchdog_count",
+      "metric_name": "deadlock watchdog count",
+      "required": true,
+      "unit": "count"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "false_positive_count",
+      "metric_name": "safe token rejected",
+      "required": true,
+      "unit": "count"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "false_negative_count",
+      "metric_name": "bad token missed",
+      "required": true,
+      "unit": "count"
+    },
+    {
+      "hard_fail_if_missing": true,
+      "metric_id": "reason_code_coverage_ratio",
+      "metric_name": "reason code coverage",
+      "required": true,
+      "unit": "ratio"
+    }
+  ],
+  "phase": "V2_18_100K_TOKEN_BLITZKRIEG_TEMPDB_DRYRUN_PLAN_NOAPI",
+  "pipeline_stages": [
+    {
+      "hot_path": true,
+      "microbatch_required": true,
+      "name": "ownership/liquidity/sellability static reject",
+      "order": 1,
+      "reason_code_required": true,
+      "stage_id": "FILTER_1_FAST_RUG_HONEYPOT",
+      "target_latency_ms": 25
+    },
+    {
+      "hot_path": true,
+      "microbatch_required": true,
+      "name": "sandwich/slippage/mev anomaly defense",
+      "order": 2,
+      "reason_code_required": true,
+      "stage_id": "FILTER_2_ANTI_MEV",
+      "target_latency_ms": 25
+    },
+    {
+      "hot_path": true,
+      "microbatch_required": true,
+      "name": "budget hard-cap and top-N isolation",
+      "order": 3,
+      "reason_code_required": true,
+      "stage_id": "FILTER_3_BUDGET_ISOLATION",
+      "target_latency_ms": 25
+    },
+    {
+      "hot_path": false,
+      "microbatch_required": true,
+      "name": "top-3 alert-only human gateway",
+      "order": 4,
+      "reason_code_required": true,
+      "stage_id": "FILTER_4_HUMAN_GATEWAY",
+      "target_latency_ms": 25
+    }
+  ],
+  "plan": {
+    "actual_100k_runtime": false,
+    "auto_execute": false,
+    "expected_microbatch_count": 1000,
+    "external_api_call": false,
+    "hot_path_max_latency_ms": 100,
+    "live_db_write": false,
+    "max_input_tokens": 100000,
+    "microbatch_size": 100,
+    "name": "V2_18_100K_TOKEN_BLITZKRIEG_TEMPDB_DRYRUN_PLAN",
+    "next_phase_runs_mock_100k": "V2_18A_100K_TOKEN_BLITZKRIEG_TEMPDB_DRYRUN_NOAPI",
+    "paid_call": false,
+    "panel_write": false,
+    "provider_call": false,
+    "target_ingress_tokens_per_second": 1000,
+    "target_window_seconds": 100,
+    "tempdb_only": true,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "schema": "tokenoskobi_100k_token_blitzkrieg_tempdb_dryrun_plan_v1_contract_noapi",
+  "source_of_truth": {
+    "current_canonical_head": "3aa408f",
+    "fix1_contract_sha": "1f613d025089396bbf86ba387a64574ad3ca6f44576581453e8e5eaea4b74c96",
+    "master_control_lock": "data/control/master_control_lock_v1.json",
+    "master_control_lock_sha": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b",
+    "v2_17_with_fix1_head": "3aa408f"
+  },
+  "status": "DRYRUN_PLAN_NOT_RUNTIME",
+  "tempdb_table_plan": [
+    {
+      "hot_path": true,
+      "index_required": true,
+      "planned_rows": 100000,
+      "role": "100k mock token source rows",
+      "table_id": "synthetic_token_input_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": true,
+      "index_required": true,
+      "planned_rows": 1000,
+      "role": "100-token windows",
+      "table_id": "microbatch_window_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": true,
+      "index_required": true,
+      "planned_rows": 400000,
+      "role": "4-stage pipeline decisions",
+      "table_id": "filter_stage_decision_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": true,
+      "index_required": true,
+      "planned_rows": 100000,
+      "role": "reject/quarantine/alert reason events",
+      "table_id": "reason_code_event_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": true,
+      "index_required": true,
+      "planned_rows": 1000,
+      "role": "microbatch and hot-path latency",
+      "table_id": "latency_metric_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": true,
+      "index_required": true,
+      "planned_rows": 1000,
+      "role": "memory/queue pressure checkpoints",
+      "table_id": "backpressure_state_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": false,
+      "index_required": true,
+      "planned_rows": 100000,
+      "role": "false positive false negative outcome model",
+      "table_id": "forensic_outcome_v1",
+      "write_live_db": false
+    },
+    {
+      "hot_path": false,
+      "index_required": true,
+      "planned_rows": 3,
+      "role": "top 3 alert-only candidates",
+      "table_id": "human_gateway_candidate_v1",
+      "write_live_db": false
+    }
+  ]
+}
