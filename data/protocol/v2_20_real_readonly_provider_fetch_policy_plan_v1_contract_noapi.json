@@ -1,0 +1,381 @@
+{
+  "approval_sentences": [
+    "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_TEMPDB_DRYRUN_NOAPI için onay veriyorum",
+    "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_POST_AUDIT_NOAPI için onay veriyorum",
+    "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_SEAL için onay veriyorum",
+    "V2_20_REAL_READONLY_PROVIDER_FETCH_LIMITED_REAL_READ_PLAN_NOAPI için onay veriyorum"
+  ],
+  "authority": {
+    "auto_apply": 0,
+    "hard_block_bypass": 0,
+    "live_trade": 0,
+    "paid_call_now": 0,
+    "paper_trade": 0,
+    "provider_call_now": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "budget_rules": [
+    {
+      "future_limit": 0,
+      "name": "GLOBAL_PROVIDER_CALLS_PER_DRYRUN",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": "requires_explicit_approval",
+      "name": "GLOBAL_PROVIDER_CALLS_REAL_READ_PILOT",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 1500,
+      "name": "MAX_TIMEOUT_MS_PER_PROVIDER",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 10,
+      "name": "MAX_WALLCLOCK_SECONDS_PER_READ_CYCLE",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 0,
+      "name": "MAX_PAID_CALLS_WITHOUT_APPROVAL",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 1,
+      "name": "MAX_RETRIES_PER_PROVIDER",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 2,
+      "name": "MAX_PROVIDERS_PER_CHAIN_IN_PILOT",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 1,
+      "name": "MAX_CHAINS_IN_FIRST_REAL_READ",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 1,
+      "name": "CACHE_HIT_REQUIRED_BEFORE_REFETCH",
+      "plan_phase_limit": 0
+    },
+    {
+      "future_limit": 0,
+      "name": "HOT_PATH_WAIT_ALLOWED",
+      "plan_phase_limit": 0
+    }
+  ],
+  "components": [
+    {
+      "authority": 0,
+      "id": "READONLY_PROVIDER_CONSTITUTION",
+      "purpose": "Define provider fetch as readonly evidence input only; no trade, wallet, paper, live, or auto-apply authority."
+    },
+    {
+      "authority": 0,
+      "id": "PROVIDER_ALLOWLIST_PLAN",
+      "purpose": "Plan explicit allowlist for future readonly providers, chains, routes, and methods."
+    },
+    {
+      "authority": 0,
+      "id": "PROVIDER_DENYLIST_PLAN",
+      "purpose": "Plan hard-deny for write methods, signing routes, swap/quote execution routes, and unknown endpoints."
+    },
+    {
+      "authority": 0,
+      "id": "FETCH_BUDGET_GUARD_PLAN",
+      "purpose": "Plan per-provider and global request budgets, max calls, max timeout, and red-mode caps."
+    },
+    {
+      "authority": 0,
+      "id": "TIMEOUT_AND_TTL_GUARD_PLAN",
+      "purpose": "Plan bounded timeout, quote TTL, snapshot age, and stale-data routing."
+    },
+    {
+      "authority": 0,
+      "id": "PAYG_COST_GUARD_PLAN",
+      "purpose": "Plan paid-call prevention and paid-call reason ledger before any future provider read."
+    },
+    {
+      "authority": 0,
+      "id": "PROVIDER_HEALTH_SCORE_PLAN",
+      "purpose": "Plan health scoring using latency, error rate, stale rate, degraded flag, and quorum disagreement."
+    },
+    {
+      "authority": 0,
+      "id": "QUORUM_AND_CROSSCHECK_PLAN",
+      "purpose": "Plan multi-source crosscheck before trusting provider evidence."
+    },
+    {
+      "authority": 0,
+      "id": "CACHE_FIRST_READ_POLICY_PLAN",
+      "purpose": "Plan cache-first behavior and no repeated fetch when snapshot is fresh."
+    },
+    {
+      "authority": 0,
+      "id": "EVIDENCE_REF_AND_RAW_HASH_PLAN",
+      "purpose": "Plan raw_hash, source_hash, evidence_ref, parser_version, schema_version for every future readonly fetch."
+    },
+    {
+      "authority": 0,
+      "id": "QUARANTINE_ON_PROVIDER_ANOMALY_PLAN",
+      "purpose": "Plan quarantine when provider evidence is stale, inconsistent, malformed, or unsafe."
+    },
+    {
+      "authority": 0,
+      "id": "HARD_BLOCK_PROVIDER_DEGRADED_PLAN",
+      "purpose": "Provider degraded must map to RED/HARD_BLOCK and cannot be bypassed by confidence or opportunity."
+    },
+    {
+      "authority": 0,
+      "id": "O1_SNAPSHOT_ADAPTER_PLAN",
+      "purpose": "Plan provider output as O(1) bounded snapshot input only; hot path cannot wait on fetch."
+    },
+    {
+      "authority": 0,
+      "id": "READONLY_RUNTIME_GATE_PLAN",
+      "purpose": "Plan future real readonly runtime only after explicit approval sentence and post-audit."
+    },
+    {
+      "authority": 0,
+      "id": "NO_SECRET_PRINT_OR_READ_PLAN",
+      "purpose": "Provider secrets must never be printed, logged, read into reports, or exposed to panel."
+    },
+    {
+      "authority": 0,
+      "id": "ROLLBACK_AND_KILL_SWITCH_PLAN",
+      "purpose": "Plan immediate stop conditions for timeouts, degraded providers, budget breach, or evidence mismatch."
+    }
+  ],
+  "conditions": [
+    "V2_20 plan phase performs no real provider, RPC, API, explorer, news, social, or external fetch.",
+    "All provider access remains plan-only until separate explicit approval.",
+    "Provider fetch can only be readonly evidence input.",
+    "Provider fetch can never create trade, wallet, paper, live, or auto-apply authority.",
+    "Write/sign/send/swap/approve/private-relay methods are hard-denied.",
+    "Provider degraded maps to RED/HARD_BLOCK.",
+    "Hard block cannot be bypassed by confidence, opportunity, AI, or human convenience.",
+    "Hot path cannot wait for provider fetch.",
+    "Hot path receives only O(1) snapshot output.",
+    "Cache-first policy is mandatory before any future fetch.",
+    "Paid calls require explicit approval and reason ledger.",
+    "Secrets must not be printed, logged, read into report, or exposed to panel.",
+    "Raw evidence must carry raw_hash, source_hash, parser_version, schema_version, and evidence_ref.",
+    "Malformed, stale, inconsistent, or timeout evidence routes to quarantine or WAIT_FRESH_BUNDLE.",
+    "Provider health score must be separated from token risk score.",
+    "No DB schema/write happens in this phase.",
+    "No panel write happens in this phase.",
+    "No service/timer/Nginx change happens in this phase.",
+    "Production benchmark remains separate; no microsecond claim.",
+    "Next safe step is TempDB dry-run only."
+  ],
+  "goal": "Plan provider fetch policy for future real readonly market evidence without performing any provider call in this phase.",
+  "hard_fail_rules": [
+    "REAL_PROVIDER_FETCH_IN_PLAN_PHASE",
+    "REAL_MARKET_FETCH_IN_PLAN_PHASE",
+    "PROVIDER_CALL_NOW_NONZERO",
+    "PAID_CALL_NOW_NONZERO",
+    "SECRET_PRINT_OR_LOG",
+    "WRITE_METHOD_ALLOWLISTED",
+    "TRADE_AUTHORITY_NONZERO",
+    "WALLET_AUTHORITY_NONZERO",
+    "LIVE_TRADE_NONZERO",
+    "PAPER_TRADE_NONZERO",
+    "AUTO_APPLY_NONZERO",
+    "HARD_BLOCK_BYPASS_NONZERO",
+    "HOT_PATH_WAIT_NONZERO",
+    "REAL_SLEEP_NONZERO",
+    "DB_SCHEMA_OR_LIVE_WRITE",
+    "PANEL_WRITE",
+    "SERVICE_TIMER_NGINX_CHANGE",
+    "MICROSECOND_PRODUCTION_CLAIM_TRUE",
+    "AI_AUTHORITY_NONZERO",
+    "HUMAN_APPROVAL_BYPASSES_HARD_BLOCK"
+  ],
+  "metrics_plan": {
+    "auto_apply": 0,
+    "classification_only": 1,
+    "db_schema_write_now": 0,
+    "hard_block_bypass": 0,
+    "hot_path_wait_count": 0,
+    "live_trade": 0,
+    "microsecond_performance_claim": 0,
+    "o1_snapshot_only": 1,
+    "paid_call_now": 0,
+    "panel_write_now": 0,
+    "paper_trade": 0,
+    "performance_proof_deferred_to_production_benchmark": 1,
+    "profitability_claim": 0,
+    "provider_call_now": 0,
+    "readonly_runtime_now": 0,
+    "real_market_fetch_now": 0,
+    "real_provider_fetch_now": 0,
+    "real_sleep_count": 0,
+    "secret_print_now": 0,
+    "secret_read_now": 0,
+    "service_change_now": 0,
+    "source_head": "92b0fd2",
+    "source_v2_19_false_negative_risk_miss_count": 0,
+    "source_v2_19_hard_block_bypass_count": 0,
+    "source_v2_19_normal_market_green_pct": 100.0,
+    "source_v2_19_provider_degraded_red_count": 10000,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "mode": "PLAN_NOAPI",
+  "next_safe_step": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_TEMPDB_DRYRUN_NOAPI",
+  "phase": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_PLAN_NOAPI",
+  "previous_head": "92b0fd2",
+  "provider_call_now": false,
+  "provider_policies": [
+    {
+      "allowed_methods": [
+        "eth_blockNumber",
+        "eth_getLogs",
+        "eth_call",
+        "eth_getBlockByNumber"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "eth_sendRawTransaction",
+        "personal_sign",
+        "eth_sendTransaction"
+      ],
+      "provider_class": "RPC_HTTP_READONLY"
+    },
+    {
+      "allowed_methods": [
+        "subscribe_newHeads_plan_only"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "wallet_sign",
+        "tx_send",
+        "private_relay"
+      ],
+      "provider_class": "RPC_WEBSOCKET_READONLY"
+    },
+    {
+      "allowed_methods": [
+        "pair_snapshot",
+        "liquidity_snapshot",
+        "volume_snapshot"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "swap",
+        "approve",
+        "route_execute"
+      ],
+      "provider_class": "DEX_INDEXER_READONLY"
+    },
+    {
+      "allowed_methods": [
+        "contract_metadata",
+        "tx_receipt",
+        "holder_snapshot"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "write_contract",
+        "verify_with_secret"
+      ],
+      "provider_class": "EXPLORER_READONLY"
+    },
+    {
+      "allowed_methods": [
+        "pending_pressure_snapshot",
+        "gas_pressure_snapshot"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "bundle_submit",
+        "private_tx_send"
+      ],
+      "provider_class": "MEMPOOL_SIGNAL_READONLY"
+    },
+    {
+      "allowed_methods": [
+        "quote_snapshot",
+        "price_snapshot"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "quote_to_swap",
+        "auto_trade"
+      ],
+      "provider_class": "PRICE_QUOTE_READONLY"
+    },
+    {
+      "allowed_methods": [
+        "public_signal_snapshot_plan_only"
+      ],
+      "fetch_now": 0,
+      "forbidden_methods": [
+        "dm_scrape",
+        "private_channel_scrape",
+        "post_action"
+      ],
+      "provider_class": "NEWS_SOCIAL_READONLY"
+    }
+  ],
+  "readonly_runtime_now": false,
+  "real_market_fetch_now": false,
+  "real_provider_fetch_now": false,
+  "risk_routes": [
+    {
+      "bypass_allowed": 0,
+      "condition": "provider_degraded",
+      "route": "RED_HARD_BLOCK"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "timeout",
+      "route": "WAIT_FRESH_BUNDLE_OR_RED"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "stale_snapshot",
+      "route": "WAIT_FRESH_BUNDLE"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "quorum_disagreement",
+      "route": "QUARANTINE_PROVIDER_EVIDENCE"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "paid_call_required",
+      "route": "STOP_REQUIRE_APPROVAL"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "secret_missing",
+      "route": "STOP_NO_FETCH"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "method_not_allowlisted",
+      "route": "STOP_NO_FETCH"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "write_method_detected",
+      "route": "HARD_FAIL_STOP"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "hot_path_fetch_needed",
+      "route": "STOP_USE_SNAPSHOT_ONLY"
+    },
+    {
+      "bypass_allowed": 0,
+      "condition": "false_negative_risk_possible",
+      "route": "REVIEW_OR_RED"
+    }
+  ],
+  "schema": "v2_20_real_readonly_provider_fetch_policy_plan_v1_noapi",
+  "source_v2_19_seal": "data/v2_19_real_market_risk_analysis_readonly_seal.json"
+}

@@ -1,0 +1,146 @@
+{"depends_on": "V2_19_SEAL", "kind": "phase", "phase": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_PLAN_NOAPI", "previous_head": "92b0fd2"}
+{"authority": 0, "id": "READONLY_PROVIDER_CONSTITUTION", "kind": "component", "purpose": "Define provider fetch as readonly evidence input only; no trade, wallet, paper, live, or auto-apply authority."}
+{"authority": 0, "id": "PROVIDER_ALLOWLIST_PLAN", "kind": "component", "purpose": "Plan explicit allowlist for future readonly providers, chains, routes, and methods."}
+{"authority": 0, "id": "PROVIDER_DENYLIST_PLAN", "kind": "component", "purpose": "Plan hard-deny for write methods, signing routes, swap/quote execution routes, and unknown endpoints."}
+{"authority": 0, "id": "FETCH_BUDGET_GUARD_PLAN", "kind": "component", "purpose": "Plan per-provider and global request budgets, max calls, max timeout, and red-mode caps."}
+{"authority": 0, "id": "TIMEOUT_AND_TTL_GUARD_PLAN", "kind": "component", "purpose": "Plan bounded timeout, quote TTL, snapshot age, and stale-data routing."}
+{"authority": 0, "id": "PAYG_COST_GUARD_PLAN", "kind": "component", "purpose": "Plan paid-call prevention and paid-call reason ledger before any future provider read."}
+{"authority": 0, "id": "PROVIDER_HEALTH_SCORE_PLAN", "kind": "component", "purpose": "Plan health scoring using latency, error rate, stale rate, degraded flag, and quorum disagreement."}
+{"authority": 0, "id": "QUORUM_AND_CROSSCHECK_PLAN", "kind": "component", "purpose": "Plan multi-source crosscheck before trusting provider evidence."}
+{"authority": 0, "id": "CACHE_FIRST_READ_POLICY_PLAN", "kind": "component", "purpose": "Plan cache-first behavior and no repeated fetch when snapshot is fresh."}
+{"authority": 0, "id": "EVIDENCE_REF_AND_RAW_HASH_PLAN", "kind": "component", "purpose": "Plan raw_hash, source_hash, evidence_ref, parser_version, schema_version for every future readonly fetch."}
+{"authority": 0, "id": "QUARANTINE_ON_PROVIDER_ANOMALY_PLAN", "kind": "component", "purpose": "Plan quarantine when provider evidence is stale, inconsistent, malformed, or unsafe."}
+{"authority": 0, "id": "HARD_BLOCK_PROVIDER_DEGRADED_PLAN", "kind": "component", "purpose": "Provider degraded must map to RED/HARD_BLOCK and cannot be bypassed by confidence or opportunity."}
+{"authority": 0, "id": "O1_SNAPSHOT_ADAPTER_PLAN", "kind": "component", "purpose": "Plan provider output as O(1) bounded snapshot input only; hot path cannot wait on fetch."}
+{"authority": 0, "id": "READONLY_RUNTIME_GATE_PLAN", "kind": "component", "purpose": "Plan future real readonly runtime only after explicit approval sentence and post-audit."}
+{"authority": 0, "id": "NO_SECRET_PRINT_OR_READ_PLAN", "kind": "component", "purpose": "Provider secrets must never be printed, logged, read into reports, or exposed to panel."}
+{"authority": 0, "id": "ROLLBACK_AND_KILL_SWITCH_PLAN", "kind": "component", "purpose": "Plan immediate stop conditions for timeouts, degraded providers, budget breach, or evidence mismatch."}
+{"allowed_methods": ["eth_blockNumber", "eth_getLogs", "eth_call", "eth_getBlockByNumber"], "fetch_now": 0, "forbidden_methods": ["eth_sendRawTransaction", "personal_sign", "eth_sendTransaction"], "kind": "provider_policy_plan", "provider_class": "RPC_HTTP_READONLY"}
+{"allowed_methods": ["subscribe_newHeads_plan_only"], "fetch_now": 0, "forbidden_methods": ["wallet_sign", "tx_send", "private_relay"], "kind": "provider_policy_plan", "provider_class": "RPC_WEBSOCKET_READONLY"}
+{"allowed_methods": ["pair_snapshot", "liquidity_snapshot", "volume_snapshot"], "fetch_now": 0, "forbidden_methods": ["swap", "approve", "route_execute"], "kind": "provider_policy_plan", "provider_class": "DEX_INDEXER_READONLY"}
+{"allowed_methods": ["contract_metadata", "tx_receipt", "holder_snapshot"], "fetch_now": 0, "forbidden_methods": ["write_contract", "verify_with_secret"], "kind": "provider_policy_plan", "provider_class": "EXPLORER_READONLY"}
+{"allowed_methods": ["pending_pressure_snapshot", "gas_pressure_snapshot"], "fetch_now": 0, "forbidden_methods": ["bundle_submit", "private_tx_send"], "kind": "provider_policy_plan", "provider_class": "MEMPOOL_SIGNAL_READONLY"}
+{"allowed_methods": ["quote_snapshot", "price_snapshot"], "fetch_now": 0, "forbidden_methods": ["quote_to_swap", "auto_trade"], "kind": "provider_policy_plan", "provider_class": "PRICE_QUOTE_READONLY"}
+{"allowed_methods": ["public_signal_snapshot_plan_only"], "fetch_now": 0, "forbidden_methods": ["dm_scrape", "private_channel_scrape", "post_action"], "kind": "provider_policy_plan", "provider_class": "NEWS_SOCIAL_READONLY"}
+{"future_limit": 0, "kind": "budget_rule", "name": "GLOBAL_PROVIDER_CALLS_PER_DRYRUN", "plan_phase_limit": 0}
+{"future_limit": "requires_explicit_approval", "kind": "budget_rule", "name": "GLOBAL_PROVIDER_CALLS_REAL_READ_PILOT", "plan_phase_limit": 0}
+{"future_limit": 1500, "kind": "budget_rule", "name": "MAX_TIMEOUT_MS_PER_PROVIDER", "plan_phase_limit": 0}
+{"future_limit": 10, "kind": "budget_rule", "name": "MAX_WALLCLOCK_SECONDS_PER_READ_CYCLE", "plan_phase_limit": 0}
+{"future_limit": 0, "kind": "budget_rule", "name": "MAX_PAID_CALLS_WITHOUT_APPROVAL", "plan_phase_limit": 0}
+{"future_limit": 1, "kind": "budget_rule", "name": "MAX_RETRIES_PER_PROVIDER", "plan_phase_limit": 0}
+{"future_limit": 2, "kind": "budget_rule", "name": "MAX_PROVIDERS_PER_CHAIN_IN_PILOT", "plan_phase_limit": 0}
+{"future_limit": 1, "kind": "budget_rule", "name": "MAX_CHAINS_IN_FIRST_REAL_READ", "plan_phase_limit": 0}
+{"future_limit": 1, "kind": "budget_rule", "name": "CACHE_HIT_REQUIRED_BEFORE_REFETCH", "plan_phase_limit": 0}
+{"future_limit": 0, "kind": "budget_rule", "name": "HOT_PATH_WAIT_ALLOWED", "plan_phase_limit": 0}
+{"bypass_allowed": 0, "condition": "provider_degraded", "kind": "risk_route", "route": "RED_HARD_BLOCK"}
+{"bypass_allowed": 0, "condition": "timeout", "kind": "risk_route", "route": "WAIT_FRESH_BUNDLE_OR_RED"}
+{"bypass_allowed": 0, "condition": "stale_snapshot", "kind": "risk_route", "route": "WAIT_FRESH_BUNDLE"}
+{"bypass_allowed": 0, "condition": "quorum_disagreement", "kind": "risk_route", "route": "QUARANTINE_PROVIDER_EVIDENCE"}
+{"bypass_allowed": 0, "condition": "paid_call_required", "kind": "risk_route", "route": "STOP_REQUIRE_APPROVAL"}
+{"bypass_allowed": 0, "condition": "secret_missing", "kind": "risk_route", "route": "STOP_NO_FETCH"}
+{"bypass_allowed": 0, "condition": "method_not_allowlisted", "kind": "risk_route", "route": "STOP_NO_FETCH"}
+{"bypass_allowed": 0, "condition": "write_method_detected", "kind": "risk_route", "route": "HARD_FAIL_STOP"}
+{"bypass_allowed": 0, "condition": "hot_path_fetch_needed", "kind": "risk_route", "route": "STOP_USE_SNAPSHOT_ONLY"}
+{"bypass_allowed": 0, "condition": "false_negative_risk_possible", "kind": "risk_route", "route": "REVIEW_OR_RED"}
+{"kind": "approval_sentence", "text": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_TEMPDB_DRYRUN_NOAPI için onay veriyorum"}
+{"kind": "approval_sentence", "text": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_POST_AUDIT_NOAPI için onay veriyorum"}
+{"kind": "approval_sentence", "text": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_SEAL için onay veriyorum"}
+{"kind": "approval_sentence", "text": "V2_20_REAL_READONLY_PROVIDER_FETCH_LIMITED_REAL_READ_PLAN_NOAPI için onay veriyorum"}
+{"kind": "hard_fail_rule", "name": "REAL_PROVIDER_FETCH_IN_PLAN_PHASE"}
+{"kind": "hard_fail_rule", "name": "REAL_MARKET_FETCH_IN_PLAN_PHASE"}
+{"kind": "hard_fail_rule", "name": "PROVIDER_CALL_NOW_NONZERO"}
+{"kind": "hard_fail_rule", "name": "PAID_CALL_NOW_NONZERO"}
+{"kind": "hard_fail_rule", "name": "SECRET_PRINT_OR_LOG"}
+{"kind": "hard_fail_rule", "name": "WRITE_METHOD_ALLOWLISTED"}
+{"kind": "hard_fail_rule", "name": "TRADE_AUTHORITY_NONZERO"}
+{"kind": "hard_fail_rule", "name": "WALLET_AUTHORITY_NONZERO"}
+{"kind": "hard_fail_rule", "name": "LIVE_TRADE_NONZERO"}
+{"kind": "hard_fail_rule", "name": "PAPER_TRADE_NONZERO"}
+{"kind": "hard_fail_rule", "name": "AUTO_APPLY_NONZERO"}
+{"kind": "hard_fail_rule", "name": "HARD_BLOCK_BYPASS_NONZERO"}
+{"kind": "hard_fail_rule", "name": "HOT_PATH_WAIT_NONZERO"}
+{"kind": "hard_fail_rule", "name": "REAL_SLEEP_NONZERO"}
+{"kind": "hard_fail_rule", "name": "DB_SCHEMA_OR_LIVE_WRITE"}
+{"kind": "hard_fail_rule", "name": "PANEL_WRITE"}
+{"kind": "hard_fail_rule", "name": "SERVICE_TIMER_NGINX_CHANGE"}
+{"kind": "hard_fail_rule", "name": "MICROSECOND_PRODUCTION_CLAIM_TRUE"}
+{"kind": "hard_fail_rule", "name": "AI_AUTHORITY_NONZERO"}
+{"kind": "hard_fail_rule", "name": "HUMAN_APPROVAL_BYPASSES_HARD_BLOCK"}
+{"kind": "condition", "text": "V2_20 plan phase performs no real provider, RPC, API, explorer, news, social, or external fetch."}
+{"kind": "condition", "text": "All provider access remains plan-only until separate explicit approval."}
+{"kind": "condition", "text": "Provider fetch can only be readonly evidence input."}
+{"kind": "condition", "text": "Provider fetch can never create trade, wallet, paper, live, or auto-apply authority."}
+{"kind": "condition", "text": "Write/sign/send/swap/approve/private-relay methods are hard-denied."}
+{"kind": "condition", "text": "Provider degraded maps to RED/HARD_BLOCK."}
+{"kind": "condition", "text": "Hard block cannot be bypassed by confidence, opportunity, AI, or human convenience."}
+{"kind": "condition", "text": "Hot path cannot wait for provider fetch."}
+{"kind": "condition", "text": "Hot path receives only O(1) snapshot output."}
+{"kind": "condition", "text": "Cache-first policy is mandatory before any future fetch."}
+{"kind": "condition", "text": "Paid calls require explicit approval and reason ledger."}
+{"kind": "condition", "text": "Secrets must not be printed, logged, read into report, or exposed to panel."}
+{"kind": "condition", "text": "Raw evidence must carry raw_hash, source_hash, parser_version, schema_version, and evidence_ref."}
+{"kind": "condition", "text": "Malformed, stale, inconsistent, or timeout evidence routes to quarantine or WAIT_FRESH_BUNDLE."}
+{"kind": "condition", "text": "Provider health score must be separated from token risk score."}
+{"kind": "condition", "text": "No DB schema/write happens in this phase."}
+{"kind": "condition", "text": "No panel write happens in this phase."}
+{"kind": "condition", "text": "No service/timer/Nginx change happens in this phase."}
+{"kind": "condition", "text": "Production benchmark remains separate; no microsecond claim."}
+{"kind": "condition", "text": "Next safe step is TempDB dry-run only."}
+{"kind": "metric_plan", "name": "source_head", "value": "92b0fd2"}
+{"kind": "metric_plan", "name": "source_v2_19_false_negative_risk_miss_count", "value": 0}
+{"kind": "metric_plan", "name": "source_v2_19_hard_block_bypass_count", "value": 0}
+{"kind": "metric_plan", "name": "source_v2_19_provider_degraded_red_count", "value": 10000}
+{"kind": "metric_plan", "name": "source_v2_19_normal_market_green_pct", "value": 100.0}
+{"kind": "metric_plan", "name": "real_provider_fetch_now", "value": 0}
+{"kind": "metric_plan", "name": "real_market_fetch_now", "value": 0}
+{"kind": "metric_plan", "name": "readonly_runtime_now", "value": 0}
+{"kind": "metric_plan", "name": "provider_call_now", "value": 0}
+{"kind": "metric_plan", "name": "paid_call_now", "value": 0}
+{"kind": "metric_plan", "name": "secret_read_now", "value": 0}
+{"kind": "metric_plan", "name": "secret_print_now", "value": 0}
+{"kind": "metric_plan", "name": "db_schema_write_now", "value": 0}
+{"kind": "metric_plan", "name": "panel_write_now", "value": 0}
+{"kind": "metric_plan", "name": "service_change_now", "value": 0}
+{"kind": "metric_plan", "name": "trade_authority", "value": 0}
+{"kind": "metric_plan", "name": "wallet_authority", "value": 0}
+{"kind": "metric_plan", "name": "live_trade", "value": 0}
+{"kind": "metric_plan", "name": "paper_trade", "value": 0}
+{"kind": "metric_plan", "name": "auto_apply", "value": 0}
+{"kind": "metric_plan", "name": "hard_block_bypass", "value": 0}
+{"kind": "metric_plan", "name": "hot_path_wait_count", "value": 0}
+{"kind": "metric_plan", "name": "real_sleep_count", "value": 0}
+{"kind": "metric_plan", "name": "o1_snapshot_only", "value": 1}
+{"kind": "metric_plan", "name": "classification_only", "value": 1}
+{"kind": "metric_plan", "name": "profitability_claim", "value": 0}
+{"kind": "metric_plan", "name": "microsecond_performance_claim", "value": 0}
+{"kind": "metric_plan", "name": "performance_proof_deferred_to_production_benchmark", "value": 1}
+{"kind": "next_safe_step", "value": "V2_20_REAL_READONLY_PROVIDER_FETCH_POLICY_TEMPDB_DRYRUN_NOAPI"}
+{"actual": "92b0fd2", "expected": "92b0fd2", "kind": "assertion", "name": "head_is_92b0fd2", "status": "PASS"}
+{"actual": "92b0fd2", "expected": "92b0fd2", "kind": "assertion", "name": "origin_matches_head", "status": "PASS"}
+{"actual": "0 0", "expected": "0 0", "kind": "assertion", "name": "ahead_behind_zero", "status": "PASS"}
+{"actual": "[]", "expected": "[]", "kind": "assertion", "name": "status_clean_or_only_target_outputs", "status": "PASS"}
+{"actual": "ok", "expected": "ok", "kind": "assertion", "name": "db_integrity_ok", "status": "PASS"}
+{"actual": "ok", "expected": "ok", "kind": "assertion", "name": "db_quick_ok", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "db_fk_zero", "status": "PASS"}
+{"actual": "", "expected": "", "kind": "assertion", "name": "protected_diff_empty_before", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "panel_exists", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "data/protocol/v2_19_real_market_risk_analysis_readonly_seal_v1_contract.json_exists", "status": "PASS"}
+{"actual": "3b78c549fc306dd1712fbb34502e40339380e15d3fef8df7022bb8a33e11236e", "expected": "3b78c549fc306dd1712fbb34502e40339380e15d3fef8df7022bb8a33e11236e", "kind": "assertion", "name": "data/protocol/v2_19_real_market_risk_analysis_readonly_seal_v1_contract.json_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "data/v2_19_real_market_risk_analysis_readonly_seal.json_exists", "status": "PASS"}
+{"actual": "e87592a49f255558d07136e5e5a9a9b2ded71accfe46df3420710a040812eab3", "expected": "e87592a49f255558d07136e5e5a9a9b2ded71accfe46df3420710a040812eab3", "kind": "assertion", "name": "data/v2_19_real_market_risk_analysis_readonly_seal.json_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "data/v2_19_real_market_risk_analysis_readonly_seal_rows.jsonl_exists", "status": "PASS"}
+{"actual": "46ba02dcc8d4103089a87532df4ed0336a143e00dffbb14922d034965242ceaa", "expected": "46ba02dcc8d4103089a87532df4ed0336a143e00dffbb14922d034965242ceaa", "kind": "assertion", "name": "data/v2_19_real_market_risk_analysis_readonly_seal_rows.jsonl_sha", "status": "PASS"}
+{"actual": "True", "expected": "True", "kind": "assertion", "name": "docs/phases/v2/V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_SEAL.md_exists", "status": "PASS"}
+{"actual": "f1669a447f347e363f2bec4c15cbef0c5d7a9b4560dc19d5a374b6c663269d38", "expected": "f1669a447f347e363f2bec4c15cbef0c5d7a9b4560dc19d5a374b6c663269d38", "kind": "assertion", "name": "docs/phases/v2/V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_SEAL.md_sha", "status": "PASS"}
+{"actual": "PASS_V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_PLAN_NOAPI", "expected": "PASS_V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_PLAN_NOAPI", "kind": "assertion", "name": "v219_plan_gate_pass", "status": "PASS"}
+{"actual": "PASS_V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_TEMPDB_DRYRUN_NOAPI", "expected": "PASS_V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_TEMPDB_DRYRUN_NOAPI", "kind": "assertion", "name": "v219_dryrun_gate_pass", "status": "PASS"}
+{"actual": "PASS_V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_POST_AUDIT_NOAPI", "expected": "PASS_V2_19_REAL_MARKET_RISK_ANALYSIS_READONLY_POST_AUDIT_NOAPI", "kind": "assertion", "name": "v219_post_gate_pass", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "v219_false_negative_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "v219_hard_block_bypass_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "v219_provider_fetch_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "v219_real_market_fetch_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "v219_trade_zero", "status": "PASS"}
+{"actual": "0", "expected": "0", "kind": "assertion", "name": "v219_wallet_zero", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "db_sha_unchanged_after", "status": "PASS"}
+{"actual": "False", "expected": "False", "kind": "assertion", "name": "panel_sha_unchanged_after", "status": "PASS"}
+{"actual": "", "expected": "", "kind": "assertion", "name": "protected_diff_empty_after", "status": "PASS"}
