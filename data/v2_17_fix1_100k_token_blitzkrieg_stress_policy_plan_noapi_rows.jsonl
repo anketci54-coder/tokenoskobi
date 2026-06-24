@@ -1,0 +1,97 @@
+{"aggregate_policy_simulation_rows": 1, "ai_called_rows": 0, "auto_execute_allowed_stage_rows": 0, "auto_execute_rows": 0, "classification_only_rows": 1, "deadlock_allowed_rows": 0, "decision": "BLITZKRIEG_STRESS_POLICY_FIX1_ACCEPTED_READY_FOR_COMMIT_PUSH_WITH_V2_17", "external_api_called_rows": 0, "filter_stage_rows": 4, "final_gate": "PASS_V2_17_FIX1_100K_TOKEN_BLITZKRIEG_STRESS_POLICY_PLAN_NOAPI", "full_forensic_scan_allowed_rows": 0, "hot_path_max_latency_ms": 100, "hot_path_stage_rows": 3, "human_gate_required_rows": 2, "human_gateway_final_candidate_limit": 3, "kind": "v2_17_fix1_summary", "live_db_write_rows": 0, "live_trade_rows": 0, "load_profile_rows": 1, "max_input_tokens": 100000, "memory_overflow_allowed_rows": 0, "microbatch_size": 100, "paid_call_allowed_stage_rows": 0, "paid_call_executed_rows": 0, "panel_write_rows": 0, "patch_rows": 0, "phase": "V2_17_FIX1_100K_TOKEN_BLITZKRIEG_STRESS_POLICY_PLAN_NOAPI", "product_specific_hack_rows": 0, "provider_call_allowed_stage_rows": 0, "provider_called_rows": 0, "real_100k_runtime_execution_rows": 0, "reason_code_missing_rows": 0, "reason_code_rows": 10, "reject_or_quarantine_rows": 9, "result_mismatch_rows": 0, "rule_auto_execute_rows": 0, "secret_printed_rows": 0, "secret_read_rows": 0, "server_sprawl_rows": 0, "sql_placeholder_fix_applied": true, "target_ingress_tokens_per_second": 1000, "target_window_seconds": 100, "threat_rule_rows": 10, "top_n_candidate_limit": 500, "trade_authority_rows": 0, "wallet_authority_rows": 0}
+{"kind": "contract", "path": "data/protocol/provider_budget_100k_blitzkrieg_stress_policy_fix1_contract_noapi.json", "sha": "1f613d025089396bbf86ba387a64574ad3ca6f44576581453e8e5eaea4b74c96"}
+{"do_not_branch": true, "kind": "master_control_lock", "path": "data/control/master_control_lock_v1.json", "sha": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b"}
+{"contract_sha": "c774d98f470c420bea1fe3c637de57010ef3b89597a3294e2bade98542d9d317", "json_sha": "ca6ed3ed1d4e146650c3b0f36e51dfc392f6597361cc1a55e94957cf639c8b99", "kind": "base_v2_17", "report_sha": "5db8b531ff0763433a224b5d6fd51a4147b0bdfc5380ae0c28588b5c7c627a01", "rows_sha": "3cd5a76aeb0d781a1b917dcd117192a262f4467be63af0a9129e612842f59cab"}
+{"foreign_key_check_count": 0, "integrity_check": "ok", "kind": "tempdb", "path": "/tmp/V2_17_FIX1_100K_TOKEN_BLITZKRIEG_STRESS_POLICY_PLAN_NOAPI_20260624_081017/v2_17_fix1_100k_blitzkrieg_policy_tempdb.sqlite", "quick_check": "ok", "sha": "59c1d74fcc6c35045dac769d15b35e5f628788bbe956d16c697cca9535a2eb85"}
+{"expected_result": "REJECT_HONEYPOT", "kind": "reason_code_dump", "reason_code": "ERR_SELLABILITY_ZERO_HONEYPOT_RISK", "rule_id": "HONEYPOT_SELLABILITY_ZERO", "stage_id": "FILTER_1_FAST_RUG_HONEYPOT"}
+{"expected_result": "REJECT_FAST_RUG_RISK", "kind": "reason_code_dump", "reason_code": "ERR_LIQUIDITY_LOCK_LT_6_MONTHS", "rule_id": "LOCK_LT_6_MONTHS_REJECT", "stage_id": "FILTER_1_FAST_RUG_HONEYPOT"}
+{"expected_result": "QUARANTINE_M2V", "kind": "reason_code_dump", "reason_code": "ERR_M2V_LIQUIDITY_MCAP_MISMATCH", "rule_id": "M2V_FAKE_LIQUIDITY_MCAP", "stage_id": "FILTER_1_FAST_RUG_HONEYPOT"}
+{"expected_result": "REJECT_OWNER_RISK", "kind": "reason_code_dump", "reason_code": "ERR_OWNERSHIP_NOT_RENOUNCED", "rule_id": "OWNER_NOT_RENOUNCED_REJECT", "stage_id": "FILTER_1_FAST_RUG_HONEYPOT"}
+{"expected_result": "WAIT_NO_ENTRY", "kind": "reason_code_dump", "reason_code": "ERR_MEV_PRESSURE_WAIT_PRIVATE_ROUTE_REQUIRED", "rule_id": "MEV_PRESSURE_WAIT", "stage_id": "FILTER_2_ANTI_MEV"}
+{"expected_result": "NO_ENTRY_SANDWICH_DETECTED", "kind": "reason_code_dump", "reason_code": "ERR_SANDWICH_SLIPPAGE_DETECTED", "rule_id": "SANDWICH_SLIPPAGE_DETECTED", "stage_id": "FILTER_2_ANTI_MEV"}
+{"expected_result": "AUTO_BLOCK_PROVIDER_BUDGET", "kind": "reason_code_dump", "reason_code": "ERR_PROVIDER_BUDGET_HARD_CAP_AUTO_BLOCK", "rule_id": "PROVIDER_BUDGET_HARD_CAP", "stage_id": "FILTER_3_BUDGET_ISOLATION"}
+{"expected_result": "DROP_TO_WARM_OR_QUARANTINE", "kind": "reason_code_dump", "reason_code": "ERR_TOP_N_QUEUE_LIMIT_ENFORCED", "rule_id": "TOP_N_BACKPRESSURE", "stage_id": "FILTER_3_BUDGET_ISOLATION"}
+{"expected_result": "ALERT_ONLY_HUMAN_TRIGGER_REQUIRED", "kind": "reason_code_dump", "reason_code": "WARN_HUMAN_TRIGGER_REQUIRED_GOLDEN_OPPORTUNITY", "rule_id": "GOLDEN_OPPORTUNITY_HUMAN_GATE", "stage_id": "FILTER_4_HUMAN_GATEWAY"}
+{"expected_result": "BLOCK_AUTO_EXECUTE", "kind": "reason_code_dump", "reason_code": "ERR_WALLET_AUTHORITY_ZERO_NO_EXECUTION", "rule_id": "WALLET_AUTHORITY_ZERO", "stage_id": "FILTER_4_HUMAN_GATEWAY"}
+{"aggregate_policy_simulation_only": true, "auto_execute": false, "cache_first": true, "classification_only": true, "dead_man_switch_required": true, "full_forensic_scan_allowed_in_hot_path": false, "hot_path_max_latency_ms": 100, "human_gateway_final_candidate_limit": 3, "human_trigger_required": true, "kind": "policy", "max_input_tokens": 100000, "microbatch_size": 100, "name": "VAHSI_BATI_SIMULASYONU_100K_TOKEN_BLITZKRIEG", "paid_call_allowed": false, "provider_call_allowed": false, "real_100k_runtime_execution": false, "sql_placeholder_fix_applied": true, "target_ingress_tokens_per_second": 1000, "target_window_seconds": 100, "top_n_candidate_limit": 500, "trade_authority": false, "wallet_authority": false}
+{"actual_100k_rows_inserted": false, "ai_call_count": 0, "auto_apply": false, "auto_execute": false, "auto_patch": false, "external_api_call_count": 0, "hard_block_bypass": false, "kind": "boundaries", "live_db_write_count": 0, "live_trade": false, "message_bus_live_execution_forbidden": true, "mock_aggregate_policy_simulation": true, "paid_call_executed_count": 0, "panel_write_count": 0, "plan_only": true, "provider_call_count": 0, "secret_print_count": 0, "secret_read_count": 0, "tempdb_simulation": true, "trade_authority": false, "wallet_authority": false}
+{"kind": "protected_state", "live_db_sha_after": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5", "live_db_sha_before": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5", "live_db_sha_changed": false, "panel_sha_after": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9", "panel_sha_before": "d15c147cb81f46b3bb3828a92ea861cf6d9b6807d16932f7d6e9c8a8fb878ca9", "panel_sha_changed": false, "protected_diff_empty": true}
+{"foreign_key_check_count": 0, "integrity_check": "ok", "kind": "live_db_health", "quick_check": "ok"}
+{"actual_value": "64f1213", "assertion_name": "current_head_is_64f1213", "expected_value": "64f1213", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "64f1213", "assertion_name": "remote_head_matches_local", "expected_value": "64f1213", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "64f1213", "assertion_name": "origin_main_matches_local", "expected_value": "64f1213", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0 0", "assertion_name": "ahead_behind_zero", "expected_value": "0 0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "[]", "assertion_name": "status_only_v2_17_base_and_fix1", "expected_value": "[]", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "master_control_lock_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b", "assertion_name": "master_control_lock_sha", "expected_value": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "master_json_valid", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "master_do_not_branch", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ZERO", "assertion_name": "master_branch_risk_zero", "expected_value": "ZERO", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "master_no_patch", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "master_canonical_files_only", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_17_base_contract_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "c774d98f470c420bea1fe3c637de57010ef3b89597a3294e2bade98542d9d317", "assertion_name": "v2_17_base_contract_sha", "expected_value": "c774d98f470c420bea1fe3c637de57010ef3b89597a3294e2bade98542d9d317", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_17_base_json_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ca6ed3ed1d4e146650c3b0f36e51dfc392f6597361cc1a55e94957cf639c8b99", "assertion_name": "v2_17_base_json_sha", "expected_value": "ca6ed3ed1d4e146650c3b0f36e51dfc392f6597361cc1a55e94957cf639c8b99", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_17_base_rows_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "3cd5a76aeb0d781a1b917dcd117192a262f4467be63af0a9129e612842f59cab", "assertion_name": "v2_17_base_rows_sha", "expected_value": "3cd5a76aeb0d781a1b917dcd117192a262f4467be63af0a9129e612842f59cab", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_17_base_report_exists", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "5db8b531ff0763433a224b5d6fd51a4147b0bdfc5380ae0c28588b5c7c627a01", "assertion_name": "v2_17_base_report_sha", "expected_value": "5db8b531ff0763433a224b5d6fd51a4147b0bdfc5380ae0c28588b5c7c627a01", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "True", "assertion_name": "v2_17_base_json_valid", "expected_value": "True", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "PASS_V2_17_PROVIDER_SELECTION_AND_BUDGET_POLICY_PLAN_NOAPI", "assertion_name": "v2_17_base_gate_pass", "expected_value": "PASS_V2_17_PROVIDER_SELECTION_AND_BUDGET_POLICY_PLAN_NOAPI", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "v2_17_base_audit_fail_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "v2_17_base_paid_call_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "v2_17_base_provider_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "db_integrity_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "db_quick_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "db_fk_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "", "assertion_name": "protected_diff_empty_before", "expected_value": "", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "load_profile_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "100000", "assertion_name": "max_input_tokens", "expected_value": "100000", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "100", "assertion_name": "target_window_seconds", "expected_value": "100", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1000", "assertion_name": "target_ingress_tokens_per_second", "expected_value": "1000", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "100", "assertion_name": "microbatch_size", "expected_value": "100", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "100", "assertion_name": "hot_path_max_latency_ms", "expected_value": "100", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "classification_only_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "full_forensic_scan_allowed_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "1", "assertion_name": "aggregate_policy_simulation_rows", "expected_value": "1", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "real_100k_runtime_execution_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "4", "assertion_name": "filter_stage_rows", "expected_value": "4", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "3", "assertion_name": "hot_path_stage_rows", "expected_value": "3", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "provider_call_allowed_stage_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "paid_call_allowed_stage_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "auto_execute_allowed_stage_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "500", "assertion_name": "top_n_candidate_limit", "expected_value": "500", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "3", "assertion_name": "human_gateway_final_candidate_limit", "expected_value": "3", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "10", "assertion_name": "threat_rule_rows", "expected_value": "10", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "10", "assertion_name": "reason_code_rows", "expected_value": "10", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "reason_code_missing_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "9", "assertion_name": "reject_or_quarantine_rows", "expected_value": "9", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "2", "assertion_name": "human_gate_required_rows", "expected_value": "2", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "rule_auto_execute_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "provider_called_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "external_api_called_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "ai_called_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "live_db_write_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "panel_write_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "paid_call_executed_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "secret_read_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "secret_printed_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "wallet_authority_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "trade_authority_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "live_trade_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "auto_execute_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "memory_overflow_allowed_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "deadlock_allowed_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "patch_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "product_specific_hack_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "server_sprawl_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "result_mismatch_rows", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "tempdb_integrity_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "ok", "assertion_name": "tempdb_quick_ok", "expected_value": "ok", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "0", "assertion_name": "tempdb_fk_zero", "expected_value": "0", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "False", "assertion_name": "db_sha_unchanged", "expected_value": "False", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "False", "assertion_name": "panel_sha_unchanged", "expected_value": "False", "kind": "audit_assertion", "status": "PASS"}
+{"actual_value": "", "assertion_name": "protected_diff_empty_after", "expected_value": "", "kind": "audit_assertion", "status": "PASS"}
+{"kind": "next_safe_step", "value": "COMMIT_PUSH_V2_17_WITH_FIX1"}
+{"items": [], "kind": "failures"}

@@ -1,0 +1,134 @@
+{
+  "boundaries": {
+    "ai_call_count": 0,
+    "auto_apply": false,
+    "auto_patch": false,
+    "config_activation_count": 0,
+    "external_api_call_count": 0,
+    "hard_block_bypass": false,
+    "live_db_write_count": 0,
+    "live_trade": false,
+    "message_bus_live_execution_forbidden": true,
+    "paid_call_executed_count": 0,
+    "panel_write_count": 0,
+    "plan_only": true,
+    "provider_call_count": 0,
+    "secret_print_count": 0,
+    "secret_read_count": 0,
+    "tempdb_simulation": true,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "budget_policy": {
+    "auto_block_on_budget_exhaustion": true,
+    "cache_first_required": true,
+    "do_not_branch": true,
+    "hard_cap_required": true,
+    "human_approval_required_for_paid_call": true,
+    "master_control_lock_required": true,
+    "provider_activation_forbidden_now": true,
+    "provider_policy_config_only": true,
+    "provider_policy_hardcode_forbidden": true,
+    "real_endpoint_forbidden_in_plan": true,
+    "reason_code_required_for_every_spend": true,
+    "secret_print_forbidden": true,
+    "secret_read_forbidden": true,
+    "trade_authority_boundary_required_for_provider_spend": true
+  },
+  "mode": "PLAN_ONLY_TEMPDB_SIMULATION_NOAPI",
+  "phase": "V2_17_PROVIDER_SELECTION_AND_BUDGET_POLICY_PLAN_NOAPI",
+  "rules": [
+    {
+      "expected_result": "REJECT_WITHOUT_CACHE_CHECK",
+      "reason_code": "ERR_CACHE_FIRST_REQUIRED",
+      "rule_id": "CACHE_FIRST_REQUIRED"
+    },
+    {
+      "expected_result": "REJECT_PAID_CALL_WITHOUT_REASON_CODE",
+      "reason_code": "ERR_PAID_CALL_REASON_CODE_REQUIRED",
+      "rule_id": "PAID_CALL_REASON_CODE_REQUIRED"
+    },
+    {
+      "expected_result": "REJECT_PAID_CALL_WITHOUT_HUMAN_APPROVAL",
+      "reason_code": "ERR_PAID_CALL_HUMAN_APPROVAL_REQUIRED",
+      "rule_id": "PAID_CALL_HUMAN_APPROVAL_REQUIRED"
+    },
+    {
+      "expected_result": "REJECT_SPEND_WITHOUT_TRADE_AUTHORITY_BOUNDARY",
+      "reason_code": "ERR_TRADE_AUTHORITY_REQUIRED_FOR_PROVIDER_SPEND",
+      "rule_id": "TRADE_AUTHORITY_REQUIRED_FOR_SPEND"
+    },
+    {
+      "expected_result": "REJECT_WITHOUT_HARD_CAP",
+      "reason_code": "ERR_PROVIDER_HARD_CAP_REQUIRED",
+      "rule_id": "PROVIDER_HARD_CAP_REQUIRED"
+    },
+    {
+      "expected_result": "AUTO_BLOCK_PROVIDER",
+      "reason_code": "ERR_PROVIDER_BUDGET_EXHAUSTED_AUTO_BLOCK",
+      "rule_id": "BUDGET_EXHAUSTED_AUTO_BLOCK"
+    },
+    {
+      "expected_result": "REJECT_PROVIDER_SPECIFIC_HARDCODE",
+      "reason_code": "ERR_PROVIDER_POLICY_HARDCODE_FORBIDDEN",
+      "rule_id": "NO_PROVIDER_SPECIFIC_HARDCODE"
+    },
+    {
+      "expected_result": "BLOCK_REAL_ENDPOINT_SECRET",
+      "reason_code": "ERR_REAL_ENDPOINT_OR_SECRET_FORBIDDEN_IN_PLAN",
+      "rule_id": "NO_REAL_ENDPOINT_OR_SECRET_IN_PLAN"
+    },
+    {
+      "expected_result": "REJECT_CODE_HARDCODE_POLICY",
+      "reason_code": "ERR_PROVIDER_POLICY_MUST_BE_CONFIG_ONLY",
+      "rule_id": "CONFIG_ONLY_POLICY_REQUIRED"
+    },
+    {
+      "expected_result": "BLOCK_ACTIVATION_NOW",
+      "reason_code": "ERR_PROVIDER_ACTIVATION_FORBIDDEN_NOW",
+      "rule_id": "NO_PROVIDER_ACTIVATION_NOW"
+    }
+  ],
+  "schema": "tokenoskobi_provider_selection_and_budget_policy_v1_contract_noapi",
+  "source_of_truth": {
+    "current_canonical_head": "64f1213",
+    "master_control_lock": "data/control/master_control_lock_v1.json",
+    "master_control_lock_sha": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b"
+  },
+  "status": "POLICY_PLAN_NOT_RUNTIME",
+  "tiers": [
+    {
+      "auto_block_on_budget_exhaustion": true,
+      "cache_first_required": true,
+      "hard_cap_required": true,
+      "human_approval_required": false,
+      "paid_call_allowed": false,
+      "provider_call_allowed_now": false,
+      "reason_code_required": true,
+      "tier_id": "TIER_0_CACHE_FREE",
+      "trade_authority_required_for_spend": false
+    },
+    {
+      "auto_block_on_budget_exhaustion": true,
+      "cache_first_required": true,
+      "hard_cap_required": true,
+      "human_approval_required": true,
+      "paid_call_allowed": true,
+      "provider_call_allowed_now": false,
+      "reason_code_required": true,
+      "tier_id": "TIER_1_PAID_APPROVAL_REQUIRED",
+      "trade_authority_required_for_spend": true
+    },
+    {
+      "auto_block_on_budget_exhaustion": true,
+      "cache_first_required": true,
+      "hard_cap_required": true,
+      "human_approval_required": true,
+      "paid_call_allowed": false,
+      "provider_call_allowed_now": false,
+      "reason_code_required": true,
+      "tier_id": "TIER_BLOCKED_BUDGET_EXHAUSTED",
+      "trade_authority_required_for_spend": true
+    }
+  ]
+}

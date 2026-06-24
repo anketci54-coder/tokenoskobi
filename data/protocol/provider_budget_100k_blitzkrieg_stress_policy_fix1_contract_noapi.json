@@ -1,0 +1,106 @@
+{
+  "boundaries": {
+    "actual_100k_rows_inserted": false,
+    "ai_call_count": 0,
+    "auto_apply": false,
+    "auto_execute": false,
+    "auto_patch": false,
+    "external_api_call_count": 0,
+    "hard_block_bypass": false,
+    "live_db_write_count": 0,
+    "live_trade": false,
+    "message_bus_live_execution_forbidden": true,
+    "mock_aggregate_policy_simulation": true,
+    "paid_call_executed_count": 0,
+    "panel_write_count": 0,
+    "plan_only": true,
+    "provider_call_count": 0,
+    "secret_print_count": 0,
+    "secret_read_count": 0,
+    "tempdb_simulation": true,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "filters": [
+    {
+      "name": "FAST_RUG_HONEYPOT",
+      "rules": [
+        "LIQUIDITY_LOCK_LT_6_MONTHS",
+        "OWNERSHIP_NOT_RENOUNCED",
+        "SELLABILITY_ZERO",
+        "M2V_LIQUIDITY_MCAP_MISMATCH"
+      ],
+      "stage": 1
+    },
+    {
+      "name": "ANTI_MEV",
+      "rules": [
+        "SANDWICH_SLIPPAGE_DETECTED",
+        "MEV_PRESSURE_WAIT_PRIVATE_ROUTE_REQUIRED"
+      ],
+      "stage": 2
+    },
+    {
+      "name": "BUDGET_ISOLATION",
+      "rules": [
+        "PROVIDER_BUDGET_HARD_CAP_AUTO_BLOCK",
+        "TOP_N_QUEUE_LIMIT_ENFORCED"
+      ],
+      "stage": 3
+    },
+    {
+      "name": "HUMAN_GATEWAY",
+      "rules": [
+        "HUMAN_TRIGGER_REQUIRED_GOLDEN_OPPORTUNITY",
+        "WALLET_AUTHORITY_ZERO_NO_EXECUTION"
+      ],
+      "stage": 4
+    }
+  ],
+  "mode": "PLAN_ONLY_TEMPDB_SIMULATION_NOAPI",
+  "phase": "V2_17_FIX1_100K_TOKEN_BLITZKRIEG_STRESS_POLICY_PLAN_NOAPI",
+  "policy": {
+    "aggregate_policy_simulation_only": true,
+    "auto_execute": false,
+    "cache_first": true,
+    "classification_only": true,
+    "dead_man_switch_required": true,
+    "full_forensic_scan_allowed_in_hot_path": false,
+    "hot_path_max_latency_ms": 100,
+    "human_gateway_final_candidate_limit": 3,
+    "human_trigger_required": true,
+    "max_input_tokens": 100000,
+    "microbatch_size": 100,
+    "name": "VAHSI_BATI_SIMULASYONU_100K_TOKEN_BLITZKRIEG",
+    "paid_call_allowed": false,
+    "provider_call_allowed": false,
+    "real_100k_runtime_execution": false,
+    "sql_placeholder_fix_applied": true,
+    "target_ingress_tokens_per_second": 1000,
+    "target_window_seconds": 100,
+    "top_n_candidate_limit": 500,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "reason_codes": {
+    "GOLDEN_OPPORTUNITY_HUMAN_GATE": "WARN_HUMAN_TRIGGER_REQUIRED_GOLDEN_OPPORTUNITY",
+    "HONEYPOT_SELLABILITY_ZERO": "ERR_SELLABILITY_ZERO_HONEYPOT_RISK",
+    "LOCK_LT_6_MONTHS_REJECT": "ERR_LIQUIDITY_LOCK_LT_6_MONTHS",
+    "M2V_FAKE_LIQUIDITY_MCAP": "ERR_M2V_LIQUIDITY_MCAP_MISMATCH",
+    "MEV_PRESSURE_WAIT": "ERR_MEV_PRESSURE_WAIT_PRIVATE_ROUTE_REQUIRED",
+    "OWNER_NOT_RENOUNCED_REJECT": "ERR_OWNERSHIP_NOT_RENOUNCED",
+    "PROVIDER_BUDGET_HARD_CAP": "ERR_PROVIDER_BUDGET_HARD_CAP_AUTO_BLOCK",
+    "SANDWICH_SLIPPAGE_DETECTED": "ERR_SANDWICH_SLIPPAGE_DETECTED",
+    "TOP_N_BACKPRESSURE": "ERR_TOP_N_QUEUE_LIMIT_ENFORCED",
+    "WALLET_AUTHORITY_ZERO": "ERR_WALLET_AUTHORITY_ZERO_NO_EXECUTION"
+  },
+  "schema": "tokenoskobi_provider_budget_100k_blitzkrieg_stress_policy_fix1_contract_noapi",
+  "source_of_truth": {
+    "base_v2_17_contract_sha": "c774d98f470c420bea1fe3c637de57010ef3b89597a3294e2bade98542d9d317",
+    "base_v2_17_json_sha": "ca6ed3ed1d4e146650c3b0f36e51dfc392f6597361cc1a55e94957cf639c8b99",
+    "master_control_lock": "data/control/master_control_lock_v1.json",
+    "master_control_lock_sha": "37bdc65ff574116ff486117d93d2528191bf21c442d1bf964e553cd83b26fb6b"
+  },
+  "sql_placeholder_fix_applied": true,
+  "status": "STRESS_POLICY_PLAN_NOT_RUNTIME"
+}
