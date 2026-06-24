@@ -1,0 +1,117 @@
+{
+  "adversarial_cases": [
+    "LINEAGE_SELF_ATTESTATION_SPOOF",
+    "COMMON_UPSTREAM_HIDDEN_COLLISION",
+    "INVALID_ANCHOR_FALSE_NEGATIVE_GUARD",
+    "REPLAYED_BLOCK_HEIGHT_STALE_DATA",
+    "UNCERTAINTY_FLOOD_BOUNDED_WAIT",
+    "MARKET_STORM_NOT_ATTACK",
+    "ATTACK_MODE_REQUIRES_ADVERSARIAL_EVIDENCE"
+  ],
+  "case_count": 7,
+  "dryrun_boundaries": {
+    "ai_call_count": 0,
+    "external_api_call_count": 0,
+    "live_db_write_count": 0,
+    "live_trade": false,
+    "panel_write_count": 0,
+    "provider_call_count": 0,
+    "runtime_service_started_count": 0,
+    "tempdb_only": true,
+    "tempdb_write_allowed": true,
+    "timer_started_count": 0,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "expected_metrics": {
+    "adversarial_case_rows": 7,
+    "ai_called_rows": 0,
+    "attack_mode_without_adversarial_pattern_rows": 0,
+    "attack_requires_adversarial_evidence_rows": 2,
+    "attack_requires_pattern_case_rows": 1,
+    "common_upstream_collision_detected_rows": 1,
+    "common_upstream_hidden_collision_rows": 1,
+    "corroboration_accepted_on_cluster_collision_rows": 0,
+    "deadlock_rows": 0,
+    "decision_path_approved_rows": 0,
+    "external_api_called_rows": 0,
+    "hidden_common_upstream_accepted_as_independent_rows": 0,
+    "invalid_anchor_case_rows": 1,
+    "invalid_anchor_decision_approved_rows": 0,
+    "invalid_anchor_observation_continues_rows": 1,
+    "lineage_self_attestation_spoof_rows": 1,
+    "lineage_self_attestation_trusted_rows": 0,
+    "lineage_unproven_independence_accepted_rows": 0,
+    "live_db_write_rows": 0,
+    "live_decision_created_rows": 0,
+    "market_storm_case_rows": 1,
+    "market_storm_classified_rows": 1,
+    "observation_path_active_rows": 7,
+    "panel_write_rows": 0,
+    "provider_called_rows": 0,
+    "queue_budget_missing_rows": 0,
+    "reason_code_missing_rows": 0,
+    "reason_code_rows": 7,
+    "replayed_block_height_stale_case_rows": 1,
+    "stale_replay_detected_rows": 1,
+    "storm_marked_attack_without_adversarial_evidence_rows": 0,
+    "timestamp_only_freshness_accepted_rows": 0,
+    "trade_authority_rows": 0,
+    "unbounded_wait_rows": 0,
+    "uncertainty_flood_case_rows": 1,
+    "uncertainty_flood_coalesced_group_rows": 1,
+    "uncertainty_flood_final_pending_rows": 1,
+    "uncertainty_flood_input_rows": 250,
+    "unsafe_decision_rows": 0,
+    "wait_ttl_missing_rows": 0,
+    "wallet_authority_rows": 0
+  },
+  "mode": "TEMPDB_DRYRUN_NOAPI",
+  "path_discipline": {
+    "attack_mode_requires_adversarial_evidence": true,
+    "common_upstream_collapses_to_one_cluster": true,
+    "decision_path_and_observation_path_separated": true,
+    "invalid_anchor_can_observe": true,
+    "invalid_anchor_cannot_decide": true,
+    "lineage_self_attestation_not_trusted": true,
+    "market_storm_is_not_attack_by_default": true,
+    "timestamp_only_freshness_forbidden": true,
+    "uncertainty_wait_must_be_bounded": true,
+    "unsafe_decision_forbidden": true
+  },
+  "phase": "V2_11_FIX1_ADVERSARIAL_SOURCE_FIREWALL_TEMPDB_DRYRUN_NOAPI",
+  "purpose": "validate_red_team_adversarial_source_firewall_cases_against_v2_11_before_commit_push",
+  "required_reason_codes": {
+    "ATTACK_MODE_REQUIRES_ADVERSARIAL_EVIDENCE": "WARN_ATTACK_MODE_REQUIRES_ADVERSARIAL_PATTERN",
+    "COMMON_UPSTREAM_HIDDEN_COLLISION": "ERR_CORROBORATION_CLUSTER_COLLISION",
+    "INVALID_ANCHOR_FALSE_NEGATIVE_GUARD": "WARN_INVALID_ANCHOR_OBSERVE_ONLY_DECISION_REJECTED",
+    "LINEAGE_SELF_ATTESTATION_SPOOF": "ERR_LINEAGE_SELF_ATTESTATION_NOT_PROOF",
+    "MARKET_STORM_NOT_ATTACK": "INFO_MARKET_STORM_OBSERVE_FAST_NOT_ATTACK",
+    "REPLAYED_BLOCK_HEIGHT_STALE_DATA": "ERR_REPLAYED_BLOCK_HEIGHT_STALE_DATA",
+    "UNCERTAINTY_FLOOD_BOUNDED_WAIT": "WARN_UNCERTAINTY_FLOOD_BOUNDED_WAIT_NO_DEADLOCK"
+  },
+  "schema": "tokenoskobi_adversarial_source_firewall_tempdb_dryrun_v1_contract_noapi",
+  "source_refs": {
+    "adapter_contract": {
+      "path": "data/protocol/real_evidence_runtime_readonly_adapter_v1_contract_plan_noapi.json",
+      "sha": "4b33eee11080b89f495780188c6f4605ed2fc30016ae82f317ec9f31988cecab"
+    },
+    "source_map_contract": {
+      "path": "data/protocol/historical_evidence_dataset_source_map_v1_contract_plan_noapi.json",
+      "sha": "d4c0abf5e8cde1da35288233cf8848be5e361f32a8c2a6c06f29ddc73ff3ef82"
+    },
+    "v2_10_json": {
+      "path": "data/v2_10_real_evidence_runtime_readonly_adapter_plan_noapi.json",
+      "sha": "476f67385bef7ec228d47764979f8d3d52d0be4a142c06899ab67d6b7d3637a3"
+    },
+    "v2_11_base_contract": {
+      "path": "data/protocol/real_evidence_adapter_tempdb_dryrun_v1_contract_noapi.json",
+      "sha": "7227ffc4fc548b9879b8ef56a79d3e99c240bd50efbd232f02fec837e938eb0c"
+    },
+    "v2_11_base_json": {
+      "path": "data/v2_11_real_evidence_adapter_tempdb_dryrun_noapi.json",
+      "sha": "920b17dcbd5e2f45590a0a55b9ce3537516a961982b30538fd222d3e2bff5833"
+    }
+  },
+  "status": "ADVERSARIAL_TEMPDB_DRYRUN_COMPLETED_NOT_ACTIVE_RUNTIME"
+}
