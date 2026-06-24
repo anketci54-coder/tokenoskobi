@@ -1,0 +1,124 @@
+{
+  "allowed_consumer_fields": [
+    "blocked_by_policy",
+    "classification",
+    "display_hint",
+    "evidence_count",
+    "evidence_ref",
+    "hard_block_state",
+    "observation_status",
+    "policy_state",
+    "quarantine_state",
+    "readonly_context",
+    "reason_code",
+    "review_required",
+    "risk_context",
+    "risk_state",
+    "snapshot_version",
+    "source_state",
+    "stale_state",
+    "ttl_valid"
+  ],
+  "apply_plan": [
+    {
+      "db_write": false,
+      "rule": "Only replace approved action-language with readonly observation language. No DB. No service.",
+      "runtime_change": false,
+      "service_change": false,
+      "step": "PHASE53A_03B_PANEL_READONLY_LANGUAGE_APPLY_REAL",
+      "write_allowed": "after explicit approval only",
+      "write_paths": [
+        "active_panel_8096/current/data/production_v2_control_center_data.json",
+        "active_panel_8096/current/data/risk_security_preview_data.json",
+        "active_panel_8096/current/mobile_pageflow/index.html",
+        "active_panel_8096/current/panel_v2/data/panel_v2_model.json",
+        "active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_model.json",
+        "active_panel_8096/current/panel_v2/index.html"
+      ]
+    },
+    {
+      "db_write": false,
+      "rule": "Consumer output must be allowlist-only; forbidden fields dropped before panel/consumer export.",
+      "runtime_change": "code/projection filter only; no service restart unless separately approved",
+      "service_change": false,
+      "step": "PHASE53A_03C_BRIDGE_CONSUMER_PAYLOAD_FILTER_APPLY_REAL",
+      "write_allowed": "after explicit approval only",
+      "write_paths": "to be resolved from bridge_candidate_files"
+    },
+    {
+      "rule": "Re-run panel grep, payload schema audit, negative trigger 10/10, DB/PANEL protected hash audit.",
+      "step": "PHASE53A_03D_POST_APPLY_AUDIT_NOAPI",
+      "write_allowed": false
+    },
+    {
+      "rule": "Commit/push only after post-apply PASS.",
+      "step": "PHASE53A_03E_GITHUB_SEAL",
+      "write_allowed": "after post-apply PASS only"
+    }
+  ],
+  "base_seal": "PHASE53A_02_CLOSED_VERIFIED_GITHUB_SEALED",
+  "bridge_candidate_files": [
+    "active_panel_8096/current/data/phase41_command_center_binding_v1.json",
+    "active_panel_8096/current/data/system_control_status_readmodel_view.json",
+    "tools/backpressure_readmodel_refresh_runner_v1.py"
+  ],
+  "current_head": "7c50da2",
+  "db_operations_forbidden": [
+    "DROP_COLUMN",
+    "DROP_TABLE",
+    "DELETE_ARCHIVE",
+    "NULLIFY_FIELD",
+    "DB_SCHEMA_MUTATION",
+    "DB_DATA_MUTATION"
+  ],
+  "db_write_allowed_now": false,
+  "forbidden_consumer_fields": [
+    "action",
+    "action_payload",
+    "action_plan",
+    "api_fetch_allowed",
+    "apply_order",
+    "apply_plan_action",
+    "approve_trade",
+    "auto_apply",
+    "buy_signal",
+    "confirm_trade",
+    "db_mutation_allowed",
+    "execute_allowed",
+    "live_allowed",
+    "order",
+    "order_payload",
+    "override_allowed",
+    "paper_allowed",
+    "paper_live_allowed",
+    "payload_json",
+    "planned_action",
+    "planned_icon_action",
+    "planned_layout_action",
+    "route_execute",
+    "sell_signal",
+    "send_payload",
+    "sign_payload",
+    "trade_execution_allowed",
+    "trade_permission",
+    "trigger_allowed",
+    "wallet_connect",
+    "wallet_permission"
+  ],
+  "mode": "REAL_APPLY_SCOPE_FREEZE_NOAPI",
+  "next_safe_step": "PHASE53A_03B_PANEL_READONLY_LANGUAGE_APPLY_REAL_AFTER_EXPLICIT_APPROVAL",
+  "panel_write_allowed_now": false,
+  "panel_write_scope": [
+    "active_panel_8096/current/data/production_v2_control_center_data.json",
+    "active_panel_8096/current/data/risk_security_preview_data.json",
+    "active_panel_8096/current/mobile_pageflow/index.html",
+    "active_panel_8096/current/panel_v2/data/panel_v2_model.json",
+    "active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_model.json",
+    "active_panel_8096/current/panel_v2/index.html"
+  ],
+  "patch_allowed_now": false,
+  "phase": "PHASE53A_03A_REAL_APPLY_SCOPE_FREEZE_NOAPI",
+  "real_apply_now": false,
+  "requires_explicit_approval": true,
+  "schema": "phase53a_03a_real_apply_scope_freeze_v1_noapi"
+}
