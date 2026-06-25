@@ -9,10 +9,10 @@
     "passed_scenario_count": 4,
     "normal_tp_policy": "TP1_TP2_TP3",
     "vur_kac_tp_policy": "SINGLE_TP_ONLY",
-    "live_button_execution_locked": true,
-    "live_trade": false,
-    "paper_trade_execution": false,
-    "auto_trade_execution": false
+    "readonly_boundary_button_locked": true,
+    "readonly_market_context": false,
+    "simulation_review_boundary": false,
+    "policy_blocked_boundary": false
   },
   "panel_slots": [
     {
@@ -232,8 +232,8 @@
         "manual_button": true,
         "manual_vur_kac_button": false,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "Normal adaylarda TP1 / TP2 / TP3 aktif."
@@ -263,8 +263,8 @@
         "manual_button": false,
         "manual_vur_kac_button": true,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "Vur-kaç adaylarında sadece tek TP vardır; TP1/TP2/TP3 yok."
@@ -294,8 +294,8 @@
         "manual_button": false,
         "manual_vur_kac_button": false,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "entry condition observed yok, paper/manuel yok, morg/otopsi rotası."
@@ -325,8 +325,8 @@
         "manual_button": false,
         "manual_vur_kac_button": false,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "Yüksek riskte canlı/manuel kapalı, sadece paper planı."
@@ -368,7 +368,7 @@
     }
   ],
   "card_by_key": {
-    "risk_execution_summary": {
+    "risk_readonly_summary": {
       "card_key": "risk readonly summary",
       "center_key": "risk",
       "title": "Risk → İşlem Planı Özeti",
@@ -400,7 +400,7 @@
       "value": "HIGH -> paper-only",
       "details": "Yüksek riskte canlı/manuel kapalı; sadece paper gözlem planı üretilir."
     },
-    "normal_execution_plan": {
+    "normal_readonly_observation_plan": {
       "card_key": "normal readonly observation plan",
       "center_key": "komuta",
       "title": "Normal İşlem Planı",
@@ -425,13 +425,13 @@
         "manual_button": true,
         "manual_vur_kac_button": false,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "Normal adaylarda TP1 / TP2 / TP3 aktif."
     },
-    "vur_kac_execution_plan": {
+    "vur_kac_readonly_observation_plan": {
       "card_key": "vur_kac_execution_plan",
       "center_key": "komuta",
       "title": "Vur-Kaç Planı",
@@ -456,13 +456,13 @@
         "manual_button": false,
         "manual_vur_kac_button": true,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "Vur-kaç adaylarında sadece tek TP vardır; TP1/TP2/TP3 yok."
     },
-    "blocked_execution_plan": {
+    "blocked_readonly_observation_plan": {
       "card_key": "blocked_execution_plan",
       "center_key": "komuta",
       "title": "Bloklanan İşlem",
@@ -487,13 +487,13 @@
         "manual_button": false,
         "manual_vur_kac_button": false,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "entry condition observed yok, paper/manuel yok, morg/otopsi rotası."
     },
-    "paper_only_execution_plan": {
+    "paper_only_simulation_review_plan": {
       "card_key": "paper_only_execution_plan",
       "center_key": "komuta",
       "title": "Paper-Only İşlem",
@@ -518,8 +518,8 @@
         "manual_button": false,
         "manual_vur_kac_button": false,
         "auto_locked": true,
-        "live_execution": false,
-        "paper_trade_execution": false,
+        "readonly_boundary_status": false,
+        "simulation_review_boundary": false,
         "passed": true
       },
       "rule": "Yüksek riskte canlı/manuel kapalı, sadece paper planı."
@@ -538,7 +538,7 @@
       },
       "rule": "Canlı/auto işlem kapalı; tüm butonlar dry-run view-model verisidir."
     },
-    "execution_outcome_memory_stub": {
+    "readonly_outcome_memory_stub": {
       "card_key": "execution_outcome_memory_stub",
       "center_key": "yasam",
       "title": "Outcome Memory Hazırlığı",
