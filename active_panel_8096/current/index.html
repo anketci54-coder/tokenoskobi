@@ -1018,6 +1018,97 @@ body{
 <!-- COINOSKOBI_RISK_SECURITY_ACTIVE_PANEL_BLOCK_V1_END -->
 
 
+
+<!-- V2_22_RUNTIME_TRUTH_BADGE_BINDING_BEGIN -->
+
+<style id="v2-22-runtime-truth-badge-style">
+.runtime-truth-wrap{margin:12px 0;padding:12px;border:1px solid rgba(128,140,155,.45);border-radius:14px;background:rgba(34,43,54,.72)}
+.runtime-truth-title{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#aab5c2;margin-bottom:8px}
+.runtime-truth-row{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.runtime-truth-badge{display:inline-flex;align-items:center;border:1px solid #6b7480;border-radius:999px;padding:6px 10px;background:#3a414a;color:#fff;font-size:12px;font-weight:700}
+.runtime-truth-chip{display:inline-flex;border:1px solid #404a56;border-radius:999px;padding:5px 9px;background:#222b36;color:#e8edf3;font-size:12px}
+.runtime-truth-note{margin-top:8px;color:#9aa7b5;font-size:12px}
+</style>
+
+
+<script id="v2-22-runtime-truth-badge-script">
+(function(){
+  const files=[
+    {name:'Risk Güvenlik Merkezi',url:'/data/risk_security_preview_data.json?v=20260522_164904'},
+    {name:'Komuta Bağlantı Sözleşmesi',url:'/data/phase41_command_center_binding_v1.json'}
+  ];
+  function safeRuntimeText(v){
+    if(v===null||v===undefined) return '';
+    if(typeof v==='object') return '';
+    return String(v);
+  }
+  function runtimeTruthOverlayFrom(data){
+    if(!data||typeof data!=='object') return null;
+    const o=data.visual_semantic_overlay_v1;
+    if(!o||typeof o!=='object') return null;
+    return o;
+  }
+  function chip(text,cls){
+    const s=document.createElement('span');
+    s.className=cls||'runtime-truth-chip';
+    s.textContent=safeRuntimeText(text);
+    return s;
+  }
+  function renderRuntimeTruthBadge(title,overlay){
+    if(!overlay||typeof overlay!=='object') return null;
+    const box=document.createElement('section');
+    box.className='runtime-truth-wrap';
+    const h=document.createElement('div');
+    h.className='runtime-truth-title';
+    h.textContent=safeRuntimeText(title);
+    const row=document.createElement('div');
+    row.className='runtime-truth-row';
+    row.appendChild(chip(overlay.recommended_badge||'UNKNOWN_GREY','runtime-truth-badge'));
+    row.appendChild(chip(overlay.user_visible_label||'Runtime kanıtı yok'));
+    row.appendChild(chip('Runtime kanıtı yok'));
+    row.appendChild(chip('İşlem yetkisi yok'));
+    row.appendChild(chip('Display only'));
+    const note=document.createElement('div');
+    note.className='runtime-truth-note';
+    note.textContent='Görsel güven pusulası: Bu kart işlem yetkisi vermez; yalnızca veri durumunu gösterir.';
+    box.appendChild(h);
+    box.appendChild(row);
+    box.appendChild(note);
+    return box;
+  }
+  function mount(cards){
+    const holder=document.createElement('div');
+    holder.id='v2-22-runtime-truth-badge-mount';
+    cards.forEach(function(c){
+      const n=renderRuntimeTruthBadge(c.name,c.overlay);
+      if(n) holder.appendChild(n);
+    });
+    const target=document.querySelector('main')||document.body||document.documentElement;
+    if(target.firstChild) target.insertBefore(holder,target.firstChild);
+    else target.appendChild(holder);
+  }
+  async function boot(){
+    try{
+      const cards=[];
+      for(const f of files){
+        const r=await fetch(f.url,{cache:'no-store'});
+        if(!r.ok) continue;
+        const data=await r.json();
+        const overlay=runtimeTruthOverlayFrom(data);
+        if(overlay) cards.push({name:f.name,overlay:overlay});
+      }
+      if(cards.length) mount(cards);
+    }catch(e){
+      console.warn('V2_22 runtime truth badge skipped',e&&e.message?e.message:e);
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script>
+
+<!-- V2_22_RUNTIME_TRUTH_BADGE_BINDING_END -->
+
 </html>
 
 <!-- PHASE41_PROVIDER_SECRET_VAULT_START -->
