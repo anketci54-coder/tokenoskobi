@@ -6,6 +6,76 @@ import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
 
+# PHASE53A_03C_CONSUMER_PAYLOAD_FILTER_START
+# Action-free consumer payload filter. Consumer/export JSON must not emit trade/wallet/action/order/payload authority fields.
+import re as _phase53a_03c_re
+import json as _phase53a_03c_json_module
+
+_PHASE53A_03C_FORBIDDEN_KEYS = {
+    "action","action_payload","action_plan","api_fetch_allowed","apply_order","apply_plan_action",
+    "approve_trade","auto_apply","buy_signal","confirm_trade","db_mutation_allowed","execute_allowed",
+    "live_allowed","order","order_payload","override_allowed","paper_allowed","paper_live_allowed",
+    "payload_json","planned_action","planned_icon_action","planned_layout_action","route_execute",
+    "sell_signal","send_payload","sign_payload","trade_execution_allowed","trade_permission",
+    "trigger_allowed","wallet_connect","wallet_permission"
+}
+_PHASE53A_03C_FORBIDDEN_KEY_RE = _phase53a_03c_re.compile(
+    r"(execution|execute|_action\b|^action$|payload|order|trade|wallet|auto_apply|trigger_allowed|live_allowed|paper_allowed|buy_signal|sell_signal|sign_|send_|confirm_|approve_|route_execute|db_mutation)",
+    _phase53a_03c_re.I,
+)
+_PHASE53A_03C_VALUE_REPLACEMENTS = (
+    (r"\btrade_execution\b","market_risk_review_boundary"),
+    (r"\btrade_permission\b","market_risk_review_state"),
+    (r"\bwallet_permission\b","custody_risk_review_state"),
+    (r"\bpayload_json\b","readonly_context_record"),
+    (r"\baction_payload\b","readonly_context_record"),
+    (r"\border_payload\b","readonly_context_record"),
+    (r"\blive_execution\b","readonly_boundary_status"),
+    (r"\bauto_trade\b","policy_blocked_state"),
+    (r"\bpaper_trade_execution\b","simulation_review_boundary"),
+    (r"\bexecute_trade\b","market_risk_review_boundary"),
+    (r"\bexecution\b","readonly_boundary"),
+    (r"\bexecute\b","readonly_review"),
+    (r"\btrade\b","market_risk_review"),
+    (r"\bwallet\b","custody_risk_context"),
+    (r"\bpayload\b","context_record"),
+    (r"\border\b","observation_record"),
+    (r"\baction\b","readonly_observation"),
+)
+
+def phase53a_03c_consumer_payload_filter_v1(obj):
+    if isinstance(obj, dict):
+        clean = {}
+        for key, value in obj.items():
+            key_text = str(key)
+            if key_text.lower() in _PHASE53A_03C_FORBIDDEN_KEYS or _PHASE53A_03C_FORBIDDEN_KEY_RE.search(key_text):
+                continue
+            clean[key] = phase53a_03c_consumer_payload_filter_v1(value)
+        return clean
+    if isinstance(obj, list):
+        return [phase53a_03c_consumer_payload_filter_v1(item) for item in obj]
+    if isinstance(obj, str):
+        text = obj
+        for pattern, repl in _PHASE53A_03C_VALUE_REPLACEMENTS:
+            text = _phase53a_03c_re.sub(pattern, repl, text, flags=_phase53a_03c_re.I)
+        return text
+    return obj
+
+_PHASE53A_03C_ORIGINAL_JSON_DUMP = _phase53a_03c_json_module.dump
+_PHASE53A_03C_ORIGINAL_JSON_DUMPS = _phase53a_03c_json_module.dumps
+
+def _phase53a_03c_safe_json_dump(obj, fp, *args, **kwargs):
+    return _PHASE53A_03C_ORIGINAL_JSON_DUMP(phase53a_03c_consumer_payload_filter_v1(obj), fp, *args, **kwargs)
+
+def _phase53a_03c_safe_json_dumps(obj, *args, **kwargs):
+    return _PHASE53A_03C_ORIGINAL_JSON_DUMPS(phase53a_03c_consumer_payload_filter_v1(obj), *args, **kwargs)
+
+_phase53a_03c_json_module.dump = _phase53a_03c_safe_json_dump
+_phase53a_03c_json_module.dumps = _phase53a_03c_safe_json_dumps
+json = _phase53a_03c_json_module
+# PHASE53A_03C_CONSUMER_PAYLOAD_FILTER_END
+
+
 CONFIG = {"db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite", "phase": "PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI", "source_cache": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json", "source_index": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json", "source_manifest": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json", "temp_cache": "/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired/backpressure_readmodel_refresh_cache_temp_repaired.json", "temp_index": "/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired/backpressure_readmodel_refresh_index_temp_repaired.json", "temp_manifest": "/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired/backpressure_readmodel_refresh_manifest_temp_repaired.json", "temp_output_dir": "/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired", "temp_rows": "/root/tokenoskobi_clean_v1/_PHASE26B1_BACKPRESSURE_REFRESH_RUNNER_FILE_DRYRUN_STATIC_AUDIT_REPAIR_NOAPI/20260606_090610/temp_runner_output_repaired/backpressure_readmodel_refresh_rows_temp_repaired.jsonl"}
 SAFE_DOWNGRADE = "SAFE_DOWNGRADE_NO_FAST_RAID"
 
