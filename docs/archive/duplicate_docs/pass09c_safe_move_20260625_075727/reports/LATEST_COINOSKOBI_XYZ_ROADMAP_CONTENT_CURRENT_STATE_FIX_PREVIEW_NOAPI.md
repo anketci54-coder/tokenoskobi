@@ -1,0 +1,36 @@
+# COINOSKOBI_XYZ_ROADMAP_CONTENT_CURRENT_STATE_FIX_PREVIEW_NOAPI
+
+FINAL_DECISION=PASS_XYZ_ROADMAP_CONTENT_CURRENT_STATE_FIX_PREVIEW_READY_NOAPI
+FINAL_OK=True
+VALIDATION_ERROR_COUNT=0
+VALIDATION_ERRORS=NONE
+
+PREVIEW_URL=http://159.195.74.132:8144/
+PREVIEW_ROOT=/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_xyz_roadmap_content_current_state_fix_preview_8144_20260524_164608
+PREVIEW_INDEX=/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_xyz_roadmap_content_current_state_fix_preview_8144_20260524_164608/index.html
+PREVIEW_DATA=/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_xyz_roadmap_content_current_state_fix_preview_8144_20260524_164608/data/roadmap_current_state_model.json
+LATEST_LINK=/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_xyz_roadmap_content_current_state_fix_preview_8144_latest
+
+CHECKLIST_COUNT=14
+ROADMAP_COUNT=9
+
+BAD_OLD_TEXT_HITS={'Domain/Nginx/SSL yok': False, 'domain, nginx, SSL değişikliği yapmaz': False, 'COINOSKOBI_DOMAIN_STAGING_BINDING_PLAN_NOAPI': False, 'XYZ domain binding plan': False}
+
+ACTIVE_INDEX_UNCHANGED=True
+ACTIVE_DATA_UNCHANGED=True
+ACTIVE_RISK_DATA_UNCHANGED=True
+ACTIVE_MOBILE_INDEX_UNCHANGED=True
+LIVE_DB_UNCHANGED=True
+
+DB_READ_OK=True
+INTEGRITY_CHECK=ok
+FK_ERROR_COUNT=0
+
+NO_NGINX_WRITE=True
+NO_DOMAIN_CHANGE=True
+NO_ACTIVE_PANEL_WRITE=True
+NO_DB_WRITE=True
+NO_API_FETCH=True
+AUTH_PASSWORD_PRINTED=False
+
+NEXT_IF_ACCEPT=COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_PLAN_NOAPI

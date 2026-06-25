@@ -1,0 +1,45 @@
+# COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_PLAN_NOAPI
+
+FINAL_DECISION=PASS_XYZ_ROADMAP_NEXT_APPLY_PLAN_READY_NOAPI
+FINAL_OK=True
+VALIDATION_ERROR_COUNT=0
+VALIDATION_ERRORS=NONE
+
+SOURCE_PREVIEW_ROOT=/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_xyz_roadmap_content_current_state_fix_preview_8144_20260524_164608
+SOURCE_INDEX=/root/tokenoskobi_clean_v1/panel_previews/coinoskobi_xyz_roadmap_content_current_state_fix_preview_8144_20260524_164608/index.html
+CANDIDATE_RELEASE=/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_PLAN_NOAPI/20260524_165221/candidate_xyz_roadmap_release
+CANDIDATE_INDEX=/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_PLAN_NOAPI/20260524_165221/candidate_xyz_roadmap_release/index.html
+DIFF_OUT=/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_PLAN_NOAPI/20260524_165221/current_vs_candidate_roadmap.diff
+REAL_DRAFT=/root/tokenoskobi_clean_v1/_COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_PLAN_NOAPI/20260524_165221/REAL_XYZ_ROADMAP_NEXT_APPLY_DRAFT_REFUSES_EXECUTION.sh
+
+REQUIRED_APPROVAL=COINOSKOBI XYZ ROADMAP NEXT APPLY REAL için onay veriyorum
+
+SRC_MARKERS={'xyz_active': True, 'auth_protected': True, 'com_public': True, 'roadmap_current': True, 'next_apply_plan': True}
+BAD_OLD_TEXT_HITS={'Domain/Nginx/SSL yok': False, 'domain, nginx, SSL değişikliği yapmaz': False, 'COINOSKOBI_DOMAIN_STAGING_BINDING_PLAN_NOAPI': False, 'XYZ domain binding plan': False}
+NGINX_ROUTE_PLAN_CHECK={'target_exists': True, 'has_root': True, 'has_roadmap_location': True, 'has_panel_location': True, 'has_mobile_location': True}
+
+ACTIVE_INDEX_UNCHANGED=True
+ACTIVE_DATA_UNCHANGED=True
+ACTIVE_RISK_DATA_UNCHANGED=True
+ACTIVE_MOBILE_INDEX_UNCHANGED=True
+LIVE_DB_UNCHANGED=True
+CURRENT_INDEX_UNCHANGED=True
+NGINX_TARGET_UNCHANGED=True
+AUTH_FILE_UNCHANGED=True
+
+DB_READ_OK=True
+INTEGRITY_CHECK=ok
+FK_ERROR_COUNT=0
+
+ACTIVE_PANEL_WRITE_NOW=False
+DB_WRITE_NOW=False
+NGINX_WRITE_NOW=False
+NGINX_RELOAD_NOW=False
+AUTH_WRITE_NOW=False
+WEBROOT_WRITE_NOW=False
+API_FETCH_NOW=False
+LIVE_TRADE=0
+PAPER_TRADE_EXECUTION=0
+AUTH_PASSWORD_PRINTED=False
+
+NEXT_PHASE=COINOSKOBI_XYZ_ROADMAP_NEXT_APPLY_REAL_AFTER_EXPLICIT_APPROVAL
