@@ -1851,11 +1851,3 @@ TOKENOSKOBI V1 artık kanonik olarak kapanmıştır.
 Sonraki adım yoktur.
 
 Yeni kapsam ancak açık kullanıcı onayı ve yeni faz ile açılabilir.
-
-<!-- PASS09E_SHORT_CANONICAL_DOC_REPAIR_START -->
-## PASS09E - Canonical Root Doc Repair
-
-PASS09A archive root merge, PASS09B duplicate classification, PASS09C safe duplicate archive move ve PASS09D content drift audit sonrası root canonical dokümanlardaki stale markers düzeltildi.
-
-Authority unchanged: AI_AUTHORITY=0, TRADE_AUTHORITY=0, LIVE_TRADE=0, PAPER_TRADE=0, WALLET_AUTHORITY=0.
-<!-- PASS09E_SHORT_CANONICAL_DOC_REPAIR_END -->

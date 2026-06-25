@@ -148,8 +148,7 @@ Trade motoru ile analiz motoru ayrı şeylerdir.
 
 Kural:
 
-TRADE_AUTHORITY=0
-RISK_ENGINE_FINAL_SAFETY_GATE=true
+TRADE_AUTHORITY=RISK_ENGINE_ONLY
 
 Karar zinciri:
 

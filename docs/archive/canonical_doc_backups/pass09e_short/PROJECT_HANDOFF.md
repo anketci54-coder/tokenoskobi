@@ -1269,8 +1269,3 @@ Yeni engine/runtime/memory/intelligence layer/authority/scope/doctrine/architect
 NEXT_SAFE_STEP=TOKENOSKOBI_V1_CLOSED_NO_NEXT_PHASE
 
 V1 sonrası yeni kapsam ancak açık kullanıcı onayı ve yeni faz ile açılabilir.
-
-<!-- PASS09E_SHORT_CANONICAL_DOC_REPAIR_START -->
-Do not open PHASE54 as next active runtime bootstrap.
-Use V2_21_REAL_EVIDENCE_RUNTIME_READONLY_BOOTSTRAP_PLAN_NOAPI after governance closure.
-<!-- PASS09E_SHORT_CANONICAL_DOC_REPAIR_END -->
