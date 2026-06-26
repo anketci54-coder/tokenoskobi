@@ -1,0 +1,108 @@
+{
+  "task": "V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI",
+  "stamp_utc": "2026-06-26T07:50:52.643373+00:00",
+  "mode": "TEMPDB_DRYRUN_NOAPI",
+  "head": "8215ef87e38a83c846823811b2b9f3e4b3b17234",
+  "tempdb": "/tmp/V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI_20260626_075052/v2_27_temp.sqlite",
+  "counts": {
+    "sources": 6,
+    "events": 6,
+    "visible_signal_vectors": 6,
+    "hidden_outcomes": 6,
+    "blind_decisions": 6,
+    "outcome_reveal_audit": 6,
+    "reasoning_path_audit": 6
+  },
+  "outcome_leakage_blocked": true,
+  "cases": [
+    "GOOD_LISTING_CASE",
+    "SHILL_ECHO_CASE",
+    "EARLY_PRICE_MOVE_CASE",
+    "RUG_WARNING_CASE",
+    "STALE_NEWS_CASE",
+    "SILENT_WHALE_CASE"
+  ],
+  "results": [
+    {
+      "case_id": "GOOD_LISTING_CASE",
+      "blind_decision": "HOT_CANDIDATE",
+      "blind_reason": "credible independent source before outcome",
+      "outcome_class": "GOOD",
+      "decision_correct": true,
+      "reasoning_correct": true,
+      "outcome_revealed_after_decision": true,
+      "l6_outcome_visible_before_decision": false
+    },
+    {
+      "case_id": "SHILL_ECHO_CASE",
+      "blind_decision": "RED",
+      "blind_reason": "low independence echo/shill risk",
+      "outcome_class": "BAD",
+      "decision_correct": true,
+      "reasoning_correct": true,
+      "outcome_revealed_after_decision": true,
+      "l6_outcome_visible_before_decision": false
+    },
+    {
+      "case_id": "EARLY_PRICE_MOVE_CASE",
+      "blind_decision": "IZLE",
+      "blind_reason": "possible pre-priced event and weak whale confirmation",
+      "outcome_class": "NEUTRAL",
+      "decision_correct": true,
+      "reasoning_correct": true,
+      "outcome_revealed_after_decision": true,
+      "l6_outcome_visible_before_decision": false
+    },
+    {
+      "case_id": "RUG_WARNING_CASE",
+      "blind_decision": "RED",
+      "blind_reason": "hard risk flags before outcome",
+      "outcome_class": "BAD",
+      "decision_correct": true,
+      "reasoning_correct": true,
+      "outcome_revealed_after_decision": true,
+      "l6_outcome_visible_before_decision": false
+    },
+    {
+      "case_id": "STALE_NEWS_CASE",
+      "blind_decision": "IZLE",
+      "blind_reason": "stale news, weak live relevance",
+      "outcome_class": "NEUTRAL",
+      "decision_correct": true,
+      "reasoning_correct": true,
+      "outcome_revealed_after_decision": true,
+      "l6_outcome_visible_before_decision": false
+    },
+    {
+      "case_id": "SILENT_WHALE_CASE",
+      "blind_decision": "HOT_CANDIDATE",
+      "blind_reason": "strong visible whale and liquidity confirmation",
+      "outcome_class": "GOOD",
+      "decision_correct": true,
+      "reasoning_correct": true,
+      "outcome_revealed_after_decision": true,
+      "l6_outcome_visible_before_decision": false
+    }
+  ],
+  "checks": {
+    "api_fetch": false,
+    "live_db_write": false,
+    "panel_write": false,
+    "service_restart": false,
+    "timer_change": false,
+    "live_trade": false,
+    "wallet_signing": false
+  },
+  "final_gate": "PASS_V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI",
+  "decision": "READY_FOR_POST_DRYRUN_AUDIT_NOAPI",
+  "outputs": {
+    "cases": "/root/tokenoskobi_clean_v1/data/v2_27_historical_correlation_tempdb_cases_noapi.jsonl",
+    "results": "/root/tokenoskobi_clean_v1/data/v2_27_historical_correlation_tempdb_results_noapi.jsonl",
+    "plan_json": "/root/tokenoskobi_clean_v1/data/v2_27_historical_correlation_tempdb_dryrun_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI.md",
+    "latest": "/root/tokenoskobi_clean_v1/reports/LATEST_V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI.md",
+    "tmp_report": "/tmp/V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI_20260626_075052/REPORT.md",
+    "tmp_json": "/tmp/V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI_20260626_075052/V2_27_HISTORICAL_CORRELATION_TEMPDB_DRYRUN_NOAPI.json"
+  },
+  "next": "V2_28_HISTORICAL_CORRELATION_TEMPDB_POST_AUDIT_NOAPI"
+}
