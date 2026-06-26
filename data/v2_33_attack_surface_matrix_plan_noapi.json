@@ -1,0 +1,47 @@
+{
+  "task": "V2_33_SECURITY_AND_FORENSIC_PENETRATION_TEST_PLAN_NOAPI",
+  "attack_surface_matrix_status": "PLAN_ONLY",
+  "targets": [
+    {
+      "target": "scoring_contract",
+      "attack": "outcome_leakage_mutation",
+      "expected_defense": "freeze_and_require_review"
+    },
+    {
+      "target": "execution_gate_matrix",
+      "attack": "gate_bypass_attempt",
+      "expected_defense": "deny_execution"
+    },
+    {
+      "target": "wallet_authority_lock",
+      "attack": "wallet_authority_escalation_attempt",
+      "expected_defense": "wallet_authority_remains_zero"
+    },
+    {
+      "target": "human_approval_protocol",
+      "attack": "silent_or_bulk_approval_attempt",
+      "expected_defense": "reject_without_two_step_human_approval"
+    },
+    {
+      "target": "audit_ledger",
+      "attack": "audit_evasion_or_log_gap",
+      "expected_defense": "fail_closed"
+    },
+    {
+      "target": "resource_budget",
+      "attack": "synthetic_resource_exhaustion",
+      "expected_defense": "budget_limit_and_freeze"
+    },
+    {
+      "target": "rule_engine",
+      "attack": "rule_fuzzing",
+      "expected_defense": "strict_schema_and_reason_code_reject"
+    },
+    {
+      "target": "logic_path",
+      "attack": "logic_poisoning",
+      "expected_defense": "reasoning_path_audit_required"
+    }
+  ],
+  "execution_allowed": false
+}
