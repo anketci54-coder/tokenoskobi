@@ -1,0 +1,29 @@
+{
+  "task": "V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI",
+  "mode": "PLAN_ONLY_NOAPI",
+  "guards": {
+    "historical_tables_cold_path_only": true,
+    "hot_path_cannot_read_hidden_outcomes": true,
+    "hot_path_cannot_wait_for_cold_path": true,
+    "audit_write_async_required": true,
+    "audit_write_must_not_block_hot_path": true,
+    "rule_weight_change_requires_human_approval": true,
+    "outcome_reveal_only_after_decision_freeze": true
+  },
+  "hot_path_allowed_fields": [
+    "visible_signal_vector",
+    "source_independence",
+    "source_credibility",
+    "risk_flags",
+    "hard_block_fast_flag",
+    "hot_path_latency_ms"
+  ],
+  "hot_path_forbidden_fields": [
+    "hidden_outcome",
+    "future_price_return",
+    "rug_result",
+    "post_decision_volume",
+    "outcome_reveal_audit",
+    "reasoning_result_after_outcome"
+  ]
+}

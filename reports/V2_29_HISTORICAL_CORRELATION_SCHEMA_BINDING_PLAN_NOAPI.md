@@ -1,0 +1,82 @@
+# V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI
+STAMP_UTC=2026-06-26T08:10:53.434681+00:00
+MODE=SCHEMA_BINDING_PLAN_ONLY_NOAPI_RERUN_FIX
+DB_WRITE=false
+CREATE_TABLE=false
+ALTER_TABLE=false
+MIGRATION_APPLY=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+API_FETCH=false
+REAL_DATA_FETCH=false
+LIVE_TRADE=false
+WALLET_SIGNING=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=4830bcb0a3cd4ba2f35708773b4210715443bef4
+GIT_BRANCH=main
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_29_historical_live_path_guard_plan_noapi.json
+?? data/v2_29_historical_migration_guard_plan_noapi.json
+?? data/v2_29_historical_relationship_map_plan_noapi.json
+?? data/v2_29_historical_schema_binding_plan_noapi.json
+?? data/v2_29_historical_table_contracts_plan_noapi.json
+?? data/v2_29_stress_test_ready_schema_contract_plan_noapi.json
+?? docs/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_NO_NON_ALLOWED_DIRTY_FILES=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_V26_FILES_EXIST=true
+CHECK_V27_FILES_EXIST=true
+CHECK_V28_FILES_EXIST=true
+CHECK_OUTPUTS_EXIST=true
+CHECK_ONLY_ALLOWED_WRITES=true
+CHECK_DB_UNCHANGED_POST=true
+CHECK_INDEX_UNCHANGED_POST=true
+CHECK_RISK_UNCHANGED_POST=true
+CHECK_PHASE41_UNCHANGED_POST=true
+CHECK_TABLE_COUNT_8=true
+CHECK_REQUIRED_FIELDS_COUNT_9=true
+CHECK_STRESS_FIELDS_COUNT_14=true
+CHECK_LOCKS_VALID=true
+CHECK_LIVE_PATH_GUARD_VALID=true
+CHECK_MIGRATION_GUARD_VALID=true
+CHECK_STRESS_READY_VALID=true
+CHECK_DOC_HAS_STRESS_READY=true
+CHECK_DOC_HAS_HOT_COLD_LOCK=true
+CHECK_DOC_HAS_AUDIT_NONBLOCK=true
+
+## OUTPUTS
+DOC=/root/tokenoskobi_clean_v1/docs/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN.md
+PLAN_JSON=/root/tokenoskobi_clean_v1/data/v2_29_historical_schema_binding_plan_noapi.json
+TABLES_JSON=/root/tokenoskobi_clean_v1/data/v2_29_historical_table_contracts_plan_noapi.json
+RELATIONSHIP_MAP=/root/tokenoskobi_clean_v1/data/v2_29_historical_relationship_map_plan_noapi.json
+LIVE_GUARD_JSON=/root/tokenoskobi_clean_v1/data/v2_29_historical_live_path_guard_plan_noapi.json
+MIGRATION_GUARD_JSON=/root/tokenoskobi_clean_v1/data/v2_29_historical_migration_guard_plan_noapi.json
+STRESS_READY_JSON=/root/tokenoskobi_clean_v1/data/v2_29_stress_test_ready_schema_contract_plan_noapi.json
+REPORT=/root/tokenoskobi_clean_v1/reports/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI.md
+
+## GIT
+GIT_STATUS_AFTER=?? data/v2_29_historical_live_path_guard_plan_noapi.json
+?? data/v2_29_historical_migration_guard_plan_noapi.json
+?? data/v2_29_historical_relationship_map_plan_noapi.json
+?? data/v2_29_historical_schema_binding_plan_noapi.json
+?? data/v2_29_historical_table_contracts_plan_noapi.json
+?? data/v2_29_stress_test_ready_schema_contract_plan_noapi.json
+?? docs/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI
+DECISION=READY_FOR_POST_PLAN_AUDIT_NOAPI
+NEXT=V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI
+TMP_REPORT=/tmp/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI_RERUN_FIX_20260626_081053/REPORT.md
+TMP_JSON=/tmp/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI_RERUN_FIX_20260626_081053/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI_RERUN_FIX.json

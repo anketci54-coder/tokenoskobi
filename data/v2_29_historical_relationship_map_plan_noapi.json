@@ -1,0 +1,53 @@
+{
+  "task": "V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI",
+  "mode": "PLAN_ONLY_NOAPI",
+  "relationships": [
+    {
+      "from": "historical_source_registry_v1",
+      "to": "historical_event_ledger_v1",
+      "key": "source_id",
+      "type": "one_to_many"
+    },
+    {
+      "from": "historical_event_ledger_v1",
+      "to": "historical_visible_signal_vectors_v1",
+      "key": "historical_event_id",
+      "type": "one_to_one_or_many"
+    },
+    {
+      "from": "historical_event_ledger_v1",
+      "to": "historical_hidden_outcomes_v1",
+      "key": "historical_event_id",
+      "type": "one_to_one_hidden_until_freeze"
+    },
+    {
+      "from": "historical_visible_signal_vectors_v1",
+      "to": "historical_blind_decision_freeze_v1",
+      "key": "signal_vector_id",
+      "type": "decision_before_outcome"
+    },
+    {
+      "from": "historical_blind_decision_freeze_v1",
+      "to": "historical_outcome_reveal_audit_v1",
+      "key": "decision_id",
+      "type": "reveal_after_freeze"
+    },
+    {
+      "from": "historical_blind_decision_freeze_v1",
+      "to": "historical_reasoning_path_audit_v1",
+      "key": "decision_id",
+      "type": "reasoning_audit"
+    },
+    {
+      "from": "historical_correlation_training_runs_v1",
+      "to": "all_historical_tables",
+      "key": "training_run_id",
+      "type": "cold_path_grouping"
+    }
+  ],
+  "forbidden_relationships": [
+    "historical_hidden_outcomes_v1 -> live_hot_path_decision_engine",
+    "historical_outcome_reveal_audit_v1 -> live_hot_path_score",
+    "historical_reasoning_path_audit_v1 -> automatic_rule_weight_apply"
+  ]
+}

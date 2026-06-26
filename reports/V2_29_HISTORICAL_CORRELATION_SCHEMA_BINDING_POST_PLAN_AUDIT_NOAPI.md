@@ -1,0 +1,99 @@
+# V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI
+STAMP_UTC=2026-06-26T08:17:15.885076+00:00
+MODE=POST_PLAN_AUDIT_NOAPI
+DB_WRITE=false
+CREATE_TABLE=false
+ALTER_TABLE=false
+MIGRATION_APPLY=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+API_FETCH=false
+REAL_DATA_FETCH=false
+LIVE_TRADE=false
+WALLET_SIGNING=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=4830bcb0a3cd4ba2f35708773b4210715443bef4
+GIT_BRANCH=main
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_29_historical_live_path_guard_plan_noapi.json
+?? data/v2_29_historical_migration_guard_plan_noapi.json
+?? data/v2_29_historical_relationship_map_plan_noapi.json
+?? data/v2_29_historical_schema_binding_plan_noapi.json
+?? data/v2_29_historical_table_contracts_plan_noapi.json
+?? data/v2_29_stress_test_ready_schema_contract_plan_noapi.json
+?? docs/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_DIRTY_PRE=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_V26_FILES_EXIST=true
+CHECK_V27_FILES_EXIST=true
+CHECK_V28_FILES_EXIST=true
+CHECK_V29_PLAN_OUTPUTS_EXIST=true
+CHECK_PLAN_JSON_VALID=true
+CHECK_LOCKS_VALID=true
+CHECK_TABLE_CONTRACTS_VALID=true
+CHECK_RELATIONSHIP_MAP_VALID=true
+CHECK_LIVE_PATH_GUARD_VALID=true
+CHECK_MIGRATION_GUARD_VALID=true
+CHECK_STRESS_READY_SCHEMA_VALID=true
+CHECK_DOC_REQUIRED_LOCKS_VALID=true
+CHECK_PLAN_REPORT_AND_LATEST_VALID=true
+CHECK_TABLE_COUNT_8=true
+CHECK_REQUIRED_FIELDS_COUNT_9=true
+CHECK_STRESS_FIELDS_COUNT_14=true
+CHECK_NO_CREATE_TABLE=true
+CHECK_NO_ALTER_TABLE=true
+CHECK_NO_MIGRATION_APPLY=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+CHECK_ONLY_ALLOWED_DIRTY_POST=true
+
+## V2_29 PLAN AUDIT
+LOCKS_VALID=true
+TABLE_CONTRACTS_VALID=true
+RELATIONSHIP_MAP_VALID=true
+LIVE_PATH_GUARD_VALID=true
+MIGRATION_GUARD_VALID=true
+STRESS_READY_SCHEMA_VALID=true
+
+## OUTPUTS
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_29_historical_correlation_schema_binding_post_plan_audit_noapi.json
+AUDIT_ROWS=/root/tokenoskobi_clean_v1/data/v2_29_historical_correlation_schema_binding_post_plan_audit_rows_noapi.jsonl
+AUDIT_REPORT=/root/tokenoskobi_clean_v1/reports/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI.md
+CHECK_AUDIT_OUTPUTS_EXIST=true
+CHECK_LATEST_MATCHES_AUDIT_REPORT=true
+CHECK_ONLY_ALLOWED_DIRTY_FINAL=true
+
+## FINAL OUTPUT AUDIT
+GIT_STATUS_FINAL=?? data/v2_29_historical_correlation_schema_binding_post_plan_audit_noapi.json
+?? data/v2_29_historical_correlation_schema_binding_post_plan_audit_rows_noapi.jsonl
+?? data/v2_29_historical_live_path_guard_plan_noapi.json
+?? data/v2_29_historical_migration_guard_plan_noapi.json
+?? data/v2_29_historical_relationship_map_plan_noapi.json
+?? data/v2_29_historical_schema_binding_plan_noapi.json
+?? data/v2_29_historical_table_contracts_plan_noapi.json
+?? data/v2_29_stress_test_ready_schema_contract_plan_noapi.json
+?? docs/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI
+DECISION=READY_FOR_GIT_COMMIT_NOAPI
+NEXT=V2_29_GIT_COMMIT_AND_PUSH_NOAPI
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_29_historical_correlation_schema_binding_post_plan_audit_noapi.json
+AUDIT_ROWS=/root/tokenoskobi_clean_v1/data/v2_29_historical_correlation_schema_binding_post_plan_audit_rows_noapi.jsonl
+AUDIT_REPORT=/root/tokenoskobi_clean_v1/reports/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI.md
+TMP_REPORT=/tmp/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI_20260626_081715/REPORT.md
+TMP_JSON=/tmp/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI_20260626_081715/V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_POST_PLAN_AUDIT_NOAPI.json

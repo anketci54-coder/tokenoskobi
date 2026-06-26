@@ -1,0 +1,38 @@
+{
+  "task": "V2_29_HISTORICAL_CORRELATION_SCHEMA_BINDING_PLAN_NOAPI",
+  "mode": "PLAN_ONLY_NOAPI",
+  "next_stress_phase": "V2_30_STRESS_TEST_AND_REACTION_SIMULATION_NOAPI",
+  "stress_layers": [
+    "LAYER_1_FLASH_CRASH_50K_SIGNALS",
+    "LAYER_2_ECHO_CHAMBER_MANIPULATION",
+    "LAYER_3_1M_REASONING_AUDIT_BOTTLENECK"
+  ],
+  "required_fields": [
+    "batch_id",
+    "simulation_run_id",
+    "signal_cluster_id",
+    "source_cluster_id",
+    "echo_chamber_cluster_id",
+    "hot_path_received_at",
+    "hot_path_decided_at",
+    "hot_path_latency_ms",
+    "cold_path_enqueued_at",
+    "cold_path_completed_at",
+    "audit_queue_id",
+    "audit_write_mode",
+    "hard_block_fast_flag",
+    "stress_test_marker"
+  ],
+  "latency_contract": {
+    "hot_path_latency_budget_ms": 5,
+    "p99_required": true,
+    "cold_path_must_not_block_hot_path": true,
+    "audit_queue_async_required": true
+  },
+  "manipulation_contract": {
+    "source_cluster_id_required": true,
+    "echo_chamber_cluster_id_required": true,
+    "independence_check_required": true,
+    "hard_block_fast_flag_required": true
+  }
+}
