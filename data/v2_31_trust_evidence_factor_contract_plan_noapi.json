@@ -1,0 +1,35 @@
+{
+  "task": "V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_AND_BLIND_VALIDATION_PLAN_NOAPI",
+  "formula_family": "TrustEvidenceFactorContract",
+  "status": "CANDIDATE_FACTOR_CONTRACT_NOT_PROVEN",
+  "factors": {
+    "IndependenceFactor": {
+      "bounded_min": 0.4,
+      "bounded_max": 1.0,
+      "purpose": "prevent single-origin source amplification",
+      "runtime_apply_allowed": false
+    },
+    "FreshnessFactor": {
+      "requires_time_decay": true,
+      "purpose": "reduce stale historical signal weight",
+      "runtime_apply_allowed": false
+    },
+    "SourceTrustScore": {
+      "requires_source_contract": true,
+      "spoofing_risk_audit_required": true,
+      "runtime_apply_allowed": false
+    },
+    "EvidenceConfidence": {
+      "requires_evidence_level_mapping": true,
+      "levels": "L0_L6",
+      "runtime_apply_allowed": false
+    }
+  },
+  "anti_manipulation_controls": [
+    "echo_chamber_detection",
+    "same_origin_cluster_penalty",
+    "trust_spoof_detection",
+    "source_independence_floor_ceiling",
+    "freshness_decay_guard"
+  ]
+}

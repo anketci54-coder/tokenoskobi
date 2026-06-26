@@ -1,0 +1,30 @@
+{
+  "task": "V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_AND_BLIND_VALIDATION_PLAN_NOAPI",
+  "formula_family": "FinalScoreCandidate",
+  "status": "CANDIDATE_FORMULA_NOT_PROVEN",
+  "fixed_weight_runtime_apply_allowed": false,
+  "weights_are_initial_hypothesis_only": true,
+  "blind_validation_required_before_weight_acceptance": true,
+  "candidate_expression_text": "FinalScore = SourceScore*w1 + TeamScore*w2 + OnchainScore*w3 + LiquidityScore*w4 + WhaleScore*w5 + SimulationScore*w6 - RiskPenalty",
+  "candidate_baseline_weights": {
+    "SourceScore": 0.15,
+    "TeamScore": 0.15,
+    "OnchainScore": 0.2,
+    "LiquidityScore": 0.15,
+    "WhaleScore": 0.15,
+    "SimulationScore": 0.2,
+    "RiskPenalty": "SUBTRACTIVE_DYNAMIC_NOT_FIXED"
+  },
+  "required_reasoning_path_fields": [
+    "score_component",
+    "raw_input_ref",
+    "normalization_method",
+    "candidate_weight",
+    "evidence_level",
+    "confidence",
+    "decision_freeze_time",
+    "outcome_hidden_until_freeze",
+    "human_approval_state"
+  ],
+  "acceptance_gate": "BLIND_VALIDATION_PLUS_HUMAN_APPROVAL_ONLY"
+}

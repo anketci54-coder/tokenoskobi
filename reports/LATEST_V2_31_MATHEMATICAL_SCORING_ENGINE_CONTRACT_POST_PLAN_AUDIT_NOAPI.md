@@ -1,0 +1,113 @@
+# V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI
+STAMP_UTC=2026-06-26T09:12:48.138082+00:00
+MODE=POST_PLAN_AUDIT_NOAPI
+DB_WRITE=false
+CREATE_TABLE=false
+ALTER_TABLE=false
+MIGRATION_APPLY=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+API_FETCH=false
+REAL_DATA_FETCH=false
+RUNTIME_SCORING_APPLY=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_SIGNING=false
+AUTO_WEIGHT_CHANGE=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=3aee6e3bcc3f2f44cf6dd4918a6b03b6a5adbdf2
+GIT_PARENT=29b58106b7678b0a2640459a0654bc7577d7aa6f
+GIT_BRANCH=main
+REMOTE_SHA=3aee6e3bcc3f2f44cf6dd4918a6b03b6a5adbdf2
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_31_blind_validation_protocol_plan_noapi.json
+?? data/v2_31_candidate_formula_contract_plan_noapi.json
+?? data/v2_31_final_score_candidate_formula_plan_noapi.json
+?? data/v2_31_no_fixed_weight_guard_plan_noapi.json
+?? data/v2_31_scoring_audit_contract_plan_noapi.json
+?? data/v2_31_trust_evidence_factor_contract_plan_noapi.json
+?? data/v2_31_v2_32_v2_33_reserved_roadmap_plan_noapi.json
+?? data/v2_31_vurkac_score_candidate_formula_plan_noapi.json
+?? docs/V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_AND_BLIND_VALIDATION_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_PARENT_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_REMOTE_HEAD_MATCHES=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_DIRTY_PRE=true
+CHECK_PLAN_FILES_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_LOCKS_VALID=true
+CHECK_CONTRACT_VALID=true
+CHECK_FINAL_SCORE_CONTRACT_VALID=true
+CHECK_VURKAC_CONTRACT_VALID=true
+CHECK_TRUST_EVIDENCE_CONTRACT_VALID=true
+CHECK_BLIND_VALIDATION_PROTOCOL_VALID=true
+CHECK_NO_FIXED_WEIGHT_GUARD_VALID=true
+CHECK_SCORING_AUDIT_CONTRACT_VALID=true
+CHECK_ROADMAP_RESERVATION_VALID=true
+CHECK_DOC_REQUIRED_TRUTH_VALID=true
+CHECK_PLAN_REPORT_AND_LATEST_VALID=true
+CHECK_NO_RUNTIME_SCORING_APPLY=true
+CHECK_NO_LIVE_DECISION=true
+CHECK_NO_AUTO_WEIGHT_CHANGE=true
+CHECK_HUMAN_APPROVAL_REQUIRED=true
+CHECK_NO_PROFITABILITY_CLAIM=true
+
+## V2_31 PLAN AUDIT
+LOCKS_VALID=true
+CONTRACT_VALID=true
+FINAL_SCORE_CONTRACT_VALID=true
+VURKAC_CONTRACT_VALID=true
+TRUST_EVIDENCE_CONTRACT_VALID=true
+BLIND_VALIDATION_PROTOCOL_VALID=true
+NO_FIXED_WEIGHT_GUARD_VALID=true
+SCORING_AUDIT_CONTRACT_VALID=true
+ROADMAP_RESERVATION_VALID=true
+
+## FORENSIC TRUTH
+V2_31_IS_MATHEMATICAL_SUCCESS_PROOF=false
+V2_31_IS_RUNTIME_SCORING_APPLY=false
+V2_31_IS_SCORING_CONTRACT_AND_BLIND_VALIDATION_PLAN=true
+FORMULA_STATUS=CANDIDATE_FORMULA_NOT_PROVEN
+WEIGHTS_ARE_HYPOTHESIS_NOT_TRUTH=true
+
+## OUTPUTS
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_31_mathematical_scoring_engine_contract_post_plan_audit_noapi.json
+AUDIT_ROWS=/root/tokenoskobi_clean_v1/data/v2_31_mathematical_scoring_engine_contract_post_plan_audit_rows_noapi.jsonl
+AUDIT_REPORT=/root/tokenoskobi_clean_v1/reports/V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI.md
+CHECK_AUDIT_OUTPUTS_EXIST=true
+CHECK_LATEST_MATCHES_AUDIT_REPORT=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+CHECK_ONLY_ALLOWED_DIRTY_FINAL=true
+
+## GIT
+GIT_STATUS_FINAL=?? data/v2_31_blind_validation_protocol_plan_noapi.json
+?? data/v2_31_candidate_formula_contract_plan_noapi.json
+?? data/v2_31_final_score_candidate_formula_plan_noapi.json
+?? data/v2_31_mathematical_scoring_engine_contract_post_plan_audit_noapi.json
+?? data/v2_31_mathematical_scoring_engine_contract_post_plan_audit_rows_noapi.jsonl
+?? data/v2_31_no_fixed_weight_guard_plan_noapi.json
+?? data/v2_31_scoring_audit_contract_plan_noapi.json
+?? data/v2_31_trust_evidence_factor_contract_plan_noapi.json
+?? data/v2_31_v2_32_v2_33_reserved_roadmap_plan_noapi.json
+?? data/v2_31_vurkac_score_candidate_formula_plan_noapi.json
+?? docs/V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_AND_BLIND_VALIDATION_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI
+DECISION=READY_FOR_GIT_COMMIT_NOAPI
+NEXT=V2_31_GIT_COMMIT_AND_PUSH_NOAPI
+TMP_REPORT=/tmp/V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI_20260626_091248/REPORT.md
+TMP_JSON=/tmp/V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI_20260626_091248/V2_31_MATHEMATICAL_SCORING_ENGINE_CONTRACT_POST_PLAN_AUDIT_NOAPI.json
