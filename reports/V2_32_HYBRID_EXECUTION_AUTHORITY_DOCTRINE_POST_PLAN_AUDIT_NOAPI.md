@@ -1,0 +1,123 @@
+# V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI
+STAMP_UTC=2026-06-26T09:24:12.098727+00:00
+MODE=POST_PLAN_AUDIT_NOAPI
+DB_WRITE=false
+CREATE_TABLE=false
+ALTER_TABLE=false
+MIGRATION_APPLY=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+API_FETCH=false
+REAL_DATA_FETCH=false
+RUNTIME_SCORING_APPLY=false
+EXECUTION_AUTHORITY_ENABLE=false
+TRADE_AUTHORITY=0
+WALLET_AUTHORITY=0
+LIVE_TRADE=0
+AUTO_EXECUTION=false
+AUTO_ORDER=false
+WALLET_SIGNING=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=2b905dc51b2a95591c1dac79570be70a64cf6679
+GIT_PARENT=3aee6e3bcc3f2f44cf6dd4918a6b03b6a5adbdf2
+GIT_BRANCH=main
+REMOTE_SHA=2b905dc51b2a95591c1dac79570be70a64cf6679
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_32_emergency_kill_switch_contract_plan_noapi.json
+?? data/v2_32_execution_authority_doctrine_plan_noapi.json
+?? data/v2_32_execution_gate_matrix_plan_noapi.json
+?? data/v2_32_execution_risk_limits_plan_noapi.json
+?? data/v2_32_human_approval_protocol_plan_noapi.json
+?? data/v2_32_order_lifecycle_contract_plan_noapi.json
+?? data/v2_32_v2_33_penetration_test_reserved_roadmap_plan_noapi.json
+?? data/v2_32_wallet_authority_lock_plan_noapi.json
+?? docs/V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_PARENT_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_REMOTE_HEAD_MATCHES=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_DIRTY_PRE=true
+CHECK_PLAN_FILES_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_LOCKS_VALID=true
+CHECK_AUTHORITY_DOCTRINE_VALID=true
+CHECK_GATE_MATRIX_VALID=true
+CHECK_WALLET_LOCK_VALID=true
+CHECK_ORDER_LIFECYCLE_VALID=true
+CHECK_RISK_LIMITS_VALID=true
+CHECK_HUMAN_APPROVAL_PROTOCOL_VALID=true
+CHECK_KILL_SWITCH_CONTRACT_VALID=true
+CHECK_ROADMAP_RESERVATION_VALID=true
+CHECK_DOC_REQUIRED_TRUTH_VALID=true
+CHECK_PLAN_REPORT_AND_LATEST_VALID=true
+CHECK_NO_EXECUTION_ENABLEMENT=true
+CHECK_TRADE_AUTHORITY_ZERO=true
+CHECK_WALLET_AUTHORITY_ZERO=true
+CHECK_LIVE_TRADE_ZERO=true
+CHECK_NO_WALLET_SIGNING=true
+CHECK_NO_PRIVATE_KEY_ACCESS=true
+CHECK_V2_33_RESERVED_AFTER_V2_32=true
+
+## V2_32 PLAN AUDIT
+LOCKS_VALID=true
+AUTHORITY_DOCTRINE_VALID=true
+GATE_MATRIX_VALID=true
+WALLET_LOCK_VALID=true
+ORDER_LIFECYCLE_VALID=true
+RISK_LIMITS_VALID=true
+HUMAN_APPROVAL_PROTOCOL_VALID=true
+KILL_SWITCH_CONTRACT_VALID=true
+ROADMAP_RESERVATION_VALID=true
+
+## FORENSIC TRUTH
+V2_32_IS_EXECUTION_ENABLEMENT=false
+V2_32_IS_WALLET_ENABLEMENT=false
+V2_32_IS_LIVE_TRADE_ENABLEMENT=false
+V2_32_IS_EXECUTION_AUTHORITY_DOCTRINE_PLAN=true
+TRADE_AUTHORITY=0
+WALLET_AUTHORITY=0
+LIVE_TRADE=0
+AUTO_EXECUTION=false
+WALLET_SIGNING=false
+PRIVATE_KEY_ACCESS=false
+
+## OUTPUTS
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_32_hybrid_execution_authority_doctrine_post_plan_audit_noapi.json
+AUDIT_ROWS=/root/tokenoskobi_clean_v1/data/v2_32_hybrid_execution_authority_doctrine_post_plan_audit_rows_noapi.jsonl
+AUDIT_REPORT=/root/tokenoskobi_clean_v1/reports/V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI.md
+CHECK_AUDIT_OUTPUTS_EXIST=true
+CHECK_LATEST_MATCHES_AUDIT_REPORT=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+CHECK_ONLY_ALLOWED_DIRTY_FINAL=true
+
+## GIT
+GIT_STATUS_FINAL=?? data/v2_32_emergency_kill_switch_contract_plan_noapi.json
+?? data/v2_32_execution_authority_doctrine_plan_noapi.json
+?? data/v2_32_execution_gate_matrix_plan_noapi.json
+?? data/v2_32_execution_risk_limits_plan_noapi.json
+?? data/v2_32_human_approval_protocol_plan_noapi.json
+?? data/v2_32_hybrid_execution_authority_doctrine_post_plan_audit_noapi.json
+?? data/v2_32_hybrid_execution_authority_doctrine_post_plan_audit_rows_noapi.jsonl
+?? data/v2_32_order_lifecycle_contract_plan_noapi.json
+?? data/v2_32_v2_33_penetration_test_reserved_roadmap_plan_noapi.json
+?? data/v2_32_wallet_authority_lock_plan_noapi.json
+?? docs/V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI
+DECISION=READY_FOR_GIT_COMMIT_NOAPI
+NEXT=V2_32_GIT_COMMIT_AND_PUSH_NOAPI
+TMP_REPORT=/tmp/V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI_20260626_092412/REPORT.md
+TMP_JSON=/tmp/V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI_20260626_092412/V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_POST_PLAN_AUDIT_NOAPI.json

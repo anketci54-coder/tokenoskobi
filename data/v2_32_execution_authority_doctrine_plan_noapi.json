@@ -1,0 +1,81 @@
+{
+  "task": "V2_32_HYBRID_EXECUTION_AUTHORITY_DOCTRINE_PLAN_NOAPI",
+  "stamp_utc": "2026-06-26T09:21:52.667027+00:00",
+  "mode": "PLAN_ONLY_NOAPI",
+  "parent_head": "2b905dc51b2a95591c1dac79570be70a64cf6679",
+  "doctrine": "HYBRID_EXECUTION_AUTHORITY_DOCTRINE",
+  "execution_authority_status": "NOT_ENABLED",
+  "locks": {
+    "PLAN_ONLY_NOAPI": true,
+    "EXECUTION_AUTHORITY_NOT_ENABLED": true,
+    "TRADE_AUTHORITY_REMAINS_ZERO": true,
+    "WALLET_AUTHORITY_REMAINS_ZERO": true,
+    "LIVE_TRADE_REMAINS_ZERO": true,
+    "AUTO_EXECUTION_FORBIDDEN": true,
+    "AUTO_ORDER_FORBIDDEN": true,
+    "AUTO_WALLET_SIGNING_FORBIDDEN": true,
+    "HUMAN_APPROVAL_REQUIRED": true,
+    "TWO_STEP_APPROVAL_REQUIRED_BEFORE_ANY_FUTURE_EXECUTION": true,
+    "SCORING_ENGINE_NOT_PROVEN_FOR_EXECUTION": true,
+    "CANDIDATE_FORMULA_NOT_PROVEN": true,
+    "NO_PROFITABILITY_CLAIM": true,
+    "NO_REAL_ORDER": true,
+    "NO_REAL_SWAP": true,
+    "NO_WALLET_PRIVATE_KEY_ACCESS": true,
+    "NO_API_RPC": true,
+    "NO_DB_WRITE": true,
+    "NO_MIGRATION_APPLY": true,
+    "NO_PANEL_WRITE": true,
+    "NO_SERVICE_RESTART": true,
+    "NO_TIMER_CHANGE": true,
+    "POST_V2_31_REQUIRED": true,
+    "V2_33_PENETRATION_TEST_RESERVED": true
+  },
+  "current_state": {
+    "TRADE_AUTHORITY": 0,
+    "WALLET_AUTHORITY": 0,
+    "LIVE_TRADE": 0,
+    "AUTO_EXECUTION": false,
+    "AUTO_ORDER": false,
+    "WALLET_SIGNING": false,
+    "PRIVATE_KEY_ACCESS": false
+  },
+  "future_authority_ladder": [
+    {
+      "level": "L0_OBSERVE_ONLY",
+      "trade": false,
+      "wallet": false,
+      "order": false,
+      "scope": "current_locked_default"
+    },
+    {
+      "level": "L1_PAPER_DECISION_ONLY",
+      "trade": false,
+      "wallet": false,
+      "order": false,
+      "scope": "future_after_validation_only"
+    },
+    {
+      "level": "L2_PAPER_ORDER_SIMULATION",
+      "trade": false,
+      "wallet": false,
+      "order": false,
+      "scope": "future_non_wallet_simulation"
+    },
+    {
+      "level": "L3_MANUAL_APPROVAL_PREPARE_ORDER",
+      "trade": false,
+      "wallet": false,
+      "order": false,
+      "scope": "future_human_review_only"
+    },
+    {
+      "level": "L4_LIMITED_LIVE_WITH_TWO_STEP_HUMAN_APPROVAL",
+      "trade": "future_only",
+      "wallet": "future_only",
+      "order": "future_only",
+      "scope": "not_enabled_by_v2_32"
+    }
+  ],
+  "v2_32_final_truth": "This phase defines execution authority doctrine only. It does not enable execution."
+}
