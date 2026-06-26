@@ -1,0 +1,93 @@
+{
+  "task": "V2_36_HUMAN_APPROVAL_INTEGRITY_TO_EXECUTION_BOUNDARY_BINDING_PLAN_NOAPI",
+  "stamp_utc": "2026-06-26T12:41:18.531334+00:00",
+  "mode": "PLAN_ONLY_NOAPI",
+  "final_gate": "PASS_V2_36_HUMAN_APPROVAL_INTEGRITY_TO_EXECUTION_BOUNDARY_BINDING_PLAN_NOAPI",
+  "decision": "V2_36_PLAN_READY_FOR_POST_PLAN_AUDIT",
+  "next": "V2_36_HUMAN_APPROVAL_INTEGRITY_TO_EXECUTION_BOUNDARY_BINDING_POST_PLAN_AUDIT_NOAPI",
+  "head_pre": "3078ce4331d7244a2780cf4ff039ac33f47d6042",
+  "parent_pre": "ca137e86d1ccbb2051c927067500f2e634bad863",
+  "selection_gate": "PASS_V2_36_TRACE_CLASSIFICATION_AND_V35_SEAL_JSON_INCLUDE_NOAPI",
+  "doctrine": {
+    "human_approval_integrity_required": true,
+    "anti_manipulation_required": true,
+    "execution_boundary_lock_required": true,
+    "approval_context_hash_required": true,
+    "replay_timeout_required": true,
+    "risk_delta_required": true,
+    "ui_required_warnings_required": true,
+    "high_risk_two_step_required": true,
+    "social_engineering_resistance_required": true,
+    "approval_not_bypass_execution": true,
+    "wallet_private_key_blocked": true,
+    "live_trade_blocked": true
+  },
+  "contracts": [
+    {
+      "contract": "APPROVAL_TO_EXECUTION_BOUNDARY_LOCK",
+      "rule": "Human approval may authorize only an execution request envelope, never direct wallet/live execution.",
+      "mandatory": true
+    },
+    {
+      "contract": "APPROVAL_CONTEXT_HASH_REQUIRED",
+      "rule": "Every approval must bind request_hash, risk_snapshot_hash, decision_context_hash, operator_id_hash, timestamp_utc, and expiry_utc.",
+      "mandatory": true
+    },
+    {
+      "contract": "REPLAY_TIMEOUT_REQUIRED",
+      "rule": "Expired, reused, mismatched, or stale approval tokens must fail closed before execution boundary.",
+      "mandatory": true
+    },
+    {
+      "contract": "RISK_DELTA_RECHECK_REQUIRED",
+      "rule": "If risk, liquidity, slippage, tax, route, or security context changes after approval, approval becomes invalid.",
+      "mandatory": true
+    },
+    {
+      "contract": "HIGH_RISK_TWO_STEP_CONFIRMATION_REQUIRED",
+      "rule": "High-risk classes require second independent confirmation and cannot downgrade to single approval.",
+      "mandatory": true
+    },
+    {
+      "contract": "UI_REQUIRED_WARNINGS_REQUIRED",
+      "rule": "Approval UI must show blocking warnings before approval creation; hidden warnings invalidate approval.",
+      "mandatory": true
+    },
+    {
+      "contract": "SOCIAL_ENGINEERING_RESISTANCE_REQUIRED",
+      "rule": "Approval text must be structured, explicit, non-ambiguous, and resistant to prompt/social pressure.",
+      "mandatory": true
+    },
+    {
+      "contract": "APPROVAL_NOT_BYPASS_EXECUTION",
+      "rule": "Human approval never bypasses Engine2 execution gates, wallet locks, paper/live progression, kill switches, or budget limits.",
+      "mandatory": true
+    },
+    {
+      "contract": "WALLET_PRIVATE_KEY_BLOCKED",
+      "rule": "No approval contract may request, expose, store, infer, or transmit private key/seed/wallet secret material.",
+      "mandatory": true
+    },
+    {
+      "contract": "LIVE_TRADE_BLOCKED",
+      "rule": "This V2_36 phase is plan-only; live trading, wallet signing, runtime execution, RPC/API calls are forbidden.",
+      "mandatory": true
+    }
+  ],
+  "forbidden": {
+    "db_write": false,
+    "panel_write": false,
+    "api_rpc": false,
+    "runtime_apply": false,
+    "service_restart": false,
+    "timer_change": false,
+    "live_decision": false,
+    "live_trade": false,
+    "wallet_access": false,
+    "private_key_access": false
+  },
+  "db_unchanged": true,
+  "index_unchanged": true,
+  "risk_unchanged": true,
+  "phase41_unchanged": true
+}
