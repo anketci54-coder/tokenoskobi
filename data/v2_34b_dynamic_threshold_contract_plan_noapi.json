@@ -1,0 +1,22 @@
+{
+  "task": "V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI",
+  "contract": "DYNAMIC_THRESHOLD",
+  "dynamic_threshold_required": true,
+  "threshold_inputs": [
+    "signal_rate_per_minute",
+    "source_reputation",
+    "severity_tier",
+    "duplicate_rate",
+    "historical_noise_baseline",
+    "critical_evidence_count",
+    "queue_pressure",
+    "latency_pressure"
+  ],
+  "threshold_actions": [
+    "increase_noise_threshold_under_flood",
+    "never_raise_p0_critical_threshold_without_evidence_policy",
+    "lower_full_audit_for_low_severity_duplicates",
+    "preserve_execution_fail_closed"
+  ],
+  "all_or_nothing_policy_forbidden": true
+}

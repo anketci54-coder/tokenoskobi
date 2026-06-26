@@ -1,0 +1,130 @@
+# V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI
+STAMP_UTC=2026-06-26T09:55:29.319328+00:00
+MODE=PLAN_ONLY_NOAPI
+FORMULA_EXECUTION=false
+LATENCY_TEST_EXECUTION=false
+DB_WRITE=false
+PANEL_WRITE=false
+API_RPC=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_ACCESS=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## SPEED DOCTRINE
+SPEED_NEVER_DOWN=true
+FIXED_POINT_INTEGER_MATH_REQUIRED=true
+FLOAT_HOT_PATH_FORBIDDEN=true
+DECIMAL_HOT_PATH_FORBIDDEN=true
+DECIMAL_ALLOWED_ONLY_OFFLINE_AUDIT=true
+
+## PRE
+GIT_HEAD=d5f69507497a7756681766e502a631abc3d7008f
+GIT_PARENT=9d58ee9ca510a3a67895fd6308915f9bbda37780
+GIT_BRANCH=main
+REMOTE_SHA=d5f69507497a7756681766e502a631abc3d7008f
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_PARENT_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_REMOTE_HEAD_MATCHES=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_DIRTY_PRE=true
+CHECK_REQUIRED_V2_34_FILES_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_V2_34_PLAN_LOCKED=true
+CHECK_V2_34_FORMULA_NOT_PROVEN=true
+CHECK_V2_34_LATENCY_NOT_EXECUTED=true
+CHECK_V2_34_DETERMINISM_REQUIRED=true
+CHECK_OUTPUTS_EXIST=true
+CHECK_PLAN_VALID=true
+CHECK_FIXED_POINT_INTEGER_CONTRACT_VALID=true
+CHECK_PRECISION_BUCKET_CONTRACT_VALID=true
+CHECK_DRIFT_DETECTION_CONTRACT_VALID=true
+CHECK_ROUNDING_POLICY_CONTRACT_VALID=true
+CHECK_SPEED_NEVER_DOWN_CONTRACT_VALID=true
+CHECK_FAIL_CLOSED_CONTRACT_VALID=true
+CHECK_FLOAT_HOT_PATH_FORBIDDEN=true
+CHECK_DECIMAL_HOT_PATH_FORBIDDEN=true
+CHECK_INTEGER_HOT_PATH_REQUIRED=true
+CHECK_MAX_DRIFT_ZERO=true
+CHECK_LATENCY_GUARD_5MS=true
+CHECK_NO_FORMULA_EXECUTION_NOW=true
+CHECK_NO_LATENCY_TEST_EXECUTION_NOW=true
+CHECK_NO_SUCCESS_CLAIM=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+CHECK_ONLY_ALLOWED_DIRTY_POST=true
+
+## OUTPUTS
+DOC=/root/tokenoskobi_clean_v1/docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+PLAN_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+FIXED_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+BUCKET_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_precision_bucket_contract_plan_noapi.json
+DRIFT_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_drift_detection_contract_plan_noapi.json
+ROUNDING_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_rounding_policy_contract_plan_noapi.json
+SPEED_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_speed_never_down_contract_plan_noapi.json
+FAIL_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+REPORT=/root/tokenoskobi_clean_v1/reports/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI.md
+
+## HARDENED TRUTH
+V2_34A_IS_FORMULA_EXECUTION=false
+V2_34A_IS_LATENCY_TEST_EXECUTION=false
+V2_34A_IS_PLAN_ONLY=true
+HIZDAN_ODUN_YOK=true
+SPEED_NEVER_DOWN=true
+FLOAT_HOT_PATH_FORBIDDEN=true
+DECIMAL_HOT_PATH_FORBIDDEN=true
+FIXED_POINT_INTEGER_MATH_REQUIRED=true
+PRECISION_BUCKETS_REQUIRED=true
+ROUNDING_POLICY_REQUIRED=true
+DRIFT_DETECTION_REQUIRED=true
+MAX_ALLOWED_DRIFT=0.0000
+LATENCY_GUARD_FUTURE_MAX_MS_PER_CANDIDATE=5
+FAIL_CLOSED_ON_DRIFT=true
+FAIL_CLOSED_ON_NON_DETERMINISM=true
+FORMULA_WORKING_CLAIM_ALLOWED=false
+FORMULA_FAST_CLAIM_ALLOWED=false
+PROFITABILITY_CLAIM_ALLOWED=false
+
+## GIT
+GIT_STATUS_AFTER=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI
+DECISION=READY_FOR_V2_34A_POST_PLAN_AUDIT_NOAPI
+NEXT=V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI
+TMP_REPORT=/tmp/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI_20260626_095529/REPORT.md
+TMP_JSON=/tmp/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI_20260626_095529/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI.json

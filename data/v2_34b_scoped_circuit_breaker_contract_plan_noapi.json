@@ -1,0 +1,36 @@
+{
+  "task": "V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI",
+  "contract": "SCOPED_CIRCUIT_BREAKER",
+  "global_kill_switch_for_noise_allowed": false,
+  "scopes": [
+    "source_scope",
+    "chain_scope",
+    "token_scope",
+    "signal_family_scope",
+    "audit_queue_scope",
+    "execution_scope"
+  ],
+  "rules": [
+    {
+      "condition": "noise_flood_in_one_source",
+      "action": "throttle_source_only"
+    },
+    {
+      "condition": "one_token_signal_storm",
+      "action": "quarantine_token_observation_lane_only"
+    },
+    {
+      "condition": "audit_queue_pressure",
+      "action": "switch_to_hash_aggregate_mode"
+    },
+    {
+      "condition": "critical_evidence_confirmed",
+      "action": "fast_lane_bypass_noise_queue"
+    },
+    {
+      "condition": "execution_boundary_reached",
+      "action": "require_human_approval_and_fail_closed"
+    }
+  ],
+  "global_observation_freeze_allowed": false
+}

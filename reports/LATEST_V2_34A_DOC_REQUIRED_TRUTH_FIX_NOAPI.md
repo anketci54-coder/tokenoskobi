@@ -1,0 +1,103 @@
+# V2_34A_DOC_REQUIRED_TRUTH_FIX_NOAPI
+STAMP_UTC=2026-06-26T10:00:35.487596+00:00
+MODE=DOC_TRUTH_FIX_NOAPI
+DB_WRITE=false
+PANEL_WRITE=false
+API_RPC=false
+FORMULA_EXECUTION=false
+LATENCY_TEST_EXECUTION=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_ACCESS=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=d5f69507497a7756681766e502a631abc3d7008f
+GIT_BRANCH=main
+REMOTE_SHA=d5f69507497a7756681766e502a631abc3d7008f
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_rows_noapi.jsonl
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_REMOTE_HEAD_MATCHES=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_DOC_EXISTS=true
+CHECK_PLAN_JSON_EXISTS=true
+CHECK_CONTRACT_JSONS_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_SOURCE_CONTRACTS_VALID=true
+CHECK_MISSING_BEFORE_DETECTED=true
+CHECK_DOC_REQUIRED_TRUTH_VALID_AFTER=true
+CHECK_NO_DB_WRITE=true
+CHECK_NO_PANEL_INDEX_WRITE=true
+CHECK_NO_RISK_WRITE=true
+CHECK_NO_PHASE41_WRITE=true
+CHECK_ONLY_ALLOWED_OR_EXISTING_PHASE_DIRTY=true
+
+## DOC FIX
+MISSING_BEFORE=["FLOAT_HOT_PATH_FORBIDDEN=true", "DECIMAL_HOT_PATH_FORBIDDEN=true"]
+MISSING_AFTER=[]
+CHECK_DOC_REQUIRED_TRUTH_VALID_AFTER=true
+
+## HARDENED TRUTH
+HIZDAN_ODUN_YOK=true
+SPEED_NEVER_DOWN=true
+FIXED_POINT_INTEGER_MATH_REQUIRED=true
+FLOAT_HOT_PATH_FORBIDDEN=true
+DECIMAL_HOT_PATH_FORBIDDEN=true
+per_candidate_latency_guard_future_max_ms=5
+max_allowed_drift=0.0000 deterministic mode
+Any drift, non-determinism, undefined rounding, hot-path float, hot-path Decimal, overflow, or latency >5ms in future dryrun must fail closed.
+V2_34A does not execute formula dryrun.
+V2_34A does not execute latency test.
+V2_34A does not prove formula works.
+
+## GIT
+GIT_STATUS_AFTER=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_rows_noapi.jsonl
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_34A_DOC_REQUIRED_TRUTH_FIX_NOAPI
+DECISION=READY_TO_RERUN_V2_34A_POST_PLAN_AUDIT_NOAPI
+NEXT=RERUN_V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI
+REPORT=/tmp/V2_34A_DOC_REQUIRED_TRUTH_FIX_NOAPI_20260626_100035/REPORT.md
+JSON=/tmp/V2_34A_DOC_REQUIRED_TRUTH_FIX_NOAPI_20260626_100035/V2_34A_DOC_REQUIRED_TRUTH_FIX_NOAPI.json

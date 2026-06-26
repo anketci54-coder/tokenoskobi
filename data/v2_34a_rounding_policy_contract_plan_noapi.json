@@ -1,0 +1,17 @@
+{
+  "task": "V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI",
+  "contract": "ROUNDING_POLICY",
+  "rounding_mode": "HALF_UP_BY_INTEGER_RULE",
+  "bankers_rounding_allowed": false,
+  "implicit_python_round_allowed": false,
+  "binary_float_round_allowed": false,
+  "rounding_stage_order": [
+    "normalize_inputs_to_scaled_int",
+    "multiply_scaled_int_weights",
+    "apply_integer_division_with_half_up",
+    "clamp_score_range",
+    "assign_precision_bucket",
+    "emit_scaled_score_and_bucket"
+  ],
+  "missing_policy_action": "AUDIT_FAIL"
+}

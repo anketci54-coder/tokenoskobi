@@ -1,0 +1,144 @@
+# V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI
+STAMP_UTC=2026-06-26T10:14:38.355170+00:00
+MODE=PLAN_ONLY_NOAPI
+DB_WRITE=false
+PANEL_WRITE=false
+API_RPC=false
+RUNTIME_APPLY=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_ACCESS=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## RED TEAM DOCTRINE
+GLOBAL_FAIL_CLOSED_FOR_NOISE_FORBIDDEN=true
+EXECUTION_REMAINS_FAIL_CLOSED=true
+OBSERVATION_REMAINS_LIVE=true
+DEGRADED_MODE_REQUIRED=true
+SCOPED_CIRCUIT_BREAKER_REQUIRED=true
+SPEED_NEVER_DOWN=true
+
+## PRE
+GIT_HEAD=d5f69507497a7756681766e502a631abc3d7008f
+GIT_PARENT=9d58ee9ca510a3a67895fd6308915f9bbda37780
+GIT_BRANCH=main
+REMOTE_SHA=d5f69507497a7756681766e502a631abc3d7008f
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_rows_noapi.jsonl
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_PARENT_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_REMOTE_HEAD_MATCHES=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_OR_EXISTING_PHASE_DIRTY_PRE=true
+CHECK_REQUIRED_PREVIOUS_FILES_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_V2_34A_SPEED_LOCKED=true
+CHECK_V2_34A_FAIL_CLOSED_EXECUTION_LOCKED=true
+CHECK_OUTPUTS_EXIST=true
+CHECK_PLAN_VALID=true
+CHECK_SCOPED_CIRCUIT_BREAKER_VALID=true
+CHECK_NOISE_BUCKET_VALID=true
+CHECK_PRIORITY_AUDIT_QUEUE_VALID=true
+CHECK_CRITICAL_FAST_LANE_VALID=true
+CHECK_DEGRADED_MODE_VALID=true
+CHECK_DYNAMIC_THRESHOLD_VALID=true
+CHECK_POISONING_BRIDGE_VALID=true
+CHECK_GLOBAL_FAIL_CLOSED_FOR_NOISE_FORBIDDEN=true
+CHECK_EXECUTION_REMAINS_FAIL_CLOSED=true
+CHECK_OBSERVATION_REMAINS_LIVE=true
+CHECK_FAST_LANE_DOES_NOT_BYPASS_EXECUTION_APPROVAL=true
+CHECK_SPEED_NEVER_DOWN=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+CHECK_ONLY_ALLOWED_OR_EXISTING_PHASE_DIRTY_POST=true
+
+## OUTPUTS
+DOC=/root/tokenoskobi_clean_v1/docs/V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN.md
+PLAN_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_dos_resilience_dynamic_threshold_degraded_mode_plan_noapi.json
+SCOPED_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_scoped_circuit_breaker_contract_plan_noapi.json
+NOISE_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_noise_bucket_rate_limit_dedup_contract_plan_noapi.json
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_priority_audit_queue_contract_plan_noapi.json
+FAST_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_critical_fast_lane_contract_plan_noapi.json
+DEGRADED_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_degraded_mode_observation_contract_plan_noapi.json
+DYNAMIC_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_dynamic_threshold_contract_plan_noapi.json
+POISON_JSON=/root/tokenoskobi_clean_v1/data/v2_34b_logic_poisoning_resilience_bridge_plan_noapi.json
+REPORT=/root/tokenoskobi_clean_v1/reports/V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI.md
+
+## RESILIENCE TRUTH
+V2_34B_IS_RUNTIME_APPLY=false
+V2_34B_IS_PLAN_ONLY=true
+GLOBAL_FAIL_CLOSED_FOR_NOISE_FORBIDDEN=true
+EXECUTION_REMAINS_FAIL_CLOSED=true
+WALLET_REMAINS_FAIL_CLOSED=true
+OBSERVATION_REMAINS_LIVE=true
+DEGRADED_MODE_REQUIRED=true
+SCOPED_CIRCUIT_BREAKER_REQUIRED=true
+PRIORITY_AUDIT_QUEUE_REQUIRED=true
+NOISE_BUCKET_REQUIRED=true
+FAST_LANE_REQUIRED=true
+DYNAMIC_THRESHOLD_REQUIRED=true
+FAST_LANE_DOES_NOT_BYPASS_EXECUTION_APPROVAL=true
+NEXT_POISONING_PROTECTION_REQUIRED=true
+
+## GIT
+GIT_STATUS_AFTER=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_rows_noapi.jsonl
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? data/v2_34b_critical_fast_lane_contract_plan_noapi.json
+?? data/v2_34b_degraded_mode_observation_contract_plan_noapi.json
+?? data/v2_34b_dos_resilience_dynamic_threshold_degraded_mode_plan_noapi.json
+?? data/v2_34b_dynamic_threshold_contract_plan_noapi.json
+?? data/v2_34b_logic_poisoning_resilience_bridge_plan_noapi.json
+?? data/v2_34b_noise_bucket_rate_limit_dedup_contract_plan_noapi.json
+?? data/v2_34b_priority_audit_queue_contract_plan_noapi.json
+?? data/v2_34b_scoped_circuit_breaker_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+
+## FINAL
+FINAL_GATE=PASS_V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI
+DECISION=READY_FOR_V2_34B_POST_PLAN_AUDIT_NOAPI
+NEXT=V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_POST_PLAN_AUDIT_NOAPI
+TMP_REPORT=/tmp/V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI_20260626_101438/REPORT.md
+TMP_JSON=/tmp/V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI_20260626_101438/V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI.json

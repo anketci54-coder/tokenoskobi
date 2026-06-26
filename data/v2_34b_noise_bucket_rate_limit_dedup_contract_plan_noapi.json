@@ -1,0 +1,23 @@
+{
+  "task": "V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI",
+  "contract": "NOISE_BUCKET_RATE_LIMIT_DEDUP",
+  "noise_must_not_freeze_system": true,
+  "noise_handling": [
+    "rate_limit_by_source",
+    "dedup_by_signal_hash",
+    "aggregate_by_bucket",
+    "drop_duplicate_low_value_noise",
+    "sample_low_severity_events",
+    "preserve_critical_evidence"
+  ],
+  "bucket_keys": [
+    "source_id",
+    "chain",
+    "token_uid",
+    "signal_family",
+    "severity_tier",
+    "time_window"
+  ],
+  "low_severity_full_audit_required": false,
+  "critical_lane_protected": true
+}

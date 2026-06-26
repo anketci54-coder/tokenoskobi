@@ -1,0 +1,18 @@
+{
+  "task": "V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI",
+  "contract": "FIXED_POINT_INTEGER_MATH",
+  "hot_path_numeric_type": "int64_scaled",
+  "float_hot_path_allowed": false,
+  "decimal_hot_path_allowed": false,
+  "decimal_offline_audit_allowed": true,
+  "scale_factor": 1000000,
+  "score_scale": "score_x_10000",
+  "weight_scale": "weight_x_1000000",
+  "intermediate_scale": "intermediate_x_1000000000000",
+  "overflow_guard_required": true,
+  "clamp_required": true,
+  "final_score_min": 0,
+  "final_score_max": 1000000,
+  "final_score_display": "final_score_scaled / 10000",
+  "speed_reason": "integer arithmetic avoids slow Decimal hot path and reduces floating drift."
+}

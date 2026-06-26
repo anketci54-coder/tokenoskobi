@@ -1,0 +1,45 @@
+{
+  "task": "V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN_NOAPI",
+  "input_contract": "SYNTHETIC_OR_EXISTING_LOCAL_ONLY_PLAN",
+  "real_api_rpc_allowed": false,
+  "db_read_required_for_plan": false,
+  "db_write_allowed": false,
+  "synthetic_rows_required_for_future_dryrun": [
+    {
+      "bucket": "single_candidate",
+      "rows": 1
+    },
+    {
+      "bucket": "small_batch",
+      "rows": 100
+    },
+    {
+      "bucket": "medium_batch",
+      "rows": 1000
+    },
+    {
+      "bucket": "large_batch",
+      "rows": 10000
+    }
+  ],
+  "required_fields": [
+    "candidate_id",
+    "signal_strength",
+    "risk_penalty",
+    "trust_evidence_factor",
+    "freshness_decay",
+    "source_independence",
+    "anomaly_penalty",
+    "liquidity_exit_factor",
+    "execution_feasibility_factor"
+  ],
+  "invalid_input_cases": [
+    "missing_field",
+    "null_value",
+    "string_in_numeric_field",
+    "negative_out_of_range",
+    "above_max_range",
+    "nan_or_infinity",
+    "duplicate_candidate_id"
+  ]
+}

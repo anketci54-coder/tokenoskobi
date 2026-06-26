@@ -1,0 +1,19 @@
+{
+  "task": "V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN_NOAPI",
+  "contract": "SPEED_NEVER_DOWN",
+  "speed_must_not_be_reduced": true,
+  "hot_path_uses_decimal": false,
+  "hot_path_uses_float": false,
+  "hot_path_uses_integer": true,
+  "latency_guard_future_ms_per_candidate_max": 5,
+  "latency_guard_future_bucket_policy": {
+    "1_candidate": "must_measure",
+    "100_candidates": "must_measure",
+    "1000_candidates": "must_measure",
+    "10000_candidates": "must_measure"
+  },
+  "fail_if_over_5ms_per_candidate": true,
+  "fail_if_non_deterministic": true,
+  "fail_if_drift_nonzero": true,
+  "optimization_rule": "security hardening must use fixed-point integer arithmetic, not slower Decimal hot path."
+}

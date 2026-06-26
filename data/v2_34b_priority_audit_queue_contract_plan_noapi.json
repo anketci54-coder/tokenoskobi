@@ -1,0 +1,19 @@
+{
+  "task": "V2_34B_DOS_RESILIENCE_DYNAMIC_THRESHOLD_AND_DEGRADED_MODE_PLAN_NOAPI",
+  "contract": "PRIORITY_AUDIT_QUEUE",
+  "full_reasoning_for_every_signal_required": false,
+  "priority_levels": [
+    "P0_CRITICAL",
+    "P1_HIGH",
+    "P2_MEDIUM",
+    "P3_LOW_NOISE"
+  ],
+  "queue_policy": {
+    "P0_CRITICAL": "fast_lane_full_reasoning_immediate",
+    "P1_HIGH": "full_reasoning_priority",
+    "P2_MEDIUM": "sampled_reasoning_hash_aggregate",
+    "P3_LOW_NOISE": "hash_aggregate_dedup_only"
+  },
+  "backpressure_action": "degraded_audit_mode_not_global_freeze",
+  "i_o_bottleneck_defense_required": true
+}

@@ -1,0 +1,38 @@
+{
+  "task": "V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN_NOAPI",
+  "latency_benchmark_contract": "PLAN_ONLY",
+  "latency_test_executed_now": false,
+  "future_buckets": [
+    {
+      "bucket": "1_candidate",
+      "rows": 1,
+      "measure": "single_formula_latency_ms"
+    },
+    {
+      "bucket": "100_candidates",
+      "rows": 100,
+      "measure": "batch_latency_ms"
+    },
+    {
+      "bucket": "1000_candidates",
+      "rows": 1000,
+      "measure": "batch_latency_ms"
+    },
+    {
+      "bucket": "10000_candidates",
+      "rows": 10000,
+      "measure": "batch_latency_ms"
+    }
+  ],
+  "metrics_required": [
+    "total_wall_time_ms",
+    "per_candidate_avg_ms",
+    "p50_ms",
+    "p95_ms",
+    "p99_ms",
+    "max_ms",
+    "error_count",
+    "success_compute_count"
+  ],
+  "claim_boundary": "Measures local dryrun compute speed only; not real API/RPC reaction speed."
+}

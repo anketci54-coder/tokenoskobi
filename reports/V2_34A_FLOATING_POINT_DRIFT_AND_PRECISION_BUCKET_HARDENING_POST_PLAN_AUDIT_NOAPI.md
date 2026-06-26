@@ -1,0 +1,154 @@
+# V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI
+STAMP_UTC=2026-06-26T09:58:35.032205+00:00
+MODE=POST_PLAN_AUDIT_NOAPI
+FORMULA_EXECUTION=false
+LATENCY_TEST_EXECUTION=false
+DB_WRITE=false
+CREATE_TABLE=false
+ALTER_TABLE=false
+MIGRATION_APPLY=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+API_FETCH=false
+RPC_FETCH=false
+REAL_DATA_FETCH=false
+RUNTIME_SCORING_APPLY=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_ACCESS=false
+PRIVATE_KEY_ACCESS=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=d5f69507497a7756681766e502a631abc3d7008f
+GIT_PARENT=9d58ee9ca510a3a67895fd6308915f9bbda37780
+GIT_BRANCH=main
+REMOTE_SHA=d5f69507497a7756681766e502a631abc3d7008f
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+CHECK_HEAD_EXPECTED=true
+CHECK_PARENT_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_REMOTE_HEAD_MATCHES=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_DIRTY_PRE=true
+CHECK_V2_34_FILES_EXIST=true
+CHECK_V2_34A_FILES_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_V2_34_BASE_PLAN_VALID=true
+CHECK_LOCKS_VALID=true
+CHECK_PLAN_VALID=true
+CHECK_FIXED_POINT_INTEGER_CONTRACT_VALID=true
+CHECK_PRECISION_BUCKET_CONTRACT_VALID=true
+CHECK_DRIFT_DETECTION_CONTRACT_VALID=true
+CHECK_ROUNDING_POLICY_CONTRACT_VALID=true
+CHECK_SPEED_NEVER_DOWN_CONTRACT_VALID=true
+CHECK_FAIL_CLOSED_CONTRACT_VALID=true
+CHECK_DOC_REQUIRED_TRUTH_VALID=false
+CHECK_PLAN_REPORT_AND_LATEST_VALID=true
+CHECK_HIZDAN_ODUN_YOK=true
+CHECK_FLOAT_HOT_PATH_FORBIDDEN=true
+CHECK_DECIMAL_HOT_PATH_FORBIDDEN=true
+CHECK_INTEGER_HOT_PATH_REQUIRED=true
+CHECK_MAX_DRIFT_ZERO=true
+CHECK_LATENCY_GUARD_5MS=true
+CHECK_NO_FORMULA_EXECUTION_NOW=true
+CHECK_NO_LATENCY_TEST_EXECUTION_NOW=true
+CHECK_NO_SUCCESS_CLAIM=true
+CHECK_NO_PROFITABILITY_CLAIM=true
+CHECK_NO_RUNTIME_SCORING_APPLY=true
+CHECK_NO_LIVE_DECISION=true
+
+## V2_34A POST PLAN AUDIT
+V2_34_BASE_PLAN_VALID=true
+LOCKS_VALID=true
+PLAN_VALID=true
+FIXED_POINT_INTEGER_CONTRACT_VALID=true
+PRECISION_BUCKET_CONTRACT_VALID=true
+DRIFT_DETECTION_CONTRACT_VALID=true
+ROUNDING_POLICY_CONTRACT_VALID=true
+SPEED_NEVER_DOWN_CONTRACT_VALID=true
+FAIL_CLOSED_CONTRACT_VALID=true
+
+## HARDENED TRUTH
+V2_34A_IS_FORMULA_EXECUTION=false
+V2_34A_IS_LATENCY_TEST_EXECUTION=false
+V2_34A_IS_PLAN_ONLY=true
+HIZDAN_ODUN_YOK=true
+SPEED_NEVER_DOWN=true
+FLOAT_HOT_PATH_FORBIDDEN=true
+DECIMAL_HOT_PATH_FORBIDDEN=true
+FIXED_POINT_INTEGER_MATH_REQUIRED=true
+PRECISION_BUCKETS_REQUIRED=true
+ROUNDING_POLICY_REQUIRED=true
+DRIFT_DETECTION_REQUIRED=true
+MAX_ALLOWED_DRIFT=0.0000
+LATENCY_GUARD_FUTURE_MAX_MS_PER_CANDIDATE=5
+FAIL_CLOSED_ON_DRIFT=true
+FAIL_CLOSED_ON_NON_DETERMINISM=true
+FAIL_CLOSED_ON_LATENCY_GT_5MS=true
+FORMULA_WORKING_CLAIM_ALLOWED=false
+FORMULA_FAST_CLAIM_ALLOWED=false
+PROFITABILITY_CLAIM_ALLOWED=false
+
+## OUTPUTS
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_noapi.json
+AUDIT_ROWS=/root/tokenoskobi_clean_v1/data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_rows_noapi.jsonl
+AUDIT_REPORT=/root/tokenoskobi_clean_v1/reports/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI.md
+CHECK_AUDIT_OUTPUTS_EXIST=true
+CHECK_LATEST_MATCHES_AUDIT_REPORT=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+CHECK_ONLY_ALLOWED_DIRTY_FINAL=true
+
+## GIT
+GIT_STATUS_FINAL=?? data/v2_34_determinism_contract_plan_noapi.json
+?? data/v2_34_error_handling_contract_plan_noapi.json
+?? data/v2_34_formula_dryrun_latency_test_plan_noapi.json
+?? data/v2_34_formula_execution_contract_plan_noapi.json
+?? data/v2_34_latency_benchmark_contract_plan_noapi.json
+?? data/v2_34_no_success_claim_boundary_plan_noapi.json
+?? data/v2_34_scale_buckets_contract_plan_noapi.json
+?? data/v2_34_synthetic_input_contract_plan_noapi.json
+?? data/v2_34a_drift_detection_contract_plan_noapi.json
+?? data/v2_34a_fixed_point_integer_math_contract_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_plan_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_noapi.json
+?? data/v2_34a_floating_point_drift_precision_bucket_hardening_post_plan_audit_rows_noapi.jsonl
+?? data/v2_34a_precision_bucket_contract_plan_noapi.json
+?? data/v2_34a_precision_fail_closed_contract_plan_noapi.json
+?? data/v2_34a_rounding_policy_contract_plan_noapi.json
+?? data/v2_34a_speed_never_down_contract_plan_noapi.json
+?? docs/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_PLAN.md
+?? docs/V2_34_MATHEMATICAL_FORMULA_DRYRUN_AND_LATENCY_TEST_PLAN.md
+
+## FINAL
+FINAL_GATE=REVIEW_V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI
+DECISION=STOP_REVIEW_REQUIRED
+NEXT=FIX_REVIEW_ITEMS
+TMP_REPORT=/tmp/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI_20260626_095834/REPORT.md
+TMP_JSON=/tmp/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI_20260626_095834/V2_34A_FLOATING_POINT_DRIFT_AND_PRECISION_BUCKET_HARDENING_POST_PLAN_AUDIT_NOAPI.json
