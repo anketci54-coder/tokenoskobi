@@ -1,0 +1,109 @@
+# V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI
+STAMP_UTC=2026-06-26T08:49:20.250759+00:00
+MODE=POST_AUDIT_NOAPI
+DB_WRITE=false
+MAIN_DB_WRITE=false
+TEMPDB_ONLY=true
+CREATE_TABLE_MAIN_DB=false
+ALTER_TABLE=false
+MIGRATION_APPLY=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+API_FETCH=false
+REAL_DATA_FETCH=false
+LIVE_TRADE=false
+WALLET_SIGNING=false
+GIT_COMMIT=false
+GIT_PUSH=false
+
+## PRE
+GIT_HEAD=29b58106b7678b0a2640459a0654bc7577d7aa6f
+GIT_BRANCH=main
+AHEAD_BEHIND=0	0
+GIT_STATUS_PRE=?? data/v2_30_audit_bottleneck_results_noapi.jsonl
+?? data/v2_30_echo_chamber_results_noapi.jsonl
+?? data/v2_30_flash_crash_50k_results_noapi.jsonl
+?? data/v2_30_hard_block_summary_noapi.json
+?? data/v2_30_latency_summary_noapi.json
+?? data/v2_30_stress_test_and_reaction_simulation_noapi.json
+?? data/v2_30_stress_test_rows_noapi.jsonl
+CHECK_HEAD_EXPECTED=true
+CHECK_BRANCH_MAIN=true
+CHECK_AHEAD_BEHIND_0_0=true
+CHECK_ONLY_ALLOWED_DIRTY_PRE=true
+CHECK_V30_OUTPUTS_EXIST=true
+CHECK_DB_SHA_PRE=true
+CHECK_INDEX_SHA_PRE=true
+CHECK_RISK_SHA_PRE=true
+CHECK_PHASE41_SHA_PRE=true
+CHECK_FLASH_CRASH_50K_VALID=true
+CHECK_ECHO_CHAMBER_VALID=true
+CHECK_1M_AUDIT_BOTTLENECK_VALID=true
+CHECK_HOT_PATH_P99_LT_5MS_VALID=true
+CHECK_SAFETY_LIMITS_VALID=true
+CHECK_REDTEAM_REACTION_VALID=true
+CHECK_REPORT_AND_LATEST_VALID=true
+CHECK_FULL_SCORING_FORMULA_USED_FALSE=true
+CHECK_STRESS_REACTION_FORMULA_USED_TRUE=true
+CHECK_MATH_FORMULAS_RESERVED_FOR_V2_31_OR_V2_32_TRUE=true
+CHECK_ARCHITECTURAL_STRESS_PROOF_TRUE=true
+CHECK_MARKET_PROFITABILITY_PROVEN_FALSE=true
+CHECK_REAL_API_RPC_LATENCY_PROVEN_FALSE=true
+CHECK_SCORING_ENGINE_VALIDATION_PENDING_TRUE=true
+CHECK_DB_SHA_POST=true
+CHECK_INDEX_SHA_POST=true
+CHECK_RISK_SHA_POST=true
+CHECK_PHASE41_SHA_POST=true
+
+## FORENSIC SCOPE BOUNDARY
+V2_30_CLASSIFICATION=MECHANICAL_ARCHITECTURAL_STRESS_PROOF_NOT_SCORING_ENGINE_VALIDATION
+CHECK_FULL_SCORING_FORMULA_USED=false
+CHECK_STRESS_REACTION_FORMULA_USED=true
+CHECK_MATH_FORMULAS_RESERVED_FOR_V2_31_OR_V2_32=true
+CHECK_ARCHITECTURAL_STRESS_PROOF=true
+CHECK_MARKET_PROFITABILITY_PROVEN=false
+CHECK_REAL_API_RPC_LATENCY_PROVEN=false
+CHECK_SCORING_ENGINE_VALIDATION_PENDING=true
+
+## RED TEAM SEALED TRUTH
+Tokenoskobi proved it can operate under volatility, signal bombardment and audit load without collapsing.
+It did not prove mathematical scoring accuracy.
+It proved the architectural ground is ready for a mathematical scoring engine contract.
+
+## V2_30 AUDIT RESULTS
+FLASH_COUNT=50000
+FLASH_P99_MS=0.0028240100000000022
+ECHO_COUNT=50000
+ECHO_P99_MS=0.000512
+OVERALL_HOT_PATH_P99_MS=0.000631
+HARD_BLOCK_TOTAL=125
+ECHO_CHAMBER_DETECTED_COUNT=41993
+SOURCE_INDEPENDENCE_DEGRADED_COUNT=41984
+
+## OUTPUTS
+AUDIT_JSON=/root/tokenoskobi_clean_v1/data/v2_30_stress_test_and_reaction_simulation_post_audit_noapi.json
+AUDIT_ROWS=/root/tokenoskobi_clean_v1/data/v2_30_stress_test_and_reaction_simulation_post_audit_rows_noapi.jsonl
+AUDIT_REPORT=/root/tokenoskobi_clean_v1/reports/V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI.md
+LATEST=/root/tokenoskobi_clean_v1/reports/LATEST_V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI.md
+CHECK_AUDIT_OUTPUTS_EXIST=true
+CHECK_LATEST_MATCHES_AUDIT_REPORT=true
+CHECK_ONLY_ALLOWED_DIRTY_FINAL=true
+
+## GIT
+GIT_STATUS_FINAL=?? data/v2_30_audit_bottleneck_results_noapi.jsonl
+?? data/v2_30_echo_chamber_results_noapi.jsonl
+?? data/v2_30_flash_crash_50k_results_noapi.jsonl
+?? data/v2_30_hard_block_summary_noapi.json
+?? data/v2_30_latency_summary_noapi.json
+?? data/v2_30_stress_test_and_reaction_simulation_noapi.json
+?? data/v2_30_stress_test_and_reaction_simulation_post_audit_noapi.json
+?? data/v2_30_stress_test_and_reaction_simulation_post_audit_rows_noapi.jsonl
+?? data/v2_30_stress_test_rows_noapi.jsonl
+
+## FINAL
+FINAL_GATE=PASS_V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI
+DECISION=READY_FOR_GIT_COMMIT_NOAPI
+NEXT=V2_30_GIT_COMMIT_AND_PUSH_NOAPI
+TMP_REPORT=/tmp/V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI_20260626_084920/REPORT.md
+TMP_JSON=/tmp/V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI_20260626_084920/V2_30_STRESS_TEST_AND_REACTION_SIMULATION_POST_AUDIT_NOAPI.json

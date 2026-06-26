@@ -1,0 +1,74 @@
+{
+  "task": "V2_30_STRESS_TEST_AND_REACTION_SIMULATION_NOAPI",
+  "stamp_utc": "2026-06-26T08:29:19.598928+00:00",
+  "mode": "STRESS_TEST_SIMULATION_NOAPI",
+  "head": "29b58106b7678b0a2640459a0654bc7577d7aa6f",
+  "tempdb_path": "/tmp/V2_30_STRESS_TEST_AND_REACTION_SIMULATION_NOAPI_20260626_082919/v2_30_audit_bottleneck_tempdb.sqlite",
+  "layers": {
+    "flash_crash_50k_completed": true,
+    "echo_chamber_completed": true,
+    "audit_bottleneck_1m_completed": true
+  },
+  "latency_summary": {
+    "task": "V2_30_STRESS_TEST_AND_REACTION_SIMULATION_NOAPI",
+    "stamp_utc": "2026-06-26T08:29:19.598928+00:00",
+    "flash_crash_50k": {
+      "count": 50000,
+      "elapsed_sec": 0.1337271686643362,
+      "p50_ms": 0.00048,
+      "p95_ms": 0.000551,
+      "p99_ms": 0.0028240100000000022,
+      "max_ms": 0.104824
+    },
+    "echo_chamber": {
+      "count": 50000,
+      "elapsed_sec": 0.07045727502554655,
+      "p50_ms": 0.000351,
+      "p95_ms": 0.000371,
+      "p99_ms": 0.000512,
+      "max_ms": 0.034604
+    },
+    "audit_probe": {
+      "pre_count": 5000,
+      "post_count": 5000,
+      "pre_p99_ms": 0.00047,
+      "post_p99_ms": 0.000551,
+      "delta_p99_ms": 8.099999999999996e-05
+    },
+    "overall_hot_path": {
+      "count": 110000,
+      "p50_ms": 0.00036,
+      "p95_ms": 0.000521,
+      "p99_ms": 0.000631,
+      "max_ms": 0.104824
+    }
+  },
+  "hard_block_summary": {
+    "task": "V2_30_STRESS_TEST_AND_REACTION_SIMULATION_NOAPI",
+    "hard_block_counts": {
+      "LIQUIDITY_DROP_FAST": 51,
+      "OWNER_MOVE_FAST": 33,
+      "SELL_TAX_FAST": 41
+    },
+    "decision_counts": {
+      "RED": 123,
+      "HOT_CANDIDATE": 49877
+    },
+    "hard_block_total": 125,
+    "hard_block_fast_flag_valid": true,
+    "echo_chamber_detected_count": 41993,
+    "source_independence_degraded_count": 41984
+  },
+  "safety": {
+    "api_fetch": false,
+    "main_db_write": false,
+    "panel_write": false,
+    "service_restart": false,
+    "timer_change": false,
+    "live_trade": false,
+    "wallet_signing": false,
+    "outcome_leakage": false,
+    "tempdb_only": true
+  },
+  "limitations": "Synthetic NOAPI simulation. Does not prove real market profitability or real API/RPC latency."
+}
