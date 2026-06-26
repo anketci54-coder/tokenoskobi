@@ -1,0 +1,152 @@
+{
+  "task": "V2_39B_REAL_DATA_SHADOW_EVENT_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-26T18:44:42Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_39B_REAL_DATA_SHADOW_EVENT_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_39B_SHADOW_EVENT_CONTRACT_PASS_READY_FOR_CRITICAL_THRESHOLD_DEVIATION_MODEL",
+  "next": "V2_39C_CRITICAL_THRESHOLD_DEVIATION_MODEL_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "4a821ad6dc816577e79a7a65e2663531d8449137",
+  "remote_now": "4a821ad6dc816577e79a7a65e2663531d8449137",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_39_next_approved_phase_selection_noapi.json\n?? data/v2_39_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_39_real_data_shadow_observation_intake_and_attack_isolation_threshold_plan_noapi.json\n?? data/v2_39_real_data_shadow_observation_intake_and_attack_isolation_threshold_plan_noapi_rows.jsonl\n?? data/v2_39a_real_data_intake_boundary_and_source_policy_local_noapi.json\n?? data/v2_39a_real_data_intake_boundary_and_source_policy_local_noapi_rows.jsonl\n?? docs/v2/V2_39A_REAL_DATA_INTAKE_BOUNDARY_AND_SOURCE_POLICY_LOCAL_NOAPI.md\n?? docs/v2/V2_39_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_39_REAL_DATA_SHADOW_OBSERVATION_INTAKE_AND_ATTACK_ISOLATION_THRESHOLD_PLAN_NOAPI.md",
+  "checks": {
+    "plan_doc_exists": true,
+    "a_doc_exists": true,
+    "plan_pass": true,
+    "a_pass": true,
+    "next_matches": true,
+    "noapi_locked": true,
+    "single_source_no_attack_locked": true,
+    "evidence_required_locked": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "shadow_event_contract": {
+    "contract_name": "real_data_shadow_event_contract_v1",
+    "mode": "schema_contract_only_noapi_no_db_write",
+    "required_fields": [
+      "event_uid",
+      "event_type",
+      "event_version",
+      "created_at_utc",
+      "source_class",
+      "source_name",
+      "source_reputation",
+      "source_count",
+      "source_observation_mode",
+      "chain",
+      "asset_uid",
+      "token_address",
+      "pair_address",
+      "market_context",
+      "volatility_regime",
+      "liquidity_regime",
+      "observed_value",
+      "expected_value",
+      "threshold_expected",
+      "threshold_observed",
+      "threshold_deviation_delta",
+      "threshold_deviation_ratio",
+      "confidence_score",
+      "attack_similarity_score",
+      "persistence",
+      "correlation",
+      "decision_impact",
+      "classification",
+      "action",
+      "reason_codes",
+      "evidence_refs",
+      "isolation_candidate",
+      "execution_allowed",
+      "trade_allowed",
+      "wallet_allowed",
+      "ttl_seconds",
+      "dedupe_key"
+    ],
+    "allowed_event_types": [
+      "shadow_price_move",
+      "shadow_liquidity_move",
+      "shadow_volume_spike",
+      "shadow_holder_concentration_move",
+      "shadow_whale_flow_hint",
+      "shadow_dex_route_change",
+      "shadow_tax_or_sell_route_hint",
+      "shadow_contract_risk_hint",
+      "shadow_news_social_hint",
+      "shadow_source_reputation_change"
+    ],
+    "allowed_source_classes": [
+      "market_price_snapshot",
+      "liquidity_snapshot",
+      "volume_snapshot",
+      "holder_distribution_snapshot",
+      "whale_flow_hint",
+      "dex_route_hint",
+      "contract_risk_hint",
+      "news_social_hint"
+    ],
+    "allowed_classifications": [
+      "NOISE",
+      "MARKET_DRIFT",
+      "UNKNOWN_ANOMALY",
+      "ATTACK_SUSPECT",
+      "CONFIRMED_THREAT_CANDIDATE"
+    ],
+    "allowed_actions": [
+      "log_only",
+      "confidence_decay",
+      "shadow_watch",
+      "prosecutor_candidate",
+      "attack_isolation_candidate"
+    ],
+    "hard_false_fields": {
+      "execution_allowed": false,
+      "trade_allowed": false,
+      "wallet_allowed": false,
+      "runtime_apply_allowed": false,
+      "db_write_allowed": false,
+      "panel_write_allowed": false,
+      "api_rpc_allowed": false,
+      "live_feed_allowed": false
+    },
+    "semantic_guards": {
+      "single_source_can_create_unknown_anomaly": true,
+      "single_source_can_create_attack_suspect": false,
+      "single_source_can_create_confirmed_threat": false,
+      "attack_suspect_requires_multi_source_or_multi_factor": true,
+      "confirmed_threat_requires_evidence_refs": true,
+      "threshold_deviation_alone_cannot_escalate": true,
+      "decision_impact_required_for_fail_closed": true,
+      "unknown_anomaly_not_equal_attack": true
+    },
+    "ttl_policy": {
+      "NOISE": 3600,
+      "MARKET_DRIFT": 7200,
+      "UNKNOWN_ANOMALY": 21600,
+      "ATTACK_SUSPECT": 43200,
+      "CONFIRMED_THREAT_CANDIDATE": 86400
+    },
+    "dedupe_policy": {
+      "dedupe_key_required": true,
+      "dedupe_fields": [
+        "event_type",
+        "source_class",
+        "chain",
+        "asset_uid",
+        "token_address",
+        "pair_address",
+        "reason_codes"
+      ],
+      "duplicate_collapse_required": true
+    }
+  }
+}

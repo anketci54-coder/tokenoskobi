@@ -1,0 +1,143 @@
+{
+  "task": "V2_39E_FALSE_POSITIVE_AND_NON_PARANOIA_REVIEW_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-26T19:00:22Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_39E_FALSE_POSITIVE_AND_NON_PARANOIA_REVIEW_LOCAL_NOAPI",
+  "decision": "V2_39E_FALSE_POSITIVE_NON_PARANOIA_REVIEW_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_39_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "4a821ad6dc816577e79a7a65e2663531d8449137",
+  "remote_now": "4a821ad6dc816577e79a7a65e2663531d8449137",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_39_next_approved_phase_selection_noapi.json\n?? data/v2_39_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_39_real_data_shadow_observation_intake_and_attack_isolation_threshold_plan_noapi.json\n?? data/v2_39_real_data_shadow_observation_intake_and_attack_isolation_threshold_plan_noapi_rows.jsonl\n?? data/v2_39a_real_data_intake_boundary_and_source_policy_local_noapi.json\n?? data/v2_39a_real_data_intake_boundary_and_source_policy_local_noapi_rows.jsonl\n?? data/v2_39b_real_data_shadow_event_contract_local_noapi.json\n?? data/v2_39b_real_data_shadow_event_contract_local_noapi_rows.jsonl\n?? data/v2_39c_critical_threshold_deviation_model_local_noapi.json\n?? data/v2_39c_critical_threshold_deviation_model_local_noapi_rows.jsonl\n?? data/v2_39d_attack_isolation_candidate_rules_local_noapi.json\n?? data/v2_39d_attack_isolation_candidate_rules_local_noapi_rows.jsonl\n?? docs/v2/V2_39A_REAL_DATA_INTAKE_BOUNDARY_AND_SOURCE_POLICY_LOCAL_NOAPI.md\n?? docs/v2/V2_39B_REAL_DATA_SHADOW_EVENT_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_39C_CRITICAL_THRESHOLD_DEVIATION_MODEL_LOCAL_NOAPI.md\n?? docs/v2/V2_39D_ATTACK_ISOLATION_CANDIDATE_RULES_LOCAL_NOAPI.md\n?? docs/v2/V2_39_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_39_REAL_DATA_SHADOW_OBSERVATION_INTAKE_AND_ATTACK_ISOLATION_THRESHOLD_PLAN_NOAPI.md",
+  "checks": {
+    "selection_doc_exists": true,
+    "plan_doc_exists": true,
+    "a_doc_exists": true,
+    "b_doc_exists": true,
+    "c_doc_exists": true,
+    "d_doc_exists": true,
+    "selection_pass": true,
+    "plan_pass": true,
+    "a_pass": true,
+    "b_pass": true,
+    "c_pass": true,
+    "d_pass": true,
+    "next_matches": true,
+    "single_source_no_attack": true,
+    "unknown_anomaly_not_attack": true,
+    "market_drift_not_attack": true,
+    "threshold_alone_no_escalation": true,
+    "confidence_alone_no_escalation": true,
+    "similarity_alone_no_escalation": true,
+    "evidence_required": true,
+    "candidate_no_execute": true,
+    "noapi_locked": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "review": {
+    "review_name": "v2_39_false_positive_and_non_paranoia_review_v1",
+    "mode": "local_review_only_noapi_no_db_write_no_execution",
+    "verdict_dimensions": {
+      "noise_not_over_escalated": true,
+      "market_drift_not_attack": true,
+      "unknown_anomaly_not_attack": true,
+      "single_source_not_attack": true,
+      "threshold_deviation_not_attack_alone": true,
+      "confidence_not_attack_alone": true,
+      "attack_similarity_not_attack_alone": true,
+      "evidence_required_for_confirmed": true,
+      "candidate_does_not_execute": true
+    },
+    "obesity_guards": {
+      "bounded_queue_required": true,
+      "ttl_required": true,
+      "dedupe_required": true,
+      "duplicate_collapse_required": true,
+      "source_reputation_decay_required": true,
+      "market_regime_context_required": true,
+      "shadow_watch_not_fail_closed": true,
+      "unknown_anomaly_not_fail_closed": true
+    },
+    "non_paranoia_matrix": [
+      {
+        "case": "single_source_high_noise",
+        "allowed_max": "UNKNOWN_ANOMALY",
+        "forbidden": [
+          "ATTACK_SUSPECT",
+          "CONFIRMED_THREAT_CANDIDATE",
+          "execution"
+        ]
+      },
+      {
+        "case": "market_drift_extreme_unstable",
+        "allowed_max": "MARKET_DRIFT_OR_UNKNOWN_ANOMALY_SHADOW_WATCH",
+        "forbidden": [
+          "attack_declaration",
+          "execution"
+        ]
+      },
+      {
+        "case": "threshold_deviation_without_correlation",
+        "allowed_max": "UNKNOWN_ANOMALY",
+        "forbidden": [
+          "ATTACK_SUSPECT",
+          "fail_closed",
+          "execution"
+        ]
+      },
+      {
+        "case": "confidence_only_high",
+        "allowed_max": "UNKNOWN_ANOMALY",
+        "forbidden": [
+          "ATTACK_SUSPECT",
+          "CONFIRMED_THREAT_CANDIDATE",
+          "execution"
+        ]
+      },
+      {
+        "case": "multi_source_correlated_decision_impact",
+        "allowed_max": "ATTACK_SUSPECT_OR_ISOLATION_CANDIDATE",
+        "forbidden": [
+          "execution",
+          "trade",
+          "wallet"
+        ]
+      },
+      {
+        "case": "evidence_refs_repeated_decision_impact",
+        "allowed_max": "CONFIRMED_THREAT_CANDIDATE",
+        "forbidden": [
+          "execution",
+          "trade",
+          "wallet",
+          "runtime_apply"
+        ]
+      }
+    ],
+    "final_review_locks": {
+      "REAL_DATA_EXECUTION": false,
+      "API_RPC": false,
+      "LIVE_FEED": false,
+      "DB_WRITE": false,
+      "PANEL_WRITE": false,
+      "RUNTIME_APPLY": false,
+      "SERVICE_RESTART": false,
+      "TIMER_CHANGE": false,
+      "LIVE_DECISION": false,
+      "LIVE_TRADE": false,
+      "WALLET_ACCESS": false,
+      "PRIVATE_KEY_ACCESS": false,
+      "GITHUB_PUSH": false
+    }
+  }
+}
