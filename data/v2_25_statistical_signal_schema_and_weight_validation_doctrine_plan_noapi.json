@@ -1,0 +1,61 @@
+{
+  "task": "V2_25_STATISTICAL_SIGNAL_SCHEMA_AND_WEIGHT_VALIDATION_DOCTRINE_PLAN_NOAPI",
+  "stamp_utc": "2026-06-26T06:27:14.397302+00:00",
+  "mode": "PLAN_ONLY_NOAPI",
+  "parent_head": "85c17f0e569882d75c0c249675980f401f96fb4d",
+  "status": "STATISTICAL_SIGNAL_SCHEMA_AND_WEIGHT_VALIDATION_DOCTRINE_PLAN_CANDIDATE",
+  "locks": {
+    "NO_FIXED_WEIGHT_WITHOUT_BACKTEST": true,
+    "NO_SCIENTIFIC_CLAIM_WITHOUT_EVIDENCE": true,
+    "WEIGHTS_ARE_CANDIDATE_ONLY": true,
+    "HISTORICAL_CORRELATION_REQUIRED": true,
+    "NEWS_TO_MARKET_IMPACT_MEASUREMENT": true,
+    "EVENT_TYPE_PRIOR_REQUIRED": true,
+    "MARKET_REACTION_REQUIRED": true,
+    "ONCHAIN_CONFIRMATION_REQUIRED": true,
+    "REGIME_CONTEXT_REQUIRED": true,
+    "CONFIDENCE_INTERVAL_REQUIRED": true,
+    "OUTCOME_LEAKAGE_FORBIDDEN": true,
+    "MODEL_MUST_SCORE_BEFORE_OUTCOME": true,
+    "OUTCOME_REVEALED_AFTER_DECISION": true,
+    "REASONING_PATH_AUDIT_REQUIRED": true,
+    "AUTO_LEARNING_APPLY_FORBIDDEN": true,
+    "HUMAN_APPROVAL_REQUIRED_FOR_WEIGHT_CHANGE": true,
+    "FAST_REACTION_PATH_REQUIRED": true,
+    "HEAVY_ANALYSIS_ASYNC_REQUIRED": true,
+    "HOT_PATH_MUST_NOT_WAIT_FOR_COLD_PATH": true,
+    "HOT_PATH_LATENCY_BUDGET_REQUIRED": true,
+    "COLD_PATH_CAN_ENRICH_AUDIT_LATER": true,
+    "HOT_PATH_FIRST_DECISION_ALLOWED": true,
+    "COLD_PATH_DEEP_ANALYSIS_BACKGROUND_ONLY": true,
+    "HOT_PATH_OUTPUT_MINIMAL_SIGNAL_VECTOR_REQUIRED": true,
+    "NETWORK_RPC_API_LATENCY_SEPARATED_FROM_CORE_DECISION_LATENCY": true
+  },
+  "outputs": {
+    "doc": "/root/tokenoskobi_clean_v1/docs/V2_25_STATISTICAL_SIGNAL_SCHEMA_AND_WEIGHT_VALIDATION_DOCTRINE.md",
+    "signal_schema": "/root/tokenoskobi_clean_v1/data/v2_25_statistical_signal_schema_plan_noapi.json",
+    "weight_doctrine": "/root/tokenoskobi_clean_v1/data/v2_25_weight_validation_doctrine_plan_noapi.json",
+    "blind_training_contract": "/root/tokenoskobi_clean_v1/data/v2_25_blind_training_contract_plan_noapi.json",
+    "plan_json": "/root/tokenoskobi_clean_v1/data/v2_25_statistical_signal_schema_and_weight_validation_doctrine_plan_noapi.json",
+    "report": "/root/tokenoskobi_clean_v1/reports/V2_25_STATISTICAL_SIGNAL_SCHEMA_AND_WEIGHT_VALIDATION_DOCTRINE_PLAN_NOAPI.md",
+    "latest": "/root/tokenoskobi_clean_v1/reports/LATEST_V2_25_STATISTICAL_SIGNAL_SCHEMA_AND_WEIGHT_VALIDATION_DOCTRINE_PLAN_NOAPI.md"
+  },
+  "next": "V2_25B_HOT_PATH_SPEED_LOCK_PATCH_POST_AUDIT_NOAPI",
+  "hot_path_latency_budget": {
+    "single_token_hot_path_ms_lt": 50,
+    "batch_100_hot_path_ms_lt": 1000,
+    "batch_1000_hot_path_ms_lt": 5000,
+    "batch_10000_hot_path_ms_lt": 45000,
+    "p99_token_hot_path_ms_lt": 5,
+    "basis": "V2_25A_TMP_ONLY_LOCAL_CORE_SIMULATION_NOAPI",
+    "warning": "This budget covers local hot-path decision core only; API/RPC/network/cold-path latency is measured separately."
+  },
+  "speed_doctrine_patch": {
+    "task": "V2_25B_HOT_PATH_SPEED_LOCK_PATCH_NOAPI",
+    "stamp_utc": "2026-06-26T06:37:53.964041+00:00",
+    "source_simulation": "V2_25A_HOT_PATH_REACTION_SPEED_SIMULATION_NOAPI",
+    "decision": "HOT_PATH_SPEED_BUDGET_ACCEPTED",
+    "patch_reason": "User concern: avoid slow reaction in live market conditions",
+    "hot_path_vs_cold_path": "Hot path produces fast minimal decision; cold path enriches audit and learning asynchronously."
+  }
+}

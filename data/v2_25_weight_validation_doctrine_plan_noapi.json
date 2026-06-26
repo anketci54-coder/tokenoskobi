@@ -1,0 +1,38 @@
+{
+  "schema_name": "v2_25_weight_validation_doctrine_plan_noapi",
+  "version": "V2_25",
+  "weights_are_candidate_only": true,
+  "no_fixed_weight_without_backtest": true,
+  "no_scientific_claim_without_evidence": true,
+  "historical_correlation_required": true,
+  "confidence_interval_required": true,
+  "validation_metrics_required": [
+    "precision",
+    "recall",
+    "false_positive_rate",
+    "false_negative_rate",
+    "calibration_error",
+    "max_drawdown_error",
+    "outcome_correlation",
+    "reasoning_path_accuracy"
+  ],
+  "candidate_weight_rules": [
+    "candidate weights may be proposed only after blind historical validation",
+    "candidate weights must include sample size and confidence interval",
+    "candidate weights must not auto-apply",
+    "human approval is required for any weight change",
+    "weights must be versioned and auditable"
+  ],
+  "baseline_formula_status": {
+    "old_fixed_formula": "REJECTED_AS_FINAL_MODEL",
+    "allowed_use": "CANDIDATE_BASELINE_ONLY_FOR_TEST_COMPARISON",
+    "scientific_validity": "NOT_PROVEN"
+  },
+  "speed_validation_doctrine": {
+    "weights_must_not_slow_hot_path": true,
+    "weight_candidates_can_be_calculated_in_cold_path": true,
+    "hot_path_uses_current_approved_lightweight_profile_only": true,
+    "candidate_weight_validation_runs_async": true,
+    "human_approval_required_before_profile_change": true
+  }
+}
