@@ -1,0 +1,66 @@
+{
+  "task": "V2_38_SHADOW_OBSERVATION_CLASSIFICATION_REPLAY_HARNESS_PLAN_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-26T16:48:15Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_38_SHADOW_OBSERVATION_CLASSIFICATION_REPLAY_HARNESS_PLAN_LOCAL_NOAPI",
+  "decision": "V2_38_REPLAY_HARNESS_PLAN_LOCAL_PASS_READY_FOR_SYNTHETIC_EVENT_SET",
+  "next": "V2_38A_SYNTHETIC_EVENT_SET_AND_EXPECTED_CLASSIFICATION_LOCAL_NOAPI",
+  "github_push": false,
+  "push_policy": "GITHUB_PUSH_ONLY_AT_VXX_FINAL_CLOSE",
+  "head_now": "f4f31b71ff295b3cfea5f94371f33dd3524f6a16",
+  "remote_now": "f4f31b71ff295b3cfea5f94371f33dd3524f6a16",
+  "ahead_behind": "0	0",
+  "harness": {
+    "REPLAY_HARNESS_ONLY": true,
+    "SYNTHETIC_EVENTS_ALLOWED": true,
+    "REAL_MARKET_DATA_BLOCKED": true,
+    "LIVE_MARKET_DATA": false,
+    "API_RPC": false,
+    "RUNTIME_APPLY": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "LIVE_TRADE": false
+  },
+  "classification_values": [
+    "NOISE",
+    "MARKET_DRIFT",
+    "UNKNOWN_ANOMALY",
+    "ATTACK_SUSPECT",
+    "CONFIRMED_THREAT"
+  ],
+  "test_case_groups": [
+    "CASE_GROUP_NOISE",
+    "CASE_GROUP_MARKET_DRIFT",
+    "CASE_GROUP_UNKNOWN_ANOMALY",
+    "CASE_GROUP_ATTACK_SUSPECT",
+    "CASE_GROUP_CONFIRMED_THREAT"
+  ],
+  "non_paranoia_locks": {
+    "DEFAULT_ASSUMPTION": "NOISE",
+    "NO_SINGLE_SIGNAL_MAY_DECLARE_ATTACK": true,
+    "CONFIDENCE_ALONE_CANNOT_DECLARE_ATTACK": true,
+    "ATTACK_SIMILARITY_ALONE_CANNOT_DECLARE_ATTACK": true,
+    "DECISION_IMPACT_REQUIRED_FOR_FAIL_CLOSED": true,
+    "CONFIRMED_THREAT_REQUIRES_EVIDENCE": true,
+    "FALSE_POSITIVE_OBESITY_GUARD_REQUIRED": true
+  },
+  "threshold_locks": {
+    "DYNAMIC_THRESHOLD_REQUIRED": true,
+    "SECURITY_FLOOR_IMMUTABLE": true,
+    "DYNAMIC_THRESHOLD_CANNOT_LOWER_SECURITY_FLOOR": true,
+    "THRESHOLD_EFFECTIVE": "max(dynamic_threshold,security_floor)"
+  },
+  "forbidden": {
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "API_RPC": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "GITHUB_PUSH": false
+  }
+}
