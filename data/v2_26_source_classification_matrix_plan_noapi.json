@@ -1,0 +1,43 @@
+{
+  "schema_name": "v2_26_source_classification_matrix_plan_noapi",
+  "version": "V2_26",
+  "mode": "PLAN_ONLY_NOAPI",
+  "evidence_levels": {
+    "L0": "name or rumor only",
+    "L1": "source page exists",
+    "L2": "timestamp exists",
+    "L3": "token or contract match exists",
+    "L4": "official or independent confirmation exists",
+    "L5": "market/onchain context matches",
+    "L6": "outcome verified after decision freeze"
+  },
+  "visibility_rule": {
+    "L0_to_L5": "can be visible before blind decision if timestamp permits",
+    "L6": "must remain hidden until after blind decision freeze"
+  },
+  "quality_dimensions": [
+    "timestamp_precision",
+    "source_independence",
+    "source_credibility",
+    "archive_completeness",
+    "contract_match_quality",
+    "manipulation_risk",
+    "echo_chamber_risk",
+    "terms_risk",
+    "cost_risk"
+  ],
+  "risk_classes": {
+    "HIGH_OUTCOME_LEAKAGE_RISK": [
+      "sources that show post-event performance on same page"
+    ],
+    "HIGH_ECHO_CHAMBER_RISK": [
+      "copied Telegram/X/Discord posts"
+    ],
+    "HIGH_MANIPULATION_RISK": [
+      "paid shill, influencer-only, unverifiable rumor"
+    ],
+    "HIGH_TERMS_RISK": [
+      "restricted scraping, paid archive without approval"
+    ]
+  }
+}

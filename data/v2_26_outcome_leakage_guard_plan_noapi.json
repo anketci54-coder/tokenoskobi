@@ -1,0 +1,37 @@
+{
+  "schema_name": "v2_26_outcome_leakage_guard_plan_noapi",
+  "version": "V2_26",
+  "mode": "PLAN_ONLY_NOAPI",
+  "outcome_leakage_forbidden": true,
+  "guards": {
+    "POST_EVENT_PRICE_NOT_VISIBLE_BEFORE_DECISION": true,
+    "POST_EVENT_VOLUME_NOT_VISIBLE_BEFORE_DECISION": true,
+    "POST_EVENT_LIQUIDITY_NOT_VISIBLE_BEFORE_DECISION": true,
+    "RUG_OUTCOME_NOT_VISIBLE_BEFORE_DECISION": true,
+    "PUMP_DUMP_OUTCOME_NOT_VISIBLE_BEFORE_DECISION": true,
+    "FUTURE_ONCHAIN_EVENTS_NOT_VISIBLE_BEFORE_DECISION": true,
+    "FUTURE_WHALE_FLOW_NOT_VISIBLE_BEFORE_DECISION": true,
+    "L6_OUTCOME_ONLY_AFTER_DECISION_FREEZE": true
+  },
+  "allowed_after_decision_freeze": [
+    "actual_price_return",
+    "actual_volume_delta",
+    "actual_liquidity_delta",
+    "actual_whale_flow",
+    "rug_result",
+    "pump_dump_result",
+    "sustained_move_result",
+    "reasoning_path_comparison"
+  ],
+  "forbidden_before_decision_freeze": [
+    "post_event_price",
+    "post_event_volume",
+    "post_event_liquidity",
+    "post_event_whale_flow",
+    "rug_result",
+    "pump_dump_result",
+    "future_social_confirmation",
+    "future_exchange_listing_result"
+  ],
+  "audit_requirement": "Every blind case must store what was hidden and why."
+}

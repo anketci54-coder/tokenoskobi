@@ -1,0 +1,39 @@
+{
+  "schema_name": "v2_26_historical_event_contract_plan_noapi",
+  "version": "V2_26",
+  "mode": "PLAN_ONLY_NOAPI",
+  "mandatory_event_fields": [
+    "historical_event_id",
+    "token_uid",
+    "chain",
+    "contract_address",
+    "event_type",
+    "event_time",
+    "source_time",
+    "discovered_time",
+    "source_class",
+    "source_id",
+    "raw_event_ref",
+    "visible_data_until",
+    "outcome_hidden_until",
+    "market_regime_ref",
+    "onchain_context_ref",
+    "liquidity_context_ref",
+    "whale_context_ref"
+  ],
+  "time_model": {
+    "event_time": "time when the event/news was actually published or occurred",
+    "source_time": "timestamp declared by the source",
+    "discovered_time": "time when Tokenoskobi could have seen the event",
+    "visible_data_until": "max timestamp visible to blind model",
+    "outcome_hidden_until": "post-decision outcome reveal boundary"
+  },
+  "critical_rule": "event_time and discovered_time must be separated.",
+  "blind_test_rule": "visible_data_until must be based on discovered_time, not later market outcome.",
+  "context_refs_required": [
+    "market_regime_ref",
+    "onchain_context_ref",
+    "liquidity_context_ref",
+    "whale_context_ref"
+  ]
+}

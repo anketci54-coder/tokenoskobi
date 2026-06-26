@@ -1,0 +1,100 @@
+{
+  "schema_name": "v2_26_historical_source_contract_plan_noapi",
+  "version": "V2_26",
+  "mode": "PLAN_ONLY_NOAPI",
+  "purpose": "Define historical correlation data source contract without fetching data.",
+  "source_classes": [
+    "NEWS_SOURCE",
+    "MARKET_SOURCE",
+    "EXCHANGE_ANNOUNCEMENT_SOURCE",
+    "DEX_SOURCE",
+    "ONCHAIN_SOURCE",
+    "SOCIAL_SOURCE",
+    "LAUNCH_SOURCE"
+  ],
+  "mandatory_source_fields": [
+    "source_id",
+    "source_class",
+    "source_name",
+    "source_url_or_identifier",
+    "access_method",
+    "api_required",
+    "archive_available",
+    "date_range_supported",
+    "timestamp_precision",
+    "rate_limit_risk",
+    "cost_risk",
+    "terms_risk",
+    "data_completeness",
+    "trust_level",
+    "manipulation_risk",
+    "echo_chamber_risk",
+    "outcome_leakage_risk",
+    "allowed_usage",
+    "forbidden_usage"
+  ],
+  "source_class_rules": {
+    "NEWS_SOURCE": [
+      "news article",
+      "rss archive",
+      "official blog",
+      "press release"
+    ],
+    "MARKET_SOURCE": [
+      "CoinGecko",
+      "CoinMarketCap",
+      "CEX market history"
+    ],
+    "EXCHANGE_ANNOUNCEMENT_SOURCE": [
+      "Binance",
+      "Coinbase",
+      "OKX",
+      "Bybit",
+      "KuCoin announcement archive"
+    ],
+    "DEX_SOURCE": [
+      "DexScreener",
+      "GeckoTerminal",
+      "pair creation",
+      "liquidity events"
+    ],
+    "ONCHAIN_SOURCE": [
+      "explorer",
+      "contract",
+      "holder",
+      "transfer",
+      "LP movement"
+    ],
+    "SOCIAL_SOURCE": [
+      "Telegram",
+      "Discord",
+      "X",
+      "influencer",
+      "community"
+    ],
+    "LAUNCH_SOURCE": [
+      "ICO",
+      "IDO",
+      "launchpad",
+      "airdrop",
+      "claim",
+      "vesting",
+      "unlock"
+    ]
+  },
+  "allowed_usage": [
+    "historical archive",
+    "blind training",
+    "correlation research",
+    "post-decision audit",
+    "source quality research"
+  ],
+  "forbidden_usage": [
+    "direct live decision injection",
+    "outcome leakage",
+    "auto-learning apply",
+    "unbounded API fetch",
+    "unapproved paid source use"
+  ],
+  "isolation_rule": "Historical data is archive/cold-path only and cannot directly mutate live decision state."
+}
