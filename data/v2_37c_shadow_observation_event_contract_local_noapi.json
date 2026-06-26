@@ -1,0 +1,60 @@
+{
+  "task": "V2_37C_SHADOW_OBSERVATION_EVENT_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-26T14:58:38Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_37C_SHADOW_OBSERVATION_EVENT_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_37C_LOCAL_SPEC_PASS_READY_FOR_NEXT_LOCAL_SUBTASK",
+  "next": "V2_37D_NOISE_ATTACK_DISCRIMINATION_LOCAL_REVIEW_NOAPI",
+  "github_push": false,
+  "push_policy": "GITHUB_PUSH_ONLY_AT_VXX_FINAL_CLOSE",
+  "head_now": "2440335e910b9d1a2592b7463f61fe0c96754985",
+  "remote_now": "2440335e910b9d1a2592b7463f61fe0c96754985",
+  "ahead_behind": "0	0",
+  "event_contract": {
+    "event_type": "shadow_observation",
+    "classification_values": ["NOISE", "MARKET_DRIFT", "UNKNOWN_ANOMALY", "ATTACK_SUSPECT", "CONFIRMED_THREAT"],
+    "required_fields": [
+      "token_uid",
+      "chain",
+      "token_address",
+      "observed_at_utc",
+      "event_type",
+      "classification",
+      "confidence_score",
+      "attack_similarity_score",
+      "decision_impact",
+      "source_count",
+      "source_reputation",
+      "persistence",
+      "correlation",
+      "volatility_regime",
+      "liquidity_regime",
+      "time_of_day_profile",
+      "action",
+      "reason_codes",
+      "evidence_refs"
+    ]
+  },
+  "non_paranoia_locks": {
+    "DEFAULT_ASSUMPTION": "NOISE",
+    "NO_SINGLE_SIGNAL_MAY_DECLARE_ATTACK": true,
+    "CONFIDENCE_ALONE_CANNOT_DECLARE_ATTACK": true,
+    "ATTACK_SIMILARITY_ALONE_CANNOT_DECLARE_ATTACK": true,
+    "DECISION_IMPACT_REQUIRED_FOR_FAIL_CLOSED": true,
+    "CONFIRMED_THREAT_REQUIRES_EVIDENCE": true,
+    "SHADOW_OBSERVATION_ONLY": true
+  },
+  "forbidden": {
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "API_RPC": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "GITHUB_PUSH": false
+  }
+}
