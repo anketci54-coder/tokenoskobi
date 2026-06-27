@@ -1,0 +1,352 @@
+{
+  "task": "V2_44_WHALE_WALLET_TRACKING_ARCHITECTURE_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T10:13:50Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_44_WHALE_WALLET_TRACKING_ARCHITECTURE_PLAN_NOAPI",
+  "decision": "V2_44_WHALE_ARCHITECTURE_PLAN_PASS_READY_FOR_SOURCE_TAXONOMY",
+  "next": "V2_44A_WHALE_SOURCE_TAXONOMY_AND_ENTITY_BOUNDARY_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "abb015f924fc219858492ce8626f81e7a2b8f4cc",
+  "remote_now": "abb015f924fc219858492ce8626f81e7a2b8f4cc",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_44_next_approved_phase_selection_noapi.json\n?? data/v2_44_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_44_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "whale_architecture": {
+    "mode": "ARCHITECTURE_PLAN_ONLY_NOAPI",
+    "real_wallet_tracking": false,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false,
+    "db_write_allowed": false,
+    "panel_write_allowed": false,
+    "runtime_apply_allowed": false,
+    "service_restart_allowed": false,
+    "timer_change_allowed": false,
+    "live_decision_allowed": false,
+    "live_trade_allowed": false,
+    "wallet_access_allowed": false,
+    "private_key_access_allowed": false,
+    "ai_tool_execution_allowed": false,
+    "outbound_packet_allowed": false,
+    "hub_and_spoke_required": true,
+    "single_source_alarm_forbidden": true,
+    "whale_signal_trade_authority": false
+  },
+  "data_contract": {
+    "contract_name": "whale_wallet_tracking_data_contract_v1",
+    "signal_nature": "evidence_and_classification_only",
+    "authority": "NO_TRADE_NO_RUNTIME_NO_WALLET_AUTHORITY",
+    "required_fields": [
+      "chain",
+      "entity_uid",
+      "wallet_or_cluster_ref",
+      "entity_class",
+      "source_class",
+      "direction",
+      "amount_band",
+      "confidence",
+      "evidence_level",
+      "cross_check_required",
+      "risk_interaction_hint",
+      "timestamp_hint"
+    ],
+    "forbidden_fields": [
+      "private_key",
+      "seed_phrase",
+      "wallet_signature",
+      "raw_secret",
+      "live_order_instruction",
+      "trade_authorization",
+      "runtime_command",
+      "api_endpoint_secret"
+    ],
+    "output_statuses": [
+      "OBSERVE",
+      "REVIEW_REQUIRED",
+      "FAKE_WHALE_SUSPECT",
+      "REAL_WHALE_CANDIDATE",
+      "FAIL_CLOSED"
+    ],
+    "cross_check_rule": "Whale signal cannot directly alert central core without at least one cross-check path from onchain, risk, technical, news, or evidence layer."
+  },
+  "whale_entity_classes": [
+    {
+      "id": "WC1",
+      "class": "CEX_OMNIBUS",
+      "meaning": "Exchange omnibus or custody wallet; not individual whale by default.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC2",
+      "class": "DEX_LP_PROVIDER",
+      "meaning": "Liquidity provider or pool-adjacent wallet.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC3",
+      "class": "DEPLOYER_OWNER",
+      "meaning": "Token deployer, owner, or privileged control wallet.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC4",
+      "class": "INSIDER_CLUSTER",
+      "meaning": "Coordinated insider-style wallet group.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC5",
+      "class": "SNIPER_BOT",
+      "meaning": "Early-entry or automated sniping wallet.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC6",
+      "class": "SMART_MONEY_CANDIDATE",
+      "meaning": "Candidate wallet with repeated profitable behavior, not proven authority.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC7",
+      "class": "WASH_SYBIL_CLUSTER",
+      "meaning": "Likely fake whale, wash cluster, sybil or liquidity mirage.",
+      "trade_impact_allowed": false
+    },
+    {
+      "id": "WC8",
+      "class": "UNKNOWN_LARGE_HOLDER",
+      "meaning": "Large holder with insufficient identity confidence.",
+      "trade_impact_allowed": false
+    }
+  ],
+  "source_taxonomy": [
+    {
+      "id": "WS1",
+      "source": "STATIC_FIXTURE",
+      "allowed_now": true,
+      "api_required": false
+    },
+    {
+      "id": "WS2",
+      "source": "LOCAL_DB_READONLY",
+      "allowed_now": true,
+      "api_required": false
+    },
+    {
+      "id": "WS3",
+      "source": "LOCAL_JSONL_READONLY",
+      "allowed_now": true,
+      "api_required": false
+    },
+    {
+      "id": "WS4",
+      "source": "FUTURE_INDEXED_ONCHAIN_READMODEL",
+      "allowed_now": false,
+      "api_required": false
+    },
+    {
+      "id": "WS5",
+      "source": "FUTURE_EXPLORER_API",
+      "allowed_now": false,
+      "api_required": true
+    },
+    {
+      "id": "WS6",
+      "source": "FUTURE_RPC_NODE",
+      "allowed_now": false,
+      "api_required": true
+    },
+    {
+      "id": "WS7",
+      "source": "FUTURE_THIRD_PARTY_LABEL_PROVIDER",
+      "allowed_now": false,
+      "api_required": true
+    },
+    {
+      "id": "WS8",
+      "source": "FUTURE_CEX_LABEL_MAP",
+      "allowed_now": false,
+      "api_required": false
+    }
+  ],
+  "behavior_signals": [
+    {
+      "id": "WB1",
+      "signal": "ACCUMULATION",
+      "meaning": "Repeated buys/inflows with non-trivial size band.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB2",
+      "signal": "DISTRIBUTION",
+      "meaning": "Repeated sells/outflows or staged exits.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB3",
+      "signal": "LIQUIDITY_MIRAGE",
+      "meaning": "Large wallet activity that simulates demand without durable liquidity.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB4",
+      "signal": "INSIDER_ROTATION",
+      "meaning": "Coordinated movement among privileged or early wallets.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB5",
+      "signal": "EXIT_PREPARATION",
+      "meaning": "Pattern suggests possible dump, LP withdrawal, or risk escalation.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB6",
+      "signal": "CEX_FLOW_HINT",
+      "meaning": "Inflow/outflow hint near CEX-related cluster; no direct conclusion.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB7",
+      "signal": "WASH_VOLUME_SUSPECT",
+      "meaning": "Self-referential or sybil-like circulation.",
+      "requires_cross_check": true
+    },
+    {
+      "id": "WB8",
+      "signal": "UNKNOWN_ANOMALY",
+      "meaning": "Whale behavior does not match normal class profile.",
+      "requires_cross_check": true
+    }
+  ],
+  "cross_check_paths": [
+    {
+      "id": "CC1",
+      "path": "WHALE_TO_ONCHAIN",
+      "required_for": "entity, holder, liquidity, deployer relation confirmation"
+    },
+    {
+      "id": "CC2",
+      "path": "WHALE_TO_RISK",
+      "required_for": "risk escalation, block, quarantine, fail-closed hint"
+    },
+    {
+      "id": "CC3",
+      "path": "WHALE_TO_TECHNICAL",
+      "required_for": "price/volume regime confirmation"
+    },
+    {
+      "id": "CC4",
+      "path": "WHALE_TO_NEWS",
+      "required_for": "narrative, announcement, exploit or event context"
+    },
+    {
+      "id": "CC5",
+      "path": "WHALE_TO_EVIDENCE",
+      "required_for": "prosecutor-grade trace and evidence level"
+    },
+    {
+      "id": "CC6",
+      "path": "WHALE_TO_UNKNOWN_ANOMALY",
+      "required_for": "unknown behavior profile escalation"
+    }
+  ],
+  "confidence_model": [
+    {
+      "level": "LOW",
+      "range": "0.00-0.39",
+      "meaning": "observe only; no escalation"
+    },
+    {
+      "level": "MEDIUM",
+      "range": "0.40-0.69",
+      "meaning": "review candidate; cross-check mandatory"
+    },
+    {
+      "level": "HIGH",
+      "range": "0.70-0.89",
+      "meaning": "risk/evidence review; still no trade authority"
+    },
+    {
+      "level": "CRITICAL",
+      "range": "0.90-1.00",
+      "meaning": "fail-closed or review escalation; still no trade authority"
+    }
+  ],
+  "hard_boundaries": [
+    "Whale engine cannot create a central alarm from a single source.",
+    "Whale engine cannot call API/RPC in V2_44.",
+    "Whale engine cannot track live wallets in V2_44.",
+    "Whale engine cannot write DB in V2_44.",
+    "Whale engine cannot bind runtime in V2_44.",
+    "Whale engine cannot authorize trade.",
+    "Whale engine cannot touch wallet/private-key material.",
+    "Whale engine cannot send outbound packet.",
+    "Whale signal must remain evidence/classification only.",
+    "Any whale signal requiring live data becomes STOP_NOAPI."
+  ],
+  "required_substeps": [
+    "V2_44A_WHALE_SOURCE_TAXONOMY_AND_ENTITY_BOUNDARY_LOCAL_NOAPI",
+    "V2_44B_FAKE_WHALE_REAL_WHALE_SEPARATION_CONTRACT_LOCAL_NOAPI",
+    "V2_44_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v44_selection_json_exists": true,
+    "v44_selection_doc_exists": true,
+    "v44_selection_pass": true,
+    "v44_selected_phase_match": true,
+    "v43_json_exists": true,
+    "v43_final_gate_pass": true,
+    "v43_next_v44": true,
+    "v42_json_exists": true,
+    "v42_hg_count_3": true,
+    "v42_phg_count_5": true,
+    "whale_arch_no_api": true,
+    "whale_arch_no_live_feed": true,
+    "whale_arch_no_db_write": true,
+    "whale_arch_no_runtime": true,
+    "whale_arch_no_trade": true,
+    "whale_arch_no_wallet": true,
+    "whale_arch_no_private_key": true,
+    "whale_arch_no_packet": true,
+    "hub_and_spoke_required": true,
+    "single_source_alarm_forbidden": true,
+    "entity_class_count_8": true,
+    "source_taxonomy_count_8": true,
+    "behavior_signal_count_8": true,
+    "cross_check_path_count_6": true,
+    "confidence_model_count_4": true,
+    "hard_boundary_count_10": true,
+    "required_substep_count_3": true,
+    "all_entity_no_trade": true,
+    "all_behavior_cross_check": true,
+    "forbidden_fields_no_secret": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

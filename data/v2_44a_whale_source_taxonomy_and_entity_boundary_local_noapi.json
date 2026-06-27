@@ -1,0 +1,286 @@
+{
+  "task": "V2_44A_WHALE_SOURCE_TAXONOMY_AND_ENTITY_BOUNDARY_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T10:22:49Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_44A_WHALE_SOURCE_TAXONOMY_AND_ENTITY_BOUNDARY_LOCAL_NOAPI",
+  "decision": "V2_44A_WHALE_SOURCE_ENTITY_ECONOMIC_BOUNDARY_PASS_READY_FOR_FAKE_REAL_SEPARATION",
+  "next": "V2_44B_FAKE_WHALE_REAL_WHALE_SEPARATION_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "abb015f924fc219858492ce8626f81e7a2b8f4cc",
+  "remote_now": "abb015f924fc219858492ce8626f81e7a2b8f4cc",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_44_next_approved_phase_selection_noapi.json\n?? data/v2_44_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_44_whale_wallet_tracking_architecture_plan_noapi.json\n?? data/v2_44_whale_wallet_tracking_architecture_plan_noapi_rows.jsonl\n?? docs/v2/V2_44_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_44_WHALE_WALLET_TRACKING_ARCHITECTURE_PLAN_NOAPI.md",
+  "source_taxonomy": [
+    {
+      "id": "WS1",
+      "source": "STATIC_FIXTURE",
+      "allowed_now": true,
+      "api_required": false,
+      "trust": "TEST_ONLY",
+      "entity_risk": "LOW"
+    },
+    {
+      "id": "WS2",
+      "source": "LOCAL_DB_READONLY",
+      "allowed_now": true,
+      "api_required": false,
+      "trust": "LOCAL_READONLY",
+      "entity_risk": "MEDIUM"
+    },
+    {
+      "id": "WS3",
+      "source": "LOCAL_JSONL_READONLY",
+      "allowed_now": true,
+      "api_required": false,
+      "trust": "LOCAL_READONLY",
+      "entity_risk": "MEDIUM"
+    },
+    {
+      "id": "WS4",
+      "source": "FUTURE_INDEXED_ONCHAIN_READMODEL",
+      "allowed_now": false,
+      "api_required": false,
+      "trust": "FUTURE_READMODEL",
+      "entity_risk": "MEDIUM"
+    },
+    {
+      "id": "WS5",
+      "source": "FUTURE_EXPLORER_API",
+      "allowed_now": false,
+      "api_required": true,
+      "trust": "FUTURE_EXTERNAL",
+      "entity_risk": "HIGH"
+    },
+    {
+      "id": "WS6",
+      "source": "FUTURE_RPC_NODE",
+      "allowed_now": false,
+      "api_required": true,
+      "trust": "FUTURE_EXTERNAL",
+      "entity_risk": "HIGH"
+    },
+    {
+      "id": "WS7",
+      "source": "FUTURE_THIRD_PARTY_LABEL_PROVIDER",
+      "allowed_now": false,
+      "api_required": true,
+      "trust": "FUTURE_EXTERNAL_LABEL",
+      "entity_risk": "HIGH"
+    },
+    {
+      "id": "WS8",
+      "source": "FUTURE_CEX_LABEL_MAP",
+      "allowed_now": false,
+      "api_required": false,
+      "trust": "FUTURE_LABEL_MAP",
+      "entity_risk": "MEDIUM"
+    }
+  ],
+  "entity_boundaries": [
+    {
+      "id": "EB1",
+      "class": "CEX_OMNIBUS",
+      "boundary": "Never treat exchange omnibus as individual whale without cluster split evidence.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB2",
+      "class": "DEX_LP_PROVIDER",
+      "boundary": "Liquidity provider movement is pool context, not standalone whale conviction.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB3",
+      "class": "DEPLOYER_OWNER",
+      "boundary": "Privileged control wallet is risk evidence, not positive whale signal.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB4",
+      "class": "INSIDER_CLUSTER",
+      "boundary": "Cluster behavior requires evidence chain and cannot be single-wallet inference.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB5",
+      "class": "SNIPER_BOT",
+      "boundary": "Sniper activity is adversarial behavior class, not smart-money proof.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB6",
+      "class": "SMART_MONEY_CANDIDATE",
+      "boundary": "Requires outcome memory and repeated behavior; candidate only.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB7",
+      "class": "WASH_SYBIL_CLUSTER",
+      "boundary": "Likely fake whale, wash routing, sybil fan-out, or liquidity mirage.",
+      "trade_authority": false
+    },
+    {
+      "id": "EB8",
+      "class": "UNKNOWN_LARGE_HOLDER",
+      "boundary": "Unknown remains unknown until evidence level improves.",
+      "trade_authority": false
+    }
+  ],
+  "economic_impact_boundary": {
+    "WHALE_ECONOMIC_IMPACT_REQUIRED": true,
+    "ratio": "V_t / L_d",
+    "V_t": "whale_transfer_value",
+    "L_d": "liquidity_pool_or_route_depth",
+    "LOW_LIQUIDITY_GHOST_MOVE": true,
+    "rule": "A whale transfer cannot become REAL_WHALE_CANDIDATE unless transfer value is evaluated against liquidity depth or route depth.",
+    "fail_closed_rule": "If liquidity depth is unknown, shallow, stale, or unavailable, classify as REVIEW_REQUIRED or LOW_LIQUIDITY_GHOST_MOVE; never escalate to trade authority.",
+    "trade_authority": false,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false
+  },
+  "economic_impact_classes": [
+    {
+      "id": "EI1",
+      "class": "NO_LIQUIDITY_CONTEXT",
+      "condition": "L_d missing or unknown",
+      "status": "REVIEW_REQUIRED",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "EI2",
+      "class": "LOW_LIQUIDITY_GHOST_MOVE",
+      "condition": "large V_t with shallow L_d",
+      "status": "FAKE_WHALE_SUSPECT",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "EI3",
+      "class": "ROUTE_DEPTH_MISMATCH",
+      "condition": "transfer size exceeds realistic route depth",
+      "status": "REVIEW_REQUIRED",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "EI4",
+      "class": "ECONOMIC_IMPACT_CANDIDATE",
+      "condition": "V_t and L_d both plausible after cross-check",
+      "status": "REVIEW_REQUIRED",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "EI5",
+      "class": "CROSS_CHECKED_ECONOMIC_WHALE",
+      "condition": "economic impact supported by liquidity and external evidence path",
+      "status": "REAL_WHALE_CANDIDATE",
+      "real_whale_candidate_allowed": true
+    }
+  ],
+  "future_grey_zone_registry": [
+    {
+      "id": "GZ1",
+      "name": "Time-Drift & Sliding Window / TTL",
+      "active_now": false,
+      "target_phase": "FUTURE_V2_45_TO_V2_48",
+      "risk": "cross-check race condition, buffer bloat, TTL mismatch"
+    },
+    {
+      "id": "GZ2",
+      "name": "Liquidity Depth / Economic Impact Ratio",
+      "active_now": true,
+      "target_phase": "V2_44A",
+      "risk": "ghost whale, low-liquidity mirage, wash masking"
+    },
+    {
+      "id": "GZ3",
+      "name": "AI Output Panic / Social Engineering Guardrail",
+      "active_now": false,
+      "target_phase": "V2_52_TO_V2_55",
+      "risk": "chatbot panic report, operator manipulation, self-DoS"
+    },
+    {
+      "id": "GZ4",
+      "name": "Pattern Spoofing / Order Cancellation + Volume Divergence",
+      "active_now": false,
+      "target_phase": "V2_46_TO_V2_48",
+      "risk": "fakeout, orderbook spoofing, technical-pattern trap"
+    }
+  ],
+  "source_admission_rules": [
+    "Only STATIC_FIXTURE, LOCAL_DB_READONLY, and LOCAL_JSONL_READONLY are allowed in V2_44A.",
+    "Any future API/RPC source remains forbidden until explicit later approval.",
+    "External labels cannot create whale truth without evidence level and cross-check.",
+    "CEX omnibus labels must default to non-individual whale.",
+    "Unknown wallet stays UNKNOWN_LARGE_HOLDER until evidence improves.",
+    "Every whale assertion must carry source_class, entity_class, confidence, evidence_level, and economic_impact_class."
+  ],
+  "hard_boundaries": [
+    "REAL_WALLET_TRACKING=false",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "SINGLE_SOURCE_ALARM_FORBIDDEN=true",
+    "WHALE_ECONOMIC_IMPACT_REQUIRED=true",
+    "LOW_LIQUIDITY_GHOST_MOVE_BLOCKS_REAL_WHALE_CANDIDATE=true"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v44_selection_json_exists": true,
+    "v44_plan_json_exists": true,
+    "v44_selection_doc_exists": true,
+    "v44_plan_doc_exists": true,
+    "v44_selection_pass": true,
+    "v44_plan_pass": true,
+    "v44_plan_next_match": true,
+    "v43_json_exists": true,
+    "v43_final_pass": true,
+    "source_taxonomy_count_8": true,
+    "entity_boundary_count_8": true,
+    "economic_impact_class_count_5": true,
+    "future_grey_zone_count_4": true,
+    "gz2_active_now": true,
+    "gz1_gz3_gz4_future": true,
+    "whale_economic_impact_required": true,
+    "low_liquidity_ghost_move_true": true,
+    "economic_trade_authority_false": true,
+    "economic_api_rpc_false": true,
+    "economic_live_feed_false": true,
+    "all_entity_no_trade": true,
+    "source_allowed_now_only_local": true,
+    "future_api_sources_blocked": true,
+    "hard_boundary_count_12": true,
+    "single_source_alarm_forbidden": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

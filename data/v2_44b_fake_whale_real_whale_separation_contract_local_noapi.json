@@ -1,0 +1,347 @@
+{
+  "task": "V2_44B_FAKE_WHALE_REAL_WHALE_SEPARATION_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T10:30:00Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_44B_FAKE_WHALE_REAL_WHALE_SEPARATION_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_44B_FAKE_REAL_WHALE_SEPARATION_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_44_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "abb015f924fc219858492ce8626f81e7a2b8f4cc",
+  "remote_now": "abb015f924fc219858492ce8626f81e7a2b8f4cc",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_44_next_approved_phase_selection_noapi.json\n?? data/v2_44_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_44_whale_wallet_tracking_architecture_plan_noapi.json\n?? data/v2_44_whale_wallet_tracking_architecture_plan_noapi_rows.jsonl\n?? data/v2_44a_whale_source_taxonomy_and_entity_boundary_local_noapi.json\n?? data/v2_44a_whale_source_taxonomy_and_entity_boundary_local_noapi_rows.jsonl\n?? docs/v2/V2_44A_WHALE_SOURCE_TAXONOMY_AND_ENTITY_BOUNDARY_LOCAL_NOAPI.md\n?? docs/v2/V2_44_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_44_WHALE_WALLET_TRACKING_ARCHITECTURE_PLAN_NOAPI.md",
+  "separation_contract": {
+    "contract_name": "fake_whale_real_whale_separation_contract_v1",
+    "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+    "fake_whale_default": true,
+    "real_whale_requires_positive_evidence": true,
+    "cex_omnibus_default_not_real_whale": true,
+    "market_maker_wallet_default_not_real_whale": true,
+    "hot_cold_wallet_default_not_real_whale": true,
+    "economic_impact_required": true,
+    "single_source_alarm_forbidden": true,
+    "cross_check_required": true,
+    "trade_authority": false,
+    "runtime_authority": false,
+    "wallet_authority": false,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false,
+    "outbound_packet_allowed": false
+  },
+  "fake_whale_classes": [
+    {
+      "id": "FW1",
+      "class": "CEX_OMNIBUS_FALSE_WHALE",
+      "description": "Exchange omnibus/custody wallet misread as individual whale.",
+      "status": "NOT_REAL_WHALE"
+    },
+    {
+      "id": "FW2",
+      "class": "MM_OPERATIONAL_WALLET",
+      "description": "Market maker operational wallet or inventory rotation.",
+      "status": "NOT_REAL_WHALE"
+    },
+    {
+      "id": "FW3",
+      "class": "HOT_COLD_INTERNAL_TRANSFER",
+      "description": "Internal hot/cold custody movement with no market intent proof.",
+      "status": "NOT_REAL_WHALE"
+    },
+    {
+      "id": "FW4",
+      "class": "WASH_SYBIL_CLUSTER",
+      "description": "Sybil/wash loop designed to fake size or activity.",
+      "status": "FAKE_WHALE_SUSPECT"
+    },
+    {
+      "id": "FW5",
+      "class": "LOW_LIQUIDITY_GHOST_MOVE",
+      "description": "Large nominal transfer without meaningful liquidity depth.",
+      "status": "FAKE_WHALE_SUSPECT"
+    },
+    {
+      "id": "FW6",
+      "class": "FLASH_LOAN_MASKED_WHALE",
+      "description": "Temporary liquidity or flash-loan style balance inflation.",
+      "status": "FAKE_WHALE_SUSPECT"
+    },
+    {
+      "id": "FW7",
+      "class": "BRIDGE_OR_ROUTER_PASS_THROUGH",
+      "description": "Router, bridge, relayer, aggregator or pass-through address.",
+      "status": "NOT_REAL_WHALE"
+    },
+    {
+      "id": "FW8",
+      "class": "AIRDROP_FARM_OR_DUST_CLUSTER",
+      "description": "Farmed, dusted, or split accounts designed to pollute holder reading.",
+      "status": "FAKE_WHALE_SUSPECT"
+    }
+  ],
+  "real_whale_candidate_requirements": [
+    {
+      "id": "RW1",
+      "requirement": "non_cex_non_router_identity_or_cluster_context",
+      "mandatory": true
+    },
+    {
+      "id": "RW2",
+      "requirement": "economic_impact_context_available_Vt_over_Ld",
+      "mandatory": true
+    },
+    {
+      "id": "RW3",
+      "requirement": "low_liquidity_ghost_move_false",
+      "mandatory": true
+    },
+    {
+      "id": "RW4",
+      "requirement": "wash_sybil_score_below_block_threshold",
+      "mandatory": true
+    },
+    {
+      "id": "RW5",
+      "requirement": "cross_check_path_at_least_one_confirmed",
+      "mandatory": true
+    },
+    {
+      "id": "RW6",
+      "requirement": "evidence_level_at_least_L3_readable_state",
+      "mandatory": true
+    },
+    {
+      "id": "RW7",
+      "requirement": "confidence_level_medium_or_above_but_no_trade_authority",
+      "mandatory": true
+    },
+    {
+      "id": "RW8",
+      "requirement": "no_private_key_wallet_or_signature_data_required",
+      "mandatory": true
+    }
+  ],
+  "separation_decision_matrix": [
+    {
+      "id": "DM1",
+      "input": "cex_omnibus_or_custody_match",
+      "decision": "NOT_REAL_WHALE",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM2",
+      "input": "market_maker_or_operational_wallet_match",
+      "decision": "NOT_REAL_WHALE",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM3",
+      "input": "hot_cold_internal_transfer_match",
+      "decision": "NOT_REAL_WHALE",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM4",
+      "input": "wash_sybil_or_loop_pattern",
+      "decision": "FAKE_WHALE_SUSPECT",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM5",
+      "input": "low_liquidity_ghost_move",
+      "decision": "FAKE_WHALE_SUSPECT",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM6",
+      "input": "flash_loan_masking_or_temporary_balance",
+      "decision": "FAKE_WHALE_SUSPECT",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM7",
+      "input": "unknown_large_holder_without_economic_context",
+      "decision": "REVIEW_REQUIRED",
+      "real_whale_candidate_allowed": false
+    },
+    {
+      "id": "DM8",
+      "input": "economic_context_plus_cross_check_plus_identity_context",
+      "decision": "REAL_WHALE_CANDIDATE",
+      "real_whale_candidate_allowed": true
+    }
+  ],
+  "scoring_contract": {
+    "score_range": "0-100",
+    "fake_whale_score_blocks_at_or_above": 60,
+    "real_whale_candidate_min_score": 70,
+    "economic_impact_required": true,
+    "score_components": [
+      {
+        "id": "SC1",
+        "component": "entity_identity_context",
+        "max_points": 15
+      },
+      {
+        "id": "SC2",
+        "component": "economic_impact_context_Vt_over_Ld",
+        "max_points": 20
+      },
+      {
+        "id": "SC3",
+        "component": "cross_check_confirmation",
+        "max_points": 20
+      },
+      {
+        "id": "SC4",
+        "component": "behavior_consistency",
+        "max_points": 15
+      },
+      {
+        "id": "SC5",
+        "component": "evidence_level",
+        "max_points": 15
+      },
+      {
+        "id": "SC6",
+        "component": "anti_sybil_cleanliness",
+        "max_points": 15
+      }
+    ],
+    "negative_overrides": [
+      "cex_omnibus_match",
+      "router_bridge_pass_through",
+      "low_liquidity_ghost_move",
+      "flash_loan_masking",
+      "wash_sybil_cluster",
+      "private_key_or_wallet_secret_required",
+      "single_source_only"
+    ]
+  },
+  "cross_check_enforcement": [
+    {
+      "id": "X1",
+      "path": "WHALE_TO_ONCHAIN",
+      "purpose": "entity, holder, liquidity, deployer relation confirmation",
+      "required": true
+    },
+    {
+      "id": "X2",
+      "path": "WHALE_TO_RISK",
+      "purpose": "risk escalation, block, quarantine or fail-closed hint",
+      "required": false
+    },
+    {
+      "id": "X3",
+      "path": "WHALE_TO_EVIDENCE",
+      "purpose": "prosecutor-grade trace and evidence level",
+      "required": true
+    },
+    {
+      "id": "X4",
+      "path": "WHALE_TO_TECHNICAL",
+      "purpose": "price/volume context; no standalone confirmation",
+      "required": false
+    },
+    {
+      "id": "X5",
+      "path": "WHALE_TO_NEWS",
+      "purpose": "event/narrative context; no standalone confirmation",
+      "required": false
+    },
+    {
+      "id": "X6",
+      "path": "WHALE_TO_UNKNOWN_ANOMALY",
+      "purpose": "unknown behavior profile escalation",
+      "required": false
+    }
+  ],
+  "fail_closed_rules": [
+    "Single-source whale claim cannot become central alert.",
+    "CEX, router, bridge, relayer, hot/cold internal transfer, or MM operational wallet defaults to NOT_REAL_WHALE until disproven.",
+    "LOW_LIQUIDITY_GHOST_MOVE blocks REAL_WHALE_CANDIDATE.",
+    "Unknown liquidity depth blocks REAL_WHALE_CANDIDATE.",
+    "Flash-loan or temporary balance masking becomes FAKE_WHALE_SUSPECT.",
+    "Any wallet/private-key/signature requirement becomes FAIL_CLOSED.",
+    "Any API/RPC requirement becomes STOP_NOAPI.",
+    "Any trade or runtime pressure becomes FAIL_CLOSED."
+  ],
+  "hard_boundaries": [
+    "FAKE_WHALE_DEFAULT=true",
+    "REAL_WHALE_REQUIRES_POSITIVE_EVIDENCE=true",
+    "CEX_OMNIBUS_DEFAULT_NOT_REAL_WHALE=true",
+    "MM_OPERATIONAL_WALLET_DEFAULT_NOT_REAL_WHALE=true",
+    "HOT_COLD_WALLET_DEFAULT_NOT_REAL_WHALE=true",
+    "WHALE_ECONOMIC_IMPACT_REQUIRED=true",
+    "LOW_LIQUIDITY_GHOST_MOVE_BLOCKS_REAL_WHALE_CANDIDATE=true",
+    "SINGLE_SOURCE_ALARM_FORBIDDEN=true",
+    "CROSS_CHECK_REQUIRED=true",
+    "TRADE_AUTHORITY=false",
+    "RUNTIME_AUTHORITY=false",
+    "WALLET_AUTHORITY=false",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v44_selection_json_exists": true,
+    "v44_plan_json_exists": true,
+    "v44a_json_exists": true,
+    "v44_selection_pass": true,
+    "v44_plan_pass": true,
+    "v44a_pass": true,
+    "v44a_next_match": true,
+    "v43_final_pass": true,
+    "economic_impact_required_from_v44a": true,
+    "low_liquidity_ghost_move_from_v44a": true,
+    "gz2_active_from_v44a": true,
+    "separation_contract_fake_default": true,
+    "separation_contract_real_positive_evidence": true,
+    "separation_contract_no_trade": true,
+    "separation_contract_no_runtime": true,
+    "separation_contract_no_wallet": true,
+    "separation_contract_no_api": true,
+    "separation_contract_no_packet": true,
+    "fake_whale_class_count_8": true,
+    "real_requirement_count_8": true,
+    "decision_matrix_count_8": true,
+    "score_component_count_6": true,
+    "negative_override_count_7": true,
+    "cross_check_enforcement_count_6": true,
+    "fail_closed_rule_count_8": true,
+    "hard_boundary_count_15": true,
+    "all_fake_classes_not_real": true,
+    "all_real_requirements_mandatory": true,
+    "only_dm8_allows_real_candidate": true,
+    "single_source_forbidden": true,
+    "economic_boundary_present": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

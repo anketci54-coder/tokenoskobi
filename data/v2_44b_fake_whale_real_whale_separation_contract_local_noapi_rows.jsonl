@@ -1,0 +1,29 @@
+{"type": "FAKE_WHALE_CLASS", "id": "FW1", "class": "CEX_OMNIBUS_FALSE_WHALE", "status": "NOT_REAL_WHALE"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW2", "class": "MM_OPERATIONAL_WALLET", "status": "NOT_REAL_WHALE"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW3", "class": "HOT_COLD_INTERNAL_TRANSFER", "status": "NOT_REAL_WHALE"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW4", "class": "WASH_SYBIL_CLUSTER", "status": "FAKE_WHALE_SUSPECT"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW5", "class": "LOW_LIQUIDITY_GHOST_MOVE", "status": "FAKE_WHALE_SUSPECT"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW6", "class": "FLASH_LOAN_MASKED_WHALE", "status": "FAKE_WHALE_SUSPECT"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW7", "class": "BRIDGE_OR_ROUTER_PASS_THROUGH", "status": "NOT_REAL_WHALE"}
+{"type": "FAKE_WHALE_CLASS", "id": "FW8", "class": "AIRDROP_FARM_OR_DUST_CLUSTER", "status": "FAKE_WHALE_SUSPECT"}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW1", "requirement": "non_cex_non_router_identity_or_cluster_context", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW2", "requirement": "economic_impact_context_available_Vt_over_Ld", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW3", "requirement": "low_liquidity_ghost_move_false", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW4", "requirement": "wash_sybil_score_below_block_threshold", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW5", "requirement": "cross_check_path_at_least_one_confirmed", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW6", "requirement": "evidence_level_at_least_L3_readable_state", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW7", "requirement": "confidence_level_medium_or_above_but_no_trade_authority", "mandatory": true}
+{"type": "REAL_WHALE_REQUIREMENT", "id": "RW8", "requirement": "no_private_key_wallet_or_signature_data_required", "mandatory": true}
+{"type": "DECISION_MATRIX", "id": "DM1", "input": "cex_omnibus_or_custody_match", "decision": "NOT_REAL_WHALE", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM2", "input": "market_maker_or_operational_wallet_match", "decision": "NOT_REAL_WHALE", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM3", "input": "hot_cold_internal_transfer_match", "decision": "NOT_REAL_WHALE", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM4", "input": "wash_sybil_or_loop_pattern", "decision": "FAKE_WHALE_SUSPECT", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM5", "input": "low_liquidity_ghost_move", "decision": "FAKE_WHALE_SUSPECT", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM6", "input": "flash_loan_masking_or_temporary_balance", "decision": "FAKE_WHALE_SUSPECT", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM7", "input": "unknown_large_holder_without_economic_context", "decision": "REVIEW_REQUIRED", "real_whale_candidate_allowed": false}
+{"type": "DECISION_MATRIX", "id": "DM8", "input": "economic_context_plus_cross_check_plus_identity_context", "decision": "REAL_WHALE_CANDIDATE", "real_whale_candidate_allowed": true}
+{"type": "FINAL_COUNT", "item": "FAKE_WHALE_CLASS_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "REAL_REQUIREMENT_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "DECISION_MATRIX_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 15}
+{"type": "NEXT", "value": "V2_44_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"}
