@@ -1,0 +1,177 @@
+{
+  "task": "V2_48_NEXT_APPROVED_PHASE_SELECTION_NOAPI",
+  "stamp_utc": "2026-06-27T15:57:34Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_SELECTION",
+  "final_gate": "PASS_V2_48_NEXT_APPROVED_PHASE_SELECTION_NOAPI",
+  "decision": "V2_48_SELECTION_PASS_READY_FOR_ALPHA_REPLAY_MEMORY_PLAN",
+  "selected_phase": "V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI",
+  "next": "V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI",
+  "github_push": false,
+  "head_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "remote_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "ahead_behind": "0 0",
+  "status_before": "CLEAN",
+  "candidate_phases": [
+    {
+      "name": "V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI",
+      "priority": 1,
+      "reason": "V2_47 introduced P5 replay memory and dynamic quarantine; next phase must prevent missed real alpha from being forgotten.",
+      "selected": true
+    },
+    {
+      "name": "V2_48_LIQUIDITY_EXIT_FEASIBILITY_AND_ROUTE_STRESS_ENGINE_PLAN_NOAPI",
+      "priority": 2,
+      "reason": "Strong future need, but exit feasibility should come after missed-alpha replay memory contract.",
+      "selected": false
+    },
+    {
+      "name": "V2_48_SOURCE_TRUST_DECAY_AND_POISONED_SOURCE_SCORE_ENGINE_PLAN_NOAPI",
+      "priority": 3,
+      "reason": "Useful, but source decay depends on replay/outcome memory traces.",
+      "selected": false
+    },
+    {
+      "name": "V2_48_MARKET_REGIME_SHIFT_AND_FALSE_NEGATIVE_GUARD_ENGINE_PLAN_NOAPI",
+      "priority": 4,
+      "reason": "Important, but broader than current V2_47 closure context.",
+      "selected": false
+    }
+  ],
+  "selection_locks": [
+    "V2_48_SELECTION_REQUIRED=true",
+    "SELECTED_PHASE=V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI",
+    "V2_47_SEALED_PARENT_REQUIRED=true",
+    "REMOTE_SYNC_REQUIRED=true",
+    "REPO_CLEAN_REQUIRED=true",
+    "NO_SUBTASK_PUSH=true",
+    "FINAL_CLOSE_PUSH_ONLY=true",
+    "ALPHA_REPLAY_MEMORY_REQUIRED=true",
+    "MISSED_OPPORTUNITY_FEEDBACK_REQUIRED=true",
+    "P5_EXPIRE_NO_ACTION_REPLAY_REQUIRED=true",
+    "FALSE_NEGATIVE_GUARD_REQUIRED=true",
+    "REAL_ALPHA_NOT_FORGOTTEN_REQUIRED=true",
+    "EXPIRED_LOW_VALUE_CAN_REENTER_IF_SIGNAL_STRENGTHENS=true",
+    "REPLAY_DOES_NOT_BLOCK_FAST_PATH=true",
+    "REPLAY_MEMORY_BOUNDED_REQUIRED=true",
+    "REPLAY_MEMORY_TTL_REQUIRED=true",
+    "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED=true",
+    "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED=true",
+    "QUARANTINE_RECHECK_REQUIRED=true",
+    "FALSE_BLACKLIST_REVERSAL_REQUIRED=true",
+    "HEAVY_PATH_REENTRY_BUDGET_REQUIRED=true",
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "red_team_items": [
+    {
+      "id": "RT1",
+      "risk": "P5_EXPIRE_NO_ACTION may erase a real opportunity during heavy-path pressure.",
+      "required_guard": "P5_REPLAY_MEMORY_REQUIRED"
+    },
+    {
+      "id": "RT2",
+      "risk": "Quarantine may hide a legitimate token after spoofed repeated attacks.",
+      "required_guard": "FALSE_BLACKLIST_REVERSAL_REQUIRED"
+    },
+    {
+      "id": "RT3",
+      "risk": "Replay memory can become obese and slow the fast path.",
+      "required_guard": "BOUNDED_TTL_AND_CAP_REQUIRED"
+    },
+    {
+      "id": "RT4",
+      "risk": "Attacker can repeatedly strengthen fake weak signals to force reentry.",
+      "required_guard": "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED"
+    },
+    {
+      "id": "RT5",
+      "risk": "Heavy path reentry can starve new real alpha.",
+      "required_guard": "HEAVY_PATH_REENTRY_BUDGET_REQUIRED"
+    },
+    {
+      "id": "RT6",
+      "risk": "Replay memory without outcome tagging cannot learn false negatives.",
+      "required_guard": "MISSED_OPPORTUNITY_FEEDBACK_REQUIRED"
+    }
+  ],
+  "core_requirements": [
+    "alpha_replay_memory",
+    "missed_opportunity_feedback",
+    "p5_replay_reentry",
+    "false_negative_guard",
+    "bounded_replay_ttl",
+    "per_token_replay_cap",
+    "per_route_replay_cap",
+    "heavy_path_reentry_budget",
+    "quarantine_recheck",
+    "false_blacklist_reversal",
+    "fast_path_non_blocking",
+    "no_trade_authority"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "head_is_v47_sealed": true,
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "status_clean": true,
+    "v47_final_pass": true,
+    "v47b_fix_pass": true,
+    "v47b_fix_next_final": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "selected_count_one": true,
+    "selected_phase_match": true,
+    "candidate_phase_count_4": true,
+    "selection_lock_count_36": true,
+    "red_team_item_count_6": true,
+    "core_requirement_count_12": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

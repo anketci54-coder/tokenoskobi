@@ -1,0 +1,83 @@
+{"type": "UPPER_DOCTRINE", "item": "REPLAY_MEMORY_MUST_IMPROVE_SPEED_SECURITY_POWER_AND_ECONOMY", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "REPLAY_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "HEAVY_REENTRY_BUDGETED_AND_RARE", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "SPEED_NEVER_DOWN", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "SECURITY_NEVER_DOWN", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "POWER_NEVER_DOWN", "value": true}
+{"type": "UPPER_DOCTRINE", "item": "ECONOMY_NEVER_DOWN", "value": true}
+{"type": "CONTRACT_LOCK", "item": "GRAY_AREA_CAN_CREATE_BLIND_SPOT", "value": true}
+{"type": "CONTRACT_LOCK", "item": "UNCERTAIN_SIGNAL_IS_NOT_ZERO_SIGNAL", "value": true}
+{"type": "CONTRACT_LOCK", "item": "P5_EXPIRE_NO_ACTION_NOT_FINAL_DELETE", "value": true}
+{"type": "CONTRACT_LOCK", "item": "FALSE_NEGATIVE_IS_A_FIRST_CLASS_RISK", "value": true}
+{"type": "CONTRACT_LOCK", "item": "MISSED_OPPORTUNITY_IS_OPPORTUNITY_DAMAGE", "value": true}
+{"type": "CONTRACT_LOCK", "item": "GRAY_ZONE_TO_BLIND_SPOT_GUARD_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "UNCERTAIN_SIGNAL_LIGHT_MEMORY_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "FALSE_NEGATIVE_FEEDBACK_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "MISSED_ALPHA_SHADOW_LABEL_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_POISONING_GUARD_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT", "value": true}
+{"type": "CONTRACT_LOCK", "item": "FRESH_RISK_OVERRIDES_REPLAY", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_MAX_ITEMS_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_TTL_REQUIRED", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_REENTRY_SINGLE_ESCALATION_LIMIT", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN", "value": true}
+{"type": "CONTRACT_LOCK", "item": "REPLAY_CONTEXT_ONLY_NOT_AUTHORITY", "value": true}
+{"type": "CONTRACT_LOCK", "item": "NO_TRADE_AUTHORITY", "value": true}
+{"type": "LIMIT", "item": "REPLAY_MEMORY_MAX_ITEMS", "value": 1000}
+{"type": "LIMIT", "item": "REPLAY_TTL_WINDOWS", "value": 6}
+{"type": "LIMIT", "item": "PER_TOKEN_REPLAY_CAP", "value": 20}
+{"type": "LIMIT", "item": "PER_ROUTE_REPLAY_CAP", "value": 30}
+{"type": "LIMIT", "item": "HEAVY_PATH_REENTRY_MAX_QUEUE", "value": 50}
+{"type": "LIMIT", "item": "REENTRY_SINGLE_ESCALATION_LIMIT", "value": 1}
+{"type": "LIMIT", "item": "HOT_PATH_REPLAY_CONTEXT_LOOKUP_ONLY", "value": true}
+{"type": "LIMIT", "item": "FULL_HISTORY_SCAN_ON_HOT_PATH", "value": false}
+{"type": "LIMIT", "item": "ML_SIMILARITY_ON_HOT_PATH", "value": false}
+{"type": "V48A_TEST", "id": "A1", "case": "weak_signal_p5_no_strengthening", "result": "EXPIRE_SAFELY", "expected": "EXPIRE_SAFELY", "match": true}
+{"type": "V48A_TEST", "id": "A2", "case": "weak_signal_p5_measurable_strengthening", "result": "ESCALATE_ONCE", "expected": "ESCALATE_ONCE", "match": true}
+{"type": "V48A_TEST", "id": "A3", "case": "weak_signal_p5_fake_strengthening", "result": "EXPIRE_SAFELY", "expected": "REJECT_REPLAY", "match": false}
+{"type": "V48A_TEST", "id": "A4", "case": "reentry_count_limit_reached", "result": "REJECT_SECOND_ESCALATION", "expected": "REJECT_SECOND_ESCALATION", "match": true}
+{"type": "V48A_TEST", "id": "A5", "case": "poisoned_signal_no_memory", "result": "NO_REPLAY_MEMORY", "expected": "NO_REPLAY_MEMORY", "match": true}
+{"type": "V48A_TEST", "id": "A6", "case": "malformed_signal_no_memory", "result": "NO_REPLAY_MEMORY", "expected": "NO_REPLAY_MEMORY", "match": true}
+{"type": "V48A_TEST", "id": "A7", "case": "quarantine_ttl_clean_context", "result": "RECHECK", "expected": "RECHECK", "match": true}
+{"type": "V48A_TEST", "id": "A8", "case": "false_blacklist_suspected", "result": "REVERSAL_CANDIDATE", "expected": "REVERSAL_CANDIDATE", "match": true}
+{"type": "V48A_TEST", "id": "A9", "case": "fresh_risk_during_replay", "result": "REPLAY_SUPPRESSED", "expected": "REPLAY_SUPPRESSED", "match": true}
+{"type": "V48A_TEST", "id": "A10", "case": "memory_cap_exceeded", "result": "EVICT_OLDEST_LOWEST", "expected": "EVICT_OLDEST_LOWEST", "match": true}
+{"type": "V48A_TEST", "id": "A11", "case": "single_token_dominates_memory", "result": "PER_TOKEN_CAP_BLOCKS", "expected": "PER_TOKEN_CAP_BLOCKS", "match": true}
+{"type": "V48A_TEST", "id": "A12", "case": "single_route_dominates_memory", "result": "PER_ROUTE_CAP_BLOCKS", "expected": "PER_ROUTE_CAP_BLOCKS", "match": true}
+{"type": "V48A_TEST", "id": "A13", "case": "replay_memory_no_new_evidence", "result": "REPLAY_CONTEXT_ONLY_NO_ESCALATION", "expected": "REPLAY_CONTEXT_ONLY_NO_ESCALATION", "match": true}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "memory_exhaustion_attack", "guard": "REPLAY_MEMORY_MAX_ITEMS_REQUIRED"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "per_token_memory_domination", "guard": "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "per_route_memory_domination", "guard": "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "fake_strengthening_replay_dos", "guard": "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "stale_context_reentry", "guard": "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "old_signal_repackaging", "guard": "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "replay_score_inflation", "guard": "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "replay_trade_authority_drift", "guard": "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "fresh_risk_override_bypass", "guard": "FRESH_RISK_OVERRIDES_REPLAY"}
+{"type": "ATTACK_SURFACE_CONTROL", "attack": "hot_path_bloat", "guard": "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY"}
+{"type": "STATE_CONTRACT", "state": "NO_REPLAY_MEMORY", "meaning": "poisoned or malformed signal is never stored"}
+{"type": "STATE_CONTRACT", "state": "LIGHT_MEMORY_ONLY", "meaning": "uncertain signal stored as bounded context only"}
+{"type": "STATE_CONTRACT", "state": "EXPIRE_SAFELY", "meaning": "weak signal dies without system damage"}
+{"type": "STATE_CONTRACT", "state": "REPLAY_CONTEXT_ONLY_NO_ESCALATION", "meaning": "memory exists but no new evidence, no escalation"}
+{"type": "STATE_CONTRACT", "state": "REJECT_REPLAY", "meaning": "fake strengthening or poisoning rejected"}
+{"type": "STATE_CONTRACT", "state": "ESCALATE_ONCE", "meaning": "single bounded reentry with measurable strengthening"}
+{"type": "STATE_CONTRACT", "state": "RECHECK", "meaning": "quarantine or false-negative candidate may be reviewed"}
+{"type": "STATE_CONTRACT", "state": "REVERSAL_CANDIDATE", "meaning": "possible false blacklist can be reversed"}
+{"type": "STATE_CONTRACT", "state": "REPLAY_SUPPRESSED", "meaning": "fresh risk overrides old memory"}
+{"type": "STATE_CONTRACT", "state": "EVICT_OLDEST_LOWEST", "meaning": "bounded memory protects speed and economy"}
+{"type": "STATE_CONTRACT", "state": "PER_TOKEN_CAP_BLOCKS", "meaning": "one token cannot dominate memory"}
+{"type": "STATE_CONTRACT", "state": "PER_ROUTE_CAP_BLOCKS", "meaning": "one route cannot dominate memory"}
+{"type": "FINAL_COUNT", "item": "UPPER_DOCTRINE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "CONTRACT_COUNT", "value": 23}
+{"type": "FINAL_COUNT", "item": "LIMIT_COUNT", "value": 9}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 13}
+{"type": "FINAL_COUNT", "item": "ATTACK_SURFACE_CONTROL_COUNT", "value": 10}
+{"type": "FINAL_COUNT", "item": "STATE_CONTRACT_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 54}
+{"type": "NEXT", "value": "FIX_REVIEW_ITEMS"}

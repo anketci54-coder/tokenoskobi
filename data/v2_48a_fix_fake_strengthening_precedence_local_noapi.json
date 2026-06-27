@@ -1,0 +1,256 @@
+{
+  "task": "V2_48A_FIX_FAKE_STRENGTHENING_PRECEDENCE_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T16:27:40Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_FIX",
+  "final_gate": "PASS_V2_48A_FIX_FAKE_STRENGTHENING_PRECEDENCE_LOCAL_NOAPI",
+  "decision": "V2_48A_FIX_FAKE_STRENGTHENING_PRECEDENCE_PASS_READY_FOR_MISSED_OPPORTUNITY_FEEDBACK",
+  "next": "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_AND_FALSE_NEGATIVE_GUARD_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "remote_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_48_alpha_replay_memory_and_missed_opportunity_feedback_engine_plan_noapi.json\n?? data/v2_48_alpha_replay_memory_and_missed_opportunity_feedback_engine_plan_noapi_rows.jsonl\n?? data/v2_48_next_approved_phase_selection_noapi.json\n?? data/v2_48_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_48a_alpha_replay_memory_contract_local_noapi.json\n?? data/v2_48a_alpha_replay_memory_contract_local_noapi_rows.jsonl\n?? docs/v2/V2_48A_ALPHA_REPLAY_MEMORY_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_48_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "fix_contract": {
+    "FIX_FAKE_STRENGTHENING_PRECEDENCE_REQUIRED": true,
+    "FAKE_STRENGTHENING_CHECK_BEFORE_NO_STRENGTHENING": true,
+    "FAKE_STRENGTHENING_REJECTS_REPLAY": true,
+    "EXPIRE_SAFELY_ONLY_AFTER_FAKE_STRENGTHENING_CLEARED": true,
+    "REPLAY_MEMORY_POISONING_GUARD_REQUIRED": true,
+    "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING": true,
+    "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE": true,
+    "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT": true,
+    "FRESH_RISK_OVERRIDES_REPLAY": true,
+    "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN": true,
+    "REPLAY_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "REPLAY_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT": true,
+    "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "test_results": [
+    {
+      "id": "F1",
+      "case": "weak_signal_p5_no_strengthening",
+      "result": "EXPIRE_SAFELY",
+      "expected": "EXPIRE_SAFELY",
+      "match": true
+    },
+    {
+      "id": "F2",
+      "case": "weak_signal_p5_measurable_strengthening",
+      "result": "ESCALATE_ONCE",
+      "expected": "ESCALATE_ONCE",
+      "match": true
+    },
+    {
+      "id": "F3",
+      "case": "weak_signal_p5_fake_strengthening",
+      "result": "REJECT_REPLAY",
+      "expected": "REJECT_REPLAY",
+      "match": true
+    },
+    {
+      "id": "F4",
+      "case": "fake_strengthening_even_when_strengthened_false",
+      "result": "REJECT_REPLAY",
+      "expected": "REJECT_REPLAY",
+      "match": true
+    },
+    {
+      "id": "F5",
+      "case": "reentry_count_limit_reached",
+      "result": "REJECT_SECOND_ESCALATION",
+      "expected": "REJECT_SECOND_ESCALATION",
+      "match": true
+    },
+    {
+      "id": "F6",
+      "case": "poisoned_signal_no_memory",
+      "result": "NO_REPLAY_MEMORY",
+      "expected": "NO_REPLAY_MEMORY",
+      "match": true
+    },
+    {
+      "id": "F7",
+      "case": "malformed_signal_no_memory",
+      "result": "NO_REPLAY_MEMORY",
+      "expected": "NO_REPLAY_MEMORY",
+      "match": true
+    },
+    {
+      "id": "F8",
+      "case": "quarantine_ttl_clean_context",
+      "result": "RECHECK",
+      "expected": "RECHECK",
+      "match": true
+    },
+    {
+      "id": "F9",
+      "case": "false_blacklist_suspected",
+      "result": "REVERSAL_CANDIDATE",
+      "expected": "REVERSAL_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "F10",
+      "case": "fresh_risk_during_replay",
+      "result": "REPLAY_SUPPRESSED",
+      "expected": "REPLAY_SUPPRESSED",
+      "match": true
+    },
+    {
+      "id": "F11",
+      "case": "memory_cap_exceeded",
+      "result": "EVICT_OLDEST_LOWEST",
+      "expected": "EVICT_OLDEST_LOWEST",
+      "match": true
+    },
+    {
+      "id": "F12",
+      "case": "single_token_dominates_memory",
+      "result": "PER_TOKEN_CAP_BLOCKS",
+      "expected": "PER_TOKEN_CAP_BLOCKS",
+      "match": true
+    },
+    {
+      "id": "F13",
+      "case": "single_route_dominates_memory",
+      "result": "PER_ROUTE_CAP_BLOCKS",
+      "expected": "PER_ROUTE_CAP_BLOCKS",
+      "match": true
+    },
+    {
+      "id": "F14",
+      "case": "replay_memory_no_new_evidence",
+      "result": "REPLAY_CONTEXT_ONLY_NO_ESCALATION",
+      "expected": "REPLAY_CONTEXT_ONLY_NO_ESCALATION",
+      "match": true
+    }
+  ],
+  "semantic_fixes": [
+    {
+      "id": "SF1",
+      "before": "fake_strengthening was evaluated after no_strengthening",
+      "after": "fake_strengthening evaluated before no_strengthening",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF2",
+      "before": "A3 fake strengthening returned EXPIRE_SAFELY",
+      "after": "A3 fake strengthening returns REJECT_REPLAY",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF3",
+      "before": "EXPIRE_SAFELY could mask replay poisoning",
+      "after": "EXPIRE_SAFELY only after fake strengthening cleared",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF4",
+      "before": "fake strengthening input without strengthened flag was ambiguous",
+      "after": "fake_strengthening is explicit poison signal regardless of strengthened flag",
+      "status": "FIXED"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_48A_FIX_FAKE_STRENGTHENING_PRECEDENCE_REQUIRED=true",
+    "FAKE_STRENGTHENING_CHECK_BEFORE_NO_STRENGTHENING=true",
+    "FAKE_STRENGTHENING_REJECTS_REPLAY=true",
+    "EXPIRE_SAFELY_ONLY_AFTER_FAKE_STRENGTHENING_CLEARED=true",
+    "REPLAY_MEMORY_POISONING_GUARD_REQUIRED=true",
+    "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING=true",
+    "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE=true",
+    "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT=true",
+    "FRESH_RISK_OVERRIDES_REPLAY=true",
+    "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN=true",
+    "REPLAY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "REPLAY_MEMORY_MUST_IMPROVE_SPEED_SECURITY_POWER_AND_ECONOMY=true",
+    "REPLAY_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT=true",
+    "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY=true",
+    "HEAVY_REENTRY_BUDGETED_AND_RARE=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v48_selection_pass": true,
+    "v48_plan_pass": true,
+    "v48a_review_detected": true,
+    "v48a_test_all_match_was_false": true,
+    "v48a_a3_was_failed": true,
+    "v47_final_pass": true,
+    "v47b_fix_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "fix_contract_count_15": true,
+    "test_case_count_14": true,
+    "test_all_match": true,
+    "a3_fixed": true,
+    "a4_precedence_guard": true,
+    "semantic_fix_count_4": true,
+    "semantic_all_fixed": true,
+    "hard_boundary_count_34": true,
+    "fake_strengthening_precedence": true,
+    "fake_strengthening_rejects_replay": true,
+    "expire_after_fake_cleared": true,
+    "no_hot_path_bloat": true,
+    "context_only_not_authority": true,
+    "score_boost_forbidden": true,
+    "no_trade_authority": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

@@ -1,0 +1,412 @@
+{
+  "task": "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_AND_FALSE_NEGATIVE_GUARD_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T17:42:36Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CONTRACT",
+  "final_gate": "PASS_V2_48B_MISSED_OPPORTUNITY_FEEDBACK_AND_FALSE_NEGATIVE_GUARD_LOCAL_NOAPI",
+  "decision": "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_48_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "remote_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_48_alpha_replay_memory_and_missed_opportunity_feedback_engine_plan_noapi.json\n?? data/v2_48_alpha_replay_memory_and_missed_opportunity_feedback_engine_plan_noapi_rows.jsonl\n?? data/v2_48_next_approved_phase_selection_noapi.json\n?? data/v2_48_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_48a_alpha_replay_memory_contract_local_noapi.json\n?? data/v2_48a_alpha_replay_memory_contract_local_noapi_rows.jsonl\n?? data/v2_48a_fix_fake_strengthening_precedence_local_noapi.json\n?? data/v2_48a_fix_fake_strengthening_precedence_local_noapi_rows.jsonl\n?? docs/v2/V2_48A_ALPHA_REPLAY_MEMORY_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_48A_FIX_FAKE_STRENGTHENING_PRECEDENCE_LOCAL_NOAPI.md\n?? docs/v2/V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_48_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "upper_doctrine": {
+    "FALSE_NEGATIVE_IS_A_FIRST_CLASS_RISK": true,
+    "MISSED_OPPORTUNITY_IS_OPPORTUNITY_DAMAGE": true,
+    "MISSED_FEEDBACK_MUST_IMPROVE_SPEED_SECURITY_POWER_AND_ECONOMY": true,
+    "MISSED_FEEDBACK_MUST_NOT_ADD_HOT_PATH_BLOAT": true,
+    "MISSED_FEEDBACK_LIGHTWEIGHT_SHADOW_LABEL_ONLY": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true
+  },
+  "contract": {
+    "MISSED_OPPORTUNITY_FEEDBACK_REQUIRED": true,
+    "FALSE_NEGATIVE_GUARD_REQUIRED": true,
+    "MISSED_ALPHA_SHADOW_LABEL_REQUIRED": true,
+    "SHADOW_LABEL_NO_TRADE_AUTHORITY": true,
+    "MISS_FEEDBACK_CANNOT_AUTHORIZE_TRADE": true,
+    "MISS_FEEDBACK_CANNOT_BOOST_SCORE_DIRECTLY": true,
+    "MISS_FEEDBACK_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "OUTCOME_SHADOW_TAG_REQUIRED": true,
+    "FALSE_NEGATIVE_RECHECK_REQUIRED": true,
+    "FALSE_NEGATIVE_RECHECK_REQUIRES_NEW_EVIDENCE": true,
+    "FALSE_NEGATIVE_RECHECK_REQUIRES_MEASURABLE_MOVE": true,
+    "FALSE_NEGATIVE_RECHECK_REQUIRES_FRESH_CONTEXT": true,
+    "FRESH_RISK_OVERRIDES_MISSED_FEEDBACK": true,
+    "FEEDBACK_POISONING_GUARD_REQUIRED": true,
+    "HINDSIGHT_BIAS_GUARD_REQUIRED": true,
+    "OUTCOME_LABEL_DELAY_REQUIRED": true,
+    "OUTCOME_LABEL_CONFIRMATION_REQUIRED": true,
+    "REPLAY_MEMORY_LINK_REQUIRED": true,
+    "HEAVY_PATH_REENTRY_BUDGET_REQUIRED": true,
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED": true,
+    "BOUNDED_FEEDBACK_MEMORY_REQUIRED": true,
+    "FEEDBACK_MEMORY_TTL_REQUIRED": true,
+    "FEEDBACK_MEMORY_PER_TOKEN_CAP_REQUIRED": true,
+    "FEEDBACK_MEMORY_PER_ROUTE_CAP_REQUIRED": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "FEEDBACK_MEMORY_MAX_ITEMS": 1000,
+    "FEEDBACK_TTL_WINDOWS": 8,
+    "PER_TOKEN_FEEDBACK_CAP": 20,
+    "PER_ROUTE_FEEDBACK_CAP": 30,
+    "FALSE_NEGATIVE_RECHECK_MAX_QUEUE": 50,
+    "REENTRY_SINGLE_ESCALATION_LIMIT": 1,
+    "OUTCOME_LABEL_DELAY_WINDOWS": 2,
+    "OUTCOME_CONFIRMATION_MIN_SOURCES": 2,
+    "HOT_PATH_FEEDBACK_CONTEXT_LOOKUP_ONLY": true,
+    "FULL_HISTORY_SCAN_ON_HOT_PATH": false,
+    "ML_SIMILARITY_ON_HOT_PATH": false
+  },
+  "feedback_classes": [
+    "P5_EXPIRED_THEN_RALLIED",
+    "QUARANTINE_THEN_CLEANED",
+    "FALSE_BLACKLIST_REVERSAL_CANDIDATE",
+    "REPLAY_REJECTED_THEN_VALIDATED",
+    "WEAK_ALPHA_THEN_CONFIRMED",
+    "FRESH_RISK_OVERRIDE_CONFIRMED",
+    "HINDSIGHT_ONLY_NO_ACTION",
+    "POISONED_FEEDBACK_REJECTED",
+    "NO_CHANGE_NO_FEEDBACK",
+    "FEEDBACK_CONTEXT_ONLY"
+  ],
+  "test_results": [
+    {
+      "id": "B1",
+      "case": "p5_expired_later_confirmed_move",
+      "result": "FALSE_NEGATIVE_RECHECK",
+      "expected": "FALSE_NEGATIVE_RECHECK",
+      "match": true
+    },
+    {
+      "id": "B2",
+      "case": "p5_hindsight_only_no_new_evidence",
+      "result": "HINDSIGHT_ONLY_NO_ACTION",
+      "expected": "HINDSIGHT_ONLY_NO_ACTION",
+      "match": true
+    },
+    {
+      "id": "B3",
+      "case": "shadow_label_no_new_evidence",
+      "result": "FEEDBACK_CONTEXT_ONLY_NO_RECHECK",
+      "expected": "FEEDBACK_CONTEXT_ONLY_NO_RECHECK",
+      "match": true
+    },
+    {
+      "id": "B4",
+      "case": "fresh_risk_overrides_feedback",
+      "result": "FEEDBACK_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "FEEDBACK_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "B5",
+      "case": "poisoned_feedback_rejected",
+      "result": "POISONED_FEEDBACK_REJECTED",
+      "expected": "POISONED_FEEDBACK_REJECTED",
+      "match": true
+    },
+    {
+      "id": "B6",
+      "case": "malformed_feedback_rejected",
+      "result": "POISONED_FEEDBACK_REJECTED",
+      "expected": "POISONED_FEEDBACK_REJECTED",
+      "match": true
+    },
+    {
+      "id": "B7",
+      "case": "quarantine_ttl_clean_new_evidence",
+      "result": "QUARANTINE_RECHECK",
+      "expected": "QUARANTINE_RECHECK",
+      "match": true
+    },
+    {
+      "id": "B8",
+      "case": "false_blacklist_clean_new_evidence",
+      "result": "FALSE_BLACKLIST_REVERSAL_CANDIDATE",
+      "expected": "FALSE_BLACKLIST_REVERSAL_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "B9",
+      "case": "replay_rejected_later_confirmed_clean",
+      "result": "MISSED_OPPORTUNITY_FEEDBACK_MARK",
+      "expected": "MISSED_OPPORTUNITY_FEEDBACK_MARK",
+      "match": true
+    },
+    {
+      "id": "B10",
+      "case": "reentry_limit_reached",
+      "result": "REJECT_SECOND_RECHECK",
+      "expected": "REJECT_SECOND_RECHECK",
+      "match": true
+    },
+    {
+      "id": "B11",
+      "case": "feedback_memory_cap_exceeded",
+      "result": "EVICT_OLDEST_LOWEST",
+      "expected": "EVICT_OLDEST_LOWEST",
+      "match": true
+    },
+    {
+      "id": "B12",
+      "case": "single_token_feedback_domination",
+      "result": "PER_TOKEN_CAP_BLOCKS",
+      "expected": "PER_TOKEN_CAP_BLOCKS",
+      "match": true
+    },
+    {
+      "id": "B13",
+      "case": "single_route_feedback_domination",
+      "result": "PER_ROUTE_CAP_BLOCKS",
+      "expected": "PER_ROUTE_CAP_BLOCKS",
+      "match": true
+    },
+    {
+      "id": "B14",
+      "case": "no_change_no_feedback",
+      "result": "NO_CHANGE_NO_FEEDBACK",
+      "expected": "NO_CHANGE_NO_FEEDBACK",
+      "match": true
+    },
+    {
+      "id": "B15",
+      "case": "unknown_default_context_only",
+      "result": "FEEDBACK_CONTEXT_ONLY",
+      "expected": "FEEDBACK_CONTEXT_ONLY",
+      "match": true
+    }
+  ],
+  "attack_surface_controls": [
+    {
+      "attack": "hindsight_bias_attack",
+      "guard": "HINDSIGHT_BIAS_GUARD_REQUIRED"
+    },
+    {
+      "attack": "fake_missed_alpha_feedback",
+      "guard": "OUTCOME_LABEL_CONFIRMATION_REQUIRED"
+    },
+    {
+      "attack": "feedback_memory_exhaustion",
+      "guard": "BOUNDED_FEEDBACK_MEMORY_REQUIRED"
+    },
+    {
+      "attack": "per_token_feedback_domination",
+      "guard": "FEEDBACK_MEMORY_PER_TOKEN_CAP_REQUIRED"
+    },
+    {
+      "attack": "per_route_feedback_domination",
+      "guard": "FEEDBACK_MEMORY_PER_ROUTE_CAP_REQUIRED"
+    },
+    {
+      "attack": "fresh_risk_override_bypass",
+      "guard": "FRESH_RISK_OVERRIDES_MISSED_FEEDBACK"
+    },
+    {
+      "attack": "feedback_score_inflation",
+      "guard": "MISS_FEEDBACK_CANNOT_BOOST_SCORE_DIRECTLY"
+    },
+    {
+      "attack": "feedback_trade_authority_drift",
+      "guard": "MISS_FEEDBACK_CANNOT_AUTHORIZE_TRADE"
+    },
+    {
+      "attack": "hot_path_bloat",
+      "guard": "MISSED_FEEDBACK_LIGHTWEIGHT_SHADOW_LABEL_ONLY"
+    },
+    {
+      "attack": "second_reentry_spam",
+      "guard": "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED"
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "MISSED_OPPORTUNITY_FEEDBACK_MARK",
+      "meaning": "shadow feedback mark only, no direct score or trade authority"
+    },
+    {
+      "state": "FALSE_NEGATIVE_RECHECK",
+      "meaning": "bounded recheck candidate with new evidence and fresh context"
+    },
+    {
+      "state": "HINDSIGHT_ONLY_NO_ACTION",
+      "meaning": "outcome hindsight without new evidence cannot trigger recheck"
+    },
+    {
+      "state": "FEEDBACK_CONTEXT_ONLY_NO_RECHECK",
+      "meaning": "shadow label exists but new evidence absent"
+    },
+    {
+      "state": "FEEDBACK_SUPPRESSED_BY_FRESH_RISK",
+      "meaning": "fresh risk overrides missed opportunity feedback"
+    },
+    {
+      "state": "POISONED_FEEDBACK_REJECTED",
+      "meaning": "malformed or poisoned feedback is rejected"
+    },
+    {
+      "state": "QUARANTINE_RECHECK",
+      "meaning": "quarantine may be rechecked after TTL and clean context"
+    },
+    {
+      "state": "FALSE_BLACKLIST_REVERSAL_CANDIDATE",
+      "meaning": "possible false blacklist can be re-evaluated"
+    },
+    {
+      "state": "REJECT_SECOND_RECHECK",
+      "meaning": "single reentry/recheck limit enforced"
+    },
+    {
+      "state": "EVICT_OLDEST_LOWEST",
+      "meaning": "bounded memory protects speed and economy"
+    },
+    {
+      "state": "PER_TOKEN_CAP_BLOCKS",
+      "meaning": "one token cannot dominate feedback memory"
+    },
+    {
+      "state": "PER_ROUTE_CAP_BLOCKS",
+      "meaning": "one route cannot dominate feedback memory"
+    },
+    {
+      "state": "NO_CHANGE_NO_FEEDBACK",
+      "meaning": "no new signal change means no feedback action"
+    },
+    {
+      "state": "FEEDBACK_CONTEXT_ONLY",
+      "meaning": "safe default context-only state"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_REQUIRED=true",
+    "FALSE_NEGATIVE_IS_A_FIRST_CLASS_RISK=true",
+    "MISSED_OPPORTUNITY_IS_OPPORTUNITY_DAMAGE=true",
+    "MISSED_FEEDBACK_MUST_IMPROVE_SPEED_SECURITY_POWER_AND_ECONOMY=true",
+    "MISSED_FEEDBACK_MUST_NOT_ADD_HOT_PATH_BLOAT=true",
+    "MISSED_FEEDBACK_LIGHTWEIGHT_SHADOW_LABEL_ONLY=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "MISSED_ALPHA_SHADOW_LABEL_REQUIRED=true",
+    "SHADOW_LABEL_NO_TRADE_AUTHORITY=true",
+    "MISS_FEEDBACK_CANNOT_AUTHORIZE_TRADE=true",
+    "MISS_FEEDBACK_CANNOT_BOOST_SCORE_DIRECTLY=true",
+    "MISS_FEEDBACK_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "OUTCOME_SHADOW_TAG_REQUIRED=true",
+    "FALSE_NEGATIVE_RECHECK_REQUIRED=true",
+    "FALSE_NEGATIVE_RECHECK_REQUIRES_NEW_EVIDENCE=true",
+    "FALSE_NEGATIVE_RECHECK_REQUIRES_MEASURABLE_MOVE=true",
+    "FALSE_NEGATIVE_RECHECK_REQUIRES_FRESH_CONTEXT=true",
+    "FRESH_RISK_OVERRIDES_MISSED_FEEDBACK=true",
+    "FEEDBACK_POISONING_GUARD_REQUIRED=true",
+    "HINDSIGHT_BIAS_GUARD_REQUIRED=true",
+    "OUTCOME_LABEL_DELAY_REQUIRED=true",
+    "OUTCOME_LABEL_CONFIRMATION_REQUIRED=true",
+    "REPLAY_MEMORY_LINK_REQUIRED=true",
+    "HEAVY_PATH_REENTRY_BUDGET_REQUIRED=true",
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true",
+    "BOUNDED_FEEDBACK_MEMORY_REQUIRED=true",
+    "FEEDBACK_MEMORY_TTL_REQUIRED=true",
+    "FEEDBACK_MEMORY_PER_TOKEN_CAP_REQUIRED=true",
+    "FEEDBACK_MEMORY_PER_ROUTE_CAP_REQUIRED=true",
+    "FEEDBACK_MEMORY_MAX_ITEMS=1000",
+    "FEEDBACK_TTL_WINDOWS=8",
+    "PER_TOKEN_FEEDBACK_CAP=20",
+    "PER_ROUTE_FEEDBACK_CAP=30",
+    "FALSE_NEGATIVE_RECHECK_MAX_QUEUE=50",
+    "OUTCOME_LABEL_DELAY_WINDOWS=2",
+    "OUTCOME_CONFIRMATION_MIN_SOURCES=2",
+    "HOT_PATH_FEEDBACK_CONTEXT_LOOKUP_ONLY=true",
+    "FULL_HISTORY_SCAN_ON_HOT_PATH=false",
+    "ML_SIMILARITY_ON_HOT_PATH=false",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v48_selection_pass": true,
+    "v48_plan_pass": true,
+    "v48a_review_detected": true,
+    "v48a_fix_pass": true,
+    "v48a_fix_next_match": true,
+    "v47_final_pass": true,
+    "v47b_fix_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "upper_doctrine_count_9": true,
+    "contract_count_25": true,
+    "limit_count_11": true,
+    "feedback_class_count_10": true,
+    "test_case_count_15": true,
+    "test_all_match": true,
+    "attack_surface_control_count_10": true,
+    "state_contract_count_14": true,
+    "hard_boundary_count_56": true,
+    "false_negative_first_class": true,
+    "speed_lock": true,
+    "security_lock": true,
+    "power_lock": true,
+    "economy_lock": true,
+    "shadow_label_no_trade": true,
+    "feedback_no_score_boost": true,
+    "feedback_context_only": true,
+    "fresh_risk_overrides": true,
+    "hindsight_bias_guard": true,
+    "outcome_confirmation_required": true,
+    "bounded_memory_required": true,
+    "no_trade_authority": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

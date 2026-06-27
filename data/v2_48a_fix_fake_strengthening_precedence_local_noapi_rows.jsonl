@@ -1,0 +1,38 @@
+{"type": "FIX_CONTRACT", "item": "FIX_FAKE_STRENGTHENING_PRECEDENCE_REQUIRED", "value": true}
+{"type": "FIX_CONTRACT", "item": "FAKE_STRENGTHENING_CHECK_BEFORE_NO_STRENGTHENING", "value": true}
+{"type": "FIX_CONTRACT", "item": "FAKE_STRENGTHENING_REJECTS_REPLAY", "value": true}
+{"type": "FIX_CONTRACT", "item": "EXPIRE_SAFELY_ONLY_AFTER_FAKE_STRENGTHENING_CLEARED", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_MEMORY_POISONING_GUARD_REQUIRED", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT", "value": true}
+{"type": "FIX_CONTRACT", "item": "FRESH_RISK_OVERRIDES_REPLAY", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_CONTEXT_ONLY_NOT_AUTHORITY", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT", "value": true}
+{"type": "FIX_CONTRACT", "item": "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY", "value": true}
+{"type": "FIX_CONTRACT", "item": "NO_TRADE_AUTHORITY", "value": true}
+{"type": "V48A_FIX_TEST", "id": "F1", "case": "weak_signal_p5_no_strengthening", "result": "EXPIRE_SAFELY", "expected": "EXPIRE_SAFELY", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F2", "case": "weak_signal_p5_measurable_strengthening", "result": "ESCALATE_ONCE", "expected": "ESCALATE_ONCE", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F3", "case": "weak_signal_p5_fake_strengthening", "result": "REJECT_REPLAY", "expected": "REJECT_REPLAY", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F4", "case": "fake_strengthening_even_when_strengthened_false", "result": "REJECT_REPLAY", "expected": "REJECT_REPLAY", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F5", "case": "reentry_count_limit_reached", "result": "REJECT_SECOND_ESCALATION", "expected": "REJECT_SECOND_ESCALATION", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F6", "case": "poisoned_signal_no_memory", "result": "NO_REPLAY_MEMORY", "expected": "NO_REPLAY_MEMORY", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F7", "case": "malformed_signal_no_memory", "result": "NO_REPLAY_MEMORY", "expected": "NO_REPLAY_MEMORY", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F8", "case": "quarantine_ttl_clean_context", "result": "RECHECK", "expected": "RECHECK", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F9", "case": "false_blacklist_suspected", "result": "REVERSAL_CANDIDATE", "expected": "REVERSAL_CANDIDATE", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F10", "case": "fresh_risk_during_replay", "result": "REPLAY_SUPPRESSED", "expected": "REPLAY_SUPPRESSED", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F11", "case": "memory_cap_exceeded", "result": "EVICT_OLDEST_LOWEST", "expected": "EVICT_OLDEST_LOWEST", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F12", "case": "single_token_dominates_memory", "result": "PER_TOKEN_CAP_BLOCKS", "expected": "PER_TOKEN_CAP_BLOCKS", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F13", "case": "single_route_dominates_memory", "result": "PER_ROUTE_CAP_BLOCKS", "expected": "PER_ROUTE_CAP_BLOCKS", "match": true}
+{"type": "V48A_FIX_TEST", "id": "F14", "case": "replay_memory_no_new_evidence", "result": "REPLAY_CONTEXT_ONLY_NO_ESCALATION", "expected": "REPLAY_CONTEXT_ONLY_NO_ESCALATION", "match": true}
+{"type": "SEMANTIC_FIX", "id": "SF1", "before": "fake_strengthening was evaluated after no_strengthening", "after": "fake_strengthening evaluated before no_strengthening", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF2", "before": "A3 fake strengthening returned EXPIRE_SAFELY", "after": "A3 fake strengthening returns REJECT_REPLAY", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF3", "before": "EXPIRE_SAFELY could mask replay poisoning", "after": "EXPIRE_SAFELY only after fake strengthening cleared", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF4", "before": "fake strengthening input without strengthened flag was ambiguous", "after": "fake_strengthening is explicit poison signal regardless of strengthened flag", "status": "FIXED"}
+{"type": "FINAL_COUNT", "item": "FIX_CONTRACT_COUNT", "value": 15}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 14}
+{"type": "FINAL_COUNT", "item": "SEMANTIC_FIX_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 34}
+{"type": "NEXT", "value": "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_AND_FALSE_NEGATIVE_GUARD_LOCAL_NOAPI"}

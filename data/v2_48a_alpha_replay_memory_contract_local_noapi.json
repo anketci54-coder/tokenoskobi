@@ -1,0 +1,368 @@
+{
+  "task": "V2_48A_ALPHA_REPLAY_MEMORY_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T16:17:16Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CONTRACT",
+  "final_gate": "REVIEW_V2_48A_ALPHA_REPLAY_MEMORY_CONTRACT_LOCAL_NOAPI",
+  "decision": "STOP_REVIEW_REQUIRED",
+  "next": "FIX_REVIEW_ITEMS",
+  "github_push": false,
+  "head_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "remote_now": "b52f0a66e91f9f5ea3e5186017e648b6fb5738cf",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_48_alpha_replay_memory_and_missed_opportunity_feedback_engine_plan_noapi.json\n?? data/v2_48_alpha_replay_memory_and_missed_opportunity_feedback_engine_plan_noapi_rows.jsonl\n?? data/v2_48_next_approved_phase_selection_noapi.json\n?? data/v2_48_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_48_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "upper_doctrine": {
+    "REPLAY_MEMORY_MUST_IMPROVE_SPEED_SECURITY_POWER_AND_ECONOMY": true,
+    "REPLAY_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT": true,
+    "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY": true,
+    "HEAVY_REENTRY_BUDGETED_AND_RARE": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true
+  },
+  "contract": {
+    "GRAY_AREA_CAN_CREATE_BLIND_SPOT": true,
+    "UNCERTAIN_SIGNAL_IS_NOT_ZERO_SIGNAL": true,
+    "P5_EXPIRE_NO_ACTION_NOT_FINAL_DELETE": true,
+    "FALSE_NEGATIVE_IS_A_FIRST_CLASS_RISK": true,
+    "MISSED_OPPORTUNITY_IS_OPPORTUNITY_DAMAGE": true,
+    "GRAY_ZONE_TO_BLIND_SPOT_GUARD_REQUIRED": true,
+    "UNCERTAIN_SIGNAL_LIGHT_MEMORY_REQUIRED": true,
+    "FALSE_NEGATIVE_FEEDBACK_REQUIRED": true,
+    "MISSED_ALPHA_SHADOW_LABEL_REQUIRED": true,
+    "REPLAY_MEMORY_POISONING_GUARD_REQUIRED": true,
+    "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING": true,
+    "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE": true,
+    "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT": true,
+    "FRESH_RISK_OVERRIDES_REPLAY": true,
+    "REPLAY_MEMORY_MAX_ITEMS_REQUIRED": true,
+    "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED": true,
+    "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED": true,
+    "REPLAY_MEMORY_TTL_REQUIRED": true,
+    "REPLAY_REENTRY_SINGLE_ESCALATION_LIMIT": true,
+    "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN": true,
+    "REPLAY_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "REPLAY_MEMORY_MAX_ITEMS": 1000,
+    "REPLAY_TTL_WINDOWS": 6,
+    "PER_TOKEN_REPLAY_CAP": 20,
+    "PER_ROUTE_REPLAY_CAP": 30,
+    "HEAVY_PATH_REENTRY_MAX_QUEUE": 50,
+    "REENTRY_SINGLE_ESCALATION_LIMIT": 1,
+    "HOT_PATH_REPLAY_CONTEXT_LOOKUP_ONLY": true,
+    "FULL_HISTORY_SCAN_ON_HOT_PATH": false,
+    "ML_SIMILARITY_ON_HOT_PATH": false
+  },
+  "test_results": [
+    {
+      "id": "A1",
+      "case": "weak_signal_p5_no_strengthening",
+      "result": "EXPIRE_SAFELY",
+      "expected": "EXPIRE_SAFELY",
+      "match": true
+    },
+    {
+      "id": "A2",
+      "case": "weak_signal_p5_measurable_strengthening",
+      "result": "ESCALATE_ONCE",
+      "expected": "ESCALATE_ONCE",
+      "match": true
+    },
+    {
+      "id": "A3",
+      "case": "weak_signal_p5_fake_strengthening",
+      "result": "EXPIRE_SAFELY",
+      "expected": "REJECT_REPLAY",
+      "match": false
+    },
+    {
+      "id": "A4",
+      "case": "reentry_count_limit_reached",
+      "result": "REJECT_SECOND_ESCALATION",
+      "expected": "REJECT_SECOND_ESCALATION",
+      "match": true
+    },
+    {
+      "id": "A5",
+      "case": "poisoned_signal_no_memory",
+      "result": "NO_REPLAY_MEMORY",
+      "expected": "NO_REPLAY_MEMORY",
+      "match": true
+    },
+    {
+      "id": "A6",
+      "case": "malformed_signal_no_memory",
+      "result": "NO_REPLAY_MEMORY",
+      "expected": "NO_REPLAY_MEMORY",
+      "match": true
+    },
+    {
+      "id": "A7",
+      "case": "quarantine_ttl_clean_context",
+      "result": "RECHECK",
+      "expected": "RECHECK",
+      "match": true
+    },
+    {
+      "id": "A8",
+      "case": "false_blacklist_suspected",
+      "result": "REVERSAL_CANDIDATE",
+      "expected": "REVERSAL_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "A9",
+      "case": "fresh_risk_during_replay",
+      "result": "REPLAY_SUPPRESSED",
+      "expected": "REPLAY_SUPPRESSED",
+      "match": true
+    },
+    {
+      "id": "A10",
+      "case": "memory_cap_exceeded",
+      "result": "EVICT_OLDEST_LOWEST",
+      "expected": "EVICT_OLDEST_LOWEST",
+      "match": true
+    },
+    {
+      "id": "A11",
+      "case": "single_token_dominates_memory",
+      "result": "PER_TOKEN_CAP_BLOCKS",
+      "expected": "PER_TOKEN_CAP_BLOCKS",
+      "match": true
+    },
+    {
+      "id": "A12",
+      "case": "single_route_dominates_memory",
+      "result": "PER_ROUTE_CAP_BLOCKS",
+      "expected": "PER_ROUTE_CAP_BLOCKS",
+      "match": true
+    },
+    {
+      "id": "A13",
+      "case": "replay_memory_no_new_evidence",
+      "result": "REPLAY_CONTEXT_ONLY_NO_ESCALATION",
+      "expected": "REPLAY_CONTEXT_ONLY_NO_ESCALATION",
+      "match": true
+    }
+  ],
+  "attack_surface_controls": [
+    {
+      "attack": "memory_exhaustion_attack",
+      "guard": "REPLAY_MEMORY_MAX_ITEMS_REQUIRED"
+    },
+    {
+      "attack": "per_token_memory_domination",
+      "guard": "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED"
+    },
+    {
+      "attack": "per_route_memory_domination",
+      "guard": "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED"
+    },
+    {
+      "attack": "fake_strengthening_replay_dos",
+      "guard": "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING"
+    },
+    {
+      "attack": "stale_context_reentry",
+      "guard": "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT"
+    },
+    {
+      "attack": "old_signal_repackaging",
+      "guard": "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE"
+    },
+    {
+      "attack": "replay_score_inflation",
+      "guard": "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN"
+    },
+    {
+      "attack": "replay_trade_authority_drift",
+      "guard": "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE"
+    },
+    {
+      "attack": "fresh_risk_override_bypass",
+      "guard": "FRESH_RISK_OVERRIDES_REPLAY"
+    },
+    {
+      "attack": "hot_path_bloat",
+      "guard": "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY"
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "NO_REPLAY_MEMORY",
+      "meaning": "poisoned or malformed signal is never stored"
+    },
+    {
+      "state": "LIGHT_MEMORY_ONLY",
+      "meaning": "uncertain signal stored as bounded context only"
+    },
+    {
+      "state": "EXPIRE_SAFELY",
+      "meaning": "weak signal dies without system damage"
+    },
+    {
+      "state": "REPLAY_CONTEXT_ONLY_NO_ESCALATION",
+      "meaning": "memory exists but no new evidence, no escalation"
+    },
+    {
+      "state": "REJECT_REPLAY",
+      "meaning": "fake strengthening or poisoning rejected"
+    },
+    {
+      "state": "ESCALATE_ONCE",
+      "meaning": "single bounded reentry with measurable strengthening"
+    },
+    {
+      "state": "RECHECK",
+      "meaning": "quarantine or false-negative candidate may be reviewed"
+    },
+    {
+      "state": "REVERSAL_CANDIDATE",
+      "meaning": "possible false blacklist can be reversed"
+    },
+    {
+      "state": "REPLAY_SUPPRESSED",
+      "meaning": "fresh risk overrides old memory"
+    },
+    {
+      "state": "EVICT_OLDEST_LOWEST",
+      "meaning": "bounded memory protects speed and economy"
+    },
+    {
+      "state": "PER_TOKEN_CAP_BLOCKS",
+      "meaning": "one token cannot dominate memory"
+    },
+    {
+      "state": "PER_ROUTE_CAP_BLOCKS",
+      "meaning": "one route cannot dominate memory"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_48A_ALPHA_REPLAY_MEMORY_CONTRACT_REQUIRED=true",
+    "REPLAY_MEMORY_MUST_IMPROVE_SPEED_SECURITY_POWER_AND_ECONOMY=true",
+    "REPLAY_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT=true",
+    "REPLAY_MEMORY_LIGHTWEIGHT_CONTEXT_ONLY=true",
+    "HEAVY_REENTRY_BUDGETED_AND_RARE=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "GRAY_AREA_CAN_CREATE_BLIND_SPOT=true",
+    "UNCERTAIN_SIGNAL_IS_NOT_ZERO_SIGNAL=true",
+    "P5_EXPIRE_NO_ACTION_NOT_FINAL_DELETE=true",
+    "FALSE_NEGATIVE_IS_A_FIRST_CLASS_RISK=true",
+    "MISSED_OPPORTUNITY_IS_OPPORTUNITY_DAMAGE=true",
+    "GRAY_ZONE_TO_BLIND_SPOT_GUARD_REQUIRED=true",
+    "UNCERTAIN_SIGNAL_LIGHT_MEMORY_REQUIRED=true",
+    "FALSE_NEGATIVE_FEEDBACK_REQUIRED=true",
+    "MISSED_ALPHA_SHADOW_LABEL_REQUIRED=true",
+    "REPLAY_MEMORY_POISONING_GUARD_REQUIRED=true",
+    "REPLAY_REENTRY_REQUIRES_MEASURABLE_STRENGTHENING=true",
+    "REPLAY_REENTRY_REQUIRES_NEW_EVIDENCE=true",
+    "REPLAY_REENTRY_REQUIRES_FRESH_CONTEXT=true",
+    "FRESH_RISK_OVERRIDES_REPLAY=true",
+    "REPLAY_MEMORY_MAX_ITEMS_REQUIRED=true",
+    "REPLAY_MEMORY_MAX_ITEMS=1000",
+    "REPLAY_MEMORY_TTL_REQUIRED=true",
+    "REPLAY_TTL_WINDOWS=6",
+    "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED=true",
+    "PER_TOKEN_REPLAY_CAP=20",
+    "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED=true",
+    "PER_ROUTE_REPLAY_CAP=30",
+    "HEAVY_PATH_REENTRY_MAX_QUEUE=50",
+    "REPLAY_REENTRY_SINGLE_ESCALATION_LIMIT=true",
+    "REENTRY_SINGLE_ESCALATION_LIMIT=1",
+    "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "REPLAY_MEMORY_SCORE_BOOST_FORBIDDEN=true",
+    "REPLAY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "HOT_PATH_REPLAY_CONTEXT_LOOKUP_ONLY=true",
+    "FULL_HISTORY_SCAN_ON_HOT_PATH=false",
+    "ML_SIMILARITY_ON_HOT_PATH=false",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v48_selection_pass": true,
+    "v48_plan_pass": true,
+    "v48_plan_next_match": true,
+    "v47_final_pass": true,
+    "v47b_fix_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "upper_doctrine_count_8": true,
+    "contract_count_23": true,
+    "limit_count_9": true,
+    "test_case_count_13": true,
+    "test_all_match": false,
+    "attack_surface_control_count_10": true,
+    "state_contract_count_12": true,
+    "hard_boundary_count_54": true,
+    "speed_lock": true,
+    "security_lock": true,
+    "power_lock": true,
+    "economy_lock": true,
+    "lightweight_context_only": true,
+    "no_hot_path_bloat": true,
+    "measurable_strengthening_required": true,
+    "new_evidence_required": true,
+    "fresh_context_required": true,
+    "fresh_risk_overrides": true,
+    "score_boost_forbidden": true,
+    "context_only_not_authority": true,
+    "no_trade_authority": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

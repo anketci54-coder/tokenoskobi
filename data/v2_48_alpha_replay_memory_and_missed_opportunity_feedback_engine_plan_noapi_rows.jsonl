@@ -1,0 +1,53 @@
+{"type": "REPLAY_CLASS", "item": "P5_EXPIRED_WEAK_ALPHA"}
+{"type": "REPLAY_CLASS", "item": "P5_EXPIRED_LOW_VALUE"}
+{"type": "REPLAY_CLASS", "item": "P5_EXPIRED_HEAVY_FULL"}
+{"type": "REPLAY_CLASS", "item": "QUARANTINED_SOURCE_RECHECK"}
+{"type": "REPLAY_CLASS", "item": "FALSE_BLACKLIST_CANDIDATE"}
+{"type": "REPLAY_CLASS", "item": "MISSED_REAL_ALPHA_CANDIDATE"}
+{"type": "REPLAY_CLASS", "item": "STRENGTHENED_AFTER_EXPIRE"}
+{"type": "REPLAY_CLASS", "item": "REPLAY_REJECTED_NO_CHANGE"}
+{"type": "REPLAY_CLASS", "item": "REPLAY_ESCALATE_ONCE"}
+{"type": "MEMORY_LIMIT", "item": "REPLAY_MEMORY_MAX_ITEMS", "value": 1000}
+{"type": "MEMORY_LIMIT", "item": "REPLAY_TTL_WINDOWS", "value": 6}
+{"type": "MEMORY_LIMIT", "item": "PER_TOKEN_REPLAY_CAP", "value": 20}
+{"type": "MEMORY_LIMIT", "item": "PER_ROUTE_REPLAY_CAP", "value": 30}
+{"type": "MEMORY_LIMIT", "item": "HEAVY_PATH_REENTRY_MAX_QUEUE", "value": 50}
+{"type": "MEMORY_LIMIT", "item": "REENTRY_SINGLE_ESCALATION_LIMIT", "value": 1}
+{"type": "MEMORY_LIMIT", "item": "FALSE_BLACKLIST_RECHECK_WINDOWS", "value": 3}
+{"type": "MEMORY_LIMIT", "item": "QUARANTINE_RECHECK_TTL_WINDOWS", "value": 6}
+{"type": "FEEDBACK_SOURCE", "item": "post_expire_signal_strengthening"}
+{"type": "FEEDBACK_SOURCE", "item": "later_clean_onchain_confirmation"}
+{"type": "FEEDBACK_SOURCE", "item": "quarantine_ttl_recheck"}
+{"type": "FEEDBACK_SOURCE", "item": "false_blacklist_review"}
+{"type": "FEEDBACK_SOURCE", "item": "missed_alpha_price_movement_shadow_label"}
+{"type": "FEEDBACK_SOURCE", "item": "route_liquidity_improvement"}
+{"type": "FEEDBACK_SOURCE", "item": "sybil_suspicion_decay"}
+{"type": "FEEDBACK_SOURCE", "item": "ghost_liquidity_cleared"}
+{"type": "V48_PLAN_TEST", "id": "P1", "case": "malformed_no_replay", "result": "DROP_NO_REPLAY", "expected": "DROP_NO_REPLAY", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P2", "case": "poisoned_no_replay", "result": "DROP_NO_REPLAY", "expected": "DROP_NO_REPLAY", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P3", "case": "p5_strengthened_budget_available", "result": "REPLAY_ESCALATE_ONCE", "expected": "REPLAY_ESCALATE_ONCE", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P4", "case": "p5_strengthened_budget_full", "result": "REPLAY_KEEP_LIGHT_MEMORY", "expected": "REPLAY_KEEP_LIGHT_MEMORY", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P5", "case": "reentry_limit_reached", "result": "REPLAY_REJECTED_LIMIT_REACHED", "expected": "REPLAY_REJECTED_LIMIT_REACHED", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P6", "case": "quarantine_ttl_false_blacklist_guard", "result": "QUARANTINE_RECHECK", "expected": "QUARANTINE_RECHECK", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P7", "case": "missed_alpha_shadow_clean", "result": "MISSED_OPPORTUNITY_FEEDBACK_MARK", "expected": "MISSED_OPPORTUNITY_FEEDBACK_MARK", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P8", "case": "no_change_replay_reject", "result": "REPLAY_REJECTED_NO_CHANGE", "expected": "REPLAY_REJECTED_NO_CHANGE", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P9", "case": "weak_replay_light_memory", "result": "REPLAY_KEEP_LIGHT_MEMORY", "expected": "REPLAY_KEEP_LIGHT_MEMORY", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P10", "case": "quarantine_not_expired_keep_light", "result": "REPLAY_KEEP_LIGHT_MEMORY", "expected": "REPLAY_KEEP_LIGHT_MEMORY", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P11", "case": "false_blacklist_without_guard_keep_light", "result": "REPLAY_KEEP_LIGHT_MEMORY", "expected": "REPLAY_KEEP_LIGHT_MEMORY", "match": true}
+{"type": "V48_PLAN_TEST", "id": "P12", "case": "unknown_safe_default_light", "result": "REPLAY_KEEP_LIGHT_MEMORY", "expected": "REPLAY_KEEP_LIGHT_MEMORY", "match": true}
+{"type": "RED_TEAM_CONTROL", "risk": "Replay memory can become obese.", "control": "REPLAY_MEMORY_MAX_ITEMS_AND_TTL_REQUIRED"}
+{"type": "RED_TEAM_CONTROL", "risk": "Attacker can strengthen weak fake signals repeatedly.", "control": "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED"}
+{"type": "RED_TEAM_CONTROL", "risk": "Heavy path can be starved by replay candidates.", "control": "HEAVY_PATH_REENTRY_BUDGET_REQUIRED"}
+{"type": "RED_TEAM_CONTROL", "risk": "False blacklist can hide legitimate tokens.", "control": "FALSE_BLACKLIST_REVERSAL_REQUIRED"}
+{"type": "RED_TEAM_CONTROL", "risk": "Quarantine can block fast path globally.", "control": "QUARANTINE_RECHECK_DOES_NOT_BLOCK_FAST_PATH"}
+{"type": "RED_TEAM_CONTROL", "risk": "Missed alpha labels can create hindsight bias.", "control": "SHADOW_LABEL_NO_TRADE_AUTHORITY"}
+{"type": "RED_TEAM_CONTROL", "risk": "Replay can override fresh risk evidence.", "control": "FRESH_RISK_OVERRIDES_REPLAY_REQUIRED"}
+{"type": "RED_TEAM_CONTROL", "risk": "Per-token spam can dominate replay memory.", "control": "PER_TOKEN_REPLAY_CAP_REQUIRED"}
+{"type": "FINAL_COUNT", "item": "PLAN_CONTRACT_COUNT", "value": 15}
+{"type": "FINAL_COUNT", "item": "REPLAY_CLASS_COUNT", "value": 9}
+{"type": "FINAL_COUNT", "item": "MEMORY_LIMIT_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "FEEDBACK_SOURCE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "RED_TEAM_CONTROL_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 49}
+{"type": "NEXT", "value": "V2_48A_ALPHA_REPLAY_MEMORY_CONTRACT_LOCAL_NOAPI"}

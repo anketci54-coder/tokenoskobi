@@ -1,0 +1,64 @@
+{"type": "CANDIDATE_PHASE", "name": "V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI", "priority": 1, "selected": true, "reason": "V2_47 introduced P5 replay memory and dynamic quarantine; next phase must prevent missed real alpha from being forgotten."}
+{"type": "CANDIDATE_PHASE", "name": "V2_48_LIQUIDITY_EXIT_FEASIBILITY_AND_ROUTE_STRESS_ENGINE_PLAN_NOAPI", "priority": 2, "selected": false, "reason": "Strong future need, but exit feasibility should come after missed-alpha replay memory contract."}
+{"type": "CANDIDATE_PHASE", "name": "V2_48_SOURCE_TRUST_DECAY_AND_POISONED_SOURCE_SCORE_ENGINE_PLAN_NOAPI", "priority": 3, "selected": false, "reason": "Useful, but source decay depends on replay/outcome memory traces."}
+{"type": "CANDIDATE_PHASE", "name": "V2_48_MARKET_REGIME_SHIFT_AND_FALSE_NEGATIVE_GUARD_ENGINE_PLAN_NOAPI", "priority": 4, "selected": false, "reason": "Important, but broader than current V2_47 closure context."}
+{"type": "CORE_REQUIREMENT", "item": "alpha_replay_memory"}
+{"type": "CORE_REQUIREMENT", "item": "missed_opportunity_feedback"}
+{"type": "CORE_REQUIREMENT", "item": "p5_replay_reentry"}
+{"type": "CORE_REQUIREMENT", "item": "false_negative_guard"}
+{"type": "CORE_REQUIREMENT", "item": "bounded_replay_ttl"}
+{"type": "CORE_REQUIREMENT", "item": "per_token_replay_cap"}
+{"type": "CORE_REQUIREMENT", "item": "per_route_replay_cap"}
+{"type": "CORE_REQUIREMENT", "item": "heavy_path_reentry_budget"}
+{"type": "CORE_REQUIREMENT", "item": "quarantine_recheck"}
+{"type": "CORE_REQUIREMENT", "item": "false_blacklist_reversal"}
+{"type": "CORE_REQUIREMENT", "item": "fast_path_non_blocking"}
+{"type": "CORE_REQUIREMENT", "item": "no_trade_authority"}
+{"type": "RED_TEAM_ITEM", "id": "RT1", "risk": "P5_EXPIRE_NO_ACTION may erase a real opportunity during heavy-path pressure.", "required_guard": "P5_REPLAY_MEMORY_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "RT2", "risk": "Quarantine may hide a legitimate token after spoofed repeated attacks.", "required_guard": "FALSE_BLACKLIST_REVERSAL_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "RT3", "risk": "Replay memory can become obese and slow the fast path.", "required_guard": "BOUNDED_TTL_AND_CAP_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "RT4", "risk": "Attacker can repeatedly strengthen fake weak signals to force reentry.", "required_guard": "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "RT5", "risk": "Heavy path reentry can starve new real alpha.", "required_guard": "HEAVY_PATH_REENTRY_BUDGET_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "RT6", "risk": "Replay memory without outcome tagging cannot learn false negatives.", "required_guard": "MISSED_OPPORTUNITY_FEEDBACK_REQUIRED"}
+{"type": "SELECTION_LOCK", "item": "V2_48_SELECTION_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SELECTED_PHASE=V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI"}
+{"type": "SELECTION_LOCK", "item": "V2_47_SEALED_PARENT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REMOTE_SYNC_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REPO_CLEAN_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "NO_SUBTASK_PUSH=true"}
+{"type": "SELECTION_LOCK", "item": "FINAL_CLOSE_PUSH_ONLY=true"}
+{"type": "SELECTION_LOCK", "item": "ALPHA_REPLAY_MEMORY_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "MISSED_OPPORTUNITY_FEEDBACK_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "P5_EXPIRE_NO_ACTION_REPLAY_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "FALSE_NEGATIVE_GUARD_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REAL_ALPHA_NOT_FORGOTTEN_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "EXPIRED_LOW_VALUE_CAN_REENTER_IF_SIGNAL_STRENGTHENS=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_DOES_NOT_BLOCK_FAST_PATH=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_MEMORY_BOUNDED_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_MEMORY_TTL_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_MEMORY_PER_TOKEN_CAP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_MEMORY_PER_ROUTE_CAP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "QUARANTINE_RECHECK_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "FALSE_BLACKLIST_REVERSAL_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "HEAVY_PATH_REENTRY_BUDGET_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "NO_TRADE_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "API_RPC=false"}
+{"type": "SELECTION_LOCK", "item": "LIVE_FEED=false"}
+{"type": "SELECTION_LOCK", "item": "DB_WRITE=false"}
+{"type": "SELECTION_LOCK", "item": "PANEL_WRITE=false"}
+{"type": "SELECTION_LOCK", "item": "RUNTIME_APPLY=false"}
+{"type": "SELECTION_LOCK", "item": "SERVICE_RESTART=false"}
+{"type": "SELECTION_LOCK", "item": "TIMER_CHANGE=false"}
+{"type": "SELECTION_LOCK", "item": "LIVE_DECISION=false"}
+{"type": "SELECTION_LOCK", "item": "LIVE_TRADE=false"}
+{"type": "SELECTION_LOCK", "item": "WALLET_ACCESS=false"}
+{"type": "SELECTION_LOCK", "item": "PRIVATE_KEY_ACCESS=false"}
+{"type": "SELECTION_LOCK", "item": "OUTBOUND_PACKET=false"}
+{"type": "SELECTION_LOCK", "item": "GITHUB_PUSH=false"}
+{"type": "FINAL_COUNT", "item": "CANDIDATE_PHASE_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "SELECTION_LOCK_COUNT", "value": 36}
+{"type": "FINAL_COUNT", "item": "RED_TEAM_ITEM_COUNT", "value": 6}
+{"type": "FINAL_COUNT", "item": "CORE_REQUIREMENT_COUNT", "value": 12}
+{"type": "SELECTED_PHASE", "value": "V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI"}
+{"type": "NEXT", "value": "V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI"}
