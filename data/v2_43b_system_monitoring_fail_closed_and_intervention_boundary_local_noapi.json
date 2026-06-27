@@ -1,0 +1,196 @@
+{
+  "task": "V2_43B_SYSTEM_MONITORING_FAIL_CLOSED_AND_INTERVENTION_BOUNDARY_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T09:08:22Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_43B_SYSTEM_MONITORING_FAIL_CLOSED_AND_INTERVENTION_BOUNDARY_LOCAL_NOAPI",
+  "decision": "V2_43B_FAIL_CLOSED_INTERVENTION_BOUNDARY_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_43_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "d48d1017e833276a452c92175b69e56f4be6ba1a",
+  "remote_now": "d48d1017e833276a452c92175b69e56f4be6ba1a",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_43_next_approved_phase_selection_noapi.json\n?? data/v2_43_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_43_system_monitoring_boundary_plan_noapi.json\n?? data/v2_43_system_monitoring_boundary_plan_noapi_rows.jsonl\n?? data/v2_43a_system_monitoring_scope_and_observation_contract_local_noapi.json\n?? data/v2_43a_system_monitoring_scope_and_observation_contract_local_noapi_rows.jsonl\n?? docs/v2/V2_43A_SYSTEM_MONITORING_SCOPE_AND_OBSERVATION_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_43_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_43_SYSTEM_MONITORING_BOUNDARY_PLAN_NOAPI.md",
+  "fail_closed_triggers": [
+    {
+      "id": "FC1",
+      "trigger": "critical_source_missing",
+      "status": "REVIEW_REQUIRED",
+      "action": "REPORT_ONLY_NO_ACTION",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC2",
+      "trigger": "safety_boundary_unknown",
+      "status": "FAIL_CLOSED",
+      "action": "BLOCK_PROGRESSION_REPORT_ONLY",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC3",
+      "trigger": "approval_ambiguity",
+      "status": "FAIL_CLOSED",
+      "action": "BLOCK_PROGRESSION_REPORT_ONLY",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC4",
+      "trigger": "hash_drift",
+      "status": "REVIEW_REQUIRED",
+      "action": "REPORT_ONLY_NO_ACTION",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC5",
+      "trigger": "api_rpc_needed",
+      "status": "STOP_NOAPI",
+      "action": "BLOCK_PROGRESSION_REPORT_ONLY",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC6",
+      "trigger": "repair_restart_write_needed",
+      "status": "REPORT_ONLY_NO_ACTION",
+      "action": "REPORT_ONLY_NO_ACTION",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC7",
+      "trigger": "runtime_binding_pressure",
+      "status": "FAIL_CLOSED",
+      "action": "BLOCK_PROGRESSION_REPORT_ONLY",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC8",
+      "trigger": "wallet_or_private_key_pressure",
+      "status": "FAIL_CLOSED",
+      "action": "BLOCK_PROGRESSION_REPORT_ONLY",
+      "intervention_allowed": false
+    },
+    {
+      "id": "FC9",
+      "trigger": "outbound_packet_pressure",
+      "status": "FAIL_CLOSED",
+      "action": "BLOCK_PROGRESSION_REPORT_ONLY",
+      "intervention_allowed": false
+    }
+  ],
+  "intervention_boundary": {
+    "monitor_can_read": true,
+    "monitor_can_hash": true,
+    "monitor_can_count": true,
+    "monitor_can_list": true,
+    "monitor_can_inspect": true,
+    "monitor_can_classify": true,
+    "monitor_can_report": true,
+    "monitor_can_recommend": false,
+    "monitor_can_write": false,
+    "monitor_can_mutate": false,
+    "monitor_can_restart": false,
+    "monitor_can_start": false,
+    "monitor_can_stop": false,
+    "monitor_can_enable": false,
+    "monitor_can_disable": false,
+    "monitor_can_kill": false,
+    "monitor_can_repair": false,
+    "monitor_can_patch": false,
+    "monitor_can_bind_runtime": false,
+    "monitor_can_call_api": false,
+    "monitor_can_call_rpc": false,
+    "monitor_can_trade": false,
+    "monitor_can_sign": false,
+    "monitor_can_touch_wallet": false,
+    "monitor_can_touch_private_key": false,
+    "monitor_can_send_packet": false
+  },
+  "progression_rules": [
+    {
+      "from_status": "OK",
+      "can_continue": true,
+      "requires_human_review": false,
+      "can_intervene": false
+    },
+    {
+      "from_status": "WARN",
+      "can_continue": true,
+      "requires_human_review": false,
+      "can_intervene": false
+    },
+    {
+      "from_status": "REVIEW_REQUIRED",
+      "can_continue": false,
+      "requires_human_review": true,
+      "can_intervene": false
+    },
+    {
+      "from_status": "STOP_NOAPI",
+      "can_continue": false,
+      "requires_human_review": true,
+      "can_intervene": false
+    },
+    {
+      "from_status": "FAIL_CLOSED",
+      "can_continue": false,
+      "requires_human_review": true,
+      "can_intervene": false
+    }
+  ],
+  "emergency_doctrine": [
+    "Monitoring may detect emergency conditions but cannot execute emergency actions.",
+    "Emergency state is evidence, not permission.",
+    "Restart, repair, timer change, DB write, panel write, runtime bind, API/RPC, trade, wallet, key and packet actions remain forbidden.",
+    "Any pressure to intervene becomes FAIL_CLOSED or REVIEW_REQUIRED.",
+    "Only a later explicit approved phase may define controlled intervention mechanics."
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v42_json_exists": true,
+    "v42_final_gate_pass": true,
+    "selection_json_exists": true,
+    "selection_pass": true,
+    "v43_json_exists": true,
+    "v43_gate_pass": true,
+    "v43_doc_exists": true,
+    "v43_doc_pass": true,
+    "v43a_json_exists": true,
+    "v43a_gate_pass": true,
+    "v43a_doc_exists": true,
+    "v43a_doc_pass": true,
+    "v43a_next_match": true,
+    "fail_closed_trigger_count_9": true,
+    "all_triggers_no_intervention": true,
+    "progression_rule_count_5": true,
+    "all_non_ok_stop_no_intervention": true,
+    "intervention_all_dangerous_false": true,
+    "read_report_classify_true": true,
+    "emergency_doctrine_count_5": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

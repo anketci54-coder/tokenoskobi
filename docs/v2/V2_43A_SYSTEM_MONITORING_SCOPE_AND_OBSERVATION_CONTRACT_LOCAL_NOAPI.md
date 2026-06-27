@@ -1,0 +1,103 @@
+# V2_43A_SYSTEM_MONITORING_SCOPE_AND_OBSERVATION_CONTRACT_LOCAL_NOAPI
+
+STAMP_UTC=2026-06-27T09:06:38Z
+MODE=LOCAL_ONLY_NOAPI_NO_PUSH
+
+## RESULT
+
+FINAL_GATE=PASS_V2_43A_SYSTEM_MONITORING_SCOPE_AND_OBSERVATION_CONTRACT_LOCAL_NOAPI
+DECISION=V2_43A_OBSERVATION_CONTRACT_PASS_READY_FOR_FAIL_CLOSED_BOUNDARY
+NEXT=V2_43B_SYSTEM_MONITORING_FAIL_CLOSED_AND_INTERVENTION_BOUNDARY_LOCAL_NOAPI
+GITHUB_PUSH=false
+
+## CORRECTION NOTE
+
+Previous V2_43A review was caused by stale validation assertions, not system safety failure.
+
+FIXED_CHECK_1=V2_43 correctly points to V2_43A
+FIXED_CHECK_2=V2_42 seal is verified by final JSON and git remote state
+FIXED_CHECK_3=FORBIDDEN_VERB_COUNT=18
+
+## ALLOWED VERBS
+
+- READ
+- HASH
+- COUNT
+- LIST
+- INSPECT
+- CLASSIFY
+- REPORT
+
+## FORBIDDEN VERBS
+
+- WRITE
+- MUTATE
+- RESTART
+- STOP
+- START
+- ENABLE
+- DISABLE
+- KILL
+- REPAIR
+- PATCH
+- BIND
+- CALL_API
+- CALL_RPC
+- TRADE
+- SIGN
+- TOUCH_WALLET
+- TOUCH_PRIVATE_KEY
+- SEND_PACKET
+
+## EVIDENCE LEVELS
+
+- L0_NAME_REFERENCE: Name or config reference exists
+- L1_FILE_REFERENCE: File path or unit reference exists
+- L2_PHYSICAL_EXISTENCE: Physical file/table/unit exists
+- L3_READABLE_STATE: Readable state or non-zero data exists
+- L4_PRODUCER_REFERENCE: Producer reference can be located
+- L5_RUNTIME_CHAIN_REFERENCE: Runtime chain reference can be located
+- L6_CONSUMER_CHAIN_REFERENCE: Consumer/readmodel/panel chain reference can be located
+
+## OBSERVATION TARGETS
+
+- OBS1: Service State | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS2: Timer State | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS3: Runtime Process And Port | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS4: File Integrity | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS5: Database Integrity | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS6: Panel Data Health | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS7: Queue And Obesity | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS8: Fail-Closed Locks | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+- OBS9: Human Approval Integrity | READ_ALLOWED=true | INTERVENTION_ALLOWED=false
+
+## STATUS TAXONOMY
+
+- OK: Observed state matches expected boundary | PROGRESSION=allowed_to_next_local_noapi
+- WARN: Non-critical drift or incomplete optional signal | PROGRESSION=allowed_with_note
+- REVIEW_REQUIRED: Evidence missing or state unclear | PROGRESSION=stop_until_reviewed
+- FAIL_CLOSED: Safety lock ambiguity or forbidden path pressure | PROGRESSION=stop_and_preserve_lab_lock
+
+## LOCKS
+
+OBSERVATION_ALLOWED=true
+RUNTIME_INTERVENTION_ALLOWED=false
+SERVICE_RESTART_ALLOWED=false
+TIMER_CHANGE_ALLOWED=false
+DB_WRITE_ALLOWED=false
+PANEL_WRITE_ALLOWED=false
+API_RPC_ALLOWED=false
+OUTBOUND_PACKET_ALLOWED=false
+WALLET_ACCESS_ALLOWED=false
+PRIVATE_KEY_ACCESS_ALLOWED=false
+FAIL_CLOSED_LAB_ONLY=true
+
+## NEXT SUBSTEP
+
+V2_43B_SYSTEM_MONITORING_FAIL_CLOSED_AND_INTERVENTION_BOUNDARY_LOCAL_NOAPI
+
+## PUSH POLICY
+
+SUBTASK_PUSH=false
+FINAL_CLOSE_PUSH=true
+GITHUB_PUSH_ONLY_AT_VXX_FINAL_CLOSE=true

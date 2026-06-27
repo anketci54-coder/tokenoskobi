@@ -1,0 +1,318 @@
+{
+  "task": "V2_43_SYSTEM_MONITORING_BOUNDARY_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T07:10:12Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_43_SYSTEM_MONITORING_BOUNDARY_PLAN_NOAPI",
+  "decision": "V2_43_MONITORING_BOUNDARY_PLAN_PASS_READY_FOR_SCOPE_OBSERVATION_CONTRACT",
+  "next": "V2_43A_SYSTEM_MONITORING_SCOPE_AND_OBSERVATION_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "d48d1017e833276a452c92175b69e56f4be6ba1a",
+  "remote_now": "d48d1017e833276a452c92175b69e56f4be6ba1a",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_43_next_approved_phase_selection_noapi.json\n?? data/v2_43_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_43_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "monitoring_boundary": {
+    "mode": "PLAN_ONLY_NOAPI_NO_PUSH",
+    "observation_allowed": true,
+    "reporting_allowed": true,
+    "classification_allowed": true,
+    "recommendation_allowed": false,
+    "runtime_intervention_allowed": false,
+    "service_restart_allowed": false,
+    "timer_change_allowed": false,
+    "runtime_binding_allowed": false,
+    "repair_allowed": false,
+    "db_write_allowed": false,
+    "panel_write_allowed": false,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false,
+    "live_decision_allowed": false,
+    "live_trade_allowed": false,
+    "wallet_access_allowed": false,
+    "private_key_access_allowed": false,
+    "ai_tool_execution_allowed": false,
+    "outbound_packet_allowed": false,
+    "fail_closed_lab_only": true
+  },
+  "monitoring_domains": [
+    {
+      "id": "MON1",
+      "name": "Service State Observation",
+      "tr": "Servis durumu gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "active_state",
+        "sub_state",
+        "unit_file_state",
+        "last_exit_code",
+        "restart_count"
+      ],
+      "forbidden": [
+        "systemctl restart",
+        "systemctl stop",
+        "systemctl start",
+        "systemctl enable",
+        "systemctl disable"
+      ]
+    },
+    {
+      "id": "MON2",
+      "name": "Timer State Observation",
+      "tr": "Timer durumu gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "timer_active_state",
+        "next_run",
+        "last_run",
+        "unit_file_state"
+      ],
+      "forbidden": [
+        "timer enable",
+        "timer disable",
+        "timer start",
+        "timer stop",
+        "timer edit"
+      ]
+    },
+    {
+      "id": "MON3",
+      "name": "Runtime Health Observation",
+      "tr": "Runtime sağlık gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "process_presence",
+        "port_presence",
+        "response_status",
+        "stale_runtime_hint"
+      ],
+      "forbidden": [
+        "pid kill",
+        "process restart",
+        "runtime bind",
+        "port close"
+      ]
+    },
+    {
+      "id": "MON4",
+      "name": "File Hash Observation",
+      "tr": "Dosya hash gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "db_sha",
+        "panel_index_sha",
+        "risk_sha",
+        "phase41_sha",
+        "unexpected_change_hint"
+      ],
+      "forbidden": [
+        "file write",
+        "file chmod",
+        "file delete",
+        "file replace"
+      ]
+    },
+    {
+      "id": "MON5",
+      "name": "DB Health Observation",
+      "tr": "Veritabanı sağlık gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "sqlite_integrity",
+        "table_presence",
+        "row_count_readonly",
+        "stale_table_hint"
+      ],
+      "forbidden": [
+        "insert",
+        "update",
+        "delete",
+        "alter",
+        "vacuum",
+        "pragma write"
+      ]
+    },
+    {
+      "id": "MON6",
+      "name": "Panel Health Observation",
+      "tr": "Panel sağlık gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "index_present",
+        "data_json_present",
+        "local_route_status",
+        "preview_status_hint"
+      ],
+      "forbidden": [
+        "panel write",
+        "asset overwrite",
+        "nginx change",
+        "auth change"
+      ]
+    },
+    {
+      "id": "MON7",
+      "name": "Queue Health Observation",
+      "tr": "Kuyruk sağlık gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "queue_size",
+        "queue_limit",
+        "dedupe_count",
+        "ttl_state",
+        "obesity_hint"
+      ],
+      "forbidden": [
+        "queue flush",
+        "queue mutate",
+        "queue write"
+      ]
+    },
+    {
+      "id": "MON8",
+      "name": "Fail-Closed State Observation",
+      "tr": "Fail-closed durum gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "noapi_lock",
+        "outbound_packet_lock",
+        "runtime_binding_lock",
+        "trade_lock",
+        "wallet_lock"
+      ],
+      "forbidden": [
+        "unlock",
+        "override",
+        "temporary bypass",
+        "manual emergency bypass"
+      ]
+    },
+    {
+      "id": "MON9",
+      "name": "Human Approval Integrity Observation",
+      "tr": "İnsan onayı bütünlüğü gözlemi",
+      "read_allowed": true,
+      "intervention_allowed": false,
+      "signals": [
+        "approval_required",
+        "approval_evidence_present",
+        "approval_scope_clear",
+        "approval_not_inferred"
+      ],
+      "forbidden": [
+        "assume approval",
+        "expand approval scope",
+        "reuse old approval",
+        "auto approve"
+      ]
+    }
+  ],
+  "severity_matrix": [
+    {
+      "severity": "INFO",
+      "meaning": "normal observation",
+      "action": "report_only",
+      "intervention": false
+    },
+    {
+      "severity": "WARN",
+      "meaning": "non-critical drift or stale hint",
+      "action": "report_only",
+      "intervention": false
+    },
+    {
+      "severity": "REVIEW",
+      "meaning": "human review needed",
+      "action": "report_only",
+      "intervention": false
+    },
+    {
+      "severity": "FAIL_CLOSED",
+      "meaning": "safety boundary or integrity risk",
+      "action": "report_only_and_block_progression",
+      "intervention": false
+    }
+  ],
+  "hard_boundaries": [
+    "Observation is allowed; intervention is forbidden.",
+    "Monitor may read, report, and classify only.",
+    "Monitor may not restart, repair, write, mutate, enable, disable, bind runtime, call API/RPC, trade, or touch wallet material.",
+    "Any missing critical state becomes REVIEW or FAIL_CLOSED, not automatic repair.",
+    "Any approval ambiguity becomes FAIL_CLOSED.",
+    "NOAPI exit remains forbidden until HG1-HG3 are closed and explicitly verified."
+  ],
+  "inherited_hard_gates": [
+    "HG1",
+    "HG2",
+    "HG3"
+  ],
+  "post_v60_future_hard_gates": [
+    "PHG1",
+    "PHG2",
+    "PHG3",
+    "PHG4",
+    "PHG5"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "selection_doc_exists": true,
+    "selection_json_exists": true,
+    "v2_42_doc_exists": true,
+    "v2_42_json_exists": true,
+    "selection_pass": true,
+    "selected_phase_match": true,
+    "v2_42_final_pass": true,
+    "v2_42_verified_pushed": true,
+    "v2_42_noapi_exit_false": true,
+    "v2_42_outbound_packet_false": true,
+    "v2_42_fail_closed_lab_only": true,
+    "v2_42_current_hard_gate_count_3": true,
+    "v2_42_post_v60_future_hard_gate_count_5": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true,
+    "monitoring_domain_count_9": true,
+    "severity_matrix_count_4": true,
+    "observation_allowed_true": true,
+    "runtime_intervention_false": true,
+    "service_restart_false": true,
+    "timer_change_false": true,
+    "db_write_false": true,
+    "panel_write_false": true,
+    "api_rpc_false": true,
+    "outbound_packet_false": true,
+    "wallet_access_false": true,
+    "no_domain_intervention": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
