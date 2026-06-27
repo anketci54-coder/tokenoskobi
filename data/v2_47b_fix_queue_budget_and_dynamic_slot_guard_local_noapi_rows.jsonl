@@ -1,0 +1,55 @@
+{"type": "BUDGET_ITEM", "item": "FAST_PATH_MAX_QUEUE", "value": 1000}
+{"type": "BUDGET_ITEM", "item": "HEAVY_PATH_MAX_QUEUE", "value": 100}
+{"type": "BUDGET_ITEM", "item": "BORDERLINE_MAX_PER_TOKEN_BUCKET", "value": 20}
+{"type": "BUDGET_ITEM", "item": "DUPLICATE_BUCKET_MAX_WINDOW", "value": 50}
+{"type": "BUDGET_ITEM", "item": "HEAVY_PATH_RESERVED_REAL_ALPHA_SLOTS_MIN", "value": 10}
+{"type": "BUDGET_ITEM", "item": "HEAVY_PATH_OVERFLOW_POLICY", "value": "FAIL_CLOSED_FOR_SUSPICIOUS_EXPIRE_LOW_VALUE"}
+{"type": "BUDGET_ITEM", "item": "FAST_PATH_OVERFLOW_POLICY", "value": "DROP_MALFORMED_COLLAPSE_DUPLICATE_KEEP_PRIORITY"}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "DYNAMIC_REAL_ALPHA_SLOT_ALLOCATION_REQUIRED", "value": true}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "REAL_ALPHA_RESERVED_SLOT_DYNAMIC_BUT_CAPPED", "value": true}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_MIN", "value": 10}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_MAX", "value": 25}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_BACKPRESSURE_STEP", "value": 5}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_PER_TOKEN_CAP_REQUIRED", "value": true}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_PER_TOKEN_CAP", "value": 3}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_PER_ROUTE_CAP_REQUIRED", "value": true}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_PER_ROUTE_CAP", "value": 4}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "RESERVED_SLOT_SYBIL_GUARD_REQUIRED", "value": true}
+{"type": "DYNAMIC_SLOT_POLICY", "item": "REAL_ALPHA_RESERVED_SLOTS_CANNOT_BE_MONOPOLIZED", "value": true}
+{"type": "REPLAY_POLICY", "item": "P5_EXPIRE_NO_ACTION_WITH_REPLAY_MEMORY_REQUIRED", "value": true}
+{"type": "REPLAY_POLICY", "item": "EXPIRED_ALPHA_REPLAY_GUARD_REQUIRED", "value": true}
+{"type": "REPLAY_POLICY", "item": "P5_REPLAY_TTL_WINDOWS", "value": 3}
+{"type": "REPLAY_POLICY", "item": "REPLAY_ESCALATE_ON_SIGNAL_STRENGTHENING", "value": true}
+{"type": "REPLAY_POLICY", "item": "REPLAY_DOES_NOT_BLOCK_FAST_PATH", "value": true}
+{"type": "REPLAY_POLICY", "item": "LOW_VALUE_EXPIRE_NOT_PERMANENT_REJECT", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "REPEATED_ATTACK_SOURCE_BLACKLIST_REQUIRED", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "TEMPORARY_ATTACK_SOURCE_QUARANTINE_REQUIRED", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "BLACKLIST_REQUIRES_REPEATED_CONFIRMED_ATTACK_PATTERN", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "QUARANTINE_TTL_REQUIRED", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "QUARANTINE_TTL_WINDOWS", "value": 6}
+{"type": "QUARANTINE_POLICY", "item": "FALSE_BLACKLIST_GUARD_REQUIRED", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "SINGLE_EVENT_PERMANENT_BLACKLIST_FORBIDDEN", "value": true}
+{"type": "QUARANTINE_POLICY", "item": "QUARANTINE_DOES_NOT_STOP_GLOBAL_FAST_PATH", "value": true}
+{"type": "V47B_FIX_TEST", "id": "F1", "case": "budget_count_seal", "actual": 7, "expected": 7, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F2", "case": "reserved_slots_base", "actual": 10, "expected": 10, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F3", "case": "reserved_slots_medium_backpressure", "actual": 20, "expected": 20, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F4", "case": "reserved_slots_cap", "actual": 25, "expected": 25, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F5", "case": "per_token_reserved_cap", "actual": 3, "expected": 3, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F6", "case": "per_route_reserved_cap", "actual": 4, "expected": 4, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F7", "case": "p5_replay_memory_enabled", "actual": true, "expected": true, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F8", "case": "expired_alpha_replay_guard_enabled", "actual": true, "expected": true, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F9", "case": "temporary_quarantine_enabled", "actual": true, "expected": true, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F10", "case": "single_event_permanent_blacklist_forbidden", "actual": true, "expected": true, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F11", "case": "false_blacklist_guard_enabled", "actual": true, "expected": true, "match": true}
+{"type": "V47B_FIX_TEST", "id": "F12", "case": "fast_path_not_blocked_by_quarantine", "actual": true, "expected": true, "match": true}
+{"type": "SEMANTIC_FIX", "id": "SF1", "before": "budget count expected 6", "after": "budget count sealed as 7", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF2", "before": "reserved real alpha slots fixed at 10", "after": "dynamic but capped 10-25 slot policy", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF3", "before": "reserved slots could be monopolized by one token/route", "after": "per-token and per-route caps required", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF4", "before": "P5 expire could forget medium opportunity", "after": "P5 replay memory guard required", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF5", "before": "repeated attackers could keep consuming queue", "after": "temporary quarantine and repeated pattern guard required", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF6", "before": "permanent blacklist could false-block legitimate token", "after": "TTL and false blacklist guard required", "status": "FIXED"}
+{"type": "FINAL_COUNT", "item": "BUDGET_COUNT", "value": 7}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "SEMANTIC_FIX_COUNT", "value": 6}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 46}
+{"type": "NEXT", "value": "V2_47_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"}

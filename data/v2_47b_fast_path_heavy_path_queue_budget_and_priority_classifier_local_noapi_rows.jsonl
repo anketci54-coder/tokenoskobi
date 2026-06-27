@@ -1,0 +1,47 @@
+{"type": "PRIORITY_CLASS", "class": "P0_FAIL_CLOSED", "rank": 0, "meaning": "poisoned, malformed, ghost, queue attack"}
+{"type": "PRIORITY_CLASS", "class": "P1_REAL_ALPHA_PROTECT", "rank": 1, "meaning": "clean high-value alpha candidate"}
+{"type": "PRIORITY_CLASS", "class": "P2_HEAVY_CANDIDATE", "rank": 2, "meaning": "high value or suspicious with budget"}
+{"type": "PRIORITY_CLASS", "class": "P3_REVIEW_ONLY", "rank": 3, "meaning": "needs bounded review"}
+{"type": "PRIORITY_CLASS", "class": "P4_RISKY_OPPORTUNITY", "rank": 4, "meaning": "risky but not fake"}
+{"type": "PRIORITY_CLASS", "class": "P5_EXPIRE_NO_ACTION", "rank": 5, "meaning": "clean but weak or incomplete"}
+{"type": "PRIORITY_CLASS", "class": "P6_COLLAPSED_DUPLICATE", "rank": 6, "meaning": "bucket-collapsed noise"}
+{"type": "V47B_TEST", "id": "B1", "case": "malformed_signal", "result": "P0_FAIL_CLOSED", "expected": "P0_FAIL_CLOSED", "match": true}
+{"type": "V47B_TEST", "id": "B2", "case": "ghost_queue_attack", "result": "P0_FAIL_CLOSED", "expected": "P0_FAIL_CLOSED", "match": true}
+{"type": "V47B_TEST", "id": "B3", "case": "clean_high_value_real_alpha", "result": "P1_REAL_ALPHA_PROTECT", "expected": "P1_REAL_ALPHA_PROTECT", "match": true}
+{"type": "V47B_TEST", "id": "B4", "case": "heavy_candidate_budget_available", "result": "P2_HEAVY_CANDIDATE", "expected": "P2_HEAVY_CANDIDATE", "match": true}
+{"type": "V47B_TEST", "id": "B5", "case": "heavy_candidate_budget_full_suspicious", "result": "P0_FAIL_CLOSED", "expected": "P0_FAIL_CLOSED", "match": true}
+{"type": "V47B_TEST", "id": "B6", "case": "heavy_candidate_budget_full_low_value", "result": "P5_EXPIRE_NO_ACTION", "expected": "P5_EXPIRE_NO_ACTION", "match": true}
+{"type": "V47B_TEST", "id": "B7", "case": "review_only", "result": "P3_REVIEW_ONLY", "expected": "P3_REVIEW_ONLY", "match": true}
+{"type": "V47B_TEST", "id": "B8", "case": "risky_not_fake", "result": "P4_RISKY_OPPORTUNITY", "expected": "P4_RISKY_OPPORTUNITY", "match": true}
+{"type": "V47B_TEST", "id": "B9", "case": "duplicate_noise", "result": "P6_COLLAPSED_DUPLICATE", "expected": "P6_COLLAPSED_DUPLICATE", "match": true}
+{"type": "V47B_TEST", "id": "B10", "case": "weak_clean_signal", "result": "P5_EXPIRE_NO_ACTION", "expected": "P5_EXPIRE_NO_ACTION", "match": true}
+{"type": "V47B_TEST", "id": "B11", "case": "heavy_path_full_fast_path_continues", "result": "P5_EXPIRE_NO_ACTION", "expected": "P5_EXPIRE_NO_ACTION", "match": true}
+{"type": "V47B_TEST", "id": "B12", "case": "real_alpha_reserved_slot_protected", "result": "P1_REAL_ALPHA_PROTECT", "expected": "P1_REAL_ALPHA_PROTECT", "match": true}
+{"type": "QUEUE_GUARD", "item": "FAST_PATH_QUEUE_ISOLATED_FROM_HEAVY_PATH"}
+{"type": "QUEUE_GUARD", "item": "HEAVY_PATH_QUEUE_BUDGET_ENFORCED"}
+{"type": "QUEUE_GUARD", "item": "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_FOR_SUSPICIOUS"}
+{"type": "QUEUE_GUARD", "item": "HEAVY_PATH_OVERFLOW_EXPIRE_LOW_VALUE"}
+{"type": "QUEUE_GUARD", "item": "REAL_ALPHA_RESERVED_SLOTS_REQUIRED"}
+{"type": "QUEUE_GUARD", "item": "DUPLICATE_BUCKET_COLLAPSE_BEFORE_HEAVY_PATH"}
+{"type": "QUEUE_GUARD", "item": "BORDERLINE_RATE_LIMIT_BEFORE_HEAVY_PATH"}
+{"type": "QUEUE_GUARD", "item": "MALFORMED_DROP_BEFORE_QUEUE"}
+{"type": "QUEUE_GUARD", "item": "FAST_PATH_CONTINUES_DURING_HEAVY_PATH_BACKPRESSURE"}
+{"type": "QUEUE_GUARD", "item": "SINGLE_TOKEN_QUEUE_DOMINATION_FORBIDDEN"}
+{"type": "RESOURCE_ISOLATION", "resource": "fast_path_queue", "isolated": true}
+{"type": "RESOURCE_ISOLATION", "resource": "heavy_path_queue", "isolated": true}
+{"type": "RESOURCE_ISOLATION", "resource": "fast_path_memory_pool", "isolated": true}
+{"type": "RESOURCE_ISOLATION", "resource": "heavy_path_memory_pool", "isolated": true}
+{"type": "RESOURCE_ISOLATION", "resource": "priority_classifier", "isolated": true}
+{"type": "OVERFLOW_POLICY", "condition": "heavy_full_suspicious", "action": "FAIL_CLOSED_REJECT"}
+{"type": "OVERFLOW_POLICY", "condition": "heavy_full_low_value", "action": "EXPIRE_NO_ACTION"}
+{"type": "OVERFLOW_POLICY", "condition": "heavy_full_real_alpha", "action": "USE_RESERVED_SLOT_OR_ESCALATE_ONCE"}
+{"type": "OVERFLOW_POLICY", "condition": "fast_full_malformed", "action": "DROP"}
+{"type": "OVERFLOW_POLICY", "condition": "fast_full_duplicate", "action": "COLLAPSE"}
+{"type": "OVERFLOW_POLICY", "condition": "fast_full_borderline_spam", "action": "RATE_LIMIT"}
+{"type": "FINAL_COUNT", "item": "PRIORITY_CLASS_COUNT", "value": 7}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "QUEUE_GUARD_COUNT", "value": 10}
+{"type": "FINAL_COUNT", "item": "RESOURCE_ISOLATION_COUNT", "value": 5}
+{"type": "FINAL_COUNT", "item": "OVERFLOW_POLICY_COUNT", "value": 6}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 38}
+{"type": "NEXT", "value": "FIX_REVIEW_ITEMS"}

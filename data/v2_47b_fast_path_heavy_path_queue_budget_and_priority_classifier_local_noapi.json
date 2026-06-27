@@ -1,0 +1,313 @@
+{
+  "task": "V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T13:02:16Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CLASSIFIER",
+  "final_gate": "REVIEW_V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER_LOCAL_NOAPI",
+  "decision": "STOP_REVIEW_REQUIRED",
+  "next": "FIX_REVIEW_ITEMS",
+  "github_push": false,
+  "head_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "remote_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_plan_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_plan_noapi_rows.jsonl\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi_rows.jsonl\n?? data/v2_47a_real_opportunity_vs_fake_opportunity_contract_local_noapi.json\n?? data/v2_47a_real_opportunity_vs_fake_opportunity_contract_local_noapi_rows.jsonl\n?? docs/v2/V2_47A_REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_SELECTION_NOAPI.md",
+  "classifier_contract": {
+    "contract": "FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER_V1",
+    "FAST_PATH_FIRST_REQUIRED": true,
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH": true,
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED": true,
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED": true,
+    "HEAVY_PATH_BACKPRESSURE_REQUIRED": true,
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_REQUIRED": true,
+    "PRIORITY_STARVATION_GUARD_REQUIRED": true,
+    "REAL_ALPHA_STARVATION_GUARD_REQUIRED": true,
+    "QUEUE_BUDGET_REQUIRED": true,
+    "QUEUE_TIMEOUT_AND_DROP_MALFORMED_REQUIRED": true,
+    "BORDERLINE_CANDIDATE_RATE_LIMIT_REQUIRED": true,
+    "DUPLICATE_SIGNAL_COLLAPSE_REQUIRED": true,
+    "CHEAP_FUZZY_DUPLICATE_BUCKET_REQUIRED": true,
+    "NIS_BAND_AWARE_BUCKET_WIDTH_REQUIRED": true,
+    "TIPPING_POINT_MULTI_FACTOR_REQUIRED": true,
+    "SINGLE_THRESHOLD_HEAVY_PATH_TRIGGER_FORBIDDEN": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "budgets": {
+    "FAST_PATH_MAX_QUEUE": 1000,
+    "HEAVY_PATH_MAX_QUEUE": 100,
+    "BORDERLINE_MAX_PER_TOKEN_BUCKET": 20,
+    "DUPLICATE_BUCKET_MAX_WINDOW": 50,
+    "HEAVY_PATH_RESERVED_REAL_ALPHA_SLOTS": 10,
+    "HEAVY_PATH_OVERFLOW_POLICY": "FAIL_CLOSED_FOR_SUSPICIOUS_EXPIRE_LOW_VALUE",
+    "FAST_PATH_OVERFLOW_POLICY": "DROP_MALFORMED_COLLAPSE_DUPLICATE_KEEP_PRIORITY"
+  },
+  "priority_classes": [
+    {
+      "class": "P0_FAIL_CLOSED",
+      "rank": 0,
+      "meaning": "poisoned, malformed, ghost, queue attack"
+    },
+    {
+      "class": "P1_REAL_ALPHA_PROTECT",
+      "rank": 1,
+      "meaning": "clean high-value alpha candidate"
+    },
+    {
+      "class": "P2_HEAVY_CANDIDATE",
+      "rank": 2,
+      "meaning": "high value or suspicious with budget"
+    },
+    {
+      "class": "P3_REVIEW_ONLY",
+      "rank": 3,
+      "meaning": "needs bounded review"
+    },
+    {
+      "class": "P4_RISKY_OPPORTUNITY",
+      "rank": 4,
+      "meaning": "risky but not fake"
+    },
+    {
+      "class": "P5_EXPIRE_NO_ACTION",
+      "rank": 5,
+      "meaning": "clean but weak or incomplete"
+    },
+    {
+      "class": "P6_COLLAPSED_DUPLICATE",
+      "rank": 6,
+      "meaning": "bucket-collapsed noise"
+    }
+  ],
+  "test_results": [
+    {
+      "id": "B1",
+      "case": "malformed_signal",
+      "result": "P0_FAIL_CLOSED",
+      "expected": "P0_FAIL_CLOSED",
+      "match": true
+    },
+    {
+      "id": "B2",
+      "case": "ghost_queue_attack",
+      "result": "P0_FAIL_CLOSED",
+      "expected": "P0_FAIL_CLOSED",
+      "match": true
+    },
+    {
+      "id": "B3",
+      "case": "clean_high_value_real_alpha",
+      "result": "P1_REAL_ALPHA_PROTECT",
+      "expected": "P1_REAL_ALPHA_PROTECT",
+      "match": true
+    },
+    {
+      "id": "B4",
+      "case": "heavy_candidate_budget_available",
+      "result": "P2_HEAVY_CANDIDATE",
+      "expected": "P2_HEAVY_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "B5",
+      "case": "heavy_candidate_budget_full_suspicious",
+      "result": "P0_FAIL_CLOSED",
+      "expected": "P0_FAIL_CLOSED",
+      "match": true
+    },
+    {
+      "id": "B6",
+      "case": "heavy_candidate_budget_full_low_value",
+      "result": "P5_EXPIRE_NO_ACTION",
+      "expected": "P5_EXPIRE_NO_ACTION",
+      "match": true
+    },
+    {
+      "id": "B7",
+      "case": "review_only",
+      "result": "P3_REVIEW_ONLY",
+      "expected": "P3_REVIEW_ONLY",
+      "match": true
+    },
+    {
+      "id": "B8",
+      "case": "risky_not_fake",
+      "result": "P4_RISKY_OPPORTUNITY",
+      "expected": "P4_RISKY_OPPORTUNITY",
+      "match": true
+    },
+    {
+      "id": "B9",
+      "case": "duplicate_noise",
+      "result": "P6_COLLAPSED_DUPLICATE",
+      "expected": "P6_COLLAPSED_DUPLICATE",
+      "match": true
+    },
+    {
+      "id": "B10",
+      "case": "weak_clean_signal",
+      "result": "P5_EXPIRE_NO_ACTION",
+      "expected": "P5_EXPIRE_NO_ACTION",
+      "match": true
+    },
+    {
+      "id": "B11",
+      "case": "heavy_path_full_fast_path_continues",
+      "result": "P5_EXPIRE_NO_ACTION",
+      "expected": "P5_EXPIRE_NO_ACTION",
+      "match": true
+    },
+    {
+      "id": "B12",
+      "case": "real_alpha_reserved_slot_protected",
+      "result": "P1_REAL_ALPHA_PROTECT",
+      "expected": "P1_REAL_ALPHA_PROTECT",
+      "match": true
+    }
+  ],
+  "queue_guards": [
+    "FAST_PATH_QUEUE_ISOLATED_FROM_HEAVY_PATH",
+    "HEAVY_PATH_QUEUE_BUDGET_ENFORCED",
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_FOR_SUSPICIOUS",
+    "HEAVY_PATH_OVERFLOW_EXPIRE_LOW_VALUE",
+    "REAL_ALPHA_RESERVED_SLOTS_REQUIRED",
+    "DUPLICATE_BUCKET_COLLAPSE_BEFORE_HEAVY_PATH",
+    "BORDERLINE_RATE_LIMIT_BEFORE_HEAVY_PATH",
+    "MALFORMED_DROP_BEFORE_QUEUE",
+    "FAST_PATH_CONTINUES_DURING_HEAVY_PATH_BACKPRESSURE",
+    "SINGLE_TOKEN_QUEUE_DOMINATION_FORBIDDEN"
+  ],
+  "resource_isolation": [
+    {
+      "resource": "fast_path_queue",
+      "isolated": true,
+      "blocks_heavy": false
+    },
+    {
+      "resource": "heavy_path_queue",
+      "isolated": true,
+      "blocks_fast": false
+    },
+    {
+      "resource": "fast_path_memory_pool",
+      "isolated": true,
+      "blocks_heavy": false
+    },
+    {
+      "resource": "heavy_path_memory_pool",
+      "isolated": true,
+      "blocks_fast": false
+    },
+    {
+      "resource": "priority_classifier",
+      "isolated": true,
+      "blocks_fast": false
+    }
+  ],
+  "overflow_policy": [
+    {
+      "condition": "heavy_full_suspicious",
+      "action": "FAIL_CLOSED_REJECT"
+    },
+    {
+      "condition": "heavy_full_low_value",
+      "action": "EXPIRE_NO_ACTION"
+    },
+    {
+      "condition": "heavy_full_real_alpha",
+      "action": "USE_RESERVED_SLOT_OR_ESCALATE_ONCE"
+    },
+    {
+      "condition": "fast_full_malformed",
+      "action": "DROP"
+    },
+    {
+      "condition": "fast_full_duplicate",
+      "action": "COLLAPSE"
+    },
+    {
+      "condition": "fast_full_borderline_spam",
+      "action": "RATE_LIMIT"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_47B_QUEUE_CLASSIFIER_REQUIRED=true",
+    "FAST_PATH_FIRST_REQUIRED=true",
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH=true",
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED=true",
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED=true",
+    "HEAVY_PATH_BACKPRESSURE_REQUIRED=true",
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_REQUIRED=true",
+    "QUEUE_BUDGET_REQUIRED=true",
+    "QUEUE_TIMEOUT_AND_DROP_MALFORMED_REQUIRED=true",
+    "BORDERLINE_CANDIDATE_RATE_LIMIT_REQUIRED=true",
+    "DUPLICATE_SIGNAL_COLLAPSE_REQUIRED=true",
+    "CHEAP_FUZZY_DUPLICATE_BUCKET_REQUIRED=true",
+    "NIS_BAND_AWARE_BUCKET_WIDTH_REQUIRED=true",
+    "PRIORITY_STARVATION_GUARD_REQUIRED=true",
+    "REAL_ALPHA_STARVATION_GUARD_REQUIRED=true",
+    "REAL_ALPHA_RESERVED_SLOTS_REQUIRED=true",
+    "SINGLE_TOKEN_QUEUE_DOMINATION_FORBIDDEN=true",
+    "HEAVY_PATH_OVERFLOW_SUSPICIOUS_FAIL_CLOSED=true",
+    "HEAVY_PATH_OVERFLOW_LOW_VALUE_EXPIRE=true",
+    "FAST_PATH_CONTINUES_DURING_HEAVY_BACKPRESSURE=true",
+    "TIPPING_POINT_MULTI_FACTOR_REQUIRED=true",
+    "SINGLE_THRESHOLD_HEAVY_PATH_TRIGGER_FORBIDDEN=true",
+    "NO_FULL_GRAPH_SCAN_ON_HOT_PATH=true",
+    "NO_ML_SIMILARITY_ON_HOT_PATH=true",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_final_pass": true,
+    "v47_selection_pass": true,
+    "v47_plan_pass": true,
+    "v47a_pass": true,
+    "v47a_next_match": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "classifier_contract_required": true,
+    "heavy_budget_required": true,
+    "resource_isolation_required": true,
+    "fast_never_blocked": true,
+    "real_alpha_starvation_guard": true,
+    "budget_count_6": false,
+    "priority_class_count_7": true,
+    "test_case_count_12": true,
+    "test_all_match": true,
+    "queue_guard_count_10": true,
+    "resource_isolation_count_5": true,
+    "resource_all_isolated": true,
+    "overflow_policy_count_6": true,
+    "hard_boundary_count_38": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

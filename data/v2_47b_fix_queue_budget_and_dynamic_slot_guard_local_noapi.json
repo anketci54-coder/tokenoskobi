@@ -1,0 +1,273 @@
+{
+  "task": "V2_47B_FIX_QUEUE_BUDGET_AND_DYNAMIC_SLOT_GUARD_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T15:07:51Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_FIX",
+  "final_gate": "PASS_V2_47B_FIX_QUEUE_BUDGET_AND_DYNAMIC_SLOT_GUARD_LOCAL_NOAPI",
+  "decision": "V2_47B_FIX_QUEUE_BUDGET_DYNAMIC_SLOT_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_47_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "remote_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_plan_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_plan_noapi_rows.jsonl\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi_rows.jsonl\n?? data/v2_47a_real_opportunity_vs_fake_opportunity_contract_local_noapi.json\n?? data/v2_47a_real_opportunity_vs_fake_opportunity_contract_local_noapi_rows.jsonl\n?? data/v2_47b_fast_path_heavy_path_queue_budget_and_priority_classifier_local_noapi.json\n?? data/v2_47b_fast_path_heavy_path_queue_budget_and_priority_classifier_local_noapi_rows.jsonl\n?? docs/v2/V2_47A_REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER_LOCAL_NOAPI.md\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_SELECTION_NOAPI.md",
+  "budget_items": {
+    "FAST_PATH_MAX_QUEUE": 1000,
+    "HEAVY_PATH_MAX_QUEUE": 100,
+    "BORDERLINE_MAX_PER_TOKEN_BUCKET": 20,
+    "DUPLICATE_BUCKET_MAX_WINDOW": 50,
+    "HEAVY_PATH_RESERVED_REAL_ALPHA_SLOTS_MIN": 10,
+    "HEAVY_PATH_OVERFLOW_POLICY": "FAIL_CLOSED_FOR_SUSPICIOUS_EXPIRE_LOW_VALUE",
+    "FAST_PATH_OVERFLOW_POLICY": "DROP_MALFORMED_COLLAPSE_DUPLICATE_KEEP_PRIORITY"
+  },
+  "dynamic_slot_policy": {
+    "DYNAMIC_REAL_ALPHA_SLOT_ALLOCATION_REQUIRED": true,
+    "REAL_ALPHA_RESERVED_SLOT_DYNAMIC_BUT_CAPPED": true,
+    "RESERVED_SLOT_MIN": 10,
+    "RESERVED_SLOT_MAX": 25,
+    "RESERVED_SLOT_BACKPRESSURE_STEP": 5,
+    "RESERVED_SLOT_PER_TOKEN_CAP_REQUIRED": true,
+    "RESERVED_SLOT_PER_TOKEN_CAP": 3,
+    "RESERVED_SLOT_PER_ROUTE_CAP_REQUIRED": true,
+    "RESERVED_SLOT_PER_ROUTE_CAP": 4,
+    "RESERVED_SLOT_SYBIL_GUARD_REQUIRED": true,
+    "REAL_ALPHA_RESERVED_SLOTS_CANNOT_BE_MONOPOLIZED": true
+  },
+  "replay_policy": {
+    "P5_EXPIRE_NO_ACTION_WITH_REPLAY_MEMORY_REQUIRED": true,
+    "EXPIRED_ALPHA_REPLAY_GUARD_REQUIRED": true,
+    "P5_REPLAY_TTL_WINDOWS": 3,
+    "REPLAY_ESCALATE_ON_SIGNAL_STRENGTHENING": true,
+    "REPLAY_DOES_NOT_BLOCK_FAST_PATH": true,
+    "LOW_VALUE_EXPIRE_NOT_PERMANENT_REJECT": true
+  },
+  "quarantine_policy": {
+    "REPEATED_ATTACK_SOURCE_BLACKLIST_REQUIRED": true,
+    "TEMPORARY_ATTACK_SOURCE_QUARANTINE_REQUIRED": true,
+    "BLACKLIST_REQUIRES_REPEATED_CONFIRMED_ATTACK_PATTERN": true,
+    "QUARANTINE_TTL_REQUIRED": true,
+    "QUARANTINE_TTL_WINDOWS": 6,
+    "FALSE_BLACKLIST_GUARD_REQUIRED": true,
+    "SINGLE_EVENT_PERMANENT_BLACKLIST_FORBIDDEN": true,
+    "QUARANTINE_DOES_NOT_STOP_GLOBAL_FAST_PATH": true
+  },
+  "test_results": [
+    {
+      "id": "F1",
+      "case": "budget_count_seal",
+      "actual": 7,
+      "expected": 7,
+      "match": true
+    },
+    {
+      "id": "F2",
+      "case": "reserved_slots_base",
+      "actual": 10,
+      "expected": 10,
+      "match": true
+    },
+    {
+      "id": "F3",
+      "case": "reserved_slots_medium_backpressure",
+      "actual": 20,
+      "expected": 20,
+      "match": true
+    },
+    {
+      "id": "F4",
+      "case": "reserved_slots_cap",
+      "actual": 25,
+      "expected": 25,
+      "match": true
+    },
+    {
+      "id": "F5",
+      "case": "per_token_reserved_cap",
+      "actual": 3,
+      "expected": 3,
+      "match": true
+    },
+    {
+      "id": "F6",
+      "case": "per_route_reserved_cap",
+      "actual": 4,
+      "expected": 4,
+      "match": true
+    },
+    {
+      "id": "F7",
+      "case": "p5_replay_memory_enabled",
+      "actual": true,
+      "expected": true,
+      "match": true
+    },
+    {
+      "id": "F8",
+      "case": "expired_alpha_replay_guard_enabled",
+      "actual": true,
+      "expected": true,
+      "match": true
+    },
+    {
+      "id": "F9",
+      "case": "temporary_quarantine_enabled",
+      "actual": true,
+      "expected": true,
+      "match": true
+    },
+    {
+      "id": "F10",
+      "case": "single_event_permanent_blacklist_forbidden",
+      "actual": true,
+      "expected": true,
+      "match": true
+    },
+    {
+      "id": "F11",
+      "case": "false_blacklist_guard_enabled",
+      "actual": true,
+      "expected": true,
+      "match": true
+    },
+    {
+      "id": "F12",
+      "case": "fast_path_not_blocked_by_quarantine",
+      "actual": true,
+      "expected": true,
+      "match": true
+    }
+  ],
+  "semantic_fixes": [
+    {
+      "id": "SF1",
+      "before": "budget count expected 6",
+      "after": "budget count sealed as 7",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF2",
+      "before": "reserved real alpha slots fixed at 10",
+      "after": "dynamic but capped 10-25 slot policy",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF3",
+      "before": "reserved slots could be monopolized by one token/route",
+      "after": "per-token and per-route caps required",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF4",
+      "before": "P5 expire could forget medium opportunity",
+      "after": "P5 replay memory guard required",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF5",
+      "before": "repeated attackers could keep consuming queue",
+      "after": "temporary quarantine and repeated pattern guard required",
+      "status": "FIXED"
+    },
+    {
+      "id": "SF6",
+      "before": "permanent blacklist could false-block legitimate token",
+      "after": "TTL and false blacklist guard required",
+      "status": "FIXED"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_47B_FIX_QUEUE_BUDGET_AND_DYNAMIC_SLOT_GUARD_REQUIRED=true",
+    "CHECK_BUDGET_COUNT_7=true",
+    "DYNAMIC_REAL_ALPHA_SLOT_ALLOCATION_REQUIRED=true",
+    "REAL_ALPHA_RESERVED_SLOT_DYNAMIC_BUT_CAPPED=true",
+    "RESERVED_SLOT_MIN=10",
+    "RESERVED_SLOT_MAX=25",
+    "RESERVED_SLOT_BACKPRESSURE_STEP=5",
+    "RESERVED_SLOT_PER_TOKEN_CAP_REQUIRED=true",
+    "RESERVED_SLOT_PER_TOKEN_CAP=3",
+    "RESERVED_SLOT_PER_ROUTE_CAP_REQUIRED=true",
+    "RESERVED_SLOT_PER_ROUTE_CAP=4",
+    "RESERVED_SLOT_SYBIL_GUARD_REQUIRED=true",
+    "REAL_ALPHA_RESERVED_SLOTS_CANNOT_BE_MONOPOLIZED=true",
+    "P5_EXPIRE_NO_ACTION_WITH_REPLAY_MEMORY_REQUIRED=true",
+    "EXPIRED_ALPHA_REPLAY_GUARD_REQUIRED=true",
+    "LOW_VALUE_EXPIRE_NOT_PERMANENT_REJECT=true",
+    "REPLAY_DOES_NOT_BLOCK_FAST_PATH=true",
+    "REPEATED_ATTACK_SOURCE_BLACKLIST_REQUIRED=true",
+    "TEMPORARY_ATTACK_SOURCE_QUARANTINE_REQUIRED=true",
+    "BLACKLIST_REQUIRES_REPEATED_CONFIRMED_ATTACK_PATTERN=true",
+    "QUARANTINE_TTL_REQUIRED=true",
+    "FALSE_BLACKLIST_GUARD_REQUIRED=true",
+    "SINGLE_EVENT_PERMANENT_BLACKLIST_FORBIDDEN=true",
+    "QUARANTINE_DOES_NOT_STOP_GLOBAL_FAST_PATH=true",
+    "FAST_PATH_FIRST_REQUIRED=true",
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH=true",
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED=true",
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED=true",
+    "HEAVY_PATH_BACKPRESSURE_REQUIRED=true",
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_REQUIRED=true",
+    "REAL_ALPHA_STARVATION_GUARD_REQUIRED=true",
+    "PRIORITY_STARVATION_GUARD_REQUIRED=true",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_final_pass": true,
+    "v47_selection_pass": true,
+    "v47_plan_pass": true,
+    "v47a_pass": true,
+    "v47b_review_detected": true,
+    "v47b_test_all_match": true,
+    "v47b_budget_count_was_false": true,
+    "v47b_next_fix_items": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "budget_count_7": true,
+    "dynamic_slot_required": true,
+    "reserved_slot_dynamic_capped": true,
+    "reserved_slot_cap_25": true,
+    "per_token_cap_required": true,
+    "per_route_cap_required": true,
+    "replay_memory_required": true,
+    "expired_alpha_replay_guard": true,
+    "temporary_quarantine_required": true,
+    "false_blacklist_guard": true,
+    "single_event_permanent_blacklist_forbidden": true,
+    "test_case_count_12": true,
+    "test_all_match": true,
+    "semantic_fix_count_6": true,
+    "semantic_all_fixed": true,
+    "hard_boundary_count_46": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

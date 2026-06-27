@@ -1,0 +1,309 @@
+{
+  "task": "V2_47A_REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T12:58:25Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CONTRACT",
+  "final_gate": "PASS_V2_47A_REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_47A_REAL_VS_FAKE_OPPORTUNITY_CONTRACT_PASS_READY_FOR_QUEUE_CLASSIFIER",
+  "next": "V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "remote_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_plan_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_plan_noapi_rows.jsonl\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi_rows.jsonl\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_SELECTION_NOAPI.md",
+  "contract": {
+    "contract": "REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_V1",
+    "purpose": "Separate real alpha from fake opportunity without trade authority.",
+    "NO_TRADE_AUTHORITY": true,
+    "RISK_FIRST_OPPORTUNITY_SECOND": true,
+    "FAKE_OPPORTUNITY_DETECTION_REQUIRED": true,
+    "REAL_ALPHA_REQUIRES_POSITIVE_EVIDENCE": true,
+    "ABSENCE_OF_RISK_IS_NOT_OPPORTUNITY": true,
+    "NEWS_CANNOT_UPGRADE_TO_OPPORTUNITY_ALONE": true,
+    "MULTI_SOURCE_DOES_NOT_IMPLY_TRUTH": true,
+    "NIS_REQUIRED_FOR_DEX_OPPORTUNITY": true,
+    "ONCHAIN_CONFIRMATION_REQUIRED": true,
+    "DEX_MICROSTRUCTURE_CONFIRMATION_REQUIRED": true,
+    "LIGHT_CLUSTER_FINGERPRINT_REQUIRED": true,
+    "CHEAP_FUZZY_DUPLICATE_BUCKET_REQUIRED": true,
+    "FAST_PATH_FIRST_REQUIRED": true,
+    "HEAVY_PATH_ONLY_ON_SUSPICIOUS_OR_HIGH_VALUE": true
+  },
+  "real_alpha_requirements": [
+    "NIS_BAND_MEDIUM_OR_HIGH_WITH_CLEAN_CONTEXT",
+    "ONCHAIN_CONFIRMATION_POSITIVE",
+    "DEX_MICROSTRUCTURE_CLEAN",
+    "GHOST_LIQUIDITY_ABSENT",
+    "JIT_LIQUIDITY_ABSENT_OR_REVIEWED_CLEAN",
+    "MULTI_HOP_CUMULATIVE_IMPACT_CLEAN",
+    "SYBIL_CLUSTER_NOT_CONFIRMED",
+    "QUEUE_ATTACK_NOT_DETECTED",
+    "NEWS_NOT_SOLE_UPGRADE_SOURCE",
+    "NO_NEAR_BOUNDARY_NEWS_TIEBREAKER"
+  ],
+  "fake_opportunity_triggers": [
+    "GHOST_LIQUIDITY_PRESENT",
+    "JIT_LIQUIDITY_UNRESOLVED",
+    "MULTI_HOP_CUMULATIVE_IMPACT_SUSPICIOUS",
+    "SYBIL_WALLET_BURST_CONFIRMED",
+    "COORDINATED_BUY_TIMING_WITH_BAD_PROVENANCE",
+    "NEWS_ONLY_OPPORTUNITY_CLAIM",
+    "CROSS_SOURCE_TEMPORAL_MANIPULATION",
+    "QUEUE_INUNDATION_PATTERN",
+    "NOVELTY_HIGH_BAD_FINGERPRINT",
+    "NEAR_CRITICAL_BUCKET_SPOOF",
+    "POSITIVE_TA_NEGATIVE_ONCHAIN",
+    "MALFORMED_SIGNAL"
+  ],
+  "decision_classes": [
+    "REAL_ALPHA_CANDIDATE",
+    "RISKY_OPPORTUNITY_REVIEW",
+    "FAKE_OPPORTUNITY_REJECT",
+    "POISONED_SIGNAL_REJECT",
+    "QUEUE_ATTACK_REJECT",
+    "REVIEW_ONLY",
+    "EXPIRE_NO_ACTION",
+    "HEAVY_CANDIDATE",
+    "REJECT"
+  ],
+  "timeout_decisions": [
+    {
+      "case": "suspicious_timeout",
+      "decision": "FAIL_CLOSED_REJECT"
+    },
+    {
+      "case": "clean_but_incomplete_timeout",
+      "decision": "EXPIRE_NO_ACTION"
+    },
+    {
+      "case": "high_alpha_incomplete_evidence",
+      "decision": "ESCALATE_ONCE_THEN_EXPIRE"
+    },
+    {
+      "case": "poisoned_or_malformed_timeout",
+      "decision": "REJECT"
+    }
+  ],
+  "evidence_matrix": [
+    {
+      "evidence": "NIS",
+      "authority": "REQUIRED_CONTEXT_NOT_SOLE_AUTHORITY"
+    },
+    {
+      "evidence": "ONCHAIN",
+      "authority": "REQUIRED_CONFIRMATION"
+    },
+    {
+      "evidence": "DEX_MICROSTRUCTURE",
+      "authority": "REQUIRED_CONFIRMATION"
+    },
+    {
+      "evidence": "NEWS",
+      "authority": "OPTIONAL_CONTEXT_NO_UPGRADE"
+    },
+    {
+      "evidence": "WHALE_CONTEXT",
+      "authority": "LIGHT_FINGERPRINT_REQUIRED"
+    },
+    {
+      "evidence": "QUEUE_STATE",
+      "authority": "RESOURCE_PROTECTION_CONTEXT"
+    },
+    {
+      "evidence": "NOVELTY",
+      "authority": "NOT_STANDALONE_TRIGGER"
+    },
+    {
+      "evidence": "BUCKET_SIMILARITY",
+      "authority": "COLLAPSE_WITH_FALSE_COLLAPSE_GUARD"
+    }
+  ],
+  "test_results": [
+    {
+      "id": "A1",
+      "case": "clean_nis_onchain_dex",
+      "result": "REAL_ALPHA_CANDIDATE",
+      "expected": "REAL_ALPHA_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "A2",
+      "case": "ghost_liquidity_present",
+      "result": "FAKE_OPPORTUNITY_REJECT",
+      "expected": "FAKE_OPPORTUNITY_REJECT",
+      "match": true
+    },
+    {
+      "id": "A3",
+      "case": "jit_unresolved",
+      "result": "REVIEW_ONLY",
+      "expected": "REVIEW_ONLY",
+      "match": true
+    },
+    {
+      "id": "A4",
+      "case": "multi_hop_suspicious",
+      "result": "REVIEW_ONLY",
+      "expected": "REVIEW_ONLY",
+      "match": true
+    },
+    {
+      "id": "A5",
+      "case": "news_only_claim",
+      "result": "REJECT",
+      "expected": "REJECT",
+      "match": true
+    },
+    {
+      "id": "A6",
+      "case": "near_boundary_news_tiebreaker",
+      "result": "REJECT",
+      "expected": "REJECT",
+      "match": true
+    },
+    {
+      "id": "A7",
+      "case": "sybil_confirmed",
+      "result": "REVIEW_ONLY",
+      "expected": "REVIEW_ONLY",
+      "match": true
+    },
+    {
+      "id": "A8",
+      "case": "queue_attack",
+      "result": "QUEUE_ATTACK_REJECT",
+      "expected": "QUEUE_ATTACK_REJECT",
+      "match": true
+    },
+    {
+      "id": "A9",
+      "case": "novelty_high_bad_fingerprint",
+      "result": "POISONED_SIGNAL_REJECT",
+      "expected": "POISONED_SIGNAL_REJECT",
+      "match": true
+    },
+    {
+      "id": "A10",
+      "case": "positive_ta_negative_onchain",
+      "result": "FAKE_OPPORTUNITY_REJECT",
+      "expected": "FAKE_OPPORTUNITY_REJECT",
+      "match": true
+    },
+    {
+      "id": "A11",
+      "case": "high_value_incomplete_evidence",
+      "result": "HEAVY_CANDIDATE",
+      "expected": "HEAVY_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "A12",
+      "case": "clean_but_weak_timeout_candidate",
+      "result": "EXPIRE_NO_ACTION",
+      "expected": "EXPIRE_NO_ACTION",
+      "match": true
+    },
+    {
+      "id": "A13",
+      "case": "risky_but_not_fake",
+      "result": "RISKY_OPPORTUNITY_REVIEW",
+      "expected": "RISKY_OPPORTUNITY_REVIEW",
+      "match": true
+    },
+    {
+      "id": "A14",
+      "case": "malformed_signal",
+      "result": "POISONED_SIGNAL_REJECT",
+      "expected": "POISONED_SIGNAL_REJECT",
+      "match": true
+    }
+  ],
+  "hard_boundaries": [
+    "REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_REQUIRED=true",
+    "REAL_ALPHA_REQUIRES_POSITIVE_EVIDENCE=true",
+    "ABSENCE_OF_RISK_IS_NOT_OPPORTUNITY=true",
+    "RISK_FIRST_OPPORTUNITY_SECOND=true",
+    "NO_TRADE_AUTHORITY=true",
+    "NIS_REQUIRED_FOR_DEX_OPPORTUNITY=true",
+    "ONCHAIN_CONFIRMATION_REQUIRED=true",
+    "DEX_MICROSTRUCTURE_CONFIRMATION_REQUIRED=true",
+    "GHOST_LIQUIDITY_REJECTS_OPPORTUNITY=true",
+    "JIT_LIQUIDITY_UNRESOLVED_REVIEW_ONLY=true",
+    "MULTI_HOP_SUSPICIOUS_REVIEW_ONLY=true",
+    "SYBIL_CONFIRMED_REVIEW_ONLY=true",
+    "QUEUE_ATTACK_REJECT_REQUIRED=true",
+    "NEWS_CANNOT_UPGRADE_TO_OPPORTUNITY_ALONE=true",
+    "NEWS_TIEBREAKER_FORBIDDEN_IN_NEAR_BOUNDARY=true",
+    "MULTI_SOURCE_DOES_NOT_IMPLY_TRUTH=true",
+    "NOVELTY_SCORE_NOT_STANDALONE_TRIGGER=true",
+    "EXTREME_NOVELTY_WITH_BAD_FINGERPRINT_POISONED_SIGNAL=true",
+    "POSITIVE_TA_NEGATIVE_ONCHAIN_REJECT_REQUIRED=true",
+    "LIGHT_CLUSTER_FINGERPRINT_REQUIRED=true",
+    "CHEAP_FUZZY_DUPLICATE_BUCKET_REQUIRED=true",
+    "NIS_BAND_AWARE_BUCKET_WIDTH_REQUIRED=true",
+    "HIGH_VALUE_SIGNAL_FALSE_COLLAPSE_GUARD_REQUIRED=true",
+    "FAST_PATH_FIRST_REQUIRED=true",
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED=true",
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED=true",
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH=true",
+    "HEAVY_PATH_BACKPRESSURE_REQUIRED=true",
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_REQUIRED=true",
+    "REAL_ALPHA_STARVATION_GUARD_REQUIRED=true",
+    "REVIEW_TIMEOUT_FAIL_CLOSED_FOR_SUSPICIOUS_ONLY=true",
+    "BOUNDED_REVIEW_LIFETIME_REQUIRED=true",
+    "REVIEW_ESCALATION_OR_DROP_REQUIRED=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_final_pass": true,
+    "v47_selection_pass": true,
+    "v47_plan_pass": true,
+    "v47_plan_next_match": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "contract_required": true,
+    "real_alpha_positive_evidence": true,
+    "absence_of_risk_not_opportunity": true,
+    "news_no_upgrade": true,
+    "multi_source_not_truth": true,
+    "real_alpha_requirement_count_10": true,
+    "fake_trigger_count_12": true,
+    "decision_class_count_9": true,
+    "test_case_count_14": true,
+    "test_all_match": true,
+    "timeout_decision_count_4": true,
+    "evidence_matrix_count_8": true,
+    "hard_boundary_min_40": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

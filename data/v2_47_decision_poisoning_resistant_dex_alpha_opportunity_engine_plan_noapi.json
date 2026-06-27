@@ -1,0 +1,311 @@
+{
+  "task": "V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T12:49:47Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_PLAN",
+  "final_gate": "PASS_V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_PLAN_NOAPI",
+  "decision": "V2_47_PLAN_PASS_READY_FOR_REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT",
+  "next": "V2_47A_REAL_OPPORTUNITY_VS_FAKE_OPPORTUNITY_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "remote_now": "46cb60be2a097d9356079ac64a58183f43bb0792",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi.json\n?? data/v2_47_decision_poisoning_resistant_dex_alpha_opportunity_engine_selection_noapi_rows.jsonl\n?? docs/v2/V2_47_DECISION_POISONING_RESISTANT_DEX_ALPHA_OPPORTUNITY_ENGINE_SELECTION_NOAPI.md",
+  "plan_doctrine": {
+    "doctrine": "Not to find opportunity first, but to resist fake opportunity without spending expensive resources.",
+    "FAST": true,
+    "SECURE": true,
+    "POWERFUL": true,
+    "ECONOMIC": true,
+    "BALANCED": true,
+    "NO_TRADE_AUTHORITY": true,
+    "LOCAL_ONLY_NOAPI": true
+  },
+  "fast_path": {
+    "FAST_PATH_FIRST_REQUIRED": true,
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH": true,
+    "purpose": "cheap first-stage classification",
+    "inputs": [
+      "NIS_BAND",
+      "GHOST_LIQUIDITY_FLAG",
+      "JIT_FLAG",
+      "MULTI_HOP_FLAG",
+      "LIGHT_CLUSTER_FINGERPRINT",
+      "CHEAP_FUZZY_BUCKET",
+      "QUEUE_BUDGET"
+    ],
+    "outputs": [
+      "REJECT",
+      "REVIEW",
+      "CANDIDATE",
+      "HEAVY_CANDIDATE",
+      "POISONED_SIGNAL",
+      "EXPIRE_NO_ACTION"
+    ],
+    "NO_FULL_GRAPH_SCAN_ON_HOT_PATH": true,
+    "NO_ML_SIMILARITY_ON_HOT_PATH": true
+  },
+  "heavy_path": {
+    "HEAVY_PATH_ONLY_ON_SUSPICIOUS_OR_HIGH_VALUE": true,
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED": true,
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED": true,
+    "HEAVY_PATH_BACKPRESSURE_REQUIRED": true,
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_REQUIRED": true,
+    "purpose": "budgeted deeper review for suspicious or high-value candidates",
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH": true
+  },
+  "tipping_point": {
+    "TIPPING_POINT_MULTI_FACTOR_REQUIRED": true,
+    "SINGLE_THRESHOLD_HEAVY_PATH_TRIGGER_FORBIDDEN": true,
+    "factors": [
+      "risk_score",
+      "opportunity_value_score",
+      "uncertainty_score",
+      "novelty_score",
+      "queue_budget",
+      "duplicate_bucket_pressure"
+    ],
+    "NOVELTY_SCORE_NOT_STANDALONE_TRIGGER": true,
+    "STRUCTURAL_LEGITIMACY_REQUIRED_BEFORE_NOVELTY_ESCALATION": true,
+    "EXTREME_NOVELTY_WITH_BAD_FINGERPRINT_POISONED_SIGNAL": true
+  },
+  "bucket_policy": {
+    "CHEAP_FUZZY_DUPLICATE_BUCKET_REQUIRED": true,
+    "NIS_BAND_AWARE_BUCKET_WIDTH_REQUIRED": true,
+    "HIGH_VALUE_SIGNAL_FALSE_COLLAPSE_GUARD_REQUIRED": true,
+    "NEAR_CRITICAL_BUCKET_NARROWING_REQUIRED": true,
+    "LOW_BAND_BUCKET": "WIDE",
+    "MEDIUM_BAND_BUCKET": "NORMAL",
+    "HIGH_BAND_BUCKET": "NARROW",
+    "HIGH_NEAR_CRITICAL_BUCKET": "VERY_NARROW",
+    "CRITICAL_BUCKET": "VERY_NARROW_NO_FALSE_COLLAPSE"
+  },
+  "queue_policy": {
+    "QUEUE_BUDGET_REQUIRED": true,
+    "QUEUE_TIMEOUT_AND_DROP_MALFORMED_REQUIRED": true,
+    "BORDERLINE_CANDIDATE_RATE_LIMIT_REQUIRED": true,
+    "DUPLICATE_SIGNAL_COLLAPSE_REQUIRED": true,
+    "PRIORITY_STARVATION_GUARD_REQUIRED": true,
+    "REAL_ALPHA_STARVATION_GUARD_REQUIRED": true,
+    "ALERT_FATIGUE_GUARD_REQUIRED": true,
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED": true,
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED": true
+  },
+  "timeout_policy": [
+    {
+      "case": "suspicious_timeout",
+      "decision": "FAIL_CLOSED_REJECT"
+    },
+    {
+      "case": "clean_but_incomplete_timeout",
+      "decision": "EXPIRE_NO_ACTION"
+    },
+    {
+      "case": "high_alpha_incomplete_evidence",
+      "decision": "ESCALATE_ONCE_THEN_EXPIRE"
+    },
+    {
+      "case": "poisoned_or_malformed_timeout",
+      "decision": "REJECT"
+    }
+  ],
+  "opportunity_classes": [
+    "REAL_ALPHA",
+    "FAKE_OPPORTUNITY",
+    "RISKY_OPPORTUNITY",
+    "POISONED_SIGNAL",
+    "QUEUE_ATTACK",
+    "REVIEW_ONLY",
+    "REJECT",
+    "EXPIRE_NO_ACTION",
+    "HEAVY_CANDIDATE"
+  ],
+  "sybil_policy": {
+    "LIGHT_CLUSTER_FINGERPRINT_REQUIRED": true,
+    "CUMULATIVE_SYBIL_FLOW_CHECK_REQUIRED": true,
+    "WALLET_CLUSTERING_REQUIRED_LIGHT_ONLY": true,
+    "NEW_WALLET_BURST_GUARD_REQUIRED": true,
+    "COORDINATED_BUY_TIMING_GUARD_REQUIRED": true,
+    "CLUSTER_AGE_AND_PROVENANCE_LIGHT_CHECK": true,
+    "LEGIT_INSTITUTIONAL_FLOW_FALSE_POSITIVE_GUARD_REQUIRED": true,
+    "RETAIL_FOMO_NOT_ASSUMED": true
+  },
+  "cross_source_policy": {
+    "CROSS_SOURCE_TEMPORAL_ALIGNMENT_REQUIRED": true,
+    "SYBIL_SYNERGY_GUARD_REQUIRED": true,
+    "CORRELATED_SOURCE_MANIPULATION_GUARD_REQUIRED": true,
+    "MULTI_SOURCE_DOES_NOT_IMPLY_TRUTH": true,
+    "SOURCE_INDEPENDENCE_IS_NOT_BINARY": true,
+    "COMMON_ROOT_EVENT_ALLOWED_BUT_WEIGHTED": true,
+    "NEWS_CANNOT_UPGRADE_TO_OPPORTUNITY_ALONE": true,
+    "NEWS_TIEBREAKER_FORBIDDEN_IN_NEAR_BOUNDARY": true,
+    "OFFCHAIN_POISONING_GUARD_REQUIRED": true,
+    "ANTI_FOMO_VELOCITY_LIMIT_REQUIRED": true
+  },
+  "test_results": [
+    {
+      "id": "P1",
+      "scenario": "heavy_path_full_fast_path_continues",
+      "expected": "FAST_PATH_CONTINUES",
+      "match": true
+    },
+    {
+      "id": "P2",
+      "scenario": "novelty_high_bad_fingerprint",
+      "expected": "POISONED_SIGNAL",
+      "match": true
+    },
+    {
+      "id": "P3",
+      "scenario": "novelty_high_structurally_legit",
+      "expected": "HEAVY_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "P4",
+      "scenario": "critical_nis_bucket_near_duplicate",
+      "expected": "NO_FALSE_COLLAPSE",
+      "match": true
+    },
+    {
+      "id": "P5",
+      "scenario": "low_nis_repeated_noise",
+      "expected": "BUCKET_COLLAPSE",
+      "match": true
+    },
+    {
+      "id": "P6",
+      "scenario": "sybil_wallet_burst_light_fingerprint",
+      "expected": "REVIEW_NOT_RETAIL_FOMO",
+      "match": true
+    },
+    {
+      "id": "P7",
+      "scenario": "news_positive_near_boundary",
+      "expected": "NO_UPGRADE",
+      "match": true
+    },
+    {
+      "id": "P8",
+      "scenario": "suspicious_review_timeout",
+      "expected": "FAIL_CLOSED_REJECT",
+      "match": true
+    },
+    {
+      "id": "P9",
+      "scenario": "clean_incomplete_timeout",
+      "expected": "EXPIRE_NO_ACTION",
+      "match": true
+    },
+    {
+      "id": "P10",
+      "scenario": "high_alpha_heavy_backpressure",
+      "expected": "STARVATION_GUARD_ESCALATE_ONCE",
+      "match": true
+    }
+  ],
+  "hard_boundaries": [
+    "V2_47_PLAN_REQUIRED=true",
+    "DECISION_POISONING_RESISTANT_OPPORTUNITY_ENGINE_REQUIRED=true",
+    "NO_TRADE_AUTHORITY=true",
+    "RISK_FIRST_OPPORTUNITY_SECOND=true",
+    "RISK_FIRST_BUT_NOT_PARALYZED=true",
+    "FAST_PATH_FIRST_REQUIRED=true",
+    "FAST_PATH_NEVER_BLOCKED_BY_HEAVY_PATH=true",
+    "HEAVY_PATH_QUEUE_BUDGET_REQUIRED=true",
+    "FAST_HEAVY_RESOURCE_ISOLATION_REQUIRED=true",
+    "HEAVY_PATH_BACKPRESSURE_REQUIRED=true",
+    "HEAVY_PATH_OVERFLOW_FAIL_CLOSED_REQUIRED=true",
+    "HEAVY_PATH_ONLY_ON_SUSPICIOUS_OR_HIGH_VALUE=true",
+    "TIPPING_POINT_MULTI_FACTOR_REQUIRED=true",
+    "SINGLE_THRESHOLD_HEAVY_PATH_TRIGGER_FORBIDDEN=true",
+    "NOVELTY_SCORE_NOT_STANDALONE_TRIGGER=true",
+    "STRUCTURAL_LEGITIMACY_REQUIRED_BEFORE_NOVELTY_ESCALATION=true",
+    "EXTREME_NOVELTY_WITH_BAD_FINGERPRINT_POISONED_SIGNAL=true",
+    "CHEAP_FUZZY_DUPLICATE_BUCKET_REQUIRED=true",
+    "NIS_BAND_AWARE_BUCKET_WIDTH_REQUIRED=true",
+    "HIGH_VALUE_SIGNAL_FALSE_COLLAPSE_GUARD_REQUIRED=true",
+    "NEAR_CRITICAL_BUCKET_NARROWING_REQUIRED=true",
+    "LIGHT_CLUSTER_FINGERPRINT_REQUIRED=true",
+    "CUMULATIVE_SYBIL_FLOW_CHECK_REQUIRED=true",
+    "CLUSTER_AGE_AND_PROVENANCE_LIGHT_CHECK=true",
+    "LEGIT_INSTITUTIONAL_FLOW_FALSE_POSITIVE_GUARD_REQUIRED=true",
+    "QUEUE_BUDGET_REQUIRED=true",
+    "BORDERLINE_CANDIDATE_RATE_LIMIT_REQUIRED=true",
+    "DUPLICATE_SIGNAL_COLLAPSE_REQUIRED=true",
+    "PRIORITY_STARVATION_GUARD_REQUIRED=true",
+    "REAL_ALPHA_STARVATION_GUARD_REQUIRED=true",
+    "REVIEW_TIMEOUT_FAIL_CLOSED_FOR_SUSPICIOUS_ONLY=true",
+    "BOUNDED_REVIEW_LIFETIME_REQUIRED=true",
+    "REVIEW_ESCALATION_OR_DROP_REQUIRED=true",
+    "CROSS_SOURCE_TEMPORAL_ALIGNMENT_REQUIRED=true",
+    "MULTI_SOURCE_DOES_NOT_IMPLY_TRUTH=true",
+    "SOURCE_INDEPENDENCE_IS_NOT_BINARY=true",
+    "NEWS_CANNOT_UPGRADE_TO_OPPORTUNITY_ALONE=true",
+    "NEWS_TIEBREAKER_FORBIDDEN_IN_NEAR_BOUNDARY=true",
+    "OFFCHAIN_POISONING_GUARD_REQUIRED=true",
+    "NO_FULL_GRAPH_SCAN_ON_HOT_PATH=true",
+    "NO_ML_SIMILARITY_ON_HOT_PATH=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_final_pass": true,
+    "v47_selection_pass": true,
+    "v47_selection_next_match": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "doctrine_balanced": true,
+    "fast_path_first": true,
+    "fast_never_blocked": true,
+    "heavy_queue_budget": true,
+    "resource_isolation": true,
+    "tipping_multi_factor": true,
+    "single_threshold_forbidden": true,
+    "novelty_not_standalone": true,
+    "structural_legitimacy_before_novelty": true,
+    "extreme_novelty_bad_fingerprint_poisoned": true,
+    "nis_band_aware_bucket": true,
+    "false_collapse_guard": true,
+    "near_critical_bucket_narrowing": true,
+    "real_alpha_starvation_guard": true,
+    "sybil_light_fingerprint": true,
+    "cross_source_temporal_alignment": true,
+    "news_no_upgrade": true,
+    "timeout_case_count_4": true,
+    "opportunity_class_count_9": true,
+    "test_case_count_10": true,
+    "test_all_match": true,
+    "hard_boundary_count_54": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

@@ -1,0 +1,59 @@
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "NIS_BAND_MEDIUM_OR_HIGH_WITH_CLEAN_CONTEXT"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "ONCHAIN_CONFIRMATION_POSITIVE"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "DEX_MICROSTRUCTURE_CLEAN"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "GHOST_LIQUIDITY_ABSENT"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "JIT_LIQUIDITY_ABSENT_OR_REVIEWED_CLEAN"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "MULTI_HOP_CUMULATIVE_IMPACT_CLEAN"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "SYBIL_CLUSTER_NOT_CONFIRMED"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "QUEUE_ATTACK_NOT_DETECTED"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "NEWS_NOT_SOLE_UPGRADE_SOURCE"}
+{"type": "REAL_ALPHA_REQUIREMENT", "item": "NO_NEAR_BOUNDARY_NEWS_TIEBREAKER"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "GHOST_LIQUIDITY_PRESENT"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "JIT_LIQUIDITY_UNRESOLVED"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "MULTI_HOP_CUMULATIVE_IMPACT_SUSPICIOUS"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "SYBIL_WALLET_BURST_CONFIRMED"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "COORDINATED_BUY_TIMING_WITH_BAD_PROVENANCE"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "NEWS_ONLY_OPPORTUNITY_CLAIM"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "CROSS_SOURCE_TEMPORAL_MANIPULATION"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "QUEUE_INUNDATION_PATTERN"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "NOVELTY_HIGH_BAD_FINGERPRINT"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "NEAR_CRITICAL_BUCKET_SPOOF"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "POSITIVE_TA_NEGATIVE_ONCHAIN"}
+{"type": "FAKE_OPPORTUNITY_TRIGGER", "item": "MALFORMED_SIGNAL"}
+{"type": "DECISION_CLASS", "item": "REAL_ALPHA_CANDIDATE"}
+{"type": "DECISION_CLASS", "item": "RISKY_OPPORTUNITY_REVIEW"}
+{"type": "DECISION_CLASS", "item": "FAKE_OPPORTUNITY_REJECT"}
+{"type": "DECISION_CLASS", "item": "POISONED_SIGNAL_REJECT"}
+{"type": "DECISION_CLASS", "item": "QUEUE_ATTACK_REJECT"}
+{"type": "DECISION_CLASS", "item": "REVIEW_ONLY"}
+{"type": "DECISION_CLASS", "item": "EXPIRE_NO_ACTION"}
+{"type": "DECISION_CLASS", "item": "HEAVY_CANDIDATE"}
+{"type": "DECISION_CLASS", "item": "REJECT"}
+{"type": "EVIDENCE_MATRIX", "evidence": "NIS", "authority": "REQUIRED_CONTEXT_NOT_SOLE_AUTHORITY"}
+{"type": "EVIDENCE_MATRIX", "evidence": "ONCHAIN", "authority": "REQUIRED_CONFIRMATION"}
+{"type": "EVIDENCE_MATRIX", "evidence": "DEX_MICROSTRUCTURE", "authority": "REQUIRED_CONFIRMATION"}
+{"type": "EVIDENCE_MATRIX", "evidence": "NEWS", "authority": "OPTIONAL_CONTEXT_NO_UPGRADE"}
+{"type": "EVIDENCE_MATRIX", "evidence": "WHALE_CONTEXT", "authority": "LIGHT_FINGERPRINT_REQUIRED"}
+{"type": "EVIDENCE_MATRIX", "evidence": "QUEUE_STATE", "authority": "RESOURCE_PROTECTION_CONTEXT"}
+{"type": "EVIDENCE_MATRIX", "evidence": "NOVELTY", "authority": "NOT_STANDALONE_TRIGGER"}
+{"type": "EVIDENCE_MATRIX", "evidence": "BUCKET_SIMILARITY", "authority": "COLLAPSE_WITH_FALSE_COLLAPSE_GUARD"}
+{"type": "V47A_TEST", "id": "A1", "case": "clean_nis_onchain_dex", "result": "REAL_ALPHA_CANDIDATE", "expected": "REAL_ALPHA_CANDIDATE", "match": true}
+{"type": "V47A_TEST", "id": "A2", "case": "ghost_liquidity_present", "result": "FAKE_OPPORTUNITY_REJECT", "expected": "FAKE_OPPORTUNITY_REJECT", "match": true}
+{"type": "V47A_TEST", "id": "A3", "case": "jit_unresolved", "result": "REVIEW_ONLY", "expected": "REVIEW_ONLY", "match": true}
+{"type": "V47A_TEST", "id": "A4", "case": "multi_hop_suspicious", "result": "REVIEW_ONLY", "expected": "REVIEW_ONLY", "match": true}
+{"type": "V47A_TEST", "id": "A5", "case": "news_only_claim", "result": "REJECT", "expected": "REJECT", "match": true}
+{"type": "V47A_TEST", "id": "A6", "case": "near_boundary_news_tiebreaker", "result": "REJECT", "expected": "REJECT", "match": true}
+{"type": "V47A_TEST", "id": "A7", "case": "sybil_confirmed", "result": "REVIEW_ONLY", "expected": "REVIEW_ONLY", "match": true}
+{"type": "V47A_TEST", "id": "A8", "case": "queue_attack", "result": "QUEUE_ATTACK_REJECT", "expected": "QUEUE_ATTACK_REJECT", "match": true}
+{"type": "V47A_TEST", "id": "A9", "case": "novelty_high_bad_fingerprint", "result": "POISONED_SIGNAL_REJECT", "expected": "POISONED_SIGNAL_REJECT", "match": true}
+{"type": "V47A_TEST", "id": "A10", "case": "positive_ta_negative_onchain", "result": "FAKE_OPPORTUNITY_REJECT", "expected": "FAKE_OPPORTUNITY_REJECT", "match": true}
+{"type": "V47A_TEST", "id": "A11", "case": "high_value_incomplete_evidence", "result": "HEAVY_CANDIDATE", "expected": "HEAVY_CANDIDATE", "match": true}
+{"type": "V47A_TEST", "id": "A12", "case": "clean_but_weak_timeout_candidate", "result": "EXPIRE_NO_ACTION", "expected": "EXPIRE_NO_ACTION", "match": true}
+{"type": "V47A_TEST", "id": "A13", "case": "risky_but_not_fake", "result": "RISKY_OPPORTUNITY_REVIEW", "expected": "RISKY_OPPORTUNITY_REVIEW", "match": true}
+{"type": "V47A_TEST", "id": "A14", "case": "malformed_signal", "result": "POISONED_SIGNAL_REJECT", "expected": "POISONED_SIGNAL_REJECT", "match": true}
+{"type": "FINAL_COUNT", "item": "REAL_ALPHA_REQUIREMENT_COUNT", "value": 10}
+{"type": "FINAL_COUNT", "item": "FAKE_TRIGGER_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "DECISION_CLASS_COUNT", "value": 9}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 14}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 46}
+{"type": "NEXT", "value": "V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER_LOCAL_NOAPI"}
