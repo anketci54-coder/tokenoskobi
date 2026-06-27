@@ -1,0 +1,258 @@
+{
+  "task": "V2_42A_DOMAIN_PRIORITY_AND_GAP_REVIEW_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T05:58:50Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_42A_DOMAIN_PRIORITY_AND_GAP_REVIEW_LOCAL_NOAPI",
+  "decision": "V2_42A_PRIORITY_GAP_REVIEW_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_42_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "338a3b66c99010d6bd35c3a091856aad1e70bbbd",
+  "remote_now": "338a3b66c99010d6bd35c3a091856aad1e70bbbd",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_42_post_dryrun_system_capability_map_and_next_domains_plan_noapi.json\n?? data/v2_42_post_dryrun_system_capability_map_and_next_domains_plan_noapi_rows.jsonl\n?? docs/v2/V2_42_POST_DRYRUN_SYSTEM_CAPABILITY_MAP_AND_NEXT_DOMAINS_PLAN_NOAPI.md",
+  "constitutional_lock": {
+    "NOAPI_EXIT_ALLOWED": false,
+    "API_RPC_ALLOWED": false,
+    "LIVE_FEED_ALLOWED": false,
+    "RUNTIME_BINDING_ALLOWED": false,
+    "LIVE_DECISION_ALLOWED": false,
+    "LIVE_TRADE_ALLOWED": false,
+    "WALLET_ACCESS_ALLOWED": false,
+    "PRIVATE_KEY_ACCESS_ALLOWED": false,
+    "OUTBOUND_PACKET_ALLOWED": false,
+    "FAIL_CLOSED_LAB_ONLY": true,
+    "UNLOCK_REQUIRES_ALL_HARD_GATES_CLOSED": true,
+    "HARD_GATE_1": "Hub-and-Spoke Cross-Check Pipeline",
+    "HARD_GATE_2": "Latency And False-Positive Budget",
+    "HARD_GATE_3": "AI Chatbot Hard Authority Boundary"
+  },
+  "priority_matrix": [
+    {
+      "id": "HG1",
+      "gap": "Horizontal cross-check layer not yet designed between Whale, News, Onchain, Technical before central core.",
+      "class": "HARD_GATE",
+      "priority": 1,
+      "name": "Hub-and-Spoke Cross-Check Pipeline",
+      "why": "Merkez çekirdek sarsılırsa tüm kaynaklar körleşmesin; yatay çapraz denetim ilk kalkan olmalı.",
+      "blocks_until_closed": [
+        "API_RPC",
+        "LIVE_FEED",
+        "RUNTIME_BINDING",
+        "LIVE_DECISION",
+        "LIVE_TRADE",
+        "WALLET_ACCESS"
+      ],
+      "target_phase": "V2_42B_HUB_AND_SPOKE_FRAGILITY_REDUCTION_PLAN_NOAPI"
+    },
+    {
+      "id": "HG2",
+      "gap": "Latency budget not yet defined for multi-layer analysis + False-positive budget not yet defined for noisy market regimes.",
+      "class": "HARD_GATE",
+      "priority": 2,
+      "name": "Latency And False-Positive Budget",
+      "why": "Motorlar piyasa yükünde DoS/timeout veya alarm obezitesiyle operatörü kör etmemeli.",
+      "blocks_until_closed": [
+        "API_RPC",
+        "LIVE_FEED",
+        "RUNTIME_BINDING",
+        "LIVE_DECISION",
+        "LIVE_TRADE",
+        "WALLET_ACCESS"
+      ],
+      "target_phase": "V2_42C_LATENCY_AND_FALSE_POSITIVE_BUDGET_PLAN_NOAPI"
+    },
+    {
+      "id": "HG3",
+      "gap": "AI chatbot authority boundary not yet formally locked.",
+      "class": "HARD_GATE",
+      "priority": 3,
+      "name": "AI Chatbot Hard Authority Boundary",
+      "why": "Prompt injection ve yetki taşması engellenmeden AI dış dünya, runtime, trade veya wallet alanına yaklaşamaz.",
+      "blocks_until_closed": [
+        "API_RPC",
+        "LIVE_FEED",
+        "RUNTIME_BINDING",
+        "LIVE_DECISION",
+        "LIVE_TRADE",
+        "WALLET_ACCESS",
+        "AI_TOOL_EXECUTION"
+      ],
+      "target_phase": "V2_53_AI_CHATBOT_AUTHORITY_BOUNDARY_NOAPI"
+    },
+    {
+      "id": "PL1",
+      "gap": "Whale wallet source taxonomy not yet defined.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 4,
+      "name": "Whale Wallet Source Taxonomy",
+      "why": "Balina verisi sınıflanmadan fake whale / gerçek whale ayrımı yapılamaz.",
+      "blocks_until_closed": [
+        "WHALE_LIVE_FEED",
+        "WHALE_API_USE"
+      ],
+      "target_phase": "V2_44_WHALE_WALLET_TRACKING_ARCHITECTURE_NOAPI"
+    },
+    {
+      "id": "PL2",
+      "gap": "Fake whale / real whale separation not yet defined.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 5,
+      "name": "Fake Whale Separation",
+      "why": "Manipülatif cüzdan davranışı gerçek balina davranışı gibi puanlanmamalı.",
+      "blocks_until_closed": [
+        "WHALE_LIVE_FEED",
+        "WHALE_DECISION_IMPACT"
+      ],
+      "target_phase": "V2_45_WHALE_SHADOW_DRYRUN_NOAPI"
+    },
+    {
+      "id": "PL3",
+      "gap": "Technical analysis signal contract not yet defined.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 6,
+      "name": "Technical Signal Contract",
+      "why": "Teknik sinyal trade authority değildir; signal contract ve false-positive guard gerekir.",
+      "blocks_until_closed": [
+        "TECHNICAL_LIVE_FEED",
+        "TECHNICAL_DECISION_IMPACT"
+      ],
+      "target_phase": "V2_46_TECHNICAL_ANALYSIS_ARCHITECTURE_NOAPI"
+    },
+    {
+      "id": "PL4",
+      "gap": "System monitoring runtime boundary not yet defined.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 7,
+      "name": "System Monitoring Runtime Boundary",
+      "why": "Gözetleme ile runtime müdahale sınırı ayrılmalı.",
+      "blocks_until_closed": [
+        "RUNTIME_BINDING",
+        "SERVICE_TIMER_AUTOMATION"
+      ],
+      "target_phase": "V2_43_SYSTEM_MONITORING_BOUNDARY_PLAN_NOAPI"
+    },
+    {
+      "id": "PL5",
+      "gap": "Human approval integrity needs final operational contract.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 8,
+      "name": "Human Approval Integrity Contract",
+      "why": "İnsan onayı sözlü/doktrinsel değil, operasyonel kanıt kontratı olmalı.",
+      "blocks_until_closed": [
+        "LIVE_DECISION",
+        "LIVE_TRADE",
+        "RUNTIME_APPLY"
+      ],
+      "target_phase": "V2_52_AI_CHATBOT_ARCHITECTURE_NOAPI"
+    },
+    {
+      "id": "PL6",
+      "gap": "Emergency kill switch remains doctrine-level; runtime binding not planned in this step.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 9,
+      "name": "Emergency Kill Switch Operational Contract",
+      "why": "Kill switch runtime bağlanmadan önce açıkça ayrı fazda doğrulanmalı.",
+      "blocks_until_closed": [
+        "LIVE_RUNTIME",
+        "LIVE_TRADE"
+      ],
+      "target_phase": "FUTURE_EXPLICIT_APPROVAL_REQUIRED"
+    },
+    {
+      "id": "PL7",
+      "gap": "Live/API/read-only progression remains blocked until later explicit approval.",
+      "class": "PRE_LIVE_REQUIRED",
+      "priority": 10,
+      "name": "Read-Only Live Progression Approval Gate",
+      "why": "NOAPI çıkışı ancak hard gate kapanışı ve açık onay sonrası olabilir.",
+      "blocks_until_closed": [
+        "API_RPC",
+        "LIVE_FEED"
+      ],
+      "target_phase": "FUTURE_EXPLICIT_APPROVAL_REQUIRED"
+    },
+    {
+      "id": "LAT1",
+      "gap": "Maintenance and repair recommendation policy not yet defined.",
+      "class": "POST_LIVE_OR_LATER",
+      "priority": 11,
+      "name": "Maintenance Repair Recommendation Policy",
+      "why": "Güvenli öneri sistemi kurulabilir; otomatik apply yine yasak kalır.",
+      "blocks_until_closed": [
+        "AUTO_REPAIR_APPLY"
+      ],
+      "target_phase": "V2_49-V2_51"
+    },
+    {
+      "id": "LAT2",
+      "gap": "Training dataset and label policy not yet formally locked.",
+      "class": "POST_LIVE_OR_LATER",
+      "priority": 12,
+      "name": "Training Dataset And Label Policy",
+      "why": "Eğitim kalitesi için gerekli; ancak canlı API çıkışı için ilk üç hard gate kadar acil değil.",
+      "blocks_until_closed": [
+        "MODEL_TRAINING_EXPORT"
+      ],
+      "target_phase": "V2_56-V2_57"
+    },
+    {
+      "id": "LAT3",
+      "gap": "Hybrid AI final doctrine not yet sealed.",
+      "class": "POST_LIVE_OR_LATER",
+      "priority": 13,
+      "name": "Hybrid AI Final Doctrine",
+      "why": "Deterministik çekirdek + AI asistan + memory + GPU/export nihai doktrin olarak kapanmalı.",
+      "blocks_until_closed": [
+        "AI_FINAL_AUTHORITY_MODEL"
+      ],
+      "target_phase": "V2_60"
+    },
+    {
+      "id": "LUX1",
+      "gap": "Advanced visual / command-map refinements.",
+      "class": "LUXURY",
+      "priority": 14,
+      "name": "Visual Command Map Refinements",
+      "why": "Anlaşılabilirliği artırır; güvenlik gate değildir.",
+      "blocks_until_closed": [],
+      "target_phase": "OPTIONAL"
+    }
+  ],
+  "class_counts": {
+    "HARD_GATE": 3,
+    "PRE_LIVE_REQUIRED": 7,
+    "POST_LIVE_OR_LATER": 3,
+    "LUXURY": 1
+  },
+  "red_team_verdict": "NOAPI exit, API/RPC, live feed, runtime binding, live decision, trade, wallet access, private key access, and outbound packet are forbidden until all three hard gates are closed and explicitly verified.",
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v2_42_doc_exists": true,
+    "v2_42_json_exists": true,
+    "v2_42_pass": true,
+    "v2_42_next_match": true,
+    "v2_42_gap_count_14": true,
+    "v2_42_domain_count_8": true,
+    "v2_42_noapi_locked": true,
+    "v2_42_hybrid_ai_no_authority": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true,
+    "hard_gate_count_3": true,
+    "pre_live_count_7": true,
+    "post_live_count_3": true,
+    "luxury_count_1": true,
+    "constitutional_noapi_exit_false": true,
+    "constitutional_outbound_packet_false": true,
+    "constitutional_fail_closed_lab_only": true,
+    "hard_gate_blocks_api_live_runtime_trade_wallet": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
