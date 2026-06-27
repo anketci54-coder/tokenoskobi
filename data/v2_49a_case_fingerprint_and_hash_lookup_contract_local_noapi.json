@@ -1,0 +1,426 @@
+{
+  "task": "V2_49A_CASE_FINGERPRINT_AND_HASH_LOOKUP_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T18:16:30Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CONTRACT",
+  "final_gate": "REVIEW_V2_49A_CASE_FINGERPRINT_AND_HASH_LOOKUP_CONTRACT_LOCAL_NOAPI",
+  "decision": "STOP_REVIEW_REQUIRED",
+  "next": "FIX_REVIEW_ITEMS",
+  "github_push": false,
+  "head_now": "3093d322fb90968b0c64c71fb1c1b9d0669d7f42",
+  "remote_now": "3093d322fb90968b0c64c71fb1c1b9d0669d7f42",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_49_case_reasoning_and_alpha_memory_compaction_engine_plan_noapi.json\n?? data/v2_49_case_reasoning_and_alpha_memory_compaction_engine_plan_noapi_rows.jsonl\n?? data/v2_49_next_approved_phase_selection_noapi.json\n?? data/v2_49_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_49_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "fingerprint_fields": [
+    "chain_id",
+    "route_family",
+    "token_bucket_hash",
+    "risk_boundary_signature",
+    "min_liquidity_depth",
+    "max_slippage_risk",
+    "min_max_extreme_values",
+    "variance_signature",
+    "fresh_risk_flag",
+    "new_evidence_flag",
+    "measurable_strengthening_flag",
+    "outcome_confirmation_flag"
+  ],
+  "contract": {
+    "CASE_FINGERPRINT_REQUIRED": true,
+    "CASE_FINGERPRINT_FIELD_COUNT_LOCKED": true,
+    "CASE_FINGERPRINT_FIELD_COUNT": 12,
+    "CASE_FINGERPRINT_DETERMINISTIC_REQUIRED": true,
+    "CASE_FINGERPRINT_STABLE_HASH_REQUIRED": true,
+    "CASE_FINGERPRINT_CANONICAL_JSON_REQUIRED": true,
+    "CASE_FINGERPRINT_CRITICAL_FIELDS_REQUIRED": true,
+    "CASE_FINGERPRINT_MISSING_FIELD_REJECT_REQUIRED": true,
+    "CASE_FINGERPRINT_ROUNDED_BOUNDARY_REJECT_REQUIRED": true,
+    "CASE_FINGERPRINT_RISK_PARAM_DROP_REJECT_REQUIRED": true,
+    "CASE_FINGERPRINT_COLLISION_GUARD_REQUIRED": true,
+    "CASE_FINGERPRINT_FALSE_SIMILARITY_GUARD_REQUIRED": true,
+    "CASE_LOOKUP_MUST_BE_HASH_INDEXED_ONLY": true,
+    "CASE_LOOKUP_MUST_BE_O1_TARGETED": true,
+    "CASE_LOOKUP_FULL_SCAN_FORBIDDEN": true,
+    "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN": true,
+    "CASE_LOOKUP_ML_SIMILARITY_FORBIDDEN": true,
+    "CASE_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED": true,
+    "CASE_LOOKUP_NO_ITERATION_ON_HOT_PATH": true,
+    "CASE_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY": true,
+    "FRESH_RISK_OVERRIDES_CASE_MEMORY": true,
+    "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY": true,
+    "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY": true,
+    "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY": true,
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "CASE_HASH_LOOKUP_COMPLEXITY": "O(1)",
+    "CASE_MEMORY_MAX_ITEMS": 1000,
+    "PER_TOKEN_CASE_CAP": 20,
+    "PER_ROUTE_CASE_CAP": 30,
+    "HOT_PATH_FULL_SCAN_ALLOWED": false,
+    "HOT_PATH_FUZZY_SCAN_ALLOWED": false,
+    "HOT_PATH_ML_SIMILARITY_ALLOWED": false,
+    "HOT_PATH_ITERATION_ALLOWED": false,
+    "REENTRY_SINGLE_ESCALATION_LIMIT": 1
+  },
+  "example_fingerprint": "6d458bf2d9aa8d3e61dcb918fb2c25cb577726bf8a9f6aad875dce4553c82d3d",
+  "example_different_boundary_fingerprint": "851ab878789977a6e1bddc34ccf038a2191499aecec30489719b4841c3d22664",
+  "test_results": [
+    {
+      "id": "A1",
+      "case": "deterministic_fingerprint_same_input",
+      "result": "CASE_CONTEXT_FOUND_O1",
+      "expected": "CASE_CONTEXT_FOUND_O1",
+      "match": true
+    },
+    {
+      "id": "A2",
+      "case": "hash_lookup_no_match_fast_exit",
+      "result": "FAST_EXIT_NO_SCAN",
+      "expected": "FAST_EXIT_NO_SCAN",
+      "match": true
+    },
+    {
+      "id": "A3",
+      "case": "missing_critical_field_reject",
+      "result": "REJECT_MISSING_CRITICAL_FIELD",
+      "expected": "REJECT_MISSING_CRITICAL_FIELD",
+      "match": true
+    },
+    {
+      "id": "A4",
+      "case": "rounded_boundary_reject",
+      "result": "REJECT_UNSAFE_FINGERPRINT",
+      "expected": "REJECT_UNSAFE_FINGERPRINT",
+      "match": true
+    },
+    {
+      "id": "A5",
+      "case": "risk_param_drop_reject",
+      "result": "REJECT_UNSAFE_FINGERPRINT",
+      "expected": "REJECT_UNSAFE_FINGERPRINT",
+      "match": true
+    },
+    {
+      "id": "A6",
+      "case": "hard_boundary_drop_reject",
+      "result": "REJECT_UNSAFE_FINGERPRINT",
+      "expected": "REJECT_UNSAFE_FINGERPRINT",
+      "match": true
+    },
+    {
+      "id": "A7",
+      "case": "full_scan_request_rejected",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "A8",
+      "case": "fuzzy_scan_request_rejected",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "A9",
+      "case": "ml_similarity_request_rejected",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "A10",
+      "case": "iteration_request_rejected",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "A11",
+      "case": "fresh_risk_overrides_case",
+      "result": "CASE_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "CASE_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "A12",
+      "case": "score_boost_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "A13",
+      "case": "trade_authority_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "A14",
+      "case": "case_collision_rejected",
+      "result": "REJECT_CASE_COLLISION",
+      "expected": "REJECT_CASE_COLLISION",
+      "match": true
+    },
+    {
+      "id": "A15",
+      "case": "false_similarity_rejected",
+      "result": "REJECT_FALSE_SIMILARITY",
+      "expected": "REJECT_FALSE_SIMILARITY",
+      "match": true
+    },
+    {
+      "id": "A16",
+      "case": "case_context_no_new_evidence",
+      "result": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "expected": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "match": true
+    },
+    {
+      "id": "A17",
+      "case": "case_context_new_evidence_measurable_fresh",
+      "result": "CASE_REENTRY_CANDIDATE",
+      "expected": "CASE_REENTRY_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "A18",
+      "case": "reentry_limit_reached",
+      "result": "REJECT_SECOND_REENTRY",
+      "expected": "REJECT_SECOND_REENTRY",
+      "match": true
+    },
+    {
+      "id": "A19",
+      "case": "poisoned_case_rejected",
+      "result": "REJECT_CASE_MEMORY",
+      "expected": "REJECT_CASE_MEMORY",
+      "match": true
+    },
+    {
+      "id": "A20",
+      "case": "malformed_case_rejected",
+      "result": "REJECT_CASE_MEMORY",
+      "expected": "REJECT_CASE_MEMORY",
+      "match": true
+    },
+    {
+      "id": "A21",
+      "case": "different_boundary_different_hash",
+      "result": "CASE_CONTEXT_FOUND_O1",
+      "expected": "CASE_CONTEXT_FOUND_O1",
+      "match": true
+    },
+    {
+      "id": "A22",
+      "case": "empty_index_fast_exit",
+      "result": "FAST_EXIT_NO_SCAN",
+      "expected": "FAST_EXIT_NO_SCAN",
+      "match": true
+    }
+  ],
+  "semantic_guards": [
+    {
+      "guard": "same canonical input produces same sha256 fingerprint",
+      "status": true
+    },
+    {
+      "guard": "different risk boundary produces different fingerprint",
+      "status": true
+    },
+    {
+      "guard": "hash lookup does not scan when no match",
+      "status": true
+    },
+    {
+      "guard": "fresh risk suppresses old case memory",
+      "status": true
+    },
+    {
+      "guard": "authority drift is rejected",
+      "status": true
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "CASE_CONTEXT_FOUND_O1",
+      "meaning": "direct hash-index lookup found context"
+    },
+    {
+      "state": "FAST_EXIT_NO_SCAN",
+      "meaning": "no hash match exits without scan"
+    },
+    {
+      "state": "REJECT_SCAN",
+      "meaning": "full scan, fuzzy scan, ML similarity or iteration is rejected"
+    },
+    {
+      "state": "REJECT_MISSING_CRITICAL_FIELD",
+      "meaning": "fingerprint cannot be built without all critical fields"
+    },
+    {
+      "state": "REJECT_UNSAFE_FINGERPRINT",
+      "meaning": "rounded, dropped or unsafe critical boundary blocks fingerprint"
+    },
+    {
+      "state": "CASE_SUPPRESSED_BY_FRESH_RISK",
+      "meaning": "fresh risk overrides old case memory"
+    },
+    {
+      "state": "REJECT_AUTHORITY_DRIFT",
+      "meaning": "case memory cannot boost score or authorize trade"
+    },
+    {
+      "state": "REJECT_CASE_COLLISION",
+      "meaning": "case collision attack rejected"
+    },
+    {
+      "state": "REJECT_FALSE_SIMILARITY",
+      "meaning": "false similarity collapse rejected"
+    },
+    {
+      "state": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "meaning": "case context without new evidence cannot reenter"
+    },
+    {
+      "state": "CASE_REENTRY_CANDIDATE",
+      "meaning": "new evidence, measurable strengthening and fresh context allow candidate"
+    },
+    {
+      "state": "REJECT_SECOND_REENTRY",
+      "meaning": "single reentry limit enforced"
+    },
+    {
+      "state": "REJECT_CASE_MEMORY",
+      "meaning": "poisoned or malformed case rejected"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_49A_CASE_FINGERPRINT_AND_HASH_LOOKUP_CONTRACT_REQUIRED=true",
+    "CASE_FINGERPRINT_REQUIRED=true",
+    "CASE_FINGERPRINT_FIELD_COUNT=12",
+    "CASE_FINGERPRINT_DETERMINISTIC_REQUIRED=true",
+    "CASE_FINGERPRINT_STABLE_HASH_REQUIRED=true",
+    "CASE_FINGERPRINT_CANONICAL_JSON_REQUIRED=true",
+    "CASE_FINGERPRINT_CRITICAL_FIELDS_REQUIRED=true",
+    "CASE_FINGERPRINT_MISSING_FIELD_REJECT_REQUIRED=true",
+    "CASE_FINGERPRINT_ROUNDED_BOUNDARY_REJECT_REQUIRED=true",
+    "CASE_FINGERPRINT_RISK_PARAM_DROP_REJECT_REQUIRED=true",
+    "CASE_FINGERPRINT_COLLISION_GUARD_REQUIRED=true",
+    "CASE_FINGERPRINT_FALSE_SIMILARITY_GUARD_REQUIRED=true",
+    "CASE_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true",
+    "CASE_LOOKUP_MUST_BE_O1_TARGETED=true",
+    "CASE_LOOKUP_FULL_SCAN_FORBIDDEN=true",
+    "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN=true",
+    "CASE_LOOKUP_ML_SIMILARITY_FORBIDDEN=true",
+    "CASE_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true",
+    "CASE_LOOKUP_NO_ITERATION_ON_HOT_PATH=true",
+    "CASE_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY=true",
+    "FRESH_RISK_OVERRIDES_CASE_MEMORY=true",
+    "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY=true",
+    "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY=true",
+    "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY=true",
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true",
+    "CASE_HASH_LOOKUP_COMPLEXITY=O(1)",
+    "HOT_PATH_FULL_SCAN_ALLOWED=false",
+    "HOT_PATH_FUZZY_SCAN_ALLOWED=false",
+    "HOT_PATH_ML_SIMILARITY_ALLOWED=false",
+    "HOT_PATH_ITERATION_ALLOWED=false",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v49_selection_pass": true,
+    "v49_plan_pass": true,
+    "v49_plan_next_match": true,
+    "v48_final_pass": true,
+    "v47_final_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "fingerprint_field_count_12": true,
+    "contract_count_32": true,
+    "limit_count_9": true,
+    "test_case_count_22": true,
+    "test_all_match": true,
+    "semantic_guard_count_5": true,
+    "semantic_all_true": true,
+    "state_contract_count_13": true,
+    "hard_boundary_count_49": false,
+    "same_input_same_hash": true,
+    "different_boundary_different_hash": true,
+    "hash_lookup_o1": true,
+    "hash_indexed_only": true,
+    "no_full_scan": true,
+    "no_fuzzy_scan": true,
+    "no_ml_similarity": true,
+    "no_iteration": true,
+    "fresh_risk_overrides": true,
+    "context_only_not_authority": true,
+    "case_no_trade": true,
+    "case_no_score_boost": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

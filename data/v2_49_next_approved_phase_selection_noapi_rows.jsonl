@@ -1,0 +1,71 @@
+{"type": "CANDIDATE_PHASE", "id": "C1", "name": "V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_ENGINE_PLAN_NOAPI", "selected": true}
+{"type": "CANDIDATE_PHASE", "id": "C2", "name": "V2_49_HEAVY_REENTRY_SCHEDULER_AND_BUDGET_ARBITER_PLAN_NOAPI", "selected": false}
+{"type": "CANDIDATE_PHASE", "id": "C3", "name": "V2_49_ALPHA_CASE_LIBRARY_AND_RED_TEAM_RECALL_PLAN_NOAPI", "selected": false}
+{"type": "CANDIDATE_PHASE", "id": "C4", "name": "V2_49_FALSE_NEGATIVE_OUTCOME_SCORING_POLICY_PLAN_NOAPI", "selected": false}
+{"type": "SELECTION_LOCK", "item": "V2_49_MUST_BUILD_ON_V2_48_SEALED_HEAD=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_REASONING_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "ALPHA_MEMORY_COMPACTION_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_MEMORY_TO_CASE_FINGERPRINT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "MISSED_OPPORTUNITY_TO_CASE_FINGERPRINT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_MUST_BE_LIGHTWEIGHT=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_MUST_BE_BOUNDED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_TTL_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_PER_TOKEN_CAP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_PER_ROUTE_CAP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_DEDUP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_EVICT_OLDEST_LOWEST_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_REASONING_CANNOT_AUTHORIZE_TRADE=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_REASONING_CANNOT_BOOST_SCORE_DIRECTLY=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_REASONING_CONTEXT_ONLY_NOT_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "FRESH_RISK_OVERRIDES_CASE_MEMORY=true"}
+{"type": "SELECTION_LOCK", "item": "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY=true"}
+{"type": "SELECTION_LOCK", "item": "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY=true"}
+{"type": "SELECTION_LOCK", "item": "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY=true"}
+{"type": "SELECTION_LOCK", "item": "HINDSIGHT_BIAS_GUARD_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "OUTCOME_CONFIRMATION_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "POISONED_CASE_REJECT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "MALFORMED_CASE_REJECT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_COLLISION_GUARD_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "FALSE_SIMILARITY_GUARD_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SINGLE_CASE_DECISION_FORBIDDEN=true"}
+{"type": "SELECTION_LOCK", "item": "MULTI_FACTOR_CASE_MATCH_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "HOT_PATH_LOOKUP_ONLY=true"}
+{"type": "SELECTION_LOCK", "item": "FULL_HISTORY_SCAN_ON_HOT_PATH_FORBIDDEN=true"}
+{"type": "SELECTION_LOCK", "item": "ML_SIMILARITY_ON_HOT_PATH_FORBIDDEN=true"}
+{"type": "SELECTION_LOCK", "item": "HEAVY_REENTRY_BUDGET_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SPEED_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "SECURITY_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "POWER_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "ECONOMY_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "NO_TRADE_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "NO_API_RPC=true"}
+{"type": "SELECTION_LOCK", "item": "NO_DB_WRITE=true"}
+{"type": "SELECTION_LOCK", "item": "NO_PANEL_WRITE=true"}
+{"type": "SELECTION_LOCK", "item": "NO_RUNTIME_APPLY=true"}
+{"type": "SELECTION_LOCK", "item": "NO_LIVE_TRADE=true"}
+{"type": "RED_TEAM_ITEM", "id": "R1", "risk": "case memory poisoning", "guard": "POISONED_CASE_REJECT_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "R2", "risk": "false similarity collapse", "guard": "FALSE_SIMILARITY_GUARD_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "R3", "risk": "case collision attack", "guard": "CASE_COLLISION_GUARD_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "R4", "risk": "hindsight bias escalation", "guard": "HINDSIGHT_BIAS_GUARD_REQUIRED"}
+{"type": "RED_TEAM_ITEM", "id": "R5", "risk": "fresh risk bypass via old case", "guard": "FRESH_RISK_OVERRIDES_CASE_MEMORY"}
+{"type": "RED_TEAM_ITEM", "id": "R6", "risk": "hot path bloat", "guard": "HOT_PATH_LOOKUP_ONLY"}
+{"type": "RED_TEAM_ITEM", "id": "R7", "risk": "single-case authority drift", "guard": "SINGLE_CASE_DECISION_FORBIDDEN"}
+{"type": "RED_TEAM_ITEM", "id": "R8", "risk": "memory exhaustion", "guard": "CASE_MEMORY_MUST_BE_BOUNDED"}
+{"type": "CORE_REQUIREMENT", "item": "Compress V2_48 replay memory into bounded case fingerprints"}
+{"type": "CORE_REQUIREMENT", "item": "Compress V2_48 missed opportunity feedback into bounded case fingerprints"}
+{"type": "CORE_REQUIREMENT", "item": "Prevent case memory from becoming score authority"}
+{"type": "CORE_REQUIREMENT", "item": "Prevent case memory from becoming trade authority"}
+{"type": "CORE_REQUIREMENT", "item": "Preserve fresh risk circuit breaker above all memory"}
+{"type": "CORE_REQUIREMENT", "item": "Require new evidence before case reentry"}
+{"type": "CORE_REQUIREMENT", "item": "Require measurable strengthening before case reentry"}
+{"type": "CORE_REQUIREMENT", "item": "Require fresh context before case reentry"}
+{"type": "CORE_REQUIREMENT", "item": "Reject poisoned or malformed case evidence"}
+{"type": "CORE_REQUIREMENT", "item": "Guard against false similarity and case collision"}
+{"type": "CORE_REQUIREMENT", "item": "Use hot-path lookup only, no full history scan"}
+{"type": "CORE_REQUIREMENT", "item": "Keep heavy reentry rare, budgeted, and capped"}
+{"type": "FINAL_COUNT", "item": "CANDIDATE_PHASE_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "SELECTION_LOCK_COUNT", "value": 42}
+{"type": "FINAL_COUNT", "item": "RED_TEAM_ITEM_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "CORE_REQUIREMENT_COUNT", "value": 12}
+{"type": "NEXT", "value": "V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_ENGINE_PLAN_NOAPI"}

@@ -1,0 +1,545 @@
+{
+  "task": "V2_49B_LOSSLESS_COMPACTION_AND_HOT_PATH_ISOLATION_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T18:52:27Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CONTRACT",
+  "final_gate": "PASS_V2_49B_LOSSLESS_COMPACTION_AND_HOT_PATH_ISOLATION_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_49B_LOSSLESS_COMPACTION_HOT_PATH_ISOLATION_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_49_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "3093d322fb90968b0c64c71fb1c1b9d0669d7f42",
+  "remote_now": "3093d322fb90968b0c64c71fb1c1b9d0669d7f42",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_49_case_reasoning_and_alpha_memory_compaction_engine_plan_noapi.json\n?? data/v2_49_case_reasoning_and_alpha_memory_compaction_engine_plan_noapi_rows.jsonl\n?? data/v2_49_next_approved_phase_selection_noapi.json\n?? data/v2_49_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_49a_case_fingerprint_and_hash_lookup_contract_local_noapi.json\n?? data/v2_49a_case_fingerprint_and_hash_lookup_contract_local_noapi_rows.jsonl\n?? data/v2_49a_fix_hard_boundary_count_local_noapi.json\n?? data/v2_49a_fix_hard_boundary_count_local_noapi_rows.jsonl\n?? docs/v2/V2_49A_CASE_FINGERPRINT_AND_HASH_LOOKUP_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_49A_FIX_HARD_BOUNDARY_COUNT_LOCAL_NOAPI.md\n?? docs/v2/V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_49_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "contract": {
+    "LOSSLESS_COMPACTION_REQUIRED": true,
+    "COMPACTION_LOSSLESS_FOR_CRITICAL_BOUNDARIES": true,
+    "COMPACTION_MUST_BE_ASYNCHRONOUS_WITH_ZERO_HOT_PATH_IMPACT": true,
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_THREAD_POOL": true,
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_CPU_BUDGET": true,
+    "COMPACTION_BACKPRESSURE_MUST_NEVER_BLOCK_FAST_PATH": true,
+    "HOT_PATH_ALWAYS_HAS_PRIORITY_OVER_COMPACTION": true,
+    "COMPACTION_HOT_PATH_LATENCY_BUDGET_ZERO": true,
+    "COMPACTION_CAN_ONLY_RUN_IN_COLD_PATH": true,
+    "COMPACTION_CANNOT_CALL_HOT_PATH": true,
+    "COMPACTION_CANNOT_LOCK_HOT_PATH_INDEX": true,
+    "HARD_BOUNDARIES_MUST_NOT_BE_ROUNDED": true,
+    "RISK_PARAMETERS_MUST_NOT_BE_DROPPED": true,
+    "MIN_MAX_EXTREME_VALUES_MUST_BE_PRESERVED": true,
+    "VARIANCE_SIGNATURE_MUST_BE_PRESERVED": true,
+    "CASE_AGGREGATION_MUST_KEEP_VARIANCE_SIGNATURE": true,
+    "OVER_COMPACTION_AMNESIA_GUARD_REQUIRED": true,
+    "SIMILAR_CASES_WITH_DIFFERENT_BOUNDARIES_MUST_STAY_SEPARATE": true,
+    "COMPACTION_REJECTS_ROUNDED_BOUNDARY": true,
+    "COMPACTION_REJECTS_DROPPED_RISK_PARAMETER": true,
+    "COMPACTION_REJECTS_DROPPED_EXTREME_VALUE": true,
+    "COMPACTION_REJECTS_DROPPED_VARIANCE_SIGNATURE": true,
+    "CASE_LOOKUP_MUST_BE_HASH_INDEXED_ONLY": true,
+    "CASE_LOOKUP_MUST_BE_O1_TARGETED": true,
+    "CASE_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED": true,
+    "CASE_LOOKUP_FULL_SCAN_FORBIDDEN": true,
+    "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN": true,
+    "CASE_LOOKUP_ML_SIMILARITY_FORBIDDEN": true,
+    "CASE_LOOKUP_NO_ITERATION_ON_HOT_PATH": true,
+    "FRESH_RISK_OVERRIDES_CASE_MEMORY": true,
+    "CASE_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY": true,
+    "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY": true,
+    "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY": true,
+    "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY": true,
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "COMPACTION_HOT_PATH_CPU_BUDGET": 0,
+    "COMPACTION_HOT_PATH_THREAD_SHARE": 0,
+    "COMPACTION_HOT_PATH_LOCK_SHARE": 0,
+    "COMPACTION_HOT_PATH_LATENCY_BUDGET_MS": 0,
+    "CASE_HASH_LOOKUP_COMPLEXITY": "O(1)",
+    "CASE_MEMORY_MAX_ITEMS": 1000,
+    "PER_TOKEN_CASE_CAP": 20,
+    "PER_ROUTE_CASE_CAP": 30,
+    "REENTRY_SINGLE_ESCALATION_LIMIT": 1,
+    "HOT_PATH_FULL_SCAN_ALLOWED": false,
+    "HOT_PATH_FUZZY_SCAN_ALLOWED": false,
+    "HOT_PATH_ML_SIMILARITY_ALLOWED": false,
+    "HOT_PATH_ITERATION_ALLOWED": false
+  },
+  "critical_fields": [
+    "risk_boundary_signature",
+    "min_liquidity_depth",
+    "max_slippage_risk",
+    "min_max_extreme_values",
+    "variance_signature",
+    "fresh_risk_flag",
+    "new_evidence_flag",
+    "measurable_strengthening_flag",
+    "outcome_confirmation_flag"
+  ],
+  "test_results": [
+    {
+      "id": "B1",
+      "case": "compaction_running_hot_path_signal",
+      "result": "HOT_PATH_UNAFFECTED",
+      "expected": "HOT_PATH_UNAFFECTED",
+      "match": true
+    },
+    {
+      "id": "B2",
+      "case": "compaction_backpressure",
+      "result": "FAST_PATH_NOT_BLOCKED",
+      "expected": "FAST_PATH_NOT_BLOCKED",
+      "match": true
+    },
+    {
+      "id": "B3",
+      "case": "share_thread_pool_rejected",
+      "result": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "expected": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "match": true
+    },
+    {
+      "id": "B4",
+      "case": "share_cpu_budget_rejected",
+      "result": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "expected": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "match": true
+    },
+    {
+      "id": "B5",
+      "case": "share_hot_path_lock_rejected",
+      "result": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "expected": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "match": true
+    },
+    {
+      "id": "B6",
+      "case": "round_boundary_rejected",
+      "result": "REJECT_LOSSY_COMPACTION",
+      "expected": "REJECT_LOSSY_COMPACTION",
+      "match": true
+    },
+    {
+      "id": "B7",
+      "case": "drop_risk_parameter_rejected",
+      "result": "REJECT_LOSSY_COMPACTION",
+      "expected": "REJECT_LOSSY_COMPACTION",
+      "match": true
+    },
+    {
+      "id": "B8",
+      "case": "drop_extreme_value_rejected",
+      "result": "REJECT_LOSSY_COMPACTION",
+      "expected": "REJECT_LOSSY_COMPACTION",
+      "match": true
+    },
+    {
+      "id": "B9",
+      "case": "drop_variance_signature_rejected",
+      "result": "REJECT_LOSSY_COMPACTION",
+      "expected": "REJECT_LOSSY_COMPACTION",
+      "match": true
+    },
+    {
+      "id": "B10",
+      "case": "similar_cases_different_critical_boundary",
+      "result": "KEEP_SEPARATE_CRITICAL_BOUNDARY",
+      "expected": "KEEP_SEPARATE_CRITICAL_BOUNDARY",
+      "match": true
+    },
+    {
+      "id": "B11",
+      "case": "over_compaction_attempt",
+      "result": "PRESERVE_CRITICAL_FIELDS",
+      "expected": "PRESERVE_CRITICAL_FIELDS",
+      "match": true
+    },
+    {
+      "id": "B12",
+      "case": "hash_lookup_match",
+      "result": "CASE_CONTEXT_FOUND_O1",
+      "expected": "CASE_CONTEXT_FOUND_O1",
+      "match": true
+    },
+    {
+      "id": "B13",
+      "case": "hash_lookup_no_match",
+      "result": "FAST_EXIT_NO_SCAN",
+      "expected": "FAST_EXIT_NO_SCAN",
+      "match": true
+    },
+    {
+      "id": "B14",
+      "case": "full_scan_request_rejected",
+      "result": "REJECT_HOT_PATH_SCAN",
+      "expected": "REJECT_HOT_PATH_SCAN",
+      "match": true
+    },
+    {
+      "id": "B15",
+      "case": "fuzzy_scan_request_rejected",
+      "result": "REJECT_HOT_PATH_SCAN",
+      "expected": "REJECT_HOT_PATH_SCAN",
+      "match": true
+    },
+    {
+      "id": "B16",
+      "case": "ml_similarity_request_rejected",
+      "result": "REJECT_HOT_PATH_SCAN",
+      "expected": "REJECT_HOT_PATH_SCAN",
+      "match": true
+    },
+    {
+      "id": "B17",
+      "case": "iteration_request_rejected",
+      "result": "REJECT_HOT_PATH_SCAN",
+      "expected": "REJECT_HOT_PATH_SCAN",
+      "match": true
+    },
+    {
+      "id": "B18",
+      "case": "fresh_risk_suppresses_compaction",
+      "result": "COMPACTION_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "COMPACTION_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "B19",
+      "case": "score_boost_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "B20",
+      "case": "trade_authority_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "B21",
+      "case": "case_context_no_new_evidence",
+      "result": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "expected": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "match": true
+    },
+    {
+      "id": "B22",
+      "case": "case_context_reentry_candidate",
+      "result": "CASE_REENTRY_CANDIDATE",
+      "expected": "CASE_REENTRY_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "B23",
+      "case": "reentry_limit_reached",
+      "result": "REJECT_SECOND_REENTRY",
+      "expected": "REJECT_SECOND_REENTRY",
+      "match": true
+    },
+    {
+      "id": "B24",
+      "case": "poisoned_source_rejected",
+      "result": "REJECT_COMPACTION_SOURCE",
+      "expected": "REJECT_COMPACTION_SOURCE",
+      "match": true
+    },
+    {
+      "id": "B25",
+      "case": "malformed_source_rejected",
+      "result": "REJECT_COMPACTION_SOURCE",
+      "expected": "REJECT_COMPACTION_SOURCE",
+      "match": true
+    },
+    {
+      "id": "B26",
+      "case": "default_context_only",
+      "result": "COMPACTION_CONTEXT_ONLY",
+      "expected": "COMPACTION_CONTEXT_ONLY",
+      "match": true
+    }
+  ],
+  "red_team_controls": [
+    {
+      "risk": "compaction race condition",
+      "guard": "COMPACTION_MUST_BE_ASYNCHRONOUS_WITH_ZERO_HOT_PATH_IMPACT"
+    },
+    {
+      "risk": "hot path thread sharing",
+      "guard": "COMPACTION_MUST_NOT_SHARE_HOT_PATH_THREAD_POOL"
+    },
+    {
+      "risk": "hot path cpu sharing",
+      "guard": "COMPACTION_MUST_NOT_SHARE_HOT_PATH_CPU_BUDGET"
+    },
+    {
+      "risk": "hot path lock sharing",
+      "guard": "COMPACTION_CANNOT_LOCK_HOT_PATH_INDEX"
+    },
+    {
+      "risk": "compaction backpressure",
+      "guard": "COMPACTION_BACKPRESSURE_MUST_NEVER_BLOCK_FAST_PATH"
+    },
+    {
+      "risk": "hard boundary rounding",
+      "guard": "HARD_BOUNDARIES_MUST_NOT_BE_ROUNDED"
+    },
+    {
+      "risk": "risk parameter erosion",
+      "guard": "RISK_PARAMETERS_MUST_NOT_BE_DROPPED"
+    },
+    {
+      "risk": "extreme value loss",
+      "guard": "MIN_MAX_EXTREME_VALUES_MUST_BE_PRESERVED"
+    },
+    {
+      "risk": "variance signature loss",
+      "guard": "VARIANCE_SIGNATURE_MUST_BE_PRESERVED"
+    },
+    {
+      "risk": "over compaction amnesia",
+      "guard": "OVER_COMPACTION_AMNESIA_GUARD_REQUIRED"
+    },
+    {
+      "risk": "false case merge",
+      "guard": "SIMILAR_CASES_WITH_DIFFERENT_BOUNDARIES_MUST_STAY_SEPARATE"
+    },
+    {
+      "risk": "full scan on hot path",
+      "guard": "CASE_LOOKUP_FULL_SCAN_FORBIDDEN"
+    },
+    {
+      "risk": "fuzzy scan on hot path",
+      "guard": "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN"
+    },
+    {
+      "risk": "ml similarity on hot path",
+      "guard": "CASE_LOOKUP_ML_SIMILARITY_FORBIDDEN"
+    },
+    {
+      "risk": "fresh risk bypass",
+      "guard": "FRESH_RISK_OVERRIDES_CASE_MEMORY"
+    },
+    {
+      "risk": "authority drift",
+      "guard": "CASE_CONTEXT_ONLY_NOT_AUTHORITY"
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "HOT_PATH_UNAFFECTED",
+      "meaning": "compaction under load cannot affect hot path"
+    },
+    {
+      "state": "FAST_PATH_NOT_BLOCKED",
+      "meaning": "compaction backpressure cannot block fast path"
+    },
+    {
+      "state": "REJECT_HOT_PATH_RESOURCE_SHARE",
+      "meaning": "thread, cpu or lock sharing with hot path is rejected"
+    },
+    {
+      "state": "REJECT_LOSSY_COMPACTION",
+      "meaning": "rounding or critical field loss is rejected"
+    },
+    {
+      "state": "KEEP_SEPARATE_CRITICAL_BOUNDARY",
+      "meaning": "similar cases with different critical boundaries stay separate"
+    },
+    {
+      "state": "PRESERVE_CRITICAL_FIELDS",
+      "meaning": "over-compaction preserves all critical fields"
+    },
+    {
+      "state": "CASE_CONTEXT_FOUND_O1",
+      "meaning": "hash-indexed O(1) lookup found case context"
+    },
+    {
+      "state": "FAST_EXIT_NO_SCAN",
+      "meaning": "no hash match exits without scan"
+    },
+    {
+      "state": "REJECT_HOT_PATH_SCAN",
+      "meaning": "full, fuzzy, ML or iteration scan rejected"
+    },
+    {
+      "state": "COMPACTION_SUPPRESSED_BY_FRESH_RISK",
+      "meaning": "fresh risk overrides compaction/case context"
+    },
+    {
+      "state": "REJECT_AUTHORITY_DRIFT",
+      "meaning": "case memory cannot score boost or authorize trade"
+    },
+    {
+      "state": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "meaning": "case context without new evidence cannot reenter"
+    },
+    {
+      "state": "CASE_REENTRY_CANDIDATE",
+      "meaning": "new evidence with measurable strengthening and fresh context allows bounded candidate"
+    },
+    {
+      "state": "REJECT_SECOND_REENTRY",
+      "meaning": "single reentry limit enforced"
+    },
+    {
+      "state": "REJECT_COMPACTION_SOURCE",
+      "meaning": "poisoned or malformed source rejected"
+    },
+    {
+      "state": "COMPACTION_CONTEXT_ONLY",
+      "meaning": "safe default context-only compaction state"
+    }
+  ],
+  "hard_boundaries": [
+    "LOSSLESS_COMPACTION_REQUIRED=true",
+    "COMPACTION_LOSSLESS_FOR_CRITICAL_BOUNDARIES=true",
+    "COMPACTION_MUST_BE_ASYNCHRONOUS_WITH_ZERO_HOT_PATH_IMPACT=true",
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_THREAD_POOL=true",
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_CPU_BUDGET=true",
+    "COMPACTION_BACKPRESSURE_MUST_NEVER_BLOCK_FAST_PATH=true",
+    "HOT_PATH_ALWAYS_HAS_PRIORITY_OVER_COMPACTION=true",
+    "COMPACTION_HOT_PATH_LATENCY_BUDGET_ZERO=true",
+    "COMPACTION_CAN_ONLY_RUN_IN_COLD_PATH=true",
+    "COMPACTION_CANNOT_CALL_HOT_PATH=true",
+    "COMPACTION_CANNOT_LOCK_HOT_PATH_INDEX=true",
+    "HARD_BOUNDARIES_MUST_NOT_BE_ROUNDED=true",
+    "RISK_PARAMETERS_MUST_NOT_BE_DROPPED=true",
+    "MIN_MAX_EXTREME_VALUES_MUST_BE_PRESERVED=true",
+    "VARIANCE_SIGNATURE_MUST_BE_PRESERVED=true",
+    "CASE_AGGREGATION_MUST_KEEP_VARIANCE_SIGNATURE=true",
+    "OVER_COMPACTION_AMNESIA_GUARD_REQUIRED=true",
+    "SIMILAR_CASES_WITH_DIFFERENT_BOUNDARIES_MUST_STAY_SEPARATE=true",
+    "COMPACTION_REJECTS_ROUNDED_BOUNDARY=true",
+    "COMPACTION_REJECTS_DROPPED_RISK_PARAMETER=true",
+    "COMPACTION_REJECTS_DROPPED_EXTREME_VALUE=true",
+    "COMPACTION_REJECTS_DROPPED_VARIANCE_SIGNATURE=true",
+    "CASE_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true",
+    "CASE_LOOKUP_MUST_BE_O1_TARGETED=true",
+    "CASE_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true",
+    "CASE_LOOKUP_FULL_SCAN_FORBIDDEN=true",
+    "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN=true",
+    "CASE_LOOKUP_ML_SIMILARITY_FORBIDDEN=true",
+    "CASE_LOOKUP_NO_ITERATION_ON_HOT_PATH=true",
+    "FRESH_RISK_OVERRIDES_CASE_MEMORY=true",
+    "CASE_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY=true",
+    "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY=true",
+    "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY=true",
+    "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY=true",
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "NO_TRADE_AUTHORITY=true",
+    "COMPACTION_HOT_PATH_CPU_BUDGET=0",
+    "COMPACTION_HOT_PATH_THREAD_SHARE=0",
+    "COMPACTION_HOT_PATH_LOCK_SHARE=0",
+    "COMPACTION_HOT_PATH_LATENCY_BUDGET_MS=0",
+    "CASE_HASH_LOOKUP_COMPLEXITY=O(1)",
+    "HOT_PATH_FULL_SCAN_ALLOWED=false",
+    "HOT_PATH_FUZZY_SCAN_ALLOWED=false",
+    "HOT_PATH_ML_SIMILARITY_ALLOWED=false",
+    "HOT_PATH_ITERATION_ALLOWED=false",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v49_selection_pass": true,
+    "v49_plan_pass": true,
+    "v49a_review_detected": true,
+    "v49a_fix_pass": true,
+    "v49a_fix_next_match": true,
+    "v48_final_pass": true,
+    "v47_final_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "contract_count": true,
+    "limit_count": true,
+    "critical_field_count": true,
+    "test_case_count": true,
+    "test_all_match": true,
+    "red_team_control_count": true,
+    "state_contract_count": true,
+    "hard_boundary_count": true,
+    "compaction_async_zero_hot_path": true,
+    "compaction_no_thread_share": true,
+    "compaction_no_cpu_share": true,
+    "compaction_no_lock_share": true,
+    "backpressure_never_blocks_fast_path": true,
+    "lossless_critical_boundary": true,
+    "hard_boundaries_not_rounded": true,
+    "risk_params_not_dropped": true,
+    "extreme_values_preserved": true,
+    "variance_preserved": true,
+    "o1_lookup": true,
+    "no_full_scan": true,
+    "no_fuzzy_scan": true,
+    "no_ml_similarity": true,
+    "no_iteration": true,
+    "fresh_risk_overrides": true,
+    "context_only_not_authority": true,
+    "case_no_trade": true,
+    "case_no_score_boost": true,
+    "speed_lock": true,
+    "security_lock": true,
+    "power_lock": true,
+    "economy_lock": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

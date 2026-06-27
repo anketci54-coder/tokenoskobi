@@ -1,0 +1,567 @@
+{
+  "task": "V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_ENGINE_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T18:12:35Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_PLAN",
+  "final_gate": "PASS_V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_ENGINE_PLAN_NOAPI",
+  "decision": "V2_49_PLAN_PASS_READY_FOR_CASE_FINGERPRINT_AND_HASH_LOOKUP_CONTRACT",
+  "next": "V2_49A_CASE_FINGERPRINT_AND_HASH_LOOKUP_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "3093d322fb90968b0c64c71fb1c1b9d0669d7f42",
+  "remote_now": "3093d322fb90968b0c64c71fb1c1b9d0669d7f42",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_49_next_approved_phase_selection_noapi.json\n?? data/v2_49_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_49_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "upper_doctrine": {
+    "CASE_MEMORY_SPEED_GAIN_REQUIRED": true,
+    "CASE_MEMORY_SECURITY_GAIN_REQUIRED": true,
+    "CASE_MEMORY_POWER_GAIN_REQUIRED": true,
+    "CASE_MEMORY_ECONOMY_GAIN_REQUIRED": true,
+    "CASE_MEMORY_MUST_NOT_ADD_LATENCY": true,
+    "CASE_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT": true,
+    "CASE_MEMORY_MUST_NOT_TRIGGER_FULL_SCAN": true,
+    "CASE_MEMORY_MUST_NOT_TRIGGER_ML_SIMILARITY_ON_HOT_PATH": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true
+  },
+  "plan_contract": {
+    "CASE_REASONING_REQUIRED": true,
+    "ALPHA_MEMORY_COMPACTION_REQUIRED": true,
+    "REPLAY_MEMORY_TO_CASE_FINGERPRINT_REQUIRED": true,
+    "MISSED_OPPORTUNITY_TO_CASE_FINGERPRINT_REQUIRED": true,
+    "CASE_MEMORY_MUST_BE_LIGHTWEIGHT": true,
+    "CASE_MEMORY_MUST_BE_BOUNDED": true,
+    "CASE_MEMORY_TTL_REQUIRED": true,
+    "CASE_MEMORY_PER_TOKEN_CAP_REQUIRED": true,
+    "CASE_MEMORY_PER_ROUTE_CAP_REQUIRED": true,
+    "CASE_MEMORY_DEDUP_REQUIRED": true,
+    "CASE_MEMORY_EVICT_OLDEST_LOWEST_REQUIRED": true,
+    "COMPACTION_MUST_BE_ASYNCHRONOUS_WITH_ZERO_HOT_PATH_IMPACT": true,
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_THREAD_POOL": true,
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_CPU_BUDGET": true,
+    "COMPACTION_BACKPRESSURE_MUST_NEVER_BLOCK_FAST_PATH": true,
+    "HOT_PATH_ALWAYS_HAS_PRIORITY_OVER_COMPACTION": true,
+    "COMPACTION_LOSSLESS_FOR_CRITICAL_BOUNDARIES": true,
+    "HARD_BOUNDARIES_MUST_NOT_BE_ROUNDED": true,
+    "RISK_PARAMETERS_MUST_NOT_BE_DROPPED": true,
+    "MIN_MAX_EXTREME_VALUES_MUST_BE_PRESERVED": true,
+    "CASE_AGGREGATION_MUST_KEEP_VARIANCE_SIGNATURE": true,
+    "OVER_COMPACTION_AMNESIA_GUARD_REQUIRED": true,
+    "CASE_LOOKUP_MUST_BE_HASH_INDEXED_ONLY": true,
+    "CASE_LOOKUP_MUST_BE_O1_TARGETED": true,
+    "CASE_LOOKUP_FULL_SCAN_FORBIDDEN": true,
+    "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN": true,
+    "CASE_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED": true,
+    "ML_SIMILARITY_ON_HOT_PATH_FORBIDDEN": true,
+    "FULL_HISTORY_SCAN_ON_HOT_PATH_FORBIDDEN": true,
+    "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY": true,
+    "FRESH_RISK_OVERRIDES_CASE_MEMORY": true,
+    "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY": true,
+    "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY": true,
+    "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY": true,
+    "HINDSIGHT_BIAS_GUARD_REQUIRED": true,
+    "OUTCOME_CONFIRMATION_REQUIRED": true,
+    "POISONED_CASE_REJECT_REQUIRED": true,
+    "MALFORMED_CASE_REJECT_REQUIRED": true,
+    "CASE_COLLISION_GUARD_REQUIRED": true,
+    "FALSE_SIMILARITY_GUARD_REQUIRED": true,
+    "SINGLE_CASE_DECISION_FORBIDDEN": true,
+    "MULTI_FACTOR_CASE_MATCH_REQUIRED": true,
+    "HEAVY_REENTRY_BUDGET_REQUIRED": true,
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "CASE_MEMORY_MAX_ITEMS": 1000,
+    "CASE_MEMORY_TTL_WINDOWS": 12,
+    "PER_TOKEN_CASE_CAP": 20,
+    "PER_ROUTE_CASE_CAP": 30,
+    "CASE_HASH_LOOKUP_COMPLEXITY": "O(1)",
+    "COMPACTION_HOT_PATH_CPU_BUDGET": 0,
+    "COMPACTION_HOT_PATH_THREAD_SHARE": 0,
+    "HEAVY_CASE_REENTRY_MAX_QUEUE": 50,
+    "REENTRY_SINGLE_ESCALATION_LIMIT": 1,
+    "HOT_PATH_LOOKUP_ONLY": true,
+    "FULL_HISTORY_SCAN_ON_HOT_PATH": false,
+    "ML_SIMILARITY_ON_HOT_PATH": false
+  },
+  "case_fingerprint_fields": [
+    "chain_id",
+    "route_family",
+    "token_bucket_hash",
+    "risk_boundary_signature",
+    "min_liquidity_depth",
+    "max_slippage_risk",
+    "min_max_extreme_values",
+    "variance_signature",
+    "fresh_risk_flag",
+    "new_evidence_flag",
+    "measurable_strengthening_flag",
+    "outcome_confirmation_flag"
+  ],
+  "operational_formulas": [
+    "Hız -> Vaka hafızası hot path'i taramaz, sadece O(1) indeks çağırır.",
+    "Ekonomi -> Sıkıştırma yer kazandırır ama kritik sınırları silmez.",
+    "Güvenlik -> Canlı risk Fresh Risk her zaman eski vaka bağlamını anında ezer."
+  ],
+  "latex_formulas": [
+    "$$\\text{Hız} \\rightarrow \\text{Vaka hafızası hot path'i taramaz, sadece } O(1) \\text{ indeks çağırır.}$$",
+    "$$\\text{Ekonomi} \\rightarrow \\text{Sıkıştırma yer kazandırır ama kritik sınırları silmez.}$$",
+    "$$\\text{Güvenlik} \\rightarrow \\text{Canlı risk (Fresh Risk) her zaman eski vaka bağlamını anında ezer.}$$"
+  ],
+  "test_results": [
+    {
+      "id": "P1",
+      "case": "compaction_under_load_hot_path_signal",
+      "result": "HOT_PATH_UNAFFECTED",
+      "expected": "HOT_PATH_UNAFFECTED",
+      "match": true
+    },
+    {
+      "id": "P2",
+      "case": "compaction_backpressure_occurs",
+      "result": "FAST_PATH_NOT_BLOCKED",
+      "expected": "FAST_PATH_NOT_BLOCKED",
+      "match": true
+    },
+    {
+      "id": "P3",
+      "case": "two_similar_cases_different_risk_boundary",
+      "result": "KEEP_SEPARATE_BOUNDARY",
+      "expected": "KEEP_SEPARATE_BOUNDARY",
+      "match": true
+    },
+    {
+      "id": "P4",
+      "case": "over_compaction_attempt",
+      "result": "PRESERVE_CRITICAL_FIELDS",
+      "expected": "PRESERVE_CRITICAL_FIELDS",
+      "match": true
+    },
+    {
+      "id": "P5",
+      "case": "hard_boundary_rounding_attempt",
+      "result": "REJECT_COMPACTION",
+      "expected": "REJECT_COMPACTION",
+      "match": true
+    },
+    {
+      "id": "P6",
+      "case": "risk_parameter_drop_attempt",
+      "result": "REJECT_COMPACTION",
+      "expected": "REJECT_COMPACTION",
+      "match": true
+    },
+    {
+      "id": "P7",
+      "case": "hash_lookup_match",
+      "result": "CASE_CONTEXT_FOUND_O1",
+      "expected": "CASE_CONTEXT_FOUND_O1",
+      "match": true
+    },
+    {
+      "id": "P8",
+      "case": "hash_lookup_no_match",
+      "result": "FAST_EXIT_NO_SCAN",
+      "expected": "FAST_EXIT_NO_SCAN",
+      "match": true
+    },
+    {
+      "id": "P9",
+      "case": "fuzzy_similarity_request_on_hot_path",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "P10",
+      "case": "ml_similarity_request_on_hot_path",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "P11",
+      "case": "full_history_scan_request_on_hot_path",
+      "result": "REJECT_SCAN",
+      "expected": "REJECT_SCAN",
+      "match": true
+    },
+    {
+      "id": "P12",
+      "case": "old_case_plus_fresh_risk",
+      "result": "CASE_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "CASE_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "P13",
+      "case": "case_memory_score_boost_attempt",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "P14",
+      "case": "case_memory_trade_authority_attempt",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "P15",
+      "case": "case_collision_attack",
+      "result": "REJECT_CASE_COLLISION",
+      "expected": "REJECT_CASE_COLLISION",
+      "match": true
+    },
+    {
+      "id": "P16",
+      "case": "false_similarity_collapse",
+      "result": "REJECT_FALSE_SIMILARITY",
+      "expected": "REJECT_FALSE_SIMILARITY",
+      "match": true
+    },
+    {
+      "id": "P17",
+      "case": "case_context_no_new_evidence",
+      "result": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "expected": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "match": true
+    },
+    {
+      "id": "P18",
+      "case": "case_context_new_evidence_measurable_fresh",
+      "result": "CASE_REENTRY_CANDIDATE",
+      "expected": "CASE_REENTRY_CANDIDATE",
+      "match": true
+    },
+    {
+      "id": "P19",
+      "case": "reentry_limit_reached",
+      "result": "REJECT_SECOND_REENTRY",
+      "expected": "REJECT_SECOND_REENTRY",
+      "match": true
+    },
+    {
+      "id": "P20",
+      "case": "poisoned_case_rejected",
+      "result": "REJECT_CASE_MEMORY",
+      "expected": "REJECT_CASE_MEMORY",
+      "match": true
+    },
+    {
+      "id": "P21",
+      "case": "malformed_case_rejected",
+      "result": "REJECT_CASE_MEMORY",
+      "expected": "REJECT_CASE_MEMORY",
+      "match": true
+    },
+    {
+      "id": "P22",
+      "case": "default_no_case_match",
+      "result": "NO_CASE_MATCH_FAST_EXIT",
+      "expected": "NO_CASE_MATCH_FAST_EXIT",
+      "match": true
+    }
+  ],
+  "red_team_controls": [
+    {
+      "risk": "compaction race condition",
+      "guard": "COMPACTION_MUST_BE_ASYNCHRONOUS_WITH_ZERO_HOT_PATH_IMPACT"
+    },
+    {
+      "risk": "hot path thread pool sharing",
+      "guard": "COMPACTION_MUST_NOT_SHARE_HOT_PATH_THREAD_POOL"
+    },
+    {
+      "risk": "hot path cpu budget sharing",
+      "guard": "COMPACTION_MUST_NOT_SHARE_HOT_PATH_CPU_BUDGET"
+    },
+    {
+      "risk": "compaction backpressure blocking",
+      "guard": "COMPACTION_BACKPRESSURE_MUST_NEVER_BLOCK_FAST_PATH"
+    },
+    {
+      "risk": "over compaction amnesia",
+      "guard": "COMPACTION_LOSSLESS_FOR_CRITICAL_BOUNDARIES"
+    },
+    {
+      "risk": "hard boundary rounding",
+      "guard": "HARD_BOUNDARIES_MUST_NOT_BE_ROUNDED"
+    },
+    {
+      "risk": "risk parameter erosion",
+      "guard": "RISK_PARAMETERS_MUST_NOT_BE_DROPPED"
+    },
+    {
+      "risk": "extreme value loss",
+      "guard": "MIN_MAX_EXTREME_VALUES_MUST_BE_PRESERVED"
+    },
+    {
+      "risk": "false similarity collapse",
+      "guard": "FALSE_SIMILARITY_GUARD_REQUIRED"
+    },
+    {
+      "risk": "case collision attack",
+      "guard": "CASE_COLLISION_GUARD_REQUIRED"
+    },
+    {
+      "risk": "hot path fuzzy scan",
+      "guard": "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN"
+    },
+    {
+      "risk": "hot path full scan",
+      "guard": "CASE_LOOKUP_FULL_SCAN_FORBIDDEN"
+    },
+    {
+      "risk": "hot path ML similarity",
+      "guard": "ML_SIMILARITY_ON_HOT_PATH_FORBIDDEN"
+    },
+    {
+      "risk": "old case bypassing fresh risk",
+      "guard": "FRESH_RISK_OVERRIDES_CASE_MEMORY"
+    },
+    {
+      "risk": "case authority drift",
+      "guard": "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY"
+    },
+    {
+      "risk": "case score inflation",
+      "guard": "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY"
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "HOT_PATH_UNAFFECTED",
+      "meaning": "compaction cannot add hot path latency"
+    },
+    {
+      "state": "FAST_PATH_NOT_BLOCKED",
+      "meaning": "compaction backpressure cannot block fast path"
+    },
+    {
+      "state": "KEEP_SEPARATE_BOUNDARY",
+      "meaning": "similar cases with different critical risk boundaries stay separate"
+    },
+    {
+      "state": "PRESERVE_CRITICAL_FIELDS",
+      "meaning": "compaction preserves hard boundaries, extremes and risk parameters"
+    },
+    {
+      "state": "REJECT_COMPACTION",
+      "meaning": "rounding or critical field loss blocks compaction"
+    },
+    {
+      "state": "CASE_CONTEXT_FOUND_O1",
+      "meaning": "hash-indexed O(1) case context lookup succeeded"
+    },
+    {
+      "state": "FAST_EXIT_NO_SCAN",
+      "meaning": "no hash match exits immediately without scan"
+    },
+    {
+      "state": "REJECT_SCAN",
+      "meaning": "fuzzy, ML or full history scan request rejected on hot path"
+    },
+    {
+      "state": "CASE_SUPPRESSED_BY_FRESH_RISK",
+      "meaning": "fresh risk overrides old case memory"
+    },
+    {
+      "state": "REJECT_AUTHORITY_DRIFT",
+      "meaning": "case memory cannot score boost or authorize trade"
+    },
+    {
+      "state": "REJECT_CASE_COLLISION",
+      "meaning": "case collision attack rejected"
+    },
+    {
+      "state": "REJECT_FALSE_SIMILARITY",
+      "meaning": "false similarity collapse rejected"
+    },
+    {
+      "state": "CASE_CONTEXT_ONLY_NO_REENTRY",
+      "meaning": "case context without new evidence cannot reenter"
+    },
+    {
+      "state": "CASE_REENTRY_CANDIDATE",
+      "meaning": "new evidence, measurable strengthening and fresh context allow bounded reentry candidate"
+    },
+    {
+      "state": "REJECT_SECOND_REENTRY",
+      "meaning": "single reentry limit enforced"
+    },
+    {
+      "state": "REJECT_CASE_MEMORY",
+      "meaning": "poisoned or malformed case rejected"
+    },
+    {
+      "state": "NO_CASE_MATCH_FAST_EXIT",
+      "meaning": "safe default no-match fast exit"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_49_CASE_REASONING_AND_ALPHA_MEMORY_COMPACTION_PLAN_REQUIRED=true",
+    "CASE_MEMORY_SPEED_GAIN_REQUIRED=true",
+    "CASE_MEMORY_SECURITY_GAIN_REQUIRED=true",
+    "CASE_MEMORY_POWER_GAIN_REQUIRED=true",
+    "CASE_MEMORY_ECONOMY_GAIN_REQUIRED=true",
+    "CASE_MEMORY_MUST_NOT_ADD_LATENCY=true",
+    "CASE_MEMORY_MUST_NOT_ADD_HOT_PATH_BLOAT=true",
+    "CASE_MEMORY_MUST_NOT_TRIGGER_FULL_SCAN=true",
+    "CASE_MEMORY_MUST_NOT_TRIGGER_ML_SIMILARITY_ON_HOT_PATH=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "CASE_REASONING_REQUIRED=true",
+    "ALPHA_MEMORY_COMPACTION_REQUIRED=true",
+    "REPLAY_MEMORY_TO_CASE_FINGERPRINT_REQUIRED=true",
+    "MISSED_OPPORTUNITY_TO_CASE_FINGERPRINT_REQUIRED=true",
+    "CASE_MEMORY_MUST_BE_LIGHTWEIGHT=true",
+    "CASE_MEMORY_MUST_BE_BOUNDED=true",
+    "CASE_MEMORY_TTL_REQUIRED=true",
+    "CASE_MEMORY_PER_TOKEN_CAP_REQUIRED=true",
+    "CASE_MEMORY_PER_ROUTE_CAP_REQUIRED=true",
+    "CASE_MEMORY_DEDUP_REQUIRED=true",
+    "CASE_MEMORY_EVICT_OLDEST_LOWEST_REQUIRED=true",
+    "COMPACTION_MUST_BE_ASYNCHRONOUS_WITH_ZERO_HOT_PATH_IMPACT=true",
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_THREAD_POOL=true",
+    "COMPACTION_MUST_NOT_SHARE_HOT_PATH_CPU_BUDGET=true",
+    "COMPACTION_BACKPRESSURE_MUST_NEVER_BLOCK_FAST_PATH=true",
+    "HOT_PATH_ALWAYS_HAS_PRIORITY_OVER_COMPACTION=true",
+    "COMPACTION_LOSSLESS_FOR_CRITICAL_BOUNDARIES=true",
+    "HARD_BOUNDARIES_MUST_NOT_BE_ROUNDED=true",
+    "RISK_PARAMETERS_MUST_NOT_BE_DROPPED=true",
+    "MIN_MAX_EXTREME_VALUES_MUST_BE_PRESERVED=true",
+    "CASE_AGGREGATION_MUST_KEEP_VARIANCE_SIGNATURE=true",
+    "OVER_COMPACTION_AMNESIA_GUARD_REQUIRED=true",
+    "CASE_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true",
+    "CASE_LOOKUP_MUST_BE_O1_TARGETED=true",
+    "CASE_LOOKUP_FULL_SCAN_FORBIDDEN=true",
+    "CASE_LOOKUP_FUZZY_SCAN_FORBIDDEN=true",
+    "CASE_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true",
+    "ML_SIMILARITY_ON_HOT_PATH_FORBIDDEN=true",
+    "FULL_HISTORY_SCAN_ON_HOT_PATH_FORBIDDEN=true",
+    "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "CASE_MEMORY_CANNOT_BOOST_SCORE_DIRECTLY=true",
+    "FRESH_RISK_OVERRIDES_CASE_MEMORY=true",
+    "NEW_EVIDENCE_REQUIRED_FOR_CASE_REENTRY=true",
+    "MEASURABLE_STRENGTHENING_REQUIRED_FOR_CASE_REENTRY=true",
+    "FRESH_CONTEXT_REQUIRED_FOR_CASE_REENTRY=true",
+    "HINDSIGHT_BIAS_GUARD_REQUIRED=true",
+    "OUTCOME_CONFIRMATION_REQUIRED=true",
+    "POISONED_CASE_REJECT_REQUIRED=true",
+    "MALFORMED_CASE_REJECT_REQUIRED=true",
+    "CASE_COLLISION_GUARD_REQUIRED=true",
+    "FALSE_SIMILARITY_GUARD_REQUIRED=true",
+    "SINGLE_CASE_DECISION_FORBIDDEN=true",
+    "MULTI_FACTOR_CASE_MATCH_REQUIRED=true",
+    "HEAVY_REENTRY_BUDGET_REQUIRED=true",
+    "REENTRY_SINGLE_ESCALATION_LIMIT_REQUIRED=true",
+    "CASE_MEMORY_MAX_ITEMS=1000",
+    "CASE_MEMORY_TTL_WINDOWS=12",
+    "PER_TOKEN_CASE_CAP=20",
+    "PER_ROUTE_CASE_CAP=30",
+    "CASE_HASH_LOOKUP_COMPLEXITY=O(1)",
+    "COMPACTION_HOT_PATH_CPU_BUDGET=0",
+    "COMPACTION_HOT_PATH_THREAD_SHARE=0",
+    "HEAVY_CASE_REENTRY_MAX_QUEUE=50",
+    "REENTRY_SINGLE_ESCALATION_LIMIT=1",
+    "HOT_PATH_LOOKUP_ONLY=true",
+    "FULL_HISTORY_SCAN_ON_HOT_PATH=false",
+    "ML_SIMILARITY_ON_HOT_PATH=false",
+    "NO_TRADE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v49_selection_pass": true,
+    "v49_selection_next_match": true,
+    "v48_final_pass": true,
+    "v47_final_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "upper_doctrine_count_12": true,
+    "plan_contract_count_47": true,
+    "limit_count_12": true,
+    "case_fingerprint_field_count_12": true,
+    "operational_formula_count_3": true,
+    "latex_formula_count_3": true,
+    "test_case_count_22": true,
+    "test_all_match": true,
+    "red_team_control_count_16": true,
+    "state_contract_count_17": true,
+    "hard_boundary_count_85": true,
+    "compaction_async_zero_hot_path": true,
+    "compaction_no_thread_share": true,
+    "compaction_no_cpu_share": true,
+    "lossless_critical_boundary": true,
+    "hash_indexed_only": true,
+    "o1_lookup": true,
+    "no_fuzzy_scan": true,
+    "no_full_scan": true,
+    "no_ml_similarity_hot_path": true,
+    "fresh_risk_overrides": true,
+    "context_only_not_authority": true,
+    "case_no_trade": true,
+    "case_no_score_boost": true,
+    "speed_gain_required": true,
+    "security_gain_required": true,
+    "power_gain_required": true,
+    "economy_gain_required": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
