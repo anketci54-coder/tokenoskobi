@@ -1,0 +1,398 @@
+{
+  "task": "V2_46B_PATTERN_SPOOFING_GHOST_LIQUIDITY_AND_OVERRIDE_GUARD_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T12:22:45Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_46B_PATTERN_SPOOFING_GHOST_LIQUIDITY_AND_OVERRIDE_GUARD_LOCAL_NOAPI",
+  "decision": "V2_46B_PATTERN_SPOOF_GHOST_GUARD_PASS_READY_FOR_FINAL_CLOSE",
+  "next": "V2_46_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI",
+  "github_push": false,
+  "head_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "remote_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_46_dex_technical_pattern_and_custom_microstructure_engine_plan_noapi.json\n?? data/v2_46_dex_technical_pattern_and_custom_microstructure_engine_plan_noapi_rows.jsonl\n?? data/v2_46_next_approved_phase_selection_noapi.json\n?? data/v2_46_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_46a_dex_custom_indicator_and_oscillator_contract_local_noapi.json\n?? data/v2_46a_dex_custom_indicator_and_oscillator_contract_local_noapi_rows.jsonl\n?? data/v2_46a_fix2_nis_continuous_band_boundary_guard_local_noapi.json\n?? data/v2_46a_fix2_nis_continuous_band_boundary_guard_local_noapi_rows.jsonl\n?? data/v2_46a_fix3_nis_boundary_count_and_anomaly_floor_local_noapi.json\n?? data/v2_46a_fix3_nis_boundary_count_and_anomaly_floor_local_noapi_rows.jsonl\n?? data/v2_46a_fix_nis_semantic_math_fixed_point_and_poisoning_guard_local_noapi.json\n?? data/v2_46a_fix_nis_semantic_math_fixed_point_and_poisoning_guard_local_noapi_rows.jsonl\n?? docs/v2/V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_46A_FIX2_NIS_CONTINUOUS_BAND_BOUNDARY_GUARD_LOCAL_NOAPI.md\n?? docs/v2/V2_46A_FIX3_NIS_BOUNDARY_COUNT_AND_ANOMALY_FLOOR_LOCAL_NOAPI.md\n?? docs/v2/V2_46A_FIX_NIS_SEMANTIC_MATH_FIXED_POINT_AND_POISONING_GUARD_LOCAL_NOAPI.md\n?? docs/v2/V2_46_DEX_TECHNICAL_PATTERN_AND_CUSTOM_MICROSTRUCTURE_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_46_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "v46b_contract": {
+    "contract": "PATTERN_SPOOFING_GHOST_LIQUIDITY_AND_OVERRIDE_GUARD_V1",
+    "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+    "PATTERN_SPOOFING_GUARD_REQUIRED": true,
+    "GHOST_LIQUIDITY_GUARD_REQUIRED": true,
+    "JIT_LIQUIDITY_GUARD_REQUIRED": true,
+    "MULTI_HOP_ROUTING_EVASION_GUARD_REQUIRED": true,
+    "ORDER_CANCELLATION_INTENT_GUARD_REQUIRED": true,
+    "NIS_FIX3_INHERITED": true,
+    "BASE_ANOMALY_FLOOR_INHERITED": true,
+    "ONCHAIN_NEGATIVE_OVERRIDE_REQUIRED": true,
+    "TA_SIGNAL_SUPPRESSION_REQUIRED": true,
+    "SHORT_CIRCUIT_ON_SPOOF_REQUIRED": true,
+    "NO_SINGLE_POOL_AUTHORITY": true,
+    "NO_SINGLE_CANDLE_AUTHORITY": true,
+    "NO_SINGLE_ROUTE_AUTHORITY": true,
+    "NO_STATIC_DEPTH_AUTHORITY": true,
+    "HG1_HUB_AND_SPOKE_REQUIRED": true,
+    "HG2_LATENCY_FALSE_POSITIVE_BUDGET_REQUIRED": true,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false,
+    "db_write_allowed": false,
+    "runtime_apply_allowed": false,
+    "live_trade_allowed": false,
+    "wallet_access_allowed": false,
+    "private_key_access_allowed": false,
+    "outbound_packet_allowed": false
+  },
+  "macro_grey_zones": [
+    {
+      "id": "MGZ1",
+      "name": "JIT Liquidity / Latency Arbitrage",
+      "guard": "JIT_LIQUIDITY_BLOCK_TIMESERIES_GUARD",
+      "short_circuit": true
+    },
+    {
+      "id": "MGZ2",
+      "name": "Multi-Hop Routing Evasion",
+      "guard": "CUMULATIVE_ROUTE_IMPACT_GUARD",
+      "short_circuit": true
+    },
+    {
+      "id": "MGZ3",
+      "name": "Ghost Liquidity / Order Cancellation Intent",
+      "guard": "ORDER_CANCELLATION_INTENT_GUARD",
+      "short_circuit": true
+    }
+  ],
+  "ghost_liquidity_rules": [
+    {
+      "id": "GL1",
+      "rule": "static_depth_never_authority",
+      "decision": "REVIEW_OR_REJECT"
+    },
+    {
+      "id": "GL2",
+      "rule": "order_cancellation_ratio_above_0_80_short_circuit",
+      "decision": "SHORT_CIRCUIT"
+    },
+    {
+      "id": "GL3",
+      "rule": "depth_appears_then_disappears_same_window",
+      "decision": "GHOST_LIQUIDITY_REVIEW"
+    },
+    {
+      "id": "GL4",
+      "rule": "limit_order_wall_without_fill_support",
+      "decision": "SPOOF_SUSPECT"
+    },
+    {
+      "id": "GL5",
+      "rule": "liquidity_added_and_removed_same_block_window",
+      "decision": "JIT_LIQUIDITY_REVIEW"
+    },
+    {
+      "id": "GL6",
+      "rule": "route_depth_split_under_threshold_but_cumulative_high",
+      "decision": "MULTI_HOP_EVASION_REVIEW"
+    },
+    {
+      "id": "GL7",
+      "rule": "volume_profile_missing_behind_pattern",
+      "decision": "PATTERN_SPOOF_REJECT"
+    },
+    {
+      "id": "GL8",
+      "rule": "negative_onchain_override_suppresses_ta",
+      "decision": "TA_SUPPRESSED"
+    }
+  ],
+  "jit_liquidity_guard": {
+    "JIT_LIQUIDITY_GUARD_REQUIRED": true,
+    "same_block_add_remove_review": true,
+    "block_window_count": 3,
+    "liquidity_half_life_guard_required": true,
+    "min_liquidity_residency_window_required": true,
+    "static_state_snapshot_forbidden": true,
+    "time_series_liquidity_volatility_required": true,
+    "decision": "JIT_REVIEW_OR_SHORT_CIRCUIT"
+  },
+  "multi_hop_guard": {
+    "MULTI_HOP_ROUTING_EVASION_GUARD_REQUIRED": true,
+    "single_pool_view_forbidden": true,
+    "cumulative_route_impact_required": true,
+    "max_route_hops_planned": 4,
+    "per_hop_below_threshold_does_not_clear_risk": true,
+    "route_impact_aggregation_required": true,
+    "distributed_manipulation_review_required": true,
+    "decision": "CUMULATIVE_IMPACT_REVIEW"
+  },
+  "order_cancellation_guard": {
+    "ORDER_CANCELLATION_INTENT_GUARD_REQUIRED": true,
+    "ORDER_CANCELLATION_THRESHOLD": 0.8,
+    "flash_order_spoof_guard_required": true,
+    "depth_disappearance_guard_required": true,
+    "order_wall_fill_support_required": true,
+    "cancel_before_touch_review_required": true,
+    "decision": "GHOST_LIQUIDITY_SHORT_CIRCUIT"
+  },
+  "pattern_spoofing_guard": {
+    "PATTERN_SPOOFING_GUARD_REQUIRED": true,
+    "classic_pattern_no_authority": true,
+    "TA_PATTERN_REQUIRES_VOLUME_PROFILE": true,
+    "candle_shape_only_forbidden": true,
+    "volume_profile_divergence_reject_required": true,
+    "nis_context_required": true,
+    "onchain_override_required": true,
+    "decision": "PATTERN_REJECT_OR_REVIEW"
+  },
+  "override_matrix": [
+    {
+      "id": "OM1",
+      "condition": "NEGATIVE_ONCHAIN_SIGNAL",
+      "action": "SUPPRESS_TA_SIGNAL"
+    },
+    {
+      "id": "OM2",
+      "condition": "GHOST_LIQUIDITY_SCORE_HIGH",
+      "action": "SHORT_CIRCUIT_PATTERN"
+    },
+    {
+      "id": "OM3",
+      "condition": "JIT_LIQUIDITY_DETECTED",
+      "action": "REVIEW_NO_TA_AUTHORITY"
+    },
+    {
+      "id": "OM4",
+      "condition": "MULTI_HOP_CUMULATIVE_IMPACT_HIGH",
+      "action": "ESCALATE_RISK_REVIEW"
+    },
+    {
+      "id": "OM5",
+      "condition": "ORDER_CANCEL_RATIO_GT_0_80",
+      "action": "GHOST_LIQUIDITY_SHORT_CIRCUIT"
+    },
+    {
+      "id": "OM6",
+      "condition": "VOLUME_PROFILE_DIVERGENCE_HIGH",
+      "action": "REJECT_PATTERN"
+    },
+    {
+      "id": "OM7",
+      "condition": "NIS_HIGH_NEAR_CRITICAL_REVIEW",
+      "action": "REVIEW_ESCALATION"
+    },
+    {
+      "id": "OM8",
+      "condition": "NIS_CRITICAL",
+      "action": "RISK_ESCALATION_FAIL_CLOSED_REVIEW"
+    }
+  ],
+  "test_results": [
+    {
+      "id": "B1",
+      "case": "perfect_pattern_no_volume_profile",
+      "result": "PATTERN_REJECT",
+      "expected": "PATTERN_REJECT",
+      "match": true
+    },
+    {
+      "id": "B2",
+      "case": "order_cancel_ratio_0_90",
+      "result": "GHOST_LIQUIDITY_SHORT_CIRCUIT",
+      "expected": "GHOST_LIQUIDITY_SHORT_CIRCUIT",
+      "match": true
+    },
+    {
+      "id": "B3",
+      "case": "jit_liquidity_same_block_add_remove",
+      "result": "JIT_REVIEW",
+      "expected": "JIT_REVIEW",
+      "match": true
+    },
+    {
+      "id": "B4",
+      "case": "multi_hop_each_pool_low_total_high",
+      "result": "CUMULATIVE_IMPACT_REVIEW",
+      "expected": "CUMULATIVE_IMPACT_REVIEW",
+      "match": true
+    },
+    {
+      "id": "B5",
+      "case": "negative_onchain_positive_ta",
+      "result": "TA_SUPPRESSED",
+      "expected": "TA_SUPPRESSED",
+      "match": true
+    },
+    {
+      "id": "B6",
+      "case": "static_depth_without_residency",
+      "result": "NO_DEPTH_AUTHORITY",
+      "expected": "NO_DEPTH_AUTHORITY",
+      "match": true
+    },
+    {
+      "id": "B7",
+      "case": "near_critical_nis_plus_spoof",
+      "result": "REVIEW_ESCALATION",
+      "expected": "REVIEW_ESCALATION",
+      "match": true
+    },
+    {
+      "id": "B8",
+      "case": "critical_nis_plus_ghost_liquidity",
+      "result": "FAIL_CLOSED_REVIEW",
+      "expected": "FAIL_CLOSED_REVIEW",
+      "match": true
+    }
+  ],
+  "semantic_guard_matrix": [
+    {
+      "id": "SG1",
+      "risk": "JIT liquidity creates fake deep pool snapshot",
+      "guard": "block time-series liquidity volatility and residency window",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG2",
+      "risk": "multi-hop routing splits impact below per-pool threshold",
+      "guard": "cumulative route impact aggregation",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG3",
+      "risk": "ghost order wall disappears at touch",
+      "guard": "order cancellation intent and fill-support guard",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG4",
+      "risk": "classic TA pattern spoofing",
+      "guard": "volume profile + NIS + onchain override required",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG5",
+      "risk": "static depth trusted too much",
+      "guard": "static snapshot forbidden as authority",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG6",
+      "risk": "positive TA against negative onchain evidence",
+      "guard": "onchain negative override suppresses TA",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG7",
+      "risk": "NIS near-critical sub-boundary evasion",
+      "guard": "HIGH_NEAR_CRITICAL_REVIEW inherited from FIX3",
+      "status": "LOCKED"
+    },
+    {
+      "id": "SG8",
+      "risk": "single route/single pool blindness",
+      "guard": "no single pool or route authority",
+      "status": "LOCKED"
+    }
+  ],
+  "hard_boundaries": [
+    "V2_46B_PATTERN_SPOOFING_GUARD_REQUIRED=true",
+    "GHOST_LIQUIDITY_GUARD_REQUIRED=true",
+    "JIT_LIQUIDITY_GUARD_REQUIRED=true",
+    "MULTI_HOP_ROUTING_EVASION_GUARD_REQUIRED=true",
+    "ORDER_CANCELLATION_INTENT_GUARD_REQUIRED=true",
+    "ORDER_CANCELLATION_THRESHOLD=0.80",
+    "STATIC_DEPTH_AUTHORITY_FORBIDDEN=true",
+    "STATIC_STATE_SNAPSHOT_FORBIDDEN=true",
+    "LIQUIDITY_RESIDENCY_WINDOW_REQUIRED=true",
+    "TIME_SERIES_LIQUIDITY_VOLATILITY_REQUIRED=true",
+    "CUMULATIVE_ROUTE_IMPACT_REQUIRED=true",
+    "SINGLE_POOL_VIEW_FORBIDDEN=true",
+    "SINGLE_ROUTE_AUTHORITY_FORBIDDEN=true",
+    "PER_HOP_BELOW_THRESHOLD_DOES_NOT_CLEAR_RISK=true",
+    "TA_PATTERN_REQUIRES_VOLUME_PROFILE=true",
+    "CLASSIC_PATTERN_NOT_SOLE_SIGNAL=true",
+    "CANDLE_SHAPE_ONLY_FORBIDDEN=true",
+    "VOLUME_PROFILE_DIVERGENCE_REJECT_REQUIRED=true",
+    "ONCHAIN_NEGATIVE_OVERRIDE_REQUIRED=true",
+    "TA_SIGNAL_SUPPRESSION_REQUIRED=true",
+    "NIS_FIX3_INHERITED=true",
+    "BASE_ANOMALY_FLOOR_INHERITED=true",
+    "HIGH_NEAR_CRITICAL_REVIEW_INHERITED=true",
+    "SHORT_CIRCUIT_ON_SPOOF_REQUIRED=true",
+    "HG1_HUB_AND_SPOKE_REQUIRED=true",
+    "HG2_LATENCY_FALSE_POSITIVE_BUDGET_REQUIRED=true",
+    "NO_SINGLE_SOURCE_TA_AUTHORITY=true",
+    "NO_SINGLE_POOL_AUTHORITY=true",
+    "NO_SINGLE_ROUTE_AUTHORITY=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_selection_pass": true,
+    "v46_plan_pass": true,
+    "v46a_review_detected": true,
+    "v46a_fix_review_detected": true,
+    "v46a_fix2_review_detected": true,
+    "v46a_fix3_pass": true,
+    "v46a_fix3_next_match": true,
+    "v46a_fix3_base_floor": true,
+    "v46a_fix3_near_boundary_review": true,
+    "v45_final_gate_pass": true,
+    "v44_final_gate_pass": true,
+    "pattern_spoofing_guard_required": true,
+    "ghost_liquidity_guard_required": true,
+    "jit_liquidity_guard_required": true,
+    "multi_hop_routing_evasion_guard_required": true,
+    "order_cancellation_intent_guard_required": true,
+    "macro_grey_zone_count_3": true,
+    "ghost_liquidity_rule_count_8": true,
+    "override_matrix_count_8": true,
+    "test_case_count_8": true,
+    "test_all_match": true,
+    "semantic_guard_count_8": true,
+    "semantic_all_locked": true,
+    "hard_boundary_count_37": true,
+    "order_cancel_threshold_080": true,
+    "static_depth_forbidden": true,
+    "single_pool_forbidden": true,
+    "onchain_negative_override_required": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

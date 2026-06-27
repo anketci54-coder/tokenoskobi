@@ -1,0 +1,20 @@
+{"type": "NIS_FIX3_TEST", "id": "AF1", "case": "max_whale_max_gas_zero_slippage_floor", "base_score": 0.0, "floor_score": 0.4, "final_score": 0.4, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF2", "case": "max_whale_max_gas_deep_pool_floor", "base_score": 0.1, "floor_score": 0.4, "final_score": 0.4, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF3", "case": "high_whale_high_gas_deep_pool_floor", "base_score": 0.081, "floor_score": 0.4, "final_score": 0.4, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF4", "case": "below_floor_trigger_no_floor", "base_score": 0.0, "floor_score": 0.0, "final_score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF5", "case": "near_critical_review_zone", "base_score": 0.898632125, "floor_score": 0.4, "final_score": 0.898632125, "band": "HIGH_NEAR_CRITICAL_REVIEW", "expected_band": "HIGH_NEAR_CRITICAL_REVIEW", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF6", "case": "critical_exact_boundary", "base_score": 0.9, "floor_score": 0.4, "final_score": 0.9, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF7", "case": "shallow_pool_high_pressure_high", "base_score": 0.81225, "floor_score": 0.4, "final_score": 0.81225, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF8", "case": "all_max_critical", "base_score": 1.0, "floor_score": 0.4, "final_score": 1.0, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF9", "case": "low_pressure_deep_pool_low", "base_score": 0.004, "floor_score": 0.0, "final_score": 0.004, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FIX3_TEST", "id": "AF10", "case": "sub_boundary_evasion_review", "base_score": 0.899999999999, "floor_score": 0.0, "final_score": 0.899999999999, "band": "HIGH_NEAR_CRITICAL_REVIEW", "expected_band": "HIGH_NEAR_CRITICAL_REVIEW", "match": true}
+{"type": "FIX3_SEMANTIC_FIX", "id": "FX3_1", "before": "hard boundary count expected 24 while actual was 25", "after": "hard boundary count sealed dynamically as 32", "status": "FIXED"}
+{"type": "FIX3_SEMANTIC_FIX", "id": "FX3_2", "before": "zero slippage risk could zero NIS despite max whale and gas", "after": "whale+gas anomaly floor prevents zeroing", "status": "FIXED"}
+{"type": "FIX3_SEMANTIC_FIX", "id": "FX3_3", "before": "deep pool could be treated automatically safe", "after": "deep pool not automatically safe under whale+gas anomaly", "status": "FIXED"}
+{"type": "FIX3_SEMANTIC_FIX", "id": "FX3_4", "before": "0.88-0.90 could evade CRITICAL without review", "after": "HIGH_NEAR_CRITICAL_REVIEW band added", "status": "FIXED"}
+{"type": "FIX3_SEMANTIC_FIX", "id": "FX3_5", "before": "sub-boundary evasion near 0.90 stayed normal HIGH", "after": "sub-boundary evasion guard routes to review", "status": "FIXED"}
+{"type": "FIX3_SEMANTIC_FIX", "id": "FX3_6", "before": "FZ5 LOW result created blind spot", "after": "AF1/AF2/AF3 enforce MEDIUM review floor", "status": "FIXED"}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 10}
+{"type": "FINAL_COUNT", "item": "SEMANTIC_FIX_COUNT", "value": 6}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 38}
+{"type": "NEXT", "value": "V2_46B_PATTERN_SPOOFING_GHOST_LIQUIDITY_AND_OVERRIDE_GUARD_LOCAL_NOAPI"}

@@ -1,0 +1,36 @@
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI1", "name": "LP_LIQUIDITY_IMBALANCE_OSCILLATOR", "authority": "DEX_PRIMARY_CONTEXT", "requires_api_now": false}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI2", "name": "GAS_ARBITRAGE_VELOCITY", "authority": "FUTURE_CONTEXT_NOAPI_BLOCKED_NOW", "requires_api_now": true}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI3", "name": "TOKENOSKOBI_NET_IMPACT_SCORE", "authority": "CUSTOM_PRIMARY_CANDIDATE", "requires_api_now": false}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI4", "name": "LIQUIDITY_ABSORPTION_RATIO", "authority": "DEX_PRIMARY_CONTEXT", "requires_api_now": false}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI5", "name": "FLOW_PRESSURE_OSCILLATOR", "authority": "DEX_PRIMARY_CONTEXT", "requires_api_now": false}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI6", "name": "SLIPPAGE_STRESS_INDEX", "authority": "RISK_CONTEXT", "requires_api_now": false}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI7", "name": "VOLUME_PROFILE_DIVERGENCE", "authority": "PATTERN_GUARD", "requires_api_now": false}
+{"type": "CUSTOM_DEX_INDICATOR", "id": "DXI8", "name": "GHOST_LIQUIDITY_SCORE", "authority": "SHORT_CIRCUIT_GUARD", "requires_api_now": false}
+{"type": "LEGACY_INDICATOR_BAN", "indicator": "MACD", "policy": "NO_AUTHORITY_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_BAN", "indicator": "EMA", "policy": "NO_AUTHORITY_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_BAN", "indicator": "RSI", "policy": "NO_AUTHORITY_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_BAN", "indicator": "MA_CROSS", "policy": "NO_AUTHORITY_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_BAN", "indicator": "CANDLE_PATTERN_ONLY", "policy": "FORBIDDEN_AS_SOLE_SIGNAL"}
+{"type": "DEX_PATTERN_GUARD", "id": "PG1", "risk": "PATTERN_SPOOFING", "guard": "TA_PATTERN_REQUIRES_VOLUME_PROFILE", "short_circuit": true}
+{"type": "DEX_PATTERN_GUARD", "id": "PG2", "risk": "GHOST_LIQUIDITY", "guard": "ORDER_CANCELLATION_THRESHOLD_0_80", "short_circuit": true}
+{"type": "DEX_PATTERN_GUARD", "id": "PG3", "risk": "MULTI_TIMEFRAME_DIVERGENCE", "guard": "CONFLICT_MATRIX_REVIEW_ONLY", "short_circuit": false}
+{"type": "DEX_PATTERN_GUARD", "id": "PG4", "risk": "LAGGING_INDICATOR_SYNC", "guard": "ONCHAIN_OVERDELIVERY_PRIORITY", "short_circuit": true}
+{"type": "DEX_PATTERN_GUARD", "id": "PG5", "risk": "LOW_VOLUME_BREAKOUT", "guard": "VOLUME_PROFILE_DIVERGENCE", "short_circuit": true}
+{"type": "DEX_PATTERN_GUARD", "id": "PG6", "risk": "SLIPPAGE_TRAP", "guard": "SLIPPAGE_STRESS_INDEX", "short_circuit": true}
+{"type": "DEX_PATTERN_GUARD", "id": "PG7", "risk": "FAKE_CAUSALITY", "guard": "V2_45_CAUSALITY_HASH_AND_MONOTONIC_DELTA", "short_circuit": true}
+{"type": "DEX_PATTERN_GUARD", "id": "PG8", "risk": "SINGLE_SOURCE_TA_SIGNAL", "guard": "HG1_HUB_AND_SPOKE_REQUIRED", "short_circuit": true}
+{"type": "SOURCE_POLICY", "source": "STATIC_FIXTURE", "allowed_now": true, "api_required": false}
+{"type": "SOURCE_POLICY", "source": "LOCAL_JSONL_READONLY", "allowed_now": true, "api_required": false}
+{"type": "SOURCE_POLICY", "source": "LOCAL_DB_READONLY", "allowed_now": true, "api_required": false}
+{"type": "SOURCE_POLICY", "source": "FUTURE_DEX_POOL_RESERVE_READMODEL", "allowed_now": false, "api_required": false}
+{"type": "SOURCE_POLICY", "source": "FUTURE_MEMPOOL_GAS_STREAM", "allowed_now": false, "api_required": true}
+{"type": "SOURCE_POLICY", "source": "FUTURE_ORDERBOOK_OR_ROUTE_DEPTH_FEED", "allowed_now": false, "api_required": true}
+{"type": "SOURCE_POLICY", "source": "FUTURE_VOLUME_PROFILE_READMODEL", "allowed_now": false, "api_required": false}
+{"type": "SOURCE_POLICY", "source": "FUTURE_ONCHAIN_WHALE_READMODEL", "allowed_now": false, "api_required": false}
+{"type": "FINAL_COUNT", "item": "CUSTOM_DEX_INDICATOR_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "NIS_BAND_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "LEGACY_INDICATOR_BAN_COUNT", "value": 5}
+{"type": "FINAL_COUNT", "item": "PATTERN_GUARD_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "SOURCE_POLICY_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 28}
+{"type": "NEXT", "value": "V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI"}

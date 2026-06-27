@@ -1,0 +1,396 @@
+{
+  "task": "V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T11:51:05Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "REVIEW_V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI",
+  "decision": "STOP_REVIEW_REQUIRED",
+  "next": "FIX_REVIEW_ITEMS",
+  "github_push": false,
+  "head_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "remote_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_46_dex_technical_pattern_and_custom_microstructure_engine_plan_noapi.json\n?? data/v2_46_dex_technical_pattern_and_custom_microstructure_engine_plan_noapi_rows.jsonl\n?? data/v2_46_next_approved_phase_selection_noapi.json\n?? data/v2_46_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_46_DEX_TECHNICAL_PATTERN_AND_CUSTOM_MICROSTRUCTURE_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_46_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "nis_math_contract": {
+    "indicator": "TOKENOSKOBI_NET_IMPACT_SCORE",
+    "version": "NIS_V1_LAB_CONTRACT_NOAPI",
+    "NIS_REQUIRED": true,
+    "formula": "NIS = clamp01((normalize(Onchain_Whale_Flow_Delta) * normalize(Mempool_Gas_Delta)) / max(normalize(LP_Depth_Slippage), epsilon))",
+    "raw_formula": "NIS = (Onchain_Whale_Flow_Delta * Mempool_Gas_Delta) / max(LP_Depth_Slippage, epsilon)",
+    "epsilon": 1e-06,
+    "zero_division_forbidden": true,
+    "clamp_min": 0.0,
+    "clamp_max": 1.0,
+    "normalization_required": true,
+    "authority": "EVIDENCE_AND_REVIEW_ONLY_NO_TRADE",
+    "inputs": [
+      {
+        "name": "Onchain_Whale_Flow_Delta",
+        "required": true,
+        "source": "V2_44_WHALE_CONTEXT_FUTURE_READMODEL",
+        "api_now": false,
+        "normalize": "signed_flow_to_0_1"
+      },
+      {
+        "name": "Mempool_Gas_Delta",
+        "required": true,
+        "source": "FUTURE_MEMPOOL_GAS_STREAM_BLOCKED_NOW",
+        "api_now": true,
+        "normalize": "gas_pressure_to_0_1"
+      },
+      {
+        "name": "LP_Depth_Slippage",
+        "required": true,
+        "source": "FUTURE_DEX_POOL_ROUTE_DEPTH_READMODEL",
+        "api_now": false,
+        "normalize": "slippage_resistance_to_0_1"
+      }
+    ],
+    "bands": [
+      {
+        "band": "LOW",
+        "min": 0.0,
+        "max": 0.39,
+        "decision": "NO_LEADING_IMPACT"
+      },
+      {
+        "band": "MEDIUM",
+        "min": 0.4,
+        "max": 0.69,
+        "decision": "REVIEW_ONLY"
+      },
+      {
+        "band": "HIGH",
+        "min": 0.7,
+        "max": 0.89,
+        "decision": "EVIDENCE_ESCALATION_NO_TRADE"
+      },
+      {
+        "band": "CRITICAL",
+        "min": 0.9,
+        "max": 1.0,
+        "decision": "RISK_ESCALATION_FAIL_CLOSED_REVIEW"
+      }
+    ],
+    "sample_dryrun_cases": [
+      {
+        "case": "LOW_DEPTH_LOW_GAS",
+        "whale": 0.2,
+        "gas": 0.2,
+        "slippage": 0.8,
+        "expected_band": "LOW"
+      },
+      {
+        "case": "HIGH_WHALE_HIGH_GAS_DEEP_POOL",
+        "whale": 0.9,
+        "gas": 0.9,
+        "slippage": 0.9,
+        "expected_band": "HIGH"
+      },
+      {
+        "case": "HIGH_WHALE_HIGH_GAS_SHALLOW_POOL",
+        "whale": 0.9,
+        "gas": 0.95,
+        "slippage": 0.3,
+        "expected_band": "CRITICAL"
+      },
+      {
+        "case": "ZERO_SLIPPAGE_GUARD",
+        "whale": 0.5,
+        "gas": 0.5,
+        "slippage": 0.0,
+        "expected_band": "CRITICAL"
+      }
+    ]
+  },
+  "sample_dryrun_results": [
+    {
+      "case": "LOW_DEPTH_LOW_GAS",
+      "score": 0.05,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "case": "HIGH_WHALE_HIGH_GAS_DEEP_POOL",
+      "score": 0.9,
+      "band": "CRITICAL",
+      "expected_band": "HIGH",
+      "match": false
+    },
+    {
+      "case": "HIGH_WHALE_HIGH_GAS_SHALLOW_POOL",
+      "score": 1.0,
+      "band": "CRITICAL",
+      "expected_band": "CRITICAL",
+      "match": true
+    },
+    {
+      "case": "ZERO_SLIPPAGE_GUARD",
+      "score": 1.0,
+      "band": "CRITICAL",
+      "expected_band": "CRITICAL",
+      "match": true
+    }
+  ],
+  "custom_oscillator_contracts": [
+    {
+      "id": "OSC1",
+      "name": "LP_LIQUIDITY_IMBALANCE_OSCILLATOR",
+      "formula": "LPIO = clamp01(abs(delta(TokenA_reserve / max(TokenB_reserve, epsilon))))",
+      "purpose": "AMM reserve imbalance before candle confirmation.",
+      "required": true,
+      "authority": "DEX_PRIMARY_CONTEXT",
+      "api_now": false
+    },
+    {
+      "id": "OSC2",
+      "name": "GAS_ARBITRAGE_VELOCITY",
+      "formula": "GAV = clamp01(normalize(router_gas_delta) * normalize(pending_tx_density_delta))",
+      "purpose": "MEV/arbitrage pressure before visible candle expansion.",
+      "required": true,
+      "authority": "FUTURE_CONTEXT_NOAPI_BLOCKED_NOW",
+      "api_now": true
+    },
+    {
+      "id": "OSC3",
+      "name": "TOKENOSKOBI_NET_IMPACT_SCORE",
+      "formula": "NIS = clamp01((normalize(Onchain_Whale_Flow_Delta) * normalize(Mempool_Gas_Delta)) / max(normalize(LP_Depth_Slippage), epsilon))",
+      "purpose": "Hybrid leading DEX impact score.",
+      "required": true,
+      "authority": "CUSTOM_PRIMARY_CANDIDATE",
+      "api_now": false
+    },
+    {
+      "id": "OSC4",
+      "name": "LIQUIDITY_ABSORPTION_RATIO",
+      "formula": "LAR = clamp01(normalize(executed_flow) / max(normalize(available_route_depth), epsilon))",
+      "purpose": "Detect whether pool absorbs flow or breaks into slippage trap.",
+      "required": true,
+      "authority": "DEX_PRIMARY_CONTEXT",
+      "api_now": false
+    },
+    {
+      "id": "OSC5",
+      "name": "FLOW_PRESSURE_OSCILLATOR",
+      "formula": "FPO = clamp11(normalize(buy_flow_pressure) - normalize(sell_flow_pressure))",
+      "purpose": "Fast DEX directional pressure without moving average lag.",
+      "required": true,
+      "authority": "DEX_PRIMARY_CONTEXT",
+      "api_now": false
+    },
+    {
+      "id": "OSC6",
+      "name": "SLIPPAGE_STRESS_INDEX",
+      "formula": "SSI = clamp01(normalize(expected_price_impact) / max(normalize(route_depth_band), epsilon))",
+      "purpose": "Reject untradable breakouts and slippage traps.",
+      "required": true,
+      "authority": "RISK_CONTEXT",
+      "api_now": false
+    },
+    {
+      "id": "OSC7",
+      "name": "VOLUME_PROFILE_DIVERGENCE",
+      "formula": "VPD = clamp11(normalize(pattern_price_delta) - normalize(real_volume_profile_support))",
+      "purpose": "Reject candle pattern if volume profile does not support it.",
+      "required": true,
+      "authority": "PATTERN_GUARD",
+      "api_now": false
+    },
+    {
+      "id": "OSC8",
+      "name": "GHOST_LIQUIDITY_SCORE",
+      "formula": "GLS = clamp01(normalize(cancellation_pressure) + normalize(depth_disappearance) + normalize(low_route_credibility))",
+      "purpose": "Detect spoof depth, disappearing walls and fake liquidity.",
+      "required": true,
+      "authority": "SHORT_CIRCUIT_GUARD",
+      "api_now": false
+    }
+  ],
+  "decision_matrix": [
+    {
+      "id": "DM1",
+      "condition": "NIS_LOW",
+      "action": "NO_SIGNAL_AUTHORITY"
+    },
+    {
+      "id": "DM2",
+      "condition": "NIS_MEDIUM",
+      "action": "REVIEW_ONLY"
+    },
+    {
+      "id": "DM3",
+      "condition": "NIS_HIGH_WITH_VOLUME_PROFILE",
+      "action": "EVIDENCE_ESCALATION_NO_TRADE"
+    },
+    {
+      "id": "DM4",
+      "condition": "NIS_CRITICAL_WITH_GHOST_LIQUIDITY",
+      "action": "SHORT_CIRCUIT_FAIL_CLOSED_REVIEW"
+    },
+    {
+      "id": "DM5",
+      "condition": "ONCHAIN_NEGATIVE_OVERRIDE",
+      "action": "TA_SIGNAL_SUPPRESSED"
+    },
+    {
+      "id": "DM6",
+      "condition": "MISSING_LP_DEPTH_SLIPPAGE",
+      "action": "FAIL_CLOSED"
+    },
+    {
+      "id": "DM7",
+      "condition": "MISSING_MEMPOOL_GAS_DELTA",
+      "action": "REVIEW_ONLY_NO_NIS_AUTHORITY"
+    },
+    {
+      "id": "DM8",
+      "condition": "SINGLE_SOURCE_ONLY",
+      "action": "REJECT_HG1"
+    }
+  ],
+  "normalization_rules": [
+    {
+      "id": "NR1",
+      "input": "Onchain_Whale_Flow_Delta",
+      "method": "bounded_percentile_or_minmax",
+      "output_range": "0..1"
+    },
+    {
+      "id": "NR2",
+      "input": "Mempool_Gas_Delta",
+      "method": "bounded_percentile_or_minmax",
+      "output_range": "0..1"
+    },
+    {
+      "id": "NR3",
+      "input": "LP_Depth_Slippage",
+      "method": "bounded_slippage_resistance",
+      "output_range": "epsilon..1"
+    },
+    {
+      "id": "NR4",
+      "input": "buy_flow_pressure",
+      "method": "bounded_percentile_or_minmax",
+      "output_range": "0..1"
+    },
+    {
+      "id": "NR5",
+      "input": "sell_flow_pressure",
+      "method": "bounded_percentile_or_minmax",
+      "output_range": "0..1"
+    },
+    {
+      "id": "NR6",
+      "input": "volume_profile_support",
+      "method": "bounded_profile_integrity",
+      "output_range": "0..1"
+    },
+    {
+      "id": "NR7",
+      "input": "ghost_liquidity_pressure",
+      "method": "bounded_spoof_pressure",
+      "output_range": "0..1"
+    },
+    {
+      "id": "NR8",
+      "input": "price_impact",
+      "method": "bounded_route_impact",
+      "output_range": "0..1"
+    }
+  ],
+  "hard_boundaries": [
+    "DEX_CUSTOM_OSCILLATOR_CONTRACT_REQUIRED=true",
+    "NIS_FORMULA_EXECUTION_CONTRACT_LOCKED=true",
+    "NIS_NORMALIZATION_REQUIRED=true",
+    "NIS_EPSILON_REQUIRED=true",
+    "NIS_ZERO_DIVISION_FORBIDDEN=true",
+    "NIS_CLAMP_0_1_REQUIRED=true",
+    "NIS_TRADE_AUTHORITY=false",
+    "LP_LIQUIDITY_IMBALANCE_OSCILLATOR_REQUIRED=true",
+    "GAS_ARBITRAGE_VELOCITY_REQUIRED_BUT_NOAPI_BLOCKED_NOW=true",
+    "LIQUIDITY_ABSORPTION_RATIO_REQUIRED=true",
+    "FLOW_PRESSURE_OSCILLATOR_REQUIRED=true",
+    "SLIPPAGE_STRESS_INDEX_REQUIRED=true",
+    "VOLUME_PROFILE_DIVERGENCE_REQUIRED=true",
+    "GHOST_LIQUIDITY_SCORE_REQUIRED=true",
+    "MACD_EMA_RSI_NO_AUTHORITY=true",
+    "ONCHAIN_NEGATIVE_OVERRIDE_REQUIRED=true",
+    "SINGLE_SOURCE_REJECT_HG1=true",
+    "MISSING_CORE_INPUT_FAIL_CLOSED=true",
+    "NO_REAL_DATA_EXECUTION=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_selection_json_exists": true,
+    "v46_plan_json_exists": true,
+    "v46_selection_pass": true,
+    "v46_plan_pass": true,
+    "v46_plan_next_match": true,
+    "v45_json_exists": true,
+    "v45_final_gate_pass": true,
+    "v45_causality_inherited": true,
+    "v45_monotonic_inherited": true,
+    "v44_json_exists": true,
+    "v44_final_gate_pass": true,
+    "nis_required": true,
+    "nis_formula_locked": true,
+    "nis_epsilon_required": true,
+    "nis_zero_division_forbidden": true,
+    "nis_clamp_required": true,
+    "nis_input_count_3": true,
+    "nis_band_count_4": true,
+    "sample_dryrun_count_4": true,
+    "sample_dryrun_all_match": false,
+    "custom_oscillator_count_8": true,
+    "custom_oscillator_all_required": true,
+    "decision_matrix_count_8": true,
+    "normalization_rule_count_8": true,
+    "hard_boundary_count_27": true,
+    "macd_ema_rsi_no_authority": true,
+    "onchain_negative_override_required": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

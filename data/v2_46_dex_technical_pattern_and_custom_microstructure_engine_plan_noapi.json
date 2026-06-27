@@ -1,0 +1,361 @@
+{
+  "task": "V2_46_DEX_TECHNICAL_PATTERN_AND_CUSTOM_MICROSTRUCTURE_ENGINE_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T11:25:35Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_46_DEX_TECHNICAL_PATTERN_AND_CUSTOM_MICROSTRUCTURE_ENGINE_PLAN_NOAPI",
+  "decision": "V2_46_DEX_MICROSTRUCTURE_PLAN_PASS_READY_FOR_CUSTOM_INDICATOR_CONTRACT",
+  "next": "V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "remote_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_46_next_approved_phase_selection_noapi.json\n?? data/v2_46_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_46_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "dex_microstructure_plan": {
+    "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+    "dex_only": true,
+    "classic_lagging_indicators_removed_from_authority": true,
+    "macd_ema_rsi_authority": false,
+    "custom_indicator_required": true,
+    "tokenoskobi_nis_required": true,
+    "lp_liquidity_imbalance_required": true,
+    "gas_arbitrage_velocity_required": true,
+    "volume_profile_required": true,
+    "order_cancellation_threshold": 0.8,
+    "onchain_overdelivery_priority": true,
+    "pattern_spoofing_guard_required": true,
+    "ghost_liquidity_short_circuit": true,
+    "multi_timeframe_divergence_guard": true,
+    "lagging_indicator_sync_guard": true,
+    "hg1_hub_and_spoke_required": true,
+    "hg2_latency_false_positive_budget_required": true,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false,
+    "db_write_allowed": false,
+    "runtime_apply_allowed": false,
+    "live_trade_allowed": false,
+    "wallet_access_allowed": false,
+    "private_key_access_allowed": false,
+    "outbound_packet_allowed": false
+  },
+  "custom_dex_indicators": [
+    {
+      "id": "DXI1",
+      "name": "LP_LIQUIDITY_IMBALANCE_OSCILLATOR",
+      "formula_hint": "reserve_ratio_delta = delta(TokenA_reserve / TokenB_reserve)",
+      "purpose": "Detect AMM reserve imbalance before candle confirmation.",
+      "authority": "DEX_PRIMARY_CONTEXT",
+      "requires_api_now": false
+    },
+    {
+      "id": "DXI2",
+      "name": "GAS_ARBITRAGE_VELOCITY",
+      "formula_hint": "gas_velocity = router_gas_delta * pending_tx_density_delta",
+      "purpose": "Detect MEV/arbitrage pressure before visible candle expansion.",
+      "authority": "FUTURE_CONTEXT_NOAPI_BLOCKED_NOW",
+      "requires_api_now": true
+    },
+    {
+      "id": "DXI3",
+      "name": "TOKENOSKOBI_NET_IMPACT_SCORE",
+      "formula_hint": "NIS = (Onchain_Whale_Flow_Delta * Mempool_Gas_Delta) / max(LP_Depth_Slippage, epsilon)",
+      "purpose": "Hybrid leading DEX impact score using whale flow, gas pressure and slippage resistance.",
+      "authority": "CUSTOM_PRIMARY_CANDIDATE",
+      "requires_api_now": false
+    },
+    {
+      "id": "DXI4",
+      "name": "LIQUIDITY_ABSORPTION_RATIO",
+      "formula_hint": "absorption = executed_flow / available_route_depth",
+      "purpose": "Detect whether pool absorbs flow or breaks into slippage trap.",
+      "authority": "DEX_PRIMARY_CONTEXT",
+      "requires_api_now": false
+    },
+    {
+      "id": "DXI5",
+      "name": "FLOW_PRESSURE_OSCILLATOR",
+      "formula_hint": "fpo = buy_flow_pressure - sell_flow_pressure",
+      "purpose": "Measure fast DEX directional pressure without moving average lag.",
+      "authority": "DEX_PRIMARY_CONTEXT",
+      "requires_api_now": false
+    },
+    {
+      "id": "DXI6",
+      "name": "SLIPPAGE_STRESS_INDEX",
+      "formula_hint": "ssi = expected_price_impact / route_depth_band",
+      "purpose": "Detect untradable breakouts and slippage traps.",
+      "authority": "RISK_CONTEXT",
+      "requires_api_now": false
+    },
+    {
+      "id": "DXI7",
+      "name": "VOLUME_PROFILE_DIVERGENCE",
+      "formula_hint": "vpd = pattern_price_delta - real_volume_profile_support",
+      "purpose": "Reject candle pattern if volume profile does not support it.",
+      "authority": "PATTERN_GUARD",
+      "requires_api_now": false
+    },
+    {
+      "id": "DXI8",
+      "name": "GHOST_LIQUIDITY_SCORE",
+      "formula_hint": "gls = cancellation_pressure + depth_disappearance + low_route_credibility",
+      "purpose": "Detect spoof depth, disappearing walls and fake liquidity.",
+      "authority": "SHORT_CIRCUIT_GUARD",
+      "requires_api_now": false
+    }
+  ],
+  "nis_contract": {
+    "indicator": "TOKENOSKOBI_NET_IMPACT_SCORE",
+    "NIS_REQUIRED": true,
+    "formula": "NIS = (Onchain_Whale_Flow_Delta * Mempool_Gas_Delta) / max(LP_Depth_Slippage, epsilon)",
+    "numerator": "Onchain_Whale_Flow_Delta * Mempool_Gas_Delta",
+    "denominator": "LP_Depth_Slippage",
+    "epsilon_required": true,
+    "zero_division_forbidden": true,
+    "interpretation": [
+      {
+        "band": "LOW",
+        "range": "0.00-0.39",
+        "meaning": "no leading DEX impact"
+      },
+      {
+        "band": "MEDIUM",
+        "range": "0.40-0.69",
+        "meaning": "review only"
+      },
+      {
+        "band": "HIGH",
+        "range": "0.70-0.89",
+        "meaning": "strong microstructure pressure; still no trade authority"
+      },
+      {
+        "band": "CRITICAL",
+        "range": "0.90-1.00",
+        "meaning": "risk/evidence escalation; still no trade authority"
+      }
+    ],
+    "authority": "EVIDENCE_AND_REVIEW_ONLY_NO_TRADE"
+  },
+  "legacy_indicator_ban": [
+    {
+      "indicator": "MACD",
+      "policy": "NO_AUTHORITY_CONTEXT_ONLY",
+      "reason": "lagging after price movement"
+    },
+    {
+      "indicator": "EMA",
+      "policy": "NO_AUTHORITY_CONTEXT_ONLY",
+      "reason": "smoothed lagging data"
+    },
+    {
+      "indicator": "RSI",
+      "policy": "NO_AUTHORITY_CONTEXT_ONLY",
+      "reason": "late oscillator under DEX manipulation"
+    },
+    {
+      "indicator": "MA_CROSS",
+      "policy": "NO_AUTHORITY_CONTEXT_ONLY",
+      "reason": "late confirmation"
+    },
+    {
+      "indicator": "CANDLE_PATTERN_ONLY",
+      "policy": "FORBIDDEN_AS_SOLE_SIGNAL",
+      "reason": "pattern spoofing risk"
+    }
+  ],
+  "dex_pattern_guard_matrix": [
+    {
+      "id": "PG1",
+      "risk": "PATTERN_SPOOFING",
+      "guard": "TA_PATTERN_REQUIRES_VOLUME_PROFILE",
+      "short_circuit": true
+    },
+    {
+      "id": "PG2",
+      "risk": "GHOST_LIQUIDITY",
+      "guard": "ORDER_CANCELLATION_THRESHOLD_0_80",
+      "short_circuit": true
+    },
+    {
+      "id": "PG3",
+      "risk": "MULTI_TIMEFRAME_DIVERGENCE",
+      "guard": "CONFLICT_MATRIX_REVIEW_ONLY",
+      "short_circuit": false
+    },
+    {
+      "id": "PG4",
+      "risk": "LAGGING_INDICATOR_SYNC",
+      "guard": "ONCHAIN_OVERDELIVERY_PRIORITY",
+      "short_circuit": true
+    },
+    {
+      "id": "PG5",
+      "risk": "LOW_VOLUME_BREAKOUT",
+      "guard": "VOLUME_PROFILE_DIVERGENCE",
+      "short_circuit": true
+    },
+    {
+      "id": "PG6",
+      "risk": "SLIPPAGE_TRAP",
+      "guard": "SLIPPAGE_STRESS_INDEX",
+      "short_circuit": true
+    },
+    {
+      "id": "PG7",
+      "risk": "FAKE_CAUSALITY",
+      "guard": "V2_45_CAUSALITY_HASH_AND_MONOTONIC_DELTA",
+      "short_circuit": true
+    },
+    {
+      "id": "PG8",
+      "risk": "SINGLE_SOURCE_TA_SIGNAL",
+      "guard": "HG1_HUB_AND_SPOKE_REQUIRED",
+      "short_circuit": true
+    }
+  ],
+  "source_policy": [
+    {
+      "source": "STATIC_FIXTURE",
+      "allowed_now": true,
+      "api_required": false
+    },
+    {
+      "source": "LOCAL_JSONL_READONLY",
+      "allowed_now": true,
+      "api_required": false
+    },
+    {
+      "source": "LOCAL_DB_READONLY",
+      "allowed_now": true,
+      "api_required": false
+    },
+    {
+      "source": "FUTURE_DEX_POOL_RESERVE_READMODEL",
+      "allowed_now": false,
+      "api_required": false
+    },
+    {
+      "source": "FUTURE_MEMPOOL_GAS_STREAM",
+      "allowed_now": false,
+      "api_required": true
+    },
+    {
+      "source": "FUTURE_ORDERBOOK_OR_ROUTE_DEPTH_FEED",
+      "allowed_now": false,
+      "api_required": true
+    },
+    {
+      "source": "FUTURE_VOLUME_PROFILE_READMODEL",
+      "allowed_now": false,
+      "api_required": false
+    },
+    {
+      "source": "FUTURE_ONCHAIN_WHALE_READMODEL",
+      "allowed_now": false,
+      "api_required": false
+    }
+  ],
+  "hard_boundaries": [
+    "DEX_ONLY_TA_ENGINE=true",
+    "CUSTOM_INDICATOR_REQUIRED=true",
+    "MACD_EMA_RSI_NO_AUTHORITY=true",
+    "CLASSIC_PATTERN_NOT_SOLE_SIGNAL=true",
+    "LP_LIQUIDITY_IMBALANCE_OSCILLATOR_REQUIRED=true",
+    "GAS_ARBITRAGE_VELOCITY_PLANNED_NOAPI_BLOCKED_NOW=true",
+    "TOKENOSKOBI_NET_IMPACT_SCORE_REQUIRED=true",
+    "NIS_FORMULA_LOCKED=true",
+    "NIS_ZERO_DIVISION_FORBIDDEN=true",
+    "TA_PATTERN_REQUIRES_VOLUME_PROFILE=true",
+    "ORDER_CANCELLATION_THRESHOLD=0.80",
+    "GHOST_LIQUIDITY_SHORT_CIRCUIT=true",
+    "PATTERN_SPOOFING_GUARD_REQUIRED=true",
+    "MULTI_TIMEFRAME_DIVERGENCE_GUARD=true",
+    "LAGGING_INDICATOR_SYNC_GUARD=true",
+    "ONCHAIN_OVERDELIVERY_PRIORITY=true",
+    "NEGATIVE_ONCHAIN_OVERRIDES_TA=true",
+    "HG1_HUB_AND_SPOKE_REQUIRED=true",
+    "HG2_LATENCY_FALSE_POSITIVE_BUDGET_REQUIRED=true",
+    "V2_45_TIME_CAUSALITY_INHERITED=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "required_substeps": [
+    "V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI",
+    "V2_46B_PATTERN_SPOOFING_GHOST_LIQUIDITY_AND_OVERRIDE_GUARD_LOCAL_NOAPI",
+    "V2_46_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_selection_json_exists": true,
+    "v46_selection_doc_exists": true,
+    "v46_selection_pass": true,
+    "v46_selected_phase_match": true,
+    "v45_json_exists": true,
+    "v45_final_gate_pass": true,
+    "v45_time_causality_inherited": true,
+    "v44_json_exists": true,
+    "v44_final_gate_pass": true,
+    "dex_only": true,
+    "classic_lagging_removed": true,
+    "macd_ema_rsi_no_authority": true,
+    "custom_indicator_required": true,
+    "nis_required": true,
+    "lp_imbalance_required": true,
+    "gas_velocity_required": true,
+    "custom_dex_indicator_count_8": true,
+    "nis_formula_locked": true,
+    "nis_zero_division_forbidden": true,
+    "nis_band_count_4": true,
+    "legacy_indicator_ban_count_5": true,
+    "pattern_guard_count_8": true,
+    "source_policy_count_8": true,
+    "hard_boundary_count_28": true,
+    "required_substep_count_3": true,
+    "order_cancel_threshold_080": true,
+    "volume_profile_required": true,
+    "ghost_liquidity_short_circuit": true,
+    "onchain_overdelivery_priority": true,
+    "future_api_sources_blocked": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

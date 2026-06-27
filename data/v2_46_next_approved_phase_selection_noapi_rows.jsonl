@@ -1,0 +1,31 @@
+{"type": "CUSTOM_INDICATOR", "id": "CI1", "name": "DEX_MOMENTUM_IMBALANCE_V1", "purpose": "Measure fast buy/sell pressure imbalance without lagging MA dependency."}
+{"type": "CUSTOM_INDICATOR", "id": "CI2", "name": "LIQUIDITY_ABSORPTION_RATIO_V1", "purpose": "Detect whether price move is supported by real pool/route depth."}
+{"type": "CUSTOM_INDICATOR", "id": "CI3", "name": "FLOW_PRESSURE_OSCILLATOR_V1", "purpose": "Oscillate between buy-flow pressure and sell-flow pressure under DEX microstructure."}
+{"type": "CUSTOM_INDICATOR", "id": "CI4", "name": "SLIPPAGE_STRESS_INDEX_V1", "purpose": "Detect whether apparent breakout is tradable or slippage trap."}
+{"type": "CUSTOM_INDICATOR", "id": "CI5", "name": "VOLUME_PROFILE_DIVERGENCE_V1", "purpose": "Reject candle pattern when real vertical volume profile does not support it."}
+{"type": "CUSTOM_INDICATOR", "id": "CI6", "name": "GHOST_LIQUIDITY_SCORE_V1", "purpose": "Detect liquidity that disappears or is economically non-credible."}
+{"type": "CUSTOM_INDICATOR", "id": "CI7", "name": "ONCHAIN_NEGATIVE_OVERRIDE_V1", "purpose": "Let negative whale/onchain evidence suppress lagging TA signals."}
+{"type": "CUSTOM_INDICATOR", "id": "CI8", "name": "TIME_SYNC_PATTERN_VALIDITY_V1", "purpose": "Check whether TA signal is temporally compatible with V2_45 TTL/window rules."}
+{"type": "TA_GREY_ZONE", "id": "TAGZ1", "name": "Pattern Spoofing / Painting the Tape", "active_now": true, "guard": "PATTERN_SPOOFING_GUARD_REQUIRED"}
+{"type": "TA_GREY_ZONE", "id": "TAGZ2", "name": "Order Cancellation / Ghost Liquidity", "active_now": true, "guard": "ORDER_CANCELLATION_THRESHOLD_0_80"}
+{"type": "TA_GREY_ZONE", "id": "TAGZ3", "name": "Multi-Timeframe Divergence / Signal Obesity", "active_now": true, "guard": "MULTI_TIMEFRAME_DIVERGENCE_GUARD"}
+{"type": "TA_GREY_ZONE", "id": "TAGZ4", "name": "Lagging Indicator Sync Risk", "active_now": true, "guard": "LAGGING_INDICATOR_SYNC_GUARD"}
+{"type": "LEGACY_INDICATOR_POLICY", "id": "LI1", "indicator": "MACD", "authority": "DEMOTED_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_POLICY", "id": "LI2", "indicator": "EMA", "authority": "DEMOTED_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_POLICY", "id": "LI3", "indicator": "RSI", "authority": "DEMOTED_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_POLICY", "id": "LI4", "indicator": "MA_CROSS", "authority": "DEMOTED_CONTEXT_ONLY"}
+{"type": "LEGACY_INDICATOR_POLICY", "id": "LI5", "indicator": "CLASSIC_CANDLE_PATTERN_ONLY", "authority": "FORBIDDEN_AS_SOLE_SIGNAL"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX1", "domain": "DEX Microstructure Momentum", "focus": "fast flow imbalance, not moving averages"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX2", "domain": "Liquidity Depth And Slippage", "focus": "route depth, pool depth, slippage stress"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX3", "domain": "Volume Profile Integrity", "focus": "volume-profile support behind pattern"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX4", "domain": "Ghost Liquidity And Spoof Filter", "focus": "order cancellation, disappearing depth, fake walls"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX5", "domain": "Onchain Override Layer", "focus": "negative whale/onchain evidence beats lagging TA"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX6", "domain": "Multi-Timeframe Conflict Filter", "focus": "micro/macro contradiction control"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX7", "domain": "TTL And Causality Alignment", "focus": "V2_45 time window compatibility"}
+{"type": "DEX_SIGNAL_DOMAIN", "id": "DX8", "domain": "Short-Circuit Pattern Rejection", "focus": "reject spoofed or unsupported patterns before queue bloat"}
+{"type": "FINAL_COUNT", "item": "CUSTOM_INDICATOR_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "TA_GREY_ZONE_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "LEGACY_INDICATOR_POLICY_COUNT", "value": 5}
+{"type": "FINAL_COUNT", "item": "DEX_SIGNAL_DOMAIN_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 23}
+{"type": "NEXT", "value": "V2_46_DEX_TECHNICAL_PATTERN_AND_CUSTOM_MICROSTRUCTURE_ENGINE_PLAN_NOAPI"}

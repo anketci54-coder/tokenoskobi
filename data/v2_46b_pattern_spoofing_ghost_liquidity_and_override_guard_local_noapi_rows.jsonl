@@ -1,0 +1,34 @@
+{"type": "MACRO_GREY_ZONE", "id": "MGZ1", "name": "JIT Liquidity / Latency Arbitrage", "guard": "JIT_LIQUIDITY_BLOCK_TIMESERIES_GUARD", "short_circuit": true}
+{"type": "MACRO_GREY_ZONE", "id": "MGZ2", "name": "Multi-Hop Routing Evasion", "guard": "CUMULATIVE_ROUTE_IMPACT_GUARD", "short_circuit": true}
+{"type": "MACRO_GREY_ZONE", "id": "MGZ3", "name": "Ghost Liquidity / Order Cancellation Intent", "guard": "ORDER_CANCELLATION_INTENT_GUARD", "short_circuit": true}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL1", "rule": "static_depth_never_authority", "decision": "REVIEW_OR_REJECT"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL2", "rule": "order_cancellation_ratio_above_0_80_short_circuit", "decision": "SHORT_CIRCUIT"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL3", "rule": "depth_appears_then_disappears_same_window", "decision": "GHOST_LIQUIDITY_REVIEW"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL4", "rule": "limit_order_wall_without_fill_support", "decision": "SPOOF_SUSPECT"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL5", "rule": "liquidity_added_and_removed_same_block_window", "decision": "JIT_LIQUIDITY_REVIEW"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL6", "rule": "route_depth_split_under_threshold_but_cumulative_high", "decision": "MULTI_HOP_EVASION_REVIEW"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL7", "rule": "volume_profile_missing_behind_pattern", "decision": "PATTERN_SPOOF_REJECT"}
+{"type": "GHOST_LIQUIDITY_RULE", "id": "GL8", "rule": "negative_onchain_override_suppresses_ta", "decision": "TA_SUPPRESSED"}
+{"type": "OVERRIDE_MATRIX", "id": "OM1", "condition": "NEGATIVE_ONCHAIN_SIGNAL", "action": "SUPPRESS_TA_SIGNAL"}
+{"type": "OVERRIDE_MATRIX", "id": "OM2", "condition": "GHOST_LIQUIDITY_SCORE_HIGH", "action": "SHORT_CIRCUIT_PATTERN"}
+{"type": "OVERRIDE_MATRIX", "id": "OM3", "condition": "JIT_LIQUIDITY_DETECTED", "action": "REVIEW_NO_TA_AUTHORITY"}
+{"type": "OVERRIDE_MATRIX", "id": "OM4", "condition": "MULTI_HOP_CUMULATIVE_IMPACT_HIGH", "action": "ESCALATE_RISK_REVIEW"}
+{"type": "OVERRIDE_MATRIX", "id": "OM5", "condition": "ORDER_CANCEL_RATIO_GT_0_80", "action": "GHOST_LIQUIDITY_SHORT_CIRCUIT"}
+{"type": "OVERRIDE_MATRIX", "id": "OM6", "condition": "VOLUME_PROFILE_DIVERGENCE_HIGH", "action": "REJECT_PATTERN"}
+{"type": "OVERRIDE_MATRIX", "id": "OM7", "condition": "NIS_HIGH_NEAR_CRITICAL_REVIEW", "action": "REVIEW_ESCALATION"}
+{"type": "OVERRIDE_MATRIX", "id": "OM8", "condition": "NIS_CRITICAL", "action": "RISK_ESCALATION_FAIL_CLOSED_REVIEW"}
+{"type": "V46B_TEST", "id": "B1", "case": "perfect_pattern_no_volume_profile", "result": "PATTERN_REJECT", "expected": "PATTERN_REJECT", "match": true}
+{"type": "V46B_TEST", "id": "B2", "case": "order_cancel_ratio_0_90", "result": "GHOST_LIQUIDITY_SHORT_CIRCUIT", "expected": "GHOST_LIQUIDITY_SHORT_CIRCUIT", "match": true}
+{"type": "V46B_TEST", "id": "B3", "case": "jit_liquidity_same_block_add_remove", "result": "JIT_REVIEW", "expected": "JIT_REVIEW", "match": true}
+{"type": "V46B_TEST", "id": "B4", "case": "multi_hop_each_pool_low_total_high", "result": "CUMULATIVE_IMPACT_REVIEW", "expected": "CUMULATIVE_IMPACT_REVIEW", "match": true}
+{"type": "V46B_TEST", "id": "B5", "case": "negative_onchain_positive_ta", "result": "TA_SUPPRESSED", "expected": "TA_SUPPRESSED", "match": true}
+{"type": "V46B_TEST", "id": "B6", "case": "static_depth_without_residency", "result": "NO_DEPTH_AUTHORITY", "expected": "NO_DEPTH_AUTHORITY", "match": true}
+{"type": "V46B_TEST", "id": "B7", "case": "near_critical_nis_plus_spoof", "result": "REVIEW_ESCALATION", "expected": "REVIEW_ESCALATION", "match": true}
+{"type": "V46B_TEST", "id": "B8", "case": "critical_nis_plus_ghost_liquidity", "result": "FAIL_CLOSED_REVIEW", "expected": "FAIL_CLOSED_REVIEW", "match": true}
+{"type": "FINAL_COUNT", "item": "MACRO_GREY_ZONE_COUNT", "value": 3}
+{"type": "FINAL_COUNT", "item": "GHOST_LIQUIDITY_RULE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "OVERRIDE_MATRIX_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "TEST_CASE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "SEMANTIC_GUARD_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 37}
+{"type": "NEXT", "value": "V2_46_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"}

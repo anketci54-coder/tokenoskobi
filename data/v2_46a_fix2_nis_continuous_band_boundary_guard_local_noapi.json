@@ -1,0 +1,338 @@
+{
+  "task": "V2_46A_FIX2_NIS_CONTINUOUS_BAND_BOUNDARY_GUARD_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T12:05:04Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "REVIEW_V2_46A_FIX2_NIS_CONTINUOUS_BAND_BOUNDARY_GUARD_LOCAL_NOAPI",
+  "decision": "STOP_REVIEW_REQUIRED",
+  "next": "FIX_REVIEW_ITEMS",
+  "github_push": false,
+  "head_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "remote_now": "02d4cc470d52fdef458e31866da9e4ae553b327a",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_46_dex_technical_pattern_and_custom_microstructure_engine_plan_noapi.json\n?? data/v2_46_dex_technical_pattern_and_custom_microstructure_engine_plan_noapi_rows.jsonl\n?? data/v2_46_next_approved_phase_selection_noapi.json\n?? data/v2_46_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_46a_dex_custom_indicator_and_oscillator_contract_local_noapi.json\n?? data/v2_46a_dex_custom_indicator_and_oscillator_contract_local_noapi_rows.jsonl\n?? data/v2_46a_fix_nis_semantic_math_fixed_point_and_poisoning_guard_local_noapi.json\n?? data/v2_46a_fix_nis_semantic_math_fixed_point_and_poisoning_guard_local_noapi_rows.jsonl\n?? docs/v2/V2_46A_DEX_CUSTOM_INDICATOR_AND_OSCILLATOR_CONTRACT_LOCAL_NOAPI.md\n?? docs/v2/V2_46A_FIX_NIS_SEMANTIC_MATH_FIXED_POINT_AND_POISONING_GUARD_LOCAL_NOAPI.md\n?? docs/v2/V2_46_DEX_TECHNICAL_PATTERN_AND_CUSTOM_MICROSTRUCTURE_ENGINE_PLAN_NOAPI.md\n?? docs/v2/V2_46_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "continuous_band_contract": {
+    "contract": "NIS_CONTINUOUS_BAND_BOUNDARY_GUARD",
+    "canonical_band_function": "if score < 0.40 LOW; elif score < 0.70 MEDIUM; elif score < 0.90 HIGH; elif score <= 1.00 CRITICAL",
+    "NO_BAND_GAP_REQUIRED": true,
+    "OUT_OF_RANGE_FOR_0_TO_1_FORBIDDEN": true,
+    "BOUNDARY_POLICY": "lower-inclusive-by-next-threshold",
+    "LOW": "[0.00,0.40)",
+    "MEDIUM": "[0.40,0.70)",
+    "HIGH": "[0.70,0.90)",
+    "CRITICAL": "[0.90,1.00]",
+    "FZ6_EXPECTED_FIX": "HIGH",
+    "NIS_FIXED_POINT_CANONICAL": true,
+    "PYTHON_FLOAT_NOT_CANONICAL": true
+  },
+  "fuzz_results": [
+    {
+      "id": "FZ1",
+      "name": "zero_all",
+      "score_scaled": 0,
+      "score": 0.0,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "id": "FZ2",
+      "name": "epsilon_like_small_values",
+      "score_scaled": 1,
+      "score": 0.0,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "id": "FZ3",
+      "name": "max_all",
+      "score_scaled": 1000000000000000000,
+      "score": 1.0,
+      "band": "CRITICAL",
+      "expected_band": "CRITICAL",
+      "match": true
+    },
+    {
+      "id": "FZ4",
+      "name": "max_whale_zero_gas",
+      "score_scaled": 0,
+      "score": 0.0,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "id": "FZ5",
+      "name": "max_whale_max_gas_zero_slippage_risk",
+      "score_scaled": 0,
+      "score": 0.0,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "id": "FZ6",
+      "name": "critical_boundary_fixed_to_high",
+      "score_scaled": 898632125000000000,
+      "score": 0.898632125,
+      "band": "HIGH",
+      "expected_band": "HIGH",
+      "match": true
+    },
+    {
+      "id": "FZ7",
+      "name": "high_boundary_safe",
+      "score_scaled": 857375000000000000,
+      "score": 0.857375,
+      "band": "HIGH",
+      "expected_band": "HIGH",
+      "match": true
+    },
+    {
+      "id": "FZ8",
+      "name": "medium_boundary_safe",
+      "score_scaled": 681472000000000000,
+      "score": 0.681472,
+      "band": "MEDIUM",
+      "expected_band": "MEDIUM",
+      "match": true
+    },
+    {
+      "id": "FZ9",
+      "name": "exact_low_upper_goes_medium",
+      "score_scaled": 400000000000000000,
+      "score": 0.4,
+      "band": "MEDIUM",
+      "expected_band": "MEDIUM",
+      "match": true
+    },
+    {
+      "id": "FZ10",
+      "name": "exact_medium_upper_goes_high",
+      "score_scaled": 700000000000000000,
+      "score": 0.7,
+      "band": "HIGH",
+      "expected_band": "HIGH",
+      "match": true
+    },
+    {
+      "id": "FZ11",
+      "name": "exact_high_upper_goes_critical",
+      "score_scaled": 900000000000000000,
+      "score": 0.9,
+      "band": "CRITICAL",
+      "expected_band": "CRITICAL",
+      "match": true
+    },
+    {
+      "id": "FZ12",
+      "name": "just_below_critical_stays_high",
+      "score_scaled": 899999999999000064,
+      "score": 0.899999999999,
+      "band": "HIGH",
+      "expected_band": "HIGH",
+      "match": true
+    }
+  ],
+  "sample_results_inherited": [
+    {
+      "case": "LOW_PRESSURE_DEEP_POOL",
+      "whale": 0.2,
+      "gas": 0.2,
+      "slippage_risk": 0.1,
+      "score_scaled": 4000000000000000,
+      "score": 0.004,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "case": "HIGH_WHALE_HIGH_GAS_DEEP_POOL",
+      "whale": 0.9,
+      "gas": 0.9,
+      "slippage_risk": 0.1,
+      "score_scaled": 81000000000000000,
+      "score": 0.081,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "case": "HIGH_WHALE_HIGH_GAS_MEDIUM_POOL",
+      "whale": 0.9,
+      "gas": 0.9,
+      "slippage_risk": 0.75,
+      "score_scaled": 607500000000000000,
+      "score": 0.6075,
+      "band": "MEDIUM",
+      "expected_band": "MEDIUM",
+      "match": true
+    },
+    {
+      "case": "HIGH_WHALE_HIGH_GAS_SHALLOW_POOL",
+      "whale": 0.9,
+      "gas": 0.95,
+      "slippage_risk": 0.95,
+      "score_scaled": 812250000000000000,
+      "score": 0.81225,
+      "band": "HIGH",
+      "expected_band": "HIGH",
+      "match": true
+    },
+    {
+      "case": "CRITICAL_ALL_MAX_SHALLOW_POOL",
+      "whale": 1.0,
+      "gas": 1.0,
+      "slippage_risk": 1.0,
+      "score_scaled": 1000000000000000000,
+      "score": 1.0,
+      "band": "CRITICAL",
+      "expected_band": "CRITICAL",
+      "match": true
+    },
+    {
+      "case": "ZERO_SLIPPAGE_RISK_DEEP_POOL",
+      "whale": 1.0,
+      "gas": 1.0,
+      "slippage_risk": 0.0,
+      "score_scaled": 0,
+      "score": 0.0,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    },
+    {
+      "case": "FLASHLOAN_OUTLIER_PRESERVED",
+      "whale": 1.0,
+      "gas": 1.0,
+      "slippage_risk": 0.98,
+      "score_scaled": 980000000000000000,
+      "score": 0.98,
+      "band": "CRITICAL",
+      "expected_band": "CRITICAL",
+      "match": true
+    },
+    {
+      "case": "SLOW_POISONING_DRIFT_REVIEW",
+      "whale": 0.65,
+      "gas": 0.65,
+      "slippage_risk": 0.65,
+      "score_scaled": 274625000000000000,
+      "score": 0.274625,
+      "band": "LOW",
+      "expected_band": "LOW",
+      "match": true
+    }
+  ],
+  "semantic_fix_matrix": [
+    {
+      "id": "BF1",
+      "before": "0.89-0.90 band gap produced OUT_OF_RANGE",
+      "after": "continuous threshold ladder removes gap",
+      "status": "FIXED"
+    },
+    {
+      "id": "BF2",
+      "before": "FZ6 expected CRITICAL despite score 0.898632125",
+      "after": "FZ6 expected HIGH",
+      "status": "FIXED"
+    },
+    {
+      "id": "BF3",
+      "before": "band ranges used closed intervals with gaps",
+      "after": "bands use threshold logic [0,.40), [.40,.70), [.70,.90), [.90,1]",
+      "status": "FIXED"
+    },
+    {
+      "id": "BF4",
+      "before": "valid 0..1 score could become OUT_OF_RANGE",
+      "after": "OUT_OF_RANGE forbidden for valid 0..1 fixed-point score",
+      "status": "FIXED"
+    }
+  ],
+  "hard_boundaries": [
+    "NIS_CONTINUOUS_BAND_BOUNDARY_GUARD_REQUIRED=true",
+    "NO_BAND_GAP_REQUIRED=true",
+    "OUT_OF_RANGE_FOR_0_TO_1_FORBIDDEN=true",
+    "FZ6_EXPECTED_BAND=HIGH",
+    "NIS_FIXED_POINT_CANONICAL=true",
+    "PYTHON_FLOAT_NOT_CANONICAL=true",
+    "STRICT_ROUNDING_DIRECTION_GUARD=true",
+    "NIS_SEMANTIC_FIX_INHERITED=true",
+    "LP_SLIPPAGE_RISK_DEFINED=true",
+    "DEEP_POOL_LOWERS_NIS=true",
+    "SHALLOW_POOL_RAISES_NIS=true",
+    "NORMALIZATION_POISONING_GUARD_INHERITED=true",
+    "DYNAMIC_ANOMALY_THRESHOLD_ALLOWANCE=true",
+    "FLASHLOAN_OUTLIER_PRESERVE_REQUIRED=true",
+    "SLOW_POISONING_BASELINE_GUARD_REQUIRED=true",
+    "TRIPLE_BASELINE_REQUIRED=true",
+    "V2_46B_ALLOWED_ONLY_AFTER_FIX2_PASS=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v46_selection_pass": true,
+    "v46_plan_pass": true,
+    "v46a_review_detected": true,
+    "v46a_fix_review_detected": true,
+    "v46a_fix_sample_all_match": true,
+    "v46a_fix_fuzz_all_match_false": true,
+    "v45_final_gate_pass": true,
+    "v44_final_gate_pass": true,
+    "continuous_band_guard_required": true,
+    "out_of_range_for_0_1_forbidden": true,
+    "fz6_expected_high": true,
+    "fuzz_case_count_12": true,
+    "fuzz_all_match": true,
+    "no_fuzz_out_of_range": true,
+    "sample_results_inherited": true,
+    "sample_all_match_inherited": true,
+    "semantic_fix_count_4": true,
+    "semantic_all_fixed": true,
+    "hard_boundary_count_24": false,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

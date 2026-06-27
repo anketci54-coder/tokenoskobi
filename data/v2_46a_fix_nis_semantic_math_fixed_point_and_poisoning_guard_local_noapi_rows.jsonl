@@ -1,0 +1,29 @@
+{"type": "NIS_SAMPLE_FIXED", "case": "LOW_PRESSURE_DEEP_POOL", "score": 0.004, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "HIGH_WHALE_HIGH_GAS_DEEP_POOL", "score": 0.081, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "HIGH_WHALE_HIGH_GAS_MEDIUM_POOL", "score": 0.6075, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "HIGH_WHALE_HIGH_GAS_SHALLOW_POOL", "score": 0.81225, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "CRITICAL_ALL_MAX_SHALLOW_POOL", "score": 1.0, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "ZERO_SLIPPAGE_RISK_DEEP_POOL", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "FLASHLOAN_OUTLIER_PRESERVED", "score": 0.98, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_SAMPLE_FIXED", "case": "SLOW_POISONING_DRIFT_REVIEW", "score": 0.274625, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ1", "name": "zero_all", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ2", "name": "epsilon_like_small_values", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ3", "name": "max_all", "score": 1.0, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ4", "name": "max_whale_zero_gas", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ5", "name": "max_whale_max_gas_zero_slippage_risk", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ6", "name": "critical_boundary_exact", "score": 0.898632125, "band": "OUT_OF_RANGE", "expected_band": "CRITICAL", "match": false}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ7", "name": "high_boundary_safe", "score": 0.857375, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "NIS_FUZZ_FIXED", "id": "FZ8", "name": "medium_boundary_safe", "score": 0.681472, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "SEMANTIC_FIX", "id": "SF1", "before": "LP_Depth_Slippage ambiguous denominator", "after": "LP_Slippage_Risk explicit multiplier", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF2", "before": "deep pool could produce CRITICAL incorrectly", "after": "deep pool has low slippage risk and lowers NIS", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF3", "before": "Python float appeared canonical", "after": "fixed-point scaled uint256 is canonical", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF4", "before": "percentile could hide flashloan outlier", "after": "security anomaly preserve rule added", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF5", "before": "rolling baseline could be slow-poisoned", "after": "triple baseline and drift-rate guard added", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF6", "before": "rounding direction unspecified", "after": "risk up / confidence down strict guard added", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF7", "before": "clamp after overflow risk", "after": "overflow precheck before clamp required", "status": "FIXED"}
+{"type": "SEMANTIC_FIX", "id": "SF8", "before": "V2_46B could inherit poisoned NIS", "after": "V2_46B blocked until this fix passes", "status": "FIXED"}
+{"type": "FINAL_COUNT", "item": "SAMPLE_CASE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "FUZZ_CASE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "SEMANTIC_FIX_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 38}
+{"type": "NEXT", "value": "FIX_REVIEW_ITEMS"}

@@ -1,0 +1,35 @@
+{"type": "NIS_INPUT", "name": "Onchain_Whale_Flow_Delta", "required": true, "api_now": false, "normalize": "signed_flow_to_0_1"}
+{"type": "NIS_INPUT", "name": "Mempool_Gas_Delta", "required": true, "api_now": true, "normalize": "gas_pressure_to_0_1"}
+{"type": "NIS_INPUT", "name": "LP_Depth_Slippage", "required": true, "api_now": false, "normalize": "slippage_resistance_to_0_1"}
+{"type": "NIS_BAND", "band": "LOW", "min": 0.0, "max": 0.39, "decision": "NO_LEADING_IMPACT"}
+{"type": "NIS_BAND", "band": "MEDIUM", "min": 0.4, "max": 0.69, "decision": "REVIEW_ONLY"}
+{"type": "NIS_BAND", "band": "HIGH", "min": 0.7, "max": 0.89, "decision": "EVIDENCE_ESCALATION_NO_TRADE"}
+{"type": "NIS_BAND", "band": "CRITICAL", "min": 0.9, "max": 1.0, "decision": "RISK_ESCALATION_FAIL_CLOSED_REVIEW"}
+{"type": "NIS_SAMPLE_DRYRUN", "case": "LOW_DEPTH_LOW_GAS", "score": 0.05, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_SAMPLE_DRYRUN", "case": "HIGH_WHALE_HIGH_GAS_DEEP_POOL", "score": 0.9, "band": "CRITICAL", "expected_band": "HIGH", "match": false}
+{"type": "NIS_SAMPLE_DRYRUN", "case": "HIGH_WHALE_HIGH_GAS_SHALLOW_POOL", "score": 1.0, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_SAMPLE_DRYRUN", "case": "ZERO_SLIPPAGE_GUARD", "score": 1.0, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC1", "name": "LP_LIQUIDITY_IMBALANCE_OSCILLATOR", "authority": "DEX_PRIMARY_CONTEXT", "api_now": false}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC2", "name": "GAS_ARBITRAGE_VELOCITY", "authority": "FUTURE_CONTEXT_NOAPI_BLOCKED_NOW", "api_now": true}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC3", "name": "TOKENOSKOBI_NET_IMPACT_SCORE", "authority": "CUSTOM_PRIMARY_CANDIDATE", "api_now": false}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC4", "name": "LIQUIDITY_ABSORPTION_RATIO", "authority": "DEX_PRIMARY_CONTEXT", "api_now": false}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC5", "name": "FLOW_PRESSURE_OSCILLATOR", "authority": "DEX_PRIMARY_CONTEXT", "api_now": false}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC6", "name": "SLIPPAGE_STRESS_INDEX", "authority": "RISK_CONTEXT", "api_now": false}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC7", "name": "VOLUME_PROFILE_DIVERGENCE", "authority": "PATTERN_GUARD", "api_now": false}
+{"type": "CUSTOM_OSCILLATOR", "id": "OSC8", "name": "GHOST_LIQUIDITY_SCORE", "authority": "SHORT_CIRCUIT_GUARD", "api_now": false}
+{"type": "DECISION_MATRIX", "id": "DM1", "condition": "NIS_LOW", "action": "NO_SIGNAL_AUTHORITY"}
+{"type": "DECISION_MATRIX", "id": "DM2", "condition": "NIS_MEDIUM", "action": "REVIEW_ONLY"}
+{"type": "DECISION_MATRIX", "id": "DM3", "condition": "NIS_HIGH_WITH_VOLUME_PROFILE", "action": "EVIDENCE_ESCALATION_NO_TRADE"}
+{"type": "DECISION_MATRIX", "id": "DM4", "condition": "NIS_CRITICAL_WITH_GHOST_LIQUIDITY", "action": "SHORT_CIRCUIT_FAIL_CLOSED_REVIEW"}
+{"type": "DECISION_MATRIX", "id": "DM5", "condition": "ONCHAIN_NEGATIVE_OVERRIDE", "action": "TA_SIGNAL_SUPPRESSED"}
+{"type": "DECISION_MATRIX", "id": "DM6", "condition": "MISSING_LP_DEPTH_SLIPPAGE", "action": "FAIL_CLOSED"}
+{"type": "DECISION_MATRIX", "id": "DM7", "condition": "MISSING_MEMPOOL_GAS_DELTA", "action": "REVIEW_ONLY_NO_NIS_AUTHORITY"}
+{"type": "DECISION_MATRIX", "id": "DM8", "condition": "SINGLE_SOURCE_ONLY", "action": "REJECT_HG1"}
+{"type": "FINAL_COUNT", "item": "NIS_INPUT_COUNT", "value": 3}
+{"type": "FINAL_COUNT", "item": "NIS_BAND_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "NIS_SAMPLE_DRYRUN_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "CUSTOM_OSCILLATOR_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "DECISION_MATRIX_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "NORMALIZATION_RULE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 27}
+{"type": "NEXT", "value": "FIX_REVIEW_ITEMS"}

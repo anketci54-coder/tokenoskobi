@@ -1,0 +1,20 @@
+{"type": "NIS_FUZZ_FIX2", "id": "FZ1", "name": "zero_all", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ2", "name": "epsilon_like_small_values", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ3", "name": "max_all", "score": 1.0, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ4", "name": "max_whale_zero_gas", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ5", "name": "max_whale_max_gas_zero_slippage_risk", "score": 0.0, "band": "LOW", "expected_band": "LOW", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ6", "name": "critical_boundary_fixed_to_high", "score": 0.898632125, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ7", "name": "high_boundary_safe", "score": 0.857375, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ8", "name": "medium_boundary_safe", "score": 0.681472, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ9", "name": "exact_low_upper_goes_medium", "score": 0.4, "band": "MEDIUM", "expected_band": "MEDIUM", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ10", "name": "exact_medium_upper_goes_high", "score": 0.7, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ11", "name": "exact_high_upper_goes_critical", "score": 0.9, "band": "CRITICAL", "expected_band": "CRITICAL", "match": true}
+{"type": "NIS_FUZZ_FIX2", "id": "FZ12", "name": "just_below_critical_stays_high", "score": 0.899999999999, "band": "HIGH", "expected_band": "HIGH", "match": true}
+{"type": "BAND_BOUNDARY_FIX", "id": "BF1", "before": "0.89-0.90 band gap produced OUT_OF_RANGE", "after": "continuous threshold ladder removes gap", "status": "FIXED"}
+{"type": "BAND_BOUNDARY_FIX", "id": "BF2", "before": "FZ6 expected CRITICAL despite score 0.898632125", "after": "FZ6 expected HIGH", "status": "FIXED"}
+{"type": "BAND_BOUNDARY_FIX", "id": "BF3", "before": "band ranges used closed intervals with gaps", "after": "bands use threshold logic [0,.40), [.40,.70), [.70,.90), [.90,1]", "status": "FIXED"}
+{"type": "BAND_BOUNDARY_FIX", "id": "BF4", "before": "valid 0..1 score could become OUT_OF_RANGE", "after": "OUT_OF_RANGE forbidden for valid 0..1 fixed-point score", "status": "FIXED"}
+{"type": "FINAL_COUNT", "item": "FUZZ_CASE_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "SEMANTIC_FIX_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 25}
+{"type": "NEXT", "value": "FIX_REVIEW_ITEMS"}
