@@ -1,0 +1,39 @@
+{"type": "BITMASK_SIGNAL_BIT", "bit": 0, "mask": "00000001", "class": "WHALE_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 1, "mask": "00000010", "class": "ONCHAIN_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 2, "mask": "00000100", "class": "RISK_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 3, "mask": "00001000", "class": "TECHNICAL_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 4, "mask": "00010000", "class": "NEWS_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 5, "mask": "00100000", "class": "EVIDENCE_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 6, "mask": "01000000", "class": "UNKNOWN_ANOMALY_SIGNAL"}
+{"type": "BITMASK_SIGNAL_BIT", "bit": 7, "mask": "10000000", "class": "FAIL_CLOSED_HINT"}
+{"type": "RACE_GUARD_RULE", "id": "RG1", "rule": "window_state_updated_by_bitmask_set_only", "status": "LOCKLESS_SAFE"}
+{"type": "RACE_GUARD_RULE", "id": "RG2", "rule": "cross_check_uses_bitwise_and_or_only", "status": "LOCKLESS_FAST"}
+{"type": "RACE_GUARD_RULE", "id": "RG3", "rule": "no_mutex_required_for_plan_contract", "status": "NO_MUTEX"}
+{"type": "RACE_GUARD_RULE", "id": "RG4", "rule": "causality_hash_mismatch_short_circuit", "status": "SHORT_CIRCUIT"}
+{"type": "RACE_GUARD_RULE", "id": "RG5", "rule": "monotonic_delta_decrease_fail_closed", "status": "FAIL_CLOSED"}
+{"type": "RACE_GUARD_RULE", "id": "RG6", "rule": "out_of_order_signal_review_only_no_merge", "status": "REVIEW_REQUIRED"}
+{"type": "RACE_GUARD_RULE", "id": "RG7", "rule": "ring_buffer_capacity_fixed", "status": "BUFFER_BLOAT_GUARD"}
+{"type": "RACE_GUARD_RULE", "id": "RG8", "rule": "threshold_eviction_at_80_percent", "status": "EVICTION_TRIGGER"}
+{"type": "WINDOW_CAPACITY", "id": "WCAP1", "window": "WHALE_TO_ONCHAIN", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP2", "window": "WHALE_TO_RISK", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP3", "window": "WHALE_TO_TECHNICAL", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP4", "window": "WHALE_TO_NEWS", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP5", "window": "NEWS_TO_TECHNICAL", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP6", "window": "TECHNICAL_TO_RISK", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP7", "window": "UNKNOWN_ANOMALY_TO_EVIDENCE", "capacity": 125}
+{"type": "WINDOW_CAPACITY", "id": "WCAP8", "window": "FAIL_CLOSED_HINT_TO_ALL", "capacity": 125}
+{"type": "ZERO_COST_BALANCE", "id": "ZC1", "principle": "SPEED_NEVER_DOWN", "mechanism": "bitwise_masking_lockless_cross_check"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC2", "principle": "POWER_NEVER_DOWN", "mechanism": "fixed_capacity_ring_buffer"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC3", "principle": "SECURITY_NEVER_DOWN", "mechanism": "threshold_driven_eviction_and_fail_closed_rules"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC4", "principle": "HG1_NEVER_SINGLE_SOURCE", "mechanism": "bitmask_cross_check_requires_other_bits"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC5", "principle": "HG2_LATENCY_BUDGET", "mechanism": "no_constant_background_gc"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC6", "principle": "NO_BUFFER_BLOAT", "mechanism": "capacity_1000_fixed_memory"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC7", "principle": "NO_FAKE_CAUSALITY", "mechanism": "prev_signal_hash_and_monotonic_delta_required"}
+{"type": "ZERO_COST_BALANCE", "id": "ZC8", "principle": "NO_RUNTIME_AUTHORITY", "mechanism": "plan_only_noapi_no_push"}
+{"type": "FINAL_COUNT", "item": "BITMASK_SIGNAL_BIT_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "BITMASK_CROSS_CHECK_RULE_COUNT", "value": 5}
+{"type": "FINAL_COUNT", "item": "RACE_CONDITION_RULE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "WINDOW_CAPACITY_CLASS_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "ZERO_COST_BALANCE_RULE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 28}
+{"type": "NEXT", "value": "V2_45_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"}

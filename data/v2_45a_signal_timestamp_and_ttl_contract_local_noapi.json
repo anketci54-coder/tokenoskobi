@@ -1,0 +1,320 @@
+{
+  "task": "V2_45A_SIGNAL_TIMESTAMP_AND_TTL_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T10:44:45Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_45A_SIGNAL_TIMESTAMP_AND_TTL_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_45A_TIMESTAMP_TTL_CONTRACT_PASS_READY_FOR_SLIDING_WINDOW_RACE_GUARD",
+  "next": "V2_45B_SLIDING_WINDOW_BUFFER_BLOAT_AND_RACE_GUARD_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "17048665d1bd5b671b0d912b0573124bdead3f09",
+  "remote_now": "17048665d1bd5b671b0d912b0573124bdead3f09",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_45_next_approved_phase_selection_noapi.json\n?? data/v2_45_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_45_time_drift_signal_ttl_and_sliding_window_plan_noapi.json\n?? data/v2_45_time_drift_signal_ttl_and_sliding_window_plan_noapi_rows.jsonl\n?? docs/v2/V2_45_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_45_TIME_DRIFT_SIGNAL_TTL_AND_SLIDING_WINDOW_PLAN_NOAPI.md",
+  "timestamp_schema": {
+    "schema_name": "signal_timestamp_and_ttl_contract_v1",
+    "required_fields": [
+      "signal_uid",
+      "signal_type",
+      "source_class",
+      "event_time_utc",
+      "observed_time_utc",
+      "ingest_time_utc",
+      "normalized_time_utc",
+      "monotonic_delta_ms",
+      "prev_signal_hash",
+      "signal_hash",
+      "ttl_seconds",
+      "remaining_ttl_seconds",
+      "signal_weight",
+      "eviction_priority",
+      "window_id",
+      "time_status",
+      "evidence_level",
+      "confidence"
+    ],
+    "forbidden_fields": [
+      "private_key",
+      "seed_phrase",
+      "wallet_signature",
+      "runtime_command",
+      "trade_instruction",
+      "api_secret",
+      "rpc_secret"
+    ]
+  },
+  "monotonic_clock_contract": {
+    "MONOTONIC_CLOCK_ENFORCED": true,
+    "MONOTONIC_DELTA_REQUIRED": true,
+    "wall_clock_trusted_for_ordering": false,
+    "wall_clock_allowed_for_display_only": true,
+    "rule": "Signal ordering and TTL comparison must use monotonic_delta_ms, not wall-clock UTC alone.",
+    "fail_closed_rule": "If monotonic_delta_ms is missing, negative, reset without session boundary, or inconsistent, mark TIME_POISON_SUSPECT or FAIL_CLOSED.",
+    "checks": [
+      "CHECK_MONOTONIC_CLOCK_ENFORCED",
+      "CHECK_MONOTONIC_DELTA_REQUIRED",
+      "CHECK_WALL_CLOCK_NOT_TRUSTED_FOR_ORDERING"
+    ]
+  },
+  "causality_hash_contract": {
+    "CAUSALITY_HASH_LINKED": true,
+    "PREV_SIGNAL_HASH_REQUIRED": true,
+    "SIGNAL_HASH_REQUIRED": true,
+    "hash_algorithm": "sha256",
+    "link_rule": "Each signal entering a window must carry prev_signal_hash from the highest-priority accepted pending signal in that window, plus its own signal_hash.",
+    "tamper_rule": "If prev_signal_hash does not match the expected queue tip hash, mark CAUSALITY_CHAIN_BROKEN and short-circuit.",
+    "fake_causality_guard": true,
+    "checks": [
+      "CHECK_CAUSALITY_HASH_LINKED",
+      "CHECK_PREV_SIGNAL_HASH_REQUIRED",
+      "CHECK_FAKE_CAUSALITY_GUARD"
+    ]
+  },
+  "eviction_priority_contract": {
+    "EVICTION_PRIORITY_DEFINED": true,
+    "BUFFER_BLOAT_GUARD_REQUIRED": true,
+    "GC_EVICTION_REQUIRED": true,
+    "priority_formula": "eviction_score = signal_weight / max(remaining_ttl_seconds, 1)",
+    "eviction_rule": "Evict lowest eviction_score first, unless protected by fail-closed evidence status.",
+    "ghost_drop_rule": "LOW_LIQUIDITY_GHOST_MOVE and hard-blocked fake whale classes are evicted before normal queue pressure.",
+    "critical_protection_rule": "RISK_FAIL_CLOSED_HINT and high-evidence whale/evidence signals are summary-preserved before eviction.",
+    "checks": [
+      "CHECK_EVICTION_PRIORITY_DEFINED",
+      "CHECK_BUFFER_BLOAT_GUARD_REQUIRED",
+      "CHECK_GC_EVICTION_REQUIRED"
+    ]
+  },
+  "ttl_class_contract": [
+    {
+      "id": "TC1",
+      "signal_class": "WHALE_ECONOMIC_IMPACT_CONFIRMED",
+      "ttl_seconds": 2700,
+      "min_weight": 0.7,
+      "priority": "HIGH",
+      "eviction_tier": "PROTECT_SUMMARY"
+    },
+    {
+      "id": "TC2",
+      "signal_class": "WHALE_UNKNOWN_OR_REVIEW_REQUIRED",
+      "ttl_seconds": 1200,
+      "min_weight": 0.4,
+      "priority": "MEDIUM",
+      "eviction_tier": "NORMAL"
+    },
+    {
+      "id": "TC3",
+      "signal_class": "LOW_LIQUIDITY_GHOST_MOVE",
+      "ttl_seconds": 0,
+      "min_weight": 0.0,
+      "priority": "DROP",
+      "eviction_tier": "EVICT_FIRST"
+    },
+    {
+      "id": "TC4",
+      "signal_class": "NEWS_EVENT_UNCONFIRMED",
+      "ttl_seconds": 1200,
+      "min_weight": 0.35,
+      "priority": "MEDIUM",
+      "eviction_tier": "NORMAL"
+    },
+    {
+      "id": "TC5",
+      "signal_class": "NEWS_EVENT_CONFIRMED",
+      "ttl_seconds": 2100,
+      "min_weight": 0.6,
+      "priority": "HIGH",
+      "eviction_tier": "PROTECT_SUMMARY"
+    },
+    {
+      "id": "TC6",
+      "signal_class": "TECHNICAL_INDICATOR_SIGNAL",
+      "ttl_seconds": 600,
+      "min_weight": 0.3,
+      "priority": "LOW",
+      "eviction_tier": "EVICT_EARLY"
+    },
+    {
+      "id": "TC7",
+      "signal_class": "RISK_FAIL_CLOSED_HINT",
+      "ttl_seconds": 3600,
+      "min_weight": 0.8,
+      "priority": "CRITICAL",
+      "eviction_tier": "PROTECT"
+    },
+    {
+      "id": "TC8",
+      "signal_class": "UNKNOWN_ANOMALY_SIGNAL",
+      "ttl_seconds": 1800,
+      "min_weight": 0.55,
+      "priority": "HIGH",
+      "eviction_tier": "PROTECT_SUMMARY"
+    }
+  ],
+  "time_validation_matrix": [
+    {
+      "id": "TV1",
+      "rule": "event_time_utc_required",
+      "fail_status": "TIME_POISON_SUSPECT"
+    },
+    {
+      "id": "TV2",
+      "rule": "observed_time_utc_required",
+      "fail_status": "TIME_POISON_SUSPECT"
+    },
+    {
+      "id": "TV3",
+      "rule": "ingest_time_utc_required",
+      "fail_status": "TIME_POISON_SUSPECT"
+    },
+    {
+      "id": "TV4",
+      "rule": "normalized_time_utc_required",
+      "fail_status": "TIME_POISON_SUSPECT"
+    },
+    {
+      "id": "TV5",
+      "rule": "monotonic_delta_ms_required",
+      "fail_status": "FAIL_CLOSED"
+    },
+    {
+      "id": "TV6",
+      "rule": "monotonic_delta_must_not_decrease",
+      "fail_status": "FAIL_CLOSED"
+    },
+    {
+      "id": "TV7",
+      "rule": "prev_signal_hash_required",
+      "fail_status": "CAUSALITY_CHAIN_BROKEN"
+    },
+    {
+      "id": "TV8",
+      "rule": "signal_hash_required",
+      "fail_status": "CAUSALITY_CHAIN_BROKEN"
+    },
+    {
+      "id": "TV9",
+      "rule": "ttl_seconds_must_be_bounded",
+      "fail_status": "FAIL_CLOSED"
+    },
+    {
+      "id": "TV10",
+      "rule": "remaining_ttl_seconds_must_not_exceed_ttl",
+      "fail_status": "TIME_POISON_SUSPECT"
+    },
+    {
+      "id": "TV11",
+      "rule": "eviction_priority_required",
+      "fail_status": "BUFFER_BLOAT_BLOCKED"
+    },
+    {
+      "id": "TV12",
+      "rule": "wall_clock_ordering_not_authoritative",
+      "fail_status": "REVIEW_REQUIRED"
+    }
+  ],
+  "time_statuses": [
+    "FRESH",
+    "STALE",
+    "DELAYED_REVIEW",
+    "OUT_OF_ORDER",
+    "WINDOW_MISS",
+    "TIME_POISON_SUSPECT",
+    "CAUSALITY_CHAIN_BROKEN",
+    "BUFFER_BLOAT_BLOCKED",
+    "TEMPORAL_INDEPENDENCE_REVIEW",
+    "FAIL_CLOSED"
+  ],
+  "hard_boundaries": [
+    "MONOTONIC_CLOCK_ENFORCED=true",
+    "MONOTONIC_DELTA_REQUIRED=true",
+    "WALL_CLOCK_NOT_TRUSTED_FOR_ORDERING=true",
+    "CAUSALITY_HASH_LINKED=true",
+    "PREV_SIGNAL_HASH_REQUIRED=true",
+    "SIGNAL_HASH_REQUIRED=true",
+    "EVICTION_PRIORITY_DEFINED=true",
+    "BUFFER_BLOAT_GUARD_REQUIRED=true",
+    "GC_EVICTION_REQUIRED=true",
+    "TIERED_TTL_DECAY_REQUIRED=true",
+    "DYNAMIC_TTL_REQUIRED=true",
+    "TTL_SECONDS_BOUNDED=true",
+    "LOW_LIQUIDITY_GHOST_MOVE_EVICT_FIRST=true",
+    "SINGLE_SOURCE_ALARM_FORBIDDEN=true",
+    "HUB_AND_SPOKE_REQUIRED=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v45_selection_json_exists": true,
+    "v45_plan_json_exists": true,
+    "v45_selection_doc_exists": true,
+    "v45_plan_doc_exists": true,
+    "v45_selection_pass": true,
+    "v45_plan_pass": true,
+    "v45_plan_next_match": true,
+    "v44_json_exists": true,
+    "v44_final_gate_pass": true,
+    "v43_json_exists": true,
+    "v43_final_gate_pass": true,
+    "timestamp_schema_required_field_count_18": true,
+    "timestamp_schema_forbidden_field_count_7": true,
+    "ttl_class_count_8": true,
+    "time_validation_rule_count_12": true,
+    "time_status_count_10": true,
+    "hard_boundary_count_23": true,
+    "check_monotonic_clock_enforced": true,
+    "check_monotonic_delta_required": true,
+    "check_wall_clock_not_trusted_for_ordering": true,
+    "check_causality_hash_linked": true,
+    "check_prev_signal_hash_required": true,
+    "check_signal_hash_required": true,
+    "check_eviction_priority_defined": true,
+    "check_buffer_bloat_guard_required": true,
+    "check_gc_eviction_required": true,
+    "low_liquidity_ghost_evict_first": true,
+    "risk_fail_closed_protected": true,
+    "all_ttl_bounded": true,
+    "all_required_tactical_checks_present": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

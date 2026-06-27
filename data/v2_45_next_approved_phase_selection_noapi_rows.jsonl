@@ -1,0 +1,36 @@
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD1", "name": "Signal Timestamp Contract", "purpose": "Define event_time, observed_time, ingest_time, and derived_time boundaries."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD2", "name": "Dynamic TTL Contract", "purpose": "Define signal life by source type, confidence, and volatility."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD3", "name": "Sliding Window Contract", "purpose": "Define bounded cross-check windows for whale, news, technical, risk and evidence signals."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD4", "name": "Race Condition Guard", "purpose": "Prevent late-arriving signals from creating false causality."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD5", "name": "Buffer Bloat Guard", "purpose": "Limit memory and pending-signal queues."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD6", "name": "Latency Budget Contract", "purpose": "Bind HG2 latency and false-positive budget."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD7", "name": "Out-of-Order Event Handling", "purpose": "Classify reordered, stale, delayed and replayed events."}
+{"type": "TIME_DRIFT_DOMAIN", "id": "TD8", "name": "Time Poisoning Fail-Closed Rules", "purpose": "Stop manipulated timestamps and delayed cross-check bait."}
+{"type": "TIME_STATUS", "id": "TS1", "status": "FRESH", "meaning": "inside TTL and inside window"}
+{"type": "TIME_STATUS", "id": "TS2", "status": "STALE", "meaning": "outside TTL or confidence expired"}
+{"type": "TIME_STATUS", "id": "TS3", "status": "DELAYED_REVIEW", "meaning": "late but still relevant; review only"}
+{"type": "TIME_STATUS", "id": "TS4", "status": "OUT_OF_ORDER", "meaning": "arrived in invalid temporal order"}
+{"type": "TIME_STATUS", "id": "TS5", "status": "WINDOW_MISS", "meaning": "missed cross-check window"}
+{"type": "TIME_STATUS", "id": "TS6", "status": "TIME_POISON_SUSPECT", "meaning": "timestamp pattern looks manipulated"}
+{"type": "TIME_STATUS", "id": "TS7", "status": "BUFFER_BLOAT_BLOCKED", "meaning": "queue or memory budget exceeded"}
+{"type": "TIME_STATUS", "id": "TS8", "status": "FAIL_CLOSED", "meaning": "unsafe temporal ambiguity"}
+{"type": "HARD_BOUNDARY", "order": 1, "boundary": "GZ1_TIME_DRIFT_ACTIVE=true"}
+{"type": "HARD_BOUNDARY", "order": 2, "boundary": "DYNAMIC_TTL_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "order": 3, "boundary": "SLIDING_WINDOW_CONTRACT_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "order": 4, "boundary": "BUFFER_BLOAT_GUARD_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "order": 5, "boundary": "LATENCY_BUDGET_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "order": 6, "boundary": "HG2_LATENCY_FALSE_POSITIVE_BUDGET_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "order": 7, "boundary": "SINGLE_SOURCE_ALARM_FORBIDDEN=true"}
+{"type": "HARD_BOUNDARY", "order": 8, "boundary": "HUB_AND_SPOKE_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "order": 9, "boundary": "API_RPC=false"}
+{"type": "HARD_BOUNDARY", "order": 10, "boundary": "LIVE_FEED=false"}
+{"type": "HARD_BOUNDARY", "order": 11, "boundary": "DB_WRITE=false"}
+{"type": "HARD_BOUNDARY", "order": 12, "boundary": "RUNTIME_APPLY=false"}
+{"type": "HARD_BOUNDARY", "order": 13, "boundary": "LIVE_TRADE=false"}
+{"type": "HARD_BOUNDARY", "order": 14, "boundary": "WALLET_ACCESS=false"}
+{"type": "HARD_BOUNDARY", "order": 15, "boundary": "PRIVATE_KEY_ACCESS=false"}
+{"type": "HARD_BOUNDARY", "order": 16, "boundary": "OUTBOUND_PACKET=false"}
+{"type": "FINAL_COUNT", "item": "TIME_DRIFT_DOMAIN_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "TIME_STATUS_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 16}
+{"type": "NEXT", "value": "V2_45_TIME_DRIFT_SIGNAL_TTL_AND_SLIDING_WINDOW_PLAN_NOAPI"}

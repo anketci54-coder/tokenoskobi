@@ -1,0 +1,39 @@
+{"type": "TIERED_TTL_DECAY", "id": "TTL1", "signal_class": "WHALE_ECONOMIC_IMPACT_CONFIRMED", "base_ttl_minutes": 45, "decay_mode": "tiered_slow", "memory_priority": "HIGH"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL2", "signal_class": "WHALE_UNKNOWN_OR_REVIEW_REQUIRED", "base_ttl_minutes": 20, "decay_mode": "tiered_medium", "memory_priority": "MEDIUM"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL3", "signal_class": "LOW_LIQUIDITY_GHOST_MOVE", "base_ttl_minutes": 0, "decay_mode": "short_circuit_drop", "memory_priority": "DROP"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL4", "signal_class": "NEWS_EVENT_UNCONFIRMED", "base_ttl_minutes": 20, "decay_mode": "tiered_medium", "memory_priority": "MEDIUM"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL5", "signal_class": "NEWS_EVENT_CONFIRMED", "base_ttl_minutes": 35, "decay_mode": "tiered_slow", "memory_priority": "HIGH"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL6", "signal_class": "TECHNICAL_INDICATOR_SIGNAL", "base_ttl_minutes": 10, "decay_mode": "tiered_fast", "memory_priority": "LOW"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL7", "signal_class": "RISK_FAIL_CLOSED_HINT", "base_ttl_minutes": 60, "decay_mode": "tiered_slow", "memory_priority": "CRITICAL"}
+{"type": "TIERED_TTL_DECAY", "id": "TTL8", "signal_class": "UNKNOWN_ANOMALY_SIGNAL", "base_ttl_minutes": 30, "decay_mode": "tiered_medium", "memory_priority": "HIGH"}
+{"type": "WINDOW_CLASS", "id": "WIN1", "window": "WHALE_TO_ONCHAIN", "max_minutes": 45, "requires_impact_intersection": true}
+{"type": "WINDOW_CLASS", "id": "WIN2", "window": "WHALE_TO_RISK", "max_minutes": 45, "requires_impact_intersection": true}
+{"type": "WINDOW_CLASS", "id": "WIN3", "window": "WHALE_TO_TECHNICAL", "max_minutes": 20, "requires_impact_intersection": true}
+{"type": "WINDOW_CLASS", "id": "WIN4", "window": "WHALE_TO_NEWS", "max_minutes": 35, "requires_impact_intersection": true}
+{"type": "WINDOW_CLASS", "id": "WIN5", "window": "NEWS_TO_TECHNICAL", "max_minutes": 20, "requires_impact_intersection": true}
+{"type": "WINDOW_CLASS", "id": "WIN6", "window": "TECHNICAL_TO_RISK", "max_minutes": 10, "requires_impact_intersection": true}
+{"type": "WINDOW_CLASS", "id": "WIN7", "window": "UNKNOWN_ANOMALY_TO_EVIDENCE", "max_minutes": 30, "requires_impact_intersection": false}
+{"type": "WINDOW_CLASS", "id": "WIN8", "window": "FAIL_CLOSED_HINT_TO_ALL", "max_minutes": 60, "requires_impact_intersection": false}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV1", "trigger": "LOW_LIQUIDITY_GHOST_MOVE", "action": "EVICT_IMMEDIATELY"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV2", "trigger": "FAKE_WHALE_SUSPECT_HIGH", "action": "EVICT_OR_REVIEW_SUMMARY_ONLY"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV3", "trigger": "TTL_EXPIRED", "action": "STALE_AND_EVICT"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV4", "trigger": "SINGLE_SOURCE_ONLY_AFTER_WINDOW", "action": "WINDOW_MISS_AND_EVICT"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV5", "trigger": "BUFFER_LIMIT_EXCEEDED", "action": "BUFFER_BLOAT_BLOCKED"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV6", "trigger": "TIME_POISON_SUSPECT", "action": "FAIL_CLOSED_OR_REVIEW"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV7", "trigger": "OUT_OF_ORDER_UNRECONCILED", "action": "REVIEW_REQUIRED_NO_MERGE"}
+{"type": "SHORT_CIRCUIT_EVICTION", "id": "EV8", "trigger": "API_RPC_REQUIRED", "action": "STOP_NOAPI_AND_EVICT"}
+{"type": "TIME_STATUS", "id": "TS1", "status": "FRESH"}
+{"type": "TIME_STATUS", "id": "TS2", "status": "STALE"}
+{"type": "TIME_STATUS", "id": "TS3", "status": "DELAYED_REVIEW"}
+{"type": "TIME_STATUS", "id": "TS4", "status": "OUT_OF_ORDER"}
+{"type": "TIME_STATUS", "id": "TS5", "status": "WINDOW_MISS"}
+{"type": "TIME_STATUS", "id": "TS6", "status": "TIME_POISON_SUSPECT"}
+{"type": "TIME_STATUS", "id": "TS7", "status": "BUFFER_BLOAT_BLOCKED"}
+{"type": "TIME_STATUS", "id": "TS8", "status": "TEMPORAL_INDEPENDENCE_REVIEW"}
+{"type": "TIME_STATUS", "id": "TS9", "status": "FAIL_CLOSED"}
+{"type": "FINAL_COUNT", "item": "TIERED_TTL_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "WINDOW_CLASS_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "EVICTION_RULE_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "TIME_STATUS_COUNT", "value": 9}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 21}
+{"type": "NEXT", "value": "V2_45A_SIGNAL_TIMESTAMP_AND_TTL_CONTRACT_LOCAL_NOAPI"}

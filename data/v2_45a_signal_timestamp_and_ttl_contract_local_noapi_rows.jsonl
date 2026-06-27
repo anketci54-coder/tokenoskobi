@@ -1,0 +1,49 @@
+{"type": "TTL_CLASS", "id": "TC1", "signal_class": "WHALE_ECONOMIC_IMPACT_CONFIRMED", "ttl_seconds": 2700, "priority": "HIGH", "eviction_tier": "PROTECT_SUMMARY"}
+{"type": "TTL_CLASS", "id": "TC2", "signal_class": "WHALE_UNKNOWN_OR_REVIEW_REQUIRED", "ttl_seconds": 1200, "priority": "MEDIUM", "eviction_tier": "NORMAL"}
+{"type": "TTL_CLASS", "id": "TC3", "signal_class": "LOW_LIQUIDITY_GHOST_MOVE", "ttl_seconds": 0, "priority": "DROP", "eviction_tier": "EVICT_FIRST"}
+{"type": "TTL_CLASS", "id": "TC4", "signal_class": "NEWS_EVENT_UNCONFIRMED", "ttl_seconds": 1200, "priority": "MEDIUM", "eviction_tier": "NORMAL"}
+{"type": "TTL_CLASS", "id": "TC5", "signal_class": "NEWS_EVENT_CONFIRMED", "ttl_seconds": 2100, "priority": "HIGH", "eviction_tier": "PROTECT_SUMMARY"}
+{"type": "TTL_CLASS", "id": "TC6", "signal_class": "TECHNICAL_INDICATOR_SIGNAL", "ttl_seconds": 600, "priority": "LOW", "eviction_tier": "EVICT_EARLY"}
+{"type": "TTL_CLASS", "id": "TC7", "signal_class": "RISK_FAIL_CLOSED_HINT", "ttl_seconds": 3600, "priority": "CRITICAL", "eviction_tier": "PROTECT"}
+{"type": "TTL_CLASS", "id": "TC8", "signal_class": "UNKNOWN_ANOMALY_SIGNAL", "ttl_seconds": 1800, "priority": "HIGH", "eviction_tier": "PROTECT_SUMMARY"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV1", "rule": "event_time_utc_required", "fail_status": "TIME_POISON_SUSPECT"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV2", "rule": "observed_time_utc_required", "fail_status": "TIME_POISON_SUSPECT"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV3", "rule": "ingest_time_utc_required", "fail_status": "TIME_POISON_SUSPECT"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV4", "rule": "normalized_time_utc_required", "fail_status": "TIME_POISON_SUSPECT"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV5", "rule": "monotonic_delta_ms_required", "fail_status": "FAIL_CLOSED"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV6", "rule": "monotonic_delta_must_not_decrease", "fail_status": "FAIL_CLOSED"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV7", "rule": "prev_signal_hash_required", "fail_status": "CAUSALITY_CHAIN_BROKEN"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV8", "rule": "signal_hash_required", "fail_status": "CAUSALITY_CHAIN_BROKEN"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV9", "rule": "ttl_seconds_must_be_bounded", "fail_status": "FAIL_CLOSED"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV10", "rule": "remaining_ttl_seconds_must_not_exceed_ttl", "fail_status": "TIME_POISON_SUSPECT"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV11", "rule": "eviction_priority_required", "fail_status": "BUFFER_BLOAT_BLOCKED"}
+{"type": "TIME_VALIDATION_RULE", "id": "TV12", "rule": "wall_clock_ordering_not_authoritative", "fail_status": "REVIEW_REQUIRED"}
+{"type": "HARD_BOUNDARY", "boundary": "MONOTONIC_CLOCK_ENFORCED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "MONOTONIC_DELTA_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "WALL_CLOCK_NOT_TRUSTED_FOR_ORDERING=true"}
+{"type": "HARD_BOUNDARY", "boundary": "CAUSALITY_HASH_LINKED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "PREV_SIGNAL_HASH_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "SIGNAL_HASH_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "EVICTION_PRIORITY_DEFINED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "BUFFER_BLOAT_GUARD_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "GC_EVICTION_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "TIERED_TTL_DECAY_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "DYNAMIC_TTL_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "TTL_SECONDS_BOUNDED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "LOW_LIQUIDITY_GHOST_MOVE_EVICT_FIRST=true"}
+{"type": "HARD_BOUNDARY", "boundary": "SINGLE_SOURCE_ALARM_FORBIDDEN=true"}
+{"type": "HARD_BOUNDARY", "boundary": "HUB_AND_SPOKE_REQUIRED=true"}
+{"type": "HARD_BOUNDARY", "boundary": "API_RPC=false"}
+{"type": "HARD_BOUNDARY", "boundary": "LIVE_FEED=false"}
+{"type": "HARD_BOUNDARY", "boundary": "DB_WRITE=false"}
+{"type": "HARD_BOUNDARY", "boundary": "RUNTIME_APPLY=false"}
+{"type": "HARD_BOUNDARY", "boundary": "LIVE_TRADE=false"}
+{"type": "HARD_BOUNDARY", "boundary": "WALLET_ACCESS=false"}
+{"type": "HARD_BOUNDARY", "boundary": "PRIVATE_KEY_ACCESS=false"}
+{"type": "HARD_BOUNDARY", "boundary": "OUTBOUND_PACKET=false"}
+{"type": "FINAL_COUNT", "item": "TIMESTAMP_REQUIRED_FIELD_COUNT", "value": 18}
+{"type": "FINAL_COUNT", "item": "TTL_CLASS_COUNT", "value": 8}
+{"type": "FINAL_COUNT", "item": "TIME_VALIDATION_RULE_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "TIME_STATUS_COUNT", "value": 10}
+{"type": "FINAL_COUNT", "item": "HARD_BOUNDARY_COUNT", "value": 23}
+{"type": "NEXT", "value": "V2_45B_SLIDING_WINDOW_BUFFER_BLOAT_AND_RACE_GUARD_LOCAL_NOAPI"}

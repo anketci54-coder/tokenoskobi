@@ -1,0 +1,397 @@
+{
+  "task": "V2_45_TIME_DRIFT_SIGNAL_TTL_AND_SLIDING_WINDOW_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T10:41:23Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH",
+  "final_gate": "PASS_V2_45_TIME_DRIFT_SIGNAL_TTL_AND_SLIDING_WINDOW_PLAN_NOAPI",
+  "decision": "V2_45_TIME_DRIFT_PLAN_PASS_READY_FOR_TIMESTAMP_TTL_CONTRACT",
+  "next": "V2_45A_SIGNAL_TIMESTAMP_AND_TTL_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "17048665d1bd5b671b0d912b0573124bdead3f09",
+  "remote_now": "17048665d1bd5b671b0d912b0573124bdead3f09",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_45_next_approved_phase_selection_noapi.json\n?? data/v2_45_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_45_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "time_drift_architecture": {
+    "mode": "PLAN_ONLY_NOAPI_NO_PUSH",
+    "gz1_time_drift_active": true,
+    "tiered_ttl_decay_required": true,
+    "short_circuit_window_clearance_required": true,
+    "matrix_intersect_over_time_required": true,
+    "dynamic_ttl_required": true,
+    "sliding_window_contract_required": true,
+    "buffer_bloat_guard_required": true,
+    "garbage_collector_eviction_required": true,
+    "latency_budget_required": true,
+    "hg2_latency_false_positive_budget_required": true,
+    "single_source_alarm_forbidden": true,
+    "hub_and_spoke_required": true,
+    "api_rpc_allowed": false,
+    "live_feed_allowed": false,
+    "db_write_allowed": false,
+    "panel_write_allowed": false,
+    "runtime_apply_allowed": false,
+    "service_restart_allowed": false,
+    "timer_change_allowed": false,
+    "live_decision_allowed": false,
+    "live_trade_allowed": false,
+    "wallet_access_allowed": false,
+    "private_key_access_allowed": false,
+    "outbound_packet_allowed": false
+  },
+  "timestamp_contract": {
+    "contract_name": "signal_timestamp_contract_v1",
+    "required_time_fields": [
+      "event_time",
+      "observed_time",
+      "ingest_time",
+      "normalized_time",
+      "expiry_time",
+      "window_open_time",
+      "window_close_time",
+      "last_cross_check_time"
+    ],
+    "timestamp_rules": [
+      "event_time is the source event time when available.",
+      "observed_time is the local observed time.",
+      "ingest_time is when the signal enters the system.",
+      "normalized_time is deterministic canonical time used for comparison.",
+      "expiry_time is calculated by dynamic TTL.",
+      "late events cannot rewrite already closed decisions.",
+      "out-of-order events are review-only unless explicitly reconciled.",
+      "missing or contradictory timestamps become TIME_POISON_SUSPECT or FAIL_CLOSED."
+    ]
+  },
+  "tiered_ttl_decay": [
+    {
+      "id": "TTL1",
+      "signal_class": "WHALE_ECONOMIC_IMPACT_CONFIRMED",
+      "base_ttl_minutes": 45,
+      "decay_mode": "tiered_slow",
+      "memory_priority": "HIGH"
+    },
+    {
+      "id": "TTL2",
+      "signal_class": "WHALE_UNKNOWN_OR_REVIEW_REQUIRED",
+      "base_ttl_minutes": 20,
+      "decay_mode": "tiered_medium",
+      "memory_priority": "MEDIUM"
+    },
+    {
+      "id": "TTL3",
+      "signal_class": "LOW_LIQUIDITY_GHOST_MOVE",
+      "base_ttl_minutes": 0,
+      "decay_mode": "short_circuit_drop",
+      "memory_priority": "DROP"
+    },
+    {
+      "id": "TTL4",
+      "signal_class": "NEWS_EVENT_UNCONFIRMED",
+      "base_ttl_minutes": 20,
+      "decay_mode": "tiered_medium",
+      "memory_priority": "MEDIUM"
+    },
+    {
+      "id": "TTL5",
+      "signal_class": "NEWS_EVENT_CONFIRMED",
+      "base_ttl_minutes": 35,
+      "decay_mode": "tiered_slow",
+      "memory_priority": "HIGH"
+    },
+    {
+      "id": "TTL6",
+      "signal_class": "TECHNICAL_INDICATOR_SIGNAL",
+      "base_ttl_minutes": 10,
+      "decay_mode": "tiered_fast",
+      "memory_priority": "LOW"
+    },
+    {
+      "id": "TTL7",
+      "signal_class": "RISK_FAIL_CLOSED_HINT",
+      "base_ttl_minutes": 60,
+      "decay_mode": "tiered_slow",
+      "memory_priority": "CRITICAL"
+    },
+    {
+      "id": "TTL8",
+      "signal_class": "UNKNOWN_ANOMALY_SIGNAL",
+      "base_ttl_minutes": 30,
+      "decay_mode": "tiered_medium",
+      "memory_priority": "HIGH"
+    }
+  ],
+  "decay_formula": {
+    "name": "tiered_ttl_decay_weight_v1",
+    "formula": "active_weight = signal_confidence * class_weight * time_decay_factor",
+    "drop_rule": "if active_weight <= expiry_threshold then evict_or_stale",
+    "short_circuit_rule": "hard-blocked classes are evicted immediately without waiting for window close",
+    "confidence_floor_required": true,
+    "latency_budget_required": true
+  },
+  "sliding_window_contract": {
+    "contract_name": "sliding_window_contract_v1",
+    "default_policy": "bounded_window_no_unbounded_wait",
+    "window_join_rule": "signals may join only if time window and impact window intersect",
+    "late_join_rule": "late signal can trigger REVIEW_REQUIRED but cannot rewrite prior fail-closed or rejection",
+    "cross_check_minimum": "at least one valid cross-check path required before central escalation",
+    "window_miss_policy": "WINDOW_MISS",
+    "buffer_bloat_policy": "BUFFER_BLOAT_BLOCKED",
+    "single_source_alarm_forbidden": true
+  },
+  "window_classes": [
+    {
+      "id": "WIN1",
+      "window": "WHALE_TO_ONCHAIN",
+      "max_minutes": 45,
+      "requires_impact_intersection": true
+    },
+    {
+      "id": "WIN2",
+      "window": "WHALE_TO_RISK",
+      "max_minutes": 45,
+      "requires_impact_intersection": true
+    },
+    {
+      "id": "WIN3",
+      "window": "WHALE_TO_TECHNICAL",
+      "max_minutes": 20,
+      "requires_impact_intersection": true
+    },
+    {
+      "id": "WIN4",
+      "window": "WHALE_TO_NEWS",
+      "max_minutes": 35,
+      "requires_impact_intersection": true
+    },
+    {
+      "id": "WIN5",
+      "window": "NEWS_TO_TECHNICAL",
+      "max_minutes": 20,
+      "requires_impact_intersection": true
+    },
+    {
+      "id": "WIN6",
+      "window": "TECHNICAL_TO_RISK",
+      "max_minutes": 10,
+      "requires_impact_intersection": true
+    },
+    {
+      "id": "WIN7",
+      "window": "UNKNOWN_ANOMALY_TO_EVIDENCE",
+      "max_minutes": 30,
+      "requires_impact_intersection": false
+    },
+    {
+      "id": "WIN8",
+      "window": "FAIL_CLOSED_HINT_TO_ALL",
+      "max_minutes": 60,
+      "requires_impact_intersection": false
+    }
+  ],
+  "short_circuit_eviction_rules": [
+    {
+      "id": "EV1",
+      "trigger": "LOW_LIQUIDITY_GHOST_MOVE",
+      "action": "EVICT_IMMEDIATELY",
+      "reason": "economic ghost move should not occupy window"
+    },
+    {
+      "id": "EV2",
+      "trigger": "FAKE_WHALE_SUSPECT_HIGH",
+      "action": "EVICT_OR_REVIEW_SUMMARY_ONLY",
+      "reason": "fake whale noise should not bloat queue"
+    },
+    {
+      "id": "EV3",
+      "trigger": "TTL_EXPIRED",
+      "action": "STALE_AND_EVICT",
+      "reason": "expired signal cannot keep cross-check alive"
+    },
+    {
+      "id": "EV4",
+      "trigger": "SINGLE_SOURCE_ONLY_AFTER_WINDOW",
+      "action": "WINDOW_MISS_AND_EVICT",
+      "reason": "single source alarm forbidden"
+    },
+    {
+      "id": "EV5",
+      "trigger": "BUFFER_LIMIT_EXCEEDED",
+      "action": "BUFFER_BLOAT_BLOCKED",
+      "reason": "latency and memory budget protection"
+    },
+    {
+      "id": "EV6",
+      "trigger": "TIME_POISON_SUSPECT",
+      "action": "FAIL_CLOSED_OR_REVIEW",
+      "reason": "timestamp manipulation risk"
+    },
+    {
+      "id": "EV7",
+      "trigger": "OUT_OF_ORDER_UNRECONCILED",
+      "action": "REVIEW_REQUIRED_NO_MERGE",
+      "reason": "prevent false causality"
+    },
+    {
+      "id": "EV8",
+      "trigger": "API_RPC_REQUIRED",
+      "action": "STOP_NOAPI_AND_EVICT",
+      "reason": "NOAPI hard boundary"
+    }
+  ],
+  "matrix_intersect_over_time": {
+    "contract_name": "matrix_intersect_over_time_v1",
+    "required": true,
+    "rule": "Two signals are not correlated only because they arrive in sequence. Their market impact windows must intersect.",
+    "impact_window_fields": [
+      "price_delta_window",
+      "volume_profile_delta_window",
+      "liquidity_depth_delta_window",
+      "spread_delta_window",
+      "route_depth_delta_window"
+    ],
+    "non_correlation_rule": "If whale move occurs but price/volume/liquidity impact does not overlap with later technical signal, mark TEMPORAL_INDEPENDENCE_REVIEW.",
+    "fake_causality_guard": true,
+    "hg2_latency_budget_guard": true
+  },
+  "time_statuses": [
+    {
+      "id": "TS1",
+      "status": "FRESH",
+      "meaning": "inside TTL and valid sliding window"
+    },
+    {
+      "id": "TS2",
+      "status": "STALE",
+      "meaning": "TTL expired"
+    },
+    {
+      "id": "TS3",
+      "status": "DELAYED_REVIEW",
+      "meaning": "late but potentially relevant; review only"
+    },
+    {
+      "id": "TS4",
+      "status": "OUT_OF_ORDER",
+      "meaning": "arrival order conflicts with event order"
+    },
+    {
+      "id": "TS5",
+      "status": "WINDOW_MISS",
+      "meaning": "cross-check window closed without valid merge"
+    },
+    {
+      "id": "TS6",
+      "status": "TIME_POISON_SUSPECT",
+      "meaning": "timestamp manipulation suspected"
+    },
+    {
+      "id": "TS7",
+      "status": "BUFFER_BLOAT_BLOCKED",
+      "meaning": "queue or memory budget exceeded"
+    },
+    {
+      "id": "TS8",
+      "status": "TEMPORAL_INDEPENDENCE_REVIEW",
+      "meaning": "arrival sequence exists but impact windows do not intersect"
+    },
+    {
+      "id": "TS9",
+      "status": "FAIL_CLOSED",
+      "meaning": "unsafe temporal ambiguity"
+    }
+  ],
+  "hard_boundaries": [
+    "GZ1_TIME_DRIFT_ACTIVE=true",
+    "TIERED_TTL_DECAY_REQUIRED=true",
+    "DYNAMIC_TTL_REQUIRED=true",
+    "SLIDING_WINDOW_CONTRACT_REQUIRED=true",
+    "SHORT_CIRCUIT_WINDOW_CLEARANCE_REQUIRED=true",
+    "GARBAGE_COLLECTOR_EVICTION_REQUIRED=true",
+    "MATRIX_INTERSECT_OVER_TIME_REQUIRED=true",
+    "IMPACT_WINDOW_INTERSECTION_REQUIRED=true",
+    "BUFFER_BLOAT_GUARD_REQUIRED=true",
+    "LATENCY_BUDGET_REQUIRED=true",
+    "HG2_LATENCY_FALSE_POSITIVE_BUDGET_REQUIRED=true",
+    "SINGLE_SOURCE_ALARM_FORBIDDEN=true",
+    "HUB_AND_SPOKE_REQUIRED=true",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false"
+  ],
+  "required_substeps": [
+    "V2_45A_SIGNAL_TIMESTAMP_AND_TTL_CONTRACT_LOCAL_NOAPI",
+    "V2_45B_SLIDING_WINDOW_BUFFER_BLOAT_AND_RACE_GUARD_LOCAL_NOAPI",
+    "V2_45_FINAL_CLOSE_LOCAL_AND_SINGLE_GITHUB_PUSH_NOAPI"
+  ],
+  "forbidden": {
+    "REAL_DATA_EXECUTION": false,
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "AI_TOOL_EXECUTION": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v45_selection_json_exists": true,
+    "v45_selection_doc_exists": true,
+    "v45_selection_pass": true,
+    "v45_selected_phase_match": true,
+    "v44_json_exists": true,
+    "v44_final_gate_pass": true,
+    "v44_next_v45": true,
+    "v44_hub_and_spoke": true,
+    "v44_single_source_forbidden": true,
+    "v44_economic_impact_required": true,
+    "v43_json_exists": true,
+    "v43_final_gate_pass": true,
+    "tiered_ttl_count_8": true,
+    "window_class_count_8": true,
+    "eviction_rule_count_8": true,
+    "time_status_count_9": true,
+    "hard_boundary_count_21": true,
+    "required_substep_count_3": true,
+    "tiered_ttl_decay_required": true,
+    "short_circuit_window_clearance_required": true,
+    "matrix_intersect_over_time_required": true,
+    "buffer_bloat_guard_required": true,
+    "garbage_collector_required": true,
+    "latency_budget_required": true,
+    "hg2_required": true,
+    "all_windows_bounded": true,
+    "ghost_move_evicts_immediately": true,
+    "impact_intersect_required": true,
+    "fake_causality_guard": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_runtime_apply": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
