@@ -1,0 +1,106 @@
+{"type": "CHAOS_VECTOR", "id": "Z1", "vector": "CACHE_POISONING_FLOOD", "attack": "unique fake clean routes exceed cache caps", "expected": "REJECT_OR_EVICT_WITHOUT_HOT_PATH_BLOCK", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z2", "vector": "BYPASS_DOS_FLOOD", "attack": "stale/future/version mismatch flood tries to overload Core Risk", "expected": "QUARANTINE_BEFORE_CORE_OVERLOAD", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z3", "vector": "STATE_LAG_INJECTION", "attack": "old shadow snapshot attempts context approval", "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z4", "vector": "FUTURE_TIMESTAMP_ATTACK", "attack": "future u64 timestamp tries race advantage", "expected": "BYPASS_OR_QUARANTINE_NO_APPROVAL", "severity": "HIGH"}
+{"type": "CHAOS_VECTOR", "id": "Z5", "vector": "AUTHORITY_DRIFT_INJECTION", "attack": "shadow/precheck attempts approve trade or score authority", "expected": "REJECT_AUTHORITY_DRIFT", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z6", "vector": "BACKPRESSURE_CHOKE", "attack": "cold path load tries to block hot path", "expected": "HOT_PATH_NOT_BLOCKED", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z7", "vector": "HOT_PATH_LATENCY_REGRESSION", "attack": "scan/GC/iteration increases fast path latency", "expected": "REJECT_LATENCY_REGRESSION", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z8", "vector": "FRESH_RISK_OVERRIDE_RACE", "attack": "shadow context races fresh risk update", "expected": "SHADOW_SUPPRESSED_BY_FRESH_RISK", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z9", "vector": "MEMORY_BLOAT_OOM_GUARD", "attack": "cache allocation pressure tries OOM", "expected": "REJECT_MEMORY_BLOAT", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z10", "vector": "UNKNOWN_KEY_FLOOD", "attack": "unknown keys attempt allocation before validation", "expected": "REJECT_UNKNOWN_KEY_FLOOD", "severity": "HIGH"}
+{"type": "CHAOS_VECTOR", "id": "Z11", "vector": "CORE_RISK_OVERLOAD_SIMULATION", "attack": "bypass volume tries to move burden to Core Risk", "expected": "BYPASS_RATE_LIMIT_OR_QUARANTINE", "severity": "CRITICAL"}
+{"type": "CHAOS_VECTOR", "id": "Z12", "vector": "QUARANTINE_RELEASE_JAILBREAK", "attack": "released source tries to regain trust immediately", "expected": "PROBATION_ONLY_NO_TRUST", "severity": "HIGH"}
+{"type": "CHAOS_VECTOR", "id": "Z13", "vector": "PROSECUTOR_DELAY_ATTACK", "attack": "evidence delay attempts hot path blocking", "expected": "DEFAULT_SAFE_STATE_NO_BLOCK", "severity": "HIGH"}
+{"type": "CHAOS_VECTOR", "id": "Z14", "vector": "HISTORICAL_POISONING_REPLAY", "attack": "replay input without immutable snapshot SHA", "expected": "REJECT_WITHOUT_IMMUTABLE_SHA", "severity": "HIGH"}
+{"type": "CHAOS_VECTOR", "id": "Z15", "vector": "MALFORMED_PACKET_SIMULATION", "attack": "dirty JSON / bad decimal / broken payload", "expected": "FAIL_CLOSED", "severity": "HIGH"}
+{"type": "CHAOS_VECTOR", "id": "Z16", "vector": "TIMEOUT_RATE_LIMIT_DUPLICATE_PARTIAL_PAYLOAD", "attack": "timeout 429 duplicate partial payload storm", "expected": "FAIL_CLOSED_NO_RETRY_STORM", "severity": "HIGH"}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_USE_TEMPDB_COPY_ONLY", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_TOUCH_CORE_DB", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_TOUCH_ACTIVE_PANEL", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_TOUCH_RUNTIME_SERVICE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_TOUCH_TIMER", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_CALL_API_RPC", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_SEND_OUTBOUND_PACKET", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_ACCESS_WALLET", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_ACCESS_PRIVATE_KEY", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_CREATE_LIVE_DECISION", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_CREATE_LIVE_TRADE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_GRANT_TRADE_AUTHORITY", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_BE_DETERMINISTIC", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_BE_REPLAYABLE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_HAVE_PASS_FAIL_PER_VECTOR", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_ATTACK_INPUTS", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_EXPECTED_STATE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_ACTUAL_STATE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_LATENCY_BUDGET", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_MEMORY_BUDGET", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_QUARANTINE_STATE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_CACHE_STATE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_CORE_RISK_OVERLOAD_GUARD", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_FRESH_RISK_OVERRIDE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_RECORD_AUTHORITY_DRIFT_ATTEMPT", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_FAIL_CLOSED_ON_UNKNOWN_STATE", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_FAIL_CLOSED_ON_SCHEMA_DRIFT", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_FAIL_CLOSED_ON_HASH_DRIFT", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_FAIL_CLOSED_ON_OUTBOUND_ATTEMPT", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_FAIL_CLOSED_ON_RUNTIME_AUTHORITY", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_FEED_FINDINGS_TO_V2_51", "value": true}
+{"type": "EXECUTION_CONTRACT", "item": "CHAOS_RUN_MUST_NOT_PATCH_RUNTIME_DIRECTLY", "value": true}
+{"type": "BUDGET", "item": "MAX_TEMPDB_ROWS", "value": 100000}
+{"type": "BUDGET", "item": "MAX_ATTACK_VECTOR_COUNT", "value": 16}
+{"type": "BUDGET", "item": "MAX_CACHE_ITEMS", "value": 1000}
+{"type": "BUDGET", "item": "MAX_SOURCE_CAP", "value": 100}
+{"type": "BUDGET", "item": "MAX_ROUTE_CAP", "value": 30}
+{"type": "BUDGET", "item": "MAX_TOKEN_CAP", "value": 20}
+{"type": "BUDGET", "item": "MAX_UNKNOWN_KEY_FLOOD", "value": 25}
+{"type": "BUDGET", "item": "MAX_BYPASS_SOURCE", "value": 10}
+{"type": "BUDGET", "item": "MAX_BYPASS_ROUTE", "value": 20}
+{"type": "BUDGET", "item": "MAX_BYPASS_TOKEN", "value": 15}
+{"type": "BUDGET", "item": "MAX_BYPASS_BURST", "value": 50}
+{"type": "BUDGET", "item": "MAX_QUARANTINE_ITEMS", "value": 200}
+{"type": "BUDGET", "item": "MAX_LATENCY_REGRESSION_PERCENT", "value": 0}
+{"type": "BUDGET", "item": "MAX_HOT_PATH_BLOCK_MS", "value": 0}
+{"type": "BUDGET", "item": "MAX_OUTBOUND_PACKET", "value": 0}
+{"type": "BUDGET", "item": "MAX_API_RPC_CALL", "value": 0}
+{"type": "BUDGET", "item": "MAX_DB_WRITE_CORE", "value": 0}
+{"type": "BUDGET", "item": "MAX_PANEL_WRITE", "value": 0}
+{"type": "BUDGET", "item": "MAX_RUNTIME_APPLY", "value": 0}
+{"type": "BUDGET", "item": "MAX_LIVE_TRADE", "value": 0}
+{"type": "EXPECTED_STATE", "state": "REJECT_OR_EVICT_WITHOUT_HOT_PATH_BLOCK"}
+{"type": "EXPECTED_STATE", "state": "QUARANTINE_BEFORE_CORE_OVERLOAD"}
+{"type": "EXPECTED_STATE", "state": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL"}
+{"type": "EXPECTED_STATE", "state": "BYPASS_OR_QUARANTINE_NO_APPROVAL"}
+{"type": "EXPECTED_STATE", "state": "REJECT_AUTHORITY_DRIFT"}
+{"type": "EXPECTED_STATE", "state": "HOT_PATH_NOT_BLOCKED"}
+{"type": "EXPECTED_STATE", "state": "REJECT_LATENCY_REGRESSION"}
+{"type": "EXPECTED_STATE", "state": "SHADOW_SUPPRESSED_BY_FRESH_RISK"}
+{"type": "EXPECTED_STATE", "state": "REJECT_MEMORY_BLOAT"}
+{"type": "EXPECTED_STATE", "state": "REJECT_UNKNOWN_KEY_FLOOD"}
+{"type": "EXPECTED_STATE", "state": "BYPASS_RATE_LIMIT_OR_QUARANTINE"}
+{"type": "EXPECTED_STATE", "state": "PROBATION_ONLY_NO_TRUST"}
+{"type": "EXPECTED_STATE", "state": "DEFAULT_SAFE_STATE_NO_BLOCK"}
+{"type": "EXPECTED_STATE", "state": "REJECT_WITHOUT_IMMUTABLE_SHA"}
+{"type": "EXPECTED_STATE", "state": "FAIL_CLOSED"}
+{"type": "EXPECTED_STATE", "state": "FAIL_CLOSED_NO_RETRY_STORM"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "cache poisoning cannot grow memory beyond bounded caps"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "bypass DoS cannot overload Core Risk"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "single stale input may bypass to Core but flood must quarantine"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "future timestamp cannot approve or create authority"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "authority drift cannot create approve/trade/score"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "hot path cannot block on backpressure, GC, scan or cold path"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "fresh risk must beat shadow context in every race"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "unknown key flood must reject before allocation"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "quarantine release must mean probation only, never trust"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "prosecutor delay must default safe without blocking Core Risk"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "historical replay must require immutable snapshot SHA"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "dirty local network simulation must fail closed"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "timeout and 429 must not create retry storm"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "duplicate event must dedupe or reject deterministically"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "partial payload must fail closed"}
+{"type": "RED_TEAM_ACCEPTANCE", "item": "all findings must feed V2_51 hardening without runtime patch"}
+{"type": "FINAL_COUNT", "item": "CHAOS_VECTOR_COUNT", "value": 16}
+{"type": "FINAL_COUNT", "item": "EXECUTION_CONTRACT_COUNT", "value": 32}
+{"type": "FINAL_COUNT", "item": "BUDGET_COUNT", "value": 20}
+{"type": "FINAL_COUNT", "item": "EXPECTED_STATE_COUNT", "value": 16}
+{"type": "FINAL_COUNT", "item": "RED_TEAM_ACCEPTANCE_COUNT", "value": 16}
+{"type": "NEXT", "value": "V2_50ZA_HARDCORE_CHAOS_TEMPDB_DRYRUN_LOCAL_NOAPI"}
