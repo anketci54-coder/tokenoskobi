@@ -1,0 +1,136 @@
+# V2_54_NEXT_APPROVED_PHASE_SELECTION_NOAPI
+
+STAMP_UTC=2026-06-28T08:30:05Z
+MODE=LOCAL_ONLY_NOAPI_SELECTION_NO_PUSH
+
+## RESULT
+
+FINAL_GATE=PASS_V2_54_NEXT_APPROVED_PHASE_SELECTION_NOAPI
+DECISION=V2_54_SELECTION_PASS_READY_FOR_MULTI_ENGINE_CONFLICT_RESOLVER_PLAN
+SELECTED_PHASE=V2_54_MULTI_ENGINE_CONFLICT_RESOLVER_NOAPI
+NEXT=V2_54_MULTI_ENGINE_CONFLICT_RESOLVER_NOAPI
+GITHUB_PUSH=false
+
+## PURPOSE
+
+V2_54 selects the Multi Engine Conflict Resolver. It is local-only and NOAPI. It does not create live decisions, trade authority, runtime binding, runtime apply, DB writes, panel writes, API/RPC calls, service/timer changes, wallet access, or outbound packets.
+
+## CANDIDATES
+
+- C1 V2_54_MULTI_ENGINE_CONFLICT_RESOLVER_NOAPI | SELECTED=true | resolve deterministic conflicts between Hunter, Shadow, Precheck, Core Risk, Fresh Risk, Bypass/Quarantine, Dirty Packet Guard, Prosecutor, and Decision Output
+- C2 V2_55_DECISION_OUTPUT_CONTRACT_BINDING_NOAPI | SELECTED=false | bind decision output contract after conflict resolver closes
+- C3 V2_56_CORE_RISK_READMODEL_CONSUMER_DRYRUN_NOAPI | SELECTED=false | dry-run readmodel consumer after resolver and output contract
+- C4 V2_60B_PRIVATE_INVITE_ONLY_BUG_BOUNTY_SANDBOX_PLAN_NOAPI | SELECTED=false | private bug bounty sandbox remains deferred until after V2_60
+
+## CONFLICT DOMAINS
+
+- 1. CORE_RISK_VS_HUNTER
+- 2. CORE_RISK_VS_SHADOW
+- 3. CORE_RISK_VS_PRECHECK
+- 4. FRESH_RISK_VS_CACHE
+- 5. FRESH_RISK_VS_PROBATION
+- 6. FRESH_RISK_VS_BYPASS
+- 7. BYPASS_QUARANTINE_VS_HOT_PATH
+- 8. DIRTY_PACKET_VS_CLEAN_ROUTE
+- 9. PROSECUTOR_EVIDENCE_VS_AUTHORITY
+- 10. DECISION_OUTPUT_VS_TRADE_AUTHORITY
+- 11. EXPLAINABILITY_VS_SPEED
+- 12. BOUNDED_RESOURCE_VS_RETRY
+
+## SELECTION LOCKS
+
+- V2_54_MUST_FOLLOW_V2_53_SEALED_HEAD=True
+- V2_54_IS_CONFLICT_RESOLVER_ONLY=True
+- V2_54_MUST_NOT_CREATE_LIVE_DECISION=True
+- V2_54_MUST_NOT_GRANT_TRADE_AUTHORITY=True
+- V2_54_MUST_NOT_BIND_RUNTIME=True
+- V2_54_MUST_NOT_APPLY_RUNTIME=True
+- V2_54_MUST_NOT_WRITE_CORE_DB=True
+- V2_54_MUST_NOT_WRITE_ACTIVE_PANEL=True
+- V2_54_MUST_NOT_RESTART_SERVICE=True
+- V2_54_MUST_NOT_CHANGE_TIMER=True
+- V2_54_MUST_NOT_CALL_API_RPC=True
+- V2_54_MUST_NOT_SEND_OUTBOUND_PACKET=True
+- CORE_RISK_ALWAYS_SUPERIOR=True
+- CORE_RISK_IS_FINAL_AUTHORITY=True
+- CORE_RISK_CANNOT_BE_OVERRIDDEN=True
+- FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED=True
+- FRESH_RISK_BEATS_STALE_CACHE=True
+- FRESH_RISK_BEATS_PROBATION=True
+- FRESH_RISK_BEATS_BYPASS=True
+- HUNTER_CAN_PROPOSE_ONLY=True
+- HUNTER_CANNOT_APPROVE=True
+- HUNTER_CANNOT_TRADE=True
+- SHADOW_CONTEXT_ONLY=True
+- SHADOW_CANNOT_APPROVE=True
+- SHADOW_CANNOT_RELAX_RISK=True
+- PRECHECK_CAN_ONLY_FAST_FAIL=True
+- PRECHECK_CANNOT_APPROVE=True
+- BYPASS_LIMITER_BOUNDED_REQUIRED=True
+- BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK=True
+- QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST=True
+- DIRTY_PACKET_FAIL_CLOSED_REQUIRED=True
+- DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN=True
+- PROSECUTOR_CAN_ATTACH_EVIDENCE_ONLY=True
+- PROSECUTOR_CANNOT_CREATE_TRADE_AUTHORITY=True
+- EVIDENCE_CHAIN_OF_CUSTODY_REQUIRED=True
+- DECISION_OUTPUT_NULL_AUTHORITY_REQUIRED=True
+- DECISION_OUTPUT_MUST_BE_EXPLAINABLE=True
+- DECISION_OUTPUT_MUST_BE_DRYRUN_ONLY=True
+- CONFLICT_RESOLUTION_DETERMINISTIC_REQUIRED=True
+- CONFLICT_RESOLUTION_TRACE_REQUIRED=True
+- CONFLICT_RESOLUTION_FAIL_CLOSED_REQUIRED=True
+- CONFLICT_RESOLUTION_NO_MAJORITY_VOTE_AUTHORITY=True
+- CONFLICT_RESOLUTION_NO_AI_AUTHORITY=True
+- CONFLICT_RESOLUTION_NO_PROBABILISTIC_AUTHORITY=True
+- CONFLICT_RESOLUTION_PRIORITY_MATRIX_REQUIRED=True
+- PIPELINE_REPLAYABLE_REQUIRED=True
+- PIPELINE_IDEMPOTENT_REQUIRED=True
+- PIPELINE_MUST_BE_BOUNDED=True
+- PIPELINE_NO_UNBOUNDED_SCAN=True
+- PIPELINE_NO_RETRY_STORM=True
+- AUTHORITY_LEAK_ZERO_REQUIRED=True
+- HOT_PATH_BLOCK_ZERO_REQUIRED=True
+- SPEED_NEVER_DOWN=True
+- SECURITY_NEVER_DOWN=True
+- POWER_NEVER_DOWN=True
+- ECONOMY_NEVER_DOWN=True
+- GITHUB_PUSH_FALSE_FOR_SELECTION=True
+
+## AUDIT QUESTIONS
+
+- Can V2_54 resolve multi-engine conflicts deterministically without live authority?
+- Can Core Risk always beat Hunter, Shadow, Precheck, Prosecutor, and output conflicts?
+- Can Fresh Risk override stale cache, probation, and bypass states?
+- Can Dirty Packet fail closed before any clean-route promotion?
+- Can Prosecutor evidence remain evidence-only without authority creation?
+- Can Decision Output remain null-authority and explainable?
+- Can bypass/quarantine avoid overloading Core Risk and still avoid hot-path block?
+- Can conflict resolver reject majority-vote authority?
+- Can conflict resolver reject AI/probabilistic authority?
+- Can conflict resolver emit a replayable trace?
+- Can conflict resolver stay bounded and avoid unbounded scan?
+- Can mismatch fail closed without retry storm?
+- Can any step write Core DB, panel, runtime, service, or timer?
+- Can any step call API/RPC or emit outbound packets?
+- Can any step access wallet or private key?
+- Can V2_54 proceed only from V2_53 sealed GitHub head?
+
+
+## FORBIDDEN
+
+API_RPC=false
+LIVE_FEED=false
+CORE_DB_WRITE=false
+PANEL_WRITE=false
+RUNTIME_BINDING=false
+RUNTIME_APPLY=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+TRADE_AUTHORITY=false
+WALLET_ACCESS=false
+PRIVATE_KEY_ACCESS=false
+OUTBOUND_PACKET=false
+GITHUB_PUSH=false

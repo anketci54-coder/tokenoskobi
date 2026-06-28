@@ -1,0 +1,187 @@
+{"type": "CONFLICT_DOMAIN", "order": 1, "domain": "CORE_RISK_VS_HUNTER"}
+{"type": "CONFLICT_DOMAIN", "order": 2, "domain": "CORE_RISK_VS_SHADOW"}
+{"type": "CONFLICT_DOMAIN", "order": 3, "domain": "CORE_RISK_VS_PRECHECK"}
+{"type": "CONFLICT_DOMAIN", "order": 4, "domain": "FRESH_RISK_VS_CACHE"}
+{"type": "CONFLICT_DOMAIN", "order": 5, "domain": "FRESH_RISK_VS_PROBATION"}
+{"type": "CONFLICT_DOMAIN", "order": 6, "domain": "FRESH_RISK_VS_BYPASS"}
+{"type": "CONFLICT_DOMAIN", "order": 7, "domain": "BYPASS_QUARANTINE_VS_HOT_PATH"}
+{"type": "CONFLICT_DOMAIN", "order": 8, "domain": "DIRTY_PACKET_VS_CLEAN_ROUTE"}
+{"type": "CONFLICT_DOMAIN", "order": 9, "domain": "PROSECUTOR_EVIDENCE_VS_AUTHORITY"}
+{"type": "CONFLICT_DOMAIN", "order": 10, "domain": "DECISION_OUTPUT_VS_TRADE_AUTHORITY"}
+{"type": "CONFLICT_DOMAIN", "order": 11, "domain": "EXPLAINABILITY_VS_SPEED"}
+{"type": "CONFLICT_DOMAIN", "order": 12, "domain": "BOUNDED_RESOURCE_VS_RETRY"}
+{"type": "PRIORITY_MATRIX", "rank": 1, "winner": "DIRTY_PACKET_FAIL_CLOSED", "loser": "ALL_CLEAN_ROUTE_PROMOTIONS", "rule": "dirty packet always fails closed before clean route"}
+{"type": "PRIORITY_MATRIX", "rank": 2, "winner": "CORE_RISK_BLOCK", "loser": "ALL_ALLOW_SIGNALS", "rule": "core risk block is final"}
+{"type": "PRIORITY_MATRIX", "rank": 3, "winner": "FRESH_RISK_NEGATIVE", "loser": "CACHE_SHADOW_PROBATION_BYPASS", "rule": "fresh negative risk beats stale context"}
+{"type": "PRIORITY_MATRIX", "rank": 4, "winner": "PRECHECK_NEGATIVE", "loser": "HUNTER_PROPOSAL", "rule": "precheck can fast-fail proposal"}
+{"type": "PRIORITY_MATRIX", "rank": 5, "winner": "BYPASS_QUARANTINE_GUARD", "loser": "HOT_PATH_OVERLOAD", "rule": "bounded guard prevents overload without granting trust"}
+{"type": "PRIORITY_MATRIX", "rank": 6, "winner": "PROSECUTOR_EVIDENCE_ONLY", "loser": "AUTHORITY_ESCALATION", "rule": "evidence can attach but never authorize"}
+{"type": "PRIORITY_MATRIX", "rank": 7, "winner": "DECISION_OUTPUT_NULL_AUTHORITY", "loser": "ORDER_OR_TRADE_CREATION", "rule": "output is trace only"}
+{"type": "PRIORITY_MATRIX", "rank": 8, "winner": "EXPLAINABLE_FAIL_CLOSED", "loser": "UNEXPLAINED_ALLOW", "rule": "no explanation means fail closed"}
+{"type": "PRIORITY_MATRIX", "rank": 9, "winner": "BOUNDED_RESOURCE_LIMIT", "loser": "RETRY_STORM_OR_UNBOUNDED_SCAN", "rule": "bounded execution beats retry expansion"}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_IS_CONFLICT_RESOLVER_ONLY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_LIVE_DECISION", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_TRADE_AUTHORITY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_RUNTIME_BINDING", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_RUNTIME_APPLY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_CORE_DB_WRITE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_PANEL_WRITE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_SERVICE_RESTART", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_TIMER_CHANGE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_API_RPC", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "V2_54_NO_OUTBOUND_PACKET", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CORE_RISK_ALWAYS_SUPERIOR", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CORE_RISK_IS_FINAL_AUTHORITY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CORE_RISK_CANNOT_BE_OVERRIDDEN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "FRESH_RISK_BEATS_STALE_CACHE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "FRESH_RISK_BEATS_PROBATION", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "FRESH_RISK_BEATS_BYPASS", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "HUNTER_CAN_PROPOSE_ONLY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "HUNTER_CANNOT_APPROVE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "HUNTER_CANNOT_TRADE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "SHADOW_CONTEXT_ONLY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "SHADOW_CANNOT_APPROVE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "SHADOW_CANNOT_RELAX_RISK", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PRECHECK_CAN_ONLY_FAST_FAIL", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PRECHECK_CANNOT_APPROVE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "BYPASS_LIMITER_BOUNDED_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "DIRTY_PACKET_FAIL_CLOSED_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PROSECUTOR_CAN_ATTACH_EVIDENCE_ONLY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PROSECUTOR_CANNOT_CREATE_TRADE_AUTHORITY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "EVIDENCE_CHAIN_OF_CUSTODY_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "DECISION_OUTPUT_NULL_AUTHORITY_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "DECISION_OUTPUT_MUST_BE_EXPLAINABLE", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "DECISION_OUTPUT_CANNOT_CREATE_ORDER", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_DETERMINISTIC_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_TRACE_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_FAIL_CLOSED_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_PRIORITY_MATRIX_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_NO_MAJORITY_VOTE_AUTHORITY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_NO_AI_AUTHORITY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "CONFLICT_RESOLUTION_NO_PROBABILISTIC_AUTHORITY", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PIPELINE_REPLAYABLE_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PIPELINE_IDEMPOTENT_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PIPELINE_MUST_BE_BOUNDED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PIPELINE_NO_UNBOUNDED_SCAN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "PIPELINE_NO_RETRY_STORM", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "AUTHORITY_LEAK_ZERO_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "HOT_PATH_BLOCK_ZERO_REQUIRED", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "SPEED_NEVER_DOWN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "SECURITY_NEVER_DOWN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "POWER_NEVER_DOWN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "ECONOMY_NEVER_DOWN", "value": true}
+{"type": "RESOLVER_CONTRACT", "item": "GITHUB_PUSH_FALSE_FOR_PLAN", "value": true}
+{"type": "DRYRUN_PLAN", "id": "P1", "name": "priority_matrix_conflict_resolution", "next": "V2_54A", "cases": 12}
+{"type": "DRYRUN_PLAN", "id": "P2", "name": "authority_override_rejection", "next": "V2_54A", "cases": 12}
+{"type": "DRYRUN_PLAN", "id": "P3", "name": "fresh_risk_dirty_packet_fail_closed", "next": "V2_54B", "cases": 12}
+{"type": "DRYRUN_PLAN", "id": "P4", "name": "evidence_output_explainability_null_authority", "next": "V2_54B", "cases": 12}
+{"type": "DRYRUN_PLAN", "id": "P5", "name": "side_effect_hash_no_packet_audit", "next": "V2_54C", "cases": 12}
+{"type": "DRYRUN_PLAN", "id": "P6", "name": "post_audit_and_final_close_readiness", "next": "V2_54D", "cases": 12}
+{"type": "TEST_MATRIX", "id": "T1", "domain": "priority", "case": "core risk vs hunter allow", "expected": "CORE_RISK_WINS"}
+{"type": "TEST_MATRIX", "id": "T2", "domain": "priority", "case": "core risk vs shadow relax", "expected": "CORE_RISK_WINS"}
+{"type": "TEST_MATRIX", "id": "T3", "domain": "priority", "case": "core risk vs precheck allow", "expected": "CORE_RISK_WINS"}
+{"type": "TEST_MATRIX", "id": "T4", "domain": "fresh_risk", "case": "fresh risk vs stale cache", "expected": "FRESH_RISK_WINS"}
+{"type": "TEST_MATRIX", "id": "T5", "domain": "fresh_risk", "case": "fresh risk vs probation", "expected": "FRESH_RISK_WINS"}
+{"type": "TEST_MATRIX", "id": "T6", "domain": "fresh_risk", "case": "fresh risk vs bypass", "expected": "FRESH_RISK_WINS"}
+{"type": "TEST_MATRIX", "id": "T7", "domain": "dirty_packet", "case": "dirty packet vs clean route", "expected": "FAIL_CLOSED_DIRTY_PACKET"}
+{"type": "TEST_MATRIX", "id": "T8", "domain": "bypass", "case": "bypass flood vs hot path", "expected": "BOUNDED_QUARANTINE"}
+{"type": "TEST_MATRIX", "id": "T9", "domain": "evidence", "case": "prosecutor evidence vs authority", "expected": "EVIDENCE_ONLY_NO_AUTHORITY"}
+{"type": "TEST_MATRIX", "id": "T10", "domain": "output", "case": "decision output vs order creation", "expected": "NULL_AUTHORITY_REJECT_ORDER"}
+{"type": "TEST_MATRIX", "id": "T11", "domain": "explainability", "case": "missing explanation allow", "expected": "FAIL_CLOSED_NO_EXPLANATION"}
+{"type": "TEST_MATRIX", "id": "T12", "domain": "resource", "case": "retry storm vs bounded limit", "expected": "REJECT_RETRY_STORM"}
+{"type": "TEST_MATRIX", "id": "T13", "domain": "resource", "case": "unbounded scan attempt", "expected": "REJECT_UNBOUNDED_SCAN"}
+{"type": "TEST_MATRIX", "id": "T14", "domain": "authority", "case": "majority vote override", "expected": "REJECT_MAJORITY_VOTE_AUTHORITY"}
+{"type": "TEST_MATRIX", "id": "T15", "domain": "authority", "case": "ai authority override", "expected": "REJECT_AI_AUTHORITY"}
+{"type": "TEST_MATRIX", "id": "T16", "domain": "authority", "case": "probabilistic authority override", "expected": "REJECT_PROBABILISTIC_AUTHORITY"}
+{"type": "TEST_MATRIX", "id": "T17", "domain": "trace", "case": "conflict trace missing", "expected": "FAIL_CLOSED_NO_TRACE"}
+{"type": "TEST_MATRIX", "id": "T18", "domain": "trace", "case": "same conflict replay", "expected": "IDEMPOTENT_REPLAY_MATCH"}
+{"type": "TEST_MATRIX", "id": "T19", "domain": "side_effect", "case": "core db write attempt", "expected": "REJECT_CORE_DB_WRITE"}
+{"type": "TEST_MATRIX", "id": "T20", "domain": "side_effect", "case": "panel write attempt", "expected": "REJECT_PANEL_WRITE"}
+{"type": "TEST_MATRIX", "id": "T21", "domain": "side_effect", "case": "runtime binding attempt", "expected": "REJECT_RUNTIME_BINDING"}
+{"type": "TEST_MATRIX", "id": "T22", "domain": "side_effect", "case": "runtime apply attempt", "expected": "REJECT_RUNTIME_APPLY"}
+{"type": "TEST_MATRIX", "id": "T23", "domain": "side_effect", "case": "api rpc attempt", "expected": "REJECT_API_RPC"}
+{"type": "TEST_MATRIX", "id": "T24", "domain": "side_effect", "case": "outbound packet attempt", "expected": "REJECT_OUTBOUND_PACKET"}
+{"type": "TEST_MATRIX", "id": "T25", "domain": "side_effect", "case": "service restart attempt", "expected": "REJECT_SERVICE_RESTART"}
+{"type": "TEST_MATRIX", "id": "T26", "domain": "side_effect", "case": "timer change attempt", "expected": "REJECT_TIMER_CHANGE"}
+{"type": "TEST_MATRIX", "id": "T27", "domain": "wallet", "case": "wallet access attempt", "expected": "REJECT_WALLET_ACCESS"}
+{"type": "TEST_MATRIX", "id": "T28", "domain": "wallet", "case": "private key access attempt", "expected": "REJECT_PRIVATE_KEY_ACCESS"}
+{"type": "TEST_MATRIX", "id": "T29", "domain": "hash", "case": "core db hash drift", "expected": "REJECT_HASH_DRIFT"}
+{"type": "TEST_MATRIX", "id": "T30", "domain": "hash", "case": "active panel hash drift", "expected": "REJECT_HASH_DRIFT"}
+{"type": "TEST_MATRIX", "id": "T31", "domain": "hash", "case": "risk json hash drift", "expected": "REJECT_HASH_DRIFT"}
+{"type": "TEST_MATRIX", "id": "T32", "domain": "hash", "case": "phase41 hash drift", "expected": "REJECT_HASH_DRIFT"}
+{"type": "TEST_MATRIX", "id": "T33", "domain": "live", "case": "live decision creation attempt", "expected": "REJECT_LIVE_DECISION"}
+{"type": "TEST_MATRIX", "id": "T34", "domain": "live", "case": "live trade creation attempt", "expected": "REJECT_LIVE_TRADE"}
+{"type": "TEST_MATRIX", "id": "T35", "domain": "trade", "case": "trade authority creation attempt", "expected": "REJECT_TRADE_AUTHORITY"}
+{"type": "TEST_MATRIX", "id": "T36", "domain": "hot_path", "case": "hot path block attempt", "expected": "REJECT_HOT_PATH_BLOCK"}
+{"type": "BUDGET", "item": "MAX_LIVE_DECISION", "value": 0}
+{"type": "BUDGET", "item": "MAX_LIVE_TRADE", "value": 0}
+{"type": "BUDGET", "item": "MAX_TRADE_AUTHORITY", "value": 0}
+{"type": "BUDGET", "item": "MAX_RUNTIME_BINDING", "value": 0}
+{"type": "BUDGET", "item": "MAX_RUNTIME_APPLY", "value": 0}
+{"type": "BUDGET", "item": "MAX_CORE_DB_WRITE", "value": 0}
+{"type": "BUDGET", "item": "MAX_PANEL_WRITE", "value": 0}
+{"type": "BUDGET", "item": "MAX_API_RPC_CALL", "value": 0}
+{"type": "BUDGET", "item": "MAX_OUTBOUND_PACKET", "value": 0}
+{"type": "BUDGET", "item": "MAX_WALLET_ACCESS", "value": 0}
+{"type": "BUDGET", "item": "MAX_PRIVATE_KEY_ACCESS", "value": 0}
+{"type": "BUDGET", "item": "MAX_SERVICE_RESTART", "value": 0}
+{"type": "BUDGET", "item": "MAX_TIMER_CHANGE", "value": 0}
+{"type": "BUDGET", "item": "MAX_AUTHORITY_LEAK", "value": 0}
+{"type": "BUDGET", "item": "MAX_HOT_PATH_BLOCK_MS", "value": 0}
+{"type": "BUDGET", "item": "MAX_UNBOUNDED_SCAN", "value": 0}
+{"type": "BUDGET", "item": "MAX_RETRY_STORM", "value": 0}
+{"type": "BUDGET", "item": "CONFLICT_COMPLEXITY", "value": "O1_OR_BOUNDED_BATCH"}
+{"type": "BUDGET", "item": "TRACE_REQUIRED", "value": 1}
+{"type": "BUDGET", "item": "IDEMPOTENT_REQUIRED", "value": 1}
+{"type": "CHECK", "item": "remote_sync", "value": true}
+{"type": "CHECK", "item": "ahead_behind_clean", "value": true}
+{"type": "CHECK", "item": "v54_selection_pass", "value": true}
+{"type": "CHECK", "item": "v54_selection_next_match", "value": true}
+{"type": "CHECK", "item": "v53_final_pass", "value": true}
+{"type": "CHECK", "item": "v53_final_next_match", "value": true}
+{"type": "CHECK", "item": "v53d_pass", "value": true}
+{"type": "CHECK", "item": "resolver_contract_count", "value": true}
+{"type": "CHECK", "item": "conflict_domain_count", "value": true}
+{"type": "CHECK", "item": "priority_matrix_count", "value": true}
+{"type": "CHECK", "item": "dryrun_plan_count", "value": true}
+{"type": "CHECK", "item": "test_matrix_count", "value": true}
+{"type": "CHECK", "item": "budget_count", "value": true}
+{"type": "CHECK", "item": "resolver_only", "value": true}
+{"type": "CHECK", "item": "core_risk_final_authority", "value": true}
+{"type": "CHECK", "item": "fresh_risk_priority", "value": true}
+{"type": "CHECK", "item": "decision_output_null_authority", "value": true}
+{"type": "CHECK", "item": "conflict_deterministic", "value": true}
+{"type": "CHECK", "item": "conflict_fail_closed", "value": true}
+{"type": "CHECK", "item": "conflict_trace", "value": true}
+{"type": "CHECK", "item": "bounded_pipeline", "value": true}
+{"type": "CHECK", "item": "budget_zero_side_effects", "value": true}
+{"type": "CHECK", "item": "noapi", "value": true}
+{"type": "CHECK", "item": "no_live_feed", "value": true}
+{"type": "CHECK", "item": "no_core_db_write", "value": true}
+{"type": "CHECK", "item": "no_panel_write", "value": true}
+{"type": "CHECK", "item": "no_runtime_binding", "value": true}
+{"type": "CHECK", "item": "no_runtime_apply", "value": true}
+{"type": "CHECK", "item": "no_service_restart", "value": true}
+{"type": "CHECK", "item": "no_timer_change", "value": true}
+{"type": "CHECK", "item": "no_live_decision", "value": true}
+{"type": "CHECK", "item": "no_live_trade", "value": true}
+{"type": "CHECK", "item": "no_trade_authority", "value": true}
+{"type": "CHECK", "item": "no_wallet", "value": true}
+{"type": "CHECK", "item": "no_private_key", "value": true}
+{"type": "CHECK", "item": "no_packet", "value": true}
+{"type": "CHECK", "item": "no_github_push", "value": true}
+{"type": "CHECK", "item": "db_sha", "value": true}
+{"type": "CHECK", "item": "index_sha", "value": true}
+{"type": "CHECK", "item": "risk_sha", "value": true}
+{"type": "CHECK", "item": "phase41_sha", "value": true}
+{"type": "FINAL_COUNT", "item": "RESOLVER_CONTRACT_COUNT", "value": 56}
+{"type": "FINAL_COUNT", "item": "CONFLICT_DOMAIN_COUNT", "value": 12}
+{"type": "FINAL_COUNT", "item": "PRIORITY_MATRIX_COUNT", "value": 9}
+{"type": "FINAL_COUNT", "item": "DRYRUN_PLAN_COUNT", "value": 6}
+{"type": "FINAL_COUNT", "item": "TEST_MATRIX_COUNT", "value": 36}
+{"type": "FINAL_COUNT", "item": "BUDGET_COUNT", "value": 20}
+{"type": "NEXT", "value": "V2_54A_CONFLICT_PRIORITY_MATRIX_DRYRUN_LOCAL_NOAPI"}
