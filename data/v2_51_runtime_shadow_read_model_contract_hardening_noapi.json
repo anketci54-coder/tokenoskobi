@@ -1,0 +1,402 @@
+{
+  "task": "V2_51_RUNTIME_SHADOW_READ_MODEL_CONTRACT_HARDENING_NOAPI",
+  "stamp_utc": "2026-06-28T06:18:54Z",
+  "mode": "LOCAL_ONLY_NOAPI_PLAN_NO_PUSH",
+  "final_gate": "PASS_V2_51_RUNTIME_SHADOW_READ_MODEL_CONTRACT_HARDENING_NOAPI",
+  "decision": "V2_51_PLAN_PASS_READY_FOR_QUARANTINE_AND_BYPASS_CONTRACT",
+  "next": "V2_51A_QUARANTINE_TTL_PROBATION_AND_BYPASS_LIMITER_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "1dc576d859033055750a34599e21906dce6b869c",
+  "remote_now": "1dc576d859033055750a34599e21906dce6b869c",
+  "ahead_behind": "0 0",
+  "status_now": "?? data/v2_51_next_approved_phase_selection_noapi.json\n?? data/v2_51_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_51_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "hardening_contract": {
+    "V2_51_IS_GATE_OF_HELL_HARDENING": true,
+    "V2_51_USES_V2_50Z_FINDINGS": true,
+    "HARDENING_IS_NOT_PATCHING": true,
+    "HARDENING_MUST_NARROW_DECISION_SPACE": true,
+    "HARDENING_MUST_BE_O1": true,
+    "HARDENING_MUST_NOT_INCREASE_HOT_PATH_LATENCY": true,
+    "HARDENING_MUST_NOT_INCREASE_MEMORY_BLOAT": true,
+    "QUARANTINE_AUTO_EVICTION_TTL_REQUIRED": true,
+    "QUARANTINE_TTL_CHECK_MUST_BE_O1": true,
+    "QUARANTINE_TTL_EXPIRED_MUST_EVICT_WITHOUT_TRUST": true,
+    "QUARANTINE_COOLDOWN_REQUIRED": true,
+    "QUARANTINE_REENTRY_PROBATION_ONLY": true,
+    "QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST": true,
+    "QUARANTINE_RELEASE_CANNOT_WHITELIST_SOURCE": true,
+    "QUARANTINE_RELEASE_CANNOT_RELAX_RISK": true,
+    "QUARANTINE_RELEASE_MUST_REENTER_SHADOW_ONLY": true,
+    "QUARANTINE_POOL_MUST_BE_BOUNDED": true,
+    "QUARANTINE_POOL_OVERFLOW_MUST_EVICT_OLDEST_LOWEST": true,
+    "CORE_RISK_BYPASS_LIMITER_BOUNDED_REQUIRED": true,
+    "BYPASS_FLOOD_CANNOT_OVERLOAD_CORE_RISK": true,
+    "BYPASS_RATE_LIMIT_O1_REQUIRED": true,
+    "BYPASS_COUNTERS_MUST_BE_FIXED_SIZE": true,
+    "BYPASS_LIMITER_CANNOT_BLOCK_HOT_PATH": true,
+    "BYPASS_LIMITER_CANNOT_APPROVE": true,
+    "BYPASS_LIMITER_CANNOT_OVERRIDE_CORE_RISK": true,
+    "BYPASS_LIMITER_CANNOT_CREATE_TRADE_AUTHORITY": true,
+    "DIRTY_PACKET_FAIL_CLOSED_REQUIRED": true,
+    "MALFORMED_PAYLOAD_NO_RETRY_STORM": true,
+    "PARTIAL_PAYLOAD_SAFE_REJECT_REQUIRED": true,
+    "DUPLICATE_EVENT_DEDUPE_OR_REJECT_REQUIRED": true,
+    "TIMEOUT_RATE_LIMIT_SAFE_REJECT_REQUIRED": true,
+    "DIRTY_PACKET_HANDLER_CANNOT_ALLOCATE_UNBOUNDED_MEMORY": true,
+    "DIRTY_PACKET_HANDLER_CANNOT_CALL_NETWORK": true,
+    "DIRTY_PACKET_HANDLER_CANNOT_CREATE_RUNTIME_AUTHORITY": true,
+    "FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED": true,
+    "FRESH_RISK_RACE_BEATS_SHADOW_CONTEXT": true,
+    "SHADOW_CONTEXT_CANNOT_OVERRIDE_FRESH_RISK": true,
+    "FRESH_RISK_CAN_SUPPRESS_SHADOW_CACHE": true,
+    "FRESH_RISK_PRIORITY_MUST_BE_CONSTANT_TIME": true,
+    "FRESH_RISK_OVERRIDE_CANNOT_BE_PROBABILISTIC": true,
+    "SHADOW_CONTEXT_ONLY": true,
+    "PRECHECK_CAN_ONLY_FAST_FAIL": true,
+    "PRECHECK_CANNOT_APPROVE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE": true,
+    "CORE_RISK_ALWAYS_SUPERIOR": true,
+    "GATE_OF_HELL_INVARIANTS_MUST_REMAIN_ABSOLUTE": true,
+    "BUG_BOUNTY_DEFERRED_AFTER_V2_60": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "NO_API_RPC": true,
+    "NO_LIVE_FEED": true,
+    "NO_CORE_DB_WRITE": true,
+    "NO_PANEL_WRITE": true,
+    "NO_RUNTIME_APPLY": true,
+    "NO_SERVICE_RESTART": true,
+    "NO_TIMER_CHANGE": true,
+    "NO_LIVE_DECISION": true,
+    "NO_LIVE_TRADE": true,
+    "NO_WALLET_ACCESS": true,
+    "NO_PRIVATE_KEY_ACCESS": true,
+    "NO_OUTBOUND_PACKET": true,
+    "GITHUB_PUSH_FALSE_FOR_PLAN": true
+  },
+  "budgets": {
+    "QUARANTINE_MAX_ITEMS": 200,
+    "QUARANTINE_TTL_SECONDS": 600,
+    "QUARANTINE_COOLDOWN_SECONDS": 300,
+    "PROBATION_TTL_SECONDS": 900,
+    "BYPASS_PER_SOURCE_LIMIT": 10,
+    "BYPASS_PER_ROUTE_LIMIT": 20,
+    "BYPASS_PER_TOKEN_LIMIT": 15,
+    "BYPASS_BURST_LIMIT": 50,
+    "DIRTY_PACKET_MAX_RETRY": 0,
+    "MAX_HOT_PATH_BLOCK_MS": 0,
+    "MAX_OUTBOUND_PACKET": 0,
+    "MAX_API_RPC_CALL": 0,
+    "MAX_CORE_DB_WRITE": 0,
+    "MAX_PANEL_WRITE": 0,
+    "MAX_RUNTIME_APPLY": 0,
+    "MAX_LIVE_TRADE": 0,
+    "MAX_WALLET_ACCESS": 0,
+    "MAX_PRIVATE_KEY_ACCESS": 0
+  },
+  "test_matrix": [
+    {
+      "id": "H1",
+      "domain": "quarantine",
+      "case": "ttl expired source",
+      "expected": "EVICT_TO_PROBATION_ONLY_NO_TRUST"
+    },
+    {
+      "id": "H2",
+      "domain": "quarantine",
+      "case": "released source requests trust",
+      "expected": "REJECT_TRUST_ESCALATION"
+    },
+    {
+      "id": "H3",
+      "domain": "quarantine",
+      "case": "released source requests whitelist",
+      "expected": "REJECT_WHITELIST_ESCALATION"
+    },
+    {
+      "id": "H4",
+      "domain": "quarantine",
+      "case": "released source requests risk relax",
+      "expected": "REJECT_RISK_RELAX"
+    },
+    {
+      "id": "H5",
+      "domain": "quarantine",
+      "case": "quarantine pool overflow",
+      "expected": "EVICT_OLDEST_LOWEST_NO_HOT_PATH_BLOCK"
+    },
+    {
+      "id": "H6",
+      "domain": "quarantine",
+      "case": "ttl check attempts scan",
+      "expected": "REJECT_NON_O1_TTL_CHECK"
+    },
+    {
+      "id": "H7",
+      "domain": "bypass",
+      "case": "source bypass flood",
+      "expected": "QUARANTINE_SOURCE_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "H8",
+      "domain": "bypass",
+      "case": "route bypass flood",
+      "expected": "QUARANTINE_ROUTE_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "H9",
+      "domain": "bypass",
+      "case": "token bypass flood",
+      "expected": "QUARANTINE_TOKEN_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "H10",
+      "domain": "bypass",
+      "case": "burst bypass flood",
+      "expected": "QUARANTINE_BURST_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "H11",
+      "domain": "bypass",
+      "case": "bypass limiter approve attempt",
+      "expected": "REJECT_AUTHORITY_DRIFT"
+    },
+    {
+      "id": "H12",
+      "domain": "bypass",
+      "case": "bypass limiter hot path block",
+      "expected": "REJECT_HOT_PATH_BLOCK"
+    },
+    {
+      "id": "H13",
+      "domain": "dirty_packet",
+      "case": "malformed json",
+      "expected": "FAIL_CLOSED_NO_RETRY"
+    },
+    {
+      "id": "H14",
+      "domain": "dirty_packet",
+      "case": "partial payload",
+      "expected": "SAFE_REJECT_PARTIAL_PAYLOAD"
+    },
+    {
+      "id": "H15",
+      "domain": "dirty_packet",
+      "case": "duplicate event",
+      "expected": "DEDUPE_OR_REJECT_DETERMINISTIC"
+    },
+    {
+      "id": "H16",
+      "domain": "dirty_packet",
+      "case": "timeout storm",
+      "expected": "FAIL_CLOSED_NO_RETRY_STORM"
+    },
+    {
+      "id": "H17",
+      "domain": "dirty_packet",
+      "case": "rate limit storm",
+      "expected": "FAIL_CLOSED_NO_RETRY_STORM"
+    },
+    {
+      "id": "H18",
+      "domain": "dirty_packet",
+      "case": "dirty packet network call attempt",
+      "expected": "REJECT_OUTBOUND_LEAK"
+    },
+    {
+      "id": "H19",
+      "domain": "fresh_risk",
+      "case": "fresh risk and shadow same nanosecond",
+      "expected": "FRESH_RISK_SUPPRESSES_SHADOW"
+    },
+    {
+      "id": "H20",
+      "domain": "fresh_risk",
+      "case": "fresh risk and probation source race",
+      "expected": "FRESH_RISK_SUPPRESSES_PROBATION"
+    },
+    {
+      "id": "H21",
+      "domain": "fresh_risk",
+      "case": "shadow cache tries override fresh risk",
+      "expected": "REJECT_RISK_OVERRIDE"
+    },
+    {
+      "id": "H22",
+      "domain": "fresh_risk",
+      "case": "probabilistic fresh risk ordering",
+      "expected": "REJECT_NON_DETERMINISTIC_PRIORITY"
+    },
+    {
+      "id": "H23",
+      "domain": "authority",
+      "case": "precheck approve attempt",
+      "expected": "REJECT_AUTHORITY_DRIFT"
+    },
+    {
+      "id": "H24",
+      "domain": "authority",
+      "case": "precheck trade attempt",
+      "expected": "REJECT_AUTHORITY_DRIFT"
+    },
+    {
+      "id": "H25",
+      "domain": "authority",
+      "case": "precheck score attempt",
+      "expected": "REJECT_AUTHORITY_DRIFT"
+    },
+    {
+      "id": "H26",
+      "domain": "authority",
+      "case": "shadow context approve attempt",
+      "expected": "REJECT_AUTHORITY_DRIFT"
+    },
+    {
+      "id": "H27",
+      "domain": "resource",
+      "case": "unbounded memory allocation attempt",
+      "expected": "REJECT_MEMORY_BLOAT"
+    },
+    {
+      "id": "H28",
+      "domain": "resource",
+      "case": "hot path latency regression",
+      "expected": "REJECT_LATENCY_REGRESSION"
+    },
+    {
+      "id": "H29",
+      "domain": "forbidden",
+      "case": "api rpc attempt",
+      "expected": "REJECT_OUTBOUND_LEAK"
+    },
+    {
+      "id": "H30",
+      "domain": "forbidden",
+      "case": "core db write attempt",
+      "expected": "REJECT_CORE_DB_WRITE"
+    },
+    {
+      "id": "H31",
+      "domain": "forbidden",
+      "case": "live trade attempt",
+      "expected": "REJECT_LIVE_TRADE"
+    },
+    {
+      "id": "H32",
+      "domain": "forbidden",
+      "case": "wallet access attempt",
+      "expected": "REJECT_WALLET_ACCESS"
+    }
+  ],
+  "v51_findings": [
+    {
+      "finding": "quarantine TTL/probation must be hardened after jailbreak vector",
+      "source_vector": "Z12",
+      "required_for_v51": true
+    },
+    {
+      "finding": "core risk bypass limiter must remain bounded after flood vector",
+      "source_vector": "Z2/Z11",
+      "required_for_v51": true
+    },
+    {
+      "finding": "dirty packet fail-closed behavior must be preserved for later V2_59 network corruption",
+      "source_vector": "Z15/Z16",
+      "required_for_v51": true
+    },
+    {
+      "finding": "fresh risk override priority must remain absolute under race",
+      "source_vector": "Z8",
+      "required_for_v51": true
+    }
+  ],
+  "expected_findings": [
+    "quarantine TTL/probation must be hardened after jailbreak vector",
+    "core risk bypass limiter must remain bounded after flood vector",
+    "dirty packet fail-closed behavior must be preserved for later V2_59 network corruption",
+    "fresh risk override priority must remain absolute under race"
+  ],
+  "red_team_acceptance": [
+    "quarantine release cannot become trust",
+    "probation reentry remains shadow-only",
+    "TTL eviction remains O(1)",
+    "bypass limiter protects Core Risk without hot path block",
+    "bypass flood cannot expand Core Risk burden",
+    "dirty packets fail closed without retry storm",
+    "malformed payload cannot allocate unbounded memory",
+    "timeout and 429 cannot create outbound retry loop",
+    "duplicate event is deduped or rejected deterministically",
+    "partial payload is safely rejected",
+    "fresh risk always beats shadow context",
+    "fresh risk always beats probation source",
+    "precheck remains negative filter only",
+    "hardening narrows decision space",
+    "Gate of Hell invariants remain absolute",
+    "Bug bounty stays deferred until after V2_60"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "CORE_DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v51_selection_pass": true,
+    "v51_selection_next_match": true,
+    "v50z_final_pass": true,
+    "v50z_sealed_head_match": true,
+    "v50zb_pass": true,
+    "v50za_pass": true,
+    "v50_final_pass": true,
+    "hardening_contract_count": true,
+    "budget_count": true,
+    "test_matrix_count": true,
+    "red_team_acceptance_count": true,
+    "v51_findings_count_4": true,
+    "expected_findings_present": true,
+    "quarantine_contracts_present": true,
+    "bypass_contracts_present": true,
+    "dirty_packet_contracts_present": true,
+    "fresh_risk_contracts_present": true,
+    "hardening_not_patch": true,
+    "hardening_o1": true,
+    "bug_bounty_deferred": true,
+    "noapi": true,
+    "no_live_feed": true,
+    "no_core_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_live_decision": true,
+    "no_live_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
