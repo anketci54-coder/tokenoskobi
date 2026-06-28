@@ -1,0 +1,124 @@
+# V2_52C_PRE_BINDING_SIDE_EFFECT_AND_HASH_AUDIT_LOCAL_NOAPI
+
+STAMP_UTC=2026-06-28T07:25:45Z
+MODE=LOCAL_ONLY_NOAPI_SIDE_EFFECT_HASH_AUDIT_NO_PUSH
+
+## RESULT
+
+FINAL_GATE=PASS_V2_52C_PRE_BINDING_SIDE_EFFECT_AND_HASH_AUDIT_LOCAL_NOAPI
+DECISION=V2_52C_SIDE_EFFECT_HASH_PASS_READY_FOR_POST_AUDIT
+NEXT=V2_52D_CORE_RISK_PRE_BINDING_POST_AUDIT_LOCAL_NOAPI
+GITHUB_PUSH=false
+
+## PURPOSE
+
+V2_52C audits that pre-binding checks create zero side effects and preserve Core DB, active panel, risk JSON, and Phase41 hashes before final post-audit.
+
+## CONTRACT
+
+- V2_52C_SCOPE_SIDE_EFFECT_AND_HASH_ONLY=True
+- PRE_BINDING_SIDE_EFFECT_ZERO_REQUIRED=True
+- HASH_INTEGRITY_REQUIRED=True
+- CORE_DB_HASH_MUST_NOT_CHANGE=True
+- ACTIVE_PANEL_HASH_MUST_NOT_CHANGE=True
+- RISK_JSON_HASH_MUST_NOT_CHANGE=True
+- PHASE41_JSON_HASH_MUST_NOT_CHANGE=True
+- RUNTIME_BINDING_FORBIDDEN=True
+- RUNTIME_APPLY_FORBIDDEN=True
+- CORE_DB_WRITE_FORBIDDEN=True
+- PANEL_WRITE_FORBIDDEN=True
+- API_RPC_FORBIDDEN=True
+- OUTBOUND_PACKET_FORBIDDEN=True
+- SERVICE_RESTART_FORBIDDEN=True
+- TIMER_CHANGE_FORBIDDEN=True
+- LIVE_DECISION_FORBIDDEN=True
+- LIVE_TRADE_FORBIDDEN=True
+- WALLET_ACCESS_FORBIDDEN=True
+- PRIVATE_KEY_ACCESS_FORBIDDEN=True
+- AUTHORITY_LEAK_ZERO_REQUIRED=True
+- HOT_PATH_BLOCK_ZERO_REQUIRED=True
+- CORE_RISK_ALWAYS_SUPERIOR=True
+- CORE_RISK_IS_FINAL_AUTHORITY=True
+- SHADOW_CONTEXT_ONLY=True
+- PRECHECK_CAN_ONLY_FAST_FAIL=True
+- PRECHECK_CANNOT_APPROVE=True
+- FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED=True
+- BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK=True
+- DIRTY_PACKET_FAIL_CLOSED_REQUIRED=True
+- DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN=True
+- CHAIN_OF_CUSTODY_REQUIRED=True
+- O1_PATH_REQUIRED=True
+- HARDENING_MUST_BE_O1=True
+- SPEED_NEVER_DOWN=True
+- SECURITY_NEVER_DOWN=True
+- POWER_NEVER_DOWN=True
+- ECONOMY_NEVER_DOWN=True
+- GITHUB_PUSH_FALSE_FOR_SUBTASK=True
+
+## CASES
+
+- C1 [side_effect] runtime_binding_attempt | EXPECTED=REJECT_RUNTIME_BINDING | ACTUAL=REJECT_RUNTIME_BINDING | PASS=true
+- C2 [side_effect] core_db_write_attempt | EXPECTED=REJECT_CORE_DB_WRITE | ACTUAL=REJECT_CORE_DB_WRITE | PASS=true
+- C3 [side_effect] active_panel_write_attempt | EXPECTED=REJECT_PANEL_WRITE | ACTUAL=REJECT_PANEL_WRITE | PASS=true
+- C4 [side_effect] api_rpc_attempt | EXPECTED=REJECT_API_RPC | ACTUAL=REJECT_API_RPC | PASS=true
+- C5 [side_effect] wallet_access_attempt | EXPECTED=REJECT_WALLET_ACCESS | ACTUAL=REJECT_WALLET_ACCESS | PASS=true
+- C6 [side_effect] service_restart_attempt | EXPECTED=REJECT_SERVICE_RESTART | ACTUAL=REJECT_SERVICE_RESTART | PASS=true
+- C7 [side_effect] timer_change_attempt | EXPECTED=REJECT_TIMER_CHANGE | ACTUAL=REJECT_TIMER_CHANGE | PASS=true
+- C8 [side_effect] hash_drift_after_audit | EXPECTED=REJECT_HASH_DRIFT | ACTUAL=REJECT_HASH_DRIFT | PASS=true
+
+## SUMMARY
+
+- case_count=8
+- pass_count=8
+- side_effect_case_count=8
+- mismatch_count=0
+- hot_path_block_total=0
+- outbound_packet_total=0
+- api_rpc_total=0
+- core_db_write_total=0
+- panel_write_total=0
+- runtime_binding_total=0
+- runtime_apply_total=0
+- service_restart_total=0
+- timer_change_total=0
+- authority_leak_total=0
+- live_decision_total=0
+- live_trade_total=0
+- wallet_access_total=0
+- private_key_access_total=0
+- db_hash_drift=False
+- index_hash_drift=False
+- risk_hash_drift=False
+- phase41_hash_drift=False
+
+## HASHES BEFORE
+
+- db_sha=ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5
+- index_sha=1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd
+- risk_sha=fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f
+- phase41_sha=6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2
+
+## HASHES AFTER
+
+- db_sha=ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5
+- index_sha=1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd
+- risk_sha=fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f
+- phase41_sha=6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2
+
+
+## FORBIDDEN
+
+API_RPC=false
+LIVE_FEED=false
+CORE_DB_WRITE=false
+PANEL_WRITE=false
+RUNTIME_BINDING=false
+RUNTIME_APPLY=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_ACCESS=false
+PRIVATE_KEY_ACCESS=false
+OUTBOUND_PACKET=false
+GITHUB_PUSH=false

@@ -1,0 +1,129 @@
+{"type": "CONTRACT", "item": "V2_52B_SCOPE_FRESH_RISK_BYPASS_DIRTY_PACKET_ONLY", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_BEATS_SHADOW_CONTEXT", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_BEATS_PRECHECK", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_BEATS_PROBATION", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_BEATS_BYPASS_LIMITER_STATE", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_BEATS_CACHE_HIT", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_PRIORITY_MUST_BE_O1", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_CANNOT_BE_SUPPRESSED_BY_SHADOW", "value": true}
+{"type": "CONTRACT", "item": "FRESH_RISK_CANNOT_BE_SUPPRESSED_BY_PRECHECK", "value": true}
+{"type": "CONTRACT", "item": "BYPASS_LIMITER_BOUNDED_REQUIRED", "value": true}
+{"type": "CONTRACT", "item": "BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK", "value": true}
+{"type": "CONTRACT", "item": "BYPASS_LIMITER_CANNOT_APPROVE", "value": true}
+{"type": "CONTRACT", "item": "BYPASS_LIMITER_CANNOT_BLOCK_HOT_PATH", "value": true}
+{"type": "CONTRACT", "item": "BYPASS_LIMITER_MUST_BE_O1", "value": true}
+{"type": "CONTRACT", "item": "QUARANTINE_REENTRY_PROBATION_ONLY", "value": true}
+{"type": "CONTRACT", "item": "QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST", "value": true}
+{"type": "CONTRACT", "item": "PROBATION_CANNOT_AUTHORIZE_TRUST", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_FAIL_CLOSED_REQUIRED", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_CANNOT_TRIGGER_RETRY_STORM", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_CANNOT_CREATE_RUNTIME_AUTHORITY", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_CANNOT_CALL_NETWORK", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_CANNOT_TOUCH_CORE_DB", "value": true}
+{"type": "CONTRACT", "item": "DIRTY_PACKET_CANNOT_TOUCH_PANEL", "value": true}
+{"type": "CONTRACT", "item": "CORE_RISK_ALWAYS_SUPERIOR", "value": true}
+{"type": "CONTRACT", "item": "CORE_RISK_IS_FINAL_AUTHORITY", "value": true}
+{"type": "CONTRACT", "item": "SHADOW_CONTEXT_ONLY", "value": true}
+{"type": "CONTRACT", "item": "PRECHECK_CAN_ONLY_FAST_FAIL", "value": true}
+{"type": "CONTRACT", "item": "PRECHECK_CANNOT_APPROVE", "value": true}
+{"type": "CONTRACT", "item": "RUNTIME_BINDING_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "RUNTIME_APPLY_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "CORE_DB_WRITE_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "PANEL_WRITE_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "API_RPC_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "OUTBOUND_PACKET_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "LIVE_DECISION_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "LIVE_TRADE_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "WALLET_ACCESS_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "PRIVATE_KEY_ACCESS_FORBIDDEN", "value": true}
+{"type": "CONTRACT", "item": "AUTHORITY_LEAK_ZERO_REQUIRED", "value": true}
+{"type": "CONTRACT", "item": "HOT_PATH_BLOCK_ZERO_REQUIRED", "value": true}
+{"type": "CONTRACT", "item": "HARDENING_MUST_BE_O1", "value": true}
+{"type": "CONTRACT", "item": "SPEED_NEVER_DOWN", "value": true}
+{"type": "CONTRACT", "item": "SECURITY_NEVER_DOWN", "value": true}
+{"type": "CONTRACT", "item": "POWER_NEVER_DOWN", "value": true}
+{"type": "CONTRACT", "item": "ECONOMY_NEVER_DOWN", "value": true}
+{"type": "CONTRACT", "item": "GITHUB_PUSH_FALSE_FOR_SUBTASK", "value": true}
+{"type": "CASE", "id": "B1", "domain": "fresh_risk", "attack": "fresh_risk_beats_shadow", "expected": "FRESH_RISK_SUPPRESSES_SHADOW", "actual": "FRESH_RISK_SUPPRESSES_SHADOW", "pass": true}
+{"type": "CASE", "id": "B2", "domain": "fresh_risk", "attack": "fresh_risk_beats_precheck", "expected": "FRESH_RISK_SUPPRESSES_PRECHECK", "actual": "FRESH_RISK_SUPPRESSES_PRECHECK", "pass": true}
+{"type": "CASE", "id": "B3", "domain": "fresh_risk", "attack": "fresh_risk_beats_probation", "expected": "FRESH_RISK_SUPPRESSES_PROBATION", "actual": "FRESH_RISK_SUPPRESSES_PROBATION", "pass": true}
+{"type": "CASE", "id": "B4", "domain": "fresh_risk", "attack": "fresh_risk_beats_cache_hit", "expected": "FRESH_RISK_SUPPRESSES_CACHE_HIT", "actual": "FRESH_RISK_SUPPRESSES_CACHE_HIT", "pass": true}
+{"type": "CASE", "id": "B5", "domain": "bypass_quarantine", "attack": "bypass_source_flood", "expected": "QUARANTINE_SOURCE_BEFORE_CORE_OVERLOAD", "actual": "QUARANTINE_SOURCE_BEFORE_CORE_OVERLOAD", "pass": true}
+{"type": "CASE", "id": "B6", "domain": "bypass_quarantine", "attack": "bypass_route_flood", "expected": "QUARANTINE_ROUTE_BEFORE_CORE_OVERLOAD", "actual": "QUARANTINE_ROUTE_BEFORE_CORE_OVERLOAD", "pass": true}
+{"type": "CASE", "id": "B7", "domain": "bypass_quarantine", "attack": "quarantine_release_trust_attempt", "expected": "REJECT_TRUST_ESCALATION", "actual": "REJECT_TRUST_ESCALATION", "pass": true}
+{"type": "CASE", "id": "B8", "domain": "bypass_quarantine", "attack": "probation_clean_reentry", "expected": "SHADOW_ONLY_NO_TRUST", "actual": "SHADOW_ONLY_NO_TRUST", "pass": true}
+{"type": "CASE", "id": "B9", "domain": "dirty_packet", "attack": "malformed_payload_to_core_risk", "expected": "FAIL_CLOSED_NO_CORE_FORWARD", "actual": "FAIL_CLOSED_NO_CORE_FORWARD", "pass": true}
+{"type": "CASE", "id": "B10", "domain": "dirty_packet", "attack": "partial_payload_to_core_risk", "expected": "SAFE_REJECT_NO_CORE_FORWARD", "actual": "SAFE_REJECT_NO_CORE_FORWARD", "pass": true}
+{"type": "CASE", "id": "B11", "domain": "dirty_packet", "attack": "duplicate_event_to_core_risk", "expected": "DEDUPE_OR_REJECT_NO_RETRY_STORM", "actual": "DEDUPE_OR_REJECT_NO_RETRY_STORM", "pass": true}
+{"type": "CASE", "id": "B12", "domain": "dirty_packet", "attack": "timeout_storm_to_core_risk", "expected": "FAIL_CLOSED_NO_RETRY_STORM", "actual": "FAIL_CLOSED_NO_RETRY_STORM", "pass": true}
+{"type": "SUMMARY", "item": "case_count", "value": 12}
+{"type": "SUMMARY", "item": "pass_count", "value": 12}
+{"type": "SUMMARY", "item": "fresh_risk_case_count", "value": 4}
+{"type": "SUMMARY", "item": "bypass_quarantine_case_count", "value": 4}
+{"type": "SUMMARY", "item": "dirty_packet_case_count", "value": 4}
+{"type": "SUMMARY", "item": "mismatch_count", "value": 0}
+{"type": "SUMMARY", "item": "hot_path_block_total", "value": 0}
+{"type": "SUMMARY", "item": "outbound_packet_total", "value": 0}
+{"type": "SUMMARY", "item": "api_rpc_total", "value": 0}
+{"type": "SUMMARY", "item": "core_db_write_total", "value": 0}
+{"type": "SUMMARY", "item": "panel_write_total", "value": 0}
+{"type": "SUMMARY", "item": "runtime_binding_total", "value": 0}
+{"type": "SUMMARY", "item": "runtime_apply_total", "value": 0}
+{"type": "SUMMARY", "item": "authority_leak_total", "value": 0}
+{"type": "SUMMARY", "item": "live_decision_total", "value": 0}
+{"type": "SUMMARY", "item": "live_trade_total", "value": 0}
+{"type": "SUMMARY", "item": "wallet_access_total", "value": 0}
+{"type": "SUMMARY", "item": "private_key_access_total", "value": 0}
+{"type": "CHECK", "item": "remote_sync", "value": true}
+{"type": "CHECK", "item": "ahead_behind_clean", "value": true}
+{"type": "CHECK", "item": "v52_selection_pass", "value": true}
+{"type": "CHECK", "item": "v52_plan_pass", "value": true}
+{"type": "CHECK", "item": "v52a_fix_pass", "value": true}
+{"type": "CHECK", "item": "v52a_fix_next_match", "value": true}
+{"type": "CHECK", "item": "v51_final_pass", "value": true}
+{"type": "CHECK", "item": "contract_count", "value": true}
+{"type": "CHECK", "item": "case_count_12", "value": true}
+{"type": "CHECK", "item": "pass_count_12", "value": true}
+{"type": "CHECK", "item": "fresh_risk_case_count_4", "value": true}
+{"type": "CHECK", "item": "bypass_quarantine_case_count_4", "value": true}
+{"type": "CHECK", "item": "dirty_packet_case_count_4", "value": true}
+{"type": "CHECK", "item": "mismatch_zero", "value": true}
+{"type": "CHECK", "item": "hot_path_block_zero", "value": true}
+{"type": "CHECK", "item": "outbound_packet_zero", "value": true}
+{"type": "CHECK", "item": "api_rpc_zero", "value": true}
+{"type": "CHECK", "item": "core_db_write_zero", "value": true}
+{"type": "CHECK", "item": "panel_write_zero", "value": true}
+{"type": "CHECK", "item": "runtime_binding_zero", "value": true}
+{"type": "CHECK", "item": "runtime_apply_zero", "value": true}
+{"type": "CHECK", "item": "authority_leak_zero", "value": true}
+{"type": "CHECK", "item": "live_decision_zero", "value": true}
+{"type": "CHECK", "item": "live_trade_zero", "value": true}
+{"type": "CHECK", "item": "wallet_access_zero", "value": true}
+{"type": "CHECK", "item": "private_key_access_zero", "value": true}
+{"type": "CHECK", "item": "fresh_risk_contracts_present", "value": true}
+{"type": "CHECK", "item": "bypass_quarantine_contracts_present", "value": true}
+{"type": "CHECK", "item": "dirty_packet_contracts_present", "value": true}
+{"type": "CHECK", "item": "pre_binding_only", "value": true}
+{"type": "CHECK", "item": "noapi", "value": true}
+{"type": "CHECK", "item": "no_live_feed", "value": true}
+{"type": "CHECK", "item": "no_core_db_write", "value": true}
+{"type": "CHECK", "item": "no_panel_write", "value": true}
+{"type": "CHECK", "item": "no_runtime_binding", "value": true}
+{"type": "CHECK", "item": "no_runtime_apply", "value": true}
+{"type": "CHECK", "item": "no_service_restart", "value": true}
+{"type": "CHECK", "item": "no_timer_change", "value": true}
+{"type": "CHECK", "item": "no_live_decision", "value": true}
+{"type": "CHECK", "item": "no_live_trade", "value": true}
+{"type": "CHECK", "item": "no_wallet", "value": true}
+{"type": "CHECK", "item": "no_private_key", "value": true}
+{"type": "CHECK", "item": "no_packet", "value": true}
+{"type": "CHECK", "item": "no_github_push", "value": true}
+{"type": "CHECK", "item": "db_sha", "value": true}
+{"type": "CHECK", "item": "index_sha", "value": true}
+{"type": "CHECK", "item": "risk_sha", "value": true}
+{"type": "CHECK", "item": "phase41_sha", "value": true}
+{"type": "FINAL_COUNT", "item": "CONTRACT_COUNT", "value": 48}
+{"type": "FINAL_COUNT", "item": "CASE_COUNT", "value": 12}
+{"type": "NEXT", "value": "V2_52C_PRE_BINDING_SIDE_EFFECT_AND_HASH_AUDIT_LOCAL_NOAPI"}

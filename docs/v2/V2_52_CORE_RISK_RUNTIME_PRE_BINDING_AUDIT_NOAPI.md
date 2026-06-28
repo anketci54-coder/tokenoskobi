@@ -1,0 +1,166 @@
+# V2_52_CORE_RISK_RUNTIME_PRE_BINDING_AUDIT_NOAPI
+
+STAMP_UTC=2026-06-28T07:11:58Z
+MODE=LOCAL_ONLY_NOAPI_PLAN_NO_PUSH
+
+## RESULT
+
+FINAL_GATE=PASS_V2_52_CORE_RISK_RUNTIME_PRE_BINDING_AUDIT_NOAPI
+DECISION=V2_52_PLAN_PASS_READY_FOR_CORE_RISK_AUTHORITY_BOUNDARY_AUDIT
+NEXT=V2_52A_CORE_RISK_AUTHORITY_BOUNDARY_AUDIT_LOCAL_NOAPI
+GITHUB_PUSH=false
+
+## PURPOSE
+
+V2_52 audits the armored internal line between Gate of Hell shadow/precheck and Core Risk before any runtime binding. This phase does not bind, apply, write, restart, decide, trade, call API/RPC, or emit packets.
+
+## PRE-BINDING CONTRACT
+
+- V2_52_IS_PRE_BINDING_AUDIT_ONLY=True
+- V2_52_MUST_NOT_BIND_RUNTIME=True
+- V2_52_MUST_NOT_APPLY_RUNTIME=True
+- V2_52_MUST_AUDIT_ONLY=True
+- CORE_RISK_ALWAYS_SUPERIOR=True
+- CORE_RISK_IS_FINAL_AUTHORITY=True
+- CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_SHADOW=True
+- CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_PRECHECK=True
+- CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_PROBATION=True
+- CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_BYPASS_LIMITER=True
+- CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_CACHE_HIT=True
+- SHADOW_CONTEXT_ONLY=True
+- SHADOW_READ_MODEL_READ_ONLY=True
+- SHADOW_CONTEXT_CANNOT_APPROVE=True
+- SHADOW_CONTEXT_CANNOT_AUTHORIZE_TRADE=True
+- SHADOW_CONTEXT_CANNOT_AUTHORIZE_SCORE=True
+- SHADOW_CONTEXT_CANNOT_RELAX_RISK=True
+- SHADOW_CONTEXT_CANNOT_WHITELIST_SOURCE=True
+- PRECHECK_CAN_ONLY_FAST_FAIL=True
+- PRECHECK_IS_NEGATIVE_FILTER_ONLY=True
+- PRECHECK_CANNOT_APPROVE=True
+- PRECHECK_CANNOT_AUTHORIZE_TRADE=True
+- PRECHECK_CANNOT_AUTHORIZE_SCORE=True
+- PRECHECK_CANNOT_OVERRIDE_CORE_RISK=True
+- FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED=True
+- FRESH_RISK_BEATS_SHADOW_CONTEXT=True
+- FRESH_RISK_BEATS_PRECHECK=True
+- FRESH_RISK_BEATS_PROBATION=True
+- FRESH_RISK_BEATS_BYPASS_LIMITER_STATE=True
+- FRESH_RISK_BEATS_CACHE_HIT=True
+- BYPASS_LIMITER_BOUNDED_REQUIRED=True
+- BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK=True
+- BYPASS_LIMITER_CANNOT_APPROVE=True
+- BYPASS_LIMITER_CANNOT_BLOCK_HOT_PATH=True
+- BYPASS_LIMITER_MUST_BE_O1=True
+- QUARANTINE_REENTRY_PROBATION_ONLY=True
+- QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST=True
+- DIRTY_PACKET_FAIL_CLOSED_REQUIRED=True
+- DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN=True
+- DIRTY_PACKET_CANNOT_TRIGGER_RETRY_STORM=True
+- DIRTY_PACKET_CANNOT_CREATE_RUNTIME_AUTHORITY=True
+- CHAIN_OF_CUSTODY_REQUIRED=True
+- AUTHORITY_BOUNDARY_REQUIRED=True
+- FAIL_SAFE_ROUTE_REQUIRED=True
+- NO_SIDE_EFFECTS_REQUIRED=True
+- O1_PATH_REQUIRED=True
+- HASH_INTEGRITY_REQUIRED=True
+- GITHUB_CLEAN_START_REQUIRED=True
+- BUG_BOUNTY_DEFERRED_AFTER_V2_60=True
+- SPEED_NEVER_DOWN=True
+- SECURITY_NEVER_DOWN=True
+- POWER_NEVER_DOWN=True
+- ECONOMY_NEVER_DOWN=True
+- NO_API_RPC=True
+- NO_LIVE_FEED=True
+- NO_CORE_DB_WRITE=True
+- NO_PANEL_WRITE=True
+- NO_RUNTIME_BINDING=True
+- NO_RUNTIME_APPLY=True
+- NO_SERVICE_RESTART=True
+- NO_TIMER_CHANGE=True
+- NO_LIVE_DECISION=True
+- NO_LIVE_TRADE=True
+- NO_WALLET_ACCESS=True
+- NO_PRIVATE_KEY_ACCESS=True
+- NO_OUTBOUND_PACKET=True
+- GITHUB_PUSH_FALSE_FOR_PLAN=True
+
+## AUDIT PLAN
+
+- P1 core_risk_authority_boundary | NEXT=V2_52A | CASES=8
+- P2 shadow_precheck_negative_filter_boundary | NEXT=V2_52A | CASES=8
+- P3 fresh_risk_priority_boundary | NEXT=V2_52B | CASES=8
+- P4 bypass_quarantine_core_protection_boundary | NEXT=V2_52B | CASES=8
+- P5 dirty_packet_core_risk_cleanliness_boundary | NEXT=V2_52B | CASES=8
+- P6 pre_binding_side_effect_and_hash_boundary | NEXT=V2_52C | CASES=8
+
+## TEST MATRIX
+
+- T1 [core_risk] shadow attempts approval before core risk => REJECT_SHADOW_APPROVAL
+- T2 [core_risk] precheck attempts approval before core risk => REJECT_PRECHECK_APPROVAL
+- T3 [core_risk] probation attempts core override => REJECT_PROBATION_OVERRIDE
+- T4 [core_risk] bypass limiter attempts core override => REJECT_BYPASS_OVERRIDE
+- T5 [core_risk] cache hit attempts risk relax => REJECT_CACHE_RISK_RELAX
+- T6 [core_risk] shadow attempts whitelist => REJECT_SHADOW_WHITELIST
+- T7 [core_risk] precheck attempts score authority => REJECT_SCORE_AUTHORITY
+- T8 [core_risk] non-core layer attempts trade authority => REJECT_TRADE_AUTHORITY
+- T9 [shadow_precheck] clean shadow context forwarded => FORWARD_TO_CORE_RISK_NO_APPROVAL
+- T10 [shadow_precheck] negative precheck fail => FAST_FAIL_NO_CORE_APPROVAL
+- T11 [shadow_precheck] stale shadow data => BYPASS_TO_CORE_NO_APPROVAL
+- T12 [shadow_precheck] shadow read model write attempt => REJECT_SHADOW_WRITE
+- T13 [fresh_risk] fresh risk beats shadow => FRESH_RISK_SUPPRESSES_SHADOW
+- T14 [fresh_risk] fresh risk beats precheck => FRESH_RISK_SUPPRESSES_PRECHECK
+- T15 [fresh_risk] fresh risk beats probation => FRESH_RISK_SUPPRESSES_PROBATION
+- T16 [fresh_risk] fresh risk beats cache hit => FRESH_RISK_SUPPRESSES_CACHE_HIT
+- T17 [bypass_quarantine] bypass source flood => QUARANTINE_SOURCE_BEFORE_CORE_OVERLOAD
+- T18 [bypass_quarantine] bypass route flood => QUARANTINE_ROUTE_BEFORE_CORE_OVERLOAD
+- T19 [bypass_quarantine] quarantine release trust attempt => REJECT_TRUST_ESCALATION
+- T20 [bypass_quarantine] probation clean reentry => SHADOW_ONLY_NO_TRUST
+- T21 [dirty_packet] malformed payload to core risk => FAIL_CLOSED_NO_CORE_FORWARD
+- T22 [dirty_packet] partial payload to core risk => SAFE_REJECT_NO_CORE_FORWARD
+- T23 [dirty_packet] duplicate event to core risk => DEDUPE_OR_REJECT_NO_RETRY_STORM
+- T24 [dirty_packet] timeout storm to core risk => FAIL_CLOSED_NO_RETRY_STORM
+- T25 [side_effect] runtime binding attempt => REJECT_RUNTIME_BINDING
+- T26 [side_effect] core db write attempt => REJECT_CORE_DB_WRITE
+- T27 [side_effect] active panel write attempt => REJECT_PANEL_WRITE
+- T28 [side_effect] api rpc attempt => REJECT_API_RPC
+- T29 [side_effect] wallet access attempt => REJECT_WALLET_ACCESS
+- T30 [side_effect] service restart attempt => REJECT_SERVICE_RESTART
+- T31 [side_effect] timer change attempt => REJECT_TIMER_CHANGE
+- T32 [side_effect] hash drift after audit => REJECT_HASH_DRIFT
+
+## BUDGETS
+
+- MAX_RUNTIME_BINDING=0
+- MAX_RUNTIME_APPLY=0
+- MAX_CORE_DB_WRITE=0
+- MAX_PANEL_WRITE=0
+- MAX_API_RPC_CALL=0
+- MAX_OUTBOUND_PACKET=0
+- MAX_LIVE_DECISION=0
+- MAX_LIVE_TRADE=0
+- MAX_WALLET_ACCESS=0
+- MAX_PRIVATE_KEY_ACCESS=0
+- MAX_SERVICE_RESTART=0
+- MAX_TIMER_CHANGE=0
+- MAX_HOT_PATH_BLOCK_MS=0
+- MAX_AUTHORITY_LEAK=0
+- PRIORITY_COMPARE_COMPLEXITY=O1
+- CHAIN_OF_CUSTODY_REQUIRED=1
+
+
+## FORBIDDEN
+
+API_RPC=false
+LIVE_FEED=false
+CORE_DB_WRITE=false
+PANEL_WRITE=false
+RUNTIME_BINDING=false
+RUNTIME_APPLY=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+WALLET_ACCESS=false
+PRIVATE_KEY_ACCESS=false
+OUTBOUND_PACKET=false
+GITHUB_PUSH=false

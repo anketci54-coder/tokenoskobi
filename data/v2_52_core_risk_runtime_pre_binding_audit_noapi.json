@@ -1,0 +1,393 @@
+{
+  "task": "V2_52_CORE_RISK_RUNTIME_PRE_BINDING_AUDIT_NOAPI",
+  "stamp_utc": "2026-06-28T07:11:58Z",
+  "mode": "LOCAL_ONLY_NOAPI_PLAN_NO_PUSH",
+  "final_gate": "PASS_V2_52_CORE_RISK_RUNTIME_PRE_BINDING_AUDIT_NOAPI",
+  "decision": "V2_52_PLAN_PASS_READY_FOR_CORE_RISK_AUTHORITY_BOUNDARY_AUDIT",
+  "next": "V2_52A_CORE_RISK_AUTHORITY_BOUNDARY_AUDIT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "a387ce6b07f2da52e63b2140d565fbf5ec4d830e",
+  "remote_now": "a387ce6b07f2da52e63b2140d565fbf5ec4d830e",
+  "ahead_behind": "0 0",
+  "status_now": "?? data/v2_52_next_approved_phase_selection_noapi.json\n?? data/v2_52_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_52_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "pre_binding_contract": {
+    "V2_52_IS_PRE_BINDING_AUDIT_ONLY": true,
+    "V2_52_MUST_NOT_BIND_RUNTIME": true,
+    "V2_52_MUST_NOT_APPLY_RUNTIME": true,
+    "V2_52_MUST_AUDIT_ONLY": true,
+    "CORE_RISK_ALWAYS_SUPERIOR": true,
+    "CORE_RISK_IS_FINAL_AUTHORITY": true,
+    "CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_SHADOW": true,
+    "CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_PRECHECK": true,
+    "CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_PROBATION": true,
+    "CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_BYPASS_LIMITER": true,
+    "CORE_RISK_CANNOT_BE_OVERRIDDEN_BY_CACHE_HIT": true,
+    "SHADOW_CONTEXT_ONLY": true,
+    "SHADOW_READ_MODEL_READ_ONLY": true,
+    "SHADOW_CONTEXT_CANNOT_APPROVE": true,
+    "SHADOW_CONTEXT_CANNOT_AUTHORIZE_TRADE": true,
+    "SHADOW_CONTEXT_CANNOT_AUTHORIZE_SCORE": true,
+    "SHADOW_CONTEXT_CANNOT_RELAX_RISK": true,
+    "SHADOW_CONTEXT_CANNOT_WHITELIST_SOURCE": true,
+    "PRECHECK_CAN_ONLY_FAST_FAIL": true,
+    "PRECHECK_IS_NEGATIVE_FILTER_ONLY": true,
+    "PRECHECK_CANNOT_APPROVE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE": true,
+    "PRECHECK_CANNOT_OVERRIDE_CORE_RISK": true,
+    "FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED": true,
+    "FRESH_RISK_BEATS_SHADOW_CONTEXT": true,
+    "FRESH_RISK_BEATS_PRECHECK": true,
+    "FRESH_RISK_BEATS_PROBATION": true,
+    "FRESH_RISK_BEATS_BYPASS_LIMITER_STATE": true,
+    "FRESH_RISK_BEATS_CACHE_HIT": true,
+    "BYPASS_LIMITER_BOUNDED_REQUIRED": true,
+    "BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK": true,
+    "BYPASS_LIMITER_CANNOT_APPROVE": true,
+    "BYPASS_LIMITER_CANNOT_BLOCK_HOT_PATH": true,
+    "BYPASS_LIMITER_MUST_BE_O1": true,
+    "QUARANTINE_REENTRY_PROBATION_ONLY": true,
+    "QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST": true,
+    "DIRTY_PACKET_FAIL_CLOSED_REQUIRED": true,
+    "DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN": true,
+    "DIRTY_PACKET_CANNOT_TRIGGER_RETRY_STORM": true,
+    "DIRTY_PACKET_CANNOT_CREATE_RUNTIME_AUTHORITY": true,
+    "CHAIN_OF_CUSTODY_REQUIRED": true,
+    "AUTHORITY_BOUNDARY_REQUIRED": true,
+    "FAIL_SAFE_ROUTE_REQUIRED": true,
+    "NO_SIDE_EFFECTS_REQUIRED": true,
+    "O1_PATH_REQUIRED": true,
+    "HASH_INTEGRITY_REQUIRED": true,
+    "GITHUB_CLEAN_START_REQUIRED": true,
+    "BUG_BOUNTY_DEFERRED_AFTER_V2_60": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "NO_API_RPC": true,
+    "NO_LIVE_FEED": true,
+    "NO_CORE_DB_WRITE": true,
+    "NO_PANEL_WRITE": true,
+    "NO_RUNTIME_BINDING": true,
+    "NO_RUNTIME_APPLY": true,
+    "NO_SERVICE_RESTART": true,
+    "NO_TIMER_CHANGE": true,
+    "NO_LIVE_DECISION": true,
+    "NO_LIVE_TRADE": true,
+    "NO_WALLET_ACCESS": true,
+    "NO_PRIVATE_KEY_ACCESS": true,
+    "NO_OUTBOUND_PACKET": true,
+    "GITHUB_PUSH_FALSE_FOR_PLAN": true
+  },
+  "audit_plan": [
+    {
+      "id": "P1",
+      "name": "core_risk_authority_boundary",
+      "next": "V2_52A",
+      "cases": 8
+    },
+    {
+      "id": "P2",
+      "name": "shadow_precheck_negative_filter_boundary",
+      "next": "V2_52A",
+      "cases": 8
+    },
+    {
+      "id": "P3",
+      "name": "fresh_risk_priority_boundary",
+      "next": "V2_52B",
+      "cases": 8
+    },
+    {
+      "id": "P4",
+      "name": "bypass_quarantine_core_protection_boundary",
+      "next": "V2_52B",
+      "cases": 8
+    },
+    {
+      "id": "P5",
+      "name": "dirty_packet_core_risk_cleanliness_boundary",
+      "next": "V2_52B",
+      "cases": 8
+    },
+    {
+      "id": "P6",
+      "name": "pre_binding_side_effect_and_hash_boundary",
+      "next": "V2_52C",
+      "cases": 8
+    }
+  ],
+  "test_matrix": [
+    {
+      "id": "T1",
+      "domain": "core_risk",
+      "case": "shadow attempts approval before core risk",
+      "expected": "REJECT_SHADOW_APPROVAL"
+    },
+    {
+      "id": "T2",
+      "domain": "core_risk",
+      "case": "precheck attempts approval before core risk",
+      "expected": "REJECT_PRECHECK_APPROVAL"
+    },
+    {
+      "id": "T3",
+      "domain": "core_risk",
+      "case": "probation attempts core override",
+      "expected": "REJECT_PROBATION_OVERRIDE"
+    },
+    {
+      "id": "T4",
+      "domain": "core_risk",
+      "case": "bypass limiter attempts core override",
+      "expected": "REJECT_BYPASS_OVERRIDE"
+    },
+    {
+      "id": "T5",
+      "domain": "core_risk",
+      "case": "cache hit attempts risk relax",
+      "expected": "REJECT_CACHE_RISK_RELAX"
+    },
+    {
+      "id": "T6",
+      "domain": "core_risk",
+      "case": "shadow attempts whitelist",
+      "expected": "REJECT_SHADOW_WHITELIST"
+    },
+    {
+      "id": "T7",
+      "domain": "core_risk",
+      "case": "precheck attempts score authority",
+      "expected": "REJECT_SCORE_AUTHORITY"
+    },
+    {
+      "id": "T8",
+      "domain": "core_risk",
+      "case": "non-core layer attempts trade authority",
+      "expected": "REJECT_TRADE_AUTHORITY"
+    },
+    {
+      "id": "T9",
+      "domain": "shadow_precheck",
+      "case": "clean shadow context forwarded",
+      "expected": "FORWARD_TO_CORE_RISK_NO_APPROVAL"
+    },
+    {
+      "id": "T10",
+      "domain": "shadow_precheck",
+      "case": "negative precheck fail",
+      "expected": "FAST_FAIL_NO_CORE_APPROVAL"
+    },
+    {
+      "id": "T11",
+      "domain": "shadow_precheck",
+      "case": "stale shadow data",
+      "expected": "BYPASS_TO_CORE_NO_APPROVAL"
+    },
+    {
+      "id": "T12",
+      "domain": "shadow_precheck",
+      "case": "shadow read model write attempt",
+      "expected": "REJECT_SHADOW_WRITE"
+    },
+    {
+      "id": "T13",
+      "domain": "fresh_risk",
+      "case": "fresh risk beats shadow",
+      "expected": "FRESH_RISK_SUPPRESSES_SHADOW"
+    },
+    {
+      "id": "T14",
+      "domain": "fresh_risk",
+      "case": "fresh risk beats precheck",
+      "expected": "FRESH_RISK_SUPPRESSES_PRECHECK"
+    },
+    {
+      "id": "T15",
+      "domain": "fresh_risk",
+      "case": "fresh risk beats probation",
+      "expected": "FRESH_RISK_SUPPRESSES_PROBATION"
+    },
+    {
+      "id": "T16",
+      "domain": "fresh_risk",
+      "case": "fresh risk beats cache hit",
+      "expected": "FRESH_RISK_SUPPRESSES_CACHE_HIT"
+    },
+    {
+      "id": "T17",
+      "domain": "bypass_quarantine",
+      "case": "bypass source flood",
+      "expected": "QUARANTINE_SOURCE_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "T18",
+      "domain": "bypass_quarantine",
+      "case": "bypass route flood",
+      "expected": "QUARANTINE_ROUTE_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "T19",
+      "domain": "bypass_quarantine",
+      "case": "quarantine release trust attempt",
+      "expected": "REJECT_TRUST_ESCALATION"
+    },
+    {
+      "id": "T20",
+      "domain": "bypass_quarantine",
+      "case": "probation clean reentry",
+      "expected": "SHADOW_ONLY_NO_TRUST"
+    },
+    {
+      "id": "T21",
+      "domain": "dirty_packet",
+      "case": "malformed payload to core risk",
+      "expected": "FAIL_CLOSED_NO_CORE_FORWARD"
+    },
+    {
+      "id": "T22",
+      "domain": "dirty_packet",
+      "case": "partial payload to core risk",
+      "expected": "SAFE_REJECT_NO_CORE_FORWARD"
+    },
+    {
+      "id": "T23",
+      "domain": "dirty_packet",
+      "case": "duplicate event to core risk",
+      "expected": "DEDUPE_OR_REJECT_NO_RETRY_STORM"
+    },
+    {
+      "id": "T24",
+      "domain": "dirty_packet",
+      "case": "timeout storm to core risk",
+      "expected": "FAIL_CLOSED_NO_RETRY_STORM"
+    },
+    {
+      "id": "T25",
+      "domain": "side_effect",
+      "case": "runtime binding attempt",
+      "expected": "REJECT_RUNTIME_BINDING"
+    },
+    {
+      "id": "T26",
+      "domain": "side_effect",
+      "case": "core db write attempt",
+      "expected": "REJECT_CORE_DB_WRITE"
+    },
+    {
+      "id": "T27",
+      "domain": "side_effect",
+      "case": "active panel write attempt",
+      "expected": "REJECT_PANEL_WRITE"
+    },
+    {
+      "id": "T28",
+      "domain": "side_effect",
+      "case": "api rpc attempt",
+      "expected": "REJECT_API_RPC"
+    },
+    {
+      "id": "T29",
+      "domain": "side_effect",
+      "case": "wallet access attempt",
+      "expected": "REJECT_WALLET_ACCESS"
+    },
+    {
+      "id": "T30",
+      "domain": "side_effect",
+      "case": "service restart attempt",
+      "expected": "REJECT_SERVICE_RESTART"
+    },
+    {
+      "id": "T31",
+      "domain": "side_effect",
+      "case": "timer change attempt",
+      "expected": "REJECT_TIMER_CHANGE"
+    },
+    {
+      "id": "T32",
+      "domain": "side_effect",
+      "case": "hash drift after audit",
+      "expected": "REJECT_HASH_DRIFT"
+    }
+  ],
+  "budgets": {
+    "MAX_RUNTIME_BINDING": 0,
+    "MAX_RUNTIME_APPLY": 0,
+    "MAX_CORE_DB_WRITE": 0,
+    "MAX_PANEL_WRITE": 0,
+    "MAX_API_RPC_CALL": 0,
+    "MAX_OUTBOUND_PACKET": 0,
+    "MAX_LIVE_DECISION": 0,
+    "MAX_LIVE_TRADE": 0,
+    "MAX_WALLET_ACCESS": 0,
+    "MAX_PRIVATE_KEY_ACCESS": 0,
+    "MAX_SERVICE_RESTART": 0,
+    "MAX_TIMER_CHANGE": 0,
+    "MAX_HOT_PATH_BLOCK_MS": 0,
+    "MAX_AUTHORITY_LEAK": 0,
+    "PRIORITY_COMPARE_COMPLEXITY": "O1",
+    "CHAIN_OF_CUSTODY_REQUIRED": 1
+  },
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "CORE_DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_BINDING": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v52_selection_pass": true,
+    "v52_selection_next_match": true,
+    "v51_final_pass": true,
+    "v51_sealed_head_match": true,
+    "v51c_pass": true,
+    "v50z_final_pass": true,
+    "v50_final_pass": true,
+    "contract_count": true,
+    "audit_plan_count": true,
+    "test_matrix_count": true,
+    "budget_count": true,
+    "core_risk_contracts_present": true,
+    "shadow_precheck_contracts_present": true,
+    "fresh_risk_contracts_present": true,
+    "dirty_packet_contracts_present": true,
+    "pre_binding_only": true,
+    "budget_zero_side_effects": true,
+    "noapi": true,
+    "no_live_feed": true,
+    "no_core_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_binding": true,
+    "no_runtime_apply": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_live_decision": true,
+    "no_live_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
