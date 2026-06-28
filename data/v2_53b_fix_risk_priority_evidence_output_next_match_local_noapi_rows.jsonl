@@ -1,0 +1,115 @@
+{"type": "FIX_REASON", "item": "original_final_gate", "value": "REVIEW_V2_53B_RISK_PRIORITY_EVIDENCE_OUTPUT_DRYRUN_LOCAL_NOAPI"}
+{"type": "FIX_REASON", "item": "original_decision", "value": "STOP_REVIEW_REQUIRED"}
+{"type": "FIX_REASON", "item": "original_failed_check", "value": "CHECK_V53_PLAN_FIX_NEXT_MATCH"}
+{"type": "FIX_REASON", "item": "bad_previous_check", "value": "plan_fix.next == V2_53B_TASK"}
+{"type": "FIX_REASON", "item": "correct_chain_check", "value": "v53a.next == V2_53B_TASK"}
+{"type": "FIX_REASON", "item": "plan_fix_next_actual", "value": "V2_53A_DECISION_PIPELINE_ORCHESTRATOR_TRACE_DRYRUN_LOCAL_NOAPI"}
+{"type": "FIX_REASON", "item": "v53a_next_actual", "value": "V2_53B_RISK_PRIORITY_EVIDENCE_OUTPUT_DRYRUN_LOCAL_NOAPI"}
+{"type": "FIX_REASON", "item": "technical_failure", "value": false}
+{"type": "FIX_REASON", "item": "check_logic_failure", "value": true}
+{"type": "CASE", "id": "B1", "domain": "core_risk", "attack": "core_risk_final_authority_path", "expected": "CORE_RISK_FINAL_AUTHORITY_HELD", "actual": "CORE_RISK_FINAL_AUTHORITY_HELD", "pass": true}
+{"type": "CASE", "id": "B2", "domain": "fresh_risk", "attack": "fresh_risk_beats_stale_shadow", "expected": "FRESH_RISK_SUPPRESSES_STALE_SHADOW", "actual": "FRESH_RISK_SUPPRESSES_STALE_SHADOW", "pass": true}
+{"type": "CASE", "id": "B3", "domain": "fresh_risk", "attack": "fresh_risk_beats_cache_hit", "expected": "FRESH_RISK_SUPPRESSES_CACHE", "actual": "FRESH_RISK_SUPPRESSES_CACHE", "pass": true}
+{"type": "CASE", "id": "B4", "domain": "fresh_risk", "attack": "fresh_risk_beats_probation", "expected": "FRESH_RISK_SUPPRESSES_PROBATION", "actual": "FRESH_RISK_SUPPRESSES_PROBATION", "pass": true}
+{"type": "CASE", "id": "B5", "domain": "fresh_risk", "attack": "fresh_risk_beats_bypass_state", "expected": "FRESH_RISK_SUPPRESSES_BYPASS_STATE", "actual": "FRESH_RISK_SUPPRESSES_BYPASS_STATE", "pass": true}
+{"type": "CASE", "id": "B6", "domain": "bypass_quarantine", "attack": "bypass_flood_before_core_risk_overload", "expected": "QUARANTINE_BEFORE_CORE_OVERLOAD", "actual": "QUARANTINE_BEFORE_CORE_OVERLOAD", "pass": true}
+{"type": "CASE", "id": "B7", "domain": "bypass_quarantine", "attack": "quarantine_release_trust_escalation", "expected": "REJECT_TRUST_ESCALATION", "actual": "REJECT_TRUST_ESCALATION", "pass": true}
+{"type": "CASE", "id": "B8", "domain": "dirty_packet", "attack": "dirty_packet_to_core_risk", "expected": "FAIL_CLOSED_NO_CORE_FORWARD", "actual": "FAIL_CLOSED_NO_CORE_FORWARD", "pass": true}
+{"type": "CASE", "id": "B9", "domain": "dirty_packet", "attack": "dirty_packet_retry_storm", "expected": "FAIL_CLOSED_NO_RETRY_STORM", "actual": "FAIL_CLOSED_NO_RETRY_STORM", "pass": true}
+{"type": "CASE", "id": "B10", "domain": "evidence", "attack": "prosecutor_evidence_attach", "expected": "EVIDENCE_ATTACHED_NO_AUTHORITY", "actual": "EVIDENCE_ATTACHED_NO_AUTHORITY", "pass": true}
+{"type": "CASE", "id": "B11", "domain": "evidence", "attack": "evidence_chain_of_custody_missing", "expected": "FAIL_CLOSED_EVIDENCE_CUSTODY", "actual": "FAIL_CLOSED_EVIDENCE_CUSTODY", "pass": true}
+{"type": "CASE", "id": "B12", "domain": "evidence", "attack": "prosecutor_trade_authority_from_evidence", "expected": "REJECT_EVIDENCE_TRADE_AUTHORITY", "actual": "REJECT_EVIDENCE_TRADE_AUTHORITY", "pass": true}
+{"type": "CASE", "id": "B13", "domain": "decision_output", "attack": "null_authority_dryrun_output", "expected": "OUTPUT_TRACE_ONLY_NULL_AUTHORITY", "actual": "OUTPUT_TRACE_ONLY_NULL_AUTHORITY", "pass": true}
+{"type": "CASE", "id": "B14", "domain": "decision_output", "attack": "explainability_missing", "expected": "FAIL_CLOSED_NO_EXPLANATION", "actual": "FAIL_CLOSED_NO_EXPLANATION", "pass": true}
+{"type": "CASE", "id": "B15", "domain": "decision_output", "attack": "live_decision_creation_attempt", "expected": "REJECT_LIVE_DECISION", "actual": "REJECT_LIVE_DECISION", "pass": true}
+{"type": "CASE", "id": "B16", "domain": "decision_output", "attack": "trade_authority_creation_attempt", "expected": "REJECT_TRADE_AUTHORITY", "actual": "REJECT_TRADE_AUTHORITY", "pass": true}
+{"type": "CASE", "id": "B17", "domain": "decision_output", "attack": "order_creation_attempt", "expected": "REJECT_ORDER_CREATION", "actual": "REJECT_ORDER_CREATION", "pass": true}
+{"type": "CASE", "id": "B18", "domain": "resource", "attack": "pipeline_mismatch_retry_storm", "expected": "FAIL_CLOSED_NO_RETRY_STORM", "actual": "FAIL_CLOSED_NO_RETRY_STORM", "pass": true}
+{"type": "SUMMARY", "item": "case_count", "value": 18}
+{"type": "SUMMARY", "item": "pass_count", "value": 18}
+{"type": "SUMMARY", "item": "core_risk_case_count", "value": 1}
+{"type": "SUMMARY", "item": "fresh_risk_case_count", "value": 4}
+{"type": "SUMMARY", "item": "bypass_quarantine_case_count", "value": 2}
+{"type": "SUMMARY", "item": "dirty_packet_case_count", "value": 2}
+{"type": "SUMMARY", "item": "evidence_case_count", "value": 3}
+{"type": "SUMMARY", "item": "decision_output_case_count", "value": 5}
+{"type": "SUMMARY", "item": "resource_case_count", "value": 1}
+{"type": "SUMMARY", "item": "mismatch_count", "value": 0}
+{"type": "SUMMARY", "item": "hot_path_block_total", "value": 0}
+{"type": "SUMMARY", "item": "outbound_packet_total", "value": 0}
+{"type": "SUMMARY", "item": "api_rpc_total", "value": 0}
+{"type": "SUMMARY", "item": "core_db_write_total", "value": 0}
+{"type": "SUMMARY", "item": "panel_write_total", "value": 0}
+{"type": "SUMMARY", "item": "runtime_binding_total", "value": 0}
+{"type": "SUMMARY", "item": "runtime_apply_total", "value": 0}
+{"type": "SUMMARY", "item": "authority_leak_total", "value": 0}
+{"type": "SUMMARY", "item": "live_decision_total", "value": 0}
+{"type": "SUMMARY", "item": "live_trade_total", "value": 0}
+{"type": "SUMMARY", "item": "trade_authority_total", "value": 0}
+{"type": "SUMMARY", "item": "wallet_access_total", "value": 0}
+{"type": "SUMMARY", "item": "private_key_access_total", "value": 0}
+{"type": "SUMMARY", "item": "retry_storm_total", "value": 0}
+{"type": "SUMMARY", "item": "unbounded_scan_total", "value": 0}
+{"type": "CHECK", "item": "remote_sync", "value": true}
+{"type": "CHECK", "item": "ahead_behind_clean", "value": true}
+{"type": "CHECK", "item": "head_matches_v52_final", "value": true}
+{"type": "CHECK", "item": "original_review_due_next_match_only", "value": true}
+{"type": "CHECK", "item": "v53_selection_pass", "value": true}
+{"type": "CHECK", "item": "v53_plan_fix_pass", "value": true}
+{"type": "CHECK", "item": "v53_plan_fix_next_to_v53a", "value": true}
+{"type": "CHECK", "item": "v53a_pass", "value": true}
+{"type": "CHECK", "item": "v53a_next_match", "value": true}
+{"type": "CHECK", "item": "v52_final_pass", "value": true}
+{"type": "CHECK", "item": "v52_final_pushed", "value": true}
+{"type": "CHECK", "item": "contract_count", "value": true}
+{"type": "CHECK", "item": "case_count_18", "value": true}
+{"type": "CHECK", "item": "pass_count_18", "value": true}
+{"type": "CHECK", "item": "core_risk_case_count_1", "value": true}
+{"type": "CHECK", "item": "fresh_risk_case_count_4", "value": true}
+{"type": "CHECK", "item": "bypass_quarantine_case_count_2", "value": true}
+{"type": "CHECK", "item": "dirty_packet_case_count_2", "value": true}
+{"type": "CHECK", "item": "evidence_case_count_3", "value": true}
+{"type": "CHECK", "item": "decision_output_case_count_5", "value": true}
+{"type": "CHECK", "item": "resource_case_count_1", "value": true}
+{"type": "CHECK", "item": "mismatch_zero", "value": true}
+{"type": "CHECK", "item": "hot_path_block_zero", "value": true}
+{"type": "CHECK", "item": "outbound_packet_zero", "value": true}
+{"type": "CHECK", "item": "api_rpc_zero", "value": true}
+{"type": "CHECK", "item": "core_db_write_zero", "value": true}
+{"type": "CHECK", "item": "panel_write_zero", "value": true}
+{"type": "CHECK", "item": "runtime_binding_zero", "value": true}
+{"type": "CHECK", "item": "runtime_apply_zero", "value": true}
+{"type": "CHECK", "item": "authority_leak_zero", "value": true}
+{"type": "CHECK", "item": "live_decision_zero", "value": true}
+{"type": "CHECK", "item": "live_trade_zero", "value": true}
+{"type": "CHECK", "item": "trade_authority_zero", "value": true}
+{"type": "CHECK", "item": "wallet_access_zero", "value": true}
+{"type": "CHECK", "item": "private_key_access_zero", "value": true}
+{"type": "CHECK", "item": "retry_storm_zero", "value": true}
+{"type": "CHECK", "item": "unbounded_scan_zero", "value": true}
+{"type": "CHECK", "item": "core_risk_final_authority", "value": true}
+{"type": "CHECK", "item": "fresh_risk_priority", "value": true}
+{"type": "CHECK", "item": "evidence_custody_required", "value": true}
+{"type": "CHECK", "item": "decision_output_null_authority", "value": true}
+{"type": "CHECK", "item": "noapi", "value": true}
+{"type": "CHECK", "item": "no_live_feed", "value": true}
+{"type": "CHECK", "item": "no_core_db_write", "value": true}
+{"type": "CHECK", "item": "no_panel_write", "value": true}
+{"type": "CHECK", "item": "no_runtime_binding", "value": true}
+{"type": "CHECK", "item": "no_runtime_apply", "value": true}
+{"type": "CHECK", "item": "no_service_restart", "value": true}
+{"type": "CHECK", "item": "no_timer_change", "value": true}
+{"type": "CHECK", "item": "no_live_decision", "value": true}
+{"type": "CHECK", "item": "no_live_trade", "value": true}
+{"type": "CHECK", "item": "no_trade_authority", "value": true}
+{"type": "CHECK", "item": "no_wallet", "value": true}
+{"type": "CHECK", "item": "no_private_key", "value": true}
+{"type": "CHECK", "item": "no_packet", "value": true}
+{"type": "CHECK", "item": "no_github_push", "value": true}
+{"type": "CHECK", "item": "db_sha", "value": true}
+{"type": "CHECK", "item": "index_sha", "value": true}
+{"type": "CHECK", "item": "risk_sha", "value": true}
+{"type": "CHECK", "item": "phase41_sha", "value": true}
+{"type": "FINAL_COUNT", "item": "CONTRACT_COUNT", "value": 48}
+{"type": "FINAL_COUNT", "item": "CASE_COUNT", "value": 18}
+{"type": "NEXT", "value": "V2_53C_SIDE_EFFECT_HASH_NO_PACKET_DRYRUN_AUDIT_LOCAL_NOAPI"}

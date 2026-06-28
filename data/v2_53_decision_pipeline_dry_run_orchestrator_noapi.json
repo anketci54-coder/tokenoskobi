@@ -1,0 +1,474 @@
+{
+  "task": "V2_53_DECISION_PIPELINE_DRY_RUN_ORCHESTRATOR_NOAPI",
+  "stamp_utc": "2026-06-28T07:47:47Z",
+  "mode": "LOCAL_ONLY_NOAPI_PLAN_NO_PUSH",
+  "final_gate": "REVIEW_V2_53_DECISION_PIPELINE_DRY_RUN_ORCHESTRATOR_NOAPI",
+  "decision": "STOP_REVIEW_REQUIRED",
+  "next": "FIX_REVIEW_ITEMS",
+  "github_push": false,
+  "head_now": "e48956ea66628cde817aa6ff8d38e4597f820f6d",
+  "remote_now": "e48956ea66628cde817aa6ff8d38e4597f820f6d",
+  "ahead_behind": "0 0",
+  "status_now": "?? data/v2_53_next_approved_phase_selection_noapi.json\n?? data/v2_53_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_53_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "pipeline_order": [
+    {
+      "order": 1,
+      "step": "HUNTER_SIGNAL_INPUT_DRYRUN",
+      "role": "propose_only",
+      "authority": "NONE"
+    },
+    {
+      "order": 2,
+      "step": "SHADOW_READ_MODEL_CONTEXT_DRYRUN",
+      "role": "context_only",
+      "authority": "NONE"
+    },
+    {
+      "order": 3,
+      "step": "PRECHECK_NEGATIVE_FILTER_DRYRUN",
+      "role": "fast_fail_only",
+      "authority": "NEGATIVE_ONLY"
+    },
+    {
+      "order": 4,
+      "step": "CORE_RISK_FINAL_AUTHORITY_DRYRUN",
+      "role": "final_risk_authority",
+      "authority": "DRYRUN_RISK_DECISION_ONLY"
+    },
+    {
+      "order": 5,
+      "step": "FRESH_RISK_PRIORITY_DRYRUN",
+      "role": "absolute_priority_guard",
+      "authority": "SUPPRESS_STALE_ONLY"
+    },
+    {
+      "order": 6,
+      "step": "BYPASS_QUARANTINE_GUARD_DRYRUN",
+      "role": "bounded_overload_guard",
+      "authority": "GUARD_ONLY"
+    },
+    {
+      "order": 7,
+      "step": "DIRTY_PACKET_FAIL_CLOSED_GUARD_DRYRUN",
+      "role": "fail_closed_guard",
+      "authority": "REJECT_ONLY"
+    },
+    {
+      "order": 8,
+      "step": "PROSECUTOR_EVIDENCE_DRYRUN",
+      "role": "evidence_attach_only",
+      "authority": "EVIDENCE_ONLY"
+    },
+    {
+      "order": 9,
+      "step": "DECISION_OUTPUT_NULL_AUTHORITY_DRYRUN",
+      "role": "trace_output_only",
+      "authority": "NULL_AUTHORITY"
+    }
+  ],
+  "orchestrator_contract": {
+    "V2_53_IS_DRY_RUN_ORCHESTRATOR_ONLY": true,
+    "V2_53_MUST_NOT_CREATE_LIVE_DECISION": true,
+    "V2_53_MUST_NOT_GRANT_TRADE_AUTHORITY": true,
+    "V2_53_MUST_NOT_BIND_RUNTIME": true,
+    "V2_53_MUST_NOT_APPLY_RUNTIME": true,
+    "V2_53_MUST_NOT_WRITE_CORE_DB": true,
+    "V2_53_MUST_NOT_WRITE_ACTIVE_PANEL": true,
+    "V2_53_MUST_NOT_RESTART_SERVICE": true,
+    "V2_53_MUST_NOT_CHANGE_TIMER": true,
+    "V2_53_MUST_NOT_CALL_API_RPC": true,
+    "V2_53_MUST_NOT_SEND_OUTBOUND_PACKET": true,
+    "HUNTER_CAN_PROPOSE_ONLY": true,
+    "HUNTER_CANNOT_APPROVE": true,
+    "HUNTER_CANNOT_TRADE": true,
+    "SHADOW_CONTEXT_ONLY": true,
+    "SHADOW_CANNOT_APPROVE": true,
+    "SHADOW_CANNOT_RELAX_RISK": true,
+    "PRECHECK_CAN_ONLY_FAST_FAIL": true,
+    "PRECHECK_CANNOT_APPROVE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE": true,
+    "CORE_RISK_ALWAYS_SUPERIOR": true,
+    "CORE_RISK_IS_FINAL_AUTHORITY": true,
+    "CORE_RISK_CANNOT_BE_OVERRIDDEN": true,
+    "FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED": true,
+    "FRESH_RISK_BEATS_SHADOW_PRECHECK_CACHE": true,
+    "FRESH_RISK_BEATS_BYPASS_PROBATION": true,
+    "BYPASS_LIMITER_BOUNDED_REQUIRED": true,
+    "BYPASS_LIMITER_CANNOT_OVERLOAD_CORE_RISK": true,
+    "BYPASS_LIMITER_CANNOT_BLOCK_HOT_PATH": true,
+    "QUARANTINE_RELEASE_CANNOT_AUTHORIZE_TRUST": true,
+    "DIRTY_PACKET_FAIL_CLOSED_REQUIRED": true,
+    "DIRTY_PACKET_CANNOT_REACH_CORE_RISK_AS_CLEAN": true,
+    "DIRTY_PACKET_CANNOT_TRIGGER_RETRY_STORM": true,
+    "PROSECUTOR_CAN_ATTACH_EVIDENCE_ONLY": true,
+    "PROSECUTOR_CANNOT_CREATE_TRADE_AUTHORITY": true,
+    "EVIDENCE_CHAIN_OF_CUSTODY_REQUIRED": true,
+    "EVIDENCE_TRACE_REQUIRED": true,
+    "DECISION_OUTPUT_NULL_AUTHORITY_REQUIRED": true,
+    "DECISION_OUTPUT_MUST_BE_EXPLAINABLE": true,
+    "DECISION_OUTPUT_MUST_BE_DRYRUN_ONLY": true,
+    "DECISION_OUTPUT_CANNOT_CREATE_ORDER": true,
+    "PIPELINE_STEP_ORDER_DETERMINISTIC": true,
+    "PIPELINE_MUST_BE_BOUNDED": true,
+    "PIPELINE_MUST_BE_O1_OR_BOUNDED_BATCH": true,
+    "PIPELINE_NO_UNBOUNDED_SCAN": true,
+    "PIPELINE_NO_ML_RUNTIME_DECISION": true,
+    "PIPELINE_NO_PROBABILISTIC_AUTHORITY": true,
+    "PIPELINE_NO_SIDE_EFFECTS": true,
+    "PIPELINE_REPLAYABLE_REQUIRED": true,
+    "PIPELINE_IDEMPOTENT_REQUIRED": true,
+    "PIPELINE_TRACE_REQUIRED": true,
+    "PIPELINE_MISMATCH_FAIL_CLOSED": true,
+    "PIPELINE_NO_RETRY_STORM": true,
+    "AUTHORITY_LEAK_ZERO_REQUIRED": true,
+    "HOT_PATH_BLOCK_ZERO_REQUIRED": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "BUG_BOUNTY_DEFERRED_AFTER_V2_60": true,
+    "GITHUB_PUSH_FALSE_FOR_PLAN": true
+  },
+  "dryrun_plan": [
+    {
+      "id": "P1",
+      "name": "orchestrator_trace_order_and_idempotency",
+      "next": "V2_53A",
+      "cases": 9
+    },
+    {
+      "id": "P2",
+      "name": "authority_boundary_full_pipeline",
+      "next": "V2_53A",
+      "cases": 9
+    },
+    {
+      "id": "P3",
+      "name": "risk_priority_and_fail_closed_flow",
+      "next": "V2_53B",
+      "cases": 9
+    },
+    {
+      "id": "P4",
+      "name": "evidence_and_decision_output_null_authority",
+      "next": "V2_53B",
+      "cases": 9
+    },
+    {
+      "id": "P5",
+      "name": "side_effect_hash_and_no_packet_audit",
+      "next": "V2_53C",
+      "cases": 9
+    },
+    {
+      "id": "P6",
+      "name": "post_audit_and_final_close_readiness",
+      "next": "V2_53D",
+      "cases": 9
+    }
+  ],
+  "test_matrix": [
+    {
+      "id": "T1",
+      "domain": "trace",
+      "case": "pipeline step order deterministic",
+      "expected": "TRACE_ORDER_MATCH"
+    },
+    {
+      "id": "T2",
+      "domain": "trace",
+      "case": "pipeline replay same input",
+      "expected": "IDEMPOTENT_REPLAY_MATCH"
+    },
+    {
+      "id": "T3",
+      "domain": "trace",
+      "case": "pipeline missing step",
+      "expected": "FAIL_CLOSED_MISSING_STEP"
+    },
+    {
+      "id": "T4",
+      "domain": "trace",
+      "case": "pipeline step reorder attempt",
+      "expected": "FAIL_CLOSED_REORDER"
+    },
+    {
+      "id": "T5",
+      "domain": "trace",
+      "case": "pipeline duplicate step",
+      "expected": "DEDUPE_OR_FAIL_CLOSED"
+    },
+    {
+      "id": "T6",
+      "domain": "authority",
+      "case": "hunter approve attempt",
+      "expected": "REJECT_HUNTER_APPROVAL"
+    },
+    {
+      "id": "T7",
+      "domain": "authority",
+      "case": "shadow approve attempt",
+      "expected": "REJECT_SHADOW_APPROVAL"
+    },
+    {
+      "id": "T8",
+      "domain": "authority",
+      "case": "precheck approve attempt",
+      "expected": "REJECT_PRECHECK_APPROVAL"
+    },
+    {
+      "id": "T9",
+      "domain": "authority",
+      "case": "prosecutor trade authority attempt",
+      "expected": "REJECT_PROSECUTOR_TRADE_AUTHORITY"
+    },
+    {
+      "id": "T10",
+      "domain": "authority",
+      "case": "decision output order creation attempt",
+      "expected": "REJECT_ORDER_CREATION"
+    },
+    {
+      "id": "T11",
+      "domain": "core_risk",
+      "case": "core risk final authority path",
+      "expected": "CORE_RISK_FINAL_AUTHORITY_HELD"
+    },
+    {
+      "id": "T12",
+      "domain": "fresh_risk",
+      "case": "fresh risk beats stale shadow",
+      "expected": "FRESH_RISK_SUPPRESSES_STALE_SHADOW"
+    },
+    {
+      "id": "T13",
+      "domain": "fresh_risk",
+      "case": "fresh risk beats cache hit",
+      "expected": "FRESH_RISK_SUPPRESSES_CACHE"
+    },
+    {
+      "id": "T14",
+      "domain": "bypass_quarantine",
+      "case": "bypass flood before core risk overload",
+      "expected": "QUARANTINE_BEFORE_CORE_OVERLOAD"
+    },
+    {
+      "id": "T15",
+      "domain": "bypass_quarantine",
+      "case": "quarantine release trust escalation",
+      "expected": "REJECT_TRUST_ESCALATION"
+    },
+    {
+      "id": "T16",
+      "domain": "dirty_packet",
+      "case": "dirty packet to core risk",
+      "expected": "FAIL_CLOSED_NO_CORE_FORWARD"
+    },
+    {
+      "id": "T17",
+      "domain": "dirty_packet",
+      "case": "dirty packet retry storm",
+      "expected": "FAIL_CLOSED_NO_RETRY_STORM"
+    },
+    {
+      "id": "T18",
+      "domain": "evidence",
+      "case": "prosecutor evidence attach",
+      "expected": "EVIDENCE_ATTACHED_NO_AUTHORITY"
+    },
+    {
+      "id": "T19",
+      "domain": "evidence",
+      "case": "evidence chain of custody missing",
+      "expected": "FAIL_CLOSED_EVIDENCE_CUSTODY"
+    },
+    {
+      "id": "T20",
+      "domain": "decision_output",
+      "case": "null authority dryrun output",
+      "expected": "OUTPUT_TRACE_ONLY_NULL_AUTHORITY"
+    },
+    {
+      "id": "T21",
+      "domain": "decision_output",
+      "case": "explainability missing",
+      "expected": "FAIL_CLOSED_NO_EXPLANATION"
+    },
+    {
+      "id": "T22",
+      "domain": "decision_output",
+      "case": "live decision creation attempt",
+      "expected": "REJECT_LIVE_DECISION"
+    },
+    {
+      "id": "T23",
+      "domain": "decision_output",
+      "case": "trade authority creation attempt",
+      "expected": "REJECT_TRADE_AUTHORITY"
+    },
+    {
+      "id": "T24",
+      "domain": "side_effect",
+      "case": "core db write attempt",
+      "expected": "REJECT_CORE_DB_WRITE"
+    },
+    {
+      "id": "T25",
+      "domain": "side_effect",
+      "case": "panel write attempt",
+      "expected": "REJECT_PANEL_WRITE"
+    },
+    {
+      "id": "T26",
+      "domain": "side_effect",
+      "case": "runtime apply attempt",
+      "expected": "REJECT_RUNTIME_APPLY"
+    },
+    {
+      "id": "T27",
+      "domain": "side_effect",
+      "case": "api rpc attempt",
+      "expected": "REJECT_API_RPC"
+    },
+    {
+      "id": "T28",
+      "domain": "side_effect",
+      "case": "outbound packet attempt",
+      "expected": "REJECT_OUTBOUND_PACKET"
+    },
+    {
+      "id": "T29",
+      "domain": "side_effect",
+      "case": "wallet access attempt",
+      "expected": "REJECT_WALLET_ACCESS"
+    },
+    {
+      "id": "T30",
+      "domain": "resource",
+      "case": "unbounded scan attempt",
+      "expected": "REJECT_UNBOUNDED_SCAN"
+    },
+    {
+      "id": "T31",
+      "domain": "resource",
+      "case": "hot path blocking attempt",
+      "expected": "REJECT_HOT_PATH_BLOCK"
+    },
+    {
+      "id": "T32",
+      "domain": "resource",
+      "case": "non deterministic authority attempt",
+      "expected": "REJECT_PROBABILISTIC_AUTHORITY"
+    },
+    {
+      "id": "T33",
+      "domain": "hash",
+      "case": "core db hash drift",
+      "expected": "REJECT_HASH_DRIFT"
+    },
+    {
+      "id": "T34",
+      "domain": "hash",
+      "case": "active panel hash drift",
+      "expected": "REJECT_HASH_DRIFT"
+    },
+    {
+      "id": "T35",
+      "domain": "hash",
+      "case": "risk json hash drift",
+      "expected": "REJECT_HASH_DRIFT"
+    },
+    {
+      "id": "T36",
+      "domain": "hash",
+      "case": "phase41 hash drift",
+      "expected": "REJECT_HASH_DRIFT"
+    }
+  ],
+  "budgets": {
+    "MAX_LIVE_DECISION": 0,
+    "MAX_LIVE_TRADE": 0,
+    "MAX_TRADE_AUTHORITY": 0,
+    "MAX_RUNTIME_BINDING": 0,
+    "MAX_RUNTIME_APPLY": 0,
+    "MAX_CORE_DB_WRITE": 0,
+    "MAX_PANEL_WRITE": 0,
+    "MAX_API_RPC_CALL": 0,
+    "MAX_OUTBOUND_PACKET": 0,
+    "MAX_WALLET_ACCESS": 0,
+    "MAX_PRIVATE_KEY_ACCESS": 0,
+    "MAX_SERVICE_RESTART": 0,
+    "MAX_TIMER_CHANGE": 0,
+    "MAX_AUTHORITY_LEAK": 0,
+    "MAX_HOT_PATH_BLOCK_MS": 0,
+    "MAX_UNBOUNDED_SCAN": 0,
+    "MAX_RETRY_STORM": 0,
+    "PIPELINE_COMPLEXITY": "O1_OR_BOUNDED_BATCH",
+    "PIPELINE_TRACE_REQUIRED": 1,
+    "PIPELINE_IDEMPOTENT_REQUIRED": 1
+  },
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "CORE_DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_BINDING": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "TRADE_AUTHORITY": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v53_selection_pass": true,
+    "v53_selection_next_match": true,
+    "v52_final_pass": true,
+    "v52_final_pushed": true,
+    "v52d_pass": true,
+    "v51_final_pass": true,
+    "orchestrator_contract_count": false,
+    "pipeline_step_count": true,
+    "dryrun_plan_count": true,
+    "test_matrix_count": true,
+    "budget_count": true,
+    "dryrun_only": true,
+    "decision_output_null_authority": true,
+    "core_risk_final_authority": true,
+    "pipeline_trace_required": true,
+    "pipeline_idempotent_required": true,
+    "pipeline_bounded": true,
+    "budget_zero_side_effects": true,
+    "noapi": true,
+    "no_live_feed": true,
+    "no_core_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_binding": true,
+    "no_runtime_apply": true,
+    "no_service_restart": true,
+    "no_timer_change": true,
+    "no_live_decision": true,
+    "no_live_trade": true,
+    "no_trade_authority": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}
