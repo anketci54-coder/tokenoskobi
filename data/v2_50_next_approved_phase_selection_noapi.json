@@ -1,0 +1,229 @@
+{
+  "task": "V2_50_NEXT_APPROVED_PHASE_SELECTION_NOAPI",
+  "stamp_utc": "2026-06-27T19:01:37Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_SELECTION",
+  "final_gate": "PASS_V2_50_NEXT_APPROVED_PHASE_SELECTION_NOAPI",
+  "decision": "V2_50_SELECTION_PASS_READY_FOR_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN",
+  "selected_phase": "V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI",
+  "next": "V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI",
+  "github_push": false,
+  "head_now": "d6b8a118281639b84fa6e7a03b7f82f93995c551",
+  "remote_now": "d6b8a118281639b84fa6e7a03b7f82f93995c551",
+  "ahead_behind": "0 0",
+  "status_before": "CLEAN",
+  "candidate_phases": [
+    {
+      "id": "C1",
+      "name": "V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI",
+      "purpose": "Move sealed V2_47-V2_49 intelligence contracts toward a non-authoritative runtime shadow read model and precheck map without live apply.",
+      "speed_gain": "precomputed shadow read model avoids repeated reasoning",
+      "security_gain": "precheck catches authority drift before runtime binding",
+      "power_gain": "sealed memory, replay and case compaction outputs become usable as context",
+      "economy_gain": "shadow read model reduces repeated heavy analysis cost",
+      "selected": true
+    },
+    {
+      "id": "C2",
+      "name": "V2_50_HEAVY_QUEUE_RESOURCE_ARBITER_PLAN_NOAPI",
+      "purpose": "Plan resource arbiter for heavy queues.",
+      "speed_gain": "queue pressure reduced",
+      "security_gain": "reentry spam limited",
+      "power_gain": "higher value candidates prioritized",
+      "economy_gain": "wasted heavy work reduced",
+      "selected": false
+    },
+    {
+      "id": "C3",
+      "name": "V2_50_PANEL_SHADOW_VISIBILITY_AND_AUDIT_VIEW_PLAN_NOAPI",
+      "purpose": "Plan panel-only visibility for shadow intelligence outputs.",
+      "speed_gain": "operator sees compact status faster",
+      "security_gain": "no trade authority",
+      "power_gain": "better review visibility",
+      "economy_gain": "less manual audit time",
+      "selected": false
+    },
+    {
+      "id": "C4",
+      "name": "V2_50_CASE_MEMORY_OUTCOME_RETRAINING_EXPORT_PLAN_NOAPI",
+      "purpose": "Plan export format for future training data.",
+      "speed_gain": "future training reads faster",
+      "security_gain": "poisoned cases can be filtered",
+      "power_gain": "model quality improved later",
+      "economy_gain": "export avoids repeated transformations",
+      "selected": false
+    }
+  ],
+  "selection_locks": [
+    "V2_50_MUST_BUILD_ON_V2_49_SEALED_HEAD=true",
+    "RUNTIME_SHADOW_READ_MODEL_REQUIRED=true",
+    "DECISION_PRECHECK_REQUIRED=true",
+    "SHADOW_READ_MODEL_CONTEXT_ONLY=true",
+    "SHADOW_READ_MODEL_NO_TRADE_AUTHORITY=true",
+    "SHADOW_READ_MODEL_NO_SCORE_AUTHORITY=true",
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE=true",
+    "PRECHECK_CANNOT_OVERRIDE_RISK=true",
+    "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK=true",
+    "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT=true",
+    "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "REPLAY_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "MISSED_FEEDBACK_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "NO_LIVE_DECISION=true",
+    "NO_LIVE_TRADE=true",
+    "NO_RUNTIME_APPLY=true",
+    "NO_DB_WRITE=true",
+    "NO_PANEL_WRITE=true",
+    "NO_SERVICE_RESTART=true",
+    "NO_TIMER_CHANGE=true",
+    "NO_API_RPC=true",
+    "NO_OUTBOUND_PACKET=true",
+    "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL=true",
+    "SHADOW_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true",
+    "SHADOW_LOOKUP_MUST_BE_O1_TARGETED=true",
+    "SHADOW_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true",
+    "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN=true",
+    "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN=true",
+    "SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN=true",
+    "SHADOW_MODEL_MUST_BE_BOUNDED=true",
+    "SHADOW_MODEL_TTL_REQUIRED=true",
+    "SHADOW_MODEL_PER_TOKEN_CAP_REQUIRED=true",
+    "SHADOW_MODEL_PER_ROUTE_CAP_REQUIRED=true",
+    "SHADOW_MODEL_EVICT_OLDEST_LOWEST_REQUIRED=true",
+    "SHADOW_MODEL_MUST_NOT_ADD_LATENCY=true",
+    "SHADOW_MODEL_MUST_NOT_ADD_HOT_PATH_BLOAT=true",
+    "SHADOW_MODEL_MUST_IMPROVE_SPEED=true",
+    "SHADOW_MODEL_MUST_IMPROVE_SECURITY=true",
+    "SHADOW_MODEL_MUST_IMPROVE_POWER=true",
+    "SHADOW_MODEL_MUST_IMPROVE_ECONOMY=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true"
+  ],
+  "red_team_items": [
+    {
+      "id": "R1",
+      "risk": "shadow context becomes decision authority",
+      "guard": "SHADOW_READ_MODEL_CONTEXT_ONLY"
+    },
+    {
+      "id": "R2",
+      "risk": "precheck overrides risk engine",
+      "guard": "PRECHECK_CANNOT_OVERRIDE_RISK"
+    },
+    {
+      "id": "R3",
+      "risk": "fresh risk bypass via old shadow state",
+      "guard": "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT"
+    },
+    {
+      "id": "R4",
+      "risk": "shadow read model hot-path scan",
+      "guard": "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL"
+    },
+    {
+      "id": "R5",
+      "risk": "unbounded shadow memory",
+      "guard": "SHADOW_MODEL_MUST_BE_BOUNDED"
+    },
+    {
+      "id": "R6",
+      "risk": "shadow model latency bloat",
+      "guard": "SHADOW_MODEL_MUST_NOT_ADD_LATENCY"
+    },
+    {
+      "id": "R7",
+      "risk": "case memory authority drift",
+      "guard": "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY"
+    },
+    {
+      "id": "R8",
+      "risk": "runtime apply drift",
+      "guard": "NO_RUNTIME_APPLY"
+    },
+    {
+      "id": "R9",
+      "risk": "live decision leak",
+      "guard": "NO_LIVE_DECISION"
+    },
+    {
+      "id": "R10",
+      "risk": "outbound/API leak",
+      "guard": "NO_API_RPC"
+    }
+  ],
+  "core_requirements": [
+    "Create plan for shadow read model only, no DB/runtime writes",
+    "Map V2_47 replay outcomes as context-only precheck fields",
+    "Map V2_48 missed opportunity feedback as context-only precheck fields",
+    "Map V2_49 case memory and compaction outputs as context-only precheck fields",
+    "Ensure fresh risk overrides all shadow context",
+    "Ensure precheck cannot authorize trade or score",
+    "Ensure O(1) hash-indexed lookup only",
+    "Ensure no full scan, fuzzy scan, or ML similarity on hot path",
+    "Ensure bounded TTL/cap/eviction policy",
+    "Ensure speed, security, power, and economy all improve",
+    "Ensure no API/RPC/outbound packets",
+    "Ensure final close only pushes at V2_50 final"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "head_is_v49_sealed": true,
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "status_clean_before": true,
+    "v49_final_pass": true,
+    "v49_decision_sealed": true,
+    "v49_next_match": true,
+    "v48_final_pass": true,
+    "v47_final_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "candidate_phase_count_4": true,
+    "selected_phase_exactly_one": true,
+    "selected_phase_match": true,
+    "selection_lock_count_44": true,
+    "red_team_item_count_10": true,
+    "core_requirement_count_12": true,
+    "runtime_shadow_selected": true,
+    "speed_lock": true,
+    "security_lock": true,
+    "power_lock": true,
+    "economy_lock": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_live_decision": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

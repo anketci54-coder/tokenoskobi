@@ -1,0 +1,588 @@
+{
+  "task": "V2_50A_SHADOW_STALENESS_AND_NEGATIVE_PRECHECK_CONTRACT_LOCAL_NOAPI",
+  "stamp_utc": "2026-06-27T19:15:35Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_CONTRACT",
+  "final_gate": "PASS_V2_50A_SHADOW_STALENESS_AND_NEGATIVE_PRECHECK_CONTRACT_LOCAL_NOAPI",
+  "decision": "V2_50A_SHADOW_STALENESS_NEGATIVE_PRECHECK_PASS_READY_FOR_BOUNDED_CACHE_POISONING_GUARD",
+  "next": "V2_50B_SHADOW_BOUNDED_CACHE_AND_POISONING_GUARD_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "d6b8a118281639b84fa6e7a03b7f82f93995c551",
+  "remote_now": "d6b8a118281639b84fa6e7a03b7f82f93995c551",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_50_next_approved_phase_selection_noapi.json\n?? data/v2_50_next_approved_phase_selection_noapi_rows.jsonl\n?? data/v2_50_runtime_shadow_read_model_and_decision_precheck_plan_noapi.json\n?? data/v2_50_runtime_shadow_read_model_and_decision_precheck_plan_noapi_rows.jsonl\n?? docs/v2/V2_50_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md\n?? docs/v2/V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI.md",
+  "contract": {
+    "SHADOW_STALENESS_CONTRACT_REQUIRED": true,
+    "NEGATIVE_PRECHECK_CONTRACT_REQUIRED": true,
+    "SHADOW_TIMESTAMP_U64_EPOCH_NS_REQUIRED": true,
+    "SHADOW_TIMESTAMP_STRING_COMPARE_FORBIDDEN": true,
+    "SHADOW_TIMESTAMP_OBJECT_COMPARE_FORBIDDEN": true,
+    "SHADOW_STALENESS_CHECK_NUMERIC_SUBTRACTION_ONLY": true,
+    "SHADOW_STALENESS_THRESHOLD_NS_ZERO": true,
+    "SHADOW_STALENESS_ANY_POSITIVE_DELTA_IS_STALE": true,
+    "SHADOW_STATE_LAG_BYPASS_TO_CORE_REQUIRED": true,
+    "SHADOW_VERSION_MISMATCH_BYPASS_TO_CORE_REQUIRED": true,
+    "SHADOW_TIMESTAMP_MISMATCH_BYPASS_TO_CORE_REQUIRED": true,
+    "SHADOW_STALE_DATA_APPROVAL_FORBIDDEN": true,
+    "SHADOW_STALE_DATA_SCORE_FORBIDDEN": true,
+    "SHADOW_STALE_DATA_TRADE_FORBIDDEN": true,
+    "CORE_RISK_ENGINE_ALWAYS_SUPERIOR_TO_SHADOW": true,
+    "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT": true,
+    "PRECHECK_IS_ONLY_A_NEGATIVE_FILTER": true,
+    "PRECHECK_CAN_ONLY_FAST_FAIL": true,
+    "PRECHECK_CANNOT_APPROVE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE": true,
+    "PRECHECK_CANNOT_OVERRIDE_RISK": true,
+    "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK": true,
+    "PRECHECK_CANNOT_RELAX_ANY_GATE": true,
+    "PRECHECK_CLEAN_SIGNAL_MUST_FORWARD_TO_CORE_RISK": true,
+    "PRECHECK_FAST_FAIL_MUST_BE_CONSTANT_TIME": true,
+    "PRECHECK_BITMASK_REQUIRED": true,
+    "PRECHECK_HEAVY_LOGIC_FORBIDDEN": true,
+    "PRECHECK_STRING_SCAN_FORBIDDEN": true,
+    "PRECHECK_DYNAMIC_ALLOCATION_FORBIDDEN": true,
+    "PRECHECK_DOS_GUARD_REQUIRED": true,
+    "PRECHECK_FAKE_SIGNAL_FLOOD_FAST_FAIL_REQUIRED": true,
+    "HOT_PATH_SHADOW_READ_ONLY": true,
+    "HOT_PATH_SHADOW_WRITE_FORBIDDEN": true,
+    "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL": true,
+    "SHADOW_LOOKUP_MUST_BE_HASH_INDEXED_ONLY": true,
+    "SHADOW_LOOKUP_MUST_BE_O1_TARGETED": true,
+    "SHADOW_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED": true,
+    "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN": true,
+    "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN": true,
+    "SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN": true,
+    "SHADOW_LOOKUP_NO_ITERATION_ON_HOT_PATH": true,
+    "SHADOW_MODEL_BOUNDED_CAPACITY_REQUIRED": true,
+    "SHADOW_INDEX_MUST_BE_EPHEMERAL": true,
+    "SHADOW_INDEX_PERSISTENCE_FORBIDDEN": true,
+    "SHADOW_MODEL_GC_CANNOT_BLOCK_HOT_PATH": true,
+    "SHADOW_MODEL_WRITE_LOAD_COLD_PATH_ONLY": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "NO_LIVE_DECISION": true,
+    "NO_LIVE_TRADE": true,
+    "NO_RUNTIME_APPLY": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "SHADOW_STALENESS_THRESHOLD_NS": 0,
+    "SHADOW_TIMESTAMP_COMPARE_OPS_MAX": 1,
+    "PRECHECK_MAX_BRANCHES": 8,
+    "PRECHECK_MAX_ALLOCATIONS": 0,
+    "PRECHECK_MAX_STRING_SCANS": 0,
+    "PRECHECK_MAX_DYNAMIC_LOOKUPS": 0,
+    "PRECHECK_COMPLEXITY": "O(1)",
+    "SHADOW_LOOKUP_COMPLEXITY": "O(1)",
+    "SHADOW_HOT_PATH_WRITE_ALLOWED": false,
+    "SHADOW_FULL_SCAN_ALLOWED": false,
+    "SHADOW_FUZZY_SCAN_ALLOWED": false,
+    "SHADOW_ML_SIMILARITY_ALLOWED": false,
+    "SHADOW_HOT_PATH_ITERATION_ALLOWED": false,
+    "PRECHECK_APPROVAL_ALLOWED": false,
+    "PRECHECK_TRADE_AUTHORITY_ALLOWED": false,
+    "PRECHECK_SCORE_AUTHORITY_ALLOWED": false
+  },
+  "negative_bitmask": {
+    "NEG_OBVIOUS_RISK": 1,
+    "NEG_STALE": 2,
+    "NEG_FRESH_RISK": 4,
+    "NEG_AUTHORITY_ATTEMPT": 8,
+    "NEG_RISK_OVERRIDE": 16,
+    "NEG_SCAN_ATTEMPT": 32,
+    "NEG_RUNTIME_LEAK": 64,
+    "NEG_OUTBOUND_LEAK": 128
+  },
+  "test_results": [
+    {
+      "id": "A1",
+      "case": "exact_u64_timestamp_match",
+      "result": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "expected": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "match": true
+    },
+    {
+      "id": "A2",
+      "case": "shadow_one_ns_stale",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "A3",
+      "case": "shadow_state_lag_large_delta",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "A4",
+      "case": "shadow_future_timestamp_rejected_to_core",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "A5",
+      "case": "version_mismatch_to_core",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "A6",
+      "case": "non_u64_negative_timestamp_rejected",
+      "result": "REJECT_NON_U64_TIMESTAMP",
+      "expected": "REJECT_NON_U64_TIMESTAMP",
+      "match": true
+    },
+    {
+      "id": "A7",
+      "case": "non_u64_overflow_timestamp_rejected",
+      "result": "REJECT_NON_U64_TIMESTAMP",
+      "expected": "REJECT_NON_U64_TIMESTAMP",
+      "match": true
+    },
+    {
+      "id": "A8",
+      "case": "fresh_risk_suppresses_shadow",
+      "result": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "A9",
+      "case": "precheck_approve_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "A10",
+      "case": "trade_authority_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "A11",
+      "case": "score_authority_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "A12",
+      "case": "risk_override_attempt_rejected",
+      "result": "REJECT_RISK_OVERRIDE",
+      "expected": "REJECT_RISK_OVERRIDE",
+      "match": true
+    },
+    {
+      "id": "A13",
+      "case": "fresh_risk_override_attempt_rejected",
+      "result": "REJECT_RISK_OVERRIDE",
+      "expected": "REJECT_RISK_OVERRIDE",
+      "match": true
+    },
+    {
+      "id": "A14",
+      "case": "gate_relax_attempt_rejected",
+      "result": "REJECT_RISK_OVERRIDE",
+      "expected": "REJECT_RISK_OVERRIDE",
+      "match": true
+    },
+    {
+      "id": "A15",
+      "case": "full_scan_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "A16",
+      "case": "fuzzy_scan_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "A17",
+      "case": "ml_similarity_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "A18",
+      "case": "iteration_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "A19",
+      "case": "runtime_apply_leak_rejected",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "A20",
+      "case": "live_decision_leak_rejected",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "A21",
+      "case": "live_trade_leak_rejected",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "A22",
+      "case": "api_rpc_leak_rejected",
+      "result": "REJECT_OUTBOUND_LEAK",
+      "expected": "REJECT_OUTBOUND_LEAK",
+      "match": true
+    },
+    {
+      "id": "A23",
+      "case": "outbound_packet_leak_rejected",
+      "result": "REJECT_OUTBOUND_LEAK",
+      "expected": "REJECT_OUTBOUND_LEAK",
+      "match": true
+    },
+    {
+      "id": "A24",
+      "case": "obvious_risk_fast_fail",
+      "result": "FAST_FAIL_NEGATIVE_FILTER",
+      "expected": "FAST_FAIL_NEGATIVE_FILTER",
+      "match": true
+    },
+    {
+      "id": "A25",
+      "case": "hash_no_match_fast_exit",
+      "result": "FAST_EXIT_NO_SCAN",
+      "expected": "FAST_EXIT_NO_SCAN",
+      "match": true
+    },
+    {
+      "id": "A26",
+      "case": "hash_match_clean_signal_forward_core",
+      "result": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "expected": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "A27",
+      "case": "clean_signal_forward_core_no_approval",
+      "result": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "expected": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "A28",
+      "case": "dos_fake_signal_with_obvious_risk_fast_fail",
+      "result": "FAST_FAIL_NEGATIVE_FILTER",
+      "expected": "FAST_FAIL_NEGATIVE_FILTER",
+      "match": true
+    },
+    {
+      "id": "A29",
+      "case": "multiple_attacks_priority_outbound_first",
+      "result": "REJECT_OUTBOUND_LEAK",
+      "expected": "REJECT_OUTBOUND_LEAK",
+      "match": true
+    },
+    {
+      "id": "A30",
+      "case": "multiple_attacks_runtime_before_authority",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "A31",
+      "case": "multiple_attacks_authority_before_risk_override",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "A32",
+      "case": "multiple_attacks_fresh_before_scan",
+      "result": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "A33",
+      "case": "default_context_only",
+      "result": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "expected": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "match": true
+    }
+  ],
+  "semantic_guards": [
+    {
+      "guard": "timestamp comparison uses integer subtraction only",
+      "status": true
+    },
+    {
+      "guard": "one nanosecond stale is stale",
+      "status": true
+    },
+    {
+      "guard": "clean signal cannot be approved by precheck",
+      "status": true
+    },
+    {
+      "guard": "negative filter can only fast fail obvious risk",
+      "status": true
+    },
+    {
+      "guard": "fresh risk suppresses shadow before scan",
+      "status": true
+    },
+    {
+      "guard": "outbound leak has highest rejection priority",
+      "status": true
+    },
+    {
+      "guard": "precheck mask is bounded to eight bits",
+      "status": true
+    },
+    {
+      "guard": "no dynamic approval state exists",
+      "status": true
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "SHADOW_TIMESTAMP_EXACT_MATCH",
+      "meaning": "core and shadow u64 epoch nanoseconds and version match exactly"
+    },
+    {
+      "state": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "meaning": "any stale, lagged, mismatched or future timestamp routes to core without approval"
+    },
+    {
+      "state": "REJECT_NON_U64_TIMESTAMP",
+      "meaning": "timestamp must be unsigned 64-bit epoch nanoseconds"
+    },
+    {
+      "state": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "meaning": "fresh risk overrides all shadow context"
+    },
+    {
+      "state": "REJECT_AUTHORITY_DRIFT",
+      "meaning": "precheck cannot approve, score or trade"
+    },
+    {
+      "state": "REJECT_RISK_OVERRIDE",
+      "meaning": "precheck cannot override risk, fresh risk or gates"
+    },
+    {
+      "state": "REJECT_SHADOW_SCAN",
+      "meaning": "full scan, fuzzy scan, ML or iteration rejected"
+    },
+    {
+      "state": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "meaning": "runtime apply, live decision and live trade rejected"
+    },
+    {
+      "state": "REJECT_OUTBOUND_LEAK",
+      "meaning": "API/RPC or outbound packet rejected"
+    },
+    {
+      "state": "FAST_FAIL_NEGATIVE_FILTER",
+      "meaning": "precheck may only reject obvious risk"
+    },
+    {
+      "state": "FAST_EXIT_NO_SCAN",
+      "meaning": "no hash match exits without scan"
+    },
+    {
+      "state": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "meaning": "clean-looking signal forwarded to core risk only"
+    },
+    {
+      "state": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "meaning": "safe default has no decision authority"
+    }
+  ],
+  "hard_boundaries": [
+    "SHADOW_STALENESS_CONTRACT_REQUIRED=true",
+    "NEGATIVE_PRECHECK_CONTRACT_REQUIRED=true",
+    "SHADOW_TIMESTAMP_U64_EPOCH_NS_REQUIRED=true",
+    "SHADOW_TIMESTAMP_STRING_COMPARE_FORBIDDEN=true",
+    "SHADOW_TIMESTAMP_OBJECT_COMPARE_FORBIDDEN=true",
+    "SHADOW_STALENESS_CHECK_NUMERIC_SUBTRACTION_ONLY=true",
+    "SHADOW_STALENESS_THRESHOLD_NS_ZERO=true",
+    "SHADOW_STALENESS_ANY_POSITIVE_DELTA_IS_STALE=true",
+    "SHADOW_STATE_LAG_BYPASS_TO_CORE_REQUIRED=true",
+    "SHADOW_VERSION_MISMATCH_BYPASS_TO_CORE_REQUIRED=true",
+    "SHADOW_TIMESTAMP_MISMATCH_BYPASS_TO_CORE_REQUIRED=true",
+    "SHADOW_STALE_DATA_APPROVAL_FORBIDDEN=true",
+    "SHADOW_STALE_DATA_SCORE_FORBIDDEN=true",
+    "SHADOW_STALE_DATA_TRADE_FORBIDDEN=true",
+    "CORE_RISK_ENGINE_ALWAYS_SUPERIOR_TO_SHADOW=true",
+    "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT=true",
+    "PRECHECK_IS_ONLY_A_NEGATIVE_FILTER=true",
+    "PRECHECK_CAN_ONLY_FAST_FAIL=true",
+    "PRECHECK_CANNOT_APPROVE=true",
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE=true",
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE=true",
+    "PRECHECK_CANNOT_OVERRIDE_RISK=true",
+    "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK=true",
+    "PRECHECK_CANNOT_RELAX_ANY_GATE=true",
+    "PRECHECK_CLEAN_SIGNAL_MUST_FORWARD_TO_CORE_RISK=true",
+    "PRECHECK_FAST_FAIL_MUST_BE_CONSTANT_TIME=true",
+    "PRECHECK_BITMASK_REQUIRED=true",
+    "PRECHECK_HEAVY_LOGIC_FORBIDDEN=true",
+    "PRECHECK_STRING_SCAN_FORBIDDEN=true",
+    "PRECHECK_DYNAMIC_ALLOCATION_FORBIDDEN=true",
+    "PRECHECK_DOS_GUARD_REQUIRED=true",
+    "PRECHECK_FAKE_SIGNAL_FLOOD_FAST_FAIL_REQUIRED=true",
+    "HOT_PATH_SHADOW_READ_ONLY=true",
+    "HOT_PATH_SHADOW_WRITE_FORBIDDEN=true",
+    "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL=true",
+    "SHADOW_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true",
+    "SHADOW_LOOKUP_MUST_BE_O1_TARGETED=true",
+    "SHADOW_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true",
+    "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN=true",
+    "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN=true",
+    "SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN=true",
+    "SHADOW_LOOKUP_NO_ITERATION_ON_HOT_PATH=true",
+    "SHADOW_MODEL_BOUNDED_CAPACITY_REQUIRED=true",
+    "SHADOW_INDEX_MUST_BE_EPHEMERAL=true",
+    "SHADOW_INDEX_PERSISTENCE_FORBIDDEN=true",
+    "SHADOW_MODEL_GC_CANNOT_BLOCK_HOT_PATH=true",
+    "SHADOW_MODEL_WRITE_LOAD_COLD_PATH_ONLY=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "NO_LIVE_DECISION=true",
+    "NO_LIVE_TRADE=true",
+    "NO_RUNTIME_APPLY=true",
+    "NO_TRADE_AUTHORITY=true",
+    "SHADOW_STALENESS_THRESHOLD_NS=0",
+    "SHADOW_TIMESTAMP_COMPARE_OPS_MAX=1",
+    "PRECHECK_MAX_BRANCHES=8",
+    "PRECHECK_MAX_ALLOCATIONS=0",
+    "PRECHECK_MAX_STRING_SCANS=0",
+    "PRECHECK_MAX_DYNAMIC_LOOKUPS=0",
+    "PRECHECK_COMPLEXITY=O(1)",
+    "SHADOW_LOOKUP_COMPLEXITY=O(1)",
+    "SHADOW_HOT_PATH_WRITE_ALLOWED=false",
+    "SHADOW_FULL_SCAN_ALLOWED=false",
+    "SHADOW_FUZZY_SCAN_ALLOWED=false",
+    "SHADOW_ML_SIMILARITY_ALLOWED=false",
+    "SHADOW_HOT_PATH_ITERATION_ALLOWED=false",
+    "PRECHECK_APPROVAL_ALLOWED=false",
+    "PRECHECK_TRADE_AUTHORITY_ALLOWED=false",
+    "PRECHECK_SCORE_AUTHORITY_ALLOWED=false",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v50_selection_pass": true,
+    "v50_plan_pass": true,
+    "v50_plan_next_match": true,
+    "v49_final_pass": true,
+    "v48_final_pass": true,
+    "v47_final_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "contract_count": true,
+    "limit_count": true,
+    "test_case_count": true,
+    "test_all_match": true,
+    "semantic_guard_count": true,
+    "semantic_all_true": true,
+    "state_contract_count": true,
+    "hard_boundary_count_matches_formula": true,
+    "u64_timestamp_required": true,
+    "staleness_zero": true,
+    "numeric_subtraction_only": true,
+    "string_compare_forbidden": true,
+    "object_compare_forbidden": true,
+    "stale_bypass_core": true,
+    "stale_approval_forbidden": true,
+    "negative_filter_only": true,
+    "constant_time_fast_fail": true,
+    "bitmask_required": true,
+    "precheck_cannot_approve": true,
+    "precheck_cannot_trade": true,
+    "precheck_cannot_score": true,
+    "precheck_dos_guard": true,
+    "fresh_risk_overrides": true,
+    "core_risk_superior": true,
+    "o1_lookup": true,
+    "hash_indexed_only": true,
+    "no_full_scan": true,
+    "no_fuzzy_scan": true,
+    "no_ml_similarity": true,
+    "no_iteration": true,
+    "speed_lock": true,
+    "security_lock": true,
+    "power_lock": true,
+    "economy_lock": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_live_decision": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

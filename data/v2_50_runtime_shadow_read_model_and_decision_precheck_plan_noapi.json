@@ -1,0 +1,633 @@
+{
+  "task": "V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI",
+  "stamp_utc": "2026-06-27T19:07:10Z",
+  "mode": "LOCAL_ONLY_NOAPI_NO_PUSH_PLAN",
+  "final_gate": "PASS_V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI",
+  "decision": "V2_50_PLAN_PASS_READY_FOR_SHADOW_STALENESS_AND_NEGATIVE_PRECHECK_CONTRACT",
+  "next": "V2_50A_SHADOW_STALENESS_AND_NEGATIVE_PRECHECK_CONTRACT_LOCAL_NOAPI",
+  "github_push": false,
+  "head_now": "d6b8a118281639b84fa6e7a03b7f82f93995c551",
+  "remote_now": "d6b8a118281639b84fa6e7a03b7f82f93995c551",
+  "ahead_behind": "0 0",
+  "status_before": "?? data/v2_50_next_approved_phase_selection_noapi.json\n?? data/v2_50_next_approved_phase_selection_noapi_rows.jsonl\n?? docs/v2/V2_50_NEXT_APPROVED_PHASE_SELECTION_NOAPI.md",
+  "plan_contract": {
+    "RUNTIME_SHADOW_READ_MODEL_REQUIRED": true,
+    "DECISION_PRECHECK_REQUIRED": true,
+    "SHADOW_READ_MODEL_CONTEXT_ONLY": true,
+    "SHADOW_READ_MODEL_NO_TRADE_AUTHORITY": true,
+    "SHADOW_READ_MODEL_NO_SCORE_AUTHORITY": true,
+    "PRECHECK_IS_ONLY_A_NEGATIVE_FILTER": true,
+    "PRECHECK_CAN_ONLY_FAST_FAIL": true,
+    "PRECHECK_CANNOT_APPROVE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE": true,
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE": true,
+    "PRECHECK_CANNOT_OVERRIDE_RISK": true,
+    "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK": true,
+    "PRECHECK_CANNOT_RELAX_ANY_GATE": true,
+    "PRECHECK_CLEAN_SIGNAL_MUST_FORWARD_TO_CORE_RISK": true,
+    "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT": true,
+    "CORE_RISK_ENGINE_ALWAYS_SUPERIOR_TO_SHADOW": true,
+    "SHADOW_MODEL_READ_ONLY_STALENESS_THRESHOLD_MAX_ZERO": true,
+    "SHADOW_MODEL_STALE_DATA_APPROVAL_FORBIDDEN": true,
+    "SHADOW_MODEL_STALE_DATA_MUST_BYPASS_TO_CORE": true,
+    "SHADOW_MODEL_VERSION_MATCH_REQUIRED": true,
+    "SHADOW_MODEL_TIMESTAMP_EXACT_MATCH_REQUIRED": true,
+    "SHADOW_MODEL_STATE_LAG_GUARD_REQUIRED": true,
+    "SHADOW_MODEL_RACE_CONDITION_GUARD_REQUIRED": true,
+    "SHADOW_MODEL_BOUNDED_CAPACITY_REQUIRED": true,
+    "SHADOW_INDEX_MUST_BE_EPHEMERAL": true,
+    "SHADOW_INDEX_PERSISTENCE_FORBIDDEN": true,
+    "SHADOW_MODEL_TTL_REQUIRED": true,
+    "SHADOW_MODEL_PER_TOKEN_CAP_REQUIRED": true,
+    "SHADOW_MODEL_PER_ROUTE_CAP_REQUIRED": true,
+    "SHADOW_MODEL_EVICT_OLDEST_LOWEST_REQUIRED": true,
+    "SHADOW_MODEL_CACHE_POISONING_GUARD_REQUIRED": true,
+    "SHADOW_MODEL_UNKNOWN_KEY_FLOOD_REJECT_REQUIRED": true,
+    "SHADOW_MODEL_MEMORY_BLOAT_GUARD_REQUIRED": true,
+    "SHADOW_MODEL_GC_CANNOT_BLOCK_HOT_PATH": true,
+    "SHADOW_MODEL_WRITE_LOAD_COLD_PATH_ONLY": true,
+    "HOT_PATH_SHADOW_READ_ONLY": true,
+    "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL": true,
+    "SHADOW_LOOKUP_MUST_BE_HASH_INDEXED_ONLY": true,
+    "SHADOW_LOOKUP_MUST_BE_O1_TARGETED": true,
+    "SHADOW_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED": true,
+    "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN": true,
+    "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN": true,
+    "SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN": true,
+    "SHADOW_LOOKUP_NO_ITERATION_ON_HOT_PATH": true,
+    "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "REPLAY_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "MISSED_FEEDBACK_CONTEXT_ONLY_NOT_AUTHORITY": true,
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE": true,
+    "MISSED_FEEDBACK_CANNOT_AUTHORIZE_TRADE": true,
+    "SPEED_NEVER_DOWN": true,
+    "SECURITY_NEVER_DOWN": true,
+    "POWER_NEVER_DOWN": true,
+    "ECONOMY_NEVER_DOWN": true,
+    "NO_LIVE_DECISION": true,
+    "NO_LIVE_TRADE": true,
+    "NO_RUNTIME_APPLY": true,
+    "NO_TRADE_AUTHORITY": true
+  },
+  "limits": {
+    "SHADOW_STALENESS_THRESHOLD_US": 0,
+    "SHADOW_LOOKUP_COMPLEXITY": "O(1)",
+    "SHADOW_HOT_PATH_WRITE_ALLOWED": false,
+    "SHADOW_FULL_SCAN_ALLOWED": false,
+    "SHADOW_FUZZY_SCAN_ALLOWED": false,
+    "SHADOW_ML_SIMILARITY_ALLOWED": false,
+    "SHADOW_HOT_PATH_ITERATION_ALLOWED": false,
+    "SHADOW_INDEX_PERSISTENT": false,
+    "SHADOW_MAX_ITEMS": 1000,
+    "SHADOW_PER_TOKEN_CAP": 20,
+    "SHADOW_PER_ROUTE_CAP": 30,
+    "SHADOW_TTL_SECONDS": 300,
+    "SHADOW_GC_HOT_PATH_BLOCK_ALLOWED": false,
+    "PRECHECK_APPROVAL_ALLOWED": false,
+    "PRECHECK_TRADE_AUTHORITY_ALLOWED": false,
+    "PRECHECK_SCORE_AUTHORITY_ALLOWED": false
+  },
+  "formulas": [
+    {
+      "axis": "HIZ",
+      "formula": "Gölge model sadece O(1) okuma yapar; yazma yükü Cold Path'e aittir."
+    },
+    {
+      "axis": "GÜÇ",
+      "formula": "Ön kontrol çöpleri kapıda eler; işlemci meşru fırsatlara saklanır."
+    },
+    {
+      "axis": "GÜVENLİK",
+      "formula": "Canlı risk motoru gölge modelden üstündür; precheck risk kurallarını esnetemez."
+    },
+    {
+      "axis": "EKONOMİ",
+      "formula": "Gereksiz analiz maliyeti kapıda kesilir; sistem kaynakları optimize edilir."
+    }
+  ],
+  "latex_formulas": [
+    "$$\\text{Hız} \\rightarrow \\text{Shadow read } O(1), \\text{ write yükü cold path.}$$",
+    "$$\\text{Güç} \\rightarrow \\text{Precheck sadece fast-fail yapar, fırsatlar core risk'e gider.}$$",
+    "$$\\text{Güvenlik} \\rightarrow \\text{Fresh/Core Risk} > \\text{Shadow Context}. \\text{ Approval yok.}$$",
+    "$$\\text{Ekonomi} \\rightarrow \\text{Gereksiz analiz kapıda kesilir, cache bounded tutulur.}$$"
+  ],
+  "test_results": [
+    {
+      "id": "P1",
+      "case": "stale_shadow_bypasses_to_core",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "P2",
+      "case": "state_lag_bypasses_to_core",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "P3",
+      "case": "version_mismatch_bypasses_to_core",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "P4",
+      "case": "timestamp_mismatch_bypasses_to_core",
+      "result": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "expected": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "P5",
+      "case": "fresh_risk_suppresses_shadow",
+      "result": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "expected": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "match": true
+    },
+    {
+      "id": "P6",
+      "case": "precheck_approve_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "P7",
+      "case": "trade_authority_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "P8",
+      "case": "score_authority_attempt_rejected",
+      "result": "REJECT_AUTHORITY_DRIFT",
+      "expected": "REJECT_AUTHORITY_DRIFT",
+      "match": true
+    },
+    {
+      "id": "P9",
+      "case": "risk_override_attempt_rejected",
+      "result": "REJECT_RISK_OVERRIDE",
+      "expected": "REJECT_RISK_OVERRIDE",
+      "match": true
+    },
+    {
+      "id": "P10",
+      "case": "fresh_risk_override_attempt_rejected",
+      "result": "REJECT_RISK_OVERRIDE",
+      "expected": "REJECT_RISK_OVERRIDE",
+      "match": true
+    },
+    {
+      "id": "P11",
+      "case": "gate_relax_attempt_rejected",
+      "result": "REJECT_RISK_OVERRIDE",
+      "expected": "REJECT_RISK_OVERRIDE",
+      "match": true
+    },
+    {
+      "id": "P12",
+      "case": "cache_poisoning_rejected",
+      "result": "REJECT_SHADOW_CACHE_POISONING",
+      "expected": "REJECT_SHADOW_CACHE_POISONING",
+      "match": true
+    },
+    {
+      "id": "P13",
+      "case": "unknown_key_flood_rejected",
+      "result": "REJECT_SHADOW_CACHE_POISONING",
+      "expected": "REJECT_SHADOW_CACHE_POISONING",
+      "match": true
+    },
+    {
+      "id": "P14",
+      "case": "memory_bloat_rejected",
+      "result": "REJECT_SHADOW_CACHE_POISONING",
+      "expected": "REJECT_SHADOW_CACHE_POISONING",
+      "match": true
+    },
+    {
+      "id": "P15",
+      "case": "over_capacity_rejected",
+      "result": "REJECT_SHADOW_CACHE_POISONING",
+      "expected": "REJECT_SHADOW_CACHE_POISONING",
+      "match": true
+    },
+    {
+      "id": "P16",
+      "case": "persistent_shadow_index_rejected",
+      "result": "REJECT_PERSISTENT_SHADOW_INDEX",
+      "expected": "REJECT_PERSISTENT_SHADOW_INDEX",
+      "match": true
+    },
+    {
+      "id": "P17",
+      "case": "gc_blocks_hot_path_rejected",
+      "result": "REJECT_HOT_PATH_BLOAT",
+      "expected": "REJECT_HOT_PATH_BLOAT",
+      "match": true
+    },
+    {
+      "id": "P18",
+      "case": "write_load_on_hot_path_rejected",
+      "result": "REJECT_HOT_PATH_BLOAT",
+      "expected": "REJECT_HOT_PATH_BLOAT",
+      "match": true
+    },
+    {
+      "id": "P19",
+      "case": "full_scan_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "P20",
+      "case": "fuzzy_scan_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "P21",
+      "case": "ml_similarity_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "P22",
+      "case": "iteration_rejected",
+      "result": "REJECT_SHADOW_SCAN",
+      "expected": "REJECT_SHADOW_SCAN",
+      "match": true
+    },
+    {
+      "id": "P23",
+      "case": "obvious_risk_fast_fail",
+      "result": "FAST_FAIL_NEGATIVE_FILTER",
+      "expected": "FAST_FAIL_NEGATIVE_FILTER",
+      "match": true
+    },
+    {
+      "id": "P24",
+      "case": "hash_no_match_fast_exit",
+      "result": "FAST_EXIT_NO_SCAN",
+      "expected": "FAST_EXIT_NO_SCAN",
+      "match": true
+    },
+    {
+      "id": "P25",
+      "case": "hash_match_clean_signal_forwards_to_core",
+      "result": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "expected": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "P26",
+      "case": "clean_signal_without_lookup_forwards_to_core",
+      "result": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "expected": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "match": true
+    },
+    {
+      "id": "P27",
+      "case": "runtime_apply_leak_rejected",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "P28",
+      "case": "live_decision_leak_rejected",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "P29",
+      "case": "live_trade_leak_rejected",
+      "result": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "expected": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "match": true
+    },
+    {
+      "id": "P30",
+      "case": "api_rpc_leak_rejected",
+      "result": "REJECT_OUTBOUND_LEAK",
+      "expected": "REJECT_OUTBOUND_LEAK",
+      "match": true
+    },
+    {
+      "id": "P31",
+      "case": "outbound_packet_leak_rejected",
+      "result": "REJECT_OUTBOUND_LEAK",
+      "expected": "REJECT_OUTBOUND_LEAK",
+      "match": true
+    },
+    {
+      "id": "P32",
+      "case": "default_context_only",
+      "result": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "expected": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "match": true
+    }
+  ],
+  "red_team_controls": [
+    {
+      "risk": "race condition / state lag",
+      "guard": "SHADOW_MODEL_READ_ONLY_STALENESS_THRESHOLD_MAX_ZERO"
+    },
+    {
+      "risk": "stale data approval",
+      "guard": "SHADOW_MODEL_STALE_DATA_APPROVAL_FORBIDDEN"
+    },
+    {
+      "risk": "shadow-core version mismatch",
+      "guard": "SHADOW_MODEL_VERSION_MATCH_REQUIRED"
+    },
+    {
+      "risk": "timestamp mismatch",
+      "guard": "SHADOW_MODEL_TIMESTAMP_EXACT_MATCH_REQUIRED"
+    },
+    {
+      "risk": "cache poisoning DoS",
+      "guard": "SHADOW_MODEL_CACHE_POISONING_GUARD_REQUIRED"
+    },
+    {
+      "risk": "memory bloat",
+      "guard": "SHADOW_MODEL_BOUNDED_CAPACITY_REQUIRED"
+    },
+    {
+      "risk": "persistent shadow index drift",
+      "guard": "SHADOW_INDEX_MUST_BE_EPHEMERAL"
+    },
+    {
+      "risk": "GC hot path pause",
+      "guard": "SHADOW_MODEL_GC_CANNOT_BLOCK_HOT_PATH"
+    },
+    {
+      "risk": "precheck authority creep",
+      "guard": "PRECHECK_IS_ONLY_A_NEGATIVE_FILTER"
+    },
+    {
+      "risk": "precheck approving clean signal",
+      "guard": "PRECHECK_CANNOT_APPROVE"
+    },
+    {
+      "risk": "risk override",
+      "guard": "PRECHECK_CANNOT_OVERRIDE_RISK"
+    },
+    {
+      "risk": "fresh risk override",
+      "guard": "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK"
+    },
+    {
+      "risk": "full scan on hot path",
+      "guard": "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN"
+    },
+    {
+      "risk": "fuzzy or ML lookup on hot path",
+      "guard": "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN and SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN"
+    },
+    {
+      "risk": "runtime apply leak",
+      "guard": "NO_RUNTIME_APPLY"
+    },
+    {
+      "risk": "live decision/trade leak",
+      "guard": "NO_LIVE_DECISION and NO_LIVE_TRADE"
+    }
+  ],
+  "state_contract": [
+    {
+      "state": "STALE_SHADOW_BYPASS_TO_CORE_NO_APPROVAL",
+      "meaning": "stale, lagged or mismatched shadow state cannot approve and must route to core risk"
+    },
+    {
+      "state": "SHADOW_SUPPRESSED_BY_FRESH_RISK",
+      "meaning": "fresh risk overrides all shadow context"
+    },
+    {
+      "state": "REJECT_AUTHORITY_DRIFT",
+      "meaning": "precheck cannot approve, score or authorize trade"
+    },
+    {
+      "state": "REJECT_RISK_OVERRIDE",
+      "meaning": "precheck cannot override risk or relax gates"
+    },
+    {
+      "state": "REJECT_SHADOW_CACHE_POISONING",
+      "meaning": "poisoned, flooded or bloated cache input rejected"
+    },
+    {
+      "state": "REJECT_PERSISTENT_SHADOW_INDEX",
+      "meaning": "shadow index must be ephemeral"
+    },
+    {
+      "state": "REJECT_HOT_PATH_BLOAT",
+      "meaning": "GC or write load cannot block hot path"
+    },
+    {
+      "state": "REJECT_SHADOW_SCAN",
+      "meaning": "full scan, fuzzy scan, ML similarity or iteration rejected"
+    },
+    {
+      "state": "FAST_FAIL_NEGATIVE_FILTER",
+      "meaning": "precheck can only reject obvious risk"
+    },
+    {
+      "state": "FAST_EXIT_NO_SCAN",
+      "meaning": "no hash match exits without scan"
+    },
+    {
+      "state": "FORWARD_TO_CORE_RISK_NO_APPROVAL",
+      "meaning": "clean-looking signal is forwarded to core risk without approval"
+    },
+    {
+      "state": "REJECT_RUNTIME_AUTHORITY_LEAK",
+      "meaning": "runtime apply, live decision or live trade attempt rejected"
+    },
+    {
+      "state": "REJECT_OUTBOUND_LEAK",
+      "meaning": "API/RPC or outbound packet attempt rejected"
+    },
+    {
+      "state": "NO_SHADOW_DECISION_CONTEXT_ONLY",
+      "meaning": "safe default: shadow context only, no decision"
+    }
+  ],
+  "hard_boundaries": [
+    "RUNTIME_SHADOW_READ_MODEL_REQUIRED=true",
+    "DECISION_PRECHECK_REQUIRED=true",
+    "SHADOW_READ_MODEL_CONTEXT_ONLY=true",
+    "SHADOW_READ_MODEL_NO_TRADE_AUTHORITY=true",
+    "SHADOW_READ_MODEL_NO_SCORE_AUTHORITY=true",
+    "PRECHECK_IS_ONLY_A_NEGATIVE_FILTER=true",
+    "PRECHECK_CAN_ONLY_FAST_FAIL=true",
+    "PRECHECK_CANNOT_APPROVE=true",
+    "PRECHECK_CANNOT_AUTHORIZE_TRADE=true",
+    "PRECHECK_CANNOT_AUTHORIZE_SCORE=true",
+    "PRECHECK_CANNOT_OVERRIDE_RISK=true",
+    "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK=true",
+    "PRECHECK_CANNOT_RELAX_ANY_GATE=true",
+    "PRECHECK_CLEAN_SIGNAL_MUST_FORWARD_TO_CORE_RISK=true",
+    "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT=true",
+    "CORE_RISK_ENGINE_ALWAYS_SUPERIOR_TO_SHADOW=true",
+    "SHADOW_MODEL_READ_ONLY_STALENESS_THRESHOLD_MAX_ZERO=true",
+    "SHADOW_MODEL_STALE_DATA_APPROVAL_FORBIDDEN=true",
+    "SHADOW_MODEL_STALE_DATA_MUST_BYPASS_TO_CORE=true",
+    "SHADOW_MODEL_VERSION_MATCH_REQUIRED=true",
+    "SHADOW_MODEL_TIMESTAMP_EXACT_MATCH_REQUIRED=true",
+    "SHADOW_MODEL_STATE_LAG_GUARD_REQUIRED=true",
+    "SHADOW_MODEL_RACE_CONDITION_GUARD_REQUIRED=true",
+    "SHADOW_MODEL_BOUNDED_CAPACITY_REQUIRED=true",
+    "SHADOW_INDEX_MUST_BE_EPHEMERAL=true",
+    "SHADOW_INDEX_PERSISTENCE_FORBIDDEN=true",
+    "SHADOW_MODEL_TTL_REQUIRED=true",
+    "SHADOW_MODEL_PER_TOKEN_CAP_REQUIRED=true",
+    "SHADOW_MODEL_PER_ROUTE_CAP_REQUIRED=true",
+    "SHADOW_MODEL_EVICT_OLDEST_LOWEST_REQUIRED=true",
+    "SHADOW_MODEL_CACHE_POISONING_GUARD_REQUIRED=true",
+    "SHADOW_MODEL_UNKNOWN_KEY_FLOOD_REJECT_REQUIRED=true",
+    "SHADOW_MODEL_MEMORY_BLOAT_GUARD_REQUIRED=true",
+    "SHADOW_MODEL_GC_CANNOT_BLOCK_HOT_PATH=true",
+    "SHADOW_MODEL_WRITE_LOAD_COLD_PATH_ONLY=true",
+    "HOT_PATH_SHADOW_READ_ONLY=true",
+    "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL=true",
+    "SHADOW_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true",
+    "SHADOW_LOOKUP_MUST_BE_O1_TARGETED=true",
+    "SHADOW_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true",
+    "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN=true",
+    "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN=true",
+    "SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN=true",
+    "SHADOW_LOOKUP_NO_ITERATION_ON_HOT_PATH=true",
+    "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "REPLAY_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "MISSED_FEEDBACK_CONTEXT_ONLY_NOT_AUTHORITY=true",
+    "CASE_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "REPLAY_MEMORY_CANNOT_AUTHORIZE_TRADE=true",
+    "MISSED_FEEDBACK_CANNOT_AUTHORIZE_TRADE=true",
+    "SPEED_NEVER_DOWN=true",
+    "SECURITY_NEVER_DOWN=true",
+    "POWER_NEVER_DOWN=true",
+    "ECONOMY_NEVER_DOWN=true",
+    "NO_LIVE_DECISION=true",
+    "NO_LIVE_TRADE=true",
+    "NO_RUNTIME_APPLY=true",
+    "NO_TRADE_AUTHORITY=true",
+    "SHADOW_STALENESS_THRESHOLD_US=0",
+    "SHADOW_LOOKUP_COMPLEXITY=O(1)",
+    "SHADOW_HOT_PATH_WRITE_ALLOWED=false",
+    "SHADOW_FULL_SCAN_ALLOWED=false",
+    "SHADOW_FUZZY_SCAN_ALLOWED=false",
+    "SHADOW_ML_SIMILARITY_ALLOWED=false",
+    "SHADOW_HOT_PATH_ITERATION_ALLOWED=false",
+    "SHADOW_INDEX_PERSISTENT=false",
+    "SHADOW_MAX_ITEMS=1000",
+    "SHADOW_PER_TOKEN_CAP=20",
+    "SHADOW_PER_ROUTE_CAP=30",
+    "SHADOW_TTL_SECONDS=300",
+    "SHADOW_GC_HOT_PATH_BLOCK_ALLOWED=false",
+    "PRECHECK_APPROVAL_ALLOWED=false",
+    "PRECHECK_TRADE_AUTHORITY_ALLOWED=false",
+    "PRECHECK_SCORE_AUTHORITY_ALLOWED=false",
+    "API_RPC=false",
+    "LIVE_FEED=false",
+    "DB_WRITE=false",
+    "PANEL_WRITE=false",
+    "RUNTIME_APPLY=false",
+    "SERVICE_RESTART=false",
+    "TIMER_CHANGE=false",
+    "LIVE_DECISION=false",
+    "LIVE_TRADE=false",
+    "WALLET_ACCESS=false",
+    "PRIVATE_KEY_ACCESS=false",
+    "OUTBOUND_PACKET=false",
+    "GITHUB_PUSH=false"
+  ],
+  "forbidden": {
+    "API_RPC": false,
+    "LIVE_FEED": false,
+    "DB_WRITE": false,
+    "PANEL_WRITE": false,
+    "RUNTIME_APPLY": false,
+    "SERVICE_RESTART": false,
+    "TIMER_CHANGE": false,
+    "LIVE_DECISION": false,
+    "LIVE_TRADE": false,
+    "WALLET_ACCESS": false,
+    "PRIVATE_KEY_ACCESS": false,
+    "OUTBOUND_PACKET": false,
+    "GITHUB_PUSH": false
+  },
+  "checks": {
+    "remote_sync": true,
+    "ahead_behind_clean": true,
+    "v50_selection_pass": true,
+    "v50_selection_next_match": true,
+    "v49_final_pass": true,
+    "v48_final_pass": true,
+    "v47_final_pass": true,
+    "v46_final_pass": true,
+    "v45_final_pass": true,
+    "v44_final_pass": true,
+    "plan_contract_count": true,
+    "limit_count": true,
+    "formula_count": true,
+    "latex_formula_count": true,
+    "test_case_count": true,
+    "test_all_match": true,
+    "red_team_control_count": true,
+    "state_contract_count": true,
+    "hard_boundary_count": true,
+    "staleness_threshold_zero": true,
+    "stale_approval_forbidden": true,
+    "stale_bypass_to_core": true,
+    "bounded_capacity_required": true,
+    "ephemeral_index_required": true,
+    "cache_poisoning_guard": true,
+    "negative_filter_only": true,
+    "precheck_cannot_approve": true,
+    "precheck_cannot_authorize_trade": true,
+    "precheck_cannot_override_risk": true,
+    "fresh_risk_overrides": true,
+    "core_risk_superior": true,
+    "o1_lookup": true,
+    "hash_indexed_only": true,
+    "no_full_scan": true,
+    "no_fuzzy_scan": true,
+    "no_ml_similarity": true,
+    "no_iteration": true,
+    "speed_lock": true,
+    "security_lock": true,
+    "power_lock": true,
+    "economy_lock": true,
+    "no_api": true,
+    "no_live_feed": true,
+    "no_db_write": true,
+    "no_panel_write": true,
+    "no_runtime_apply": true,
+    "no_live_decision": true,
+    "no_trade": true,
+    "no_wallet": true,
+    "no_private_key": true,
+    "no_packet": true,
+    "no_github_push": true,
+    "db_sha": true,
+    "index_sha": true,
+    "risk_sha": true,
+    "phase41_sha": true
+  },
+  "hashes": {
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  }
+}

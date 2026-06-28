@@ -1,0 +1,75 @@
+{"type": "CANDIDATE_PHASE", "id": "C1", "name": "V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI", "selected": true}
+{"type": "CANDIDATE_PHASE", "id": "C2", "name": "V2_50_HEAVY_QUEUE_RESOURCE_ARBITER_PLAN_NOAPI", "selected": false}
+{"type": "CANDIDATE_PHASE", "id": "C3", "name": "V2_50_PANEL_SHADOW_VISIBILITY_AND_AUDIT_VIEW_PLAN_NOAPI", "selected": false}
+{"type": "CANDIDATE_PHASE", "id": "C4", "name": "V2_50_CASE_MEMORY_OUTCOME_RETRAINING_EXPORT_PLAN_NOAPI", "selected": false}
+{"type": "SELECTION_LOCK", "item": "V2_50_MUST_BUILD_ON_V2_49_SEALED_HEAD=true"}
+{"type": "SELECTION_LOCK", "item": "RUNTIME_SHADOW_READ_MODEL_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "DECISION_PRECHECK_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_READ_MODEL_CONTEXT_ONLY=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_READ_MODEL_NO_TRADE_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_READ_MODEL_NO_SCORE_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "PRECHECK_CANNOT_AUTHORIZE_TRADE=true"}
+{"type": "SELECTION_LOCK", "item": "PRECHECK_CANNOT_OVERRIDE_RISK=true"}
+{"type": "SELECTION_LOCK", "item": "PRECHECK_CANNOT_OVERRIDE_FRESH_RISK=true"}
+{"type": "SELECTION_LOCK", "item": "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT=true"}
+{"type": "SELECTION_LOCK", "item": "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "REPLAY_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "MISSED_FEEDBACK_CONTEXT_ONLY_NOT_AUTHORITY=true"}
+{"type": "SELECTION_LOCK", "item": "NO_LIVE_DECISION=true"}
+{"type": "SELECTION_LOCK", "item": "NO_LIVE_TRADE=true"}
+{"type": "SELECTION_LOCK", "item": "NO_RUNTIME_APPLY=true"}
+{"type": "SELECTION_LOCK", "item": "NO_DB_WRITE=true"}
+{"type": "SELECTION_LOCK", "item": "NO_PANEL_WRITE=true"}
+{"type": "SELECTION_LOCK", "item": "NO_SERVICE_RESTART=true"}
+{"type": "SELECTION_LOCK", "item": "NO_TIMER_CHANGE=true"}
+{"type": "SELECTION_LOCK", "item": "NO_API_RPC=true"}
+{"type": "SELECTION_LOCK", "item": "NO_OUTBOUND_PACKET=true"}
+{"type": "SELECTION_LOCK", "item": "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_LOOKUP_MUST_BE_HASH_INDEXED_ONLY=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_LOOKUP_MUST_BE_O1_TARGETED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_LOOKUP_NO_MATCH_FAST_EXIT_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_LOOKUP_FULL_SCAN_FORBIDDEN=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_LOOKUP_FUZZY_SCAN_FORBIDDEN=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_LOOKUP_ML_SIMILARITY_FORBIDDEN=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_BE_BOUNDED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_TTL_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_PER_TOKEN_CAP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_PER_ROUTE_CAP_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_EVICT_OLDEST_LOWEST_REQUIRED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_NOT_ADD_LATENCY=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_NOT_ADD_HOT_PATH_BLOAT=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_IMPROVE_SPEED=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_IMPROVE_SECURITY=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_IMPROVE_POWER=true"}
+{"type": "SELECTION_LOCK", "item": "SHADOW_MODEL_MUST_IMPROVE_ECONOMY=true"}
+{"type": "SELECTION_LOCK", "item": "SPEED_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "SECURITY_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "POWER_NEVER_DOWN=true"}
+{"type": "SELECTION_LOCK", "item": "ECONOMY_NEVER_DOWN=true"}
+{"type": "RED_TEAM_ITEM", "id": "R1", "risk": "shadow context becomes decision authority", "guard": "SHADOW_READ_MODEL_CONTEXT_ONLY"}
+{"type": "RED_TEAM_ITEM", "id": "R2", "risk": "precheck overrides risk engine", "guard": "PRECHECK_CANNOT_OVERRIDE_RISK"}
+{"type": "RED_TEAM_ITEM", "id": "R3", "risk": "fresh risk bypass via old shadow state", "guard": "FRESH_RISK_OVERRIDES_SHADOW_CONTEXT"}
+{"type": "RED_TEAM_ITEM", "id": "R4", "risk": "shadow read model hot-path scan", "guard": "HOT_PATH_MUST_NOT_SCAN_SHADOW_MODEL"}
+{"type": "RED_TEAM_ITEM", "id": "R5", "risk": "unbounded shadow memory", "guard": "SHADOW_MODEL_MUST_BE_BOUNDED"}
+{"type": "RED_TEAM_ITEM", "id": "R6", "risk": "shadow model latency bloat", "guard": "SHADOW_MODEL_MUST_NOT_ADD_LATENCY"}
+{"type": "RED_TEAM_ITEM", "id": "R7", "risk": "case memory authority drift", "guard": "CASE_MEMORY_CONTEXT_ONLY_NOT_AUTHORITY"}
+{"type": "RED_TEAM_ITEM", "id": "R8", "risk": "runtime apply drift", "guard": "NO_RUNTIME_APPLY"}
+{"type": "RED_TEAM_ITEM", "id": "R9", "risk": "live decision leak", "guard": "NO_LIVE_DECISION"}
+{"type": "RED_TEAM_ITEM", "id": "R10", "risk": "outbound/API leak", "guard": "NO_API_RPC"}
+{"type": "CORE_REQUIREMENT", "item": "Create plan for shadow read model only, no DB/runtime writes"}
+{"type": "CORE_REQUIREMENT", "item": "Map V2_47 replay outcomes as context-only precheck fields"}
+{"type": "CORE_REQUIREMENT", "item": "Map V2_48 missed opportunity feedback as context-only precheck fields"}
+{"type": "CORE_REQUIREMENT", "item": "Map V2_49 case memory and compaction outputs as context-only precheck fields"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure fresh risk overrides all shadow context"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure precheck cannot authorize trade or score"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure O(1) hash-indexed lookup only"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure no full scan, fuzzy scan, or ML similarity on hot path"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure bounded TTL/cap/eviction policy"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure speed, security, power, and economy all improve"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure no API/RPC/outbound packets"}
+{"type": "CORE_REQUIREMENT", "item": "Ensure final close only pushes at V2_50 final"}
+{"type": "FINAL_COUNT", "item": "CANDIDATE_PHASE_COUNT", "value": 4}
+{"type": "FINAL_COUNT", "item": "SELECTION_LOCK_COUNT", "value": 44}
+{"type": "FINAL_COUNT", "item": "RED_TEAM_ITEM_COUNT", "value": 10}
+{"type": "FINAL_COUNT", "item": "CORE_REQUIREMENT_COUNT", "value": 12}
+{"type": "NEXT", "value": "V2_50_RUNTIME_SHADOW_READ_MODEL_AND_DECISION_PRECHECK_PLAN_NOAPI"}
