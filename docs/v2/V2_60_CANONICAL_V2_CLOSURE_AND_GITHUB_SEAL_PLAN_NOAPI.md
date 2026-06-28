@@ -1,0 +1,65 @@
+# V2_60_CANONICAL_V2_CLOSURE_AND_GITHUB_SEAL_PLAN_NOAPI
+
+TIMESTAMP_UTC=20260628T200702Z
+STATUS=PASS
+FINAL_GATE=PASS_V2_60_CANONICAL_V2_CLOSURE_AND_GITHUB_SEAL_PLAN_NOAPI
+NEXT=V2_60A_CANONICAL_V2_FINAL_CLOSURE_AUDIT_LOCAL_NOAPI
+GITHUB_PUSH=false
+GEMINI_RED_TEAM=ACTIVE
+
+## Scope
+
+V2_60_SCOPE=CANONICAL_CLOSURE_NO_RUNTIME
+
+## Target Status
+
+TOKENOSKOBI_CANONICAL_V2_CLOSED_VERIFIED_GITHUB_SEALED
+
+## Bug Bounty Findings
+
+BUG_BOUNTY_FINDINGS_ACCEPTED=true
+
+## Final Bug Bounty Locks
+
+- RAW_INPUT_BYTE_AND_DEPTH_GATE
+- AST_DYNAMIC_EXEC_IMPORT_DENY
+- NO_OBJECT_ID_IN_DECISION_HASH
+
+## Runtime After V2_60 Blockers
+
+- WARM_UP_PHASE
+- ASYNC_BATCH_LOGGER
+- MULTI_RPC_RISK_MEDIAN
+- SQLITE_EXTERNAL_WRITER_LOCK_REQUIRED
+- SQLITE_WAL_SHM_CONTINUOUS_WATCH_REQUIRED
+
+## Safety
+
+NOAPI=true
+wallet=false
+private_key=false
+order_create=false
+live_trade=false
+runtime_binding=false
+runtime_apply=false
+api_call=false
+packet_emit=false
+db_write=false
+
+## Hash Targets
+
+DB_FILE=data/tokenoskobi_clean_v1.sqlite
+DB_SHA=ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5
+
+INDEX_FILE=active_panel_8096/current/index.html
+INDEX_SHA=1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd
+
+RISK_FILE=active_panel_8096/current/data/risk_security_preview_data.json
+RISK_SHA=fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f
+
+PHASE41_FILE=active_panel_8096/current/data/phase41_command_center_binding_v1.json
+PHASE41_SHA=6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2
+
+## Final Decision
+
+PASS_V2_60_CANONICAL_V2_CLOSURE_AND_GITHUB_SEAL_PLAN_NOAPI
