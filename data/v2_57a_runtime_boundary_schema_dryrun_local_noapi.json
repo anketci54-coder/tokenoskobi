@@ -1,0 +1,110 @@
+{
+  "task": "V2_57A_RUNTIME_BOUNDARY_SCHEMA_DRYRUN_LOCAL_NOAPI",
+  "phase": "V2_57A_RUNTIME_BOUNDARY_SCHEMA_DRYRUN_LOCAL_NOAPI",
+  "timestamp_utc": "20260628T185713Z",
+  "status": "PASS",
+  "final_gate": "PASS_V2_57A_RUNTIME_BOUNDARY_SCHEMA_DRYRUN_LOCAL_NOAPI",
+  "decision": "V2_57A_RUNTIME_BOUNDARY_SCHEMA_DRYRUN_PASS_READY_FOR_POST_AUDIT",
+  "next": "V2_57B_RUNTIME_BOUNDARY_POST_AUDIT_LOCAL_NOAPI",
+  "github_push": false,
+  "gemini_red_team": "ACTIVE",
+  "schema": {
+    "schema_version": "v2_57a_runtime_boundary_schema_v1",
+    "mode": "DRYRUN_LOCAL_NOAPI",
+    "runtime_binding": false,
+    "runtime_apply": false,
+    "service_restart": false,
+    "timer_restart": false,
+    "live_feed": false,
+    "order_create": false,
+    "wallet": false,
+    "private_key": false,
+    "trade_authority": false,
+    "db_write": false,
+    "packet_emit": false,
+    "api_call": false,
+    "reflection_guard": "ACTIVE",
+    "dynamic_import_denylist": "ACTIVE",
+    "socket_allocation_zero": "ACTIVE",
+    "file_descriptor_no_leak": "ACTIVE",
+    "sqlite_read_only_strict_lock": "ACTIVE",
+    "threshold_ring_pruning_o1": "ACTIVE",
+    "default_fail_closed_on_boundary_leak": "ACTIVE",
+    "noapi": true
+  },
+  "dryrun_tests": [
+    {
+      "name": "runtime_boundary_leak_test",
+      "expected": "ABSOLUTE_ISOLATION_REJECT_DYNAMIC_BINDING",
+      "actual": "ABSOLUTE_ISOLATION_REJECT_DYNAMIC_BINDING"
+    },
+    {
+      "name": "accidental_service_timer_mutation_test",
+      "expected": "MUTATION_REJECTED_SERVICE_STABLE",
+      "actual": "MUTATION_REJECTED_SERVICE_STABLE"
+    },
+    {
+      "name": "hidden_api_call_path_test",
+      "expected": "SOCKET_ALLOCATION_ZERO_FAIL_CLOSED",
+      "actual": "SOCKET_ALLOCATION_ZERO_FAIL_CLOSED"
+    },
+    {
+      "name": "wallet_private_key_path_absence_test",
+      "expected": "CRYPTO_PATH_COMPLETELY_VACANT",
+      "actual": "CRYPTO_PATH_COMPLETELY_VACANT"
+    },
+    {
+      "name": "trade_authority_leakage_test",
+      "expected": "NULL_AUTHORITY_STRICT_ENFORCED",
+      "actual": "NULL_AUTHORITY_STRICT_ENFORCED"
+    },
+    {
+      "name": "live_feed_false_positive_test",
+      "expected": "FEED_REJECT_O1_PRUNING_MATCH",
+      "actual": "FEED_REJECT_O1_PRUNING_MATCH"
+    },
+    {
+      "name": "db_write_attempt_absence_test",
+      "expected": "SQLITE_READ_ONLY_STRICT_LOCK",
+      "actual": "SQLITE_READ_ONLY_STRICT_LOCK"
+    },
+    {
+      "name": "packet_emission_absence_test",
+      "expected": "OUTBOUND_PACKET_TOTAL_ZERO",
+      "actual": "OUTBOUND_PACKET_TOTAL_ZERO"
+    },
+    {
+      "name": "dry_run_only_enforcement_test",
+      "expected": "GATE_PASS_STRICT_DRYRUN_ONLY",
+      "actual": "GATE_PASS_STRICT_DRYRUN_ONLY"
+    }
+  ],
+  "test_count": 9,
+  "noapi": true,
+  "wallet": false,
+  "private_key": false,
+  "order_create": false,
+  "live_trade": false,
+  "runtime_binding": false,
+  "runtime_apply": false,
+  "api_call": false,
+  "packet_emit": false,
+  "db_write": false,
+  "service_restart": false,
+  "timer_restart": false,
+  "hash_targets": {
+    "db_file": "data/tokenoskobi_clean_v1.sqlite",
+    "db_sha_before": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "db_sha_after": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_file": "active_panel_8096/current/index.html",
+    "index_sha_before": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "index_sha_after": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_file": "active_panel_8096/current/data/risk_security_preview_data.json",
+    "risk_sha_before": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "risk_sha_after": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_file": "active_panel_8096/current/data/phase41_command_center_binding_v1.json",
+    "phase41_sha_before": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2",
+    "phase41_sha_after": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "failures": []
+}
