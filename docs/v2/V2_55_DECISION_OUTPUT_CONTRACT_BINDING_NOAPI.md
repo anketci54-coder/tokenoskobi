@@ -1,0 +1,273 @@
+# V2_55_DECISION_OUTPUT_CONTRACT_BINDING_NOAPI
+
+STAMP_UTC=2026-06-28T09:36:31Z
+MODE=LOCAL_ONLY_NOAPI_PLAN_NO_PUSH
+
+## RESULT
+
+FINAL_GATE=PASS_V2_55_DECISION_OUTPUT_CONTRACT_BINDING_NOAPI
+DECISION=V2_55_PLAN_PASS_READY_FOR_DECISION_OUTPUT_SCHEMA_BINDING_DRYRUN
+NEXT=V2_55A_DECISION_OUTPUT_SCHEMA_BINDING_DRYRUN_LOCAL_NOAPI
+GITHUB_PUSH=false
+
+## PURPOSE
+
+V2_55 plans Decision Output Contract Binding. It binds NULL_AUTHORITY decision outputs into deterministic internal contracts with UID, schema, hashes, evidence pointer, trace pointer, bit-level tamper guard, and O(1) lookup discipline. It does not create live decision, trade authority, order, runtime binding, runtime apply, DB writes, panel writes, API/RPC calls, service/timer changes, wallet access, private key access, or outbound packets.
+
+## BINDING DOMAINS
+
+- 1. NULL_AUTHORITY_DECISION_SCHEMA
+- 2. DECISION_OUTPUT_UID_CANONICALIZATION
+- 3. CONFLICT_RESOLVER_OUTPUT_BINDING
+- 4. EVIDENCE_POINTER_BINDING
+- 5. CORE_RISK_RESULT_BINDING
+- 6. FRESH_RISK_RESULT_BINDING
+- 7. DIRTY_PACKET_RESULT_BINDING
+- 8. PROSECUTOR_EVIDENCE_BINDING
+- 9. EXPLAINABILITY_TRACE_BINDING
+- 10. DECISION_HASH_LOCK
+- 11. BIT_LEVEL_TAMPER_GUARD
+- 12. O1_LOOKUP_CONTRACT
+- 13. MEMORY_WRITE_INTENT_BLOCK
+- 14. AUTHORITY_ESCALATION_BLOCK
+
+## CONTRACT FIELDS
+
+- 1. schema_version
+- 2. decision_uid
+- 3. decision_type
+- 4. null_authority_flag
+- 5. authority_level
+- 6. order_create_allowed
+- 7. live_decision_allowed
+- 8. live_trade_allowed
+- 9. trade_authority_allowed
+- 10. core_risk_result
+- 11. fresh_risk_result
+- 12. dirty_packet_result
+- 13. conflict_resolver_result
+- 14. prosecutor_evidence_pointer
+- 15. evidence_chain_uid
+- 16. explainability_trace_uid
+- 17. decision_reason_code
+- 18. decision_payload_hash
+- 19. decision_trace_hash
+- 20. decision_contract_hash
+- 21. bit_lock_mask
+- 22. tamper_guard_flag
+- 23. o1_lookup_key
+- 24. memory_mutation_allowed
+- 25. created_runtime_binding
+- 26. created_runtime_apply
+- 27. api_rpc_allowed
+- 28. outbound_packet_allowed
+
+## BINDING CONTRACT
+
+- V2_55_IS_DECISION_OUTPUT_CONTRACT_BINDING_ONLY=True
+- V2_55_LOCAL_ONLY_NOAPI=True
+- V2_55_NO_LIVE_DECISION=True
+- V2_55_NO_LIVE_TRADE=True
+- V2_55_NO_TRADE_AUTHORITY=True
+- V2_55_NO_ORDER_CREATE=True
+- V2_55_NO_RUNTIME_BINDING=True
+- V2_55_NO_RUNTIME_APPLY=True
+- V2_55_NO_CORE_DB_WRITE=True
+- V2_55_NO_PANEL_WRITE=True
+- V2_55_NO_SERVICE_RESTART=True
+- V2_55_NO_TIMER_CHANGE=True
+- V2_55_NO_API_RPC=True
+- V2_55_NO_OUTBOUND_PACKET=True
+- V2_55_NO_WALLET_ACCESS=True
+- V2_55_NO_PRIVATE_KEY_ACCESS=True
+- NULL_AUTHORITY_OUTPUT_REQUIRED=True
+- NULL_AUTHORITY_CANNOT_BE_MUTATED=True
+- NULL_AUTHORITY_CANNOT_BE_ESCALATED=True
+- DECISION_OUTPUT_UID_REQUIRED=True
+- DECISION_OUTPUT_UID_DETERMINISTIC_REQUIRED=True
+- DECISION_OUTPUT_SCHEMA_VERSION_REQUIRED=True
+- DECISION_OUTPUT_CONTRACT_HASH_REQUIRED=True
+- DECISION_OUTPUT_PAYLOAD_HASH_REQUIRED=True
+- DECISION_OUTPUT_TRACE_HASH_REQUIRED=True
+- DECISION_OUTPUT_EVIDENCE_POINTER_REQUIRED=True
+- DECISION_OUTPUT_EXPLAINABILITY_REQUIRED=True
+- DECISION_OUTPUT_BIT_LOCK_REQUIRED=True
+- BIT_LEVEL_TAMPER_GUARD_REQUIRED=True
+- O1_LOOKUP_REQUIRED=True
+- O1_LOOKUP_NO_SCAN_REQUIRED=True
+- CONFLICT_RESOLVER_OUTPUT_MUST_BE_BOUND=True
+- CORE_RISK_RESULT_MUST_BE_BOUND=True
+- FRESH_RISK_RESULT_MUST_BE_BOUND=True
+- DIRTY_PACKET_RESULT_MUST_BE_BOUND=True
+- PROSECUTOR_EVIDENCE_POINTER_MUST_BE_BOUND=True
+- EVIDENCE_CHAIN_OF_CUSTODY_REQUIRED=True
+- MEMORY_LAYER_CANNOT_REWRITE_DECISION=True
+- MEMORY_LAYER_CANNOT_RELAX_RISK=True
+- MEMORY_LAYER_CANNOT_PROMOTE_AUTHORITY=True
+- HUNTER_CANNOT_MUTATE_BOUND_DECISION=True
+- SHADOW_CANNOT_MUTATE_BOUND_DECISION=True
+- PRECHECK_CANNOT_MUTATE_BOUND_DECISION=True
+- PROSECUTOR_CANNOT_MUTATE_BOUND_DECISION=True
+- AI_COMMAND_CENTER_CANNOT_MUTATE_BOUND_DECISION=True
+- CORE_RISK_ALWAYS_SUPERIOR=True
+- FRESH_RISK_ABSOLUTE_PRIORITY_REQUIRED=True
+- DIRTY_PACKET_FAIL_CLOSED_REQUIRED=True
+- CONFLICT_RESOLUTION_DETERMINISTIC_REQUIRED=True
+- CONFLICT_RESOLUTION_TRACE_REQUIRED=True
+- CONFLICT_RESOLUTION_FAIL_CLOSED_REQUIRED=True
+- DECISION_OUTPUT_NULL_AUTHORITY_REQUIRED=True
+- DECISION_OUTPUT_MUST_BE_EXPLAINABLE=True
+- AUTHORITY_LEAK_ZERO_REQUIRED=True
+- HOT_PATH_BLOCK_ZERO_REQUIRED=True
+- PIPELINE_REPLAYABLE_REQUIRED=True
+- PIPELINE_IDEMPOTENT_REQUIRED=True
+- PIPELINE_MUST_BE_BOUNDED=True
+- PIPELINE_NO_UNBOUNDED_SCAN=True
+- PIPELINE_NO_RETRY_STORM=True
+- SPEED_NEVER_DOWN=True
+- SECURITY_NEVER_DOWN=True
+- POWER_NEVER_DOWN=True
+- ECONOMY_NEVER_DOWN=True
+- GITHUB_PUSH_FALSE_FOR_PLAN=True
+
+## DRYRUN PLAN
+
+- P1 decision_output_schema_binding | NEXT=V2_55A | CASES=14
+- P2 hash_bitlock_tamper_guard | NEXT=V2_55A | CASES=12
+- P3 memory_mutation_authority_escalation_rejection | NEXT=V2_55B | CASES=14
+- P4 o1_lookup_no_scan_replay_idempotency | NEXT=V2_55B | CASES=10
+- P5 side_effect_hash_no_packet_audit | NEXT=V2_55C | CASES=21
+- P6 post_audit_and_final_close_readiness | NEXT=V2_55D | CASES=1
+
+## TEST MATRIX
+
+- T1 [schema] null authority schema required => BIND_NULL_AUTHORITY_SCHEMA
+- T2 [schema] decision uid deterministic => BIND_DETERMINISTIC_UID
+- T3 [schema] schema version required => BIND_SCHEMA_VERSION
+- T4 [schema] authority level must remain none => AUTHORITY_LEVEL_NONE
+- T5 [binding] core risk result binding => CORE_RISK_BOUND
+- T6 [binding] fresh risk result binding => FRESH_RISK_BOUND
+- T7 [binding] dirty packet result binding => DIRTY_PACKET_BOUND_FAIL_CLOSED
+- T8 [binding] conflict resolver result binding => CONFLICT_RESOLVER_BOUND
+- T9 [evidence] prosecutor evidence pointer binding => EVIDENCE_POINTER_BOUND
+- T10 [evidence] evidence custody missing => FAIL_CLOSED_EVIDENCE_REJECTED
+- T11 [trace] explainability trace binding => TRACE_BOUND
+- T12 [trace] missing explanation => FAIL_CLOSED_NO_EXPLANATION
+- T13 [hash] payload hash lock => PAYLOAD_HASH_LOCKED
+- T14 [hash] trace hash lock => TRACE_HASH_LOCKED
+- T15 [hash] contract hash lock => CONTRACT_HASH_LOCKED
+- T16 [tamper] payload mutation attempt => REJECT_TAMPER
+- T17 [tamper] trace mutation attempt => REJECT_TAMPER
+- T18 [tamper] authority flag mutation attempt => REJECT_AUTHORITY_MUTATION
+- T19 [memory] memory layer rewrite decision => REJECT_MEMORY_REWRITE
+- T20 [memory] memory layer relax risk => REJECT_MEMORY_RISK_RELAX
+- T21 [memory] memory layer promote authority => REJECT_MEMORY_AUTHORITY_PROMOTION
+- T22 [engine] hunter mutate bound decision => REJECT_HUNTER_MUTATION
+- T23 [engine] shadow mutate bound decision => REJECT_SHADOW_MUTATION
+- T24 [engine] precheck mutate bound decision => REJECT_PRECHECK_MUTATION
+- T25 [engine] prosecutor mutate bound decision => REJECT_PROSECUTOR_MUTATION
+- T26 [engine] ai command center mutate bound decision => REJECT_AI_MUTATION
+- T27 [authority] create order attempt => REJECT_ORDER_CREATE
+- T28 [authority] live decision attempt => REJECT_LIVE_DECISION
+- T29 [authority] live trade attempt => REJECT_LIVE_TRADE
+- T30 [authority] trade authority attempt => REJECT_TRADE_AUTHORITY
+- T31 [lookup] o1 lookup key exists => O1_LOOKUP_KEY_BOUND
+- T32 [lookup] scan expansion attempt => REJECT_SCAN_EXPANSION
+- T33 [replay] same output replay => IDEMPOTENT_REPLAY_MATCH
+- T34 [resource] retry storm attempt => REJECT_RETRY_STORM
+- T35 [resource] unbounded scan attempt => REJECT_UNBOUNDED_SCAN
+- T36 [hot_path] hot path block attempt => REJECT_HOT_PATH_BLOCK
+
+## BUDGETS
+
+- MAX_LIVE_DECISION=0
+- MAX_LIVE_TRADE=0
+- MAX_TRADE_AUTHORITY=0
+- MAX_ORDER_CREATE=0
+- MAX_RUNTIME_BINDING=0
+- MAX_RUNTIME_APPLY=0
+- MAX_CORE_DB_WRITE=0
+- MAX_PANEL_WRITE=0
+- MAX_API_RPC_CALL=0
+- MAX_OUTBOUND_PACKET=0
+- MAX_WALLET_ACCESS=0
+- MAX_PRIVATE_KEY_ACCESS=0
+- MAX_SERVICE_RESTART=0
+- MAX_TIMER_CHANGE=0
+- MAX_AUTHORITY_LEAK=0
+- MAX_HOT_PATH_BLOCK_MS=0
+- MAX_UNBOUNDED_SCAN=0
+- MAX_RETRY_STORM=0
+- LOOKUP_COMPLEXITY=O1
+- TRACE_REQUIRED=1
+- IDEMPOTENT_REQUIRED=1
+- BIT_LOCK_REQUIRED=1
+
+## CHECKS
+
+- CHECK_REMOTE_SYNC=true
+- CHECK_AHEAD_BEHIND_CLEAN=true
+- CHECK_V55_SELECTION_PASS=true
+- CHECK_V55_SELECTION_NEXT_MATCH=true
+- CHECK_V54_FINAL_PASS=true
+- CHECK_V54_FINAL_NEXT_MATCH=true
+- CHECK_V54D_PASS=true
+- CHECK_BINDING_DOMAIN_COUNT=true
+- CHECK_CONTRACT_FIELD_COUNT=true
+- CHECK_BINDING_CONTRACT_COUNT=true
+- CHECK_DRYRUN_PLAN_COUNT=true
+- CHECK_TEST_MATRIX_COUNT=true
+- CHECK_BUDGET_COUNT=true
+- CHECK_CONTRACT_BINDING_ONLY=true
+- CHECK_NULL_AUTHORITY_REQUIRED=true
+- CHECK_NULL_AUTHORITY_NOT_MUTABLE=true
+- CHECK_NULL_AUTHORITY_NOT_ESCALATABLE=true
+- CHECK_BIT_LOCK_REQUIRED=true
+- CHECK_TAMPER_GUARD_REQUIRED=true
+- CHECK_O1_LOOKUP_REQUIRED=true
+- CHECK_MEMORY_CANNOT_REWRITE=true
+- CHECK_CORE_RISK_SUPERIOR=true
+- CHECK_FRESH_RISK_PRIORITY=true
+- CHECK_DIRTY_PACKET_FAIL_CLOSED=true
+- CHECK_DECISION_OUTPUT_EXPLAINABLE=true
+- CHECK_BUDGET_ZERO_SIDE_EFFECTS=true
+- CHECK_NOAPI=true
+- CHECK_NO_LIVE_FEED=true
+- CHECK_NO_CORE_DB_WRITE=true
+- CHECK_NO_PANEL_WRITE=true
+- CHECK_NO_RUNTIME_BINDING=true
+- CHECK_NO_RUNTIME_APPLY=true
+- CHECK_NO_SERVICE_RESTART=true
+- CHECK_NO_TIMER_CHANGE=true
+- CHECK_NO_LIVE_DECISION=true
+- CHECK_NO_LIVE_TRADE=true
+- CHECK_NO_TRADE_AUTHORITY=true
+- CHECK_NO_ORDER_CREATE=true
+- CHECK_NO_WALLET=true
+- CHECK_NO_PRIVATE_KEY=true
+- CHECK_NO_PACKET=true
+- CHECK_NO_GITHUB_PUSH=true
+- CHECK_DB_SHA=true
+- CHECK_INDEX_SHA=true
+- CHECK_RISK_SHA=true
+- CHECK_PHASE41_SHA=true
+
+
+## FORBIDDEN
+
+API_RPC=false
+LIVE_FEED=false
+CORE_DB_WRITE=false
+PANEL_WRITE=false
+RUNTIME_BINDING=false
+RUNTIME_APPLY=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+LIVE_DECISION=false
+LIVE_TRADE=false
+TRADE_AUTHORITY=false
+ORDER_CREATE=false
+WALLET_ACCESS=false
+PRIVATE_KEY_ACCESS=false
+OUTBOUND_PACKET=false
+GITHUB_PUSH=false
