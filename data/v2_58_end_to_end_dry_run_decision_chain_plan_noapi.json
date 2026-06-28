@@ -1,0 +1,69 @@
+{
+  "task": "V2_58_END_TO_END_DRY_RUN_DECISION_CHAIN_PLAN_NOAPI",
+  "timestamp_utc": "20260628T191231Z",
+  "status": "PASS",
+  "final_gate": "PASS_V2_58_END_TO_END_DRY_RUN_DECISION_CHAIN_PLAN_NOAPI",
+  "next": "V2_58A_END_TO_END_CHAIN_SCHEMA_DRYRUN_LOCAL_NOAPI",
+  "github_push": false,
+  "gemini_red_team": "ACTIVE",
+  "pipeline": [
+    "Hunter Input",
+    "Shadow Precheck",
+    "Core Risk",
+    "Fresh Risk",
+    "Dirty Packet",
+    "Conflict Resolver",
+    "Decision Output",
+    "State Machine",
+    "Memory Sync",
+    "Runtime Boundary"
+  ],
+  "planned_tests": [
+    { "name": "full_chain_null_authority_test", "expected": "NULL_AUTHORITY_FINAL_IMMUTABLE" },
+    { "name": "hunter_to_decision_trace_determinism_test", "expected": "TRACE_DETERMINISTIC_FROM_HUNTER_TO_DECISION" },
+    { "name": "dirty_packet_fail_closed_test", "expected": "DIRTY_PACKET_REJECTED_DEFAULT_FAIL_CLOSED" },
+    { "name": "conflict_resolver_immutability_test", "expected": "CONFLICT_OUTPUT_IMMUTABLE_NO_REWRITE" },
+    { "name": "fresh_risk_required_chain_test", "expected": "NO_FRESH_RISK_AUTHORITY_ZERO" },
+    { "name": "memory_cannot_rewrite_decision_chain_test", "expected": "MEMORY_REWRITE_REJECTED_DECISION_STABLE" },
+    { "name": "undefined_state_chain_fail_closed_test", "expected": "UNDEFINED_STATE_DEFAULT_FAIL_CLOSED" },
+    { "name": "runtime_boundary_chain_zero_leak_test", "expected": "RUNTIME_API_PACKET_DB_LEAK_ZERO" },
+    { "name": "idempotent_replay_same_output_test", "expected": "SAME_PAYLOAD_SAME_DECISION_CONTRACT_HASH" },
+    { "name": "o1_lookup_chain_budget_test", "expected": "O1_CHAIN_LOOKUP_BUDGET_STABLE" },
+    { "name": "input_contract_verification_boundary_test", "expected": "MALFORMED_STAGE_INPUT_REJECTED_FAIL_CLOSED" },
+    { "name": "end_to_end_latency_ceiling_test", "expected": "E2E_LATENCY_WITHIN_CEILING_OR_FAIL_CLOSED" },
+    { "name": "trace_id_payload_hash_replay_lock_test", "expected": "PAYLOAD_HASH_TRACE_ID_REPLAY_LOCK_STABLE" }
+  ],
+  "red_team_locks": [
+    "INPUT_CONTRACT_VERIFICATION",
+    "DEFAULT_FAIL_CLOSED_ON_STAGE_EXCEPTION",
+    "END_TO_END_LATENCY_CEILING",
+    "PAYLOAD_HASH_TRACE_ID_REPLAY_LOCK",
+    "DECISION_CONTRACT_HASH_STABLE_REPLAY"
+  ],
+  "deferred_runtime_hardening_items": [
+    "WARM_UP_PHASE_REQUIRED",
+    "ASYNC_BATCH_LOGGER_REQUIRED",
+    "MULTI_RPC_RISK_MEDIAN_VALIDATOR_REQUIRED"
+  ],
+  "noapi": true,
+  "wallet": false,
+  "private_key": false,
+  "order_create": false,
+  "live_trade": false,
+  "runtime_binding": false,
+  "runtime_apply": false,
+  "api_call": false,
+  "packet_emit": false,
+  "db_write": false,
+  "hash_targets": {
+    "db_file": "data/tokenoskobi_clean_v1.sqlite",
+    "db_sha": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index_file": "active_panel_8096/current/index.html",
+    "index_sha": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk_file": "active_panel_8096/current/data/risk_security_preview_data.json",
+    "risk_sha": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41_file": "active_panel_8096/current/data/phase41_command_center_binding_v1.json",
+    "phase41_sha": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "failures": []
+}

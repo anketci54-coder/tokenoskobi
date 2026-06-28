@@ -1,0 +1,82 @@
+# V2_58B_END_TO_END_CHAIN_REPLAY_AND_IDEMPOTENCY_LOCAL_NOAPI
+
+TIMESTAMP_UTC=20260628T194515Z
+STATUS=PASS
+FINAL_GATE=PASS_V2_58B_END_TO_END_CHAIN_REPLAY_AND_IDEMPOTENCY_LOCAL_NOAPI
+NEXT=V2_58C_END_TO_END_CHAIN_POST_AUDIT_LOCAL_NOAPI
+GITHUB_PUSH=false
+GEMINI_RED_TEAM=ACTIVE
+
+## Purpose
+
+Replay and idempotency dry-run for V2_58 end-to-end decision chain.
+
+## Locks
+
+- CLASS_DEFINITION_FINGERPRINT_LOCK
+- SHA256_ONLY_DECISION_HASH_POLICY
+- TIMESTAMP_EXCLUDED_FROM_DECISION_CONTRACT_HASH
+- REPLAY_MEMORY_NO_GROWTH
+- NULL_AUTHORITY_REPLAY_IMMUTABLE
+
+## Tests
+
+- same_payload_same_decision_output_test = PASS
+- same_payload_same_decision_contract_hash_test = PASS
+- timestamp_excluded_from_decision_hash_test = PASS
+- sha256_only_decision_hash_policy_test = PASS
+- class_definition_fingerprint_lock_test = PASS
+- monkey_patch_no_decision_hash_change_test = PASS
+- replay_memory_no_growth_test = PASS
+- null_authority_replay_stable_test = PASS
+- payload_hash_trace_id_replay_lock_test = PASS
+- idempotent_replay_same_output_test = PASS
+
+## Decision Hashes
+
+DECISION_CONTRACT_HASH_1=b3785d62fa3ad6c3d3a2171848bc689b36b5e03a30483826d8836b3481b19212
+DECISION_CONTRACT_HASH_2=b3785d62fa3ad6c3d3a2171848bc689b36b5e03a30483826d8836b3481b19212
+
+## Class Fingerprint
+
+CLASS_FINGERPRINT_BEFORE=b9ccef90ed925ac253122370e33ce77fd4e51a4cc8ef0d5702c551c5d4de3598
+CLASS_FINGERPRINT_AFTER_PATCH=033b88f2866edc7481379c886e2a7f2a3b0fe7b08bf0600c58f1773dfdb48227
+
+## Safety
+
+NOAPI=true
+wallet=false
+private_key=false
+order_create=false
+live_trade=false
+runtime_binding=false
+runtime_apply=false
+api_call=false
+packet_emit=false
+db_write=false
+
+## Hash Targets
+
+DB_FILE=data/tokenoskobi_clean_v1.sqlite
+DB_SHA_BEFORE=ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5
+DB_SHA_AFTER=ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5
+
+INDEX_FILE=active_panel_8096/current/index.html
+INDEX_SHA_BEFORE=1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd
+INDEX_SHA_AFTER=1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd
+
+RISK_FILE=active_panel_8096/current/data/risk_security_preview_data.json
+RISK_SHA_BEFORE=fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f
+RISK_SHA_AFTER=fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f
+
+PHASE41_FILE=active_panel_8096/current/data/phase41_command_center_binding_v1.json
+PHASE41_SHA_BEFORE=6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2
+PHASE41_SHA_AFTER=6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2
+
+## Failures
+
+[]
+
+## Final Decision
+
+PASS_V2_58B_END_TO_END_CHAIN_REPLAY_AND_IDEMPOTENCY_LOCAL_NOAPI
