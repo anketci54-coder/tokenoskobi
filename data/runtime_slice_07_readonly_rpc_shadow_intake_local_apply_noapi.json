@@ -1,0 +1,110 @@
+{
+  "task": "RUNTIME_SLICE_07_READ_ONLY_RPC_SHADOW_INTAKE_LOCAL_APPLY_NOAPI",
+  "timestamp_utc": "20260629T063746Z",
+  "status": "PASS",
+  "final_gate": "PASS_RUNTIME_SLICE_07_READ_ONLY_RPC_SHADOW_INTAKE_LOCAL_APPLY_NOAPI",
+  "next": "RUNTIME_SLICE_07_POST_AUDIT_NOAPI",
+  "github_push": false,
+  "scope": "READ_ONLY_RPC_SHADOW_INTAKE_LOCAL_NOAPI",
+  "module": "tools/runtime_readonly_rpc_shadow_intake_v1.py",
+  "intake": {
+    "read_only": true,
+    "noapi": true,
+    "actual_rpc_call": false,
+    "allowed_methods": [
+      "eth_blockNumber",
+      "eth_getLogs",
+      "eth_getBlockByNumber",
+      "eth_getTransactionReceipt"
+    ],
+    "forbidden_prefixes": [
+      "eth_send",
+      "personal_",
+      "wallet_",
+      "debug_",
+      "miner_",
+      "admin_"
+    ],
+    "accepted": 3,
+    "rejected": 3,
+    "api_call_count": 0,
+    "packet_emit_count": 0,
+    "db_write_count": 0,
+    "raw_payload_stored": false
+  },
+  "results": [
+    {
+      "accepted": true,
+      "reason": "READ_ONLY_SHADOW_ACCEPTED",
+      "provider": "alchemy",
+      "chain": "bsc",
+      "method": "eth_blockNumber",
+      "request_hash": "ae52b282e2b125d5256f4370331efaa488730203d7d520bf28888d86769373e9"
+    },
+    {
+      "accepted": true,
+      "reason": "READ_ONLY_SHADOW_ACCEPTED",
+      "provider": "alchemy",
+      "chain": "bsc",
+      "method": "eth_getLogs",
+      "request_hash": "4dcd38a10b45c26dcbb170454ec0839b83fed0241c6d7e852fb69bc7c6dc5b6c"
+    },
+    {
+      "accepted": true,
+      "reason": "READ_ONLY_SHADOW_ACCEPTED",
+      "provider": "lowcost",
+      "chain": "base",
+      "method": "eth_getTransactionReceipt",
+      "request_hash": "206de07c2402dc9879e21796e85212f53cb3ef1a754fc6206a98c67c57e71e7a"
+    },
+    {
+      "accepted": false,
+      "reason": "METHOD_REJECTED",
+      "provider": "alchemy",
+      "chain": "bsc",
+      "method": "eth_sendRawTransaction",
+      "request_hash": ""
+    },
+    {
+      "accepted": false,
+      "reason": "METHOD_REJECTED",
+      "provider": "alchemy",
+      "chain": "bsc",
+      "method": "wallet_switchEthereumChain",
+      "request_hash": ""
+    },
+    {
+      "accepted": false,
+      "reason": "METHOD_REJECTED",
+      "provider": "alchemy",
+      "chain": "bsc",
+      "method": "debug_traceTransaction",
+      "request_hash": ""
+    }
+  ],
+  "red_lines": {
+    "noapi": true,
+    "wallet": false,
+    "private_key": false,
+    "order_create": false,
+    "live_trade": false,
+    "runtime_binding": false,
+    "runtime_apply": false,
+    "api_call": false,
+    "packet_emit": false,
+    "db_write": false
+  },
+  "hash_before": {
+    "db": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "hash_after": {
+    "db": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "failures": []
+}
