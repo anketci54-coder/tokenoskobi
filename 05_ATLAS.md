@@ -454,3 +454,22 @@ Runtime outputs now feed ERA16 architecture:
 - Confidence Engine
 
 Runtime remains read-only unless separately approved and sealed.
+
+## ERA16 PHASE63 ARCHITECTURE BINDING
+PHASE63 binds the Constitution layer to distributed guardian governance.
+
+Architecture links:
+- Constitution Engine -> Distributed Guardian
+- Distributed Guardian -> Local Runtime Gate
+- Guardian Failure -> Fail Closed
+- Silent Failure -> Global Observe Only
+- Kill Switch -> Global Fail Closed
+- Constitution Update -> Two Phase Commit
+- Audit Ledger -> Append Only Hash Chain
+- AI Authority -> 0
+
+4G Gate remains active:
+Speed never down.
+Power never down.
+Security never down.
+Economy never down.
