@@ -1,0 +1,53 @@
+{
+  "task":"V3_02_RUNTIME_OBSERVABILITY_AND_METRICS_PLAN_NOAPI",
+  "timestamp_utc":"20260629T033933Z",
+  "status":"PASS",
+  "final_gate":"PASS_V3_02_RUNTIME_OBSERVABILITY_AND_METRICS_PLAN_NOAPI",
+  "next":"V3_03_ASYNC_LOGGER_AND_PERSISTENCE_ISOLATION_PLAN_NOAPI",
+  "github_push":false,
+  "base_head":"31a9854d5c1322a8da70f8def8a296af22c30be7",
+
+  "scope":"RUNTIME_OBSERVABILITY_NOAPI",
+
+  "metric_guards":{
+    "ENFORCE_O1_CIRCULAR_METRIC_BUFFER":true,
+    "ENFORCE_MONOTONIC_CLOCK_ONLY":true,
+    "STRIP_RAW_PAYLOAD_FROM_METRICS":true,
+    "METRIC_CARDINALITY_LIMIT":true,
+    "OBSERVABILITY_FAILS_SILENT_SAFE":true
+  },
+
+  "limits":{
+    "max_metric_memory_mb":16,
+    "target_metric_overhead_ms":0.005,
+    "metric_buffer_strategy":"FIXED_CIRCULAR_BUFFER",
+    "clock_source":"time.perf_counter",
+    "raw_payload_storage":"FORBIDDEN"
+  },
+
+  "runtime_metrics":[
+    "e2e_latency",
+    "queue_depth",
+    "memory_pressure",
+    "decision_latency",
+    "shadow_feed_latency",
+    "rpc_drift",
+    "gc_pause",
+    "buffer_utilization"
+  ],
+
+  "red_lines":{
+    "wallet":false,
+    "private_key":false,
+    "order_create":false,
+    "live_trade":false,
+    "runtime_binding":false,
+    "runtime_apply":false,
+    "api_call":false,
+    "packet_emit":false,
+    "db_write":false,
+    "raw_payload_logging":false
+  },
+
+  "failures":[]
+}

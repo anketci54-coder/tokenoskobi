@@ -1,0 +1,52 @@
+{
+  "task":"V3_05_WARM_UP_ENGINE_PLAN_NOAPI",
+  "timestamp_utc":"20260629T040732Z",
+  "status":"PASS",
+  "final_gate":"PASS_V3_05_WARM_UP_ENGINE_PLAN_NOAPI",
+  "next":"V3_06_CHAOS_RUNTIME_AND_STRESS_TESTS_PLAN_NOAPI",
+  "github_push":false,
+  "base_head":"31a9854d5c1322a8da70f8def8a296af22c30be7",
+  "scope":"WARM_UP_ENGINE_PLAN_NOAPI",
+
+  "warm_up_policy":{
+    "enabled":true,
+    "stages":[1,5,10,25,50,100],
+    "advance_requires_previous_stage_pass":true,
+    "rollback_on_failure":true,
+    "metrics_required":true,
+    "shadow_feed_only":true,
+    "state_mutation":false
+  },
+
+  "entry_requirements":[
+    "OBSERVABILITY_READY",
+    "MULTI_RPC_TRUST_READY",
+    "NO_RUNTIME_AUTHORITY",
+    "NO_DB_WRITE",
+    "NO_PACKET_EMIT"
+  ],
+
+  "red_lines":{
+    "wallet":false,
+    "private_key":false,
+    "order_create":false,
+    "live_trade":false,
+    "runtime_binding":false,
+    "runtime_apply":false,
+    "api_call":false,
+    "packet_emit":false,
+    "db_write":false
+  },
+
+  "noapi":true,
+  "wallet":false,
+  "private_key":false,
+  "order_create":false,
+  "live_trade":false,
+  "runtime_binding":false,
+  "runtime_apply":false,
+  "api_call":false,
+  "packet_emit":false,
+  "db_write":false,
+  "failures":[]
+}

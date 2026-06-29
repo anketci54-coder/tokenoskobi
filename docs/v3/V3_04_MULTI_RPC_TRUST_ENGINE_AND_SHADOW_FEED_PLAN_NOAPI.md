@@ -1,0 +1,58 @@
+# V3_04_MULTI_RPC_TRUST_ENGINE_AND_SHADOW_FEED_PLAN_NOAPI
+
+STATUS=PASS
+FINAL_GATE=PASS_V3_04_MULTI_RPC_TRUST_ENGINE_AND_SHADOW_FEED_PLAN_NOAPI
+NEXT=V3_05_WARM_UP_ENGINE_PLAN_NOAPI
+GITHUB_PUSH=false
+
+## Scope
+
+Multi-RPC Trust Engine and Shadow Feed planning only.
+
+No real RPC connection.
+No API call.
+No live feed binding.
+No DB write.
+No wallet.
+No order.
+No live trade.
+
+## Requirements
+
+- SHADOW_FEED_NO_STATE_MUTATION
+- RPC_TIMEOUT_AND_CIRCUIT_BREAKER_REQUIRED
+- PERSISTENCE_LEAST_PRIVILEGE_REQUIRED
+- NO_RAW_PAYLOAD_IN_LOGS
+- BOUNDED_LOG_QUEUE_REQUIRED
+- LOG_BACKPRESSURE_POLICY_REQUIRED
+
+## Trust Engine
+
+- RPC_HEALTH_SCORE
+- BLOCK_HEIGHT_CONSISTENCY
+- TIMESTAMP_DRIFT_CHECK
+- LATENCY_SCORE
+- MEDIAN_VALUE_SELECTION
+- CONFIDENCE_SCORE
+
+## Shadow Feed
+
+- READ_ONLY_INGESTION
+- IN_MEMORY_SANDBOX
+- NO_STATE_MUTATION
+- NO_DB_WRITE
+- NO_PACKET_EMIT
+- NO_TRADE_AUTHORITY
+
+## Red Lines
+
+wallet=false
+private_key=false
+order_create=false
+live_trade=false
+runtime_binding=false
+runtime_apply=false
+api_call=false
+packet_emit=false
+db_write=false
+
