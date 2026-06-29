@@ -1,0 +1,108 @@
+{
+  "task": "RUNTIME_SLICE_04_WHALE_INTELLIGENCE_GRAPH_LOCAL_APPLY_NOAPI",
+  "timestamp_utc": "20260629T055338Z",
+  "status": "PASS",
+  "final_gate": "PASS_RUNTIME_SLICE_04_WHALE_INTELLIGENCE_GRAPH_LOCAL_APPLY_NOAPI",
+  "next": "RUNTIME_SLICE_04_WHALE_INTELLIGENCE_GRAPH_POST_AUDIT_NOAPI",
+  "github_push": false,
+  "scope": "WHALE_INTELLIGENCE_GRAPH_LOCAL_NOAPI",
+  "module": "tools/runtime_whale_graph_v1.py",
+  "thresholds": {
+    "core_whale_btc_eq": 50.0,
+    "soft_whale_ratio": 0.9,
+    "soft_whale_btc_eq": 45.0,
+    "watch_whale_ratio": 0.7,
+    "watch_whale_btc_eq": 35.0,
+    "not_hard_limited_to_50_btc": true
+  },
+  "guards": {
+    "max_graph_depth": 4,
+    "max_nodes": 64,
+    "dust_filter_required": true,
+    "gas_value_ratio_filter": true,
+    "monotonic_ingest_ts_required": true,
+    "exchange_inflow_time_window_sec": 3600,
+    "news_correlation_window_sec": 7200,
+    "no_direct_trade_authority": true
+  },
+  "known_wallet_registry_count": 8,
+  "results": [
+    {
+      "accepted": true,
+      "tier": "CORE",
+      "src_label": "UNKNOWN",
+      "dst_label": "UNKNOWN",
+      "edge_hash": "fc92a912a831ac7b0c8b1bc91433488d819819711e35637efbad1097b5bd9921"
+    },
+    {
+      "accepted": true,
+      "tier": "SOFT",
+      "src_label": "UNKNOWN",
+      "dst_label": "UNKNOWN",
+      "edge_hash": "68125fd0790cc2462ca59ece43c68b2400c8ad9d5308ff338b19680f3931956d"
+    },
+    {
+      "accepted": true,
+      "tier": "SOFT",
+      "src_label": "UNKNOWN",
+      "dst_label": "BINANCE_CEX",
+      "edge_hash": "cfe533b7bf82299aed974571a3e0072efa5015a5a01502a00594004d570b48fb"
+    },
+    {
+      "accepted": false,
+      "reason": "BELOW_THRESHOLD",
+      "tier": "DROP"
+    },
+    {
+      "accepted": false,
+      "reason": "MAX_GRAPH_DEPTH_EXCEEDED",
+      "tier": "WATCH"
+    },
+    {
+      "accepted": true,
+      "tier": "TRIGGER_KNOWN_WALLET",
+      "src_label": "MIXER",
+      "dst_label": "UNKNOWN",
+      "edge_hash": "3e5d92010204b26a650799111631dad1585eba36abafd84d05bf57e83a1ce459"
+    }
+  ],
+  "snapshot": {
+    "node_count": 6,
+    "edge_count": 4,
+    "accepted": 4,
+    "dropped_dust": 1,
+    "dropped_depth": 1,
+    "dropped_nodes": 0,
+    "exchange_inflow_count": 1,
+    "max_depth": 4,
+    "max_nodes": 64,
+    "raw_payload_stored": false,
+    "trade_authority": false
+  },
+  "probability_score": 0.9,
+  "red_lines": {
+    "noapi": true,
+    "wallet": false,
+    "private_key": false,
+    "order_create": false,
+    "live_trade": false,
+    "runtime_binding": false,
+    "runtime_apply": false,
+    "api_call": false,
+    "packet_emit": false,
+    "db_write": false
+  },
+  "hash_before": {
+    "db": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "hash_after": {
+    "db": "ad60d581491833c59d78c24d8b44d5280af3efd8cad4667c7b104e46b68f1ee5",
+    "index": "1bf227c4920feff6dcb5c7c479b99fcbc5026feffef1e77d220e410fd04fbabd",
+    "risk": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f",
+    "phase41": "6b9a4c0c9d2b0ee877eb285173763a425cacdc47935b7ca52900b9a048bdc5b2"
+  },
+  "failures": []
+}
