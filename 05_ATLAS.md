@@ -435,3 +435,22 @@ Yön Roadmap içindedir.
 Doktrin Manifesto içindedir.
 
 İçerik haritası Index içindedir.
+## ERA15 → ERA16 ARCHITECTURE TRANSITION
+ERA15 closed the V3 runtime implementation line.
+
+Runtime outputs now feed ERA16 architecture:
+- Constitution Engine
+- Intelligence Fabric
+- Intelligence Graph
+- Historical Archive
+- Replay Laboratory
+- Whale Intelligence
+- News Intelligence
+- AI Commander
+- AI General Staff
+- AI Security Officer
+- Memory System
+- Data Quality Engine
+- Confidence Engine
+
+Runtime remains read-only unless separately approved and sealed.

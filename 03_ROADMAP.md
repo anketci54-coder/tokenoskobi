@@ -563,3 +563,26 @@ OKU sadece başlangıç davranışı değişirse güncellenir.
 Roadmap içinde alt basamak, audit, JSON, HEAD dump, GitHub logu, dosya adı listesi veya uzun key/value yığını tutulmaz.
 
 Alt basamak ve detay kayıtları Almanac içinde tutulur.
+## ERA15 — CLOSED
+STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+HEAD=76fd3ba861676c9e112b9ee71ac81af551dfafa4
+
+Runtime Slice 09, Runtime Slice 10, and Runtime Slice 11 are closed and sealed.
+
+## ERA16 — OPEN
+Focus:
+- Constitution Engine
+- Intelligence Fabric
+- Intelligence Graph
+- Historical Archive
+- Replay Laboratory
+- Whale Intelligence
+- News Intelligence
+- AI Commander
+- AI General Staff
+- AI Security Officer
+- Memory System
+- Data Quality
+- Confidence Engine
+
+ERA16 starts after ERA15 runtime closure.

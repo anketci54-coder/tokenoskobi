@@ -443,3 +443,14 @@ Kapalıdır.
 Doğrulanmıştır.
 
 GitHub’da mühürlenmiştir.
+## ERA15 RUNTIME CLOSURE DOCTRINE
+ERA15 runtime implementation is closed, verified, and GitHub sealed.
+
+Runtime completion does not open trade authority, AI authority, wallet authority, signing authority, paper trade, or live trade.
+
+ERA16 begins under the same immutable doctrine:
+- Survival First
+- Risk above score
+- Evidence before decision
+- AI is not authority
+- Shadow before live
