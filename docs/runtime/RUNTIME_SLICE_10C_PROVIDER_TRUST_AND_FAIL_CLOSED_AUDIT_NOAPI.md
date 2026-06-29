@@ -1,0 +1,23 @@
+# RUNTIME_SLICE_10C_PROVIDER_TRUST_AND_FAIL_CLOSED_AUDIT_NOAPI
+
+STATUS=PASS_AUDIT_NOAPI
+API_CALLS=0
+DB_WRITE=false
+PANEL_WRITE=false
+SERVICE_RESTART=false
+TIMER_CHANGE=false
+LIVE_TRADE=false
+PAPER_TRADE=false
+WALLET=false
+SIGNING=false
+ORDER_CREATE=false
+
+AUDITED
+10A=PLAN_ONLY_NOAPI
+10B=PASS_DRYRUN_NOAPI
+
+ACCEPTED_RULES
+- toxic_provider_signal_must_not_reach_execution
+- wrong_chain_or_malformed_rpc_fail_closed
+- stale_or_disagreeing_provider_observe_only
+- human_approval_must_not_override_provider_toxicity
