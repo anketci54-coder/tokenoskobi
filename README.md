@@ -73,3 +73,41 @@ PHASE ENUMERATION FROZEN
 NEXT_ERA=ERA17
 ================================================================================
 
+================================================================================
+ERA17+ WORKFLOW TERMINOLOGY LOCK
+Timestamp: 2026-06-29T18:41:46Z
+Base HEAD: ecddc11273192bf2e41384b87bdc7a340bbbae9f
+
+DECISION
+PASS terminology is not used for ERA17+ workflow units.
+
+REASON
+PASS was already used historically in Canonical V1 construction and audits
+(PASS0-PASS27 and sub-pass variants). Reusing PASS inside ERA17+ would create
+naming ambiguity.
+
+NEW STANDARD
+ERA17+ workflow unit = GATE
+
+CANONICAL MEANING
+PASS = Legacy construction/audit workflow term.
+GATE = ERA17+ certification workflow term.
+
+ERA17+ STRUCTURE
+ERA
+  GATE01
+  GATE02
+  GATE03
+  FINAL_AUDIT
+  GITHUB_SEAL
+  ERA_CLOSED
+
+RULES
+- No new PHASE identifiers after ERA16 closure.
+- No new PASS identifiers after ERA16 closure.
+- ERA17+ uses GATE only.
+- GATE count is not fixed; minimum necessary gates only.
+- Canonical V1 remains the active architecture.
+- ERA20 remains the maximum planned ERA boundary for Canonical V1 certification.
+================================================================================
+
