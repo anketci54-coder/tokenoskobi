@@ -1,0 +1,17 @@
+# RUNTIME_SLICE_05_HYBRID_RPC_COST_GUARD_LOCAL_APPLY_NOAPI
+
+STATUS=PASS
+
+FINAL_GATE=PASS_RUNTIME_SLICE_05_HYBRID_RPC_COST_GUARD_LOCAL_APPLY_NOAPI
+
+NEXT=RUNTIME_SLICE_05_POST_AUDIT_NOAPI
+
+Hybrid RPC Cost Guard created.
+
+Alchemy PAYG enabled.
+
+Hybrid model enabled.
+
+Future chain count = 15.
+
+NoAPI boundaries preserved.
