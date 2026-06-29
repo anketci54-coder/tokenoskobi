@@ -1,0 +1,15 @@
+# ERA16_PHASE64C_POST_AUDIT_NOAPI
+
+STATUS=PASS_POST_AUDIT_NOAPI
+
+CHECKS
+phase64_plan=True
+phase64b_dryrun=True
+strict_boot_order=True
+context_isolation=True
+out_of_band_observation=True
+guardian_non_blocking=True
+safe_mode=True
+
+NEXT
+ERA16_PHASE64D_GITHUB_SEAL
