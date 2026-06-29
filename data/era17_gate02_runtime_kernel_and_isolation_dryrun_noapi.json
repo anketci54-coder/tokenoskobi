@@ -1,0 +1,98 @@
+{
+  "api_calls": 0,
+  "boot_sequence": [
+    "immutable_constitution_snapshot",
+    "runtime_version_consensus",
+    "dependency_manifest",
+    "dependency_hash_verification",
+    "forbidden_module_scan",
+    "read_only_verification",
+    "memory_protection_verification",
+    "boot_health_report",
+    "runtime_ready"
+  ],
+  "checks": {
+    "auto_rollback_ready": true,
+    "boot_health_pass": true,
+    "dependency_hash_verified": true,
+    "dependency_manifest_verified": true,
+    "forbidden_module_scan_pass": true,
+    "hot_path_unchanged": true,
+    "immutable_snapshot_verified": true,
+    "memory_protection_planned": true,
+    "read_only_verified": true,
+    "version_consensus_verified": true
+  },
+  "db_write": false,
+  "era": "ERA17",
+  "four_g_gate": {
+    "economy": "SINGLE_MANIFEST_SINGLE_HASH_CHAIN",
+    "power": "DETERMINISTIC_BOOT_CONTRACT",
+    "security": "READ_ONLY_KERNEL_ISOLATION_VERIFIED",
+    "speed": "BOOT_ONLY_CHECKS_HOT_PATH_UNCHANGED"
+  },
+  "gate": "GATE02",
+  "live_trade": false,
+  "manifest": {
+    "constitution_snapshot": "IMMUTABLE_BOOT_SNAPSHOT",
+    "forbidden_modules": [
+      "wallet",
+      "signing",
+      "private_key",
+      "transaction_encoder",
+      "abi_encoder",
+      "rpc_write_client",
+      "raw_tx_builder",
+      "order_creator",
+      "web3_signer"
+    ],
+    "hash_algorithm": "sha256",
+    "manifest_hash": "29e0e4f65eeedc10ff4703719a5d293e26778bb7ae36ff6774ae2dc6fd9906ef",
+    "runtime_version": "ERA17_GATE02_DRYRUN"
+  },
+  "name": "RUNTIME_KERNEL_AND_ISOLATION_DRYRUN",
+  "next": "ERA17_GATE03_RUNTIME_INTELLIGENCE_DRYRUN_NOAPI",
+  "order_create": false,
+  "panel_write": false,
+  "paper_trade": false,
+  "red_team_cases": [
+    {
+      "case": "ghost_dependency",
+      "decision": "DENY_BOOT"
+    },
+    {
+      "case": "version_split",
+      "decision": "FAIL_CLOSED"
+    },
+    {
+      "case": "dependency_tamper",
+      "decision": "FAIL_CLOSED"
+    },
+    {
+      "case": "snapshot_tamper",
+      "decision": "FAIL_CLOSED"
+    },
+    {
+      "case": "missing_manifest",
+      "decision": "FAIL_CLOSED"
+    },
+    {
+      "case": "missing_hash",
+      "decision": "FAIL_CLOSED"
+    },
+    {
+      "case": "forbidden_import",
+      "decision": "DENY_BOOT"
+    },
+    {
+      "case": "rollback_trigger",
+      "decision": "ROLLBACK_TO_LAST_SEALED"
+    }
+  ],
+  "service_restart": false,
+  "signing": false,
+  "status": "PASS_DRYRUN_NOAPI",
+  "timer_change": false,
+  "ts_utc": "2026-06-29T19:08:10Z",
+  "wallet": false
+}
