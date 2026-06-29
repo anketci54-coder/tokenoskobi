@@ -1,139 +1,293 @@
-# 01 INDEX - Tokenoskobi / Coinoskobi Canonical Kitapligi
+# 01_INDEX.md - TOKENOSKOBI / COINOSKOBI CANONICAL INDEX
 
-Bu dosya projenin tek sade giris kapisidir.
-
-## Okuma Sirasi
+```text
+TOKENOSKOBI / COINOSKOBI
+CANONICAL INDEX
+0. STARTUP
+OKU.md
+└─ yeni sohbet başlangıç dosyası
+1. CANONICAL ROOT
+01_INDEX.md
+└─ canonical içerik haritası
 
 02_MANIFESTO.md
+└─ anayasa / doktrin / yasaklar / yetki sınırları
 
 03_ROADMAP.md
+└─ resmi yol haritası
 
 04_ALMANAC.md
+└─ detaylı tarihçe / phase / pass / kapanış kayıtları
 
 05_ATLAS.md
+└─ mimari harita / phase / pass / engine / panel bağları
+2. CURRENT STATE
+docs/canonical/PROJECT_MASTER_STATE.md
+└─ tek mevcut state kaynağı
 
-## Dosya Rolleri
+docs/canonical/PROJECT_HANDOFF.md
+└─ teknik devam ve geçiş dosyası
+3. V1 CANONICAL MAP
+V1
+├─ STATUS
+│  └─ CLOSED_VERIFIED_GITHUB_SEALED
+│
+├─ PASS LAYER
+│  ├─ PASS00–PASS08
+│  │  └─ legacy foundation / archaeology
+│  │
+│  ├─ PASS09–PASS12
+│  │  └─ transition / alpha watcher preparation
+│  │
+│  └─ PASS13–PASS27D
+│     └─ canonical intelligence capability layer
+│
+├─ PHASE LAYER
+│  ├─ PHASE00–PHASE12
+│  │  └─ foundation / safety / early runtime base
+│  │
+│  ├─ PHASE13–PHASE16
+│  │  └─ bridge / system control / runtime preparation
+│  │
+│  ├─ PHASE17–PHASE21
+│  │  └─ data ingest / provider / whale / known wallet baseline
+│  │
+│  ├─ PHASE22–PHASE23
+│  │  └─ risk / decision / outcome memory
+│  │
+│  ├─ PHASE24–PHASE33
+│  │  └─ launch context / maintenance / lifecycle / authority structure
+│  │
+│  ├─ PHASE35–PHASE40
+│  │  └─ advanced market intelligence / learning / technical tactical engine
+│  │
+│  ├─ PHASE41
+│  │  └─ command center binding / technical tactical integration
+│  │
+│  ├─ PHASE42–PHASE53
+│  │  └─ anomaly / prosecutor / fusion / memory / intelligence officer / consumer contract
+│  │
+│  └─ PHASE56–PHASE60Z
+│     └─ V1 final repair / audit / release candidate / final closure
+4. PASS → ENGINE MAP
+PASS13 Evidence Dictionary
+└─ ENGINE01 Evidence Runtime
 
-INDEX: Okuma kapisi.
+PASS14 Deployer Intelligence
+└─ ENGINE02 Prosecutor Engine
 
-MANIFESTO: Motto, kurallar, guvenlik doktrini, AI ve trade yetki sinirlari.
+PASS15 Contract DNA
+└─ ENGINE02 Prosecutor Engine
 
-ROADMAP: Nereden basladik, nereye geldik, nereye gidiyoruz.
+PASS16 Market Regime
+└─ ENGINE03 Priority Engine
 
-ALMANAC: Phase, pass, yapilan isler, kapanislar, acik isler ve gelecek gorevler.
+PASS17 Wallet Cluster
+└─ ENGINE04 Whale Runtime
 
-ATLAS: Phase, pass, engine, panel, risk ve authority baglanti haritasi.
+PASS18 Technical Signal
+└─ ENGINE05 Technical Tactical Engine
 
-## Canonical Kural
+PASS19 Learning Feedback
+└─ ENGINE06 Memory Learning
 
-Gunluk okuma ve karar icin bu 5 dosya esas alinir.
+PASS20 Decision Intelligence
+└─ ENGINE07 Risk Engine
 
-Eski audit, plan, discovery, preview, report ve build-history dosyalari canonical degildir.
+PASS21 Execution Realism
+└─ ENGINE08 Execution Layer
 
-Detay dosyalari Almanac, Atlas, governance ve archive altinda tutulur.
+PASS22 Position Sizing
+└─ ENGINE07 Risk Engine
 
-## Canonical Root Documents
+PASS23 Portfolio Risk
+└─ ENGINE07 Risk Engine
 
-01_INDEX.md — root navigation
+PASS24 Launch Intelligence
+└─ ENGINE09 Hunter Engine
 
-02_MANIFESTO.md — doctrine and permanent decisions
+PASS25 Historical Launch
+└─ ENGINE09 Hunter Engine
 
-03_ROADMAP.md — single official roadmap
+PASS26 Launch Outcome
+└─ ENGINE09 Hunter Engine
 
-04_ALMANAC.md — historical chronicle
+PASS27 Execution Accounting
+└─ ENGINE10 Execution Accounting
+5. ENGINE → PANEL MAP
+ENGINE01 Evidence Runtime
+└─ PANEL08 System Control
 
-05_ATLAS.md — architecture atlas
+ENGINE02 Prosecutor Engine
+├─ PANEL04 Onchain
+└─ PANEL05 Risk Security
 
-docs/canonical/PROJECT_MASTER_STATE.md — current canonical state
+ENGINE03 Priority Engine
+└─ PANEL01 Command
 
-docs/canonical/PROJECT_HANDOFF.md — continuation handoff
+ENGINE04 Whale Runtime
+└─ PANEL03 Whale Tracking
 
-docs/canonical/CANONICAL_PHASE_LEDGER.md — phase close ledger
+ENGINE05 Technical Tactical Engine
+└─ PANEL07 Technical Analysis
 
-docs/canonical/CANONICAL_DOCUMENTATION_V1_LOCK.md — documentation lock
+ENGINE06 Memory Learning
+├─ PANEL01 Command
+└─ PANEL08 System Control
 
-docs/governance/DOCUMENT_GOVERNANCE_V1.md — document governance rules
+ENGINE07 Risk Engine
+├─ PANEL01 Command
+└─ PANEL05 Risk Security
 
-ROADMAP_SINGLE_SOURCE=03_ROADMAP.md
+ENGINE08 Execution Layer
+└─ PANEL01 Command
 
-NO_SECOND_ROADMAP=true
+ENGINE09 Hunter Engine
+├─ PANEL01 Command
+└─ PANEL02 News Flow
 
-## Archive Kurali
+ENGINE10 Execution Accounting
+├─ PANEL01 Command
+└─ PANEL08 System Control
+6. PANEL MAP
+PANEL01
+└─ Komuta ve Karar Merkezi
 
-CANONICAL_ARCHIVE_ROOT=docs/archive/
+PANEL02
+└─ Haber Akış Merkezi
 
-ARCHIVE_IS_NOT_TRASH=true
+PANEL03
+└─ Balina Takip Merkezi
 
-NO_DELETE_WITHOUT_EXPLICIT_APPROVAL=true
+PANEL04
+└─ Onchain Veri Merkezi
 
-## TOKENOSKOBI V1 FINAL STATUS
+PANEL05
+└─ Risk Güvenlik Merkezi
 
-V1_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+PANEL06
+└─ Yaşam Destek Merkezi
 
-PROJECT_STATUS=TOKENOSKOBI_V1_FINAL_CLOSED
+PANEL07
+└─ Teknik Analiz Merkezi
 
-LAST_COMPLETED=PHASE60Z_TOKENOSKOBI_V1_FINAL_CLOSURE_AND_GITHUB_SEAL
+PANEL08
+└─ Sistem Kontrol Merkezi
+7. V2 CANONICAL MAP
+V2
+├─ STATUS
+│  └─ CONTROLLED_CONTINUATION_ON_V1_SEALED_BASE
+│
+├─ POLICY
+│  ├─ NEW_REPO=false
+│  ├─ NEW_DB=false
+│  ├─ BREAKS_V1=false
+│  ├─ LIVE_TRADE=DISABLED
+│  ├─ AI_AUTHORITY=0
+│  └─ WALLET_SIGNING=DISABLED
+│
+└─ DOC RANGE
+   └─ docs/v2/
+      ├─ V2_00–V2_10
+      ├─ V2_11–V2_20
+      ├─ V2_21–V2_30
+      ├─ V2_31–V2_40
+      ├─ V2_41–V2_50
+      └─ V2_51–V2_60
+8. V3 CANONICAL MAP
+V3
+├─ STATUS
+│  └─ RUNTIME_PREPARATION_AND_IMPLEMENTATION_LINE
+│
+├─ V3 PLAN DOCS
+│  └─ docs/v3/
+│     ├─ V3_01_RUNTIME_READINESS_AND_BLOCKER_RESOLUTION_PLAN_NOAPI.md
+│     ├─ V3_02_RUNTIME_OBSERVABILITY_AND_METRICS_PLAN_NOAPI.md
+│     ├─ V3_03_ASYNC_LOGGER_AND_PERSISTENCE_ISOLATION_PLAN_NOAPI.md
+│     ├─ V3_04_MULTI_RPC_TRUST_ENGINE_AND_SHADOW_FEED_PLAN_NOAPI.md
+│     ├─ V3_05_WARM_UP_ENGINE_PLAN_NOAPI.md
+│     ├─ V3_06_CHAOS_RUNTIME_AND_STRESS_TESTS_PLAN_NOAPI.md
+│     ├─ V3_07_RUNTIME_FINAL_AUDIT_NOAPI.md
+│     └─ V3_08_GITHUB_SEAL_NOAPI.md
+│
+└─ RUNTIME IMPLEMENTATION DOCS
+   └─ docs/runtime/
+      ├─ RUNTIME_SLICE_01_OBSERVABILITY
+      ├─ RUNTIME_SLICE_02_SHADOW_FEED
+      ├─ RUNTIME_SLICE_03_MULTI_RPC_TRUST_ENGINE
+      ├─ RUNTIME_SLICE_04_WHALE_INTELLIGENCE_GRAPH
+      ├─ RUNTIME_SLICE_05_HYBRID_RPC_COST_GUARD
+      ├─ RUNTIME_SLICE_06_CHAIN_ABSTRACTION
+      ├─ RUNTIME_SLICE_07_READ_ONLY_RPC_SHADOW_INTAKE
+      └─ RUNTIME_SLICE_08_PROVIDER_ABSTRACTION
+9. RUNTIME MODULE MAP
+tools/runtime_observability_v1.py
+└─ RUNTIME_SLICE_01_OBSERVABILITY
 
-DOCUMENT_GOVERNANCE_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+tools/runtime_shadow_feed_v1.py
+└─ RUNTIME_SLICE_02_SHADOW_FEED
 
-## V2 START
+tools/runtime_multi_rpc_trust_engine_v1.py
+└─ RUNTIME_SLICE_03_MULTI_RPC_TRUST_ENGINE
 
-V2, kapatilmis V1 omurgasi uzerinde kontrollu devam hattidir.
+tools/runtime_whale_graph_v1.py
+└─ RUNTIME_SLICE_04_WHALE_INTELLIGENCE_GRAPH
 
-V2 yeni repo, yeni DB veya V1'i bozma anlamina gelmez.
+tools/runtime_hybrid_rpc_cost_guard_v1.py
+└─ RUNTIME_SLICE_05_HYBRID_RPC_COST_GUARD
 
-V2 detaylari INDEX icinde tutulmaz.
+tools/runtime_chain_abstraction_v1.py
+└─ RUNTIME_SLICE_06_CHAIN_ABSTRACTION
 
-V2 yonu ROADMAP icinde okunur.
+tools/runtime_readonly_rpc_shadow_intake_v1.py
+└─ RUNTIME_SLICE_07_READ_ONLY_RPC_SHADOW_INTAKE
 
-V2 tarihcesi ALMANAC icinde tutulur.
+tools/runtime_provider_abstraction_v1.py
+└─ RUNTIME_SLICE_08_PROVIDER_ABSTRACTION
+10. AUTHORITY MAP
+AI_AUTHORITY=0
 
-V2 mimari baglantilari ATLAS icinde tutulur.
+TRADE_AUTHORITY=0
 
-## POST V1 GOVERNANCE SUMMARY
+WALLET_AUTHORITY=0
 
-PASS09A-F ile dokuman kok yapisi sadelestirildi.
+SIGNING_AUTHORITY=0
 
-Archive duzeni toparlandi.
+ORDER_CREATE_AUTHORITY=0
 
-Tek roadmap kurali korundu.
+LIVE_TRADE=DISABLED
 
-Root canonical dokumanlar yeniden hizalandi.
+PAPER_TRADE=DISABLED
 
-Detaylar governance ve archive dosyalarinda tutulur.
+RISK_ENGINE=FINAL_RISK_AUTHORITY
+11. REFERENCE LOCATIONS
+Roadmap details
+└─ 03_ROADMAP.md
 
-<!-- INDEX_V3_RUNTIME_ALIGNMENT_START -->
-## V3 START
+Full chronicle
+└─ 04_ALMANAC.md
 
-V3, V2 kapanışı sonrası runtime hazırlık ve kontrollü uygulama hattıdır.
+Architecture relations
+└─ 05_ATLAS.md
 
-V3 yeni repo değildir.
+Current state
+└─ docs/canonical/PROJECT_MASTER_STATE.md
 
-V3 yeni DB değildir.
+Technical handoff
+└─ docs/canonical/PROJECT_HANDOFF.md
 
-V3 trade, wallet, signing veya live execution açmaz.
+V2 documents
+└─ docs/v2/
 
-V3 plan dosyaları docs/v3 altında tutulur.
+V3 plan documents
+└─ docs/v3/
 
-V3 runtime uygulama kayıtları docs/runtime altında tutulur.
+Runtime implementation records
+└─ docs/runtime/
 
-V3 yönü ROADMAP içinde okunur.
+Runtime modules
+└─ tools/
 
-V3 tarihçesi ALMANAC içinde tutulur.
+Evidence JSON / JSONL
+└─ data/
 
-V3 mimari bağlantıları ATLAS içinde tutulur.
-
-## RUNTIME IMPLEMENTATION
-
-Runtime uygulama kayıtları canonical root dokümanlarının yerine geçmez.
-
-Runtime detayları docs/runtime altında tutulur.
-
-Runtime modülleri tools altında tutulur.
-
-Runtime JSON/JSONL kanıtları data altında tutulur.
-
-Runtime hattı read-only ve shadow-first ilerler.
-
-RUNTIME_SLICE kayıtları PHASE veya PASS yerine geçmez.
-<!-- INDEX_V3_RUNTIME_ALIGNMENT_END -->
