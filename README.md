@@ -111,3 +111,48 @@ RULES
 - ERA20 remains the maximum planned ERA boundary for Canonical V1 certification.
 ================================================================================
 
+================================================================================
+ERA18 CLOSURE UPDATE
+Timestamp: 2026-06-29T19:58:29Z
+HEAD: 3bf2a540d97f32eac652928d46daf115f1a03983
+
+ERA18_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+
+CURRENT_ERA=ERA19
+CURRENT_GATE=GATE01
+
+LAST_COMPLETED=ERA18_GITHUB_SEAL
+
+NEXT_SAFE_STEP=ERA19_GATE01_RUNTIME_CERTIFICATION_PLAN_NOAPI
+
+ERA18 SUMMARY
+
+GATE02
+Paper Execution Engine
+PASS
+
+GATE03
+Paper Risk Engine
+PASS
+
+GATE04
+Final Audit + GitHub Seal
+PASS
+
+CONSTITUTION
+
+Paper/Live Provider Split
+Logical Time Only
+Rolling Checksum
+Replay Certification
+Replay Diff
+Paper-Live Boundary
+Penalty Factor
+Delta Ledger
+Kill Switch
+
+HEAD
+3bf2a540d97f32eac652928d46daf115f1a03983
+
+================================================================================
+
