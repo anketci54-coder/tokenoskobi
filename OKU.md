@@ -1,86 +1,103 @@
-# OKU - TOKENOSKOBI / COINOSKOBI DEVAM DOSYASI
+# OKU.md - TOKENOSKOBI / COINOSKOBI BAŞLANGIÇ DOSYASI
 
-Bu dosya yeni pencereye geçerken ilk okunacak tek başlangıç dosyasıdır.
+Bu dosya yeni bir sohbet açıldığında okunacak ilk ve tek başlangıç dosyasıdır.
 
-Amaç:
+Amacı; projenin mevcut durumunu, çalışma kurallarını ve okunacak canonical dosyaları tek noktadan göstermektir.
 
-Nerede kaldık?
-
-Sırada ne var?
-
-Ana motto ne?
-
-Kurallar ne?
-
-Hangi dosyalar kaynak kabul edilecek?
-
-Hangi şeyler yasak?
-
-Nasıl devam edilecek?
-
-sorularına tek dosyada cevap vermektir.
+Bu dosya teknik dokümantasyon değildir. Teknik detaylar yalnızca canonical dokümanlarda bulunur.
 
 ---
 
-## 1. PROJE DURUMU
+# 1. PROJE DURUMU
 
-Proje adı:
+## Proje
 
 Tokenoskobi / Coinoskobi
 
-V1 durumu:
+## V1
 
-Kapalıdır.
+- Kapatılmıştır.
+- Doğrulanmıştır.
+- GitHub'da mühürlenmiştir.
 
-Doğrulanmıştır.
+## V2
 
-GitHub’da mühürlenmiştir.
+- Başlamıştır.
+- Yeni repo değildir.
+- Yeni DB değildir.
+- V1 omurgası üzerinde kontrollü devam hattıdır.
 
-V2 durumu:
+## V3 Runtime
 
-Başlamıştır.
-
-V2 yeni repo değildir.
-
-V2 yeni DB değildir.
-
-V2, kapanmış V1 omurgası üzerinde kontrollü devam hattıdır.
-
-V2 kapsamı kullanıcı talimatına göre yürür.
-
-Kullanıcı söylemeden yeni faz adı, yeni engine adı veya yeni next step uydurulmaz.
+- Runtime geliştirme hattıdır.
+- Trade authority açmaz.
+- Wallet yetkisi açmaz.
+- Signing açmaz.
+- Live trade açmaz.
+- Read-only mimari üzerinde geliştirilir.
 
 ---
 
-## 2. İLK OKUNACAK CANONICAL DOSYALAR
+# 2. SOURCE OF TRUTH
 
-Yeni pencere açıldığında önce bu dosya okunur.
+Tek kaynak:
 
-Sonra sırasıyla şu dosyalar okunur:
+PROJECT_MASTER_STATE.md
 
-01_INDEX.md
+Teknik devam:
 
-02_MANIFESTO.md
+PROJECT_HANDOFF.md
+
+Roadmap:
 
 03_ROADMAP.md
 
+Tarihçe:
+
 04_ALMANAC.md
+
+Mimari:
 
 05_ATLAS.md
 
-docs/canonical/PROJECT_MASTER_STATE.md
+Anayasa:
 
-docs/canonical/PROJECT_HANDOFF.md
+02_MANIFESTO.md
 
-Bu dosyalar okunmadan yorum yapılmaz.
+Başlangıç:
 
-Bu dosyalar okunmadan yeni plan kurulmaz.
+OKU.md
 
-Bu dosyalar okunmadan kod verilmez.
+Bu dosyalar okunmadan:
+
+- yorum yapılmaz,
+- plan kurulmaz,
+- kod verilmez,
+- yeni faz üretilmez,
+- yeni pass üretilmez,
+- yeni engine üretilmez,
+- yeni roadmap yazılmaz.
 
 ---
 
-## 3. ANA MOTTO
+# 3. OKUMA SIRASI
+
+Yeni sohbet açıldığında aşağıdaki sıra uygulanır:
+
+1. OKU.md
+2. 01_INDEX.md
+3. 02_MANIFESTO.md
+4. 03_ROADMAP.md
+5. 04_ALMANAC.md
+6. 05_ATLAS.md
+7. PROJECT_MASTER_STATE.md
+8. PROJECT_HANDOFF.md
+
+Bu sıra bozulmaz.
+
+---
+
+# 4. ANA MOTTO
 
 Şimşek kadar hızlı.
 
@@ -92,336 +109,223 @@ Karınca kadar tutumlu.
 
 ---
 
-## 4. ÇALIŞMA DİSİPLİNİ
+# 5. TEMEL İLKELER
 
-Kod ver demeden kod verilmez.
-
-Kod gerekiyorsa kısa, sade ve compact verilir.
-
-Serverı çöplüğe çevirmek yasaktır.
-
-Gereksiz dosya, gereksiz klasör, gereksiz log ve gereksiz deneme biriktirilmez.
-
-Ürüne, tokene veya tek vakaya özel kod yazılmaz.
-
-Genel, tekrar kullanılabilir ve sisteme uyumlu kod yazılır.
-
-Her işlem önce planlanır.
-
-Sonra açık onay alınır.
-
-Sonra uygulanır.
-
-Sonra test edilir.
-
-Sonra audit edilir.
-
-Sonra GitHub’a mühürlenir.
-
-Her işlem adımı bittikten sonra ROADMAP güncellenir.
-
-Her işlem adımı bittikten sonra ALMANAC güncellenir.
-
-Her işlem adımı bittikten sonra ATLAS güncellenir.
-
-Eğer kural değişirse MANIFESTO güncellenir.
-
-Kural değişmediyse MANIFESTO’ya ekleme yapılmaz.
-
-OKU.md gerekirse her faz veya pass kapanışında güncellenir.
+- Veriye göre konuş.
+- Veri yoksa konuşma.
+- Kanıt yoksa güven yok.
+- Risk skordan üstündür.
+- Önce hayatta kal.
+- Disiplin tahminden üstündür.
+- Genel çözüm özel yamadan üstündür.
+- Shadow canlıdan önce gelir.
 
 ---
 
-## 5. ANA GÜVENLİK KURALLARI
+# 6. ÇALIŞMA DİSİPLİNİ
 
-Kanıt yoksa güven yok.
+Kod istenmeden kod verilmez.
 
-Risk skordan üstündür.
+Kod gerekiyorsa:
 
-Yapay zekâ otorite değildir.
+- tek blok,
+- yapıştır-çalıştır,
+- compact,
+- tekrar kullanılabilir,
+- ürüne özel olmayan,
+- yorum satırı gerektirmeyen biçimde hazırlanır.
 
-Shadow canlıdan önce gelir.
+Sunucu çöplüğe çevrilmez.
 
-Önce hayatta kal.
+Gereksiz:
 
-Kayıptan kaçınmak kazanç kadar değerlidir.
+- log,
+- backup,
+- klasör,
+- script,
+- test dosyası,
 
-Disiplin tahminden üstündür.
-
-Genel çözüm özel yamadan üstündür.
-
----
-
-## 6. YETKİ SINIRLARI
-
-Yapay zekâ yardımcıdır.
-
-Yapay zekâ yönetici değildir.
-
-Yapay zekâ trader değildir.
-
-Yapay zekâ karar otoritesi değildir.
-
-Trade yetkisi kapalıdır.
-
-Canlı işlem varsayılan olarak kapalıdır.
-
-Paper trade varsayılan olarak kapalıdır.
-
-Wallet yetkisi varsayılan olarak kapalıdır.
-
-İmza yetkisi varsayılan olarak kapalıdır.
-
-Otomatik uygulama yetkisi varsayılan olarak kapalıdır.
-
-Otomatik blok yetkisi varsayılan olarak kapalıdır.
-
-Risk kararını aşma yetkisi yoktur.
-
-Hard block bypass edilemez.
+üretilmez.
 
 ---
 
-## 7. KARAR DOKTRİNİ
+# 7. STANDART İŞ AKIŞI
 
-Önce kanıt.
+Her geliştirme aşağıdaki sırayı izler:
 
-Sonra analiz.
-
-Sonra risk.
-
-Sonra fırsat.
-
-En son karar.
-
-Karar zinciri:
-
-Kanıt
+PLAN
 
 ↓
 
-Risk
+ONAY
 
 ↓
 
-Teknik
+APPLY
 
 ↓
 
-Fırsat
+TEST
 
 ↓
 
-Komuta Merkezi
+POST AUDIT
 
-Risk motoru onaylamadan işlem yoktur.
+↓
 
-Execution yetkisi ayrıca açılmadan hiçbir işlem yoktur.
+GITHUB
 
-Güven skoru izin anlamına gelmez.
+↓
 
-Yapay zekâ görüşü risk kararı değildir.
+PROJECT_MASTER_STATE GÜNCELLEME
 
-Consumer bağlantısı aksiyon yetkisi değildir.
+↓
 
----
+ROADMAP
 
-## 8. DOKÜMAN ROLLERİ
+↓
 
-01_INDEX.md:
+ALMANAC
 
-Giriş kapısıdır.
+↓
 
-02_MANIFESTO.md:
+ATLAS
 
-Projenin anayasa metnidir.
+Manifesto yalnızca anayasal kural değişirse güncellenir.
 
-03_ROADMAP.md:
-
-Tek resmi roadmap dosyasıdır.
-
-04_ALMANAC.md:
-
-Tarihçe dosyasıdır.
-
-05_ATLAS.md:
-
-Sistem haritasıdır.
-
-PROJECT_MASTER_STATE.md:
-
-Mevcut canonical state dosyasıdır.
-
-PROJECT_HANDOFF.md:
-
-Teknik devam dosyasıdır.
-
-OKU.md:
-
-Yeni pencereye geçerken ilk okunacak tek başlangıç dosyasıdır.
+OKU.md yalnızca başlangıç davranışı değişirse güncellenir.
 
 ---
 
-## 9. GITHUB VE SERVER KURALI
+# 8. YETKİ SINIRLARI
 
-Her kapanan işlem GitHub’a mühürlenir.
+AI yardımcıdır.
 
-GitHub’a push edilmeden kapanmış sayılmaz.
+AI yönetici değildir.
 
-Server ve GitHub senkron olmalıdır.
+AI trader değildir.
 
-Git status temiz olmalıdır.
+AI karar otoritesi değildir.
 
-AHEAD_BEHIND değeri 0 0 olmalıdır.
+Varsayılan olarak kapalıdır:
 
-Kapanıştan sonra canonical head kaydedilmelidir.
+- Trade
+- Paper Trade
+- Wallet
+- Signing
+- Live Execution
+- Auto Apply
+- Auto Block
 
----
+Hard Block bypass edilemez.
 
-## 10. YASAKLAR
+Risk Engine onaylamadan işlem oluşmaz.
 
-Kanıtsız karar yasaktır.
-
-Kanıtsız güven yasaktır.
-
-Risk bypass yasaktır.
-
-Yapay zekâ otoritesi yasaktır.
-
-Trade yetkisi açmak yasaktır.
-
-Wallet yetkisi açmak yasaktır.
-
-İmza yetkisi açmak yasaktır.
-
-Doğrudan canlı işlem yasaktır.
-
-Onaysız paper trade yasaktır.
-
-Otomatik uygulama yasaktır.
-
-Otomatik blok yasaktır.
-
-Hard block bypass yasaktır.
-
-Sınırsız provider kullanımı yasaktır.
-
-Kontrolsüz maliyet yasaktır.
-
-Serverı çöplüğe çevirmek yasaktır.
-
-Ürüne özel kod yazmak yasaktır.
-
-Token özel yama yazmak yasaktır.
-
-Manifesto içine phase raporu yazmak yasaktır.
-
-Manifesto içine pass raporu yazmak yasaktır.
-
-Manifesto içine next step yazmak yasaktır.
-
-Manifesto içine governance operasyon logu yazmak yasaktır.
+Execution Authority açılmadan işlem oluşmaz.
 
 ---
 
-## 11. V2 DEVAM KURALI
+# 9. DOKÜMAN KURALLARI
 
-V2 başlamıştır.
+Canonical bilgi yalnızca ilgili canonical dosyada bulunur.
 
-V2, V1 üstüne kontrollü devam hattıdır.
+Aynı bilgi ikinci kez farklı dosyaya taşınmaz.
 
-V2 ilerlerken:
+Duplicate roadmap oluşturulmaz.
 
-ROADMAP güncellenir.
+Duplicate phase oluşturulmaz.
 
-ALMANAC güncellenir.
+Duplicate pass oluşturulmaz.
 
-ATLAS güncellenir.
+Duplicate engine oluşturulmaz.
 
-Kural değişirse MANIFESTO güncellenir.
+Yeni isim uydurulmaz.
 
-Gerekirse OKU.md güncellenir.
-
-Kullanıcı söylemeden V2 kapsamı büyütülmez.
-
-Kullanıcı söylemeden yeni sistem icat edilmez.
+Yeni kapsam kullanıcı istemeden genişletilmez.
 
 ---
 
-## 12. YENİ PENCERE BAŞLANGIÇ TALİMATI
+# 10. GITHUB KURALI
 
-Yeni pencereye geçildiğinde asistan şu sırayla hareket eder:
+Hiçbir çalışma;
 
-Önce OKU.md dosyasını oku.
+- GitHub'a gönderilmeden,
+- doğrulanmadan,
+- HEAD kontrol edilmeden,
+- git status temizlenmeden
 
-Sonra 01_INDEX.md dosyasını oku.
+tamamlanmış sayılmaz.
 
-Sonra 02_MANIFESTO.md dosyasını oku.
+Canonical HEAD kaydedilir.
 
-Sonra 03_ROADMAP.md dosyasını oku.
-
-Sonra 04_ALMANAC.md dosyasını oku.
-
-Sonra 05_ATLAS.md dosyasını oku.
-
-Sonra PROJECT_MASTER_STATE.md dosyasını oku.
-
-Sonra PROJECT_HANDOFF.md dosyasını oku.
-
-Bunları okumadan:
-
-yorum yapma,
-
-plan kurma,
-
-kod verme,
-
-faz adı üretme,
-
-engine adı üretme,
-
-next step uydurma.
+Server ve GitHub senkron kalır.
 
 ---
 
-## 13. KALDIĞIMIZ YER
+# 11. YASAKLAR
 
-V1 kapandı.
+Yasaktır:
 
-Doküman governance temizliği yapıldı.
-
-Index sadeleştirildi.
-
-Manifesto Türkçeleştirildi ve kodsal ifadelerden arındırıldı.
-
-OKU.md oluşturuldu.
-
-V2 başlamış durumdadır.
-
-Sıradaki iş kullanıcı talimatına bağlıdır.
+- Kanıtsız karar
+- Kanıtsız güven
+- Risk bypass
+- Hard Block bypass
+- AI authority
+- Trade authority açmak
+- Wallet açmak
+- Signing açmak
+- Live trade açmak
+- Ürüne özel kod
+- Token özel yama
+- Gereksiz dosya üretmek
+- Gereksiz backup üretmek
+- Gereksiz log üretmek
+- Manifesto içine faz raporu yazmak
+- Manifesto içine operasyon geçmişi yazmak
 
 ---
 
-## 14. SON KURAL
+# 12. MEVCUT DURUM
 
-Veriye göre konuş.
+V1 kapatılmıştır.
 
-Veri yoksa konuşma.
+V2 kontrollü geliştirme hattıdır.
 
-Kullanıcı söylemeden kod verme.
+V3 Runtime geliştirme hattı başlamıştır.
 
-Kullanıcı söylemeden kapsam büyütme.
+Geliştirmeler yalnızca canonical mimariye uygun olarak devam eder.
 
-Kullanıcı söylemeden yeni faz açma.
+Kullanıcı istemeden:
 
-Kullanıcı söylemeden yeni sistem icat etme.
+- yeni sistem kurulmaz,
+- yeni mimari icat edilmez,
+- yeni kapsam açılmaz,
+- yeni faz tanımlanmaz.
+
+---
+
+# 13. SON KURAL
 
 Önce oku.
 
 Sonra anla.
 
+Sonra mevcut state'i doğrula.
+
 Sonra planla.
 
-Sonra onay iste.
+Sonra onay al.
 
 Sonra uygula.
+
+Sonra test et.
+
+Sonra audit yap.
+
+Sonra GitHub'a mühürle.
+
+Son olarak canonical dokümanları güncelle.
+
+Her zaman:
+
+**Veriye göre konuş. Veri yoksa konuşma.**
