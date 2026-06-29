@@ -101,3 +101,39 @@ Tek roadmap kurali korundu.
 Root canonical dokumanlar yeniden hizalandi.
 
 Detaylar governance ve archive dosyalarinda tutulur.
+
+<!-- INDEX_V3_RUNTIME_ALIGNMENT_START -->
+## V3 START
+
+V3, V2 kapanışı sonrası runtime hazırlık ve kontrollü uygulama hattıdır.
+
+V3 yeni repo değildir.
+
+V3 yeni DB değildir.
+
+V3 trade, wallet, signing veya live execution açmaz.
+
+V3 plan dosyaları docs/v3 altında tutulur.
+
+V3 runtime uygulama kayıtları docs/runtime altında tutulur.
+
+V3 yönü ROADMAP içinde okunur.
+
+V3 tarihçesi ALMANAC içinde tutulur.
+
+V3 mimari bağlantıları ATLAS içinde tutulur.
+
+## RUNTIME IMPLEMENTATION
+
+Runtime uygulama kayıtları canonical root dokümanlarının yerine geçmez.
+
+Runtime detayları docs/runtime altında tutulur.
+
+Runtime modülleri tools altında tutulur.
+
+Runtime JSON/JSONL kanıtları data altında tutulur.
+
+Runtime hattı read-only ve shadow-first ilerler.
+
+RUNTIME_SLICE kayıtları PHASE veya PASS yerine geçmez.
+<!-- INDEX_V3_RUNTIME_ALIGNMENT_END -->
