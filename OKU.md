@@ -42,11 +42,11 @@ Tokenoskobi / Coinoskobi
 
 Tek kaynak:
 
-PROJECT_MASTER_STATE.md
+06_PROJECT_MASTER_STATE.md
 
 Teknik devam:
 
-PROJECT_HANDOFF.md
+07_PROJECT_HANDOFF.md
 
 Roadmap:
 
@@ -90,8 +90,8 @@ Yeni sohbet açıldığında aşağıdaki sıra uygulanır:
 4. 03_ROADMAP.md
 5. 04_ALMANAC.md
 6. 05_ATLAS.md
-7. PROJECT_MASTER_STATE.md
-8. PROJECT_HANDOFF.md
+7. 06_PROJECT_MASTER_STATE.md
+8. 07_PROJECT_HANDOFF.md
 
 Bu sıra bozulmaz.
 

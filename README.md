@@ -2,11 +2,14 @@
 
 Canonical documentation order:
 
-1. 01_INDEX.md
-2. 02_MANIFESTO.md
-3. 03_ROADMAP.md
-4. 04_ALMANAC.md
-5. 05_ATLAS.md
+1. OKU.md - Startup entry point
+2. 01_INDEX.md - Canonical index
+3. 02_MANIFESTO.md - Project manifesto
+4. 03_ROADMAP.md - Roadmap
+5. 04_ALMANAC.md - Almanac (history/ledger)
+6. 05_ATLAS.md - Architecture map
+7. 06_PROJECT_MASTER_STATE.md - Master project state (source of truth)
+8. 07_PROJECT_HANDOFF.md - Project handoff (technical continuation)
 
 Supporting documents are under:
 

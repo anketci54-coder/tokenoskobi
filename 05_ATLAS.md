@@ -359,10 +359,10 @@ OKU.md
 05_ATLAS.md
   -> architecture binding map
 
-docs/canonical/PROJECT_MASTER_STATE.md
+06_PROJECT_MASTER_STATE.md
   -> current canonical state
 
-docs/canonical/PROJECT_HANDOFF.md
+07_PROJECT_HANDOFF.md
   -> technical continuation state
 
 docs/v2/

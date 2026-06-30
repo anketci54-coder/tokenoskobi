@@ -22,10 +22,10 @@ OKU.md
 05_ATLAS.md
 └─ mimari harita / phase / pass / engine / panel bağları
 2. CURRENT STATE
-docs/canonical/PROJECT_MASTER_STATE.md
+06_PROJECT_MASTER_STATE.md
 └─ tek mevcut state kaynağı
 
-docs/canonical/PROJECT_HANDOFF.md
+07_PROJECT_HANDOFF.md
 └─ teknik devam ve geçiş dosyası
 3. V1 CANONICAL MAP
 V1
@@ -269,12 +269,6 @@ Full chronicle
 
 Architecture relations
 └─ 05_ATLAS.md
-
-Current state
-└─ docs/canonical/PROJECT_MASTER_STATE.md
-
-Technical handoff
-└─ docs/canonical/PROJECT_HANDOFF.md
 
 V2 documents
 └─ docs/v2/
