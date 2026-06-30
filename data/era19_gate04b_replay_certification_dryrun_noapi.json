@@ -1,0 +1,122 @@
+{
+  "api_calls": 0,
+  "cases": [
+    {
+      "case": "same_input_same_evidence",
+      "expected": "MATCH",
+      "id": "REPLAY01"
+    },
+    {
+      "case": "same_input_same_decision",
+      "expected": "MATCH",
+      "id": "REPLAY02"
+    },
+    {
+      "case": "same_input_same_guardian",
+      "expected": "MATCH",
+      "id": "REPLAY03"
+    },
+    {
+      "case": "same_input_same_paper",
+      "expected": "MATCH",
+      "id": "REPLAY04"
+    },
+    {
+      "case": "same_input_same_shadow",
+      "expected": "MATCH",
+      "id": "REPLAY05"
+    },
+    {
+      "case": "same_input_same_pnl",
+      "expected": "MATCH",
+      "id": "REPLAY06"
+    },
+    {
+      "case": "same_input_same_risk",
+      "expected": "MATCH",
+      "id": "REPLAY07"
+    },
+    {
+      "case": "logical_time_gap",
+      "expected": "EVENT_DRIVEN_WAIT",
+      "id": "REPLAY08"
+    },
+    {
+      "case": "system_time_used",
+      "expected": "FAIL_CLOSED",
+      "id": "REPLAY09"
+    },
+    {
+      "case": "snapshot_checksum_mismatch",
+      "expected": "FAIL_CLOSED",
+      "id": "REPLAY10"
+    },
+    {
+      "case": "rolling_checksum_mismatch",
+      "expected": "FAIL_CLOSED",
+      "id": "REPLAY11"
+    },
+    {
+      "case": "gsn_chain_break",
+      "expected": "FAIL_CLOSED",
+      "id": "REPLAY12"
+    },
+    {
+      "case": "ledger_diff_detected",
+      "expected": "DIFF_REPORT",
+      "id": "REPLAY13"
+    },
+    {
+      "case": "pnl_diff_detected",
+      "expected": "DIFF_REPORT",
+      "id": "REPLAY14"
+    },
+    {
+      "case": "decision_diff_detected",
+      "expected": "DIFF_REPORT",
+      "id": "REPLAY15"
+    }
+  ],
+  "certified": {
+    "dataset_time_authoritative": true,
+    "deterministic_decision": true,
+    "deterministic_evidence": true,
+    "deterministic_guardian": true,
+    "deterministic_paper": true,
+    "deterministic_pnl": true,
+    "deterministic_risk": true,
+    "deterministic_shadow": true,
+    "diff_reporting": true,
+    "gsn_chain": true,
+    "logical_time_only": true,
+    "rolling_checksum": true,
+    "snapshot_checksum": true,
+    "system_time_forbidden": true
+  },
+  "db_write": false,
+  "era": "ERA19",
+  "four_g_gate": {
+    "economy": "WINDOWED_REPLAY",
+    "power": "DETERMINISTIC_CHAIN_CERTIFIED",
+    "security": "MISMATCH_FAIL_CLOSED_WITH_DIFF",
+    "speed": "BATCH_REPLAY_ASYNC"
+  },
+  "gate": "GATE04B",
+  "live_trade": false,
+  "name": "REPLAY_CERTIFICATION_DRYRUN",
+  "next": "ERA19_GATE04C_POST_AUDIT_NOAPI",
+  "order_create": false,
+  "panel_write": false,
+  "paper_trade": false,
+  "service_restart": false,
+  "signing": false,
+  "status": "PASS_DRYRUN_NOAPI",
+  "summary": {
+    "failed": 0,
+    "total": 15,
+    "validated": 15
+  },
+  "timer_change": false,
+  "ts_utc": "2026-06-30T04:56:55Z",
+  "wallet": false
+}
