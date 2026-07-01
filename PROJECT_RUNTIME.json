@@ -1,0 +1,59 @@
+{
+  "runtime_version": "1.0",
+  "updated_at": "2026-07-01T20:50:40.860756+00:00",
+  "source": "local_workspace",
+  "git": {
+    "branch": "main",
+    "head": "1dc4742cd1382e30c0930166afba70d6e7ba637c",
+    "status_clean": false,
+    "status_summary": "?? PROJECT_BOOT.json\n?? PROJECT_STATE.json"
+  },
+  "current_state": {
+    "project_status": "ACTIVE_BUT_WORKFLOW_UNSTABLE",
+    "mode": "CANONICAL_V1_POST_SEAL_RECOVERY",
+    "current_problem": {
+      "type": "WORKFLOW_MEMORY_FAILURE_AND_DOCUMENTATION_BLOAT",
+      "description": "Long chats lose continuity; new windows fail to understand project state; documentation became over-expanded and duplicated.",
+      "immediate_priority": "Stabilize machine-readable project memory before any new Tokenoskobi feature."
+    },
+    "active_work_unit": {
+      "id": "BOOT_SYSTEM_V1",
+      "type": "MAINTENANCE",
+      "status": "LOCAL_JSON_UPDATED_NOT_GITHUB_SEALED",
+      "last_completed_step": "LOCAL_UPDATE",
+      "next_step": "TEST_IN_NEW_WINDOW"
+    }
+  },
+  "hard_rules": {
+    "no_new_features_until_boot_verified": true,
+    "no_new_markdown_bloat": true,
+    "no_repo_changes_without_risk_analysis": true,
+    "no_code_without_user_request": true,
+    "no_copilot_direct_writes_without_review": true,
+    "live_trade_locked": true,
+    "paper_trade_locked_until_explicit_phase": true,
+    "ai_has_no_trade_authority": true,
+    "human_approval_required": true
+  },
+  "last_action": {
+    "timestamp": "2026-07-01T20:50:40.860756+00:00",
+    "task": "Three-layer boot system created",
+    "result": "PASS_LOCAL_JSON_UPDATE",
+    "files_created_or_updated": [
+      "PROJECT_BOOT.json",
+      "PROJECT_RUNTIME.json",
+      "PROJECT_HISTORY.json"
+    ]
+  },
+  "next_safe_step": {
+    "name": "TEST_THREE_LAYER_BOOT_SYSTEM_IN_NEW_WINDOW",
+    "status": "READY",
+    "instruction": "New window must request cat PROJECT_BOOT.json and cat PROJECT_RUNTIME.json, summarize, and stop."
+  },
+  "open_risks": [
+    "New chat windows cannot directly access server files.",
+    "User must paste cat PROJECT_BOOT.json and cat PROJECT_RUNTIME.json output.",
+    "Runtime state must be updated at the final closure step of every work unit."
+  ],
+  "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal."
+}
