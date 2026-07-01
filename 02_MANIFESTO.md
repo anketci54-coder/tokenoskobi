@@ -1,456 +1,168 @@
-# 02 MANIFESTO - TOKENOSKOBI / COINOSKOBI
+# 02 MANIFESTO
 
-## ANA MOTTO
+Bu belge projenin kalıcı anayasal kurallarıdır.
+Bu belge proje tarihi, tamamlanan fazlar, roadmap, mimari detaylar, runtime durumu veya geçici kararlar içermez.
+
+## PROJECT PHILOSOPHY
 
 Şimşek kadar hızlı.
-
 Balyoz kadar güçlü.
-
 Kale kadar güvenli.
-
 Karınca kadar tutumlu.
+Veriye göre konuş.
+Veri yoksa konuşma.
+Kanıt yoksa güven yok.
+Risk skordan üstündür.
+Önce hayatta kal.
+Disiplin tahminden üstündür.
+Genel çözüm özel yamadan üstündür.
+Shadow canlıdan önce gelir.
 
-## ÇALIŞMA DİSİPLİNİ
+## CONSTITUTIONAL PRINCIPLES
 
-Kod ver demeden kod verilmez.
+Kalıcı kural geçici karardan üstündür.
+Kanıt varsayımdan üstündür.
+Güvenlik hızdan taviz vermez.
+Risk kabulü açık onay gerektirir.
+Onaysız kapsam genişletme yasaktır.
+Hiçbir iş canonical senkron olmadan tamamlanmış sayılmaz.
 
-Kod gerekiyorsa kısa, sade ve compact verilir.
+## AI BEHAVIOR RULES
 
-Serverı çöplüğe çevirmek yasaktır.
+AI is assistant.
+AI is never authority.
+AI never guesses.
+AI never fabricates.
+AI never invents architecture.
+AI never invents roadmap.
+AI never invents phases.
+AI never invents passes.
+AI never invents engines.
+AI always requests approval before implementation.
 
-Gereksiz dosya, gereksiz klasör, gereksiz log ve gereksiz deneme biriktirilmez.
+## HUMAN AUTHORITY
 
-Ürüne, tokene veya tek vakaya özel kod yazılmaz.
+Nihai otorite kullanıcıdır.
+Açık kullanıcı onayı olmadan uygulama yapılmaz.
+Belirsizlik varsa durulur, raporlanır ve kullanıcı beklenir.
+AI hiçbir zaman kullanıcı adına karar vermez.
 
-Genel, tekrar kullanılabilir ve sisteme uyumlu kod yazılır.
+## DOCUMENTATION CONSTITUTION
 
-Her işlem önce planlanır.
+One document.
+One responsibility.
 
-Sonra açık onay alınır.
+Rule changes
+→ Manifesto
 
-Sonra uygulanır.
+Roadmap
+→ Roadmap
 
-Sonra test edilir.
+Completed work
+→ Almanac
 
-Sonra audit edilir.
+Architecture
+→ Atlas
 
-Sonra GitHub’a mühürlenir.
+Current state
+→ Project Master State
 
-Her işlem adımı bittikten sonra ROADMAP güncellenir.
+Continuation
+→ Project Handoff
 
-Her işlem adımı bittikten sonra ALMANAC güncellenir.
+Navigation
+→ Index
 
-Her işlem adımı bittikten sonra ATLAS güncellenir.
+Bootstrap
+→ OKU
 
-Eğer kural değişirse MANIFESTO güncellenir.
+Duplicate canonical documents are forbidden.
+Her onaylı değişiklik etkilenen canonical belgeye işlenir.
+Dokümantasyon etki analizi yapılmadan canonical değişiklik yapılmaz.
 
-Kural değişmediyse MANIFESTO’ya ekleme yapılmaz.
+## CODE GENERATION CONSTITUTION
 
-## VİZYON
+Unless explicitly requested:
 
-Tokenoskobi;
+Never generate code.
 
-rastgele sinyal üreten,
+When code is requested:
 
-sosyal medya heyecanı kovalayan,
+- single block
+- paste-and-run
+- reusable
+- generic
+- minimal
+- compact
+- production-safe
 
-kör trade sistemi değildir.
+Never require nano.
+Never require vim.
+Never require interactive editors.
 
-Amaç:
+## SERVER OPERATION CONSTITUTION
 
-kanıt toplamak,
+All server commands must:
 
-riski ölçmek,
+start with
 
-fırsatı değerlendirmek,
+cd /root/tokenoskobi_clean_v1
 
-kararı disiplinli şekilde desteklemektir.
+Commands must:
 
-## KANIT ÖNCELİĞİ DOKTRİNİ
+- be safe
+- be idempotent
+- be SSH-safe
+- be mobile-safe
+- be 4G-safe
 
-Önce kanıt.
+Never risk disconnecting the user.
+Never terminate SSH.
+Never require manual recovery without approval.
 
-Sonra analiz.
+## GITHUB CONSTITUTION
 
-Sonra risk.
+Nothing is complete before:
 
-Sonra fırsat.
+git status clean
 
-En son karar.
+tests successful
 
-Kanıt olmadan skor üretilmez.
+post audit completed
 
-Kanıt olmadan karar üretilmez.
+GitHub synchronized
 
-Kanıt olmadan güven oluşmaz.
+canonical documents synchronized
 
-## RİSK ÜSTÜNLÜĞÜ DOKTRİNİ
+## SECURITY CONSTITUTION
 
-Risk her şeyden üstündür.
+Güvenlik varsayılan durumdur.
+Yetki en az ayrıcalık ilkesine göre ele alınır.
+Onaysız risk artıran işlem yapılamaz.
+İnteraktif, geri dönüşü zor veya kullanıcıyı düşürebilecek adımlar açık onay ister.
 
-Aşağıdakiler risk kararını geçersiz kılamaz:
+## RISK CONSTITUTION
 
-Teknik analiz
+Risk skordan üstündür.
+Belirsizlik rahatlatıcı yorumla kapatılamaz.
+Bilinmeyen risk varsa güvenli varsayılan uygulanır.
+Risk görünürlüğü, performans baskısından üstündür.
 
-Balina hareketi
+## CHANGE MANAGEMENT CONSTITUTION
 
-Haber akışı
+Every approved change must include:
 
-Sosyal medya
+impact analysis
 
-Yapay zekâ önerisi
+documentation update
 
-Panel görünürlüğü
+verification
 
-Manuel heyecan
+post audit
 
-Risk reddediyorsa sistem reddeder.
+GitHub synchronization
 
-## BİLİNMEYEN RİSK DOKTRİNİ
+## AMENDMENT PROCESS
 
-Bilinen saldırılar yeterli değildir.
-
-Sistem sadece saldırının adını aramaz.
-
-Sistem normal olmayan davranışı da fark etmek zorundadır.
-
-Ana soru şudur:
-
-Bu davranış neden normal değil?
-
-## YAPAY ZEKÂ DOKTRİNİ
-
-Yapay zekâ yardımcıdır.
-
-Yapay zekâ yönetici değildir.
-
-Yapay zekâ trader değildir.
-
-Yapay zekâ otorite değildir.
-
-Yapay zekâ açıklayabilir.
-
-Yapay zekâ özetleyebilir.
-
-Yapay zekâ sınıflandırabilir.
-
-Yapay zekâ öneri sunabilir.
-
-Yapay zekâ teşhis yapabilir.
-
-Yapay zekâ review yapabilir.
-
-Yapay zekâ emir veremez.
-
-Yapay zekâ risk kararını aşamaz.
-
-Yapay zekâ karar dayatamaz.
-
-Yapay zekâ trade başlatamaz.
-
-Yapay zekâ wallet kullanamaz.
-
-Yapay zekâ sistemi kendi başına değiştiremez.
-
-## TRADE VE KARAR DOKTRİNİ
-
-Trade motoru ile analiz motoru ayrı şeylerdir.
-
-Trade yetkisi kapalıdır.
-
-Risk motoru final güvenlik kapısıdır.
-
-Bu, trade yetkisi verildiği anlamına gelmez.
-
-Karar köprüsü execution köprüsü değildir.
-
-Güven skoru izin anlamına gelmez.
-
-Yapay zekâ görüşü risk kararı değildir.
-
-Consumer bağlantısı aksiyon yetkisi değildir.
-
-Sistem bir şeyi okuyabilir.
-
-Sistem bir şeyi gösterebilir.
-
-Sistem bir şeyi yorumlayabilir.
-
-Ama bu, işlem yapabileceği anlamına gelmez.
-
-Karar zinciri:
-
-Kanıt
-
-↓
-
-Risk
-
-↓
-
-Teknik
-
-↓
-
-Fırsat
-
-↓
-
-Komuta Merkezi
-
-Risk motoru onaylamadan işlem yoktur.
-
-Execution yetkisi ayrıca açılmadan hiçbir işlem yoktur.
-
-## CANLI İŞLEM DOKTRİNİ
-
-Canlı işlem varsayılan olarak kapalıdır.
-
-Paper trade varsayılan olarak kapalıdır.
-
-Wallet yetkisi varsayılan olarak kapalıdır.
-
-İmza yetkisi varsayılan olarak kapalıdır.
-
-Otomatik uygulama yetkisi varsayılan olarak kapalıdır.
-
-Otomatik blok yetkisi varsayılan olarak kapalıdır.
-
-Risk kararını aşma yetkisi yoktur.
-
-Hard block bypass edilemez.
-
-Canlı işlem açılması:
-
-ayrı faz,
-
-ayrı onay,
-
-ayrı audit,
-
-ayrı GitHub mührü gerektirir.
-
-## ÖĞRENME DOKTRİNİ
-
-Öğrenme sistemi karar vermez.
-
-Öğrenme sistemi hafıza oluşturur.
-
-Görevleri:
-
-Yanlış pozitifleri görmek
-
-Yanlış negatifleri görmek
-
-Kaçırılan fırsatları görmek
-
-Kaçınılan kayıpları görmek
-
-Kalibrasyon yapmak
-
-Öğrenme otorite değildir.
-
-Öğrenme geri besleme katmanıdır.
-
-## SHADOW DOKTRİNİ
-
-Önce Shadow.
-
-Sonra Paper.
-
-Sonra Micro.
-
-Sonra Controlled Live.
-
-Asla tersi değil.
-
-Shadow canlı işlem değildir.
-
-Paper canlı işlem değildir.
-
-Micro ve Controlled Live ancak ayrı onay ve ayrı audit ile açılabilir.
-
-## RUNTIME DOKTRİNİ
-
-Provider sınırlıdır.
-
-Bütçe sınırlıdır.
-
-Kaynak sınırlıdır.
-
-Hot path bekletilmez.
-
-Amaç:
-
-maksimum veri,
-
-minimum maliyet,
-
-minimum çöp,
-
-maksimum kontrol.
-
-## DOKÜMANTASYON DOKTRİNİ
-
-Canonical doküman seti:
-
-01_INDEX.md
-
-02_MANIFESTO.md
-
-03_ROADMAP.md
-
-04_ALMANAC.md
-
-05_ATLAS.md
-
-Başka hiçbir doküman bu beşlinin yerini alamaz.
-
-03_ROADMAP.md tek resmi roadmap dosyasıdır.
-
-Aynı anlamı taşıyan ikinci roadmap oluşturulmaz.
-
-Archive çöp değildir.
-
-Archive silme değildir.
-
-## CANONICAL GÜNCELLEME KURALI
-
-Yeni PASS kapanırsa:
-
-04_ALMANAC güncellenir.
-
-Yeni PHASE kapanırsa:
-
-03_ROADMAP güncellenir.
-
-04_ALMANAC güncellenir.
-
-05_ATLAS güncellenir.
-
-INDEX normalde değişmez.
-
-MANIFESTO sadece doktrin değişirse güncellenir.
-
-Manifesto değişikliği yapılacaksa:
-
-sayfanın sonuna rastgele ekleme yapılmaz.
-
-mevcut ana başlıklardan hangisine aitse onun altına işlenir.
-
-hiçbir ana başlığa uymuyorsa önce yeni ana başlık kararı alınır.
-
-## YASAKLAR
-
-Yasak:
-
-Kanıtsız karar
-
-Kanıtsız güven
-
-Risk bypass
-
-Yapay zekâ otoritesi
-
-Trade yetkisi
-
-Wallet yetkisi
-
-İmza yetkisi
-
-Doğrudan canlı işlem
-
-Onaysız paper trade
-
-Otomatik uygulama
-
-Otomatik blok
-
-Hard block bypass
-
-Sınırsız provider kullanımı
-
-Kontrolsüz maliyet
-
-Serverı çöplüğe çevirmek
-
-Ürüne özel kod yazmak
-
-Token özel yama yazmak
-
-Manifesto sonuna rastgele blok eklemek
-
-Manifesto içine phase raporu yazmak
-
-Manifesto içine pass raporu yazmak
-
-Manifesto içine next step yazmak
-
-Manifesto içine governance operasyon logu yazmak
-
-## ALTIN KURALLAR
-
-Kural 1: Kanıt yoksa güven yok.
-
-Kural 2: Risk skordan üstündür.
-
-Kural 3: Yapay zekâ otorite değildir.
-
-Kural 4: Shadow canlıdan önce gelir.
-
-Kural 5: Önce hayatta kal.
-
-Kural 6: Kayıptan kaçınmak kazanç kadar değerlidir.
-
-Kural 7: Disiplin tahminden üstündür.
-
-Kural 8: Sistem amacı fırsat kovalamak değil, kötü fırsatları elemekten başlamaktır.
-
-Kural 9: Her şey ölçülür.
-
-Kural 10: Her şey sorgulanır.
-
-Kural 11: Kod istenmeden kod verilmez.
-
-Kural 12: Genel çözüm özel yamadan üstündür.
-
-## V1 KAPANIŞ DOKTRİNİ
-
-V1 kapanmıştır.
-
-V1 güvenlik kilitleri korunur.
-
-V1 dokümantasyon düzeni korunur.
-
-V1 kapalıyken yeni engine, yeni runtime, yeni memory, yeni intelligence layer, yeni authority ve yeni execution kapsamı kendiliğinden açılamaz.
-
-V1 sonrası her yeni kapsam:
-
-önce plan,
-
-sonra açık onay,
-
-sonra uygulama,
-
-sonra audit,
-
-sonra GitHub mührü ister.
-
-V1 durumu:
-
-Kapalıdır.
-
-Doğrulanmıştır.
-
-GitHub’da mühürlenmiştir.
-## ERA15 RUNTIME CLOSURE DOCTRINE
-ERA15 runtime implementation is closed, verified, and GitHub sealed.
-
-Runtime completion does not open trade authority, AI authority, wallet authority, signing authority, paper trade, or live trade.
-
-ERA16 begins under the same immutable doctrine:
-- Survival First
-- Risk above score
-- Evidence before decision
-- AI is not authority
-- Shadow before live
+Manifesto changes are constitutional amendments.
+They require explicit user approval.

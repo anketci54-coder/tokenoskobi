@@ -1,88 +1,24 @@
-# OKU.md - TOKENOSKOBI / COINOSKOBI BAŞLANGIÇ DOSYASI
+# OKU
 
-Bu dosya yeni bir sohbet açıldığında okunacak ilk ve tek başlangıç dosyasıdır.
+Bu dosya dokümantasyon değildir.
+Bu dosya tek ve kalıcı AI bootstrap belgesidir.
+Her yeni ChatGPT, Copilot, Codex, Gemini veya başka bir AI oturumuna kopyala-yapıştır girilir.
+Amacı projeyi açıklamak değil, AI'a bu repoda nasıl çalışacağını öğretmektir.
+Tüm teknik detaylar canonical dokümanlardadır.
 
-Amacı; projenin mevcut durumunu, çalışma kurallarını ve okunacak canonical dosyaları tek noktadan göstermektir.
+## PROJECT
 
-Bu dosya teknik dokümantasyon değildir. Teknik detaylar yalnızca canonical dokümanlarda bulunur.
+- Tokenoskobi / Coinoskobi
+- V1 CLOSED VERIFIED GITHUB SEALED
+- V2 controlled continuation
+- same repository
+- same database
+- V3 runtime implementation line
+- current root canonical architecture exists
 
----
+## READ ORDER
 
-# 1. PROJE DURUMU
-
-## Proje
-
-Tokenoskobi / Coinoskobi
-
-## V1
-
-- Kapatılmıştır.
-- Doğrulanmıştır.
-- GitHub'da mühürlenmiştir.
-
-## V2
-
-- Başlamıştır.
-- Yeni repo değildir.
-- Yeni DB değildir.
-- V1 omurgası üzerinde kontrollü devam hattıdır.
-
-## V3 Runtime
-
-- Runtime geliştirme hattıdır.
-- Trade authority açmaz.
-- Wallet yetkisi açmaz.
-- Signing açmaz.
-- Live trade açmaz.
-- Read-only mimari üzerinde geliştirilir.
-
----
-
-# 2. SOURCE OF TRUTH
-
-Tek kaynak:
-
-06_PROJECT_MASTER_STATE.md
-
-Teknik devam:
-
-07_PROJECT_HANDOFF.md
-
-Roadmap:
-
-03_ROADMAP.md
-
-Tarihçe:
-
-04_ALMANAC.md
-
-Mimari:
-
-05_ATLAS.md
-
-Anayasa:
-
-02_MANIFESTO.md
-
-Başlangıç:
-
-OKU.md
-
-Bu dosyalar okunmadan:
-
-- yorum yapılmaz,
-- plan kurulmaz,
-- kod verilmez,
-- yeni faz üretilmez,
-- yeni pass üretilmez,
-- yeni engine üretilmez,
-- yeni roadmap yazılmaz.
-
----
-
-# 3. OKUMA SIRASI
-
-Yeni sohbet açıldığında aşağıdaki sıra uygulanır:
+AI MUST read EXACTLY in this order:
 
 1. OKU.md
 2. 01_INDEX.md
@@ -93,71 +29,81 @@ Yeni sohbet açıldığında aşağıdaki sıra uygulanır:
 7. 06_PROJECT_MASTER_STATE.md
 8. 07_PROJECT_HANDOFF.md
 
-Bu sıra bozulmaz.
+AI MUST NOT continue before reading all.
 
----
+## BOOTSTRAP AUTHORITY
 
-# 4. ANA MOTTO
+OKU.md is the highest startup authority.
+If any assumption conflicts with OKU.md:
 
-Şimşek kadar hızlı.
+DO NOT GUESS.
 
-Balyoz kadar güçlü.
+Read canonical documents.
+If conflict still exists:
 
-Kale kadar güvenli.
+STOP.
 
-Karınca kadar tutumlu.
+Report conflict.
 
----
+Wait for user.
 
-# 5. TEMEL İLKELER
+## REPOSITORY VALIDATION
 
-- Veriye göre konuş.
-- Veri yoksa konuşma.
-- Kanıt yoksa güven yok.
-- Risk skordan üstündür.
-- Önce hayatta kal.
-- Disiplin tahminden üstündür.
-- Genel çözüm özel yamadan üstündür.
-- Shadow canlıdan önce gelir.
+Repository trust order:
 
----
+1. Local Workspace
+2. Local Git Repository
+3. GitHub Remote
+4. AI Memory
 
-# 6. ÇALIŞMA DİSİPLİNİ
+Cached snapshots are NEVER authoritative.
+If repository mismatch exists:
 
-Kod istenmeden kod verilmez.
+STOP.
 
-Kod gerekiyorsa:
+Report.
 
-- tek blok,
-- yapıştır-çalıştır,
-- compact,
-- tekrar kullanılabilir,
-- ürüne özel olmayan,
-- yorum satırı gerektirmeyen biçimde hazırlanır.
+Wait for user.
 
-Sunucu çöplüğe çevrilmez.
+## AFTER READING
 
-Gereksiz:
+After reading the required documents AI MUST ONLY summarize:
 
-- log,
-- backup,
-- klasör,
-- script,
-- test dosyası,
+- Current project state
+- Last completed work
+- Next safe step
+- Any uncertainty
 
-üretilmez.
+Then STOP.
+Wait for user confirmation.
+NO planning.
+NO coding.
+NO architecture.
+NO assumptions.
 
----
+## WORKFLOW
 
-# 7. STANDART İŞ AKIŞI
+READ
 
-Her geliştirme aşağıdaki sırayı izler:
+↓
+
+UNDERSTAND
+
+↓
+
+VERIFY
+
+↓
+
+ANALYZE
+
+↓
 
 PLAN
 
 ↓
 
-ONAY
+ASK APPROVAL
 
 ↓
 
@@ -177,184 +123,145 @@ GITHUB
 
 ↓
 
-PROJECT_MASTER_STATE GÜNCELLEME
+UPDATE CANONICAL DOCUMENTS
 
-↓
+## PROJECT PRINCIPLES
 
-ROADMAP
+Veriye göre konuş.
+Veri yoksa konuşma.
+Kanıt yoksa güven yok.
+Risk skordan üstündür.
+Önce hayatta kal.
+Disiplin tahminden üstündür.
+Genel çözüm özel yamadan üstündür.
+Shadow canlıdan önce gelir.
 
-↓
+## AI MUST NEVER
 
-ALMANAC
+Never assume.
+Never guess.
+Never fabricate.
+Never invent architecture.
+Never invent roadmap.
+Never invent phase.
+Never invent pass.
+Never invent engine.
+Never create duplicate documentation.
+Never create duplicate roadmap.
+Never create duplicate canonical files.
+Never widen project scope without explicit user approval.
+Never generate code unless requested.
+Never use nano/editor workflow.
+Never create unnecessary:
 
-↓
+- files
+- folders
+- logs
+- backups
 
-ATLAS
+If information is unknown:
 
-Manifesto yalnızca anayasal kural değişirse güncellenir.
+Say:
 
-OKU.md yalnızca başlangıç davranışı değişirse güncellenir.
+"I don't know."
 
----
+Never fill missing information with assumptions.
 
-# 8. YETKİ SINIRLARI
+## SERVER RULES
 
-AI yardımcıdır.
+All server commands MUST start with:
 
-AI yönetici değildir.
+cd /root/tokenoskobi_clean_v1
 
-AI trader değildir.
+Commands MUST be:
 
-AI karar otoritesi değildir.
+- paste-and-run
+- compact
+- reusable
+- idempotent
+- safe for SSH
+- safe for mobile
+- safe for unstable 4G connections
 
-Varsayılan olarak kapalıdır:
+Never execute commands that may:
 
-- Trade
-- Paper Trade
-- Wallet
-- Signing
-- Live Execution
-- Auto Apply
-- Auto Block
+- logout the user
+- terminate SSH
+- break runtime
+- require nano
+- require vim
+- require interactive editors
+- require manual recovery
 
-Hard Block bypass edilemez.
+unless explicitly approved.
 
-Risk Engine onaylamadan işlem oluşmaz.
+## DOCUMENT RULES
 
-Execution Authority açılmadan işlem oluşmaz.
+Every document has ONE responsibility.
 
----
+Rule changes
+→ 02_MANIFESTO.md
 
-# 9. DOKÜMAN KURALLARI
+Roadmap changes
+→ 03_ROADMAP.md
 
-Canonical bilgi yalnızca ilgili canonical dosyada bulunur.
+Completed work
+→ 04_ALMANAC.md
 
-Aynı bilgi ikinci kez farklı dosyaya taşınmaz.
+Architecture
+→ 05_ATLAS.md
 
-Duplicate roadmap oluşturulmaz.
+Current state
+→ 06_PROJECT_MASTER_STATE.md
 
-Duplicate phase oluşturulmaz.
+Continuation
+→ 07_PROJECT_HANDOFF.md
 
-Duplicate pass oluşturulmaz.
+Navigation
+→ 01_INDEX.md
 
-Duplicate engine oluşturulmaz.
+Startup
+→ OKU.md
 
-Yeni isim uydurulmaz.
+AI MUST perform document impact analysis BEFORE changing documentation.
+Every approved change MUST update the affected canonical document.
+Never finish work before canonical documentation is synchronized.
 
-Yeni kapsam kullanıcı istemeden genişletilmez.
+## GITHUB
 
----
+Nothing is complete until:
 
-# 10. GITHUB KURALI
+- git status clean
+- HEAD verified
+- GitHub pushed
+- Canonical documents updated
 
-Hiçbir çalışma;
+## SUCCESS CRITERIA
 
-- GitHub'a gönderilmeden,
-- doğrulanmadan,
-- HEAD kontrol edilmeden,
-- git status temizlenmeden
+A task is NOT complete unless:
 
-tamamlanmış sayılmaz.
+- User objective is achieved
+- Tests are successful
+- Post audit is completed
+- GitHub is synchronized
+- Canonical documents are synchronized
+- PROJECT_MASTER_STATE is updated when required
+- PROJECT_HANDOFF is updated when required
+- No documentation inconsistency remains
 
-Canonical HEAD kaydedilir.
+Only then consider the work COMPLETE.
 
-Server ve GitHub senkron kalır.
+## PROJECT MOTTO
 
----
+Şimşek kadar hızlı.
+Balyoz kadar güçlü.
+Kale kadar güvenli.
+Karınca kadar tutumlu.
 
-# 11. YASAKLAR
+## FINAL RULE
 
-Yasaktır:
-
-- Kanıtsız karar
-- Kanıtsız güven
-- Risk bypass
-- Hard Block bypass
-- AI authority
-- Trade authority açmak
-- Wallet açmak
-- Signing açmak
-- Live trade açmak
-- Ürüne özel kod
-- Token özel yama
-- Gereksiz dosya üretmek
-- Gereksiz backup üretmek
-- Gereksiz log üretmek
-- Manifesto içine faz raporu yazmak
-- Manifesto içine operasyon geçmişi yazmak
-
----
-
-# 12. MEVCUT DURUM
-
-V1 kapatılmıştır.
-
-V2 kontrollü geliştirme hattıdır.
-
-V3 Runtime geliştirme hattı başlamıştır.
-
-Geliştirmeler yalnızca canonical mimariye uygun olarak devam eder.
-
-Kullanıcı istemeden:
-
-- yeni sistem kurulmaz,
-- yeni mimari icat edilmez,
-- yeni kapsam açılmaz,
-- yeni faz tanımlanmaz.
-
----
-
-# 13. SON KURAL
-
-Önce oku.
-
-Sonra anla.
-
-Sonra mevcut state'i doğrula.
-
-Sonra planla.
-
-Sonra onay al.
-
-Sonra uygula.
-
-Sonra test et.
-
-Sonra audit yap.
-
-Sonra GitHub'a mühürle.
-
-Son olarak canonical dokümanları güncelle.
-
-Her zaman:
-
-**Veriye göre konuş. Veri yoksa konuşma.**
-## CURRENT STARTUP STATE — POST ERA15
-ERA15_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
-ERA15_HEAD=76fd3ba861676c9e112b9ee71ac81af551dfafa4
-CURRENT_ERA=ERA16
-NEXT_WORK=ERA16_PHASE62
-
-Runtime implementation line is closed.
-New development continues under ERA16.
-
-No new repo.
-No new DB.
-No trade authority.
-No wallet authority.
-No signing authority.
-No AI authority.
-
-## CURRENT STARTUP STATE — POST ERA16 PHASE63
-CURRENT_HEAD=f716d4f1d4f943d0b6105c62aafe46b5f69cf385
-CURRENT_ERA=ERA16
-LAST_COMPLETED=ERA16_PHASE63_DISTRIBUTED_CONSTITUTION_GUARDIAN
-PHASE63_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
-NEXT_WORK=ERA16_PHASE64
-
-No new repo.
-No new DB.
-No trade authority.
-No wallet authority.
-No signing authority.
-No AI authority.
+Read first.
+Understand.
+Verify.
+Then work.
+Never skip the startup protocol.
