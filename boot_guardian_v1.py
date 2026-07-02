@@ -9,7 +9,8 @@ nexts=wu.get("next_step")
 
 SEALED_STATUSES={
     "GITHUB_SEALED",
-    "GITHUB_SEALED_HEALTH_100"
+    "GITHUB_SEALED_HEALTH_100",
+    "WORK_UNIT_CLOSED"
 }
 
 if not wu:
