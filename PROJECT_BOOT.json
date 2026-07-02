@@ -1,5 +1,5 @@
 {
-  "boot_version": "1.3",
+  "boot_version": "2.0",
   "purpose": "Single machine-readable startup file for new ChatGPT windows. Use this before reading any other project file.",
   "project": {
     "name": "Tokenoskobi",
@@ -364,7 +364,7 @@
     "PROJECT_BOOT.json must be pasted or provided through server command output.",
     "If BOOT is not updated at closure, next window may continue from stale state."
   ],
-  "updated_at": "2026-07-01T20:50:40.860756+00:00",
+  "updated_at": "2026-07-02T07:36:08.953037+00:00",
   "boot_architecture": {
     "model": "THREE_LAYER_BOOT_SYSTEM",
     "files": {
@@ -378,5 +378,12 @@
       "PROJECT_HISTORY.json only if needed"
     ],
     "rule": "BOOT stays small and stable. RUNTIME changes every work unit. HISTORY accumulates past events."
+  },
+  "single_push_policy": {
+    "rule": "Tracked runtime files must not try to contain the hash of their own future commit.",
+    "reason": "A commit hash cannot be known before the commit exists.",
+    "policy": "Git live HEAD is the source for current commit identity. PROJECT_RUNTIME.json stores last observed metadata and workflow position.",
+    "validator_behavior": "HEAD mismatch is warning, not fatal, in V2.",
+    "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify."
   }
 }
