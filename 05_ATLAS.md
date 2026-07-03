@@ -695,3 +695,33 @@ d635900bd363ba9d8437a65181382b3b2568d6db
 
 ================================================================================
 
+
+
+----------------------------------------------------------------------------
+
+## ERA23A FIX1 - V1/V8 DETAILED ROADMAP AND ALMANAC BINDING
+
+Updated: 2026-07-03T07:40:37.535380Z
+HEAD: d76341c1c7067ebc3ea0fdbb9ba2efe587baad2e
+
+This update binds every V line to its ERA range, purpose, next connection,
+and closure-update requirement.
+
+Rule:
+Every V closure and every ERA closure must update:
+- PROJECT_RUNTIME.json
+- data/tokenoskobi_v1_v8_master_era_roadmap.json
+- 03_ROADMAP.md
+- 04_ALMANAC.md
+- 05_ATLAS.md
+- 06_PROJECT_MASTER_STATE.md
+- 07_PROJECT_HANDOFF.md
+
+Next work unit:
+ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
+
+NO_DUPLICATE_CANON_RULE:
+ONE PURPOSE = ONE CANONICAL FILE.
+
+----------------------------------------------------------------------------
+
