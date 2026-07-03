@@ -1610,3 +1610,35 @@ ONE PURPOSE = ONE CANONICAL FILE.
 
 ----------------------------------------------------------------------------
 
+
+
+----------------------------------------------------------------------------
+
+## ERA23A_FIX2_FULL_V1_V8_MASTER_ROADMAP_CANONICAL_REPAIR
+
+Updated: 2026-07-03T08:39:33.400590+00:00
+HEAD: 0aca774f1b72a8c87995697b60918a262cdc022d
+
+Full Tokenoskobi OS V1-V8 roadmap is now canonical in:
+
+data/tokenoskobi_v1_v8_master_era_roadmap.json
+
+This JSON contains:
+- V1 PHASE0-PHASE60 summary
+- V2 V2_00-V2_60 summary
+- V3 ERA21-ERA60 detailed chain
+- V4 ERA61-ERA80 planned chain
+- V5 ERA81-ERA100 planned chain
+- V6 ERA101-ERA120 planned chain
+- V7 ERA121-ERA140 planned chain
+- V8 ERA141-ERA160 planned chain
+- ERA/V closure update rule
+- NO_DUPLICATE_CANON_RULE
+- MEASURE_BEFORE_SPEND
+- GRACEFUL_DECAY retirement doctrine
+
+Next work unit:
+ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
+
+----------------------------------------------------------------------------
+
