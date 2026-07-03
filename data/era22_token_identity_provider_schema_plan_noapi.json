@@ -1,0 +1,31 @@
+{
+  "work_unit": "ERA22_TOKEN_IDENTITY_PROVIDER_SCHEMA_PLAN",
+  "status": "APPLY_CREATED_SCHEMA_PLAN",
+  "git_head": "3eaa11ade5eb6b90b6e57a7cdf34bea567973d5c",
+  "created_at": "2026-07-03T04:03:45.629062+00:00",
+  "decision": "PLAN_ONLY_NOAPI",
+  "purpose": "News matcher için token identity kaynağı planlamak.",
+  "tables_planned": [
+    "token_identity_provider_v1",
+    "token_identity_alias_v1",
+    "token_identity_source_evidence_v1"
+  ],
+  "required_fields": [
+    "chain",
+    "address",
+    "symbol",
+    "name",
+    "aliases",
+    "source",
+    "confidence",
+    "updated_at"
+  ],
+  "rules": [
+    "Address varsa primary identity olur.",
+    "Symbol/name tek başına kesin eşleşme değildir.",
+    "Alias evidence olmadan bağlanmaz.",
+    "News tokena zorla eşlenmez.",
+    "Output observe-only kalır."
+  ],
+  "next": "TEST"
+}
