@@ -37,9 +37,9 @@
     "human_approval_required": true
   },
   "last_action": {
-    "timestamp": "2026-07-03T11:52:39.250263+00:00",
-    "task": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
-    "result": "WORK_UNIT_CLOSED_GITHUB_SEALED"
+    "task": "ERA23E_CANONICAL_OWNERSHIP_ENFORCEMENT",
+    "result": "OWNERSHIP_POLICY_APPLIED_WARN_ONLY",
+    "note": "No canonical file added. Policy embedded in runtime state for ERA23E."
   },
   "next_safe_step": {
     "name": "USER_APPROVAL_FOR_GIT_ADD_COMMIT_PUSH",
@@ -72,5 +72,22 @@
     "result": "WORK_UNIT_CLOSED_GITHUB_SEALED",
     "timestamp_utc": "2026-07-03T11:52:39.250263+00:00"
   },
-  "status": "WORK_UNIT_CLOSED"
+  "status": "WORK_UNIT_CLOSED",
+  "canonical_ownership_policy": {
+    "work_unit": "ERA23E_CANONICAL_OWNERSHIP_ENFORCEMENT",
+    "mode": "WARN_ONLY",
+    "rule": "Each canonical file has exactly one ownership purpose. Wrong-writer detection starts in WARN mode; FAIL mode is future step.",
+    "owners": {
+      "PROJECT_RUNTIME.json": "runtime_state",
+      "PROJECT_HISTORY.json": "history_log",
+      "03_ROADMAP.md": "human_roadmap",
+      "04_ALMANAC.md": "closed_work_register",
+      "05_ATLAS.md": "architecture_map",
+      "06_PROJECT_MASTER_STATE.md": "master_state_summary",
+      "07_PROJECT_HANDOFF.md": "handoff_boot_context",
+      "data/tokenoskobi_v1_v8_master_era_roadmap.json": "v1_v8_era_roadmap"
+    },
+    "no_new_canonical_files": true,
+    "concept_freeze": true
+  }
 }
