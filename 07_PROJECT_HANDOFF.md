@@ -1646,7 +1646,7 @@ ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
 
 # ERA23C CANONICAL CURRENT MARKER
 
-- MARKER_STATUS: CURRENT
+- MARKER_STATUS: SUPERSEDED_BY_ERA23Z
 - WORK_UNIT: ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR
 - PROJECT_STATUS: ACTIVE_BUT_WORKFLOW_UNSTABLE
 - CURRENT_VERSION: V1
@@ -1659,6 +1659,7 @@ ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
 - UPDATED_AT_UTC: 2026-07-03T11:21:03.099692+00:00
 - GIT_HEAD_AT_APPLY: 723912fc7e7142beddffddf9bf8b117857744469
 - NOTE: Older current markers are historical/superseded and must not be used as active state.
+- ACTIVE_STATE_SOURCE_AFTER_ERA23Z: PROJECT_RUNTIME.json
 <!-- ERA23C_CANONICAL_CURRENT_MARKER_END -->
 
 <!-- ERA23_HANDOFF_BEGIN -->
@@ -1684,3 +1685,39 @@ RULES:
 - Do not open ERA24 before ERA23 final seal.
 - Do not push except at ERA closure.
 <!-- ERA23_HANDOFF_END -->
+
+<!-- ERA24_BOOT_INSTRUCTION_BEGIN -->
+
+## ERA24 BOOT INSTRUCTION
+
+STATUS: READY_AFTER_ERA23_SEAL
+UPDATED_AT_UTC: 2026-07-03T16:30:13.733565+00:00
+CURRENT_HEAD: 9fe27910589c3bf2964a25ccb3ecddd6afbf9ff0
+
+READ_ORDER:
+1. PROJECT_RUNTIME.json
+2. PROJECT_HISTORY.json
+3. data/tokenoskobi_v1_v8_master_era_roadmap.json
+4. 02_MANIFESTO.md
+5. 03_ROADMAP.md
+6. 04_ALMANAC.md
+7. 05_ATLAS.md
+8. 06_PROJECT_MASTER_STATE.md
+9. 07_PROJECT_HANDOFF.md
+
+SOURCE_RULES:
+- Runtime state source: PROJECT_RUNTIME.json
+- Roadmap machine source: data/tokenoskobi_v1_v8_master_era_roadmap.json
+- Historical record source: 04_ALMANAC.md
+- Human doctrine source: 02_MANIFESTO.md
+- AI memory is not source of truth.
+
+NEXT_ACTION:
+Start ERA24 planning only after reading canonical files.
+
+DO_NOT:
+- Do not reopen ERA23.
+- Do not use superseded ERA23C markers as active state.
+- Do not push except at ERA closure.
+- Do not add new concepts before ERA24 scope approval.
+<!-- ERA24_BOOT_INSTRUCTION_END -->
