@@ -4809,3 +4809,56 @@ ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
 
 ----------------------------------------------------------------------------
 
+
+----------------------------------------------------------------------------
+
+## ERA23A_FIX3_SELF_BOOTABLE_CANONICAL_BOOT_REPAIR
+
+UPDATED_AT: 2026-07-03T09:55:26.862443+00:00
+HEAD: a1827a5bd39a6bfc526e12a16e2ad91546010279
+
+SELF-BOOTABLE CANONICAL BOOT
+
+Yeni pencere eski sohbete dönmeden yalnızca repo dosyalarından devam edebilmelidir.
+
+READ ORDER:
+1. PROJECT_RUNTIME.json
+2. data/tokenoskobi_v1_v8_master_era_roadmap.json
+3. 03_ROADMAP.md
+4. 04_ALMANAC.md
+5. 06_PROJECT_MASTER_STATE.md
+
+SOURCE RULES:
+- Current state source: PROJECT_RUNTIME.json
+- Roadmap source: data/tokenoskobi_v1_v8_master_era_roadmap.json
+- Register/almanac source: 04_ALMANAC.md
+- AI memory is not source of truth.
+
+ROADMAP MAP:
+- V1 = PHASE0-PHASE60 CLOSED
+- V2 = V2_00-V2_60 CLOSED
+- V3 = ERA21-ERA60 ACTIVE
+- V4 = ERA61-ERA80 PLANNED
+- V5 = ERA81-ERA100 PLANNED
+- V6 = ERA101-ERA120 PLANNED
+- V7 = ERA121-ERA140 PLANNED
+- V8 = ERA141-ERA160 PLANNED
+
+ROLLING_ROADMAP_POLICY:
+- Current V = HIGH DETAIL
+- Next V = MEDIUM DETAIL
+- Future V = STRATEGIC DETAIL
+- When a V closes, next V is expanded.
+- Closed ERA/V is immutable.
+
+LAST CLOSED:
+ERA23A_FIX2_FULL_V1_V8_MASTER_ROADMAP_CANONICAL_REPAIR
+
+NEXT WORK UNIT:
+ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
+
+NO_DUPLICATE_CANON_RULE:
+ONE PURPOSE = ONE CANONICAL FILE.
+
+----------------------------------------------------------------------------
+
