@@ -4878,3 +4878,14 @@ ONE PURPOSE = ONE CANONICAL FILE.
 - GIT_HEAD_AT_APPLY: 723912fc7e7142beddffddf9bf8b117857744469
 - RULE: Historical records are preserved. Older current markers are superseded, not deleted.
 <!-- ERA23C_CANONICAL_SYNCHRONIZATION_RECORD_END -->
+
+<!-- ERA23_FINAL_CLOSURE_RECORD_BEGIN -->
+
+## 2026-07-03T16:08:02.806475+00:00 — ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE
+
+STATUS: LOCAL_READY_FOR_FINAL_SEAL
+RESULT: ERA23 final canonical governance and closure documents prepared.
+HEAD: d30d1f086178e858788b1176dbf790bc95d2f472
+PUSH_POLICY: Single push only at ERA closure.
+NEXT: Final local test, commit and push after PASS.
+<!-- ERA23_FINAL_CLOSURE_RECORD_END -->

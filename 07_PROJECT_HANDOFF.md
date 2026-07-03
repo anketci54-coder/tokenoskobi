@@ -1660,3 +1660,27 @@ ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
 - GIT_HEAD_AT_APPLY: 723912fc7e7142beddffddf9bf8b117857744469
 - NOTE: Older current markers are historical/superseded and must not be used as active state.
 <!-- ERA23C_CANONICAL_CURRENT_MARKER_END -->
+
+<!-- ERA23_HANDOFF_BEGIN -->
+
+## ERA23 HANDOFF
+
+STATUS: LOCAL_READY_FOR_FINAL_SEAL
+LAST_COMPLETED_WORK_UNIT: ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE
+NEXT_SAFE_STEP: ERA23_FINAL_COMMIT_AND_SINGLE_PUSH
+READ_FIRST:
+- PROJECT_RUNTIME.json
+- PROJECT_HISTORY.json
+- 02_MANIFESTO.md
+- 03_ROADMAP.md
+- 04_ALMANAC.md
+- 05_ATLAS.md
+- 06_PROJECT_MASTER_STATE.md
+- 07_PROJECT_HANDOFF.md
+- data/tokenoskobi_v1_v8_master_era_roadmap.json
+
+RULES:
+- Do not use AI memory as source of truth.
+- Do not open ERA24 before ERA23 final seal.
+- Do not push except at ERA closure.
+<!-- ERA23_HANDOFF_END -->

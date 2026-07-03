@@ -775,3 +775,20 @@ ERA23B_AI_COMMAND_AND_RED_TEAM_ORCHESTRATION_PROTOCOL_PLAN
 - GIT_HEAD_AT_APPLY: 723912fc7e7142beddffddf9bf8b117857744469
 - NOTE: Older current markers are historical/superseded and must not be used as active state.
 <!-- ERA23C_CANONICAL_CURRENT_MARKER_END -->
+
+<!-- ERA23_OS_CORE_GOVERNANCE_MARKER_BEGIN -->
+
+## ERA23 OS CORE GOVERNANCE MARKER
+
+STATUS: ACTIVE
+WORK_UNIT: ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE
+
+The OS core is governed by five core capabilities:
+- Runtime
+- Memory
+- Intelligence
+- Decision
+- Evolution
+
+All future modules must map to one of these capabilities or remain in backlog.
+<!-- ERA23_OS_CORE_GOVERNANCE_MARKER_END -->

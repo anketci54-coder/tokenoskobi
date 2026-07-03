@@ -957,3 +957,22 @@ ONE PURPOSE = ONE CANONICAL FILE.
 - GIT_HEAD_AT_APPLY: 723912fc7e7142beddffddf9bf8b117857744469
 - NOTE: Older current markers are historical/superseded and must not be used as active state.
 <!-- ERA23C_CANONICAL_CURRENT_MARKER_END -->
+
+<!-- ERA23_FINAL_CLOSURE_MARKER_BEGIN -->
+
+## ERA23 FINAL CLOSURE MARKER
+
+STATUS: LOCAL_READY_FOR_FINAL_SEAL
+WORK_UNIT: ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE
+UPDATED_AT_UTC: 2026-07-03T16:08:02.806475+00:00
+
+ERA23 closes the OS Core Hardening layer:
+- Runtime and Boot Core Stabilization
+- Canonical Ownership Enforcement
+- Disaster Recovery and Rollback Protocol
+- Semantic Drift Guard
+- Canonical Governance and Manifesto Alignment
+
+NEXT:
+ERA24 planning starts only after ERA23 final seal and user approval.
+<!-- ERA23_FINAL_CLOSURE_MARKER_END -->

@@ -197,3 +197,39 @@ GitHub synchronization
 
 Manifesto changes are constitutional amendments.
 They require explicit user approval.
+
+<!-- ERA23_GOVERNING_DOCTRINE_ADDENDUM_BEGIN -->
+
+## ERA23 GOVERNING DOCTRINE ADDENDUM
+
+STATUS: ACTIVE
+
+This manifesto is the highest governing document of Tokenoskobi OS. If roadmap, implementation, AI recommendation or documentation conflicts with this document, this document prevails.
+
+CORE RULES:
+1. Evidence First
+2. Capability Before Implementation
+3. Concept Freeze
+4. Concept Budget
+5. Architectural Budget
+6. Opportunity Cost
+7. One Capability Per ERA
+8. ERA Purity
+9. One Purpose = One Canonical File
+10. Canonical Source of Truth
+11. Recovery Before Mutation
+12. Measure Before Optimize
+13. Local Before Push
+14. Simulation Before Capital
+15. Capital Preservation First
+16. Evolution Through Evidence
+
+DOCTRINE LIBRARY RULE:
+War, nature, economics, game theory and technology doctrines are not copied as stories. They are converted into measurable decision principles. No doctrine enters the system because a famous commander, animal model or technology trend suggests it. It must pass mathematical verification, simulation advantage, paper-trade advantage, real-data statistical significance and positive opportunity cost.
+
+CONCEPT LIFECYCLE:
+IDEA -> HYPOTHESIS -> EXPERIMENT -> EVIDENCE -> CAPABILITY -> CORE
+
+CONCEPT FREEZE:
+During an active ERA, new engines, memory types, states and metaphors do not enter the core. They wait in backlog unless they are required for the current ERA capability.
+<!-- ERA23_GOVERNING_DOCTRINE_ADDENDUM_END -->

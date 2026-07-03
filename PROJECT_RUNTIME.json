@@ -1,6 +1,6 @@
 {
   "runtime_version": "1.0",
-  "updated_at": "2026-07-03T11:21:03.099692+00:00",
+  "updated_at": "2026-07-03T16:08:02.806475+00:00",
   "source": "local_workspace",
   "git": {
     "branch": "main",
@@ -13,16 +13,13 @@
     "mode": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
     "current_problem": "CANONICAL_DRIFT",
     "active_work_unit": {
-      "id": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
-      "type": "CANONICAL_SYNC_AND_DRIFT_REPAIR",
+      "id": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
+      "type": "ERA_FINAL_CLOSURE",
       "status": "WORK_UNIT_CLOSED",
-      "stage": "GITHUB_SEALED",
-      "source_owner": "PROJECT_RUNTIME.json",
-      "started_at_utc": "2026-07-03T11:21:03.099692+00:00",
+      "stage": "LOCAL_FINAL_CLOSURE_PENDING_SINGLE_PUSH",
       "last_completed_step": "WORK_UNIT_CLOSED",
       "next_step": "NEXT_WORK_UNIT_PLAN",
-      "closed_at_utc": "2026-07-03T11:52:39.250263+00:00",
-      "github_seal": true
+      "closed_at_utc": "2026-07-03T16:08:02.806475+00:00"
     }
   },
   "hard_rules": {
@@ -37,14 +34,15 @@
     "human_approval_required": true
   },
   "last_action": {
-    "task": "ERA23E_CANONICAL_OWNERSHIP_ENFORCEMENT",
-    "result": "OWNERSHIP_POLICY_APPLIED_WARN_ONLY",
-    "note": "No canonical file added. Policy embedded in runtime state for ERA23E."
+    "timestamp": "2026-07-03T16:08:02.806475+00:00",
+    "task": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
+    "result": "ERA23_FINAL_CANONICAL_DOCS_UPDATED_LOCAL",
+    "git_head": "d30d1f086178e858788b1176dbf790bc95d2f472"
   },
   "next_safe_step": {
-    "name": "USER_APPROVAL_FOR_GIT_ADD_COMMIT_PUSH",
-    "status": "WAITING_USER_APPROVAL",
-    "instruction": "Run git add/commit/push only after user approval. Do not open closed ERA/V. Do not create new canonical files."
+    "name": "ERA23_FINAL_COMMIT_AND_SINGLE_PUSH",
+    "status": "READY_AFTER_LOCAL_TEST",
+    "instruction": "Run final local tests, then one ERA-level commit and push only."
   },
   "open_risks": [
     "Runtime files may continue changing while news timer runs.",
@@ -54,18 +52,15 @@
   "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal.",
   "current_head": "723912fc7e7142beddffddf9bf8b117857744469",
   "boot_health": "100/100",
-  "last_completed": "WORK_UNIT_CLOSED",
+  "last_completed": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
   "current_work_unit": {
-    "id": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
-    "type": "CANONICAL_SYNC_AND_DRIFT_REPAIR",
+    "id": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
+    "type": "ERA_FINAL_CLOSURE",
     "status": "WORK_UNIT_CLOSED",
-    "stage": "GITHUB_SEALED",
-    "source_owner": "PROJECT_RUNTIME.json",
-    "started_at_utc": "2026-07-03T11:21:03.099692+00:00",
+    "stage": "LOCAL_FINAL_CLOSURE_PENDING_SINGLE_PUSH",
     "last_completed_step": "WORK_UNIT_CLOSED",
     "next_step": "NEXT_WORK_UNIT_PLAN",
-    "closed_at_utc": "2026-07-03T11:52:39.250263+00:00",
-    "github_seal": true
+    "closed_at_utc": "2026-07-03T16:08:02.806475+00:00"
   },
   "recent_event": {
     "task": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
@@ -89,5 +84,72 @@
     },
     "no_new_canonical_files": true,
     "concept_freeze": true
+  },
+  "disaster_recovery_policy": {
+    "work_unit": "ERA23F_DISASTER_RECOVERY_AND_ROLLBACK_PROTOCOL",
+    "mode": "PLAN_ACTIVE_LOCAL_ONLY",
+    "push_rule": "NO_PUSH_UNTIL_ERA_FINAL_CLOSURE",
+    "sealed_head": "d30d1f086178e858788b1176dbf790bc95d2f472",
+    "recovery_targets": [
+      "apply_crash",
+      "commit_crash",
+      "push_crash",
+      "runtime_corruption",
+      "semantic_drift",
+      "boot_failure"
+    ],
+    "recovery_order": [
+      "stop_new_work",
+      "read_git_status",
+      "read_project_runtime",
+      "run_boot_health",
+      "compare_local_head_remote_head",
+      "restore_from_last_sealed_head_if_required",
+      "rerun_boot_health",
+      "wait_for_commander_approval"
+    ],
+    "hard_rules": [
+      "no_new_work_unit_if_boot_health_not_100",
+      "no_push_during_sub_work_units",
+      "no_era_close_without_recovery_policy",
+      "no_runtime_mutation_without_boot_test"
+    ]
+  },
+  "semantic_drift_guard": {
+    "work_unit": "ERA23G_SEMANTIC_DRIFT_GUARD",
+    "mode": "LOCAL_GUARD_ACTIVE",
+    "push_rule": "NO_PUSH_UNTIL_ERA_FINAL_CLOSURE",
+    "source_owner": "PROJECT_RUNTIME.json",
+    "checks": [
+      "runtime_current_work_unit_matches_legacy_active_work_unit",
+      "runtime_next_safe_step_exists",
+      "roadmap_json_exists",
+      "master_state_exists",
+      "handoff_exists",
+      "almanac_exists"
+    ],
+    "fatal_if": [
+      "PROJECT_RUNTIME.json_missing",
+      "PROJECT_RUNTIME.json_invalid_json",
+      "current_work_unit_id_mismatch",
+      "next_safe_step_missing"
+    ],
+    "warn_if": [
+      "human_docs_contain_superseded_markers",
+      "runtime_head_differs_from_git_head",
+      "legacy_active_work_unit_still_used"
+    ],
+    "updated_at": "2026-07-03T16:06:08.747094+00:00",
+    "git_head": "d30d1f086178e858788b1176dbf790bc95d2f472"
+  },
+  "highest_governing_document": {
+    "file": "02_MANIFESTO.md",
+    "status": "ACTIVE",
+    "rule": "If roadmap, implementation, AI recommendation or documentation conflicts with 02_MANIFESTO.md, 02_MANIFESTO.md prevails."
+  },
+  "era_closure_update_policy": {
+    "json_and_markdown_sync": true,
+    "push_policy": "PUSH_ONLY_AT_ERA_CLOSURE",
+    "style_rule": "Preserve existing canonical file style; do not invent new formatting."
   }
 }
