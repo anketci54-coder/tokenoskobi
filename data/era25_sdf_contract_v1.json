@@ -1,0 +1,64 @@
+{
+  "work_unit": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
+  "contract_version": "sdf_contract_v1",
+  "created_at_utc": "2026-07-04T05:29:30.444872+00:00",
+  "mode": "CONTRACT_ONLY_NO_RUNTIME_EXECUTION",
+  "paths": {
+    "background_path": "continuous_scientific_computation",
+    "hot_path": "read_compare_decide_execute_only",
+    "cold_path": "post_event_attribution_and_learning"
+  },
+  "input_contract": [
+    "decision_score",
+    "confidence_score",
+    "risk_state",
+    "explainability_vector",
+    "model_portfolio_score"
+  ],
+  "output_contract": [
+    "sdf_final_grade",
+    "data_confidence",
+    "model_confidence",
+    "market_confidence",
+    "execution_confidence",
+    "unknown_state",
+    "freshness_budget",
+    "volatility_scaled_confidence",
+    "luck_vs_skill_estimate",
+    "decision_explainability"
+  ],
+  "hard_rules": [
+    "hot_path_consumes_precomputed_scores_only",
+    "no_trade_execution_in_era25",
+    "no_orchestration_in_era25",
+    "no_new_abc_work_unit_chain",
+    "unknown_unknowns_always_exist",
+    "background_failure_does_not_equal_global_shutdown_if_hot_path_safe_mode_available"
+  ],
+  "confidence_decomposition": {
+    "data_confidence": "data_quality_and_freshness",
+    "model_confidence": "statistical_model_quality",
+    "market_confidence": "regime_and_liquidity_fit",
+    "execution_confidence": "slippage_fee_latency_feasibility",
+    "final_grade": "weighted_components_times_risk_factor"
+  },
+  "freshness_budget_rule": "Each data type has its own freshness budget; no single universal ms threshold.",
+  "operational_guidelines": [
+    "shadow_run_requires_adversarial_simulation",
+    "large_model_weight_changes_require_stability_gate",
+    "attribution_runs_async_cold_path_only",
+    "luck_vs_skill_filter_required_before_meta_learning",
+    "diversity_strategy_required_for_model_weights",
+    "current_known_critical_blind_spots_none_never_claim_zero_risk"
+  ],
+  "ecg_v1": {
+    "required": true,
+    "role": "PASS_WARN_FAIL_ONLY",
+    "decision_authority": false,
+    "scope": [
+      "contract_diff",
+      "producer_consumer_check",
+      "blast_radius"
+    ]
+  }
+}

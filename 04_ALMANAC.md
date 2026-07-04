@@ -4905,3 +4905,29 @@ Engineering Decision Engine foundation baseline is locally closed and ready for 
 NEXT:
 ERA25 planning starts only after ERA24 GitHub seal verification.
 <!-- ERA24_ENGINEERING_DECISION_ENGINE_RECORD_END -->
+
+<!-- ERA25_SCIENTIFIC_DECISION_FRAMEWORK_RECORD_BEGIN -->
+## ERA25 SCIENTIFIC DECISION FRAMEWORK
+
+STATUS: LOCAL_CLOSED_READY_FOR_GITHUB_SEAL
+UPDATED_AT_UTC: 2026-07-04T05:35:41.099868+00:00
+HEAD_AT_UPDATE: f6e2be9537dacbdcf5f2dfb226c19da529087d72
+
+ERA25 defines the Scientific Decision Framework contract.
+
+RESULT:
+- ECG v1 contract check: PASS
+- SDF contract definition: PASS
+- SDF contract test: PASS
+- Runtime trade execution: NOT INCLUDED
+- Orchestration: NOT INCLUDED
+- A/B/C work-unit chain: NOT USED
+
+OUTPUTS:
+- data/era25_ecg_v1_contract_check.json
+- data/era25_sdf_contract_v1.json
+- data/era25_sdf_contract_test_v1.json
+
+NEXT:
+ERA26 planning starts only after ERA25 GitHub seal verification.
+<!-- ERA25_SCIENTIFIC_DECISION_FRAMEWORK_RECORD_END -->

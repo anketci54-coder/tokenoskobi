@@ -1,6 +1,6 @@
 {
   "runtime_version": "1.0",
-  "updated_at": "2026-07-04T04:34:28.994997+00:00",
+  "updated_at": "2026-07-04T05:35:41.099868+00:00",
   "source": "local_workspace",
   "git": {
     "branch": "main",
@@ -13,13 +13,13 @@
     "mode": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
     "current_problem": "CANONICAL_DRIFT",
     "active_work_unit": {
-      "id": "ERA24_ENGINEERING_DECISION_ENGINE",
+      "id": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
       "type": "ERA_CAPABILITY",
       "status": "WORK_UNIT_CLOSED",
       "stage": "LOCAL_CLOSED_READY_FOR_GITHUB_SEAL",
       "last_completed_step": "WORK_UNIT_CLOSED",
-      "next_step": "ERA25_PLANNING",
-      "started_at_utc": "2026-07-04T04:30:43.992133+00:00"
+      "next_step": "ERA26_PLANNING",
+      "started_at_utc": "2026-07-04T05:19:26.353253+00:00"
     }
   },
   "hard_rules": {
@@ -34,15 +34,15 @@
     "human_approval_required": true
   },
   "last_action": {
-    "timestamp": "2026-07-04T04:34:28.994997+00:00",
-    "task": "ERA24_ENGINEERING_DECISION_ENGINE",
+    "timestamp": "2026-07-04T05:35:41.099868+00:00",
+    "task": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
     "result": "FINAL_DOC_SYNC_LOCAL_READY_FOR_PUSH",
-    "git_head": "e50aca319ba99fede7521254e6dca5cac80a74ab"
+    "git_head": "f6e2be9537dacbdcf5f2dfb226c19da529087d72"
   },
   "next_safe_step": {
-    "name": "ERA25_PLANNING",
-    "status": "READY_AFTER_ERA24_SEAL",
-    "instruction": "Start ERA25 planning only after ERA24 GitHub seal verification."
+    "name": "ERA26_PLANNING",
+    "status": "READY_AFTER_ERA25_SEAL",
+    "instruction": "Start ERA26 planning only after ERA25 GitHub seal verification."
   },
   "open_risks": [
     "Runtime files may continue changing while news timer runs.",
@@ -52,15 +52,15 @@
   "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal.",
   "current_head": "723912fc7e7142beddffddf9bf8b117857744469",
   "boot_health": "100/100",
-  "last_completed": "ERA24_ENGINEERING_DECISION_ENGINE",
+  "last_completed": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
   "current_work_unit": {
-    "id": "ERA24_ENGINEERING_DECISION_ENGINE",
+    "id": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
     "type": "ERA_CAPABILITY",
     "status": "WORK_UNIT_CLOSED",
     "stage": "LOCAL_CLOSED_READY_FOR_GITHUB_SEAL",
     "last_completed_step": "WORK_UNIT_CLOSED",
-    "next_step": "ERA25_PLANNING",
-    "started_at_utc": "2026-07-04T04:30:43.992133+00:00"
+    "next_step": "ERA26_PLANNING",
+    "started_at_utc": "2026-07-04T05:19:26.353253+00:00"
   },
   "recent_event": {
     "task": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
@@ -230,5 +230,51 @@
       "tools/ede_opportunity_cost_baseline_v1.py"
     ],
     "rule": "ERA24 is one consolidated capability. A-F are internal evidence, not separate future work units."
+  },
+  "ecg_v1": {
+    "status": "PLANNED_ACTIVE",
+    "role": "PASS_WARN_FAIL_ONLY",
+    "decision_authority": false,
+    "scope": [
+      "contract_diff",
+      "producer_consumer_check",
+      "blast_radius"
+    ],
+    "producer": "ERA24_ENGINEERING_DECISION_ENGINE",
+    "consumer": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
+    "last_check": {
+      "timestamp": "2026-07-04T05:21:19.874472+00:00",
+      "producer": "ERA24_ENGINEERING_DECISION_ENGINE",
+      "consumer": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
+      "status": "PASS",
+      "missing_inputs": [],
+      "unused_outputs": [],
+      "blast_radius": [],
+      "decision": "PASS_WARN_FAIL_ONLY"
+    }
+  },
+  "era25_scope": {
+    "capability": "Scientific Decision Framework",
+    "rule": "Contract only. No runtime trade execution. No orchestration. No new A/B/C work-unit chain.",
+    "hot_path_rule": "Hot Path consumes precomputed scores only.",
+    "outputs": [
+      "decision_score",
+      "confidence_score",
+      "risk_state",
+      "explainability_vector",
+      "model_portfolio_score"
+    ]
+  },
+  "sdf_contract_v1": {
+    "status": "DEFINED_LOCAL",
+    "artifact": "data/era25_sdf_contract_v1.json",
+    "updated_at": "2026-07-04T05:29:30.444872+00:00",
+    "git_head": "f6e2be9537dacbdcf5f2dfb226c19da529087d72"
+  },
+  "sdf_contract_test_v1": {
+    "status": "PASS",
+    "artifact": "data/era25_sdf_contract_test_v1.json",
+    "updated_at": "2026-07-04T05:30:43.064190+00:00",
+    "git_head": "f6e2be9537dacbdcf5f2dfb226c19da529087d72"
   }
 }
