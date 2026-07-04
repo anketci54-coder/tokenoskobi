@@ -1,0 +1,55 @@
+{
+  "work_unit": "ERA27_PREDICTIVE_INTELLIGENCE_ENGINE",
+  "contract_version": "predictive_intelligence_contract_v1",
+  "created_at_utc": "2026-07-04T06:17:22.542534+00:00",
+  "mode": "CONTRACT_ONLY_NO_RUNTIME_EXECUTION",
+  "purpose": "Produce probabilistic future scenarios for Decision Science. Never execute trades.",
+  "inputs": [
+    "decision_memory",
+    "dynamic_weight_table",
+    "market_regime_vector",
+    "whale_signal_vector",
+    "news_signal_vector",
+    "onchain_signal_vector",
+    "technical_signal_vector"
+  ],
+  "outputs": [
+    "prediction_vector",
+    "scenario_ranking",
+    "prediction_confidence",
+    "prediction_stability_index",
+    "prediction_error_ledger",
+    "prediction_ttl",
+    "prediction_decay_rate"
+  ],
+  "hard_rules": [
+    "prediction_is_not_decision",
+    "no_trade_execution",
+    "no_risk_modification",
+    "no_model_training",
+    "ttl_required",
+    "error_ledger_required",
+    "stability_index_required",
+    "ecg_required"
+  ],
+  "prediction_horizons": [
+    "5m",
+    "15m",
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "scenario_engine": {
+    "outputs": [
+      "A",
+      "B",
+      "C"
+    ],
+    "probability_distribution": true
+  },
+  "ecg": {
+    "producer": "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE",
+    "consumer": "ERA27_PREDICTIVE_INTELLIGENCE_ENGINE",
+    "required": true
+  }
+}
