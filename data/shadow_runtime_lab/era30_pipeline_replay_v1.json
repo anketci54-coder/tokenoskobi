@@ -1,0 +1,42 @@
+{
+  "work_unit": "ERA30_100K_SHADOW_WAR_SIMULATION",
+  "phase": "PHASE4_PIPELINE_REPLAY_DEFINE",
+  "status": "DEFINED_LOCAL",
+  "created_at_utc": "2026-07-04T14:31:29.044674+00:00",
+  "git_head": "762fa58a3a73027dd0cf7ab3edbec855e836dbee",
+  "input": "campaign_engine_output.jsonl",
+  "pipeline": [
+    "campaign_engine",
+    "observer_runtime",
+    "decision_trace",
+    "decision_lifetime",
+    "decision_integrity",
+    "regime_engine",
+    "learning_engine",
+    "war_judge_queue"
+  ],
+  "outputs": [
+    "replay_ledger.jsonl",
+    "decision_trace.jsonl",
+    "decision_lifetime.jsonl",
+    "decision_integrity.jsonl",
+    "evidence_chain.jsonl",
+    "campaign_timeline.jsonl",
+    "war_timeline.jsonl",
+    "resource_statistics.json",
+    "replay_statistics.json",
+    "war_judge_input_package.json"
+  ],
+  "rules": [
+    "ground_truth_hidden",
+    "observer_read_only",
+    "append_only",
+    "deterministic_replay",
+    "replay_speed_configurable"
+  ],
+  "replay_modes": [
+    "REALTIME",
+    "FAST",
+    "MAX_SPEED"
+  ]
+}

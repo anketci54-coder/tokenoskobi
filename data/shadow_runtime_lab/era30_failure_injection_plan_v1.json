@@ -1,0 +1,39 @@
+{
+  "work_unit": "ERA30_100K_SHADOW_WAR_SIMULATION",
+  "phase": "PHASE5_FAILURE_INJECTION_DEFINE",
+  "status": "DEFINED_LOCAL",
+  "created_at_utc": "2026-07-04T15:11:40.520100+00:00",
+  "git_head": "762fa58a3a73027dd0cf7ab3edbec855e836dbee",
+  "purpose": "Inject controlled crises into 100K shadow war replay to measure recovery, blindness, poisoning and resilience.",
+  "injection_types": [
+    "DATA_LOSS",
+    "ORACLE_CORRUPTION",
+    "RPC_BLINDNESS",
+    "ASL_POISONING",
+    "FAKE_NEWS_POISON",
+    "GROUND_TRUTH_DELAY",
+    "LIQUIDITY_SIGNAL_MASKING",
+    "UNKNOWN_SHOCK"
+  ],
+  "target_metrics": [
+    "war_readiness_delta",
+    "false_positive_delta",
+    "false_negative_delta",
+    "unknown_detection_delta",
+    "explainability_delta",
+    "recovery_events",
+    "observer_blindness_rate"
+  ],
+  "rules": [
+    "ground_truth_hidden",
+    "observer_read_only",
+    "append_only",
+    "crisis_must_be_measurable",
+    "no_architecture_change_during_injection"
+  ],
+  "expected_outputs": [
+    "failure_injection_plan.json",
+    "failure_injection_events.jsonl",
+    "failure_injection_judge_report.json"
+  ]
+}
