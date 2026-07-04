@@ -1,0 +1,161 @@
+{
+  "work_unit": "ERA29_CONTINUOUS_EVOLUTION_AND_MODULAR_HEALTH_LAYER",
+  "phase": "PHASE1_MODULE_REGISTRY_DEFINE",
+  "version": "module_registry_v1",
+  "created_at_utc": "2026-07-04T08:19:27.524720+00:00",
+  "git_head": "5b54d68f6c51450f60b255ff53cf13d0d2f30f44",
+  "doctrine": "No module is permanent. Constitution and Evidence Chain are permanent.",
+  "modules": [
+    {
+      "module_id": "ERA24_ENGINEERING_DECISION_ENGINE",
+      "role": "engineering_decision_baseline",
+      "input_contract": [
+        "runtime_state",
+        "boot_health",
+        "baseline_metrics"
+      ],
+      "output_contract": [
+        "decision_score",
+        "confidence_score",
+        "risk_state",
+        "explainability_vector",
+        "model_portfolio_score"
+      ],
+      "dependencies": [
+        "BOOT",
+        "WORKFLOW",
+        "RUNTIME"
+      ],
+      "health_status": "SEALED_PASS",
+      "replaceable": true,
+      "hot_swap_policy": "fallback_to_observe_mode",
+      "rollback_pointer": "f6e2be9"
+    },
+    {
+      "module_id": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
+      "role": "scientific_decision_contract",
+      "input_contract": [
+        "decision_score",
+        "confidence_score",
+        "risk_state",
+        "explainability_vector",
+        "model_portfolio_score"
+      ],
+      "output_contract": [
+        "sdf_final_grade",
+        "data_confidence",
+        "model_confidence",
+        "market_confidence",
+        "execution_confidence",
+        "unknown_state",
+        "freshness_budget",
+        "volatility_scaled_confidence",
+        "luck_vs_skill_estimate",
+        "decision_explainability"
+      ],
+      "dependencies": [
+        "ERA24_ENGINEERING_DECISION_ENGINE",
+        "ECG_V1"
+      ],
+      "health_status": "SEALED_PASS",
+      "replaceable": true,
+      "hot_swap_policy": "fallback_to_era24_readonly_decision",
+      "rollback_pointer": "7df8661"
+    },
+    {
+      "module_id": "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE",
+      "role": "model_selection_and_dynamic_weighting",
+      "input_contract": [
+        "decision_memory",
+        "model_performance_matrix",
+        "market_regime_vector",
+        "factor_attribution_vector",
+        "confidence_vector"
+      ],
+      "output_contract": [
+        "dynamic_weight_table",
+        "model_selection_trigger",
+        "regime_weight_profile",
+        "exploration_budget",
+        "adaptation_report"
+      ],
+      "dependencies": [
+        "ERA25_SCIENTIFIC_DECISION_FRAMEWORK"
+      ],
+      "health_status": "SEALED_PASS",
+      "replaceable": true,
+      "hot_swap_policy": "fallback_to_static_weight_table",
+      "rollback_pointer": "f918cab"
+    },
+    {
+      "module_id": "ERA27_PREDICTIVE_INTELLIGENCE_ENGINE",
+      "role": "probabilistic_scenario_generation",
+      "input_contract": [
+        "decision_memory",
+        "dynamic_weight_table",
+        "market_regime_vector",
+        "whale_signal_vector",
+        "news_signal_vector",
+        "onchain_signal_vector",
+        "technical_signal_vector"
+      ],
+      "output_contract": [
+        "prediction_vector",
+        "scenario_ranking",
+        "prediction_confidence",
+        "prediction_stability_index",
+        "prediction_error_ledger",
+        "prediction_ttl",
+        "prediction_decay_rate"
+      ],
+      "dependencies": [
+        "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE"
+      ],
+      "health_status": "SEALED_PASS",
+      "replaceable": true,
+      "hot_swap_policy": "fallback_to_no_prediction_observe_only",
+      "rollback_pointer": "dea4cf0"
+    },
+    {
+      "module_id": "ERA28_AI_ORCHESTRATION_AND_VETO_GATE",
+      "role": "orchestration_and_safety_referee",
+      "input_contract": [
+        "era24_engineering_decision",
+        "era25_scientific_decision",
+        "era26_adaptive_intelligence",
+        "era27_predictive_intelligence",
+        "ecg_report",
+        "constitution_rules"
+      ],
+      "output_contract": [
+        "orchestration_summary",
+        "consensus_report",
+        "conflict_matrix",
+        "evidence_matrix",
+        "veto_decision",
+        "block_reason",
+        "final_recommendation"
+      ],
+      "dependencies": [
+        "ERA24_ENGINEERING_DECISION_ENGINE",
+        "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
+        "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE",
+        "ERA27_PREDICTIVE_INTELLIGENCE_ENGINE",
+        "ECG_V1",
+        "CONSTITUTION"
+      ],
+      "health_status": "SEALED_PASS",
+      "replaceable": true,
+      "hot_swap_policy": "fallback_to_manual_review",
+      "rollback_pointer": "5b54d68"
+    }
+  ],
+  "registry_rules": [
+    "every_module_has_input_output_contract",
+    "every_module_has_dependencies",
+    "every_module_has_fallback_policy",
+    "every_module_has_rollback_pointer",
+    "no_module_is_permanent",
+    "constitution_and_evidence_chain_are_permanent"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "work_unit": "ERA29_CONTINUOUS_EVOLUTION_AND_MODULAR_HEALTH_LAYER",
+  "phase": "PHASE3_COMPLEXITY_BUDGET_V3_DEFINE",
+  "version": "complexity_budget_v3",
+  "created_at_utc": "2026-07-04T09:50:12.211269+00:00",
+  "git_head": "5b54d68f6c51450f60b255ff53cf13d0d2f30f44",
+  "formula": {
+    "raw_score": "weighted_benefit - weighted_cost",
+    "adjusted_score": "raw_score - regression_penalty",
+    "final_evolution_score": "adjusted_score * evidence_confidence * time_horizon"
+  },
+  "benefit_components": [
+    "accuracy",
+    "security",
+    "reliability",
+    "maintainability",
+    "explainability",
+    "opportunity_gain"
+  ],
+  "cost_components": [
+    "cpu",
+    "ram",
+    "latency",
+    "complexity",
+    "failure_risk",
+    "blast_radius",
+    "evidence_cost",
+    "rollback_cost"
+  ],
+  "modifiers": [
+    "regression_penalty",
+    "evidence_confidence",
+    "time_horizon"
+  ],
+  "authority_rule": "Evolution Score is decision support only. Constitution, ECG, Evidence Chain and Veto Gate override it.",
+  "decision_policy": {
+    "PASS_CANDIDATE": "final_evolution_score > 0",
+    "WARN": "final_evolution_score == 0",
+    "BLOCK_CANDIDATE": "final_evolution_score < 0"
+  }
+}

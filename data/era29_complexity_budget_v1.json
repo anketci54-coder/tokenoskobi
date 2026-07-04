@@ -1,0 +1,43 @@
+{
+  "work_unit": "ERA29_CONTINUOUS_EVOLUTION_AND_MODULAR_HEALTH_LAYER",
+  "phase": "PHASE3_COMPLEXITY_BUDGET_DEFINE",
+  "version": "complexity_budget_v1",
+  "created_at_utc": "2026-07-04T09:26:01.528270+00:00",
+  "git_head": "5b54d68f6c51450f60b255ff53cf13d0d2f30f44",
+  "doctrine": "Every change must leave the system measurably stronger.",
+  "metrics": [
+    "cpu_budget",
+    "ram_budget",
+    "latency_budget",
+    "dependency_budget",
+    "failure_point_budget",
+    "blast_radius_budget",
+    "complexity_score",
+    "maintainability_index",
+    "evidence_cost",
+    "benefit_score"
+  ],
+  "decision_formula": {
+    "name": "EVOLUTION_SCORE",
+    "formula": "benefit_score-(cpu_budget+ram_budget+latency_budget+dependency_budget+failure_point_budget+blast_radius_budget+complexity_score+evidence_cost)"
+  },
+  "decision_policy": {
+    "PASS": "evolution_score > 0",
+    "WARN": "evolution_score == 0",
+    "BLOCK": "evolution_score < 0"
+  },
+  "veto_gate_integration": {
+    "enabled": true,
+    "required_before_merge": true,
+    "required_before_new_module": true,
+    "required_before_core_change": true
+  },
+  "hard_rules": [
+    "no_complexity_growth_without_benefit",
+    "latency_budget_protected",
+    "hot_path_protected",
+    "constitution_first",
+    "evidence_before_merge",
+    "benefit_must_exceed_cost"
+  ]
+}
