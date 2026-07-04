@@ -1,0 +1,47 @@
+{
+  "work_unit": "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE",
+  "contract_version": "adaptive_intelligence_contract_v1",
+  "created_at_utc": "2026-07-04T05:53:54.587772+00:00",
+  "mode": "CONTRACT_ONLY_NO_RUNTIME_EXECUTION",
+  "purpose": "Adapt and weight existing ERA25 decision models without creating new mathematical models.",
+  "inputs": [
+    "decision_memory",
+    "model_performance_matrix",
+    "market_regime_vector",
+    "factor_attribution_vector",
+    "confidence_vector"
+  ],
+  "outputs": [
+    "dynamic_weight_table",
+    "model_selection_trigger",
+    "regime_weight_profile",
+    "exploration_budget",
+    "adaptation_report"
+  ],
+  "hard_rules": [
+    "no_new_math_models",
+    "consume_era25_outputs_only",
+    "no_trade_execution",
+    "no_hot_path_execution",
+    "dynamic_weights_only",
+    "exploration_exploitation_balance_required",
+    "diversity_strategy_required"
+  ],
+  "adaptation": {
+    "selection": "regime_based",
+    "weighting": "dynamic",
+    "exploration_ratio": "0.05-0.10",
+    "max_single_model_weight": 0.4
+  },
+  "regimes": [
+    "TREND",
+    "RANGE",
+    "PANIC",
+    "UNKNOWN"
+  ],
+  "ecg": {
+    "producer": "ERA25_SCIENTIFIC_DECISION_FRAMEWORK",
+    "consumer": "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE",
+    "required": true
+  }
+}

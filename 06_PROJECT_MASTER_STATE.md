@@ -3186,3 +3186,31 @@ OUTPUTS:
 NEXT:
 ERA26 planning starts only after ERA25 GitHub seal verification.
 <!-- ERA25_SCIENTIFIC_DECISION_FRAMEWORK_STATE_END -->
+
+<!-- ERA26_ADAPTIVE_INTELLIGENCE_ENGINE_STATE_BEGIN -->
+## ERA26 ADAPTIVE INTELLIGENCE ENGINE
+
+STATUS: LOCAL_CLOSED_READY_FOR_GITHUB_SEAL
+UPDATED_AT_UTC: 2026-07-04T06:14:01.985735+00:00
+HEAD_AT_UPDATE: bea7dddb066c8dcba933309e6475b42342f11014
+
+ERA26 defines Adaptive Intelligence for selecting and weighting existing ERA25 decision models.
+
+RESULT:
+- Adaptive intelligence contract: PASS
+- Contract test: PASS
+- Adaptive weight table: PASS
+- Weight table test: PASS
+- New math model creation: NOT INCLUDED
+- Trade execution: NOT INCLUDED
+- Hot path execution: NOT INCLUDED
+
+OUTPUTS:
+- data/era26_adaptive_intelligence_contract_v1.json
+- data/era26_contract_test_v1.json
+- data/era26_adaptive_weight_table_v1.json
+- data/era26_adaptive_weight_table_test_v1.json
+
+NEXT:
+ERA27 planning starts only after ERA26 GitHub seal verification.
+<!-- ERA26_ADAPTIVE_INTELLIGENCE_ENGINE_STATE_END -->

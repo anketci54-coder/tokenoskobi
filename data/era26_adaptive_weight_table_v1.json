@@ -1,0 +1,53 @@
+{
+  "work_unit": "ERA26_ADAPTIVE_INTELLIGENCE_ENGINE",
+  "version": "adaptive_weight_table_v1",
+  "created_at_utc": "2026-07-04T06:08:55.292047+00:00",
+  "constraints": {
+    "total_weight": 1.0,
+    "max_single_model_weight": 0.4,
+    "exploration_budget": 0.05,
+    "normalization_required": true,
+    "dynamic": true
+  },
+  "regimes": {
+    "TREND": {
+      "trend_model": 0.4,
+      "momentum_model": 0.25,
+      "whale_model": 0.15,
+      "news_model": 0.1,
+      "liquidity_model": 0.05,
+      "exploration": 0.05
+    },
+    "RANGE": {
+      "mean_reversion_model": 0.35,
+      "liquidity_model": 0.2,
+      "volume_model": 0.2,
+      "news_model": 0.1,
+      "whale_model": 0.1,
+      "exploration": 0.05
+    },
+    "PANIC": {
+      "risk_model": 0.4,
+      "liquidity_model": 0.2,
+      "volatility_model": 0.2,
+      "news_model": 0.1,
+      "whale_model": 0.05,
+      "exploration": 0.05
+    },
+    "UNKNOWN": {
+      "risk_model": 0.3,
+      "liquidity_model": 0.2,
+      "news_model": 0.15,
+      "whale_model": 0.15,
+      "anomaly_model": 0.15,
+      "exploration": 0.05
+    }
+  },
+  "rules": [
+    "sum_weights_equals_one",
+    "no_weight_above_040",
+    "exploration_always_present",
+    "regime_switch_only",
+    "era25_models_only"
+  ]
+}
