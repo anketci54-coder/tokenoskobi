@@ -1,0 +1,58 @@
+{
+  "work_unit": "ERA30_SHADOW_RUNTIME_DECISION_INTEGRITY_LAB",
+  "phase": "PHASE6A_REGIME_INTELLIGENCE_CONTRACT_DEFINE",
+  "version": "regime_intelligence_contract_v1",
+  "created_at_utc": "2026-07-04T12:20:24.675954+00:00",
+  "git_head": "871d6719466426543717282c52f19fc928f87887",
+  "mode": "READ_ONLY_OBSERVER",
+  "purpose": "Identify market regimes, regime transitions and decision behaviour under each regime without influencing runtime execution.",
+  "required_ids": [
+    "regime_id",
+    "shadow_event_id",
+    "decision_trace_id",
+    "decision_lifetime_id",
+    "decision_integrity_id"
+  ],
+  "regime_classes": [
+    "TRENDING_BULL",
+    "TRENDING_BEAR",
+    "SIDEWAYS",
+    "HIGH_VOLATILITY",
+    "LOW_VOLATILITY",
+    "LIQUIDITY_SHOCK",
+    "BLACK_SWAN",
+    "UNKNOWN"
+  ],
+  "transition_events": [
+    "REGIME_ENTER",
+    "REGIME_EXIT",
+    "REGIME_SHIFT",
+    "REGIME_CONFIRMATION",
+    "REGIME_BREAKDOWN"
+  ],
+  "required_metrics": [
+    "regime_confidence",
+    "transition_probability",
+    "volatility_score",
+    "liquidity_score",
+    "trend_strength",
+    "noise_level",
+    "decision_accuracy",
+    "timestamp_utc"
+  ],
+  "hard_rules": [
+    "observer_only",
+    "no_trade_execution",
+    "no_wallet_access",
+    "no_main_database_write",
+    "append_only_history",
+    "regime_is_observation_not_authority",
+    "regime_never_overrides_constitution",
+    "regime_never_overrides_veto_gate",
+    "every_regime_change_logged"
+  ],
+  "outputs": [
+    "data/shadow_runtime_lab/regime_ledger.jsonl",
+    "data/shadow_runtime_lab/regime_scoreboard.json"
+  ]
+}
