@@ -1,0 +1,75 @@
+{
+  "work_unit": "ERA30_SHADOW_RUNTIME_DECISION_INTEGRITY_LAB",
+  "phase": "PHASE5A_DIVERGENCE_CONTRACT_DEFINE",
+  "version": "divergence_contract_v1",
+  "created_at_utc": "2026-07-04T12:06:53.666468+00:00",
+  "git_head": "235ea26471f5dccf79f05a40d998cb498ad267a0",
+  "mode": "READ_ONLY_OBSERVER",
+  "purpose": "Compare Tokenoskobi decision output with siloed external/AI auditor opinions without granting authority to any model.",
+  "required_ids": [
+    "divergence_id",
+    "shadow_event_id",
+    "decision_trace_id",
+    "evidence_chain_id",
+    "decision_integrity_id"
+  ],
+  "auditor_roles": [
+    {
+      "auditor_id": "TOKENOSKOBI_CORE",
+      "role": "primary_system_output",
+      "visibility": "full_internal_trace"
+    },
+    {
+      "auditor_id": "CHATGPT_STRATEGY_AUDITOR",
+      "role": "strategy_review",
+      "visibility": "strategy_context_only"
+    },
+    {
+      "auditor_id": "CLAUDE_LOGIC_CONTRACT_AUDITOR",
+      "role": "logic_contract_review",
+      "visibility": "contract_and_trace_only"
+    },
+    {
+      "auditor_id": "GEMINI_RED_TEAM_AUDITOR",
+      "role": "attack_surface_review",
+      "visibility": "risk_surface_only"
+    },
+    {
+      "auditor_id": "COPILOT_IMPLEMENTATION_AUDITOR",
+      "role": "implementation_feasibility_review",
+      "visibility": "code_and_integration_only"
+    }
+  ],
+  "allowed_opinions": [
+    "AGREE",
+    "DISAGREE",
+    "WARN",
+    "BLOCK",
+    "INSUFFICIENT_EVIDENCE",
+    "UNKNOWN"
+  ],
+  "required_fields": [
+    "auditor_id",
+    "role",
+    "opinion",
+    "confidence",
+    "evidence_reference",
+    "latency_ms",
+    "notes"
+  ],
+  "hard_rules": [
+    "models_are_auditors_not_authorities",
+    "siloed_visibility_required",
+    "no_model_can_execute",
+    "no_model_can_override_constitution",
+    "no_model_can_merge_to_github",
+    "divergence_is_metric_not_decision",
+    "veto_gate_overrides_model_consensus",
+    "evidence_required_for_all_opinions",
+    "latency_required"
+  ],
+  "output_artifacts": [
+    "data/shadow_runtime_lab/divergence_ledger.jsonl",
+    "data/shadow_runtime_lab/divergence_scoreboard.json"
+  ]
+}
