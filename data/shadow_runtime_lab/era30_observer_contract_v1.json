@@ -1,0 +1,56 @@
+{
+  "work_unit": "ERA30_SHADOW_RUNTIME_DECISION_INTEGRITY_LAB",
+  "phase": "PHASE1A_OBSERVER_CONTRACT_DEFINE",
+  "version": "observer_contract_v1",
+  "created_at_utc": "2026-07-04T10:33:51.645805+00:00",
+  "git_head": "3f5d1d1e89a0df7473b8bf9bc3609f06048aa1a3",
+  "mode": "READ_ONLY_OBSERVER",
+  "motto": "Önce gözlemle. Sonra kanıtla. En son öner. Asla kendiliğinden uygulama.",
+  "allowed_actions": [
+    "market_data_read",
+    "onchain_read",
+    "news_read",
+    "whale_read",
+    "decision_trace",
+    "decision_integrity_log",
+    "war_game",
+    "shadow_ledger_write",
+    "evidence_generation"
+  ],
+  "forbidden_actions": [
+    "trade_execute",
+    "wallet_access",
+    "private_key_access",
+    "risk_update",
+    "position_size_update",
+    "stop_loss_change",
+    "take_profit_change",
+    "model_weight_update",
+    "constitution_update",
+    "github_merge",
+    "runtime_parameter_change",
+    "main_database_write"
+  ],
+  "observer_state_machine": [
+    "START",
+    "READ",
+    "ANALYZE",
+    "TRACE",
+    "LOG",
+    "WAIT"
+  ],
+  "non_negotiable_kpi": {
+    "observer_escape_rate": 0,
+    "write_escape_rate": 0,
+    "execute_escape_rate": 0,
+    "wallet_escape_rate": 0
+  },
+  "hard_rules": [
+    "read_log_analyze_simulate_only",
+    "no_execute_state_exists",
+    "no_write_to_main_runtime",
+    "shadow_runtime_lab_only",
+    "human_final_authority",
+    "constitution_first"
+  ]
+}
