@@ -1,6 +1,6 @@
 {
   "runtime_version": "1.0",
-  "updated_at": "2026-07-04T16:22:04.937534+00:00",
+  "updated_at": "2026-07-04T19:02:58.954335+00:00",
   "source": "local_workspace",
   "git": {
     "branch": "main",
@@ -13,12 +13,11 @@
     "mode": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
     "current_problem": "CANONICAL_DRIFT",
     "active_work_unit": {
-      "id": "ERA30_100K_SHADOW_WAR_SIMULATION",
-      "type": "WAR_SIMULATION",
+      "id": "ERA31_REAL_WORLD_REPLAY_PREPARATION",
+      "type": "REAL_WORLD_REPLAY",
       "status": "WORK_UNIT_CLOSED",
       "last_completed_step": "WORK_UNIT_CLOSED",
-      "next_step": "ERA30_GITHUB_SEAL",
-      "stage": "PHASE0_WAR_DOCTRINE_FREEZE"
+      "next_step": "ERA31_GITHUB_SEAL"
     }
   },
   "hard_rules": {
@@ -33,13 +32,13 @@
     "human_approval_required": true
   },
   "last_action": {
-    "timestamp": "2026-07-04T16:22:04.937534+00:00",
-    "task": "ERA30_FINAL_CLOSE_REPORT",
+    "timestamp": "2026-07-04T19:02:58.954335+00:00",
+    "task": "ERA31_FINAL_REPORT",
     "result": "PASS",
-    "git_head": "762fa58a3a73027dd0cf7ab3edbec855e836dbee"
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8"
   },
   "next_safe_step": {
-    "name": "ERA30_GITHUB_SEAL",
+    "name": "ERA31_GITHUB_SEAL",
     "status": "READY"
   },
   "open_risks": [
@@ -52,12 +51,11 @@
   "boot_health": "100/100",
   "last_completed": "ERA29_CONTINUOUS_EVOLUTION_AND_MODULAR_HEALTH_LAYER",
   "current_work_unit": {
-    "id": "ERA30_100K_SHADOW_WAR_SIMULATION",
-    "type": "WAR_SIMULATION",
+    "id": "ERA31_REAL_WORLD_REPLAY_PREPARATION",
+    "type": "REAL_WORLD_REPLAY",
     "status": "WORK_UNIT_CLOSED",
     "last_completed_step": "WORK_UNIT_CLOSED",
-    "next_step": "ERA30_GITHUB_SEAL",
-    "stage": "PHASE0_WAR_DOCTRINE_FREEZE"
+    "next_step": "ERA31_GITHUB_SEAL"
   },
   "recent_event": {
     "task": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
@@ -1137,5 +1135,364 @@
       "era30_final_war_report.json"
     ],
     "next": "GITHUB_SEAL"
+  },
+  "era31_real_world_replay_plan": {
+    "era": "ERA31",
+    "phase": "PHASE0_REAL_WORLD_REPLAY_PLAN",
+    "status": "DEFINED_LOCAL",
+    "created_at_utc": "2026-07-04T17:06:11.213043+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "purpose": "Validate ERA30 Shadow War pipeline against real-world DEX/security cases.",
+    "pilot_scope": {
+      "case_count": 10,
+      "distribution": {
+        "rug_pull": 2,
+        "honeypot": 2,
+        "liquidity_drain": 2,
+        "stablecoin_depeg": 2,
+        "normal_non_attack": 2
+      }
+    },
+    "source_priority": [
+      "onchain_explorer_records",
+      "security_reports",
+      "dex_pool_history",
+      "verified_news_timestamps",
+      "internal_tokenoskobi_future_observations"
+    ],
+    "ground_truth_standard": {
+      "minimum_independent_evidence": 2,
+      "onchain_trace_required": true,
+      "timestamp_required": true,
+      "observer_must_not_see_ground_truth": true
+    },
+    "labels": [
+      "REAL_ATTACK",
+      "FALSE_ALARM",
+      "NOISE",
+      "OPPORTUNITY",
+      "UNKNOWN"
+    ],
+    "rules": [
+      "read_only",
+      "no_main_db_write",
+      "no_trade",
+      "no_wallet_access",
+      "shadow_lab_only",
+      "evidence_first"
+    ],
+    "next_steps": [
+      "ERA31_PHASE1_REAL_WORLD_CASE_LIBRARY_SCHEMA",
+      "ERA31_PHASE2_10_CASE_PILOT_LIBRARY",
+      "ERA31_PHASE3_REAL_WORLD_REPLAY_CONVERTER",
+      "ERA31_PHASE4_10_CASE_REPLAY",
+      "ERA31_PHASE5_REAL_WORLD_WAR_JUDGE"
+    ]
+  },
+  "era31_real_world_replay_plan_test": {
+    "phase": "ERA31_PHASE0_REAL_WORLD_REPLAY_PLAN_TEST",
+    "decision": "PASS",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "created_at_utc": "2026-07-04T17:10:14.414539+00:00"
+  },
+  "era31_case_library_schema": {
+    "era": "ERA31",
+    "phase": "PHASE1_REAL_WORLD_CASE_LIBRARY_SCHEMA",
+    "status": "DEFINED_LOCAL",
+    "created_at_utc": "2026-07-04T17:11:49.079255+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "schema_version": "1.0",
+    "case_fields": [
+      {
+        "name": "case_id",
+        "required": true
+      },
+      {
+        "name": "chain",
+        "required": true
+      },
+      {
+        "name": "token_address",
+        "required": true
+      },
+      {
+        "name": "pair_address",
+        "required": false
+      },
+      {
+        "name": "attack_type",
+        "required": true
+      },
+      {
+        "name": "label",
+        "required": true
+      },
+      {
+        "name": "start_time_utc",
+        "required": true
+      },
+      {
+        "name": "end_time_utc",
+        "required": false
+      },
+      {
+        "name": "ground_truth",
+        "required": true
+      },
+      {
+        "name": "ground_truth_confidence",
+        "required": true
+      },
+      {
+        "name": "onchain_evidence",
+        "required": true
+      },
+      {
+        "name": "security_report",
+        "required": false
+      },
+      {
+        "name": "news_reference",
+        "required": false
+      },
+      {
+        "name": "expected_observer_result",
+        "required": true
+      },
+      {
+        "name": "notes",
+        "required": false
+      }
+    ],
+    "allowed_labels": [
+      "REAL_ATTACK",
+      "FALSE_ALARM",
+      "NOISE",
+      "OPPORTUNITY",
+      "UNKNOWN"
+    ],
+    "allowed_attack_types": [
+      "RUG_PULL",
+      "HONEYPOT",
+      "LIQUIDITY_DRAIN",
+      "STABLECOIN_DEPEG",
+      "NORMAL"
+    ],
+    "rules": [
+      "append_only",
+      "read_only",
+      "minimum_two_independent_evidence",
+      "ground_truth_hidden_from_observer",
+      "all_times_utc",
+      "no_duplicate_case_id"
+    ]
+  },
+  "era31_case_library_schema_test": {
+    "phase": "ERA31_PHASE1_REAL_WORLD_CASE_LIBRARY_SCHEMA_TEST",
+    "decision": "PASS",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "created_at_utc": "2026-07-04T17:19:23.427158+00:00"
+  },
+  "era31_10_case_pilot_library": {
+    "era": "ERA31",
+    "phase": "PHASE2_10_CASE_PILOT_LIBRARY",
+    "status": "CANDIDATE_LIBRARY_DEFINED",
+    "created_at_utc": "2026-07-04T17:49:03.957748+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "case_count": 10,
+    "validation_status": "REQUIRES_ONCHAIN_RESOLUTION",
+    "cases": [
+      {
+        "case_id": "ERA31_RUG_0001_ANUBISDAO",
+        "chain": "ETH",
+        "token_address": "PENDING_ONCHAIN_RESOLUTION",
+        "attack_type": "RUG_PULL",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "Chainalysis AnubisDAO rug pull"
+        ]
+      },
+      {
+        "case_id": "ERA31_RUG_0002_BALD_BASE",
+        "chain": "BASE",
+        "token_address": "PENDING_ONCHAIN_RESOLUTION",
+        "attack_type": "RUG_PULL",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "Halborn BALD rug pull",
+          "Coindesk BALD liquidity removal"
+        ]
+      },
+      {
+        "case_id": "ERA31_HONEYPOT_0001_SQUID",
+        "chain": "BSC",
+        "token_address": "PENDING_ONCHAIN_RESOLUTION",
+        "attack_type": "HONEYPOT",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "Wired SQUID unable to sell/rug pull"
+        ]
+      },
+      {
+        "case_id": "ERA31_HONEYPOT_0002_ALTLEX_CLUSTER",
+        "chain": "MULTI",
+        "token_address": "PENDING_CLUSTER_RESOLUTION",
+        "attack_type": "HONEYPOT",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_CLUSTER_NEEDS_TOKEN_SELECTION",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "CertiK Telegram honeypot cluster"
+        ]
+      },
+      {
+        "case_id": "ERA31_DRAIN_0001_NOMAD",
+        "chain": "ETH_BRIDGE",
+        "token_address": "PENDING_CONTRACT_RESOLUTION",
+        "attack_type": "LIQUIDITY_DRAIN",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "Immunefi Nomad bridge hack"
+        ]
+      },
+      {
+        "case_id": "ERA31_DRAIN_0002_EULER",
+        "chain": "ETH",
+        "token_address": "PENDING_CONTRACT_RESOLUTION",
+        "attack_type": "LIQUIDITY_DRAIN",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "CertiK Euler exploit"
+        ]
+      },
+      {
+        "case_id": "ERA31_DEPEG_0001_USDC_SVB",
+        "chain": "MULTI",
+        "token_address": "PENDING_TOKEN_RESOLUTION",
+        "attack_type": "STABLECOIN_DEPEG",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_MARKET_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "Circle USDC SVB depeg"
+        ]
+      },
+      {
+        "case_id": "ERA31_DEPEG_0002_UST_TERRA",
+        "chain": "TERRA",
+        "token_address": "PENDING_TOKEN_RESOLUTION",
+        "attack_type": "STABLECOIN_DEPEG",
+        "label": "REAL_ATTACK",
+        "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_MARKET_TRACE",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "Reuters UST depeg"
+        ]
+      },
+      {
+        "case_id": "ERA31_NORMAL_0001_STABLE_POOL_CONTROL",
+        "chain": "PENDING",
+        "token_address": "PENDING_SELECTION",
+        "attack_type": "NORMAL",
+        "label": "NOISE",
+        "ground_truth": "CONTROL_CASE_PENDING_SELECTION",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "To be selected from normal pool history"
+        ]
+      },
+      {
+        "case_id": "ERA31_NORMAL_0002_BLUECHIP_DEX_CONTROL",
+        "chain": "PENDING",
+        "token_address": "PENDING_SELECTION",
+        "attack_type": "NORMAL",
+        "label": "NOISE",
+        "ground_truth": "CONTROL_CASE_PENDING_SELECTION",
+        "ground_truth_confidence": "CANDIDATE",
+        "sources": [
+          "To be selected from normal DEX history"
+        ]
+      }
+    ]
+  },
+  "era31_blind_replay_protocol": {
+    "enabled": true,
+    "status": "PASS",
+    "created_at": "2026-07-04T17:54:24.677526+00:00"
+  },
+  "era31_10_case_pilot_library_test": {
+    "phase": "ERA31_PHASE2_10_CASE_PILOT_LIBRARY_TEST",
+    "decision": "PASS",
+    "created_at_utc": "2026-07-04T18:36:24.014085+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8"
+  },
+  "era31_real_world_replay_converter": {
+    "phase": "ERA31_PHASE3_REAL_WORLD_REPLAY_CONVERTER",
+    "status": "PASS",
+    "created_at_utc": "2026-07-04T18:40:47.373105+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "events": 10,
+    "blind_replay_events": "data/real_world_replay/era31_real_world_blind_replay_events.jsonl",
+    "ground_truth_file": "data/real_world_replay/era31_real_world_ground_truth_war_judge_only.jsonl",
+    "observer_ground_truth_visible": false
+  },
+  "era31_10_case_blind_replay": {
+    "phase": "ERA31_PHASE4_10_CASE_BLIND_REPLAY",
+    "status": "PASS",
+    "created_at_utc": "2026-07-04T18:48:49.958090+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "events": 10,
+    "OBSERVE": 0,
+    "WARN": 10,
+    "BLOCK": 0,
+    "UNKNOWN": 0,
+    "outputs": {
+      "trace": "data/real_world_replay/era31_10_case_blind_decision_trace.jsonl",
+      "evidence": "data/real_world_replay/era31_10_case_blind_evidence_chain.jsonl",
+      "replay": "data/real_world_replay/era31_10_case_blind_replay_ledger.jsonl"
+    }
+  },
+  "era31_real_world_war_judge": {
+    "phase": "ERA31_PHASE5_REAL_WORLD_WAR_JUDGE",
+    "status": "PASS",
+    "created_at_utc": "2026-07-04T18:52:07.454936+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "events": 10,
+    "correct": 10,
+    "missed": 0,
+    "false_alarm": 0,
+    "unknown": 0,
+    "war_readiness": 100.0,
+    "grade": "A",
+    "ground_truth_was_hidden": true,
+    "observer_blind_mode": true
+  },
+  "era31_final_report": {
+    "era": "ERA31",
+    "title": "REAL_WORLD_REPLAY_PREPARATION_FINAL_REPORT",
+    "status": "CLOSED_READY_FOR_GITHUB_SEAL",
+    "created_at_utc": "2026-07-04T19:02:58.954335+00:00",
+    "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+    "summary": {
+      "pilot_cases": 10,
+      "blind_replay": "PASS",
+      "ground_truth_hidden_from_observer": "PASS",
+      "war_judge": "PASS",
+      "war_readiness": 100.0,
+      "boot_health": "100/100"
+    },
+    "critical_note": "War Readiness 100.0 is pipeline-validation success only. Cases are still CANDIDATE/PENDING_ONCHAIN_RESOLUTION, so this is not final real-world performance proof.",
+    "next_required_step": "ONCHAIN_RESOLUTION_AND_REAL_EVIDENCE_ENRICHMENT",
+    "decision": "ERA31_PREPARATION_COMPLETE_READY_FOR_SEAL"
   }
 }

@@ -1,0 +1,165 @@
+{
+  "era": "ERA31",
+  "phase": "PHASE2_10_CASE_PILOT_LIBRARY",
+  "status": "BLIND_REPLAY_READY",
+  "created_at_utc": "2026-07-04T17:49:03.957748+00:00",
+  "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+  "case_count": 10,
+  "validation_status": "REQUIRES_ONCHAIN_RESOLUTION",
+  "cases": [
+    {
+      "case_id": "ERA31_RUG_0001_ANUBISDAO",
+      "chain": "ETH",
+      "token_address": "PENDING_ONCHAIN_RESOLUTION",
+      "attack_type": "RUG_PULL",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "Chainalysis AnubisDAO rug pull"
+      ]
+    },
+    {
+      "case_id": "ERA31_RUG_0002_BALD_BASE",
+      "chain": "BASE",
+      "token_address": "PENDING_ONCHAIN_RESOLUTION",
+      "attack_type": "RUG_PULL",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "Halborn BALD rug pull",
+        "Coindesk BALD liquidity removal"
+      ]
+    },
+    {
+      "case_id": "ERA31_HONEYPOT_0001_SQUID",
+      "chain": "BSC",
+      "token_address": "PENDING_ONCHAIN_RESOLUTION",
+      "attack_type": "HONEYPOT",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "Wired SQUID unable to sell/rug pull"
+      ]
+    },
+    {
+      "case_id": "ERA31_HONEYPOT_0002_ALTLEX_CLUSTER",
+      "chain": "MULTI",
+      "token_address": "PENDING_CLUSTER_RESOLUTION",
+      "attack_type": "HONEYPOT",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_CLUSTER_NEEDS_TOKEN_SELECTION",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "CertiK Telegram honeypot cluster"
+      ]
+    },
+    {
+      "case_id": "ERA31_DRAIN_0001_NOMAD",
+      "chain": "ETH_BRIDGE",
+      "token_address": "PENDING_CONTRACT_RESOLUTION",
+      "attack_type": "LIQUIDITY_DRAIN",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "Immunefi Nomad bridge hack"
+      ]
+    },
+    {
+      "case_id": "ERA31_DRAIN_0002_EULER",
+      "chain": "ETH",
+      "token_address": "PENDING_CONTRACT_RESOLUTION",
+      "attack_type": "LIQUIDITY_DRAIN",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_ONCHAIN_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "CertiK Euler exploit"
+      ]
+    },
+    {
+      "case_id": "ERA31_DEPEG_0001_USDC_SVB",
+      "chain": "MULTI",
+      "token_address": "PENDING_TOKEN_RESOLUTION",
+      "attack_type": "STABLECOIN_DEPEG",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_MARKET_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "Circle USDC SVB depeg"
+      ]
+    },
+    {
+      "case_id": "ERA31_DEPEG_0002_UST_TERRA",
+      "chain": "TERRA",
+      "token_address": "PENDING_TOKEN_RESOLUTION",
+      "attack_type": "STABLECOIN_DEPEG",
+      "label": "REAL_ATTACK",
+      "ground_truth": "CANDIDATE_SOURCE_CONFIRMED_NEEDS_MARKET_TRACE",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "Reuters UST depeg"
+      ]
+    },
+    {
+      "case_id": "ERA31_NORMAL_0001_STABLE_POOL_CONTROL",
+      "chain": "PENDING",
+      "token_address": "PENDING_SELECTION",
+      "attack_type": "NORMAL",
+      "label": "NOISE",
+      "ground_truth": "CONTROL_CASE_PENDING_SELECTION",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "To be selected from normal pool history"
+      ]
+    },
+    {
+      "case_id": "ERA31_NORMAL_0002_BLUECHIP_DEX_CONTROL",
+      "chain": "PENDING",
+      "token_address": "PENDING_SELECTION",
+      "attack_type": "NORMAL",
+      "label": "NOISE",
+      "ground_truth": "CONTROL_CASE_PENDING_SELECTION",
+      "ground_truth_confidence": "CANDIDATE",
+      "sources": [
+        "To be selected from normal DEX history"
+      ]
+    }
+  ],
+  "blind_replay_protocol": {
+    "enabled": true,
+    "version": "1.0",
+    "observer_visibility": [
+      "chain",
+      "token_address",
+      "pair_address",
+      "timestamp",
+      "onchain_events",
+      "wallet_movements",
+      "lp_events",
+      "swap_events",
+      "market_snapshots",
+      "public_news_timestamp_only"
+    ],
+    "observer_hidden": [
+      "ground_truth",
+      "label",
+      "attack_type",
+      "expected_observer_result",
+      "ground_truth_confidence",
+      "war_judge_notes"
+    ],
+    "war_judge_only": [
+      "ground_truth",
+      "label",
+      "attack_type",
+      "expected_observer_result",
+      "ground_truth_confidence"
+    ],
+    "rule": "Observer evaluates blindly. Ground Truth is revealed only after replay."
+  },
+  "updated_at_utc": "2026-07-04T17:54:24.677526+00:00"
+}

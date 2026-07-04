@@ -1,0 +1,53 @@
+{
+  "era": "ERA31",
+  "phase": "PHASE0_REAL_WORLD_REPLAY_PLAN",
+  "status": "DEFINED_LOCAL",
+  "created_at_utc": "2026-07-04T17:06:11.213043+00:00",
+  "git_head": "1fba40ddc074c9a1ab20de5ffc574a931fcc76a8",
+  "purpose": "Validate ERA30 Shadow War pipeline against real-world DEX/security cases.",
+  "pilot_scope": {
+    "case_count": 10,
+    "distribution": {
+      "rug_pull": 2,
+      "honeypot": 2,
+      "liquidity_drain": 2,
+      "stablecoin_depeg": 2,
+      "normal_non_attack": 2
+    }
+  },
+  "source_priority": [
+    "onchain_explorer_records",
+    "security_reports",
+    "dex_pool_history",
+    "verified_news_timestamps",
+    "internal_tokenoskobi_future_observations"
+  ],
+  "ground_truth_standard": {
+    "minimum_independent_evidence": 2,
+    "onchain_trace_required": true,
+    "timestamp_required": true,
+    "observer_must_not_see_ground_truth": true
+  },
+  "labels": [
+    "REAL_ATTACK",
+    "FALSE_ALARM",
+    "NOISE",
+    "OPPORTUNITY",
+    "UNKNOWN"
+  ],
+  "rules": [
+    "read_only",
+    "no_main_db_write",
+    "no_trade",
+    "no_wallet_access",
+    "shadow_lab_only",
+    "evidence_first"
+  ],
+  "next_steps": [
+    "ERA31_PHASE1_REAL_WORLD_CASE_LIBRARY_SCHEMA",
+    "ERA31_PHASE2_10_CASE_PILOT_LIBRARY",
+    "ERA31_PHASE3_REAL_WORLD_REPLAY_CONVERTER",
+    "ERA31_PHASE4_10_CASE_REPLAY",
+    "ERA31_PHASE5_REAL_WORLD_WAR_JUDGE"
+  ]
+}
