@@ -4890,3 +4890,49 @@ HEAD: d30d1f086178e858788b1176dbf790bc95d2f472
 PUSH_POLICY: Single push only at ERA closure.
 NEXT: Final local test, commit and push after PASS.
 <!-- ERA23_FINAL_CLOSURE_RECORD_END -->
+
+<!-- ERA24_WORKFLOW_CONSOLIDATION_RECORD_BEGIN -->
+## ERA24 WORKFLOW CONSOLIDATION
+
+STATUS: LOCAL_ACTIVE
+UPDATED_AT_UTC: 2026-07-04T04:30:43.992133+00:00
+HEAD_AT_UPDATE: e50aca319ba99fede7521254e6dca5cac80a74ab
+
+ERA24 is treated as one capability: Engineering Decision Engine.
+
+Internal baseline outputs are preserved as evidence:
+- Reliability
+- Performance
+- Security
+- Statistics
+- Probability
+- Opportunity Cost
+
+RULE:
+Do not continue ERA24 as ERA24A/B/C/D/E/F/G chain.
+Continue as one ERA-level capability with local test, close, and single ERA push.
+<!-- ERA24_WORKFLOW_CONSOLIDATION_RECORD_END -->
+
+<!-- ERA24_ENGINEERING_DECISION_ENGINE_RECORD_BEGIN -->
+## ERA24 ENGINEERING DECISION ENGINE
+
+STATUS: LOCAL_CLOSED_READY_FOR_GITHUB_SEAL
+UPDATED_AT_UTC: 2026-07-04T04:34:28.994997+00:00
+HEAD_AT_UPDATE: e50aca319ba99fede7521254e6dca5cac80a74ab
+
+ERA24 is one consolidated capability, not an A/B/C/D/E/F work-unit chain.
+
+INTERNAL EVIDENCE:
+- Reliability baseline: PASS
+- Performance baseline: PASS
+- Security baseline: PASS
+- Statistics baseline: PASS
+- Probability baseline: PASS
+- Opportunity Cost baseline: PASS
+
+RESULT:
+Engineering Decision Engine foundation baseline is locally closed and ready for single ERA-level GitHub seal.
+
+NEXT:
+ERA25 planning starts only after ERA24 GitHub seal verification.
+<!-- ERA24_ENGINEERING_DECISION_ENGINE_RECORD_END -->

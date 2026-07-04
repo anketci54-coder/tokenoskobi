@@ -1,6 +1,6 @@
 {
   "runtime_version": "1.0",
-  "updated_at": "2026-07-03T16:30:13.733565+00:00",
+  "updated_at": "2026-07-04T04:34:28.994997+00:00",
   "source": "local_workspace",
   "git": {
     "branch": "main",
@@ -13,13 +13,13 @@
     "mode": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
     "current_problem": "CANONICAL_DRIFT",
     "active_work_unit": {
-      "id": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
-      "type": "ERA_FINAL_CLOSURE",
+      "id": "ERA24_ENGINEERING_DECISION_ENGINE",
+      "type": "ERA_CAPABILITY",
       "status": "WORK_UNIT_CLOSED",
-      "stage": "LOCAL_FINAL_CLOSURE_PENDING_SINGLE_PUSH",
+      "stage": "LOCAL_CLOSED_READY_FOR_GITHUB_SEAL",
       "last_completed_step": "WORK_UNIT_CLOSED",
-      "next_step": "NEXT_WORK_UNIT_PLAN",
-      "closed_at_utc": "2026-07-03T16:08:02.806475+00:00"
+      "next_step": "ERA25_PLANNING",
+      "started_at_utc": "2026-07-04T04:30:43.992133+00:00"
     }
   },
   "hard_rules": {
@@ -34,15 +34,15 @@
     "human_approval_required": true
   },
   "last_action": {
-    "timestamp": "2026-07-03T16:30:13.733565+00:00",
-    "task": "ERA23_POST_SEAL_SUPERSEDE_OLD_MARKERS_AND_ERA24_BOOT_INSTRUCTION",
-    "result": "LOCAL_APPLY_NO_PUSH",
-    "git_head": "9fe27910589c3bf2964a25ccb3ecddd6afbf9ff0"
+    "timestamp": "2026-07-04T04:34:28.994997+00:00",
+    "task": "ERA24_ENGINEERING_DECISION_ENGINE",
+    "result": "FINAL_DOC_SYNC_LOCAL_READY_FOR_PUSH",
+    "git_head": "e50aca319ba99fede7521254e6dca5cac80a74ab"
   },
   "next_safe_step": {
-    "name": "ERA24_PLANNING",
-    "status": "READY",
-    "instruction": "Read canonical files first. Do not reopen ERA23. Start ERA24 planning only after user approval."
+    "name": "ERA25_PLANNING",
+    "status": "READY_AFTER_ERA24_SEAL",
+    "instruction": "Start ERA25 planning only after ERA24 GitHub seal verification."
   },
   "open_risks": [
     "Runtime files may continue changing while news timer runs.",
@@ -52,15 +52,15 @@
   "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal.",
   "current_head": "723912fc7e7142beddffddf9bf8b117857744469",
   "boot_health": "100/100",
-  "last_completed": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
+  "last_completed": "ERA24_ENGINEERING_DECISION_ENGINE",
   "current_work_unit": {
-    "id": "ERA23Z_OS_CORE_HARDENING_FINAL_CLOSURE",
-    "type": "ERA_FINAL_CLOSURE",
+    "id": "ERA24_ENGINEERING_DECISION_ENGINE",
+    "type": "ERA_CAPABILITY",
     "status": "WORK_UNIT_CLOSED",
-    "stage": "LOCAL_FINAL_CLOSURE_PENDING_SINGLE_PUSH",
+    "stage": "LOCAL_CLOSED_READY_FOR_GITHUB_SEAL",
     "last_completed_step": "WORK_UNIT_CLOSED",
-    "next_step": "NEXT_WORK_UNIT_PLAN",
-    "closed_at_utc": "2026-07-03T16:08:02.806475+00:00"
+    "next_step": "ERA25_PLANNING",
+    "started_at_utc": "2026-07-04T04:30:43.992133+00:00"
   },
   "recent_event": {
     "task": "ERA23C_CANONICAL_SYNCHRONIZATION_AND_DRIFT_REPAIR",
@@ -151,5 +151,84 @@
     "json_and_markdown_sync": true,
     "push_policy": "PUSH_ONLY_AT_ERA_CLOSURE",
     "style_rule": "Preserve existing canonical file style; do not invent new formatting."
+  },
+  "era24_scope": {
+    "version": "V3",
+    "era": "ERA24",
+    "capability": "Engineering Decision Engine opportunity cost baseline",
+    "push_rule": "NO_PUSH_UNTIL_ERA_CLOSURE",
+    "first_metric": "OpportunityCost"
+  },
+  "ede_reliability_baseline": {
+    "work_unit": "ERA24A_ENGINEERING_DECISION_ENGINE_FOUNDATION_PLAN",
+    "status": "BASELINE_READY_LOCAL",
+    "artifact": "data/era24a_ede_reliability_baseline_v1.json",
+    "metric": "reliability_score",
+    "first_metric": "Reliability",
+    "push_rule": "NO_PUSH_UNTIL_ERA_CLOSURE",
+    "updated_at": "2026-07-03T18:03:29.056224+00:00"
+  },
+  "ede_performance_baseline": {
+    "status": "BASELINE_READY_LOCAL",
+    "artifact": "data/era24b_ede_performance_baseline_v1.json",
+    "metric": "performance_score",
+    "updated_at": "2026-07-03T18:19:42.682682+00:00"
+  },
+  "ede_security_baseline": {
+    "status": "BASELINE_READY_LOCAL",
+    "artifact": "data/era24c_ede_security_baseline_v1.json",
+    "metric": "security_score",
+    "updated_at": "2026-07-03T18:33:11.623079+00:00"
+  },
+  "ede_statistics_baseline": {
+    "status": "BASELINE_READY_LOCAL",
+    "artifact": "data/era24d_ede_statistics_baseline_v1.json",
+    "metric": "statistics_mean_min_ci95",
+    "updated_at": "2026-07-03T19:25:03.633214+00:00"
+  },
+  "ede_probability_baseline": {
+    "status": "BASELINE_READY_LOCAL",
+    "artifact": "data/era24e_ede_probability_baseline_v1.json",
+    "updated_at": "2026-07-03T19:29:01.857093+00:00"
+  },
+  "ede_opportunity_cost_baseline": {
+    "status": "BASELINE_READY_LOCAL",
+    "artifact": "data/era24f_ede_opportunity_cost_baseline_v1.json",
+    "metric": "net_utility",
+    "updated_at": "2026-07-04T04:28:00.622380+00:00"
+  },
+  "era_workflow_policy": {
+    "status": "ACTIVE",
+    "rule": "Do not split one ERA into many A/B/C work units unless explicitly necessary.",
+    "era_flow": [
+      "PLAN",
+      "APPLY",
+      "TEST",
+      "CLOSE",
+      "ERA_PUSH"
+    ],
+    "push_rule": "Push only at ERA closure."
+  },
+  "era24_consolidated_test": {
+    "status": "PASS",
+    "updated_at": "2026-07-04T04:32:29.101086+00:00",
+    "git_head": "e50aca319ba99fede7521254e6dca5cac80a74ab",
+    "artifacts": [
+      "data/era24a_ede_reliability_baseline_v1.json",
+      "data/era24b_ede_performance_baseline_v1.json",
+      "data/era24c_ede_security_baseline_v1.json",
+      "data/era24d_ede_statistics_baseline_v1.json",
+      "data/era24e_ede_probability_baseline_v1.json",
+      "data/era24f_ede_opportunity_cost_baseline_v1.json"
+    ],
+    "tools": [
+      "tools/ede_reliability_baseline_v1.py",
+      "tools/ede_performance_baseline_v1.py",
+      "tools/ede_security_baseline_v1.py",
+      "tools/ede_statistics_baseline_v1.py",
+      "tools/ede_probability_baseline_v1.py",
+      "tools/ede_opportunity_cost_baseline_v1.py"
+    ],
+    "rule": "ERA24 is one consolidated capability. A-F are internal evidence, not separate future work units."
   }
 }

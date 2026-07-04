@@ -1,0 +1,53 @@
+{
+  "work_unit": "ERA24A_ENGINEERING_DECISION_ENGINE_FOUNDATION_PLAN",
+  "mode": "LOCAL_NOAPI",
+  "created_at_utc": "2026-07-03T18:03:29.014473+00:00",
+  "purpose": "First EDE reliability baseline using existing boot tools.",
+  "checks": [
+    {
+      "name": "boot_health",
+      "cmd": "python3 boot_health_v1.py",
+      "rc": 0,
+      "pass": true,
+      "duration_ms": 353.34,
+      "stdout_tail": "validator: PASS\nworkflow: PASS\nguardian: PASS\nschema: PASS\ncommander: PASS\nBOOT_HEALTH=100/100\n",
+      "stderr_tail": ""
+    },
+    {
+      "name": "commander",
+      "cmd": "python3 boot_commander_v2.py",
+      "rc": 0,
+      "pass": true,
+      "duration_ms": 190.411,
+      "stdout_tail": "de7521254e6dca5cac80a74ab runtime=723912fc7e7142beddffddf9bf8b117857744469)\n[WARN] V2 policy: this is not fatal. Current Git HEAD is live source; runtime HEAD is last observed metadata.\n[PASS] active_work_unit.id exists\n[PASS] active_work_unit.type exists\n[PASS] active_work_unit.status exists\n[PASS] active_work_unit.last_completed_step exists\n[PASS] active_work_unit.next_step exists\n[PASS] last_action exists\n[PASS] next_safe_step exists\n[PASS] updated_at exists\n\n============================================================\nBOOT_VALIDATION_V2=PASS\n\n[WORKFLOW]\n[PASS] active_work_unit.id=ERA24A_ENGINEERING_DECISION_ENGINE_FOUNDATION_PLAN\n[PASS] status=PLAN_READY_LOCAL\n[PASS] last_completed_step=PLAN\n[PASS] next_step=USER_APPROVAL_FOR_LOCAL_APPLY\nBOOT_WORKFLOW=PASS\n\n[CONTINUATION]\nHEAD             : e50aca319ba99fede7521254e6dca5cac80a74ab\nBRANCH           : main\nWORK UNIT        : ERA24A_ENGINEERING_DECISION_ENGINE_FOUNDATION_PLAN\nSTATUS           : PLAN_READY_LOCAL\nLAST STEP        : PLAN\nNEXT STEP        : USER_APPROVAL_FOR_LOCAL_APPLY\nNEXT SAFE STEP   : USER_APPROVAL_FOR_ERA24A_LOCAL_APPLY\n\n======================================================================\nSYSTEM STATUS : READY\n",
+      "stderr_tail": ""
+    },
+    {
+      "name": "guardian",
+      "cmd": "python3 boot_guardian_v1.py",
+      "rc": 0,
+      "pass": true,
+      "duration_ms": 34.956,
+      "stdout_tail": "BOOT_GUARDIAN=PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "name": "workflow",
+      "cmd": "python3 boot_workflow_manager_v1.py",
+      "rc": 0,
+      "pass": true,
+      "duration_ms": 39.996,
+      "stdout_tail": "[PASS] active_work_unit.id=ERA24A_ENGINEERING_DECISION_ENGINE_FOUNDATION_PLAN\n[PASS] status=PLAN_READY_LOCAL\n[PASS] last_completed_step=PLAN\n[PASS] next_step=USER_APPROVAL_FOR_LOCAL_APPLY\nBOOT_WORKFLOW=PASS\n",
+      "stderr_tail": ""
+    }
+  ],
+  "score": {
+    "boot_success_rate": 1.0,
+    "checks_passed": 4,
+    "checks_total": 4,
+    "mean_duration_ms": 154.676,
+    "max_duration_ms": 353.34,
+    "reliability_score": 100.0
+  },
+  "decision": "PASS"
+}
