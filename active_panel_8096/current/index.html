@@ -1221,3 +1221,51 @@ body{
 </script>
 <!-- PHASE41_PROVIDER_SECRET_VAULT_END -->
 
+
+
+<!-- N16C_PANEL_LIVE_MANIFEST_BIND_BEGIN -->
+<script id="n16c-panel-live-manifest-bind-v1">
+(function(){
+  const MANIFEST_URL='data/panel_live_manifest_v1.json';
+  const STATUS_URL='data/panel_live_status_v1.json';
+  function makeBox(){
+    let box=document.getElementById('n16c-panel-live-status-v1');
+    if(box)return box;
+    box=document.createElement('section');
+    box.id='n16c-panel-live-status-v1';
+    box.style.margin='12px';
+    box.style.padding='14px';
+    box.style.border='1px solid rgba(56,189,248,.25)';
+    box.style.borderRadius='14px';
+    box.style.background='rgba(5,10,22,.86)';
+    box.style.color='#EAF2FF';
+    box.style.fontFamily='Inter,Arial,sans-serif';
+    document.body.insertBefore(box, document.body.firstChild);
+    return box;
+  }
+  function esc(v){return String(v===undefined||v===null?'—':v).replace(/[&<>]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[s]));}
+  function render(manifest,status){
+    window.__N16C_PANEL_LIVE_MANIFEST_BIND_V1__={manifest:manifest,status:status};
+    const box=makeBox();
+    const centers=(manifest&&manifest.centers)||[];
+    box.innerHTML='<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px;">'
+      +'<div><div style="font-size:12px;opacity:.7;letter-spacing:.12em;">N16 LIVE PANEL</div><div style="font-size:18px;font-weight:900;">8 Merkez Canlı Veri Sözleşmesi</div></div>'
+      +'<div style="font-size:11px;border:1px solid rgba(34,197,94,.35);border-radius:999px;padding:5px 8px;color:#86EFAC;">DISPLAY ONLY / AUTHORITY 0</div></div>'
+      +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;">'
+      + centers.map(c=>'<div style="border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:9px;background:rgba(255,255,255,.035);">'
+        +'<div style="font-size:11px;opacity:.7;">'+esc(c.label)+'</div>'
+        +'<div style="font-size:13px;font-weight:800;margin-top:3px;">'+esc(c.status)+'</div>'
+        +'<div style="font-size:10px;opacity:.65;margin-top:4px;">'+esc(c.authority)+'</div>'
+        +'</div>').join('')
+      +'</div>'
+      +'<div style="font-size:11px;opacity:.70;margin-top:10px;">Panel burada veri uydurmaz. Eksik kaynak DATA_MISSING, kapalı dal SEALED_INACTIVE gösterilir. Trade/wallet/provider/policy yetkisi yoktur.</div>';
+  }
+  Promise.all([
+    fetch(MANIFEST_URL,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(new Error('manifest '+r.status))),
+    fetch(STATUS_URL,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(new Error('status '+r.status)))
+  ]).then(([manifest,status])=>render(manifest,status)).catch(e=>{
+    window.__N16C_PANEL_LIVE_MANIFEST_BIND_ERROR__=String(e&&e.message?e.message:e);
+  });
+})();
+</script>
+<!-- N16C_PANEL_LIVE_MANIFEST_BIND_END -->
