@@ -60,7 +60,21 @@ def inventory_summary(full=False):
         "mode": "fastpath"
     }
 
+def normalize_registry_status(obj):
+    if isinstance(obj, dict):
+        obj = json.loads(json.dumps(obj))
+        project = obj.get("project")
+        if isinstance(project, dict):
+            status = project.get("git_status_short") or ""
+            if status.strip() == f"M {GENERATED_REGISTRY}":
+                project["git_status_short"] = ""
+                project["git_clean"] = True
+                project["generated_registry_dirty_ignored"] = True
+        return obj
+    return obj
+
 def semantic_registry(obj):
+    obj = normalize_registry_status(obj)
     if isinstance(obj, dict):
         return {k: semantic_registry(v) for k, v in sorted(obj.items()) if k not in VOLATILE_REGISTRY_KEYS}
     if isinstance(obj, list):
@@ -204,7 +218,6 @@ def print_ai(k):
     p = k["project"]
     c = k["current_state"]
     aw = c.get("active_work_unit") or {}
-
     print("NEW AI: READ THIS FIRST. THIS IS THE SOURCE OF TRUTH FOR TOKENOSKOBI OS.")
     print("")
     print("TOKENOSKOBI OS KERNEL BOOTSTRAP v1")
@@ -272,14 +285,11 @@ def main():
     ap.add_argument("--machine", action="store_true")
     ap.add_argument("--write-registry", action="store_true")
     args = ap.parse_args()
-
     full = bool(args.machine or args.write_registry)
     k = collect(full=full)
-
     if args.write_registry:
         stable_registry_write(k)
         return
-
     if args.machine:
         print(json.dumps(k, indent=2, ensure_ascii=False))
     elif args.ai:
