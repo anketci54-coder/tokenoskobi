@@ -1,0 +1,15 @@
+# Draft only. Not installed to /etc/systemd/system by PHASE9C.
+# Do not enable/start without future approval.
+[Unit]
+Description=Tokenoskobi Phase9 Commercial Observation Runtime Watch-Only
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/tokenoskobi_clean_v1
+ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/phase9_commercial_observation_runtime.py
+User=root
+Environment=PHASE9_RUNTIME_ENABLED=false
+
+[Install]
+WantedBy=multi-user.target
