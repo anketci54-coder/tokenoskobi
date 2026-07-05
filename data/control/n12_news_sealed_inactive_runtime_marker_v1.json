@@ -1,0 +1,47 @@
+{
+  "stage": "N12_NEWS_SEALED_INACTIVE_RUNTIME_MARKER",
+  "status": "SEALED_INACTIVE_GITHUB_MARKER_ONLY",
+  "purpose": "Prevent the News branch from being interpreted as an active panel/runtime pipeline while preserving executable files and server references.",
+  "server_evidence": {
+    "service_path": "/etc/systemd/system/tokenoskobi-news-radar-refresh.service",
+    "exec_start": "/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py",
+    "timer_state": "enabled_but_inactive_dead_since_2026-07-02_21:09:08_EEST",
+    "service_state": "inactive_dead_since_2026-07-02_21:03:36_EEST",
+    "last_service_result": "status_0_SUCCESS"
+  },
+  "github_evidence": {
+    "runner": "tools/news_radar_refresh_runner_v1.py",
+    "original_runner": "/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+    "preview_data": "/root/tokenoskobi_clean_v1/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/news_radar_tr_preview_data.json",
+    "preview_html": "/root/tokenoskobi_clean_v1/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/index.html",
+    "unreachable_postprocess": true,
+    "unreachable_reason": "main() returns rc before _postprocess(); _postprocess() appears after return rc."
+  },
+  "classification": {
+    "branch": "NEWS_RADAR_REFRESH",
+    "state": "SEALED_INACTIVE_RUNTIME_CANDIDATE",
+    "active_panel_pipeline": false,
+    "safe_to_treat_as_current_signal_source": false,
+    "safe_to_delete": false,
+    "safe_to_move_executable_without_server_disable": false
+  },
+  "rules_for_next_ai": [
+    "Do not treat News as active panel truth unless a fresh server-side news→preview→panel probe passes.",
+    "Do not move tools/news_radar_refresh_runner_v1.py while installed systemd service references it.",
+    "If reactivation is requested, first repair unreachable _postprocess() or intentionally keep mapping disabled.",
+    "Technology news scope remains narrow: only operationally relevant developments for Tokenoskobi."
+  ],
+  "next_safe_step": "CONTINUE_ARCHIVE_CLEANUP_OR_PUBLIC_TO_PANEL_BINDING_PROBE",
+  "safety": {
+    "service_disabled": false,
+    "file_moved": false,
+    "file_deleted": false,
+    "runtime_logic_changed": false,
+    "core_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "provider_call": false,
+    "api_call": false
+  }
+}
