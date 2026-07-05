@@ -12,8 +12,6 @@ git status --short
 
 Source of truth: server workspace + GitHub `main` mirror.
 
-Current HEAD after latest known server seal: `0f29a079cc6a6b21046d72c42df5d6cd3870f46a` before root-cleanup GitHub commits. After pulling, use `tk sync` as truth.
-
 Rules:
 
 - Do not open a new ERA unless explicitly requested.
@@ -27,13 +25,27 @@ Current technical truth:
 
 - Registry/kernel dirty-loop fixed and verified: second `tk registry` returns `UNCHANGED`.
 - N7 water-drop probe completed: local visibility/search probe around `536.39 ms`; this is not full token-analysis latency.
-- N8 trace completed: active system is partially flowing, but full token-analysis source→runtime→public readmodel→panel path was not proven.
-- N9 completed: source/public readmodel cache+manifest+index hash binding is proven; public→panel binding still not proven.
-- Phase9 draft service/timer is inert and has been moved from active `systemd_drafts/` to `archive/inert_runtime_branches/phase9/`.
+- N8 trace completed: active system is partially flowing, but full token-analysis source→runtime→public readmodel→panel path was not proven at that point.
+- N9 completed: source/public readmodel cache+manifest+index hash binding proven.
+- N14 completed: public readmodel bridge created; active panel data now includes bridge JSON files and 8096 serves them.
+- N14B completed: active panel UI was bound to bridge data and pushed.
+- Phase9 draft service/timer archived as inert.
+- News branch marked sealed inactive; service path preserved.
+- Server provider corrected to Netcup.
+
+N15 domain publish state:
+
+- Target staging domain assumption: `panel.coinoskobi.xyz`.
+- Nginx template exists: `deploy/nginx/coinoskobi_panel_8096_proxy.conf.template`.
+- Apply script exists: `deploy/nginx/apply_panel_coinoskobi_xyz.sh`.
+- Verify script exists: `deploy/nginx/verify_panel_domain.sh`.
+- Rollback script exists: `deploy/nginx/rollback_panel_domain.sh`.
+- GitHub side is ready; server-side DNS/Nginx/SSL apply still required.
 
 Next safest work:
 
-1. Pull latest GitHub cleanup commits to server.
-2. Run `tk sync` and confirm clean status.
-3. Continue active-surface cleanup only by archiving sealed/inert branches, not deleting evidence.
-4. Then prove public readmodel→panel binding or mark panel binding as unknown.
+1. Pull latest GitHub commits to server.
+2. Confirm DNS for `panel.coinoskobi.xyz` points to the Netcup server.
+3. Run N15 apply script.
+4. If HTTP returns 200 for `/` and `/data/backpressure_readmodel_refresh_cache.json`, issue SSL with certbot.
+5. Run verify script and commit result JSON.
