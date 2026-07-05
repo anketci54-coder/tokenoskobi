@@ -1,0 +1,30 @@
+{
+  "stage": "N14_PANEL_BRIDGE_DESIGN_SHORT",
+  "status": "DESIGNED_GITHUB_SIDE",
+  "goal": "Connect proven public readmodel files to the active static panel data surface.",
+  "current_panel": {
+    "service": "tokenoskobi-active-panel-8096.service",
+    "server": "python_http_server_8096",
+    "root": "active_panel_8096/current",
+    "index": "active_panel_8096/current/index.html"
+  },
+  "source_readmodel": {
+    "folder": "public/backpressure_readmodel_refresh_staging_v1",
+    "cache": "backpressure_readmodel_refresh_cache.json",
+    "manifest": "backpressure_readmodel_refresh_manifest.json",
+    "index": "backpressure_readmodel_refresh_index.json"
+  },
+  "target_panel_data": {
+    "folder": "active_panel_8096/current/data",
+    "bridge_json": "backpressure_readmodel_bridge_v1.json",
+    "bridge_rows": "backpressure_readmodel_bridge_v1_rows.jsonl"
+  },
+  "plan": [
+    "N14A dryrun: validate source hash chain and create temp bridge output only.",
+    "N14B apply: write bridge JSON into active panel data folder with backup.",
+    "N14C plan: design small readonly card for index.html.",
+    "N14D apply later: add visible panel card after bridge data is proven."
+  ],
+  "first_apply_rule": "Data bridge first; no HTML change in first apply.",
+  "decision": "READY_FOR_N14A_DRYRUN"
+}
