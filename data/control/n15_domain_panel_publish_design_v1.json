@@ -1,0 +1,50 @@
+{
+  "stage": "N15_DOMAIN_PANEL_PUBLISH_DESIGN",
+  "status": "DESIGN_AND_TEMPLATE_READY_GITHUB_SIDE",
+  "purpose": "Prepare domain-based publication of the active Tokenoskobi/Coinoskobi panel through Nginx while keeping engines on the Netcup server.",
+  "current_truth": {
+    "server_provider": "Netcup",
+    "active_panel_service": "tokenoskobi-active-panel-8096.service",
+    "active_panel_upstream": "http://127.0.0.1:8096/",
+    "panel_backend_type": "python3 -m http.server 8096",
+    "panel_workdir": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
+    "n14_bridge_status": "public readmodel is bridged into active panel data and served by 8096",
+    "latest_known_head_before_n15": "fbfaa6792f8b01e100b1e715249120e365b95a50"
+  },
+  "target_architecture": {
+    "engine_layer": "Netcup server local services and runtime",
+    "panel_layer": "active_panel_8096/current static panel served on localhost 8096",
+    "edge_layer": "Nginx reverse proxy with HTTPS",
+    "domains": {
+      "staging": "coinoskobi.xyz or panel.coinoskobi.xyz",
+      "production": "coinoskobi.com or panel.coinoskobi.com"
+    }
+  },
+  "github_added_files": [
+    "deploy/nginx/coinoskobi_panel_8096_proxy.conf.template"
+  ],
+  "server_apply_order": [
+    "1. Pull latest main on server.",
+    "2. Confirm 8096 panel is active locally.",
+    "3. Confirm DNS A record points selected domain/subdomain to Netcup server IP.",
+    "4. Copy template to /etc/nginx/sites-available/<domain>.conf with DOMAIN_NAME replaced.",
+    "5. Enable site symlink under /etc/nginx/sites-enabled/.",
+    "6. Run nginx -t.",
+    "7. Reload nginx.",
+    "8. Verify HTTP domain response.",
+    "9. Issue HTTPS certificate with certbot only after HTTP works.",
+    "10. Verify HTTPS response and panel bridge JSON access."
+  ],
+  "safety": {
+    "core_change": false,
+    "runtime_logic_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "provider_call": false,
+    "api_call": false,
+    "nginx_template_only": true
+  },
+  "decision": "READY_FOR_SERVER_NGINX_DNS_APPLY_AFTER_DOMAIN_SELECTION",
+  "next_required_input": "Choose exact domain or subdomain for staging first, preferably panel.coinoskobi.xyz or coinoskobi.xyz/panel depending current DNS/Nginx state."
+}
