@@ -1,0 +1,37 @@
+{
+  "stage": "N9_SOURCE_TO_PUBLIC_READMODEL_BINDING_PROBE",
+  "status": "GITHUB_READY_LOCAL_RUN_REQUIRED",
+  "created_by": "github_connector",
+  "added_files": [
+    "tools/n9_source_to_public_readmodel_binding_probe.py"
+  ],
+  "purpose": "Create a reusable NOAPI probe that checks whether source/public readmodel cache, manifest, and index are hash-bound and whether the backpressure runner is statically bound to those public sources.",
+  "what_github_side_can_do": [
+    "Add the probe script",
+    "Define the evidence contract",
+    "Avoid unsafe API/wallet/trade authority",
+    "Prepare a one-command local measurement path"
+  ],
+  "what_requires_server": [
+    "systemd active state",
+    "current public file mtimes",
+    "actual hash state of server-local generated public readmodels",
+    "probe result artifact creation under data/control"
+  ],
+  "safety": {
+    "api_calls": 0,
+    "wallet": false,
+    "signing": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "provider_call": false,
+    "dex_call": false,
+    "policy_apply": false,
+    "core_change": false
+  },
+  "expected_local_outputs": [
+    "data/control/n9_source_to_public_readmodel_binding_probe_result_v1.json",
+    "data/control/n9_source_to_public_readmodel_binding_probe_result_v1_rows.jsonl"
+  ],
+  "next_action": "PULL_AND_RUN_N9_PROBE_ON_SERVER"
+}
