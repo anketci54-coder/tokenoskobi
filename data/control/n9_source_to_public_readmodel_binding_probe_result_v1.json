@@ -1,0 +1,79 @@
+{
+  "binding_checks": {
+    "cache_exists": true,
+    "cache_parse_ok": true,
+    "cache_runtime_lookup_only": true,
+    "cache_state_valid": true,
+    "index_cache_sha_matches": true,
+    "index_exists": true,
+    "index_manifest_sha_matches": true,
+    "index_parse_ok": true,
+    "manifest_cache_sha_matches": true,
+    "manifest_exists": true,
+    "manifest_parse_ok": true
+  },
+  "binding_ok": true,
+  "created_at_utc": "2026-07-05T15:34:54.774091+00:00",
+  "decision": "PUBLIC_READMODEL_SOURCE_BINDING_PROVEN",
+  "full_public_to_panel_binding_proven": false,
+  "full_source_to_public_readmodel_binding_proven": true,
+  "note": "This proves source/public readmodel file binding only. It does not prove token-analysis engine to panel end-to-end execution.",
+  "public_paths": {
+    "cache": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+    "cache_sha256": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
+    "index": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json",
+    "index_sha256": "72de9d33ec2df409f94e64ae971fe4bf7b325cec6a7b19828e11407ff185d221",
+    "manifest": "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json",
+    "manifest_sha256": "25a6f701ee780f59abba55c27123101bbf369a1216a6ce22d3a0146aa0e21ecf"
+  },
+  "runner_confirms_readonly_public_source": true,
+  "runner_static": {
+    "contains_active_runner_file_write_false": true,
+    "contains_public_target_write_false": true,
+    "contains_service_timer_worker_false": true,
+    "mentions_public_dir": true,
+    "mentions_source_cache": true,
+    "mentions_source_index": true,
+    "mentions_source_manifest": true,
+    "runner_exists": true
+  },
+  "safety": {
+    "api_calls": 0,
+    "core_change": false,
+    "dex_call": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "policy_apply": false,
+    "provider_call": false,
+    "signing": false,
+    "wallet": false
+  },
+  "stage": "N9_SOURCE_TO_PUBLIC_READMODEL_BINDING_PROBE",
+  "steps": [
+    {
+      "cmd": "systemctl list-units --type=service --all | grep -Ei 'tokenoskobi|coinoskobi' || true",
+      "latency_ms": 14.696,
+      "name": "systemd_services",
+      "rc": 0,
+      "stderr_head": "",
+      "stdout_head": "  coinoskobi-backpressure-refresh-runner.service                                            loaded    inactive dead    Coinoskobi Backpressure Refresh Runner DENGE dryrun service\n  coinoskobi-provider-secret-vault.service                                                  loaded    active   running Coinoskobi Provider Secret Vault Local Handler\n  coinoskobi-system-control-status-refresh.service                                          loaded    inactive dead    Coinoskobi system control status refresh - one shot\n● run-p3024005-i15606010.service                                                            loaded    failed   failed  [systemd-run] /usr/bin/test -f /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite\n● run-p3050930-i15632935.service                                                            loaded    failed   failed  [systemd-run] /usr/bin/test -f /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite\n● run-p3051711-i15633716.service                                                            loaded    failed   failed  [systemd-run] /usr/bin/test -f /root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json\n● run-p3052164-i15634169.service                                                            loaded    failed   failed  [systemd-run] /usr/bin/test -f /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite\n  tokenoskobi-active-panel-8096.service                                                     loaded    active   running Tokenoskobi/Coinoskobi Active Panel 8096\n  tokenoskobi-news-radar-refresh.service                                                    loaded    inactive dead    Tokenoskobi News Radar Refresh Runner\n  tokenoskobi-phase9-observation-runtime.service                                            loaded    inactive dead    Tokenoskobi Phase9 Commercial Observation Runtime Watch-Only\n"
+    },
+    {
+      "cmd": "systemctl list-timers --all | grep -Ei 'tokenoskobi|coinoskobi' || true",
+      "latency_ms": 14.298,
+      "name": "systemd_timers",
+      "rc": 0,
+      "stderr_head": "",
+      "stdout_head": "Sun 2026-07-05 18:35:08 EEST      13s Sun 2026-07-05 18:34:53 EEST       1s ago coinoskobi-backpressure-refresh-runner.timer   coinoskobi-backpressure-refresh-runner.service\nSun 2026-07-05 18:36:50 EEST 1min 55s Sun 2026-07-05 18:31:50 EEST  3min 4s ago coinoskobi-system-control-status-refresh.timer coinoskobi-system-control-status-refresh.service\nSun 2026-07-05 18:46:59 EEST    12min Sun 2026-07-05 18:31:59 EEST 2min 55s ago tokenoskobi-phase9-observation-runtime.timer   tokenoskobi-phase9-observation-runtime.service\n-                                   - Thu 2026-07-02 21:03:35 EEST   2 days ago tokenoskobi-news-radar-refresh.timer           tokenoskobi-news-radar-refresh.service\n"
+    },
+    {
+      "cmd": "find public -type f -printf '%T@ %p\\n' 2>/dev/null | sort -nr | head -40 || true",
+      "latency_ms": 6.273,
+      "name": "public_freshness",
+      "rc": 0,
+      "stderr_head": "",
+      "stdout_head": "1780721862.4417907060 public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json\n1780721862.4417907060 public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json\n1780720631.9138493000 public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json\n1780675088.2466868690 public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_manifest.json\n1780675088.2466868690 public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json\n1780667531.3176002740 public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json\n1780667531.3176002740 public/policy_candidate_readmodel_staging_v1/policy_candidate_readmodel_manifest.json\n1778707683.7946177690 public/customer_shortlist_real_binding_staging_v1/customer_shortlist_real_binding_manifest.json\n1778706780.2325206160 public/customer_shortlist_real_binding_staging_v1/customer_shortlist_real_staging.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/wallet_whale_radar_data_v1.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/token_lifecycle_data_v1.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/risk_mev_data_v1.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/morgue_autopsy_data_v1.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/fusion_decision_data_v1.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/economic_calendar_data_v1.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/data38_staging_manifest.json\n1778690766.8605278790 public/full_radar_panel_data_staging_v1/ai_calibration_summary_data_v1.json\n1778690766.8565276600 public/full_radar_panel_data_staging_v1/tracked_candidates_data_v1.json\n1778690766.8565276600 public/full_radar_panel_data_staging_v1/full_radar_main_panel_data_v1.json\n1778690766.8565276600 public/full_radar_panel_data_sta"
+    }
+  ],
+  "total_latency_ms": 36.761
+}
