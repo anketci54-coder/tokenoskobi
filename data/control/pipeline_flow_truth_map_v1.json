@@ -1,0 +1,73 @@
+{
+  "map": "PIPELINE_FLOW_TRUTH_MAP_V1",
+  "purpose": "Identify real active pipeline, leaks, dead branches, sealed branches, and missing speed measurements.",
+  "source_basis": [
+    "data/control/core_isolation_map_readonly_noapi.json",
+    "data/control/lifecycle_controller_readonly_map_noapi.json",
+    "PROJECT_RUNTIME.json",
+    "README.md",
+    "NEXT_CHAT_HANDOFF.md"
+  ],
+  "water_definition": "live/runtime data, state, decisions, readmodels, and panel outputs",
+  "active_pipeline": [
+    "tokenoskobi_kernel.py",
+    "PROJECT_RUNTIME.json",
+    "PROJECT_HISTORY.json",
+    "boot_workunit_open_v1.py",
+    "boot_workunit_advance_v1.py",
+    "boot_workflow_manager_v1.py",
+    "boot_commander_v2.py",
+    "core/*",
+    "tools/runtime_* and selected tools/* runners",
+    "public/* readmodel/panel outputs"
+  ],
+  "confirmed_facts": {
+    "core_files_count": 9,
+    "boot_files_count": 17,
+    "runtime_files_count": 27,
+    "workspace_files_count": 40,
+    "archive_files_count": 1165,
+    "docs_files_count": 687,
+    "plugins_files_count": 0,
+    "lifecycle_state_drift_detected": false,
+    "single_lifecycle_controller_file_exists": false
+  },
+  "leaks": [
+    {
+      "type": "documentation_state_leak",
+      "description": "README.md carries older canonical active state and can mislead new windows compared with tk ai / PROJECT_RUNTIME.json.",
+      "risk": "wrong continuation path"
+    },
+    {
+      "type": "archive_visibility_leak",
+      "description": "Historical archive and backup noise is too visible and competes with active files.",
+      "risk": "AI reads dead history as current state"
+    }
+  ],
+  "dead_or_water_holding_branches": [
+    "docs/archive/*",
+    "data/archive/*",
+    ".local_archive/*",
+    "old ERA/PASS/PHASE documentation copies",
+    "legacy root handoff/startup documents outside current handoff path"
+  ],
+  "sealed_but_present_branches": [
+    "ERA16-ERA20 historical sections in README.md",
+    "V1/V2/V3 historical phase outputs",
+    "closed phase/pass/era audit artifacts",
+    "historical panel baselines"
+  ],
+  "speed_truth": {
+    "real_live_pipeline_speed_known": false,
+    "reason": "Existing evidence contains dryrun/shadow/batch speed, but not a current live end-to-end measurement.",
+    "needed_measurement": "timestamped water-drop probe from source input to readmodel/panel output without wallet/trade/API authority"
+  },
+  "cleanup_decision": {
+    "delete_policy": "do not delete evidence first; archive and hide from active root",
+    "priority_1": "remove misleading root/current docs",
+    "priority_2": "normalize archive visibility",
+    "priority_3": "activate plugins and workspace boundaries",
+    "priority_4": "add pipeline speed probe"
+  },
+  "next_action": "PIPELINE_FLOW_PROBE_AND_ROOT_CLEANUP_PLAN"
+}
