@@ -1,0 +1,106 @@
+{
+  "stage": "N16_PANEL_LIVE_DATA_BINDING_PLAN",
+  "status": "DESIGN_ONLY_GITHUB_SIDE",
+  "purpose": "Turn the HTTPS production panel from a mostly static/readmodel shell into a living command center by binding each center to explicit readmodel contracts.",
+  "current_truth": {
+    "production_panel": "https://panel.coinoskobi.com",
+    "https_status": "READY",
+    "latest_known_head_before_n16": "dc77b8a78df2c8b4c4dd72b18e385324dd336dea",
+    "panel_engine_flow": "Engine -> ReadModel -> Public Bridge -> Active Panel -> Domain",
+    "n14_public_bridge": "DONE",
+    "n15_domain_publish": "DONE"
+  },
+  "binding_principle": "Panel must never invent state. Every visible tile must declare source file, freshness, producer, authority, and stale behavior.",
+  "global_panel_contract": {
+    "authority": {
+      "trade": false,
+      "wallet_signing": false,
+      "provider_call_from_browser": false,
+      "policy_apply": false,
+      "paper_trade_write": false
+    },
+    "freshness_rules": {
+      "green_max_age_sec": 120,
+      "yellow_max_age_sec": 900,
+      "red_after_sec": 900,
+      "missing_source_behavior": "SHOW_DATA_MISSING_NOT_ZERO"
+    },
+    "required_fields_per_readmodel": [
+      "stage",
+      "generated_at_utc",
+      "producer",
+      "source_count",
+      "data_freshness_sec",
+      "decision",
+      "authority",
+      "items"
+    ]
+  },
+  "centers": {
+    "command_center": {
+      "panel_label": "Komuta Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/command_center_live_readmodel_v1.json",
+      "sources": ["phase41_command_center_binding_v1.json", "panel_public_bridge_status_v1.json"],
+      "first_goal": "Show system readiness, top alerts, and bridge health."
+    },
+    "news_center": {
+      "panel_label": "Haber Akış Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+      "sources": ["news branch currently sealed inactive"],
+      "first_goal": "Display SEALED_INACTIVE until news runtime is repaired and fresh."
+    },
+    "onchain_center": {
+      "panel_label": "Onchain Veri Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/onchain_center_live_readmodel_v1.json",
+      "sources": ["public/backpressure_readmodel_refresh_staging_v1"],
+      "first_goal": "Show available lookup-only candidates and data binding status."
+    },
+    "whale_center": {
+      "panel_label": "Balina Takip Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/whale_center_live_readmodel_v1.json",
+      "sources": ["not active yet"],
+      "first_goal": "Display DATA_MISSING until whale runtime exists."
+    },
+    "technical_center": {
+      "panel_label": "Teknik Analiz Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/technical_center_live_readmodel_v1.json",
+      "sources": ["not active yet"],
+      "first_goal": "Display DATA_MISSING until TA runtime exists."
+    },
+    "risk_center": {
+      "panel_label": "Risk Güvenlik Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/risk_center_live_readmodel_v1.json",
+      "sources": ["risk_security_preview_data.json", "backpressure bridge"],
+      "first_goal": "Separate preview risk text from live risk evidence."
+    },
+    "lifecycle_center": {
+      "panel_label": "Yaşam Destek Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/lifecycle_center_live_readmodel_v1.json",
+      "sources": ["not active yet"],
+      "first_goal": "Display DATA_MISSING until lifecycle runtime exists."
+    },
+    "system_center": {
+      "panel_label": "Sistem Kontrol Merkezi",
+      "target_readmodel": "active_panel_8096/current/data/system_center_live_readmodel_v1.json",
+      "sources": ["system_control_status_readmodel_view.json", "tk sync", "N15 verify"],
+      "first_goal": "Show local/remote sync, HTTPS status, panel status, sealed inactive branches."
+    }
+  },
+  "implementation_order": [
+    "N16A create panel_live_manifest_v1.json with 8 center contracts",
+    "N16B create noapi readmodel builder that writes placeholder truthful DATA_MISSING or READY states",
+    "N16C bind panel index to panel_live_manifest_v1.json without removing existing cards",
+    "N16D promote real producers center-by-center only after proof"
+  ],
+  "safety": {
+    "core_change": false,
+    "runtime_logic_change": false,
+    "provider_call": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "api_call": false,
+    "panel_display_only": true
+  },
+  "next_safe_step": "N16A_PANEL_LIVE_MANIFEST_CONTRACT"
+}
