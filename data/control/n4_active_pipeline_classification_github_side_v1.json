@@ -1,0 +1,65 @@
+{
+  "stage": "N4_ACTIVE_PIPELINE_CLASSIFICATION_GITHUB_SIDE",
+  "status": "COMPLETED_GITHUB_SIDE",
+  "scope": "Classify the pipeline using GitHub-visible evidence without local execution.",
+  "active_pipeline": {
+    "bootstrap": [
+      "tokenoskobi_kernel.py",
+      "PROJECT_RUNTIME.json",
+      "PROJECT_HISTORY.json",
+      "TOKENOSKOBI_OS_REGISTRY.json",
+      "README.md",
+      "NEXT_CHAT_HANDOFF.md"
+    ],
+    "lifecycle_control": [
+      "boot_workunit_open_v1.py",
+      "boot_workunit_advance_v1.py",
+      "boot_workflow_manager_v1.py",
+      "boot_commander_v2.py"
+    ],
+    "core_boundary": [
+      "core/__init__.py",
+      "core/approval.py",
+      "core/authority.py",
+      "core/identity.py",
+      "core/paths.py",
+      "core/policy.py",
+      "core/secrets.py",
+      "core/source_gate.py",
+      "core/validators.py"
+    ],
+    "runtime_candidates": [
+      "runtime/*",
+      "tools/runtime_*",
+      "tools/*runner*",
+      "public/*readmodel*",
+      "systemd_drafts/*"
+    ]
+  },
+  "supporting_but_not_primary_pipeline": [
+    "docs/canonical/*",
+    "docs/phases/*",
+    "data/control/*",
+    "data/protocol/*",
+    "reports/*"
+  ],
+  "sealed_or_historical_pipeline": [
+    "archive/*",
+    "docs/archive/*",
+    "data/archive/*",
+    "archive/startup_legacy/*"
+  ],
+  "dead_or_unconfirmed_branches": [
+    "legacy startup files now archived",
+    "old ERA/PASS/PHASE/V2/V3 records outside active runtime path",
+    "historical panel baselines not proven active by GitHub-side evidence"
+  ],
+  "known_limits": [
+    "GitHub-side classification cannot prove process runtime activity",
+    "systemd active state requires server check",
+    "latency requires local probe",
+    "bulk directory normalization requires local git mv"
+  ],
+  "decision": "Active pipeline surface is now bounded. Local N4 probe is needed to prove actual runtime speed and process activity.",
+  "next_action": "N4_LOCAL_RUNTIME_PROBE_AND_BULK_ARCHIVE_NORMALIZATION"
+}
