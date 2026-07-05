@@ -1,0 +1,90 @@
+{
+  "plan": "PIPELINE_FLOW_PROBE_AND_ROOT_CLEANUP_PLAN_V1",
+  "purpose": "Prepare one practical operation for active pipeline speed probing and repository root cleanup without another long audit loop.",
+  "basis": "pipeline_flow_truth_map_v1",
+  "principle": "one operation, one verification set, one commit, one push",
+  "phase_style": "no new ERA, no new PASS, no random audit loop",
+  "operation_parts": {
+    "A_pipeline_probe": {
+      "goal": "Measure real source-to-readmodel/panel path timing without wallet, trade, provider, or paid API authority.",
+      "probe_type": "local timestamped dry probe",
+      "must_measure": [
+        "input_created_at_utc",
+        "runner_seen_at_utc",
+        "readmodel_written_at_utc",
+        "panel_or_public_output_seen_at_utc",
+        "total_latency_ms"
+      ],
+      "must_not_do": [
+        "wallet",
+        "signing",
+        "live_trade",
+        "paper_trade",
+        "provider_call",
+        "dex_route_call",
+        "policy_apply",
+        "hardblock_weakening"
+      ]
+    },
+    "B_root_cleanup": {
+      "goal": "Keep root clean and move non-current clutter into organized archive paths.",
+      "keep_root": [
+        "PROJECT_BOOT.json",
+        "PROJECT_RUNTIME.json",
+        "PROJECT_HISTORY.json",
+        "TOKENOSKOBI_OS_REGISTRY.json",
+        "tokenoskobi_kernel.py",
+        "README.md",
+        "NEXT_CHAT_HANDOFF.md",
+        "01_INDEX.md",
+        "02_MANIFESTO.md",
+        "03_ROADMAP.md",
+        "04_ALMANAC.md",
+        "05_ATLAS.md",
+        "06_PROJECT_MASTER_STATE.md",
+        "07_PROJECT_HANDOFF.md"
+      ],
+      "move_to_archive": [
+        "old root phase/pass/era/v2/v3 run folders",
+        "old root loose audit files",
+        "legacy handoff/start prompts not selected as current",
+        ".local_archive under archive/local_archive if present"
+      ],
+      "do_not_delete_first": true
+    },
+    "C_docs_cleanup": {
+      "goal": "Stop old docs from competing with live state.",
+      "actions": [
+        "README should point to tk ai and NEXT_CHAT_HANDOFF instead of carrying long stale state",
+        "historical sections remain in docs/archive or canonical history, not active startup surface",
+        "OKU.md and NEW_CHAT_PROMPT.md should become archive/legacy or redirect stubs only if still tracked"
+      ]
+    },
+    "D_plugin_workspace_boundaries": {
+      "goal": "Create visible target boundaries for future work.",
+      "actions": [
+        "plugins directory for future ERA/plugin work",
+        "workspace directory for temporary local/staging work",
+        "archive directory remains evidence storage"
+      ]
+    }
+  },
+  "verification_set": [
+    "git sync before operation",
+    "git clean before operation",
+    "tk ai after operation",
+    "tk sync after operation",
+    "python compile for tokenoskobi_kernel.py and boot_workunit files",
+    "root listing after operation",
+    "git status review before commit"
+  ],
+  "expected_result": {
+    "active_pipeline_not_changed": true,
+    "root_clutter_reduced": true,
+    "historical_evidence_preserved": true,
+    "live_pipeline_speed_probe_added": true,
+    "single_commit": true
+  },
+  "next_action": "LOCAL_SINGLE_OPERATION_APPLY_REQUIRED_FOR_GIT_MV_AND_RUNTIME_TEST",
+  "why_local_required": "GitHub contents API can create/update/delete individual files, but safe bulk git mv, local py_compile, tk ai, tk sync, and runtime latency probe require the server workspace."
+}
