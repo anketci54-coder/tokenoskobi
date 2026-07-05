@@ -1,0 +1,61 @@
+{
+  "stage": "N8_ACTIVE_RUNTIME_TO_PANEL_TRACE_GITHUB_SIDE",
+  "status": "COMPLETED_GITHUB_SIDE",
+  "purpose": "Trace whether the active runtime path is currently connected end-to-end from runtime/service/timer to public readmodel/panel outputs using GitHub-visible evidence plus prior local N5/N7 results.",
+  "source_evidence": [
+    "data/control/n4_active_pipeline_classification_github_side_v1.json",
+    "data/control/pipeline_flow_truth_map_v1.json",
+    "data/control/n5_real_pipeline_latency_breakdown_result_v1.json",
+    "data/control/n7_water_drop_probe_result_v1.json",
+    "tools/backpressure_readmodel_refresh_runner_v1.py",
+    "tools/phase9_commercial_observation_runtime.py",
+    "systemd_drafts/tokenoskobi-phase9-observation-runtime.service",
+    "systemd_drafts/tokenoskobi-phase9-observation-runtime.timer"
+  ],
+  "findings": {
+    "panel_service_active_in_local_probe": true,
+    "provider_secret_vault_active_in_local_probe": true,
+    "backpressure_timer_active_in_local_probe": true,
+    "system_control_timer_active_in_local_probe": true,
+    "phase9_timer_visible_but_code_inert": true,
+    "news_timer_stale_or_inactive_candidate": true,
+    "n7_drop_visible": true,
+    "n7_drop_reached_public_readmodel_or_panel": false,
+    "backpressure_runner_reads_public_staging_cache_manifest_index": true,
+    "backpressure_runner_public_target_write": false,
+    "backpressure_runner_active_runner_file_write": false,
+    "backpressure_runner_service_timer_worker": false,
+    "phase9_runtime_enabled": false,
+    "phase9_decision": "INERT_INSTALL_ONLY_NO_RUNTIME_LOOP"
+  },
+  "critical_path_status": {
+    "boot_kernel_path": "MEASURED_FAST_AFTER_N6",
+    "systemd_visibility_path": "MEASURED_FAST_IN_N5_N7",
+    "runtime_temp_dryrun_path": "CONFIRMED",
+    "runtime_to_public_readmodel_path": "NOT_CONFIRMED_END_TO_END",
+    "public_readmodel_to_panel_path": "NOT_CONFIRMED_BY_DROP",
+    "full_token_analysis_pipeline": "NOT_CURRENTLY_PROVEN_ACTIVE"
+  },
+  "water_pipe_analysis": {
+    "leak_1_runtime_probe_inlet": "N7 drop remained visible only in runtime probe/search path, not proven consumed by real runner.",
+    "leak_2_public_staging_cache": "Public readmodel files exist and are fresh historically, but current drop did not propagate there.",
+    "dead_or_sealed_branch_1_phase9": "Timer/service names exist, but code says runtime_enabled false and inert install only.",
+    "dead_or_sealed_branch_2_news": "news-radar timer showed last run two days earlier in local N7/N5 evidence.",
+    "holding_tank_1_backpressure": "Backpressure runner validates source/public staging and DB readonly but writes temp dryrun outputs, not active panel/public targets."
+  },
+  "speed_truth": {
+    "n7_probe_total_ms": 536.39,
+    "n7_meaning": "local visibility/search probe speed, not real token-analysis end-to-end latency",
+    "systemd_query_ms": "about 13-16 ms in N7",
+    "public_runtime_find_ms": "about 3-4 ms in N7",
+    "real_pipeline_inner_speed": "UNKNOWN_NOT_PROVEN_BY_CURRENT_EVIDENCE"
+  },
+  "decision": "ACTIVE_PIPELINE_IS_PARTIALLY_FLOWING_BUT_NOT_END_TO_END_TOKEN_ANALYSIS",
+  "next_action": "N9_SOURCE_TO_PUBLIC_READMODEL_BINDING_PROBE_OR_ARCHIVE_INERT_BRANCHES",
+  "recommended_order": [
+    "1. Do not add new features yet.",
+    "2. Prove or create a noapi source-to-public-readmodel binding probe.",
+    "3. Mark Phase9/news stale branches as sealed/inert unless user reactivates later.",
+    "4. Then archive visible dead branches away from root/current surface."
+  ]
+}
