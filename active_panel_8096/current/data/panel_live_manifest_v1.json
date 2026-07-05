@@ -1,0 +1,109 @@
+{
+  "stage": "N16A_PANEL_LIVE_MANIFEST_CONTRACT",
+  "generated_at_utc": "GITHUB_DESIGN_STATIC_CONTRACT",
+  "producer": "github_connector_design",
+  "decision": "PANEL_LIVE_MANIFEST_CONTRACT_READY",
+  "authority": {
+    "trade": false,
+    "wallet_signing": false,
+    "provider_call_from_browser": false,
+    "policy_apply": false,
+    "paper_trade_write": false
+  },
+  "freshness_rules": {
+    "green_max_age_sec": 120,
+    "yellow_max_age_sec": 900,
+    "red_after_sec": 900,
+    "missing_source_behavior": "SHOW_DATA_MISSING_NOT_ZERO"
+  },
+  "centers": [
+    {
+      "key": "command_center",
+      "label": "Komuta Merkezi",
+      "status": "PARTIAL_READY",
+      "target_readmodel": "data/command_center_live_readmodel_v1.json",
+      "source_files": [
+        "data/phase41_command_center_binding_v1.json",
+        "data/panel_public_bridge_status_v1.json"
+      ],
+      "stale_behavior": "show_status_and_bridge_health_only",
+      "authority": "display_only"
+    },
+    {
+      "key": "news_center",
+      "label": "Haber Akış Merkezi",
+      "status": "SEALED_INACTIVE",
+      "target_readmodel": "data/news_center_live_readmodel_v1.json",
+      "source_files": [
+        "data/control/n12_news_sealed_inactive_runtime_marker_v1.json"
+      ],
+      "stale_behavior": "show_sealed_inactive_not_live",
+      "authority": "display_only"
+    },
+    {
+      "key": "onchain_center",
+      "label": "Onchain Veri Merkezi",
+      "status": "PARTIAL_READY",
+      "target_readmodel": "data/onchain_center_live_readmodel_v1.json",
+      "source_files": [
+        "data/backpressure_readmodel_refresh_cache.json",
+        "data/backpressure_readmodel_refresh_manifest.json",
+        "data/backpressure_readmodel_refresh_index.json"
+      ],
+      "stale_behavior": "show_lookup_only_bridge_data",
+      "authority": "display_only"
+    },
+    {
+      "key": "whale_center",
+      "label": "Balina Takip Merkezi",
+      "status": "DATA_MISSING",
+      "target_readmodel": "data/whale_center_live_readmodel_v1.json",
+      "source_files": [],
+      "stale_behavior": "show_data_missing_not_zero",
+      "authority": "display_only"
+    },
+    {
+      "key": "technical_center",
+      "label": "Teknik Analiz Merkezi",
+      "status": "DATA_MISSING",
+      "target_readmodel": "data/technical_center_live_readmodel_v1.json",
+      "source_files": [],
+      "stale_behavior": "show_data_missing_not_zero",
+      "authority": "display_only"
+    },
+    {
+      "key": "risk_center",
+      "label": "Risk Güvenlik Merkezi",
+      "status": "PARTIAL_READY",
+      "target_readmodel": "data/risk_center_live_readmodel_v1.json",
+      "source_files": [
+        "data/risk_security_preview_data.json",
+        "data/backpressure_readmodel_refresh_cache.json"
+      ],
+      "stale_behavior": "separate_preview_from_live_evidence",
+      "authority": "display_only"
+    },
+    {
+      "key": "lifecycle_center",
+      "label": "Yaşam Destek Merkezi",
+      "status": "DATA_MISSING",
+      "target_readmodel": "data/lifecycle_center_live_readmodel_v1.json",
+      "source_files": [],
+      "stale_behavior": "show_data_missing_not_zero",
+      "authority": "display_only"
+    },
+    {
+      "key": "system_center",
+      "label": "Sistem Kontrol Merkezi",
+      "status": "PARTIAL_READY",
+      "target_readmodel": "data/system_center_live_readmodel_v1.json",
+      "source_files": [
+        "data/system_control_status_readmodel_view.json",
+        "data/panel_public_bridge_status_v1.json"
+      ],
+      "stale_behavior": "show_system_status_and_sync_state",
+      "authority": "display_only"
+    }
+  ],
+  "next_step": "N16B_NOAPI_PANEL_LIVE_READMODEL_BUILDER"
+}
