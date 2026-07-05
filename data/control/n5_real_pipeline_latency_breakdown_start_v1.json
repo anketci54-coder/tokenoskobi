@@ -1,0 +1,41 @@
+{
+  "stage": "N5_REAL_PIPELINE_LATENCY_BREAKDOWN",
+  "status": "OPENED_GITHUB_SIDE",
+  "previous_stage": "N4_PIPELINE_FLOW_PROBE_AND_BULK_ARCHIVE_NORMALIZATION",
+  "baseline_observation": {
+    "n4_local_probe_total_latency_ms": 2101.496,
+    "interpretation": "This is command/control probe time, not real hot-path runtime latency.",
+    "severity": "NOT_HEAVY_FOR_BOOT_CONTROL_PACKAGE"
+  },
+  "goal": "Break latency into components and identify whether the real pipeline is fast, blocked, inactive, or only boot/control-heavy.",
+  "measurement_targets": [
+    "tk_ai_latency_ms",
+    "tk_machine_latency_ms",
+    "tk_sync_latency_ms",
+    "registry_refresh_latency_ms",
+    "active_systemd_service_state",
+    "active_systemd_timer_state",
+    "runner_dryrun_latency_ms_if_safe",
+    "readmodel_output_freshness_seconds",
+    "public_panel_output_freshness_seconds",
+    "root_archive_noise_impact"
+  ],
+  "must_not_do": [
+    "wallet",
+    "signing",
+    "live_trade",
+    "paper_trade",
+    "provider_call",
+    "dex_call",
+    "policy_apply",
+    "hardblock_weakening",
+    "CORE change without CORE_UPGRADE"
+  ],
+  "decision_rules": {
+    "boot_control_under_3000ms": "acceptable unless repeated many times per minute",
+    "hot_path_over_1000ms": "needs investigation",
+    "readmodel_stale_unknown": "data missing, do not claim live speed",
+    "systemd_inactive": "pipeline may be designed but not flowing"
+  },
+  "next_action": "LOCAL_N5_LATENCY_BREAKDOWN_PROBE_REQUIRED"
+}
