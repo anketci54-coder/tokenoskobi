@@ -1,0 +1,55 @@
+{
+  "phase": "ERA33_PHASE3_CONTAMINATION_AUDITOR",
+  "created_at_utc": "2026-07-05T12:18:43.903287+00:00",
+  "git_head": "f69538ee09bebe573692e1efddc070b71035c3f7",
+  "git_remote": "f69538ee09bebe573692e1efddc070b71035c3f7",
+  "source_of_truth": "SERVER_WORKSPACE_AND_GITHUB_MAIN",
+  "scope": "Verify ERA33 Phase1/Phase2 decision chain without inventing roadmap.",
+  "checks": {
+    "GIT_SYNC": true,
+    "GIT_CLEAN": true,
+    "NEXT_SAFE_STEP_MATCH": true,
+    "NEXT_SAFE_STEP_READY": true,
+    "PHASE1_EXISTS": true,
+    "PHASE2_EXISTS": true,
+    "PHASE2_DECISION_PRESENT": true,
+    "PHASE2_NEXT_STEP_PHASE3": true,
+    "NO_LIVE_TRADE_FLAG": true,
+    "NO_WALLET_FLAG": true,
+    "NO_EXTERNAL_API_FLAG": true,
+    "NO_CORE_UPGRADE_OPENED": true
+  },
+  "failed_checks": [],
+  "decisions_verified": [
+    {
+      "file": "data/early_warning/era33_red_team_seal_v1.json",
+      "phase": "PHASE1_RED_TEAM_SEAL",
+      "decision": null,
+      "next_step": null,
+      "sha256": "3d4d465fda7c5e243133d2bf4ddcbb342d266acbcd5e1aaf256647323e50cda3"
+    },
+    {
+      "file": "data/early_warning/era33_review_queue_test_v1.json",
+      "phase": "PHASE2_REVIEW_QUEUE_TEST",
+      "decision": "ERA33_REVIEW_QUEUE_VALIDATED",
+      "next_step": "PHASE3_CONTAMINATION_AUDITOR",
+      "sha256": "ee34064f2ef30a26d471284c92d532c8e381f8a1763c9691dfce11e34bdc9cf4"
+    }
+  ],
+  "contamination_policy": {
+    "must_verify_every_decision": true,
+    "core_upgrade_opened": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "roadmap_invented": false
+  },
+  "decision": "ERA33_PHASE3_CONTAMINATION_AUDITOR_PASS",
+  "next_step": "DATA_MISSING_AFTER_PHASE3_CONTAMINATION_AUDITOR",
+  "next_safe_step": {
+    "name": "USER_DECISION_REQUIRED_AFTER_ERA33_PHASE3",
+    "status": "DATA_MISSING"
+  },
+  "final_gate": "PASS_ERA33_PHASE3_CONTAMINATION_AUDITOR",
+  "rc": 0
+}
