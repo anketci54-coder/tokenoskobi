@@ -1,0 +1,89 @@
+{
+  "stage": "N17_RUNTIME_INTEGRATION_PLAN",
+  "status": "DESIGN_ONLY_GITHUB_SIDE",
+  "purpose": "Move from truthful panel readmodels to real runtime producer integration, center by center, without inventing data.",
+  "current_truth": {
+    "panel_domain": "https://panel.coinoskobi.com",
+    "n16_status": "8 centers have readmodel contracts and panel visibility",
+    "live_producer_centers": [
+      "command_center",
+      "system_center",
+      "onchain_center",
+      "risk_center"
+    ],
+    "truthful_placeholder_centers": [
+      "news_center",
+      "whale_center",
+      "technical_center",
+      "lifecycle_center"
+    ],
+    "latest_known_head_before_n17": "d0f2713fb180afeaca827d926267922d4ca891c6"
+  },
+  "rule": "A center may move from DATA_MISSING or SEALED_INACTIVE to LIVE only after a producer, source path, freshness rule, and panel readmodel proof exist.",
+  "integration_order": [
+    {
+      "step": "N17A",
+      "center": "news_center",
+      "reason": "There is an existing news service/runner but it is sealed inactive; first repair or prove status before claiming live news.",
+      "required_proof": [
+        "systemd service/timer state",
+        "runner path exists",
+        "raw feed counts",
+        "token match counts",
+        "freshness timestamp",
+        "panel readmodel update"
+      ],
+      "allowed_output_before_repair": "SEALED_INACTIVE"
+    },
+    {
+      "step": "N17B",
+      "center": "whale_center",
+      "reason": "Whale engine has high product value but no active runtime source currently proven in N16.",
+      "required_proof": [
+        "source DB/table or file",
+        "known wallet/entity registry",
+        "movement/event count",
+        "freshness timestamp",
+        "panel readmodel update"
+      ],
+      "allowed_output_before_repair": "DATA_MISSING"
+    },
+    {
+      "step": "N17C",
+      "center": "technical_center",
+      "reason": "TA should not be faked; first prove market source, candle source, and calculation chain.",
+      "required_proof": [
+        "market source",
+        "OHLCV source",
+        "indicator calculation",
+        "freshness timestamp",
+        "panel readmodel update"
+      ],
+      "allowed_output_before_repair": "DATA_MISSING"
+    },
+    {
+      "step": "N17D",
+      "center": "lifecycle_center",
+      "reason": "Lifecycle needs token state transitions from real evidence, not labels.",
+      "required_proof": [
+        "token lifecycle source",
+        "state transition rules",
+        "evidence link",
+        "freshness timestamp",
+        "panel readmodel update"
+      ],
+      "allowed_output_before_repair": "DATA_MISSING"
+    }
+  ],
+  "safety": {
+    "core_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "provider_call_from_browser": false,
+    "policy_apply": false,
+    "api_calls_default": false,
+    "server_runtime_changes_require_terminal_apply": true
+  },
+  "next_safe_step": "N17A_NEWS_RUNTIME_PROBE_READONLY"
+}
