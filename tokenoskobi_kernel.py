@@ -25,37 +25,59 @@ def file_exists(path):
 def git_status_short():
     return sh(["git", "status", "--short"])
 
-def collect():
+def remote_head_fast():
+    remote = sh(["git", "rev-parse", "origin/main"])
+    if remote.startswith("ERROR"):
+        remote = sh(["git", "ls-remote", "origin", "refs/heads/main"])
+        if remote.startswith("ERROR"):
+            return "ERROR"
+        return remote.split()[0]
+    return remote
+
+def inventory_summary(full=False):
+    if full:
+        return {
+            "python_files": len([p for p in ROOT.rglob("*.py") if ".git" not in p.parts]),
+            "services_found": len([p for p in ROOT.rglob("*.service") if ".git" not in p.parts]),
+            "timers_found": len([p for p in ROOT.rglob("*.timer") if ".git" not in p.parts]),
+            "mode": "full_recursive"
+        }
+    return {
+        "python_files": "FASTPATH_SKIPPED_USE_TK_MACHINE",
+        "services_found": "FASTPATH_SKIPPED_USE_TK_MACHINE",
+        "timers_found": "FASTPATH_SKIPPED_USE_TK_MACHINE",
+        "mode": "fastpath"
+    }
+
+def collect(full=False):
     runtime = load_json("PROJECT_RUNTIME.json") or {}
-    boot = load_json("PROJECT_BOOT.json") or {}
-    history = load_json("PROJECT_HISTORY.json") or {}
+    boot = load_json("PROJECT_BOOT.json") if full else None
+    history = load_json("PROJECT_HISTORY.json") if full else None
 
     local_head = sh(["git", "rev-parse", "HEAD"])
     branch = sh(["git", "branch", "--show-current"])
-    remote_head = sh(["git", "ls-remote", "origin", "refs/heads/main"]).split()[0] if "ERROR" not in sh(["git", "ls-remote", "origin", "refs/heads/main"]) else "ERROR"
-
+    remote_head = remote_head_fast()
     status = git_status_short()
 
-    graphs = {
-        "active_execution_graph": load_json("ACTIVE_EXECUTION_GRAPH.json"),
-        "active_dependency_graph": load_json("ACTIVE_DEPENDENCY_GRAPH.json"),
-        "active_core_ranking": load_json("ACTIVE_CORE_RANKING.json"),
-        "real_execution_chain": load_json("REAL_EXECUTION_CHAIN.json"),
-        "real_code_duplicates": load_json("REAL_CODE_DUPLICATES.json"),
-        "mutation_candidates": load_json("MUTATION_CANDIDATES.json"),
-        "minimal_active_core_manifest": load_json("MINIMAL_ACTIVE_CORE_MANIFEST.json"),
-        "used_by_runtime_index": load_json("USED_BY_RUNTIME_INDEX.json")
-    }
+    graphs = {}
+    if full:
+        graphs = {
+            "active_execution_graph": load_json("ACTIVE_EXECUTION_GRAPH.json"),
+            "active_dependency_graph": load_json("ACTIVE_DEPENDENCY_GRAPH.json"),
+            "active_core_ranking": load_json("ACTIVE_CORE_RANKING.json"),
+            "real_execution_chain": load_json("REAL_EXECUTION_CHAIN.json"),
+            "real_code_duplicates": load_json("REAL_CODE_DUPLICATES.json"),
+            "mutation_candidates": load_json("MUTATION_CANDIDATES.json"),
+            "minimal_active_core_manifest": load_json("MINIMAL_ACTIVE_CORE_MANIFEST.json"),
+            "used_by_runtime_index": load_json("USED_BY_RUNTIME_INDEX.json")
+        }
 
     active_work_unit = runtime.get("current_work_unit") or runtime.get("current_state", {}).get("active_work_unit") or {}
-    next_safe_step = runtime.get("next_safe_step")
-
-    python_files = len([p for p in ROOT.rglob("*.py") if ".git" not in p.parts])
-    services = len([p for p in ROOT.rglob("*.service") if ".git" not in p.parts])
-    timers = len([p for p in ROOT.rglob("*.timer") if ".git" not in p.parts])
+    next_safe_step = runtime.get("next_safe_step") or runtime.get("current_state", {}).get("next_safe_step")
 
     kernel = {
         "kernel": "TOKENOSKOBI_KERNEL_V1",
+        "collect_mode": "full" if full else "fastpath",
         "created_at_utc": datetime.datetime.now(datetime.UTC).isoformat(),
         "project": {
             "name": "Tokenoskobi",
@@ -101,15 +123,11 @@ def collect():
             ],
             "future_rule": "new ERA work must be plugin-based and must not rewrite CORE unless CORE_UPGRADE is explicitly opened"
         },
-        "inventory_summary": {
-            "python_files": python_files,
-            "services_found": services,
-            "timers_found": timers
-        },
+        "inventory_summary": inventory_summary(full=full),
         "graphs": graphs,
-        "runtime_json": runtime,
-        "boot_json": boot,
-        "history_json": history
+        "runtime_json": runtime if full else "FASTPATH_SKIPPED_USE_TK_MACHINE",
+        "boot_json": boot if full else "FASTPATH_SKIPPED_USE_TK_MACHINE",
+        "history_json": history if full else "FASTPATH_SKIPPED_USE_TK_MACHINE"
     }
 
     return kernel
@@ -134,9 +152,10 @@ def print_human(k):
     print("NEXT STEP   :", aw.get("next_step"))
     print("NEXT SAFE   :", c.get("next_safe_step"))
     print()
-    print("PYTHON      :", k["inventory_summary"]["python_files"])
-    print("SERVICES    :", k["inventory_summary"]["services_found"])
-    print("TIMERS      :", k["inventory_summary"]["timers_found"])
+    print("INVENTORY   :", k["inventory_summary"].get("mode"))
+    print("PYTHON      :", k["inventory_summary"].get("python_files"))
+    print("SERVICES    :", k["inventory_summary"].get("services_found"))
+    print("TIMERS      :", k["inventory_summary"].get("timers_found"))
     print()
     print("PRIORITY    :", k["known_facts"]["current_priority"])
     print("ERA33       :", k["known_facts"]["era33_status"])
@@ -190,9 +209,7 @@ def print_ai(k):
     print("- Repository must not become a temporary workspace.")
     print("")
     print("IMPORTANT FINDINGS:")
-    print(f"- python_files: {k['inventory_summary']['python_files']}")
-    print(f"- services_found: {k['inventory_summary']['services_found']}")
-    print(f"- timers_found: {k['inventory_summary']['timers_found']}")
+    print("- tk ai uses FASTPATH. Use tk machine for full recursive inventory and graph details.")
     print("- Real code duplicates: 0 according to REAL_CODE_DUPLICATES.json.")
     print("- Repository bloat is mainly data/docs/backups/audit outputs, not Python code.")
     print("")
@@ -217,7 +234,8 @@ def main():
     ap.add_argument("--write-registry", action="store_true")
     args = ap.parse_args()
 
-    k = collect()
+    full = bool(args.machine or args.write_registry)
+    k = collect(full=full)
 
     if args.write_registry:
         (ROOT / "TOKENOSKOBI_OS_REGISTRY.json").write_text(json.dumps(k, indent=2, ensure_ascii=False) + "\n")
