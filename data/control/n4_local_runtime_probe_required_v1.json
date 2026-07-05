@@ -1,0 +1,34 @@
+{
+  "stage": "N4_LOCAL_RUNTIME_PROBE_REQUIRED_V1",
+  "status": "LOCAL_EXECUTION_REQUIRED",
+  "reason": "GitHub can classify files but cannot execute tk ai, tk sync, py_compile, systemd checks, or measure runtime latency on the server.",
+  "must_measure": [
+    "tk_ai_latency_ms",
+    "tk_machine_latency_ms",
+    "tk_sync_latency_ms",
+    "python_compile_result",
+    "active_systemd_service_state_if_available",
+    "active_timer_state_if_available",
+    "readmodel_or_public_output_timestamp_if_available"
+  ],
+  "must_classify_locally": [
+    "currently active systemd unit",
+    "currently active timer",
+    "runtime process exists or not",
+    "real path from runner to output",
+    "root folders that require git mv archive normalization"
+  ],
+  "must_not_do": [
+    "wallet",
+    "signing",
+    "live_trade",
+    "paper_trade",
+    "provider_call",
+    "dex_call",
+    "policy_apply",
+    "hardblock_weakening",
+    "core_change_without_CORE_UPGRADE"
+  ],
+  "single_operation_requirement": true,
+  "next_action": "RUN_LOCAL_N4_PROBE_AND_BULK_ARCHIVE_ON_SERVER_WHEN_USER_ALLOWS_TERMINAL_EXECUTION"
+}
