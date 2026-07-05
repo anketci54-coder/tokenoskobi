@@ -886,6 +886,52 @@ body{
 </section>
 <!-- PHASE24P_BACKPRESSURE_POLICY_READMODEL_ACTIVE_PANEL_BIND_END -->
 
+<!-- N14B_PANEL_PUBLIC_BRIDGE_UI_BIND_BEGIN -->
+<script id="n14b-panel-public-bridge-ui-bind-v1">
+(function(){
+  const STATUS_URL='data/panel_public_bridge_status_v1.json';
+  const CACHE_URL='data/backpressure_readmodel_refresh_cache.json';
+  const BOX_ID='backpressure-policy-readmodel-bind-v1';
+  function t(v){return (v===null||v===undefined||v==='')?'—':String(v);}
+  function tile(k,v){return '<div class="bp-tile"><div class="bp-k">'+k+'</div><div class="bp-v">'+t(v)+'</div></div>';}
+  function render(status,cache){
+    window.__N14B_PANEL_PUBLIC_BRIDGE_UI_BIND_V1__={status:status,cache:cache};
+    const box=document.getElementById(BOX_ID);
+    if(!box)return;
+    const grid=box.querySelector('.bp-grid');
+    const detail=box.querySelector('.bp-detail');
+    const title=box.querySelector('.bp-title');
+    const badge=box.querySelector('.bp-badge');
+    const h=(status&&status.source_hashes)||{};
+    const hm=(status&&status.hash_match)||{};
+    const hash=(h['backpressure_readmodel_refresh_cache.json']||'').slice(0,12);
+    if(title)title.textContent='Backpressure Public Bridge Readmodel';
+    if(badge)badge.textContent='LIVE BRIDGE / READONLY';
+    if(grid)grid.innerHTML=[
+      tile('Bridge',status&&status.decision),
+      tile('Cache State',cache&&cache.state),
+      tile('Runtime Bucket',cache&&cache.runtime_bucket),
+      tile('Cache Hash',hash),
+      tile('Hash Match',Object.values(hm).every(Boolean)?'YES':'CHECK'),
+      tile('Authority','0'),
+      tile('Trade','LOCKED'),
+      tile('Wallet','CLOSED'),
+      tile('Provider','NO_CALL'),
+      tile('Mode','STATIC_PANEL')
+    ].join('');
+    if(detail)detail.textContent='N14B: Panel artık bridge JSON dosyalarını okuyor. Bu sadece görünürlük bağıdır; API, provider, wallet, trade, DB write veya policy apply yetkisi vermez.';
+  }
+  Promise.all([
+    fetch(STATUS_URL,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(new Error('status '+r.status))),
+    fetch(CACHE_URL,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(new Error('cache '+r.status)))
+  ]).then(([status,cache])=>render(status,cache)).catch(e=>{
+    window.__N14B_PANEL_PUBLIC_BRIDGE_UI_BIND_ERROR__=String(e&&e.message?e.message:e);
+  });
+})();
+</script>
+<!-- N14B_PANEL_PUBLIC_BRIDGE_UI_BIND_END -->
+
+
 <!-- PHASE12_SYSTEM_CONTROL_STATUS_WIDGET_BEGIN -->
 <section id="phase12-system-control-status-widget" class="phase12-status-widget phase12-status-unknown" aria-label="Sistem Kontrol Merkezi Durum Özeti">
   <div class="phase12-status-shell">
