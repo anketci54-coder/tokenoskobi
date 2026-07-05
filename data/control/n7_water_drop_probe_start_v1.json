@@ -1,0 +1,39 @@
+{
+  "stage": "N7_WATER_DROP_PROBE",
+  "status": "OPENED_GITHUB_SIDE",
+  "purpose": "Measure the real Tokenoskobi main pipeline inner speed by placing a marked local water-drop probe and observing how far it travels through active runtime/readmodel/panel paths.",
+  "why": "Previous N5 results measured boot/control speed, not source-to-readmodel-to-panel hot-path latency.",
+  "water_drop_definition": {
+    "drop_id": "unique local probe id",
+    "source": "local noapi probe file/event",
+    "must_track": [
+      "created_at_utc",
+      "observed_by_runner_at_utc_if_any",
+      "readmodel_output_at_utc_if_any",
+      "panel_or_public_output_at_utc_if_any",
+      "total_latency_ms_if_pipeline_accepts_drop"
+    ]
+  },
+  "safety": {
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "provider_call": false,
+    "dex_call": false,
+    "policy_apply": false,
+    "hardblock_weakening": false,
+    "core_change": false
+  },
+  "expected_outputs": [
+    "data/control/n7_water_drop_probe_result_v1.json",
+    "data/control/n7_water_drop_probe_result_v1_rows.jsonl"
+  ],
+  "decision_rules": {
+    "drop_reaches_readmodel": "main pipeline path is flowing",
+    "drop_does_not_reach_readmodel": "pipeline may be timer-driven, inactive, or not wired for probe input",
+    "drop_reaches_panel": "end-to-end flow proven",
+    "service_timer_active_but_no_drop": "active schedule exists but probe path missing or wrong inlet"
+  },
+  "next_action": "LOCAL_N7_WATER_DROP_PROBE_REQUIRED"
+}
