@@ -1,0 +1,108 @@
+{
+  "stage": "N14_PANEL_PUBLIC_BRIDGE_DESIGN",
+  "status": "DESIGN_ONLY_GITHUB_SEALED",
+  "purpose": "Design a safe bridge from proven public readmodel outputs into the active static panel data directory without changing core runtime logic.",
+  "current_truth": {
+    "server": "Netcup",
+    "active_panel_service": "tokenoskobi-active-panel-8096.service",
+    "panel_server_type": "python3 -m http.server 8096",
+    "panel_workdir": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
+    "panel_active_url": "/",
+    "panel_404_paths": ["/panel/", "/panel/panel_v2/"],
+    "panel_reads_active_data_dir": true,
+    "panel_active_data_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data",
+    "public_readmodel_source_binding_proven_by_n9": true,
+    "public_to_panel_binding": "PARTIAL_NOT_FULLY_PROVEN",
+    "news_branch": "SEALED_INACTIVE",
+    "phase9_branch": "ARCHIVED_INERT_DRAFTS"
+  },
+  "problem": {
+    "public_readmodel_line": "public/backpressure_readmodel_refresh_staging_v1/*.json is hash-bound and valid",
+    "panel_line": "active_panel_8096/current/index.html reads active_panel_8096/current/data/*.json",
+    "gap": "The active panel does not directly consume the proven public/backpressure readmodel files."
+  },
+  "design_decision": "CREATE_READONLY_BRIDGE_PUBLIC_TO_ACTIVE_PANEL_DATA",
+  "bridge_contract": {
+    "name": "panel_public_readmodel_bridge_v1",
+    "mode": "NOAPI_READONLY_SOURCE_ATOMIC_PANEL_COPY",
+    "source_files": [
+      "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+      "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_manifest.json",
+      "/root/tokenoskobi_clean_v1/public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_index.json"
+    ],
+    "target_files": [
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/backpressure_readmodel_refresh_cache.json",
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/backpressure_readmodel_refresh_manifest.json",
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/backpressure_readmodel_refresh_index.json",
+      "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/panel_public_bridge_status_v1.json"
+    ],
+    "write_method": "atomic temp file then os.replace",
+    "input_validation": [
+      "source files exist",
+      "source files parse as JSON",
+      "manifest cache_sha256 equals source cache sha256",
+      "index cache_sha256 equals source cache sha256",
+      "index manifest_sha256 equals source manifest sha256",
+      "cache state equals CACHE_VALID",
+      "cache runtime_bucket equals LOOKUP_ONLY"
+    ],
+    "output_validation": [
+      "target files parse as JSON after write",
+      "target sha256 equals source sha256 for copied cache/manifest/index",
+      "status file records bridge timestamp, hashes, and safety flags"
+    ],
+    "authority": {
+      "api_calls": 0,
+      "provider_call": false,
+      "wallet": false,
+      "signing": false,
+      "paper_trade": false,
+      "live_trade": false,
+      "policy_apply": false,
+      "db_write": false,
+      "core_change": false,
+      "panel_html_change_first_step": false
+    }
+  },
+  "implementation_order": [
+    {
+      "step": "N14A",
+      "name": "bridge_script_apply_noapi",
+      "action": "Add tools/panel_public_readmodel_bridge_v1.py and run once locally.",
+      "expected_result": "active_panel_8096/current/data/backpressure_* files exist and match public source hashes."
+    },
+    {
+      "step": "N14B",
+      "name": "panel_reference_probe_no_html_change",
+      "action": "Request /data/backpressure_readmodel_refresh_cache.json over localhost 8096 and verify HTTP 200 plus hash match.",
+      "expected_result": "public readmodel is reachable through active panel static server."
+    },
+    {
+      "step": "N14C",
+      "name": "panel_ui_bind_plan",
+      "action": "Only after N14B passes, decide whether index.html should display bridge status or backpressure tiles.",
+      "expected_result": "No blind UI edit before data bridge is proven."
+    },
+    {
+      "step": "N14D",
+      "name": "timer_or_manual_refresh_policy",
+      "action": "Decide whether bridge is manual, timer-based, or triggered after backpressure refresh.",
+      "expected_result": "No extra timer until bridge correctness is proven."
+    }
+  ],
+  "risk_controls": [
+    "Do not edit core/*.",
+    "Do not move public/*.",
+    "Do not change panel service yet.",
+    "Do not edit index.html until HTTP static data serving is proven.",
+    "If source validation fails, write no panel target and mark SAFE_DOWNGRADE.",
+    "If target write fails, leave previous panel data intact."
+  ],
+  "success_criteria": {
+    "n14a": "bridge script writes target files and status with hash equality",
+    "n14b": "localhost 8096 serves /data/backpressure_readmodel_refresh_cache.json with expected hash",
+    "n14c": "panel UI explicitly references bridge data or status after approval",
+    "overall": "public readmodel to active panel static serving is proven without API, wallet, trade, DB write, or core change"
+  },
+  "next_safe_step": "N14A_PANEL_PUBLIC_BRIDGE_SCRIPT_APPLY_NOAPI"
+}
