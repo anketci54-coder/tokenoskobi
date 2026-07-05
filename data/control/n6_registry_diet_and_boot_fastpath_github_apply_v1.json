@@ -1,0 +1,37 @@
+{
+  "stage": "N6_REGISTRY_DIET_AND_BOOT_FASTPATH",
+  "status": "GITHUB_APPLIED_LOCAL_TEST_REQUIRED",
+  "commit_scope": "tokenoskobi_kernel.py fastpath only",
+  "problem": "tk ai used full collect path and paid the cost of graph loading, recursive inventory, runtime/history inclusion, and remote lookup duplication.",
+  "change": {
+    "collect_full_mode": "used for tk machine and tk registry",
+    "collect_fastpath_mode": "used for tk ai and default human status",
+    "remote_head": "uses git rev-parse origin/main first, ls-remote fallback only",
+    "inventory": "recursive inventory skipped in fastpath",
+    "graphs": "skipped in fastpath",
+    "runtime_boot_history_full_json": "skipped in fastpath"
+  },
+  "expected_effect": {
+    "tk_ai_latency_ms": "should drop below previous 826ms if local origin/main is available",
+    "tk_machine": "still full detail",
+    "tk_registry": "still full registry refresh"
+  },
+  "must_verify_locally": [
+    "git pull --ff-only origin main",
+    "python3 -m py_compile tokenoskobi_kernel.py",
+    "tk ai",
+    "tk machine",
+    "tk registry",
+    "tk sync",
+    "git status --short",
+    "measure tk ai latency before/after if desired"
+  ],
+  "safety": {
+    "core_changed": false,
+    "runtime_changed": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "provider_call": false
+  }
+}
