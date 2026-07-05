@@ -1,0 +1,66 @@
+{
+  "stage": "N4_BULK_ARCHIVE_NORMALIZATION",
+  "status": "GITHUB_LIMIT_REACHED_LOCAL_GIT_MV_REQUIRED",
+  "what_was_done": [
+    "N3 active startup/root conflict cleanup completed",
+    "README.md simplified",
+    "NEXT_CHAT_HANDOFF.md added",
+    "OKU.md and NEW_CHAT_PROMPT.md archived and removed from active root",
+    "plugins boundary added",
+    "N4 active pipeline classification completed",
+    "N4 local runtime probe completed with all_rc_zero=true and total_latency_ms=2101.496",
+    "TOKENOSKOBI_OS_REGISTRY refreshed locally and pushed"
+  ],
+  "why_bulk_archive_not_completed_by_github": [
+    "GitHub connector cannot safely list full root tree through recursive tree endpoint in this session",
+    "GitHub contents API operations are per-file and not suitable for bulk git mv of directories",
+    "Archive normalization must preserve history and use local git mv where possible",
+    "Server-only checks are needed after moves: tk ai, tk sync, py_compile, registry refresh"
+  ],
+  "safe_bulk_archive_policy": {
+    "delete_evidence": false,
+    "move_only": true,
+    "core_not_changed": true,
+    "runtime_code_not_changed": true,
+    "active_bootstrap_not_changed": true,
+    "archive_target": "archive/repo_cleanup/<stamp>/"
+  },
+  "candidate_root_items_to_keep": [
+    "README.md",
+    "NEXT_CHAT_HANDOFF.md",
+    "PROJECT_BOOT.json",
+    "PROJECT_RUNTIME.json",
+    "PROJECT_HISTORY.json",
+    "TOKENOSKOBI_OS_REGISTRY.json",
+    "tokenoskobi_kernel.py",
+    "01_INDEX.md",
+    "02_MANIFESTO.md",
+    "03_ROADMAP.md",
+    "04_ALMANAC.md",
+    "05_ATLAS.md",
+    "06_PROJECT_MASTER_STATE.md",
+    "07_PROJECT_HANDOFF.md",
+    "core/",
+    "runtime/",
+    "tools/",
+    "config/",
+    "plugins/",
+    "data/",
+    "docs/",
+    "archive/",
+    "public/",
+    "systemd_drafts/",
+    "tests/",
+    "maintenance/",
+    "control_dashboard_engine_v1/"
+  ],
+  "candidate_root_items_to_archive_if_present": [
+    ".local_archive/",
+    "_archive/",
+    "root-level _PHASE*/_PASS*/_ERA*/_V2*/_V3* directories",
+    "root-level PHASE*/PASS*/ERA*/V2_*/V3_* loose outputs",
+    "root-level *.bak/*.tmp/*.old files",
+    "legacy startup prompts outside README.md and NEXT_CHAT_HANDOFF.md"
+  ],
+  "next_action": "LOCAL_BULK_ARCHIVE_GIT_MV_SINGLE_OPERATION_IF_USER_ALLOWS_TERMINAL"
+}
