@@ -1,0 +1,35 @@
+{
+  "stage": "N4_PIPELINE_FLOW_PROBE_AND_BULK_ARCHIVE_NORMALIZATION",
+  "status": "OPENED_GITHUB_SIDE",
+  "previous_stage": "N3_ROOT_NORMALIZATION_CLOSED_GITHUB_SIDE",
+  "purpose": "Move from startup/root normalization to real pipeline flow truth and bulk archive normalization.",
+  "water_model": {
+    "water": "live/runtime data, state, decisions, readmodels, and panel outputs",
+    "pipe": "kernel, runtime state, boot/workunit tools, runtime/tools runners, readmodels, public/panel outputs",
+    "leak": "state/doc/runtime path that misroutes continuation or loses evidence",
+    "dead_branch": "historical or unused branch that still collects attention/output",
+    "sealed_branch": "closed phase/era/pass artifact preserved for evidence but not active"
+  },
+  "n4_goals": [
+    "identify active runtime path from kernel to readmodel/panel",
+    "identify unused/dead branches and sealed branches",
+    "define local pipeline speed probe",
+    "prepare bulk archive normalization for server-side git mv",
+    "keep evidence, avoid deletion",
+    "do not change CORE unless CORE_UPGRADE is explicitly opened"
+  ],
+  "github_side_done": [
+    "pipeline_flow_truth_map_v1.json",
+    "pipeline_flow_probe_and_root_cleanup_plan_v1.json",
+    "n3_root_normalization_closure_v1.json"
+  ],
+  "server_side_required": [
+    "tk ai",
+    "tk sync",
+    "python compile checks",
+    "actual runtime/path latency probe",
+    "bulk git mv of directories",
+    "registry refresh after local moves"
+  ],
+  "next_action": "N4_ACTIVE_PIPELINE_CLASSIFICATION_GITHUB_SIDE"
+}
