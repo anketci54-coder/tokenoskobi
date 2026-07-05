@@ -132,6 +132,28 @@ def collect(full=False):
 
     return kernel
 
+def stable_registry_write(k):
+    path = ROOT / "TOKENOSKOBI_OS_REGISTRY.json"
+    old = load_json("TOKENOSKOBI_OS_REGISTRY.json") or {}
+    old_norm = dict(old) if isinstance(old, dict) else {}
+    new_norm = dict(k)
+
+    old_norm.pop("created_at_utc", None)
+    new_norm.pop("created_at_utc", None)
+
+    if old_norm == new_norm and isinstance(old, dict) and old.get("created_at_utc"):
+        k["created_at_utc"] = old["created_at_utc"]
+
+    new_text = json.dumps(k, indent=2, ensure_ascii=False) + "\n"
+    if path.exists() and path.read_text(errors="ignore") == new_text:
+        print("TOKENOSKOBI_OS_REGISTRY_WRITE=UNCHANGED")
+        print("OUT=TOKENOSKOBI_OS_REGISTRY.json")
+        return
+
+    path.write_text(new_text)
+    print("TOKENOSKOBI_OS_REGISTRY_WRITE=PASS")
+    print("OUT=TOKENOSKOBI_OS_REGISTRY.json")
+
 def print_human(k):
     p = k["project"]
     c = k["current_state"]
@@ -210,6 +232,7 @@ def print_ai(k):
     print("")
     print("IMPORTANT FINDINGS:")
     print("- tk ai uses FASTPATH. Use tk machine for full recursive inventory and graph details.")
+    print("- tk registry writes only when semantic registry content changes.")
     print("- Real code duplicates: 0 according to REAL_CODE_DUPLICATES.json.")
     print("- Repository bloat is mainly data/docs/backups/audit outputs, not Python code.")
     print("")
@@ -238,9 +261,7 @@ def main():
     k = collect(full=full)
 
     if args.write_registry:
-        (ROOT / "TOKENOSKOBI_OS_REGISTRY.json").write_text(json.dumps(k, indent=2, ensure_ascii=False) + "\n")
-        print("TOKENOSKOBI_OS_REGISTRY_WRITE=PASS")
-        print("OUT=TOKENOSKOBI_OS_REGISTRY.json")
+        stable_registry_write(k)
         return
 
     if args.machine:
