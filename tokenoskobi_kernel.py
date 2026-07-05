@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse, json, subprocess, datetime, os
 
 ROOT = Path(__file__).resolve().parent
+GENERATED_REGISTRY = "TOKENOSKOBI_OS_REGISTRY.json"
 
 def sh(cmd):
     try:
@@ -22,8 +23,17 @@ def load_json(path):
 def file_exists(path):
     return (ROOT / path).exists()
 
-def git_status_short():
-    return sh(["git", "status", "--short"])
+def git_status_short(include_generated_registry=False):
+    status = sh(["git", "status", "--short"])
+    if include_generated_registry or not status or status.startswith("ERROR"):
+        return status
+    kept = []
+    for line in status.splitlines():
+        path = line[3:] if len(line) > 3 else line
+        if path == GENERATED_REGISTRY:
+            continue
+        kept.append(line)
+    return "\n".join(kept)
 
 def remote_head_fast():
     remote = sh(["git", "rev-parse", "origin/main"])
@@ -57,7 +67,9 @@ def collect(full=False):
     local_head = sh(["git", "rev-parse", "HEAD"])
     branch = sh(["git", "branch", "--show-current"])
     remote_head = remote_head_fast()
-    status = git_status_short()
+    status = git_status_short(include_generated_registry=False)
+    raw_status = git_status_short(include_generated_registry=True)
+    registry_generated_dirty = any((line[3:] if len(line) > 3 else line) == GENERATED_REGISTRY for line in raw_status.splitlines()) if raw_status and not raw_status.startswith("ERROR") else False
 
     graphs = {}
     if full:
@@ -87,7 +99,8 @@ def collect(full=False):
             "remote_head": remote_head,
             "head_sync": local_head == remote_head,
             "git_clean": status == "",
-            "git_status_short": status
+            "git_status_short": status,
+            "generated_registry_dirty_ignored": registry_generated_dirty
         },
         "boot_files": {
             "PROJECT_BOOT.json": file_exists("PROJECT_BOOT.json"),
@@ -133,8 +146,8 @@ def collect(full=False):
     return kernel
 
 def stable_registry_write(k):
-    path = ROOT / "TOKENOSKOBI_OS_REGISTRY.json"
-    old = load_json("TOKENOSKOBI_OS_REGISTRY.json") or {}
+    path = ROOT / GENERATED_REGISTRY
+    old = load_json(GENERATED_REGISTRY) or {}
     old_norm = dict(old) if isinstance(old, dict) else {}
     new_norm = dict(k)
 
@@ -232,7 +245,7 @@ def print_ai(k):
     print("")
     print("IMPORTANT FINDINGS:")
     print("- tk ai uses FASTPATH. Use tk machine for full recursive inventory and graph details.")
-    print("- tk registry writes only when semantic registry content changes.")
+    print("- tk registry ignores its own generated file dirtiness while computing git_clean.")
     print("- Real code duplicates: 0 according to REAL_CODE_DUPLICATES.json.")
     print("- Repository bloat is mainly data/docs/backups/audit outputs, not Python code.")
     print("")
