@@ -1,0 +1,46 @@
+{
+  "stage": "N11_NEWS_BRANCH_CLASSIFICATION_GITHUB_SIDE",
+  "status": "COMPLETED_GITHUB_SIDE_NO_MOVE",
+  "purpose": "Classify the news radar branch before any archive movement or runtime changes.",
+  "source_evidence": [
+    "tools/news_radar_refresh_runner_v1.py",
+    "data/control/n8_active_runtime_to_panel_trace_github_side_v1.json",
+    "data/control/n5_real_pipeline_latency_breakdown_result_v1.json",
+    "data/control/n7_water_drop_probe_result_v1.json"
+  ],
+  "findings": {
+    "news_timer_stale_or_inactive_candidate": true,
+    "wrapper_exists": true,
+    "wrapper_calls_original_runner": true,
+    "wrapper_reads_db_news_raw_feed_events": true,
+    "wrapper_has_panel_mapping_functions": true,
+    "panel_mapping_postprocess_unreachable": true,
+    "reason_panel_mapping_unreachable": "tools/news_radar_refresh_runner_v1.py returns rc before calling _postprocess(); _postprocess() is after an unconditional return in the try block.",
+    "preview_paths_are_under_old_phase20h_temp_tree": true,
+    "runtime_to_panel_news_flow_proven": false
+  },
+  "classification": {
+    "news_branch_state": "STALE_OR_PARTIALLY_BROKEN_RUNTIME_CANDIDATE",
+    "archive_now": false,
+    "why_not_archive_now": "The wrapper still calls the original runner and reads DB rows; moving it blindly could break installed systemd service if server still references this path.",
+    "safe_next_step": "SERVER_SIDE_SYSTEMD_REFERENCE_CHECK_THEN_DECIDE_DISABLE_OR_REPAIR"
+  },
+  "decision": "NEWS_BRANCH_NOT_ACTIVE_PANEL_FLOW_PROVEN_DO_NOT_MOVE_EXECUTABLE_YET",
+  "recommended_actions": [
+    "Check installed /etc/systemd service ExecStart for news-radar before moving any executable.",
+    "If service still points to tools/news_radar_refresh_runner_v1.py, either repair unreachable _postprocess or mark branch disabled intentionally.",
+    "Do not classify news output as active panel truth until a fresh source→news preview→panel probe passes.",
+    "Keep technology news filtering narrow: only operationally relevant developments for Tokenoskobi."
+  ],
+  "safety": {
+    "deleted_evidence": false,
+    "moved_executable": false,
+    "core_change": false,
+    "runtime_logic_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "provider_call": false,
+    "api_call": false
+  }
+}
