@@ -4,6 +4,7 @@ import argparse, json, subprocess, datetime, os
 
 ROOT = Path(__file__).resolve().parent
 GENERATED_REGISTRY = "TOKENOSKOBI_OS_REGISTRY.json"
+VOLATILE_REGISTRY_KEYS = {"created_at_utc"}
 
 def sh(cmd):
     try:
@@ -58,6 +59,13 @@ def inventory_summary(full=False):
         "timers_found": "FASTPATH_SKIPPED_USE_TK_MACHINE",
         "mode": "fastpath"
     }
+
+def semantic_registry(obj):
+    if isinstance(obj, dict):
+        return {k: semantic_registry(v) for k, v in sorted(obj.items()) if k not in VOLATILE_REGISTRY_KEYS}
+    if isinstance(obj, list):
+        return [semantic_registry(v) for v in obj]
+    return obj
 
 def collect(full=False):
     runtime = load_json("PROJECT_RUNTIME.json") or {}
@@ -146,14 +154,11 @@ def collect(full=False):
 def stable_registry_write(k):
     path = ROOT / GENERATED_REGISTRY
     old = load_json(GENERATED_REGISTRY) or {}
-    old_norm = dict(old) if isinstance(old, dict) else {}
-    new_norm = dict(k)
 
-    old_norm.pop("created_at_utc", None)
-    new_norm.pop("created_at_utc", None)
-
-    if old_norm == new_norm and isinstance(old, dict) and old.get("created_at_utc"):
-        k["created_at_utc"] = old["created_at_utc"]
+    if isinstance(old, dict) and semantic_registry(old) == semantic_registry(k):
+        print("TOKENOSKOBI_OS_REGISTRY_WRITE=UNCHANGED")
+        print("OUT=TOKENOSKOBI_OS_REGISTRY.json")
+        return
 
     new_text = json.dumps(k, indent=2, ensure_ascii=False) + "\n"
     if path.exists() and path.read_text(errors="ignore") == new_text:
@@ -243,7 +248,7 @@ def print_ai(k):
     print("")
     print("IMPORTANT FINDINGS:")
     print("- tk ai uses FASTPATH. Use tk machine for full recursive inventory and graph details.")
-    print("- tk registry treats TOKENOSKOBI_OS_REGISTRY.json as generated self-output for git_clean.")
+    print("- tk registry skips writing when semantic registry content is unchanged.")
     print("- Real code duplicates: 0 according to REAL_CODE_DUPLICATES.json.")
     print("- Repository bloat is mainly data/docs/backups/audit outputs, not Python code.")
     print("")
