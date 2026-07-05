@@ -1,0 +1,65 @@
+{
+  "stage": "N10_GITHUB_ACTIVE_SURFACE_CLEANUP",
+  "status": "COMPLETED_GITHUB_SIDE_PARTIAL_SAFE_ARCHIVE",
+  "purpose": "Reduce active repo surface and prevent new windows from reading inert/sealed branches as current state.",
+  "principle": "Archive evidence; do not delete evidence. Keep root small. Keep active runtime candidates separate from historical/inert branches.",
+  "actions_applied": [
+    {
+      "type": "archive_move",
+      "from": "systemd_drafts/tokenoskobi-phase9-observation-runtime.service",
+      "to": "archive/inert_runtime_branches/phase9/tokenoskobi-phase9-observation-runtime.service",
+      "reason": "N8 confirmed Phase9 code is inert/install-only and draft service should not compete with active runtime surface."
+    },
+    {
+      "type": "archive_move",
+      "from": "systemd_drafts/tokenoskobi-phase9-observation-runtime.timer",
+      "to": "archive/inert_runtime_branches/phase9/tokenoskobi-phase9-observation-runtime.timer",
+      "reason": "N8 confirmed Phase9 timer branch is inert/draft and should not appear as active systemd draft."
+    },
+    {
+      "type": "handoff_simplification",
+      "file": "NEXT_CHAT_HANDOFF.md",
+      "reason": "New windows need one minimal source-of-truth entry, not large historic context."
+    },
+    {
+      "type": "readme_simplification",
+      "file": "README.md",
+      "reason": "README remains boot pointer only; live state remains in tk ai/runtime/registry/history."
+    }
+  ],
+  "intentionally_not_changed": [
+    {
+      "path": "tools/phase9_commercial_observation_runtime.py",
+      "reason": "Server may still have installed service references; do not move executable path via GitHub without server-side disable/verification."
+    },
+    {
+      "path": "PROJECT_RUNTIME.json / TOKENOSKOBI_OS_REGISTRY.json / PROJECT_HISTORY.json / tokenoskobi_kernel.py",
+      "reason": "Active boot/kernel files."
+    },
+    {
+      "path": "core/*",
+      "reason": "Core boundary; CORE changes require explicit CORE_UPGRADE."
+    },
+    {
+      "path": "public/*",
+      "reason": "N9 proved public readmodel source binding; do not archive until panel binding decision is complete."
+    }
+  ],
+  "known_remaining_cleanup": [
+    "Server-local installed Phase9 service/timer should be inspected before disabling or archiving the executable path.",
+    "News stale branch should be separately classified before archive movement.",
+    "Public readmodel to panel binding is still unproven and should be measured before moving public outputs.",
+    "Bulk archive of docs/data historical outputs should be performed with git tree listing or local git mv, not blind deletes."
+  ],
+  "next_action": "PULL_GITHUB_CLEANUP_AND_VERIFY_SERVER_SYNC",
+  "safety": {
+    "deleted_evidence": false,
+    "core_change": false,
+    "runtime_logic_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "provider_call": false,
+    "api_call": false
+  }
+}
