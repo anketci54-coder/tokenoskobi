@@ -1,0 +1,100 @@
+{
+  "era": "ERA36",
+  "phase": "TOKEN_IDENTITY_PROVIDER_BOUNDARY_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T19:15:00.000000+00:00",
+  "source_plan": "data/news/era36_news_intelligence_expansion_plan_noapi_v1.json",
+  "purpose": "Define the boundary between News Intelligence and token identity data so news matching is not dependent on incomplete score tables and does not mutate runtime in this phase.",
+  "known_issue_addressed": {
+    "issue": "Matcher returns zero because token_score_100_events lacks name/symbol/address.",
+    "boundary_decision": "News matching must consume a Token Identity Provider view/contract, not assume scoring tables contain identity fields."
+  },
+  "identity_provider_contract": {
+    "required_identity_fields": [
+      "chain",
+      "token_address",
+      "symbol",
+      "name"
+    ],
+    "optional_identity_fields": [
+      "token_uid",
+      "coingecko_id",
+      "cmc_id",
+      "known_aliases",
+      "project_url",
+      "verified_source",
+      "confidence_note"
+    ],
+    "normalization_rules": [
+      "chain must be normalized to canonical chain label.",
+      "token_address must be lowercase where chain uses hex addresses.",
+      "symbol matching must be case-insensitive but never sufficient alone for high-confidence identity.",
+      "name matching must be normalized for whitespace and punctuation.",
+      "aliases must never override verified address identity."
+    ]
+  },
+  "consumer_rules_for_news": {
+    "news_matcher_must_consume": "TOKEN_IDENTITY_PROVIDER_BOUNDARY",
+    "news_matcher_must_not_assume": [
+      "token_score_100_events_contains_symbol",
+      "token_score_100_events_contains_name",
+      "token_score_100_events_contains_address"
+    ],
+    "match_quality_levels": [
+      "ADDRESS_MATCH",
+      "SYMBOL_AND_NAME_MATCH",
+      "ALIAS_MATCH_REQUIRES_REVIEW",
+      "UNRESOLVED_IDENTITY"
+    ],
+    "unresolved_behavior": "Do not emit token-specific signal; emit identity_missing evidence item for later review only."
+  },
+  "producer_boundary": {
+    "allowed_future_sources": [
+      "tokens_table_if_present",
+      "verified_token_registry_if_present",
+      "manual_evidence_file_if_present",
+      "future_readmodel_view"
+    ],
+    "forbidden_in_this_phase": [
+      "external_api_lookup",
+      "live_runtime_mutation",
+      "database_schema_change",
+      "systemd_service_timer_change",
+      "core_upgrade"
+    ]
+  },
+  "output_contract_for_future_news_layers": {
+    "token_identity_status": [
+      "RESOLVED",
+      "PARTIAL",
+      "UNRESOLVED"
+    ],
+    "minimum_output_fields": [
+      "chain",
+      "token_address",
+      "symbol",
+      "name",
+      "identity_status",
+      "identity_source",
+      "missing_identity_fields"
+    ],
+    "forbidden_outputs": [
+      "trade_signal",
+      "buy_sell_recommendation",
+      "risk_score_as_final_decision",
+      "confidence_as_trade_authority"
+    ]
+  },
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA36_TOKEN_IDENTITY_PROVIDER_BOUNDARY_DEFINED_NOAPI",
+  "next_step": "ERA36_NARRATIVE_INTELLIGENCE_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA36_TOKEN_IDENTITY_PROVIDER_BOUNDARY_CONTRACT_NOAPI"
+}
