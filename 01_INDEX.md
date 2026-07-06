@@ -31,34 +31,6 @@ OKU.md
 
 07_PROJECT_HANDOFF.md
 └─ yeni oturum devam bilgisi
-
-4. SUPPORTING LOCATIONS
-config/
-└─ policy ve runtime config kayıtları
-
-core/
-└─ çekirdek Python modülleri
-
-schema/
-└─ şema dosyaları
-
-tests/
-└─ doğrulama ve testler
-
-tools/
-└─ operasyonel araçlar
-
-docs/
-└─ destekleyici çalışma dokümanları
-
-data/
-└─ evidence JSON / JSONL kayıtları
-
-public/
-└─ yayınlanan statik içerikler
-
-reports/
-└─ üretilen raporlar
 ```
 
 ## INDEX CONSTITUTION
@@ -79,5 +51,8 @@ It MUST NEVER contain:
 - audit records
 - GitHub heads
 - timestamps
+- root directory inventory
+- temporary folders
+- archive inventories
 
-It ONLY points to canonical locations.
+It ONLY points to canonical root documents.
