@@ -10,27 +10,27 @@ OKU.md
 
 1. CANONICAL ROOT
 01_INDEX.md
-└─ navigation map
+└─ navigation only
 
 2. CORE CANONICAL DOCUMENTS
 02_MANIFESTO.md
 └─ anayasa / doktrin / yasaklar / yetki sınırları
 
 03_ROADMAP.md
-└─ resmi yol haritası
+└─ ileri yol / yapılacak ana yönler
 
 04_ALMANAC.md
-└─ detaylı tarihçe ve tamamlanan işler
+└─ tamamlanan ana işler ve kapanış kayıtları
 
 05_ATLAS.md
-└─ mimari harita
+└─ mimari bağ haritası
 
 3. CURRENT STATE AND CONTINUATION
 06_PROJECT_MASTER_STATE.md
-└─ current state için tek kaynak
+└─ bugünkü gerçek durum
 
 07_PROJECT_HANDOFF.md
-└─ continuation için tek kaynak
+└─ yeni oturum devam bilgisi
 
 4. SUPPORTING LOCATIONS
 config/
@@ -61,29 +61,6 @@ reports/
 └─ üretilen raporlar
 ```
 
-## CANONICAL REFERENCE MAP
-
-Detailed Architecture
-→ 05_ATLAS.md
-
-Detailed History
-→ 04_ALMANAC.md
-
-Current Operational State
-→ 06_PROJECT_MASTER_STATE.md
-
-Technical Continuation
-→ 07_PROJECT_HANDOFF.md
-
-Project Rules
-→ 02_MANIFESTO.md
-
-Roadmap
-→ 03_ROADMAP.md
-
-AI Bootstrap
-→ OKU.md
-
 ## INDEX CONSTITUTION
 
 01_INDEX.md is a navigation document.
@@ -92,10 +69,15 @@ It MUST NEVER contain:
 
 - project history
 - runtime status
+- roadmap content
 - architecture details
+- canonical reference maps
 - completed phases
 - completed passes
 - implementation details
 - engine specifications
+- audit records
+- GitHub heads
+- timestamps
 
-It ONLY points to the canonical authority.
+It ONLY points to canonical locations.
