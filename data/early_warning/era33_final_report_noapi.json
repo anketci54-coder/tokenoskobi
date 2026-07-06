@@ -1,0 +1,78 @@
+{
+  "era": "ERA33",
+  "title": "ERA33_EARLY_WARNING_ARCHITECTURE_FINAL_REPORT_NOAPI",
+  "created_at_utc": "2026-07-06T18:00:00.000000+00:00",
+  "status": "PASS",
+  "scope": "Close ERA33 Early Warning Architecture validation after contamination auditor, data-missing resolution, review queue data contract, producer contract, sample batch correction, retest, contamination recheck and final review.",
+  "summary": {
+    "identity": "ATTENTION_ENGINE",
+    "decision_authority": false,
+    "classification_authority": false,
+    "trade_authority": false,
+    "wallet_access": false,
+    "external_api_calls": 0,
+    "core_upgrade": false,
+    "root_files_created": false,
+    "review_queue_only": true,
+    "metadata_only": true,
+    "ignore_capable": true,
+    "era32_independence_preserved": true
+  },
+  "completed_chain": [
+    "PHASE1_CONSTITUTION_LOCK",
+    "PHASE1_RED_TEAM_SEAL",
+    "PHASE2_REVIEW_QUEUE_CONTRACT",
+    "PHASE2_REVIEW_QUEUE_TEST",
+    "PHASE3_CONTAMINATION_AUDITOR",
+    "PHASE3_DATA_MISSING_RESOLUTION",
+    "PHASE4_REVIEW_QUEUE_DATA_CONTRACT_NOAPI",
+    "PHASE4_REVIEW_QUEUE_DATA_CONTRACT_TEST_NOAPI",
+    "PHASE5_REVIEW_QUEUE_PRODUCER_CONTRACT_NOAPI",
+    "PHASE5_REVIEW_QUEUE_PRODUCER_CONTRACT_TEST_NOAPI",
+    "PHASE6_REVIEW_QUEUE_SAMPLE_BATCH_NOAPI",
+    "PHASE6_SAMPLE_BATCH_TEST_FAIL_RECORDED",
+    "PHASE6B_REVIEW_QUEUE_SAMPLE_BATCH_FIX_NOAPI",
+    "PHASE6B_REVIEW_QUEUE_SAMPLE_BATCH_RETEST_NOAPI",
+    "PHASE7_REVIEW_QUEUE_CONTAMINATION_RECHECK_NOAPI",
+    "FINAL_REVIEW_NOAPI"
+  ],
+  "important_correction": {
+    "phase6_initial_sample_batch": "FAILED_CONTRACT_TEST",
+    "reason": "Initial sample batch used shorthand signal_family values and omitted required fields.",
+    "correction": "Same sample batch artifact was fixed to full Phase4 contract compliance.",
+    "retest": "PASS"
+  },
+  "closed_artifacts": [
+    "data/early_warning/era33_contamination_auditor_v1.json",
+    "data/early_warning/era33_phase3_data_missing_resolution_v1.json",
+    "data/early_warning/era33_phase4_review_queue_data_contract_noapi.json",
+    "data/early_warning/era33_phase4_review_queue_data_contract_test_noapi.json",
+    "data/early_warning/era33_phase5_review_queue_producer_contract_noapi.json",
+    "data/early_warning/era33_phase5_review_queue_producer_contract_test_noapi.json",
+    "data/early_warning/era33_phase6_review_queue_sample_batch_noapi.json",
+    "data/early_warning/era33_phase6_review_queue_sample_batch_test_noapi.json",
+    "data/early_warning/era33_phase6b_review_queue_sample_batch_retest_noapi.json",
+    "data/early_warning/era33_phase7_review_queue_contamination_recheck_noapi.json",
+    "data/early_warning/era33_final_review_noapi.json"
+  ],
+  "final_result": {
+    "decision": "ERA33_EARLY_WARNING_ARCHITECTURE_VALIDATED_NOAPI",
+    "result": "CLOSED_READY_FOR_SERVER_SYNC_AND_RUNTIME_BOOT_UPDATE",
+    "next_safe_step": "SERVER_SYNC_AND_TK_MACHINE_VERIFY_BEFORE_NEXT_WORK"
+  },
+  "known_non_blocking_notes": [
+    "This final report closes GitHub-side ERA33 validation artifacts only.",
+    "Server workspace must pull latest GitHub main before local runtime claims.",
+    "PROJECT_RUNTIME.json may require boot/runtime update after server sync if project policy requires latest work-unit closure there."
+  ],
+  "guards": {
+    "new_era_opened": false,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "final_gate": "PASS_ERA33_FINAL_REPORT_NOAPI"
+}
