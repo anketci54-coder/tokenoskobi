@@ -272,7 +272,20 @@ def print_ai(k):
     print("- tk registry  => refresh TOKENOSKOBI_OS_REGISTRY.json")
     print("- tk machine   => full JSON machine export")
     print("")
-    print("WHAT THE NEXT AI SHOULD DO FIRST:")
+    print("
+ALMANAC / ATLAS CONTINUATION:
+- Almanac and Atlas are now long-term living works, not temporary logs.
+- Almanac records the chronological story, human struggle, phase/pass/ERA development, technical decisions, and file life cycles.
+- Atlas records the visual architecture, engine relations, data flows, folder structure, and final foldable Tokenoskobi World Map.
+- Authoring standards:
+  - docs/design/ALMANAC_AUTHORING_GUIDE.md
+  - docs/design/ATLAS_AUTHORING_GUIDE.md
+- First production contents:
+  - docs/almanac/volumes/VOL01_KIVILCIM.md
+  - docs/atlas/maps/MAP01_TOKENOSKOBI_WORLD_MAP_PLAN.md
+- Do not create new canonical document families for this. Grow the existing Almanac and Atlas works.
+
+WHAT THE NEXT AI SHOULD DO FIRST:")
     print("- Confirm it understood the current state.")
     print("- Do not propose a new ERA.")
     print("- If asked to continue, continue with Kernel/Registry hardening or Core Isolation, not random audits.")
