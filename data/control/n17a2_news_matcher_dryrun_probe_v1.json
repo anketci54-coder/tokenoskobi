@@ -1,0 +1,163 @@
+{
+  "after_real": [
+    {
+      "count": 222,
+      "error": null,
+      "exists": true,
+      "table": "news_raw_feed_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_token_match_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_signal_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_score_events_v1"
+    }
+  ],
+  "after_temp": [
+    {
+      "count": 222,
+      "error": null,
+      "exists": true,
+      "table": "news_raw_feed_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_token_match_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_signal_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_score_events_v1"
+    }
+  ],
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "live_trade": false,
+    "provider_call": false,
+    "real_db_write": false,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "tempdb_write": true,
+    "wallet": false
+  },
+  "before_real": [
+    {
+      "count": 222,
+      "error": null,
+      "exists": true,
+      "table": "news_raw_feed_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_token_match_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_signal_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_score_events_v1"
+    }
+  ],
+  "before_temp": [
+    {
+      "count": 222,
+      "error": null,
+      "exists": true,
+      "table": "news_raw_feed_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_token_match_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_signal_events"
+    },
+    {
+      "count": null,
+      "error": null,
+      "exists": false,
+      "table": "news_score_events_v1"
+    }
+  ],
+  "checks": [
+    {
+      "name": "raw_available_in_tempdb",
+      "ok": true
+    },
+    {
+      "name": "matcher_rc_zero",
+      "ok": true
+    },
+    {
+      "name": "tempdb_match_delta_positive",
+      "ok": false
+    },
+    {
+      "name": "real_db_unchanged",
+      "ok": true
+    }
+  ],
+  "decision": "MATCHER_RUNS_BUT_PRODUCES_NO_MATCHES_FROM_RAW_NEWS",
+  "generated_at_utc": "2026-07-06T04:59:36.201908+00:00",
+  "matcher_exists": true,
+  "matcher_run": {
+    "cmd": "python3 tools/news_token_matcher_v1.py",
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "next_action": "AUDIT_MATCHER_TOKEN_SOURCE_AND_RULES",
+  "producer": "tools/n17a2_news_matcher_dryrun_probe_v1.py",
+  "real_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "runner_exists": true,
+  "selected_real_db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+  "stage": "N17A2_NEWS_MATCHER_DRYRUN_PROBE",
+  "temp_db": "/tmp/n17a2_news_dryrun_zt_p4yae/tokenoskobi_clean_v1.sqlite",
+  "temp_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  }
+}
