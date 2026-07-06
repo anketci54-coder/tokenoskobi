@@ -1,0 +1,156 @@
+{
+  "era": "ERA36",
+  "phase": "PRODUCER_CONSUMER_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T19:30:00.000000+00:00",
+  "source_plan": "data/news/era36_news_intelligence_expansion_plan_noapi_v1.json",
+  "source_identity_boundary": "data/news/era36_token_identity_provider_boundary_contract_noapi_v1.json",
+  "source_narrative_contract": "data/news/era36_narrative_intelligence_contract_noapi_v1.json",
+  "source_risk_opportunity_contract": "data/news/era36_risk_and_opportunity_news_contract_noapi_v1.json",
+  "purpose": "Define safe producer/consumer boundaries for ERA36 News Intelligence expansion so future components know what they may consume, emit and reject before any runtime implementation.",
+  "identity": "NEWS_PRODUCER_CONSUMER_BOUNDARY_NOAPI",
+  "core_rule": "Every producer emits passive context or missing-evidence records only. No consumer may treat news outputs as trade, veto, classification or final decision authority.",
+  "producers": [
+    {
+      "name": "TOKEN_IDENTITY_PROVIDER_BOUNDARY",
+      "may_emit": [
+        "token_identity_status",
+        "chain",
+        "token_address",
+        "symbol",
+        "name",
+        "identity_source",
+        "missing_identity_fields"
+      ],
+      "must_not_emit": [
+        "trade_signal",
+        "final_decision",
+        "attack_classification"
+      ]
+    },
+    {
+      "name": "NARRATIVE_INTELLIGENCE_LAYER",
+      "may_emit": [
+        "narrative_family",
+        "affected_scope",
+        "narrative_summary",
+        "missing_evidence",
+        "review_reason"
+      ],
+      "must_not_emit": [
+        "buy_sell_recommendation",
+        "veto_recommendation",
+        "confirmed_attack_label_without_evidence"
+      ]
+    },
+    {
+      "name": "RISK_AND_OPPORTUNITY_NEWS_LAYER",
+      "may_emit": [
+        "context_type",
+        "context_family",
+        "evidence_state",
+        "review_priority",
+        "missing_evidence"
+      ],
+      "must_not_emit": [
+        "position_size",
+        "take_profit",
+        "stop_loss",
+        "final_risk_score",
+        "order_action"
+      ]
+    }
+  ],
+  "consumers": [
+    {
+      "name": "PASSIVE_NEWS_READMODEL",
+      "may_consume": [
+        "identity_status",
+        "narrative_family",
+        "context_type",
+        "review_priority",
+        "missing_evidence"
+      ],
+      "may_use_for": [
+        "panel_context",
+        "review_queue_context",
+        "missing_evidence_visibility"
+      ],
+      "must_not_use_for": [
+        "trade_decision",
+        "veto_decision",
+        "attack_confirmation"
+      ]
+    },
+    {
+      "name": "FUTURE_PROSECUTOR_CONTEXT",
+      "may_consume": [
+        "risk_context",
+        "narrative_context",
+        "missing_evidence"
+      ],
+      "may_use_for": [
+        "investigation_priority",
+        "evidence_request",
+        "hypothesis_generation"
+      ],
+      "must_not_use_for": [
+        "standalone_rejection",
+        "standalone_confirmation",
+        "trade_block_without_guardian_evidence_process"
+      ]
+    },
+    {
+      "name": "FUTURE_OPPORTUNITY_MEMORY_CONTEXT",
+      "may_consume": [
+        "opportunity_context",
+        "narrative_context",
+        "identity_status"
+      ],
+      "may_use_for": [
+        "case_memory_candidate",
+        "later_human_review"
+      ],
+      "must_not_use_for": [
+        "entry_recommendation",
+        "autonomous_trade",
+        "position_sizing"
+      ]
+    }
+  ],
+  "handoff_contract": {
+    "minimum_common_fields": [
+      "news_event_id",
+      "timestamp_utc",
+      "source_ref",
+      "identity_status",
+      "narrative_family",
+      "context_type",
+      "affected_scope",
+      "evidence_state",
+      "missing_evidence",
+      "review_reason"
+    ],
+    "required_null_behavior": "If a field is unknown, emit explicit UNKNOWN/UNRESOLVED or missing_evidence, not fabricated content.",
+    "append_only_future_rule": "Future implementation should append news intelligence context rather than overwrite raw feed facts."
+  },
+  "rejection_rules": [
+    "Reject producer output containing trade/order/wallet fields.",
+    "Reject token-specific context if identity_status is UNRESOLVED and no address evidence exists.",
+    "Reject final decision wording in passive readmodel output.",
+    "Reject single-source social sentiment as high-evidence risk/opportunity.",
+    "Reject context that lacks missing_evidence when evidence_state is incomplete."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA36_PRODUCER_CONSUMER_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA36_PASSIVE_READMODEL_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA36_PRODUCER_CONSUMER_CONTRACT_NOAPI"
+}
