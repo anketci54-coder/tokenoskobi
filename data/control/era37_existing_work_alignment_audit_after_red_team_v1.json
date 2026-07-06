@@ -1,0 +1,122 @@
+{
+  "era": "ERA37",
+  "phase": "EXISTING_WORK_ALIGNMENT_AUDIT_AFTER_RED_TEAM",
+  "created_at_utc": "2026-07-06T20:05:00.000000+00:00",
+  "source_of_truth": "Repository search and selected prior artifacts after Gemini Red Team review",
+  "purpose": "Prevent re-inventing existing Tokenoskobi mechanisms before modifying the News Intelligence roadmap.",
+  "read_artifacts": [
+    "data/v2_47b_fast_path_heavy_path_queue_budget_and_priority_classifier_local_noapi.json",
+    "data/era29_complexity_budget_v3.json",
+    "data/era29_cep_v1.json",
+    "data/v2_48b_missed_opportunity_feedback_and_false_negative_guard_local_noapi.json",
+    "docs/v2/V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI.md",
+    "data/archive/phases/phase42/phase42a_unknown_anomaly_engine_architecture_plan_noapi.json",
+    "data/archive/phases/phase42/phase42b_unknown_anomaly_engine_schema_plan_noapi.json",
+    "data/archive/phases/phase42/phase42d_unknown_anomaly_engine_post_audit_noapi.json",
+    "docs/phases/phase48/PHASE48_THREAT_MEMORY_AND_OUTCOME_INTELLIGENCE_PLAN_NOAPI.md",
+    "data/archive/phases/phase28/phase28b_data_provenance_and_canonicalization_contract_noapi.json"
+  ],
+  "existing_capabilities_found": {
+    "fast_heavy_path_and_priority_queue": {
+      "status": "EXISTS",
+      "artifact": "data/v2_47b_fast_path_heavy_path_queue_budget_and_priority_classifier_local_noapi.json",
+      "relevance": "Already covers lazy evaluation, fast path isolation, heavy path queue budget, overflow policy, duplicate collapse, borderline rate limiting and priority classes. Do not create a new separate queue system for News."
+    },
+    "complexity_budget_and_continuous_evolution": {
+      "status": "EXISTS",
+      "artifacts": [
+        "data/era29_complexity_budget_v3.json",
+        "data/era29_cep_v1.json"
+      ],
+      "relevance": "Already covers benefit-cost scoring, latency/cpu/ram/complexity/failure risk/evidence cost/rollback cost, and change-tier evidence requirements. News roadmap changes must use this rather than inventing a new economy metric."
+    },
+    "opportunity_cost_and_false_negative_guard": {
+      "status": "EXISTS",
+      "artifacts": [
+        "data/v2_48b_missed_opportunity_feedback_and_false_negative_guard_local_noapi.json",
+        "docs/v2/V2_48_ALPHA_REPLAY_MEMORY_AND_MISSED_OPPORTUNITY_FEEDBACK_ENGINE_PLAN_NOAPI.md"
+      ],
+      "relevance": "Already treats missed opportunity/false negative as first-class risk while forbidding trade authority and hot-path bloat. News should route low-confidence/high-potential items into this discipline, not create a parallel opportunity system."
+    },
+    "unknown_anomaly_engine": {
+      "status": "EXISTS",
+      "artifacts": [
+        "data/archive/phases/phase42/phase42a_unknown_anomaly_engine_architecture_plan_noapi.json",
+        "data/archive/phases/phase42/phase42b_unknown_anomaly_engine_schema_plan_noapi.json",
+        "data/archive/phases/phase42/phase42d_unknown_anomaly_engine_post_audit_noapi.json"
+      ],
+      "relevance": "Already asks why behavior does not look normal and names News Intelligence as a producer. News adversarial fixtures should feed or validate this boundary rather than duplicate the Unknown Anomaly engine."
+    },
+    "threat_memory_and_outcome_intelligence": {
+      "status": "EXISTS",
+      "artifact": "docs/phases/phase48/PHASE48_THREAT_MEMORY_AND_OUTCOME_INTELLIGENCE_PLAN_NOAPI.md",
+      "relevance": "Already defines threat/outcome/false positive/false negative/missed opportunity memory and hot-path readmodel-only rule. News outcomes should reuse this pattern."
+    },
+    "data_provenance_and_canonicalization": {
+      "status": "EXISTS",
+      "artifact": "data/archive/phases/phase28/phase28b_data_provenance_and_canonicalization_contract_noapi.json",
+      "relevance": "Already defines RAW/STAGING/VALIDATED/CANONICAL/QUARANTINE/EVIDENCE_SIDECAR, source reliability, confidence, raw hash, no silent overwrite, and quarantine lifecycle. News source reliability and semantic contamination should align with this contract."
+    }
+  },
+  "red_team_recommendations_classified": {
+    "lazy_gap_analysis": {
+      "classification": "ALREADY_SUPPORTED_ADAPT_NOT_NEW_ENGINE",
+      "map_to_existing": "V2_47B fast/heavy path priority classifier",
+      "news_delta_needed": "Define News-specific trigger thresholds for Gap Analysis, using fast path for high-confidence matches and heavy/review path for ambiguous matches."
+    },
+    "single_review_queue_with_lanes": {
+      "classification": "ALREADY_SUPPORTED_ADAPT_NOT_NEW_QUEUE",
+      "map_to_existing": "V2_47B priority classes and queue budget",
+      "news_delta_needed": "Use existing queue model with logical NEWS/GAP/ADVERSARIAL lanes, not a separate physical queue."
+    },
+    "opportunity_cost_of_silence": {
+      "classification": "ALREADY_SUPPORTED_ADAPT_NOT_NEW_SYSTEM",
+      "map_to_existing": "V2_48B missed opportunity feedback and ERA24 opportunity cost baseline",
+      "news_delta_needed": "Map low-confidence high-narrative-potential news to context-only observe/review states; do not discard and do not authorize trade."
+    },
+    "adversarial_fixtures": {
+      "classification": "PARTIAL_EXISTING_NEEDS_NEWS_SPECIFIC_FIXTURES",
+      "map_to_existing": "Unknown Anomaly, Threat Memory, Data Provenance",
+      "news_delta_needed": "Create parametric news adversarial fixture set, not a new adversarial engine."
+    },
+    "source_reliability_scoring": {
+      "classification": "EXISTS_IN_PROVENANCE_NEEDS_NEWS_MAPPING",
+      "map_to_existing": "PHASE28B validated.source_reliability_class and confidence_level",
+      "news_delta_needed": "News readmodel must expose source reliability class and evidence state, not create separate scoring authority."
+    },
+    "semantic_contamination_guard": {
+      "classification": "PARTIAL_EXISTING_NEEDS_NEWS_SPECIFIC_BOUNDARY",
+      "map_to_existing": "ERA33 contamination auditor discipline and PHASE28B raw/staging/validated/canonical separation",
+      "news_delta_needed": "Add News-specific narrative/evidence namespace separation and panel folded narrative rule later."
+    },
+    "output_divergence_detection": {
+      "classification": "NEW_DELTA_CANDIDATE",
+      "map_to_existing": "No direct prior artifact confirmed in this audit",
+      "news_delta_needed": "Add to later shadow validation, not ERA38 first fixture pass."
+    },
+    "narrative_identity_gap_analysis": {
+      "classification": "NEW_DELTA_BUT_SHOULD_USE_EXISTING_QUEUE_AND_PROVENANCE",
+      "map_to_existing": "PHASE28B token_pair_mismatch_suspected / identity ambiguous quarantine and V2_47B heavy path",
+      "news_delta_needed": "Implement as conditional heavy/review path, not always-on NLP loop."
+    }
+  },
+  "recommended_adjustment_before_era38": {
+    "do_not": [
+      "Do not create a new physical Intelligence Queue.",
+      "Do not create a new Opportunity Cost engine.",
+      "Do not create a new Complexity Budget engine.",
+      "Do not duplicate Unknown Anomaly Engine.",
+      "Do not run Gap Analysis on every news item."
+    ],
+    "do": [
+      "Bind ERA38 validation harness to existing V2_47B fast/heavy path priority classifier concepts.",
+      "Add News-specific fixture cases for ambiguous identity, mis-resolved identity, source reliability, semantic contamination and opportunity-cost-of-silence.",
+      "Use PHASE28B provenance states for RAW/STAGING/VALIDATED/QUARANTINE style thinking.",
+      "Keep all News outputs passive/context-only until later runtime dryrun proves safety.",
+      "Use existing queue/lane discipline and bounded memory limits."
+    ]
+  },
+  "decision": "EXISTING_WORK_FOUND_DO_NOT_REINVENT_ADAPT_ONLY",
+  "next_step": "ERA37_REVISE_SELECTED_ERA38_SCOPE_TO_REUSE_EXISTING_WORK",
+  "final_gate": "PASS_ERA37_EXISTING_WORK_ALIGNMENT_AUDIT_AFTER_RED_TEAM"
+}
