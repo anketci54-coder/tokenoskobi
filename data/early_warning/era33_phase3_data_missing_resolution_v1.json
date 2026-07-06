@@ -1,0 +1,76 @@
+{
+  "era": "ERA33",
+  "phase": "PHASE3_DATA_MISSING_RESOLUTION",
+  "created_at_utc": "2026-07-06T17:10:00.000000+00:00",
+  "source_of_truth": "GitHub main plus prior server tk ai and tk machine outputs",
+  "scope": "Resolve DATA_MISSING_AFTER_PHASE3_CONTAMINATION_AUDITOR without opening a new ERA, without changing CORE, and without giving ERA33 decision authority.",
+  "inputs_verified": {
+    "contamination_auditor": {
+      "artifact": "data/early_warning/era33_contamination_auditor_v1.json",
+      "status": "PASS",
+      "decision": "ERA33_PHASE3_CONTAMINATION_AUDITOR_PASS",
+      "next_step": "DATA_MISSING_AFTER_PHASE3_CONTAMINATION_AUDITOR",
+      "next_safe_step": {
+        "name": "USER_DECISION_REQUIRED_AFTER_ERA33_PHASE3",
+        "status": "DATA_MISSING"
+      }
+    },
+    "review_queue_test": {
+      "artifact": "data/early_warning/era33_review_queue_test_v1.json",
+      "status": "PASS",
+      "decision": "ERA33_REVIEW_QUEUE_VALIDATED",
+      "next_step": "PHASE3_CONTAMINATION_AUDITOR"
+    },
+    "os_cleanup": {
+      "artifact": "data/control/kernel_registry_hardening_core_isolation_map_v1.json",
+      "status": "CLOSED",
+      "decision": "OS_CLEANUP_CLOSED_RETURN_TO_ERA33_DATA_MISSING_RESOLUTION"
+    }
+  },
+  "resolution": {
+    "data_missing_type": "NEXT_STEP_SELECTION_MISSING_AFTER_PHASE3_PASS",
+    "not_a_runtime_failure": true,
+    "not_a_contamination_failure": true,
+    "not_a_git_sync_failure": true,
+    "not_a_core_blocker": true,
+    "meaning": "Phase3 contamination auditor passed and then intentionally stopped because the next ERA33 validation step had not been selected by commander policy.",
+    "selected_next_step": "ERA33_PHASE4_REVIEW_QUEUE_DATA_CONTRACT_NOAPI"
+  },
+  "phase4_scope": {
+    "identity": "ATTENTION_ENGINE_DATA_CONTRACT",
+    "purpose": "Define the concrete data contract for review-queue entries so ERA33 can produce attention metadata without attack classification or decision authority.",
+    "allowed": [
+      "metadata_schema",
+      "required_fields",
+      "missing_evidence_list",
+      "urgency_band_rules",
+      "ttl_expiry_policy",
+      "source_mode_policy",
+      "ignore_capability"
+    ],
+    "forbidden": [
+      "attack_type",
+      "prediction",
+      "confidence_score",
+      "risk_score",
+      "final_decision",
+      "veto_recommendation",
+      "trade_signal",
+      "ground_truth",
+      "wallet_or_trade_action",
+      "core_upgrade"
+    ]
+  },
+  "guards": {
+    "new_era_opened": false,
+    "core_upgrade_opened": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "root_files_created": false,
+    "new_canonical_file_created": false
+  },
+  "decision": "DATA_MISSING_RESOLVED_NEXT_STEP_SELECTED",
+  "next_step": "ERA33_PHASE4_REVIEW_QUEUE_DATA_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA33_PHASE3_DATA_MISSING_RESOLUTION"
+}
