@@ -1,0 +1,92 @@
+{
+  "era": "ERA34",
+  "phase": "CLOSURE_CHECKLIST_CONTRACT",
+  "created_at_utc": "2026-07-06T18:20:00.000000+00:00",
+  "source_of_truth": "ERA34 runtime staleness guard contract",
+  "purpose": "Define the mandatory close checklist for future Tokenoskobi work units so runtime state, git state, root hygiene and kernel outputs cannot drift silently.",
+  "scope": "Control-plane checklist only. No feature work, no CORE upgrade, no root artifact creation.",
+  "checklist_order": [
+    "1_git_status_pre_close",
+    "2_update_project_runtime_json",
+    "3_validate_project_runtime_json",
+    "4_py_compile_kernel",
+    "5_tk_ai_pass",
+    "6_tk_machine_pass",
+    "7_graph_fields_non_null",
+    "8_root_hygiene_check",
+    "9_git_add_commit_push",
+    "10_tk_sync_pass",
+    "11_tk_machine_post_push_pass",
+    "12_confirm_runtime_head_matches_git_head",
+    "13_confirm_next_safe_step_ready"
+  ],
+  "mandatory_checks": {
+    "git_status_pre_close": "Must know whether workspace is clean or only expected closure files changed.",
+    "project_runtime_updated": "PROJECT_RUNTIME.json must reflect the closed work unit before declaring closure.",
+    "project_runtime_valid_json": "python3 -m json.tool PROJECT_RUNTIME.json must pass.",
+    "kernel_compile": "python3 -m py_compile tokenoskobi_kernel.py must pass.",
+    "tk_ai": "tk ai must run without error.",
+    "tk_machine": "tk machine must run without error.",
+    "graphs_non_null": "All tk machine graph values must be non-null.",
+    "root_hygiene": "No generated artifacts may appear in repository root.",
+    "commit_push": "Closure changes must be committed and pushed.",
+    "tk_sync": "Local and remote heads must match after push.",
+    "runtime_head_match": "PROJECT_RUNTIME.json git.head and current_head must equal git HEAD after closure.",
+    "next_safe_step_ready": "next_safe_step.status must be READY after closure unless a real blocker remains."
+  },
+  "allowed_root_files": [
+    "README.md",
+    "NEW_CHAT_PROMPT.md",
+    "OKU.md",
+    "01_INDEX.md",
+    "02_MANIFESTO.md",
+    "03_ROADMAP.md",
+    "04_ALMANAC.md",
+    "05_ATLAS.md",
+    "06_PROJECT_MASTER_STATE.md",
+    "07_PROJECT_HANDOFF.md",
+    "PROJECT_BOOT.json",
+    "PROJECT_RUNTIME.json",
+    "PROJECT_HISTORY.json",
+    "TOKENOSKOBI_OS_REGISTRY.json",
+    "tokenoskobi_kernel.py",
+    ".gitignore",
+    ".TOKENOSKOBI_CLEAN_V1_ROOT"
+  ],
+  "fail_if": [
+    "runtime_json_invalid",
+    "kernel_compile_fails",
+    "tk_ai_fails",
+    "tk_machine_fails",
+    "graph_null_detected",
+    "unexpected_root_generated_file_detected",
+    "git_push_not_done",
+    "tk_sync_fails_after_push",
+    "runtime_head_mismatch_after_push",
+    "next_safe_step_stale_after_close"
+  ],
+  "warn_if": [
+    "TOKENOSKOBI_OS_REGISTRY_json_dirty_only",
+    "historical_runtime_sections_contain_old_heads_but_top_level_runtime_is_current",
+    "server_pull_required_after_github_side_changes"
+  ],
+  "output_policy": {
+    "control_artifacts": "data/control/",
+    "era_specific_artifacts": "data/<relevant_domain>/",
+    "reports": "reports/",
+    "temporary_files": "/tmp or ignored temp path",
+    "root": "canonical/kernel files only"
+  },
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA34_CLOSURE_CHECKLIST_CONTRACT_DEFINED",
+  "next_step": "ERA34_ROOT_HYGIENE_GATE_CONTRACT",
+  "final_gate": "PASS_ERA34_CLOSURE_CHECKLIST_CONTRACT"
+}
