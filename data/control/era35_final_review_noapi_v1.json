@@ -1,0 +1,60 @@
+{
+  "era": "ERA35",
+  "phase": "FINAL_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-06T19:00:00.000000+00:00",
+  "source_of_truth": "ERA35 selector contract, candidate scoring and selected work unit plan",
+  "scope": "Close the GitHub-side next work unit selector and confirm the next selected work unit for server runtime close.",
+  "artifacts_reviewed": [
+    "data/control/era35_next_work_unit_selector_contract_v1.json",
+    "data/control/era35_candidate_scoring_noapi_v1.json",
+    "data/control/era35_selected_work_unit_plan_noapi_v1.json"
+  ],
+  "review_checks": {
+    "selector_contract_defined": true,
+    "candidate_scoring_complete": true,
+    "top_3_candidates_identified": true,
+    "single_next_work_unit_selected": true,
+    "selected_work_unit_has_noapi_plan": true,
+    "core_upgrade_absent": true,
+    "root_artifact_creation_absent": true,
+    "trade_wallet_live_execution_absent": true,
+    "server_runtime_close_required": true
+  },
+  "top_3_candidates": [
+    {
+      "id": "NEWS_INTELLIGENCE_EXPANSION",
+      "score": 89
+    },
+    {
+      "id": "ERA31_ERA32_REAL_WORLD_EVIDENCE_RESOLUTION",
+      "score": 86
+    },
+    {
+      "id": "ADVERSARIAL_INTELLIGENCE_DOCTRINE",
+      "score": 84
+    }
+  ],
+  "selected_next_work_unit": {
+    "id": "ERA36_NEWS_INTELLIGENCE_EXPANSION_NOAPI",
+    "status": "SELECTED_READY_FOR_PLAN",
+    "first_step": "ERA36_NEWS_INTELLIGENCE_EXPANSION_PLAN_NOAPI",
+    "artifact_policy": "Use data/news/ or existing news-specific path. Do not use repository root."
+  },
+  "known_boundary": {
+    "github_side_selector_complete": true,
+    "server_side_runtime_close_required": true,
+    "reason": "PROJECT_RUNTIME.json and tk outputs must be updated from server workspace source of truth."
+  },
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA35_FINAL_REVIEW_PASS_GITHUB_SIDE",
+  "next_step": "SERVER_RUNTIME_CLOSE_AND_PUSH",
+  "final_gate": "PASS_ERA35_FINAL_REVIEW_NOAPI"
+}
