@@ -1,0 +1,58 @@
+{
+  "era": "ERA34",
+  "title": "RUNTIME_STATE_HYGIENE_AND_CANONICAL_STALENESS_GUARD",
+  "phase": "PLAN",
+  "created_at_utc": "2026-07-06T18:10:00.000000+00:00",
+  "source_of_truth": "Repository/server source of truth after ERA33 closure at 9fcbf455a2c6416952ccb913889f986607af66f1",
+  "purpose": "Prevent stale PROJECT_RUNTIME.json and closure drift after future work units.",
+  "scope": "Small control-plane hygiene work unit. No feature work. No CORE upgrade. No root file creation.",
+  "problem_observed": {
+    "after_era33": "PROJECT_RUNTIME.json required manual boot update after GitHub-side closure.",
+    "risk": "Future new windows or tk ai outputs can continue from stale runtime state if closure metadata is not updated and verified."
+  },
+  "allowed_work": [
+    "runtime_state_hygiene_contract",
+    "closure_checklist_contract",
+    "root_hygiene_check_contract",
+    "tk_ai_tk_machine_tk_sync_final_gate_contract"
+  ],
+  "forbidden_work": [
+    "new_trading_feature",
+    "wallet_or_order_logic",
+    "external_api_runtime",
+    "core_upgrade",
+    "new_canonical_root_file",
+    "root_generated_artifacts",
+    "large_documentation_expansion"
+  ],
+  "target_artifact_location": "data/control/",
+  "planned_sequence": [
+    "PLAN",
+    "RUNTIME_STALENESS_GUARD_CONTRACT",
+    "CLOSURE_CHECKLIST_CONTRACT",
+    "ROOT_HYGIENE_GATE",
+    "FINAL_GATE",
+    "RUNTIME_UPDATE_AND_CLOSE"
+  ],
+  "success_criteria": [
+    "PROJECT_RUNTIME.json head must match git HEAD at closure.",
+    "PROJECT_RUNTIME.json next_safe_step must not point to stale blocker after work-unit close.",
+    "git status must be clean after closure commit/push.",
+    "tk sync must pass after closure.",
+    "tk ai must reflect current work-unit status.",
+    "tk machine graph fields must not be null.",
+    "repository root must not gain generated artifacts."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA34_PLAN_DEFINED",
+  "next_step": "ERA34_RUNTIME_STALENESS_GUARD_CONTRACT",
+  "final_gate": "PASS_ERA34_PLAN"
+}
