@@ -1,0 +1,271 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "live_trade": false,
+    "panel_json_write": false,
+    "provider_call": false,
+    "readonly": true,
+    "real_db_write": false,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "wallet": false
+  },
+  "checks": [
+    {
+      "gate": "news_db_chain_nonzero",
+      "ok": true,
+      "value": {
+        "news_raw_feed_events": 222,
+        "news_score_events_v1": 47,
+        "news_signal_events": 47,
+        "news_token_match_events": 47
+      }
+    },
+    {
+      "gate": "news_timer_active",
+      "ok": false,
+      "value": "inactive"
+    },
+    {
+      "gate": "panel_all_https_200",
+      "ok": true,
+      "value": {
+        "command": 200,
+        "lifecycle": 200,
+        "news": 200,
+        "onchain": 200,
+        "risk": 200,
+        "system": 200,
+        "technical": 200,
+        "whale": 200
+      }
+    },
+    {
+      "gate": "command_display_only",
+      "ok": true,
+      "value": "COMMAND_FUSION_BOUND_DISPLAY_ONLY_PARTIAL_TECHNICAL_MISSING"
+    },
+    {
+      "gate": "non_news_runtime_declared_readmodel_bound",
+      "ok": true,
+      "value": "whale/onchain/risk/lifecycle currently DB-readmodel/panel-bound; continuous producer runtime not proven by systemd in this audit"
+    }
+  ],
+  "db_counts": {
+    "known_wallet_cex_classification_events_v1": 1,
+    "known_wallet_seed_queue_v1": 1,
+    "known_wallet_source_registry_v1": 8,
+    "liquidity_snapshots": 46,
+    "mev_permission_gate_events": 1,
+    "mev_risk_guard_events": 1,
+    "news_raw_feed_events": 222,
+    "news_runtime_freshness_v1": 1,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47,
+    "pairs": 19,
+    "state_aggregated_token_readmodel_v1": 19,
+    "token_lifecycle": 19,
+    "token_lifecycle_events": 2,
+    "token_risk_events": 15,
+    "token_score_100_events": 19,
+    "tokens": 19
+  },
+  "decision": "RUNTIME_ACTIVATION_TRUTH_AUDIT_REVIEW",
+  "fail_count": 1,
+  "generated_at_utc": "2026-07-06T11:07:22.461775+00:00",
+  "news_latest": {
+    "news_raw_feed_events": {
+      "max_ts": null,
+      "timestamp_col": null
+    },
+    "news_runtime_freshness_v1": {
+      "max_ts": "2026-07-06T06:44:10.294353+00:00",
+      "timestamp_col": "created_at_utc"
+    },
+    "news_score_events_v1": {
+      "max_ts": "2026-07-06T06:44:10.288486+00:00",
+      "timestamp_col": "created_at_utc"
+    },
+    "news_signal_events": {
+      "max_ts": "2026-07-06T06:44:10.288481+00:00",
+      "timestamp_col": "created_at_utc"
+    },
+    "news_token_match_events": {
+      "max_ts": "2026-07-06T06:44:10.282634+00:00",
+      "timestamp_col": "created_at_utc"
+    }
+  },
+  "next_action": "REVIEW_RUNTIME_GAPS_AND_DECIDE_CONTINUOUS_PRODUCERS",
+  "panels": {
+    "command": {
+      "decision": "COMMAND_FUSION_BOUND_DISPLAY_ONLY_PARTIAL_TECHNICAL_MISSING",
+      "exists": true,
+      "generated_at_utc": "2026-07-06T10:04:23.766777+00:00",
+      "https": {
+        "bytes": 3850,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/command_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "lifecycle": {
+      "decision": "LIFECYCLE_CENTER_PRODUCTION_BOUND_AUTOPSY_MORGUE_MISSING",
+      "exists": true,
+      "generated_at_utc": "2026-07-06T09:33:23.460233+00:00",
+      "https": {
+        "bytes": 1171,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/lifecycle_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "news": {
+      "decision": "NEWS_CENTER_REAL_PIPELINE_BOUND",
+      "exists": true,
+      "generated_at_utc": "2026-07-06T06:44:10.298810+00:00",
+      "https": {
+        "bytes": 955,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "onchain": {
+      "decision": "ONCHAIN_CENTER_PRODUCTION_BOUND_HOLDER_MISSING",
+      "exists": true,
+      "generated_at_utc": "2026-07-06T07:58:15.848054+00:00",
+      "https": {
+        "bytes": 1274,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/onchain_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "risk": {
+      "decision": "RISK_CENTER_PRODUCTION_BOUND_RUG_SLIPPAGE_MISSING",
+      "exists": true,
+      "generated_at_utc": "2026-07-06T08:56:58.528936+00:00",
+      "https": {
+        "bytes": 1188,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/risk_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "system": {
+      "decision": "SYSTEM_CENTER_READY",
+      "exists": true,
+      "generated_at_utc": "2026-07-05T19:59:40.102516+00:00",
+      "https": {
+        "bytes": 1681,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/system_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "technical": {
+      "decision": "TECHNICAL_CENTER_DATA_MISSING",
+      "exists": true,
+      "generated_at_utc": "2026-07-05T21:05:20.377431+00:00",
+      "https": {
+        "bytes": 700,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/technical_center_live_readmodel_v1.json",
+      "parse_ok": true
+    },
+    "whale": {
+      "decision": "WHALE_CENTER_REGISTRY_BOUND_FLOW_MISSING",
+      "exists": true,
+      "generated_at_utc": "2026-07-06T07:39:24.985687+00:00",
+      "https": {
+        "bytes": 1011,
+        "ok": true,
+        "status": 200
+      },
+      "local_file": "active_panel_8096/current/data/whale_center_live_readmodel_v1.json",
+      "parse_ok": true
+    }
+  },
+  "stage": "RUNTIME_ACTIVATION_TRUTH_AUDIT_V1",
+  "systemd": {
+    "tokenoskobi-news-radar-refresh.service": {
+      "is_active": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "is_enabled": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "static"
+      },
+      "show": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "Result=success\nNRestarts=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/tokenoskobi-news-radar-refresh.service\nUnitFileState=static"
+      }
+    },
+    "tokenoskobi-news-radar-refresh.timer": {
+      "is_active": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "is_enabled": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "enabled"
+      },
+      "show": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "Result=success\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/tokenoskobi-news-radar-refresh.timer\nUnitFileState=enabled"
+      }
+    },
+    "tokenoskobi-panel-status-refresh.service": {
+      "is_active": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "is_enabled": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "not-found"
+      },
+      "show": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "Result=success\nNRestarts=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\nFragmentPath=\nUnitFileState="
+      }
+    },
+    "tokenoskobi-panel-status-refresh.timer": {
+      "is_active": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "is_enabled": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "not-found"
+      },
+      "show": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "Result=success\nActiveState=inactive\nSubState=dead\nFragmentPath=\nUnitFileState="
+      }
+    }
+  }
+}
