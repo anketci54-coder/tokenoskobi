@@ -1,5 +1,102 @@
 # 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
+## ÖNSÖZ - BİR FİKRİN BAŞLANGICI
+
+Bu eser yalnızca bir yazılım projesinin hikâyesini anlatmaz.
+
+Aynı zamanda, sınırlı imkânlarla büyük hedeflerin peşinden gitmeye çalışan sıradan bir insanın yolculuğunu da anlatır.
+
+Bu proje başladığında ben bir yazılım mühendisi değildim.
+
+Üniversite mezunu değildim.
+
+Yüksek lisans yapmamıştım.
+
+Düz lise mezunuydum.
+
+Hayatımı yazılımcı olarak kazanmıyordum.
+
+Tam zamanlı olarak özel bir şirkette, satın alma departmanında çalışıyordum.
+
+Sabah 8 akşam 5 çalışıyor, ardından kalan zamanımı bu projeye ayırıyordum.
+
+Bu yolculuk boyunca çoğu zaman ailemle geçireceğim zamandan fedakârlık ettim.
+
+Bazen uykumdan fedakârlık ettim.
+
+Bazen günün yorgunluğu bitmeden bilgisayarın başına tekrar oturdum.
+
+Çünkü aklımdaki fikrin gerçekleşebileceğine inanıyordum.
+
+Bu projenin arkasında büyük bir yatırım fonu yoktu.
+
+Bir ekip yoktu.
+
+Bir şirket yoktu.
+
+Büyük sermaye yoktu.
+
+Doğru düzgün bir başlangıç bütçesi bile yoktu.
+
+Başlangıçta elimde yalnızca eski bir dizüstü bilgisayar vardı.
+
+O kadar eskiydi ki üzerinde Windows'u bile sağlıklı çalıştıramıyordum.
+
+Linux kullanmayı bilmiyordum.
+
+Buna rağmen araştırarak Lubuntu kurdum.
+
+İlk günlerde her şey yolunda görünüyordu.
+
+Ancak proje büyüdükçe bilgisayar da sınırlarına ulaştı.
+
+Yapay zekâ sohbetleri uzuyor, pencereler ağırlaşıyor, sistem donuyor, terminal cevap veremez hâle geliyordu.
+
+Linux'u da o sırada öğreniyordum.
+
+Karşıma çıkan hemen her problemi ya araştırarak ya da yapay zekâların yardımıyla çözmeye çalışıyordum.
+
+O dönemde ücretsiz yapay zekâ modellerini kullandığım için günlük kullanım kotam çoğu zaman saatler içinde doluyordu.
+
+Çalışmak istesem bile beklemek zorunda kalıyordum.
+
+Bir süre sonra bunun sürdürülebilir olmadığını fark ettim.
+
+Aylık yalnızca birkaç avroya kiralayabildiğim ilk bulut sunucumu kurdum.
+
+Ardından ücretli yapay zekâ modellerini kullanmaya başladım.
+
+Bunlar projenin hızını önemli ölçüde artırdı.
+
+Fakat bu kez başka bir sorun ortaya çıktı.
+
+Sistem büyüdükçe karmaşıklığı da büyüyordu.
+
+Bir noktadan sonra yalnızca bilgisayar değil, ben de yaptığımız her şeyi takip etmekte zorlanmaya başladım.
+
+Yüzlerce faz, onlarca geçiş, sayısız karar ve binlerce satır üretim...
+
+İşte Canonical yapı, Index, Almanac, Atlas ve diğer düzenleme çalışmalarının doğuş nedeni de buydu.
+
+Bu eser yalnızca başarıları anlatmayacak.
+
+Yanlış kararları da anlatacak.
+
+Çöpe atılan mimarileri de anlatacak.
+
+Saatler süren çıkmazları da anlatacak.
+
+Çünkü gerçek ilerleme yalnızca başarıların değil, hataların da dürüstçe kaydedilmesiyle mümkündür.
+
+Eğer bu kitabı yıllar sonra biri okursa, şunu görmesini isterim:
+
+Büyük işler yalnızca büyük bütçelerle yapılmaz.
+
+Bazen bir fikir, sınırlı imkânlar, sabır, disiplin ve vazgeçmemek; en büyük sermaye olabilir.
+
+---
+
+
 Bu dosya projenin aile bazlı canonical hafıza kitabıdır.
 
 Roadmap yönü gösterir.
