@@ -1,0 +1,165 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "live_trade": false,
+    "panel_json_write": false,
+    "provider_call": false,
+    "readonly": true,
+    "real_db_write": false,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "wallet": false
+  },
+  "checks": [
+    {
+      "gate": "db_exists",
+      "ok": true,
+      "value": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "gate": "token_lifecycle_ready",
+      "ok": true,
+      "value": 19
+    },
+    {
+      "gate": "lifecycle_events_ready",
+      "ok": true,
+      "value": 2
+    },
+    {
+      "gate": "state_readmodel_ready",
+      "ok": true,
+      "value": 19
+    },
+    {
+      "gate": "autopsy_ready",
+      "ok": false,
+      "value": {
+        "autopsy_cases": 0,
+        "token_lifecycle_autopsy_events_v1": 0
+      }
+    },
+    {
+      "gate": "morgue_ready",
+      "ok": false,
+      "value": {
+        "morgue_entries": 0,
+        "morgue_route_decisions": 0
+      }
+    },
+    {
+      "gate": "panel_http_200",
+      "ok": true
+    }
+  ],
+  "core_counts": {
+    "autopsy_cases": 0,
+    "autopsy_evidence_events": 0,
+    "morgue_entries": 0,
+    "morgue_route_decisions": 0,
+    "state_aggregated_token_readmodel_v1": 19,
+    "token_lifecycle": 19,
+    "token_lifecycle_autopsy_events_v1": 0,
+    "token_lifecycle_events": 2
+  },
+  "decision": "LIFECYCLE_SOURCE_READY_FOR_PANEL_BINDING",
+  "generated_at_utc": "2026-07-06T09:20:05.448911+00:00",
+  "next_action": "N21D2_LIFECYCLE_PANEL_BINDING",
+  "nonzero_active_tables": [
+    {
+      "columns": [
+        "readmodel_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "token_symbol",
+        "token_name",
+        "final_quality_label",
+        "decision_label",
+        "route_effect",
+        "permission_status",
+        "primary_block_reason",
+        "winning_rule",
+        "next_required_evidence",
+        "stale_status",
+        "emergency_status",
+        "negative_memory_status",
+        "technical_status",
+        "execution_status",
+        "asymmetric_status",
+        "sell_route_status",
+        "liquidity_status",
+        "risk_status",
+        "evidence_age_blocks",
+        "last_event_block",
+        "last_updated_block",
+        "last_updated_timestamp",
+        "last_decision_timestamp",
+        "decision_summary_sentence",
+        "source_event_uid",
+        "source_count",
+        "confidence_score",
+        "payload_json",
+        "created_at_utc",
+        "updated_at_utc",
+        "token_address"
+      ],
+      "count": 19,
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "columns": [
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "dex_id",
+        "source",
+        "token_name",
+        "symbol",
+        "token_address",
+        "pair_address",
+        "birth_time_utc",
+        "first_seen_at_utc",
+        "last_seen_at_utc",
+        "current_status",
+        "current_route",
+        "current_tier",
+        "is_alive",
+        "is_dead",
+        "death_time_utc",
+        "death_reason",
+        "final_outcome",
+        "final_pnl_usd",
+        "final_pnl_pct",
+        "created_at_utc",
+        "updated_at_utc"
+      ],
+      "count": 19,
+      "table": "token_lifecycle"
+    },
+    {
+      "columns": [
+        "lifecycle_event_uid",
+        "token_uid",
+        "pair_uid",
+        "created_at_utc",
+        "from_class",
+        "to_class",
+        "transition_reason",
+        "evidence_json",
+        "is_morg_transition",
+        "delete_flag"
+      ],
+      "count": 2,
+      "table": "token_lifecycle_events"
+    }
+  ],
+  "panel_local": {
+    "decision": "LIFECYCLE_CENTER_DATA_MISSING",
+    "exists": true,
+    "parse_ok": true
+  },
+  "stage": "N21D_LIFECYCLE_SOURCE_PROOF_BUNDLE"
+}
