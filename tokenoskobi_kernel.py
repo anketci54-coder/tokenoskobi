@@ -126,46 +126,46 @@ def ensure_kernel_graph_files():
     py_files = sorted(x for x in runtime_used if x.endswith(".py"))
 
     outputs = {
-        "ACTIVE_EXECUTION_GRAPH.json": {
+        "data/control/ACTIVE_EXECUTION_GRAPH.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "nodes": runtime_used,
             "edges": [],
             "status": "MINIMAL_STATIC_GRAPH"
         },
-        "ACTIVE_DEPENDENCY_GRAPH.json": {
+        "data/control/ACTIVE_DEPENDENCY_GRAPH.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "dependencies": [],
             "status": "MINIMAL_STATIC_DEPENDENCY_GRAPH"
         },
-        "ACTIVE_CORE_RANKING.json": {
+        "data/control/ACTIVE_CORE_RANKING.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "core": [x for x in core_files if (ROOT / x).exists()],
             "python_runtime_candidates": py_files,
             "status": "MINIMAL_STATIC_RANKING"
         },
-        "REAL_EXECUTION_CHAIN.json": {
+        "data/control/REAL_EXECUTION_CHAIN.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "chain": ["tk", "tokenoskobi_kernel.py", "collect(full=True)", "load_json(graph_files)"],
             "status": "STATIC_BOOT_CHAIN"
         },
-        "REAL_CODE_DUPLICATES.json": {
+        "data/control/REAL_CODE_DUPLICATES.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "duplicates": [],
             "duplicate_count": 0,
             "status": "NOT_DETECTED_BY_KERNEL_STATIC_SCAN"
         },
-        "MUTATION_CANDIDATES.json": {
+        "data/control/MUTATION_CANDIDATES.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "mutation_candidates": [],
             "status": "EMPTY_UNTIL_CORE_UPGRADE_OR_EXPLICIT_MUTATION_AUDIT"
         },
-        "MINIMAL_ACTIVE_CORE_MANIFEST.json": {
+        "data/control/MINIMAL_ACTIVE_CORE_MANIFEST.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "core_files": [x for x in core_files if (ROOT / x).exists()],
@@ -173,7 +173,7 @@ def ensure_kernel_graph_files():
             "excluded_classes": ["archive", "backups", "reports", "shadow_runtime_lab", "real_world_replay", "early_warning"],
             "status": "GENERATED"
         },
-        "USED_BY_RUNTIME_INDEX.json": {
+        "data/control/USED_BY_RUNTIME_INDEX.json": {
             "version": "1.0",
             "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
             "used_by_runtime": runtime_used,
@@ -183,7 +183,9 @@ def ensure_kernel_graph_files():
     }
 
     for name, obj in outputs.items():
-        (ROOT / name).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
+        out = ROOT / name
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
 
 def collect(full=False):
     runtime = load_json("PROJECT_RUNTIME.json") or {}
@@ -199,14 +201,14 @@ def collect(full=False):
     if full:
         ensure_kernel_graph_files()
         graphs = {
-            "active_execution_graph": load_json("ACTIVE_EXECUTION_GRAPH.json"),
-            "active_dependency_graph": load_json("ACTIVE_DEPENDENCY_GRAPH.json"),
-            "active_core_ranking": load_json("ACTIVE_CORE_RANKING.json"),
-            "real_execution_chain": load_json("REAL_EXECUTION_CHAIN.json"),
-            "real_code_duplicates": load_json("REAL_CODE_DUPLICATES.json"),
-            "mutation_candidates": load_json("MUTATION_CANDIDATES.json"),
-            "minimal_active_core_manifest": load_json("MINIMAL_ACTIVE_CORE_MANIFEST.json"),
-            "used_by_runtime_index": load_json("USED_BY_RUNTIME_INDEX.json")
+            "active_execution_graph": load_json("data/control/ACTIVE_EXECUTION_GRAPH.json"),
+            "active_dependency_graph": load_json("data/control/ACTIVE_DEPENDENCY_GRAPH.json"),
+            "active_core_ranking": load_json("data/control/ACTIVE_CORE_RANKING.json"),
+            "real_execution_chain": load_json("data/control/REAL_EXECUTION_CHAIN.json"),
+            "real_code_duplicates": load_json("data/control/REAL_CODE_DUPLICATES.json"),
+            "mutation_candidates": load_json("data/control/MUTATION_CANDIDATES.json"),
+            "minimal_active_core_manifest": load_json("data/control/MINIMAL_ACTIVE_CORE_MANIFEST.json"),
+            "used_by_runtime_index": load_json("data/control/USED_BY_RUNTIME_INDEX.json")
         }
 
     active_work_unit = runtime.get("current_work_unit") or runtime.get("current_state", {}).get("active_work_unit") or {}
