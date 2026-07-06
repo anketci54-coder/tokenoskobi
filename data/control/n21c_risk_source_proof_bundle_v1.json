@@ -1,0 +1,117 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "live_trade": false,
+    "panel_json_write": false,
+    "provider_call": false,
+    "readonly": true,
+    "real_db_write": false,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "wallet": false
+  },
+  "checks": [
+    {
+      "gate": "db_exists",
+      "ok": true,
+      "value": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "gate": "token_risk_ready",
+      "ok": true,
+      "value": 15
+    },
+    {
+      "gate": "mev_ready",
+      "ok": true,
+      "value": {
+        "mev_permission_gate_events": 1,
+        "mev_risk_guard_events": 1
+      }
+    },
+    {
+      "gate": "rug_ready",
+      "ok": false,
+      "value": 0
+    },
+    {
+      "gate": "slippage_ready",
+      "ok": false,
+      "value": 0
+    },
+    {
+      "gate": "panel_http_200",
+      "ok": true
+    }
+  ],
+  "core_counts": {
+    "high_risk_tiny_route_events": 0,
+    "mev_permission_gate_events": 1,
+    "mev_risk_guard_events": 1,
+    "mev_sandwich_risk_events": 0,
+    "mev_sandwich_risk_events_v1": 0,
+    "rug_evidence_events": 0,
+    "slippage_estimates": 0,
+    "token_risk_events": 15
+  },
+  "decision": "RISK_SOURCE_READY_FOR_PANEL_BINDING",
+  "generated_at_utc": "2026-07-06T08:22:58.999420+00:00",
+  "next_action": "N21C2_RISK_PANEL_BINDING",
+  "nonzero_active_tables": [
+    {
+      "columns": [
+        "decision_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "mev_permission_status",
+        "paper_permission",
+        "live_permission",
+        "hard_blocks_json",
+        "created_at_utc"
+      ],
+      "count": 1,
+      "table": "mev_permission_gate_events"
+    },
+    {
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "mev_risk",
+        "sandwich_risk",
+        "gas_risk",
+        "route_status",
+        "created_at_utc"
+      ],
+      "count": 1,
+      "table": "mev_risk_guard_events"
+    },
+    {
+      "columns": [
+        "risk_event_uid",
+        "token_uid",
+        "pair_uid",
+        "event_time_utc",
+        "risk_type",
+        "risk_level",
+        "risk_score",
+        "evidence",
+        "phase",
+        "source",
+        "created_at_utc"
+      ],
+      "count": 15,
+      "table": "token_risk_events"
+    }
+  ],
+  "panel_local": {
+    "decision": "RISK_CENTER_READY_PREVIEW_PLUS_LOOKUP_ONLY",
+    "exists": true,
+    "parse_ok": true
+  },
+  "stage": "N21C_RISK_SOURCE_PROOF_BUNDLE"
+}
