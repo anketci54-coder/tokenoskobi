@@ -1,0 +1,86 @@
+{
+  "era": "ERA36",
+  "title": "NEWS_INTELLIGENCE_EXPANSION_NOAPI",
+  "phase": "PLAN_NOAPI",
+  "created_at_utc": "2026-07-06T19:10:00.000000+00:00",
+  "source_of_truth": "ERA35 selected work unit plan and repository/server state after ERA35 closure at 92f8228f46e5a48d51bbe1fd88bb8c94609d1c9f",
+  "purpose": "Expand News Intelligence from narrow token matching into passive narrative, risk and opportunity intelligence without runtime mutation, wallet access, trading, or external API execution in this phase.",
+  "known_problem": {
+    "prior_news_raw_feed_events": 151,
+    "prior_news_token_match_events": 0,
+    "prior_news_signal_events": 0,
+    "prior_news_score_events_v1": 0,
+    "known_issue": "Matcher returns zero because token_score_100_events lacks name/symbol/address.",
+    "architecture_gap": "News Intelligence must not be limited to DEX token matching; narrative, opportunity and risk layers are required."
+  },
+  "architecture_direction": {
+    "identity": "PASSIVE_NEWS_INTELLIGENCE_LAYER",
+    "authority": {
+      "decision_authority": false,
+      "trade_authority": false,
+      "veto_authority": false,
+      "classification_authority": false,
+      "human_approval_required": true
+    },
+    "layers": [
+      "TOKEN_IDENTITY_PROVIDER_BOUNDARY",
+      "NARRATIVE_INTELLIGENCE_CONTRACT",
+      "RISK_NEWS_INTELLIGENCE_CONTRACT",
+      "OPPORTUNITY_NEWS_INTELLIGENCE_CONTRACT",
+      "NEWS_PRODUCER_CONSUMER_CONTRACT",
+      "PASSIVE_NEWS_READMODEL_CONTRACT"
+    ]
+  },
+  "allowed_work_in_era36": [
+    "Define contracts only before implementation.",
+    "Separate token identity matching from broader narrative intelligence.",
+    "Define risk-news and opportunity-news boundaries.",
+    "Define producer/consumer contract.",
+    "Define readmodel outputs for future panel consumption.",
+    "Use existing relevant directory data/news/."
+  ],
+  "forbidden_work_in_era36": [
+    "Do not execute external API calls.",
+    "Do not mutate live news runtime.",
+    "Do not change systemd service/timer.",
+    "Do not create wallet, trade, order, signing or live execution logic.",
+    "Do not create autonomous recommendations.",
+    "Do not create new canonical root files.",
+    "Do not perform CORE upgrade."
+  ],
+  "planned_sequence": [
+    "PLAN_NOAPI",
+    "TOKEN_IDENTITY_PROVIDER_BOUNDARY_CONTRACT_NOAPI",
+    "NARRATIVE_INTELLIGENCE_CONTRACT_NOAPI",
+    "RISK_AND_OPPORTUNITY_NEWS_CONTRACT_NOAPI",
+    "PRODUCER_CONSUMER_CONTRACT_NOAPI",
+    "PASSIVE_READMODEL_CONTRACT_NOAPI",
+    "FINAL_REVIEW_AND_RUNTIME_CLOSE"
+  ],
+  "artifact_policy": {
+    "primary_location": "data/news/",
+    "control_location": "data/control/ only if selector/control artifact is needed",
+    "reports_location": "reports/",
+    "root_files_allowed": false
+  },
+  "success_criteria": [
+    "News expansion is contractually separated from trade decisions.",
+    "Token identity provider boundary is defined before matcher repair.",
+    "Narrative, risk and opportunity layers are defined as passive intelligence only.",
+    "No external API/runtime mutation occurs in this phase.",
+    "Root hygiene remains clean.",
+    "ERA36 can hand off to a later implementation phase safely."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA36_PLAN_DEFINED_NOAPI",
+  "next_step": "ERA36_TOKEN_IDENTITY_PROVIDER_BOUNDARY_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA36_NEWS_INTELLIGENCE_EXPANSION_PLAN_NOAPI"
+}
