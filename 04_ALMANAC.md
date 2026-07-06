@@ -5146,3 +5146,11 @@ OUTPUTS:
 NEXT:
 Shadow Runtime Decision Integrity starts only after ERA29 GitHub seal verification.
 <!-- ERA29_CONTINUOUS_EVOLUTION_AND_MODULAR_HEALTH_LAYER_RECORD_END -->
+
+---
+
+## ALMANAC YAZIM STANDARDI
+
+Bu eser aşağıdaki canonical rehbere göre geliştirilir:
+
+`docs/design/ALMANAC_AUTHORING_GUIDE.md`
