@@ -1,0 +1,72 @@
+{
+  "era": "ERA37",
+  "title": "NEXT_WORK_UNIT_SELECTOR_AFTER_ERA36",
+  "phase": "SELECTOR_AFTER_ERA36",
+  "created_at_utc": "2026-07-06T19:50:00.000000+00:00",
+  "source_of_truth": "Repository/server state after ERA36 closure at 90f0f38629c18e49a7565866bd1b521856bd59ce",
+  "purpose": "Select the next work unit after ERA36 News Intelligence Expansion contracts, without ad hoc scope drift.",
+  "scope": "Control-plane selection only. No implementation. No CORE upgrade. No root artifact creation.",
+  "completed_context": {
+    "era36_result": "NEWS_INTELLIGENCE_EXPANSION_NOAPI_CONTRACT_CHAIN_CLOSED",
+    "news_contracts_defined": [
+      "token_identity_provider_boundary",
+      "narrative_intelligence",
+      "risk_and_opportunity_news",
+      "producer_consumer_boundary",
+      "passive_readmodel"
+    ],
+    "remaining_gap": "Contracts exist, but no implementation/runtime validation has been opened yet."
+  },
+  "candidate_next_work_units": [
+    {
+      "id": "ERA38_NEWS_INTELLIGENCE_NOAPI_VALIDATION_HARNESS",
+      "description": "Validate ERA36 contracts with synthetic/local noapi fixtures before touching live news runtime.",
+      "priority": 1,
+      "reason": "Direct continuation of ERA36 with lowest risk. Converts contracts into testable validation without API/runtime mutation."
+    },
+    {
+      "id": "ERA38_TOKEN_IDENTITY_PROVIDER_DRYRUN_NOAPI",
+      "description": "Dry-run token identity provider mapping using existing local sources only.",
+      "priority": 2,
+      "reason": "Addresses known matcher zero issue, but should follow a validation harness to avoid premature implementation."
+    },
+    {
+      "id": "ERA38_REAL_WORLD_EVIDENCE_RESOLUTION_RESUME",
+      "description": "Resume ERA31/32 strict evidence resolution for real-world cases.",
+      "priority": 3,
+      "reason": "High value but less directly connected to just-closed ERA36 news contracts."
+    }
+  ],
+  "selected_next_work_unit": {
+    "id": "ERA38_NEWS_INTELLIGENCE_NOAPI_VALIDATION_HARNESS",
+    "first_step": "ERA38_NEWS_NOAPI_VALIDATION_HARNESS_PLAN",
+    "reason": "Safest immediate continuation: validate ERA36 contracts against local fixtures before any live runtime/API/DB/systemd changes."
+  },
+  "hard_filters": [
+    "reject_live_news_runtime_mutation",
+    "reject_external_api_calls",
+    "reject_db_schema_change",
+    "reject_systemd_service_timer_change",
+    "reject_trade_wallet_order_logic",
+    "reject_root_artifact_creation",
+    "reject_core_upgrade_without_explicit_open"
+  ],
+  "artifact_policy": {
+    "control_selector": "data/control/",
+    "next_news_validation": "data/news/",
+    "root_files_allowed": false
+  },
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA37_SELECTOR_DEFINED_AFTER_ERA36",
+  "next_step": "ERA37_FINAL_REVIEW_AND_RUNTIME_CLOSE",
+  "final_gate": "PASS_ERA37_NEXT_WORK_UNIT_SELECTOR_AFTER_ERA36"
+}
