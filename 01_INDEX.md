@@ -4,10 +4,6 @@
 TOKENOSKOBI / COINOSKOBI
 CANONICAL INDEX
 
-0. STARTUP
-OKU.md
-└─ AI bootstrap / startup protocol
-
 1. CANONICAL ROOT
 01_INDEX.md
 └─ navigation only
