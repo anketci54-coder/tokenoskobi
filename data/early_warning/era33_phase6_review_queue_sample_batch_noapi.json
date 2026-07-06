@@ -1,1 +1,116 @@
-{"era":"ERA33","phase":"PHASE6_REVIEW_QUEUE_SAMPLE_BATCH_NOAPI","purpose":"Metadata-only sample review queue batch for contract validation","sample_count":5,"contains_runtime_logic":false,"contains_predictions":false,"contains_trade_signals":false,"contains_api_calls":false,"contains_wallet_actions":false,"contains_core_changes":false,"samples":[{"event_id":"SAMPLE-001","signal_family":"LIQUIDITY","urgency_band":"MEDIUM"},{"event_id":"SAMPLE-002","signal_family":"OWNER","urgency_band":"HIGH"},{"event_id":"SAMPLE-003","signal_family":"NEWS","urgency_band":"LOW"},{"event_id":"SAMPLE-004","signal_family":"CONTRACT","urgency_band":"HIGH"},{"event_id":"SAMPLE-005","signal_family":"OBSERVATION_GAP","urgency_band":"MEDIUM"}],"decision":"PASS_ERA33_PHASE6_SAMPLE_BATCH_NOAPI","next_step":"ERA33_PHASE6_SAMPLE_BATCH_TEST_NOAPI"}
+{
+  "era": "ERA33",
+  "phase": "PHASE6B_REVIEW_QUEUE_SAMPLE_BATCH_FIX_NOAPI",
+  "created_at_utc": "2026-07-06T17:40:00.000000+00:00",
+  "purpose": "Metadata-only sample review queue batch fixed to comply with ERA33 Phase4 data contract.",
+  "sample_count": 5,
+  "contains_runtime_logic": false,
+  "contains_predictions": false,
+  "contains_trade_signals": false,
+  "contains_api_calls": false,
+  "contains_wallet_actions": false,
+  "contains_core_changes": false,
+  "samples": [
+    {
+      "event_id": "EWQ_SAMPLE_001",
+      "timestamp_utc": "2026-07-06T17:40:00Z",
+      "chain": "BSC",
+      "address": "0x0000000000000000000000000000000000000001",
+      "tx_hash": null,
+      "block_number": null,
+      "signal_family": "LIQUIDITY_METADATA",
+      "urgency_band": "MEDIUM",
+      "review_reason": "Liquidity metadata changed and requires evidence review.",
+      "missing_evidence": [
+        "confirmed_pool_address",
+        "confirmed_liquidity_event_tx",
+        "independent_source_2"
+      ],
+      "source_mode": "CONFIRMED",
+      "expires_at": "2026-07-06T23:40:00Z"
+    },
+    {
+      "event_id": "EWQ_SAMPLE_002",
+      "timestamp_utc": "2026-07-06T17:40:00Z",
+      "chain": "BASE",
+      "address": "0x0000000000000000000000000000000000000002",
+      "tx_hash": null,
+      "block_number": null,
+      "signal_family": "WALLET_METADATA",
+      "urgency_band": "HIGH",
+      "review_reason": "Wallet metadata requires urgent evidence review.",
+      "missing_evidence": [
+        "confirmed_wallet_entity",
+        "confirmed_transfer_tx",
+        "independent_source_2"
+      ],
+      "source_mode": "CONFIRMED",
+      "expires_at": "2026-07-06T18:40:00Z"
+    },
+    {
+      "event_id": "EWQ_SAMPLE_003",
+      "timestamp_utc": "2026-07-06T17:40:00Z",
+      "chain": "ETH",
+      "address": "0x0000000000000000000000000000000000000003",
+      "tx_hash": null,
+      "block_number": null,
+      "signal_family": "NEWS_CONTEXT_METADATA",
+      "urgency_band": "LOW",
+      "review_reason": "News context metadata requires evidence linkage review.",
+      "missing_evidence": [
+        "verified_news_timestamp",
+        "linked_onchain_reference",
+        "independent_source_2"
+      ],
+      "source_mode": "OFFCHAIN_SUPPORT",
+      "expires_at": "2026-07-07T17:40:00Z"
+    },
+    {
+      "event_id": "EWQ_SAMPLE_004",
+      "timestamp_utc": "2026-07-06T17:40:00Z",
+      "chain": "BSC",
+      "address": "0x0000000000000000000000000000000000000004",
+      "tx_hash": null,
+      "block_number": null,
+      "signal_family": "CONTRACT_METADATA",
+      "urgency_band": "HIGH",
+      "review_reason": "Contract metadata requires urgent evidence review.",
+      "missing_evidence": [
+        "verified_contract_source",
+        "confirmed_owner_or_deployer",
+        "independent_source_2"
+      ],
+      "source_mode": "CONFIRMED",
+      "expires_at": "2026-07-06T18:40:00Z"
+    },
+    {
+      "event_id": "EWQ_SAMPLE_005",
+      "timestamp_utc": "2026-07-06T17:40:00Z",
+      "chain": "UNKNOWN",
+      "address": "UNKNOWN_ADDRESS",
+      "tx_hash": null,
+      "block_number": null,
+      "signal_family": "OBSERVATION_GAP_METADATA",
+      "urgency_band": "MEDIUM",
+      "review_reason": "Observation gap requires metadata completion before evidence review.",
+      "missing_evidence": [
+        "chain_resolution",
+        "address_resolution",
+        "source_confirmation"
+      ],
+      "source_mode": "MEMPOOL_EXPERIMENTAL",
+      "expires_at": "2026-07-06T23:40:00Z"
+    }
+  ],
+  "guards": {
+    "new_era_opened": false,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "PASS_ERA33_PHASE6B_SAMPLE_BATCH_FIX_NOAPI",
+  "next_step": "ERA33_PHASE6B_SAMPLE_BATCH_RETEST_NOAPI"
+}
