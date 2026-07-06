@@ -7,54 +7,32 @@
     "wallet_signing": false
   },
   "data_freshness_sec": 0,
-  "decision": "RISK_CENTER_READY_PREVIEW_PLUS_LOOKUP_ONLY",
-  "generated_at_utc": "2026-07-05T20:09:28.344226+00:00",
+  "decision": "RISK_CENTER_PRODUCTION_BOUND_RUG_SLIPPAGE_MISSING",
+  "generated_at_utc": "2026-07-06T08:56:58.528936+00:00",
   "items": [
     {
-      "bridge_runtime_bucket": "LOOKUP_ONLY",
-      "bridge_state": "CACHE_VALID",
-      "checks": [
-        {
-          "name": "risk_preview_exists_parse_ok",
-          "ok": true
-        },
-        {
-          "name": "onchain_readmodel_exists_parse_ok",
-          "ok": true
-        },
-        {
-          "name": "bridge_cache_exists_parse_ok",
-          "ok": true
-        },
-        {
-          "name": "onchain_decision_ready_or_lookup",
-          "ok": true
-        },
-        {
-          "name": "bridge_cache_valid",
-          "ok": true
-        },
-        {
-          "name": "bridge_lookup_only",
-          "ok": true
-        }
-      ],
+      "counts": {
+        "high_risk_tiny_route_events": 0,
+        "mev_permission_gate_events": 1,
+        "mev_risk_guard_events": 1,
+        "mev_sandwich_risk_events": 0,
+        "mev_sandwich_risk_events_v1": 0,
+        "rug_evidence_events": 0,
+        "slippage_estimates": 0,
+        "token_risk_events": 15
+      },
       "key": "risk_center",
       "label": "Risk Güvenlik Merkezi",
-      "live_risk_claim": false,
-      "note": "Risk center separates old preview content from lookup-only bridge/onchain evidence. It does not claim live risk scoring yet.",
-      "onchain_decision": "ONCHAIN_CENTER_READY_LOOKUP_ONLY",
-      "preview_available": true,
-      "risk_mode": "PREVIEW_PLUS_LOOKUP_ONLY_EVIDENCE",
-      "source_hashes": {
-        "bridge_cache": "cf1ed27d2378040addb6c12740075f4f30dbc7d5e65180464f3afe3e6fd1e765",
-        "onchain_live_readmodel": "800aaa511457180f9a257c89757bfa37ca494c60f2098ea3d2194e3e43724e62",
-        "risk_preview": "fa1c2476c773343eddd30ada636cf852cbc54fdf6be673cc7271bc6e2e3d5f4f"
-      },
-      "status": "RISK_CENTER_READY_PREVIEW_PLUS_LOOKUP_ONLY"
+      "live_risk_claim": true,
+      "mev_ready": true,
+      "note": "Risk token events and MEV gate/guard are bound. Rug, slippage and sandwich detailed sources are still missing or zero.",
+      "rug_ready": false,
+      "sandwich_ready": false,
+      "slippage_ready": false,
+      "status": "RISK_CENTER_PRODUCTION_BOUND_RUG_SLIPPAGE_MISSING",
+      "token_risk_ready": true
     }
   ],
-  "producer": "tools/risk_center_live_producer_v1.py",
-  "source_count": 3,
-  "stage": "N16D_RISK_CENTER_LIVE_PRODUCER"
+  "source_count": 17,
+  "stage": "N21C2_RISK_PANEL_BIND"
 }
