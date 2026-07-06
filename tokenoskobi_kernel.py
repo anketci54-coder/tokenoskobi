@@ -81,6 +81,110 @@ def semantic_registry(obj):
         return [semantic_registry(v) for v in obj]
     return obj
 
+
+def ensure_kernel_graph_files():
+    core_files = [
+        "README.md",
+        "PROJECT_BOOT.json",
+        "PROJECT_RUNTIME.json",
+        "PROJECT_HISTORY.json",
+        "TOKENOSKOBI_OS_REGISTRY.json",
+        "tokenoskobi_kernel.py",
+        "02_MANIFESTO.md",
+        "03_ROADMAP.md",
+        "04_ALMANAC.md",
+        "05_ATLAS.md",
+        "06_PROJECT_MASTER_STATE.md",
+        "07_PROJECT_HANDOFF.md",
+        "data/tokenoskobi_v1_v8_master_era_roadmap.json",
+    ]
+    excluded_parts = {".git", "archive", "backups", "__pycache__"}
+    excluded_prefixes = (
+        "data/archive/",
+        "docs/archive/",
+        "data/shadow_runtime_lab/",
+        "data/real_world_replay/",
+        "data/early_warning/",
+        "reports/",
+    )
+    active_prefixes = ("tools/", "deploy/", "public/", "data/control/")
+
+    runtime_used = []
+    for f in ROOT.rglob("*"):
+        if not f.is_file():
+            continue
+        rel = f.relative_to(ROOT).as_posix()
+        parts = set(f.relative_to(ROOT).parts)
+        if parts & excluded_parts:
+            continue
+        if rel.startswith(excluded_prefixes):
+            continue
+        if rel in core_files or rel.endswith(".service") or rel.endswith(".timer") or rel.startswith(active_prefixes):
+            runtime_used.append(rel)
+
+    runtime_used = sorted(set(runtime_used))
+    py_files = sorted(x for x in runtime_used if x.endswith(".py"))
+
+    outputs = {
+        "ACTIVE_EXECUTION_GRAPH.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "nodes": runtime_used,
+            "edges": [],
+            "status": "MINIMAL_STATIC_GRAPH"
+        },
+        "ACTIVE_DEPENDENCY_GRAPH.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "dependencies": [],
+            "status": "MINIMAL_STATIC_DEPENDENCY_GRAPH"
+        },
+        "ACTIVE_CORE_RANKING.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "core": [x for x in core_files if (ROOT / x).exists()],
+            "python_runtime_candidates": py_files,
+            "status": "MINIMAL_STATIC_RANKING"
+        },
+        "REAL_EXECUTION_CHAIN.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "chain": ["tk", "tokenoskobi_kernel.py", "collect(full=True)", "load_json(graph_files)"],
+            "status": "STATIC_BOOT_CHAIN"
+        },
+        "REAL_CODE_DUPLICATES.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "duplicates": [],
+            "duplicate_count": 0,
+            "status": "NOT_DETECTED_BY_KERNEL_STATIC_SCAN"
+        },
+        "MUTATION_CANDIDATES.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "mutation_candidates": [],
+            "status": "EMPTY_UNTIL_CORE_UPGRADE_OR_EXPLICIT_MUTATION_AUDIT"
+        },
+        "MINIMAL_ACTIVE_CORE_MANIFEST.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "core_files": [x for x in core_files if (ROOT / x).exists()],
+            "runtime_used_files": runtime_used,
+            "excluded_classes": ["archive", "backups", "reports", "shadow_runtime_lab", "real_world_replay", "early_warning"],
+            "status": "GENERATED"
+        },
+        "USED_BY_RUNTIME_INDEX.json": {
+            "version": "1.0",
+            "producer": "tokenoskobi_kernel.py::ensure_kernel_graph_files",
+            "used_by_runtime": runtime_used,
+            "python_files": py_files,
+            "status": "STATIC_INDEX"
+        },
+    }
+
+    for name, obj in outputs.items():
+        (ROOT / name).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
+
 def collect(full=False):
     runtime = load_json("PROJECT_RUNTIME.json") or {}
     boot = load_json("PROJECT_BOOT.json") if full else None
@@ -93,6 +197,7 @@ def collect(full=False):
 
     graphs = {}
     if full:
+        ensure_kernel_graph_files()
         graphs = {
             "active_execution_graph": load_json("ACTIVE_EXECUTION_GRAPH.json"),
             "active_dependency_graph": load_json("ACTIVE_DEPENDENCY_GRAPH.json"),
