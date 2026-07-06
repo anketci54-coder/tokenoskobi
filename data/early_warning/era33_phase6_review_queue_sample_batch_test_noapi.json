@@ -1,0 +1,69 @@
+{
+  "era": "ERA33",
+  "phase": "PHASE6_REVIEW_QUEUE_SAMPLE_BATCH_TEST_NOAPI",
+  "created_at_utc": "2026-07-06T17:35:00.000000+00:00",
+  "source_batch": "data/early_warning/era33_phase6_review_queue_sample_batch_noapi.json",
+  "target_contract": "data/early_warning/era33_phase4_review_queue_data_contract_noapi.json",
+  "scope": "Validate sample queue batch against Phase4 metadata-only review queue data contract.",
+  "tests": {
+    "sample_batch_exists": "PASS",
+    "sample_count_declared": "PASS",
+    "contains_runtime_logic_false": "PASS",
+    "contains_predictions_false": "PASS",
+    "contains_trade_signals_false": "PASS",
+    "contains_api_calls_false": "PASS",
+    "contains_wallet_actions_false": "PASS",
+    "contains_core_changes_false": "PASS",
+    "sample_event_ids_present": "PASS",
+    "sample_urgency_bands_allowed": "PASS",
+    "sample_signal_families_allowed_by_phase4": "FAIL",
+    "phase4_required_fields_all_present_in_samples": "FAIL"
+  },
+  "failed_checks": [
+    {
+      "check": "sample_signal_families_allowed_by_phase4",
+      "observed_values": [
+        "LIQUIDITY",
+        "OWNER",
+        "NEWS",
+        "CONTRACT",
+        "OBSERVATION_GAP"
+      ],
+      "allowed_values": [
+        "LIQUIDITY_METADATA",
+        "CONTRACT_METADATA",
+        "WALLET_METADATA",
+        "POOL_METADATA",
+        "NEWS_CONTEXT_METADATA",
+        "OBSERVATION_GAP_METADATA",
+        "UNKNOWN_METADATA"
+      ],
+      "reason": "Sample batch used shorthand labels instead of Phase4 allowed signal_family values."
+    },
+    {
+      "check": "phase4_required_fields_all_present_in_samples",
+      "missing_required_fields": [
+        "timestamp_utc",
+        "chain",
+        "address",
+        "review_reason",
+        "missing_evidence",
+        "source_mode",
+        "expires_at"
+      ],
+      "reason": "Samples were minimal placeholders and do not satisfy full Phase4 queue item contract."
+    }
+  ],
+  "guards": {
+    "new_era_opened": false,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA33_PHASE6_SAMPLE_BATCH_TEST_FAIL_NEEDS_FIX",
+  "next_step": "ERA33_PHASE6B_REVIEW_QUEUE_SAMPLE_BATCH_FIX_NOAPI",
+  "final_gate": "FAIL_ERA33_PHASE6_SAMPLE_BATCH_TEST_NOAPI"
+}
