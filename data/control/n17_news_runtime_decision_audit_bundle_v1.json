@@ -1,0 +1,76 @@
+{
+  "audit_rows": [
+    {
+      "gate": "service_known",
+      "ok": true,
+      "value": "inactive"
+    },
+    {
+      "gate": "timer_active",
+      "ok": false,
+      "value": "inactive"
+    },
+    {
+      "gate": "runner_exists",
+      "ok": true,
+      "value": true
+    },
+    {
+      "gate": "db_selected",
+      "ok": true,
+      "value": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "gate": "raw_feed_nonzero",
+      "ok": true,
+      "value": 222
+    },
+    {
+      "gate": "token_match_nonzero",
+      "ok": false,
+      "value": 0
+    },
+    {
+      "gate": "signal_nonzero",
+      "ok": false,
+      "value": 0
+    },
+    {
+      "gate": "score_nonzero",
+      "ok": false,
+      "value": 0
+    }
+  ],
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "db_write": false,
+    "live_trade": false,
+    "provider_call": false,
+    "readonly": true,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "wallet": false
+  },
+  "counts": {
+    "news_raw_feed_events": 222,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "RAW_NEWS_PRESENT_BUT_MATCH_SIGNAL_SCORE_CHAIN_EMPTY",
+  "generated_at_utc": "2026-07-06T04:31:54.696436+00:00",
+  "input_probe": "data/control/n17a_news_runtime_probe_readonly_result_v1.json",
+  "next_action": "REPAIR_MATCHER_AND_DOWNSTREAM_CHAIN_READONLY_FIRST",
+  "panel_decision": "NEWS_CENTER_RAW_PRESENT_DOWNSTREAM_EMPTY",
+  "producer": "tools/n17_news_runtime_decision_audit_bundle_v1.py",
+  "safe_repair_sequence": [
+    "N17A1 runner static audit: inspect ORIGINAL_RUNNER, postprocess reachability, matcher import/path, preview writes.",
+    "N17A2 tempdb or dryrun-only matcher probe: do not start timer, do not call API unless explicitly approved.",
+    "N17A3 if chain is proven, run one controlled oneshot locally and compare table deltas.",
+    "N17A4 update news_center_live_readmodel_v1.json only with observed counts and freshness evidence.",
+    "N17A5 only then consider timer re-enable."
+  ],
+  "stage": "N17_NEWS_RUNTIME_DECISION_AUDIT_BUNDLE"
+}
