@@ -1,7 +1,8 @@
 {
   "work_unit": "KERNEL_REGISTRY_HARDENING_AND_CORE_ISOLATION_MAP_NO_NEW_ERA",
   "created_at_utc": "2026-07-06T16:38:34.575100+00:00",
-  "source": "tk_ai_and_tk_machine_user_supplied_output",
+  "updated_at_utc": "2026-07-06T17:05:00.000000+00:00",
+  "source": "tk_ai_tk_machine_and_github_verified_state",
   "repository_policy": {
     "new_era_opened": false,
     "new_canonical_file_created": false,
@@ -9,12 +10,13 @@
     "live_trade": false,
     "paper_trade": false,
     "wallet_signing": false,
-    "ai_trade_authority": 0
+    "ai_trade_authority": 0,
+    "root_bloat_allowed": false,
+    "generated_outputs_root_allowed": false
   },
   "sync_state": {
     "branch": "main",
-    "local_head": "3f849b18fe1b9c601396330dc9c73ea9d2078177",
-    "remote_head": "3f849b18fe1b9c601396330dc9c73ea9d2078177",
+    "verified_head_after_cleanup": "08453d8c1b01fd87ce83b65c3454e9f3c2a3ec33",
     "head_sync": true,
     "git_clean": true
   },
@@ -36,68 +38,48 @@
     "timers_found": 1,
     "generated_registry_dirty_ignored": true
   },
+  "kernel_graph_producer_v1": {
+    "status": "PASS",
+    "commit": "ad9a3608e9fb9d0a24e553ccb95ca16a1884e4f1",
+    "graph_nulls_after_patch": false,
+    "graph_files_initially_created_at_root": true,
+    "root_bloat_corrected": true,
+    "relocation_commit": "08453d8c1b01fd87ce83b65c3454e9f3c2a3ec33",
+    "final_location": "data/control/",
+    "root_graph_files_left": false
+  },
+  "core_isolation_map": {
+    "status": "EXISTS_READONLY_PASS",
+    "artifact": "data/control/core_isolation_map_readonly_noapi.json",
+    "finding": "Core, boot, runtime, state, config, workspace and archive layers already mapped. Plugins/workspace directory absence is informational, not blocker."
+  },
+  "lifecycle_controller": {
+    "status": "EXISTS_READONLY_PASS",
+    "artifact": "data/control/lifecycle_controller_readonly_map_noapi.json",
+    "finding": "Lifecycle controller exists as boot workunit scripts; no dedicated new controller file required before returning to ERA33."
+  },
   "stale_runtime_metadata_detected": {
     "PROJECT_RUNTIME_git_head": "723912fc7e7142beddffddf9bf8b117857744469",
     "PROJECT_RUNTIME_status_clean": false,
-    "actual_local_remote_head": "3f849b18fe1b9c601396330dc9c73ea9d2078177",
+    "actual_verified_head_after_cleanup": "08453d8c1b01fd87ce83b65c3454e9f3c2a3ec33",
     "actual_git_clean": true,
-    "decision": "RUNTIME_GIT_METADATA_STALE_WARNING_NOT_FATAL"
+    "decision": "RUNTIME_GIT_METADATA_STALE_WARNING_NOT_FATAL_FOR_ERA33_RETURN; SERVER_RUNTIME_UPDATE_CAN_BE_DONE_BY_EXISTING_BOOT_TOOLS_IF_REQUIRED"
   },
-  "missing_graph_outputs": {
-    "active_execution_graph": null,
-    "active_dependency_graph": null,
-    "active_core_ranking": null,
-    "real_execution_chain": null,
-    "real_code_duplicates": null,
-    "mutation_candidates": null,
-    "minimal_active_core_manifest": null,
-    "used_by_runtime_index": null,
-    "decision": "CORE_ISOLATION_REQUIRES_GRAPH_PRODUCER_OR_EXISTING_GRAPH_ARTIFACT_DISCOVERY"
+  "root_hygiene_policy": {
+    "status": "ACTIVE",
+    "rule": "Generated outputs must not be written to repository root. Use existing relevant directories first. Root remains canonical/kernel only."
   },
-  "core_isolation_map_v0": {
-    "CONSTITUTION": [
-      "02_MANIFESTO.md"
-    ],
-    "BOOT": [
-      "PROJECT_BOOT.json",
-      "PROJECT_RUNTIME.json",
-      "PROJECT_HISTORY.json",
-      "README.md"
-    ],
-    "STATE": [
-      "06_PROJECT_MASTER_STATE.md",
-      "07_PROJECT_HANDOFF.md"
-    ],
-    "ARCHITECTURE_MAP": [
-      "05_ATLAS.md"
-    ],
-    "HISTORY_LEDGER": [
-      "04_ALMANAC.md"
-    ],
-    "ROADMAP": [
-      "03_ROADMAP.md",
-      "data/tokenoskobi_v1_v8_master_era_roadmap.json"
-    ],
-    "KERNEL_RUNTIME": [
-      "tokenoskobi_kernel.py",
-      "TOKENOSKOBI_OS_REGISTRY.json"
-    ],
-    "ARCHIVE_OR_EVIDENCE_NOT_CORE": [
-      "archive/",
-      "docs/archive/",
-      "data/archive/",
-      "reports/",
-      "backups/",
-      "data/shadow_runtime_lab/",
-      "data/real_world_replay/",
-      "data/early_warning/"
-    ]
-  },
-  "next_actions": [
-    "Update PROJECT_RUNTIME.json stale git metadata only after server pull and local tk sync confirms clean mirror.",
-    "Discover whether graph outputs are intentionally absent or graph producers are missing.",
-    "Produce minimal_active_core_manifest from runtime-used files only, excluding archive/audit/evidence outputs.",
-    "Keep ERA33 paused until DATA_MISSING_AFTER_PHASE3_CONTAMINATION_AUDITOR is resolved."
+  "closed_items": [
+    "KERNEL_REGISTRY_HARDENING_READ",
+    "CORE_ISOLATION_MAP_CONFIRMED",
+    "LIFECYCLE_CONTROLLER_MAP_CONFIRMED",
+    "KERNEL_GRAPH_PRODUCER_V1_PASS",
+    "ROOT_GRAPH_BLOAT_CORRECTED"
   ],
-  "decision": "PASS_PLAN_APPLIED_AS_NON_CANONICAL_CONTROL_ARTIFACT_GITHUB_SIDE"
+  "remaining_blocker": {
+    "scope": "ERA33",
+    "blocker": "DATA_MISSING_AFTER_PHASE3_CONTAMINATION_AUDITOR",
+    "next_return_point": "ERA33_REVIEW_QUEUE_DATA_RESOLUTION"
+  },
+  "decision": "OS_CLEANUP_CLOSED_RETURN_TO_ERA33_DATA_MISSING_RESOLUTION"
 }
