@@ -1,0 +1,143 @@
+{
+  "era": "ERA33",
+  "phase": "PHASE4_REVIEW_QUEUE_DATA_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T17:15:00.000000+00:00",
+  "source_of_truth": "GitHub main and ERA33 Phase1-3 artifacts",
+  "scope": "Define the concrete metadata-only review queue data contract for ERA33 Attention Engine. No CORE change. No runtime trade authority. No attack classification.",
+  "identity": "ATTENTION_ENGINE_DATA_CONTRACT",
+  "authority": {
+    "decision_authority": false,
+    "trade_authority": false,
+    "veto_authority": false,
+    "classification_authority": false,
+    "review_queue_only": true,
+    "era32_independence_preserved": true
+  },
+  "input_contract": {
+    "required_fields": [
+      "event_id",
+      "timestamp_utc",
+      "chain",
+      "address",
+      "signal_family",
+      "urgency_band",
+      "review_reason",
+      "missing_evidence",
+      "source_mode",
+      "expires_at"
+    ],
+    "optional_fields": [
+      "tx_hash",
+      "block_number",
+      "source_reference",
+      "source_observed_at_utc",
+      "producer",
+      "producer_version"
+    ],
+    "field_rules": {
+      "event_id": "Stable unique id for review queue item; must not encode attack classification.",
+      "timestamp_utc": "UTC observation timestamp.",
+      "chain": "Chain/network label; metadata only.",
+      "address": "Token, contract, wallet or pool address when available; metadata only.",
+      "tx_hash": "Optional transaction hash; evidence pointer only.",
+      "block_number": "Optional block number; evidence pointer only.",
+      "signal_family": "Allowed family label, not attack type.",
+      "urgency_band": "LOW, MEDIUM or HIGH only. This is review priority, not risk score.",
+      "review_reason": "Human-readable reason for review without prediction or classification.",
+      "missing_evidence": "List of evidence still required before any ERA32 truth decision.",
+      "source_mode": "CONFIRMED, MEMPOOL_EXPERIMENTAL or OFFCHAIN_SUPPORT.",
+      "expires_at": "UTC expiry after which the item must be ignored or refreshed."
+    }
+  },
+  "allowed_values": {
+    "urgency_band": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "source_mode": [
+      "CONFIRMED",
+      "MEMPOOL_EXPERIMENTAL",
+      "OFFCHAIN_SUPPORT"
+    ],
+    "signal_family": [
+      "LIQUIDITY_METADATA",
+      "CONTRACT_METADATA",
+      "WALLET_METADATA",
+      "POOL_METADATA",
+      "NEWS_CONTEXT_METADATA",
+      "OBSERVATION_GAP_METADATA",
+      "UNKNOWN_METADATA"
+    ]
+  },
+  "forbidden_fields": [
+    "attack_type",
+    "rug_pull_prediction",
+    "honeypot_prediction",
+    "depeg_prediction",
+    "prediction",
+    "confidence_score",
+    "risk_score",
+    "final_decision",
+    "recommendation",
+    "veto_recommendation",
+    "trade_signal",
+    "ground_truth",
+    "war_judge_result",
+    "classification"
+  ],
+  "forbidden_behaviors": [
+    "Do not classify events as attacks.",
+    "Do not generate risk scores or confidence scores.",
+    "Do not influence ERA32 final decision authority.",
+    "Do not write to wallet, trade, order, signing or live execution paths.",
+    "Do not require external API access in this contract phase.",
+    "Do not modify CORE or canonical root files."
+  ],
+  "ttl_policy": {
+    "LOW": "24h",
+    "MEDIUM": "6h",
+    "HIGH": "1h",
+    "expired_item_behavior": "IGNORE_OR_REFRESH_ONLY"
+  },
+  "ignore_capability": {
+    "required": true,
+    "rule": "Every ERA33 queue item must be safely ignorable by ERA32 and by downstream systems.",
+    "fail_if": [
+      "queue_item_contains_decision",
+      "queue_item_contains_classification",
+      "queue_item_contains_score",
+      "queue_item_contains_trade_signal"
+    ]
+  },
+  "example_valid_item": {
+    "event_id": "EWQ_EXAMPLE_0001",
+    "timestamp_utc": "2026-07-06T17:15:00Z",
+    "chain": "BSC",
+    "address": "0x0000000000000000000000000000000000000000",
+    "tx_hash": null,
+    "block_number": null,
+    "signal_family": "LIQUIDITY_METADATA",
+    "urgency_band": "MEDIUM",
+    "review_reason": "Liquidity metadata changed and requires evidence review.",
+    "missing_evidence": [
+      "confirmed_pool_address",
+      "confirmed_liquidity_event_tx",
+      "independent_source_2"
+    ],
+    "source_mode": "CONFIRMED",
+    "expires_at": "2026-07-06T23:15:00Z"
+  },
+  "guards": {
+    "new_era_opened": false,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA33_PHASE4_REVIEW_QUEUE_DATA_CONTRACT_DEFINED",
+  "next_step": "ERA33_PHASE4_REVIEW_QUEUE_DATA_CONTRACT_TEST_NOAPI",
+  "final_gate": "PASS_ERA33_PHASE4_REVIEW_QUEUE_DATA_CONTRACT_NOAPI"
+}
