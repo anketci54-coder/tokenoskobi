@@ -1,0 +1,105 @@
+{
+  "era": "ERA36",
+  "phase": "NARRATIVE_INTELLIGENCE_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T19:20:00.000000+00:00",
+  "source_plan": "data/news/era36_news_intelligence_expansion_plan_noapi_v1.json",
+  "source_identity_boundary": "data/news/era36_token_identity_provider_boundary_contract_noapi_v1.json",
+  "purpose": "Define passive narrative intelligence so News Intelligence can capture market/regulatory/security/ecosystem context even when token identity is unresolved or no direct token match exists.",
+  "identity": "PASSIVE_NARRATIVE_INTELLIGENCE_LAYER",
+  "core_rule": "Narrative intelligence is context, not decision authority. It can describe themes and missing evidence, but cannot emit trade signals or final risk decisions.",
+  "narrative_families": [
+    "SECURITY_INCIDENT_NARRATIVE",
+    "REGULATORY_NARRATIVE",
+    "EXCHANGE_LISTING_OR_DELISTING_NARRATIVE",
+    "CHAIN_INFRASTRUCTURE_NARRATIVE",
+    "STABLECOIN_LIQUIDITY_NARRATIVE",
+    "MACRO_CRYPTO_MARKET_NARRATIVE",
+    "DEX_PROTOCOL_NARRATIVE",
+    "SOCIAL_SENTIMENT_NARRATIVE",
+    "ADVERSARIAL_TACTIC_NARRATIVE",
+    "UNKNOWN_CONTEXT_NARRATIVE"
+  ],
+  "required_output_fields": [
+    "news_event_id",
+    "timestamp_utc",
+    "source_ref",
+    "narrative_family",
+    "narrative_summary",
+    "affected_scope",
+    "linked_token_identity_status",
+    "missing_evidence",
+    "review_reason",
+    "expiry_or_review_window"
+  ],
+  "affected_scope_values": [
+    "TOKEN_SPECIFIC",
+    "CHAIN_LEVEL",
+    "DEX_LEVEL",
+    "SECTOR_LEVEL",
+    "MARKET_WIDE",
+    "UNKNOWN_SCOPE"
+  ],
+  "linked_token_identity_status_values": [
+    "RESOLVED",
+    "PARTIAL",
+    "UNRESOLVED",
+    "NOT_TOKEN_SPECIFIC"
+  ],
+  "producer_rules": {
+    "if_token_identity_unresolved": "Narrative may still be stored as context but must not emit token-specific signal.",
+    "if_not_token_specific": "Classify affected_scope and narrative_family only; do not force token matching.",
+    "if_security_incident": "Require missing_evidence list for onchain/security report/news timestamp before downstream decision use.",
+    "if_social_sentiment": "Mark as low-evidence context unless independently corroborated.",
+    "if_adversarial_tactic": "Route to future adversarial doctrine review, not automatic risk scoring."
+  },
+  "consumer_boundaries": {
+    "may_consume": [
+      "Token Identity Provider Boundary output",
+      "news raw feed metadata",
+      "future verified source metadata",
+      "future passive evidence index"
+    ],
+    "must_not_consume_as_authority": [
+      "social sentiment alone",
+      "headline alone",
+      "single unverified source",
+      "AI inference without evidence"
+    ],
+    "may_produce_for_future": [
+      "passive narrative readmodel item",
+      "review queue context item",
+      "missing evidence request",
+      "adversarial doctrine candidate"
+    ]
+  },
+  "forbidden_outputs": [
+    "trade_signal",
+    "buy_sell_recommendation",
+    "final_risk_decision",
+    "veto_recommendation",
+    "confidence_score_used_as_authority",
+    "classification_as_confirmed_attack_without_evidence",
+    "wallet_action",
+    "order_action"
+  ],
+  "success_criteria": [
+    "Narrative can exist without direct token match.",
+    "Token-specific output requires identity boundary resolution.",
+    "Narrative is clearly passive context.",
+    "Missing evidence is explicit before downstream use.",
+    "No runtime/API/DB mutation is introduced."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA36_NARRATIVE_INTELLIGENCE_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA36_RISK_AND_OPPORTUNITY_NEWS_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA36_NARRATIVE_INTELLIGENCE_CONTRACT_NOAPI"
+}
