@@ -1,0 +1,86 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "live_trade": false,
+    "provider_call": false,
+    "real_db_write": false,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "tempdb_write": true,
+    "wallet": false
+  },
+  "checks": [
+    {
+      "gate": "n18_match_inserted_tempdb",
+      "ok": true,
+      "value": 47
+    },
+    {
+      "gate": "n19_freshness_written_tempdb",
+      "ok": true,
+      "value": "GREEN"
+    },
+    {
+      "gate": "n20_signal_score_tempdb",
+      "ok": true,
+      "value": {
+        "scores": 47,
+        "signals": 47
+      }
+    },
+    {
+      "gate": "real_db_unchanged",
+      "ok": true,
+      "value": {
+        "after": {
+          "news_raw_feed_events": 222,
+          "news_score_events_v1": null,
+          "news_signal_events": null,
+          "news_token_match_events": null
+        },
+        "before": {
+          "news_raw_feed_events": 222,
+          "news_score_events_v1": null,
+          "news_signal_events": null,
+          "news_token_match_events": null
+        }
+      }
+    }
+  ],
+  "decision": "N18_N19_N20_TEMPDB_PROOF_READY_FOR_APPROVAL",
+  "freshness_counts": {
+    "news_raw_feed_events": 222,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "generated_at_utc": "2026-07-06T06:11:18.265294+00:00",
+  "heartbeat_status": "GREEN",
+  "matches_inserted_tempdb": 47,
+  "matches_returned": 100,
+  "n18_news_production_binding": "PASS",
+  "n19_live_freshness": "PASS",
+  "n20_command_integration": "PASS",
+  "next_action": "APPROVE_REAL_DB_APPLY_OR_KEEP_TEMPDB_ONLY",
+  "raw_used": 100,
+  "real_after": {
+    "news_raw_feed_events": 222,
+    "news_score_events_v1": null,
+    "news_signal_events": null,
+    "news_token_match_events": null
+  },
+  "real_before": {
+    "news_raw_feed_events": 222,
+    "news_score_events_v1": null,
+    "news_signal_events": null,
+    "news_token_match_events": null
+  },
+  "real_db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+  "real_unchanged": true,
+  "scores_inserted_tempdb": 47,
+  "signals_inserted_tempdb": 47,
+  "stage": "N18_N19_N20_NEWS_PRODUCTION_BUNDLE",
+  "temp_db": "/tmp/n18_n19_n20_news__wnuwgr_/tokenoskobi_clean_v1.sqlite"
+}
