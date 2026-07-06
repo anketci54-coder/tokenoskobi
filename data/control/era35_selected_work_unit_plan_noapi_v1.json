@@ -1,0 +1,74 @@
+{
+  "era": "ERA35",
+  "phase": "SELECTED_WORK_UNIT_PLAN_NOAPI",
+  "created_at_utc": "2026-07-06T18:55:00.000000+00:00",
+  "source_scoring": "data/control/era35_candidate_scoring_noapi_v1.json",
+  "selected_next_work_unit": {
+    "id": "ERA36_NEWS_INTELLIGENCE_EXPANSION_NOAPI",
+    "domain": "NEWS_INTELLIGENCE_EXPANSION",
+    "type": "INTELLIGENCE_ARCHITECTURE",
+    "initial_mode": "NOAPI_CONTRACT_AND_ARCHITECTURE_ONLY"
+  },
+  "purpose": "Prepare the next work unit to expand News Intelligence from narrow token matching into narrative, risk and opportunity intelligence while preserving no-trade/no-wallet/no-live-execution rules.",
+  "why_selected": [
+    "Highest ERA35 candidate score: 89.",
+    "Directly addresses known News Intelligence weakness: raw feed existed while token match/signal/score remained zero in prior audits.",
+    "Runtime history already states News Intelligence must not be limited to DEX token matching.",
+    "Can begin with contracts and architecture only, without external API calls or runtime mutation."
+  ],
+  "initial_scope": {
+    "allowed": [
+      "news_identity_provider_contract",
+      "narrative_intelligence_contract",
+      "risk_news_intelligence_contract",
+      "opportunity_news_intelligence_contract",
+      "token_identity_provider_boundary",
+      "passive_readmodel_contract",
+      "producer_consumer_contract"
+    ],
+    "forbidden": [
+      "live_trade",
+      "paper_trade",
+      "wallet_or_signing",
+      "order_creation",
+      "autonomous_recommendation",
+      "decision_authority",
+      "external_api_runtime_call",
+      "core_upgrade",
+      "root_artifact_creation"
+    ]
+  },
+  "known_inputs_for_era36": [
+    "news_raw_feed_events prior audit count: 151",
+    "news_token_match_events prior audit count: 0",
+    "news_signal_events prior audit count: 0",
+    "news_score_events_v1 prior audit count: 0",
+    "Known issue: matcher returns zero because token_score_100_events lacks name/symbol/address.",
+    "Known direction: news intelligence must include narrative, opportunity and risk layers."
+  ],
+  "artifact_policy": {
+    "preferred_location": "data/news/ or existing news-specific path",
+    "control_artifacts": "data/control/",
+    "reports": "reports/",
+    "root_files_allowed": false
+  },
+  "success_criteria_for_era36_plan": [
+    "No external API or live runtime mutation in first plan.",
+    "Separate token matching from broader narrative/risk/opportunity intelligence.",
+    "Define producer/consumer contract before implementation.",
+    "Preserve AI no-trade authority and human approval rules.",
+    "Use existing relevant directories and avoid root bloat."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA35_SELECTED_WORK_UNIT_PLAN_DEFINED",
+  "next_step": "ERA35_FINAL_REVIEW_AND_RUNTIME_CLOSE",
+  "final_gate": "PASS_ERA35_SELECTED_WORK_UNIT_PLAN_NOAPI"
+}
