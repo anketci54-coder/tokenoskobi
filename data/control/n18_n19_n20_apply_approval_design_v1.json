@@ -1,0 +1,62 @@
+{
+  "stage": "N18_N19_N20_APPLY_APPROVAL_DESIGN",
+  "status": "GITHUB_SIDE_DESIGN_ONLY",
+  "basis": {
+    "temp_proof_commit": "80616b76802fd253316c1557c6dd9542e839ab72",
+    "temp_proof_decision": "N18_N19_N20_TEMPDB_PROOF_READY_FOR_APPROVAL",
+    "n18": "PASS",
+    "n19": "PASS",
+    "n20": "PASS",
+    "tempdb_match_count": 47,
+    "tempdb_signal_count": 47,
+    "tempdb_score_count": 47,
+    "heartbeat": "GREEN",
+    "real_db_unchanged_in_temp_proof": true
+  },
+  "decision_point": "REAL_DB_APPLY_REQUIRES_SEPARATE_SERVER_APPLY_WITH_BACKUP_AND_POST_AUDIT",
+  "real_apply_gates": [
+    "git pull --ff-only origin main must pass",
+    "git status --short must be clean or only expected apply outputs after run",
+    "real SQLite DB must exist at /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "full SQLite DB backup must be created before schema/write",
+    "news_token_match_events table must be created if missing",
+    "news_signal_events table must be created if missing",
+    "news_score_events_v1 table must be created if missing",
+    "news_runtime_freshness_v1 table must be created if missing",
+    "raw news count must remain unchanged except approved downstream tables",
+    "writes must be limited to news downstream tables and panel readmodel JSON files",
+    "no systemd start/stop/restart in this apply",
+    "no API/provider/wallet/trade action in this apply",
+    "post-audit must confirm match/signal/score/freshness nonzero",
+    "panel HTTPS JSON must return HTTP 200 after apply",
+    "backup path must be recorded in result JSON"
+  ],
+  "allowed_write_scope": {
+    "sqlite_tables": [
+      "news_token_match_events",
+      "news_signal_events",
+      "news_score_events_v1",
+      "news_runtime_freshness_v1"
+    ],
+    "panel_files": [
+      "active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+      "active_panel_8096/current/data/command_center_live_readmodel_v1.json"
+    ],
+    "result_files": [
+      "data/control/n18_n19_n20_news_real_apply_v1.json",
+      "data/control/n18_n19_n20_news_real_apply_v1_rows.jsonl"
+    ]
+  },
+  "blocked_actions": [
+    "live trade",
+    "wallet signing",
+    "provider browser call",
+    "systemd start/stop/restart",
+    "timer re-enable",
+    "external API call",
+    "schema changes outside news downstream tables",
+    "deleting existing raw news rows"
+  ],
+  "rollback_rule": "If post-audit fails, restore the SQLite file from the pre-apply backup and revert panel JSON files via git checkout before any further work.",
+  "next_safe_step": "SERVER_SIDE_N18_N19_N20_REAL_APPLY_WITH_BACKUP_SINGLE_BLOCK"
+}
