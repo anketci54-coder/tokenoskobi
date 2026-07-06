@@ -1911,3 +1911,17 @@ OUTPUTS:
 NEXT:
 Shadow Runtime Decision Integrity starts only after ERA29 GitHub seal verification.
 <!-- ERA29_CONTINUOUS_EVOLUTION_AND_MODULAR_HEALTH_LAYER_HANDOFF_END -->
+
+---
+
+## ALMANAC / ATLAS CONTINUATION
+
+Bu projede Almanac ve Atlas artık yaşayan, uzun vadeli eserler olarak geliştirilir.
+
+- Almanac; projenin kronolojik hikâyesini, kararlarını, phase/pass/ERA gelişimini, teknik dönüşümlerini ve insan tarafını anlatır.
+- Atlas; sistemin görsel mimarisini, engine ilişkilerini, veri akışlarını, klasör yapısını ve nihai katlanabilir dünya haritasını oluşturur.
+- Her önemli çalışma tamamlandığında uygun görülen bilgiler Almanac ve Atlas'a işlenir.
+- Yazım standartları `docs/design/ALMANAC_AUTHORING_GUIDE.md` ve `docs/design/ATLAS_AUTHORING_GUIDE.md` dosyalarında tanımlanmıştır.
+- İlk üretim içerikleri `docs/almanac/volumes/` ve `docs/atlas/maps/` altında büyütülür.
+- Yeni sohbetler bu yaklaşımı koruyarak devam eder; yeni canonical dosya oluşturulmaz, mevcut eserler geliştirilir.
+
