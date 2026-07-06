@@ -1,0 +1,88 @@
+{
+  "era": "ERA33",
+  "phase": "PHASE5_REVIEW_QUEUE_PRODUCER_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T17:25:00.000000+00:00",
+  "source_of_truth": "ERA33 Phase4 review queue data contract and test artifacts",
+  "scope": "Define producer-side rules for creating metadata-only ERA33 review queue items. No runtime implementation. No CORE change. No external API.",
+  "identity": "ATTENTION_ENGINE_QUEUE_PRODUCER_CONTRACT",
+  "input_sources_allowed": [
+    "onchain_metadata_observation",
+    "liquidity_metadata_observation",
+    "contract_metadata_observation",
+    "wallet_metadata_observation",
+    "news_context_metadata_observation",
+    "observation_gap_metadata"
+  ],
+  "producer_output_contract": {
+    "target_contract": "data/early_warning/era33_phase4_review_queue_data_contract_noapi.json",
+    "must_emit_required_fields": true,
+    "must_not_emit_forbidden_fields": true,
+    "must_be_ignorable": true,
+    "must_include_missing_evidence": true,
+    "must_include_expiry": true,
+    "must_include_source_mode": true
+  },
+  "producer_rules": {
+    "event_id_policy": "Stable deterministic id from chain, address, signal_family, timestamp bucket and source_mode. Must not encode attack classification.",
+    "dedupe_policy": "Same event_id replaces nothing automatically; producer emits append-only candidate and downstream dedupe may ignore duplicates.",
+    "urgency_policy": "Urgency is review priority only. It is not risk, probability, confidence or recommendation.",
+    "missing_evidence_policy": "Every item must list evidence required before ERA32 can make any truth decision.",
+    "ttl_policy": "Producer must set expires_at according to urgency band defined in Phase4.",
+    "source_mode_policy": "Producer must label source as CONFIRMED, MEMPOOL_EXPERIMENTAL or OFFCHAIN_SUPPORT.",
+    "fail_closed_policy": "If required fields are missing or forbidden fields are present, producer must emit no queue item."
+  },
+  "forbidden_producer_outputs": [
+    "attack_type",
+    "prediction",
+    "confidence_score",
+    "risk_score",
+    "final_decision",
+    "recommendation",
+    "veto_recommendation",
+    "trade_signal",
+    "ground_truth",
+    "war_judge_result",
+    "classification"
+  ],
+  "producer_state_boundaries": {
+    "main_database_write": false,
+    "wallet_access": false,
+    "trade_execution": false,
+    "order_creation": false,
+    "core_mutation": false,
+    "canonical_root_mutation": false,
+    "review_queue_artifact_write_allowed": true,
+    "allowed_output_location": "data/early_warning/"
+  },
+  "valid_producer_item_minimum": {
+    "event_id": "required",
+    "timestamp_utc": "required",
+    "chain": "required",
+    "address": "required_or_UNKNOWN_ADDRESS_ALLOWED_ONLY_IF_observation_gap",
+    "signal_family": "required_allowed_value",
+    "urgency_band": "required_allowed_value",
+    "review_reason": "required_no_prediction_no_classification",
+    "missing_evidence": "required_non_empty_list",
+    "source_mode": "required_allowed_value",
+    "expires_at": "required_utc"
+  },
+  "test_requirements_next_phase": [
+    "Validate producer contract references Phase4 target contract.",
+    "Validate producer cannot emit forbidden fields.",
+    "Validate producer fail-closed behavior.",
+    "Validate output location remains data/early_warning/.",
+    "Validate no CORE, root, wallet, trade, order or API behavior is introduced."
+  ],
+  "guards": {
+    "new_era_opened": false,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA33_PHASE5_REVIEW_QUEUE_PRODUCER_CONTRACT_DEFINED",
+  "next_step": "ERA33_PHASE5_REVIEW_QUEUE_PRODUCER_CONTRACT_TEST_NOAPI",
+  "final_gate": "PASS_ERA33_PHASE5_REVIEW_QUEUE_PRODUCER_CONTRACT_NOAPI"
+}
