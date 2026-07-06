@@ -762,3 +762,11 @@ The OS core is governed by five core capabilities:
 
 All future modules must map to one of these capabilities or remain in backlog.
 <!-- ERA23_OS_CORE_GOVERNANCE_MARKER_END -->
+
+---
+
+## ATLAS YAZIM STANDARDI
+
+Bu eser aşağıdaki canonical rehbere göre geliştirilir:
+
+`docs/design/ATLAS_AUTHORING_GUIDE.md`
