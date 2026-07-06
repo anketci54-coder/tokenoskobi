@@ -1,0 +1,237 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "db_write": false,
+    "live_trade": false,
+    "provider_call": false,
+    "readonly": true,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "wallet": false
+  },
+  "checks": [
+    {
+      "name": "runner_exists_parse_ok",
+      "ok": true
+    },
+    {
+      "name": "original_runner_exists_parse_ok",
+      "ok": true
+    },
+    {
+      "name": "matcher_exists_parse_ok",
+      "ok": true
+    },
+    {
+      "name": "runner_references_original",
+      "ok": true
+    },
+    {
+      "name": "runner_calls_postprocess",
+      "ok": true
+    },
+    {
+      "name": "runner_no_unreachable_postprocess_hint",
+      "ok": true
+    },
+    {
+      "name": "matcher_mentions_token_match_table",
+      "ok": false
+    },
+    {
+      "name": "runner_mentions_downstream_tables",
+      "ok": false
+    }
+  ],
+  "decision": "MATCHER_STATIC_BINDING_MISSING_OR_NOT_VISIBLE",
+  "failed_checks": [
+    "matcher_mentions_token_match_table",
+    "runner_mentions_downstream_tables"
+  ],
+  "files": [
+    {
+      "ast": {
+        "calls_postprocess": true,
+        "errors": [],
+        "functions": [
+          "_find_news_key",
+          "_classify",
+          "_atomic_write_json",
+          "_atomic_write_text",
+          "_apply_panel_mapping_data",
+          "_apply_panel_mapping_html",
+          "_postprocess",
+          "_tok_wrap_raw_count_v1",
+          "_tok_wrap_latest_rows_v1",
+          "_tok_wrap_has_real_url_v1",
+          "_tok_wrap_has_title_v1",
+          "_tok_wrap_url_empty_tol_v1",
+          "_tok_wrap_trace_v1",
+          "_tok_wrap_rc2_raw_delta_url_empty_ok_v1",
+          "main",
+          "tokenoskobi_news_source_adapter_bridge_dryrun_v2"
+        ],
+        "parse_ok": true,
+        "return_before_postprocess": false
+      },
+      "exists": true,
+      "path": "tools/news_radar_refresh_runner_v1.py",
+      "sha256": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a",
+      "size": 13083
+    },
+    {
+      "ast": {
+        "calls_postprocess": false,
+        "errors": [],
+        "functions": [
+          "now_utc",
+          "sha",
+          "stable_hash",
+          "clean_text",
+          "parse_date",
+          "read_json",
+          "write_json_atomic",
+          "table_exists",
+          "cols",
+          "count",
+          "insert_existing",
+          "classify",
+          "signal",
+          "translate",
+          "trust_label",
+          "fetch_rss",
+          "build_preview",
+          "write_preview_html",
+          "acquire_lock",
+          "release_lock",
+          "auto_disable_if_needed",
+          "main",
+          "_tokenoskobi_url_empty_raw_count_v1",
+          "_tokenoskobi_url_empty_latest_rows_v1",
+          "_tokenoskobi_url_empty_has_real_url_v1",
+          "_tokenoskobi_url_empty_has_title_v1",
+          "_tokenoskobi_url_empty_exit2_is_tolerable_v1",
+          "main",
+          "e",
+          "text"
+        ],
+        "parse_ok": true,
+        "return_before_postprocess": false
+      },
+      "exists": true,
+      "path": "tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+      "sha256": "18adc0cad6e6636c1cec2f8d4e2f346715693ca551137ebead247a0a95030c83",
+      "size": 27157
+    },
+    {
+      "ast": {
+        "calls_postprocess": false,
+        "errors": [],
+        "functions": [
+          "stable_hash",
+          "norm",
+          "exact_word",
+          "contains_addr",
+          "raw_text",
+          "ntok",
+          "score_token_against_raw",
+          "match_raw_news_to_tokens",
+          "match_many"
+        ],
+        "parse_ok": true,
+        "return_before_postprocess": false
+      },
+      "exists": true,
+      "path": "tools/news_token_matcher_v1.py",
+      "sha256": "0f65b59ca2eda6ee79af73559d8ee1cc5a0e72a23c4eee88d4bea55c9827aebd",
+      "size": 4878
+    }
+  ],
+  "flags": {
+    "matcher": {
+      "contains_ORIGINAL_RUNNER": false,
+      "contains_PREVIEW_DATA": false,
+      "contains_PREVIEW_HTML": false,
+      "contains_news_raw_feed_events": false,
+      "contains_news_score_events_v1": false,
+      "contains_news_signal_events": false,
+      "contains_news_token_match_events": false,
+      "contains_news_token_matcher": false,
+      "contains_subprocess_run": false,
+      "contains_sys_exit": false,
+      "postprocess_line_numbers": [],
+      "return_line_numbers_tail": [
+        17,
+        18,
+        22,
+        25,
+        28,
+        61,
+        80,
+        101,
+        128,
+        150
+      ]
+    },
+    "original_runner": {
+      "contains_ORIGINAL_RUNNER": false,
+      "contains_PREVIEW_DATA": true,
+      "contains_PREVIEW_HTML": true,
+      "contains_news_raw_feed_events": true,
+      "contains_news_score_events_v1": false,
+      "contains_news_signal_events": false,
+      "contains_news_token_match_events": false,
+      "contains_news_token_matcher": true,
+      "contains_subprocess_run": true,
+      "contains_sys_exit": true,
+      "postprocess_line_numbers": [],
+      "return_line_numbers_tail": [
+        555,
+        556,
+        564,
+        567,
+        571,
+        575,
+        586,
+        588,
+        611,
+        616
+      ]
+    },
+    "runner": {
+      "contains_ORIGINAL_RUNNER": true,
+      "contains_PREVIEW_DATA": true,
+      "contains_PREVIEW_HTML": true,
+      "contains_news_raw_feed_events": true,
+      "contains_news_score_events_v1": false,
+      "contains_news_signal_events": false,
+      "contains_news_token_match_events": false,
+      "contains_news_token_matcher": false,
+      "contains_subprocess_run": true,
+      "contains_sys_exit": false,
+      "postprocess_line_numbers": [
+        121,
+        304,
+        307
+      ],
+      "return_line_numbers_tail": [
+        220,
+        243,
+        257,
+        264,
+        284,
+        291,
+        306,
+        310,
+        311,
+        335
+      ]
+    }
+  },
+  "generated_at_utc": "2026-07-06T04:40:25.370753+00:00",
+  "next_action": "AUDIT_MATCHER_TO_DB_TABLE_BINDING",
+  "producer": "tools/n17a1_news_runner_static_audit_v1.py",
+  "stage": "N17A1_NEWS_RUNNER_STATIC_AUDIT"
+}
