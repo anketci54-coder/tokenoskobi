@@ -1,0 +1,112 @@
+{
+  "era": "ERA36",
+  "phase": "PASSIVE_READMODEL_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T19:35:00.000000+00:00",
+  "source_plan": "data/news/era36_news_intelligence_expansion_plan_noapi_v1.json",
+  "source_producer_consumer_contract": "data/news/era36_producer_consumer_contract_noapi_v1.json",
+  "purpose": "Define the future passive readmodel output for News Intelligence expansion so panel/review consumers can see context without receiving trade, veto, classification or final decision authority.",
+  "identity": "PASSIVE_NEWS_READMODEL_CONTRACT_NOAPI",
+  "core_rule": "The readmodel is display/review context only. It must preserve uncertainty and missing evidence instead of presenting news as a final signal.",
+  "readmodel_item_required_fields": [
+    "news_event_id",
+    "timestamp_utc",
+    "source_ref",
+    "headline_or_title",
+    "identity_status",
+    "chain",
+    "token_address",
+    "symbol",
+    "name",
+    "narrative_family",
+    "context_type",
+    "context_family",
+    "affected_scope",
+    "evidence_state",
+    "review_priority",
+    "review_reason",
+    "missing_evidence",
+    "expiry_or_review_window"
+  ],
+  "allowed_display_sections": [
+    "identity_context",
+    "narrative_context",
+    "risk_context",
+    "opportunity_context",
+    "missing_evidence_context",
+    "review_queue_context"
+  ],
+  "status_values": {
+    "identity_status": [
+      "RESOLVED",
+      "PARTIAL",
+      "UNRESOLVED",
+      "NOT_TOKEN_SPECIFIC"
+    ],
+    "context_type": [
+      "RISK_CONTEXT",
+      "OPPORTUNITY_CONTEXT",
+      "MIXED_CONTEXT",
+      "UNKNOWN_CONTEXT"
+    ],
+    "evidence_state": [
+      "SINGLE_SOURCE_UNVERIFIED",
+      "MULTI_SOURCE_CONTEXT",
+      "ONCHAIN_LINK_REQUIRED",
+      "SECURITY_REPORT_REQUIRED",
+      "CONFIRMED_CONTEXT_NOT_DECISION",
+      "UNKNOWN_EVIDENCE_STATE"
+    ],
+    "review_priority": [
+      "LOW",
+      "MEDIUM",
+      "HIGH",
+      "URGENT_REVIEW_ONLY"
+    ]
+  },
+  "null_and_unknown_policy": {
+    "unknown_identity": "Use UNRESOLVED and missing_evidence; do not fabricate token identity.",
+    "not_token_specific": "Use NOT_TOKEN_SPECIFIC and keep token fields null.",
+    "unknown_context": "Use UNKNOWN_CONTEXT and explain missing evidence.",
+    "incomplete_evidence": "Use missing_evidence list before downstream use."
+  },
+  "consumer_rules": {
+    "panel": "May display passive context, review priority and missing evidence.",
+    "review_queue": "May prioritize human/system review but cannot decide outcome.",
+    "prosecutor_context": "May use as hypothesis input only.",
+    "opportunity_memory": "May use as case-memory candidate only."
+  },
+  "forbidden_readmodel_fields": [
+    "buy_signal",
+    "sell_signal",
+    "trade_signal",
+    "position_size",
+    "entry_price",
+    "take_profit",
+    "stop_loss",
+    "veto_recommendation",
+    "final_decision",
+    "confirmed_attack_classification_without_evidence",
+    "wallet_action",
+    "order_action"
+  ],
+  "future_validation_rules": [
+    "Reject readmodel item if forbidden field appears.",
+    "Reject token-specific readmodel item when identity_status is UNRESOLVED and token_address is missing.",
+    "Reject high review priority if evidence_state is SINGLE_SOURCE_UNVERIFIED and no risk family is present.",
+    "Reject final-decision wording in display text.",
+    "Require missing_evidence when evidence_state is not CONFIRMED_CONTEXT_NOT_DECISION."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA36_PASSIVE_READMODEL_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA36_FINAL_REVIEW_AND_RUNTIME_CLOSE",
+  "final_gate": "PASS_ERA36_PASSIVE_READMODEL_CONTRACT_NOAPI"
+}
