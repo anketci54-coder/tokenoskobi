@@ -1,0 +1,250 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "readonly": true,
+    "real_db_write": false,
+    "systemd_start": false
+  },
+  "checks": [
+    {
+      "gate": "db_exists",
+      "ok": true,
+      "value": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "gate": "raw_news_nonzero",
+      "ok": true,
+      "value": 222
+    },
+    {
+      "gate": "match_zero_confirmed",
+      "ok": true,
+      "value": 0
+    },
+    {
+      "gate": "signal_zero_confirmed",
+      "ok": true,
+      "value": 0
+    },
+    {
+      "gate": "score_zero_confirmed",
+      "ok": true,
+      "value": 0
+    },
+    {
+      "gate": "raw_sample_has_token_hint",
+      "ok": true,
+      "value": [
+        "BTC",
+        "ETH",
+        "BITCOIN"
+      ]
+    },
+    {
+      "gate": "matcher_file_exists",
+      "ok": true,
+      "value": "tools/news_token_matcher_v1.py"
+    },
+    {
+      "gate": "matcher_refs_match_table",
+      "ok": false,
+      "value": []
+    },
+    {
+      "gate": "panel_news_json_200",
+      "ok": true,
+      "value": {
+        "bytes": 1101,
+        "ok": true,
+        "status": 200
+      }
+    }
+  ],
+  "decision": "MATCHER_NOT_BOUND_TO_MATCH_TABLE",
+  "generated_at_utc": "2026-07-06T05:13:16.646108+00:00",
+  "inside": {
+    "files": [
+      {
+        "db_env_refs": [],
+        "exists": true,
+        "path": "tools/news_radar_refresh_runner_v1.py",
+        "postprocess_refs": 3,
+        "return_refs": 32,
+        "size": 13083,
+        "table_refs": [
+          "news_raw_feed_events"
+        ],
+        "token_refs": []
+      },
+      {
+        "db_env_refs": [],
+        "exists": true,
+        "path": "tools/news_token_matcher_v1.py",
+        "postprocess_refs": 0,
+        "return_refs": 12,
+        "size": 4878,
+        "table_refs": [],
+        "token_refs": []
+      },
+      {
+        "db_env_refs": [],
+        "exists": true,
+        "path": "active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+        "postprocess_refs": 0,
+        "return_refs": 0,
+        "size": 1101,
+        "table_refs": [
+          "news_raw_feed_events",
+          "news_token_match_events",
+          "news_signal_events",
+          "news_score_events_v1"
+        ],
+        "token_refs": []
+      }
+    ],
+    "raw_sample_token_hits": [
+      "BTC",
+      "ETH",
+      "BITCOIN"
+    ],
+    "tables": [
+      {
+        "columns": [
+          "news_uid",
+          "source_uid",
+          "published_at_utc",
+          "title",
+          "url_hash",
+          "raw_hash",
+          "fetched_at_utc"
+        ],
+        "count": 222,
+        "exists": true,
+        "sample": [
+          {
+            "news_uid": "news12_55462c68ebf4038507de",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "c6d7fd948ac8a1d5e03cf6f66fb539ca25a9c8c81eb947af8b1cea15e71ca666",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "CZ says crypto exchange rivals opposed his pardon bid",
+            "url_hash": "031e52768a99cb1a4151f0389a1e6190c63da66cad61509549bad2a8f4a39bf1"
+          },
+          {
+            "news_uid": "news12_821578d9cec03e759f57",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "61ff13916fdbef46a4526c3fb6bbeb7fe17f64c65f4f266a924330d208b38cae",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "7 major Bitcoin mining pools join Stratum V2, working group",
+            "url_hash": "54e9fbaeb05f11822a74d583448b782833d485957d14110d2e3490b724120245"
+          },
+          {
+            "news_uid": "news12_d67e01bbf96ff50784d0",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "2116d6dff2c0d16aefbcc4f503a7d9ca41f0115cd7efcd0114152434ea519ba8",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "Strategy CEO Phong Le says company will sell BTC only in specific cases",
+            "url_hash": "0b9283200bfbb0e9d9f8075dcecbb20c1237d6717c9a1075429808a6f5fed05d"
+          },
+          {
+            "news_uid": "news12_7138289170523768debf",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "b4cce16c00bd6fb6aeb1e43b70dd34f9932fe9e67b2bb28f08db9cb655edc77c",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "The CLARITY Act will help reshore the crypto industry in the US — Attorney",
+            "url_hash": "d875ecc8bd15e7d0947c6e8c5a9712936f166d8d0b8ccfd408d2d7d8929f123f"
+          },
+          {
+            "news_uid": "news12_1ebc66ac66df392e8454",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "4d8884c3e3dcf0ebd4ae17df4aa65e432700d2c0434faf7096eefc4616963f6d",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "The Nobitex dilemma: How Iran's biggest crypto exchange stays off the OFAC blacklist",
+            "url_hash": "de6ed5d52d0b7972840b0c99be0c0e958dcaf094756d17b44c9c9f64022ade1a"
+          },
+          {
+            "news_uid": "news12_349bd8714b6677acb550",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "78c3473979178cafc9c1b71c155f24719be1f79dda804cf37c6c64029d4df7a8",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "Why a 2017 Linux bug is now a major concern for the crypto industry",
+            "url_hash": "2e1d70ed8d6cffdf43346b15432646b972891beb2a35b47ae2282ed86f9d9dd5"
+          },
+          {
+            "news_uid": "news12_505a2cf91ca40e167ff7",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "59a2b134666d65298bf8e4793118b9b520663b6002ab40b46606735d8191326a",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "TeraWulf doubles AI revenue but posts $427M quarterly loss as mining income declines",
+            "url_hash": "3088cd166a47c7bcf362fc2c28646b9374688c1c0669e51c883e18df1bfddd0b"
+          },
+          {
+            "news_uid": "news12_f3683ee385973914ccec",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "7a2c2c15ac27303bedb5bb7998af6205b77dec6b2951089f7f40421786a34527",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "Here’s what happened in crypto today",
+            "url_hash": "552e43ae5e35357af6a256a01989cf748d51c033e1b4e46bcf4b80b7bbea8194"
+          },
+          {
+            "news_uid": "news12_246eded69b84a0675178",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "210fbe85ecdc5302aadcbdd4d547ade79bc309eee8ff6e9d007d4d9a788e92a4",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "Court lets Arbitrum DAO to transfer $71M in ETH tied to North Korea hack to Aave",
+            "url_hash": "289425c0a43f04ec823030314130362fb4a1f96cf2b341f02814522fc13c15dc"
+          },
+          {
+            "news_uid": "news12_9a1a706f58c14f6bebc4",
+            "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+            "raw_hash": "ca015580d03efe217121ccf4f314347b8ee2a7f48e661c0b516625ce9ee071b6",
+            "source_uid": "src_seed_crypto_news_rss",
+            "title": "Spot Bitcoin ETFs log 6th straight week of net inflows for first time in 9 months",
+            "url_hash": "921d2617da2d57258075a9047b4813a0a9bb3470e0ca17e1c7d097fb9fd994d5"
+          }
+        ],
+        "table": "news_raw_feed_events"
+      },
+      {
+        "columns": [],
+        "count": 0,
+        "exists": false,
+        "sample": [],
+        "table": "news_token_match_events"
+      },
+      {
+        "columns": [],
+        "count": 0,
+        "exists": false,
+        "sample": [],
+        "table": "news_signal_events"
+      },
+      {
+        "columns": [],
+        "count": 0,
+        "exists": false,
+        "sample": [],
+        "table": "news_score_events_v1"
+      }
+    ]
+  },
+  "next_action": "PATCH_MATCHER_DB_WRITE_BINDING",
+  "outside": {
+    "manifest": {
+      "bytes": 2000,
+      "ok": true,
+      "status": 200
+    },
+    "news_json": {
+      "bytes": 1101,
+      "ok": true,
+      "status": 200
+    },
+    "panel_root": {
+      "bytes": 2000,
+      "ok": true,
+      "status": 200
+    }
+  },
+  "stage": "N17A3_NEWS_PIPELINE_DEEP_AUDIT"
+}
