@@ -1,0 +1,178 @@
+{
+  "era": "ERA35",
+  "phase": "CANDIDATE_SCORING_NOAPI",
+  "created_at_utc": "2026-07-06T18:50:00.000000+00:00",
+  "source_contract": "data/control/era35_next_work_unit_selector_contract_v1.json",
+  "scope": "Score next possible Tokenoskobi work units without implementing any feature.",
+  "scoring_weights": {
+    "dependency_ready_score": 25,
+    "risk_reduction_score": 25,
+    "strategic_value_score": 20,
+    "implementation_cost_score": 15,
+    "runtime_safety_score": 15
+  },
+  "candidates": [
+    {
+      "id": "NEWS_INTELLIGENCE_EXPANSION",
+      "description": "Expand News Intelligence beyond narrow token matching into narrative, risk and opportunity intelligence.",
+      "scores": {
+        "dependency_ready_score": 21,
+        "risk_reduction_score": 23,
+        "strategic_value_score": 19,
+        "implementation_cost_score": 12,
+        "runtime_safety_score": 14
+      },
+      "total_score": 89,
+      "reasons": [
+        "Known runtime issue: news raw feed existed but token match/signal/score were zero in prior audits.",
+        "Runtime history already identifies need for narrative, opportunity and risk layers.",
+        "Can proceed no-wallet, no-trade, no-live-execution.",
+        "Artifacts can use existing news/control paths."
+      ],
+      "risks": [
+        "May require careful separation between passive intelligence and decision authority.",
+        "Must avoid broad tech/news noise."
+      ],
+      "recommended_location": "data/news/ or existing news-specific path"
+    },
+    {
+      "id": "ERA31_ERA32_REAL_WORLD_EVIDENCE_RESOLUTION",
+      "description": "Continue strict real-world evidence resolution for candidate cases with confirmed onchain evidence only.",
+      "scores": {
+        "dependency_ready_score": 19,
+        "risk_reduction_score": 25,
+        "strategic_value_score": 18,
+        "implementation_cost_score": 9,
+        "runtime_safety_score": 15
+      },
+      "total_score": 86,
+      "reasons": [
+        "ERA31/32 already proved strict evidence doctrine and blocked premature classification.",
+        "High risk-reduction value because it validates intelligence against real-world cases.",
+        "Preserves no-trade/no-wallet safety."
+      ],
+      "risks": [
+        "True onchain resolution may require manual/source research and can become slow.",
+        "External verification may be needed later."
+      ],
+      "recommended_location": "data/real_world_replay/"
+    },
+    {
+      "id": "WHALE_INTELLIGENCE_REAL_DATA_ARCHITECTURE",
+      "description": "Define real-data architecture for whale/entity intelligence using significant movement thresholds such as 50 BTC equivalent.",
+      "scores": {
+        "dependency_ready_score": 17,
+        "risk_reduction_score": 20,
+        "strategic_value_score": 20,
+        "implementation_cost_score": 10,
+        "runtime_safety_score": 14
+      },
+      "total_score": 81,
+      "reasons": [
+        "Whale Intelligence is a core Tokenoskobi requirement.",
+        "Strong strategic value for market-risk context and entity movement tracking.",
+        "Can start as architecture/noapi contract."
+      ],
+      "risks": [
+        "Real data connectors and entity labeling must be evidence-based.",
+        "Can grow large if not tightly scoped."
+      ],
+      "recommended_location": "data/whale/ or existing whale-specific path"
+    },
+    {
+      "id": "ADVERSARIAL_INTELLIGENCE_DOCTRINE",
+      "description": "Expand adversarial doctrine memory for new attack tactics, rug methods, MEV strategies and deception patterns.",
+      "scores": {
+        "dependency_ready_score": 18,
+        "risk_reduction_score": 22,
+        "strategic_value_score": 18,
+        "implementation_cost_score": 11,
+        "runtime_safety_score": 15
+      },
+      "total_score": 84,
+      "reasons": [
+        "Aligned with long-term adversarial intelligence backlog.",
+        "High safety because it can remain noapi/doctrine-only.",
+        "Useful for future Prosecutor/Unknown Anomaly layers."
+      ],
+      "risks": [
+        "Must stay analytical and defensive, not operational misuse.",
+        "May duplicate existing ERA30 shadow doctrine if not scoped."
+      ],
+      "recommended_location": "data/control/ or data/risk/"
+    },
+    {
+      "id": "DEX_BEHAVIORAL_INTELLIGENCE",
+      "description": "Map DEX behavioral intelligence patterns such as liquidity changes, holder behavior and pool dynamics.",
+      "scores": {
+        "dependency_ready_score": 15,
+        "risk_reduction_score": 19,
+        "strategic_value_score": 18,
+        "implementation_cost_score": 9,
+        "runtime_safety_score": 14
+      },
+      "total_score": 75,
+      "reasons": [
+        "Important for Tokenoskobi risk-first DEX intelligence.",
+        "Can support Early Warning and Prosecutor later."
+      ],
+      "risks": [
+        "May need real DEX data sources later.",
+        "Could overlap with News/Whale if boundaries are weak."
+      ],
+      "recommended_location": "data/dex/ or existing relevant path if present"
+    },
+    {
+      "id": "KERNEL_PLUGIN_ARCHITECTURE_CONTINUATION",
+      "description": "Continue Kernel + Registry + plugin architecture after ERA34 hygiene.",
+      "scores": {
+        "dependency_ready_score": 16,
+        "risk_reduction_score": 18,
+        "strategic_value_score": 17,
+        "implementation_cost_score": 8,
+        "runtime_safety_score": 13
+      },
+      "total_score": 72,
+      "reasons": [
+        "Architecture direction says future ERA work should become plugin-based.",
+        "Could reduce long-term repo/workflow drift."
+      ],
+      "risks": [
+        "May touch CORE unless explicitly constrained.",
+        "Could delay intelligence work."
+      ],
+      "recommended_location": "data/control/"
+    }
+  ],
+  "top_3_candidates": [
+    "NEWS_INTELLIGENCE_EXPANSION",
+    "ERA31_ERA32_REAL_WORLD_EVIDENCE_RESOLUTION",
+    "ADVERSARIAL_INTELLIGENCE_DOCTRINE"
+  ],
+  "selected_candidate": {
+    "id": "NEWS_INTELLIGENCE_EXPANSION",
+    "reason": "Highest total score, directly addresses known runtime/news weakness, has strong risk-reduction value, and can proceed safely without wallet/trade/live execution."
+  },
+  "rejected_now": [
+    {
+      "id": "KERNEL_PLUGIN_ARCHITECTURE_CONTINUATION",
+      "reason": "Useful but lower immediate intelligence value and may risk CORE scope creep."
+    },
+    {
+      "id": "DEX_BEHAVIORAL_INTELLIGENCE",
+      "reason": "Important but depends more on later real DEX data boundaries."
+    }
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA35_CANDIDATE_SCORING_COMPLETE",
+  "next_step": "ERA35_SELECTED_WORK_UNIT_PLAN_NOAPI",
+  "final_gate": "PASS_ERA35_CANDIDATE_SCORING_NOAPI"
+}
