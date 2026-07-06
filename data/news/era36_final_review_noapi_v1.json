@@ -1,0 +1,61 @@
+{
+  "era": "ERA36",
+  "phase": "FINAL_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-06T19:40:00.000000+00:00",
+  "source_of_truth": "ERA36 News Intelligence Expansion NOAPI contract chain",
+  "scope": "Close GitHub-side ERA36 News Intelligence Expansion architecture contracts before server runtime close.",
+  "artifacts_reviewed": [
+    "data/news/era36_news_intelligence_expansion_plan_noapi_v1.json",
+    "data/news/era36_token_identity_provider_boundary_contract_noapi_v1.json",
+    "data/news/era36_narrative_intelligence_contract_noapi_v1.json",
+    "data/news/era36_risk_and_opportunity_news_contract_noapi_v1.json",
+    "data/news/era36_producer_consumer_contract_noapi_v1.json",
+    "data/news/era36_passive_readmodel_contract_noapi_v1.json"
+  ],
+  "review_checks": {
+    "plan_defined": true,
+    "token_identity_provider_boundary_defined": true,
+    "narrative_intelligence_contract_defined": true,
+    "risk_and_opportunity_news_contract_defined": true,
+    "producer_consumer_contract_defined": true,
+    "passive_readmodel_contract_defined": true,
+    "token_matching_separated_from_identity_provider": true,
+    "narrative_context_can_exist_without_token_match": true,
+    "risk_context_is_not_veto_authority": true,
+    "opportunity_context_is_not_trade_recommendation": true,
+    "readmodel_is_display_review_context_only": true,
+    "external_api_calls_absent": true,
+    "runtime_mutation_absent": true,
+    "db_schema_mutation_absent": true,
+    "systemd_change_absent": true,
+    "trade_wallet_order_absent": true,
+    "core_upgrade_absent": true,
+    "root_artifact_creation_absent": true
+  },
+  "final_architecture_summary": {
+    "identity": "PASSIVE_NEWS_INTELLIGENCE_LAYER",
+    "token_identity_boundary": "News matcher must consume identity provider boundary and must not assume token_score_100_events contains name/symbol/address.",
+    "narrative_layer": "Captures security, regulatory, chain, market and adversarial narratives without forcing token match.",
+    "risk_opportunity_layer": "Separates passive risk context from passive opportunity context without decision or trade authority.",
+    "producer_consumer_boundary": "Defines what each layer may emit and what consumers may not treat as authority.",
+    "readmodel": "Future display/review context preserving uncertainty and missing evidence."
+  },
+  "known_non_blocking_notes": [
+    "ERA36 is architecture/contract only; it does not repair or run the existing matcher.",
+    "Future implementation should begin with noapi validation before touching live news runtime.",
+    "Server runtime close is required for PROJECT_RUNTIME.json and tk outputs."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA36_FINAL_REVIEW_PASS_GITHUB_SIDE",
+  "next_step": "SERVER_RUNTIME_CLOSE_AND_PUSH",
+  "final_gate": "PASS_ERA36_FINAL_REVIEW_NOAPI"
+}
