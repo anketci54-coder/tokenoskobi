@@ -1,0 +1,121 @@
+{
+  "era": "ERA36",
+  "phase": "RISK_AND_OPPORTUNITY_NEWS_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-06T19:25:00.000000+00:00",
+  "source_plan": "data/news/era36_news_intelligence_expansion_plan_noapi_v1.json",
+  "source_narrative_contract": "data/news/era36_narrative_intelligence_contract_noapi_v1.json",
+  "purpose": "Define passive risk-news and opportunity-news boundaries so News Intelligence can separate danger context from opportunity context without creating trade, veto or final decision authority.",
+  "identity": "PASSIVE_RISK_AND_OPPORTUNITY_NEWS_LAYER",
+  "core_rule": "Risk and opportunity news outputs are review context only. They can prioritize investigation but cannot recommend trades, veto candidates, classify attacks as confirmed, or override Evidence/Guardian/Human authority.",
+  "risk_news_families": [
+    "EXPLOIT_OR_HACK_RISK_CONTEXT",
+    "RUG_OR_HONEYPOT_RISK_CONTEXT",
+    "LIQUIDITY_OR_DEPEG_RISK_CONTEXT",
+    "REGULATORY_ENFORCEMENT_RISK_CONTEXT",
+    "EXCHANGE_DELISTING_RISK_CONTEXT",
+    "BRIDGE_OR_ORACLE_RISK_CONTEXT",
+    "INFRASTRUCTURE_OUTAGE_RISK_CONTEXT",
+    "ADVERSARIAL_TACTIC_RISK_CONTEXT",
+    "UNKNOWN_RISK_CONTEXT"
+  ],
+  "opportunity_news_families": [
+    "ECOSYSTEM_GROWTH_CONTEXT",
+    "EXCHANGE_LISTING_CONTEXT",
+    "CHAIN_UPGRADE_CONTEXT",
+    "PROTOCOL_PARTNERSHIP_CONTEXT",
+    "LIQUIDITY_EXPANSION_CONTEXT",
+    "DEVELOPER_ACTIVITY_CONTEXT",
+    "ADOPTION_OR_INTEGRATION_CONTEXT",
+    "MARKET_NARRATIVE_TAILWIND_CONTEXT",
+    "UNKNOWN_OPPORTUNITY_CONTEXT"
+  ],
+  "required_output_fields": [
+    "news_event_id",
+    "timestamp_utc",
+    "source_ref",
+    "narrative_family",
+    "context_type",
+    "context_family",
+    "affected_scope",
+    "linked_token_identity_status",
+    "evidence_state",
+    "missing_evidence",
+    "review_priority",
+    "review_reason"
+  ],
+  "context_type_values": [
+    "RISK_CONTEXT",
+    "OPPORTUNITY_CONTEXT",
+    "MIXED_CONTEXT",
+    "UNKNOWN_CONTEXT"
+  ],
+  "evidence_state_values": [
+    "SINGLE_SOURCE_UNVERIFIED",
+    "MULTI_SOURCE_CONTEXT",
+    "ONCHAIN_LINK_REQUIRED",
+    "SECURITY_REPORT_REQUIRED",
+    "CONFIRMED_CONTEXT_NOT_DECISION",
+    "UNKNOWN_EVIDENCE_STATE"
+  ],
+  "review_priority_values": [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "URGENT_REVIEW_ONLY"
+  ],
+  "producer_rules": {
+    "risk_context_rule": "Risk context may raise review priority but cannot block, veto or classify without downstream evidence process.",
+    "opportunity_context_rule": "Opportunity context may create investigation queue but cannot recommend entry or trade.",
+    "mixed_context_rule": "If both risk and opportunity signals appear, classify as MIXED_CONTEXT and require missing_evidence before downstream use.",
+    "unknown_context_rule": "If context is unclear, emit UNKNOWN_CONTEXT with explicit missing evidence, not a forced label.",
+    "single_source_rule": "Single-source items remain SINGLE_SOURCE_UNVERIFIED unless independently corroborated."
+  },
+  "consumer_boundaries": {
+    "may_feed_future": [
+      "review_queue",
+      "passive_news_readmodel",
+      "prosecutor_context",
+      "adversarial_doctrine_candidate",
+      "opportunity_memory_candidate"
+    ],
+    "must_not_feed_directly": [
+      "trade_execution",
+      "wallet_action",
+      "order_creation",
+      "final_decision_engine",
+      "guardian_veto_as_authority"
+    ]
+  },
+  "forbidden_outputs": [
+    "buy_signal",
+    "sell_signal",
+    "position_size",
+    "take_profit",
+    "stop_loss",
+    "final_risk_score",
+    "confirmed_attack_label_without_evidence",
+    "veto_recommendation",
+    "wallet_action",
+    "order_action"
+  ],
+  "success_criteria": [
+    "Risk and opportunity are separated as passive contexts.",
+    "Review priority is not decision authority.",
+    "Opportunity context cannot become trade recommendation.",
+    "Risk context cannot become veto/classification without evidence process.",
+    "No runtime/API/DB mutation is introduced."
+  ],
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0,
+    "runtime_mutation": false
+  },
+  "decision": "ERA36_RISK_AND_OPPORTUNITY_NEWS_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA36_PRODUCER_CONSUMER_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA36_RISK_AND_OPPORTUNITY_NEWS_CONTRACT_NOAPI"
+}
