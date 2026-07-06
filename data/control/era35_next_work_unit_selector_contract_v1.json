@@ -1,0 +1,77 @@
+{
+  "era": "ERA35",
+  "title": "NEXT_WORK_UNIT_SELECTOR_AND_ROADMAP_GATE",
+  "phase": "SELECTOR_CONTRACT",
+  "created_at_utc": "2026-07-06T18:45:00.000000+00:00",
+  "source_of_truth": "Repository/server state after ERA34 closure at 393a343e5c70c1b800ffcf04da1d4fe087c232a1",
+  "purpose": "Select the next real Tokenoskobi work unit by evidence, dependency and risk/fayda scoring instead of ad hoc conversation choice.",
+  "scope": "Control-plane selector only. No feature implementation. No CORE upgrade. No root artifact creation.",
+  "input_sources": [
+    "PROJECT_RUNTIME.json current_work_unit and next_safe_step",
+    "03_ROADMAP.md when needed",
+    "04_ALMANAC.md when needed",
+    "05_ATLAS.md when needed",
+    "data/control/ERA34 control-plane hygiene contracts",
+    "existing backlog signals in runtime/history artifacts"
+  ],
+  "candidate_domains": [
+    "NEWS_INTELLIGENCE_EXPANSION",
+    "WHALE_INTELLIGENCE_REAL_DATA_ARCHITECTURE",
+    "ERA31_ERA32_REAL_WORLD_EVIDENCE_RESOLUTION",
+    "ADVERSARIAL_INTELLIGENCE_DOCTRINE",
+    "DEX_BEHAVIORAL_INTELLIGENCE",
+    "KERNEL_PLUGIN_ARCHITECTURE_CONTINUATION"
+  ],
+  "scoring_model": {
+    "dependency_ready_score": {
+      "weight": 25,
+      "meaning": "How ready the prerequisites are without opening CORE_UPGRADE."
+    },
+    "risk_reduction_score": {
+      "weight": 25,
+      "meaning": "How much the work reduces real project risk or uncertainty."
+    },
+    "strategic_value_score": {
+      "weight": 20,
+      "meaning": "How much the work moves Tokenoskobi toward its intelligence mission."
+    },
+    "implementation_cost_score": {
+      "weight": 15,
+      "meaning": "Higher score means lower cost and less repo bloat."
+    },
+    "runtime_safety_score": {
+      "weight": 15,
+      "meaning": "How safely the work can proceed with no wallet, no trade, no live execution."
+    }
+  },
+  "hard_filters": [
+    "reject_if_requires_live_trade",
+    "reject_if_requires_wallet_or_signing",
+    "reject_if_requires_core_upgrade_without_explicit_open",
+    "reject_if_requires_new_canonical_root_file",
+    "reject_if_cannot_place_artifacts_in_existing_relevant_directory",
+    "reject_if_runtime_state_not_clean"
+  ],
+  "required_outputs": [
+    "top_3_candidates",
+    "score_breakdown_for_each_candidate",
+    "selected_next_work_unit",
+    "reason_for_selection",
+    "explicit_rejected_candidates_if_any",
+    "recommended_artifact_location",
+    "server_runtime_close_required"
+  ],
+  "default_artifact_location": "data/control/",
+  "guards": {
+    "new_era_opened": true,
+    "core_upgrade_opened": false,
+    "root_files_created": false,
+    "new_canonical_file_created": false,
+    "live_trade": false,
+    "wallet_connection": false,
+    "external_api_calls": 0
+  },
+  "decision": "ERA35_SELECTOR_CONTRACT_DEFINED",
+  "next_step": "ERA35_CANDIDATE_SCORING_NOAPI",
+  "final_gate": "PASS_ERA35_SELECTOR_CONTRACT"
+}
