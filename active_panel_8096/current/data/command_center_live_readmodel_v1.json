@@ -7,73 +7,111 @@
     "wallet_signing": false
   },
   "data_freshness_sec": 0,
-  "decision": "COMMAND_CENTER_READY_DISPLAY_ONLY",
-  "generated_at_utc": "2026-07-06T06:44:10.299986+00:00",
+  "decision": "COMMAND_FUSION_BOUND_DISPLAY_ONLY_PARTIAL_TECHNICAL_MISSING",
+  "generated_at_utc": "2026-07-06T10:04:23.766777+00:00",
   "items": [
     {
-      "checks": [
+      "center_counts": {
+        "lifecycle": {
+          "autopsy_cases": 0,
+          "autopsy_evidence_events": 0,
+          "morgue_entries": 0,
+          "morgue_route_decisions": 0,
+          "state_aggregated_token_readmodel_v1": 19,
+          "token_lifecycle": 19,
+          "token_lifecycle_autopsy_events_v1": 0,
+          "token_lifecycle_events": 2
+        },
+        "news": {
+          "news_raw_feed_events": 222,
+          "news_score_events_v1": 47,
+          "news_signal_events": 47,
+          "news_token_match_events": 47
+        },
+        "onchain": {
+          "holder_distribution_events": 0,
+          "holder_snapshots": 0,
+          "initial_holder_evidence_events_v1": 7,
+          "liquidity_snapshots": 46,
+          "pairs": 19,
+          "state_aggregated_token_readmodel_v1": 19,
+          "token_birth_events": 19,
+          "token_risk_events": 15,
+          "token_score_100_events": 19,
+          "token_score_snapshots": 2,
+          "tokens": 19
+        },
+        "risk": {
+          "high_risk_tiny_route_events": 0,
+          "mev_permission_gate_events": 1,
+          "mev_risk_guard_events": 1,
+          "mev_sandwich_risk_events": 0,
+          "mev_sandwich_risk_events_v1": 0,
+          "rug_evidence_events": 0,
+          "slippage_estimates": 0,
+          "token_risk_events": 15
+        },
+        "system": {},
+        "technical": {},
+        "whale": {
+          "known_wallet_cex_classification_events_v1": 1,
+          "known_wallet_label_quality_events_v1": 9,
+          "known_wallet_seed_queue_v1": 1,
+          "known_wallet_source_registry_v1": 8
+        }
+      },
+      "center_decisions": {
+        "lifecycle": "LIFECYCLE_CENTER_PRODUCTION_BOUND_AUTOPSY_MORGUE_MISSING",
+        "news": "NEWS_CENTER_REAL_PIPELINE_BOUND",
+        "onchain": "ONCHAIN_CENTER_PRODUCTION_BOUND_HOLDER_MISSING",
+        "risk": "RISK_CENTER_PRODUCTION_BOUND_RUG_SLIPPAGE_MISSING",
+        "system": "SYSTEM_CENTER_READY",
+        "technical": "TECHNICAL_CENTER_DATA_MISSING",
+        "whale": "WHALE_CENTER_REGISTRY_BOUND_FLOW_MISSING"
+      },
+      "explicit_gaps": [
         {
-          "decision": "SYSTEM_CENTER_READY",
-          "name": "system_center_exists_parse_ok",
-          "ok": true
+          "center": "whale",
+          "decision": "WHALE_CENTER_REGISTRY_BOUND_FLOW_MISSING",
+          "gap": "FLOW_MISSING"
         },
         {
-          "decision": "ONCHAIN_CENTER_READY_LOOKUP_ONLY",
-          "name": "onchain_center_exists_parse_ok",
-          "ok": true
+          "center": "onchain",
+          "decision": "ONCHAIN_CENTER_PRODUCTION_BOUND_HOLDER_MISSING",
+          "gap": "HOLDER_MISSING"
         },
         {
-          "decision": "RISK_CENTER_READY_PREVIEW_PLUS_LOOKUP_ONLY",
-          "name": "risk_center_exists_parse_ok",
-          "ok": true
+          "center": "risk",
+          "decision": "RISK_CENTER_PRODUCTION_BOUND_RUG_SLIPPAGE_MISSING",
+          "gap": "RUG_SLIPPAGE_MISSING"
         },
         {
-          "decision": "PANEL_PUBLIC_BRIDGE_APPLIED",
-          "name": "panel_public_bridge_status_exists_parse_ok",
-          "ok": true
+          "center": "lifecycle",
+          "decision": "LIFECYCLE_CENTER_PRODUCTION_BOUND_AUTOPSY_MORGUE_MISSING",
+          "gap": "AUTOPSY_MORGUE_MISSING"
         },
         {
-          "name": "system_center_ready",
-          "ok": true
-        },
-        {
-          "name": "onchain_center_lookup_ready",
-          "ok": true
-        },
-        {
-          "name": "risk_center_preview_lookup_ready",
-          "ok": true
-        },
-        {
-          "name": "public_bridge_applied",
-          "ok": true
+          "center": "technical",
+          "decision": "TECHNICAL_CENTER_DATA_MISSING",
+          "gap": "DATA_MISSING"
         }
       ],
       "key": "command_center",
-      "label": "Komuta Merkezi",
-      "ready_count": 8,
-      "severity": "GREEN",
-      "source_decisions": {
-        "onchain_center": "ONCHAIN_CENTER_READY_LOOKUP_ONLY",
-        "panel_public_bridge_status": "PANEL_PUBLIC_BRIDGE_APPLIED",
-        "risk_center": "RISK_CENTER_READY_PREVIEW_PLUS_LOOKUP_ONLY",
-        "system_center": "SYSTEM_CENTER_READY"
-      },
-      "status": "COMMAND_CENTER_READY_DISPLAY_ONLY",
-      "summary": "System, Onchain, Risk and Public Bridge are aggregated into command view. Display-only; no trade/wallet/provider authority.",
-      "total_checks": 8
+      "label": "Komuta ve Karar Merkezi",
+      "missing_centers": [
+        "technical"
+      ],
+      "mode": "DISPLAY_ONLY_NO_TRADE_AUTHORITY",
+      "note": "Fusion command readmodel aggregates center status only. It has no trade, wallet, provider, policy or paper execution authority.",
+      "production_bound_centers": [
+        "news",
+        "whale",
+        "onchain",
+        "risk",
+        "lifecycle"
+      ],
+      "status": "COMMAND_FUSION_BOUND_DISPLAY_ONLY_PARTIAL_TECHNICAL_MISSING"
     }
   ],
-  "news_center_counts": {
-    "news_raw_feed_events": 222,
-    "news_score_events_v1": 47,
-    "news_signal_events": 47,
-    "news_token_match_events": 47
-  },
-  "news_center_heartbeat": "GREEN",
-  "news_center_status": "REAL_PIPELINE_BOUND",
-  "producer": "tools/command_center_live_producer_v1.py",
-  "severity": "GREEN",
-  "source_count": 4,
-  "stage": "N16D_COMMAND_CENTER_LIVE_PRODUCER"
+  "stage": "N21F_COMMAND_FUSION_BIND"
 }
