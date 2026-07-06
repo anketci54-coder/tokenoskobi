@@ -1,0 +1,473 @@
+{
+  "authority": {
+    "api_calls": 0,
+    "core_change": false,
+    "live_trade": false,
+    "panel_json_write": false,
+    "provider_call": false,
+    "readonly": true,
+    "real_db_write": false,
+    "signing": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "wallet": false
+  },
+  "checks": [
+    {
+      "gate": "db_exists",
+      "ok": true,
+      "value": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "gate": "tokens_nonzero",
+      "ok": true,
+      "value": 19
+    },
+    {
+      "gate": "pairs_nonzero",
+      "ok": true,
+      "value": 19
+    },
+    {
+      "gate": "liquidity_ready",
+      "ok": true,
+      "value": 46
+    },
+    {
+      "gate": "holder_ready",
+      "ok": false,
+      "value": {
+        "holder_distribution_events": 0,
+        "holder_snapshots": 0
+      }
+    },
+    {
+      "gate": "score_ready",
+      "ok": true,
+      "value": {
+        "token_score_100_events": 19,
+        "token_score_snapshots": 2
+      }
+    },
+    {
+      "gate": "panel_http_200",
+      "ok": true
+    }
+  ],
+  "core_counts": {
+    "holder_snapshots": 0,
+    "liquidity_snapshots": 46,
+    "pair_birth_events": 0,
+    "pairs": 19,
+    "state_aggregated_token_readmodel_v1": 19,
+    "token_birth_events": 19,
+    "token_risk_events": 15,
+    "token_score_snapshots": 2,
+    "tokens": 19
+  },
+  "decision": "ONCHAIN_SOURCE_READY_FOR_PANEL_BINDING",
+  "generated_at_utc": "2026-07-06T07:47:58.855153+00:00",
+  "next_action": "N21B2_ONCHAIN_PANEL_BINDING",
+  "nonzero_active_tables": [
+    {
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "holder_group_key",
+        "scan_window_json",
+        "transfer_mint_summary_json",
+        "risk_interpretation",
+        "source_object_uid",
+        "created_at_utc"
+      ],
+      "count": 7,
+      "table": "initial_holder_evidence_events_v1"
+    },
+    {
+      "columns": [
+        "snapshot_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "pair_address",
+        "observed_at_utc",
+        "liquidity_usd",
+        "liquidity_base",
+        "liquidity_quote",
+        "source",
+        "freshness_status",
+        "api_budget_checked",
+        "created_at_utc"
+      ],
+      "count": 46,
+      "table": "liquidity_snapshots"
+    },
+    {
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "mev_risk",
+        "sandwich_risk",
+        "gas_risk",
+        "route_status",
+        "created_at_utc"
+      ],
+      "count": 1,
+      "table": "mev_risk_guard_events"
+    },
+    {
+      "columns": [
+        "score_uid",
+        "news_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "news_token_relevance_score_100",
+        "news_risk_score_100",
+        "news_fusion_score_100",
+        "importance_label",
+        "risk_label",
+        "fusion_label",
+        "explanation",
+        "created_at_utc"
+      ],
+      "count": 47,
+      "table": "news_score_events_v1"
+    },
+    {
+      "columns": [
+        "match_uid",
+        "news_uid",
+        "source_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "match_type",
+        "match_confidence",
+        "match_score",
+        "match_reasons_json",
+        "evidence_text",
+        "is_duplicate",
+        "write_allowed",
+        "trade_signal",
+        "paper_signal",
+        "created_at_utc"
+      ],
+      "count": 47,
+      "table": "news_token_match_events"
+    },
+    {
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "token_address",
+        "pair_address",
+        "source_tag",
+        "verification_status",
+        "mismatch_reason",
+        "observed_at_utc"
+      ],
+      "count": 3,
+      "table": "pair_verification_events"
+    },
+    {
+      "columns": [
+        "pair_uid",
+        "token_uid",
+        "chain",
+        "pair_address",
+        "dex_name",
+        "base_token_address",
+        "quote_token_address",
+        "first_seen_at_utc",
+        "source",
+        "pair_status",
+        "quality_status",
+        "created_at_utc",
+        "updated_at_utc"
+      ],
+      "count": 19,
+      "table": "pairs"
+    },
+    {
+      "columns": [
+        "event_uid",
+        "component_name",
+        "calibration_issue",
+        "suggested_weight_change",
+        "evidence_summary",
+        "created_at_utc"
+      ],
+      "count": 44,
+      "table": "score_calibration_events"
+    },
+    {
+      "columns": [
+        "readmodel_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "token_symbol",
+        "token_name",
+        "final_quality_label",
+        "decision_label",
+        "route_effect",
+        "permission_status",
+        "primary_block_reason",
+        "winning_rule",
+        "next_required_evidence",
+        "stale_status",
+        "emergency_status",
+        "negative_memory_status",
+        "technical_status",
+        "execution_status",
+        "asymmetric_status",
+        "sell_route_status",
+        "liquidity_status",
+        "risk_status",
+        "evidence_age_blocks",
+        "last_event_block",
+        "last_updated_block",
+        "last_updated_timestamp",
+        "last_decision_timestamp",
+        "decision_summary_sentence",
+        "source_event_uid",
+        "source_count",
+        "confidence_score",
+        "payload_json",
+        "created_at_utc",
+        "updated_at_utc",
+        "token_address"
+      ],
+      "count": 19,
+      "table": "state_aggregated_token_readmodel_v1"
+    },
+    {
+      "columns": [
+        "evidence_uid",
+        "token_uid",
+        "pair_uid",
+        "created_at_utc",
+        "evidence_type",
+        "phase",
+        "source",
+        "file_path",
+        "snapshot_uid",
+        "details_json"
+      ],
+      "count": 28,
+      "table": "token_archive_evidence"
+    },
+    {
+      "columns": [
+        "birth_event_uid",
+        "token_uid",
+        "pair_uid",
+        "source",
+        "exchange_or_dex",
+        "chain",
+        "token_address",
+        "pair_address",
+        "birth_time_utc",
+        "initial_liquidity_usd",
+        "initial_price_usd",
+        "initial_tx1h",
+        "initial_volume_1h_usd",
+        "initial_buy_count_1h",
+        "initial_sell_count_1h",
+        "raw_payload_ref",
+        "created_at_utc"
+      ],
+      "count": 19,
+      "table": "token_birth_events"
+    },
+    {
+      "columns": [
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "dex_id",
+        "source",
+        "token_name",
+        "symbol",
+        "token_address",
+        "pair_address",
+        "birth_time_utc",
+        "first_seen_at_utc",
+        "last_seen_at_utc",
+        "current_status",
+        "current_route",
+        "current_tier",
+        "is_alive",
+        "is_dead",
+        "death_time_utc",
+        "death_reason",
+        "final_outcome",
+        "final_pnl_usd",
+        "final_pnl_pct",
+        "created_at_utc",
+        "updated_at_utc"
+      ],
+      "count": 19,
+      "table": "token_lifecycle"
+    },
+    {
+      "columns": [
+        "lifecycle_event_uid",
+        "token_uid",
+        "pair_uid",
+        "created_at_utc",
+        "from_class",
+        "to_class",
+        "transition_reason",
+        "evidence_json",
+        "is_morg_transition",
+        "delete_flag"
+      ],
+      "count": 2,
+      "table": "token_lifecycle_events"
+    },
+    {
+      "columns": [
+        "risk_event_uid",
+        "token_uid",
+        "pair_uid",
+        "event_time_utc",
+        "risk_type",
+        "risk_level",
+        "risk_score",
+        "evidence",
+        "phase",
+        "source",
+        "created_at_utc"
+      ],
+      "count": 15,
+      "table": "token_risk_events"
+    },
+    {
+      "columns": [
+        "score_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "score_total",
+        "score_bucket",
+        "route_status",
+        "hard_block_status",
+        "confidence",
+        "scored_at_utc",
+        "created_at_utc"
+      ],
+      "count": 19,
+      "table": "token_score_100_events"
+    },
+    {
+      "columns": [
+        "evidence_uid",
+        "score_uid",
+        "token_uid",
+        "pair_uid",
+        "created_at_utc",
+        "score_family",
+        "component_name",
+        "evidence_source",
+        "evidence_value",
+        "score_delta",
+        "confidence_level",
+        "data_missing",
+        "no_invention_rule"
+      ],
+      "count": 10,
+      "table": "token_score_evidence_events"
+    },
+    {
+      "columns": [
+        "score_uid",
+        "token_uid",
+        "pair_uid",
+        "created_at_utc",
+        "lifecycle_class",
+        "discovery_score",
+        "risk_score",
+        "entry_readiness_score",
+        "revival_watch_score",
+        "autopsy_value_score",
+        "final_grade",
+        "final_decision",
+        "hard_block_active",
+        "hard_block_reasons_json",
+        "score_components_json",
+        "evidence_coverage_ratio",
+        "paper_simulation_only",
+        "live_trade_permission"
+      ],
+      "count": 2,
+      "table": "token_score_snapshots"
+    },
+    {
+      "columns": [
+        "event_uid",
+        "token_uid",
+        "pair_uid",
+        "chain",
+        "weakness_type",
+        "score_impact",
+        "confidence_impact",
+        "created_at_utc"
+      ],
+      "count": 408,
+      "table": "token_soft_weakness_events"
+    },
+    {
+      "columns": [
+        "status_event_uid",
+        "token_uid",
+        "pair_uid",
+        "event_time_utc",
+        "from_status",
+        "to_status",
+        "route_gate",
+        "tier",
+        "decision",
+        "reason",
+        "phase",
+        "source",
+        "created_at_utc"
+      ],
+      "count": 19,
+      "table": "token_status_history"
+    },
+    {
+      "columns": [
+        "token_uid",
+        "chain",
+        "token_address",
+        "deployer_address",
+        "name",
+        "symbol",
+        "first_seen_at_utc",
+        "source",
+        "identity_status",
+        "risk_route",
+        "created_at_utc",
+        "updated_at_utc"
+      ],
+      "count": 19,
+      "table": "tokens"
+    }
+  ],
+  "panel_local": {
+    "decision": "ONCHAIN_CENTER_READY_LOOKUP_ONLY",
+    "exists": true,
+    "parse_ok": true
+  },
+  "stage": "N21B_ONCHAIN_SOURCE_PROOF_BUNDLE"
+}
