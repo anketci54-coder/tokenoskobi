@@ -1,0 +1,65 @@
+{
+  "phase": "ERA43_PREFLIGHT_AUDIT_VERIFICATION_NOAPI",
+  "created_at_utc": "2026-07-07T09:00:00.000000+00:00",
+  "purpose": "Close GitHub-side post-ERA42 audit obligations that can be safely completed before ERA43 real-run planning, and define hard gates for the remaining verification items.",
+  "github_head_after_runtime_sync": "e0d15b10ec2491be71ff1797bf3940c29750706d",
+  "verified_items": [
+    {
+      "id": "C1",
+      "title": "PROJECT_RUNTIME current_state/top-level runtime drift",
+      "status": "FIXED_GITHUB_SIDE",
+      "evidence": [
+        "tools/era_close.py future closes now sync current_state with top-level runtime fields",
+        "PROJECT_RUNTIME.json current_state.active_work_unit now mirrors ERA42 closed work unit",
+        "PROJECT_RUNTIME.json current_state.next_safe_step now mirrors ERA43 next_safe_step"
+      ],
+      "remaining_server_check": "Run git pull --ff-only origin main; tk sync; tk machine; verify CURRENT_WORK_UNIT and NEXT_SAFE_STEP."
+    },
+    {
+      "id": "C2",
+      "title": "era_close.py shell injection and unsafe CLI inputs",
+      "status": "FIXED_GITHUB_SIDE",
+      "evidence": [
+        "--era now accepts numeric values only",
+        "--current-id, --next and --type accept uppercase alphanumeric underscore only",
+        "git add/commit/push use argv-list subprocess calls",
+        "run_static_shell is reserved only for fixed internal shell pipelines without user input"
+      ],
+      "remaining_server_check": "python3 -m py_compile tools/era_close.py"
+    }
+  ],
+  "verify_gates_before_era43_real_run": [
+    {
+      "id": "C3",
+      "title": "Canonical schema implementation status",
+      "status": "VERIFY_REQUIRED_NOT_FIXED_BY_GITHUB_ONLY",
+      "required_output": "data/control/era43_canonical_schema_implementation_status_noapi_v1.json",
+      "rule": "Classify tables as ACTIVE_LOCAL_DB, IMPLEMENTED_WRITER_FOUND, PLANNED_NOT_WIRED, DEPRECATED_OR_ARCHIVE, or UNKNOWN_REVIEW_REQUIRED. Do not treat planned schema as a bug without local DB/runtime proof."
+    },
+    {
+      "id": "H1",
+      "title": "News matcher zero-result root cause",
+      "status": "VERIFY_REQUIRED_BEFORE_REAL_RUN",
+      "required_output": "data/control/era43_news_matcher_input_contract_audit_noapi_v1.json",
+      "rule": "Verify whether token_score_100_events provides name/symbol/address or equivalent identity fields expected by news_token_matcher_v1 before any real realtime shadow run."
+    }
+  ],
+  "approved_backlog_not_active": [
+    "provider_secret_vault_handler_v1 internal auth header",
+    "SQLite WAL and busy_timeout policy",
+    "remaining shell=True cleanup",
+    "ERA30-ERA41 history catch-up summary",
+    "authority module integration plan",
+    "repo bloat cleanup and archive policy"
+  ],
+  "forbidden_in_this_step": [
+    "runtime service changes",
+    "db schema changes",
+    "live feed pulls",
+    "external API calls",
+    "trade or wallet authority",
+    "cleanup or deletion"
+  ],
+  "decision": "ERA43_PREFLIGHT_GITHUB_SIDE_FIXED_C1_C2_AND_DEFINED_C3_H1_VERIFY_GATES",
+  "next_required_server_step": "Pull GitHub changes, run py_compile, tk sync, tk machine, then run C3/H1 verify gates before opening ERA43 real-run implementation."
+}
