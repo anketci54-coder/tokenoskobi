@@ -1,0 +1,13 @@
+# ERA44 PUBLIC EXPOSURE POST FIX AUDIT NOAPI
+
+- Created UTC: 2026-07-07T19:58:45.950350+00:00
+- Decision: `WARN_ERA44_PUBLIC_EXPOSURE_POST_FIX_AUDIT_NOAPI`
+- Public exposure status: `PASS_NO_UNREDACTED_PUBLIC_KEYWORD_HITS_FOUND`
+- Runtime sync OK: `True`
+- Execution graph runtime proof reliable: `False`
+- Next step: `ERA44_GOVERNANCE_AND_GRAPH_TRUTH_REPAIR_NOAPI`
+- ERA43 real run allowed: `False`
+
+## Findings
+- **HIGH `ERA44_MASTER_STATE_STALE_ERA_MARKERS`** — 06_PROJECT_MASTER_STATE.md contains stale ERA20/ERA23 markers — `MUST_FIX_OR_MARK_ARCHIVAL`
+- **HIGH `ERA44_EXECUTION_GRAPH_NOT_RUNTIME_PROOF`** — ACTIVE_EXECUTION_GRAPH is static/minimal and cannot be used as runtime proof — `MUST_MARK_AS_STATIC_OR_REPAIR`
