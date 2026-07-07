@@ -1,0 +1,169 @@
+{
+  "era": "ERA38",
+  "phase": "CORRELATION_ID_ATOMIC_WRITE_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T04:15:00.000000+00:00",
+  "source_plan": "data/control/era38_general_intelligence_validation_harness_plan_noapi_v1.json",
+  "source_sidecar_contract": "data/control/era38_general_provenance_sidecar_contract_noapi_v1.json",
+  "purpose": "Define the generic atomic write contract between compact staging/context objects and provenance sidecar/map entries so correlation_id never points to missing lineage and Fast Path never consumes orphaned items.",
+  "identity": "CORRELATION_ID_ATOMIC_WRITE_CONTRACT_V1",
+  "scope_rule": "Generic OS-level contract. No runtime patch, DB schema change, product-specific code, or new engine in this phase.",
+  "core_invariant": "A staging/context item must not become READY_FOR_FAST_PATH unless its correlation_id has a confirmed sidecar entry or an explicit NO_PROVENANCE_REQUIRED state.",
+  "required_states": {
+    "correlation_write_state": [
+      "ID_RESERVED",
+      "SIDECAR_WRITE_PENDING",
+      "SIDECAR_WRITE_CONFIRMED",
+      "STAGING_WRITE_PENDING",
+      "STAGING_WRITE_CONFIRMED",
+      "READY_CONFIRMED",
+      "ORPHAN_QUARANTINE_REQUIRED",
+      "WRITE_ABORTED"
+    ],
+    "lineage_state": [
+      "PENDING_PROVENANCE",
+      "PROVENANCE_CONFIRMED",
+      "NO_PROVENANCE_REQUIRED",
+      "ORPHAN_QUARANTINE_REQUIRED"
+    ],
+    "ready_state": [
+      "NOT_READY",
+      "READY_FOR_FAST_PATH",
+      "READY_FOR_HEAVY_PATH_ONLY",
+      "QUARANTINED"
+    ]
+  },
+  "minimum_atomic_sequence": [
+    {
+      "step": 1,
+      "name": "reserve_correlation_id",
+      "required_result": "ID_RESERVED",
+      "failure_result": "WRITE_ABORTED"
+    },
+    {
+      "step": 2,
+      "name": "write_or_confirm_sidecar_entry",
+      "required_result": "SIDECAR_WRITE_CONFIRMED",
+      "failure_result": "WRITE_ABORTED_OR_ORPHAN_QUARANTINE_REQUIRED"
+    },
+    {
+      "step": 3,
+      "name": "write_staging_item_with_correlation_id",
+      "required_result": "STAGING_WRITE_CONFIRMED",
+      "failure_result": "WRITE_ABORTED_SIDE_CAR_CAN_EXPIRE_OR_ARCHIVE_BY_TTL"
+    },
+    {
+      "step": 4,
+      "name": "set_lineage_state",
+      "required_result": "PROVENANCE_CONFIRMED_OR_NO_PROVENANCE_REQUIRED",
+      "failure_result": "ORPHAN_QUARANTINE_REQUIRED"
+    },
+    {
+      "step": 5,
+      "name": "allow_ready_state",
+      "required_result": "READY_FOR_FAST_PATH_ONLY_AFTER_CONFIRMED_LINEAGE",
+      "failure_result": "NOT_READY_OR_QUARANTINED"
+    }
+  ],
+  "allowed_fast_path_gate": {
+    "condition": "ready_state == READY_FOR_FAST_PATH AND lineage_state IN [PROVENANCE_CONFIRMED, NO_PROVENANCE_REQUIRED]",
+    "must_reject": [
+      "PENDING_PROVENANCE",
+      "ORPHAN_QUARANTINE_REQUIRED",
+      "SIDECAR_WRITE_PENDING",
+      "STAGING_WRITE_PENDING",
+      "WRITE_ABORTED"
+    ]
+  },
+  "partial_write_cases": [
+    {
+      "case": "sidecar_written_staging_failed",
+      "safe_state": "WRITE_ABORTED_SIDE_CAR_CAN_EXPIRE_OR_ARCHIVE_BY_TTL",
+      "fast_path_allowed": false,
+      "required_note": "No staging item exists; sidecar entry may expire/archive by lifecycle."
+    },
+    {
+      "case": "staging_written_sidecar_missing",
+      "safe_state": "ORPHAN_QUARANTINE_REQUIRED",
+      "fast_path_allowed": false,
+      "required_note": "Staging item must not become READY_FOR_FAST_PATH."
+    },
+    {
+      "case": "id_reserved_no_writes",
+      "safe_state": "WRITE_ABORTED",
+      "fast_path_allowed": false,
+      "required_note": "Correlation id reservation can expire."
+    },
+    {
+      "case": "sidecar_confirmed_staging_pending_timeout",
+      "safe_state": "WRITE_ABORTED_OR_EXPIRED",
+      "fast_path_allowed": false,
+      "required_note": "TTL/archive lifecycle handles abandoned sidecar."
+    },
+    {
+      "case": "no_provenance_required_explicit",
+      "safe_state": "NO_PROVENANCE_REQUIRED",
+      "fast_path_allowed": true,
+      "required_note": "Must be explicit and auditable; cannot be default for unknown lineage."
+    }
+  ],
+  "orphan_hunter_contract_requirement": {
+    "status": "CONTRACT_ONLY_NOT_ENGINE_IN_ERA38",
+    "future_role": "Lifecycle/Internal Affairs may later detect orphan staging correlation_id values without sidecar entries.",
+    "required_behavior": [
+      "scan_staging_correlation_ids",
+      "verify_sidecar_entry_exists_or_no_provenance_required",
+      "mark_missing_as_ORPHAN_QUARANTINE_REQUIRED",
+      "keep_orphans_out_of_fast_path",
+      "emit_audit_context_without_trade_or_decision_authority"
+    ]
+  },
+  "locking_and_versioning_rules": {
+    "lock_scope": "correlation_id",
+    "lock_purpose": "Prevent two writers from assigning conflicting sidecar lineage to the same correlation_id.",
+    "version_fields_required_for_future_implementation": [
+      "correlation_id",
+      "sidecar_version",
+      "staging_version",
+      "schema_version",
+      "created_at_utc",
+      "updated_at_utc"
+    ],
+    "immutability_rule": "Confirmed sidecar lineage must not be silently overwritten. Later corrections create a new version or transition record.",
+    "conflict_policy": "Conflicting writes must fail closed to quarantine/review, not merge silently."
+  },
+  "validation_targets_for_era38_fixtures": [
+    "confirmed_sidecar_before_ready_state",
+    "staging_without_sidecar_rejected_from_fast_path",
+    "pending_provenance_rejected_from_fast_path",
+    "no_provenance_required_must_be_explicit",
+    "sidecar_written_staging_failed_does_not_create_ready_item",
+    "conflicting_sidecar_write_fails_closed",
+    "versioned_update_does_not_silent_overwrite",
+    "orphan_hunter_requirement_present_not_runtime_engine"
+  ],
+  "forbidden_work_in_this_phase": [
+    "runtime_patch",
+    "db_schema_change",
+    "staging_object_patch",
+    "news_only_product_code",
+    "external_api_call",
+    "new_engine_creation",
+    "new_physical_queue",
+    "systemd_change",
+    "root_artifact_creation",
+    "trade_wallet_order_authority"
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_CORRELATION_ID_ATOMIC_WRITE_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA38_TTL_ARCHIVE_LIFECYCLE_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA38_CORRELATION_ID_ATOMIC_WRITE_CONTRACT_NOAPI"
+}
