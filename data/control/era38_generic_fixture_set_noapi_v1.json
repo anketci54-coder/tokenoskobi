@@ -1,0 +1,75 @@
+{
+  "era": "ERA38",
+  "phase": "GENERIC_FIXTURE_SET_NOAPI",
+  "created_at_utc": "2026-07-07T05:05:00.000000+00:00",
+  "source_schema": "data/control/era38_generic_fixture_schema_noapi_v1.json",
+  "source_adversarial_contract": "data/control/era38_adversarial_and_random_noise_fixture_contract_noapi_v1.json",
+  "purpose": "Provide a compact generic fixture set for ERA38 validation harness dryrun without runtime mutation, external API, DB/schema change, product-specific code, or new engine.",
+  "fixture_set_identity": "ERA38_GENERIC_FIXTURE_SET_V1",
+  "scope_rule": "Generic OS-level fixtures. News is the first consumer only.",
+  "fixtures": [
+    {
+      "fixture_id": "F01_VALID_MINIMAL_PROVENANCE_CONFIRMED",
+      "fixture_type": "VALID_MINIMAL",
+      "input_object": {"object_type": "GENERIC_CONTEXT", "object_state": "STAGING_CONTEXT", "correlation_id": "cid_f01", "lineage_state": "PROVENANCE_CONFIRMED", "ready_state": "READY_FOR_FAST_PATH"},
+      "sidecar_present": true,
+      "expected_validation": {"should_pass": true, "expected_fast_path_allowed": true, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "ACTIVE_READY"}
+    },
+    {
+      "fixture_id": "F02_MISSING_CORRELATION_ID",
+      "fixture_type": "MISSING_CORRELATION_ID",
+      "input_object": {"object_type": "GENERIC_CONTEXT", "object_state": "STAGING_CONTEXT", "lineage_state": "PENDING_PROVENANCE", "ready_state": "NOT_READY"},
+      "sidecar_present": false,
+      "expected_validation": {"should_pass": false, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": false, "expected_lifecycle_state": "QUARANTINED"}
+    },
+    {
+      "fixture_id": "F03_MISSING_SIDECAR_ORPHAN",
+      "fixture_type": "MISSING_SIDECAR",
+      "input_object": {"object_type": "GENERIC_CONTEXT", "object_state": "STAGING_CONTEXT", "correlation_id": "cid_f03", "lineage_state": "ORPHAN_QUARANTINE_REQUIRED", "ready_state": "QUARANTINED"},
+      "sidecar_present": false,
+      "expected_validation": {"should_pass": false, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "QUARANTINED"}
+    },
+    {
+      "fixture_id": "F04_PENDING_PROVENANCE_BLOCKS_FAST_PATH",
+      "fixture_type": "PENDING_PROVENANCE",
+      "input_object": {"object_type": "GENERIC_CONTEXT", "object_state": "STAGING_CONTEXT", "correlation_id": "cid_f04", "lineage_state": "PENDING_PROVENANCE", "ready_state": "NOT_READY"},
+      "sidecar_present": true,
+      "expected_validation": {"should_pass": true, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "ACTIVE_PENDING"}
+    },
+    {
+      "fixture_id": "F05_FORBIDDEN_STAGING_METADATA",
+      "fixture_type": "FORBIDDEN_STAGING_METADATA",
+      "input_object": {"object_type": "GENERIC_CONTEXT", "object_state": "STAGING_CONTEXT", "correlation_id": "cid_f05", "lineage_state": "PROVENANCE_CONFIRMED", "ready_state": "READY_FOR_FAST_PATH", "full_ai_explanation": "forbidden"},
+      "sidecar_present": true,
+      "expected_validation": {"should_pass": false, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "REJECTED"}
+    },
+    {
+      "fixture_id": "F06_AI_CONTEXT_RAW_ONLY",
+      "fixture_type": "AI_CONTEXT_RAW_ONLY",
+      "input_object": {"object_type": "AI_CONTEXT", "object_state": "RAW_CONTEXT_ONLY", "correlation_id": "cid_f06", "lineage_state": "PROVENANCE_CONFIRMED", "ready_state": "READY_FOR_HEAVY_PATH_ONLY"},
+      "sidecar_present": true,
+      "expected_validation": {"should_pass": true, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "VALIDATED_CONTEXT"}
+    },
+    {
+      "fixture_id": "F07_SYMBOL_COLLISION_NEWS_FIRST_CONSUMER",
+      "fixture_type": "NEWS_IDENTITY_MISRESOLVED",
+      "input_object": {"object_type": "NEWS_CONTEXT", "object_state": "STAGING_CONTEXT", "correlation_id": "cid_f07", "lineage_state": "PROVENANCE_CONFIRMED", "ready_state": "READY_FOR_HEAVY_PATH_ONLY"},
+      "sidecar_present": true,
+      "adversarial_profile": "SYMBOL_COLLISION_CONTEXT",
+      "expected_validation": {"should_pass": true, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "QUARANTINED", "token_specific_signal_allowed": false}
+    },
+    {
+      "fixture_id": "F08_RANDOM_NOISE_REPLAY_STABLE",
+      "fixture_type": "UNKNOWN_ADVERSARIAL_CONTEXT",
+      "input_object": {"object_type": "GENERIC_CONTEXT", "object_state": "STAGING_CONTEXT", "correlation_id": "cid_f08", "lineage_state": "PROVENANCE_CONFIRMED", "ready_state": "READY_FOR_HEAVY_PATH_ONLY"},
+      "sidecar_present": true,
+      "noise_profile": {"noise_seed": "era38_seed_001", "noise_level": 0.7, "source_count": 3, "contradiction_rate": 0.4, "identity_confusion_rate": 0.5},
+      "expected_validation": {"should_pass": true, "expected_fast_path_allowed": false, "expected_heavy_path_allowed": true, "expected_lifecycle_state": "VALIDATED_CONTEXT"}
+    }
+  ],
+  "forbidden_work_in_this_phase": ["runtime_patch", "db_schema_change", "staging_object_patch", "external_api_call", "new_engine_creation", "root_artifact_creation", "trade_wallet_order_authority"],
+  "guards": {"new_engine_created": false, "runtime_mutation": false, "root_files_created": false, "core_upgrade_opened": false, "external_api_calls": 0, "live_trade": false, "wallet_connection": false, "product_specific_code": false},
+  "decision": "ERA38_GENERIC_FIXTURE_SET_DEFINED_NOAPI",
+  "next_step": "ERA38_VALIDATION_RUNNER_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA38_GENERIC_FIXTURE_SET_NOAPI"
+}
