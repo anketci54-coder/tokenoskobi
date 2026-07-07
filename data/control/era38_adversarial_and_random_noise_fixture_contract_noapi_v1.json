@@ -1,0 +1,141 @@
+{
+  "era": "ERA38",
+  "phase": "ADVERSARIAL_AND_RANDOM_NOISE_FIXTURE_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T04:50:00.000000+00:00",
+  "source_plan": "data/control/era38_general_intelligence_validation_harness_plan_noapi_v1.json",
+  "source_fixture_schema": "data/control/era38_generic_fixture_schema_noapi_v1.json",
+  "purpose": "Define generic adversarial and random-noise fixture requirements for the ERA38 validation harness so the system tests robustness without overfitting to known historical attacks or creating product-specific News code.",
+  "identity": "ADVERSARIAL_RANDOM_NOISE_FIXTURE_CONTRACT_V1",
+  "scope_rule": "Generic OS-level fixture contract. News is the first consumer, but cases must be reusable for future security, training, audit, anomaly and intelligence validation.",
+  "core_principles": {
+    "no_overfitting_to_known_attacks": true,
+    "parametric_noise_required": true,
+    "random_noise_shift_required": true,
+    "deterministic_seed_required_for_replay": true,
+    "no_runtime_mutation": true,
+    "no_external_api": true,
+    "no_product_specific_code": true,
+    "no_trade_or_decision_authority": true
+  },
+  "adversarial_fixture_families": [
+    "FAKE_HACK_CONTEXT",
+    "FAKE_PARTNERSHIP_CONTEXT",
+    "FAKE_LISTING_CONTEXT",
+    "FAKE_DELISTING_CONTEXT",
+    "PUMP_AND_DUMP_CONTEXT",
+    "BOT_SPAM_CONTEXT",
+    "AI_GENERATED_FAKE_ARTICLE_CONTEXT",
+    "OLD_NEWS_RECIRCULATION_CONTEXT",
+    "CLICKBAIT_HEADLINE_CONTEXT",
+    "HOMOGLYPH_IDENTITY_CONTEXT",
+    "SYMBOL_COLLISION_CONTEXT",
+    "WRONG_CHAIN_CONTEXT",
+    "MISRESOLVED_IDENTITY_CONTEXT",
+    "SINGLE_SOURCE_HYPE_CONTEXT",
+    "CONFLICTING_SOURCE_CONTEXT",
+    "SEMANTIC_CONTAMINATION_CONTEXT",
+    "OPPORTUNITY_COST_OF_SILENCE_CONTEXT",
+    "UNKNOWN_ADVERSARIAL_CONTEXT"
+  ],
+  "noise_profile_contract": {
+    "required_fields": [
+      "noise_seed",
+      "noise_level",
+      "source_count",
+      "source_reliability_mix",
+      "contradiction_rate",
+      "ambiguity_rate",
+      "identity_confusion_rate",
+      "staleness_rate",
+      "ai_generated_probability"
+    ],
+    "noise_level_range": {
+      "min": 0.0,
+      "max": 1.0,
+      "default_sweep": [0.1, 0.3, 0.5, 0.7, 0.9]
+    },
+    "random_shift_rule": "Each dryrun may shift selected noise parameters by bounded random delta while preserving the deterministic noise_seed for replay.",
+    "random_shift_bounds": {
+      "recommended_default_delta": 0.1,
+      "hard_max_delta": 0.2
+    }
+  },
+  "expected_behavior_contract": {
+    "fake_or_unverified_news": "Remain context-only, require missing_evidence, and must not become decision authority.",
+    "identity_ambiguous_or_misresolved": "Block token-specific signal and route to review/quarantine context.",
+    "single_source_hype": "May become narrative context only; must not become high-confidence risk/opportunity authority.",
+    "conflicting_sources": "Fail closed to review/quarantine; no silent merge.",
+    "old_news_recirc": "Mark stale/recirculated context and require freshness validation.",
+    "homoglyph_or_symbol_collision": "Require stronger identity proof; otherwise unresolved/review.",
+    "opportunity_cost_silence": "May route to observe/review context only; no trade authority.",
+    "semantic_contamination": "Narrative must remain separate from evidence and canonical truth."
+  },
+  "fixture_required_assertions": [
+    "forbidden_fields_absent",
+    "missing_evidence_present_when_required",
+    "unresolved_identity_blocks_token_specific_signal",
+    "misresolved_identity_fails_closed",
+    "single_source_hype_not_high_confidence_authority",
+    "conflicting_sources_not_silently_merged",
+    "random_noise_does_not_break_schema",
+    "deterministic_seed_allows_replay",
+    "hot_path_never_reads_heavy_payload",
+    "sidecar_lineage_preserved",
+    "no_trade_wallet_order_authority"
+  ],
+  "blind_replay_alignment": {
+    "era39_preparation": true,
+    "outcome_hidden_required": true,
+    "estimate_immutable_before_outcome_reveal": true,
+    "adversarial_fixture_outcome_must_not_leak_to_input": true,
+    "hindsight_bias_guard_required": true,
+    "feedback_context_only": true
+  },
+  "budget_and_economy_rules": {
+    "cheap_first": true,
+    "heavy_path_budgeted": true,
+    "duplicate_collapse_required": true,
+    "full_history_scan_on_hot_path": false,
+    "ml_similarity_on_hot_path": false,
+    "expensive_model_call_required": false,
+    "fixture_sweep_must_be_bounded": true
+  },
+  "validation_targets_for_noapi_dryrun": [
+    "fake_hack_context_remains_context_only",
+    "fake_listing_context_requires_missing_evidence",
+    "symbol_collision_blocks_token_specific_signal",
+    "homoglyph_identity_routes_review",
+    "old_news_recirc_marked_stale",
+    "single_source_hype_no_high_confidence",
+    "conflicting_sources_fail_closed",
+    "random_noise_seed_replay_stable",
+    "noise_shift_within_bounds",
+    "semantic_contamination_does_not_enter_evidence",
+    "opportunity_cost_observe_no_trade_authority"
+  ],
+  "forbidden_work_in_this_phase": [
+    "runtime_patch",
+    "db_schema_change",
+    "staging_object_patch",
+    "news_only_product_code",
+    "external_api_call",
+    "new_engine_creation",
+    "new_physical_queue",
+    "systemd_change",
+    "root_artifact_creation",
+    "trade_wallet_order_authority"
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_ADVERSARIAL_AND_RANDOM_NOISE_FIXTURE_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA38_NOAPI_VALIDATION_DRYRUN_REPORT",
+  "final_gate": "PASS_ERA38_ADVERSARIAL_AND_RANDOM_NOISE_FIXTURE_CONTRACT_NOAPI"
+}
