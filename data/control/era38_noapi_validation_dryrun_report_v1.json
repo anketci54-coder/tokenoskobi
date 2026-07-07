@@ -1,0 +1,58 @@
+{
+  "era": "ERA38",
+  "phase": "NOAPI_VALIDATION_DRYRUN_REPORT",
+  "created_at_utc": "2026-07-07T05:20:00.000000+00:00",
+  "source_fixture_set": "data/control/era38_generic_fixture_set_noapi_v1.json",
+  "source_runner_contract": "data/control/era38_validation_runner_contract_noapi_v1.json",
+  "mode": "STATIC_NOAPI_CONTRACT_EVALUATION",
+  "purpose": "Evaluate the ERA38 fixture set against the validation runner contract as a static noapi dryrun without changing runtime, schema, services, or product code.",
+  "summary": {
+    "fixture_count": 8,
+    "pass_count": 8,
+    "warn_count": 0,
+    "fail_count": 0,
+    "failed_fixture_ids": [],
+    "warnings": []
+  },
+  "fixture_results": [
+    {"fixture_id": "F01_VALID_MINIMAL_PROVENANCE_CONFIRMED", "result": "PASS", "reason": "Confirmed lineage and compact staging allow Fast Path."},
+    {"fixture_id": "F02_MISSING_CORRELATION_ID", "result": "PASS", "reason": "Missing lineage pointer is blocked from Fast Path."},
+    {"fixture_id": "F03_MISSING_SIDECAR_ORPHAN", "result": "PASS", "reason": "Orphan item is routed to quarantine/review state."},
+    {"fixture_id": "F04_PENDING_PROVENANCE_BLOCKS_FAST_PATH", "result": "PASS", "reason": "Pending lineage remains non-ready for Fast Path."},
+    {"fixture_id": "F05_FORBIDDEN_STAGING_METADATA", "result": "PASS", "reason": "Heavy metadata in staging is rejected."},
+    {"fixture_id": "F06_AI_CONTEXT_RAW_ONLY", "result": "PASS", "reason": "Model context remains context-only."},
+    {"fixture_id": "F07_SYMBOL_COLLISION_NEWS_FIRST_CONSUMER", "result": "PASS", "reason": "Ambiguous identity blocks token-specific output and routes review."},
+    {"fixture_id": "F08_RANDOM_NOISE_REPLAY_STABLE", "result": "PASS", "reason": "Noise case remains deterministic by seed and review-only."}
+  ],
+  "validated_rules": {
+    "staging_compact": true,
+    "correlation_id_lineage_pointer": true,
+    "sidecar_before_fast_path_ready": true,
+    "pending_lineage_blocks_fast_path": true,
+    "orphan_item_review_required": true,
+    "model_context_not_truth": true,
+    "ambiguous_identity_blocks_specific_output": true,
+    "random_noise_seed_replay_stable": true,
+    "hot_path_compact_only": true,
+    "heavy_path_budgeted": true,
+    "authority_absent": true
+  },
+  "known_limits": [
+    "Static contract dryrun only.",
+    "Historical News blind replay is planned for ERA39.",
+    "Real/shadow News test comes after historical replay gates."
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_NOAPI_VALIDATION_DRYRUN_PASS",
+  "next_step": "ERA38_FINAL_REVIEW_AND_RUNTIME_CLOSE",
+  "final_gate": "PASS_ERA38_NOAPI_VALIDATION_DRYRUN"
+}
