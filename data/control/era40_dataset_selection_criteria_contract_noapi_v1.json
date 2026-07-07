@@ -1,0 +1,112 @@
+{
+  "era": "ERA40",
+  "phase": "DATASET_SELECTION_CRITERIA_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T07:05:00.000000+00:00",
+  "source_plan": "data/control/era40_historical_news_dataset_selection_and_real_replay_prep_plan_noapi_v1.json",
+  "source_discovery": "data/control/era40_local_historical_source_discovery_noapi_v1.json",
+  "source_discovery_sha": "7aa3909476adc4c15550bf30ef3d3b5149c5474f",
+  "discovery_facts_used": {
+    "candidate_files_count": 312,
+    "sqlite_files_count": 3,
+    "sqlite_news_related_tables_count": 364,
+    "detail_archive": "data/control/discovery_archive/era40_local_historical_source_discovery_detail_noapi_v1.json",
+    "notable_local_sources": [
+      "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+      "tools/news_radar_refresh_runner_v1.py",
+      "tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+      "data/control/n17a4_news_matcher_write_binding_audit_v1.json",
+      "archive/root_cleanup_20260706/folder_legacy/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/news_radar_tr_preview_data.json"
+    ]
+  },
+  "purpose": "Define selection criteria for real historical news replay packages using discovered local sources only, while preserving blind outcome masking and avoiding live pulls or runtime changes.",
+  "selection_policy": {
+    "primary_source_priority": [
+      "existing sqlite news/feed/event tables with row counts",
+      "existing local news backup sqlite files",
+      "existing news matcher/binding audit artifacts",
+      "existing news preview/feed json artifacts",
+      "existing local runner outputs if they contain event-time-visible input"
+    ],
+    "deprioritized_sources": [
+      "large shadow runtime lab files unless explicitly linked to news cases",
+      "pycache files",
+      "generic phase docs without replayable event rows",
+      "files containing only plans with no event-time-visible input",
+      "sources requiring external API in ERA40"
+    ]
+  },
+  "case_selection_required_fields": [
+    "case_id",
+    "correlation_id",
+    "source_path_or_table",
+    "event_time_utc_or_best_available_time",
+    "visible_news_text_or_summary",
+    "source_class_or_source_ref",
+    "available_identity_context_at_event_time",
+    "outcome_ref_separate_or_later_join_key",
+    "masking_status",
+    "selection_reason"
+  ],
+  "case_acceptance_criteria": [
+    "event_time_available_or_recoverable",
+    "visible_input_available_without_later_outcome_leakage",
+    "source_class_available_or_derivable",
+    "correlation_id_assignable",
+    "outcome_can_be_kept_separate_until_reveal",
+    "case_has_news_replay_value",
+    "case_can_be_processed_without_external_api_in_era40"
+  ],
+  "case_rejection_criteria": [
+    "no_event_time",
+    "no_visible_news_text_or_summary",
+    "outcome_mixed_into_visible_input_and_not_maskable",
+    "only_runtime_later_result_without_original_input",
+    "pycache_or_binary_only",
+    "source_requires_live_pull_or_external_api",
+    "file_is_too_large_for_active_manifest_and_has_no_case_index",
+    "not_news_or_news_context_related"
+  ],
+  "masking_requirements": {
+    "visible_package": "Contains only event-time-visible news/context fields.",
+    "hidden_package": "Contains later outcome/result fields, kept separate until estimate seal exists.",
+    "leakage_check": "Any case where outcome text appears in visible input is rejected or quarantined before replay.",
+    "seal_rule": "Estimate must be sealed before hidden outcome package is opened."
+  },
+  "target_initial_dataset_size": {
+    "minimum_cases": 5,
+    "preferred_cases": 20,
+    "maximum_cases_for_first_replay": 50,
+    "reason": "Keep first real historical replay bounded, inspectable and cheap."
+  },
+  "output_manifests_next": [
+    "selected_case_manifest",
+    "masked_input_manifest",
+    "hidden_outcome_manifest",
+    "leakage_check_report",
+    "pre_replay_audit_report"
+  ],
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "outcome_leakage_to_estimator",
+    "product_specific_code",
+    "root_artifact_creation"
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA40_DATASET_SELECTION_CRITERIA_DEFINED_FROM_DISCOVERY_NOAPI",
+  "next_step": "ERA40_OUTCOME_SPLIT_AND_MASKING_PREP_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA40_DATASET_SELECTION_CRITERIA_CONTRACT_NOAPI"
+}
