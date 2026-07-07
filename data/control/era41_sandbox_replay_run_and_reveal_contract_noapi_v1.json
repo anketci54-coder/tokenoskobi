@@ -1,0 +1,96 @@
+{
+  "era": "ERA41",
+  "phase": "SANDBOX_REPLAY_RUN_AND_REVEAL_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T07:50:00.000000+00:00",
+  "source_score_contract": "data/control/era41_historical_news_blind_replay_plan_and_score_contract_noapi_v1.json",
+  "source_era40_manifests": "data/control/era40_replay_manifests/",
+  "purpose": "Define how the first historical blind replay must run inside a sandbox: masked input is estimated first, estimates are sealed, hidden outcomes are revealed only after seal, then scoring produces context-only feedback.",
+  "identity": "ERA41_SANDBOX_REPLAY_RUN_AND_REVEAL_CONTRACT_V1",
+  "run_mode": "SANDBOX_NOAPI",
+  "input_manifests_required": [
+    "era40_selected_case_manifest_noapi_v1.json",
+    "era40_masked_input_manifest_noapi_v1.json",
+    "era40_hidden_outcome_manifest_noapi_v1.json",
+    "era40_leakage_check_report_noapi_v1.json",
+    "era40_pre_replay_audit_noapi_v1.json"
+  ],
+  "run_sequence": [
+    "load_masked_input_manifest",
+    "confirm_hidden_outcome_manifest_locked",
+    "produce_estimate_for_each_case",
+    "write_sealed_estimate_manifest",
+    "write_decision_path_manifest",
+    "only_then_open_hidden_outcome_manifest",
+    "score_estimates_against_revealed_outcomes",
+    "write_replay_result_report",
+    "write_calibration_feedback_report"
+  ],
+  "estimate_generation_contract": {
+    "allowed_inputs": [
+      "case_id",
+      "correlation_id",
+      "event_time_utc_or_best_available_time",
+      "visible_news_text_or_summary",
+      "source_class_or_source_ref",
+      "available_identity_context_at_event_time",
+      "missing_evidence_at_event_time"
+    ],
+    "forbidden_inputs": [
+      "hidden_outcome_manifest",
+      "later_result",
+      "future_label",
+      "final_score",
+      "post_event_note"
+    ],
+    "estimate_rule": "If evidence is missing or identity is unresolved, choose REVIEW_CONTEXT, OBSERVE_CONTEXT or UNKNOWN_CONTEXT instead of unsafe confidence."
+  },
+  "seal_contract": {
+    "estimate_hash_required": true,
+    "decision_path_hash_required": true,
+    "sealed_at_utc_required": true,
+    "estimate_modification_after_seal": "CRITICAL_FAILURE",
+    "hidden_outcome_open_before_seal": "CRITICAL_FAILURE"
+  },
+  "reveal_and_score_contract": {
+    "reveal_allowed_only_after_seal": true,
+    "score_dimensions": [
+      "decision_vs_outcome_alignment",
+      "confidence_mismatch",
+      "false_positive_approval",
+      "false_negative_or_missed_opportunity",
+      "missing_evidence_quality",
+      "review_rate",
+      "unknown_rate"
+    ],
+    "feedback_rule": "Scoring output is calibration context only and cannot authorize execution or overwrite original estimate."
+  },
+  "expected_outputs": [
+    "data/control/era41_replay_outputs/era41_sealed_estimate_manifest_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_decision_path_manifest_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_replay_result_report_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_calibration_feedback_report_noapi_v1.json"
+  ],
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "canonical_state_overwrite",
+    "product_specific_code"
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "canonical_overwrite": false
+  },
+  "decision": "ERA41_SANDBOX_REPLAY_RUN_AND_REVEAL_CONTRACT_DEFINED_NOAPI",
+  "next_step": "SERVER_RUNTIME_OPEN_ERA41_AND_RUN_SANDBOX_REPLAY",
+  "final_gate": "PASS_ERA41_SANDBOX_REPLAY_RUN_AND_REVEAL_CONTRACT_NOAPI"
+}
