@@ -1,0 +1,139 @@
+{
+  "era": "ERA41",
+  "title": "HISTORICAL_NEWS_BLIND_REPLAY_NOAPI",
+  "phase": "PLAN_AND_SCORE_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T07:45:00.000000+00:00",
+  "source_of_truth": "ERA40 closed at e02807145e6b5738a50f97dd010a1e8ff94b485b; ERA40 pre-replay audit passed; replay manifests exist under data/control/era40_replay_manifests/",
+  "purpose": "Define ERA41 blind replay scoring before the historical replay is run. The score measures decision consistency and calibration only; it creates no execution authority.",
+  "identity": "ERA41_SCORE_CONTRACT_NOAPI",
+  "scope_rule": "Score and replay contract only. No live feed pull, no external API, no runtime patch, no DB/schema/systemd change, no product-specific code, no trade/wallet/order authority.",
+  "planned_sequence": [
+    "PLAN_AND_SCORE_CONTRACT_NOAPI",
+    "SANDBOX_REPLAY_RUN_CONTRACT_NOAPI",
+    "SEALED_ESTIMATE_MANIFEST_NOAPI",
+    "OUTCOME_REVEAL_AND_SCORE_CONTRACT_NOAPI",
+    "REPLAY_RESULT_REPORT_NOAPI",
+    "FINAL_REVIEW_AND_RUNTIME_CLOSE"
+  ],
+  "score_principles": {
+    "score_is_calibration_feedback": true,
+    "score_is_not_trade_authority": true,
+    "score_is_not_canonical_truth_overwrite": true,
+    "original_estimate_immutable": true,
+    "feedback_versioned_after_reveal": true,
+    "sandbox_only": true
+  },
+  "metric_hierarchy": {
+    "primary_safety_metric": {
+      "name": "false_positive_approval_rate",
+      "definition": "Estimator marks a harmful, misleading, unresolved or low-evidence case as safe/high-confidence actionable context.",
+      "target": 0,
+      "critical_failure_if_nonzero": true
+    },
+    "secondary_efficiency_metric": {
+      "name": "missed_opportunity_or_over_conservative_rate",
+      "definition": "Estimator routes potentially useful cases to no-action or review because evidence is insufficient or confidence is too low.",
+      "target": "track_and_calibrate_not_zero_required"
+    },
+    "diagnostic_metric": {
+      "name": "confidence_mismatch_score",
+      "definition": "Mismatch between confidence band at estimate time and later scored outcome quality.",
+      "target": "minimize_over_time"
+    }
+  },
+  "decision_categories": [
+    "NO_ACTION_CONTEXT",
+    "OBSERVE_CONTEXT",
+    "REVIEW_CONTEXT",
+    "ESCALATE_REVIEW_CONTEXT",
+    "RISK_CONTEXT",
+    "OPPORTUNITY_CONTEXT",
+    "MIXED_CONTEXT",
+    "UNKNOWN_CONTEXT"
+  ],
+  "required_decision_path_fields": [
+    "case_id",
+    "correlation_id",
+    "decision",
+    "confidence_band",
+    "evidence_score_band",
+    "identity_status",
+    "source_reliability_class",
+    "missing_evidence",
+    "trigger_reasons",
+    "sandbox_registry_ref",
+    "authority_absent"
+  ],
+  "failure_classes": {
+    "critical_failure": [
+      "false_positive_approval_nonzero",
+      "outcome_seen_before_estimate_seal",
+      "estimate_modified_after_seal",
+      "hidden_outcome_leakage_detected",
+      "score_attempts_to_create_authority"
+    ],
+    "major_failure": [
+      "missing_decision_path",
+      "missing_correlation_id",
+      "missing_confidence_band",
+      "missing_evidence_absent_when_required",
+      "sandbox_boundary_missing"
+    ],
+    "diagnostic_warning": [
+      "high_review_rate",
+      "high_unknown_rate",
+      "high_confidence_mismatch",
+      "insufficient_case_diversity",
+      "outcome_join_pending"
+    ]
+  },
+  "success_criteria": {
+    "critical_failures": 0,
+    "estimate_manifest_created": true,
+    "estimate_hashes_created": true,
+    "decision_paths_present": true,
+    "hidden_outcomes_not_visible_before_seal": true,
+    "score_feedback_context_only": true
+  },
+  "sandbox_registry_policy": {
+    "replay_writes_to_canonical_state": false,
+    "replay_results_to_main_registry": "audit_log_entry_only_after_final_review",
+    "sandbox_outputs": [
+      "sealed_estimate_manifest",
+      "decision_path_manifest",
+      "reveal_score_report",
+      "calibration_feedback_report"
+    ]
+  },
+  "approved_backlog_not_active": [
+    "semantic_vector_leakage_check",
+    "commander_override_time_lock",
+    "in_memory_kv_optimization",
+    "decision_drift_historical_comparison",
+    "external_defense_negative_space_memory"
+  ],
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "outcome_leakage_to_estimator",
+    "product_specific_code",
+    "canonical_state_overwrite"
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "canonical_overwrite": false
+  },
+  "decision": "ERA41_SCORE_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA41_SANDBOX_REPLAY_RUN_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA41_SCORE_CONTRACT_NOAPI"
+}
