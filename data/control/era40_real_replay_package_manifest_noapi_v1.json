@@ -1,0 +1,129 @@
+{
+  "era": "ERA40",
+  "phase": "REAL_REPLAY_PACKAGE_MANIFEST_NOAPI",
+  "created_at_utc": "2026-07-07T07:25:00.000000+00:00",
+  "source_plan": "data/control/era40_historical_news_dataset_selection_and_real_replay_prep_plan_noapi_v1.json",
+  "source_discovery": "data/control/era40_local_historical_source_discovery_noapi_v1.json",
+  "source_selection_criteria": "data/control/era40_dataset_selection_criteria_contract_noapi_v1.json",
+  "source_masking_contract": "data/control/era40_outcome_split_and_masking_prep_contract_noapi_v1.json",
+  "purpose": "Define the manifest structure for the first bounded historical replay package. This prepares real replay packaging but does not execute replay or expose outcomes.",
+  "scope_rule": "Manifest contract only. No live feed pull, no runtime patch, no external API, no DB/schema/systemd change, no product-specific code.",
+  "package_identity": "ERA40_REAL_REPLAY_PACKAGE_MANIFEST_V1",
+  "package_bounds": {
+    "minimum_cases": 5,
+    "preferred_cases": 20,
+    "maximum_cases": 50,
+    "historical_only": true,
+    "visible_input_hidden_outcome_split_required": true
+  },
+  "manifest_files_to_create_later": [
+    {
+      "name": "selected_case_manifest",
+      "purpose": "List selected historical cases and source refs without hidden outcome fields."
+    },
+    {
+      "name": "masked_input_manifest",
+      "purpose": "Estimator-facing package containing only event-time-visible fields."
+    },
+    {
+      "name": "hidden_outcome_manifest",
+      "purpose": "Separated outcome package locked until estimate seal exists."
+    },
+    {
+      "name": "leakage_check_report",
+      "purpose": "Confirms visible inputs do not contain later outcome fields."
+    },
+    {
+      "name": "pre_replay_audit_report",
+      "purpose": "Confirms package is ready for first bounded historical replay."
+    }
+  ],
+  "selected_case_manifest_schema": {
+    "required_fields": [
+      "case_id",
+      "correlation_id",
+      "source_path_or_table",
+      "source_record_ref",
+      "event_time_utc_or_best_available_time",
+      "selection_reason",
+      "masking_status",
+      "visible_input_ref",
+      "hidden_outcome_ref"
+    ],
+    "forbidden_fields": [
+      "later_price_move",
+      "later_liquidity_move",
+      "later_onchain_result",
+      "later_confirmation_result",
+      "final_score",
+      "post_event_label"
+    ]
+  },
+  "masked_input_manifest_schema": {
+    "required_fields": [
+      "case_id",
+      "correlation_id",
+      "event_time_utc_or_best_available_time",
+      "visible_news_text_or_summary",
+      "source_class_or_source_ref",
+      "available_identity_context_at_event_time",
+      "missing_evidence_at_event_time"
+    ],
+    "authority_rule": "Masked input is estimator input only. It has no authority by itself."
+  },
+  "hidden_outcome_manifest_schema": {
+    "required_fields": [
+      "case_id",
+      "correlation_id",
+      "outcome_ref",
+      "outcome_window",
+      "outcome_summary_or_label",
+      "outcome_source_ref"
+    ],
+    "visibility_rule": "Hidden outcome is not available until estimate hash/seal exists."
+  },
+  "pre_replay_gate": {
+    "must_pass": [
+      "selected_case_count_within_bounds",
+      "every_case_has_correlation_id",
+      "every_case_has_visible_input_ref",
+      "every_case_has_hidden_outcome_ref",
+      "no_hidden_fields_in_masked_input_manifest",
+      "leakage_check_pass",
+      "estimate_seal_required_before_reveal_rule_present"
+    ],
+    "must_fail_if": [
+      "outcome_leakage_detected",
+      "visible_input_missing",
+      "event_time_missing_without_best_available_time",
+      "source_requires_external_api",
+      "case_count_exceeds_maximum"
+    ]
+  },
+  "real_replay_not_yet_run": true,
+  "next_step_policy": "After this manifest contract, run a pre-replay audit over local sources and produce bounded selected-case manifests only if enough suitable cases exist.",
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "outcome_leakage_to_estimator",
+    "product_specific_code",
+    "root_artifact_creation"
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA40_REAL_REPLAY_PACKAGE_MANIFEST_DEFINED_NOAPI",
+  "next_step": "ERA40_PRE_REPLAY_AUDIT_NOAPI",
+  "final_gate": "PASS_ERA40_REAL_REPLAY_PACKAGE_MANIFEST_NOAPI"
+}
