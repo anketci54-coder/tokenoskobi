@@ -2,6 +2,7 @@
   "era": "ERA37",
   "phase": "EXISTING_WORK_ALIGNMENT_AUDIT_AFTER_RED_TEAM",
   "created_at_utc": "2026-07-06T20:05:00.000000+00:00",
+  "updated_at_utc": "2026-07-07T03:30:00.000000+00:00",
   "source_of_truth": "Repository search and selected prior artifacts after Gemini Red Team review",
   "purpose": "Prevent re-inventing existing Tokenoskobi mechanisms before modifying the News Intelligence roadmap.",
   "read_artifacts": [
@@ -98,7 +99,36 @@
       "classification": "NEW_DELTA_BUT_SHOULD_USE_EXISTING_QUEUE_AND_PROVENANCE",
       "map_to_existing": "PHASE28B token_pair_mismatch_suspected / identity ambiguous quarantine and V2_47B heavy path",
       "news_delta_needed": "Implement as conditional heavy/review path, not always-on NLP loop."
+    },
+    "correlation_id_provenance_sidecar": {
+      "classification": "NEW_DELTA_SHOULD_BE_GENERAL_CONTRACT_NOT_PRODUCT_PATCH",
+      "map_to_existing": "PHASE28B EVIDENCE_SIDECAR and RAW/STAGING lineage rules",
+      "news_delta_needed": "Keep staging compact with correlation_id only. Put provenance details in sidecar/map. No product-specific code and no staging bloat."
     }
+  },
+  "sidecar_safety_rules_added_after_red_team": {
+    "atomic_correlation_write_required": true,
+    "rule": "A staging/context item must not be marked READY_FOR_FAST_PATH unless its correlation_id has a confirmed sidecar/provenance-map entry or an explicit NO_PROVENANCE_REQUIRED state.",
+    "race_condition_guard": [
+      "correlation_id_created",
+      "provenance_map_write_confirmed",
+      "staging_item_ready_flag_set_after_map_confirm",
+      "fast_path_reads_ready_items_only"
+    ],
+    "ttl_and_archive_required": true,
+    "ttl_rule": "Provenance map keeps only active/pending correlation details. Completed/canonicalized/expired details move to archive/evidence sidecar according to lifecycle policy.",
+    "registry_bloat_guard": [
+      "active_pending_only_in_registry",
+      "completed_to_archive_or_evidence_sidecar",
+      "lookup_by_correlation_id_only",
+      "hot_path_reads_compact_state_not_full_sidecar"
+    ],
+    "forbidden": [
+      "Do not embed heavy provenance metadata inside staging objects.",
+      "Do not allow fast path ready state before correlation provenance write is confirmed.",
+      "Do not keep all historical provenance in active registry forever.",
+      "Do not add product-specific code for News-only provenance."
+    ]
   },
   "recommended_adjustment_before_era38": {
     "do_not": [
@@ -106,14 +136,17 @@
       "Do not create a new Opportunity Cost engine.",
       "Do not create a new Complexity Budget engine.",
       "Do not duplicate Unknown Anomaly Engine.",
-      "Do not run Gap Analysis on every news item."
+      "Do not run Gap Analysis on every news item.",
+      "Do not embed heavy provenance metadata in staging objects."
     ],
     "do": [
       "Bind ERA38 validation harness to existing V2_47B fast/heavy path priority classifier concepts.",
       "Add News-specific fixture cases for ambiguous identity, mis-resolved identity, source reliability, semantic contamination and opportunity-cost-of-silence.",
       "Use PHASE28B provenance states for RAW/STAGING/VALIDATED/QUARANTINE style thinking.",
       "Keep all News outputs passive/context-only until later runtime dryrun proves safety.",
-      "Use existing queue/lane discipline and bounded memory limits."
+      "Use existing queue/lane discipline and bounded memory limits.",
+      "Use correlation_id plus provenance sidecar/map for lineage instead of staging bloat.",
+      "Validate atomic sidecar write and TTL/archive lifecycle in ERA38 before any runtime patch."
     ]
   },
   "decision": "EXISTING_WORK_FOUND_DO_NOT_REINVENT_ADAPT_ONLY",
