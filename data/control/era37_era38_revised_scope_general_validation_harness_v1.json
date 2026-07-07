@@ -1,0 +1,100 @@
+{
+  "era": "ERA37",
+  "phase": "ERA38_REVISED_SCOPE_GENERAL_VALIDATION_HARNESS",
+  "created_at_utc": "2026-07-07T03:35:00.000000+00:00",
+  "source_alignment_audit": "data/control/era37_existing_work_alignment_audit_after_red_team_v1.json",
+  "purpose": "Refine ERA38 scope after Red Team and repository alignment audit: no product-specific patch, no new engine, no root bloat, no runtime mutation.",
+  "selected_next_work_unit": {
+    "id": "ERA38_GENERAL_INTELLIGENCE_VALIDATION_HARNESS_NOAPI",
+    "type": "GENERAL_VALIDATION_CONTRACT_AND_FIXTURE_HARNESS",
+    "first_use_case": "NEWS_INTELLIGENCE_CONTRACT_VALIDATION",
+    "scope_rule": "Generic first, News as first consumer. No News-only product code."
+  },
+  "reuse_existing_systems": [
+    {
+      "system": "V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER",
+      "use": "Reuse fast/heavy path, bounded review, priority classes and overflow policy."
+    },
+    {
+      "system": "PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION",
+      "use": "Reuse RAW/STAGING/VALIDATED/CANONICAL/QUARANTINE/EVIDENCE_SIDECAR thinking, source reliability and lineage."
+    },
+    {
+      "system": "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_AND_FALSE_NEGATIVE_GUARD",
+      "use": "Reuse opportunity-cost-of-silence and context-only recheck discipline."
+    },
+    {
+      "system": "ERA29_COMPLEXITY_BUDGET_V3",
+      "use": "Reuse cost/benefit/evidence_cost/rollback_cost/latency/complexity budget discipline."
+    },
+    {
+      "system": "PHASE42_UNKNOWN_ANOMALY_ENGINE",
+      "use": "Reuse unknown anomaly boundary; adversarial fixtures validate the boundary rather than duplicate engine logic."
+    }
+  ],
+  "era38_allowed": [
+    "general_contract_only",
+    "generic_fixture_schema",
+    "correlation_id_and_provenance_sidecar_contract",
+    "atomic_correlation_write_validation_contract",
+    "ttl_archive_lifecycle_validation_contract",
+    "fast_heavy_lane_fixture_cases",
+    "adversarial_fixture_cases_as_data_contract",
+    "random_noise_injection_contract",
+    "opportunity_cost_context_only_fixture_cases",
+    "noapi_validation_report"
+  ],
+  "era38_forbidden": [
+    "runtime_patch",
+    "staging_object_patch",
+    "news_only_product_code",
+    "external_api_calls",
+    "db_schema_change",
+    "systemd_service_timer_change",
+    "new_physical_queue",
+    "new_opportunity_cost_engine",
+    "new_complexity_budget_engine",
+    "new_unknown_anomaly_engine",
+    "root_artifact_creation",
+    "trade_wallet_order_authority"
+  ],
+  "minimal_delta_rules": {
+    "staging_compact_rule": "Staging/context item carries correlation_id only, not heavy provenance metadata.",
+    "provenance_sidecar_rule": "Detailed provenance lives in a sidecar/map keyed by correlation_id.",
+    "atomic_write_rule": "correlation_id sidecar/map write must be confirmed before an item becomes READY_FOR_FAST_PATH.",
+    "ttl_archive_rule": "Active registry keeps only active/pending provenance. Completed, expired or canonicalized details move to archive/evidence sidecar lifecycle.",
+    "fast_path_rule": "Fast Path reads compact ready state only and never waits for Heavy Path analysis.",
+    "heavy_path_rule": "Heavy Path may read sidecar details by correlation_id within budget and TTL constraints."
+  },
+  "first_use_case_news_constraints": {
+    "news_as_consumer_only": true,
+    "news_runtime_mutation": false,
+    "matcher_patch": false,
+    "semantic_contamination_test": true,
+    "identity_gap_test": true,
+    "source_reliability_mapping_test": true,
+    "opportunity_cost_silence_test": true,
+    "adversarial_noise_test": true
+  },
+  "success_criteria": [
+    "ERA38 validates existing architecture reuse rather than adding a new engine.",
+    "No staging bloat: provenance details stay out of staging payloads.",
+    "Atomic correlation write prevents sidecar race condition.",
+    "TTL/archive lifecycle prevents registry bloat.",
+    "Fast Path is never blocked by Heavy Path or News validation.",
+    "News-specific cases validate generic harness without creating News-only code."
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_SCOPE_REVISED_TO_GENERAL_MINIMAL_DELTA_VALIDATION_HARNESS",
+  "next_step": "ERA37_FINAL_REVIEW_AND_RUNTIME_CLOSE",
+  "final_gate": "PASS_ERA37_ERA38_REVISED_SCOPE_GENERAL_VALIDATION_HARNESS"
+}
