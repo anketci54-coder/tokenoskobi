@@ -1,0 +1,88 @@
+{
+  "phase": "POST_ERA42_CLAUDE_AUDIT_TRIAGE_NOAPI",
+  "created_at_utc": "2026-07-07T08:45:00.000000+00:00",
+  "source": "User-provided Claude independent audit after ERA42 close at cbc6888",
+  "purpose": "Record which audit findings are fixed now, which require immediate verification, and which are approved backlog, without changing runtime/live behavior.",
+  "fixed_now": [
+    {
+      "id": "C1_PARTIAL",
+      "title": "era_close.py syncs current_state legacy runtime fields",
+      "status": "FIXED_IN_GITHUB",
+      "commit": "bb8ce4846524aa9568176eb0ebe3d67fe2e35b00",
+      "notes": "current_work_unit and next_safe_step are now mirrored into current_state.active_work_unit and current_state.next_safe_step during future ERA closes. current_state.mode is set to ERA{n}_FINAL_CLOSED. Existing PROJECT_RUNTIME.json still requires server-side sync/pull and possibly a separate canonical verification."
+    },
+    {
+      "id": "C2_PARTIAL",
+      "title": "era_close.py CLI validation and shell=False command execution",
+      "status": "FIXED_IN_GITHUB",
+      "commit": "bb8ce4846524aa9568176eb0ebe3d67fe2e35b00",
+      "notes": "--era is numeric-only; --current-id, --next and --type allow uppercase alphanumeric underscore only. Git commands now use argv lists. Static shell pipelines remain isolated in run_static_shell and must not receive user input."
+    }
+  ],
+  "must_verify_next_before_era43_real_run": [
+    {
+      "id": "C1_VERIFY",
+      "title": "PROJECT_RUNTIME current_state/top-level consumer map",
+      "reason": "Do not delete or radically change current_state until readers/writers are mapped. Verify whether tk machine, boot scripts, panels or handoff readers consume current_state or top-level fields."
+    },
+    {
+      "id": "C3_VERIFY",
+      "title": "Canonical schema implementation status",
+      "reason": "Classify canonical schema tables as IMPLEMENTED, ACTIVE_LOCAL_DB, PLANNED_NOT_WIRED, or DEPRECATED. Do not assume all unused tables are bugs without checking local DB/runtime."
+    },
+    {
+      "id": "H1_VERIFY",
+      "title": "News matcher zero-result root cause",
+      "reason": "ERA43 should verify token_score_100_events and news_token_matcher_v1 input contract before any real realtime run."
+    }
+  ],
+  "approved_backlog_high_priority": [
+    {
+      "id": "H3",
+      "title": "provider_secret_vault_handler_v1 local auth header",
+      "category": "SECURITY",
+      "notes": "Localhost-only is not a long-term boundary. Add shared internal header/token before broader automation."
+    },
+    {
+      "id": "M1",
+      "title": "SQLite WAL and busy_timeout policy",
+      "category": "RUNTIME_PERFORMANCE",
+      "notes": "Apply centrally to producer writers after confirming DB access patterns."
+    },
+    {
+      "id": "M2",
+      "title": "Remaining shell=True cleanup",
+      "category": "SECURITY_HARDENING",
+      "notes": "Previously reviewed hardcoded systemctl calls are not current injection paths but should be converted to argv lists."
+    },
+    {
+      "id": "H2",
+      "title": "ERA30-ERA41 history catch-up",
+      "category": "CANONICAL_GOVERNANCE",
+      "notes": "Generate a compact catch-up summary from git log so Almanac/History/Handoff represent past work."
+    },
+    {
+      "id": "M3",
+      "title": "Authority module integration plan",
+      "category": "GOVERNANCE_SECURITY",
+      "notes": "Do not wire authority into shadow/read-only prematurely; define protected-operation enforcement before write/trade phases."
+    }
+  ],
+  "not_fixed_now": [
+    "PROJECT_RUNTIME.json existing stale current_state values were not edited through GitHub to avoid server-local/remote divergence without tk machine verification.",
+    "No runtime/live producer code changed.",
+    "No DB schema or service changed.",
+    "No cleanup/deletion performed."
+  ],
+  "next_required_server_step": "git pull --ff-only origin main; run tk sync/tk machine; verify era_close.py syntax; verify PROJECT_RUNTIME consistency before ERA43.",
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_action": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "cleanup_performed": false
+  },
+  "decision": "POST_ERA42_AUDIT_TRIAGE_RECORDED_PARTIAL_FIXES_APPLIED_GITHUB_SIDE"
+}
