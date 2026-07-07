@@ -1,0 +1,176 @@
+{
+  "era": "ERA38",
+  "phase": "TTL_ARCHIVE_LIFECYCLE_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T04:25:00.000000+00:00",
+  "source_plan": "data/control/era38_general_intelligence_validation_harness_plan_noapi_v1.json",
+  "source_sidecar_contract": "data/control/era38_general_provenance_sidecar_contract_noapi_v1.json",
+  "source_atomic_contract": "data/control/era38_correlation_id_atomic_write_contract_noapi_v1.json",
+  "purpose": "Define the generic TTL and archive lifecycle for provenance sidecar/map records so active registry stays small, Hot Path stays compact, and historical traceability is preserved without bloat.",
+  "identity": "TTL_ARCHIVE_LIFECYCLE_CONTRACT_V1",
+  "scope_rule": "Generic OS-level lifecycle contract. No runtime patch, DB schema change, product-specific code, or new engine in this phase.",
+  "core_invariants": [
+    "Active registry/map keeps active or pending provenance only where practical.",
+    "Completed, expired, rejected, or canonicalized provenance must leave the active registry lifecycle and move to archive/evidence sidecar reference.",
+    "Hot Path never scans archive or full sidecar history.",
+    "Heavy Path may lookup archived provenance by correlation_id only within budget.",
+    "Archive movement must preserve lineage, raw/source hash references and version history."
+  ],
+  "lifecycle_states": [
+    "ACTIVE_PENDING",
+    "ACTIVE_READY",
+    "VALIDATED_CONTEXT",
+    "QUARANTINED",
+    "ARCHIVE_PENDING",
+    "ARCHIVED",
+    "EXPIRED",
+    "REJECTED"
+  ],
+  "ttl_classes": [
+    {
+      "class": "FAST_EPHEMERAL",
+      "use_case": "short-lived staging/context records with low audit value",
+      "active_policy": "short_active_ttl",
+      "archive_policy": "archive_summary_or_expire_reference_only"
+    },
+    {
+      "class": "REVIEW_PENDING",
+      "use_case": "items waiting for Heavy Path, review, provenance completion or quarantine decision",
+      "active_policy": "bounded_active_ttl_with_retry_or_quarantine",
+      "archive_policy": "archive_after_resolution"
+    },
+    {
+      "class": "EVIDENCE_RELEVANT",
+      "use_case": "items linked to evidence, audit, security, anomaly, opportunity or future replay",
+      "active_policy": "active_until_resolution_then_archive",
+      "archive_policy": "archive_with_hash_lineage_and_evidence_ref"
+    },
+    {
+      "class": "TRAINING_CONTEXT",
+      "use_case": "future training camp or evaluation records",
+      "active_policy": "raw_context_only_active_until_packaged",
+      "archive_policy": "archive_as_raw_context_not_truth"
+    },
+    {
+      "class": "SYSTEM_AUDIT",
+      "use_case": "future internal affairs or runtime audit records",
+      "active_policy": "active_until_audit_close",
+      "archive_policy": "archive_with_immutable_audit_ref"
+    }
+  ],
+  "state_transition_rules": [
+    {
+      "from": "ACTIVE_PENDING",
+      "to": "ACTIVE_READY",
+      "condition": "sidecar confirmed and staging/context item ready"
+    },
+    {
+      "from": "ACTIVE_PENDING",
+      "to": "QUARANTINED",
+      "condition": "ttl expired, missing provenance, conflict, or partial write unresolved"
+    },
+    {
+      "from": "ACTIVE_READY",
+      "to": "VALIDATED_CONTEXT",
+      "condition": "validated as context by allowed validation process"
+    },
+    {
+      "from": "VALIDATED_CONTEXT",
+      "to": "ARCHIVE_PENDING",
+      "condition": "active use complete or canonical/evidence reference produced"
+    },
+    {
+      "from": "QUARANTINED",
+      "to": "ARCHIVE_PENDING",
+      "condition": "quarantine resolved, expired, rejected, or retained for audit"
+    },
+    {
+      "from": "ARCHIVE_PENDING",
+      "to": "ARCHIVED",
+      "condition": "archive_ref, hashes, lifecycle state and version lineage confirmed"
+    },
+    {
+      "from": "ACTIVE_PENDING",
+      "to": "EXPIRED",
+      "condition": "low value stale item exceeds ttl and no evidence/review value remains"
+    },
+    {
+      "from": "ACTIVE_READY",
+      "to": "REJECTED",
+      "condition": "poisoned, malformed, conflicting, or forbidden-field record confirmed"
+    }
+  ],
+  "archive_required_fields": [
+    "correlation_id",
+    "archive_ref",
+    "archive_reason",
+    "final_lifecycle_state",
+    "raw_hash_or_input_hash",
+    "source_ref",
+    "schema_version",
+    "sidecar_version",
+    "created_at_utc",
+    "archived_at_utc"
+  ],
+  "active_registry_bloat_guards": [
+    "active_registry_scope_active_pending_or_active_ready_only_where_practical",
+    "no_full_raw_payload_in_active_sidecar",
+    "no_bulk_model_output_in_active_sidecar",
+    "no_training_output_as_truth",
+    "no_unbounded_metadata",
+    "no_archive_scan_on_hot_path",
+    "lookup_by_correlation_id_only"
+  ],
+  "budget_rules": {
+    "hot_path_budget": "Hot Path reads compact state only; no sidecar or archive lookup.",
+    "heavy_path_budget": "Heavy Path may lookup active or archived sidecar by correlation_id within bounded cost.",
+    "archive_budget": "Archive lifecycle may be async/batched and must not block Hot Path.",
+    "failure_policy": "If lifecycle movement fails, item remains non-ready or quarantine/review-only; never silently becomes ready."
+  },
+  "real_test_note_for_later": {
+    "status": "RECORDED_NOT_ACTIVE_NOW",
+    "user_request": "When the News section is completed, perform a real test.",
+    "safe_interpretation": "After NOAPI contract + fixture + validator + dryrun stages pass and runtime patch is explicitly approved, run a bounded real/shadow/read-only News validation test.",
+    "forbidden_now": [
+      "live_runtime_mutation",
+      "external_api_test",
+      "db_schema_change",
+      "systemd_change",
+      "news_matcher_patch"
+    ]
+  },
+  "validation_targets_for_era38_fixtures": [
+    "active_registry_does_not_keep_expired_completed_history_forever",
+    "archive_required_fields_present",
+    "hot_path_never_reads_archive",
+    "heavy_path_lookup_is_by_correlation_id",
+    "ttl_expired_low_value_item_expires_or_archives",
+    "quarantined_item_archives_with_reason",
+    "archive_failure_does_not_promote_ready_state",
+    "training_context_archives_as_raw_context_only"
+  ],
+  "forbidden_work_in_this_phase": [
+    "runtime_patch",
+    "db_schema_change",
+    "staging_object_patch",
+    "news_only_product_code",
+    "external_api_call",
+    "new_engine_creation",
+    "new_physical_queue",
+    "systemd_change",
+    "root_artifact_creation",
+    "trade_wallet_order_authority"
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_TTL_ARCHIVE_LIFECYCLE_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA38_GENERIC_FIXTURE_SCHEMA_NOAPI",
+  "final_gate": "PASS_ERA38_TTL_ARCHIVE_LIFECYCLE_CONTRACT_NOAPI"
+}
