@@ -1,0 +1,125 @@
+{
+  "era": "ERA39",
+  "title": "HISTORICAL_NEWS_BLIND_REPLAY_NOAPI",
+  "phase": "PLAN_NOAPI",
+  "created_at_utc": "2026-07-07T05:50:00.000000+00:00",
+  "source_of_truth": "ERA38 closed; next safe step is ERA39 historical blind replay.",
+  "purpose": "Define a historical replay process where the estimator sees only information available at event time, creates an immutable estimate, and later compares it with the revealed outcome.",
+  "identity": "HISTORICAL_NEWS_BLIND_REPLAY_NOAPI",
+  "scope_rule": "Historical replay contract only. No live feed pull, runtime change, external API, schema change, service change, or execution authority.",
+  "planned_sequence": [
+    "PLAN_NOAPI",
+    "HISTORICAL_DATASET_CONTRACT_NOAPI",
+    "OUTCOME_MASKING_CONTRACT_NOAPI",
+    "ESTIMATE_OUTPUT_CONTRACT_NOAPI",
+    "IMMUTABLE_ESTIMATE_SEAL_CONTRACT_NOAPI",
+    "OUTCOME_REVEAL_AND_SCORING_CONTRACT_NOAPI",
+    "FEEDBACK_CONTEXT_ONLY_CONTRACT_NOAPI",
+    "BLIND_REPLAY_FIXTURE_SET_NOAPI",
+    "BLIND_REPLAY_STATIC_DRYRUN_REPORT",
+    "FINAL_REVIEW_AND_RUNTIME_CLOSE"
+  ],
+  "visible_input_at_estimate_time": [
+    "event_time_utc",
+    "headline_or_summary",
+    "source_class",
+    "available_context_at_event_time",
+    "available_identity_context_at_event_time"
+  ],
+  "hidden_until_scoring": [
+    "later_market_move",
+    "later_liquidity_move",
+    "later_onchain_context",
+    "later_confirmation_context",
+    "later_classification_label",
+    "after_the_fact_review_note"
+  ],
+  "estimate_requirements": [
+    "created_before_outcome_reveal",
+    "sealed_before_scoring",
+    "versioned",
+    "correlation_id_linked",
+    "context_only",
+    "non_authoritative"
+  ],
+  "estimate_categories": [
+    "NO_ACTION_CONTEXT",
+    "OBSERVE_CONTEXT",
+    "REVIEW_CONTEXT",
+    "ESCALATE_REVIEW_CONTEXT",
+    "RISK_CONTEXT",
+    "OPPORTUNITY_CONTEXT",
+    "MIXED_CONTEXT",
+    "UNKNOWN_CONTEXT"
+  ],
+  "minimum_estimate_fields": [
+    "replay_case_id",
+    "correlation_id",
+    "event_time_utc",
+    "estimate_created_at_utc",
+    "identity_status_estimate",
+    "narrative_family_estimate",
+    "context_estimate",
+    "expected_effect_window",
+    "confidence_band",
+    "missing_evidence",
+    "estimated_review_priority",
+    "authority_absent"
+  ],
+  "scoring_after_reveal": [
+    "identity_accuracy",
+    "narrative_accuracy",
+    "direction_accuracy",
+    "effect_window_accuracy",
+    "false_positive_flag",
+    "false_negative_flag",
+    "missed_opportunity_flag",
+    "overconfidence_penalty",
+    "missing_evidence_quality"
+  ],
+  "feedback_policy": {
+    "feedback_is_context_only": true,
+    "feedback_does_not_overwrite_estimate": true,
+    "feedback_creates_versioned_learning_context": true,
+    "training_camp_is_backlog_not_active": true
+  },
+  "allowed_work": [
+    "contract_only",
+    "dataset_contract",
+    "masking_contract",
+    "estimate_schema_contract",
+    "seal_contract",
+    "scoring_contract",
+    "fixture_set",
+    "static_noapi_dryrun_report"
+  ],
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "outcome_leakage_to_estimator",
+    "product_specific_code",
+    "root_artifact_creation"
+  ],
+  "real_test_later_policy": {
+    "historical_first": true,
+    "shadow_live_after_historical_gates": true,
+    "live_or_shadow_test_requires_explicit_later_approval": true
+  },
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA39_PLAN_DEFINED_NOAPI",
+  "next_step": "ERA39_HISTORICAL_DATASET_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA39_HISTORICAL_NEWS_BLIND_REPLAY_PLAN_NOAPI"
+}
