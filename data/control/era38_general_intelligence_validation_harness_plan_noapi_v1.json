@@ -1,0 +1,92 @@
+{
+  "era": "ERA38",
+  "title": "GENERAL_INTELLIGENCE_VALIDATION_HARNESS_NOAPI",
+  "phase": "PLAN_NOAPI",
+  "created_at_utc": "2026-07-07T03:55:00.000000+00:00",
+  "source_of_truth": "ERA37 final close at 118cc245a79953e8ce495604bd9c424b632aa1d5 and ERA37 revised ERA38 scope",
+  "purpose": "Open a generic validation harness that reuses existing Tokenoskobi fast/heavy path, provenance, opportunity feedback, complexity budget and unknown anomaly discipline before any implementation, runtime patch or product-specific code.",
+  "identity": "GENERAL_VALIDATION_HARNESS_NOAPI",
+  "first_use_case": "NEWS_INTELLIGENCE_CONTRACT_VALIDATION",
+  "scope_rule": "Generic first; News is only the first consumer. No News-only product code.",
+  "reuse_contracts": [
+    "V2_47B_FAST_PATH_HEAVY_PATH_QUEUE_BUDGET_AND_PRIORITY_CLASSIFIER",
+    "PHASE28B_DATA_PROVENANCE_AND_CANONICALIZATION",
+    "V2_48B_MISSED_OPPORTUNITY_FEEDBACK_AND_FALSE_NEGATIVE_GUARD",
+    "ERA29_COMPLEXITY_BUDGET_V3",
+    "PHASE42_UNKNOWN_ANOMALY_ENGINE"
+  ],
+  "planned_sequence": [
+    "PLAN_NOAPI",
+    "GENERAL_PROVENANCE_SIDECAR_CONTRACT_NOAPI",
+    "CORRELATION_ID_ATOMIC_WRITE_CONTRACT_NOAPI",
+    "TTL_ARCHIVE_LIFECYCLE_CONTRACT_NOAPI",
+    "GENERIC_FIXTURE_SCHEMA_NOAPI",
+    "ADVERSARIAL_AND_RANDOM_NOISE_FIXTURE_CONTRACT_NOAPI",
+    "NOAPI_VALIDATION_DRYRUN_REPORT",
+    "FINAL_REVIEW_AND_RUNTIME_CLOSE"
+  ],
+  "allowed_work": [
+    "contract_only",
+    "generic_fixture_schema",
+    "sidecar_contract",
+    "atomic_write_contract",
+    "ttl_archive_contract",
+    "random_noise_fixture_contract",
+    "news_as_first_consumer_fixture_cases",
+    "noapi_validation_report"
+  ],
+  "forbidden_work": [
+    "runtime_patch",
+    "staging_object_patch",
+    "news_only_product_code",
+    "external_api_call",
+    "db_schema_change",
+    "systemd_change",
+    "new_physical_queue",
+    "new_engine",
+    "new_opportunity_cost_engine",
+    "new_complexity_budget_engine",
+    "new_unknown_anomaly_engine",
+    "root_artifact_creation",
+    "trade_wallet_order_authority"
+  ],
+  "minimal_delta_principles": {
+    "staging_payload": "correlation_id_only_for_lineage_pointer",
+    "provenance_details": "sidecar_or_map_keyed_by_correlation_id",
+    "hot_path": "compact_ready_state_only_never_reads_heavy_sidecar",
+    "heavy_path": "may_lookup_sidecar_with_budget_and_ttl",
+    "training_outputs": "RAW_CONTEXT_ONLY_when_training_camp_is_later_opened",
+    "commander_override": "backlog_not_active_in_era38",
+    "orphan_hunter": "contract_requirement_only_not_engine_in_era38"
+  },
+  "success_criteria": [
+    "ERA38 remains generic and reusable across News, Security, Training and future Intelligence use cases.",
+    "No runtime or product-specific patch is created.",
+    "Provenance is linked without staging bloat.",
+    "Atomic write and TTL/archive lifecycle are contractually defined before fixtures.",
+    "Fast Path remains isolated from Heavy Path.",
+    "ERA38 can proceed to General Provenance Sidecar Contract next."
+  ],
+  "backlog_not_active": [
+    "NVIDIA integration",
+    "Copilot executor workflow",
+    "Training Camp button",
+    "Internal Affairs Engine",
+    "External Defense Engine",
+    "tk audit",
+    "Commander Override implementation"
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_PLAN_DEFINED_NOAPI",
+  "next_step": "ERA38_GENERAL_PROVENANCE_SIDECAR_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA38_GENERAL_INTELLIGENCE_VALIDATION_HARNESS_PLAN_NOAPI"
+}
