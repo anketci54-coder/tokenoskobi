@@ -1,0 +1,170 @@
+{
+  "era": "ERA38",
+  "phase": "GENERAL_PROVENANCE_SIDECAR_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-07T04:05:00.000000+00:00",
+  "source_plan": "data/control/era38_general_intelligence_validation_harness_plan_noapi_v1.json",
+  "purpose": "Define a generic provenance sidecar contract for Tokenoskobi intelligence objects so lineage, source, model and validation context are traceable without bloating staging/hot-path payloads.",
+  "identity": "GENERAL_PROVENANCE_SIDECAR_CONTRACT_V1",
+  "scope_rule": "General OS-level contract. News is only the first consumer. No product-specific code or runtime mutation.",
+  "core_principles": {
+    "staging_compact": "Staging/context payloads carry correlation_id only for lineage pointer.",
+    "sidecar_detail": "Heavy provenance metadata lives in sidecar/map keyed by correlation_id.",
+    "hot_path_safety": "Hot Path reads compact ready state only and must not parse heavy sidecar detail.",
+    "heavy_path_access": "Heavy Path may lookup sidecar by correlation_id under budget, TTL and authorization constraints.",
+    "raw_traceability": "Every sidecar entry must preserve enough trace to connect interpreted context back to raw/source/evidence references.",
+    "no_authority": "Provenance sidecar is trace context, not decision, trade, veto or canonical authority."
+  },
+  "correlation_id_contract": {
+    "field": "correlation_id",
+    "required": true,
+    "format_rule": "Deterministic or collision-resistant opaque id. Must not encode secret, key, wallet credential or private source payload.",
+    "uniqueness_scope": "Unique within active provenance namespace and retained with archive lineage after TTL/archive move.",
+    "staging_allowed_fields": [
+      "correlation_id",
+      "object_type",
+      "object_state",
+      "created_at_utc",
+      "ready_state"
+    ],
+    "staging_forbidden_fields": [
+      "full_raw_payload",
+      "long_ai_explanation",
+      "full_model_prompt",
+      "secret_or_api_key",
+      "wallet_or_private_key",
+      "heavy_source_list",
+      "training_output_as_truth",
+      "final_trade_or_veto_decision"
+    ]
+  },
+  "sidecar_required_fields": [
+    "correlation_id",
+    "object_type",
+    "origin_engine_id",
+    "origin_engine_role",
+    "origin_run_id",
+    "source_ref_list",
+    "raw_hash_ref_list",
+    "schema_version",
+    "parser_or_interpreter_version",
+    "provenance_state",
+    "confidence_level",
+    "evidence_state",
+    "created_at_utc",
+    "ttl_policy",
+    "archive_policy"
+  ],
+  "sidecar_optional_fields": [
+    "model_family",
+    "model_version",
+    "model_provider",
+    "prompt_hash",
+    "output_hash",
+    "human_review_ref",
+    "commander_override_ref",
+    "training_camp_ref",
+    "red_team_ref",
+    "quarantine_reason",
+    "missing_evidence",
+    "source_reliability_class",
+    "notes_compact"
+  ],
+  "provenance_state_values": [
+    "ACTIVE_PENDING",
+    "ACTIVE_READY",
+    "QUARANTINED",
+    "VALIDATED_CONTEXT",
+    "CANONICAL_ELIGIBLE_CONTEXT_ONLY",
+    "ARCHIVED",
+    "EXPIRED",
+    "REJECTED"
+  ],
+  "evidence_state_values": [
+    "RAW_CONTEXT_ONLY",
+    "STAGING_CONTEXT",
+    "SINGLE_SOURCE_UNVERIFIED",
+    "MULTI_SOURCE_CONTEXT",
+    "EVIDENCE_REQUIRED",
+    "VALIDATED_BY_STRICT_EVIDENCE",
+    "CONFLICTING_SOURCES",
+    "UNKNOWN_EVIDENCE_STATE"
+  ],
+  "origin_rules": {
+    "ai_output_rule": "AI/model output must be marked RAW_CONTEXT_ONLY or STAGING_CONTEXT unless Strict Evidence validates it later.",
+    "training_output_rule": "Training Camp outputs are RAW_CONTEXT_ONLY by default and cannot become canonical directly.",
+    "human_override_rule": "Commander override may be referenced but must not erase original provenance lineage.",
+    "no_self_truth_rule": "A model or engine may not treat its own prior output as ground truth without independent evidence lineage."
+  },
+  "hot_path_read_contract": {
+    "may_read": [
+      "correlation_id",
+      "object_type",
+      "object_state",
+      "ready_state",
+      "compact_confidence_band",
+      "emergency_brake_hint_if_precomputed"
+    ],
+    "must_not_read": [
+      "full sidecar body",
+      "raw payload",
+      "full model explanation",
+      "bulk source list",
+      "training camp output detail",
+      "red team narrative detail"
+    ]
+  },
+  "heavy_path_read_contract": {
+    "may_read": [
+      "sidecar by correlation_id",
+      "source_ref_list",
+      "raw_hash_ref_list",
+      "evidence_state",
+      "missing_evidence",
+      "source_reliability_class"
+    ],
+    "constraints": [
+      "budget_limited",
+      "ttl_limited",
+      "no_hot_path_blocking",
+      "no_authority_without_evidence_chain"
+    ]
+  },
+  "sidecar_bloat_controls": {
+    "active_registry_scope": "active_or_pending_only",
+    "completed_policy": "archive_or_evidence_sidecar_lifecycle",
+    "max_payload_rule": "Sidecar stores compact provenance metadata and references; large bodies must be file/object referenced by hash.",
+    "ttl_required": true,
+    "archive_required": true
+  },
+  "forbidden": [
+    "Do not embed heavy provenance metadata inside staging objects.",
+    "Do not allow sidecar metadata to become final decision authority.",
+    "Do not store secrets, private keys or API tokens in provenance sidecar.",
+    "Do not treat AI/training output as canonical truth.",
+    "Do not require Hot Path to lookup full sidecar.",
+    "Do not create product-specific News-only provenance code in ERA38."
+  ],
+  "validation_targets_for_future_fixtures": [
+    "staging_contains_correlation_id_not_heavy_metadata",
+    "sidecar_contains_required_fields",
+    "ai_output_defaults_to_raw_context_only",
+    "hot_path_compact_read_only",
+    "heavy_path_budgeted_sidecar_lookup",
+    "ttl_archive_policy_present",
+    "no_secret_fields_present",
+    "no_decision_authority_present"
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_GENERAL_PROVENANCE_SIDECAR_CONTRACT_DEFINED_NOAPI",
+  "next_step": "ERA38_CORRELATION_ID_ATOMIC_WRITE_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA38_GENERAL_PROVENANCE_SIDECAR_CONTRACT_NOAPI"
+}
