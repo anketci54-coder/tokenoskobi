@@ -1,0 +1,57 @@
+{
+  "era": "ERA39",
+  "phase": "FINAL_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-07T06:15:00.000000+00:00",
+  "source_of_truth": "ERA39 historical blind replay contract chain and static dryrun artifacts",
+  "scope": "Close GitHub-side ERA39 after defining blind replay plan, core contracts, fixture set and static noapi dryrun.",
+  "artifacts_reviewed": [
+    "data/control/era39_historical_news_blind_replay_plan_noapi_v1.json",
+    "data/control/era39_dataset_mask_estimate_seal_scoring_contracts_noapi_v1.json",
+    "data/control/era39_blind_replay_fixture_set_and_dryrun_noapi_v1.json"
+  ],
+  "review_checks": {
+    "plan_defined": true,
+    "dataset_contract_defined": true,
+    "masking_contract_defined": true,
+    "estimate_output_contract_defined": true,
+    "immutable_seal_contract_defined": true,
+    "scoring_contract_defined": true,
+    "feedback_context_only_contract_defined": true,
+    "fixture_set_defined": true,
+    "static_dryrun_passed": true,
+    "outcome_hidden_until_scoring": true,
+    "estimate_sealed_before_reveal": true,
+    "feedback_context_only": true,
+    "runtime_patch_absent": true,
+    "external_api_call_absent": true,
+    "live_feed_pull_absent": true,
+    "db_schema_change_absent": true,
+    "service_change_absent": true,
+    "product_specific_code_absent": true,
+    "root_artifact_creation_absent": true
+  },
+  "final_summary": {
+    "identity": "HISTORICAL_NEWS_BLIND_REPLAY_NOAPI",
+    "result": "CONTRACT_CHAIN_AND_STATIC_DRYRUN_PASS",
+    "core_rule": "Historical input is visible at event time, outcome remains hidden until sealed estimate exists, then reveal/scoring creates context-only feedback.",
+    "real_dataset_status": "NOT_LOADED_IN_ERA39",
+    "live_feed_status": "NOT_USED_IN_ERA39"
+  },
+  "recommended_next_work_unit": {
+    "id": "ERA40_HISTORICAL_NEWS_DATASET_SELECTION_AND_REAL_REPLAY_PREP_NOAPI",
+    "reason": "Move from static blind replay contracts to selecting/packaging real historical news cases without revealing outcomes to the estimator."
+  },
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA39_FINAL_REVIEW_PASS_GITHUB_SIDE",
+  "next_step": "SERVER_RUNTIME_CLOSE_AND_PUSH",
+  "final_gate": "PASS_ERA39_FINAL_REVIEW_NOAPI"
+}
