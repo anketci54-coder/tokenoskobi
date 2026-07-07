@@ -1,0 +1,188 @@
+{
+  "era": "ERA38",
+  "phase": "GENERIC_FIXTURE_SCHEMA_NOAPI",
+  "created_at_utc": "2026-07-07T04:40:00.000000+00:00",
+  "source_plan": "data/control/era38_general_intelligence_validation_harness_plan_noapi_v1.json",
+  "source_sidecar_contract": "data/control/era38_general_provenance_sidecar_contract_noapi_v1.json",
+  "source_atomic_contract": "data/control/era38_correlation_id_atomic_write_contract_noapi_v1.json",
+  "source_ttl_archive_contract": "data/control/era38_ttl_archive_lifecycle_contract_noapi_v1.json",
+  "purpose": "Define a generic fixture schema for the ERA38 validation harness before any validator, dryrun, runtime patch, product-specific code, or live test.",
+  "identity": "GENERIC_FIXTURE_SCHEMA_V1",
+  "scope_rule": "Generic OS-level fixture schema. News is only the first consumer. Fixtures must be reusable for future security, training, audit, anomaly and intelligence validation.",
+  "fixture_required_fields": [
+    "fixture_id",
+    "fixture_version",
+    "fixture_type",
+    "created_at_utc",
+    "input_object",
+    "expected_validation",
+    "expected_guards",
+    "correlation_id_policy",
+    "provenance_policy",
+    "hot_path_policy",
+    "heavy_path_policy"
+  ],
+  "fixture_optional_fields": [
+    "source_refs",
+    "raw_hash_refs",
+    "noise_profile",
+    "adversarial_profile",
+    "blind_replay_policy",
+    "expected_archive_policy",
+    "expected_opportunity_policy",
+    "expected_quarantine_reason",
+    "notes_compact"
+  ],
+  "fixture_type_values": [
+    "VALID_MINIMAL",
+    "MISSING_CORRELATION_ID",
+    "MISSING_SIDECAR",
+    "PENDING_PROVENANCE",
+    "ORPHAN_STAGING",
+    "EXPLICIT_NO_PROVENANCE_REQUIRED",
+    "TTL_EXPIRED_LOW_VALUE",
+    "ARCHIVE_REQUIRED",
+    "FORBIDDEN_STAGING_METADATA",
+    "AI_CONTEXT_RAW_ONLY",
+    "TRAINING_CONTEXT_RAW_ONLY",
+    "CONFLICTING_PROVENANCE",
+    "NEWS_IDENTITY_RESOLVED",
+    "NEWS_IDENTITY_UNRESOLVED",
+    "NEWS_IDENTITY_MISRESOLVED",
+    "NEWS_SEMANTIC_CONTAMINATION",
+    "NEWS_OPPORTUNITY_COST_OBSERVE",
+    "UNKNOWN_ANOMALY_CONTEXT",
+    "SECURITY_CONTEXT_ONLY",
+    "INVALID_POISONED_FIXTURE"
+  ],
+  "input_object_contract": {
+    "required_fields": [
+      "object_type",
+      "object_state",
+      "created_at_utc"
+    ],
+    "lineage_pointer": "correlation_id",
+    "forbidden_fields": [
+      "full_raw_payload",
+      "full_ai_explanation",
+      "full_model_prompt",
+      "secret_or_api_key",
+      "wallet_or_private_key",
+      "heavy_source_list",
+      "training_output_as_truth",
+      "final_trade_or_veto_decision",
+      "unbounded_metadata"
+    ]
+  },
+  "expected_validation_contract": {
+    "required_fields": [
+      "should_pass",
+      "expected_ready_state",
+      "expected_lineage_state",
+      "expected_lifecycle_state",
+      "expected_fast_path_allowed",
+      "expected_heavy_path_allowed"
+    ],
+    "allowed_ready_states": [
+      "NOT_READY",
+      "READY_FOR_FAST_PATH",
+      "READY_FOR_HEAVY_PATH_ONLY",
+      "QUARANTINED"
+    ],
+    "allowed_lineage_states": [
+      "PENDING_PROVENANCE",
+      "PROVENANCE_CONFIRMED",
+      "NO_PROVENANCE_REQUIRED",
+      "ORPHAN_QUARANTINE_REQUIRED"
+    ],
+    "allowed_lifecycle_states": [
+      "ACTIVE_PENDING",
+      "ACTIVE_READY",
+      "VALIDATED_CONTEXT",
+      "QUARANTINED",
+      "ARCHIVE_PENDING",
+      "ARCHIVED",
+      "EXPIRED",
+      "REJECTED"
+    ]
+  },
+  "correlation_id_policy": {
+    "required_by_default": true,
+    "must_not_encode_secret": true,
+    "must_be_collision_resistant_or_deterministic": true,
+    "missing_behavior": "NOT_READY_OR_QUARANTINED",
+    "explicit_no_provenance_required_allowed": true,
+    "explicit_no_provenance_required_must_be_auditable": true
+  },
+  "provenance_policy": {
+    "sidecar_required_for_ready": true,
+    "sidecar_required_fields_must_be_present": true,
+    "sidecar_is_context_not_authority": true,
+    "ai_output_default": "RAW_CONTEXT_ONLY",
+    "training_output_default": "RAW_CONTEXT_ONLY",
+    "conflicting_provenance_behavior": "FAIL_CLOSED_TO_QUARANTINE_OR_REVIEW"
+  },
+  "hot_path_policy": {
+    "hot_path_reads_compact_state_only": true,
+    "hot_path_must_not_read_full_sidecar": true,
+    "hot_path_must_not_scan_archive": true,
+    "hot_path_blocked_by_heavy_path": false,
+    "fast_ready_requires_confirmed_lineage": true
+  },
+  "heavy_path_policy": {
+    "may_lookup_sidecar_by_correlation_id": true,
+    "budget_limited": true,
+    "ttl_limited": true,
+    "no_trade_authority": true,
+    "no_final_decision_authority": true
+  },
+  "blind_replay_compatibility": {
+    "era39_ready": true,
+    "outcome_hidden_by_default": true,
+    "estimate_must_be_immutable_before_outcome_reveal": true,
+    "feedback_context_only": true,
+    "hindsight_bias_guard_required": true
+  },
+  "validation_targets": [
+    "valid_minimal_fixture_passes",
+    "missing_correlation_id_fails_or_quarantines",
+    "missing_sidecar_blocks_fast_path",
+    "pending_provenance_blocks_fast_path",
+    "orphan_staging_quarantines",
+    "explicit_no_provenance_required_is_auditable",
+    "ttl_expired_low_value_expires_or_archives",
+    "forbidden_staging_metadata_rejected",
+    "ai_context_remains_raw_context_only",
+    "training_context_remains_raw_context_only",
+    "conflicting_provenance_fails_closed",
+    "news_identity_unresolved_blocks_token_specific_signal",
+    "news_misresolved_identity_goes_review_or_quarantine",
+    "semantic_contamination_detected_as_context_only",
+    "opportunity_cost_observe_does_not_create_trade_authority"
+  ],
+  "forbidden_work_in_this_phase": [
+    "runtime_patch",
+    "db_schema_change",
+    "staging_object_patch",
+    "news_only_product_code",
+    "external_api_call",
+    "new_engine_creation",
+    "new_physical_queue",
+    "systemd_change",
+    "root_artifact_creation",
+    "trade_wallet_order_authority"
+  ],
+  "guards": {
+    "new_engine_created": false,
+    "runtime_mutation": false,
+    "root_files_created": false,
+    "core_upgrade_opened": false,
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_connection": false,
+    "product_specific_code": false
+  },
+  "decision": "ERA38_GENERIC_FIXTURE_SCHEMA_DEFINED_NOAPI",
+  "next_step": "ERA38_ADVERSARIAL_AND_RANDOM_NOISE_FIXTURE_CONTRACT_NOAPI",
+  "final_gate": "PASS_ERA38_GENERIC_FIXTURE_SCHEMA_NOAPI"
+}
