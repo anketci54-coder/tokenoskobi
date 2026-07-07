@@ -1,0 +1,69 @@
+{
+  "era": "ERA41",
+  "phase": "FINAL_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-07T08:20:00.000000+00:00",
+  "scope": "Close GitHub-side ERA41 after sandbox blind replay and scoring outputs were produced.",
+  "artifacts_reviewed": [
+    "data/control/era41_historical_news_blind_replay_plan_and_score_contract_noapi_v1.json",
+    "data/control/era41_sandbox_replay_run_and_reveal_contract_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_sealed_estimate_manifest_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_decision_path_manifest_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_replay_result_report_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_calibration_feedback_report_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_outcome_join_repair_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_real_outcome_source_discovery_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_outcome_join_candidate_audit_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_outcome_join_mapping_plan_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_outcome_join_attempt_noapi_v1.json",
+    "data/control/era41_replay_outputs/era41_reveal_and_score_noapi_v1.json"
+  ],
+  "review_checks": {
+    "score_contract_defined": true,
+    "sandbox_replay_contract_defined": true,
+    "sealed_estimate_manifest_created": true,
+    "decision_path_manifest_created": true,
+    "local_outcome_source_discovery_done": true,
+    "candidate_audit_done": true,
+    "mapping_plan_done": true,
+    "join_attempt_done": true,
+    "reveal_and_score_done": true,
+    "feedback_context_only": true,
+    "no_runtime_change": true,
+    "no_external_api": true,
+    "no_live_feed": true,
+    "no_schema_change": true,
+    "no_service_change": true,
+    "no_product_specific_code": true
+  },
+  "final_summary": {
+    "identity": "HISTORICAL_NEWS_BLIND_REPLAY_NOAPI",
+    "result": "SANDBOX_REPLAY_AND_SCORE_COMPLETED_NOAPI",
+    "estimate_policy": "Estimates were sealed before scoring.",
+    "feedback_policy": "Score output is calibration context only.",
+    "data_policy": "No synthetic result was generated."
+  },
+  "known_limits": [
+    "Some local result joins may require review.",
+    "Semantic leakage check remains backlog.",
+    "Live or shadow real-time News test is not included in ERA41.",
+    "Decision drift comparison remains backlog."
+  ],
+  "recommended_next_work_unit": {
+    "id": "ERA42_NEWS_REPLAY_REGRESSION_AND_CONTAMINATION_AUDIT_NOAPI",
+    "reason": "Audit ERA41 replay outputs before any shadow real-time News step."
+  },
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "canonical_overwrite": false,
+    "synthetic_outcome_generated": false
+  },
+  "decision": "ERA41_FINAL_REVIEW_PASS_GITHUB_SIDE",
+  "next_step": "SERVER_RUNTIME_CLOSE_AND_PUSH",
+  "final_gate": "PASS_ERA41_FINAL_REVIEW_NOAPI"
+}
