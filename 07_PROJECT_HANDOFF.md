@@ -1925,3 +1925,10 @@ Bu projede Almanac ve Atlas artık yaşayan, uzun vadeli eserler olarak gelişti
 - İlk üretim içerikleri `docs/almanac/volumes/` ve `docs/atlas/maps/` altında büyütülür.
 - Yeni sohbetler bu yaklaşımı koruyarak devam eder; yeni canonical dosya oluşturulmaz, mevcut eserler geliştirilir.
 
+
+## ERA42 Final Close — 2026-07-07T10:34:59.172133+00:00
+- Status: CLOSED
+- Final gate: PASS_ERA42_FINAL_REVIEW_AND_CANONICAL_CLOSE_NOAPI
+- Next: ERA43_NEWS_SHADOW_REALTIME_READONLY_REAL_RUN_PLAN_NOAPI
+- Health: root/database size check recorded.
+

@@ -265,3 +265,10 @@ Roadmap içinde tutulmayacak içerikler:
 - Closure marker
 
 Bu içerikler Almanac, PROJECT_RUNTIME.json, 06_PROJECT_MASTER_STATE.md veya ilgili canonical kaynak dosyada tutulur.
+
+## ERA42 Final Close — 2026-07-07T10:34:59.172133+00:00
+- Status: CLOSED
+- Final gate: PASS_ERA42_FINAL_REVIEW_AND_CANONICAL_CLOSE_NOAPI
+- Next: ERA43_NEWS_SHADOW_REALTIME_READONLY_REAL_RUN_PLAN_NOAPI
+- Health: root/database size check recorded.
+
