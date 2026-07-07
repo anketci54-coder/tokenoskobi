@@ -2,4187 +2,1711 @@
   "era": "ERA41",
   "phase": "REAL_OUTCOME_SOURCE_DISCOVERY_NOAPI",
   "created_at_utc": "2026-07-07T08:03:01.646118+00:00",
+  "compacted_at_utc": "2026-07-07T08:10:37.748503+00:00",
   "purpose": "Discover local outcome-like sources that may be joined to sealed ERA41 blind replay cases without using synthetic outcomes, live feed, external API, runtime patch, or schema changes.",
-  "sqlite_files_scanned": 3,
-  "outcome_candidate_sources_count": 310,
-  "outcome_candidate_sources": [
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "ai_dataset_registry_v1",
-      "row_count": 1,
-      "outcome_like_columns": [
-        "label_counts_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "dataset_uid",
-        "dataset_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "ai_dataset_rows_v1",
-      "row_count": 2,
-      "outcome_like_columns": [
-        "target_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "row_uid",
-        "dataset_uid",
-        "event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "ai_training_run_registry_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "label_counts_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "training_run_uid",
-        "dataset_uid",
-        "schema_uid",
-        "model_artifact_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_candle_policy_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "window_type"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_checkpoint_snapshots_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "checkpoint_label",
-        "price_usd",
-        "price_change_from_anchor_pct",
-        "liquidity_usd",
-        "liquidity_change_from_anchor_pct",
-        "volume_window_usd",
-        "tx_window_count",
-        "buy_window_count",
-        "sell_window_count"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "checkpoint_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "anchor_confidence",
-        "liquidity_usd",
-        "liquidity_change_from_anchor_pct"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_minute_candles_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "window_type",
-        "price_open",
-        "price_high",
-        "price_low",
-        "price_close",
-        "liquidity_open_usd",
-        "liquidity_close_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "candle_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "anchor_confidence",
-        "liquidity_open_usd",
-        "liquidity_close_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_missing_window_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "impact_on_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_momentum_acceleration_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_momentum_warning_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_momentum_window_metrics_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "price_change_pct",
-        "liquidity_change_pct",
-        "volume_window_usd",
-        "liquidity_retention_pct",
-        "momentum_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "metric_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_change_pct",
-        "liquidity_retention_pct",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_money_flow_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "flow_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_birth_timeline_quality_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "missing_window_count",
-        "quality_score"
-      ],
-      "time_like_columns": [
-        "timeline_quality_status",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_commercial_roi_score_inputs_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_input_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_input_uid",
-        "period_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_entity_reputation_event_rollup_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "rollup_window"
-      ],
-      "time_like_columns": [
-        "first_seen_at_utc",
-        "last_seen_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "rollup_uid",
-        "entity_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_entity_reputation_ledger_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "risk_score",
-        "confirmed_severe_count"
-      ],
-      "time_like_columns": [
-        "first_seen_utc",
-        "last_seen_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "entity_uid",
-        "chain",
-        "entity_address_or_key",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_entity_reputation_summary_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "current_score",
-        "stale_score",
-        "shadow_label_count"
-      ],
-      "time_like_columns": [
-        "last_seen_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "entity_uid",
-        "chain",
-        "entity_address",
-        "evidence_ref_count"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_execution_rpc_budget_guard_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "guard_result"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "budget_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "guard_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_execution_safety_gate_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "minimum_pool_liquidity_usd",
-        "buy_price_impact_pct",
-        "sell_price_impact_pct",
-        "exit_liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "safety_event_uid",
-        "token_uid",
-        "pair_uid",
-        "minimum_pool_liquidity_usd",
-        "exit_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_execution_safety_gate_events_v2_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "minimum_pool_liquidity_usd",
-        "exit_liquidity_usd",
-        "buy_price_impact_pct",
-        "sell_price_impact_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "safety_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "policy_uid",
-        "minimum_pool_liquidity_usd",
-        "exit_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_execution_safety_policy_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "min_pool_liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid",
-        "chain",
-        "min_pool_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_execution_safety_time_series_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "buy_price_impact_pct",
-        "sell_price_impact_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "exec_series_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "source_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_known_wallet_registry_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "label_confidence"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "wallet_uid",
-        "chain",
-        "wallet_address",
-        "label_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_known_wallet_source_registry_readmodel_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "shadow_label_count"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "readmodel_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_moonshot_narrative_bridge_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "support_score_delta"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "narrative_event_uid",
-        "moonshot_bridge_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_moonshot_outcome_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "time_to_outcome_minutes",
-        "label_confidence"
-      ],
-      "time_like_columns": [
-        "time_to_outcome_minutes",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "label_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_moonshot_wallet_bridge_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "support_score_delta"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "wallet_event_uid",
-        "moonshot_bridge_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_news_score_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "scored_at_utc",
-        "news_importance_score_100",
-        "news_reliability_score_100",
-        "news_token_relevance_score_100",
-        "news_risk_score_100",
-        "news_fusion_score_100",
-        "importance_label",
-        "reliability_label",
-        "token_connection_label",
-        "risk_label",
-        "fusion_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "news_uid",
-        "source_uid",
-        "title_hash",
-        "news_token_relevance_score_100",
-        "token_connection_label"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_phase41_command_center_score_snapshot_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "technical_tactical_composite_score",
-        "attack_readiness_score",
-        "trap_risk_score",
-        "escape_readiness_score",
-        "news_social_context_score",
-        "macro_context_risk_score",
-        "fast_source_latency_score",
-        "opportunity_priority_score",
-        "liquidity_status"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "snapshot_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "liquidity_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_phase41_command_center_unified_readmodel_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "score_snapshot_id",
-        "outcome_class",
-        "outcome_projection_status",
-        "outcome_projection_source",
-        "outcome_projected_at_utc"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "unified_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "score_snapshot_id",
-        "drift_snapshot_id",
-        "fast_source_event_id",
-        "paper_position_id",
-        "memory_event_id",
-        "fetch_policy_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_phase41_outcome_memory_event_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "outcome_class"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "memory_event_id",
-        "paper_position_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_phase41_paper_position_lifecycle_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "score_snapshot_id",
-        "paper_entry_price",
-        "expected_pnl_after_costs",
-        "paper_exit_price",
-        "paper_pnl_after_costs",
-        "outcome_class"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "paper_position_id",
-        "paper_decision_id",
-        "score_snapshot_id",
-        "drift_snapshot_id",
-        "token_address",
-        "pair_address",
-        "chain_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_phase41_simulation_drift_snapshot_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "expected_entry_price",
-        "actual_entry_reference_price",
-        "expected_exit_price",
-        "actual_exit_reference_price",
-        "expected_pnl_after_costs",
-        "actual_pnl_after_costs",
-        "pnl_drift",
-        "liquidity_drift"
-      ],
-      "time_like_columns": [
-        "shadow_candidate_id",
-        "created_at"
-      ],
-      "id_like_columns": [
-        "drift_snapshot_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "shadow_candidate_id",
-        "liquidity_drift"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_risk_gate_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "risk_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "risk_event_uid",
-        "token_uid",
-        "pair_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_risk_outcome_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "pnl_or_avoided_loss_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "risk_decision_uid",
-        "pnl_or_avoided_loss_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_risk_tier_capital_policy_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "future_capital_permission_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_state_aggregated_token_command_output_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "final_quality_label"
-      ],
-      "time_like_columns": [
-        "last_decision_timestamp",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "output_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_symbol",
-        "next_required_evidence",
-        "evidence_age_blocks"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_state_aggregated_token_freshness_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "stale_after_blocks",
-        "stale_after_seconds"
-      ],
-      "time_like_columns": [
-        "last_updated_block",
-        "last_updated_timestamp",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "state_uid",
-        "token_uid",
-        "chain",
-        "evidence_age_blocks",
-        "evidence_age_seconds"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_wallet_outcome_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "time_to_outcome_minutes"
-      ],
-      "time_like_columns": [
-        "time_to_outcome_minutes",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "wallet_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_wallet_tier_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "tier_label_tr"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "tier_uid",
-        "wallet_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_wallet_token_entry_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "entry_price"
-      ],
-      "time_like_columns": [
-        "event_time_utc"
-      ],
-      "id_like_columns": [
-        "entry_uid",
-        "wallet_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_whale_entity_evidence_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "external_label_signal_only"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "evidence_uid",
-        "entity_uid",
-        "chain",
-        "evidence_type",
-        "evidence_source",
-        "evidence_strength",
-        "evidence_summary",
-        "raw_ref_uid",
-        "tx_hash",
-        "onchain_behavior_required"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "archive_whale_entity_registry_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "entity_label",
-        "external_label_signal_only"
-      ],
-      "time_like_columns": [
-        "first_seen_utc",
-        "last_seen_utc",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "entity_uid",
-        "chain",
-        "confidence",
-        "confidence_band"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "asymmetric_micro_observation_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "executable_opportunity_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "next_required_evidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "asymmetric_watch_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "asymmetry_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "upside_bucket",
-        "downside_risk_bucket"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "autopsy_cases",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "confirmed_cause"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "autopsy_uid",
-        "morgue_uid",
-        "token_uid",
-        "pair_uid",
-        "evidence_status",
-        "evidence_reasons_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "autopsy_lessons",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "future_filter_rule_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "lesson_uid",
-        "autopsy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "avoided_loss_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "loss_type",
-        "estimated_avoided_loss_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "audit_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "estimated_avoided_loss_usd",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "backpressure_rollup_snapshot_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_start_utc",
-        "window_end_utc"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "snapshot_uid",
-        "provider_spike_detected"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "bsc_event_source_probes",
-      "row_count": 1,
-      "outcome_like_columns": [
-        "result_count"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_probe_uid",
-        "probe_run_uid",
-        "chain",
-        "factory_address",
-        "valid_response"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "bsc_pair_created_candidates",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_confirmed"
-      ],
-      "time_like_columns": [
-        "pair_candidate_uid",
-        "pair_created_block_dec",
-        "pair_created_tx_hash",
-        "pair_created_log_index",
-        "candidate_status",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "pair_candidate_uid",
-        "event_probe_uid",
-        "chain",
-        "factory_address",
-        "pair_address",
-        "token0_address",
-        "token1_address",
-        "pair_created_tx_hash",
-        "candidate_status",
-        "liquidity_confirmed"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "cascading_execution_filter_eval_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "stage_result"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "eval_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "current_stage_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "cascading_execution_filter_policy_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "future_rpc_required"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid",
-        "chain",
-        "stage_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "center_signal_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "signal_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "command_decision_time_series_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "decision_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "decision_series_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_risk_event_uid",
-        "linked_safety_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "confirmation_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "confirmation_uid",
-        "price_delta_pct",
-        "liquidity_delta_pct",
-        "confirmation_status"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "confirmation_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_address",
-        "pair_address",
-        "liquidity_delta_pct",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "data_quality_time_series_v1",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "quality_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "quality_uid",
-        "source_uid",
-        "token_uid",
-        "pair_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "decision_binding_evaluation_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "final_quality_label",
-        "final_route_effect"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "decision_binding_rule_policy_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "decision_label"
-      ],
-      "time_like_columns": [
-        "runtime_now",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "deployer_receipt_evidence_events_v1",
-      "row_count": 18,
-      "outcome_like_columns": [
-        "interpretation_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "chain",
-        "tx_hash",
-        "token_log_match",
-        "source_object_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "dex_microstructure_technical_evidence_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_support_status"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "technical_confidence",
-        "liquidity_support_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "early_death_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "death_window_minutes"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "event_outcome_labels_v1",
-      "row_count": 2,
-      "outcome_like_columns": [
-        "label_uid",
-        "final_label",
-        "label_reason",
-        "labeled_at_utc"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "label_uid",
-        "event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "event_outcome_observations_v1",
-      "row_count": 10,
-      "outcome_like_columns": [
-        "observation_window",
-        "price_change_pct",
-        "liquidity_change_pct",
-        "net_pnl_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "observation_uid",
-        "event_uid",
-        "liquidity_change_pct"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "event_outcome_registry_v1",
-      "row_count": 13,
-      "outcome_like_columns": [
-        "expected_impact_score",
-        "relevance_score",
-        "truth_score",
-        "risk_score",
-        "confidence_score",
-        "fusion_score",
-        "mev_risk_score"
-      ],
-      "time_like_columns": [
-        "first_seen_at_utc",
-        "event_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "source_uid",
-        "asset_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "symbol",
-        "confidence_score",
-        "paper_trade_uid",
-        "raw_ref_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "external_reputation_comparison_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "external_label",
-        "resulting_action"
-      ],
-      "time_like_columns": [
-        "internal_tier_at_time"
-      ],
-      "id_like_columns": [
-        "comparison_uid",
-        "chain",
-        "entity_address_or_key",
-        "external_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "false_positive_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_total"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "fast_decay_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_drop_pct",
-        "price_drop_pct",
-        "decay_score",
-        "observed_window_minutes"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_drop_pct"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "fusion_score_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_json",
-        "final_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "fusion_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "hypothetical_position_simulations",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "entry_price",
-        "exit_price",
-        "gross_pnl_usd",
-        "net_pnl_usd",
-        "net_pnl_pct",
-        "outcome_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "simulation_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "score_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "initial_holder_evidence_events_v1",
-      "row_count": 7,
-      "outcome_like_columns": [
-        "scan_window_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "source_object_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "known_wallet_label_quality_events_v1",
-      "row_count": 9,
-      "outcome_like_columns": [
-        "quality_score_delta"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "quality_event_uid",
-        "source_id",
-        "seed_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "known_wallet_quarantine_seed_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "label_text",
-        "label_type"
-      ],
-      "time_like_columns": [
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "quarantine_uid",
-        "source_id",
-        "seed_uid",
-        "chain",
-        "wallet_address"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "known_wallet_seed_queue_v1",
-      "row_count": 1,
-      "outcome_like_columns": [
-        "label_text",
-        "label_type",
-        "external_label_signal_only"
-      ],
-      "time_like_columns": [
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "seed_uid",
-        "source_id",
-        "chain",
-        "wallet_address",
-        "confidence_hint",
-        "onchain_behavior_required",
-        "source_ref_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "known_wallet_shadow_label_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "shadow_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "shadow_event_uid",
-        "seed_uid",
-        "chain",
-        "wallet_address",
-        "identity_status",
-        "shadow_confidence",
-        "non_cex_supporting_evidence_count",
-        "real_world_identity_guarantee",
-        "temporary_risk_evidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "known_wallet_source_registry_v1",
-      "row_count": 8,
-      "outcome_like_columns": [
-        "external_label_signal_only"
-      ],
-      "time_like_columns": [
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "source_id",
-        "source_url_or_ref_hash",
-        "onchain_behavior_required"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "liquidity_alive_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_usd",
-        "liquidity_change_pct",
-        "liquidity_status"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_usd",
-        "liquidity_change_pct",
-        "liquidity_status",
-        "snapshot_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "liquidity_birth_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_usd",
-        "liquidity_birth_time_utc"
-      ],
-      "time_like_columns": [
-        "liquidity_birth_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_usd",
-        "liquidity_birth_time_utc",
-        "source_confidence",
-        "snapshot_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "liquidity_depth_time_series_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_usd",
-        "exit_liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "depth_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_usd",
-        "exit_liquidity_usd",
-        "source_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "liquidity_snapshots",
-      "row_count": 46,
-      "outcome_like_columns": [
-        "liquidity_usd",
-        "liquidity_base",
-        "liquidity_quote"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "snapshot_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "pair_address",
-        "liquidity_usd",
-        "liquidity_base",
-        "liquidity_quote"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "lp_wallet_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "lp_wallet_address",
-        "liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "market_ohlcv_time_series_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "open_price_usd",
-        "high_price_usd",
-        "low_price_usd",
-        "close_price_usd"
-      ],
-      "time_like_columns": [
-        "timeframe",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "candle_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "market_snapshots",
-      "row_count": 46,
-      "outcome_like_columns": [
-        "price_usd",
-        "price_change_1h_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "snapshot_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "pair_address"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "mev_outcome_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "route_profile_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "mev_sandwich_risk_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "tx_burst_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "mev_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "micro_budget_policy_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "requires_future_plan"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "budget_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "missed_opportunity_audit_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_class",
-        "followup_window_blocks",
-        "followup_window_hours",
-        "liquidity_exit_possible_later",
-        "avoided_loss_secondary_metric"
-      ],
-      "time_like_columns": [
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "audit_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "reject_decision_uid",
-        "liquidity_exit_possible_later",
-        "avoided_loss_secondary_metric",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "missed_opportunity_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_total"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "model_feedback_candidate_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "candidate_label"
-      ],
-      "time_like_columns": [
-        "candidate_source",
-        "candidate_label",
-        "candidate_quality",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "feedback_uid",
-        "candidate_source",
-        "linked_replay_case_uid",
-        "linked_lesson_uid",
-        "candidate_label",
-        "candidate_quality",
-        "evidence_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "momentum_timeline_panel_rows",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "display_price_change",
-        "display_liquidity_change",
-        "display_momentum_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "row_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "display_liquidity_change"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "morgue_entries",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "last_price_usd",
-        "last_liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "morgue_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_name",
-        "token_symbol",
-        "token_address",
-        "pair_address",
-        "last_liquidity_usd",
-        "paper_position_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "narrative_outcome_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "time_to_outcome_minutes"
-      ],
-      "time_like_columns": [
-        "time_to_outcome_minutes",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "narrative_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "negative_memory_guard_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "negative_label",
-        "training_value_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "negative_guard_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "negative_memory_lookup_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "confirmed_status"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "memory_value_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "negative_memory_lookup_policy_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "severity_if_confirmed"
-      ],
-      "time_like_columns": [
-        "runtime_now",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "net_commercial_score_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "net_commercial_performance_score",
-        "avoided_loss_component_usd",
-        "avoided_loss_secondary_only"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "period_uid",
-        "avoided_loss_component_usd",
-        "avoided_loss_secondary_only"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_impact_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "impact_label",
-        "impact_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "news_event_uid",
-        "source_uid",
-        "token_uid",
-        "match_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_narrative_time_series_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "impact_label",
-        "impact_score",
-        "decay_window"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "narrative_series_uid",
-        "token_uid",
-        "source_uid",
-        "match_confidence",
-        "source_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_runtime_freshness_v1",
-      "row_count": 1,
-      "outcome_like_columns": [
-        "score_count"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "freshness_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_score_component_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "component_score_100"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "component_uid",
-        "score_uid",
-        "news_uid",
-        "evidence_text"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_score_events_v1",
-      "row_count": 47,
-      "outcome_like_columns": [
-        "score_uid",
-        "news_token_relevance_score_100",
-        "news_risk_score_100",
-        "news_fusion_score_100",
-        "importance_label",
-        "risk_label",
-        "fusion_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "news_uid",
-        "token_uid",
-        "pair_uid",
-        "symbol",
-        "chain",
-        "news_token_relevance_score_100"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_signal_events",
-      "row_count": 47,
-      "outcome_like_columns": [
-        "signal_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "signal_uid",
-        "news_uid",
-        "token_uid",
-        "pair_uid",
-        "symbol",
-        "chain",
-        "source_match_uid",
-        "evidence_text"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_social_launch_signals_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "officialness_score",
-        "social_burst_score",
-        "manipulation_risk_score",
-        "onchain_confirmation_status"
-      ],
-      "time_like_columns": [
-        "launch_time_claim",
-        "created_at"
-      ],
-      "id_like_columns": [
-        "signal_uid",
-        "source_uid",
-        "token_name_claim",
-        "chain_claim",
-        "contract_address_claim",
-        "onchain_confirmation_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_social_signal_evidence_links_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "confirms_contract",
-        "confirms_onchain",
-        "confirms_risk"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "evidence_uid",
-        "signal_uid",
-        "evidence_type",
-        "evidence_hash",
-        "evidence_summary",
-        "confirms_onchain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_source_dedup_policy_v1",
-      "row_count": 12,
-      "outcome_like_columns": [
-        "duplicate_window_minutes"
-      ],
-      "time_like_columns": [
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "source_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_source_quality_stats_v1",
-      "row_count": 12,
-      "outcome_like_columns": [
-        "confirmed_label_count",
-        "failed_label_count",
-        "reversed_label_count",
-        "last_quality_score"
-      ],
-      "time_like_columns": [
-        "raw_seen_count",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "source_uid",
-        "hidden_count",
-        "token_match_count"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_source_registry",
-      "row_count": 5,
-      "outcome_like_columns": [
-        "trust_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "source_uid",
-        "base_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_source_registry_v1",
-      "row_count": 12,
-      "outcome_like_columns": [
-        "requires_external_confirmation"
-      ],
-      "time_like_columns": [
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "source_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_token_match_events",
-      "row_count": 47,
-      "outcome_like_columns": [
-        "match_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "match_uid",
-        "news_uid",
-        "source_uid",
-        "token_uid",
-        "pair_uid",
-        "symbol",
-        "chain",
-        "match_confidence",
-        "evidence_text"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "news_translation_cache_v1",
-      "row_count": 25,
-      "outcome_like_columns": [
-        "quality_label"
-      ],
-      "time_like_columns": [
-        "first_seen_utc",
-        "last_seen_utc",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "cache_uid",
-        "source_uid",
-        "title_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "opening_baseline_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_birth_event_uid",
-        "opening_price_event_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "baseline_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "pair_birth_event_uid",
-        "liquidity_birth_event_uid",
-        "opening_price_event_uid",
-        "baseline_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "opening_price_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "opening_price_usd",
-        "opening_price_time_utc"
-      ],
-      "time_like_columns": [
-        "opening_price_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "source_confidence",
-        "market_snapshot_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "opportunity_outcome_snapshot_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "lp_remove_flag",
-        "liquidity_exit_possible"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "snapshot_uid",
-        "audit_uid",
-        "token_uid",
-        "pair_uid",
-        "liquidity_exit_possible",
-        "raw_evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "outcome_lesson_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "linked_outcome_uid"
-      ],
-      "time_like_columns": [
-        "training_candidate",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "lesson_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_outcome_uid",
-        "lesson_id",
-        "training_candidate",
-        "evidence_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "outcome_memory_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_uid",
-        "outcome_type"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "outcome_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_paper_uid",
-        "linked_decision_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "outcome_memory_events_v2",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_uid",
-        "outcome_label",
-        "outcome_window",
-        "pnl_pct",
-        "liquidity_change_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "outcome_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_decision_uid",
-        "linked_preflight_uid",
-        "linked_paper_decision_uid",
-        "liquidity_change_pct",
-        "evidence_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "outcome_observation_window_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "window_start_ts_utc",
-        "window_end_ts_utc",
-        "price_change_pct",
-        "liquidity_change_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "observation_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_decision_uid",
-        "liquidity_change_pct"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_decision_reports",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "estimated_price_impact_pct",
-        "stop_loss_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "paper_decision_uid",
-        "token_uid",
-        "pair_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_observation_time_series_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "price_change_pct",
-        "liquidity_change_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "observation_uid",
-        "token_uid",
-        "pair_uid",
-        "paper_decision_uid",
-        "liquidity_change_pct"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_route_decision_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "decision_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "paper_decision_uid",
-        "token_uid",
-        "pair_uid",
-        "linked_safety_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_trade_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "entry_price",
-        "exit_price",
-        "pnl_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "paper_uid",
-        "decision_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_trade_executions",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "executed_price"
-      ],
-      "time_like_columns": [
-        "execution_time_utc"
-      ],
-      "id_like_columns": [
-        "execution_uid",
-        "position_uid",
-        "side",
-        "estimated_tokens"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_trade_outcomes",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_uid",
-        "gross_pnl_usd",
-        "net_pnl_usd",
-        "outcome_status"
-      ],
-      "time_like_columns": [
-        "entry_time_utc",
-        "exit_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "outcome_uid",
-        "position_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_trade_plans",
-      "row_count": 2,
-      "outcome_like_columns": [
-        "entry_price",
-        "tp1_price",
-        "tp2_price",
-        "stop_price"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "plan_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_address",
-        "pair_address"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "paper_trade_positions",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "entry_price",
-        "exit_price"
-      ],
-      "time_like_columns": [
-        "entry_time_utc",
-        "exit_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "position_uid",
-        "plan_uid",
-        "token_uid",
-        "pair_uid",
-        "token_amount_est"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "parsed_live_observation_staging",
-      "row_count": 153,
-      "outcome_like_columns": [
-        "price_usd",
-        "liquidity_usd",
-        "price_change_1h_pct",
-        "parse_quality_score"
-      ],
-      "time_like_columns": [],
-      "id_like_columns": [
-        "staging_uid",
-        "fetch_uid",
-        "raw_response_uid",
-        "provider",
-        "chain",
-        "token_uid",
-        "pair_uid",
-        "token_address",
-        "pair_address",
-        "liquidity_usd",
-        "identity_match_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "portfolio_heat_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "heat_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "chain_concentration"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "radar_alerts",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "radar_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "alert_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "evidence_count"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "repeat_offender_fast_kill_cache",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "risk_score"
-      ],
-      "time_like_columns": [
-        "source_ledger_updated_at_utc"
-      ],
-      "id_like_columns": [
-        "chain",
-        "entity_address_or_key",
-        "entity_uid",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "replay_case_registry_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "case_label",
-        "linked_outcome_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "replay_case_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "case_family",
-        "case_label",
-        "linked_outcome_uid",
-        "linked_lesson_uid",
-        "evidence_bundle_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "route_performance_memory_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "linked_outcome_uid",
-        "route_result",
-        "pnl_pct"
-      ],
-      "time_like_columns": [
-        "lesson_candidate",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "route_memory_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_safety_event_uid",
-        "linked_filter_eval_uid",
-        "linked_outcome_uid",
-        "lesson_candidate"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "score_validation_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "validation_window",
-        "score_at_decision",
-        "observed_outcome",
-        "outcome_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "score_uid",
-        "token_uid",
-        "pair_uid",
-        "validation_window"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "slippage_estimates",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "slippage_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "smart_money_cluster_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_memory_status"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "cluster_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "cluster_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "snapshot_commit_ledger",
-      "row_count": 1,
-      "outcome_like_columns": [
-        "liquidity_snapshot_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "commit_uid",
-        "fetch_uid",
-        "staging_uid",
-        "liquidity_snapshot_uid",
-        "market_snapshot_uid",
-        "token_uid",
-        "pair_uid",
-        "pre_counts_hash",
-        "post_counts_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "snapshot_strength_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "strength_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "source_reliability_ledger",
-      "row_count": 33,
-      "outcome_like_columns": [
-        "source_reliability_score"
-      ],
-      "time_like_columns": [
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "source_uid",
-        "provider",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "staged_exit_plan_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "stop_price"
-      ],
-      "time_like_columns": [
-        "time_stop_minutes",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "stale_data_guard_policy_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "fresh_after_blocks",
-        "fresh_after_seconds",
-        "stale_after_blocks",
-        "stale_after_seconds",
-        "expired_after_blocks",
-        "expired_after_seconds"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "state_aggregated_token_readmodel_v1",
-      "row_count": 19,
-      "outcome_like_columns": [
-        "final_quality_label",
-        "decision_label",
-        "liquidity_status",
-        "confidence_score"
-      ],
-      "time_like_columns": [
-        "last_updated_block",
-        "last_updated_timestamp",
-        "last_decision_timestamp",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "readmodel_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_symbol",
-        "token_name",
-        "next_required_evidence",
-        "liquidity_status",
-        "evidence_age_blocks",
-        "source_event_uid",
-        "confidence_score",
-        "token_address"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "technical_signal_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "signal_label"
-      ],
-      "time_like_columns": [
-        "timeframe",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "signal_uid",
-        "token_uid",
-        "pair_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_birth_events",
-      "row_count": 19,
-      "outcome_like_columns": [
-        "initial_liquidity_usd",
-        "initial_price_usd"
-      ],
-      "time_like_columns": [
-        "birth_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "birth_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_address",
-        "pair_address",
-        "initial_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_death_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "last_liquidity_usd",
-        "last_price_usd"
-      ],
-      "time_like_columns": [
-        "death_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "death_event_uid",
-        "token_uid",
-        "pair_uid",
-        "last_liquidity_usd",
-        "evidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_lifecycle",
-      "row_count": 19,
-      "outcome_like_columns": [
-        "final_outcome",
-        "final_pnl_usd",
-        "final_pnl_pct"
-      ],
-      "time_like_columns": [
-        "birth_time_utc",
-        "first_seen_at_utc",
-        "last_seen_at_utc",
-        "death_time_utc",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "dex_id",
-        "token_name",
-        "symbol",
-        "token_address",
-        "pair_address"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_lifecycle_autopsy_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "lifecycle_label",
-        "linked_outcome_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "autopsy_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "linked_risk_event_uid",
-        "linked_outcome_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_radar_scores",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "news_score",
-        "whale_score",
-        "dex_score",
-        "confirmation_score",
-        "total_radar_score",
-        "score_explanation_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_revival_watch_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "revival_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "revival_uid",
-        "token_uid",
-        "pair_uid",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_risk_events",
-      "row_count": 15,
-      "outcome_like_columns": [
-        "risk_score"
-      ],
-      "time_like_columns": [
-        "event_time_utc",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "risk_event_uid",
-        "token_uid",
-        "pair_uid",
-        "evidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_score_100_events",
-      "row_count": 19,
-      "outcome_like_columns": [
-        "score_uid",
-        "score_total",
-        "score_bucket",
-        "scored_at_utc"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_score_component_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "score_uid",
-        "token_uid",
-        "pair_uid",
-        "evidence_summary"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_score_evidence_events",
-      "row_count": 10,
-      "outcome_like_columns": [
-        "score_uid",
-        "score_family",
-        "score_delta"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "evidence_uid",
-        "score_uid",
-        "token_uid",
-        "pair_uid",
-        "evidence_source",
-        "evidence_value",
-        "confidence_level"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_score_snapshots",
-      "row_count": 2,
-      "outcome_like_columns": [
-        "score_uid",
-        "discovery_score",
-        "risk_score",
-        "entry_readiness_score",
-        "revival_watch_score",
-        "autopsy_value_score",
-        "final_grade",
-        "final_decision",
-        "score_components_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "token_uid",
-        "pair_uid",
-        "evidence_coverage_ratio"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_soft_weakness_events",
-      "row_count": 408,
-      "outcome_like_columns": [
-        "score_impact"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "confidence_impact"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "token_time_series_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "quality_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "series_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "source_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "transaction_activity_time_series_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "window_start_ts_utc",
-        "window_end_ts_utc"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "activity_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "trend_pressure_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "velocity_score",
-        "window_minutes"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "whale_movement_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "movement_type"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "wallet_address",
-        "side"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/tokenoskobi_clean_v1.sqlite",
-      "table": "whale_wallet_events",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "wallet_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "wallet_event_uid",
-        "wallet_address",
-        "chain",
-        "token_address",
-        "pair_address",
-        "tx_hash",
-        "counterparty_address",
-        "evidence_json"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "ai_dataset_registry_v1",
-      "row_count": 1,
-      "outcome_like_columns": [
-        "label_counts_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "dataset_uid",
-        "dataset_hash"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "ai_dataset_rows_v1",
-      "row_count": 2,
-      "outcome_like_columns": [
-        "target_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "row_uid",
-        "dataset_uid",
-        "event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "ai_training_run_registry_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "label_counts_json"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "training_run_uid",
-        "dataset_uid",
-        "schema_uid",
-        "model_artifact_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_candle_policy_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "window_type"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_checkpoint_snapshots_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "checkpoint_label",
-        "price_usd",
-        "price_change_from_anchor_pct",
-        "liquidity_usd",
-        "liquidity_change_from_anchor_pct",
-        "volume_window_usd",
-        "tx_window_count",
-        "buy_window_count",
-        "sell_window_count"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "checkpoint_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "anchor_confidence",
-        "liquidity_usd",
-        "liquidity_change_from_anchor_pct"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_minute_candles_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "window_type",
-        "price_open",
-        "price_high",
-        "price_low",
-        "price_close",
-        "liquidity_open_usd",
-        "liquidity_close_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "candle_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "anchor_confidence",
-        "liquidity_open_usd",
-        "liquidity_close_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_missing_window_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "impact_on_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_momentum_acceleration_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_momentum_warning_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_momentum_window_metrics_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label",
-        "price_change_pct",
-        "liquidity_change_pct",
-        "volume_window_usd",
-        "liquidity_retention_pct",
-        "momentum_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "metric_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "liquidity_change_pct",
-        "liquidity_retention_pct",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_money_flow_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "window_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "flow_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_birth_timeline_quality_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "missing_window_count",
-        "quality_score"
-      ],
-      "time_like_columns": [
-        "timeline_quality_status",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_commercial_roi_score_inputs_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_input_uid"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_input_uid",
-        "period_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_entity_reputation_event_rollup_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "rollup_window"
-      ],
-      "time_like_columns": [
-        "first_seen_at_utc",
-        "last_seen_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "rollup_uid",
-        "entity_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_entity_reputation_ledger_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "risk_score",
-        "confirmed_severe_count"
-      ],
-      "time_like_columns": [
-        "first_seen_utc",
-        "last_seen_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "entity_uid",
-        "chain",
-        "entity_address_or_key",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_entity_reputation_summary_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "current_score",
-        "stale_score",
-        "shadow_label_count"
-      ],
-      "time_like_columns": [
-        "last_seen_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "entity_uid",
-        "chain",
-        "entity_address",
-        "evidence_ref_count"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_execution_rpc_budget_guard_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "guard_result"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "budget_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "guard_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_execution_safety_gate_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "minimum_pool_liquidity_usd",
-        "buy_price_impact_pct",
-        "sell_price_impact_pct",
-        "exit_liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "safety_event_uid",
-        "token_uid",
-        "pair_uid",
-        "minimum_pool_liquidity_usd",
-        "exit_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_execution_safety_gate_events_v2_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "minimum_pool_liquidity_usd",
-        "exit_liquidity_usd",
-        "buy_price_impact_pct",
-        "sell_price_impact_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "safety_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "policy_uid",
-        "minimum_pool_liquidity_usd",
-        "exit_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_execution_safety_policy_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "min_pool_liquidity_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid",
-        "chain",
-        "min_pool_liquidity_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_execution_safety_time_series_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "buy_price_impact_pct",
-        "sell_price_impact_pct"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "exec_series_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "source_event_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_known_wallet_registry_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "label_confidence"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "wallet_uid",
-        "chain",
-        "wallet_address",
-        "label_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_known_wallet_source_registry_readmodel_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "shadow_label_count"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "readmodel_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_moonshot_narrative_bridge_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "support_score_delta"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "narrative_event_uid",
-        "moonshot_bridge_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_moonshot_outcome_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "time_to_outcome_minutes",
-        "label_confidence"
-      ],
-      "time_like_columns": [
-        "time_to_outcome_minutes",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "label_confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_moonshot_wallet_bridge_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "support_score_delta"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "wallet_event_uid",
-        "moonshot_bridge_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_news_score_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "score_uid",
-        "scored_at_utc",
-        "news_importance_score_100",
-        "news_reliability_score_100",
-        "news_token_relevance_score_100",
-        "news_risk_score_100",
-        "news_fusion_score_100",
-        "importance_label",
-        "reliability_label",
-        "token_connection_label",
-        "risk_label",
-        "fusion_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "score_uid",
-        "news_uid",
-        "source_uid",
-        "title_hash",
-        "news_token_relevance_score_100",
-        "token_connection_label"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_phase41_command_center_score_snapshot_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "technical_tactical_composite_score",
-        "attack_readiness_score",
-        "trap_risk_score",
-        "escape_readiness_score",
-        "news_social_context_score",
-        "macro_context_risk_score",
-        "fast_source_latency_score",
-        "opportunity_priority_score",
-        "liquidity_status"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "snapshot_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "liquidity_status"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_phase41_command_center_unified_readmodel_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "score_snapshot_id",
-        "outcome_class",
-        "outcome_projection_status",
-        "outcome_projection_source",
-        "outcome_projected_at_utc"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "unified_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "score_snapshot_id",
-        "drift_snapshot_id",
-        "fast_source_event_id",
-        "paper_position_id",
-        "memory_event_id",
-        "fetch_policy_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_phase41_outcome_memory_event_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "outcome_class"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "memory_event_id",
-        "paper_position_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "confidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_phase41_paper_position_lifecycle_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "score_snapshot_id",
-        "paper_entry_price",
-        "expected_pnl_after_costs",
-        "paper_exit_price",
-        "paper_pnl_after_costs",
-        "outcome_class"
-      ],
-      "time_like_columns": [
-        "created_at"
-      ],
-      "id_like_columns": [
-        "paper_position_id",
-        "paper_decision_id",
-        "score_snapshot_id",
-        "drift_snapshot_id",
-        "token_address",
-        "pair_address",
-        "chain_id"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_phase41_simulation_drift_snapshot_v1_20260616",
-      "row_count": 4,
-      "outcome_like_columns": [
-        "expected_entry_price",
-        "actual_entry_reference_price",
-        "expected_exit_price",
-        "actual_exit_reference_price",
-        "expected_pnl_after_costs",
-        "actual_pnl_after_costs",
-        "pnl_drift",
-        "liquidity_drift"
-      ],
-      "time_like_columns": [
-        "shadow_candidate_id",
-        "created_at"
-      ],
-      "id_like_columns": [
-        "drift_snapshot_id",
-        "token_address",
-        "pair_address",
-        "chain_id",
-        "shadow_candidate_id",
-        "liquidity_drift"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_risk_gate_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "risk_label"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "risk_event_uid",
-        "token_uid",
-        "pair_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_risk_outcome_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "pnl_or_avoided_loss_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "risk_decision_uid",
-        "pnl_or_avoided_loss_usd"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_risk_tier_capital_policy_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "future_capital_permission_usd"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "policy_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_state_aggregated_token_command_output_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "final_quality_label"
-      ],
-      "time_like_columns": [
-        "last_decision_timestamp",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "output_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "token_symbol",
-        "next_required_evidence",
-        "evidence_age_blocks"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_state_aggregated_token_freshness_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "stale_after_blocks",
-        "stale_after_seconds"
-      ],
-      "time_like_columns": [
-        "last_updated_block",
-        "last_updated_timestamp",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "state_uid",
-        "token_uid",
-        "chain",
-        "evidence_age_blocks",
-        "evidence_age_seconds"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_wallet_outcome_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "outcome_label",
-        "time_to_outcome_minutes"
-      ],
-      "time_like_columns": [
-        "time_to_outcome_minutes",
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "wallet_event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_wallet_tier_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "tier_label_tr"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "tier_uid",
-        "wallet_uid"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_wallet_token_entry_events_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "entry_price"
-      ],
-      "time_like_columns": [
-        "event_time_utc"
-      ],
-      "id_like_columns": [
-        "entry_uid",
-        "wallet_uid",
-        "token_uid",
-        "pair_uid",
-        "chain"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_whale_entity_evidence_events_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "external_label_signal_only"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "evidence_uid",
-        "entity_uid",
-        "chain",
-        "evidence_type",
-        "evidence_source",
-        "evidence_strength",
-        "evidence_summary",
-        "raw_ref_uid",
-        "tx_hash",
-        "onchain_behavior_required"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "archive_whale_entity_registry_v1_20260616",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "entity_label",
-        "external_label_signal_only"
-      ],
-      "time_like_columns": [
-        "first_seen_utc",
-        "last_seen_utc",
-        "created_at_utc",
-        "updated_at_utc"
-      ],
-      "id_like_columns": [
-        "entity_uid",
-        "chain",
-        "confidence",
-        "confidence_band"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    },
-    {
-      "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
-      "table": "asymmetric_micro_observation_events_v1",
-      "row_count": 0,
-      "outcome_like_columns": [
-        "executable_opportunity_score"
-      ],
-      "time_like_columns": [
-        "created_at_utc"
-      ],
-      "id_like_columns": [
-        "event_uid",
-        "token_uid",
-        "pair_uid",
-        "chain",
-        "next_required_evidence"
-      ],
-      "join_potential": "REVIEW_REQUIRED"
-    }
-  ],
+  "detail_archive": "data/control/era41_replay_outputs/discovery_archive/era41_real_outcome_source_discovery_detail_noapi_v1.json",
+  "summary": {
+    "sqlite_files_scanned": 3,
+    "outcome_candidate_sources_count": 310,
+    "top_ranked_candidate_sources_count": 80,
+    "top_ranked_candidate_sources": [
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_phase41_command_center_score_snapshot_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "technical_tactical_composite_score",
+          "attack_readiness_score",
+          "trap_risk_score",
+          "escape_readiness_score",
+          "news_social_context_score",
+          "macro_context_risk_score",
+          "fast_source_latency_score",
+          "opportunity_priority_score",
+          "liquidity_status"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "snapshot_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "liquidity_status"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_phase41_outcome_memory_event_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "outcome_class"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "memory_event_id",
+          "paper_position_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "bsc_event_source_probes",
+        "row_count": 1,
+        "outcome_like_columns": [
+          "result_count"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_probe_uid",
+          "probe_run_uid",
+          "chain",
+          "factory_address",
+          "valid_response"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "deployer_receipt_evidence_events_v1",
+        "row_count": 18,
+        "outcome_like_columns": [
+          "interpretation_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "chain",
+          "tx_hash",
+          "token_log_match",
+          "source_object_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "event_outcome_labels_v1",
+        "row_count": 2,
+        "outcome_like_columns": [
+          "label_uid",
+          "final_label",
+          "label_reason",
+          "labeled_at_utc"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "label_uid",
+          "event_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "event_outcome_observations_v1",
+        "row_count": 10,
+        "outcome_like_columns": [
+          "observation_window",
+          "price_change_pct",
+          "liquidity_change_pct",
+          "net_pnl_usd"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "observation_uid",
+          "event_uid",
+          "liquidity_change_pct"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "event_outcome_registry_v1",
+        "row_count": 13,
+        "outcome_like_columns": [
+          "expected_impact_score",
+          "relevance_score",
+          "truth_score",
+          "risk_score",
+          "confidence_score",
+          "fusion_score",
+          "mev_risk_score"
+        ],
+        "time_like_columns": [
+          "first_seen_at_utc",
+          "event_time_utc",
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "source_uid",
+          "asset_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "symbol",
+          "confidence_score",
+          "paper_trade_uid",
+          "raw_ref_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "initial_holder_evidence_events_v1",
+        "row_count": 7,
+        "outcome_like_columns": [
+          "scan_window_json"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "source_object_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "known_wallet_label_quality_events_v1",
+        "row_count": 9,
+        "outcome_like_columns": [
+          "quality_score_delta"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "quality_event_uid",
+          "source_id",
+          "seed_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_runtime_freshness_v1",
+        "row_count": 1,
+        "outcome_like_columns": [
+          "score_count"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "freshness_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_score_events_v1",
+        "row_count": 47,
+        "outcome_like_columns": [
+          "score_uid",
+          "news_token_relevance_score_100",
+          "news_risk_score_100",
+          "news_fusion_score_100",
+          "importance_label",
+          "risk_label",
+          "fusion_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "score_uid",
+          "news_uid",
+          "token_uid",
+          "pair_uid",
+          "symbol",
+          "chain",
+          "news_token_relevance_score_100"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_signal_events",
+        "row_count": 47,
+        "outcome_like_columns": [
+          "signal_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "signal_uid",
+          "news_uid",
+          "token_uid",
+          "pair_uid",
+          "symbol",
+          "chain",
+          "source_match_uid",
+          "evidence_text"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_source_dedup_policy_v1",
+        "row_count": 12,
+        "outcome_like_columns": [
+          "duplicate_window_minutes"
+        ],
+        "time_like_columns": [
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "source_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_source_quality_stats_v1",
+        "row_count": 12,
+        "outcome_like_columns": [
+          "confirmed_label_count",
+          "failed_label_count",
+          "reversed_label_count",
+          "last_quality_score"
+        ],
+        "time_like_columns": [
+          "raw_seen_count",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "source_uid",
+          "hidden_count",
+          "token_match_count"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_source_registry",
+        "row_count": 5,
+        "outcome_like_columns": [
+          "trust_score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "source_uid",
+          "base_confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_source_registry_v1",
+        "row_count": 12,
+        "outcome_like_columns": [
+          "requires_external_confirmation"
+        ],
+        "time_like_columns": [
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "source_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_token_match_events",
+        "row_count": 47,
+        "outcome_like_columns": [
+          "match_score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "match_uid",
+          "news_uid",
+          "source_uid",
+          "token_uid",
+          "pair_uid",
+          "symbol",
+          "chain",
+          "match_confidence",
+          "evidence_text"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "news_translation_cache_v1",
+        "row_count": 25,
+        "outcome_like_columns": [
+          "quality_label"
+        ],
+        "time_like_columns": [
+          "first_seen_utc",
+          "last_seen_utc",
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "cache_uid",
+          "source_uid",
+          "title_hash"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_birth_events",
+        "row_count": 19,
+        "outcome_like_columns": [
+          "initial_liquidity_usd",
+          "initial_price_usd"
+        ],
+        "time_like_columns": [
+          "birth_time_utc",
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "birth_event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "token_address",
+          "pair_address",
+          "initial_liquidity_usd"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_risk_events",
+        "row_count": 15,
+        "outcome_like_columns": [
+          "risk_score"
+        ],
+        "time_like_columns": [
+          "event_time_utc",
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "risk_event_uid",
+          "token_uid",
+          "pair_uid",
+          "evidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_score_100_events",
+        "row_count": 19,
+        "outcome_like_columns": [
+          "score_uid",
+          "score_total",
+          "score_bucket",
+          "scored_at_utc"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "score_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_score_evidence_events",
+        "row_count": 10,
+        "outcome_like_columns": [
+          "score_uid",
+          "score_family",
+          "score_delta"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "evidence_uid",
+          "score_uid",
+          "token_uid",
+          "pair_uid",
+          "evidence_source",
+          "evidence_value",
+          "confidence_level"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_score_snapshots",
+        "row_count": 2,
+        "outcome_like_columns": [
+          "score_uid",
+          "discovery_score",
+          "risk_score",
+          "entry_readiness_score",
+          "revival_watch_score",
+          "autopsy_value_score",
+          "final_grade",
+          "final_decision",
+          "score_components_json"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "score_uid",
+          "token_uid",
+          "pair_uid",
+          "evidence_coverage_ratio"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_soft_weakness_events",
+        "row_count": 408,
+        "outcome_like_columns": [
+          "score_impact"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "confidence_impact"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "archive_phase41_command_center_score_snapshot_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "technical_tactical_composite_score",
+          "attack_readiness_score",
+          "trap_risk_score",
+          "escape_readiness_score",
+          "news_social_context_score",
+          "macro_context_risk_score",
+          "fast_source_latency_score",
+          "opportunity_priority_score",
+          "liquidity_status"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "snapshot_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "liquidity_status"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "archive_phase41_outcome_memory_event_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "outcome_class"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "memory_event_id",
+          "paper_position_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "ai_dataset_registry_v1",
+        "row_count": 1,
+        "outcome_like_columns": [
+          "label_counts_json"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "dataset_uid",
+          "dataset_hash"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "ai_dataset_rows_v1",
+        "row_count": 2,
+        "outcome_like_columns": [
+          "target_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "row_uid",
+          "dataset_uid",
+          "event_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_phase41_command_center_unified_readmodel_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "score_snapshot_id",
+          "outcome_class",
+          "outcome_projection_status",
+          "outcome_projection_source",
+          "outcome_projected_at_utc"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "unified_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "score_snapshot_id",
+          "drift_snapshot_id",
+          "fast_source_event_id",
+          "paper_position_id",
+          "memory_event_id",
+          "fetch_policy_id"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_phase41_paper_position_lifecycle_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "score_snapshot_id",
+          "paper_entry_price",
+          "expected_pnl_after_costs",
+          "paper_exit_price",
+          "paper_pnl_after_costs",
+          "outcome_class"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "paper_position_id",
+          "paper_decision_id",
+          "score_snapshot_id",
+          "drift_snapshot_id",
+          "token_address",
+          "pair_address",
+          "chain_id"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_phase41_simulation_drift_snapshot_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "expected_entry_price",
+          "actual_entry_reference_price",
+          "expected_exit_price",
+          "actual_exit_reference_price",
+          "expected_pnl_after_costs",
+          "actual_pnl_after_costs",
+          "pnl_drift",
+          "liquidity_drift"
+        ],
+        "time_like_columns": [
+          "shadow_candidate_id",
+          "created_at"
+        ],
+        "id_like_columns": [
+          "drift_snapshot_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "shadow_candidate_id",
+          "liquidity_drift"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "data_quality_time_series_v1",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "quality_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "quality_uid",
+          "source_uid",
+          "token_uid",
+          "pair_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "known_wallet_seed_queue_v1",
+        "row_count": 1,
+        "outcome_like_columns": [
+          "label_text",
+          "label_type",
+          "external_label_signal_only"
+        ],
+        "time_like_columns": [
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "seed_uid",
+          "source_id",
+          "chain",
+          "wallet_address",
+          "confidence_hint",
+          "onchain_behavior_required",
+          "source_ref_hash"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "known_wallet_source_registry_v1",
+        "row_count": 8,
+        "outcome_like_columns": [
+          "external_label_signal_only"
+        ],
+        "time_like_columns": [
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "source_id",
+          "source_url_or_ref_hash",
+          "onchain_behavior_required"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "liquidity_snapshots",
+        "row_count": 46,
+        "outcome_like_columns": [
+          "liquidity_usd",
+          "liquidity_base",
+          "liquidity_quote"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "snapshot_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "pair_address",
+          "liquidity_usd",
+          "liquidity_base",
+          "liquidity_quote"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "market_snapshots",
+        "row_count": 46,
+        "outcome_like_columns": [
+          "price_usd",
+          "price_change_1h_pct"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "snapshot_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "pair_address"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "paper_trade_plans",
+        "row_count": 2,
+        "outcome_like_columns": [
+          "entry_price",
+          "tp1_price",
+          "tp2_price",
+          "stop_price"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "plan_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "token_address",
+          "pair_address"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "snapshot_commit_ledger",
+        "row_count": 1,
+        "outcome_like_columns": [
+          "liquidity_snapshot_uid"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "commit_uid",
+          "fetch_uid",
+          "staging_uid",
+          "liquidity_snapshot_uid",
+          "market_snapshot_uid",
+          "token_uid",
+          "pair_uid",
+          "pre_counts_hash",
+          "post_counts_hash"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "source_reliability_ledger",
+        "row_count": 33,
+        "outcome_like_columns": [
+          "source_reliability_score"
+        ],
+        "time_like_columns": [
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "source_uid",
+          "provider",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "state_aggregated_token_readmodel_v1",
+        "row_count": 19,
+        "outcome_like_columns": [
+          "final_quality_label",
+          "decision_label",
+          "liquidity_status",
+          "confidence_score"
+        ],
+        "time_like_columns": [
+          "last_updated_block",
+          "last_updated_timestamp",
+          "last_decision_timestamp",
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "readmodel_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "token_symbol",
+          "token_name",
+          "next_required_evidence",
+          "liquidity_status",
+          "evidence_age_blocks",
+          "source_event_uid",
+          "confidence_score",
+          "token_address"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "token_lifecycle",
+        "row_count": 19,
+        "outcome_like_columns": [
+          "final_outcome",
+          "final_pnl_usd",
+          "final_pnl_pct"
+        ],
+        "time_like_columns": [
+          "birth_time_utc",
+          "first_seen_at_utc",
+          "last_seen_at_utc",
+          "death_time_utc",
+          "created_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "dex_id",
+          "token_name",
+          "symbol",
+          "token_address",
+          "pair_address"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "ai_dataset_registry_v1",
+        "row_count": 1,
+        "outcome_like_columns": [
+          "label_counts_json"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "dataset_uid",
+          "dataset_hash"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "ai_dataset_rows_v1",
+        "row_count": 2,
+        "outcome_like_columns": [
+          "target_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "row_uid",
+          "dataset_uid",
+          "event_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "archive_phase41_command_center_unified_readmodel_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "score_snapshot_id",
+          "outcome_class",
+          "outcome_projection_status",
+          "outcome_projection_source",
+          "outcome_projected_at_utc"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "unified_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "score_snapshot_id",
+          "drift_snapshot_id",
+          "fast_source_event_id",
+          "paper_position_id",
+          "memory_event_id",
+          "fetch_policy_id"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "archive_phase41_paper_position_lifecycle_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "score_snapshot_id",
+          "paper_entry_price",
+          "expected_pnl_after_costs",
+          "paper_exit_price",
+          "paper_pnl_after_costs",
+          "outcome_class"
+        ],
+        "time_like_columns": [
+          "created_at"
+        ],
+        "id_like_columns": [
+          "paper_position_id",
+          "paper_decision_id",
+          "score_snapshot_id",
+          "drift_snapshot_id",
+          "token_address",
+          "pair_address",
+          "chain_id"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+        "table": "archive_phase41_simulation_drift_snapshot_v1_20260616",
+        "row_count": 4,
+        "outcome_like_columns": [
+          "expected_entry_price",
+          "actual_entry_reference_price",
+          "expected_exit_price",
+          "actual_exit_reference_price",
+          "expected_pnl_after_costs",
+          "actual_pnl_after_costs",
+          "pnl_drift",
+          "liquidity_drift"
+        ],
+        "time_like_columns": [
+          "shadow_candidate_id",
+          "created_at"
+        ],
+        "id_like_columns": [
+          "drift_snapshot_id",
+          "token_address",
+          "pair_address",
+          "chain_id",
+          "shadow_candidate_id",
+          "liquidity_drift"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_birth_missing_window_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "window_label",
+          "impact_on_score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_birth_momentum_acceleration_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "window_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_birth_momentum_warning_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "window_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_birth_money_flow_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "window_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "flow_confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_birth_timeline_quality_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "missing_window_count",
+          "quality_score"
+        ],
+        "time_like_columns": [
+          "timeline_quality_status",
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_commercial_roi_score_inputs_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "score_input_uid"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "score_input_uid",
+          "period_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_entity_reputation_event_rollup_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "rollup_window"
+        ],
+        "time_like_columns": [
+          "first_seen_at_utc",
+          "last_seen_at_utc",
+          "updated_at_utc"
+        ],
+        "id_like_columns": [
+          "rollup_uid",
+          "entity_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_execution_rpc_budget_guard_events_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "guard_result"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "budget_event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "guard_id"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_execution_safety_gate_events_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "minimum_pool_liquidity_usd",
+          "buy_price_impact_pct",
+          "sell_price_impact_pct",
+          "exit_liquidity_usd"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "safety_event_uid",
+          "token_uid",
+          "pair_uid",
+          "minimum_pool_liquidity_usd",
+          "exit_liquidity_usd"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_execution_safety_gate_events_v2_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "minimum_pool_liquidity_usd",
+          "exit_liquidity_usd",
+          "buy_price_impact_pct",
+          "sell_price_impact_pct"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "safety_event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "policy_uid",
+          "minimum_pool_liquidity_usd",
+          "exit_liquidity_usd"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_moonshot_narrative_bridge_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "support_score_delta"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "narrative_event_uid",
+          "moonshot_bridge_status"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_moonshot_outcome_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "outcome_label",
+          "time_to_outcome_minutes",
+          "label_confidence"
+        ],
+        "time_like_columns": [
+          "time_to_outcome_minutes",
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "label_confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_moonshot_wallet_bridge_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "support_score_delta"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "wallet_event_uid",
+          "moonshot_bridge_status"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_news_score_events_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "score_uid",
+          "scored_at_utc",
+          "news_importance_score_100",
+          "news_reliability_score_100",
+          "news_token_relevance_score_100",
+          "news_risk_score_100",
+          "news_fusion_score_100",
+          "importance_label",
+          "reliability_label",
+          "token_connection_label",
+          "risk_label",
+          "fusion_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "score_uid",
+          "news_uid",
+          "source_uid",
+          "title_hash",
+          "news_token_relevance_score_100",
+          "token_connection_label"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_risk_gate_events_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "risk_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "risk_event_uid",
+          "token_uid",
+          "pair_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_risk_outcome_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "outcome_label",
+          "pnl_or_avoided_loss_usd"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "risk_decision_uid",
+          "pnl_or_avoided_loss_usd"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_wallet_outcome_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "outcome_label",
+          "time_to_outcome_minutes"
+        ],
+        "time_like_columns": [
+          "time_to_outcome_minutes",
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "wallet_event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_wallet_tier_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "tier_label_tr"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "tier_uid",
+          "wallet_uid"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_wallet_token_entry_events_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "entry_price"
+        ],
+        "time_like_columns": [
+          "event_time_utc"
+        ],
+        "id_like_columns": [
+          "entry_uid",
+          "wallet_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "archive_whale_entity_evidence_events_v1_20260616",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "external_label_signal_only"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "evidence_uid",
+          "entity_uid",
+          "chain",
+          "evidence_type",
+          "evidence_source",
+          "evidence_strength",
+          "evidence_summary",
+          "raw_ref_uid",
+          "tx_hash",
+          "onchain_behavior_required"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "asymmetric_micro_observation_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "executable_opportunity_score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "next_required_evidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "asymmetric_watch_events",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "asymmetry_score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "upside_bucket",
+          "downside_risk_bucket"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "avoided_loss_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "loss_type",
+          "estimated_avoided_loss_usd"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "audit_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "estimated_avoided_loss_usd",
+          "evidence_json"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "cascading_execution_filter_eval_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "stage_result"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "eval_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "current_stage_id"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "center_signal_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "signal_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "evidence_json"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "confirmation_events",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "confirmation_uid",
+          "price_delta_pct",
+          "liquidity_delta_pct",
+          "confirmation_status"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "confirmation_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "token_address",
+          "pair_address",
+          "liquidity_delta_pct",
+          "evidence_json"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "decision_binding_evaluation_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "final_quality_label",
+          "final_route_effect"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "dex_microstructure_technical_evidence_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "liquidity_support_status"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "technical_confidence",
+          "liquidity_support_status"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "early_death_events",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "death_window_minutes"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "external_reputation_comparison_events",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "external_label",
+          "resulting_action"
+        ],
+        "time_like_columns": [
+          "internal_tier_at_time"
+        ],
+        "id_like_columns": [
+          "comparison_uid",
+          "chain",
+          "entity_address_or_key",
+          "external_confidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "false_positive_events",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "score_total"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "fast_decay_events",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "liquidity_drop_pct",
+          "price_drop_pct",
+          "decay_score",
+          "observed_window_minutes"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "event_uid",
+          "token_uid",
+          "pair_uid",
+          "chain",
+          "liquidity_drop_pct"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "fusion_score_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "score_json",
+          "final_score"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "fusion_uid",
+          "token_uid",
+          "pair_uid",
+          "chain"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      },
+      {
+        "db": "data/tokenoskobi_clean_v1.sqlite",
+        "table": "known_wallet_shadow_label_events_v1",
+        "row_count": 0,
+        "outcome_like_columns": [
+          "shadow_label"
+        ],
+        "time_like_columns": [
+          "created_at_utc"
+        ],
+        "id_like_columns": [
+          "shadow_event_uid",
+          "seed_uid",
+          "chain",
+          "wallet_address",
+          "identity_status",
+          "shadow_confidence",
+          "non_cex_supporting_evidence_count",
+          "real_world_identity_guarantee",
+          "temporary_risk_evidence"
+        ],
+        "join_potential": "REVIEW_REQUIRED"
+      }
+    ]
+  },
   "decision": "WARN_ERA41_OUTCOME_SOURCE_CANDIDATES_REQUIRE_JOIN_AUDIT",
   "next_step": "ERA41_OUTCOME_JOIN_CANDIDATE_AUDIT_NOAPI",
   "guards": {
