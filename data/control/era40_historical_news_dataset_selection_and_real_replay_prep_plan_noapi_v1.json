@@ -1,0 +1,82 @@
+{
+  "era": "ERA40",
+  "title": "HISTORICAL_NEWS_DATASET_SELECTION_AND_REAL_REPLAY_PREP_NOAPI",
+  "phase": "PLAN_NOAPI",
+  "created_at_utc": "2026-07-07T06:30:00.000000+00:00",
+  "source_of_truth": "ERA39 closed at 5d7917890070fc968697fc0673bb002e900b0410; next_safe_step ERA40_HISTORICAL_NEWS_DATASET_SELECTION_AND_REAL_REPLAY_PREP_NOAPI",
+  "purpose": "Prepare the transition from static blind replay contracts to real historical news replay preparation while keeping outcomes masked until estimates are sealed.",
+  "identity": "ERA40_HISTORICAL_DATASET_SELECTION_AND_REPLAY_PREP_NOAPI",
+  "scope_rule": "Historical dataset selection and packaging plan only. No live feed pull, no runtime patch, no external API, no DB/schema/systemd change, no product-specific code.",
+  "planned_sequence": [
+    "PLAN_NOAPI",
+    "LOCAL_HISTORICAL_SOURCE_DISCOVERY_NOAPI",
+    "DATASET_SELECTION_CRITERIA_CONTRACT_NOAPI",
+    "OUTCOME_SPLIT_AND_MASKING_PREP_CONTRACT_NOAPI",
+    "REAL_REPLAY_PACKAGE_MANIFEST_NOAPI",
+    "PRE_REPLAY_AUDIT_NOAPI",
+    "FINAL_REVIEW_AND_RUNTIME_CLOSE"
+  ],
+  "dataset_selection_principles": {
+    "historical_first": true,
+    "outcome_masked_until_after_estimate": true,
+    "estimate_immutable_before_reveal": true,
+    "context_only_feedback": true,
+    "real_time_later": true,
+    "no_authority": true
+  },
+  "candidate_source_types": [
+    "existing_local_news_raw_events",
+    "existing_local_news_feed_records",
+    "existing_local_news_reports",
+    "existing_local_case_files",
+    "existing_local_market_context_if_already_present"
+  ],
+  "selection_criteria": [
+    "event_time_available",
+    "visible_news_text_or_summary_available",
+    "source_class_available_or_derivable",
+    "outcome_can_be_separated_from_visible_input",
+    "correlation_id_can_be_assigned",
+    "case_has_replay_value",
+    "case_does_not_require_external_api_in_era40"
+  ],
+  "masking_requirements": [
+    "future_outcome_removed_from_estimator_input",
+    "later_result_stored_separately",
+    "estimate_package_and_outcome_package_separated",
+    "seal_before_reveal_required",
+    "leakage_check_required_before_replay"
+  ],
+  "real_replay_prep_outputs": [
+    "candidate_dataset_inventory",
+    "selected_case_manifest",
+    "masked_input_manifest",
+    "hidden_outcome_manifest",
+    "leakage_check_report",
+    "pre_replay_audit_report"
+  ],
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "outcome_leakage_to_estimator",
+    "product_specific_code",
+    "root_artifact_creation"
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA40_PLAN_DEFINED_NOAPI",
+  "next_step": "ERA40_LOCAL_HISTORICAL_SOURCE_DISCOVERY_NOAPI",
+  "final_gate": "PASS_ERA40_HISTORICAL_DATASET_SELECTION_PLAN_NOAPI"
+}
