@@ -1,0 +1,80 @@
+{
+  "era": "ERA39",
+  "phase": "BLIND_REPLAY_FIXTURE_SET_AND_DRYRUN_NOAPI",
+  "created_at_utc": "2026-07-07T06:10:00.000000+00:00",
+  "source_plan": "data/control/era39_historical_news_blind_replay_plan_noapi_v1.json",
+  "source_contracts": "data/control/era39_dataset_mask_estimate_seal_scoring_contracts_noapi_v1.json",
+  "purpose": "Provide a compact static fixture set and dryrun evaluation for historical blind replay contracts.",
+  "mode": "STATIC_NOAPI_DRYRUN",
+  "fixture_set": [
+    {
+      "replay_case_id": "BR01_VISIBLE_CONTEXT_ONLY",
+      "correlation_id": "cid_br01",
+      "event_time_utc": "HISTORICAL_EVENT_TIME",
+      "visible_input": {"headline_or_summary": "visible historical news summary", "source_class": "KNOWN_SOURCE_CLASS", "available_context_at_event_time": "limited context"},
+      "hidden_outcome_ref": "masked_outcome_br01",
+      "expected_estimate_behavior": "estimate_created_and_sealed_before_reveal",
+      "expected_result": "PASS"
+    },
+    {
+      "replay_case_id": "BR02_MASK_LEAKAGE_BLOCK",
+      "correlation_id": "cid_br02",
+      "event_time_utc": "HISTORICAL_EVENT_TIME",
+      "visible_input": {"headline_or_summary": "visible historical news summary", "source_class": "UNKNOWN_SOURCE_CLASS"},
+      "hidden_outcome_ref": "masked_outcome_br02",
+      "expected_estimate_behavior": "case_fails_if_hidden_outcome_visible",
+      "expected_result": "PASS"
+    },
+    {
+      "replay_case_id": "BR03_IMMUTABLE_ESTIMATE",
+      "correlation_id": "cid_br03",
+      "event_time_utc": "HISTORICAL_EVENT_TIME",
+      "visible_input": {"headline_or_summary": "visible historical news summary", "source_class": "MIXED_SOURCE_CLASS"},
+      "hidden_outcome_ref": "masked_outcome_br03",
+      "expected_estimate_behavior": "original_estimate_not_overwritten_after_reveal",
+      "expected_result": "PASS"
+    },
+    {
+      "replay_case_id": "BR04_FEEDBACK_CONTEXT_ONLY",
+      "correlation_id": "cid_br04",
+      "event_time_utc": "HISTORICAL_EVENT_TIME",
+      "visible_input": {"headline_or_summary": "visible historical news summary", "source_class": "KNOWN_SOURCE_CLASS"},
+      "hidden_outcome_ref": "masked_outcome_br04",
+      "expected_estimate_behavior": "feedback_created_after_reveal_without_authority",
+      "expected_result": "PASS"
+    }
+  ],
+  "dryrun_summary": {
+    "fixture_count": 4,
+    "pass_count": 4,
+    "warn_count": 0,
+    "fail_count": 0,
+    "failed_fixture_ids": []
+  },
+  "validated_rules": {
+    "outcome_hidden_before_estimate": true,
+    "estimate_sealed_before_reveal": true,
+    "estimate_immutable_after_reveal": true,
+    "feedback_context_only": true,
+    "no_live_feed": true,
+    "no_runtime_change": true
+  },
+  "known_limits": [
+    "Static contract dryrun only.",
+    "No real historical dataset has been loaded yet.",
+    "No live or shadow feed was used."
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA39_BLIND_REPLAY_STATIC_DRYRUN_PASS",
+  "next_step": "ERA39_FINAL_REVIEW_AND_RUNTIME_CLOSE",
+  "final_gate": "PASS_ERA39_BLIND_REPLAY_STATIC_DRYRUN_NOAPI"
+}
