@@ -1,0 +1,117 @@
+{
+  "era": "ERA39",
+  "phase": "DATASET_MASK_ESTIMATE_SEAL_SCORING_CONTRACTS_NOAPI",
+  "created_at_utc": "2026-07-07T06:05:00.000000+00:00",
+  "source_plan": "data/control/era39_historical_news_blind_replay_plan_noapi_v1.json",
+  "purpose": "Define the core contracts for historical blind replay in one package: dataset, outcome mask, estimate output, immutable seal, reveal scoring, and feedback context.",
+  "identity": "ERA39_BLIND_REPLAY_CORE_CONTRACTS_V1",
+  "scope_rule": "Historical replay contract only. No live pull, runtime patch, external API, schema change, service change, or execution authority.",
+  "dataset_contract": {
+    "required_case_fields": [
+      "replay_case_id",
+      "correlation_id",
+      "event_time_utc",
+      "visible_input",
+      "hidden_outcome_ref",
+      "dataset_version",
+      "mask_version"
+    ],
+    "visible_input_fields": [
+      "headline_or_summary",
+      "source_class",
+      "available_context_at_event_time",
+      "available_identity_context_at_event_time"
+    ],
+    "hidden_until_reveal": [
+      "later_market_move",
+      "later_liquidity_move",
+      "later_onchain_context",
+      "later_confirmation_context",
+      "later_classification_label"
+    ]
+  },
+  "masking_contract": {
+    "outcome_hidden_by_default": true,
+    "estimator_must_not_see_hidden_outcome": true,
+    "mask_leakage_result": "FAIL_REPLAY_CASE",
+    "mask_required_before_estimate": true
+  },
+  "estimate_output_contract": {
+    "required_fields": [
+      "replay_case_id",
+      "correlation_id",
+      "estimate_created_at_utc",
+      "context_estimate",
+      "confidence_band",
+      "expected_effect_window",
+      "missing_evidence",
+      "review_priority_estimate",
+      "authority_absent"
+    ],
+    "allowed_context_estimates": [
+      "NO_ACTION_CONTEXT",
+      "OBSERVE_CONTEXT",
+      "REVIEW_CONTEXT",
+      "ESCALATE_REVIEW_CONTEXT",
+      "RISK_CONTEXT",
+      "OPPORTUNITY_CONTEXT",
+      "MIXED_CONTEXT",
+      "UNKNOWN_CONTEXT"
+    ]
+  },
+  "seal_contract": {
+    "estimate_must_be_sealed_before_reveal": true,
+    "seal_fields": [
+      "estimate_hash",
+      "estimate_version",
+      "sealed_at_utc",
+      "sealed_by_component",
+      "correlation_id"
+    ],
+    "immutability_rule": "Original estimate is never overwritten; later learning creates feedback version."
+  },
+  "scoring_contract": {
+    "scoring_after_reveal_only": true,
+    "dimensions": [
+      "identity_accuracy",
+      "narrative_accuracy",
+      "direction_accuracy",
+      "effect_window_accuracy",
+      "false_positive_flag",
+      "false_negative_flag",
+      "missed_opportunity_flag",
+      "overconfidence_penalty",
+      "missing_evidence_quality"
+    ]
+  },
+  "feedback_contract": {
+    "feedback_is_context_only": true,
+    "feedback_does_not_overwrite_estimate": true,
+    "feedback_does_not_grant_authority": true,
+    "feedback_creates_versioned_learning_context": true
+  },
+  "forbidden_work": [
+    "live_feed_pull",
+    "external_api_call",
+    "runtime_patch",
+    "db_schema_change",
+    "service_change",
+    "order_or_wallet_action",
+    "outcome_leakage_to_estimator",
+    "product_specific_code",
+    "root_artifact_creation"
+  ],
+  "guards": {
+    "runtime_mutation": false,
+    "external_api_calls": 0,
+    "live_feed_pull": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "order_wallet_authority": false,
+    "product_specific_code": false,
+    "root_files_created": false
+  },
+  "decision": "ERA39_CORE_CONTRACTS_DEFINED_NOAPI",
+  "next_step": "ERA39_BLIND_REPLAY_FIXTURE_AND_DRYRUN_NOAPI",
+  "final_gate": "PASS_ERA39_CORE_CONTRACTS_NOAPI"
+}
