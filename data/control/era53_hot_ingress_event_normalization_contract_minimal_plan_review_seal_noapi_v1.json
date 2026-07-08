@@ -1,0 +1,127 @@
+{
+  "stage": "ERA53_HOT_INGRESS_EVENT_NORMALIZATION_CONTRACT_MINIMAL_PLAN_REVIEW_SEAL_NOAPI",
+  "generated_at_utc": "2026-07-08T15:24:00Z",
+  "decision": "OK_ERA53_HOT_INGRESS_EVENT_NORMALIZATION_CONTRACT_MINIMAL_PLAN_REVIEW_SEALED",
+  "next_step": "ERA53_HOT_INGRESS_TOPIC_DEDUPLICATION_POLICY_MINIMAL_PLAN_NOAPI",
+  "head_before": "ad99bd0284cc8d55e9c7445cd35a4bfc4556b09f",
+  "current_era": "ERA53",
+  "era_line": "HOT_INTELLIGENCE_INGRESS_GATEWAY",
+  "purpose": "Define the minimal normalized HOT ingress event contract after admission and before deduplication, evidence binding, or runtime use.",
+  "workflow_policy": {
+    "step_type": "plan_only_docs_contract",
+    "flow_used": "PLAN_TO_REVIEW_SEAL",
+    "dryrun_required": false,
+    "dryrun_reason": "No runtime code, DB schema, service, source adapter, or executable logic changed."
+  },
+  "authority": {
+    "plan_review_seal_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "tree_restructure": false,
+    "repo_artifact_write": true
+  },
+  "normalization_contract_v1": {
+    "normalized_event_required_fields": [
+      "normalized_event_uid",
+      "event_uid",
+      "source_uid",
+      "source_type",
+      "observed_at_utc",
+      "ingested_at_utc_optional",
+      "payload_hash",
+      "topic_hash",
+      "normalized_topic_key",
+      "event_type",
+      "admission_route",
+      "trust_score_current",
+      "rate_policy_ref",
+      "trust_policy_ref",
+      "normalization_version"
+    ],
+    "optional_context_fields": [
+      "canonical_chain",
+      "chain_id",
+      "asset_address_normalized",
+      "asset_symbol_raw",
+      "entity_label_optional",
+      "wallet_address_normalized",
+      "dex_protocol_optional",
+      "tx_hash_optional",
+      "block_number_optional",
+      "url_hash_optional",
+      "language_hint_optional",
+      "source_confidence_optional"
+    ],
+    "event_type_enum_minimal": [
+      "exploit",
+      "rug",
+      "deployer_move",
+      "lp_pull",
+      "bridge_attack",
+      "known_wallet_move",
+      "fake_renounce",
+      "hidden_tax",
+      "coordinated_fud",
+      "honeypot",
+      "whale_transfer",
+      "cex_inflow",
+      "dex_anomaly",
+      "mempool_anomaly",
+      "news_context",
+      "unknown_anomaly",
+      "manual_synthetic"
+    ],
+    "normalization_rules": [
+      "chain_names_must_map_to_canonical_chain_when_present",
+      "addresses_must_be_lowercase_when_chain_uses_hex_addresses",
+      "payload_hash_must_not_change",
+      "topic_hash_must_not_change",
+      "normalized_topic_key_must_be_deterministic",
+      "event_type_unknown_maps_to_unknown_anomaly",
+      "raw_payload_not_stored_in_this_contract",
+      "credential_like_fields_must_remain_blocked",
+      "normalization_must_not_increase_admission_route"
+    ],
+    "route_preservation_rule": {
+      "normalization_can_lower_route": true,
+      "normalization_can_raise_route": false,
+      "critical_candidate_remains_candidate_only": true,
+      "critical_alarm_not_allowed": true
+    },
+    "output_boundaries": {
+      "evidence_binding_created": false,
+      "db_record_created": false,
+      "runtime_queue_created": false,
+      "outbound_alarm_created": false,
+      "trade_or_wallet_action_created": false
+    }
+  },
+  "review_result": {
+    "required_fields_defined": true,
+    "optional_context_fields_defined": true,
+    "event_type_enum_defined": true,
+    "normalization_rules_defined": true,
+    "route_preservation_defined": true,
+    "output_boundaries_defined": true,
+    "boundary_clean": true
+  },
+  "summary": {
+    "sealed": true,
+    "required_field_count": 15,
+    "optional_context_field_count": 12,
+    "event_type_count": 17,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
