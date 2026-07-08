@@ -1,0 +1,344 @@
+{
+  "authority": {
+    "boot_update": false,
+    "db_schema_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "matcher_code_change": false,
+    "panel_write": false,
+    "paper_trade": false,
+    "readonly_audit": true,
+    "real_db_write": false,
+    "repo_artifact_write": true,
+    "runner_code_change": false,
+    "runtime_update": false,
+    "service_start": false,
+    "service_stop": false,
+    "signing": false,
+    "systemd_daemon_reload": false,
+    "timer_enable": false,
+    "timer_restart": false,
+    "timer_start": false,
+    "unit_file_write": false,
+    "wallet": false
+  },
+  "db_current": {
+    "error": null,
+    "tables": {
+      "news_raw_feed_events": {
+        "count": 269,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-08T12:17:38.011514+00:00",
+        "timestamp_col": "fetched_at_utc"
+      },
+      "news_runtime_freshness_v1": {
+        "count": 1,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.294353+00:00",
+        "timestamp_col": "created_at_utc"
+      },
+      "news_score_events_v1": {
+        "count": 47,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.288486+00:00",
+        "timestamp_col": "created_at_utc"
+      },
+      "news_signal_events": {
+        "count": 47,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.288481+00:00",
+        "timestamp_col": "created_at_utc"
+      },
+      "news_token_match_events": {
+        "count": 47,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.282634+00:00",
+        "timestamp_col": "created_at_utc"
+      }
+    }
+  },
+  "decision": "OK_NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_CLEAN",
+  "findings": [
+    {
+      "code": "FIX2_ARTIFACT_READ",
+      "level": "OK",
+      "message": "Fix2 artifact okundu."
+    },
+    {
+      "code": "FIX1_POST_ARTIFACT_READ",
+      "level": "OK",
+      "message": "Fix1 post-audit artifact okundu."
+    },
+    {
+      "code": "TIMER_ACTIVE_CONFIRMED",
+      "level": "OK",
+      "message": "Timer active."
+    },
+    {
+      "code": "TIMER_ENABLED_CONFIRMED",
+      "level": "OK",
+      "message": "Timer enabled."
+    },
+    {
+      "code": "TIMER_WAITING_CONFIRMED",
+      "level": "OK",
+      "message": "Timer active/waiting."
+    },
+    {
+      "code": "TIMER_TRIGGER_SERVICE_CONFIRMED",
+      "level": "OK",
+      "message": "Timer service trigger bağı mevcut."
+    },
+    {
+      "code": "LIST_TIMERS_SCHEDULE_CONFIRMED",
+      "level": "OK",
+      "message": "list-timers schedule gösteriyor."
+    },
+    {
+      "code": "SERVICE_LAST_RESULT_CLEAN",
+      "level": "OK",
+      "message": "Service last result success/0."
+    },
+    {
+      "code": "SERVICE_STATE_ACCEPTABLE",
+      "level": "OK",
+      "message": "Service state kabul edilebilir: inactive"
+    },
+    {
+      "code": "STDOUT_209_ABSENT_AFTER_ACTIVATION",
+      "level": "OK",
+      "message": "Timer activation sonrası 209/STDOUT yok."
+    },
+    {
+      "code": "INVALIDARGUMENT_ABSENT_AFTER_ACTIVATION",
+      "level": "OK",
+      "message": "Timer activation sonrası INVALIDARGUMENT yok."
+    },
+    {
+      "code": "RC2_ABSENT_AFTER_ACTIVATION",
+      "level": "OK",
+      "message": "Timer activation sonrası rc2/status2 yok."
+    },
+    {
+      "code": "DB_CHAIN_PRESERVED",
+      "level": "OK",
+      "message": "DB chain korunuyor: 269/47/47/47"
+    },
+    {
+      "code": "TIMER_WAITING_FIRST_FIRE",
+      "level": "OK",
+      "message": "Timer schedule aktif; bu audit anında yeni service tetiklemesi henüz beklemede olabilir."
+    }
+  ],
+  "generated_at_utc": "2026-07-08T12:43:59.603758+00:00",
+  "journal_since_activation": {
+    "cmd_rc": 0,
+    "deactivated_successfully_count": 0,
+    "error_count": 0,
+    "failed_at_step_stdout_count": 0,
+    "failed_count": 0,
+    "failed_set_up_stdout_count": 0,
+    "finished_service_count": 0,
+    "interesting_lines_tail": [
+      "2026-07-08T15:28:04+03:00 v2202604354387455154 systemd[1]: Started tokenoskobi-news-radar-refresh.timer - Run Tokenoskobi News Radar Refresh every 20 minutes."
+    ],
+    "invalidargument_count": 0,
+    "line_count": 1,
+    "no_such_file_count": 0,
+    "rc2_count": 0,
+    "since_utc": "2026-07-08T12:27:39.721881+00:00",
+    "started_service_count": 0,
+    "started_timer_count": 1,
+    "status_209_stdout_count": 0,
+    "traceback_count": 0
+  },
+  "next_step": "NEWS_C_DOWNSTREAM_CHECKSUM_FINGERPRINT_NOAPI",
+  "references": {
+    "fix1_post_audit": {
+      "decision": "OK_NEWS_B_FIX_1_POST_APPLY_AUDIT_CLEAN",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_fix_1_post_apply_audit_noapi_v1.json",
+      "read_error": null
+    },
+    "fix2_activation": {
+      "decision": "OK_NEWS_B_FIX_2_TIMER_ACTIVATED",
+      "generated_at_utc": "2026-07-08T12:28:09.721881+00:00",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_fix_2_timer_activation_targeted_apply_v1.json",
+      "read_error": null
+    },
+    "news_a_snapshot": {
+      "decision": "WARN_NEWS_A_CURRENT_TRUTH_CAPTURED_REVIEW_REQUIRED",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_a_final_pre_replay_truth_snapshot_noapi_v1.json",
+      "read_error": null
+    },
+    "news_b_audit": {
+      "decision": "FAIL_NEWS_B_STDOUT_PATH_ROOT_CAUSE_CONFIRMED",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_runner_timer_journal_argv_audit_noapi_v1.json",
+      "read_error": null
+    }
+  },
+  "stage": "NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_NOAPI",
+  "summary": {
+    "fail_count": 0,
+    "first_fire_seen": false,
+    "freshness_count": 1,
+    "journal_failed_set_up_stdout_count": 0,
+    "journal_invalidargument_count": 0,
+    "journal_rc2_count": 0,
+    "journal_status_209_stdout_count": 0,
+    "list_timers_has_schedule": true,
+    "match_count": 47,
+    "raw_count": 269,
+    "score_count": 47,
+    "service_active": "inactive",
+    "service_enabled": "static",
+    "signal_count": 47,
+    "timer_active": "active",
+    "timer_enabled": "enabled",
+    "warn_count": 0
+  },
+  "systemd": {
+    "list_timers": {
+      "cmd": [
+        "systemctl",
+        "list-timers",
+        "--all",
+        "tokenoskobi-news-radar-refresh.timer",
+        "--no-pager"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "NEXT                            LEFT LAST PASSED UNIT                                 ACTIVATES\nWed 2026-07-08 15:48:04 EEST 4min 4s -         - tokenoskobi-news-radar-refresh.timer tokenoskobi-news-radar-refresh.service\n\n1 timers listed."
+    },
+    "service_is_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "service_is_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "static"
+    },
+    "service_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "tokenoskobi-news-radar-refresh.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "Result",
+        "-p",
+        "ExecMainStatus",
+        "-p",
+        "StandardOutput",
+        "-p",
+        "StandardError",
+        "-p",
+        "ExecStart",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "UnitFileState"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "Result=success\nExecMainStatus=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }\nStandardOutput=append\nStandardError=append\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/tokenoskobi-news-radar-refresh.service\nUnitFileState=static"
+    },
+    "service_status": {
+      "cmd": [
+        "systemctl",
+        "status",
+        "tokenoskobi-news-radar-refresh.service",
+        "--no-pager",
+        "-l"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "○ tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner\n     Loaded: loaded (/etc/systemd/system/tokenoskobi-news-radar-refresh.service; static)\n     Active: inactive (dead)\nTriggeredBy: ● tokenoskobi-news-radar-refresh.timer\n\nJul 08 09:29:54 v2202604354387455154 systemd[1]: Failed to start tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.\nJul 08 09:49:54 v2202604354387455154 systemd[1]: Starting tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner...\nJul 08 09:49:54 v2202604354387455154 (python3)[2732438]: tokenoskobi-news-radar-refresh.service: Failed to set up standard output: No such file or directory\nJul 08 09:49:54 v2202604354387455154 (python3)[2732438]: tokenoskobi-news-radar-refresh.service: Failed at step STDOUT spawning /usr/bin/python3: No such file or directory\nJul 08 09:49:54 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Main process exited, code=exited, status=209/STDOUT\nJul 08 09:49:54 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Failed with result 'exit-code'.\nJul 08 09:49:54 v2202604354387455154 systemd[1]: Failed to start tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.\nJul 08 15:17:37 v2202604354387455154 systemd[1]: Starting tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner...\nJul 08 15:17:38 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Deactivated successfully.\nJul 08 15:17:38 v2202604354387455154 systemd[1]: Finished tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner."
+    },
+    "timer_cat": {
+      "cmd": [
+        "systemctl",
+        "cat",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "# /etc/systemd/system/tokenoskobi-news-radar-refresh.timer\n[Unit]\nDescription=Run Tokenoskobi News Radar Refresh every 20 minutes\n\n[Timer]\nOnActiveSec=20min\nOnUnitActiveSec=20min\nAccuracySec=30s\nRandomizedDelaySec=0\nPersistent=false\nUnit=tokenoskobi-news-radar-refresh.service\n\n[Install]\nWantedBy=timers.target"
+    },
+    "timer_is_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "timer_is_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "enabled"
+    },
+    "timer_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "tokenoskobi-news-radar-refresh.timer",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "Result",
+        "-p",
+        "NextElapseUSecRealtime",
+        "-p",
+        "LastTriggerUSec",
+        "-p",
+        "Triggers",
+        "-p",
+        "UnitFileState"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "NextElapseUSecRealtime=\nLastTriggerUSec=\nResult=success\nTriggers=tokenoskobi-news-radar-refresh.service\nActiveState=active\nSubState=waiting\nUnitFileState=enabled"
+    },
+    "timer_status": {
+      "cmd": [
+        "systemctl",
+        "status",
+        "tokenoskobi-news-radar-refresh.timer",
+        "--no-pager",
+        "-l"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "● tokenoskobi-news-radar-refresh.timer - Run Tokenoskobi News Radar Refresh every 20 minutes\n     Loaded: loaded (/etc/systemd/system/tokenoskobi-news-radar-refresh.timer; enabled; preset: enabled)\n     Active: active (waiting) since Wed 2026-07-08 15:28:04 EEST; 15min ago\n Invocation: 4aba40d3de764100aecf167bf24360e8\n    Trigger: Wed 2026-07-08 15:48:04 EEST; 4min 5s left\n   Triggers: ● tokenoskobi-news-radar-refresh.service\n\nJul 08 15:28:04 v2202604354387455154 systemd[1]: Started tokenoskobi-news-radar-refresh.timer - Run Tokenoskobi News Radar Refresh every 20 minutes."
+    }
+  }
+}
