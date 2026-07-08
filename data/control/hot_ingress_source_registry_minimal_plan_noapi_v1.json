@@ -1,0 +1,129 @@
+{
+  "stage": "HOT_INTELLIGENCE_INGRESS_GATEWAY_SOURCE_REGISTRY_MINIMAL_PLAN_NOAPI",
+  "generated_at_utc": "2026-07-08T14:23:00Z",
+  "decision": "OK_HOT_INGRESS_SOURCE_REGISTRY_MINIMAL_PLAN_NOAPI_DOCUMENTED",
+  "next_step": "HOT_INGRESS_SOURCE_REGISTRY_MINIMAL_CONTRACT_DRYRUN_NOAPI",
+  "head_before_plan": "75c02d1848e1e0206055850c924e1c1c29bc6272",
+  "parent_step": {
+    "stage": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_SAFE_APPLY_POST_AUDIT_NOAPI",
+    "head": "75c02d1848e1e0206055850c924e1c1c29bc6272"
+  },
+  "purpose": "Define the minimum source registry contract for HOT ingress without connecting to any real source.",
+  "authority": {
+    "plan_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "repo_artifact_write": true
+  },
+  "source_types_allowed_for_plan": [
+    "telegram",
+    "discord",
+    "x",
+    "news",
+    "rss",
+    "onchain",
+    "dex",
+    "mempool",
+    "manual_synthetic"
+  ],
+  "source_registry_contract_v1": {
+    "source_uid": "deterministic string",
+    "source_type": "telegram|discord|x|news|rss|onchain|dex|mempool|manual_synthetic",
+    "source_label_hash": "sha256 optional label",
+    "source_location_hash": "sha256 optional url/channel/location reference",
+    "trust_score_initial": "0-100 integer",
+    "trust_score_current": "0-100 integer",
+    "trust_policy_ref": "dynamic_trust_score_policy_v1",
+    "rate_limit_policy_ref": "source_rate_limit_policy_v1",
+    "dedupe_policy_ref": "fuzzy_duplicate_policy_v1",
+    "allowed_routes": "DROP|INFO|WATCH|QUARANTINE|CRITICAL_CANDIDATE",
+    "status": "PLANNED|ACTIVE_LATER|PAUSED|QUARANTINE|DEPRECATED",
+    "evidence_required_before_alarm": true,
+    "created_at_utc": "ISO-8601",
+    "last_review_at_utc": "ISO-8601 optional",
+    "notes_hash": "sha256 optional notes"
+  },
+  "minimum_rules": [
+    "Registry stores only minimum decision-relevant source metadata.",
+    "Registry stores no passwords, API tokens, cookies, private keys, wallet data, or signing material.",
+    "Registry does not connect to any real source in this stage.",
+    "Registry does not create DB schema in this stage.",
+    "Registry does not create runtime imports in this stage.",
+    "Registry does not create services or timers in this stage.",
+    "Registry entries cannot emit outbound alarm without Evidence/Prosecutor confirmation.",
+    "Registry must support source-level rate limit and trust decay policies."
+  ],
+  "planned_source_classes": [
+    {
+      "class": "social_fast",
+      "types": ["telegram", "discord", "x"],
+      "default_route_cap": "WATCH",
+      "requires_cross_check": true
+    },
+    {
+      "class": "news_slow",
+      "types": ["news", "rss"],
+      "default_route_cap": "INFO",
+      "requires_cross_check": true
+    },
+    {
+      "class": "chain_observation",
+      "types": ["onchain", "dex", "mempool"],
+      "default_route_cap": "CRITICAL_CANDIDATE",
+      "requires_cross_check": false
+    },
+    {
+      "class": "manual_test",
+      "types": ["manual_synthetic"],
+      "default_route_cap": "WATCH",
+      "requires_cross_check": false
+    }
+  ],
+  "trust_score_policy_outline": {
+    "initial_score_range": "0-100",
+    "decay_required": true,
+    "recent_error_penalty_required": true,
+    "spam_rate_penalty_required": true,
+    "independent_confirmation_bonus_allowed": true,
+    "manual_quarantine_allowed": true
+  },
+  "rate_limit_policy_outline": {
+    "per_source_window_required": true,
+    "per_route_window_required": true,
+    "burst_to_quarantine_required": true,
+    "duplicate_wave_no_amplification": true
+  },
+  "dryrun_plan": {
+    "synthetic_registry_entries_only": true,
+    "entry_count": 9,
+    "tests": [
+      "valid source entry accepted",
+      "missing source uid rejected",
+      "unknown source type rejected",
+      "secret-like field rejected",
+      "low trust social route capped",
+      "chain observation candidate allowed",
+      "rate limit policy reference required",
+      "trust policy reference required",
+      "no runtime or DB boundary drift"
+    ]
+  },
+  "summary": {
+    "source_type_count": 9,
+    "contract_field_count": 16,
+    "plan_only": true,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
