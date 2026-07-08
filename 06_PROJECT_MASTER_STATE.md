@@ -1,21 +1,27 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T14:25:36.072680+00:00
+- Updated UTC: 2026-07-08T15:26:58.241866+00:00
 - Current ERA: `ERA53`
 - ERA52 status: `CLOSED_VERIFIED`
 - ERA53 line: `HOT_INTELLIGENCE_INGRESS_GATEWAY`
-- Last completed: `HOT_INGRESS_SOURCE_REGISTRY_MINIMAL_CONTRACT_POST_AUDIT_NOAPI`
-- Current focus: `ERA53_HOT_INGRESS_TRUST_RATE_POLICY_MINIMAL_PLAN_NOAPI`
+- Last completed: `ERA53_HOT_INGRESS_MINIMAL_CONTRACT_CONSOLIDATED_REVIEW_SEAL_NOAPI`
+- Current focus: `ERA53_HOT_INGRESS_CANONICAL_STATE_SYNC_NOAPI`
 - Runtime authority: `PROJECT_RUNTIME.json`
 - Canonical source of truth: local server + GitHub main seal.
-- HOT ingress status: contract, source registry plan, source registry dryrun, and source registry post-audit completed.
-- HOT ingress boundary: planned canonical architecture only; no live source adapter yet.
+- HOT ingress source registry: `COMPLETED`
+- HOT ingress trust/rate policy: `DEFINED`
+- HOT ingress event admission policy: `DEFINED`
+- HOT ingress event normalization contract: `DEFINED`
+- HOT ingress topic deduplication policy: `DEFINED`
+- HOT ingress evidence pointer policy: `DEFINED`
+- HOT ingress Prosecutor handoff gate: `DEFINED_AS_CANDIDATE_GATE_ONLY`
+- HOT ingress consolidated minimal contract: `SEALED`
+- Workflow rule: plan-only docs/contract uses `PLAN_TO_REVIEW_SEAL`; runtime/DB/service/code uses `PLAN_TO_DRYRUN_TO_POST_AUDIT`.
 - Tree/directory rule: existing tree preserved; no directory restructure, no move, no archive, no rename.
 - Deferred active control files: `ACTIVE_EXECUTION_GRAPH.json`, `MINIMAL_ACTIVE_CORE_MANIFEST.json`, `USED_BY_RUNTIME_INDEX.json`, `ACTIVE_CORE_RANKING.json`.
-- NOAPI boundary: no API, no DB write, no schema change, no runtime change, no systemd change, no source token/key, no wallet/signing, no paper/live trade, AI authority 0.
-- Workflow preference: GitHub first when possible; otherwise single paste-and-run command block.
-- Next safe step: `ERA53_HOT_INGRESS_TRUST_RATE_POLICY_MINIMAL_PLAN_NOAPI`
+- NOAPI boundary: no API, no DB write, no schema change, no runtime change, no runtime import, no systemd change, no source adapter, no queue, no outbound alarm, no wallet/signing, no paper/live trade, AI authority 0.
+- Next safe step: `ERA53_POST_SYNC_RUNTIME_OUTSIDE_APPLY_PLAN_REQUIRES_USER_APPROVAL`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->
