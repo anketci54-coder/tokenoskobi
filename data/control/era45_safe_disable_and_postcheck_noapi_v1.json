@@ -1,0 +1,165 @@
+{
+  "era": "ERA45",
+  "phase": "SAFE_DISABLE_AND_POSTCHECK_NOAPI",
+  "created_at_utc": "2026-07-08T07:06:35.278736+00:00",
+  "decision": "PASS_ERA45_SAFE_DISABLE_POSTCHECK_NO_ACTIVE_BLOCKERS",
+  "next_step": "ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI",
+  "pre": {
+    "label": "pre",
+    "news_service_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "failed",
+      "stderr": ""
+    },
+    "news_timer_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "active",
+      "stderr": ""
+    },
+    "news_service_enabled": {
+      "cmd": "systemctl is-enabled tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "static",
+      "stderr": ""
+    },
+    "news_timer_enabled": {
+      "cmd": "systemctl is-enabled tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "enabled",
+      "stderr": ""
+    },
+    "news_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep news_radar_refresh_runner_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "provider_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep provider_secret_vault_handler_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "435705       1 /usr/bin/python3 /root/tokenoskobi_clean_v1/tools/provider_secret_vault_handler_v1.py",
+      "stderr": ""
+    },
+    "provider_port": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8097' || true",
+      "rc": 0,
+      "stdout": "LISTEN 0      5          127.0.0.1:8097      0.0.0.0:*    users:((\"python3\",pid=435705,fd=3))",
+      "stderr": ""
+    },
+    "panel_port_8096": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8096' || true",
+      "rc": 0,
+      "stdout": "LISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))",
+      "stderr": ""
+    }
+  },
+  "actions": [
+    {
+      "unit": "tokenoskobi-news-radar-refresh.timer",
+      "stop": {
+        "cmd": "systemctl stop tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "unit": "tokenoskobi-news-radar-refresh.timer",
+      "disable": {
+        "cmd": "systemctl disable tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "unit": "tokenoskobi-news-radar-refresh.service",
+      "stop": {
+        "cmd": "systemctl stop tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "unit": "tokenoskobi-news-radar-refresh.service",
+      "disable": {
+        "cmd": "systemctl disable tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+        "rc": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "provider_vault_pid": 435705,
+      "signal": "SIGTERM",
+      "status": "sent"
+    }
+  ],
+  "post": {
+    "label": "post",
+    "news_service_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "failed",
+      "stderr": ""
+    },
+    "news_timer_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "inactive",
+      "stderr": ""
+    },
+    "news_service_enabled": {
+      "cmd": "systemctl is-enabled tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "static",
+      "stderr": ""
+    },
+    "news_timer_enabled": {
+      "cmd": "systemctl is-enabled tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "disabled",
+      "stderr": ""
+    },
+    "news_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep news_radar_refresh_runner_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "provider_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep provider_secret_vault_handler_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "provider_port": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8097' || true",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "panel_port_8096": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8096' || true",
+      "rc": 0,
+      "stdout": "LISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))",
+      "stderr": ""
+    }
+  },
+  "news_active_after": false,
+  "provider_active_after": false,
+  "findings": [],
+  "era43_real_runtime_planning_allowed": "REVIEW_REQUIRED",
+  "guards": {
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_action": false,
+    "db_schema_change": false,
+    "nginx_change": false,
+    "public_file_change": false,
+    "runtime_code_change": false
+  }
+}
