@@ -1,0 +1,759 @@
+{
+  "authority": {
+    "boot_update": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "panel_write": false,
+    "paper_trade": false,
+    "provider_call": false,
+    "readonly_db_open_mode": "sqlite_uri_mode_ro_query_only",
+    "real_db_write": false,
+    "repo_artifact_write": true,
+    "runtime_update": false,
+    "signing": false,
+    "systemd_restart": false,
+    "systemd_start": false,
+    "systemd_stop": false,
+    "timer_restart": false,
+    "wallet": false
+  },
+  "backup": {
+    "backup_path": "/root/tokenoskobi_clean_v1/data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+    "exists": true,
+    "mtime_utc": "2026-07-02T17:43:36.042017+00:00",
+    "sha256": "cbbc8d15c2669eb6847c0ba9e91c1eb4832a7dcb891ce2c168fbb6acae059239",
+    "size_bytes": 5517312
+  },
+  "db": {
+    "candidates": [
+      "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "/root/tokenoskobi_clean_v1/data/tokenoskobi_v1.sqlite",
+      "/root/tokenoskobi_clean_v1/data/tokenoskobi.sqlite",
+      "/root/tokenoskobi_clean_v1/tokenoskobi.sqlite"
+    ],
+    "selected_db": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "selected_db_sha256": "1838f38d1bb42a59f3e381bfc94f4f8a500ff00fc431f9fba112e9ec57dc8258",
+    "sidecars": [
+      {
+        "exists": true,
+        "mtime_utc": "2026-07-06T13:14:21.918385+00:00",
+        "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+        "sha256": "1838f38d1bb42a59f3e381bfc94f4f8a500ff00fc431f9fba112e9ec57dc8258",
+        "size_bytes": 5603328
+      },
+      {
+        "exists": false,
+        "mtime_utc": null,
+        "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite-wal",
+        "sha256": null,
+        "size_bytes": 0
+      },
+      {
+        "exists": false,
+        "mtime_utc": null,
+        "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite-shm",
+        "sha256": null,
+        "size_bytes": 0
+      },
+      {
+        "exists": false,
+        "mtime_utc": null,
+        "path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite-journal",
+        "sha256": null,
+        "size_bytes": 0
+      }
+    ],
+    "table_snapshots": [
+      {
+        "columns": [
+          "news_uid",
+          "source_uid",
+          "published_at_utc",
+          "title",
+          "url_hash",
+          "raw_hash",
+          "fetched_at_utc"
+        ],
+        "count": 250,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T13:14:21.914417+00:00",
+        "readonly_open": true,
+        "table": "news_raw_feed_events",
+        "timestamp_col": "fetched_at_utc"
+      },
+      {
+        "columns": [
+          "match_uid",
+          "news_uid",
+          "source_uid",
+          "token_uid",
+          "pair_uid",
+          "symbol",
+          "chain",
+          "match_type",
+          "match_confidence",
+          "match_score",
+          "match_reasons_json",
+          "evidence_text",
+          "is_duplicate",
+          "write_allowed",
+          "trade_signal",
+          "paper_signal",
+          "created_at_utc"
+        ],
+        "count": 47,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.282634+00:00",
+        "readonly_open": true,
+        "table": "news_token_match_events",
+        "timestamp_col": "created_at_utc"
+      },
+      {
+        "columns": [
+          "signal_uid",
+          "news_uid",
+          "token_uid",
+          "pair_uid",
+          "symbol",
+          "chain",
+          "signal_type",
+          "signal_strength",
+          "signal_label",
+          "source_match_uid",
+          "evidence_text",
+          "created_at_utc"
+        ],
+        "count": 47,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.288481+00:00",
+        "readonly_open": true,
+        "table": "news_signal_events",
+        "timestamp_col": "created_at_utc"
+      },
+      {
+        "columns": [
+          "score_uid",
+          "news_uid",
+          "token_uid",
+          "pair_uid",
+          "symbol",
+          "chain",
+          "news_token_relevance_score_100",
+          "news_risk_score_100",
+          "news_fusion_score_100",
+          "importance_label",
+          "risk_label",
+          "fusion_label",
+          "explanation",
+          "created_at_utc"
+        ],
+        "count": 47,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.288486+00:00",
+        "readonly_open": true,
+        "table": "news_score_events_v1",
+        "timestamp_col": "created_at_utc"
+      },
+      {
+        "columns": [
+          "freshness_uid",
+          "component",
+          "last_observed_at_utc",
+          "raw_count",
+          "match_count",
+          "signal_count",
+          "score_count",
+          "heartbeat_status",
+          "created_at_utc"
+        ],
+        "count": 1,
+        "error": null,
+        "exists": true,
+        "max_ts": "2026-07-06T06:44:10.294353+00:00",
+        "readonly_open": true,
+        "table": "news_runtime_freshness_v1",
+        "timestamp_col": "created_at_utc"
+      }
+    ]
+  },
+  "decision": "WARN_NEWS_A_CURRENT_TRUTH_CAPTURED_REVIEW_REQUIRED",
+  "findings": [
+    {
+      "code": "DB_SELECTED",
+      "level": "OK",
+      "message": "Selected DB: /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    },
+    {
+      "code": "RAW_NEWS_PRESENT",
+      "level": "OK",
+      "message": "Raw news count: 250"
+    },
+    {
+      "code": "DOWNSTREAM_47_CHAIN_PRESENT",
+      "level": "OK",
+      "message": "match/signal/score = 47/47/47"
+    },
+    {
+      "code": "FRESHNESS_TABLE_PRESENT",
+      "level": "OK",
+      "message": "news_runtime_freshness_v1 count: 1"
+    },
+    {
+      "code": "REAL_APPLY_BACKUP_EXISTS",
+      "level": "OK",
+      "message": "N18/N19/N20 real apply backup dosyası yerinde."
+    },
+    {
+      "code": "NEWS_TIMER_NOT_ACTIVE",
+      "level": "WARN",
+      "message": "NEWS timer active görünmüyor."
+    },
+    {
+      "code": "NEWS_SERVICE_LAST_RESULT_NOT_CLEAN",
+      "level": "WARN",
+      "message": "Service show success/0 net göstermiyor."
+    },
+    {
+      "code": "JOURNAL_INVALIDARGUMENT_NOT_SEEN",
+      "level": "OK",
+      "message": "journal tail içinde INVALIDARGUMENT görülmedi."
+    },
+    {
+      "code": "POSTPROCESS_TRACE_NOT_SEEN",
+      "level": "WARN",
+      "message": "postprocess izi görülmedi; NEWS-B için non-blocking dead-code adayı."
+    },
+    {
+      "code": "BOOT_DRIFT_CONFIRMED",
+      "level": "WARN",
+      "message": "PROJECT_BOOT NEWS sayımları current DB ile farklı."
+    },
+    {
+      "code": "PANEL_FRESHNESS_UNKNOWN",
+      "level": "WARN",
+      "message": "Timestamp bilinmeyen panel/readmodel: news,command"
+    }
+  ],
+  "generated_at_utc": "2026-07-08T11:49:21.916798+00:00",
+  "journal_summary": {
+    "cmd_rc": 0,
+    "error_count": 0,
+    "failed_count": 107,
+    "finished_successfully_count": 0,
+    "interesting_lines_tail": [
+      "2026-07-08T08:49:49+03:00 v2202604354387455154 (python3)[2660188]: tokenoskobi-news-radar-refresh.service: Failed to set up standard output: No such file or directory",
+      "2026-07-08T08:49:49+03:00 v2202604354387455154 (python3)[2660188]: tokenoskobi-news-radar-refresh.service: Failed at step STDOUT spawning /usr/bin/python3: No such file or directory",
+      "2026-07-08T08:49:49+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Main process exited, code=exited, status=209/STDOUT",
+      "2026-07-08T08:49:49+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Failed with result 'exit-code'.",
+      "2026-07-08T08:49:49+03:00 v2202604354387455154 systemd[1]: Failed to start tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.",
+      "2026-07-08T09:09:54+03:00 v2202604354387455154 (python3)[2685139]: tokenoskobi-news-radar-refresh.service: Failed to set up standard output: No such file or directory",
+      "2026-07-08T09:09:54+03:00 v2202604354387455154 (python3)[2685139]: tokenoskobi-news-radar-refresh.service: Failed at step STDOUT spawning /usr/bin/python3: No such file or directory",
+      "2026-07-08T09:09:54+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Main process exited, code=exited, status=209/STDOUT",
+      "2026-07-08T09:09:54+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Failed with result 'exit-code'.",
+      "2026-07-08T09:09:54+03:00 v2202604354387455154 systemd[1]: Failed to start tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.",
+      "2026-07-08T09:29:54+03:00 v2202604354387455154 (python3)[2707971]: tokenoskobi-news-radar-refresh.service: Failed to set up standard output: No such file or directory",
+      "2026-07-08T09:29:54+03:00 v2202604354387455154 (python3)[2707971]: tokenoskobi-news-radar-refresh.service: Failed at step STDOUT spawning /usr/bin/python3: No such file or directory",
+      "2026-07-08T09:29:54+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Main process exited, code=exited, status=209/STDOUT",
+      "2026-07-08T09:29:54+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Failed with result 'exit-code'.",
+      "2026-07-08T09:29:54+03:00 v2202604354387455154 systemd[1]: Failed to start tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.",
+      "2026-07-08T09:49:54+03:00 v2202604354387455154 (python3)[2732438]: tokenoskobi-news-radar-refresh.service: Failed to set up standard output: No such file or directory",
+      "2026-07-08T09:49:54+03:00 v2202604354387455154 (python3)[2732438]: tokenoskobi-news-radar-refresh.service: Failed at step STDOUT spawning /usr/bin/python3: No such file or directory",
+      "2026-07-08T09:49:54+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Main process exited, code=exited, status=209/STDOUT",
+      "2026-07-08T09:49:54+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Failed with result 'exit-code'.",
+      "2026-07-08T09:49:54+03:00 v2202604354387455154 systemd[1]: Failed to start tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner."
+    ],
+    "invalidargument_count": 0,
+    "line_count": 160,
+    "postprocess_count": 0,
+    "rc2_count": 27,
+    "return_rc_count": 0,
+    "traceback_count": 0
+  },
+  "log_files": [
+    {
+      "error_count": 0,
+      "exists": false,
+      "invalidargument_count": 0,
+      "mtime_utc": null,
+      "path": "/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.log",
+      "postprocess_count": 0,
+      "rc2_count": 0,
+      "return_rc_count": 0,
+      "size_bytes": 0,
+      "traceback_count": 0
+    },
+    {
+      "error_count": 0,
+      "exists": false,
+      "invalidargument_count": 0,
+      "mtime_utc": null,
+      "path": "/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.err.log",
+      "postprocess_count": 0,
+      "rc2_count": 0,
+      "return_rc_count": 0,
+      "size_bytes": 0,
+      "traceback_count": 0
+    }
+  ],
+  "next_step": "NEWS_B_RUNNER_TIMER_JOURNAL_ARGV_AUDIT_NOAPI",
+  "panel": {
+    "command": {
+      "decision": null,
+      "exists": false,
+      "file_mtime_utc": null,
+      "freshness_status": "UNKNOWN_TIMESTAMP",
+      "generated_age_sec": null,
+      "generated_at_utc": null,
+      "mtime_age_sec": null,
+      "parse_error": "MISSING",
+      "parse_ok": false,
+      "path": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/command_center_live_readmodel_v1.json",
+      "sha256": null,
+      "stale_data_fresh_file": false
+    },
+    "news": {
+      "decision": null,
+      "exists": false,
+      "file_mtime_utc": null,
+      "freshness_status": "UNKNOWN_TIMESTAMP",
+      "generated_age_sec": null,
+      "generated_at_utc": null,
+      "mtime_age_sec": null,
+      "parse_error": "MISSING",
+      "parse_ok": false,
+      "path": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+      "sha256": null,
+      "stale_data_fresh_file": false
+    }
+  },
+  "stage": "NEWS_A_FINAL_PRE_REPLAY_TRUTH_SNAPSHOT_NOAPI",
+  "state": {
+    "json_counts": {
+      "boot": {
+        "news_raw_feed_events": [
+          {
+            "path": "news_intelligence.known_counts_from_prior_audit.news_raw_feed_events",
+            "value": 151
+          }
+        ],
+        "news_score_events_v1": [
+          {
+            "path": "news_intelligence.known_counts_from_prior_audit.news_score_events_v1",
+            "value": 0
+          }
+        ],
+        "news_signal_events": [
+          {
+            "path": "news_intelligence.known_counts_from_prior_audit.news_signal_events",
+            "value": 0
+          }
+        ],
+        "news_token_match_events": [
+          {
+            "path": "news_intelligence.known_counts_from_prior_audit.news_token_match_events",
+            "value": 0
+          }
+        ]
+      },
+      "latest_machine_state": {
+        "news_raw_feed_events": [
+          {
+            "path": "boot_json.news_intelligence.known_counts_from_prior_audit.news_raw_feed_events",
+            "value": 151
+          }
+        ],
+        "news_score_events_v1": [
+          {
+            "path": "boot_json.news_intelligence.known_counts_from_prior_audit.news_score_events_v1",
+            "value": 0
+          }
+        ],
+        "news_signal_events": [
+          {
+            "path": "boot_json.news_intelligence.known_counts_from_prior_audit.news_signal_events",
+            "value": 0
+          }
+        ],
+        "news_token_match_events": [
+          {
+            "path": "boot_json.news_intelligence.known_counts_from_prior_audit.news_token_match_events",
+            "value": 0
+          }
+        ]
+      },
+      "n18_n19_n20_real_apply": {
+        "news_raw_feed_events": [
+          {
+            "path": "after.news_raw_feed_events",
+            "value": 222
+          },
+          {
+            "path": "before.news_raw_feed_events",
+            "value": 222
+          },
+          {
+            "path": "freshness_counts.news_raw_feed_events",
+            "value": 222
+          }
+        ],
+        "news_runtime_freshness_v1": [
+          {
+            "path": "after.news_runtime_freshness_v1",
+            "value": 1
+          }
+        ],
+        "news_score_events_v1": [
+          {
+            "path": "after.news_score_events_v1",
+            "value": 47
+          },
+          {
+            "path": "freshness_counts.news_score_events_v1",
+            "value": 47
+          }
+        ],
+        "news_signal_events": [
+          {
+            "path": "after.news_signal_events",
+            "value": 47
+          },
+          {
+            "path": "freshness_counts.news_signal_events",
+            "value": 47
+          }
+        ],
+        "news_token_match_events": [
+          {
+            "path": "after.news_token_match_events",
+            "value": 47
+          },
+          {
+            "path": "freshness_counts.news_token_match_events",
+            "value": 47
+          }
+        ]
+      },
+      "runtime": {}
+    },
+    "json_errors": {
+      "boot": null,
+      "latest_machine_state": null,
+      "n18_n19_n20_real_apply": null,
+      "runtime": null
+    },
+    "json_loaded": {
+      "boot": {
+        "mode": "CANONICAL_V1_POST_SEAL_RECOVERY",
+        "next_safe_step": {
+          "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
+          "status": "READY"
+        },
+        "status": "ACTIVE_BUT_WORKFLOW_UNSTABLE"
+      },
+      "runtime": {
+        "active_work_unit": null,
+        "current_work_unit": {
+          "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
+          "id": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+          "module": "tools/discipline_layer_readonly_scaffold_v1.py",
+          "next_step": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
+          "status": "CLOSED",
+          "substeps": {
+            "ERA52A": "SCOPE_LOCKED",
+            "ERA52B": "READONLY_SCAFFOLD_CREATED",
+            "ERA52C": "SNAPSHOT_TESTED",
+            "ERA52D": "STATIC_AND_BOUNDARY_AUDITED",
+            "ERA52E": "CODEX_REVIEW_PROMPT_CREATED",
+            "ERA52F": "GITHUB_SEAL_PENDING_IN_THIS_RUN"
+          },
+          "type": "DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD"
+        },
+        "last_action": {
+          "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
+          "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
+          "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+          "timestamp": "2026-07-08T11:06:16.159789Z"
+        },
+        "last_completed": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+        "mode": null,
+        "next_safe_step": {
+          "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
+          "status": "READY"
+        },
+        "runtime_status": null
+      }
+    },
+    "runtime_activity_candidates": [
+      {
+        "path": "current_state.mode",
+        "value": "NEWS_READY_AFTER_ERA52_READONLY_SCAFFOLD_CLOSURE"
+      },
+      {
+        "path": "current_state.last_action",
+        "value": {
+          "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
+          "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
+          "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+          "timestamp": "2026-07-08T11:06:16.159789Z"
+        }
+      },
+      {
+        "path": "current_state.next_safe_step",
+        "value": {
+          "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
+          "status": "READY"
+        }
+      },
+      {
+        "path": "current_state.runtime_status",
+        "value": "WORK_UNIT_CLOSED"
+      },
+      {
+        "path": "last_action",
+        "value": {
+          "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
+          "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
+          "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+          "timestamp": "2026-07-08T11:06:16.159789Z"
+        }
+      },
+      {
+        "path": "next_safe_step",
+        "value": {
+          "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
+          "status": "READY"
+        }
+      },
+      {
+        "path": "canonical_ownership_policy.mode",
+        "value": "WARN_ONLY"
+      },
+      {
+        "path": "disaster_recovery_policy.mode",
+        "value": "PLAN_ACTIVE_LOCAL_ONLY"
+      },
+      {
+        "path": "semantic_drift_guard.mode",
+        "value": "LOCAL_GUARD_ACTIVE"
+      },
+      {
+        "path": "process_compaction.updated_at_utc",
+        "value": "2026-07-08T10:34:05.417432Z"
+      },
+      {
+        "path": "process_compaction.next_safe_step",
+        "value": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+      },
+      {
+        "path": "canonical_workflow_rules.updated_at_utc",
+        "value": "2026-07-08T10:48:50.680029Z"
+      }
+    ],
+    "text_summary": {
+      "almanac_04": {
+        "exists": true,
+        "head_news_lines": [
+          "<!-- ERA52_READONLY_SCAFFOLD_ALMANAC_START -->",
+          "## ERA52 DISCIPLINE LAYER MINIMAL READONLY SCAFFOLD NOAPI",
+          "- Report: `reports/LATEST_ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI.md`",
+          "- Next: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`",
+          "<!-- ERA52_READONLY_SCAFFOLD_ALMANAC_END -->",
+          "- Next real software step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`"
+        ],
+        "mentions_era52": true,
+        "mentions_news_runtime_stabilization": true,
+        "mentions_stable_sealed": false,
+        "mtime_utc": "2026-07-08T11:06:16.212256+00:00",
+        "path": "/root/tokenoskobi_clean_v1/04_ALMANAC.md",
+        "sha256": "a6e5d5b1bbbc79f86d81bde0f73e4e2d0bde7079183cedd90d74a36a97dc009c",
+        "size_bytes": 295241
+      },
+      "handoff_07": {
+        "exists": true,
+        "head_news_lines": [
+          "- Last completed: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`",
+          "- Current focus: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`",
+          "- ERA52 result: minimal read-only scaffold closed.",
+          "- ERA52 module: `tools/discipline_layer_readonly_scaffold_v1.py`",
+          "- ERA52 artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`",
+          "- Discipline expansion rule: do not expand Discipline Layer before NEWS stabilization closes.",
+          "- Next product line: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`",
+          "- NEWS line must use A/B/C/D under the same main line."
+        ],
+        "mentions_era52": true,
+        "mentions_news_runtime_stabilization": true,
+        "mentions_stable_sealed": false,
+        "mtime_utc": "2026-07-08T11:06:16.212256+00:00",
+        "path": "/root/tokenoskobi_clean_v1/07_PROJECT_HANDOFF.md",
+        "sha256": "4ddd91bbf2053462a1fe6c7d523e244f2bb6e76cd3633409a5e6f311db3f75d1",
+        "size_bytes": 56518
+      },
+      "latest_tk_ai_handoff": {
+        "exists": true,
+        "head_news_lines": [
+          "- active_work_unit: ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+          "- next_step: NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
+          "- next_safe_step: {'name': 'NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW', 'status': 'READY'}"
+        ],
+        "mentions_era52": true,
+        "mentions_news_runtime_stabilization": true,
+        "mentions_stable_sealed": false,
+        "mtime_utc": "2026-07-08T11:06:16.400268+00:00",
+        "path": "/root/tokenoskobi_clean_v1/reports/LATEST_TK_AI_HANDOFF.md",
+        "sha256": "acdc65f4d9194aec50c85f13f0948118bc3f1123024adb0d6876da4763ecbd50",
+        "size_bytes": 2541
+      },
+      "master_state_06": {
+        "exists": true,
+        "head_news_lines": [
+          "- Last completed: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`",
+          "- Current focus: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`",
+          "- ERA52 result: minimal read-only scaffold closed.",
+          "- ERA52 module: `tools/discipline_layer_readonly_scaffold_v1.py`",
+          "- ERA52 artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`",
+          "- Discipline expansion rule: do not expand Discipline Layer before NEWS stabilization closes.",
+          "- Next product line: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`",
+          "- NEWS line must use A/B/C/D under the same main line."
+        ],
+        "mentions_era52": true,
+        "mentions_news_runtime_stabilization": true,
+        "mentions_stable_sealed": false,
+        "mtime_utc": "2026-07-08T11:06:16.212256+00:00",
+        "path": "/root/tokenoskobi_clean_v1/06_PROJECT_MASTER_STATE.md",
+        "sha256": "1b9adfa2178ffa73d5be4918b41de27e0cc48bd7a531fa5ef1db8538664373d2",
+        "size_bytes": 255316
+      },
+      "project_handoff_root": {
+        "exists": false,
+        "path": "/root/tokenoskobi_clean_v1/PROJECT_HANDOFF.md"
+      },
+      "project_master_state_root": {
+        "exists": false,
+        "path": "/root/tokenoskobi_clean_v1/PROJECT_MASTER_STATE.md"
+      }
+    }
+  },
+  "summary": {
+    "fail_count": 0,
+    "freshness_count": 1,
+    "match_count": 47,
+    "raw_count": 250,
+    "score_count": 47,
+    "signal_count": 47,
+    "warn_count": 5
+  },
+  "systemd": {
+    "list_timers": {
+      "cmd": [
+        "systemctl",
+        "list-timers",
+        "--all",
+        "tokenoskobi-news-radar-refresh.timer",
+        "--no-pager"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "NEXT LEFT LAST PASSED UNIT ACTIVATES\n\n0 timers listed."
+    },
+    "tokenoskobi-news-radar-refresh.service": {
+      "is_active": {
+        "cmd": [
+          "systemctl",
+          "is-active",
+          "tokenoskobi-news-radar-refresh.service"
+        ],
+        "rc": 3,
+        "stderr": "",
+        "stdout": "failed"
+      },
+      "is_enabled": {
+        "cmd": [
+          "systemctl",
+          "is-enabled",
+          "tokenoskobi-news-radar-refresh.service"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "static"
+      },
+      "show": {
+        "cmd": [
+          "systemctl",
+          "show",
+          "tokenoskobi-news-radar-refresh.service",
+          "-p",
+          "ActiveState",
+          "-p",
+          "SubState",
+          "-p",
+          "Result",
+          "-p",
+          "ExecMainStatus",
+          "-p",
+          "NRestarts",
+          "-p",
+          "FragmentPath",
+          "-p",
+          "UnitFileState",
+          "-p",
+          "ExecStart"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "Result=exit-code\nNRestarts=0\nExecMainStatus=209\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }\nActiveState=failed\nSubState=failed\nFragmentPath=/etc/systemd/system/tokenoskobi-news-radar-refresh.service\nUnitFileState=static"
+      }
+    },
+    "tokenoskobi-news-radar-refresh.timer": {
+      "is_active": {
+        "cmd": [
+          "systemctl",
+          "is-active",
+          "tokenoskobi-news-radar-refresh.timer"
+        ],
+        "rc": 3,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "is_enabled": {
+        "cmd": [
+          "systemctl",
+          "is-enabled",
+          "tokenoskobi-news-radar-refresh.timer"
+        ],
+        "rc": 1,
+        "stderr": "",
+        "stdout": "disabled"
+      },
+      "show": {
+        "cmd": [
+          "systemctl",
+          "show",
+          "tokenoskobi-news-radar-refresh.timer",
+          "-p",
+          "ActiveState",
+          "-p",
+          "SubState",
+          "-p",
+          "Result",
+          "-p",
+          "ExecMainStatus",
+          "-p",
+          "NRestarts",
+          "-p",
+          "FragmentPath",
+          "-p",
+          "UnitFileState",
+          "-p",
+          "ExecStart"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "Result=success\nActiveState=inactive\nSubState=dead\nFragmentPath=/etc/systemd/system/tokenoskobi-news-radar-refresh.timer\nUnitFileState=disabled"
+      }
+    }
+  }
+}
