@@ -1,17 +1,19 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T11:06:16.159789Z
-- Last completed: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
-- Current focus: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
+- Updated UTC: 2026-07-08T14:02:26.872860+00:00
+- Last completed: `HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_REVIEW_NOAPI`
+- Current focus: `HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_SAFE_APPLY_DOCS_ONLY_NOAPI`
 - Runtime authority: `PROJECT_RUNTIME.json`
-- ERA52 result: minimal read-only scaffold closed.
-- ERA52 module: `tools/discipline_layer_readonly_scaffold_v1.py`
-- ERA52 artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`
-- Discipline expansion rule: do not expand Discipline Layer before NEWS stabilization closes.
-- Next product line: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
-- NEWS line must use A/B/C/D under the same main line.
-- No new workflow rule work unless explicitly requested.
+- Canonical source of truth: local server + GitHub main seal.
+- HOT ingress status: contract plan, synthetic dryrun, post-audit, binding plan, binding dryrun, and binding review completed.
+- HOT ingress boundary: planned canonical architecture only.
+- Safe apply scope: `06_PROJECT_MASTER_STATE.md` and `07_PROJECT_HANDOFF.md`.
+- Index decision: `01_INDEX.md` unchanged because it is navigation-only and already points to 06/07.
+- Deferred active control files: `ACTIVE_EXECUTION_GRAPH.json`, `MINIMAL_ACTIVE_CORE_MANIFEST.json`, `USED_BY_RUNTIME_INDEX.json`, `ACTIVE_CORE_RANKING.json`.
+- NOAPI boundary: no API, no DB write, no schema change, no runtime change, no systemd change, no source token/key, no wallet/signing, no paper/live trade, AI authority 0.
+- Workflow preference: GitHub first when possible; otherwise single paste-and-run command block.
+- Next safe step: `HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_SAFE_APPLY_POST_AUDIT_NOAPI`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->
