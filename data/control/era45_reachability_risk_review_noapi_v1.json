@@ -1,0 +1,75 @@
+{
+  "era": "ERA45",
+  "phase": "REACHABILITY_RISK_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-08T05:57:10.266512+00:00",
+  "source_audit": "/root/tokenoskobi_clean_v1/data/control/era45_live_reachability_verification_noapi_v1.json",
+  "source_decision": "WARN_ERA45_LIVE_REACHABILITY_VERIFICATION_NOAPI",
+  "high_count": 2,
+  "medium_count": 3,
+  "decisions": [
+    {
+      "id": "NEWS_RUNNER_REACHABLE",
+      "severity": "HIGH",
+      "title": "News runner/timer appears active",
+      "decision": "MUST_REVIEW_BEFORE_ERA43_REAL_PLANNING",
+      "next_action": "ERA45_NEWS_RUNTIME_REACHABILITY_DECISION_NOAPI",
+      "note": "News runner/timer appears reachable; real runtime planning remains blocked until explicitly accepted or disabled.",
+      "source_finding": {
+        "severity": "HIGH",
+        "id": "NEWS_RUNNER_REACHABLE",
+        "title": "News runner/timer appears active",
+        "decision": "REVIEW_BEFORE_ERA43_REAL_PLANNING"
+      }
+    },
+    {
+      "id": "PROVIDER_VAULT_REACHABLE",
+      "severity": "HIGH",
+      "title": "Provider vault appears active/listening",
+      "decision": "MUST_REVIEW_BEFORE_ERA43_REAL_PLANNING",
+      "next_action": "ERA45_PROVIDER_VAULT_REACHABILITY_DECISION_NOAPI",
+      "note": "Provider vault appears reachable; real runtime planning remains blocked until explicitly accepted, gated, or disabled.",
+      "source_finding": {
+        "severity": "HIGH",
+        "id": "PROVIDER_VAULT_REACHABLE",
+        "title": "Provider vault appears active/listening",
+        "decision": "REVIEW_BEFORE_ERA43_REAL_PLANNING"
+      }
+    }
+  ],
+  "medium_backlog": [
+    {
+      "severity": "MEDIUM",
+      "id": "PUBLIC_KEYWORD_HITS_REMAIN",
+      "title": "Public/active panel keyword hits remain",
+      "count": 23,
+      "decision": "REVIEW"
+    },
+    {
+      "severity": "MEDIUM",
+      "id": "NON_ARCHIVE_WATER_POOLING",
+      "title": "Large non-archive files remain",
+      "count": 11,
+      "decision": "BACKLOG_CLASSIFY"
+    },
+    {
+      "severity": "MEDIUM",
+      "id": "SHELL_OR_SUBPROCESS_SURFACE",
+      "title": "shell/subprocess surface remains",
+      "count": 20,
+      "decision": "CLASSIFY_ACTIVE_MANUAL_DORMANT"
+    }
+  ],
+  "final_decision": "WARN_ERA45_REACHABILITY_RISK_REVIEW_BLOCKERS_REMAIN",
+  "next_step": "ERA45_REACHABILITY_BLOCKER_DECISION_NOAPI",
+  "era43_real_runtime_planning_allowed": false,
+  "rule": "High live reachability risks block ERA43 real runtime planning until explicitly reviewed, disabled, gated, or risk-accepted.",
+  "guards": {
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_action": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "nginx_change": false,
+    "cleanup_performed": false
+  }
+}
