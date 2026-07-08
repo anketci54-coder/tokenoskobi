@@ -305,3 +305,9 @@ Bu içerikler Almanac, PROJECT_RUNTIME.json, 06_PROJECT_MASTER_STATE.md veya ilg
 - Next: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`.
 - Implementation remains blocked until active RED/UNKNOWN findings are reviewed.
 
+## CURRENT ROADMAP UPDATE — 2026-07-08T10:11:02.446239Z
+- `ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI` closed.
+- Decision: `PASS_RISK_DECIDED_NO_DISCIPLINE_BLOCKER`.
+- Next: `ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI`.
+- ERA50 does not authorize implementation; separate Go/No-Go review required.
+

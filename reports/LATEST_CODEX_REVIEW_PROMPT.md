@@ -1,31 +1,32 @@
-CODEX FULL-SYSTEM REVIEW PROMPT — ERA49
+CODEX FULL-SYSTEM REVIEW PROMPT — ERA50
 
 Repository: anketci54-coder/tokenoskobi
-Current HEAD before ERA49 close: 00ba8df5d00ebfdeeb5f6f3b80741dbf4f96610d
-Work unit: ERA49_ACTIVE_SURFACE_REVIEW_NOAPI
-Decision candidate: WARN_ACTIVE_REVIEW_REQUIRED
-Next safe step candidate: ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI
+Current HEAD before ERA50 close: 96ea75d404ce2064c879396e821ed16c71cc8aa3
+Work unit: ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI
+Decision candidate: PASS_RISK_DECIDED_NO_DISCIPLINE_BLOCKER
+Next safe step candidate: ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI
 
 Review:
-- data/control/era49_active_surface_review_noapi_v1.json
-- reports/LATEST_ERA49_ACTIVE_SURFACE_REVIEW_NOAPI.md
+- data/control/era50_active_runtime_risk_decision_noapi_v1.json
+- reports/LATEST_ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI.md
 
 Question:
-Did ERA49 correctly refine ERA48 false positives?
+Did ERA50 correctly distinguish expected runtime mutation-capable surfaces from Discipline Layer blockers?
 
 Hard fail if:
-- A real ACTIVE_RUNTIME executable risk is downgraded to archive/doc/control without evidence.
-- A Discipline Layer write/mutation path exists.
-- Implementation is allowed while active RED or UNKNOWN_REQUIRES_PROOF remains.
-- Runtime/Lab boundary is violated.
-- NOAPI/read-only doctrine is violated.
+- Discipline Layer implementation is authorized directly by ERA50.
+- Any Discipline Layer path imports, invokes, or mutates Runtime.
+- Manual deploy scripts are allowed to run automatically.
+- Runtime DB/panel/service/timer writes are assigned to Discipline Layer.
+- Active RED is ignored without a risk decision.
+- Implementation is recommended without a separate Go/No-Go review.
 
 Return:
 - Overall score
 - PASS/WARN/FAIL
-- Misclassified active runtime files
-- Remaining active RED
-- Remaining UNKNOWN_REQUIRES_PROOF
-- False-positive cleanup accuracy
-- Implementation Go/No-Go
+- Wrongly accepted risks
+- Remaining hard blockers
+- Runtime/Lab boundary verdict
+- Deploy/manual surface verdict
+- Implementation Go/No-Go recommendation
 - Next safe recommendation

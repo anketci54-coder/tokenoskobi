@@ -1,16 +1,16 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T10:06:55.704367Z
-- Current work unit: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`
-- Last completed step: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`
-- Next safe step: `ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI`
+- Updated UTC: 2026-07-08T10:11:02.446239Z
+- Current work unit: `ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI`
+- Last completed step: `ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI`
+- Next safe step: `ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI`
 - Runtime authority: `PROJECT_RUNTIME.json`
 - Master role: `Canonical Engineering Summary derived from Runtime`
 - Handoff role: `Operational Transfer Summary derived from Runtime`
 - Rule: older ERA mentions below this block are historical/archive unless explicitly marked CURRENT here.
-- Decision: `WARN_ACTIVE_REVIEW_REQUIRED`
-- Guard: `Implementation remains blocked unless active RED and UNKNOWN findings are resolved or risk-accepted.`
+- Decision: `PASS_RISK_DECIDED_NO_DISCIPLINE_BLOCKER`
+- Guard: `ERA50 does not authorize implementation; separate Go/No-Go review required.`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->
