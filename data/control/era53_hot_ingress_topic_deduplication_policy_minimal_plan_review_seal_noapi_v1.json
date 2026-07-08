@@ -1,0 +1,113 @@
+{
+  "stage": "ERA53_HOT_INGRESS_TOPIC_DEDUPLICATION_POLICY_MINIMAL_PLAN_REVIEW_SEAL_NOAPI",
+  "generated_at_utc": "2026-07-08T15:36:00Z",
+  "decision": "OK_ERA53_HOT_INGRESS_TOPIC_DEDUPLICATION_POLICY_MINIMAL_PLAN_REVIEW_SEALED",
+  "next_step": "ERA53_HOT_INGRESS_EVIDENCE_POINTER_POLICY_MINIMAL_PLAN_NOAPI",
+  "head_before": "df996e920c582a454e9875b84b08efa036e31251",
+  "current_era": "ERA53",
+  "era_line": "HOT_INTELLIGENCE_INGRESS_GATEWAY",
+  "purpose": "Define the minimal topic deduplication policy that groups repeated HOT ingress events into deterministic topic waves without amplifying noise or creating alarms.",
+  "workflow_policy": {
+    "step_type": "plan_only_docs_contract",
+    "flow_used": "PLAN_TO_REVIEW_SEAL",
+    "dryrun_required": false,
+    "dryrun_reason": "No runtime code, DB schema, service, source adapter, or executable logic changed."
+  },
+  "authority": {
+    "plan_review_seal_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "tree_restructure": false,
+    "repo_artifact_write": true
+  },
+  "topic_deduplication_policy_v1": {
+    "dedupe_scope": "after_admission_after_normalization_before_evidence_binding",
+    "primary_keys": [
+      "normalized_topic_key",
+      "canonical_chain_optional",
+      "asset_address_normalized_optional",
+      "wallet_address_normalized_optional",
+      "tx_hash_optional",
+      "event_type"
+    ],
+    "topic_wave_fields": [
+      "topic_wave_uid",
+      "normalized_topic_key",
+      "first_seen_at_utc",
+      "last_seen_at_utc",
+      "event_count",
+      "source_count",
+      "highest_admission_route",
+      "highest_trust_score",
+      "representative_event_uid",
+      "duplicate_event_uids_hash_only",
+      "topic_wave_policy_version"
+    ],
+    "time_windows": {
+      "fast_social_window_seconds": 120,
+      "news_context_window_seconds": 900,
+      "onchain_window_seconds": 300,
+      "mempool_window_seconds": 60,
+      "max_wave_lifetime_seconds": 3600
+    },
+    "merge_rules": [
+      "same_payload_hash_is_duplicate",
+      "same_normalized_topic_key_within_window_is_same_wave",
+      "same_tx_hash_is_same_wave_when_present",
+      "same_asset_and_event_type_within_window_is_candidate_same_wave",
+      "conflicting_chain_or_asset_prevents_merge",
+      "credential_like_field_presence_forces_drop_before_merge"
+    ],
+    "route_merge_policy": {
+      "drop_events_do_not_create_wave": true,
+      "quarantine_overrides_watch_and_info": true,
+      "critical_candidate_can_be_representative_only_if_source_or_onchain_context_supports_it": true,
+      "merged_wave_cannot_raise_to_critical_alarm": true,
+      "duplicate_count_alone_cannot_raise_route": true
+    },
+    "noise_control_rules": [
+      "duplicate_wave_over_cap_routes_to_quarantine",
+      "many_low_trust_sources_do_not_outvote_one_high_quality_chain_observation",
+      "same_message_flood_does_not_increase_trust_score",
+      "source_count_only_counts_distinct_source_uid",
+      "topic_wave_summary_must_keep_representative_event_only"
+    ],
+    "output_boundaries": {
+      "db_record_created": false,
+      "runtime_queue_created": false,
+      "outbound_alarm_created": false,
+      "trade_or_wallet_action_created": false,
+      "evidence_binding_created": false
+    }
+  },
+  "review_result": {
+    "dedupe_scope_defined": true,
+    "primary_keys_defined": true,
+    "topic_wave_fields_defined": true,
+    "time_windows_defined": true,
+    "merge_rules_defined": true,
+    "route_merge_policy_defined": true,
+    "noise_control_rules_defined": true,
+    "output_boundaries_defined": true,
+    "boundary_clean": true
+  },
+  "summary": {
+    "sealed": true,
+    "primary_key_count": 6,
+    "topic_wave_field_count": 11,
+    "merge_rule_count": 6,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
