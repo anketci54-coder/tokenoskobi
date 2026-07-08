@@ -1,0 +1,143 @@
+{
+  "era": "ERA47",
+  "work_unit": "ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI",
+  "created_at_utc": "2026-07-08T09:42:16.247664Z",
+  "base_head": "0bb0ba67c203616efd53ecb2a1e935a617218f5b",
+  "status": "WORK_UNIT_CLOSED",
+  "scope": {
+    "validation_only": true,
+    "implementation": false,
+    "new_script": false,
+    "commit": false,
+    "push": false,
+    "runtime_mutation": false
+  },
+  "next_safe_step_verified": true,
+  "contract_plan_alignment": {
+    "contract_exists": true,
+    "plan_exists": true,
+    "runtime_imports_lab_contract": true,
+    "plan_no_implementation": true,
+    "plan_no_new_script": true
+  },
+  "runtime_lab_boundary_static_scan": {
+    "python_files_scanned": 91,
+    "runtime_lab_import_hits": [],
+    "mutation_hits": [],
+    "danger_hits_shell_or_os_system": [
+      "archive/root_cleanup_20260706/boot_legacy/boot_commander_v2.py",
+      "archive/root_cleanup_20260706/boot_legacy/boot_continuation_engine_v1.py",
+      "archive/root_cleanup_20260706/boot_legacy/boot_health_v1.py",
+      "archive/root_cleanup_20260706/boot_legacy/boot_validator_v2.py",
+      "archive/root_cleanup_20260706/root_non_active_entrypoints/boot_autosync_v1.py",
+      "archive/root_cleanup_20260706/root_non_active_entrypoints/boot_commander_v1.py",
+      "tools/archive/patch_debt_20260706_n17_n21/n17a2_news_matcher_dryrun_probe_v1.py",
+      "tools/era43_preflight_readonly_audit_noapi.py",
+      "tools/era44_public_exposure_post_fix_audit_noapi.py",
+      "tools/era45_live_reachability_verification_noapi.py",
+      "tools/era45_reachability_fix_and_speed_baseline_noapi.py",
+      "tools/n9_source_to_public_readmodel_binding_probe.py",
+      "tools/news_runtime_probe_readonly_v1.py",
+      "tools/runtime_activation_truth_audit_v1.py",
+      "tools/system_center_live_producer_v1.py"
+    ],
+    "decision": "PASS"
+  },
+  "schema_version_validation": {
+    "decision": "WARN",
+    "reason": "Legacy files may lack explicit input_schema_version; policy is WARN_NOT_MUTATE, no bulk mutation.",
+    "inputs": {
+      "PROJECT_RUNTIME.json": {
+        "json_valid": true,
+        "schema_version_present": true,
+        "behavior_if_missing": "WARN_NOT_MUTATE"
+      },
+      "PROJECT_BOOT.json": {
+        "json_valid": true,
+        "schema_version_present": true,
+        "behavior_if_missing": "WARN_NOT_MUTATE"
+      },
+      "data/control/era46_engine_interface_contract_noapi_v1.json": {
+        "json_valid": true,
+        "schema_version_present": false,
+        "behavior_if_missing": "WARN_NOT_MUTATE"
+      },
+      "data/control/era46_discipline_layer_plan_noapi_v1.json": {
+        "json_valid": true,
+        "schema_version_present": false,
+        "behavior_if_missing": "WARN_NOT_MUTATE"
+      },
+      "data/control/latest_tk_machine_state.json": {
+        "json_valid": true,
+        "schema_version_present": false,
+        "behavior_if_missing": "WARN_NOT_MUTATE"
+      }
+    }
+  },
+  "decision_id_validation": {
+    "format": "ERA__WORK_UNIT__ENGINE_NAME__COMMIT_HEAD_SHORT__UTC_TS",
+    "sample_count": 8,
+    "unique": true,
+    "samples": [
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__PERFORMANCE_METRICS_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__RELIABILITY_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__SECURITY_BOUNDARY_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__SCALABILITY_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__OPPORTUNITY_COST_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__STATISTICAL_DECISION_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__GOVERNANCE_DELTA_ENGINE__0bb0ba6__20260708T094216Z",
+      "ERA47__ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI__IMMUTABLE_AUDIT_LOG__0bb0ba6__20260708T094216Z"
+    ],
+    "decision": "PASS"
+  },
+  "fail_silent_fail_safe_validation": {
+    "scenario": "Discipline Layer emits FAIL",
+    "runtime_expected_behavior": "FAIL_SILENT_RUNTIME_CONTINUES_NO_MUTATION",
+    "closure_expected_behavior": "FAIL_SAFE_ERA_CLOSURE_BLOCKED_OR_WARNED",
+    "validation_proof": "text_based_validation_only_no_runtime_execution",
+    "result": "PASS"
+  },
+  "bloat_control": {
+    "allowed_new_files": [
+      "data/control/era47_discipline_layer_validation_noapi_v1.json",
+      "reports/LATEST_ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI.md"
+    ],
+    "new_script_created": false,
+    "implementation_created": false,
+    "decision": "PASS"
+  },
+  "codex_status": "PENDING_EXTERNAL_CODEX_REVIEW",
+  "provisional_decision": "WARN_PENDING_CODEX",
+  "closure_rule": "ERA47 cannot close PASS until Codex review result is pasted back and recorded.",
+  "closed_at_utc": "2026-07-08T09:58:03.593867Z",
+  "decision": "WARN_ACCEPTED_NO_BLOCKER",
+  "codex_review": {
+    "overall_score": 86,
+    "verdict": "WARN",
+    "top_blockers": "No ERA47 hard blocker detected. WARN because validation artifact is being closed now and legacy bloat/security debt remains outside Discipline Layer.",
+    "leaks_mutations": "No Discipline Layer Runtime mutation detected. Existing non-Discipline mutation-capable files require reachability classification before active runtime blocking.",
+    "canonical_drift": "No blocking Truth Priority drift detected. Older ERA44 references are historical/archive under current-state headers.",
+    "bloat_impact": "WARN: legacy artifacts exist; Discipline Layer itself added only small JSON/MD artifacts.",
+    "runtime_lab_boundary": "PASS with validation caveat. No new Discipline engine implementation or runner detected.",
+    "schema_version_findings": "PASS for plan correctness; legacy missing schema behavior is WARN_NOT_MUTATE.",
+    "decision_audit_trail_findings": "WARN: decision_id format defined, actual generated decision IDs require future verification.",
+    "speed_security_power_frugality": "WARN: heavy math outside runtime and Opportunity Cost present; existing shell/subprocess/external surfaces require reachability classification.",
+    "next_safe_recommendation": "Proceed with validation-only path; classify existing mutation/security/bloat surfaces as active runtime, dormant/manual, or archive before implementation."
+  },
+  "closure_summary": {
+    "implementation": false,
+    "new_script": false,
+    "runtime_mutation": false,
+    "commit": true,
+    "push": "PENDING",
+    "next_safe_step": "ERA48_REACHABILITY_CLASSIFICATION_NOAPI"
+  },
+  "accepted_warnings": [
+    "Legacy bloat/security debt exists outside Discipline Layer.",
+    "Existing mutation-capable surfaces require reachability classification.",
+    "Actual generated decision IDs require future verification.",
+    "WARN_NOT_MUTATE schema/version policy accepted for legacy inputs."
+  ],
+  "blockers": [],
+  "result": "CLOSED_WARN_ACCEPTED_READY_FOR_REACHABILITY_CLASSIFICATION"
+}
