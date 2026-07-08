@@ -1,0 +1,195 @@
+{
+  "adversarial_taxonomy": [
+    "HONEYPOT",
+    "HIDDEN_TAX",
+    "FAKE_RENOUNCE",
+    "PROXY_TRAP",
+    "UPGRADEABLE_RUG",
+    "LP_PULL",
+    "LIQUIDITY_MIRAGE",
+    "FAKE_VOLUME",
+    "COORDINATED_SHILL",
+    "COORDINATED_FUD",
+    "SANDWICH_BAIT",
+    "MEV_TRAP",
+    "ORACLE_MANIPULATION",
+    "BRIDGE_EXPLOIT",
+    "WALLET_DRAIN_CAMPAIGN",
+    "FAKE_AIRDROP",
+    "FAKE_PARTNERSHIP",
+    "SOCIAL_ENGINEERING",
+    "UNKNOWN_MONITOR"
+  ],
+  "authority": {
+    "ai_trade_authority": false,
+    "db_schema_write": false,
+    "discord_bot_use": false,
+    "live_trade": false,
+    "noapi": true,
+    "paper_trade": false,
+    "plan_only": true,
+    "real_db_write": false,
+    "repo_artifact_write": true,
+    "runtime_change": false,
+    "signing": false,
+    "systemd_change": false,
+    "telegram_token_use": false,
+    "wallet": false,
+    "x_api_use": false
+  },
+  "cold_hot_boundary": {
+    "cold_news_refresh": "20min timer, fallback/backfill only",
+    "current_stage": "plan and contract only",
+    "forbidden_claim": "20min timer is real-time intelligence",
+    "hot_gateway": "primary war intelligence ingress plan"
+  },
+  "conflict_resolver_policy": [
+    {
+      "code": "SOCIAL_VS_ONCHAIN",
+      "rule": "If social says exploit but onchain has no anomaly, route WATCH or QUARANTINE, not CRITICAL_ALARM."
+    },
+    {
+      "code": "ONCHAIN_CONFIRMED",
+      "rule": "If onchain confirms abnormal LP/deployer/bridge/wallet behavior, raise severity."
+    },
+    {
+      "code": "MULTI_SOCIAL_DUPLICATE",
+      "rule": "Many social posts with same content are not multi-source confirmation unless independent source trust differs."
+    },
+    {
+      "code": "FAST_BUT_FAKE_GUARD",
+      "rule": "Speed cannot bypass source trust, duplicate filtering, and evidence requirement."
+    }
+  ],
+  "contracts": {
+    "intelligence_ingress_event_v1": {
+      "canonical_content_hash": "sha256 normalized text",
+      "chain": "optional string",
+      "conflict_state": "NONE|SOCIAL_ONLY|ONCHAIN_CONFLICT|MULTI_SOURCE_CONFIRMED|QUARANTINE",
+      "contract_address": "optional string",
+      "event_type": "exploit|lp_pull|deployer_move|whale_move|bridge_risk|social_rumor|spam|unknown_monitor",
+      "event_uid": "deterministic string",
+      "fuzzy_duplicate_key": "planned similarity bucket",
+      "raw_text_hash": "sha256",
+      "raw_url_hash": "optional sha256",
+      "received_at_utc": "ISO-8601",
+      "routing_status": "DROP|INFO|WATCH|CRITICAL_CANDIDATE|QUARANTINE",
+      "severity_guess": "INFO|WATCH|CRITICAL_CANDIDATE|QUARANTINE",
+      "source_trust_score": "0-100 planned",
+      "source_type": "telegram|discord|x|news|rss|onchain|dex|mempool|manual_synthetic",
+      "source_uid": "string",
+      "token_address": "optional string",
+      "token_symbol": "optional string",
+      "wallet_address": "optional string"
+    }
+  },
+  "decision": "OK_HOT_INTELLIGENCE_INGRESS_GATEWAY_PLAN_NOAPI_DOCUMENTED",
+  "dynamic_trust_score_plan": {
+    "major_manipulation_penalty": "can force quarantine",
+    "model": "exponential_decay_planned",
+    "positive_history_weight": "decays over time",
+    "recent_false_signal_penalty": "high impact",
+    "source_compromise_mode": "manual or rule-based quarantine"
+  },
+  "filter_routing_policy": [
+    {
+      "condition": "price-only comment, generic shill, no token/chain/wallet/contract/actionable entity",
+      "route": "DROP"
+    },
+    {
+      "condition": "relevant but low severity, no immediate risk",
+      "route": "INFO"
+    },
+    {
+      "condition": "single-source suspicious event or unknown_monitor without evidence",
+      "route": "WATCH"
+    },
+    {
+      "condition": "conflicting evidence, spam wave, low-trust source, possible manipulation",
+      "route": "QUARANTINE"
+    },
+    {
+      "condition": "high-severity event with entity extraction and at least preliminary evidence",
+      "route": "CRITICAL_CANDIDATE"
+    },
+    {
+      "condition": "not produced by Gateway alone; requires Evidence/Prosecutor confirmation",
+      "route": "CRITICAL_ALARM"
+    }
+  ],
+  "fuzzy_duplicate_plan": {
+    "critical_spam_guard": "duplicate cluster cannot multiply CRITICAL alarms",
+    "exact_hash": "raw hash and canonical hash",
+    "near_duplicate": "normalized title/text similarity planned",
+    "threshold_policy": "same entity + similar content + close time window = duplicate cluster"
+  },
+  "generated_at_utc": "2026-07-08T13:27:34.282990+00:00",
+  "news_f_reference": {
+    "decision": "WARN_NEWS_F_FINAL_OPERATIONAL_SEAL_CLOSED_WITH_KNOWN_WARNINGS",
+    "next_step": "HOT_INTELLIGENCE_INGRESS_GATEWAY_PLAN_NOAPI",
+    "path": "/root/tokenoskobi_clean_v1/data/control/news_f_final_operational_seal_with_known_warnings_v1.json",
+    "read_error": null
+  },
+  "next_safe_step_contract_dryrun": {
+    "name": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_DRYRUN_NOAPI",
+    "scope": "synthetic JSON events only; no API, no DB real apply, no runtime change",
+    "tests": [
+      "synthetic fake exploit rumor",
+      "synthetic LP pull with onchain confirmation",
+      "synthetic social/onchain conflict",
+      "synthetic duplicate wave",
+      "synthetic spam wave",
+      "synthetic unknown_monitor event"
+    ]
+  },
+  "next_step": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_DRYRUN_NOAPI",
+  "rate_limit_plan": {
+    "route_level": "max critical candidates per source/window planned",
+    "source_level": "max events per window planned",
+    "spam_wave_response": "QUARANTINE source or downgrade route"
+  },
+  "red_team_decision": "OK_HOT_GATEWAY_PLAN_CAN_PROCEED_NOAPI",
+  "red_team_locked_rules": [
+    {
+      "code": "ONCHAIN_SOURCE_OF_TRUTH",
+      "rule": "Onchain evidence outranks social/news claims when conflict exists."
+    },
+    {
+      "code": "CONFLICT_RESOLVER_BLOCKER",
+      "rule": "HOT Gateway cannot go live without conflict resolver policy."
+    },
+    {
+      "code": "CRITICAL_REQUIRES_EVIDENCE",
+      "rule": "CRITICAL event cannot become outbound alarm without Evidence/Prosecutor confirmation."
+    },
+    {
+      "code": "UNKNOWN_MONITOR",
+      "rule": "Unknown anomaly is not automatically dangerous; classify as UNKNOWN_MONITOR unless severity evidence exists."
+    },
+    {
+      "code": "FUZZY_DUPLICATE_REQUIRED",
+      "rule": "Exact hash is not enough; content similarity/fuzzy duplicate threshold must be planned."
+    },
+    {
+      "code": "DYNAMIC_TRUST_SCORE",
+      "rule": "Source trust score must decay dynamically; recent major false signal has strong negative impact."
+    },
+    {
+      "code": "RATE_LIMIT_INGRESS",
+      "rule": "Source-level rate limiting is mandatory against spam wave attacks."
+    },
+    {
+      "code": "ATOMIC_DATA_ONLY",
+      "rule": "Do not copy every API parameter; keep only minimum decision-relevant fields."
+    },
+    {
+      "code": "SOURCE_REGISTRY_DEFER_DETAIL",
+      "rule": "Deep source registry details are deferred; only minimum source identity/trust fields now."
+    },
+    {
+      "code": "NO_TOKENS_NO_KEYS",
+      "rule": "No Telegram token, Discord bot, X API, live API key, wallet, signing, trade, or paper trade in this stage."
+    }
+  ],
+  "stage": "HOT_INTELLIGENCE_INGRESS_GATEWAY_PLAN_NOAPI"
+}
