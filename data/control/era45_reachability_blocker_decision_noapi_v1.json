@@ -1,0 +1,102 @@
+{
+  "era": "ERA45",
+  "phase": "REACHABILITY_BLOCKER_DECISION_NOAPI",
+  "created_at_utc": "2026-07-08T06:07:55.639511+00:00",
+  "source_audit": "/root/tokenoskobi_clean_v1/data/control/era45_live_reachability_verification_noapi_v1.json",
+  "previous_decision": "WARN_ERA45_LIVE_REACHABILITY_VERIFICATION_NOAPI",
+  "evidence": {
+    "news_service_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "failed",
+      "stderr": ""
+    },
+    "news_timer_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "active",
+      "stderr": ""
+    },
+    "news_service_enabled": {
+      "cmd": "systemctl is-enabled tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "static",
+      "stderr": ""
+    },
+    "news_timer_enabled": {
+      "cmd": "systemctl is-enabled tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "enabled",
+      "stderr": ""
+    },
+    "news_execstart": {
+      "cmd": "systemctl cat tokenoskobi-news-radar-refresh.service 2>/dev/null | grep ExecStart || true",
+      "rc": 0,
+      "stdout": "ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py",
+      "stderr": ""
+    },
+    "news_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep news_radar_refresh_runner_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "provider_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep provider_secret_vault_handler_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "435705       1 /usr/bin/python3 /root/tokenoskobi_clean_v1/tools/provider_secret_vault_handler_v1.py",
+      "stderr": ""
+    },
+    "port_8097": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8097' || true",
+      "rc": 0,
+      "stdout": "LISTEN 0      5          127.0.0.1:8097      0.0.0.0:*    users:((\"python3\",pid=435705,fd=3))",
+      "stderr": ""
+    },
+    "nginx_8097_proxy": {
+      "cmd": "grep -RIn '8097\\|provider_secret_vault' /etc/nginx 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "/etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:62:        proxy_pass http://127.0.0.1:8097/internal/provider-secret/;",
+      "stderr": ""
+    },
+    "git_head": {
+      "cmd": "git rev-parse HEAD",
+      "rc": 0,
+      "stdout": "5bae4fa87b8f406d693e00f7f7f9798b9eac0887",
+      "stderr": ""
+    },
+    "git_status": {
+      "cmd": "git status --short",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "decisions": [
+    {
+      "id": "NEWS_RUNNER_REACHABLE",
+      "decision": "KEEP_ERA43_REAL_PLANNING_BLOCKED_UNTIL_GATE_EXISTS",
+      "severity": "HIGH",
+      "evidence_summary": "news service/timer/process appears active or reachable"
+    },
+    {
+      "id": "PROVIDER_VAULT_REACHABLE",
+      "decision": "KEEP_ERA43_REAL_PLANNING_BLOCKED_UNTIL_GATE_EXISTS",
+      "severity": "HIGH",
+      "evidence_summary": "provider vault process or 8097 listener appears active"
+    }
+  ],
+  "high_count": 2,
+  "final_decision": "WARN_ERA45_REACHABILITY_BLOCKER_DECISION_BLOCKED",
+  "next_step": "ERA45_REACHABILITY_FIX_OR_GATE_PLAN_NOAPI",
+  "era43_real_runtime_planning_allowed": false,
+  "guards": {
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_action": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "nginx_change": false,
+    "cleanup_performed": false
+  }
+}
