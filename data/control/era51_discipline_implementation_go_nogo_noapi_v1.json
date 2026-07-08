@@ -1,0 +1,85 @@
+{
+  "era": "ERA51",
+  "work_unit": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
+  "created_at_utc": "2026-07-08T10:14:27.715806Z",
+  "base_head": "0b91c981c238c05dba701285a8f3080255ed63bd",
+  "status": "WORK_UNIT_CLOSED",
+  "scope": {
+    "go_nogo_only": true,
+    "implementation": false,
+    "new_script": false,
+    "runtime_mutation": false,
+    "api_fetch": false,
+    "db_write": false,
+    "service_timer_mutation": false,
+    "panel_write": false,
+    "auto_fix": false
+  },
+  "input_era50": {
+    "decision": "PASS_RISK_DECIDED_NO_DISCIPLINE_BLOCKER",
+    "implementation_go_no_go": "READY_FOR_GO_NOGO_REVIEW",
+    "hard_blockers": 0,
+    "summary": {
+      "active_red_input": 37,
+      "unknown_input": 12,
+      "manual_deploy_accept": 3,
+      "core_runtime_accept": 1,
+      "active_producer_accept": 19,
+      "manual_audit_reclassified": 4,
+      "future_hardening_review": 10,
+      "hard_blockers": 0
+    }
+  },
+  "decision": "GO_LIMITED_READONLY_SCAFFOLD_NOAPI",
+  "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+  "authorized_next_scope": {
+    "only_if_decision_is_go": true,
+    "name": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+    "allowed": [
+      "minimal read-only Discipline Layer scaffold",
+      "no Runtime import",
+      "no Runtime mutation",
+      "no DB write",
+      "no service/timer mutation",
+      "no panel write",
+      "no auto-fix",
+      "no external API/fetch",
+      "no heavy math",
+      "input/output contract only",
+      "static unit tests or dry-run validation only"
+    ],
+    "forbidden": [
+      "live runtime integration",
+      "scheduler/timer/service creation",
+      "database writes",
+      "panel writes",
+      "network/API fetch",
+      "wallet/signing/trading authority",
+      "automatic repair",
+      "calling deploy scripts",
+      "mutating producer tools",
+      "heavy statistical engine implementation"
+    ]
+  },
+  "risk_position": {
+    "hard_blockers": 0,
+    "accepted_runtime_surfaces_remain_outside_discipline_layer": true,
+    "future_hardening_backlog_required": true,
+    "risk_zero_claim": false
+  },
+  "implementation_go_no_go": "GO_LIMITED_NEXT_ERA_ONLY",
+  "hard_rules": [
+    "ERA51 does not implement any engine.",
+    "ERA51 only authorizes the next ERA to create a minimal read-only scaffold if GO.",
+    "Runtime never imports Discipline/Lab.",
+    "Discipline/Lab never writes Runtime, DB, panel, service, timer, or deploy scripts.",
+    "AI has no trade authority.",
+    "Human approval remains required."
+  ],
+  "open_risks": [
+    "Accepted runtime mutation-capable surfaces remain future hardening backlog.",
+    "ERA52 must prove read-only behavior before any broader implementation.",
+    "No full Discipline Engine implementation is authorized yet.",
+    "Risk is minimized, never zero."
+  ]
+}
