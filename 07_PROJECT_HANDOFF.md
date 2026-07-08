@@ -1,13 +1,13 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T10:34:05.417432Z
+- Updated UTC: 2026-07-08T10:35:52.764115Z
 - Current focus: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
-- Previous parent chain: `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI`
+- Last completed parent chain: `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI`
 - Canonical substeps: `ERA47A`, `ERA47B`, `ERA47C`, `ERA47D`, `ERA47E`
 - Historical aliases: old `ERA48`, `ERA49`, `ERA50`, `ERA51`
 - Runtime authority: `PROJECT_RUNTIME.json`
-- Rule: old ERA48-ERA51 labels are not active work lanes; they are historical aliases under ERA47.
+- Rule: old ERA48-ERA51 labels are historical aliases under ERA47, not active work lanes.
 - Work format from now on: `ERA52A`, `ERA52B`, `ERA52C`; nested only when needed as `ERA52A_1`.
 - Deadline mode: reduce documents, reduce labels, deliver small working code.
 - Next safe step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`

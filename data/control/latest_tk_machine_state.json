@@ -1,16 +1,16 @@
 {
   "kernel": "TOKENOSKOBI_KERNEL_V1",
   "collect_mode": "full",
-  "created_at_utc": "2026-07-08T10:34:05.977301+00:00",
+  "created_at_utc": "2026-07-08T10:35:53.241064+00:00",
   "project": {
     "name": "Tokenoskobi",
     "root": "/root/tokenoskobi_clean_v1",
     "branch": "main",
-    "local_head": "9bd7bf9730f06a83c03bad9b8115520256c94ddd",
-    "remote_head": "9bd7bf9730f06a83c03bad9b8115520256c94ddd",
+    "local_head": "d3eb8126332ec26d9f5f6194b9cdbf2821caaff9",
+    "remote_head": "d3eb8126332ec26d9f5f6194b9cdbf2821caaff9",
     "head_sync": true,
     "git_clean": false,
-    "git_status_short": "M 03_ROADMAP.md\n M 04_ALMANAC.md\n M 06_PROJECT_MASTER_STATE.md\n M 07_PROJECT_HANDOFF.md\n M PROJECT_BOOT.json\n M PROJECT_RUNTIME.json\nRM data/control/era47_discipline_layer_validation_noapi_v1.json -> data/control/era47A_discipline_plan_validation_noapi_v1.json\nRM data/control/era48_reachability_classification_noapi_v1.json -> data/control/era47B_reachability_classification_noapi_v1.json\nRM data/control/era49_active_surface_review_noapi_v1.json -> data/control/era47C_active_surface_false_positive_review_noapi_v1.json\nRM data/control/era50_active_runtime_risk_decision_noapi_v1.json -> data/control/era47D_active_runtime_risk_decision_noapi_v1.json\nRM data/control/era51_discipline_implementation_go_nogo_noapi_v1.json -> data/control/era47E_discipline_implementation_go_nogo_noapi_v1.json\n M data/control/latest_tk_machine_state.json\n M reports/LATEST_CODEX_REVIEW_PROMPT.md\nRM reports/LATEST_ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI.md -> reports/LATEST_ERA47A_DISCIPLINE_PLAN_VALIDATION_NOAPI.md\nRM reports/LATEST_ERA48_REACHABILITY_CLASSIFICATION_NOAPI.md -> reports/LATEST_ERA47B_REACHABILITY_CLASSIFICATION_NOAPI.md\nRM reports/LATEST_ERA49_ACTIVE_SURFACE_REVIEW_NOAPI.md -> reports/LATEST_ERA47C_ACTIVE_SURFACE_FALSE_POSITIVE_REVIEW_NOAPI.md\nRM reports/LATEST_ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI.md -> reports/LATEST_ERA47D_ACTIVE_RUNTIME_RISK_DECISION_NOAPI.md\nRM reports/LATEST_ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI.md -> reports/LATEST_ERA47E_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI.md\n M reports/LATEST_TK_AI_HANDOFF.md\n?? data/control/era47_discipline_preflight_chain_noapi_v1.json",
+    "git_status_short": "M 06_PROJECT_MASTER_STATE.md\n M 07_PROJECT_HANDOFF.md\n M PROJECT_BOOT.json\n M PROJECT_RUNTIME.json\n M data/control/latest_tk_machine_state.json\n M reports/LATEST_TK_AI_HANDOFF.md",
     "generated_registry_dirty_ignored": true
   },
   "boot_files": {
@@ -20,23 +20,36 @@
   },
   "current_state": {
     "active_work_unit": {
-      "id": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-      "type": "DISCIPLINE_IMPLEMENTATION_GO_NOGO",
-      "status": "WORK_UNIT_CLOSED",
-      "last_completed_step": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-      "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+      "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+      "type": "DISCIPLINE_PREFLIGHT_CHAIN",
+      "status": "CONSOLIDATED_CLOSED",
+      "last_completed_step": "ERA47E_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
+      "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+      "substeps": {
+        "ERA47A": "PLAN_VALIDATION",
+        "ERA47B": "REACHABILITY_CLASSIFICATION",
+        "ERA47C": "ACTIVE_SURFACE_FALSE_POSITIVE_REVIEW",
+        "ERA47D": "ACTIVE_RUNTIME_RISK_DECISION",
+        "ERA47E": "DISCIPLINE_IMPLEMENTATION_GO_NOGO"
+      },
+      "historical_aliases": {
+        "ERA48": "ERA47B",
+        "ERA49": "ERA47C",
+        "ERA50": "ERA47D",
+        "ERA51": "ERA47E"
+      }
     },
     "next_safe_step": {
       "name": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
       "status": "READY"
     },
     "runtime_status": "WORK_UNIT_CLOSED",
-    "updated_at": "2026-07-08T10:34:05.417432Z",
+    "updated_at": "2026-07-08T10:35:52.764115Z",
     "last_action": {
-      "timestamp": "2026-07-08T10:34:05.417432Z",
-      "task": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_CONSOLIDATION_NOAPI",
-      "result": "OK_CONSOLIDATED_UNDER_ERA47",
-      "artifact": "data/control/era47_discipline_preflight_chain_noapi_v1.json"
+      "timestamp": "2026-07-08T10:35:52.764115Z",
+      "task": "ERA47_STATE_NORMALIZATION_NO_NEW_ERA",
+      "result": "OK_STATE_NORMALIZED_UNDER_ERA47",
+      "artifact": "PROJECT_RUNTIME.json"
     }
   },
   "known_facts": {
@@ -1122,8 +1135,8 @@
   },
   "runtime_json": {
     "runtime_version": "1.0",
-    "updated_at": "2026-07-08T10:34:05.417432Z",
-    "source": "era47_preflight_chain_consolidation",
+    "updated_at": "2026-07-08T10:35:52.764115Z",
+    "source": "era47_state_normalization_no_new_era",
     "git": {
       "branch": "main",
       "head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
@@ -1132,26 +1145,39 @@
     },
     "current_state": {
       "project_status": "ACTIVE",
-      "mode": "ERA52_READY_AFTER_ERA47_PREFLIGHT_CHAIN_CONSOLIDATION",
+      "mode": "ERA52_READY_AFTER_ERA47_STATE_NORMALIZATION",
       "current_problem": null,
       "active_work_unit": {
-        "id": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-        "type": "DISCIPLINE_IMPLEMENTATION_GO_NOGO",
-        "status": "WORK_UNIT_CLOSED",
-        "last_completed_step": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-        "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+        "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+        "type": "DISCIPLINE_PREFLIGHT_CHAIN",
+        "status": "CONSOLIDATED_CLOSED",
+        "last_completed_step": "ERA47E_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
+        "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+        "substeps": {
+          "ERA47A": "PLAN_VALIDATION",
+          "ERA47B": "REACHABILITY_CLASSIFICATION",
+          "ERA47C": "ACTIVE_SURFACE_FALSE_POSITIVE_REVIEW",
+          "ERA47D": "ACTIVE_RUNTIME_RISK_DECISION",
+          "ERA47E": "DISCIPLINE_IMPLEMENTATION_GO_NOGO"
+        },
+        "historical_aliases": {
+          "ERA48": "ERA47B",
+          "ERA49": "ERA47C",
+          "ERA50": "ERA47D",
+          "ERA51": "ERA47E"
+        }
       },
       "last_action": {
-        "timestamp": "2026-07-08T10:34:05.417432Z",
-        "task": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_CONSOLIDATION_NOAPI",
-        "result": "OK_CONSOLIDATED_UNDER_ERA47",
-        "artifact": "data/control/era47_discipline_preflight_chain_noapi_v1.json"
+        "timestamp": "2026-07-08T10:35:52.764115Z",
+        "task": "ERA47_STATE_NORMALIZATION_NO_NEW_ERA",
+        "result": "OK_STATE_NORMALIZED_UNDER_ERA47",
+        "artifact": "PROJECT_RUNTIME.json"
       },
       "next_safe_step": {
         "name": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
         "status": "READY"
       },
-      "updated_at": "2026-07-08T10:34:05.417432Z",
+      "updated_at": "2026-07-08T10:35:52.764115Z",
       "runtime_status": "WORK_UNIT_CLOSED"
     },
     "hard_rules": {
@@ -1166,10 +1192,10 @@
       "human_approval_required": true
     },
     "last_action": {
-      "timestamp": "2026-07-08T10:34:05.417432Z",
-      "task": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_CONSOLIDATION_NOAPI",
-      "result": "OK_CONSOLIDATED_UNDER_ERA47",
-      "artifact": "data/control/era47_discipline_preflight_chain_noapi_v1.json"
+      "timestamp": "2026-07-08T10:35:52.764115Z",
+      "task": "ERA47_STATE_NORMALIZATION_NO_NEW_ERA",
+      "result": "OK_STATE_NORMALIZED_UNDER_ERA47",
+      "artifact": "PROJECT_RUNTIME.json"
     },
     "next_safe_step": {
       "name": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
@@ -1186,17 +1212,30 @@
     "boot_health": "100/100",
     "last_completed": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
     "current_work_unit": {
-      "id": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-      "type": "DISCIPLINE_IMPLEMENTATION_GO_NOGO",
-      "status": "WORK_UNIT_CLOSED",
-      "last_completed_step": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-      "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+      "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+      "type": "DISCIPLINE_PREFLIGHT_CHAIN",
+      "status": "CONSOLIDATED_CLOSED",
+      "last_completed_step": "ERA47E_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
+      "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+      "substeps": {
+        "ERA47A": "PLAN_VALIDATION",
+        "ERA47B": "REACHABILITY_CLASSIFICATION",
+        "ERA47C": "ACTIVE_SURFACE_FALSE_POSITIVE_REVIEW",
+        "ERA47D": "ACTIVE_RUNTIME_RISK_DECISION",
+        "ERA47E": "DISCIPLINE_IMPLEMENTATION_GO_NOGO"
+      },
+      "historical_aliases": {
+        "ERA48": "ERA47B",
+        "ERA49": "ERA47C",
+        "ERA50": "ERA47D",
+        "ERA51": "ERA47E"
+      }
     },
     "recent_event": {
-      "task": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_CONSOLIDATION_NOAPI",
-      "result": "OK_CONSOLIDATED_UNDER_ERA47",
-      "timestamp_utc": "2026-07-08T10:34:05.417432Z",
-      "artifact": "data/control/era47_discipline_preflight_chain_noapi_v1.json"
+      "task": "ERA47_STATE_NORMALIZATION_NO_NEW_ERA",
+      "result": "OK_STATE_NORMALIZED_UNDER_ERA47",
+      "timestamp_utc": "2026-07-08T10:35:52.764115Z",
+      "artifact": "PROJECT_RUNTIME.json"
     },
     "status": "WORK_UNIT_CLOSED",
     "canonical_ownership_policy": {
@@ -1675,18 +1714,14 @@
       "failure_message": "BOOT_NOT_UPDATED_CONTINUATION_UNSAFE"
     },
     "last_action": {
-      "timestamp": "2026-07-08T10:34:05.417432Z",
-      "task": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_CONSOLIDATION_NOAPI",
-      "result": "OK_CONSOLIDATED_UNDER_ERA47",
+      "timestamp": "2026-07-08T10:35:52.764115Z",
+      "task": "ERA47_STATE_NORMALIZATION_NO_NEW_ERA",
+      "result": "OK_STATE_NORMALIZED_UNDER_ERA47",
       "files_created_or_updated": [
-        "data/control/era47_discipline_preflight_chain_noapi_v1.json",
-        "reports/LATEST_ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI.md",
         "PROJECT_RUNTIME.json",
         "PROJECT_BOOT.json",
         "06_PROJECT_MASTER_STATE.md",
         "07_PROJECT_HANDOFF.md",
-        "03_ROADMAP.md",
-        "04_ALMANAC.md",
         "reports/LATEST_TK_AI_HANDOFF.md",
         "data/control/latest_tk_machine_state.json"
       ]
@@ -1718,16 +1753,29 @@
       "validator_behavior": "HEAD mismatch is warning, not fatal, in V2.",
       "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify."
     },
-    "updated_at_utc": "2026-07-08T10:34:05.417432Z",
+    "updated_at_utc": "2026-07-08T10:35:52.764115Z",
     "current_work_unit": {
-      "id": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-      "type": "DISCIPLINE_IMPLEMENTATION_GO_NOGO",
-      "status": "WORK_UNIT_CLOSED",
-      "last_completed_step": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
-      "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+      "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+      "type": "DISCIPLINE_PREFLIGHT_CHAIN",
+      "status": "CONSOLIDATED_CLOSED",
+      "last_completed_step": "ERA47E_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
+      "next_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+      "substeps": {
+        "ERA47A": "PLAN_VALIDATION",
+        "ERA47B": "REACHABILITY_CLASSIFICATION",
+        "ERA47C": "ACTIVE_SURFACE_FALSE_POSITIVE_REVIEW",
+        "ERA47D": "ACTIVE_RUNTIME_RISK_DECISION",
+        "ERA47E": "DISCIPLINE_IMPLEMENTATION_GO_NOGO"
+      },
+      "historical_aliases": {
+        "ERA48": "ERA47B",
+        "ERA49": "ERA47C",
+        "ERA50": "ERA47D",
+        "ERA51": "ERA47E"
+      }
     },
     "last_completed": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-    "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Treat old ERA48/ERA49/ERA50/ERA51 names as historical aliases under ERA47B/C/D/E. Next real software step is ERA52 with A/B/C/D substeps.",
+    "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Current parent chain is ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI. Old ERA48/ERA49/ERA50/ERA51 are historical aliases under ERA47B/C/D/E. Next real software step is ERA52 with A/B/C/D substeps.",
     "process_compaction": {
       "updated_at_utc": "2026-07-08T10:34:05.417432Z",
       "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
