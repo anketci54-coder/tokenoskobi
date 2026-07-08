@@ -1,16 +1,16 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T10:14:27.715806Z
-- Current work unit: `ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI`
-- Last completed step: `ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI`
-- Next safe step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
+- Updated UTC: 2026-07-08T10:34:05.417432Z
+- Current focus: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
+- Previous parent chain: `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI`
+- Canonical substeps: `ERA47A`, `ERA47B`, `ERA47C`, `ERA47D`, `ERA47E`
+- Historical aliases: old `ERA48`, `ERA49`, `ERA50`, `ERA51`
 - Runtime authority: `PROJECT_RUNTIME.json`
-- Master role: `Canonical Engineering Summary derived from Runtime`
-- Handoff role: `Operational Transfer Summary derived from Runtime`
-- Rule: older ERA mentions below this block are historical/archive unless explicitly marked CURRENT here.
-- Decision: `GO_LIMITED_READONLY_SCAFFOLD_NOAPI`
-- Guard: `Only minimal read-only scaffold may be attempted next; full implementation remains blocked.`
+- Rule: old ERA48-ERA51 labels are not active work lanes; they are historical aliases under ERA47.
+- Work format from now on: `ERA52A`, `ERA52B`, `ERA52C`; nested only when needed as `ERA52A_1`.
+- Deadline mode: reduce documents, reduce labels, deliver small working code.
+- Next safe step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->

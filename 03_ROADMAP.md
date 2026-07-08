@@ -1,3 +1,32 @@
+<!-- ERA47_PREFLIGHT_CHAIN_CANONICAL_VIEW_START -->
+## CURRENT CANONICAL ROADMAP VIEW — 2026-07-08T10:34:05.417432Z
+
+`ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI` is the single parent for the previous preflight work.
+
+Canonical mapping:
+
+- `ERA47A` = plan validation
+- `ERA47B` = reachability classification
+- `ERA47C` = false-positive / active surface review
+- `ERA47D` = active runtime risk decision
+- `ERA47E` = implementation Go/No-Go
+
+Old labels are historical aliases:
+
+- old `ERA48` -> `ERA47B`
+- old `ERA49` -> `ERA47C`
+- old `ERA50` -> `ERA47D`
+- old `ERA51` -> `ERA47E`
+
+Current execution rule:
+
+- Do not open new micro ERA records.
+- Use A/B/C/D under the same ERA.
+- Use A_1/A_2 only when the same sub-area truly needs it.
+- Next real software step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`.
+- ERA52 must deliver minimal read-only scaffold, not another documentation chain.
+<!-- ERA47_PREFLIGHT_CHAIN_CANONICAL_VIEW_END -->
+
 # 03 ROADMAP - TOKENOSKOBI / COINOSKOBI MASTER ROADMAP
 
 Bu dosya projenin yön haritasıdır.

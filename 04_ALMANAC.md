@@ -1,3 +1,16 @@
+<!-- ERA47_PREFLIGHT_CHAIN_ALMANAC_START -->
+## ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI
+
+- Updated UTC: 2026-07-08T10:34:05.417432Z
+- Status: CONSOLIDATED
+- Parent: `ERA47`
+- Substeps: `ERA47A`, `ERA47B`, `ERA47C`, `ERA47D`, `ERA47E`
+- Historical aliases: old `ERA48`, `ERA49`, `ERA50`, `ERA51`
+- Reason: previous records were one preflight chain, not separate active work lanes.
+- Next real software step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
+- Deadline correction: stop opening micro ERA records; use A/B/C/D inside the active ERA.
+<!-- ERA47_PREFLIGHT_CHAIN_ALMANAC_END -->
+
 # 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
 ## ÖNSÖZ - BİR FİKRİN BAŞLANGICI

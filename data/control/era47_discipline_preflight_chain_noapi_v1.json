@@ -1,0 +1,44 @@
+{
+  "era": "ERA47",
+  "work_unit": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+  "created_at_utc": "2026-07-08T10:34:05.417432Z",
+  "base_head": "9bd7bf9730f06a83c03bad9b8115520256c94ddd",
+  "status": "CONSOLIDATED",
+  "purpose": "Collapse ERA47-ERA51 safety/preflight records into one parent ERA47 chain.",
+  "reason": "The previous split created process bloat and deadline drift. These were one logical preflight chain, not five independent work eras.",
+  "canonical_substeps": {
+    "ERA47A_PLAN_VALIDATION_NOAPI": {
+      "historical_alias": "ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI",
+      "artifact": "data/control/era47A_discipline_plan_validation_noapi_v1.json"
+    },
+    "ERA47B_REACHABILITY_CLASSIFICATION_NOAPI": {
+      "historical_alias": "ERA48_REACHABILITY_CLASSIFICATION_NOAPI",
+      "artifact": "data/control/era47B_reachability_classification_noapi_v1.json"
+    },
+    "ERA47C_ACTIVE_SURFACE_FALSE_POSITIVE_REVIEW_NOAPI": {
+      "historical_alias": "ERA49_ACTIVE_SURFACE_REVIEW_NOAPI",
+      "artifact": "data/control/era47C_active_surface_false_positive_review_noapi_v1.json"
+    },
+    "ERA47D_ACTIVE_RUNTIME_RISK_DECISION_NOAPI": {
+      "historical_alias": "ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI",
+      "artifact": "data/control/era47D_active_runtime_risk_decision_noapi_v1.json"
+    },
+    "ERA47E_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI": {
+      "historical_alias": "ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI",
+      "artifact": "data/control/era47E_discipline_implementation_go_nogo_noapi_v1.json"
+    }
+  },
+  "naming_rule": {
+    "main_era": "ERA47",
+    "substeps": "A/B/C/D/E",
+    "nested_substeps": "A_1/A_2 only when needed",
+    "do_not_create_micro_eras": true
+  },
+  "deadline_rule": {
+    "reduce_documents": true,
+    "reduce_decision_chains": true,
+    "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+    "era52_must_deliver": "minimal read-only scaffold"
+  },
+  "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+}

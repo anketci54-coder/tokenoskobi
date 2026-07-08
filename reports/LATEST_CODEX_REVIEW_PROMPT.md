@@ -1,33 +1,32 @@
-CODEX FULL-SYSTEM REVIEW PROMPT — ERA51
+CODEX REVIEW PROMPT — ERA47 PREFLIGHT CHAIN CONSOLIDATION
 
 Repository: anketci54-coder/tokenoskobi
-Current HEAD before ERA51 close: 0b91c981c238c05dba701285a8f3080255ed63bd
-Work unit: ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI
-Decision candidate: GO_LIMITED_READONLY_SCAFFOLD_NOAPI
-Next safe step candidate: ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI
+Current HEAD before seal: 9bd7bf9730f06a83c03bad9b8115520256c94ddd
+Task: ERA47_DISCIPLINE_PREFLIGHT_CHAIN_CONSOLIDATION_NOAPI
 
-Review:
-- data/control/era51_discipline_implementation_go_nogo_noapi_v1.json
-- reports/LATEST_ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI.md
+Review whether the current tree correctly consolidates old ERA47-ERA51 work under one parent chain:
 
-Question:
-Does ERA51 correctly authorize only a minimal read-only scaffold for the next ERA, without implementing anything now?
+ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI
 
-Hard fail if:
-- ERA51 creates engine code.
-- ERA51 authorizes full implementation instead of limited scaffold.
-- ERA51 permits Runtime import of Discipline/Lab.
-- ERA51 permits DB/panel/service/timer/deploy mutation by Discipline Layer.
-- ERA51 permits API/fetch/network access.
-- ERA51 permits auto-fix or automatic repair.
-- ERA51 permits wallet/signing/trade authority.
-- ERA51 skips human approval.
+Expected canonical mapping:
+- ERA47A = old ERA47 plan validation
+- ERA47B = old ERA48 reachability classification
+- ERA47C = old ERA49 false-positive / active surface review
+- ERA47D = old ERA50 active runtime risk decision
+- ERA47E = old ERA51 Go/No-Go
+
+Check:
+- No new software implementation was performed.
+- Old labels remain only as historical aliases.
+- Next real software step remains ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI.
+- A/B/C/D substep policy is restored.
+- No Runtime, DB, panel, service, timer, or deploy mutation was performed.
+- Deadline mode reduces label/document growth.
 
 Return:
 - Overall score
-- PASS/WARN/FAIL
-- Wrongly authorized scope
-- Runtime/Lab boundary verdict
-- NOAPI/read-only verdict
-- Implementation Go/No-Go verdict
+- OK / WARN / FAIL
+- Any canonical drift
+- Any remaining bloat risk
+- Whether ERA52 can proceed as a single A/B/C/D work unit
 - Next safe recommendation
