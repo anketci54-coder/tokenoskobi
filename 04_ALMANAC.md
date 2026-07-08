@@ -1,3 +1,19 @@
+<!-- ERA53_FINAL_CLOSE_ALMANAC_START -->
+## ERA53 HOT INTELLIGENCE INGRESS GATEWAY FINAL CLOSE NOAPI
+
+- Updated UTC: 2026-07-08T16:20:47.630453+00:00
+- Status: FINAL_CLOSED
+- Final seal: `data/control/era53_final_close_seal_noapi_v1.json`
+- Final head: `cd4c043bf79840b69b95ec38ad85ba4dada2502a`
+- Key artifacts:
+  - `data/control/era53_hot_ingress_minimal_contract_consolidated_review_seal_noapi_v1.json`
+  - `data/control/era53_hot_ingress_canonical_state_sync_noapi_v1.json`
+  - `data/control/era53_post_sync_docs_only_apply_final_seal_noapi_v1.json`
+  - `data/control/era53_final_close_seal_noapi_v1.json`
+- Boundary: NOAPI; no DB/schema/runtime/systemd/source-adapter/queue/alarm/wallet/trade change.
+- Next: `ERA54_PLAN_ONLY_IF_USER_REQUESTS`
+<!-- ERA53_FINAL_CLOSE_ALMANAC_END -->
+
 <!-- ERA52_READONLY_SCAFFOLD_ALMANAC_START -->
 ## ERA52 DISCIPLINE LAYER MINIMAL READONLY SCAFFOLD NOAPI
 
