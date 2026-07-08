@@ -1,0 +1,163 @@
+{
+  "stage": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_DRYRUN_NOAPI",
+  "generated_at_utc": "2026-07-08T13:58:00Z",
+  "decision": "WARN_HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_DRYRUN_REVIEW_REQUIRED",
+  "next_step": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_REVIEW_NOAPI",
+  "head_before_dryrun": "a0a2256de01b80381c071eb9e0180015b5c48f44",
+  "parent_plan": {
+    "path": "data/control/hot_intelligence_ingress_gateway_contract_canonical_binding_plan_noapi_v1.json",
+    "decision": "OK_HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_PLAN_NOAPI_DOCUMENTED"
+  },
+  "authority": {
+    "dryrun_only": true,
+    "noapi": true,
+    "target_file_write": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "source_connection": false,
+    "token_or_key_use": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "repo_artifact_write": true
+  },
+  "target_discovery": [
+    {
+      "planned_target": "docs/INDEX.md",
+      "actual_status": "MISSING",
+      "substitute_target": "01_INDEX.md",
+      "decision": "WARN_USE_ROOT_01_INDEX_INSTEAD",
+      "reason": "Repository search shows root 01_INDEX.md is the active index path."
+    },
+    {
+      "planned_target": "PROJECT_MASTER_STATE.md",
+      "actual_status": "MISSING_OR_LEGACY_ALIAS",
+      "substitute_target": "06_PROJECT_MASTER_STATE.md",
+      "decision": "WARN_USE_06_PROJECT_MASTER_STATE",
+      "reason": "Current project uses numbered canonical state file."
+    },
+    {
+      "planned_target": "PROJECT_HANDOFF.md",
+      "actual_status": "MISSING_OR_LEGACY_ALIAS",
+      "substitute_target": "07_PROJECT_HANDOFF.md",
+      "decision": "WARN_USE_07_PROJECT_HANDOFF",
+      "reason": "Current project uses numbered canonical handoff file."
+    },
+    {
+      "planned_target": "data/control/ACTIVE_EXECUTION_GRAPH.json",
+      "actual_status": "PRESENT",
+      "substitute_target": null,
+      "decision": "OK_TARGET_PRESENT"
+    },
+    {
+      "planned_target": "data/control/MINIMAL_ACTIVE_CORE_MANIFEST.json",
+      "actual_status": "PRESENT",
+      "substitute_target": null,
+      "decision": "OK_TARGET_PRESENT"
+    },
+    {
+      "planned_target": "data/control/USED_BY_RUNTIME_INDEX.json",
+      "actual_status": "PRESENT",
+      "substitute_target": null,
+      "decision": "OK_TARGET_PRESENT"
+    },
+    {
+      "planned_target": "data/control/ACTIVE_CORE_RANKING.json",
+      "actual_status": "PRESENT",
+      "substitute_target": null,
+      "decision": "OK_TARGET_PRESENT"
+    }
+  ],
+  "proposed_binding_patch_summary": [
+    {
+      "target": "01_INDEX.md",
+      "proposed_action": "append HOT ingress canonical references under current project index section",
+      "mode": "documentation_only",
+      "risk": "LOW",
+      "apply_now": false
+    },
+    {
+      "target": "06_PROJECT_MASTER_STATE.md",
+      "proposed_action": "update top current canonical state block to record HOT ingress plan, dryrun, post-audit, and binding dryrun as current line",
+      "mode": "state_summary_only",
+      "risk": "MEDIUM",
+      "apply_now": false
+    },
+    {
+      "target": "07_PROJECT_HANDOFF.md",
+      "proposed_action": "add new-chat continuation note with current head, boundary, and next step",
+      "mode": "handoff_summary_only",
+      "risk": "MEDIUM",
+      "apply_now": false
+    },
+    {
+      "target": "data/control/ACTIVE_EXECUTION_GRAPH.json",
+      "proposed_action": "add HOT ingress artifacts as planning/reference nodes only",
+      "mode": "reference_only",
+      "risk": "MEDIUM",
+      "apply_now": false
+    },
+    {
+      "target": "data/control/MINIMAL_ACTIVE_CORE_MANIFEST.json",
+      "proposed_action": "add HOT ingress docs/data artifacts as canonical reference files only",
+      "mode": "reference_only",
+      "risk": "MEDIUM",
+      "apply_now": false
+    },
+    {
+      "target": "data/control/USED_BY_RUNTIME_INDEX.json",
+      "proposed_action": "add HOT ingress artifacts under planning/reference classification, not runtime producer",
+      "mode": "reference_only",
+      "risk": "MEDIUM",
+      "apply_now": false
+    },
+    {
+      "target": "data/control/ACTIVE_CORE_RANKING.json",
+      "proposed_action": "do not add HOT ingress to runtime core ranking at this stage",
+      "mode": "defer_runtime_core_promotion",
+      "risk": "LOW",
+      "apply_now": false
+    }
+  ],
+  "guard_checks": [
+    {"code": "NO_TARGET_WRITE_IN_DRYRUN", "status": "OK"},
+    {"code": "NO_DB_SCHEMA_CHANGE", "status": "OK"},
+    {"code": "NO_RUNTIME_IMPORT", "status": "OK"},
+    {"code": "NO_SERVICE_TIMER_CHANGE", "status": "OK"},
+    {"code": "NO_SOURCE_CONNECTION", "status": "OK"},
+    {"code": "NO_EXECUTION_AUTHORITY", "status": "OK"},
+    {"code": "CANONICAL_PATH_SUBSTITUTION_REQUIRED", "status": "WARN", "detail": "docs/INDEX.md, PROJECT_MASTER_STATE.md, PROJECT_HANDOFF.md should map to 01_INDEX.md, 06_PROJECT_MASTER_STATE.md, 07_PROJECT_HANDOFF.md"},
+    {"code": "ACTIVE_CORE_RANKING_DEFERRED", "status": "WARN", "detail": "Do not promote HOT ingress to active runtime core yet."}
+  ],
+  "review_questions_before_apply": [
+    "Should binding update only 01_INDEX/06/07 first and defer ACTIVE_* JSON files?",
+    "Should ACTIVE_EXECUTION_GRAPH include HOT ingress planning nodes now or after canonical review?",
+    "Should ACTIVE_CORE_RANKING remain unchanged until real runtime adapter exists?"
+  ],
+  "recommended_apply_scope": {
+    "safe_first_apply": [
+      "01_INDEX.md",
+      "06_PROJECT_MASTER_STATE.md",
+      "07_PROJECT_HANDOFF.md"
+    ],
+    "defer_to_later_review": [
+      "data/control/ACTIVE_EXECUTION_GRAPH.json",
+      "data/control/MINIMAL_ACTIVE_CORE_MANIFEST.json",
+      "data/control/USED_BY_RUNTIME_INDEX.json",
+      "data/control/ACTIVE_CORE_RANKING.json"
+    ],
+    "reason": "Docs/state/handoff binding is safe; active control JSON binding should wait for explicit review to avoid runtime/index drift."
+  },
+  "summary": {
+    "planned_targets": 7,
+    "present_targets": 4,
+    "substituted_targets": 3,
+    "proposed_target_writes": 0,
+    "fail_count": 0,
+    "warn_count": 2
+  }
+}
