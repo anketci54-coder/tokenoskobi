@@ -1,0 +1,80 @@
+{
+  "stage": "ERA54B_STANDALONE_SCAFFOLD_APPLY_PLAN_NOAPI",
+  "generated_at_utc": "2026-07-08T17:05:00Z",
+  "decision": "OK_ERA54B_STANDALONE_SCAFFOLD_APPLY_PLAN_LOCKED",
+  "head_before": "2e26ed70265e67ac58e7be98611a93a4c51c825f",
+  "current_era": "ERA54",
+  "purpose": "Define the minimal standalone read-only scaffold contract before code creation.",
+  "planned_files_next_step": {
+    "tool": "tools/hot_ingress_minimal_readonly_scaffold_v1.py",
+    "dryrun_output": "data/control/era54c_hot_ingress_minimal_readonly_scaffold_dryrun_noapi_v1.json"
+  },
+  "scaffold_flow": [
+    "synthetic_event_set",
+    "runtime_import_static_block_check",
+    "normalize_event",
+    "admission_gate",
+    "event_uid_and_fingerprint",
+    "evidence_freshness_stub",
+    "topic_dedupe",
+    "prosecutor_candidate_gate_stub",
+    "stdout_and_json_summary"
+  ],
+  "synthetic_event_set": [
+    {
+      "name": "happy_path_exploit_news",
+      "expected_route": "ADMIT"
+    },
+    {
+      "name": "duplicate_same_source_hash",
+      "expected_route": "DUPLICATE_DROP"
+    },
+    {
+      "name": "poison_pill_impossible_timestamp",
+      "expected_route": "QUARANTINE"
+    },
+    {
+      "name": "noisy_low_trust_source",
+      "expected_route": "DROP"
+    },
+    {
+      "name": "conflicting_topic_same_hash",
+      "expected_route": "QUARANTINE"
+    }
+  ],
+  "uid_contract": {
+    "event_uid": "sha256(source_uid + event_hash)",
+    "event_hash": "sha256(normalized_title + normalized_body + event_time_bucket)",
+    "dedupe_key": "source_uid + event_hash"
+  },
+  "admission_vs_prosecutor_rule": {
+    "admission": "gatekeeper_only",
+    "prosecutor": "judge_stub_only",
+    "no_runtime_handoff": true,
+    "no_alarm": true
+  },
+  "motto_opportunity_cost_gate": {
+    "speed": "minimal_manual_stdout_scaffold",
+    "power": "covers_happy_duplicate_poison_noisy_conflicting_cases",
+    "security": "runtime_import_block_and_noapi_boundary",
+    "economy": "one_tool_one_output_no_new_dirs_no_large_docs",
+    "formula_source": "ERA24F_EDE_OPPORTUNITY_COST_BASELINE"
+  },
+  "boundary": {
+    "noapi": true,
+    "db_change": false,
+    "runtime_change": false,
+    "runtime_import": false,
+    "service_change": false,
+    "panel_change": false,
+    "wallet_or_trade": false,
+    "new_top_level_directory": false,
+    "external_source_adapter": false
+  },
+  "next_step": "ERA54C_STANDALONE_SCAFFOLD_DRYRUN_NOAPI",
+  "summary": {
+    "sealed": true,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
