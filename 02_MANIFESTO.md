@@ -202,3 +202,11 @@ IDEA -> HYPOTHESIS -> EXPERIMENT -> EVIDENCE -> CAPABILITY -> CORE
 CONCEPT FREEZE:
 During an active ERA, new engines, memory types, states and metaphors do not enter the core. They wait in backlog unless they are required for the current ERA capability.
 <!-- ERA23_GOVERNING_DOCTRINE_ADDENDUM_END -->
+
+## DISCIPLINE DOCTRINE SYNC — 2026-07-08T09:33:39.212698Z
+
+- Risk is minimized, never zero.
+- Runtime fail-silent, closure fail-safe.
+- Opportunity Cost blocks non-critical bloat.
+- Runtime never imports Lab.
+- Lab remains read-only, NOAPI, and outside hot runtime path.

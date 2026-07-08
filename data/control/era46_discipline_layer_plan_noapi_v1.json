@@ -1,0 +1,200 @@
+{
+  "era": "ERA46",
+  "work_unit": "ERA46_DISCIPLINE_LAYER_PLAN_NOAPI",
+  "created_at_utc": "2026-07-08T09:33:39.212698Z",
+  "status": "PLAN_CREATED_NOAPI",
+  "scope": {
+    "plan_only": true,
+    "implementation": false,
+    "new_script": false,
+    "runtime_mutation": false,
+    "lab_mutation": false,
+    "api_fetch": false,
+    "db_write": false,
+    "service_timer_mutation": false
+  },
+  "truth_priority": {
+    "state": "PROJECT_RUNTIME.json",
+    "doctrine": "02_MANIFESTO.md",
+    "history": "04_ALMANAC.md",
+    "direction": "03_ROADMAP.md",
+    "machine": "data/control/latest_tk_machine_state.json",
+    "handoff": "07_PROJECT_HANDOFF.md",
+    "ai_bootstrap": "reports/LATEST_TK_AI_HANDOFF.md",
+    "ai_memory": "lowest"
+  },
+  "schema_versioning": {
+    "contract_version": "1.0",
+    "input_schema_version_required_for_new_inputs": true,
+    "legacy_missing_schema_behavior": "WARN_NOT_MUTATE",
+    "unsupported_version_behavior": "DISCIPLINE_WARN_CLOSURE_FAIL_SAFE_RUNTIME_UNTOUCHED"
+  },
+  "fail_behavior": {
+    "runtime": "FAIL_SILENT_DISCIPLINE_OFFLINE_DOES_NOT_STOP_RUNTIME",
+    "era_closure": "FAIL_SAFE_DISCIPLINE_FAILURE_BLOCKS_PASS",
+    "codex_blocker_injection": true
+  },
+  "decision_id_format": "{ERA}__{WORK_UNIT}__{ENGINE_NAME}__{COMMIT_HEAD_SHORT}__{UTC_TS}",
+  "decision_audit_trail_required_fields": [
+    "decision_id",
+    "era",
+    "work_unit",
+    "engine_name",
+    "commit_head",
+    "input_artifact",
+    "input_schema_version",
+    "decision",
+    "reason",
+    "timestamp_utc"
+  ],
+  "air_gapped_lab": {
+    "no_api": true,
+    "no_internet": true,
+    "no_external_fetch": true,
+    "no_secret_read": true,
+    "read_only_inputs": true,
+    "no_runtime_import": true,
+    "no_runtime_write": true
+  },
+  "negative_patterns": [
+    "runtime imports lab",
+    "lab writes runtime",
+    "lab writes db",
+    "lab restarts service",
+    "lab enables timer",
+    "live_trade enable",
+    "wallet signing",
+    "hardcoded secret",
+    "shell=True in reachable runtime",
+    "os.system in reachable runtime",
+    "heavy math in hot path",
+    "auto-fix runtime mutation"
+  ],
+  "opportunity_cost_scoring": {
+    "fields": [
+      "speed_gain",
+      "security_gain",
+      "power_gain",
+      "frugality_gain",
+      "runtime_cost",
+      "repo_bloat_cost",
+      "maintenance_cost",
+      "complexity_cost",
+      "net_score"
+    ],
+    "rule": "if net_score <= 0 and work is non-critical => BLOCK"
+  },
+  "engines": [
+    {
+      "name": "Performance Metrics Engine",
+      "reads": [
+        "runtime outputs",
+        "tk machine"
+      ],
+      "produces": [
+        "PASS/WARN/FAIL",
+        "latency/throughput/hot_path_cost"
+      ],
+      "blocks": "metric_claim_if_sample_invalid",
+      "hot_path": false
+    },
+    {
+      "name": "Reliability Engine",
+      "reads": [
+        "runtime",
+        "boot",
+        "tk machine"
+      ],
+      "produces": [
+        "freshness/repeatability/missing_artifact decision"
+      ],
+      "blocks": "closure_on_reliability_red",
+      "hot_path": false
+    },
+    {
+      "name": "Security Boundary Engine",
+      "reads": [
+        "runtime boundary evidence",
+        "dependency/import evidence"
+      ],
+      "produces": [
+        "forbidden pattern decision"
+      ],
+      "blocks": "closure_on_security_red",
+      "hot_path": false
+    },
+    {
+      "name": "Scalability Engine",
+      "reads": [
+        "inventory",
+        "graph",
+        "repo size signals"
+      ],
+      "produces": [
+        "growth pressure decision"
+      ],
+      "blocks": "noncritical_bloat",
+      "hot_path": false
+    },
+    {
+      "name": "Opportunity Cost Engine",
+      "reads": [
+        "planned work metadata",
+        "cost/gain signals"
+      ],
+      "produces": [
+        "net_score decision"
+      ],
+      "blocks": "noncritical_negative_net_score",
+      "hot_path": false
+    },
+    {
+      "name": "Statistical Decision Engine",
+      "reads": [
+        "measurement sets only"
+      ],
+      "produces": [
+        "confidence/statistical validity"
+      ],
+      "blocks": "single_measurement_claim",
+      "hot_path": false
+    },
+    {
+      "name": "Governance Delta Engine",
+      "reads": [
+        "runtime",
+        "boot",
+        "master",
+        "handoff",
+        "tk ai",
+        "tk machine"
+      ],
+      "produces": [
+        "canonical drift decision"
+      ],
+      "blocks": "closure_on_governance_red",
+      "hot_path": false
+    },
+    {
+      "name": "Immutable Audit Log",
+      "reads": [
+        "closure artifacts",
+        "commit head"
+      ],
+      "produces": [
+        "decision audit trail references"
+      ],
+      "blocks": "closure_if_decision_trace_missing",
+      "hot_path": false
+    }
+  ],
+  "codex_prompt_policy": {
+    "every_era_closure": true,
+    "style": "diff_focused_evidence_focused_blocker_focused_score_focused",
+    "avoid_fatigue": true
+  },
+  "result": {
+    "decision": "PASS_WITH_GUARDS",
+    "next_safe_step": "ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI"
+  }
+}

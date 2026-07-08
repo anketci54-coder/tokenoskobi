@@ -293,3 +293,9 @@ Bu içerikler Almanac, PROJECT_RUNTIME.json, 06_PROJECT_MASTER_STATE.md veya ilg
 - Next: ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI
 - Health: root/database size check recorded.
 
+## CURRENT ROADMAP UPDATE — 2026-07-08T09:33:39.212698Z
+- `ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI` closed.
+- `ERA46_DISCIPLINE_LAYER_PLAN_NOAPI` closed as plan-only.
+- Next: `ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI`.
+- Implementation remains blocked until validation.
+
