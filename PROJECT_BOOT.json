@@ -349,14 +349,16 @@
     "failure_message": "BOOT_NOT_UPDATED_CONTINUATION_UNSAFE"
   },
   "last_action": {
-    "timestamp": "2026-07-08T10:35:52.764115Z",
-    "task": "ERA47_STATE_NORMALIZATION_NO_NEW_ERA",
-    "result": "OK_STATE_NORMALIZED_UNDER_ERA47",
+    "timestamp": "2026-07-08T10:38:42.760735Z",
+    "task": "CANONICAL_WORKFLOW_RULES_LOCK_NO_NEW_ERA",
+    "result": "OK_WORKFLOW_RULES_LOCKED",
     "files_created_or_updated": [
       "PROJECT_RUNTIME.json",
       "PROJECT_BOOT.json",
       "06_PROJECT_MASTER_STATE.md",
       "07_PROJECT_HANDOFF.md",
+      "02_MANIFESTO.md",
+      "03_ROADMAP.md",
       "reports/LATEST_TK_AI_HANDOFF.md",
       "data/control/latest_tk_machine_state.json"
     ]
@@ -388,7 +390,7 @@
     "validator_behavior": "HEAD mismatch is warning, not fatal, in V2.",
     "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify."
   },
-  "updated_at_utc": "2026-07-08T10:35:52.764115Z",
+  "updated_at_utc": "2026-07-08T10:38:42.760735Z",
   "current_work_unit": {
     "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
     "type": "DISCIPLINE_PREFLIGHT_CHAIN",
@@ -410,7 +412,7 @@
     }
   },
   "last_completed": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Current parent chain is ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI. Old ERA48/ERA49/ERA50/ERA51 are historical aliases under ERA47B/C/D/E. Next real software step is ERA52 with A/B/C/D substeps.",
+  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Apply canonical_workflow_rules strictly. Do not open micro ERA records. Treat old ERA48/ERA49/ERA50/ERA51 as historical aliases under ERA47B/C/D/E. Next real software step is ERA52 with A/B/C/D substeps. Do not use PASS in new labels or outputs.",
   "process_compaction": {
     "updated_at_utc": "2026-07-08T10:34:05.417432Z",
     "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
@@ -425,5 +427,72 @@
     ],
     "old_names_are_historical_aliases": true,
     "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
+  },
+  "canonical_workflow_rules": {
+    "updated_at_utc": "2026-07-08T10:38:42.760735Z",
+    "name": "CANONICAL_WORKFLOW_RULES",
+    "status": "LOCKED",
+    "purpose": "Stop micro-ERA expansion and keep new windows aligned with the real execution plan.",
+    "startup_read_order": [
+      "PROJECT_RUNTIME.json",
+      "PROJECT_BOOT.json",
+      "06_PROJECT_MASTER_STATE.md",
+      "07_PROJECT_HANDOFF.md",
+      "02_MANIFESTO.md",
+      "03_ROADMAP.md"
+    ],
+    "era_policy": {
+      "era_definition": "ERA is a main software/module milestone only.",
+      "do_not_create_new_era_for": [
+        "plan",
+        "test",
+        "audit",
+        "risk decision",
+        "go_nogo",
+        "seal",
+        "documentation cleanup",
+        "state normalization"
+      ],
+      "substep_format": "Use A/B/C/D/E/F under the same ERA.",
+      "nested_substep_format": "Use A_1/A_2 only when the same sub-area truly needs another layer.",
+      "example": "ERA52A, ERA52B, ERA52B_1, ERA52C",
+      "current_alias_rule": "Old ERA48/ERA49/ERA50/ERA51 are historical aliases under ERA47B/C/D/E, not active work lanes."
+    },
+    "word_policy": {
+      "forbidden_new_label_word": "PASS",
+      "allowed_result_words": [
+        "OK",
+        "WARN",
+        "FAIL",
+        "BLOCKED",
+        "CLOSED",
+        "SEALED",
+        "VERIFIED"
+      ],
+      "reason": "PASS is reserved for older project history and must not be used in new work labels."
+    },
+    "deadline_policy": {
+      "deadline_mode": true,
+      "priority": "small working code over repeated decision documents",
+      "reduce_documents": true,
+      "reduce_labels": true,
+      "avoid_repeated_gate_chains": true,
+      "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+      "era52_requirement": "ERA52 must deliver a minimal read-only scaffold, not another planning chain."
+    },
+    "commit_policy": {
+      "single_commit_when_possible": true,
+      "single_push_when_possible": true,
+      "do_not_push_mid_substep_unless_user_requests": true,
+      "github_seal_only_at_logical_closure": true
+    },
+    "safety_policy": {
+      "runtime_is_source_of_truth": true,
+      "human_approval_required": true,
+      "ai_trade_authority": 0,
+      "live_trade_locked": true,
+      "paper_trade_locked_until_explicit_phase": true,
+      "no_runtime_db_panel_service_timer_mutation_without_explicit_scope": true
+    }
   }
 }

@@ -1,3 +1,61 @@
+<!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
+## CANONICAL WORKFLOW RULES LOCK
+
+Updated UTC: `2026-07-08T10:38:42.760735Z`
+
+These rules are mandatory for every new ChatGPT window.
+
+### Startup
+
+Read in this order:
+
+1. `PROJECT_RUNTIME.json`
+2. `PROJECT_BOOT.json`
+3. `06_PROJECT_MASTER_STATE.md`
+4. `07_PROJECT_HANDOFF.md`
+5. `02_MANIFESTO.md`
+6. `03_ROADMAP.md`
+
+### ERA Rule
+
+- `ERA` means main software/module milestone only.
+- Do not create a new ERA for plan, test, audit, risk decision, Go/No-Go, seal, documentation cleanup, or state normalization.
+- Use A/B/C/D/E/F under the same ERA.
+- Use A_1/A_2 only when the same sub-area truly needs another layer.
+- Example: `ERA52A`, `ERA52B`, `ERA52B_1`, `ERA52C`.
+
+### Current Consolidation
+
+- `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI` is the parent chain.
+- Old `ERA48` is historical alias for `ERA47B`.
+- Old `ERA49` is historical alias for `ERA47C`.
+- Old `ERA50` is historical alias for `ERA47D`.
+- Old `ERA51` is historical alias for `ERA47E`.
+- These old labels are not active work lanes.
+
+### Word Rule
+
+- Do not use `PASS` in new labels or command outputs.
+- Use: `OK`, `WARN`, `FAIL`, `BLOCKED`, `CLOSED`, `SEALED`, `VERIFIED`.
+
+### Deadline Rule
+
+- Prefer small working code over repeated decision documents.
+- Reduce documents.
+- Reduce labels.
+- Avoid repeated gate chains.
+- `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI` must deliver minimal read-only scaffold, not another planning chain.
+
+### Safety Rule
+
+- `PROJECT_RUNTIME.json` is source of truth.
+- Human approval required.
+- AI trade authority is zero.
+- Live trade locked.
+- Paper trade locked until explicit phase.
+- No Runtime, DB, panel, service, timer, deploy mutation unless explicitly in scope.
+<!-- CANONICAL_WORKFLOW_RULES_LOCK_END -->
+
 # 02 MANIFESTO
 
 Bu belge projenin kalıcı anayasal kurallarıdır.
