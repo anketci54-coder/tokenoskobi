@@ -1,0 +1,219 @@
+{
+  "era": "ERA46",
+  "work_unit": "ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI",
+  "phase": "ENGINE_INTERFACE_CONTRACT_NOAPI",
+  "created_at_utc": "2026-07-08T08:57:27.432107Z",
+  "status": "CONTRACT_CREATED_NOAPI",
+  "purpose": "Define the read-only interface contract between Runtime and the Discipline Layer before any engine implementation.",
+  "scope": {
+    "implementation": false,
+    "motor_implementation": false,
+    "runtime_mutation": false,
+    "service_timer_mutation": false,
+    "db_write": false,
+    "api_fetch": false,
+    "trade_execution": false,
+    "contract_only": true
+  },
+  "source_authority": {
+    "runtime_authority": "PROJECT_RUNTIME.json",
+    "master_role": "Canonical Engineering Summary derived from Runtime",
+    "handoff_role": "Operational Transfer Summary derived from Runtime",
+    "github_head_before": "ffca56c6d4af69c698aee40813c20f22f7c59dd8",
+    "branch": "main"
+  },
+  "discipline_engines": [
+    {
+      "name": "Performance Metrics Engine",
+      "interface_role": "Consumes runtime outputs and reports latency, throughput, hot path cost, and regression signals.",
+      "initial_outputs": [
+        "performance_status",
+        "sample_size",
+        "mean",
+        "median",
+        "p95",
+        "p99",
+        "confidence_interval"
+      ],
+      "may_block": false
+    },
+    {
+      "name": "Reliability Engine",
+      "interface_role": "Consumes runtime and machine-state outputs and reports freshness, repeatability, missing artifacts, and closure consistency.",
+      "initial_outputs": [
+        "reliability_status",
+        "missing_inputs",
+        "stale_inputs",
+        "repeatability_status"
+      ],
+      "may_block": true
+    },
+    {
+      "name": "Security Boundary Engine",
+      "interface_role": "Consumes runtime/import boundary evidence and reports forbidden imports, write attempts, authority violations, and hot path contamination.",
+      "initial_outputs": [
+        "security_status",
+        "forbidden_imports",
+        "forbidden_writes",
+        "authority_violations"
+      ],
+      "may_block": true
+    },
+    {
+      "name": "Scalability Engine",
+      "interface_role": "Consumes runtime inventory and machine-state outputs and reports growth pressure, graph size pressure, and data volume risk.",
+      "initial_outputs": [
+        "scalability_status",
+        "growth_pressure",
+        "graph_pressure",
+        "archive_pressure"
+      ],
+      "may_block": false
+    },
+    {
+      "name": "Opportunity Cost Engine",
+      "interface_role": "Consumes planned work metadata and reports whether the work is worth the runtime, complexity, repo, and maintenance cost.",
+      "initial_outputs": [
+        "opportunity_cost_status",
+        "benefit_score",
+        "cost_score",
+        "net_score",
+        "block_reason"
+      ],
+      "may_block": true
+    },
+    {
+      "name": "Statistical Decision Engine",
+      "interface_role": "Consumes measurement sets only, never single measurements, and reports statistical decision confidence.",
+      "initial_outputs": [
+        "statistical_status",
+        "sample_size",
+        "mean",
+        "median",
+        "variance",
+        "standard_deviation",
+        "standard_error",
+        "p95",
+        "p99",
+        "confidence_interval"
+      ],
+      "may_block": true
+    },
+    {
+      "name": "Governance Delta Engine",
+      "interface_role": "Consumes canonical state files and reports divergence between Runtime, Master, Handoff, Boot, tk ai, tk machine, and GitHub.",
+      "initial_outputs": [
+        "governance_status",
+        "runtime_delta",
+        "master_delta",
+        "handoff_delta",
+        "boot_delta",
+        "tk_ai_delta",
+        "tk_machine_delta"
+      ],
+      "may_block": true
+    },
+    {
+      "name": "Immutable Audit Log",
+      "interface_role": "Consumes closure artifacts and emits append-only evidence references for audit trail verification.",
+      "initial_outputs": [
+        "audit_log_status",
+        "artifact_refs",
+        "commit_ref",
+        "remote_verify_ref"
+      ],
+      "may_block": true
+    }
+  ],
+  "runtime_lab_boundary": {
+    "runtime_imports_lab": false,
+    "lab_reads_runtime_outputs": true,
+    "lab_executes_producers": false,
+    "lab_mutates_runtime": false,
+    "lab_writes_runtime_files": false,
+    "lab_restarts_services_or_timers": false,
+    "lab_has_trade_authority": false,
+    "runtime_hot_path_imports_heavy_math": false
+  },
+  "allowed_read_inputs": [
+    "PROJECT_RUNTIME.json",
+    "PROJECT_BOOT.json",
+    "06_PROJECT_MASTER_STATE.md",
+    "07_PROJECT_HANDOFF.md",
+    "data/control/*.json",
+    "reports/LATEST_*.md",
+    "public/readmodel JSON snapshots",
+    "SQLite read-only metadata where present",
+    "tk machine output",
+    "tk ai output"
+  ],
+  "forbidden_actions": [
+    "Runtime importing Lab",
+    "Lab mutating Runtime",
+    "Lab executing Runtime producers",
+    "Lab writing DB",
+    "Lab restarting services",
+    "Lab enabling timers",
+    "Lab or AI creating trade authority",
+    "Heavy mathematics inside hot runtime path",
+    "Single measurement decision",
+    "Non-critical feature continuation when Opportunity Cost is negative"
+  ],
+  "statistical_requirements": {
+    "single_measurement_forbidden": true,
+    "minimum_sample_size_initial": 30,
+    "required_metrics": [
+      "mean",
+      "median",
+      "min",
+      "max",
+      "variance",
+      "standard_deviation",
+      "standard_error",
+      "p95",
+      "p99",
+      "confidence_interval"
+    ],
+    "future_methods_backlog": [
+      "bootstrap",
+      "bayesian_update",
+      "monte_carlo",
+      "control_chart",
+      "change_point_detection"
+    ],
+    "early_backlog_not_initial": [
+      "pareto_frontier"
+    ]
+  },
+  "decision_matrix": {
+    "security_red_overrides_performance_green": true,
+    "reliability_red_blocks_closure": true,
+    "governance_red_blocks_closure": true,
+    "statistical_invalid_blocks_metric_claim": true,
+    "opportunity_cost_negative_blocks_noncritical_features": true,
+    "human_approval_required": true,
+    "ai_trade_authority": 0,
+    "live_trade_locked": true,
+    "paper_trade_locked_until_explicit_phase": true
+  },
+  "validation_gates": [
+    "runtime_next_safe_step_is_ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI",
+    "contract_json_valid",
+    "report_md_created",
+    "runtime_lab_boundary_declared",
+    "heavy_math_outside_runtime_declared",
+    "statistical_single_measurement_forbidden",
+    "security_red_override_declared",
+    "opportunity_cost_negative_block_declared",
+    "runtime_master_handoff_boot_synced",
+    "tk_ai_regenerated",
+    "tk_machine_regenerated",
+    "git_commit_created",
+    "git_push_done",
+    "remote_verify_done"
+  ],
+  "result": {
+    "decision": "PASS_ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI",
+    "next_safe_step": "ERA46_DISCIPLINE_LAYER_PLAN_NOAPI"
+  }
+}

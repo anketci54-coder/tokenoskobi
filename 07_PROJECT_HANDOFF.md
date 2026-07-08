@@ -1,14 +1,16 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T08:35:33.670683+00:00
-- Current work unit: `ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI`
-- Last completed step: `ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI`
-- Next safe step: `ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI`
+- Updated UTC: 2026-07-08T08:57:27.432107Z
+- Current work unit: `ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI`
+- Last completed step: `ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI`
+- Next safe step: `ERA46_DISCIPLINE_LAYER_PLAN_NOAPI`
 - Runtime authority: `PROJECT_RUNTIME.json`
 - Master role: `Canonical Engineering Summary derived from Runtime`
 - Handoff role: `Operational Transfer Summary derived from Runtime`
 - Rule: older ERA mentions below this block are historical/archive unless explicitly marked CURRENT here.
+- ERA46 scope: `CONTRACT_ONLY_NO_ENGINE_IMPLEMENTATION`
+- ERA46 boundary: `Runtime never imports Lab; Lab reads Runtime outputs only; Lab remains read-only; heavy mathematics stays outside hot runtime path.`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->
