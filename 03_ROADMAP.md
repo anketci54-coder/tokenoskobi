@@ -299,3 +299,9 @@ Bu içerikler Almanac, PROJECT_RUNTIME.json, 06_PROJECT_MASTER_STATE.md veya ilg
 - Next: `ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI`.
 - Implementation remains blocked until validation.
 
+## CURRENT ROADMAP UPDATE — 2026-07-08T10:03:11.060911Z
+- `ERA48_REACHABILITY_CLASSIFICATION_NOAPI` closed.
+- Decision: `WARN_ACTIVE_RED_REQUIRES_REVIEW`.
+- Next: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`.
+- Implementation remains blocked until active RED/UNKNOWN findings are reviewed.
+

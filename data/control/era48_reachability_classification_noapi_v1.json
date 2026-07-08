@@ -1,0 +1,4875 @@
+{
+  "era": "ERA48",
+  "work_unit": "ERA48_REACHABILITY_CLASSIFICATION_NOAPI",
+  "created_at_utc": "2026-07-08T10:03:11.060911Z",
+  "base_head": "442fc6ea970e1a51d5dd8c4774f43cb590cceeb6",
+  "status": "WORK_UNIT_CLOSED",
+  "scope": {
+    "classification_only": true,
+    "implementation": false,
+    "new_script": false,
+    "runtime_mutation": false,
+    "api_fetch": false,
+    "db_write": false,
+    "service_timer_mutation": false
+  },
+  "classification_basis": [
+    "git ls-files",
+    "ACTIVE_EXECUTION_GRAPH.json if present",
+    "USED_BY_RUNTIME_INDEX.json if present",
+    "systemd/service/timer text references",
+    "path class heuristics"
+  ],
+  "summary": {
+    "ACTIVE_RUNTIME": 223,
+    "DORMANT_MANUAL": 499,
+    "ARCHIVE": 3542,
+    "UNKNOWN_REQUIRES_PROOF": 34,
+    "RED": 181,
+    "WARN": 76
+  },
+  "decision": "WARN_ACTIVE_RED_REQUIRES_REVIEW",
+  "next_safe_step": "ERA49_ACTIVE_SURFACE_REVIEW_NOAPI",
+  "findings": [
+    {
+      "path": ".TOKENOSKOBI_CLEAN_V1_ROOT",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": ".gitignore",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "01_INDEX.md",
+      "class": "DORMANT_MANUAL",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "02_MANIFESTO.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "03_ROADMAP.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "04_ALMANAC.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "05_ATLAS.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "06_PROJECT_MASTER_STATE.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "07_PROJECT_HANDOFF.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "PROJECT_BOOT.json",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "PROJECT_HISTORY.json",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "PROJECT_RUNTIME.json",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "README.md",
+      "class": "ACTIVE_RUNTIME",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "archive/inert_runtime_branches/phase9/tokenoskobi-phase9-observation-runtime.service",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/inert_runtime_branches/phase9/tokenoskobi-phase9-observation-runtime.timer",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_commander_v2.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_continuation_engine_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_guardian_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_health_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_schema_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_validator_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "subprocess",
+        "db_write"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_validator_v2.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "db_write"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_workflow_manager_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_workunit_advance_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_workunit_open_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "subprocess",
+        "db_write",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/MANIFEST.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/MANIFESTO.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260613_172459",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_181210_PROJECT_HANDOFF_ALIGNMENT_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_184806_PROJECT_HANDOFF_FINALIZATION_SYNC_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_193300_PASS11C_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_194213_PASS11D_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_195055_PASS11E_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_195908_PASS11F_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_203158_PASS11G_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_204342_PASS11H_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_045519_PASS11I_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_053818_PASS11J_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_071115_PASS11K_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_081223_PASS11L_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_082201_PASS11M_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_101613_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_112512_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_135035_PASS11O_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_221524_PASS13_27_RUNTIME_CONSUMER_MAPPING_DOC_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_224754_PASS13_27_LINEAGE_CLASSIFICATION_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_092319_CANONICAL_V1_FINAL_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_094340_PASS_PHASE_POSITIONING_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_104511_PHASE_PASS_ENGINE_PANEL_CROSSWALK_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_123122_CANONICAL_V1_MASTER_ENGINE_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_132259_CANONICAL_V1_FOUNDATION_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_173253",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_182321_PROJECT_MASTER_STATE_ALIGNMENT_MARKER_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_184559_PROJECT_MASTER_STATE_FINALIZATION_CLOSEOUT_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_185022_PROJECT_MASTER_STATE_FINAL_HEADER_SYNC_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_193300_PASS11C_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_194213_PASS11D_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_195055_PASS11E_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_195908_PASS11F_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_203158_PASS11G_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_204342_PASS11H_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_045519_PASS11I_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_053818_PASS11J_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_071115_PASS11K_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_081223_PASS11L_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_082201_PASS11M_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_101613_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_112512_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_135035_PASS11O_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_221524_PASS13_27_RUNTIME_CONSUMER_MAPPING_DOC_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_224754_PASS13_27_LINEAGE_CLASSIFICATION_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_092319_CANONICAL_V1_FINAL_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_094340_PASS_PHASE_POSITIONING_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_104511_PHASE_PASS_ENGINE_PANEL_CROSSWALK_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_123122_CANONICAL_V1_MASTER_ENGINE_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_132259_CANONICAL_V1_FOUNDATION_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_STRUCTURE_LOCK_V1.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_TRUTH.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/ROADMAP_14_PHASES.md.pre_dedupe",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_archive/v2_35_dirty_trace_20260626_110652/ARCHIVE_MANIFEST.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_archive/v2_35_dirty_trace_20260626_110652/data/v2_35_approval_context_hash_contract_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/news_radar_tr_preview_data.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/accepted_baselines/haber_akis_final_panel66j_20260516_011812/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/accepted_baselines/token_yasam_merkezi_final_panel64_20260515_175121/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/accepted_baselines/token_yasam_merkezi_final_panel64_20260515_175146/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/backpressure_readmodel_refresh_cache.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/backpressure_readmodel_refresh_index.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/backpressure_readmodel_refresh_manifest.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/command_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/dashboard_shell_compact.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/lifecycle_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/onchain_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/panel_live_manifest_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/panel_live_status_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/panel_public_bridge_status_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/phase41_command_center_binding_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/production_v2_control_center_data.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/risk_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/risk_security_preview_data.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/system_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/system_control_status_readmodel_view.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/technical_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/whale_center_live_readmodel_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/index.html.before_v2_rollback_20260523_091610",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_pageflow_card_vertical_fit_fix_meta.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_pageflow_icon_truth_fix_meta.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_pageflow_text_clamp_fix_meta.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_meta.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_model.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/panel_v2/assets/panel_v2.css",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/panel_v2/data/panel_v2_model.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/panel_v2/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/baselines/active_8096_production_v2_control_center_20260521_094439/BASELINE_MANIFEST.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/baselines/active_8096_production_v2_control_center_20260521_094439/BASELINE_REPORT.md",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/baselines/active_8096_production_v2_control_center_20260521_094439/http_8096.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/boot_snapshots/20260702T074959Z/PROJECT_BOOT.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/boot_snapshots/20260702T074959Z/PROJECT_RUNTIME.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/config_fixed/approval_policy_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/config_fixed/project_policy_registry_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/config_fixed/runtime_paths_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/control_dashboard_engine_v1/README.md",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/control_dashboard_engine_v1/config/control_dashboard_contract_v1.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/control_dashboard_engine_v1/render_current_8141/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/control_dashboard_engine_v1/tools/control_dashboard_engine_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/internal_xyz_staging/blocker_status/20260526_214423/internal_xyz_blocker_status_preview/blocker_status.txt",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/internal_xyz_staging/blocker_status/20260526_214423/internal_xyz_blocker_status_preview/data/blocker_status.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/internal_xyz_staging/blocker_status/20260526_214423/internal_xyz_blocker_status_preview/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/internal_xyz_staging/blocker_status/20260526_214423/staging_metadata.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/panel_static_shells/PANEL29_STATIC_FULL_RADAR_SHELL_NOAPI_20260513_120830/full_radar_sample_data.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/panel_static_shells/PANEL29_STATIC_FULL_RADAR_SHELL_NOAPI_20260513_120830/http_server.err",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/panel_static_shells/PANEL29_STATIC_FULL_RADAR_SHELL_NOAPI_20260513_120830/index.html",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/ACTIVE_CORE_RANKING.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/ACTIVE_DEPENDENCY_GRAPH.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/ACTIVE_EXECUTION_GRAPH.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/MINIMAL_ACTIVE_CORE_MANIFEST.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/MUTATION_CANDIDATES.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/REAL_EXECUTION_CHAIN.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/TOKENOSKOBI_OS_REGISTRY.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_json_legacy/USED_BY_RUNTIME_INDEX.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_non_active_entrypoints/NEXT_CHAT_HANDOFF.md",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_non_active_entrypoints/UNUSED_PYTHON.txt",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_non_active_entrypoints/boot_autosync_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "db_write",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/root_cleanup_20260706/root_non_active_entrypoints/boot_commander_v1.py",
+      "class": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/startup_legacy/NEW_CHAT_PROMPT.md",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "archive/startup_legacy/OKU.md",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "config/approval_policy_v1.json",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "config/authority_state_v1.json",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "config/payg_rpc_budget_guard_policy_v1.json",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "config/project_policy_registry_v1.json",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "config/runtime_paths_v1.json",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/__init__.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/approval.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/authority.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/identity.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/paths.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/policy.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/secrets.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/validators.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "data/active_8096_content_identity_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_content_identity_audit_rows_noapi.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_bad_term_locator_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_baseline_lock_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_baseline_lock_noapi_rows.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_control_center_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_control_center_apply_plan_rows_noapi.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_control_center_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_control_center_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_control_center_post_audit_noapi_rows.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_post_audit_rule_recheck_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_production_v2_post_audit_rule_recheck_noapi_rows.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_mobile_layout_repair_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_mobile_layout_repair_plan_rows_noapi.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_mobile_layout_repair_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_mobile_layout_repair_real_rows_after_explicit_approval.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_panel_replace_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_panel_replace_plan_rows_noapi.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_panel_replace_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_panel_replace_real_rows_after_explicit_approval.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_visual_fail_and_production_rebuild_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_aware_visual_fail_and_production_rebuild_plan_rows_noapi.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_binding_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_binding_apply_plan_rows_noapi.jsonl",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/active_8096_style_binding_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/ai28_training_dataset_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/almanac_family_group_quality_readonly_audit_20260629T095802Z.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/architecture_consolidation_audit_readonly_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10_observation_runtime_inert_selftest_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10a_observation_runtime_inert_selftest_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10b_observation_runtime_selftest_post_audit_fix1_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10b_observation_runtime_selftest_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10c_observation_runtime_final_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10d_observation_runtime_service_enable_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10e_observation_runtime_service_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10f_observation_runtime_service_enable_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10g_observation_runtime_service_enable_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase10/phase10h_observation_runtime_service_enable_final_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11_observation_runtime_status_readmodel_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11a_observation_runtime_status_readmodel_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11b_observation_runtime_status_readmodel_apply_plan_fix1_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11b_observation_runtime_status_readmodel_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11c_observation_runtime_status_readmodel_temp_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11d_observation_runtime_status_readmodel_final_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11e_observation_runtime_status_readmodel_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11f_observation_runtime_status_readmodel_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase11/phase11g_observation_runtime_status_readmodel_final_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12_system_control_status_panel_bind_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12a_system_control_status_panel_bind_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12b_system_control_status_panel_bind_apply_plan_fix1_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12b_system_control_status_panel_bind_apply_plan_fix2_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12b_system_control_status_panel_bind_apply_plan_fix3_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12b_system_control_status_panel_bind_apply_plan_fix4_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12b_system_control_status_panel_bind_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12c_system_control_status_panel_bind_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12d_system_control_status_panel_bind_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase12/phase12e_system_control_status_panel_bind_final_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13_system_control_status_refresh_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13a_system_control_status_refresh_dryrun_fix1_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13a_system_control_status_refresh_dryrun_fix2_timestamp_alias_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13a_system_control_status_refresh_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13b_system_control_status_refresh_temp_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13c_system_control_status_refresh_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13d_system_control_status_refresh_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13e_system_control_status_refresh_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase13/phase13f_system_control_status_refresh_final_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14_system_control_status_refresh_loop_plan_fix1_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14_system_control_status_refresh_loop_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14a_system_control_status_refresh_loop_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14b_system_control_status_refresh_loop_temp_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14c_system_control_status_refresh_loop_runner_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14d_system_control_status_refresh_loop_runner_file_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14e_system_control_status_refresh_loop_runner_file_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14f_system_control_status_refresh_loop_runner_file_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14g_system_control_status_refresh_loop_runner_file_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14h_system_control_status_refresh_loop_single_manual_run_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14i_system_control_status_refresh_loop_single_manual_run_temp_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14j_system_control_status_refresh_loop_single_manual_refresh_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14k_system_control_status_refresh_loop_single_manual_refresh_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase14/phase14l_system_control_status_refresh_loop_close_single_manual_chain_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15a_fix1_system_control_status_refresh_service_timer_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15a_system_control_status_refresh_service_timer_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15b_system_control_status_refresh_service_timer_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15c_system_control_status_refresh_service_timer_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15d_system_control_status_refresh_service_timer_unit_file_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15e_system_control_status_refresh_service_timer_unit_file_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15f_system_control_status_refresh_service_timer_daemon_reload_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15g_system_control_status_refresh_service_timer_daemon_reload_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15h_system_control_status_refresh_service_timer_daemon_reload_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15i_system_control_status_refresh_service_timer_service_manual_run_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15j_system_control_status_refresh_service_timer_service_manual_run_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15k_system_control_status_refresh_service_timer_service_manual_run_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15l_fix1_system_control_status_refresh_service_timer_dryrun_once_unit_patch_scope_correction_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15l_system_control_status_refresh_service_timer_real_refresh_unit_patch_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15m_system_control_status_refresh_service_timer_dryrun_once_unit_patch_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15n_fix1_system_control_status_refresh_service_timer_dryrun_once_unit_patch_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15n_system_control_status_refresh_service_timer_dryrun_once_unit_patch_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15o_system_control_status_refresh_service_timer_dryrun_once_daemon_reload_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15p_system_control_status_refresh_service_timer_dryrun_once_service_manual_run_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix10_dryrun_once_full_temp_unit_patch_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix11_dryrun_once_full_temp_unit_patch_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix11_fix1_dryrun_once_full_temp_unit_patch_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix12_dryrun_once_daemon_reload_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix13_dryrun_once_daemon_reload_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix14_dryrun_once_daemon_reload_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix15_dryrun_once_service_manual_run_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix16_dryrun_once_service_manual_run_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix17_dryrun_once_service_manual_run_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix18_dryrun_once_closure_and_timer_chain_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix1_dryrun_once_failure_diagnose_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix2_dryrun_once_cli_scope_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix3_dryrun_once_branch_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix4_dryrun_once_full_temp_execstart_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix5_dryrun_once_temp_runtime_path_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix6_fix1_dryrun_once_temp_runtime_path_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix7_dryrun_once_temp_runtime_path_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix8_dryrun_once_temp_runtime_path_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_fix9_dryrun_once_full_temp_unit_patch_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15q_system_control_status_refresh_service_timer_dryrun_once_service_manual_run_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15s_system_control_status_refresh_timer_enable_start_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15t_system_control_status_refresh_timer_enable_start_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15u_system_control_status_refresh_timer_enable_start_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase15/phase15v_system_control_status_refresh_final_closure_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16_system_control_true_refresh_or_timer_cadence_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16a_system_control_timer_cadence_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16b_system_control_timer_cadence_correction_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16c_system_control_timer_cadence_correction_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16d_system_control_timer_cadence_correction_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16e_system_control_timer_cadence_daemon_reload_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16f_system_control_timer_cadence_daemon_reload_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16g_system_control_timer_cadence_daemon_reload_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16h_system_control_timer_cadence_restart_or_reenable_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_fix1_system_control_timer_runtime_deep_diagnose_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_fix2_system_control_timer_cadence_model_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_fix3_system_control_timer_cadence_audit_policy_repair_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_fix4_system_control_timer_cadence_audit_policy_repair_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_fix5_fix1_system_control_timer_cadence_audit_policy_repair_post_apply_audit_volatile_temp_fix_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_fix5_system_control_timer_cadence_audit_policy_repair_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16i_system_control_timer_cadence_timer_restart_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16j_fix1_system_control_true_refresh_output_binding_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16k_system_control_true_refresh_output_binding_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16l_system_control_true_refresh_output_binding_dryrun_post_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16m_system_control_true_refresh_output_binding_real_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16n_system_control_true_refresh_output_binding_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16o_system_control_true_refresh_output_binding_post_apply_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16p_system_control_true_refresh_output_binding_final_closure_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase16/phase16q_system_control_active_status_panel_visibility_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17_onchain_whale_pipeline_architecture_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17a_bsc_event_source_and_provider_policy_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_conveyor_readmodel_envelope_module_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix0_conveyor_envelope_apply_real_failure_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix1_conveyor_envelope_selftest_failure_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix2_conveyor_envelope_apply_real_selftest_args_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix2a_reader_out_source_locator_and_args_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix2b_generate_reader_out_and_args_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix2c_envelope_source_selftest_acceptance_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17aa_fix3_conveyor_envelope_apply_real_with_selftest_args_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17ab_conveyor_readmodel_envelope_module_apply_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17ac_reader_envelope_contract_bridge_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17ad_fix1_reader_envelope_bridge_dryrun_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17ad_fix2_envelope_selftest_evidence_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17ad_reader_envelope_contract_bridge_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17ae_reader_envelope_contract_bridge_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17af_reader_envelope_contract_bridge_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17b_bsc_event_source_and_provider_policy_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_bsc_readonly_provider_probe_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_fix1_bsc_provider_config_and_service_settle_diagnose_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_fix2_bsc_provider_env_setup_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_fix3_bsc_provider_env_setup_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_fix4_bsc_provider_env_setup_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_fix4_fix1_bsc_provider_env_setup_post_audit_nested_fix_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17c_retry_bsc_readonly_provider_probe_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17d_bsc_readonly_provider_probe_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17d_fix1_bsc_provider_probe_post_audit_nested_fix_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17e_bsc_event_source_schema_and_storage_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17f_bsc_event_source_schema_storage_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17g_bsc_event_source_schema_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17h_bsc_event_source_schema_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17i_bsc_event_source_schema_apply_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17j_bsc_event_source_first_row_write_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17j_fix1_bsc_event_source_first_row_write_plan_ready_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17j_fix2_bsc_event_source_first_row_write_plan_ready_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17k_bsc_event_source_first_row_write_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17l_bsc_event_source_first_row_write_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17m_bsc_event_source_reader_and_validation_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17n_bsc_event_source_reader_and_validation_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17o_bsc_event_source_reader_module_build_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17p_bsc_event_source_reader_module_build_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17p_fix1_bsc_event_source_reader_module_build_dryrun_import_audit_fix_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17p_fix2_bsc_event_source_reader_module_build_dryrun_call_audit_fix_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17q_bsc_event_source_reader_module_build_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17r_bsc_event_source_reader_module_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17s_fix0_bsc_event_source_reader_module_apply_real_failure_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17s_fix1_bsc_event_source_reader_module_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17t_bsc_event_source_reader_module_apply_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17t_fix1_bsc_reader_module_network_literal_locator_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17t_fix2_bsc_reader_module_post_audit_literal_rule_fix_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17u_bsc_event_source_reader_runtime_contract_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_bsc_event_source_reader_runtime_contract_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix1_bsc_reader_contract_output_shape_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix2_conveyor_readmodel_envelope_contract_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix2_envelope_plan_readiness_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix2_generic_patch_artifact_locator_and_cleanup_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix3_conveyor_readmodel_envelope_contract_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix3_conveyor_readmodel_envelope_contract_dryrun_noapi_envelope_output.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17v_fix4_conveyor_readmodel_envelope_contract_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17w_conveyor_readmodel_envelope_module_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17x_conveyor_readmodel_envelope_module_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17x_fix1_conveyor_envelope_ast_call_audit_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17y2_conveyor_readmodel_envelope_module_post_audit_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17y2_reconcile_artifact_path_source_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17y3_conveyor_readmodel_envelope_module_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17y_conveyor_readmodel_envelope_module_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17y_reconcile_source_key_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase17/phase17z_conveyor_readmodel_envelope_module_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase18/phase18a_provider_pool_budget_cache_guard_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase18/phase18b_provider_pool_budget_cache_guard_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase18/phase18c_provider_pool_budget_cache_guard_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase18/phase18d_provider_pool_budget_cache_guard_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19a_mass_intake_fast_snapshot_architecture_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19b_fix1_fast_snapshot_required_field_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19b_mass_intake_fast_snapshot_contract_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19c_fix1_red_mode_provider_evidence_reconcile_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19c_mass_intake_fast_snapshot_contract_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19d_mass_intake_fast_snapshot_contract_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19e_rejection_micro_log_and_internal_reputation_ledger_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19f_rejection_micro_log_and_internal_reputation_ledger_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19g_rejection_micro_log_and_internal_reputation_ledger_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19h_repeat_offender_fast_kill_cache_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19i_reputation_schema_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19j_reputation_schema_apply_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19k_reputation_schema_apply_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19l_reputation_schema_apply_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19m_reputation_schema_apply_real_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19n_reputation_schema_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19o_reputation_micro_log_data_binding_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19p_reputation_micro_log_data_binding_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19q_reputation_micro_log_data_binding_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19r_reputation_micro_log_data_binding_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19s_reputation_micro_log_live_writer_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19t_reputation_micro_log_live_writer_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19u_reputation_micro_log_live_writer_dryrun_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19v_reputation_micro_log_live_writer_dryrun_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase19/phase19w_phase19_final_closeout_and_phase20_handoff_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20a_whale_entity_intelligence_architecture_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20b_whale_entity_data_contract_and_schema_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20c_whale_entity_readmodel_builder_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20d2_whale_entity_screen_wireframe_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20d_whale_entity_screen_wireframe_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20e_whale_entity_schema_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20f_whale_entity_schema_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20g_known_wallet_source_registry_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20h_source_trust_policy_and_label_quality_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20i_cex_deposit_bridge_and_mixer_policy_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20j_mev_bot_exemption_and_arbitrage_noise_policy_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20k_behavioral_shadow_labeling_policy_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20l2_known_wallet_source_registry_schema_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20l_known_wallet_source_registry_schema_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20m_cex_bridge_policy_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20n2_cex_mev_shadow_gray_areas_policy_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20n_mev_policy_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20o_shadow_label_policy_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20p_gray_area_policy_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20q_whale_entity_phase20_policy_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20r_known_wallet_source_registry_schema_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20s_known_wallet_source_registry_schema_apply_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20t_known_wallet_source_registry_schema_real_readiness_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20u_known_wallet_source_registry_schema_real_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20v_known_wallet_source_registry_schema_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20w_known_wallet_source_seed_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20x_known_wallet_source_seed_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20y_known_wallet_source_seed_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20z2_known_wallet_source_seed_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase20/phase20z_known_wallet_source_seed_real_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21a_known_wallet_source_registry_readmodel_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21f_wallet_seed_queue_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21g2_wallet_seed_queue_dirty_data_dryrun_schema_repair_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21g3_wallet_seed_queue_dirty_data_dryrun_check_repair_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21g_wallet_seed_queue_dirty_data_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21h2_real_wallet_seed_input_batch_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21h3_real_wallet_seed_input_batch_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21h4_real_wallet_seed_input_batch_build_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21h5_real_wallet_seed_batch_stage_from_manual_input_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21h_wallet_seed_queue_real_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21i_wallet_seed_queue_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21i_wallet_seed_queue_real_apply_pre_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21j_wallet_seed_queue_real_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21k_wallet_seed_queue_live_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21l_reputation_decay_backpressure_balance_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21m_reputation_decay_backpressure_schema_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21n2_reputation_schema_dryrun_forbidden_reference_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21n3_reputation_schema_dryrun_comment_safe_temp_copy_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21n4_backpressure_rollup_field_semantics_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21n5_reputation_schema_dryrun_precise_field_temp_copy_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21o2_reputation_decay_backpressure_schema_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21o_reputation_decay_backpressure_schema_real_readiness_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21p_reputation_decay_backpressure_schema_real_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21q_reputation_decay_backpressure_schema_live_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21r_reputation_policy_registry_seed_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21s_reputation_policy_registry_seed_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21t_reputation_policy_registry_seed_real_after_explicit_approval.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21u_reputation_policy_registry_seed_real_post_audit_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21v_reputation_policy_registry_live_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase21/phase21w_final_summary_and_next_lock_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22a_reputation_readmodel_and_panel_clarity_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22b_reputation_readmodel_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22c_entity_uid_and_chain_guard_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22d_policy_cache_and_hot_path_budget_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22e_stale_score_and_lazy_decay_order_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22f2_hard_block_sync_gate_false_positive_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22f2b_hard_block_sync_gate_review_json_path_repair_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22f3_hard_block_sync_gate_repaired_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22f_hard_block_sync_gate_contract_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22g_slippage_drift_and_quote_ttl_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22h_self_review_agent_state_machine_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22i_readmodel_and_self_review_baseline_acceptance_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase22/phase22j_phase22_final_summary_and_phase23_lock_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23a_outcome_memory_and_loss_cause_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23b_outcome_memory_and_loss_cause_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23c_risk_math_position_size_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23d_risk_math_position_size_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23e_paper_real_drift_score_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23f2_market_reality_penalty_and_battlefield_mode_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23f3_market_reality_penalty_and_battlefield_mode_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23f_paper_real_drift_score_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23g_atis_poligonu_panel_clarity_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23h_atis_poligonu_panel_clarity_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase23/phase23i_phase23_final_summary_and_phase24_lock_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24a_backpressure_killswitch_commander_guard_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24b2_same_route_context_backpressure_precedence_repair_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24b2b_backpressure_repair_validation_scope_review_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24b3_backpressure_killswitch_commander_guard_repaired_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24b_backpressure_killswitch_commander_guard_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24c_backpressure_policy_candidate_score_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24d_policy_candidate_score_dryrun_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    },
+    {
+      "path": "data/archive/phases/phase24/phase24e_policy_candidate_readmodel_apply_plan_noapi.json",
+      "class": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "INFO"
+    }
+  ],
+  "open_risks": [
+    "Reachability classification is static evidence, not live execution proof.",
+    "UNKNOWN_REQUIRES_PROOF must be resolved before implementation.",
+    "ACTIVE_RUNTIME RED, if any, blocks implementation until reviewed.",
+    "Archive bloat is not runtime blocker but remains repository hygiene cost."
+  ]
+}

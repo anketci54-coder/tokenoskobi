@@ -1,16 +1,16 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T09:58:03.593867Z
-- Current work unit: `ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI`
-- Last completed step: `ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI`
-- Next safe step: `ERA48_REACHABILITY_CLASSIFICATION_NOAPI`
+- Updated UTC: 2026-07-08T10:03:11.060911Z
+- Current work unit: `ERA48_REACHABILITY_CLASSIFICATION_NOAPI`
+- Last completed step: `ERA48_REACHABILITY_CLASSIFICATION_NOAPI`
+- Next safe step: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`
 - Runtime authority: `PROJECT_RUNTIME.json`
 - Master role: `Canonical Engineering Summary derived from Runtime`
 - Handoff role: `Operational Transfer Summary derived from Runtime`
 - Rule: older ERA mentions below this block are historical/archive unless explicitly marked CURRENT here.
-- Decision: `WARN_ACCEPTED_NO_BLOCKER`
-- Guard: `Implementation blocked until reachability classification.`
+- Decision: `WARN_ACTIVE_RED_REQUIRES_REVIEW`
+- Guard: `No implementation until active RED/UNKNOWN reachability findings are reviewed.`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->

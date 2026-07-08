@@ -1,0 +1,25 @@
+# ERA48 REACHABILITY CLASSIFICATION NOAPI
+
+- Created UTC: 2026-07-08T10:03:11.060911Z
+- Base HEAD: `442fc6ea970e1a51d5dd8c4774f43cb590cceeb6`
+- Work unit: `ERA48_REACHABILITY_CLASSIFICATION_NOAPI`
+- Decision: `WARN_ACTIVE_RED_REQUIRES_REVIEW`
+- Next safe step: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`
+- Scope: `CLASSIFICATION_ONLY_NO_IMPLEMENTATION`
+
+## Summary
+
+- ACTIVE_RUNTIME findings: `223`
+- DORMANT_MANUAL findings: `499`
+- ARCHIVE findings: `3542`
+- UNKNOWN_REQUIRES_PROOF findings: `34`
+- RED findings: `181`
+- WARN findings: `76`
+
+## Rule
+
+No implementation is allowed until ACTIVE_RUNTIME RED and UNKNOWN_REQUIRES_PROOF findings are reviewed.
+
+## Result
+
+`WARN_ACTIVE_RED_REQUIRES_REVIEW`
