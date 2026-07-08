@@ -1,7 +1,7 @@
 <!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
 ## CANONICAL GENERAL WORKFLOW RULES LOCK
 
-Updated UTC: `2026-07-08T10:44:39.701113Z`
+Updated UTC: `2026-07-08T10:48:50.680029Z`
 
 These rules are mandatory for every new ChatGPT window.
 
@@ -19,8 +19,22 @@ Read in this order:
 ### General Main Line Rule
 
 - A main line is a real software/module milestone, major repair line, or major architecture line.
+- A main line must contain related work only.
 - Whatever the main line is called, do not create micro main lines for plan, apply, test, audit, review, risk decision, Go/No-Go, seal, documentation cleanup, state normalization, minor fix, or minor addition.
-- Internal work must stay under the same main line.
+- Internal work must stay under the same main line unless the split rule below applies.
+
+### Split Rule
+
+- Prefer one main line.
+- If one related topic is too large for one controlled closure, it may be split into 2-3 sibling main lines.
+- Splitting is allowed only with explicit reason, such as:
+  - scope is too large,
+  - risk profile is materially different,
+  - runtime/database/panel/service/integration impact areas are different,
+  - testing and audit must be independent,
+  - one main line would slow delivery instead of helping it.
+- More than 3 sibling main lines requires consolidation review before continuing.
+- If unsure whether to split, keep the work in the same main line and use A/B/C/D or A_1/A_2 first.
 
 ### A/B/C/D Rule
 
@@ -76,11 +90,6 @@ A fix or addition becomes a new main line only if it is genuinely a new major mo
 - Old `ERA50` is historical alias for `ERA47D`.
 - Old `ERA51` is historical alias for `ERA47E`.
 - These old labels are not active work lanes.
-
-### Word Rule
-
-- Do not use the forbidden legacy word in new labels or command outputs.
-- Use: `OK`, `WARN`, `FAIL`, `BLOCKED`, `CLOSED`, `SEALED`, `VERIFIED`.
 
 ### Deadline Rule
 

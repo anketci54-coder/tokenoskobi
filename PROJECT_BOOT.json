@@ -349,9 +349,9 @@
     "failure_message": "BOOT_NOT_UPDATED_CONTINUATION_UNSAFE"
   },
   "last_action": {
-    "timestamp": "2026-07-08T10:44:39.701113Z",
-    "task": "CANONICAL_GENERAL_WORKFLOW_RULES_LOCK_NO_NEW_ERA",
-    "result": "OK_GENERAL_WORKFLOW_RULES_LOCKED",
+    "timestamp": "2026-07-08T10:48:50.680029Z",
+    "task": "CANONICAL_MAIN_LINE_SPLIT_POLICY_LOCK_NO_NEW_LINE",
+    "result": "OK_MAIN_LINE_SPLIT_POLICY_LOCKED",
     "files_created_or_updated": [
       "PROJECT_RUNTIME.json",
       "PROJECT_BOOT.json",
@@ -390,7 +390,7 @@
     "validator_behavior": "HEAD mismatch is warning, not fatal, in V2.",
     "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify."
   },
-  "updated_at_utc": "2026-07-08T10:44:39.701113Z",
+  "updated_at_utc": "2026-07-08T10:48:50.680029Z",
   "current_work_unit": {
     "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
     "type": "DISCIPLINE_PREFLIGHT_CHAIN",
@@ -412,7 +412,7 @@
     }
   },
   "last_completed": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Apply canonical_workflow_rules strictly. For every future main line, do not open micro main-line records. Use A/B/C/D under the same main line. Use A_1/A_2/A_3 only inside the same sub-area. Fixes use FIX_1/FIX_2 under the relevant letter. Additions use ADD_1/ADD_2 under the relevant letter. Old ERA48/ERA49/ERA50/ERA51 are historical aliases under ERA47B/C/D/E. Next real software step is ERA52. Do not use the forbidden legacy word in new labels or command outputs.",
+  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Apply canonical_workflow_rules strictly. Main lines must preserve topic cohesion. Related work stays inside the same main line using A/B/C/D. If one related topic is too large, split into 2-3 sibling main lines only with explicit scope/risk/impact/testing reason. Do not open micro main lines for plan/test/audit/fix/add/seal. Fixes use FIX_1/FIX_2 under the relevant letter. Additions use ADD_1/ADD_2 under the relevant letter.",
   "process_compaction": {
     "updated_at_utc": "2026-07-08T10:34:05.417432Z",
     "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
@@ -429,9 +429,9 @@
     "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
   },
   "canonical_workflow_rules": {
-    "updated_at_utc": "2026-07-08T10:44:39.701113Z",
+    "updated_at_utc": "2026-07-08T10:48:50.680029Z",
     "name": "CANONICAL_GENERAL_WORKFLOW_RULES",
-    "status": "LOCKED",
+    "status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
     "purpose": "Make workflow naming and execution rules general for every future main line, not only ERA52.",
     "startup_read_order": [
       "PROJECT_RUNTIME.json",
@@ -465,7 +465,10 @@
         "state normalization",
         "minor fix",
         "minor addition"
-      ]
+      ],
+      "cohesion_rule": "Each main line must contain related work only. Do not mix unrelated topics inside one main line.",
+      "split_rule": "If a related topic is too large for one main line, it may be split into 2-3 sibling main lines with explicit reason.",
+      "no_split_without_reason": true
     },
     "substep_policy": {
       "standard_order": {
@@ -554,6 +557,41 @@
       "live_trade_locked": true,
       "paper_trade_locked_until_explicit_phase": true,
       "no_runtime_db_panel_service_timer_mutation_without_explicit_scope": true
+    },
+    "main_line_split_policy": {
+      "principle": "Main lines must preserve topic cohesion. A main line should contain related work only.",
+      "default": "Keep related work inside the same main line using A/B/C/D/E/F substeps.",
+      "when_split_is_allowed": [
+        "scope is too large for one controlled closure",
+        "risk profile is materially different",
+        "runtime, database, panel, service, or integration impact areas are different",
+        "testing and audit must be independent",
+        "one main line would slow delivery instead of helping it",
+        "the split creates clearer execution and faster closure"
+      ],
+      "when_split_is_forbidden": [
+        "only plan/apply/test/audit/review differs",
+        "only a minor fix is needed",
+        "only a minor addition is needed",
+        "only documentation wording changes",
+        "only state normalization is needed",
+        "the split exists only to create another label"
+      ],
+      "split_limit": "Prefer 1 main line. Split into 2 or 3 related sibling main lines only when justified. More than 3 requires consolidation review before continuing.",
+      "sibling_rule": "Split main lines must be siblings under the same topic family, not unrelated work mixed together.",
+      "example_good_split": {
+        "ERA52": "minimal read-only scaffold",
+        "ERA53": "read-only validator and contract enforcement",
+        "ERA54": "bounded integration proof"
+      },
+      "example_bad_split": [
+        "new main line only for plan",
+        "new main line only for test",
+        "new main line only for audit",
+        "new main line only for seal",
+        "new main line only for small fix"
+      ],
+      "decision_rule": "If unsure whether to split, keep the work in the same main line and use A/B/C/D or A_1/A_2 first."
     }
   }
 }
