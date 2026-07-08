@@ -1,10 +1,10 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T04:52:26.242654+00:00
-- Current work unit: `ERA44_PUBLIC_EXPOSURE_BOUNDARY_FIX_NOAPI`
-- Last completed step: `ERA44_GOVERNANCE_AND_GRAPH_TRUTH_REPAIR_NOAPI`
-- Next safe step: `ERA44_GOVERNANCE_AND_GRAPH_TRUTH_POST_REPAIR_AUDIT_NOAPI`
+- Updated UTC: 2026-07-08T05:47:29.747877+00:00
+- Current work unit: `ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI`
+- Last completed step: `ERA45_LIVE_REACHABILITY_VERIFICATION_NOAPI`
+- Next safe step: `ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI`
 - Rule: `PROJECT_RUNTIME.json` is the machine-readable source of truth.
 - Note: older ERA mentions below this block are historical/archive context unless explicitly marked CURRENT in this block.
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
