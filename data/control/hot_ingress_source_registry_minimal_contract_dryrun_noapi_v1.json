@@ -1,0 +1,163 @@
+{
+  "allowed_source_types": [
+    "dex",
+    "discord",
+    "manual_synthetic",
+    "mempool",
+    "news",
+    "onchain",
+    "rss",
+    "telegram",
+    "x"
+  ],
+  "authority": {
+    "ai_trade_authority": false,
+    "credential_material": false,
+    "credential_use": false,
+    "db_schema_write": false,
+    "dryrun_only": true,
+    "live_trade": false,
+    "noapi": true,
+    "paper_trade": false,
+    "real_db_write": false,
+    "repo_artifact_write": true,
+    "runtime_change": false,
+    "signing": false,
+    "source_connection": false,
+    "synthetic_registry_entries_only": true,
+    "systemd_change": false,
+    "wallet": false
+  },
+  "decision": "OK_HOT_INGRESS_SOURCE_REGISTRY_MINIMAL_CONTRACT_DRYRUN_NOAPI_COMPLETE",
+  "findings": [
+    {
+      "code": "PLAN_READ_OK",
+      "level": "OK",
+      "message": "Parent plan okundu."
+    },
+    {
+      "code": "SYNTHETIC_TESTS_OK",
+      "level": "OK",
+      "message": "Tüm synthetic source registry testleri OK."
+    },
+    {
+      "code": "AUTHORITY_BOUNDARY_OK",
+      "level": "OK",
+      "message": "NOAPI boundary temiz."
+    }
+  ],
+  "generated_at_utc": "2026-07-08T14:19:58.647208+00:00",
+  "head": "442a38e997d48101b664c74a3bbcfe8aab3c4bb2",
+  "next_step": "HOT_INGRESS_SOURCE_REGISTRY_MINIMAL_CONTRACT_POST_AUDIT_NOAPI",
+  "parent_plan": {
+    "path": "data/control/hot_ingress_source_registry_minimal_plan_noapi_v1.json",
+    "sha256": "e899bbe2ce3170b54e9b1c983f788d0c66b08abe803e1b34c1710a4cc4bce7d5"
+  },
+  "route_caps": {
+    "chain_observation": "CRITICAL_CANDIDATE",
+    "manual_test": "WATCH",
+    "news_slow": "INFO",
+    "social_fast": "WATCH"
+  },
+  "stage": "HOT_INGRESS_SOURCE_REGISTRY_MINIMAL_CONTRACT_DRYRUN_NOAPI",
+  "summary": {
+    "accepted_count": 4,
+    "fail_count": 0,
+    "outbound_alarm_count": 0,
+    "rejected_count": 5,
+    "synthetic_entry_count": 9,
+    "warn_count": 0
+  },
+  "synthetic_results": [
+    {
+      "actual_result": "ACCEPT",
+      "actual_route_cap": "WATCH",
+      "case_id": "SRC01_VALID_TELEGRAM_LOW_TRUST",
+      "expected_result": "ACCEPT",
+      "expected_route_cap": "WATCH",
+      "reason": "ok",
+      "source_type": "telegram",
+      "status": "OK"
+    },
+    {
+      "actual_result": "ACCEPT",
+      "actual_route_cap": "CRITICAL_CANDIDATE",
+      "case_id": "SRC02_VALID_ONCHAIN_HIGH_TRUST",
+      "expected_result": "ACCEPT",
+      "expected_route_cap": "CRITICAL_CANDIDATE",
+      "reason": "ok",
+      "source_type": "onchain",
+      "status": "OK"
+    },
+    {
+      "actual_result": "REJECT",
+      "actual_route_cap": null,
+      "case_id": "SRC03_MISSING_SOURCE_UID",
+      "expected_result": "REJECT",
+      "expected_route_cap": null,
+      "reason": "source_uid_required",
+      "source_type": "rss",
+      "status": "OK"
+    },
+    {
+      "actual_result": "REJECT",
+      "actual_route_cap": null,
+      "case_id": "SRC04_UNKNOWN_SOURCE_TYPE",
+      "expected_result": "REJECT",
+      "expected_route_cap": null,
+      "reason": "source_type_not_allowed",
+      "source_type": "forum_unknown",
+      "status": "OK"
+    },
+    {
+      "actual_result": "REJECT",
+      "actual_route_cap": null,
+      "case_id": "SRC05_CREDENTIAL_LIKE_FIELD",
+      "expected_result": "REJECT",
+      "expected_route_cap": null,
+      "reason": "credential_like_field_forbidden",
+      "source_type": "news",
+      "status": "OK"
+    },
+    {
+      "actual_result": "REJECT",
+      "actual_route_cap": null,
+      "case_id": "SRC06_MISSING_RATE_LIMIT_POLICY",
+      "expected_result": "REJECT",
+      "expected_route_cap": null,
+      "reason": "rate_limit_policy_required",
+      "source_type": "dex",
+      "status": "OK"
+    },
+    {
+      "actual_result": "REJECT",
+      "actual_route_cap": null,
+      "case_id": "SRC07_MISSING_TRUST_POLICY",
+      "expected_result": "REJECT",
+      "expected_route_cap": null,
+      "reason": "trust_policy_required",
+      "source_type": "mempool",
+      "status": "OK"
+    },
+    {
+      "actual_result": "ACCEPT",
+      "actual_route_cap": "INFO",
+      "case_id": "SRC08_VALID_RSS_INFO_CAP",
+      "expected_result": "ACCEPT",
+      "expected_route_cap": "INFO",
+      "reason": "ok",
+      "source_type": "rss",
+      "status": "OK"
+    },
+    {
+      "actual_result": "ACCEPT",
+      "actual_route_cap": "WATCH",
+      "case_id": "SRC09_VALID_MANUAL_SYNTHETIC",
+      "expected_result": "ACCEPT",
+      "expected_route_cap": "WATCH",
+      "reason": "ok",
+      "source_type": "manual_synthetic",
+      "status": "OK"
+    }
+  ]
+}
