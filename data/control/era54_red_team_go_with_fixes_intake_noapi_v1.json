@@ -1,0 +1,45 @@
+{
+  "stage": "ERA54_RED_TEAM_GO_WITH_FIXES_INTAKE_NOAPI",
+  "generated_at_utc": "2026-07-08T17:30:00Z",
+  "decision": "GO_WITH_FIXES",
+  "head_before": "398ae9cc8d534fc83489024f411184d378829d7f",
+  "current_era": "ERA54",
+  "red_team": "Gemini",
+  "required_fixes_before_apply": [
+    "strict_scaffold_runtime_import_block_check",
+    "evidence_pointer_freshness_check",
+    "event_uid_source_uid_plus_event_hash",
+    "poison_pill_event_test",
+    "happy_duplicate_noisy_conflicting_synthetic_events"
+  ],
+  "do_not_do": [
+    "runtime_import",
+    "external_api_adapter",
+    "production_db_write",
+    "service_or_timer",
+    "panel_change",
+    "wallet_or_trade"
+  ],
+  "safe_path": [
+    "standalone_scaffold",
+    "synthetic_events_only",
+    "stdout_dryrun",
+    "uid_and_fingerprint_check",
+    "commit_and_seal_after_pass"
+  ],
+  "architecture_rule": "admission_is_gatekeeper_prosecutor_is_judge",
+  "next_step": "ERA54A_SCOPE_FIX_LOCK_NOAPI",
+  "boundary": {
+    "noapi": true,
+    "runtime_change": false,
+    "db_change": false,
+    "service_change": false,
+    "trade_change": false,
+    "tree_restructure": false
+  },
+  "summary": {
+    "recorded": true,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
