@@ -1,31 +1,31 @@
-CODEX FULL-SYSTEM REVIEW PROMPT — ERA48
+CODEX FULL-SYSTEM REVIEW PROMPT — ERA49
 
 Repository: anketci54-coder/tokenoskobi
-Current HEAD before ERA48 close: 442fc6ea970e1a51d5dd8c4774f43cb590cceeb6
-Work unit: ERA48_REACHABILITY_CLASSIFICATION_NOAPI
-Decision candidate: WARN_ACTIVE_RED_REQUIRES_REVIEW
-Next safe step candidate: ERA49_ACTIVE_SURFACE_REVIEW_NOAPI
+Current HEAD before ERA49 close: 00ba8df5d00ebfdeeb5f6f3b80741dbf4f96610d
+Work unit: ERA49_ACTIVE_SURFACE_REVIEW_NOAPI
+Decision candidate: WARN_ACTIVE_REVIEW_REQUIRED
+Next safe step candidate: ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI
 
 Review:
-- data/control/era48_reachability_classification_noapi_v1.json
-- reports/LATEST_ERA48_REACHABILITY_CLASSIFICATION_NOAPI.md
+- data/control/era49_active_surface_review_noapi_v1.json
+- reports/LATEST_ERA49_ACTIVE_SURFACE_REVIEW_NOAPI.md
 
-Classify risky surfaces as:
-1. ACTIVE_RUNTIME
-2. DORMANT_MANUAL
-3. ARCHIVE
-4. UNKNOWN_REQUIRES_PROOF
+Question:
+Did ERA49 correctly refine ERA48 false positives?
 
 Hard fail if:
-- ACTIVE_RUNTIME mutation/security risk is mislabeled as archive.
-- Discipline Layer write/mutation path exists.
-- Implementation is recommended before classification is complete.
+- A real ACTIVE_RUNTIME executable risk is downgraded to archive/doc/control without evidence.
+- A Discipline Layer write/mutation path exists.
+- Implementation is allowed while active RED or UNKNOWN_REQUIRES_PROOF remains.
+- Runtime/Lab boundary is violated.
+- NOAPI/read-only doctrine is violated.
 
 Return:
 - Overall score
 - PASS/WARN/FAIL
-- Misclassified active surfaces
+- Misclassified active runtime files
+- Remaining active RED
 - Remaining UNKNOWN_REQUIRES_PROOF
-- Bloat classification
+- False-positive cleanup accuracy
 - Implementation Go/No-Go
 - Next safe recommendation

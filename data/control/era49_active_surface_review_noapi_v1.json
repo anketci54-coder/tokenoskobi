@@ -1,0 +1,1605 @@
+{
+  "era": "ERA49",
+  "work_unit": "ERA49_ACTIVE_SURFACE_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-08T10:06:55.704367Z",
+  "base_head": "00ba8df5d00ebfdeeb5f6f3b80741dbf4f96610d",
+  "status": "WORK_UNIT_CLOSED",
+  "scope": {
+    "review_only": true,
+    "implementation": false,
+    "new_script": false,
+    "runtime_mutation": false,
+    "api_fetch": false,
+    "db_write": false,
+    "service_timer_mutation": false
+  },
+  "input_era48": {
+    "decision": "WARN_ACTIVE_RED_REQUIRES_REVIEW",
+    "summary": {
+      "ACTIVE_RUNTIME": 223,
+      "DORMANT_MANUAL": 499,
+      "ARCHIVE": 3542,
+      "UNKNOWN_REQUIRES_PROOF": 34,
+      "RED": 181,
+      "WARN": 76
+    },
+    "next_safe_step": "ERA49_ACTIVE_SURFACE_REVIEW_NOAPI"
+  },
+  "refined_review_rules": [
+    "Markdown/canonical docs are not executable runtime even when they contain risk words.",
+    "JSON/JSONL/data artifacts are not active runtime unless executable or unit-referenced.",
+    "Reports and archive/data history are archive evidence, not active runtime.",
+    "Python/shell/service/timer files become active only when referenced by systemd, active graph, or runtime index evidence.",
+    "Tools not referenced by runtime are dormant manual tools."
+  ],
+  "summary": {
+    "NON_EXECUTABLE_NOT_RUNTIME": 34,
+    "CANONICAL_DOC_NOT_RUNTIME": 488,
+    "ARCHIVE": 357,
+    "UNKNOWN_REQUIRES_PROOF": 12,
+    "ARCHIVE_DATA": 3120,
+    "CONTROL_STATE_NOT_EXECUTABLE": 158,
+    "ACTIVE_RUNTIME_EXECUTABLE": 47,
+    "ARCHIVE_REPORT": 65,
+    "DORMANT_MANUAL_TOOL": 18,
+    "RED": 37,
+    "WARN": 22,
+    "INFO": 4240,
+    "FALSE_POSITIVE_CLEARED": 4222
+  },
+  "decision": "WARN_ACTIVE_REVIEW_REQUIRED",
+  "next_safe_step": "ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI",
+  "active_runtime_red": [
+    {
+      "path": "deploy/nginx/apply_panel_coinoskobi_xyz.sh",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "deploy/nginx/rollback_panel_domain.sh",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "deploy/nginx/verify_panel_domain.sh",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tokenoskobi_kernel.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "subprocess",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/backpressure_readmodel_refresh_runner_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/command_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era43_preflight_readonly_audit_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era44_governance_and_graph_truth_repair_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era44_public_exposure_boundary_fix_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era44_public_exposure_post_fix_audit_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era45_live_reachability_verification_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era45_reachability_fix_and_speed_baseline_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/era_close.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "subprocess",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/full_radar_panel_data_builder_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/lifecycle_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/n9_source_to_public_readmodel_binding_probe.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_radar_refresh_runner_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_runtime_probe_readonly_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_social_launch_signal_writer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_source_ingestion_runner_adapter_contract_check_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/news_token_matcher_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/onchain_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/panel_live_readmodel_builder_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/panel_public_readmodel_bridge_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/payg_rpc_budget_guard_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/phase9_commercial_observation_runtime.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/provider_secret_vault_handler_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/risk_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/runtime_activation_truth_audit_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/runtime_shadow_feed_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/runtime_whale_graph_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "db_write"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/system_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/technical_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/test_news_token_matcher_v1_noapi.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    },
+    {
+      "path": "tools/whale_center_live_producer_v1.py",
+      "class": "ACTIVE_RUNTIME_EXECUTABLE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "RED"
+    }
+  ],
+  "unknown_requires_proof": [
+    {
+      "path": "core/__init__.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/approval.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/authority.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/identity.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/paths.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/policy.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/secrets.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "core/validators.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "deploy/nginx/coinoskobi_panel_8096_proxy.conf.template",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "maintenance/control_center/phase32e_tempdb_schema.sql",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "schema/canonical/phase5g_applied_canonical_schema.sql",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    },
+    {
+      "path": "tests/phase4_identity_quality_gate_selftest.py",
+      "class": "UNKNOWN_REQUIRES_PROOF",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ],
+      "severity": "WARN"
+    }
+  ],
+  "false_positive_cleared_sample": [
+    {
+      "path": ".TOKENOSKOBI_CLEAN_V1_ROOT",
+      "reason": "NON_EXECUTABLE_NOT_RUNTIME",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": ".gitignore",
+      "reason": "NON_EXECUTABLE_NOT_RUNTIME",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "01_INDEX.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "02_MANIFESTO.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "03_ROADMAP.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "04_ALMANAC.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "05_ATLAS.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "06_PROJECT_MASTER_STATE.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "07_PROJECT_HANDOFF.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "PROJECT_BOOT.json",
+      "reason": "NON_EXECUTABLE_NOT_RUNTIME",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "PROJECT_HISTORY.json",
+      "reason": "NON_EXECUTABLE_NOT_RUNTIME",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "PROJECT_RUNTIME.json",
+      "reason": "NON_EXECUTABLE_NOT_RUNTIME",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "README.md",
+      "reason": "CANONICAL_DOC_NOT_RUNTIME",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/inert_runtime_branches/phase9/tokenoskobi-phase9-observation-runtime.service",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/inert_runtime_branches/phase9/tokenoskobi-phase9-observation-runtime.timer",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_commander_v2.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_continuation_engine_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_guardian_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_health_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_schema_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_validator_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "subprocess",
+        "db_write"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_validator_v2.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "shell_true",
+        "subprocess",
+        "db_write"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_workflow_manager_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_workunit_advance_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/boot_legacy/boot_workunit_open_v1.py",
+      "reason": "ARCHIVE",
+      "hits": [
+        "subprocess",
+        "db_write",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/MANIFEST.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/MANIFESTO.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260613_172459",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_181210_PROJECT_HANDOFF_ALIGNMENT_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_184806_PROJECT_HANDOFF_FINALIZATION_SYNC_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_193300_PASS11C_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_194213_PASS11D_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_195055_PASS11E_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_195908_PASS11F_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_203158_PASS11G_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260617_204342_PASS11H_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_045519_PASS11I_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_053818_PASS11J_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_071115_PASS11K_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_081223_PASS11L_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_082201_PASS11M_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_101613_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_112512_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_135035_PASS11O_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_221524_PASS13_27_RUNTIME_CONSUMER_MAPPING_DOC_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260618_224754_PASS13_27_LINEAGE_CLASSIFICATION_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_092319_CANONICAL_V1_FINAL_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_094340_PASS_PHASE_POSITIONING_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_104511_PHASE_PASS_ENGINE_PANEL_CROSSWALK_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_123122_CANONICAL_V1_MASTER_ENGINE_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.bak_20260619_132259_CANONICAL_V1_FOUNDATION_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_HANDOFF.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_173253",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_182321_PROJECT_MASTER_STATE_ALIGNMENT_MARKER_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_184559_PROJECT_MASTER_STATE_FINALIZATION_CLOSEOUT_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_185022_PROJECT_MASTER_STATE_FINAL_HEADER_SYNC_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_193300_PASS11C_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_194213_PASS11D_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_195055_PASS11E_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_195908_PASS11F_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_203158_PASS11G_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260617_204342_PASS11H_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_045519_PASS11I_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_053818_PASS11J_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_071115_PASS11K_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_081223_PASS11L_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_082201_PASS11M_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_101613_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_112512_PASS11N_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_135035_PASS11O_CLOSEOUT_STATE_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_221524_PASS13_27_RUNTIME_CONSUMER_MAPPING_DOC_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260618_224754_PASS13_27_LINEAGE_CLASSIFICATION_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_092319_CANONICAL_V1_FINAL_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_094340_PASS_PHASE_POSITIONING_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_104511_PHASE_PASS_ENGINE_PANEL_CROSSWALK_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_123122_CANONICAL_V1_MASTER_ENGINE_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.bak_20260619_132259_CANONICAL_V1_FOUNDATION_ATLAS_DOC_UPDATE_REAL_APPLY",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_MASTER_STATE.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_STRUCTURE_LOCK_V1.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/PROJECT_TRUTH.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/.local_archive/root_backup_noise/20260619_194027/ROADMAP_14_PHASES.md.pre_dedupe",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_archive/v2_35_dirty_trace_20260626_110652/ARCHIVE_MANIFEST.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_archive/v2_35_dirty_trace_20260626_110652/data/v2_35_approval_context_hash_contract_plan_noapi.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/_phase20h_tokonoskobi_radar_panel_turkish_sentence_cleaner_8096/public/news_radar_tr_preview/news_radar_tr_preview_data.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/accepted_baselines/haber_akis_final_panel66j_20260516_011812/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/accepted_baselines/token_yasam_merkezi_final_panel64_20260515_175121/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/accepted_baselines/token_yasam_merkezi_final_panel64_20260515_175146/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/backpressure_readmodel_refresh_cache.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/backpressure_readmodel_refresh_index.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/backpressure_readmodel_refresh_manifest.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/command_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/dashboard_shell_compact.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/lifecycle_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/news_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/onchain_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/panel_live_manifest_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/panel_live_status_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/panel_public_bridge_status_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/phase41_command_center_binding_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/production_v2_control_center_data.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/risk_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/risk_security_preview_data.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/system_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/system_control_status_readmodel_view.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "service_timer",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/technical_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/data/whale_center_live_readmodel_v1.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/index.html.before_v2_rollback_20260523_091610",
+      "reason": "ARCHIVE",
+      "hits": [
+        "external_fetch",
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_pageflow_card_vertical_fit_fix_meta.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_pageflow_icon_truth_fix_meta.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_pageflow_text_clamp_fix_meta.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_meta.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/data/mobile_strict_pageflow_selector_model.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/mobile_pageflow/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/panel_v2/assets/panel_v2.css",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/panel_v2/data/panel_v2_model.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/active_panel_8096/current/panel_v2/index.html",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/baselines/active_8096_production_v2_control_center_20260521_094439/BASELINE_MANIFEST.json",
+      "reason": "ARCHIVE",
+      "hits": [
+        "panel_writer",
+        "secret_surface"
+      ]
+    },
+    {
+      "path": "archive/root_cleanup_20260706/folder_legacy/baselines/active_8096_production_v2_control_center_20260521_094439/BASELINE_REPORT.md",
+      "reason": "ARCHIVE",
+      "hits": [
+        "db_write",
+        "panel_writer",
+        "secret_surface"
+      ]
+    }
+  ],
+  "implementation_go_no_go": "NO_GO",
+  "open_risks": [
+    "Active runtime RED findings, if any, must be risk-decided before implementation.",
+    "UNKNOWN_REQUIRES_PROOF findings, if any, must be resolved before implementation.",
+    "This review is static evidence and does not replace live runtime proof.",
+    "Archive bloat remains repository hygiene cost, not runtime blocker."
+  ]
+}

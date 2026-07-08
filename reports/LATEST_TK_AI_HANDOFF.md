@@ -16,15 +16,15 @@ ABSOLUTE RULES:
 CURRENT CANONICAL STATE:
 - root: /root/tokenoskobi_clean_v1
 - branch: main
-- local_head: 442fc6ea970e1a51d5dd8c4774f43cb590cceeb6
-- remote_head: 442fc6ea970e1a51d5dd8c4774f43cb590cceeb6
+- local_head: 00ba8df5d00ebfdeeb5f6f3b80741dbf4f96610d
+- remote_head: 00ba8df5d00ebfdeeb5f6f3b80741dbf4f96610d
 - head_sync: True
 - git_clean: False
-- active_work_unit: ERA48_REACHABILITY_CLASSIFICATION_NOAPI
+- active_work_unit: ERA49_ACTIVE_SURFACE_REVIEW_NOAPI
 - status: WORK_UNIT_CLOSED
-- last_step: ERA48_REACHABILITY_CLASSIFICATION_NOAPI
-- next_step: ERA49_ACTIVE_SURFACE_REVIEW_NOAPI
-- next_safe_step: {'name': 'ERA49_ACTIVE_SURFACE_REVIEW_NOAPI', 'status': 'READY'}
+- last_step: ERA49_ACTIVE_SURFACE_REVIEW_NOAPI
+- next_step: ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI
+- next_safe_step: {'name': 'ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI', 'status': 'READY'}
 
 CURRENT PRIORITY ORDER:
 1. Harden Tokenoskobi Kernel / Registry.
