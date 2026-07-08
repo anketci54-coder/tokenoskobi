@@ -1,0 +1,477 @@
+{
+  "era": "ERA45",
+  "phase": "REACHABILITY_FIX_AND_SPEED_BASELINE_NOAPI",
+  "created_at_utc": "2026-07-08T06:39:57.335580+00:00",
+  "decision": "WARN_ERA45_REACHABILITY_FIX_AND_SPEED_BASELINE_BLOCKERS_REMAIN",
+  "next_step": "ERA45_REACHABILITY_FIX_OR_GATE_REQUIRED_NOAPI",
+  "news_active": true,
+  "provider_active": true,
+  "checks": {
+    "news_service_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.service 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "failed",
+      "stderr": ""
+    },
+    "news_timer_active": {
+      "cmd": "systemctl is-active tokenoskobi-news-radar-refresh.timer 2>/dev/null || true",
+      "rc": 0,
+      "stdout": "active",
+      "stderr": ""
+    },
+    "news_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep news_radar_refresh_runner_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "provider_process": {
+      "cmd": "ps -eo pid,ppid,cmd | grep provider_secret_vault_handler_v1 | grep -v grep || true",
+      "rc": 0,
+      "stdout": "435705       1 /usr/bin/python3 /root/tokenoskobi_clean_v1/tools/provider_secret_vault_handler_v1.py",
+      "stderr": ""
+    },
+    "provider_port": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8097' || true",
+      "rc": 0,
+      "stdout": "LISTEN 0      5          127.0.0.1:8097      0.0.0.0:*    users:((\"python3\",pid=435705,fd=3))",
+      "stderr": ""
+    },
+    "panel_port": {
+      "cmd": "ss -lntp 2>/dev/null | grep ':8096' || true",
+      "rc": 0,
+      "stdout": "LISTEN 0      5            0.0.0.0:8096      0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))",
+      "stderr": ""
+    },
+    "git_status": {
+      "cmd": "git status --short",
+      "rc": 0,
+      "stdout": "?? tools/era45_reachability_fix_and_speed_baseline_noapi.py",
+      "stderr": ""
+    },
+    "git_head": {
+      "cmd": "git rev-parse HEAD",
+      "rc": 0,
+      "stdout": "bd7fb639e1626a60e8fcee8a7d8b50da005f2c87",
+      "stderr": ""
+    }
+  },
+  "benchmarks": [
+    {
+      "name": "compile_active_tools",
+      "ok": true,
+      "ms": 456.764,
+      "value": [
+        {
+          "path": "tools/news_radar_refresh_runner_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/provider_secret_vault_handler_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/panel_public_readmodel_bridge_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/panel_live_readmodel_builder_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/system_center_live_producer_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/onchain_center_live_producer_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/risk_center_live_producer_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/command_center_live_producer_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/news_token_matcher_v1.py",
+          "rc": 0,
+          "stderr": ""
+        },
+        {
+          "path": "tools/era_close.py",
+          "rc": 0,
+          "stderr": ""
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "parse_json_surface",
+      "ok": true,
+      "ms": 25.339,
+      "value": {
+        "json_files": 178,
+        "ok": 178,
+        "fail": 0,
+        "bytes": 1888182
+      },
+      "error": null
+    },
+    {
+      "name": "sqlite_readonly_metadata",
+      "ok": true,
+      "ms": 118.817,
+      "value": [
+        {
+          "path": "data/tokenoskobi_clean_v1.sqlite",
+          "bytes": 5603328,
+          "journal_mode": "delete",
+          "busy_timeout": 2000,
+          "table_count": 301,
+          "metadata_ms": 5.784
+        },
+        {
+          "path": "runtime/system_control_status_refresh_dryrun_once/temp_status_refresh_dryrun_once.sqlite",
+          "bytes": 8192,
+          "journal_mode": "delete",
+          "busy_timeout": 2000,
+          "table_count": 1,
+          "metadata_ms": 0.188
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "scan_public_leakage_keywords",
+      "ok": true,
+      "ms": 4.882,
+      "value": {
+        "files_scanned": 21,
+        "hits": [
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 23,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 40,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 57,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 74,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 91,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 108,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 125,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 142,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 159,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/policy_candidate_readmodel_staging_v1/policy_candidate_score_cache.json",
+            "line": 176,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+            "line": 40,
+            "text": "    \"wallet_seed_count\": \"[REDACTED_PUBLIC_BOUNDARY]\""
+          },
+          {
+            "path": "public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+            "line": 134,
+            "text": "      \"known_wallet_seed_queue_v1\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_readmodel_refresh_staging_v1/backpressure_readmodel_refresh_cache.json",
+            "line": 154,
+            "text": "  \"wallet_seed_preview\": \"[REDACTED_PUBLIC_BOUNDARY]\""
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 44,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 54,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 64,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 74,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 84,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 94,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 104,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 114,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 124,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          },
+          {
+            "path": "public/backpressure_policy_readmodel_bind_staging_v1/backpressure_policy_readmodel_bind_index.json",
+            "line": 134,
+            "text": "      \"recommended_action\": \"[REDACTED_PUBLIC_BOUNDARY]\","
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "scan_shell_subprocess_surface",
+      "ok": true,
+      "ms": 15.089,
+      "value": {
+        "files_scanned": 61,
+        "hits": [
+          {
+            "path": "tools/era43_preflight_readonly_audit_noapi.py",
+            "line": 128,
+            "text": "    r\"write_text|json\\.dump|open\\([^)]*['\\\"]w|sqlite3\\.connect|INSERT INTO|UPDATE |DELETE FROM|CREATE TABLE|subprocess|os\\.system|systemctl|nginx|shell=True\","
+          },
+          {
+            "path": "tools/era43_preflight_readonly_audit_noapi.py",
+            "line": 131,
+            "text": "shell_hits = [h for h in mutation_hits if \"shell=True\" in h[\"text\"]]"
+          },
+          {
+            "path": "tools/era43_preflight_readonly_audit_noapi.py",
+            "line": 228,
+            "text": "    findings.append({\"severity\":\"MEDIUM\",\"id\":\"ERA43_SHELL_TRUE\",\"title\":\"shell=True remains in active code surface\",\"evidence\":shell_hits[:20],\"fix\":\"Classify active/manual/archive; convert active instances later\",\"disp"
+          },
+          {
+            "path": "tools/era44_public_exposure_post_fix_audit_noapi.py",
+            "line": 24,
+            "text": "    r=subprocess.run(cmd,cwd=ROOT,shell=True,text=True,capture_output=True)"
+          },
+          {
+            "path": "tools/n9_source_to_public_readmodel_binding_probe.py",
+            "line": 50,
+            "text": "    p = subprocess.run(cmd, shell=True, cwd=str(ROOT), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)"
+          },
+          {
+            "path": "tools/runtime_activation_truth_audit_v1.py",
+            "line": 37,
+            "text": "    p=subprocess.run(cmd,shell=True,text=True,capture_output=True,timeout=12)"
+          },
+          {
+            "path": "tools/system_center_live_producer_v1.py",
+            "line": 17,
+            "text": "    p = subprocess.run(cmd, shell=True, cwd=str(ROOT), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)"
+          },
+          {
+            "path": "tools/era45_live_reachability_verification_noapi.py",
+            "line": 12,
+            "text": "    r=subprocess.run(cmd,shell=True,cwd=ROOT,text=True,capture_output=True)"
+          },
+          {
+            "path": "tools/era45_live_reachability_verification_noapi.py",
+            "line": 108,
+            "text": "shell_hits=grep(r\"shell=True|os\\.system|subprocess\\.run\", [Path(\"tools\"),Path(\"core\"),Path(\"runtime\"),Path(\"scripts\")])"
+          },
+          {
+            "path": "tools/news_runtime_probe_readonly_v1.py",
+            "line": 30,
+            "text": "    p = subprocess.run(cmd, shell=True, cwd=str(ROOT), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)"
+          },
+          {
+            "path": "tools/era45_reachability_fix_and_speed_baseline_noapi.py",
+            "line": 24,
+            "text": "    r=subprocess.run(cmd,shell=True,cwd=ROOT,text=True,capture_output=True)"
+          },
+          {
+            "path": "tools/era45_reachability_fix_and_speed_baseline_noapi.py",
+            "line": 157,
+            "text": "    tcall(\"scan_shell_subprocess_surface\", lambda: scan_regex([Path(\"tools\"),Path(\"core\"),Path(\"runtime\"),Path(\"scripts\")], r\"shell=True|os\\\\.system|subprocess\\\\.run\", {\".py\",\".sh\"})),"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "scan_write_mutation_surface",
+      "ok": false,
+      "ms": 0.28,
+      "value": null,
+      "error": "missing ), unterminated subpattern at position 29"
+    },
+    {
+      "name": "large_non_archive_files",
+      "ok": true,
+      "ms": 119.105,
+      "value": [
+        {
+          "path": "data/shadow_runtime_lab/shadow_war_replay_ledger.jsonl",
+          "bytes": 38589061
+        },
+        {
+          "path": "data/shadow_runtime_lab/failure_injection_events.jsonl",
+          "bytes": 35863369
+        },
+        {
+          "path": "data/shadow_runtime_lab/shadow_war_100k_events.jsonl",
+          "bytes": 35537825
+        },
+        {
+          "path": "data/shadow_runtime_lab/shadow_war_decision_trace.jsonl",
+          "bytes": 23445610
+        },
+        {
+          "path": "data/shadow_runtime_lab/shadow_war_evidence_chain.jsonl",
+          "bytes": 17000000
+        },
+        {
+          "path": "data/shadow_runtime_lab/shadow_war_decision_integrity.jsonl",
+          "bytes": 16077539
+        },
+        {
+          "path": "data/phase53a_02_readmodel_field_authority_audit_noapi.json",
+          "bytes": 12556922
+        },
+        {
+          "path": "data/phase53a_02_readmodel_field_authority_audit_noapi_rows.jsonl",
+          "bytes": 11070626
+        },
+        {
+          "path": "data/phase53a_02_readmodel_field_authority_masking_plan_noapi_rows.jsonl",
+          "bytes": 9009433
+        },
+        {
+          "path": "data/tokenoskobi_clean_v1.sqlite",
+          "bytes": 5603328
+        },
+        {
+          "path": "data/backups/news_real_apply/tokenoskobi_clean_v1.sqlite.before_n18_n19_n20_news_real_apply_20260706T064410Z",
+          "bytes": 5517312
+        }
+      ],
+      "error": null
+    }
+  ],
+  "directory_stats": [
+    {
+      "path": "data",
+      "exists": true,
+      "files": 3290,
+      "bytes": 248845065
+    },
+    {
+      "path": "data/control",
+      "exists": true,
+      "files": 189,
+      "bytes": 2006098
+    },
+    {
+      "path": "public",
+      "exists": true,
+      "files": 21,
+      "bytes": 52242
+    },
+    {
+      "path": "reports",
+      "exists": true,
+      "files": 66,
+      "bytes": 228272
+    },
+    {
+      "path": "docs",
+      "exists": true,
+      "files": 603,
+      "bytes": 1661695
+    },
+    {
+      "path": "data/shadow_runtime_lab",
+      "exists": true,
+      "files": 67,
+      "bytes": 166589961
+    }
+  ],
+  "findings": [
+    {
+      "severity": "HIGH",
+      "id": "NEWS_RUNNER_ACTIVE",
+      "decision": "ERA43_REAL_PLANNING_BLOCKED_UNTIL_GATE_OR_DISABLE"
+    },
+    {
+      "severity": "HIGH",
+      "id": "PROVIDER_VAULT_ACTIVE",
+      "decision": "ERA43_REAL_PLANNING_BLOCKED_UNTIL_GATE_OR_DISABLE"
+    },
+    {
+      "severity": "MEDIUM",
+      "id": "WATER_POOLING_NON_ARCHIVE",
+      "decision": "BACKLOG_CLASSIFY",
+      "count": 11
+    }
+  ],
+  "era43_real_runtime_planning_allowed": false,
+  "guards": {
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_action": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "nginx_change": false,
+    "cleanup_performed": false
+  }
+}
