@@ -1,0 +1,82 @@
+{
+  "stage": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_REVIEW_NOAPI",
+  "generated_at_utc": "2026-07-08T14:08:00Z",
+  "decision": "OK_HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_REVIEW_NOAPI_SAFE_SCOPE_SELECTED",
+  "next_step": "HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_SAFE_APPLY_DOCS_ONLY_REQUIRES_APPROVAL",
+  "head_before_review": "eb1e6060b14665cda73b64b1a031c92412dab876",
+  "operator_workflow_preference": {
+    "preferred_mode": "github_first_when_possible",
+    "fallback_mode": "single_paste_and_run_command_block_when_github_cannot_complete",
+    "note": "Proceed this way for the next steps unless explicitly overridden."
+  },
+  "parent_dryrun": {
+    "path": "data/control/hot_intelligence_ingress_gateway_contract_canonical_binding_dryrun_noapi_v1.json",
+    "decision": "WARN_HOT_INTELLIGENCE_INGRESS_GATEWAY_CONTRACT_CANONICAL_BINDING_DRYRUN_REVIEW_REQUIRED",
+    "fail_count": 0,
+    "warn_count": 2
+  },
+  "review_decisions": [
+    {
+      "item": "PATH_SUBSTITUTION",
+      "decision": "ACCEPT",
+      "detail": "Use 01_INDEX.md, 06_PROJECT_MASTER_STATE.md, and 07_PROJECT_HANDOFF.md instead of legacy/unavailable paths."
+    },
+    {
+      "item": "SAFE_FIRST_APPLY_SCOPE",
+      "decision": "ACCEPT",
+      "detail": "Only documentation/state/handoff files are eligible for first apply."
+    },
+    {
+      "item": "ACTIVE_CONTROL_JSON_FILES",
+      "decision": "DEFER",
+      "detail": "ACTIVE_EXECUTION_GRAPH, MINIMAL_ACTIVE_CORE_MANIFEST, USED_BY_RUNTIME_INDEX, and ACTIVE_CORE_RANKING remain unchanged until later explicit review."
+    },
+    {
+      "item": "RUNTIME_CORE_PROMOTION",
+      "decision": "BLOCK_NOW",
+      "detail": "HOT ingress is not promoted to runtime core in this review."
+    }
+  ],
+  "safe_apply_scope": [
+    "01_INDEX.md",
+    "06_PROJECT_MASTER_STATE.md",
+    "07_PROJECT_HANDOFF.md"
+  ],
+  "deferred_scope": [
+    "data/control/ACTIVE_EXECUTION_GRAPH.json",
+    "data/control/MINIMAL_ACTIVE_CORE_MANIFEST.json",
+    "data/control/USED_BY_RUNTIME_INDEX.json",
+    "data/control/ACTIVE_CORE_RANKING.json"
+  ],
+  "apply_rules": [
+    "Docs-only safe apply must not edit runtime code.",
+    "Docs-only safe apply must not edit database schema files.",
+    "Docs-only safe apply must not edit systemd files.",
+    "Docs-only safe apply must not introduce source adapters or credentials.",
+    "Docs-only safe apply must not promote HOT ingress into active runtime core ranking.",
+    "Docs-only safe apply must record HOT ingress as planned canonical architecture only."
+  ],
+  "authority": {
+    "review_only": true,
+    "noapi": true,
+    "target_file_write": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "source_connection": false,
+    "token_or_key_use": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "repo_artifact_write": true
+  },
+  "summary": {
+    "fail_count": 0,
+    "warn_count": 0,
+    "accepted_safe_apply_files": 3,
+    "deferred_files": 4
+  }
+}
