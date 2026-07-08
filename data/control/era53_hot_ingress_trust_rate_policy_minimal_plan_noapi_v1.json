@@ -1,0 +1,142 @@
+{
+  "stage": "ERA53_HOT_INGRESS_TRUST_RATE_POLICY_MINIMAL_PLAN_NOAPI",
+  "generated_at_utc": "2026-07-08T14:52:00Z",
+  "decision": "OK_ERA53_HOT_INGRESS_TRUST_RATE_POLICY_MINIMAL_PLAN_NOAPI_DOCUMENTED",
+  "next_step": "ERA53_HOT_INGRESS_TRUST_RATE_POLICY_MINIMAL_DRYRUN_NOAPI",
+  "head_before_plan": "89931e3b84090836c46c1fd1f1a944f5928a5547",
+  "current_era": "ERA53",
+  "era_line": "HOT_INTELLIGENCE_INGRESS_GATEWAY",
+  "parent_step": {
+    "stage": "ERA53_HOT_INTELLIGENCE_INGRESS_GATEWAY_CANONICAL_LABEL_SYNC_NOAPI",
+    "head": "89931e3b84090836c46c1fd1f1a944f5928a5547"
+  },
+  "purpose": "Define the minimum trust score and rate limit policy for HOT ingress source registry entries before any real source adapter exists.",
+  "authority": {
+    "plan_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "tree_restructure": false,
+    "repo_artifact_write": true
+  },
+  "trust_score_policy_v1": {
+    "score_min": 0,
+    "score_max": 100,
+    "default_initial_scores": {
+      "telegram": 30,
+      "discord": 35,
+      "x": 25,
+      "news": 45,
+      "rss": 50,
+      "onchain": 85,
+      "dex": 80,
+      "mempool": 80,
+      "manual_synthetic": 100
+    },
+    "score_bands": [
+      {"band": "BLOCK", "min": 0, "max": 19, "max_route": "DROP"},
+      {"band": "LOW", "min": 20, "max": 39, "max_route": "WATCH"},
+      {"band": "MEDIUM", "min": 40, "max": 69, "max_route": "WATCH"},
+      {"band": "HIGH", "min": 70, "max": 89, "max_route": "CRITICAL_CANDIDATE"},
+      {"band": "SYSTEM", "min": 90, "max": 100, "max_route": "CRITICAL_CANDIDATE"}
+    ],
+    "positive_adjustments": {
+      "independent_confirmation": 8,
+      "onchain_alignment": 12,
+      "historical_accuracy": 5,
+      "low_noise_period": 3
+    },
+    "negative_adjustments": {
+      "duplicate_wave": -8,
+      "false_positive": -15,
+      "spam_burst": -12,
+      "contradicted_by_onchain": -25,
+      "unparseable_payload_rate_high": -6
+    },
+    "decay_policy": {
+      "enabled": true,
+      "idle_review_required": true,
+      "stale_source_penalty": -5,
+      "quarantine_threshold": 20
+    }
+  },
+  "rate_limit_policy_v1": {
+    "window_seconds": 60,
+    "per_source_event_cap": {
+      "telegram": 30,
+      "discord": 30,
+      "x": 40,
+      "news": 15,
+      "rss": 15,
+      "onchain": 100,
+      "dex": 80,
+      "mempool": 120,
+      "manual_synthetic": 1000
+    },
+    "duplicate_wave_rule": {
+      "enabled": true,
+      "same_topic_window_seconds": 120,
+      "same_topic_cap": 5,
+      "overflow_route": "QUARANTINE"
+    },
+    "burst_rule": {
+      "enabled": true,
+      "burst_multiplier": 3,
+      "burst_action": "QUARANTINE_SOURCE_TEMPORARILY"
+    },
+    "alarm_rule": {
+      "outbound_alarm_allowed": false,
+      "critical_candidate_requires_evidence": true,
+      "critical_alarm_requires_evidence_and_prosecutor": true
+    }
+  },
+  "routing_policy_v1": {
+    "social_fast_max_without_confirmation": "WATCH",
+    "news_slow_max_without_confirmation": "INFO",
+    "chain_observation_max": "CRITICAL_CANDIDATE",
+    "manual_synthetic_max": "WATCH",
+    "drop_conditions": [
+      "score_under_20",
+      "unknown_source_type",
+      "missing_source_uid",
+      "credential_like_field_present"
+    ],
+    "quarantine_conditions": [
+      "duplicate_wave_over_cap",
+      "burst_over_cap",
+      "contradiction_without_evidence"
+    ]
+  },
+  "dryrun_plan": {
+    "synthetic_only": true,
+    "tests": [
+      "default score assignment",
+      "score band route cap",
+      "positive adjustment clamp",
+      "negative adjustment clamp",
+      "duplicate wave quarantine",
+      "burst temporary quarantine",
+      "social source cannot bypass WATCH without confirmation",
+      "chain source can reach CRITICAL_CANDIDATE",
+      "outbound alarm remains blocked",
+      "no runtime or DB boundary drift"
+    ]
+  },
+  "summary": {
+    "plan_only": true,
+    "trust_score_band_count": 5,
+    "source_type_count": 9,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
