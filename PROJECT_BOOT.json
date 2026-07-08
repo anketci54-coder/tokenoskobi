@@ -2,14 +2,17 @@
   "assistant_behavior_rules": {
     "answer_only_asked_question": true,
     "apply_motto_opportunity_cost_gate_before_accepting_suggestions": true,
+    "check_speed_power_security_economy_before_accepting_any_idea": true,
     "do_not_comment_unless_asked": true,
     "do_not_give_code_unless_requested": true,
     "external_ai_outputs_are_advisory_not_binding": true,
     "no_promises_without_proof": true,
     "prefer_short_direct_answers": true,
     "reject_bloat_unless_opportunity_cost_positive": true,
+    "require_user_approval_for_any_negative_tradeoff": true,
     "risk_analysis_before_repo_change": true,
-    "say_unknown_when_unknown": true
+    "say_unknown_when_unknown": true,
+    "use_era24f_formula_for_opportunity_cost": true
   },
   "boot_architecture": {
     "files": {
@@ -647,6 +650,27 @@
     "short_form": "SPEED_UP_POWER_UP_SECURITY_UP_ECONOMY_UP_OR_POSITIVE_OPPORTUNITY_COST_ELSE_REJECT_OR_DEFER",
     "status": "PERMANENT_CONSTITUTIONAL_RULE",
     "updated_at_utc": "2026-07-08T16:34:38.515049+00:00"
+  },
+  "tokenoskobi_motto_opportunity_cost_formula_binding": {
+    "external_ai_rule": "Advisory only. Must pass formula binding plus user approval.",
+    "formula": {
+      "accept_baseline": "net_utility >= 95",
+      "cost_penalty": "max(0, 100 - performance)",
+      "expected_gain": "(reliability + security + probability) / 3",
+      "net_utility": "expected_gain - cost_penalty - uncertainty_penalty",
+      "uncertainty_penalty": "max(0, 100 - statistics)"
+    },
+    "formula_output": "data/era24f_ede_opportunity_cost_baseline_v1.json",
+    "formula_source": "ERA24F_EDE_OPPORTUNITY_COST_BASELINE",
+    "formula_tool": "tools/ede_opportunity_cost_baseline_v1.py",
+    "motto_mapping": {
+      "economy": "inverse cost, bloat, and maintenance burden",
+      "power": "average(reliability, probability)",
+      "security": "security",
+      "speed": "performance"
+    },
+    "status": "PERMANENT_CONSTITUTIONAL_FORMULA_BINDING",
+    "updated_at_utc": "2026-07-08T16:48:01.474705+00:00"
   },
   "updated_at": "2026-07-02T07:36:08.953037+00:00",
   "updated_at_utc": "2026-07-08T13:04:26.805247+00:00",

@@ -150,6 +150,43 @@ Short form for every new window:
 
 <!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_DOCTRINE_END -->
 
+<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_FORMULA_BINDING_START -->
+## TOKENOSKOBI MOTTO OPPORTUNITY COST FORMULA BINDING
+
+STATUS: PERMANENT_CONSTITUTIONAL_FORMULA_BINDING
+UPDATED_UTC: 2026-07-08T16:48:01.474705+00:00
+
+Existing formula source:
+- tools/ede_opportunity_cost_baseline_v1.py
+- data/era24f_ede_opportunity_cost_baseline_v1.json
+
+ERA24F formula:
+- expected_gain = (reliability + security + probability) / 3
+- cost_penalty = max(0, 100 - performance)
+- uncertainty_penalty = max(0, 100 - statistics)
+- net_utility = expected_gain - cost_penalty - uncertainty_penalty
+- accept_baseline = net_utility >= 95
+
+Motto mapping:
+- SPEED = performance
+- POWER = average(reliability, probability)
+- SECURITY = security
+- ECONOMY = inverse cost, bloat, and maintenance burden
+
+Decision:
+- No regression and at least one dimension improves: continue.
+- One dimension decreases but others improve: run opportunity cost.
+- net_utility >= 95 plus explicit user approval: continue.
+- net_utility < 95, unclear cost, bloat, missing evidence, or no user approval: reject or defer.
+- External AI output is advisory only.
+
+Short rule:
+MOTTO_GATE = SPEED / POWER / SECURITY / ECONOMY.
+OPPORTUNITY_COST_BASE = ERA24F_EDE.
+ACCEPT = NO_REGRESSION OR NET_UTILITY_GE_95_WITH_USER_APPROVAL.
+<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_FORMULA_BINDING_END -->
+
+
 Şimşek kadar hızlı.
 Balyoz kadar güçlü.
 Kale kadar güvenli.
