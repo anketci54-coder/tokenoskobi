@@ -1,0 +1,110 @@
+{
+  "stage": "ERA53_HOT_INGRESS_EVIDENCE_POINTER_POLICY_MINIMAL_PLAN_REVIEW_SEAL_NOAPI",
+  "generated_at_utc": "2026-07-08T15:45:00Z",
+  "decision": "OK_ERA53_HOT_INGRESS_EVIDENCE_POINTER_POLICY_MINIMAL_PLAN_REVIEW_SEALED",
+  "next_step": "ERA53_HOT_INGRESS_PROSECUTOR_HANDOFF_GATE_MINIMAL_PLAN_NOAPI",
+  "head_before": "1d4f8473089ab98b2e762f689d6b2737272e01f1",
+  "current_era": "ERA53",
+  "era_line": "HOT_INTELLIGENCE_INGRESS_GATEWAY",
+  "purpose": "Define how a normalized HOT ingress event or topic wave may carry evidence pointers without creating evidence records, runtime queues, alarms, or trade actions.",
+  "workflow_policy": {
+    "step_type": "plan_only_docs_contract",
+    "flow_used": "PLAN_TO_REVIEW_SEAL",
+    "dryrun_required": false,
+    "dryrun_reason": "No runtime code, DB schema, service, source adapter, or executable logic changed."
+  },
+  "authority": {
+    "plan_review_seal_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "tree_restructure": false,
+    "repo_artifact_write": true
+  },
+  "evidence_pointer_policy_v1": {
+    "scope": "after_normalization_and_topic_deduplication_before_evidence_binding",
+    "pointer_required_fields": [
+      "evidence_pointer_uid",
+      "normalized_event_uid_or_topic_wave_uid",
+      "pointer_type",
+      "pointer_hash",
+      "pointer_created_at_utc",
+      "source_uid",
+      "admission_route",
+      "trust_score_current",
+      "evidence_pointer_policy_version"
+    ],
+    "pointer_type_enum_minimal": [
+      "payload_hash",
+      "topic_hash",
+      "url_hash",
+      "tx_hash",
+      "address_reference",
+      "chain_context",
+      "source_reference",
+      "topic_wave_reference",
+      "manual_synthetic_reference"
+    ],
+    "pointer_rules": [
+      "pointer_must_be_hash_or_reference_only",
+      "raw_payload_must_not_be_stored",
+      "credential_like_material_must_not_be_stored",
+      "private_material_must_not_be_stored",
+      "pointer_uid_must_be_deterministic",
+      "one_event_can_have_many_pointers",
+      "one_topic_wave_can_have_many_pointers",
+      "pointer_does_not_prove_truth_by_itself",
+      "pointer_does_not_raise_route_by_itself",
+      "critical_candidate_stays_candidate_until_evidence_and_prosecutor_later"
+    ],
+    "minimum_pointer_sets": {
+      "info": ["payload_hash", "topic_hash"],
+      "watch": ["payload_hash", "topic_hash", "source_reference"],
+      "quarantine": ["payload_hash", "topic_hash", "source_reference"],
+      "critical_candidate": ["payload_hash", "topic_hash", "source_reference", "chain_context_optional", "tx_hash_optional"]
+    },
+    "rejection_rules": [
+      "missing_pointer_uid",
+      "missing_pointer_type",
+      "missing_pointer_hash",
+      "raw_payload_present",
+      "credential_like_material_present",
+      "unsupported_pointer_type"
+    ],
+    "output_boundaries": {
+      "evidence_record_created": false,
+      "db_record_created": false,
+      "runtime_queue_created": false,
+      "outbound_alarm_created": false,
+      "trade_or_wallet_action_created": false
+    }
+  },
+  "review_result": {
+    "scope_defined": true,
+    "pointer_fields_defined": true,
+    "pointer_types_defined": true,
+    "pointer_rules_defined": true,
+    "minimum_pointer_sets_defined": true,
+    "rejection_rules_defined": true,
+    "output_boundaries_defined": true,
+    "boundary_clean": true
+  },
+  "summary": {
+    "sealed": true,
+    "pointer_required_field_count": 9,
+    "pointer_type_count": 9,
+    "pointer_rule_count": 10,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
