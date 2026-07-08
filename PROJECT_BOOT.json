@@ -1,10 +1,13 @@
 {
   "assistant_behavior_rules": {
     "answer_only_asked_question": true,
+    "apply_motto_opportunity_cost_gate_before_accepting_suggestions": true,
     "do_not_comment_unless_asked": true,
     "do_not_give_code_unless_requested": true,
+    "external_ai_outputs_are_advisory_not_binding": true,
     "no_promises_without_proof": true,
     "prefer_short_direct_answers": true,
+    "reject_bloat_unless_opportunity_cost_positive": true,
     "risk_analysis_before_repo_change": true,
     "say_unknown_when_unknown": true
   },
@@ -50,7 +53,13 @@
       "Evidence before recommendation",
       "Risk before opportunity",
       "Guardian before execution",
-      "Human before action"
+      "Human before action",
+      "Speed like lightning",
+      "Power like a sledgehammer",
+      "Security like a fortress",
+      "Economy like an ant",
+      "Opportunity cost before accepting costly suggestions",
+      "External AI outputs are advisory, never binding"
     ],
     "one_sentence": "Tokenoskobi is a risk-first crypto intelligence and decision-support system, not an autonomous trading bot.",
     "trade_authority": {
@@ -596,6 +605,49 @@
     "PROJECT_HANDOFF.md",
     "data/control/news_f_final_operational_seal_with_known_warnings_v1.json"
   ],
+  "tokenoskobi_motto_opportunity_cost_doctrine": {
+    "decision_gate": {
+      "accept_if": [
+        "speed_does_not_decrease_and_at_least_one_dimension_improves",
+        "power_does_not_decrease_and_at_least_one_dimension_improves",
+        "security_does_not_decrease_and_at_least_one_dimension_improves",
+        "economy_does_not_decrease_and_at_least_one_dimension_improves"
+      ],
+      "opportunity_cost_required_if": [
+        "one_dimension_decreases_but_others_increase",
+        "benefit_is_claimed_but_cost_or_bloat_may_increase",
+        "external_red_team_or_ai_suggests_extra_work"
+      ],
+      "reject_or_defer_if": [
+        "opportunity_cost_negative",
+        "opportunity_cost_unclear",
+        "impact_unmeasured",
+        "creates_bloat",
+        "slows_system_without_clear_gain",
+        "reduces_security_without_explicit_approved_gain",
+        "increases_cost_without_clear_gain"
+      ],
+      "rule": "Every idea, module, red-team suggestion, AI recommendation, architecture change, documentation change, runtime change, or optimization must pass this gate before entering the system."
+    },
+    "external_ai_rule": {
+      "binding": false,
+      "gemini_claude_codex_copilot_outputs": "ADVISORY_ONLY",
+      "requires": [
+        "manifesto_gate",
+        "opportunity_cost_positive_or_accepted",
+        "explicit_user_approval"
+      ]
+    },
+    "motto": {
+      "economy": "Karınca kadar tutumlu",
+      "power": "Balyoz kadar güçlü",
+      "security": "Kale kadar güvenli",
+      "speed": "Şimşek kadar hızlı"
+    },
+    "short_form": "SPEED_UP_POWER_UP_SECURITY_UP_ECONOMY_UP_OR_POSITIVE_OPPORTUNITY_COST_ELSE_REJECT_OR_DEFER",
+    "status": "PERMANENT_CONSTITUTIONAL_RULE",
+    "updated_at_utc": "2026-07-08T16:34:38.515049+00:00"
+  },
   "updated_at": "2026-07-02T07:36:08.953037+00:00",
   "updated_at_utc": "2026-07-08T13:04:26.805247+00:00",
   "whale_intelligence": {

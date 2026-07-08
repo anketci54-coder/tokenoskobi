@@ -116,6 +116,40 @@ Bu belge proje tarihi, tamamlanan fazlar, roadmap, mimari detaylar, runtime duru
 
 ## PROJECT PHILOSOPHY
 
+<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_DOCTRINE_START -->
+## TOKENOSKOBI MOTTO AND OPPORTUNITY COST DOCTRINE
+
+STATUS: PERMANENT CONSTITUTIONAL RULE  
+UPDATED_UTC: 2026-07-08T16:34:38.515049+00:00
+
+Core motto:
+
+- Şimşek kadar hızlı.
+- Balyoz kadar güçlü.
+- Kale kadar güvenli.
+- Karınca kadar tutumlu.
+
+This motto is not slogan text. It is a mandatory decision gate.
+
+Any idea, module, red-team suggestion, AI recommendation, architecture change, documentation change, runtime change, or optimization may enter Tokenoskobi only if it passes this doctrine:
+
+1. SPEED must not decrease unless explicitly measured and accepted.
+2. POWER must not decrease unless explicitly measured and accepted.
+3. SECURITY must not decrease unless explicitly measured and accepted.
+4. ECONOMY / COST-EFFICIENCY must not decrease unless explicitly measured and accepted.
+5. If at least one of SPEED, POWER, SECURITY, or ECONOMY increases and none decreases, the idea may continue.
+6. If one decreases but others increase, opportunity cost calculation is mandatory before acceptance.
+7. If the opportunity cost is negative, unclear, unmeasured, or creates bloat, the idea is rejected or deferred.
+8. External red-team outputs, Gemini, Claude, Codex, Copilot, or any AI output are advisory only. They are never binding unless they pass this doctrine and receive user approval.
+9. The system must never become heavy, bloated, slow, expensive, or over-documented merely because an external reviewer suggested more work.
+10. Minimal safe path wins unless measured evidence proves a heavier path improves the motto balance.
+
+Short form for every new window:
+
+`SPEED ↑ / POWER ↑ / SECURITY ↑ / ECONOMY ↑ or OPPORTUNITY_COST_POSITIVE. Otherwise reject/defer.`
+
+<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_DOCTRINE_END -->
+
 Şimşek kadar hızlı.
 Balyoz kadar güçlü.
 Kale kadar güvenli.
