@@ -1,12 +1,14 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T05:48:51.099932+00:00
+- Updated UTC: 2026-07-08T08:35:33.670683+00:00
 - Current work unit: `ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI`
-- Last completed step: `ERA45_LIVE_REACHABILITY_VERIFICATION_NOAPI`
-- Next safe step: `ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI`
-- Rule: `PROJECT_RUNTIME.json` is the machine-readable source of truth.
-- Note: older ERA mentions below this block are historical/archive context unless explicitly marked CURRENT in this block.
+- Last completed step: `ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI`
+- Next safe step: `ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI`
+- Runtime authority: `PROJECT_RUNTIME.json`
+- Master role: `Canonical Engineering Summary derived from Runtime`
+- Handoff role: `Operational Transfer Summary derived from Runtime`
+- Rule: older ERA mentions below this block are historical/archive unless explicitly marked CURRENT here.
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->

@@ -1,0 +1,63 @@
+{
+  "era": "ERA45",
+  "phase": "CONSOLIDATED_VERIFICATION_REVIEW_NOAPI",
+  "created_at_utc": "2026-07-08T08:35:33.670683+00:00",
+  "decision": "PASS_ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI",
+  "codex_decision_accepted": "WARN_YES_WITH_WARNINGS",
+  "gemini_red_team_score": 88,
+  "project_score_basis": "Codex 75/100, Gemini 88/100, internal interpretation: YES_WITH_WARNINGS after safe-disable and governance sync.",
+  "safe_disable_acceptance": {
+    "source": "data/control/era45_safe_disable_and_postcheck_noapi_v1.json",
+    "decision": "PASS_ERA45_SAFE_DISABLE_POSTCHECK_NO_ACTIVE_BLOCKERS",
+    "news_active_after": false,
+    "provider_active_after": false,
+    "accepted": true
+  },
+  "speed_baseline_acceptance": {
+    "source": "data/control/era45_reachability_fix_and_speed_baseline_noapi_v1.json",
+    "decision": "WARN_ERA45_REACHABILITY_FIX_AND_SPEED_BASELINE_BLOCKERS_REMAIN",
+    "benchmarks_recorded": 7,
+    "note": "Performance baseline exists, but ERA46 must convert it into repeated statistical measurement with standard error, CI, p95/p99, thresholds, trend and opportunity-cost scoring."
+  },
+  "governance_delta": [
+    {
+      "file": "06_PROJECT_MASTER_STATE.md",
+      "old_block_found": true,
+      "status": "MATCH_AFTER_SYNC",
+      "previous_block_excerpt": "<!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->\n# CURRENT CANONICAL STATE\n\n- Updated UTC: 2026-07-08T05:48:51.099932+00:00\n- Current work unit: `ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI`\n- Last completed step: `ERA45_LIVE_REACHABILITY_VERIFICATION_NOAPI`\n- Next safe step: `ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI`\n- Rule: `PROJECT_RUNTIME.json` is the machine-readable source of truth.\n- Note: older ERA mentions below this block are historical/archive context unless explicitly marked CURRENT in this block.\n<!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->"
+    },
+    {
+      "file": "07_PROJECT_HANDOFF.md",
+      "old_block_found": true,
+      "status": "MATCH_AFTER_SYNC",
+      "previous_block_excerpt": "<!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->\n# CURRENT CANONICAL STATE\n\n- Updated UTC: 2026-07-08T05:48:51.099932+00:00\n- Current work unit: `ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI`\n- Last completed step: `ERA45_LIVE_REACHABILITY_VERIFICATION_NOAPI`\n- Next safe step: `ERA45_CONSOLIDATED_VERIFICATION_REVIEW_NOAPI`\n- Rule: `PROJECT_RUNTIME.json` is the machine-readable source of truth.\n- Note: older ERA mentions below this block are historical/archive context unless explicitly marked CURRENT in this block.\n<!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->"
+    }
+  ],
+  "runtime_authority_model": {
+    "PROJECT_RUNTIME.json": "authority",
+    "06_PROJECT_MASTER_STATE.md": "derived engineering summary",
+    "07_PROJECT_HANDOFF.md": "derived operational transfer summary",
+    "rule": "Derived docs must not overrule runtime."
+  },
+  "era43_real_runtime_planning": "YES_WITH_WARNINGS_AFTER_ERA46_CONTRACT_PLAN",
+  "next_step": "ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI",
+  "rules": [
+    "Runtime never imports Performance/Discipline Lab.",
+    "Lab reads Runtime outputs only.",
+    "Lab is read-only.",
+    "No external API calls in lab baseline.",
+    "No DB schema/service/nginx/wallet/trade mutation.",
+    "Security RED overrides Performance GREEN.",
+    "Opportunity Cost negative blocks non-critical features.",
+    "All plans require JSON, Markdown, boot/runtime/handoff sync and tk machine verification."
+  ],
+  "guards": {
+    "external_api_calls": 0,
+    "live_trade": false,
+    "wallet_action": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "nginx_change": false,
+    "cleanup_performed": false
+  }
+}

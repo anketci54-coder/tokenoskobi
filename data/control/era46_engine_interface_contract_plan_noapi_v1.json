@@ -1,0 +1,65 @@
+{
+  "era": "ERA46",
+  "phase": "ENGINE_INTERFACE_CONTRACT_PLAN_NOAPI",
+  "created_at_utc": "2026-07-08T08:35:33.670683+00:00",
+  "status": "PLANNED_NEXT",
+  "purpose": "Define read-only interface between Runtime and Discipline Layer before implementing any engine.",
+  "engines": [
+    "Performance Metrics Engine",
+    "Reliability Engine",
+    "Security Boundary Engine",
+    "Scalability Engine",
+    "Opportunity Cost Engine",
+    "Statistical Decision Engine",
+    "Governance Delta Engine",
+    "Immutable Audit Log"
+  ],
+  "dependency_rule": {
+    "runtime_imports_lab": false,
+    "lab_reads_runtime_outputs": true,
+    "lab_executes_producers": false,
+    "lab_mutates_runtime": false
+  },
+  "input_contract_candidates": [
+    "PROJECT_RUNTIME.json",
+    "data/control/*.json",
+    "reports/LATEST_*.md",
+    "public/readmodel JSON snapshots",
+    "SQLite read-only metadata where present",
+    "tk machine output",
+    "tk ai output"
+  ],
+  "statistical_requirements": {
+    "single_measurement_forbidden": true,
+    "minimum_sample_size_initial": 30,
+    "metrics": [
+      "mean",
+      "median",
+      "min",
+      "max",
+      "variance",
+      "standard_deviation",
+      "standard_error",
+      "p95",
+      "p99",
+      "confidence_interval"
+    ],
+    "future_methods_backlog": [
+      "bootstrap",
+      "bayesian_update",
+      "monte_carlo",
+      "control_chart",
+      "change_point_detection"
+    ],
+    "early_backlog_not_initial": [
+      "pareto_frontier"
+    ]
+  },
+  "decision_rules": {
+    "security_red_overrides_performance_green": true,
+    "opportunity_cost_negative_blocks_noncritical_features": true,
+    "human_approval_required": true,
+    "ai_trade_authority": 0
+  },
+  "next_after_contract": "ERA46_DISCIPLINE_LAYER_PLAN_NOAPI"
+}
