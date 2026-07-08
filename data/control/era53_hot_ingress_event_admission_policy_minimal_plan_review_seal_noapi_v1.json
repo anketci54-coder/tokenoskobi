@@ -1,0 +1,118 @@
+{
+  "stage": "ERA53_HOT_INGRESS_EVENT_ADMISSION_POLICY_MINIMAL_PLAN_REVIEW_SEAL_NOAPI",
+  "generated_at_utc": "2026-07-08T15:14:00Z",
+  "decision": "OK_ERA53_HOT_INGRESS_EVENT_ADMISSION_POLICY_MINIMAL_PLAN_REVIEW_SEALED",
+  "next_step": "ERA53_HOT_INGRESS_EVENT_NORMALIZATION_CONTRACT_MINIMAL_PLAN_NOAPI",
+  "head_before": "8db695bb75124c4b7d2af0fd0808378fd91e6b80",
+  "current_era": "ERA53",
+  "era_line": "HOT_INTELLIGENCE_INGRESS_GATEWAY",
+  "purpose": "Define the minimum admission rules that decide whether a HOT ingress input is dropped, watched, quarantined, or promoted to critical candidate before normalization.",
+  "workflow_policy": {
+    "step_type": "plan_only_docs_contract",
+    "flow_used": "PLAN_TO_REVIEW_SEAL",
+    "dryrun_required": false,
+    "dryrun_reason": "No runtime code, DB schema, service, source adapter, or executable logic changed."
+  },
+  "authority": {
+    "plan_review_seal_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "tree_restructure": false,
+    "repo_artifact_write": true
+  },
+  "event_admission_policy_v1": {
+    "required_input_fields": [
+      "event_uid",
+      "source_uid",
+      "source_type",
+      "observed_at_utc",
+      "payload_hash",
+      "topic_hash",
+      "declared_chain_optional",
+      "declared_asset_optional",
+      "trust_score_current",
+      "rate_policy_ref",
+      "trust_policy_ref"
+    ],
+    "admission_routes": [
+      "DROP",
+      "INFO",
+      "WATCH",
+      "QUARANTINE",
+      "CRITICAL_CANDIDATE"
+    ],
+    "drop_rules": [
+      "missing_event_uid",
+      "missing_source_uid",
+      "unknown_source_type",
+      "credential_like_field_present",
+      "trust_score_under_20",
+      "payload_hash_missing"
+    ],
+    "quarantine_rules": [
+      "duplicate_wave_over_cap",
+      "source_burst_over_cap",
+      "contradiction_without_evidence",
+      "parse_conflict_high",
+      "source_temporarily_quarantined"
+    ],
+    "watch_rules": [
+      "social_fast_without_independent_confirmation",
+      "low_or_medium_trust_but_relevant_topic",
+      "unknown_anomaly_candidate_without_chain_confirmation"
+    ],
+    "info_rules": [
+      "news_slow_general_relevance",
+      "rss_background_context",
+      "non_urgent_market_context"
+    ],
+    "critical_candidate_rules": [
+      "chain_observation_high_trust",
+      "dex_or_mempool_high_trust",
+      "social_or_news_with_independent_confirmation_and_evidence_pointer",
+      "high_trust_source_with_relevant_chain_or_asset_context"
+    ],
+    "hard_blocks": {
+      "outbound_alarm_allowed": false,
+      "trade_action_allowed": false,
+      "wallet_or_signing_allowed": false,
+      "runtime_promotion_allowed": false,
+      "critical_alarm_requires_evidence_and_prosecutor_later": true
+    }
+  },
+  "route_precedence": [
+    "DROP",
+    "QUARANTINE",
+    "CRITICAL_CANDIDATE",
+    "WATCH",
+    "INFO"
+  ],
+  "review_result": {
+    "required_fields_defined": true,
+    "routes_defined": true,
+    "drop_rules_defined": true,
+    "quarantine_rules_defined": true,
+    "watch_rules_defined": true,
+    "critical_candidate_rules_defined": true,
+    "hard_blocks_defined": true,
+    "boundary_clean": true
+  },
+  "summary": {
+    "sealed": true,
+    "route_count": 5,
+    "required_field_count": 11,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
