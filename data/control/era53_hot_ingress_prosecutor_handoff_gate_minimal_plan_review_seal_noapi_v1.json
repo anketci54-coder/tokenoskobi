@@ -1,0 +1,118 @@
+{
+  "stage": "ERA53_HOT_INGRESS_PROSECUTOR_HANDOFF_GATE_MINIMAL_PLAN_REVIEW_SEAL_NOAPI",
+  "generated_at_utc": "2026-07-08T15:56:00Z",
+  "decision": "OK_ERA53_HOT_INGRESS_PROSECUTOR_HANDOFF_GATE_MINIMAL_PLAN_REVIEW_SEALED",
+  "next_step": "ERA53_HOT_INGRESS_MINIMAL_CONTRACT_CONSOLIDATED_REVIEW_SEAL_NOAPI",
+  "head_before": "7a8c15f1ed24ac615f83ff84147d8f5955786a15",
+  "current_era": "ERA53",
+  "era_line": "HOT_INTELLIGENCE_INGRESS_GATEWAY",
+  "purpose": "Define the minimal gate that decides whether a normalized HOT ingress event or topic wave may become a Prosecutor handoff candidate. This does not create a real handoff, queue, DB record, alert, or trade action.",
+  "workflow_policy": {
+    "step_type": "plan_only_docs_contract",
+    "flow_used": "PLAN_TO_REVIEW_SEAL",
+    "dryrun_required": false,
+    "dryrun_reason": "No runtime code, DB schema, service, source adapter, or executable logic changed."
+  },
+  "authority": {
+    "plan_review_seal_only": true,
+    "noapi": true,
+    "source_connection": false,
+    "secret_material": false,
+    "credential_use": false,
+    "real_db_write": false,
+    "db_schema_write": false,
+    "runtime_change": false,
+    "systemd_change": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": false,
+    "tree_restructure": false,
+    "repo_artifact_write": true
+  },
+  "prosecutor_handoff_gate_v1": {
+    "scope": "after_admission_normalization_deduplication_and_evidence_pointer_policy_before_any_real_prosecutor_runtime_use",
+    "candidate_required_fields": [
+      "handoff_candidate_uid",
+      "normalized_event_uid_or_topic_wave_uid",
+      "admission_route",
+      "event_type",
+      "trust_score_current",
+      "source_uid_count",
+      "evidence_pointer_count",
+      "highest_route_seen",
+      "handoff_reason_code",
+      "gate_policy_version"
+    ],
+    "handoff_allowed_conditions": [
+      "admission_route_is_critical_candidate",
+      "event_type_is_security_or_market_integrity_relevant",
+      "minimum_evidence_pointer_set_present",
+      "trust_score_meets_route_threshold",
+      "not_currently_quarantined",
+      "not_dropped",
+      "no_credential_like_material_present",
+      "no_boundary_violation_present"
+    ],
+    "handoff_block_conditions": [
+      "admission_route_drop",
+      "source_or_topic_quarantined",
+      "missing_required_candidate_field",
+      "missing_minimum_evidence_pointer_set",
+      "duplicate_wave_over_cap_without_quality_confirmation",
+      "trust_score_under_required_threshold",
+      "credential_like_material_present",
+      "private_material_present",
+      "raw_payload_present"
+    ],
+    "quarantine_stay_conditions": [
+      "conflicting_chain_or_asset_context",
+      "parse_conflict_high",
+      "source_burst_over_cap",
+      "duplicate_wave_over_cap",
+      "contradiction_without_evidence"
+    ],
+    "reason_codes_minimal": [
+      "CHAIN_HIGH_TRUST_EVENT",
+      "DEX_OR_MEMPOOL_HIGH_TRUST_EVENT",
+      "CONFIRMED_SOCIAL_OR_NEWS_EVENT",
+      "UNKNOWN_ANOMALY_WITH_POINTERS",
+      "WHALE_OR_CEX_FLOW_CANDIDATE",
+      "RUG_OR_HONEYPOT_CANDIDATE",
+      "BRIDGE_OR_EXPLOIT_CANDIDATE"
+    ],
+    "route_thresholds": {
+      "critical_candidate_min_trust_score": 70,
+      "quarantine_max_route": "QUARANTINE",
+      "watch_max_route": "WATCH",
+      "info_max_route": "INFO"
+    },
+    "hard_blocks": {
+      "real_prosecutor_handoff_created": false,
+      "db_record_created": false,
+      "runtime_queue_created": false,
+      "outbound_alarm_created": false,
+      "trade_or_wallet_action_created": false,
+      "critical_alarm_created": false
+    }
+  },
+  "review_result": {
+    "candidate_fields_defined": true,
+    "handoff_allowed_conditions_defined": true,
+    "handoff_block_conditions_defined": true,
+    "quarantine_stay_conditions_defined": true,
+    "reason_codes_defined": true,
+    "route_thresholds_defined": true,
+    "hard_blocks_defined": true,
+    "boundary_clean": true
+  },
+  "summary": {
+    "sealed": true,
+    "candidate_required_field_count": 10,
+    "allowed_condition_count": 8,
+    "block_condition_count": 9,
+    "fail_count": 0,
+    "warn_count": 0
+  }
+}
