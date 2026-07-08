@@ -1,0 +1,143 @@
+{
+  "work_unit": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+  "created_at_utc": "2026-07-08T11:06:16.159789Z",
+  "base_head": "ba605ee220ae1058274c8c2ecfb1e10fc9cb697a",
+  "status": "CLOSED",
+  "substeps": {
+    "ERA52A": "SCOPE_LOCKED",
+    "ERA52B": "READONLY_SCAFFOLD_CREATED",
+    "ERA52C": "SNAPSHOT_TESTED",
+    "ERA52D": "STATIC_AND_BOUNDARY_AUDITED",
+    "ERA52E": "CODEX_REVIEW_PROMPT_CREATED",
+    "ERA52F": "GITHUB_SEAL_PENDING_IN_THIS_RUN"
+  },
+  "module": "tools/discipline_layer_readonly_scaffold_v1.py",
+  "module_sha256": "991ae0bc8604d844f1d2820834b73a2d4a5f5bfa2d9187df8927038ca1f031ce",
+  "snapshot": {
+    "scaffold_name": "discipline_layer_readonly_scaffold_v1",
+    "read_only": true,
+    "runtime_mutation_attempted": false,
+    "db_write_attempted": false,
+    "panel_write_attempted": false,
+    "service_timer_mutation_attempted": false,
+    "api_access_attempted": false,
+    "provider_access_attempted": false,
+    "wallet_access_attempted": false,
+    "trade_authority": 0,
+    "active_work_unit": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+    "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
+    "workflow_rules_name": "CANONICAL_GENERAL_WORKFLOW_RULES",
+    "workflow_rules_status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
+    "loaded": {
+      "PROJECT_RUNTIME.json": {
+        "exists": true,
+        "path": "/root/tokenoskobi_clean_v1/PROJECT_RUNTIME.json",
+        "error": null
+      },
+      "PROJECT_BOOT.json": {
+        "exists": true,
+        "path": "/root/tokenoskobi_clean_v1/PROJECT_BOOT.json",
+        "error": null
+      },
+      "data/control/latest_tk_machine_state.json": {
+        "exists": true,
+        "path": "/root/tokenoskobi_clean_v1/data/control/latest_tk_machine_state.json",
+        "error": null
+      }
+    },
+    "discipline_scope": {
+      "allowed": [
+        "read canonical machine state",
+        "produce read-only snapshot",
+        "report boundary state"
+      ],
+      "forbidden": [
+        "runtime mutation",
+        "database write",
+        "panel write",
+        "service or timer mutation",
+        "api call",
+        "provider call",
+        "wallet access",
+        "trade action"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "gate": "ERA52A_SCOPE_LOCKED",
+      "ok": true,
+      "value": "minimal read-only scaffold only"
+    },
+    {
+      "gate": "ERA52B_MODULE_CREATED",
+      "ok": true,
+      "value": "tools/discipline_layer_readonly_scaffold_v1.py"
+    },
+    {
+      "gate": "ERA52B_READONLY_DECLARED",
+      "ok": true,
+      "value": true
+    },
+    {
+      "gate": "ERA52B_NO_RUNTIME_MUTATION",
+      "ok": true,
+      "value": false
+    },
+    {
+      "gate": "ERA52B_NO_DB_WRITE",
+      "ok": true,
+      "value": false
+    },
+    {
+      "gate": "ERA52B_NO_PANEL_WRITE",
+      "ok": true,
+      "value": false
+    },
+    {
+      "gate": "ERA52B_NO_SERVICE_TIMER_MUTATION",
+      "ok": true,
+      "value": false
+    },
+    {
+      "gate": "ERA52B_NO_API_ACCESS",
+      "ok": true,
+      "value": false
+    },
+    {
+      "gate": "ERA52B_NO_WALLET_ACCESS",
+      "ok": true,
+      "value": false
+    },
+    {
+      "gate": "ERA52B_TRADE_AUTHORITY_ZERO",
+      "ok": true,
+      "value": 0
+    },
+    {
+      "gate": "ERA52C_SNAPSHOT_JSON_VALID",
+      "ok": true,
+      "value": true
+    },
+    {
+      "gate": "ERA52D_STATIC_GUARD_CLEAN",
+      "ok": true,
+      "value": "forbidden tokens absent from scaffold module"
+    }
+  ],
+  "authority": {
+    "read_only": true,
+    "api_calls": 0,
+    "provider_call": false,
+    "real_db_write": false,
+    "panel_json_write": false,
+    "service_timer_mutation": false,
+    "wallet": false,
+    "signing": false,
+    "live_trade": false,
+    "paper_trade": false,
+    "ai_trade_authority": 0
+  },
+  "decision": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
+  "next_safe_step": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW"
+}

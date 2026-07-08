@@ -1,3 +1,15 @@
+<!-- ERA52_READONLY_SCAFFOLD_CLOSURE_START -->
+## ERA52 READONLY SCAFFOLD CLOSURE — 2026-07-08T11:06:16.159789Z
+
+- Status: CLOSED
+- Scope: minimal read-only scaffold only
+- Module: `tools/discipline_layer_readonly_scaffold_v1.py`
+- Artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`
+- Next product line: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
+
+Rule: do not expand Discipline Layer before NEWS stabilization is closed.
+<!-- ERA52_READONLY_SCAFFOLD_CLOSURE_END -->
+
 <!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
 ## CANONICAL GENERAL WORKFLOW RULES LOCK
 

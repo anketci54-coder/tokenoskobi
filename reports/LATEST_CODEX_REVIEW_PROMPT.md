@@ -1,23 +1,27 @@
-CODEX REVIEW PROMPT — MAIN LINE SPLIT POLICY LOCK
+CODEX REVIEW PROMPT — ERA52 MINIMAL READONLY SCAFFOLD
 
 Repository: anketci54-coder/tokenoskobi
-Current HEAD before seal: 5cefea631e2b422358e7f708a2eeed4548fbf56b
-Task: CANONICAL_MAIN_LINE_SPLIT_POLICY_LOCK_NO_NEW_LINE
+Current HEAD before seal: ba605ee220ae1058274c8c2ecfb1e10fc9cb697a
+Task: ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI
 
-Review whether the startup/canonical files now enforce:
+Review whether ERA52 closes only the minimal read-only scaffold.
 
-- Main lines must contain related work only.
-- Related work stays inside one main line using A/B/C/D/E/F.
-- If one related topic is too large, split into 2-3 sibling main lines only with explicit reason.
-- Splitting reasons must be scope, risk profile, impact area, independent testing/audit, or delivery speed.
-- No new main line only for plan/test/audit/review/seal/cleanup/state normalization/minor fix/minor addition.
-- Nested _1/_2/_3, FIX_1/FIX_2, and ADD_1/ADD_2 stay under the relevant letter.
-- Next real software step remains ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI.
-- No Runtime, DB, panel, service, timer, deploy mutation was performed.
+Expected:
+- tools/discipline_layer_readonly_scaffold_v1.py exists.
+- The scaffold only reads canonical machine state files.
+- It does not write DB, panel, runtime, service, timer, deploy, wallet, or trade state.
+- It does not call API/providers.
+- It has no trading authority.
+- It outputs a JSON snapshot.
+- data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json records checks and authority boundaries.
+- reports/LATEST_ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI.md summarizes closure.
+- PROJECT_RUNTIME.json moves next safe step to NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW.
+- No new micro main line was opened.
+- No unrelated NEWS implementation was performed inside ERA52.
 
 Return:
 - Overall score
 - OK / WARN / FAIL
-- Remaining ambiguity for new ChatGPT windows
-- Any canonical drift
-- Next safe recommendation
+- Boundary violations if any
+- Missing closure evidence if any
+- Whether NEWS stabilization can start next

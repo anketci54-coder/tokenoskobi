@@ -1,20 +1,17 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T10:48:50.680029Z
-- Current focus: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
-- Last completed parent chain: `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI`
+- Updated UTC: 2026-07-08T11:06:16.159789Z
+- Last completed: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
+- Current focus: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
 - Runtime authority: `PROJECT_RUNTIME.json`
-- General workflow rule: every future main line, whatever it is called, must progress under A/B/C/D/E/F substeps.
-- Topic cohesion rule: each main line must contain related work only.
-- Split rule: if one related topic is too large for one main line, it may be split into 2-3 sibling main lines with explicit scope/risk/impact/testing reason.
-- No-split rule: do not open a new main line only for plan, apply, test, audit, review, risk decision, seal, cleanup, state normalization, minor fix, or minor addition.
-- Nested rule: use `_1`, `_2`, `_3` only inside the same letter when needed.
-- Fix rule: use `_FIX_1`, `_FIX_2` under the relevant letter.
-- Addition rule: use `_ADD_1`, `_ADD_2` under the relevant letter.
-- Historical alias rule: old `ERA48`, `ERA49`, `ERA50`, `ERA51` are aliases under `ERA47B/C/D/E`, not active work lanes.
-- Deadline mode: reduce documents, reduce labels, deliver small working code.
-- Next safe step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
+- ERA52 result: minimal read-only scaffold closed.
+- ERA52 module: `tools/discipline_layer_readonly_scaffold_v1.py`
+- ERA52 artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`
+- Discipline expansion rule: do not expand Discipline Layer before NEWS stabilization closes.
+- Next product line: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
+- NEWS line must use A/B/C/D under the same main line.
+- No new workflow rule work unless explicitly requested.
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->

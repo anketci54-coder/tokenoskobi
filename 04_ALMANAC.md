@@ -1,3 +1,15 @@
+<!-- ERA52_READONLY_SCAFFOLD_ALMANAC_START -->
+## ERA52 DISCIPLINE LAYER MINIMAL READONLY SCAFFOLD NOAPI
+
+- Updated UTC: 2026-07-08T11:06:16.159789Z
+- Status: CLOSED
+- Module: `tools/discipline_layer_readonly_scaffold_v1.py`
+- Artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`
+- Report: `reports/LATEST_ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI.md`
+- Boundary: read-only; no DB/panel/service/timer/API/wallet/trade mutation
+- Next: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
+<!-- ERA52_READONLY_SCAFFOLD_ALMANAC_END -->
+
 <!-- ERA47_PREFLIGHT_CHAIN_ALMANAC_START -->
 ## ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI
 
