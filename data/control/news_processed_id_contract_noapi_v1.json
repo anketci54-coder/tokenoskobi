@@ -1,0 +1,1030 @@
+{
+  "authority": {
+    "contract_only": true,
+    "db_open_mode": "sqlite_uri_ro",
+    "db_write": false,
+    "external_api_call": false,
+    "file_delete": false,
+    "file_move": false,
+    "live_trade": false,
+    "matcher_code_change": false,
+    "panel_write": false,
+    "paper_trade": false,
+    "repo_artifact_write": true,
+    "runner_code_change": false,
+    "runtime_change": false,
+    "service_change": false,
+    "signing": false,
+    "timer_change": false,
+    "tracker_file_created": false,
+    "wallet": false
+  },
+  "contract": {
+    "canonical_tracker": {
+      "atomic_write_required": true,
+      "format": "json",
+      "lock_path": "runtime/state/news_processed_tracker_v1.lock",
+      "lock_required": true,
+      "max_news_uid_retention": 5000,
+      "path": "runtime/state/news_processed_tracker_v1.json",
+      "tmp_prefix": ".news_processed_tracker_v1.",
+      "write_location_reason": "runtime/state is mutable runtime state; data/control remains audit/control only."
+    },
+    "contract_name": "NEWS_PROCESSED_ID_CONTRACT_NOAPI",
+    "hook_preconditions": {
+      "db_read_must_use_short_timeout_or_readonly_snapshot": true,
+      "human_approval_required_before_apply": true,
+      "postprocess_unreachable_must_be_fixed_or_bypassed_by_explicit_hook": true,
+      "processed_tracker_must_be_loaded_or_initialized": true,
+      "raw_delta_must_be_positive": true,
+      "runner_must_finish_original_first": true,
+      "tracker_lock_must_be_acquired": true,
+      "wal_is_required_for_high_frequency_mode": false,
+      "wal_recommended_before_continuous_operation": true
+    },
+    "migration_later": {
+      "phase": "DB_HARDENING_LATER",
+      "reason": "JSON tracker is fast and cheap first; DB table is stronger later when runtime stabilizes.",
+      "target": "news_processed_events_v1",
+      "unique_key": "news_uid"
+    },
+    "processing_rules": {
+      "api_calls_allowed": false,
+      "db_schema_change_allowed": false,
+      "external_network_calls_allowed": false,
+      "fallback_id": "sha256(source_uid|title|published_at_utc|raw_hash|url_hash)",
+      "max_batch_per_runner_execution": 100,
+      "paper_signal_must_remain_false": true,
+      "primary_id": "news_uid",
+      "service_change_allowed": false,
+      "skip_if_duplicate_raw_hash_seen": true,
+      "skip_if_news_uid_already_in_news_token_match_events": true,
+      "skip_if_news_uid_already_in_tracker": true,
+      "timer_change_allowed": false,
+      "trade_signal_must_remain_false": true
+    },
+    "purpose": "Prevent duplicate downstream processing before runner hook is enabled.",
+    "tracker_schema": {
+      "created_at_utc": "iso8601",
+      "last_match_count_seen": "int",
+      "last_raw_count_seen": "int",
+      "last_score_count_seen": "int",
+      "last_signal_count_seen": "int",
+      "last_success_batch": {
+        "finished_at_utc": "iso8601",
+        "input_raw": "int",
+        "matches_inserted": "int",
+        "new_processed": "int",
+        "scores_inserted": "int",
+        "signals_inserted": "int",
+        "started_at_utc": "iso8601"
+      },
+      "processed_hashes": [
+        "raw_hash_or_news_uid_hash"
+      ],
+      "processed_news_uids": [
+        "news_uid"
+      ],
+      "schema_version": "1.0",
+      "source": "NEWS_RUNNER_DOWNSTREAM_HOOK",
+      "updated_at_utc": "iso8601"
+    },
+    "version": "1.0"
+  },
+  "db_snapshot": {
+    "db_exists": true,
+    "duplicate_match_uid_groups": 0,
+    "duplicate_news_uid_groups": 0,
+    "error": null,
+    "journal_mode": "delete",
+    "latest_unprocessed_preview": [
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_55462c68ebf4038507de",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "c6d7fd948ac8a1d5e03cf6f66fb539ca25a9c8c81eb947af8b1cea15e71ca666",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "CZ says crypto exchange rivals opposed his pardon bid",
+        "url_hash": "031e52768a99cb1a4151f0389a1e6190c63da66cad61509549bad2a8f4a39bf1"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_821578d9cec03e759f57",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "61ff13916fdbef46a4526c3fb6bbeb7fe17f64c65f4f266a924330d208b38cae",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "7 major Bitcoin mining pools join Stratum V2, working group",
+        "url_hash": "54e9fbaeb05f11822a74d583448b782833d485957d14110d2e3490b724120245"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_d67e01bbf96ff50784d0",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "2116d6dff2c0d16aefbcc4f503a7d9ca41f0115cd7efcd0114152434ea519ba8",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Strategy CEO Phong Le says company will sell BTC only in specific cases",
+        "url_hash": "0b9283200bfbb0e9d9f8075dcecbb20c1237d6717c9a1075429808a6f5fed05d"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_7138289170523768debf",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "b4cce16c00bd6fb6aeb1e43b70dd34f9932fe9e67b2bb28f08db9cb655edc77c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "The CLARITY Act will help reshore the crypto industry in the US — Attorney",
+        "url_hash": "d875ecc8bd15e7d0947c6e8c5a9712936f166d8d0b8ccfd408d2d7d8929f123f"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_1ebc66ac66df392e8454",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "4d8884c3e3dcf0ebd4ae17df4aa65e432700d2c0434faf7096eefc4616963f6d",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "The Nobitex dilemma: How Iran's biggest crypto exchange stays off the OFAC blacklist",
+        "url_hash": "de6ed5d52d0b7972840b0c99be0c0e958dcaf094756d17b44c9c9f64022ade1a"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_349bd8714b6677acb550",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "78c3473979178cafc9c1b71c155f24719be1f79dda804cf37c6c64029d4df7a8",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Why a 2017 Linux bug is now a major concern for the crypto industry",
+        "url_hash": "2e1d70ed8d6cffdf43346b15432646b972891beb2a35b47ae2282ed86f9d9dd5"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_505a2cf91ca40e167ff7",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "59a2b134666d65298bf8e4793118b9b520663b6002ab40b46606735d8191326a",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "TeraWulf doubles AI revenue but posts $427M quarterly loss as mining income declines",
+        "url_hash": "3088cd166a47c7bcf362fc2c28646b9374688c1c0669e51c883e18df1bfddd0b"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_f3683ee385973914ccec",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "7a2c2c15ac27303bedb5bb7998af6205b77dec6b2951089f7f40421786a34527",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Here’s what happened in crypto today",
+        "url_hash": "552e43ae5e35357af6a256a01989cf748d51c033e1b4e46bcf4b80b7bbea8194"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_246eded69b84a0675178",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "210fbe85ecdc5302aadcbdd4d547ade79bc309eee8ff6e9d007d4d9a788e92a4",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Court lets Arbitrum DAO to transfer $71M in ETH tied to North Korea hack to Aave",
+        "url_hash": "289425c0a43f04ec823030314130362fb4a1f96cf2b341f02814522fc13c15dc"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_9a1a706f58c14f6bebc4",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "ca015580d03efe217121ccf4f314347b8ee2a7f48e661c0b516625ce9ee071b6",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Spot Bitcoin ETFs log 6th straight week of net inflows for first time in 9 months",
+        "url_hash": "921d2617da2d57258075a9047b4813a0a9bb3470e0ca17e1c7d097fb9fd994d5"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_09a20fc46204a4ca1ae7",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "a92bc813a7bff9c943ada35b41fc09ea2dd6635b815f9b4d2f3d84a76fc45055",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Trump Media’s Q1 loss widens to $406 million on bitcoin, CRO markdowns",
+        "url_hash": "c42fbe2730cc539c12af45d7fbb08c7b9b758febddc1123852e0ddf9e3e520d4"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_5c3b980b2b9d38182f08",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "d0f7082b503a660bd5d2dea6e7d6403ffc38525a6ebaed6a2ba6b36bdbb9c02f",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Sports betting should be regulated as a financial product, not gambling, aspiring prediction market provider says",
+        "url_hash": "c223e86fe9afec120fe2ba8a2c4bec4bc12d4d0db12254ab6c8c8ca751670957"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_565de74331750381660b",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "4f5e8dac6d6c1333e80118ed6d6eac31890cd21a97a896a879e98b525a49b91a",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "It might be too late for bitcoin’s quantum migration, Project Eleven report argues",
+        "url_hash": "ab3d623c0e8dd564851255a1d1f0466210931184b04e5fc30aedcb26a2198c89"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_fa2adcd04f37f0faabe9",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "40a470071ad5cac715d0dc1c1aa545afe77f254e36be6417be51383bf99a5280",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto industry cheers Senate Clarity Act markup date as market structure push resumes",
+        "url_hash": "4955b3be8f62b3609b5a47348fe3cf552e10e5a730edf699f5886bd995104cf6"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_e6562905b1b17ef9ad16",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "dd6b4769e8e38de520d34efc1bef71571f3be9eade671e865446421eedb1d145",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Emerging-market users are treating crypto exchanges like banking apps, Binance says",
+        "url_hash": "5396f129e856dd942e22374702484e8eea84cc94f1d616536355cb2eb6ba7b27"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_40c5a03cd9cfbb3ac26b",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "12c388a988da0c5142a7221da7bb611a335cfc8c15c089ac317f33d1c23fab2c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Swiss central bank bitcoin reserve push fails over signature shortfall",
+        "url_hash": "96be4789500a91d6b2f927ed9a7be61b31a9a850cf46652d5a2d77eabe6e2ebb"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_566ee7fa48d7bc3bb2e3",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "85f81bb33c5e92f18119494f234361c75dfdbce3d9db57529af428bdb74170cd",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "CME is set to let traders bet on bitcoin volatility, not just price",
+        "url_hash": "41f65a02e33bb8d060d91b7148bfea45530f987e3af5647defd1b9367608b7dc"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_2d41cd87aa094c92715a",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "067d54cfa8840af3daf41e3839f05297e557bde7ef1f60ef060d166a77d67d72",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "How DeFi is changing the financial landscape for Latin Americans",
+        "url_hash": "f80da1246e7465efe701462decb054808906f21c4907e5983ec8d01757937742"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_196be931da7a21407c66",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "877038e63fdffab45131ff90653057dac65adf855f27782ff521de8c9bf0fd33",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto wallets are being rebuilt for AI agents, Trust Wallet and Mesh executives say at Consensus Miami",
+        "url_hash": "9369dce40d450bb242243dcf478fda07440da45fd9fa75f9859f8cd013a3fa6c"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "news_uid": "news12_8fab46c1e43f0f015e29",
+        "published_at_utc": "2026-05-10T06:13:42.889729+00:00",
+        "raw_hash": "c24dd0a613948460009b957296b3b2c8b2ea02e412a599d70af82caf7e4a7a58",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "BlackRock deepens tokenization push with new onchain fund offerings",
+        "url_hash": "31cc2d5980865d712cd91dacac7d5eae5acba9c06802d8aed80049e9feb32441"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T08:37:25.042713+00:00",
+        "news_uid": "news21_28738665391a7984bbc2",
+        "published_at_utc": "2026-05-10T05:33:59+00:00",
+        "raw_hash": "28738665391a7984bbc23be92a3623cd",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Santiment flags risk as crypto bullish talk spikes while BTC holds $80K",
+        "url_hash": "d14a543a6380fedabaa8bf4907f33fe3"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T08:37:25.043002+00:00",
+        "news_uid": "news21_d87b94e605f271b5e999",
+        "published_at_utc": "2026-05-09T23:00:19+00:00",
+        "raw_hash": "d87b94e605f271b5e999d15d99b3c2cb",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Seven major Bitcoin mining pools join Stratum V2, working group",
+        "url_hash": "54e9fbaeb05f11822a74d583448b7828"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T08:37:25.043150+00:00",
+        "news_uid": "news21_4c8b7359d01049f64265",
+        "published_at_utc": "2026-05-09T19:00:05+00:00",
+        "raw_hash": "4c8b7359d01049f642658a8817d2ae83",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "CLARITY Act will help reshore US crypto industry, attorney says",
+        "url_hash": "d875ecc8bd15e7d0947c6e8c5a971293"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T08:37:25.043405+00:00",
+        "news_uid": "news21_bde8e0b7d0cde2a3b22b",
+        "published_at_utc": "2026-05-09T11:12:08+00:00",
+        "raw_hash": "bde8e0b7d0cde2a3b22b96ac6a76978c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Court lets Arbitrum DAO transfer $71M in ETH tied to North Korea hack to Aave",
+        "url_hash": "289425c0a43f04ec823030314130362f"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T09:17:59.845177+00:00",
+        "news_uid": "timer_news_2edf74c77720adad3cf8",
+        "published_at_utc": "2026-05-10T08:23:43+00:00",
+        "raw_hash": "2edf74c77720adad3cf80d667dcc3bd7",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Trump Media posts $406M quarterly loss as crypto bets turn sour",
+        "url_hash": "09ee4e7dd7b804db4e51d254404f94d9"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T11:19:19.897175+00:00",
+        "news_uid": "timer_news_116b065d26ffad9a6c4d",
+        "published_at_utc": "2026-05-10T10:52:38+00:00",
+        "raw_hash": "116b065d26ffad9a6c4d616bbd71aded",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "South Korea crypto holdings halve in a year as investors turn to stock market",
+        "url_hash": "a9ef10342b338fc838b56c958901c316"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T11:19:19.897307+00:00",
+        "news_uid": "timer_news_a2be5dc97b7c08460203",
+        "published_at_utc": "2026-05-10T10:47:20+00:00",
+        "raw_hash": "a2be5dc97b7c08460203c89e00188676",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin price may dip toward $70K as Fed estimates hotter inflation print",
+        "url_hash": "262896c1bc9a25f2adbb6d45df6c6d90"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T13:00:45.121716+00:00",
+        "news_uid": "timer_news_577898051a9cb823b598",
+        "published_at_utc": "2026-05-10T13:00:00+00:00",
+        "raw_hash": "577898051a9cb823b598dd871ee79a1c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bored Ape NFTs are finally making a comeback as crypto traders rediscover their appetite for risk",
+        "url_hash": "4bec1ba48b4d81d9735cb48f5d7f2364"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T14:01:19.985852+00:00",
+        "news_uid": "timer_news_ac6945cb147a1152c197",
+        "published_at_utc": "2026-05-10T14:00:00+00:00",
+        "raw_hash": "ac6945cb147a1152c197e3a0b37387fa",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Agentic commerce will run on crypto rails, PayPal and Google reps tell Consensus Miami",
+        "url_hash": "47dd48d68b320682b233b639ef9cc9a4"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T15:22:19.875005+00:00",
+        "news_uid": "timer_news_e9c8fa714e9214c5231b",
+        "published_at_utc": "2026-05-10T14:56:21+00:00",
+        "raw_hash": "e9c8fa714e9214c5231b3b36490b9b05",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin holds $80K into weekly close as traders say BTC price dip not yet over",
+        "url_hash": "19daeec63d553d6b46b6eab76e44235e"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T15:22:19.875073+00:00",
+        "news_uid": "timer_news_c4b70ad19af2018521e3",
+        "published_at_utc": "2026-05-10T13:00:00+00:00",
+        "raw_hash": "c4b70ad19af2018521e3d15b969d4596",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Three young DeFi apps return $100M in revenue to token holders in 30 days",
+        "url_hash": "5f32e262cb518f99771d8f59a4434526"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T17:24:09.880584+00:00",
+        "news_uid": "timer_news_a43f539efd3aebd3b605",
+        "published_at_utc": "2026-05-10T16:13:27+00:00",
+        "raw_hash": "a43f539efd3aebd3b605e27bd23ffddb",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ethereum down 35% versus Bitcoin in a year: Will the ETH price downtrend continue?",
+        "url_hash": "5a23331fe0c389c2123f4152a3268248"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T18:45:10.089301+00:00",
+        "news_uid": "timer_news_b4982b7826a10f40627f",
+        "published_at_utc": "2026-05-10T18:30:00+00:00",
+        "raw_hash": "b4982b7826a10f40627ff138a066c5a9",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Policy at Consensus Miami: State of Crypto",
+        "url_hash": "32607efee0f8664438b87784e516db7f"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T19:25:19.907568+00:00",
+        "news_uid": "timer_news_b4c9ea804b2c9edb4b8e",
+        "published_at_utc": "2026-05-10T18:40:00+00:00",
+        "raw_hash": "b4c9ea804b2c9edb4b8e0e5ae6c46522",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Saylor signals another Bitcoin buy, after hinting at selling in Q1 earnings call",
+        "url_hash": "3b9d12f341a2c2ae0e22db7f9d59dea3"
+      },
+      {
+        "fetched_at_utc": "2026-05-10T20:25:59.872214+00:00",
+        "news_uid": "timer_news_de4e4eabb4a29f0bb439",
+        "published_at_utc": "2026-05-10T14:00:00+00:00",
+        "raw_hash": "de4e4eabb4a29f0bb439d8ba140084bd",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Canton Network creator targets $300M in capital raise: Report",
+        "url_hash": "a91e2c97fbb238b009b63dcc54b5cd64"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T04:12:09.977270+00:00",
+        "news_uid": "timer_news_7c7f789c924b804ba9f6",
+        "published_at_utc": "2026-05-11T04:06:22+00:00",
+        "raw_hash": "7c7f789c924b804ba9f6d805017932de",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "A bitcoin whale that went silent in 2013 moves $40 million in BTC",
+        "url_hash": "8078859016d49ba95556f040f9e51f76"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T04:32:19.920603+00:00",
+        "news_uid": "timer_news_6a6fe3c305468cd68665",
+        "published_at_utc": "2026-05-11T03:42:25+00:00",
+        "raw_hash": "6a6fe3c305468cd6866576ac05283ecf",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin rallies 2.3% after Trump calls Iran peace proposal ‘totally unacceptable’",
+        "url_hash": "248883651559f9dcc710534ff3de76c3"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T05:12:49.997293+00:00",
+        "news_uid": "timer_news_c100639f7c46a31fb476",
+        "published_at_utc": "2026-05-11T05:07:05+00:00",
+        "raw_hash": "c100639f7c46a31fb4765482f0fc1b05",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "XRP spikes 2.5%, beating bitcoin and ether, in breakout above $1.45",
+        "url_hash": "a1308d3666dbf877d368ca4302989976"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T06:14:10.030877+00:00",
+        "news_uid": "timer_news_15f064d78a68e9b189be",
+        "published_at_utc": "2026-05-11T06:01:53+00:00",
+        "raw_hash": "15f064d78a68e9b189be908eeda84da0",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin mining pools with 75% of BTC hashrate join open standard for block construction",
+        "url_hash": "171367c854e4d4bd9636c70414ca4bbc"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T06:34:19.980984+00:00",
+        "news_uid": "timer_news_d8860c034e43da8dfdbd",
+        "published_at_utc": "2026-05-11T06:04:47+00:00",
+        "raw_hash": "d8860c034e43da8dfdbd269f788e9c30",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "England central banker says global stablecoin rules will ‘wrestle’ with US",
+        "url_hash": "85d4ca2e1c424d2b82df9f6e960d3892"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T06:34:19.981058+00:00",
+        "news_uid": "timer_news_bbe77ff1a1d0f2cb988f",
+        "published_at_utc": "2026-05-11T05:54:25+00:00",
+        "raw_hash": "bbe77ff1a1d0f2cb988f9e5f971cd390",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "SUI spikes 50% amid staking moves, zero-fee stablecoins, privacy push",
+        "url_hash": "1d88e585387111546951605473e645ee"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T06:34:19.981128+00:00",
+        "news_uid": "timer_news_e4b256bbd24e28ea0047",
+        "published_at_utc": "2026-05-11T05:34:25+00:00",
+        "raw_hash": "e4b256bbd24e28ea0047b22a7bbfeef3",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Privacy advocates slam reCAPTCHA update that they say locks out de-Googled phones",
+        "url_hash": "009298ff59b6c139ea1063b25e41765f"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T07:35:19.949317+00:00",
+        "news_uid": "timer_news_5f80dba86554d88172b4",
+        "published_at_utc": "2026-05-11T06:55:54+00:00",
+        "raw_hash": "5f80dba86554d88172b48a3683eeb440",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Whitehat returns $190K to Renegade hours after hacking the protocol",
+        "url_hash": "903cde65e3aeff06c45a096570f5a65e"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T07:55:50.100039+00:00",
+        "news_uid": "timer_news_bf79219eab4b9b198b55",
+        "published_at_utc": "2026-05-11T07:46:00+00:00",
+        "raw_hash": "bf79219eab4b9b198b55e95dc170a56e",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "New Fed chair, Base's Azul upgrade, corporate earnings: Crypto Week Ahead",
+        "url_hash": "7dff1e55fc295e9b97f78e006c9bdc72"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T08:16:19.885008+00:00",
+        "news_uid": "timer_news_1b0d9f91cc1e30dbf153",
+        "published_at_utc": "2026-05-11T07:34:16+00:00",
+        "raw_hash": "1b0d9f91cc1e30dbf153724a05c5891e",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "7 Democrats seen as ‘key’ to advancing CLARITY Act: Galaxy",
+        "url_hash": "e0059b138e3913406f5a68ba0f0e3df4"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T08:16:19.885136+00:00",
+        "news_uid": "timer_news_b54ceb6bc954f563462b",
+        "published_at_utc": "2026-05-11T07:21:13+00:00",
+        "raw_hash": "b54ceb6bc954f563462b578de364ca4c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Veteran investor bets on Ethereum as AI agents drive tokenization demand",
+        "url_hash": "3e05db66e59d8ab2d9f69e7b8d6ba04c"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T08:16:19.885240+00:00",
+        "news_uid": "timer_news_0e454593824dbcc8439b",
+        "published_at_utc": "2026-05-11T07:18:15+00:00",
+        "raw_hash": "0e454593824dbcc8439bd024f791cfdb",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Australia plans capital gains tax changes affecting crypto investors: Report",
+        "url_hash": "4270fa7aa7f407deaed0f58cd0064ef2"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T08:16:19.998834+00:00",
+        "news_uid": "timer_news_f74ed6828d9104927ee3",
+        "published_at_utc": "2026-05-11T08:05:03+00:00",
+        "raw_hash": "f74ed6828d9104927ee3c8d070d07e87",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin, Nasdaq investors are celebrating, while U.S. consumers turn gloomy",
+        "url_hash": "2565fa9dca74d8ae310f8ed9ee0a2283"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T09:17:19.945965+00:00",
+        "news_uid": "timer_news_0882bfdf1e02d1206ac2",
+        "published_at_utc": "2026-05-11T09:04:14+00:00",
+        "raw_hash": "0882bfdf1e02d1206ac25a496d34e6c8",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "This Bitcoin price level will be 'end of the bears' if broken, says analyst",
+        "url_hash": "81aa78e9c6f21492347e50b571b09665"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:18:44.093310+00:00",
+        "news_uid": "timer_news_54210130411be95d454d",
+        "published_at_utc": "2026-05-11T09:48:51+00:00",
+        "raw_hash": "54210130411be95d454d2529378d831e",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Capital B raises $17.8M to expand its Bitcoin treasury",
+        "url_hash": "d681ab07967fa00fd1e038c46f357280"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:18:44.093377+00:00",
+        "news_uid": "timer_news_f34a07199d9047e98a21",
+        "published_at_utc": "2026-05-11T09:15:06+00:00",
+        "raw_hash": "f34a07199d9047e98a21181e6f31201f",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto.com receives UAE license for Dubai government crypto payments",
+        "url_hash": "6f1a5b2ab1e5eeef4e3bbce9c54b8fdc"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:18:44.184414+00:00",
+        "news_uid": "timer_news_766a56f1a13e039f6722",
+        "published_at_utc": "2026-05-11T10:14:17+00:00",
+        "raw_hash": "766a56f1a13e039f672200e6621c9d4e",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Canton Network’s Digital Asset targets $2 billion valuation in a16z crypto-led raise: Bloomberg",
+        "url_hash": "6d66eef9cbc52cc3830efa6c39a40493"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:18:44.184484+00:00",
+        "news_uid": "timer_news_878ba37bdd7db517e11f",
+        "published_at_utc": "2026-05-11T10:03:38+00:00",
+        "raw_hash": "878ba37bdd7db517e11f33395b770279",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "MARA expected to post Q1 losses as investors look ahead to AI growth strategy",
+        "url_hash": "69b560595944cc94a57d7760398c2ad8"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:38:50.119359+00:00",
+        "news_uid": "timer_news_e0c71f38b5be7d951084",
+        "published_at_utc": "2026-05-11T10:28:42+00:00",
+        "raw_hash": "e0c71f38b5be7d9510845d940076dd36",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin whipsaws on CME open as Iran tensions pressure crypto markets",
+        "url_hash": "1ff8c8fe9268a9f17e15a12ac6911ec7"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:59:14.309534+00:00",
+        "news_uid": "timer_news_2266b59c5744598db1f1",
+        "published_at_utc": "2026-05-11T10:57:18+00:00",
+        "raw_hash": "2266b59c5744598db1f1b3d314618bf0",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Michael Saylor’s latest tax strategy echoes Strategy’s 2022 bitcoin sale",
+        "url_hash": "12129ddc3a1062fa9c1978ff843007bb"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:59:14.309599+00:00",
+        "news_uid": "timer_news_10464d80466fe9fb6abd",
+        "published_at_utc": "2026-05-11T10:56:24+00:00",
+        "raw_hash": "10464d80466fe9fb6abd07f738d9838c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Trump fans put millions of dollars into a gold phone and a memecoin. Neither has gone well",
+        "url_hash": "f6b025f3110298eac0b44f17b9f4add2"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T10:59:14.309691+00:00",
+        "news_uid": "timer_news_d215004a685a21d36cb2",
+        "published_at_utc": "2026-05-11T10:50:03+00:00",
+        "raw_hash": "d215004a685a21d36cb2afb8bb03e975",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Circle said to raise $222 million for Arc blockchain token sale at $3 billion valuation",
+        "url_hash": "bc39075228f70d7db6c362a9cb490886"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T11:19:19.888840+00:00",
+        "news_uid": "timer_news_0e07c6d62c24e648e259",
+        "published_at_utc": "2026-05-11T11:05:21+00:00",
+        "raw_hash": "0e07c6d62c24e648e2594a92ec3b04fa",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "BTC price target becomes $85K next: Five things to know in Bitcoin this week",
+        "url_hash": "6ec34d0e47412f807ae5c320fd4ee9b5"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T11:19:20.020538+00:00",
+        "news_uid": "timer_news_78c24f7e8544fde8fbf9",
+        "published_at_utc": "2026-05-11T11:15:00+00:00",
+        "raw_hash": "78c24f7e8544fde8fbf9285a95b26ab9",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin funds capture $700 million as institutions place their bets",
+        "url_hash": "b4c55d0c6cc0e271eee9a3e5068a78f9"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T12:20:19.979645+00:00",
+        "news_uid": "timer_news_fbe85e1d948830795d23",
+        "published_at_utc": "2026-05-11T11:31:47+00:00",
+        "raw_hash": "fbe85e1d948830795d2361f166396576",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto funds log $858M in sixth straight week of inflows: CoinShares",
+        "url_hash": "d768b80cf768df90ac9c4c24d2d9c840"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T12:20:20.096629+00:00",
+        "news_uid": "timer_news_1470710a3a1d3c3c77f4",
+        "published_at_utc": "2026-05-11T12:17:04+00:00",
+        "raw_hash": "1470710a3a1d3c3c77f4003494b08cd6",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Strategy buys 535 bitcoin for $43 million days after signaling potential BTC sales",
+        "url_hash": "6d7f39f8935e2ec1bc62e46fd8345e9e"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T12:20:20.096716+00:00",
+        "news_uid": "timer_news_6067785ecc10f38a81a8",
+        "published_at_utc": "2026-05-11T12:11:28+00:00",
+        "raw_hash": "6067785ecc10f38a81a88895646e7df8",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ronin set to transition to Ethereum layer 2 from independent sidechain",
+        "url_hash": "e22b65975ad54c849f9e167eb02563ab"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T13:00:56.184222+00:00",
+        "news_uid": "timer_news_7f60a2ace45dd4f59568",
+        "published_at_utc": "2026-05-11T12:56:58+00:00",
+        "raw_hash": "7f60a2ace45dd4f5956831e051c16710",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Tom Lee's Bitmine slows down ether purchases after already buying 1 million tokens this year",
+        "url_hash": "cda31ee834df2889ec4964236c1ee040"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T13:21:19.942879+00:00",
+        "news_uid": "timer_news_6df78eacbf33aa354c2c",
+        "published_at_utc": "2026-05-11T13:00:50+00:00",
+        "raw_hash": "6df78eacbf33aa354c2c74653fc92c04",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "USDC issuer Circle raises $222M in Arc token presale valued at $3B",
+        "url_hash": "370c82baf49ab9b1f246b4ee8cb2e8f4"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T13:21:19.942979+00:00",
+        "news_uid": "timer_news_84e28a418f8c0d892c41",
+        "published_at_utc": "2026-05-11T12:46:15+00:00",
+        "raw_hash": "84e28a418f8c0d892c412161f1d5990c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "XRP metrics line up bull signals for ‘full-scale rally’ to $2",
+        "url_hash": "7d87126d708d88e959fb0d0780a22e24"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T13:21:20.030368+00:00",
+        "news_uid": "timer_news_a32143f89a512058aa21",
+        "published_at_utc": "2026-05-11T13:17:36+00:00",
+        "raw_hash": "a32143f89a512058aa21aa8147027f58",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "CoinDesk 20 performance update: SUI surges 25% over weekend",
+        "url_hash": "1bf7c540c013345cc8147b1dc5bca167"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T14:02:19.991153+00:00",
+        "news_uid": "timer_news_b70fdab581af20f33891",
+        "published_at_utc": "2026-05-11T13:47:38+00:00",
+        "raw_hash": "b70fdab581af20f3389141086d46e497",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ripple raises $200 million from Neuberger Berman to expand its Ripple Prime platform",
+        "url_hash": "3773e8b3a95c3361da94fff61c7c0516"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T14:22:49.941477+00:00",
+        "news_uid": "timer_news_592de215576200e2a153",
+        "published_at_utc": "2026-05-11T14:03:01+00:00",
+        "raw_hash": "592de215576200e2a1531e019dc74c29",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Augustus gets conditional OCC approval for AI and stablecoin bank",
+        "url_hash": "805bb0ce9bcc8047e2665d4416f449b5"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T14:22:49.941584+00:00",
+        "news_uid": "timer_news_36cdc7e737a7d404bcbb",
+        "published_at_utc": "2026-05-11T13:53:40+00:00",
+        "raw_hash": "36cdc7e737a7d404bcbbf32aed2a3053",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Strategy resumes Bitcoin acquisitions with $43M BTC buy",
+        "url_hash": "d8945b1e6e4f2228d6046ea3b2237299"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T14:22:49.941676+00:00",
+        "news_uid": "timer_news_913721e9ef5a18854b0c",
+        "published_at_utc": "2026-05-11T13:30:00+00:00",
+        "raw_hash": "913721e9ef5a18854b0ce8bbf73b1d05",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "DAPPOS launches xBubble: An AI agent that learns and uses AI for you",
+        "url_hash": "664e634f665b067e24f546f2e3f9bd84"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T14:22:50.049333+00:00",
+        "news_uid": "timer_news_fc88f0851806faf17a7c",
+        "published_at_utc": "2026-05-11T14:18:58+00:00",
+        "raw_hash": "fc88f0851806faf17a7c5935f9cb0c46",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "The biggest consensus overhaul in Solana history is officially live for testing",
+        "url_hash": "c50d9b367ff3cd9d2523257c86d31a74"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T14:43:19.988690+00:00",
+        "news_uid": "timer_news_ac8b883d3cb03511048e",
+        "published_at_utc": "2026-05-11T14:34:29+00:00",
+        "raw_hash": "ac8b883d3cb03511048e82af1cf46b57",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Corpay taps BVNK to bring stablecoin wallets to corporate payments",
+        "url_hash": "6c7c7df18f00f26be76ea5016b04bb97"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T15:03:40.049355+00:00",
+        "news_uid": "timer_news_23432b770904648ce801",
+        "published_at_utc": "2026-05-11T14:43:29+00:00",
+        "raw_hash": "23432b770904648ce801266b60cfb953",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Banking groups escalate fight over stablecoin yield ahead of Senate vote",
+        "url_hash": "a28af357238c5dd966dbe876e5ccfb13"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T15:23:49.902780+00:00",
+        "news_uid": "timer_news_0ced60ce036baee0d635",
+        "published_at_utc": "2026-05-11T14:19:52+00:00",
+        "raw_hash": "0ced60ce036baee0d635d27a0047119c",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto and AI could be dirty words on 2026 midterm campaign trail",
+        "url_hash": "cb87e63a58039f0d045a0260bcfa08c2"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T16:45:44.298875+00:00",
+        "news_uid": "timer_news_1b4b8211d9bb164e2159",
+        "published_at_utc": "2026-05-11T16:30:09+00:00",
+        "raw_hash": "1b4b8211d9bb164e2159ae182e6696d1",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Anchorage is stepping back from Robinhood and Kraken-backed stablecoin group",
+        "url_hash": "3aea20e34201da29600d1fa0a5283e68"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T16:45:44.298941+00:00",
+        "news_uid": "timer_news_c758f45c62437d28e8b1",
+        "published_at_utc": "2026-05-11T16:29:48+00:00",
+        "raw_hash": "c758f45c62437d28e8b14454d91bef35",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Why the TradFi takeover of crypto might not be the death blow analysts expect",
+        "url_hash": "32c714b61db76564573759061d3b4e60"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T18:27:19.931541+00:00",
+        "news_uid": "timer_news_dcf3fe3ef93ce49470c5",
+        "published_at_utc": "2026-05-11T17:35:04+00:00",
+        "raw_hash": "dcf3fe3ef93ce49470c5eebf3cc59706",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin ‘golden cross’ appears for the first time since 2023: Will BTC price rally?",
+        "url_hash": "f2fd439b566410024837b9af94316402"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T18:27:19.931612+00:00",
+        "news_uid": "timer_news_943d8ce7a1c86d5dc35d",
+        "published_at_utc": "2026-05-11T17:26:07+00:00",
+        "raw_hash": "943d8ce7a1c86d5dc35d00ebdc061cba",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Galaxy, Sharplink plan $125M institutional DeFi yield fund backed by ETH treasury",
+        "url_hash": "383bf3ebc6bd8b8cb1efea1691ce54bf"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T18:47:30.045848+00:00",
+        "news_uid": "timer_news_4c64c6bd272daa7d39b1",
+        "published_at_utc": "2026-05-11T18:42:27+00:00",
+        "raw_hash": "4c64c6bd272daa7d39b1a996fc62526d",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Kraken parent Payward seeks fresh funding at $20 billion valuation ahead of planned IPO",
+        "url_hash": "353c047d8e898d12a2b6462e1d2de4e4"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T20:09:20.059333+00:00",
+        "news_uid": "timer_news_d37467616d909a7522e6",
+        "published_at_utc": "2026-05-11T19:51:09+00:00",
+        "raw_hash": "d37467616d909a7522e6cd2d3ff9b460",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "'I don’t think that’s crazy': Here is why Circle is betting on new $3 billion blockchain",
+        "url_hash": "606b9b72b1b5faca317da26348433dd1"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T20:29:50.125747+00:00",
+        "news_uid": "timer_news_9bd54aa3c100bf69a403",
+        "published_at_utc": "2026-05-11T20:12:42+00:00",
+        "raw_hash": "9bd54aa3c100bf69a4037bd681ed1e28",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Price predictions 5/11: SPX, DXY, BTC, ETH, XRP, BNB, SOL, DOGE, HYPE, ADA",
+        "url_hash": "ccb49ca00b55a967fc3192681d7e27fc"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T20:29:50.125864+00:00",
+        "news_uid": "timer_news_a48ec2a6fcd917f5b229",
+        "published_at_utc": "2026-05-11T20:12:35+00:00",
+        "raw_hash": "a48ec2a6fcd917f5b22959264178c7ad",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ripple receives $200M credit line to expand institutional prime brokerage",
+        "url_hash": "3edb0fc50fed80a737e730ea5b0ab8e8"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T20:29:50.125931+00:00",
+        "news_uid": "timer_news_b08d9475231039cfe7b9",
+        "published_at_utc": "2026-05-11T19:46:59+00:00",
+        "raw_hash": "b08d9475231039cfe7b983267a17b066",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "MoonPay makes prediction markets push with Dawn Labs buy, AI tool launch",
+        "url_hash": "4c399a9b3db3c311472f48dc3cac84d9"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T20:29:50.236489+00:00",
+        "news_uid": "timer_news_31bd8305d679d0621f41",
+        "published_at_utc": "2026-05-11T20:21:44+00:00",
+        "raw_hash": "31bd8305d679d0621f41118bfae24bf2",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "'A big nothing burger': A Q&A with Strategy's Michael Saylor on selling bitcoin",
+        "url_hash": "606cdd65020d2ddb7cf1827fc266b9c8"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T22:31:19.886639+00:00",
+        "news_uid": "timer_news_82345c89b886e5522781",
+        "published_at_utc": "2026-05-11T21:47:41+00:00",
+        "raw_hash": "82345c89b886e5522781818c06bb5ba7",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Solana ETF inflows show demand returning as traders eye SOL rally to $120",
+        "url_hash": "76c3b9f97bc85fd68a0c93d884a0b3c1"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T23:32:19.853080+00:00",
+        "news_uid": "timer_news_5b9fc848f33be8ae16c8",
+        "published_at_utc": "2026-05-11T22:25:00+00:00",
+        "raw_hash": "5b9fc848f33be8ae16c8eff8e4037506",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Circle stock rallies 15% as Wall Street sees further upside in stablecoin adoption",
+        "url_hash": "a7420180d64a5598a00742954730a3b3"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T23:32:19.853150+00:00",
+        "news_uid": "timer_news_28e3eb448005adfdbf15",
+        "published_at_utc": "2026-05-11T22:20:00+00:00",
+        "raw_hash": "28e3eb448005adfdbf15effb6e257497",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ethics remain a sticking point as crypto market structure bill goes to markup",
+        "url_hash": "e1b9032a0d1093634c635bdfbdbacaad"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T03:36:19.885002+00:00",
+        "news_uid": "timer_news_1afff109c047286a78e9",
+        "published_at_utc": "2026-05-12T02:42:27+00:00",
+        "raw_hash": "1afff109c047286a78e9743da83a13a3",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin funding rates turn positive: Is a BTC rally to $85K next?",
+        "url_hash": "872c1f0af0136b4a8e76f3019da108cb"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:17:14.380441+00:00",
+        "news_uid": "timer_news_cca62184b0f0547fe7f8",
+        "published_at_utc": "2026-05-12T03:30:13+00:00",
+        "raw_hash": "cca62184b0f0547fe7f88320a0e5973d",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "MARA shares sink on first-quarter revenue miss, $1.3B loss",
+        "url_hash": "e82e844d2e0b3b332eab59a0613facc0"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:17:14.474140+00:00",
+        "news_uid": "timer_news_ae8d4f4b36937606f6ef",
+        "published_at_utc": "2026-05-12T04:07:12+00:00",
+        "raw_hash": "ae8d4f4b36937606f6ef2e5e8ebb732f",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin’s floor looks firmer at $80,000, but traders still don’t trust the breakout",
+        "url_hash": "308690478111ad925aad5ff751f0c285"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:37:19.979383+00:00",
+        "news_uid": "timer_news_807b49e2d86906c0d875",
+        "published_at_utc": "2026-05-12T04:32:48+00:00",
+        "raw_hash": "807b49e2d86906c0d8754d61e7b5b242",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin briefly hits $82,000, SOL, DOGE higher as Michael Burry warns of stock crash",
+        "url_hash": "9a3f13c7e67fe82f3235b20863f01dbc"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:37:19.979430+00:00",
+        "news_uid": "timer_news_0f36d13ef718aebdcc6d",
+        "published_at_utc": "2026-05-12T04:25:26+00:00",
+        "raw_hash": "0f36d13ef718aebdcc6dc0537e8bc56b",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Clarity Act, in the flesh, unveiled by U.S. Senate Banking Committee before hearing",
+        "url_hash": "1a0d41f10fae4ce98fb407a340e55693"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:57:22.033541+00:00",
+        "news_uid": "timer_news_2ed4ee59f0ad07747579",
+        "published_at_utc": "2026-05-12T04:56:46+00:00",
+        "raw_hash": "2ed4ee59f0ad0774757958a3e8a0da86",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ripple-linked XRP holds near $1.46 as breakout attempt fades despite $200 million raise",
+        "url_hash": "9212293bac1f983a0fabfad69ab51835"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T05:17:49.924063+00:00",
+        "news_uid": "timer_news_dff14c4a6c8429f59215",
+        "published_at_utc": "2026-05-12T04:53:43+00:00",
+        "raw_hash": "dff14c4a6c8429f59215fd03e190bd3f",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitmine slows Ethereum buys, targets December to own 5% of supply",
+        "url_hash": "c6b3e7abf964a0b5206fc3b495e23e53"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T05:17:49.924132+00:00",
+        "news_uid": "timer_news_2a25d650245d92adfdbd",
+        "published_at_utc": "2026-05-12T04:53:02+00:00",
+        "raw_hash": "2a25d650245d92adfdbdbf5e86d2ccb7",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Hackers used AI to craft zero-day attack to bypass 2FA: Google",
+        "url_hash": "792b9b2bbbbf04809c124af5489bb207"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T05:58:50.035950+00:00",
+        "news_uid": "timer_news_fdced9c2d7002ad086a2",
+        "published_at_utc": "2026-05-12T05:43:22+00:00",
+        "raw_hash": "fdced9c2d7002ad086a26e010f879d97",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "'Bitcoin transactions can be monitored’: Ray Dalio explains why central banks won’t touch BTC",
+        "url_hash": "147c739dc90a6177995cf17e740e74c1"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T06:39:20.006281+00:00",
+        "news_uid": "timer_news_3427b5f5fe0689d3c9a7",
+        "published_at_utc": "2026-05-12T06:35:55+00:00",
+        "raw_hash": "3427b5f5fe0689d3c9a7e295c2ae97c6",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Aave launches binding Arbitrum vote to move $71 million in disputed ETH",
+        "url_hash": "c36226426fb6b0ddcc55ad295c6d09ad"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T07:19:39.870925+00:00",
+        "news_uid": "timer_news_d53ed7f55697483950fa",
+        "published_at_utc": "2026-05-12T07:06:20+00:00",
+        "raw_hash": "d53ed7f55697483950fa7a725e1f2e51",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Ethereum Foundation hits ‘Glamsterdam’ milestones, names new protocol leads",
+        "url_hash": "4484f8bf9d60ea635317788f5027fb58"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T07:19:39.870993+00:00",
+        "news_uid": "timer_news_491a6514b8b88f6eceaa",
+        "published_at_utc": "2026-05-12T06:45:07+00:00",
+        "raw_hash": "491a6514b8b88f6eceaa862b736ddfce",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "‘I failed them’: Goliath Ventures CEO charged with crypto Ponzi apologizes",
+        "url_hash": "35f98bc18356d3e1e457cb15a350619f"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T08:20:39.924429+00:00",
+        "news_uid": "timer_news_bd93a13da796b28379b8",
+        "published_at_utc": "2026-05-12T07:22:38+00:00",
+        "raw_hash": "bd93a13da796b28379b89ac7a143d8d0",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Binance says AI-powered security thwarted $10B in fraud since 2025",
+        "url_hash": "332a5bcee9221f3bc208cf1ee9f4850a"
+      }
+    ],
+    "match_count": 47,
+    "open_mode": "sqlite_uri_ro",
+    "raw_count": 288,
+    "raw_without_match_count": 241,
+    "score_count": 47,
+    "signal_count": 47
+  },
+  "decision": "WARN_NEWS_PROCESSED_ID_CONTRACT_READY_WITH_WAL_WARNING",
+  "do_not_do": [
+    "Do not enable runner hook before tracker is implemented.",
+    "Do not process old raw rows without duplicate guard.",
+    "Do not physically cleanup NEWS files before hook path is proven.",
+    "Do not enable live/paper trade from NEWS downstream.",
+    "Do not change timer/service in this contract step."
+  ],
+  "failures": [],
+  "generated_at_utc": "2026-07-08T19:34:43.578145+00:00",
+  "inputs": {
+    "classification_exists": true,
+    "classification_input_count": 107,
+    "preflight_decision": "WARN_NEWS_DOWNSTREAM_LINKAGE_GAP_CONFIRMED",
+    "preflight_exists": true
+  },
+  "next_recommended_step": "NEWS_RUNNER_DOWNSTREAM_HOOK_APPLY_PLAN_NOAPI",
+  "stage": "NEWS_PROCESSED_ID_CONTRACT_NOAPI",
+  "warnings": [
+    "sqlite_journal_mode_not_wal"
+  ]
+}
