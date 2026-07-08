@@ -1,0 +1,192 @@
+{
+  "apply_control": {
+    "decision": "OK_NEWS_RUNNER_DOWNSTREAM_HOOK_APPLY_WRITTEN_PENDING_VERIFY",
+    "exists": true,
+    "runner_sha256_after": "fc364d89926496e77059785dde4d6673bd7bca60aff43efbe5a177514d96192d",
+    "runner_sha256_before": "b72d5fdf3a66305e1093f762a948b03090d21ba62be0a9cbf7824f0cc156313a"
+  },
+  "authority": {
+    "db_open_mode": "sqlite_uri_ro",
+    "db_write": false,
+    "external_api_call": false,
+    "file_delete": false,
+    "file_move": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_write": false,
+    "paper_trade": false,
+    "post_apply_audit_only": true,
+    "repo_artifact_write": true,
+    "runner_code_change": false,
+    "runner_main_execution": false,
+    "runtime_change": false,
+    "service_change": false,
+    "signing": false,
+    "timer_change": false,
+    "wallet": false
+  },
+  "db_audit": {
+    "counts": {
+      "news_raw_feed_events": 288,
+      "news_runtime_freshness_v1": 1,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "db_exists": true,
+    "duplicates": {
+      "news_score_events_v1.score_uid": 0,
+      "news_signal_events.signal_uid": 0,
+      "news_token_match_events.match_uid": 0,
+      "news_token_match_events.news_uid": 0
+    },
+    "error": null,
+    "journal_mode": "delete",
+    "open_mode": "sqlite_uri_ro",
+    "raw_without_match_count": 241,
+    "timestamps": {
+      "news_raw_feed_events": {
+        "column": "fetched_at_utc",
+        "max": "2026-07-08T19:28:39.926826+00:00"
+      },
+      "news_runtime_freshness_v1": {
+        "column": "created_at_utc",
+        "max": "2026-07-06T06:44:10.294353+00:00"
+      },
+      "news_score_events_v1": {
+        "column": "created_at_utc",
+        "max": "2026-07-06T06:44:10.288486+00:00"
+      },
+      "news_signal_events": {
+        "column": "created_at_utc",
+        "max": "2026-07-06T06:44:10.288481+00:00"
+      },
+      "news_token_match_events": {
+        "column": "created_at_utc",
+        "max": "2026-07-06T06:44:10.282634+00:00"
+      }
+    }
+  },
+  "decision": "WARN_NEWS_RUNNER_DOWNSTREAM_HOOK_POST_APPLY_AUDIT_PASS_WITH_WAL_WARNING",
+  "do_not_do_yet": [
+    "Do not enable or modify timer/service.",
+    "Do not cleanup/archive/delete NEWS files.",
+    "Do not apply WAL in this audit step.",
+    "Do not run live/paper trade.",
+    "Do not run repeated runtime loops before controlled dryrun once."
+  ],
+  "failures": [],
+  "generated_at_utc": "2026-07-08T19:50:25.724027+00:00",
+  "git": {
+    "head": "016fe21f20c1f9598e5aa51b6809047114146725",
+    "last_commit_files": [
+      ".gitignore",
+      "data/control/news_runner_downstream_hook_apply_after_explicit_approval_v1.json",
+      "tools/news_radar_refresh_runner_v1.py"
+    ],
+    "status_before_audit_write": ""
+  },
+  "gitignore_checks": {
+    "gitignore_exists": true,
+    "tracker_json_entry_present": true,
+    "tracker_json_ignored": true,
+    "tracker_lock_entry_present": true,
+    "tracker_lock_ignored": true
+  },
+  "next_recommended_step": "NEWS_RUNNER_DOWNSTREAM_HOOK_CONTROLLED_DRYRUN_ONCE_AFTER_EXPLICIT_APPROVAL",
+  "runner_checks": {
+    "hook_begin_marker": true,
+    "hook_call_lines": [
+      {
+        "line": 649,
+        "text": "def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):"
+      },
+      {
+        "line": 784,
+        "text": "hook_rc = _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc)"
+      }
+    ],
+    "hook_call_present": true,
+    "hook_end_marker": true,
+    "hook_function_present": true,
+    "hook_lines": [
+      {
+        "line": 269,
+        "text": "# === TOKENOSKOBI NEWS DOWNSTREAM HOOK V1 BEGIN ==="
+      },
+      {
+        "line": 755,
+        "text": "# === TOKENOSKOBI NEWS DOWNSTREAM HOOK V1 END ==="
+      }
+    ],
+    "main_guard_still_present": true,
+    "match_many_import_present": true,
+    "original_runner_call_present": true,
+    "py_compile_passed": true,
+    "return_rc_lines": [
+      {
+        "line": 782,
+        "text": "return rc"
+      },
+      {
+        "line": 791,
+        "text": "return rc"
+      }
+    ],
+    "runner_exists": true,
+    "runner_sha256": "fc364d89926496e77059785dde4d6673bd7bca60aff43efbe5a177514d96192d",
+    "tracker_lock_present": true,
+    "tracker_path_present": true,
+    "trade_signal_forced_zero_present": true
+  },
+  "stage": "NEWS_RUNNER_DOWNSTREAM_HOOK_POST_APPLY_AUDIT_NOAPI",
+  "systemd_snapshot_readonly": {
+    "service_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "tokenoskobi-news-radar-refresh.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "Result",
+        "-p",
+        "ExecMainStatus",
+        "-p",
+        "ExecStart",
+        "-p",
+        "UnitFileState"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "Result=success\nExecMainStatus=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[Wed 2026-07-08 22:48:39 EEST] ; stop_time=[Wed 2026-07-08 22:48:40 EEST] ; pid=3642310 ; code=exited ; status=0 }\nActiveState=inactive\nSubState=dead\nUnitFileState=static"
+    },
+    "timer_show": {
+      "cmd": [
+        "systemctl",
+        "show",
+        "tokenoskobi-news-radar-refresh.timer",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "Result",
+        "-p",
+        "UnitFileState",
+        "-p",
+        "LastTriggerUSec",
+        "-p",
+        "NextElapseUSecRealtime"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "NextElapseUSecRealtime=\nLastTriggerUSec=Wed 2026-07-08 22:48:39 EEST\nResult=success\nActiveState=active\nSubState=waiting\nUnitFileState=enabled"
+    }
+  },
+  "warnings": [
+    "sqlite_journal_mode_not_wal"
+  ]
+}
