@@ -1,0 +1,1041 @@
+{
+  "authority": {
+    "boot_update": false,
+    "db_schema_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "matcher_code_change": false,
+    "panel_write": false,
+    "paper_trade": false,
+    "readmodel_write": false,
+    "readonly_artifact_review": true,
+    "real_db_write": false,
+    "repo_artifact_write": true,
+    "runner_code_change": false,
+    "runtime_update": false,
+    "service_change": false,
+    "signing": false,
+    "systemd_change": false,
+    "timer_change": false,
+    "wallet": false
+  },
+  "decision": "WARN_NEWS_E_READY_FOR_REVIEW_AND_NEWS_F_SEAL_WITH_KNOWN_WARNINGS",
+  "expected_sequence": [
+    "NEWS_A_FINAL_PRE_REPLAY_TRUTH_SNAPSHOT_NOAPI",
+    "NEWS_B_RUNNER_TIMER_JOURNAL_ARGV_AUDIT_NOAPI",
+    "NEWS_B_FIX_1_SYSTEMD_STDOUT_STDERR_PATH_TARGETED_APPLY",
+    "NEWS_B_FIX_1_POST_APPLY_AUDIT_NOAPI",
+    "NEWS_B_FIX_2_TIMER_ACTIVATION_TARGETED_APPLY",
+    "NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_NOAPI",
+    "NEWS_C_DOWNSTREAM_CHECKSUM_FINGERPRINT_NOAPI",
+    "NEWS_D_PANEL_READMODEL_FRESHNESS_NOAPI"
+  ],
+  "findings": [
+    {
+      "code": "REFERENCE_ARTIFACTS_READ",
+      "level": "OK",
+      "message": "NEWS-A/B/C/D referans artifact zinciri okundu."
+    },
+    {
+      "code": "COLD_PRODUCER_TIMER_OPERATIONAL_REFERENCE_OK",
+      "level": "OK",
+      "message": "Timer post-activation audit clean."
+    },
+    {
+      "code": "DOWNSTREAM_CHAIN_REFERENCE_OK",
+      "level": "OK",
+      "message": "NEWS-C downstream checksum clean."
+    },
+    {
+      "code": "NEWS_D_WARNINGS_EXPLICITLY_CAPTURED",
+      "level": "OK",
+      "message": "NEWS-D warnings açıkça yakalandı; gizlenmedi."
+    },
+    {
+      "code": "KNOWN_WARNINGS_EXIST_FOR_NEWS_F",
+      "level": "WARN",
+      "message": "NEWS-F seal known warnings ile yapılmalı; full-clean iddiası yasak."
+    },
+    {
+      "code": "COLD_HOT_DOCTRINE_SPLIT_CAPTURED",
+      "level": "OK",
+      "message": "20dk timer fallback; HOT Gateway post-seal olarak ayrıldı."
+    },
+    {
+      "code": "SEAL_MATRIX_NO_BLOCKING_ITEMS",
+      "level": "OK",
+      "message": "Seal matrix içinde blokaj yok; WARN maddeler açık."
+    }
+  ],
+  "generated_at_utc": "2026-07-08T12:57:51.960191+00:00",
+  "known_warnings": [
+    {
+      "code": "PANEL_READMODEL_COUNT_MATCH_NOT_FOUND",
+      "message": "DB sayılarıyla güçlü JSON/readmodel count eşleşmesi bulunamadı.",
+      "source": "NEWS-D"
+    },
+    {
+      "code": "RAW_NEWER_THAN_DOWNSTREAM",
+      "message": "Raw haberler downstream match/signal/score zamanından daha yeni; downstream freshness/staleness takip edilmeli.",
+      "source": "NEWS-D"
+    },
+    {
+      "code": "FRESHNESS_HEARTBEAT_STALER_THAN_RAW",
+      "message": "freshness heartbeat raw max timestamp'ten daha eski.",
+      "source": "NEWS-D"
+    },
+    {
+      "code": "RAW_NEWER_THAN_DOWNSTREAM_CONFIRMED",
+      "message": "Raw producer yeni haber alıyor; downstream 47/47/47 zinciri yeni raw haberleri henüz işlemiyor.",
+      "source": "NEWS-D"
+    },
+    {
+      "code": "PANEL_READMODEL_STRONG_COUNT_MATCH_ZERO",
+      "message": "DB sayılarıyla güçlü panel/readmodel JSON count eşleşmesi bulunmadı.",
+      "source": "NEWS-D"
+    }
+  ],
+  "next_step": "NEWS_F_FINAL_OPERATIONAL_SEAL_WITH_KNOWN_WARNINGS",
+  "references": {
+    "news_a": {
+      "authority": {
+        "boot_update": false,
+        "external_api_call": false,
+        "live_trade": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "provider_call": false,
+        "readonly_db_open_mode": "sqlite_uri_mode_ro_query_only",
+        "real_db_write": false,
+        "repo_artifact_write": true,
+        "runtime_update": false,
+        "signing": false,
+        "systemd_restart": false,
+        "systemd_start": false,
+        "systemd_stop": false,
+        "timer_restart": false,
+        "wallet": false
+      },
+      "decision": "WARN_NEWS_A_CURRENT_TRUTH_CAPTURED_REVIEW_REQUIRED",
+      "findings": [
+        {
+          "code": "DB_SELECTED",
+          "level": "OK",
+          "message": "Selected DB: /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+        },
+        {
+          "code": "RAW_NEWS_PRESENT",
+          "level": "OK",
+          "message": "Raw news count: 250"
+        },
+        {
+          "code": "DOWNSTREAM_47_CHAIN_PRESENT",
+          "level": "OK",
+          "message": "match/signal/score = 47/47/47"
+        },
+        {
+          "code": "FRESHNESS_TABLE_PRESENT",
+          "level": "OK",
+          "message": "news_runtime_freshness_v1 count: 1"
+        },
+        {
+          "code": "REAL_APPLY_BACKUP_EXISTS",
+          "level": "OK",
+          "message": "N18/N19/N20 real apply backup dosyası yerinde."
+        },
+        {
+          "code": "NEWS_TIMER_NOT_ACTIVE",
+          "level": "WARN",
+          "message": "NEWS timer active görünmüyor."
+        },
+        {
+          "code": "NEWS_SERVICE_LAST_RESULT_NOT_CLEAN",
+          "level": "WARN",
+          "message": "Service show success/0 net göstermiyor."
+        },
+        {
+          "code": "JOURNAL_INVALIDARGUMENT_NOT_SEEN",
+          "level": "OK",
+          "message": "journal tail içinde INVALIDARGUMENT görülmedi."
+        },
+        {
+          "code": "POSTPROCESS_TRACE_NOT_SEEN",
+          "level": "WARN",
+          "message": "postprocess izi görülmedi; NEWS-B için non-blocking dead-code adayı."
+        },
+        {
+          "code": "BOOT_DRIFT_CONFIRMED",
+          "level": "WARN",
+          "message": "PROJECT_BOOT NEWS sayımları current DB ile farklı."
+        },
+        {
+          "code": "PANEL_FRESHNESS_UNKNOWN",
+          "level": "WARN",
+          "message": "Timestamp bilinmeyen panel/readmodel: news,command"
+        }
+      ],
+      "generated_at_utc": "2026-07-08T11:49:21.916798+00:00",
+      "name": "news_a",
+      "next_step": "NEWS_B_RUNNER_TIMER_JOURNAL_ARGV_AUDIT_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_a_final_pre_replay_truth_snapshot_noapi_v1.json",
+      "read_error": null,
+      "stage": "NEWS_A_FINAL_PRE_REPLAY_TRUTH_SNAPSHOT_NOAPI",
+      "summary": {
+        "fail_count": 0,
+        "freshness_count": 1,
+        "match_count": 47,
+        "raw_count": 250,
+        "score_count": 47,
+        "signal_count": 47,
+        "warn_count": 5
+      }
+    },
+    "news_b": {
+      "authority": {
+        "boot_update": false,
+        "external_api_call": false,
+        "live_trade": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "provider_call": false,
+        "readonly": true,
+        "real_db_write": false,
+        "repo_artifact_write": true,
+        "runtime_update": false,
+        "signing": false,
+        "systemd_restart": false,
+        "systemd_start": false,
+        "systemd_stop": false,
+        "timer_restart": false,
+        "unit_file_write": false,
+        "wallet": false
+      },
+      "decision": "FAIL_NEWS_B_STDOUT_PATH_ROOT_CAUSE_CONFIRMED",
+      "findings": [
+        {
+          "code": "SERVICE_UNIT_READ",
+          "level": "OK",
+          "message": "Service unit okundu."
+        },
+        {
+          "code": "TIMER_UNIT_READ",
+          "level": "OK",
+          "message": "Timer unit okundu."
+        },
+        {
+          "code": "EXECSTART_FOUND",
+          "level": "OK",
+          "message": "ExecStart bulundu."
+        },
+        {
+          "code": "EXECSTART_RUNNER_BOUND",
+          "level": "OK",
+          "message": "ExecStart NEWS runner'a bağlı görünüyor."
+        },
+        {
+          "code": "RUNNER_EXISTS",
+          "level": "OK",
+          "message": "runner dosyası var."
+        },
+        {
+          "code": "ORIGINAL_RUNNER_EXISTS",
+          "level": "OK",
+          "message": "original_runner dosyası var."
+        },
+        {
+          "code": "MATCHER_EXISTS",
+          "level": "OK",
+          "message": "matcher dosyası var."
+        },
+        {
+          "code": "STDIO_PARENT_PATH_MISSING",
+          "level": "FAIL",
+          "message": "StandardOutput/StandardError parent path eksik."
+        },
+        {
+          "code": "JOURNAL_STDOUT_209_CONFIRMED",
+          "level": "FAIL",
+          "message": "journal 209/STDOUT ve StandardOutput kurulum hatasını doğruluyor."
+        },
+        {
+          "code": "INVALIDARGUMENT_NOT_SEEN",
+          "level": "OK",
+          "message": "journal tail içinde INVALIDARGUMENT yok."
+        },
+        {
+          "code": "RC2_OR_STATUS2_SEEN",
+          "level": "WARN",
+          "message": "journal rc=2/status=2 count: 37"
+        },
+        {
+          "code": "POSTPROCESS_TRACE_SEEN",
+          "level": "OK",
+          "message": "postprocess trace/log count: 31"
+        },
+        {
+          "code": "RUNNER_POSTPROCESS_DEAD_CODE_SUSPECT",
+          "level": "WARN",
+          "message": "Runner içinde return sonrası _postprocess dead-code adayı."
+        },
+        {
+          "code": "TIMER_NOT_ACTIVE",
+          "level": "WARN",
+          "message": "Timer active değil: inactive"
+        },
+        {
+          "code": "TIMER_NOT_ENABLED",
+          "level": "WARN",
+          "message": "Timer enabled değil: disabled"
+        },
+        {
+          "code": "NEWS_A_JSON_READ",
+          "level": "OK",
+          "message": "NEWS-A JSON okundu."
+        }
+      ],
+      "generated_at_utc": "2026-07-08T11:59:25.780571+00:00",
+      "name": "news_b",
+      "next_step": "NEWS_B_FIX_1_SYSTEMD_STDOUT_STDERR_PATH_TARGETED_APPLY_REQUIRES_APPROVAL",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_runner_timer_journal_argv_audit_noapi_v1.json",
+      "read_error": null,
+      "stage": "NEWS_B_RUNNER_TIMER_JOURNAL_ARGV_AUDIT_NOAPI",
+      "summary": {
+        "fail_count": 2,
+        "journal_failed_set_up_stdout_count": 36,
+        "journal_invalidargument_count": 0,
+        "journal_rc2_count": 37,
+        "journal_status_209_stdout_count": 37,
+        "postprocess_trace_count": 31,
+        "service_active": "failed",
+        "service_enabled": "static",
+        "stdio_missing_parent_count": 2,
+        "stdio_path_rows": 2,
+        "timer_active": "inactive",
+        "timer_enabled": "disabled",
+        "warn_count": 4
+      }
+    },
+    "news_b_fix1": {
+      "authority": {
+        "boot_update": false,
+        "created_log_directory": true,
+        "db_data_write_by_this_script": false,
+        "db_schema_write": false,
+        "external_api_call_by_this_script": false,
+        "live_trade": false,
+        "matcher_code_change": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "repo_artifact_write": true,
+        "runner_code_change": false,
+        "runtime_update": false,
+        "service_start_once": true,
+        "signing": false,
+        "systemd_daemon_reload": true,
+        "targeted_filesystem_apply": true,
+        "timer_enable": false,
+        "timer_restart": false,
+        "timer_start": false,
+        "unit_file_write": false,
+        "wallet": false
+      },
+      "decision": "OK_NEWS_B_FIX_1_STDOUT_STDERR_PATH_CLEARED",
+      "findings": [
+        {
+          "code": "LOG_DIR_CREATED_OR_EXISTS",
+          "level": "OK",
+          "message": "logs/news_radar klasörü mevcut."
+        },
+        {
+          "code": "STDIO_PARENT_EXISTS_AFTER",
+          "level": "OK",
+          "message": "StandardOutput/StandardError parent path mevcut."
+        },
+        {
+          "code": "STDOUT_209_CLEARED_AFTER_START",
+          "level": "OK",
+          "message": "Yeni service start denemesinde 209/STDOUT görülmedi."
+        },
+        {
+          "code": "SERVICE_START_RC_ZERO",
+          "level": "OK",
+          "message": "systemctl start service rc=0."
+        },
+        {
+          "code": "DB_CHAIN_PRESERVED",
+          "level": "OK",
+          "message": "DB chain preserved raw/match/signal/score=269/47/47/47"
+        },
+        {
+          "code": "INVALIDARGUMENT_NOT_SEEN_AFTER_START",
+          "level": "OK",
+          "message": "Yeni start sonrası INVALIDARGUMENT görülmedi."
+        }
+      ],
+      "generated_at_utc": "2026-07-08T12:17:42.251456+00:00",
+      "name": "news_b_fix1",
+      "next_step": "NEWS_B_FIX_1_POST_APPLY_AUDIT_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_fix_1_systemd_stdout_stderr_path_targeted_apply_v1.json",
+      "read_error": null,
+      "stage": "NEWS_B_FIX_1_SYSTEMD_STDOUT_STDERR_PATH_TARGETED_APPLY",
+      "summary": {
+        "fail_count": 0,
+        "freshness_count_after": 1,
+        "journal_failed_set_up_stdout_after": 0,
+        "journal_invalidargument_after": 0,
+        "journal_status_209_stdout_after": 0,
+        "match_count_after": 47,
+        "raw_count_after": 269,
+        "score_count_after": 47,
+        "service_start_rc": 0,
+        "signal_count_after": 47,
+        "stdio_missing_parent_after": 0,
+        "warn_count": 0
+      }
+    },
+    "news_b_fix1_post": {
+      "authority": {
+        "boot_update": false,
+        "db_schema_write": false,
+        "external_api_call": false,
+        "live_trade": false,
+        "matcher_code_change": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "readonly_audit": true,
+        "real_db_write": false,
+        "repo_artifact_write": true,
+        "runner_code_change": false,
+        "runtime_update": false,
+        "signing": false,
+        "systemd_daemon_reload": false,
+        "systemd_restart": false,
+        "systemd_start": false,
+        "systemd_stop": false,
+        "timer_enable": false,
+        "timer_restart": false,
+        "timer_start": false,
+        "unit_file_write": false,
+        "wallet": false
+      },
+      "decision": "OK_NEWS_B_FIX_1_POST_APPLY_AUDIT_CLEAN",
+      "findings": [
+        {
+          "code": "FIX_1_ARTIFACT_READ",
+          "level": "OK",
+          "message": "Fix-1 artifact okundu."
+        },
+        {
+          "code": "LOG_DIR_EXISTS",
+          "level": "OK",
+          "message": "logs/news_radar klasörü mevcut."
+        },
+        {
+          "code": "LOG_FILES_EXIST",
+          "level": "OK",
+          "message": "stdout/stderr log dosyaları mevcut."
+        },
+        {
+          "code": "STDOUT_209_REMAINS_CLEARED",
+          "level": "OK",
+          "message": "Fix sonrası journal penceresinde 209/STDOUT yok."
+        },
+        {
+          "code": "INVALIDARGUMENT_REMAINS_ABSENT",
+          "level": "OK",
+          "message": "Fix sonrası INVALIDARGUMENT yok."
+        },
+        {
+          "code": "SERVICE_RESULT_CLEAN",
+          "level": "OK",
+          "message": "Service Result=success ve ExecMainStatus=0."
+        },
+        {
+          "code": "SERVICE_STATE_ACCEPTABLE",
+          "level": "OK",
+          "message": "Service state kabul edilebilir: inactive"
+        },
+        {
+          "code": "TIMER_STILL_DISABLED_BY_DESIGN",
+          "level": "OK",
+          "message": "Timer hâlâ disabled/inactive; Fix-1 kapsamında beklenen durum."
+        },
+        {
+          "code": "DB_CHAIN_PRESERVED_AFTER_FIX",
+          "level": "OK",
+          "message": "DB chain korunuyor: 269/47/47/47"
+        },
+        {
+          "code": "RAW_COUNT_NOT_DECREASING",
+          "level": "OK",
+          "message": "Raw count fix sonrasına göre azalmadı; delta=0"
+        }
+      ],
+      "generated_at_utc": "2026-07-08T12:23:33.254968+00:00",
+      "name": "news_b_fix1_post",
+      "next_step": "NEWS_B_FIX_2_TIMER_ACTIVATION_TARGETED_APPLY_REQUIRES_APPROVAL",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_fix_1_post_apply_audit_noapi_v1.json",
+      "read_error": null,
+      "stage": "NEWS_B_FIX_1_POST_APPLY_AUDIT_NOAPI",
+      "summary": {
+        "fail_count": 0,
+        "freshness_count": 1,
+        "journal_failed_set_up_stdout_count": 0,
+        "journal_invalidargument_count": 0,
+        "journal_rc2_count": 0,
+        "journal_status_209_stdout_count": 0,
+        "match_count": 47,
+        "raw_count": 269,
+        "score_count": 47,
+        "service_active": "inactive",
+        "signal_count": 47,
+        "timer_active": "inactive",
+        "timer_enabled": "disabled",
+        "warn_count": 0
+      }
+    },
+    "news_b_fix2": {
+      "authority": {
+        "boot_update": false,
+        "db_schema_write": false,
+        "external_api_call_by_this_script": false,
+        "live_trade": false,
+        "matcher_code_change": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "real_db_write_by_this_script": false,
+        "repo_artifact_write": true,
+        "runner_code_change": false,
+        "runtime_update": false,
+        "service_start_direct": false,
+        "signing": false,
+        "systemd_daemon_reload": true,
+        "systemd_reset_failed_service": true,
+        "targeted_systemd_timer_apply": true,
+        "timer_enable": true,
+        "timer_start": true,
+        "unit_file_write": false,
+        "wallet": false
+      },
+      "decision": "OK_NEWS_B_FIX_2_TIMER_ACTIVATED",
+      "findings": [
+        {
+          "code": "FIX1_POST_AUDIT_REFERENCE_READ",
+          "level": "OK",
+          "message": "Fix1 post-audit artifact okundu."
+        },
+        {
+          "code": "TIMER_ENABLE_NOW_RC_ZERO",
+          "level": "OK",
+          "message": "systemctl enable --now timer rc=0."
+        },
+        {
+          "code": "TIMER_ACTIVE_AFTER_ENABLE",
+          "level": "OK",
+          "message": "Timer active."
+        },
+        {
+          "code": "TIMER_ENABLED_AFTER_ENABLE",
+          "level": "OK",
+          "message": "Timer enabled."
+        },
+        {
+          "code": "LIST_TIMERS_HAS_NEXT_SCHEDULE",
+          "level": "OK",
+          "message": "list-timers içinde NEWS timer schedule görünüyor."
+        },
+        {
+          "code": "TIMER_TRIGGERS_SERVICE",
+          "level": "OK",
+          "message": "Timer service'i trigger ediyor."
+        },
+        {
+          "code": "SERVICE_LAST_RESULT_STILL_CLEAN",
+          "level": "OK",
+          "message": "Service last result success/0."
+        },
+        {
+          "code": "STDOUT_209_NOT_REAPPEARED",
+          "level": "OK",
+          "message": "Timer activation sonrası 209/STDOUT yok."
+        },
+        {
+          "code": "INVALIDARGUMENT_NOT_SEEN",
+          "level": "OK",
+          "message": "Timer activation sonrası INVALIDARGUMENT yok."
+        },
+        {
+          "code": "DOWNSTREAM_47_CHAIN_PRESERVED",
+          "level": "OK",
+          "message": "Downstream korunuyor: 47/47/47"
+        },
+        {
+          "code": "RAW_COUNT_NOT_DECREASING",
+          "level": "OK",
+          "message": "Raw count azalmadı: 269 -> 269"
+        },
+        {
+          "code": "TIMER_INTERVAL_PRESENT",
+          "level": "OK",
+          "message": "Timer interval alanı mevcut."
+        }
+      ],
+      "generated_at_utc": "2026-07-08T12:28:09.721881+00:00",
+      "name": "news_b_fix2",
+      "next_step": "NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_fix_2_timer_activation_targeted_apply_v1.json",
+      "read_error": null,
+      "stage": "NEWS_B_FIX_2_TIMER_ACTIVATION_TARGETED_APPLY",
+      "summary": {
+        "fail_count": 0,
+        "freshness_count_after": 1,
+        "journal_failed_set_up_stdout_count": 0,
+        "journal_invalidargument_count": 0,
+        "journal_rc2_count": 0,
+        "journal_status_209_stdout_count": 0,
+        "list_timers_has_schedule": true,
+        "match_count_after": 47,
+        "raw_count_after": 269,
+        "raw_count_before": 269,
+        "score_count_after": 47,
+        "signal_count_after": 47,
+        "timer_active_after": "active",
+        "timer_enabled_after": "enabled",
+        "warn_count": 0
+      }
+    },
+    "news_b_fix2_post": {
+      "authority": {
+        "boot_update": false,
+        "db_schema_write": false,
+        "external_api_call": false,
+        "live_trade": false,
+        "matcher_code_change": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "readonly_audit": true,
+        "real_db_write": false,
+        "repo_artifact_write": true,
+        "runner_code_change": false,
+        "runtime_update": false,
+        "service_start": false,
+        "service_stop": false,
+        "signing": false,
+        "systemd_daemon_reload": false,
+        "timer_enable": false,
+        "timer_restart": false,
+        "timer_start": false,
+        "unit_file_write": false,
+        "wallet": false
+      },
+      "decision": "OK_NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_CLEAN",
+      "findings": [
+        {
+          "code": "FIX2_ARTIFACT_READ",
+          "level": "OK",
+          "message": "Fix2 artifact okundu."
+        },
+        {
+          "code": "FIX1_POST_ARTIFACT_READ",
+          "level": "OK",
+          "message": "Fix1 post-audit artifact okundu."
+        },
+        {
+          "code": "TIMER_ACTIVE_CONFIRMED",
+          "level": "OK",
+          "message": "Timer active."
+        },
+        {
+          "code": "TIMER_ENABLED_CONFIRMED",
+          "level": "OK",
+          "message": "Timer enabled."
+        },
+        {
+          "code": "TIMER_WAITING_CONFIRMED",
+          "level": "OK",
+          "message": "Timer active/waiting."
+        },
+        {
+          "code": "TIMER_TRIGGER_SERVICE_CONFIRMED",
+          "level": "OK",
+          "message": "Timer service trigger bağı mevcut."
+        },
+        {
+          "code": "LIST_TIMERS_SCHEDULE_CONFIRMED",
+          "level": "OK",
+          "message": "list-timers schedule gösteriyor."
+        },
+        {
+          "code": "SERVICE_LAST_RESULT_CLEAN",
+          "level": "OK",
+          "message": "Service last result success/0."
+        },
+        {
+          "code": "SERVICE_STATE_ACCEPTABLE",
+          "level": "OK",
+          "message": "Service state kabul edilebilir: inactive"
+        },
+        {
+          "code": "STDOUT_209_ABSENT_AFTER_ACTIVATION",
+          "level": "OK",
+          "message": "Timer activation sonrası 209/STDOUT yok."
+        },
+        {
+          "code": "INVALIDARGUMENT_ABSENT_AFTER_ACTIVATION",
+          "level": "OK",
+          "message": "Timer activation sonrası INVALIDARGUMENT yok."
+        },
+        {
+          "code": "RC2_ABSENT_AFTER_ACTIVATION",
+          "level": "OK",
+          "message": "Timer activation sonrası rc2/status2 yok."
+        },
+        {
+          "code": "DB_CHAIN_PRESERVED",
+          "level": "OK",
+          "message": "DB chain korunuyor: 269/47/47/47"
+        },
+        {
+          "code": "TIMER_WAITING_FIRST_FIRE",
+          "level": "OK",
+          "message": "Timer schedule aktif; bu audit anında yeni service tetiklemesi henüz beklemede olabilir."
+        }
+      ],
+      "generated_at_utc": "2026-07-08T12:43:59.603758+00:00",
+      "name": "news_b_fix2_post",
+      "next_step": "NEWS_C_DOWNSTREAM_CHECKSUM_FINGERPRINT_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_b_fix_2_post_activation_audit_noapi_v1.json",
+      "read_error": null,
+      "stage": "NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_NOAPI",
+      "summary": {
+        "fail_count": 0,
+        "first_fire_seen": false,
+        "freshness_count": 1,
+        "journal_failed_set_up_stdout_count": 0,
+        "journal_invalidargument_count": 0,
+        "journal_rc2_count": 0,
+        "journal_status_209_stdout_count": 0,
+        "list_timers_has_schedule": true,
+        "match_count": 47,
+        "raw_count": 269,
+        "score_count": 47,
+        "service_active": "inactive",
+        "service_enabled": "static",
+        "signal_count": 47,
+        "timer_active": "active",
+        "timer_enabled": "enabled",
+        "warn_count": 0
+      }
+    },
+    "news_c": {
+      "authority": {
+        "boot_update": false,
+        "db_schema_write": false,
+        "external_api_call": false,
+        "live_trade": false,
+        "matcher_code_change": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "readonly_db_open_mode": "sqlite_uri_mode_ro_query_only",
+        "real_db_write": false,
+        "repo_artifact_write": true,
+        "runner_code_change": false,
+        "runtime_update": false,
+        "service_change": false,
+        "signing": false,
+        "systemd_change": false,
+        "timer_change": false,
+        "wallet": false
+      },
+      "decision": "OK_NEWS_C_DOWNSTREAM_CHECKSUM_FINGERPRINT_CLEAN",
+      "findings": [
+        {
+          "code": "DB_EXISTS",
+          "level": "OK",
+          "message": "DB mevcut: /root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+        },
+        {
+          "code": "NEWS_TABLES_EXIST",
+          "level": "OK",
+          "message": "NEWS raw/match/signal/score/freshness tabloları mevcut."
+        },
+        {
+          "code": "DOWNSTREAM_47_47_47_CONFIRMED",
+          "level": "OK",
+          "message": "match/signal/score = 47/47/47."
+        },
+        {
+          "code": "RAW_COUNT_CURRENT_OR_HIGHER",
+          "level": "OK",
+          "message": "Raw count: 269"
+        },
+        {
+          "code": "SIGNAL_SOURCE_MATCH_REFS_VALID",
+          "level": "OK",
+          "message": "signal.source_match_uid referansları match_uid seti içinde."
+        },
+        {
+          "code": "SIGNAL_SOURCE_MATCH_UID_PRESENT",
+          "level": "OK",
+          "message": "Tüm signal satırlarında source_match_uid var."
+        },
+        {
+          "code": "MATCH_SIGNAL_CANONICAL_KEYS_ALIGNED",
+          "level": "OK",
+          "message": "match ↔ signal canonical key hizası temiz."
+        },
+        {
+          "code": "SIGNAL_SCORE_CANONICAL_KEYS_ALIGNED",
+          "level": "OK",
+          "message": "signal ↔ score canonical key hizası temiz."
+        },
+        {
+          "code": "MATCH_SCORE_CANONICAL_KEYS_ALIGNED",
+          "level": "OK",
+          "message": "match ↔ score canonical key hizası temiz."
+        },
+        {
+          "code": "DOWNSTREAM_RAW_NEWS_LINKS_VALID",
+          "level": "OK",
+          "message": "Downstream news_uid değerleri raw tabloya bağlı."
+        },
+        {
+          "code": "NO_FULL_ROW_DUPLICATES",
+          "level": "OK",
+          "message": "Full row duplicate yok."
+        },
+        {
+          "code": "NO_CANONICAL_KEY_DUPLICATES",
+          "level": "OK",
+          "message": "Canonical key duplicate yok."
+        },
+        {
+          "code": "NO_TRADE_OR_PAPER_SIGNAL_AUTHORITY",
+          "level": "OK",
+          "message": "trade_signal/paper_signal nonzero değil."
+        }
+      ],
+      "generated_at_utc": "2026-07-08T12:46:42.917870+00:00",
+      "name": "news_c",
+      "next_step": "NEWS_D_PANEL_READMODEL_FRESHNESS_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_c_downstream_checksum_fingerprint_noapi_v1.json",
+      "read_error": null,
+      "stage": "NEWS_C_DOWNSTREAM_CHECKSUM_FINGERPRINT_NOAPI",
+      "summary": {
+        "canonical_duplicate_group_total": 0,
+        "fail_count": 0,
+        "freshness_count": 1,
+        "full_duplicate_group_total": 0,
+        "match_count": 47,
+        "match_score_mismatch_total": 0,
+        "match_signal_mismatch_total": 0,
+        "match_uid_count": 47,
+        "paper_signal_nonzero": 0,
+        "raw_count": 269,
+        "raw_link_missing_total": 0,
+        "score_count": 47,
+        "score_uid_count": 47,
+        "signal_bad_source_match_ref_count": 0,
+        "signal_count": 47,
+        "signal_missing_source_match_uid_count": 0,
+        "signal_score_mismatch_total": 0,
+        "signal_uid_count": 47,
+        "trade_signal_nonzero": 0,
+        "warn_count": 0
+      }
+    },
+    "news_d": {
+      "authority": {
+        "boot_update": false,
+        "db_schema_write": false,
+        "external_api_call": false,
+        "live_trade": false,
+        "matcher_code_change": false,
+        "panel_write": false,
+        "paper_trade": false,
+        "readmodel_write": false,
+        "readonly_audit": true,
+        "readonly_db_open_mode": "sqlite_uri_mode_ro_query_only",
+        "real_db_write": false,
+        "repo_artifact_write": true,
+        "runner_code_change": false,
+        "runtime_update": false,
+        "service_change": false,
+        "signing": false,
+        "systemd_change": false,
+        "timer_change": false,
+        "wallet": false
+      },
+      "decision": "WARN_NEWS_D_PANEL_READMODEL_FRESHNESS_REVIEW_REQUIRED",
+      "findings": [
+        {
+          "code": "DB_READONLY_SNAPSHOT_OK",
+          "level": "OK",
+          "message": "DB read-only snapshot alındı."
+        },
+        {
+          "code": "DOWNSTREAM_COUNTS_STILL_47",
+          "level": "OK",
+          "message": "match/signal/score hâlâ 47/47/47."
+        },
+        {
+          "code": "NEWS_TIMER_STILL_ACTIVE_ENABLED",
+          "level": "OK",
+          "message": "NEWS timer active/enabled."
+        },
+        {
+          "code": "NEWS_PANEL_READMODEL_FILES_DISCOVERED",
+          "level": "OK",
+          "message": "NEWS ilişkili dosya adayı bulundu: 1752"
+        },
+        {
+          "code": "PANEL_READMODEL_COUNT_MATCH_NOT_FOUND",
+          "level": "WARN",
+          "message": "DB sayılarıyla güçlü JSON/readmodel count eşleşmesi bulunamadı."
+        },
+        {
+          "code": "RAW_NEWER_THAN_DOWNSTREAM",
+          "level": "WARN",
+          "message": "Raw haberler downstream match/signal/score zamanından daha yeni; downstream freshness/staleness takip edilmeli."
+        },
+        {
+          "code": "FRESHNESS_HEARTBEAT_STALER_THAN_RAW",
+          "level": "WARN",
+          "message": "freshness heartbeat raw max timestamp'ten daha eski."
+        },
+        {
+          "code": "NEWS_C_REFERENCE_CLEAN",
+          "level": "OK",
+          "message": "NEWS-C clean referansı okundu."
+        }
+      ],
+      "generated_at_utc": "2026-07-08T12:51:27.924808+00:00",
+      "name": "news_d",
+      "next_step": "NEWS_E_REVIEW_PROMPT_AND_SEAL_PREP_NOAPI",
+      "path": "/root/tokenoskobi_clean_v1/data/control/news_d_panel_readmodel_freshness_noapi_v1.json",
+      "read_error": null,
+      "stage": "NEWS_D_PANEL_READMODEL_FRESHNESS_NOAPI",
+      "summary": {
+        "fail_count": 0,
+        "freshness_count": 1,
+        "freshness_max_ts": "2026-07-06T06:44:10.294353+00:00",
+        "html_js_candidate_count": 0,
+        "json_candidate_count": 1011,
+        "match_count": 47,
+        "match_max_ts": "2026-07-06T06:44:10.282634+00:00",
+        "news_related_file_count": 1752,
+        "partial_panel_readmodel_count_matches": 0,
+        "python_candidate_count": 53,
+        "raw_count": 270,
+        "raw_max_ts": "2026-07-08T12:48:10.036095+00:00",
+        "raw_newer_than_downstream": true,
+        "score_count": 47,
+        "score_max_ts": "2026-07-06T06:44:10.288486+00:00",
+        "signal_count": 47,
+        "signal_max_ts": "2026-07-06T06:44:10.288481+00:00",
+        "strong_panel_readmodel_count_matches": 0,
+        "timer_active": "active",
+        "timer_enabled": "enabled",
+        "warn_count": 3
+      }
+    }
+  },
+  "review_prompts": {
+    "codex": {
+      "path": "/root/tokenoskobi_clean_v1/reports/NEWS_E_CODEX_REVIEW_PROMPT.md",
+      "sha256": "327db845a38f544da9936363f4ceb7a22c04639100ff71c5c287f682c9d5ec1e"
+    },
+    "gemini_red_team": {
+      "path": "/root/tokenoskobi_clean_v1/reports/NEWS_E_GEMINI_RED_TEAM_PROMPT.md",
+      "sha256": "bf1165d938b5983f34fc2e39183038e6856c85ff5e2f28293dee6d4af584d9ad"
+    }
+  },
+  "seal_matrix": {
+    "cold_hot_doctrine_split": {
+      "evidence": [
+        "20min timer is cold backfill/fallback only.",
+        "HOT_INTELLIGENCE_INGRESS_GATEWAY is deferred until after NEWS-F seal.",
+        "CENGIZHAN_INTELLIGENCE_DOCTRINE must be preserved as future architecture doctrine."
+      ],
+      "status": "OK"
+    },
+    "downstream_47_chain_verified": {
+      "evidence": [
+        "raw=269",
+        "match=47",
+        "signal=47",
+        "score=47",
+        "match_signal_mismatch_total=0",
+        "signal_score_mismatch_total=0",
+        "raw_link_missing_total=0",
+        "full_duplicate_group_total=0",
+        "canonical_duplicate_group_total=0"
+      ],
+      "status": "OK"
+    },
+    "freshness_and_panel_known_issue": {
+      "evidence": [
+        "WARN_NEWS_D_PANEL_READMODEL_FRESHNESS_REVIEW_REQUIRED",
+        "raw_count=270",
+        "match_count=47",
+        "signal_count=47",
+        "score_count=47",
+        "raw_newer_than_downstream=True",
+        "strong_panel_readmodel_count_matches=0",
+        "freshness_max_ts=2026-07-06T06:44:10.294353+00:00",
+        "raw_max_ts=2026-07-08T12:48:10.036095+00:00"
+      ],
+      "status": "WARN"
+    },
+    "producer_resurrected": {
+      "evidence": [
+        "OK_NEWS_B_FIX_2_TIMER_ACTIVATED",
+        "OK_NEWS_B_FIX_2_POST_ACTIVATION_AUDIT_CLEAN",
+        "timer_active=active",
+        "timer_enabled=enabled"
+      ],
+      "status": "OK"
+    },
+    "stdout_209_root_cause_closed": {
+      "evidence": [
+        "NEWS-B root cause: FAIL_NEWS_B_STDOUT_PATH_ROOT_CAUSE_CONFIRMED",
+        "Fix1: OK_NEWS_B_FIX_1_STDOUT_STDERR_PATH_CLEARED",
+        "Fix1 post: OK_NEWS_B_FIX_1_POST_APPLY_AUDIT_CLEAN"
+      ],
+      "status": "OK"
+    },
+    "trade_authority_absent": {
+      "evidence": [
+        "trade_signal_nonzero=0",
+        "paper_signal_nonzero=0"
+      ],
+      "status": "OK"
+    }
+  },
+  "seal_wording_policy": {
+    "allowed": [
+      "COLD NEWS PRODUCER OPERATIONAL",
+      "DOWNSTREAM 47/47/47 CHAIN VERIFIED",
+      "FINAL SEAL WITH KNOWN WARNINGS",
+      "20MIN TIMER IS FALLBACK/COLD BACKFILL",
+      "HOT_INTELLIGENCE_INGRESS_GATEWAY DEFERRED AFTER NEWS-F"
+    ],
+    "forbidden": [
+      "NEWS FULLY CLEAN",
+      "PANEL FULLY VERIFIED",
+      "FRESHNESS FULLY CURRENT",
+      "HOT INTELLIGENCE IMPLEMENTED",
+      "REAL-TIME INTELLIGENCE COMPLETE",
+      "TRADE OR PAPER AUTHORITY ENABLED"
+    ]
+  },
+  "stage": "NEWS_E_REVIEW_PROMPT_AND_SEAL_PREP_NOAPI",
+  "summary": {
+    "fail_count": 0,
+    "known_warning_count": 5,
+    "next_stage": "NEWS_F_FINAL_OPERATIONAL_SEAL_WITH_KNOWN_WARNINGS",
+    "seal_matrix_ok_count": 5,
+    "seal_matrix_warn_count": 1,
+    "warn_count": 1
+  }
+}
