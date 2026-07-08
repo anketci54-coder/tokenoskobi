@@ -1,16 +1,17 @@
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
 # CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T10:38:42.760735Z
+- Updated UTC: 2026-07-08T10:44:39.701113Z
 - Current focus: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
 - Last completed parent chain: `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI`
-- Canonical substeps: `ERA47A`, `ERA47B`, `ERA47C`, `ERA47D`, `ERA47E`
-- Historical aliases: old `ERA48`, `ERA49`, `ERA50`, `ERA51`
 - Runtime authority: `PROJECT_RUNTIME.json`
-- Rule: old ERA48-ERA51 labels are historical aliases under ERA47, not active work lanes.
-- Work format from now on: `ERA52A`, `ERA52B`, `ERA52C`; nested only when needed as `ERA52A_1`.
-- Do not open a new ERA for plan, test, audit, risk decision, Go/No-Go, seal, documentation cleanup, or state normalization.
-- Do not use `PASS` in new labels or outputs. Use `OK`, `WARN`, `FAIL`, `BLOCKED`, `CLOSED`, `SEALED`, `VERIFIED`.
+- General workflow rule: every future main line, whatever it is called, must progress under A/B/C/D/E/F substeps.
+- Main line rule: do not open a new main line for plan, apply, test, audit, review, risk decision, Go/No-Go, seal, cleanup, state normalization, minor fix, or minor addition.
+- Nested rule: use `_1`, `_2`, `_3` only inside the same letter when needed.
+- Fix rule: use `_FIX_1`, `_FIX_2` under the relevant letter.
+- Addition rule: use `_ADD_1`, `_ADD_2` under the relevant letter.
+- Historical alias rule: old `ERA48`, `ERA49`, `ERA50`, `ERA51` are aliases under `ERA47B/C/D/E`, not active work lanes.
+- Word rule: do not use the forbidden legacy word in new labels or command outputs. Use `OK`, `WARN`, `FAIL`, `BLOCKED`, `CLOSED`, `SEALED`, `VERIFIED`.
 - Deadline mode: reduce documents, reduce labels, deliver small working code.
 - Next safe step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->

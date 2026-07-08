@@ -349,9 +349,9 @@
     "failure_message": "BOOT_NOT_UPDATED_CONTINUATION_UNSAFE"
   },
   "last_action": {
-    "timestamp": "2026-07-08T10:38:42.760735Z",
-    "task": "CANONICAL_WORKFLOW_RULES_LOCK_NO_NEW_ERA",
-    "result": "OK_WORKFLOW_RULES_LOCKED",
+    "timestamp": "2026-07-08T10:44:39.701113Z",
+    "task": "CANONICAL_GENERAL_WORKFLOW_RULES_LOCK_NO_NEW_ERA",
+    "result": "OK_GENERAL_WORKFLOW_RULES_LOCKED",
     "files_created_or_updated": [
       "PROJECT_RUNTIME.json",
       "PROJECT_BOOT.json",
@@ -390,7 +390,7 @@
     "validator_behavior": "HEAD mismatch is warning, not fatal, in V2.",
     "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify."
   },
-  "updated_at_utc": "2026-07-08T10:38:42.760735Z",
+  "updated_at_utc": "2026-07-08T10:44:39.701113Z",
   "current_work_unit": {
     "id": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
     "type": "DISCIPLINE_PREFLIGHT_CHAIN",
@@ -412,7 +412,7 @@
     }
   },
   "last_completed": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Apply canonical_workflow_rules strictly. Do not open micro ERA records. Treat old ERA48/ERA49/ERA50/ERA51 as historical aliases under ERA47B/C/D/E. Next real software step is ERA52 with A/B/C/D substeps. Do not use PASS in new labels or outputs.",
+  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. Apply canonical_workflow_rules strictly. For every future main line, do not open micro main-line records. Use A/B/C/D under the same main line. Use A_1/A_2/A_3 only inside the same sub-area. Fixes use FIX_1/FIX_2 under the relevant letter. Additions use ADD_1/ADD_2 under the relevant letter. Old ERA48/ERA49/ERA50/ERA51 are historical aliases under ERA47B/C/D/E. Next real software step is ERA52. Do not use the forbidden legacy word in new labels or command outputs.",
   "process_compaction": {
     "updated_at_utc": "2026-07-08T10:34:05.417432Z",
     "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
@@ -429,10 +429,10 @@
     "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI"
   },
   "canonical_workflow_rules": {
-    "updated_at_utc": "2026-07-08T10:38:42.760735Z",
-    "name": "CANONICAL_WORKFLOW_RULES",
+    "updated_at_utc": "2026-07-08T10:44:39.701113Z",
+    "name": "CANONICAL_GENERAL_WORKFLOW_RULES",
     "status": "LOCKED",
-    "purpose": "Stop micro-ERA expansion and keep new windows aligned with the real execution plan.",
+    "purpose": "Make workflow naming and execution rules general for every future main line, not only ERA52.",
     "startup_read_order": [
       "PROJECT_RUNTIME.json",
       "PROJECT_BOOT.json",
@@ -441,22 +441,83 @@
       "02_MANIFESTO.md",
       "03_ROADMAP.md"
     ],
-    "era_policy": {
-      "era_definition": "ERA is a main software/module milestone only.",
-      "do_not_create_new_era_for": [
+    "main_line_policy": {
+      "main_line_definition": "A main line is a real software/module milestone, major repair line, or major architecture line.",
+      "allowed_main_line_names": [
+        "ERA",
+        "PHASE",
+        "MODULE",
+        "RUNTIME_LINE",
+        "HARDENING_LINE",
+        "REPAIR_LINE"
+      ],
+      "rule": "Whatever the main line is called, its internal work must use A/B/C/D style substeps instead of opening new micro main lines.",
+      "do_not_create_new_main_line_for": [
         "plan",
+        "apply",
         "test",
         "audit",
+        "review",
         "risk decision",
         "go_nogo",
         "seal",
         "documentation cleanup",
-        "state normalization"
+        "state normalization",
+        "minor fix",
+        "minor addition"
+      ]
+    },
+    "substep_policy": {
+      "standard_order": {
+        "A": "PLAN_OR_SCOPE",
+        "B": "APPLY_OR_BUILD",
+        "C": "TEST_OR_DRYRUN",
+        "D": "AUDIT_OR_REVIEW",
+        "E": "EXTERNAL_REVIEW_IF_NEEDED",
+        "F": "GITHUB_SEAL_OR_CLOSURE"
+      },
+      "format": "<MAIN_LINE>A, <MAIN_LINE>B, <MAIN_LINE>C",
+      "examples": [
+        "ERA52A_PLAN",
+        "ERA52B_APPLY",
+        "ERA52C_TEST",
+        "ERA52D_AUDIT",
+        "PHASE61A_PLAN",
+        "PHASE61B_APPLY",
+        "REPAIR_LINE_A_SCOPE",
+        "REPAIR_LINE_B_FIX"
+      ]
+    },
+    "nested_policy": {
+      "when_to_use": "Use nested numbering only inside the same substep when that exact area needs smaller parts.",
+      "format": "<MAIN_LINE><LETTER>_1, <MAIN_LINE><LETTER>_2, <MAIN_LINE><LETTER>_3",
+      "examples": [
+        "ERA52B_1_FILE_LAYOUT",
+        "ERA52B_2_READONLY_CONTRACT",
+        "ERA52B_3_DRYRUN_WIRING"
       ],
-      "substep_format": "Use A/B/C/D/E/F under the same ERA.",
-      "nested_substep_format": "Use A_1/A_2 only when the same sub-area truly needs another layer.",
-      "example": "ERA52A, ERA52B, ERA52B_1, ERA52C",
-      "current_alias_rule": "Old ERA48/ERA49/ERA50/ERA51 are historical aliases under ERA47B/C/D/E, not active work lanes."
+      "limit_rule": "If numbering grows beyond _3, stop and consolidate before continuing."
+    },
+    "fix_add_policy": {
+      "fix_format": "<MAIN_LINE><LETTER>_FIX_1, <MAIN_LINE><LETTER>_FIX_2",
+      "addition_format": "<MAIN_LINE><LETTER>_ADD_1, <MAIN_LINE><LETTER>_ADD_2",
+      "rule": "Fixes and additions stay under the relevant parent letter unless they become a genuinely new major module.",
+      "examples": [
+        "ERA52B_FIX_1_READONLY_GUARD",
+        "ERA52C_FIX_1_TEST_EXPECTATION",
+        "ERA52B_ADD_1_CONTRACT_FIELD",
+        "ERA52D_ADD_1_AUDIT_CHECK"
+      ]
+    },
+    "current_consolidation_policy": {
+      "parent": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
+      "historical_aliases": {
+        "ERA48": "ERA47B",
+        "ERA49": "ERA47C",
+        "ERA50": "ERA47D",
+        "ERA51": "ERA47E"
+      },
+      "rule": "Historical aliases remain for audit trail only; they are not active work lanes."
     },
     "word_policy": {
       "forbidden_new_label_word": "PASS",
@@ -469,7 +530,7 @@
         "SEALED",
         "VERIFIED"
       ],
-      "reason": "PASS is reserved for older project history and must not be used in new work labels."
+      "reason": "The forbidden word is reserved for older project history and must not be used in new work labels or command outputs."
     },
     "deadline_policy": {
       "deadline_mode": true,
@@ -478,7 +539,7 @@
       "reduce_labels": true,
       "avoid_repeated_gate_chains": true,
       "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "era52_requirement": "ERA52 must deliver a minimal read-only scaffold, not another planning chain."
+      "next_step_requirement": "The next real work must deliver minimal read-only scaffold, not another planning chain."
     },
     "commit_policy": {
       "single_commit_when_possible": true,

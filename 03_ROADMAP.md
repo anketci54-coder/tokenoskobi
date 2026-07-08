@@ -1,7 +1,7 @@
 <!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
-## CANONICAL WORKFLOW RULES LOCK
+## CANONICAL GENERAL WORKFLOW RULES LOCK
 
-Updated UTC: `2026-07-08T10:38:42.760735Z`
+Updated UTC: `2026-07-08T10:44:39.701113Z`
 
 These rules are mandatory for every new ChatGPT window.
 
@@ -16,13 +16,57 @@ Read in this order:
 5. `02_MANIFESTO.md`
 6. `03_ROADMAP.md`
 
-### ERA Rule
+### General Main Line Rule
 
-- `ERA` means main software/module milestone only.
-- Do not create a new ERA for plan, test, audit, risk decision, Go/No-Go, seal, documentation cleanup, or state normalization.
-- Use A/B/C/D/E/F under the same ERA.
-- Use A_1/A_2 only when the same sub-area truly needs another layer.
-- Example: `ERA52A`, `ERA52B`, `ERA52B_1`, `ERA52C`.
+- A main line is a real software/module milestone, major repair line, or major architecture line.
+- Whatever the main line is called, do not create micro main lines for plan, apply, test, audit, review, risk decision, Go/No-Go, seal, documentation cleanup, state normalization, minor fix, or minor addition.
+- Internal work must stay under the same main line.
+
+### A/B/C/D Rule
+
+Use A/B/C/D/E/F under the same main line:
+
+- `A` = plan or scope
+- `B` = apply or build
+- `C` = test or dry-run
+- `D` = audit or review
+- `E` = external review if needed
+- `F` = GitHub seal or closure
+
+Examples:
+
+- `ERA52A_PLAN`
+- `ERA52B_APPLY`
+- `ERA52C_TEST`
+- `ERA52D_AUDIT`
+- `PHASE61A_PLAN`
+- `PHASE61B_APPLY`
+- `REPAIR_LINE_A_SCOPE`
+- `REPAIR_LINE_B_FIX`
+
+### Nested Number Rule
+
+Use numbering only inside the same letter when that exact sub-area needs smaller parts:
+
+- `ERA52B_1_FILE_LAYOUT`
+- `ERA52B_2_READONLY_CONTRACT`
+- `ERA52B_3_DRYRUN_WIRING`
+
+If numbering grows beyond `_3`, stop and consolidate before continuing.
+
+### Fix / Addition Rule
+
+Fixes stay under the relevant letter:
+
+- `ERA52B_FIX_1_READONLY_GUARD`
+- `ERA52C_FIX_1_TEST_EXPECTATION`
+
+Additions stay under the relevant letter:
+
+- `ERA52B_ADD_1_CONTRACT_FIELD`
+- `ERA52D_ADD_1_AUDIT_CHECK`
+
+A fix or addition becomes a new main line only if it is genuinely a new major module.
 
 ### Current Consolidation
 
@@ -35,7 +79,7 @@ Read in this order:
 
 ### Word Rule
 
-- Do not use `PASS` in new labels or command outputs.
+- Do not use the forbidden legacy word in new labels or command outputs.
 - Use: `OK`, `WARN`, `FAIL`, `BLOCKED`, `CLOSED`, `SEALED`, `VERIFIED`.
 
 ### Deadline Rule
@@ -44,7 +88,7 @@ Read in this order:
 - Reduce documents.
 - Reduce labels.
 - Avoid repeated gate chains.
-- `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI` must deliver minimal read-only scaffold, not another planning chain.
+- The next real work must deliver minimal read-only scaffold, not another planning chain.
 
 ### Safety Rule
 
