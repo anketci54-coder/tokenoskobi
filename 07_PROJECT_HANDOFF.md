@@ -1,18 +1,51 @@
-<!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
-# CURRENT CANONICAL STATE
 
-- Updated UTC: 2026-07-08T16:20:47.630453+00:00
-- Current ERA: `ERA53`
-- ERA53 status: `FINAL_CLOSED`
-- Last completed: `ERA53_FINAL_CLOSE_SEAL_NOAPI`
-- Final close head: `cd4c043bf79840b69b95ec38ad85ba4dada2502a`
-- Roadmap sync: `UPDATED`
-- Almanac sync: `UPDATED`
-- Atlas sync: `UPDATED`
-- Small docs-only rule: `SINGLE_JSON_ONLY`
-- Runtime authority: `PROJECT_RUNTIME.json`
-- NOAPI boundary: no API, no DB write, no schema change, no runtime change, no systemd change, no source adapter, no queue, no outbound alarm, no wallet/signing, no paper/live trade, AI authority 0.
-- Next safe step: `ERA54_PLAN_ONLY_IF_USER_REQUESTS`
+
+<!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_START -->
+## TOKENOSKOBI CURRENT CANONICAL STATE
+
+STATE_SYNC_UTC: 2026-07-08T17:25:07+00:00
+
+CURRENT_ERA=ERA54
+ERA54_STATUS=CLOSED_VERIFIED_NOAPI
+LAST_COMPLETED=ERA54F_FINAL_CLOSURE_NOAPI
+CURRENT_HEAD_BEFORE_CLOSURE_COMMIT=4e913a02994b24543e3a53f611f5b5992a3624c0
+REMOTE_SYNC=TO_BE_VERIFIED_AFTER_PUSH
+HARD_FAIL_COUNT=0
+WARN_COUNT=0
+NEXT_SAFE_STEP=USER_APPROVED_NEXT_STEP_AFTER_ERA54_CLOSURE
+
+PROJECT_MODE=HOT_INGRESS_STANDALONE_SCAFFOLD_CLOSED_NOAPI
+LIVE_TRADE=false
+PAPER_TRADE=false
+WALLET=false
+SIGNING=false
+REAL_ORDER=false
+ORDER_CREATE=false
+AI_AUTHORITY=0
+TRADE_AUTHORITY=0
+
+ERA54_ARTIFACTS:
+- data/control/era54a_scope_fix_lock_noapi_v1.json
+- data/control/era54b_standalone_scaffold_apply_plan_noapi_v1.json
+- tools/hot_ingress_minimal_readonly_scaffold_v1.py
+- data/control/era54c_hot_ingress_minimal_readonly_scaffold_dryrun_noapi_v1.json
+- data/control/era54d_static_and_boundary_audit_noapi_v1.json
+- data/control/era54f_final_closure_noapi_v1.json
+
+BOUNDARY:
+- NOAPI=true
+- RUNTIME_IMPORT=false
+- DB_CHANGE=false
+- SERVICE_CHANGE=false
+- PANEL_CHANGE=false
+- WALLET_OR_TRADE=false
+
+MOTTO_GATE:
+- Şimşek kadar hızlı
+- Balyoz kadar güçlü
+- Kale kadar güvenli
+- Karınca kadar tutumlu
+- Formula source: ERA24F_EDE_OPPORTUNITY_COST_BASELINE
 <!-- TOKENOSKOBI_CURRENT_CANONICAL_STATE_END -->
 
 <!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->

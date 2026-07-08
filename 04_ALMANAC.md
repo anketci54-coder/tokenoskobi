@@ -1,3 +1,28 @@
+<!-- ERA54_FINAL_CLOSURE_ALMANAC_START -->
+## ERA54 FINAL CLOSURE NOAPI
+
+CLOSED_UTC: 2026-07-08T17:25:07+00:00
+
+Decision:
+- OK_ERA54_FINAL_CLOSED_VERIFIED_NOAPI
+
+Evidence:
+- data/control/era54a_scope_fix_lock_noapi_v1.json
+- data/control/era54b_standalone_scaffold_apply_plan_noapi_v1.json
+- tools/hot_ingress_minimal_readonly_scaffold_v1.py
+- data/control/era54c_hot_ingress_minimal_readonly_scaffold_dryrun_noapi_v1.json
+- data/control/era54d_static_and_boundary_audit_noapi_v1.json
+- data/control/era54f_final_closure_noapi_v1.json
+
+Boundary:
+- NOAPI true.
+- Runtime unchanged.
+- DB unchanged.
+- Service unchanged.
+- Panel unchanged.
+- Wallet/trade unchanged.
+<!-- ERA54_FINAL_CLOSURE_ALMANAC_END -->
+
 <!-- ERA53_FINAL_CLOSE_ALMANAC_START -->
 ## ERA53 HOT INTELLIGENCE INGRESS GATEWAY FINAL CLOSE NOAPI
 

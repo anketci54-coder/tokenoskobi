@@ -1,3 +1,33 @@
+<!-- ERA54_HOT_INGRESS_STANDALONE_SCAFFOLD_ATLAS_START -->
+## ERA54 HOT INGRESS STANDALONE SCAFFOLD FLOW
+
+UPDATED_UTC: 2026-07-08T17:25:07+00:00
+
+Flow:
+synthetic_event_set
+-> runtime_import_static_block_check
+-> normalize_event
+-> admission_gate
+-> event_uid_and_fingerprint
+-> evidence_freshness_stub
+-> topic_dedupe
+-> prosecutor_candidate_gate_stub
+-> stdout_and_json_summary
+
+Architecture rule:
+- Admission is gatekeeper.
+- Prosecutor is judge stub only.
+- No runtime handoff.
+- No alarm.
+- No API.
+- No DB write.
+
+UID contract:
+- event_hash = sha256(normalized_title + normalized_body + event_time_bucket)
+- event_uid = sha256(source_uid + event_hash)
+- dedupe_key = source_uid + event_hash
+<!-- ERA54_HOT_INGRESS_STANDALONE_SCAFFOLD_ATLAS_END -->
+
 <!-- ERA53_HOT_INGRESS_ATLAS_START -->
 ## ERA53 HOT INTELLIGENCE INGRESS GATEWAY - ARCHITECTURE MAP
 

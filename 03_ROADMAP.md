@@ -1,3 +1,27 @@
+<!-- ERA54_FINAL_CLOSURE_ROADMAP_START -->
+## ERA54 HOT INGRESS STANDALONE SCAFFOLD — CLOSED
+
+UPDATED_UTC: 2026-07-08T17:25:07+00:00
+
+Status: CLOSED_VERIFIED_NOAPI
+
+Closed items:
+- ERA54A scope/fix lock.
+- ERA54B standalone scaffold apply plan.
+- ERA54C minimal standalone scaffold dry-run.
+- ERA54D static and boundary audit.
+- ERA54F final closure.
+
+Result:
+- Minimal HOT ingress standalone scaffold exists.
+- Synthetic happy/duplicate/poison/noisy/conflicting events are covered.
+- Runtime import boundary is clean.
+- No API, DB, service, panel, wallet or trade change exists.
+
+Next safe step:
+- USER_APPROVED_NEXT_STEP_AFTER_ERA54_CLOSURE
+<!-- ERA54_FINAL_CLOSURE_ROADMAP_END -->
+
 <!-- ERA53_FINAL_CLOSE_ROADMAP_START -->
 ## ERA53 FINAL CLOSE - HOT INTELLIGENCE INGRESS GATEWAY
 
