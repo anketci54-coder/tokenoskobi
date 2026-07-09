@@ -1,0 +1,152 @@
+{
+  "actions": [
+    "certbot_nginx_success"
+  ],
+  "after_auth_insecure": {
+    "contains_news": false,
+    "error": "HTTPError",
+    "status": 401
+  },
+  "after_auth_verified": {
+    "contains_news": false,
+    "error": "URLError:<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'panel.coinoskobi.xyz'. (_ssl.c:1029)",
+    "status": null
+  },
+  "authority": {
+    "auth_disabled_only_for_news_route": true,
+    "certbot_ssl_fix_attempted": true,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "nginx_change": true,
+    "nginx_reload": true,
+    "panel_full_auth_removed": false,
+    "paper_trade": false,
+    "timer_change": false
+  },
+  "backup_before": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_ssl_auth_recover/panel.coinoskobi.xyz.conf.sslauth.before.20260709T121720Z.bak",
+  "before_insecure": {
+    "contains_news": false,
+    "error": "HTTPError",
+    "status": 401
+  },
+  "before_verified": {
+    "contains_news": false,
+    "error": "URLError:<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'panel.coinoskobi.xyz'. (_ssl.c:1029)",
+    "status": null
+  },
+  "cert_info": {
+    "cmd": [
+      "bash",
+      "-lc",
+      "echo | openssl s_client -connect panel.coinoskobi.xyz:443 -servername panel.coinoskobi.xyz 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName || true"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": "subject=CN=panel.coinoskobi.xyz\nissuer=C=US, O=Let's Encrypt, CN=YE2\nnotBefore=Jul  9 11:18:58 2026 GMT\nnotAfter=Oct  7 11:18:57 2026 GMT\nX509v3 Subject Alternative Name: \n    DNS:panel.coinoskobi.xyz"
+  },
+  "certbot_check": {
+    "cmd": [
+      "bash",
+      "-lc",
+      "command -v certbot || true"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": "/usr/bin/certbot"
+  },
+  "certbot_install": null,
+  "certbot_result": {
+    "cmd": [
+      "certbot",
+      "--nginx",
+      "-d",
+      "panel.coinoskobi.xyz",
+      "--non-interactive",
+      "--agree-tos",
+      "--register-unsafely-without-email"
+    ],
+    "rc": 0,
+    "stderr": "Saving debug log to /var/log/letsencrypt/letsencrypt.log",
+    "stdout": "Requesting a certificate for panel.coinoskobi.xyz\n\nSuccessfully received certificate.\nCertificate is saved at: /etc/letsencrypt/live/panel.coinoskobi.xyz/fullchain.pem\nKey is saved at:         /etc/letsencrypt/live/panel.coinoskobi.xyz/privkey.pem\nThis certificate expires on 2026-10-07.\nThese files will be updated when the certificate renews.\nCertbot has set up a scheduled task to automatically renew this certificate in the background.\n\nDeploying certificate\nSuccessfully deployed certificate for panel.coinoskobi.xyz to /etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf\nCongratulations! You have successfully enabled HTTPS on https://panel.coinoskobi.xyz\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nIf you like Certbot, please consider supporting our work by:\n * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate\n * Donating to EFF:                    https://eff.org/donate-le\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  },
+  "conf": "/etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf",
+  "db_after": {
+    "news_raw_feed_events": 321,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 321,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "FAIL_NEWS_PUBLIC_SSL_AUTH_RECOVER_SINGLE_BLOCK_NOAPI",
+  "failures": [
+    "insecure_public_news_not_open",
+    "verified_public_news_not_open"
+  ],
+  "final_insecure": {
+    "contains_news": false,
+    "error": "HTTPError",
+    "status": 403
+  },
+  "final_verified": {
+    "contains_news": false,
+    "error": "HTTPError",
+    "status": 403
+  },
+  "generated_at_utc": "2026-07-09T12:17:32.738267+00:00",
+  "next": "NEWS_PUBLIC_SSL_AUTH_RECOVER_FIX_REQUIRED",
+  "nginx_test_1": {
+    "cmd": [
+      "nginx",
+      "-t"
+    ],
+    "rc": 0,
+    "stderr": "2026/07/09 15:17:20 [warn] 536530#536530: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:13\n2026/07/09 15:17:20 [warn] 536530#536530: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:14\n2026/07/09 15:17:20 [warn] 536530#536530: protocol options redefined for [::]:443 in /etc/nginx/sites-enabled/panel.coinoskobi.com.conf:28\nnginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful",
+    "stdout": ""
+  },
+  "nginx_test_2": {
+    "cmd": [
+      "nginx",
+      "-t"
+    ],
+    "rc": 0,
+    "stderr": "2026/07/09 15:17:32 [warn] 536783#536783: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:13\n2026/07/09 15:17:32 [warn] 536783#536783: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:14\n2026/07/09 15:17:32 [warn] 536783#536783: protocol options redefined for [::]:443 in /etc/nginx/sites-enabled/panel.coinoskobi.com.conf:28\nnginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful",
+    "stdout": ""
+  },
+  "patched_auth": false,
+  "post_conf_snapshot": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_ssl_auth_recover/panel.coinoskobi.xyz.conf.sslauth.after.20260709T121732Z.conf",
+  "reload_1": {
+    "cmd": [
+      "systemctl",
+      "reload",
+      "nginx"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "reload_2": {
+    "cmd": [
+      "systemctl",
+      "reload",
+      "nginx"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "stage": "NEWS_PUBLIC_SSL_AUTH_RECOVER_SINGLE_BLOCK_NOAPI",
+  "url": "https://panel.coinoskobi.xyz/panel/panel_v2/news_coverage.html",
+  "warnings": []
+}
