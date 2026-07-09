@@ -1,0 +1,485 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+  "dryrun": {
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "execution_authority": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false
+    },
+    "db_after": {
+      "news_raw_feed_events": 325,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "db_before": {
+      "news_raw_feed_events": 325,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "db_delta": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 0,
+      "news_signal_events": 0,
+      "news_token_match_events": 0
+    },
+    "decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_INTERNAL",
+    "failures": [],
+    "generated_at_utc": "2026-07-09T14:13:47.130102+00:00",
+    "history_alignment_status": {
+      "backfill_now": false,
+      "db_schema_change_now": false,
+      "deduplication_policy_required": true,
+      "historical_access_next": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+      "index_creation_now": false,
+      "index_strategy_required": true
+    },
+    "next": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+    "panel_public_status_optional": {
+      "checked": false,
+      "reason": "NO_NETWORK_NOAPI_DRYRUN"
+    },
+    "producer_status": {
+      "interpretation": "OK_TIMER_ACTIVE_ONESHOT_SERVICE_CAN_BE_INACTIVE",
+      "service_active": {
+        "cmd": [
+          "systemctl",
+          "is-active",
+          "tokenoskobi-news-radar-refresh.service"
+        ],
+        "rc": 3,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "timer_active": {
+        "cmd": [
+          "systemctl",
+          "is-active",
+          "tokenoskobi-news-radar-refresh.timer"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "active"
+      },
+      "timer_enabled": {
+        "cmd": [
+          "systemctl",
+          "is-enabled",
+          "tokenoskobi-news-radar-refresh.timer"
+        ],
+        "rc": 0,
+        "stderr": "",
+        "stdout": "enabled"
+      }
+    },
+    "stage": "NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+    "table_freshness": {
+      "news_raw_feed_events": {
+        "candidate_details": [],
+        "columns": [
+          {
+            "cid": 0,
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "source_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "published_at_utc",
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "title",
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "url_hash",
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "raw_hash",
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "fetched_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "count": 325,
+        "freshness": {
+          "age_minutes": null,
+          "severity": "WARN",
+          "status": "UNKNOWN_TIMESTAMP"
+        },
+        "selected_latest": null,
+        "timestamp_candidates": []
+      },
+      "news_score_events_v1": {
+        "candidate_details": [
+          {
+            "column": "created_at_utc",
+            "parsed_utc": "2026-07-06T06:44:10.288486+00:00",
+            "raw_latest": "2026-07-06T06:44:10.288486+00:00"
+          }
+        ],
+        "columns": [
+          {
+            "cid": 0,
+            "name": "score_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "token_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "pair_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "chain",
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "news_token_relevance_score_100",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 7,
+            "name": "news_risk_score_100",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 8,
+            "name": "news_fusion_score_100",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 9,
+            "name": "importance_label",
+            "type": "TEXT"
+          },
+          {
+            "cid": 10,
+            "name": "risk_label",
+            "type": "TEXT"
+          },
+          {
+            "cid": 11,
+            "name": "fusion_label",
+            "type": "TEXT"
+          },
+          {
+            "cid": 12,
+            "name": "explanation",
+            "type": "TEXT"
+          },
+          {
+            "cid": 13,
+            "name": "created_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "count": 47,
+        "freshness": {
+          "age_minutes": 4769.61,
+          "fail_after_minutes": 360,
+          "severity": "WARN",
+          "status": "STALE_FAIL_WINDOW",
+          "warn_after_minutes": 120
+        },
+        "selected_latest": {
+          "column": "created_at_utc",
+          "parsed_utc": "2026-07-06T06:44:10.288486+00:00",
+          "raw_latest": "2026-07-06T06:44:10.288486+00:00"
+        },
+        "timestamp_candidates": [
+          "created_at_utc"
+        ]
+      },
+      "news_signal_events": {
+        "candidate_details": [
+          {
+            "column": "created_at_utc",
+            "parsed_utc": "2026-07-06T06:44:10.288481+00:00",
+            "raw_latest": "2026-07-06T06:44:10.288481+00:00"
+          }
+        ],
+        "columns": [
+          {
+            "cid": 0,
+            "name": "signal_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "token_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "pair_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "chain",
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "signal_type",
+            "type": "TEXT"
+          },
+          {
+            "cid": 7,
+            "name": "signal_strength",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 8,
+            "name": "signal_label",
+            "type": "TEXT"
+          },
+          {
+            "cid": 9,
+            "name": "source_match_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 10,
+            "name": "evidence_text",
+            "type": "TEXT"
+          },
+          {
+            "cid": 11,
+            "name": "created_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "count": 47,
+        "freshness": {
+          "age_minutes": 4769.61,
+          "fail_after_minutes": 360,
+          "severity": "WARN",
+          "status": "STALE_FAIL_WINDOW",
+          "warn_after_minutes": 120
+        },
+        "selected_latest": {
+          "column": "created_at_utc",
+          "parsed_utc": "2026-07-06T06:44:10.288481+00:00",
+          "raw_latest": "2026-07-06T06:44:10.288481+00:00"
+        },
+        "timestamp_candidates": [
+          "created_at_utc"
+        ]
+      },
+      "news_token_match_events": {
+        "candidate_details": [
+          {
+            "column": "created_at_utc",
+            "parsed_utc": "2026-07-06T06:44:10.282634+00:00",
+            "raw_latest": "2026-07-06T06:44:10.282634+00:00"
+          }
+        ],
+        "columns": [
+          {
+            "cid": 0,
+            "name": "match_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "source_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "token_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "pair_uid",
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "chain",
+            "type": "TEXT"
+          },
+          {
+            "cid": 7,
+            "name": "match_type",
+            "type": "TEXT"
+          },
+          {
+            "cid": 8,
+            "name": "match_confidence",
+            "type": "TEXT"
+          },
+          {
+            "cid": 9,
+            "name": "match_score",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 10,
+            "name": "match_reasons_json",
+            "type": "TEXT"
+          },
+          {
+            "cid": 11,
+            "name": "evidence_text",
+            "type": "TEXT"
+          },
+          {
+            "cid": 12,
+            "name": "is_duplicate",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 13,
+            "name": "write_allowed",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 14,
+            "name": "trade_signal",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 15,
+            "name": "paper_signal",
+            "type": "INTEGER"
+          },
+          {
+            "cid": 16,
+            "name": "created_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "count": 47,
+        "freshness": {
+          "age_minutes": 4769.61,
+          "fail_after_minutes": 360,
+          "severity": "WARN",
+          "status": "STALE_FAIL_WINDOW",
+          "warn_after_minutes": 120
+        },
+        "selected_latest": {
+          "column": "created_at_utc",
+          "parsed_utc": "2026-07-06T06:44:10.282634+00:00",
+          "raw_latest": "2026-07-06T06:44:10.282634+00:00"
+        },
+        "timestamp_candidates": [
+          "created_at_utc"
+        ]
+      }
+    },
+    "warnings": [
+      "freshness_observation:news_raw_feed_events:UNKNOWN_TIMESTAMP",
+      "freshness_observation:news_token_match_events:STALE_FAIL_WINDOW",
+      "freshness_observation:news_signal_events:STALE_FAIL_WINDOW",
+      "freshness_observation:news_score_events_v1:STALE_FAIL_WINDOW"
+    ]
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T14:13:47.145653+00:00",
+  "next": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+  "stage": "NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+  "tool": "tools/news_runtime_freshness_monitor_dryrun_v1.py",
+  "warnings": [
+    "freshness_observation:news_raw_feed_events:UNKNOWN_TIMESTAMP",
+    "freshness_observation:news_token_match_events:STALE_FAIL_WINDOW",
+    "freshness_observation:news_signal_events:STALE_FAIL_WINDOW",
+    "freshness_observation:news_score_events_v1:STALE_FAIL_WINDOW"
+  ]
+}
