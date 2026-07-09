@@ -563,6 +563,41 @@ def _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100):
 
     return list(reversed(out))
 
+def _tok_wrap_news_classify_coverage_v1(candidates):
+    # TOKENOSKOBI NEWS COVERAGE CLASSIFIER V1
+    if not candidates:
+        return {
+            "input_candidates": 0,
+            "market_indicator_events": 0,
+            "adversarial_events": 0,
+            "market_indicator_rows": 0,
+            "adversarial_rows": 0
+        }
+    try:
+        base = "/root/tokenoskobi_clean_v1/tools"
+        if base not in sys.path:
+            sys.path.insert(0, base)
+        from news_coverage_classifier_v1 import classify_and_append_news_coverage_v1
+        return classify_and_append_news_coverage_v1(
+            candidates,
+            market_path="/root/tokenoskobi_clean_v1/runtime/state/news_market_indicator_events_v1.jsonl",
+            adversarial_path="/root/tokenoskobi_clean_v1/runtime/state/news_adversarial_events_v1.jsonl",
+            config_dir="/root/tokenoskobi_clean_v1/data/config"
+        )
+    except Exception as e:
+        try:
+            _tok_wrap_trace_v1("news_coverage_classifier_error", repr(e))
+        except Exception:
+            pass
+        return {
+            "input_candidates": len(candidates or []),
+            "market_indicator_events": 0,
+            "adversarial_events": 0,
+            "market_indicator_rows": 0,
+            "adversarial_rows": 0,
+            "error": repr(e)
+        }
+
 def _tok_wrap_news_insert_downstream_v1(con, matches):
     now = _tok_wrap_news_now_v1()
     inserted_match = 0
@@ -764,6 +799,7 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
             con.row_factory = sqlite3.Row
             tokens = _tok_wrap_news_load_tokens_v1(con)
             candidates = _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100)
+            coverage_counts = _tok_wrap_news_classify_coverage_v1(candidates)
 
             if not candidates or not tokens:
                 tracker["updated_at_utc"] = _tok_wrap_news_now_v1()
@@ -773,7 +809,13 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
                 tracker["last_score_count_seen"] = _tok_wrap_news_count_v1(con, "news_score_events_v1")
                 _tok_wrap_news_atomic_write_json_v1(tracker_path, tracker)
                 con.close()
-                _tok_wrap_trace_v1("news_downstream_hook_noop", "candidates="+str(len(candidates))+" tokens="+str(len(tokens)))
+                _tok_wrap_trace_v1(
+                    "news_downstream_hook_noop",
+                    "candidates="+str(len(candidates))
+                    +" tokens="+str(len(tokens))
+                    +" market_events="+str(coverage_counts.get("market_indicator_events", 0))
+                    +" adversarial_events="+str(coverage_counts.get("adversarial_events", 0))
+                )
                 return 0
 
             started = _tok_wrap_news_now_v1()
@@ -863,6 +905,8 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
                 +" catchup_unprocessed="+str(catchup_unprocessed_count)
                 +" candidates="+str(len(candidates))
                 +" reprocess_version="+NEWS_MATCHER_SCOPE_VERSION_V1
+                +" market_events="+str(coverage_counts.get("market_indicator_events", 0))
+                +" adversarial_events="+str(coverage_counts.get("adversarial_events", 0))
                 +" matches="+str(inserted_match)
                 +" signals="+str(inserted_signal)
                 +" scores="+str(inserted_score)
