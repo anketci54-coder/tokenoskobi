@@ -1,0 +1,117 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_PRODUCER_STALENESS_FIX_PLAN_NOAPI",
+  "doc": "docs/canonical/NEWS_PRODUCER_STALENESS_FIX_PLAN_NOAPI_V1.md",
+  "dryrun_requirements_next": {
+    "must_test": [
+      "identify_new_raw_rows_since_latest_derived_timestamp",
+      "preview_token_match_candidate_count_without_write",
+      "preview_signal_candidate_count_without_write",
+      "preview_score_candidate_count_without_write",
+      "prove_no_db_delta",
+      "prove_no_service_timer_nginx_change",
+      "prove_no_trade_authority",
+      "produce_apply_plan_only_if_candidates_exist"
+    ],
+    "next_step": "NEWS_PRODUCER_STALENESS_FIX_DRYRUN_NOAPI"
+  },
+  "failures": [],
+  "fix_strategy_plan_only": {
+    "apply_now": false,
+    "candidate_components": [
+      {
+        "change_now": false,
+        "component": "news_radar_refresh_runner_v1.py",
+        "planned_role": "producer entrypoint remains service ExecStart target"
+      },
+      {
+        "change_now": false,
+        "component": "news_derived_layer_refresh_v1.py",
+        "planned_role": "new controlled derived-layer refresher or rebinding wrapper"
+      },
+      {
+        "change_now": false,
+        "component": "news_token_matcher_v1.py",
+        "planned_role": "reuse existing token match logic if validated"
+      }
+    ],
+    "create_now": false,
+    "derived_layer_order": [
+      "raw_feed_current_check",
+      "token_match_refresh",
+      "signal_refresh",
+      "score_refresh",
+      "freshness_recheck"
+    ],
+    "description": "Create a controlled derived-layer refresh path that runs after raw feed refresh and updates news_token_match_events, news_signal_events, and news_score_events_v1 from current news_raw_feed_events.",
+    "fix_id": "NEWS_DERIVED_LAYER_REFRESH_REBIND_V1",
+    "required_properties": [
+      "idempotent_by_uid",
+      "no_trade_authority",
+      "no_paper_trade",
+      "no_live_trade",
+      "bounded_batch_size",
+      "readonly_dryrun_first",
+      "db_delta_expected_only_in_apply_phase",
+      "service_timer_not_changed_in_plan",
+      "raw_feed_not_modified",
+      "derived_layers_only_after_explicit_apply"
+    ]
+  },
+  "generated_at_utc": "2026-07-09T14:58:54.307153+00:00",
+  "locked_root_cause": "RAW_FEED_IS_CURRENT_BUT_DERIVED_LAYERS_ARE_STALE",
+  "next": "NEWS_PRODUCER_STALENESS_FIX_DRYRUN_NOAPI",
+  "plan": "config/news_producer_staleness_fix_plan_v1.json",
+  "prior_audit": "data/control/news_producer_staleness_root_cause_audit_noapi_v1.json",
+  "stage": "NEWS_PRODUCER_STALENESS_FIX_PLAN_NOAPI",
+  "tool": "tools/news_producer_staleness_fix_plan_v1.py",
+  "validation": {
+    "db_delta": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 0,
+      "news_signal_events": 0,
+      "news_token_match_events": 0
+    },
+    "decision": "OK_NEWS_PRODUCER_STALENESS_FIX_PLAN_VALIDATED",
+    "failures": [],
+    "next": "NEWS_PRODUCER_STALENESS_FIX_DRYRUN_NOAPI",
+    "source_candidate_count": 19,
+    "warnings": []
+  },
+  "warnings": []
+}

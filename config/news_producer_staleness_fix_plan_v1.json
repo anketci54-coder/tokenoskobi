@@ -1,0 +1,352 @@
+{
+  "apply_requirements_later": {
+    "minimum_apply_controls": [
+      "backup_db_before_apply",
+      "tempdb_dryrun_before_real_db",
+      "single_batch_limit",
+      "post_apply_db_delta_report",
+      "freshness_post_audit",
+      "github_seal"
+    ],
+    "not_this_step": true,
+    "requires_commander_approval": true
+  },
+  "authority_boundary": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "current_evidence": {
+    "audit_findings": {
+      "derived_created_at_age_minutes": {
+        "news_score_events_v1": 4806.41,
+        "news_signal_events": 4806.41,
+        "news_token_match_events": 4806.41
+      },
+      "raw_fetched_age_minutes": 60.42,
+      "raw_latest_fetched_at_utc": "2026-07-09T13:50:09.941412+00:00",
+      "raw_latest_published_at_utc": "2026-07-09T13:30:00+00:00",
+      "raw_published_age_minutes": 80.58
+    },
+    "audit_warnings": [
+      "news_token_match_events:derived_layer_stale_age_minutes_4806.41",
+      "news_signal_events:derived_layer_stale_age_minutes_4806.41",
+      "news_score_events_v1:derived_layer_stale_age_minutes_4806.41",
+      "JOURNAL_INVALIDARGUMENT_FOUND"
+    ],
+    "runner_scan": {
+      "exists": true,
+      "line_count": 992,
+      "matches": {
+        "created_at_utc": 7,
+        "fetched_at_utc": 2,
+        "news_raw_feed_events": 12,
+        "news_score_events_v1": 5,
+        "news_signal_events": 5,
+        "news_token_match_events": 10,
+        "news_token_matcher": 1,
+        "published_at_utc": 2
+      },
+      "sha256": "271311cb5ce689ca99174688f02cd765a7cc29ccb0afb643efa8f9249909c1f1"
+    },
+    "source_candidates": [
+      {
+        "hit_score": 10,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 3,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "path": "tools/news_a_final_pre_replay_truth_snapshot_noapi_v1.py",
+        "sha256": "b843375588889f6b047a6a260df2fcd229d1924d585c1e33e485713c443db0cc"
+      },
+      {
+        "hit_score": 13,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 3,
+          "news_score_events_v1": 3,
+          "news_signal_events": 3,
+          "news_token_match_events": 3
+        },
+        "path": "tools/news_b_fix_1_post_apply_audit_noapi_v1.py",
+        "sha256": "a973f191f0f7d09e3540f5b7c1f52f525a52a007e75bef514e879f6dc460bff9"
+      },
+      {
+        "hit_score": 9,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 2,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "path": "tools/news_b_fix_1_systemd_stdout_stderr_path_targeted_apply_v1.py",
+        "sha256": "02a898a2167669ae2c851826914ba034df70c81e692cbde5a9a4c7a4e83dcbba"
+      },
+      {
+        "hit_score": 9,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 2,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "path": "tools/news_b_fix_2_post_activation_audit_noapi_v1.py",
+        "sha256": "42ac8c1d6c57b05272e56463b5e6aaf9e443157d1a95388ab7fdb0122f848e2a"
+      },
+      {
+        "hit_score": 13,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 3,
+          "news_score_events_v1": 3,
+          "news_signal_events": 3,
+          "news_token_match_events": 3
+        },
+        "path": "tools/news_b_fix_2_timer_activation_targeted_apply_v1.py",
+        "sha256": "f02f9ac678fe79f6f55f0c5bb3e55c79cd983685045f035d77cc3e56e3970e8f"
+      },
+      {
+        "hit_score": 6,
+        "matches": {
+          "created_at_utc": 2,
+          "news_raw_feed_events": 1,
+          "news_score_events_v1": 1,
+          "news_signal_events": 1,
+          "news_token_match_events": 1
+        },
+        "path": "tools/news_c_downstream_checksum_fingerprint_noapi_v1.py",
+        "sha256": "f6ed26a6cb5a37d50100a0fbe44f5a18fedbe7f42d4a6d0bfff314e357e313ae"
+      },
+      {
+        "hit_score": 2,
+        "matches": {
+          "created_at_utc": 2,
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "path": "tools/news_coverage_classifier_v1.py",
+        "sha256": "35f995d124dfd1718d4e59a8382fc344599d3994cff0a48d2af13009bf0d0b2f"
+      },
+      {
+        "hit_score": 3,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 1,
+          "news_signal_events": 1,
+          "news_token_match_events": 1
+        },
+        "path": "tools/news_coverage_panel_display_adapter_v1.py",
+        "sha256": "11d29300b099e2e890e9dde6d04399c0426d33914c8da2cbfa69fa49c90599b4"
+      },
+      {
+        "hit_score": 3,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 1,
+          "news_signal_events": 1,
+          "news_token_match_events": 1
+        },
+        "path": "tools/news_coverage_readmodel_consumer_v1.py",
+        "sha256": "e310c44da4de64d569ad050201dcb873111fcb727f60327088261fde33f8fb39"
+      },
+      {
+        "hit_score": 29,
+        "matches": {
+          "created_at_utc": 2,
+          "news_raw_feed_events": 6,
+          "news_score_events_v1": 7,
+          "news_signal_events": 7,
+          "news_token_match_events": 7
+        },
+        "path": "tools/news_d_panel_readmodel_freshness_noapi_v1.py",
+        "sha256": "4ab2520aca6df047ef6f4c71cdfd77b534147d18acc116699a696dbba14ede2a"
+      },
+      {
+        "hit_score": 9,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 2,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "path": "tools/news_f_final_operational_seal_with_known_warnings_v1.py",
+        "sha256": "2ae8c4b7a675aab61c580e1e51b4ea06e0b6e81bb55830398a9e9a13551220ac"
+      },
+      {
+        "hit_score": 36,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 17,
+          "news_score_events_v1": 6,
+          "news_signal_events": 4,
+          "news_token_match_events": 9
+        },
+        "path": "tools/news_historical_access_layer_dryrun_v1.py",
+        "sha256": "676f1bc9fa1ce6f76ce50117118903d0dec2aa69d01be31fdc194d1cfdef7b95"
+      },
+      {
+        "hit_score": 4,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 1,
+          "news_score_events_v1": 1,
+          "news_signal_events": 1,
+          "news_token_match_events": 1
+        },
+        "path": "tools/news_historical_access_layer_plan_v1.py",
+        "sha256": "4da225b4a6a62bb3edf2c0b77e3b9e17be1545aaec26723d7e3114ef45d23818"
+      },
+      {
+        "hit_score": 9,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 2,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "path": "tools/news_producer_health_watch_and_hot_gateway_review_v1.py",
+        "sha256": "6156884d3a2c5ca08cd2ea43a821d884412b4227a5e89453fd8e482cc13f7942"
+      },
+      {
+        "hit_score": 11,
+        "matches": {
+          "created_at_utc": 1,
+          "news_raw_feed_events": 10,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "path": "tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+        "sha256": "18adc0cad6e6636c1cec2f8d4e2f346715693ca551137ebead247a0a95030c83"
+      },
+      {
+        "hit_score": 39,
+        "matches": {
+          "created_at_utc": 7,
+          "news_raw_feed_events": 12,
+          "news_score_events_v1": 5,
+          "news_signal_events": 5,
+          "news_token_match_events": 10
+        },
+        "path": "tools/news_radar_refresh_runner_v1.py",
+        "sha256": "271311cb5ce689ca99174688f02cd765a7cc29ccb0afb643efa8f9249909c1f1"
+      },
+      {
+        "hit_score": 5,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 2,
+          "news_score_events_v1": 1,
+          "news_signal_events": 1,
+          "news_token_match_events": 1
+        },
+        "path": "tools/news_runtime_freshness_monitor_dryrun_v1.py",
+        "sha256": "ec40993147a3241102a2e1a7ad7a2bdc9c116b0d0b5f597299a2321b5f7ab3d6"
+      },
+      {
+        "hit_score": 8,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 2,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "path": "tools/news_runtime_probe_readonly_v1.py",
+        "sha256": "fe82945ee7e0a65d0fcb30e223195293d0981791b66d40ffce5f852d05159e0c"
+      },
+      {
+        "hit_score": 4,
+        "matches": {
+          "created_at_utc": 0,
+          "news_raw_feed_events": 1,
+          "news_score_events_v1": 1,
+          "news_signal_events": 1,
+          "news_token_match_events": 1
+        },
+        "path": "tools/news_runtime_stabilization_review_v1.py",
+        "sha256": "519cd8f8c4b9c13a1b1f052bdeb03f46027eb19bcecde610e5f0164f39ebe75e"
+      }
+    ]
+  },
+  "dryrun_requirements_next": {
+    "must_test": [
+      "identify_new_raw_rows_since_latest_derived_timestamp",
+      "preview_token_match_candidate_count_without_write",
+      "preview_signal_candidate_count_without_write",
+      "preview_score_candidate_count_without_write",
+      "prove_no_db_delta",
+      "prove_no_service_timer_nginx_change",
+      "prove_no_trade_authority",
+      "produce_apply_plan_only_if_candidates_exist"
+    ],
+    "next_step": "NEWS_PRODUCER_STALENESS_FIX_DRYRUN_NOAPI"
+  },
+  "fix_strategy_plan_only": {
+    "apply_now": false,
+    "candidate_components": [
+      {
+        "change_now": false,
+        "component": "news_radar_refresh_runner_v1.py",
+        "planned_role": "producer entrypoint remains service ExecStart target"
+      },
+      {
+        "change_now": false,
+        "component": "news_derived_layer_refresh_v1.py",
+        "planned_role": "new controlled derived-layer refresher or rebinding wrapper"
+      },
+      {
+        "change_now": false,
+        "component": "news_token_matcher_v1.py",
+        "planned_role": "reuse existing token match logic if validated"
+      }
+    ],
+    "create_now": false,
+    "derived_layer_order": [
+      "raw_feed_current_check",
+      "token_match_refresh",
+      "signal_refresh",
+      "score_refresh",
+      "freshness_recheck"
+    ],
+    "description": "Create a controlled derived-layer refresh path that runs after raw feed refresh and updates news_token_match_events, news_signal_events, and news_score_events_v1 from current news_raw_feed_events.",
+    "fix_id": "NEWS_DERIVED_LAYER_REFRESH_REBIND_V1",
+    "required_properties": [
+      "idempotent_by_uid",
+      "no_trade_authority",
+      "no_paper_trade",
+      "no_live_trade",
+      "bounded_batch_size",
+      "readonly_dryrun_first",
+      "db_delta_expected_only_in_apply_phase",
+      "service_timer_not_changed_in_plan",
+      "raw_feed_not_modified",
+      "derived_layers_only_after_explicit_apply"
+    ]
+  },
+  "generated_at_utc": "2026-07-09T14:58:54.307153+00:00",
+  "locked_root_cause": "RAW_FEED_IS_CURRENT_BUT_DERIVED_LAYERS_ARE_STALE",
+  "plan_version": "NEWS_PRODUCER_STALENESS_FIX_PLAN_V1",
+  "prior_required_artifact": "data/control/news_producer_staleness_root_cause_audit_noapi_v1.json",
+  "prior_required_decision": "OK_NEWS_PRODUCER_STALENESS_ROOT_CAUSE_AUDIT_NOAPI",
+  "purpose": "Plan the safe fix for NEWS producer staleness: raw feed is current, derived token_match/signal/score layers are stale."
+}
