@@ -1,0 +1,87 @@
+{
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "post_audit_and_seal_only": true,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "controlled_run_summary": {
+    "candidates_from_stdout": 0,
+    "controlled_decision": "WARN_NEWS_MATCHER_SCOPE_SPLIT_CONTROLLED_RUN_ONCE_NO_MATCH_DELTA",
+    "db_delta": {
+      "match": 0,
+      "raw": 0,
+      "score": 0,
+      "signal": 0
+    },
+    "runner_rc": 0,
+    "tokens_from_stdout": 19,
+    "unprocessed_from_stdout": 249
+  },
+  "db_readonly_snapshot": {
+    "counts": {
+      "news_raw_feed_events": 296,
+      "news_runtime_freshness_v1": 2,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "duplicates": {
+      "match_uid": 0,
+      "matched_news_uid": 0,
+      "score_uid": 0,
+      "signal_uid": 0
+    },
+    "exists": true,
+    "journal_mode": "delete",
+    "raw_without_match": 249
+  },
+  "decision": "WARN_NEWS_MATCHER_SCOPE_SPLIT_CONTROLLED_RUN_SEALED_CANDIDATE_SELECTOR_ZERO",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T05:26:11.561958+00:00",
+  "git_head_before": "60d91cbf50624949b87701698c4021e6d6eada9d",
+  "interpretation": {
+    "controlled_run_status": "Runner executed once with rc=0 and no failures.",
+    "next_problem": "Candidate selector/tracker policy must be audited before another run.",
+    "no_match_delta_reason": "Current tracker/candidate-selector state produced zero candidates; DB raw_without_match is not the same as unprocessed-by-tracker.",
+    "scope_split_status": "PASS: matcher scope split is applied and post-audited."
+  },
+  "next": "NEWS_CANDIDATE_SELECTOR_TRACKER_POLICY_AUDIT_NOAPI",
+  "post_audit_decision": "PASS_NEWS_MATCHER_SCOPE_SPLIT_APPLY_POST_AUDIT_NOAPI",
+  "stage": "NEWS_MATCHER_SCOPE_SPLIT_CONTROLLED_RUN_POST_AUDIT_AND_SEAL_NOAPI",
+  "static_checks": {
+    "matcher_hunter_guard": true,
+    "matcher_ntok_preserves_news_scope": true,
+    "matcher_paper_false": true,
+    "matcher_scope_helper": true,
+    "matcher_scope_marker": true,
+    "matcher_trade_false": true,
+    "runner_bounded_catchup_marker": true,
+    "runner_match_many_call": true
+  },
+  "tracker_readonly_snapshot": {
+    "exists": true,
+    "last_match_count_seen": 47,
+    "last_raw_count_seen": 296,
+    "last_score_count_seen": 47,
+    "last_signal_count_seen": 47,
+    "parse_ok": true,
+    "processed_hash_count": 249,
+    "processed_news_uid_count": 249,
+    "updated_at_utc": "2026-07-09T05:23:41.291194+00:00"
+  },
+  "warnings": [
+    "controlled_run_match_delta_zero",
+    "candidate_selector_returned_zero_candidates_despite_tokens",
+    "sqlite_journal_mode_not_wal"
+  ]
+}
