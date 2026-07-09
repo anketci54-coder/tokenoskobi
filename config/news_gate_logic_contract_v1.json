@@ -1,0 +1,72 @@
+{
+  "contract_version": "NEWS_GATE_LOGIC_CONTRACT_V1",
+  "gates": {
+    "CEX_PAIR_PRE_ANNOUNCEMENT_GATE": {
+      "accept": "new trading pair appears before announcement; mark as critical market-intel not confirmed news",
+      "routing": "Evidence Engine + Opportunity Memory, not automatic trade"
+    },
+    "DEX_MARKET_BEHAVIOR_GATE": {
+      "accept": "pair, liquidity, route, volume, holder or price behavior anomaly",
+      "routing": "Market behavior signal; must be fused with onchain evidence"
+    },
+    "GENERAL_NEWS_QUARANTINE_GATE": {
+      "accept": "major market/legal/systemic event only",
+      "routing": "Quarantine first; no automatic Prosecutor input"
+    },
+    "INCUBATION_GATE": {
+      "accept": "only WATCH mode; no direct Prosecutor Engine routing",
+      "promotion_rule": "increase trust only after repeated independent evidence confirmation"
+    },
+    "NOISE_DROP_GATE": {
+      "reject": "sponsored, giveaway, referral, influencer opinion, weak partnership, broad tech, meme hype"
+    },
+    "SECURITY_RELEVANCE_GATE": {
+      "accept": "exploit, rug, honeypot, wallet drain, phishing, MEV, oracle, bridge, liquidity, contract, social engineering or deception tactic",
+      "reject": "marketing, hype, price prediction"
+    },
+    "SOURCE_TRUST_GATE": {
+      "accept": "trust_score >= 70 and source not quarantined",
+      "reject": "source explicitly blocked",
+      "watch": "0 <= trust_score < 70 or incubation_period true"
+    },
+    "TOKEN_MATCH_GATE": {
+      "accept": "tracked token/project/chain/entity match exists",
+      "reject": "no relevant token/entity/chain relation"
+    }
+  },
+  "generated_at_utc": "2026-07-09T13:17:25.830762+00:00",
+  "hard_limits": {
+    "no_api_secret_required": true,
+    "no_general_tech_news": true,
+    "no_quarantine_to_prosecutor_direct": true,
+    "no_runtime_network_call_in_registry_step": true,
+    "no_trade_authority": true
+  },
+  "routing_policy": {
+    "cex_listing_market": [
+      "Evidence Engine",
+      "Opportunity Memory",
+      "Market Impact Review"
+    ],
+    "chain_infra": [
+      "System Risk Review",
+      "Market Impact Review"
+    ],
+    "dex_liquidity_market": [
+      "Evidence Engine",
+      "Risk Engine",
+      "Opportunity Memory"
+    ],
+    "general_crypto_quarantine": [
+      "Manual Review Queue"
+    ],
+    "incubation_sources": [
+      "Evidence Engine Watch Only"
+    ],
+    "security_exploit": [
+      "Evidence Engine",
+      "Unknown Anomaly Engine",
+      "Prosecutor Engine"
+    ]
+  }
+}
