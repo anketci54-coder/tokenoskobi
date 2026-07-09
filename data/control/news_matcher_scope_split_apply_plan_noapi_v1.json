@@ -1,0 +1,113 @@
+{
+  "apply_plan_next": {
+    "acceptance_gates": [
+      "py_compile PASS",
+      "match_many(raw_rows, tokens) contract korunur",
+      "trade_signal=false korunur",
+      "paper_signal=false korunur",
+      "major/minor generic assets Hunter target olmaz",
+      "configured token/pair evreni dışında write_allowed gerçek Hunter match üretmez",
+      "service/timer değişmez",
+      "duplicate groups 0 kalır"
+    ],
+    "deferred_separate_plan": [
+      "Panel için major/minor anlık fiyat widget planı ayrı yapılacak.",
+      "Market regime readmodel istenirse ayrı NEWS_MARKET_INDICATOR_READMODEL planı yapılacak."
+    ],
+    "minimal_changes": [
+      "news_token_matcher_v1.py içinde scope ayrımı dokümante/yardımcı fonksiyonla netleşecek.",
+      "Generic major coin dictionary Hunter path'e eklenmeyecek.",
+      "Market indicator eşleşmeleri mevcut match/signal/score tablolarına yazılmayacak.",
+      "Hunt target eşleşmesi sadece configured token/pair listesi üzerinden kalacak.",
+      "Runner service/timer/panel/WAL değişmeyecek.",
+      "Apply sonrası controlled run yapılacak; beklenen sonuç: tracker çalışır, duplicate 0 kalır, market indicator haberleri Hunter match üretmez."
+    ],
+    "name": "NEWS_MATCHER_SCOPE_SPLIT_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL"
+  },
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "plan_only": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "confirmed_contract": {
+    "matcher_match_many_line": 148,
+    "matcher_no_real_match_present": true,
+    "matcher_real_match_present": true,
+    "paper_false_present": true,
+    "runner_insert_downstream_line": 515,
+    "runner_load_tokens_line": 291,
+    "runner_match_many_call_line": 729,
+    "trade_false_present": true
+  },
+  "decision": "PASS_NEWS_MATCHER_SCOPE_SPLIT_APPLY_PLAN_READY",
+  "do_not_do": [
+    "BTC/ETH/XRP genel sözlüğünü Hunter hedefi yapma.",
+    "Bu adımda schema/WAL/service/timer/panel değiştirme.",
+    "Trade/paper/live yetkisi verme.",
+    "Büyük orchestrator açma."
+  ],
+  "failures": [],
+  "generated_at_utc": "2026-07-09T05:08:58.648453+00:00",
+  "git_head_before": "2dd92ed5dd6653c1ae296ab6efdf2fb5c14b372c",
+  "input_audits": {
+    "input_contract_decision": "WARN_NEWS_MATCHER_INPUT_CONTRACT_NEEDS_EXPLICIT_SCOPE_SPLIT_APPLY_PLAN",
+    "scope_alignment_decision": "WARN_NEWS_MATCHER_SCOPE_NEEDS_MARKET_INDICATOR_VS_HUNT_TARGET_SPLIT"
+  },
+  "next": "NEWS_MATCHER_SCOPE_SPLIT_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL",
+  "scope_split_policy": {
+    "hunt_target": {
+      "allowed_outputs": [
+        "news_token_match_events",
+        "news_signal_events",
+        "news_score_events_v1"
+      ],
+      "required_preserve": [
+        "duplicate_guard",
+        "tracker_guard",
+        "trade_signal=false",
+        "paper_signal=false"
+      ],
+      "role": "Tokenoskobi av hedefi",
+      "source": "configured Tokenoskobi token/pair universe only"
+    },
+    "market_indicator": {
+      "allowed_outputs": [
+        "readmodel/context",
+        "panel_price_widget_future",
+        "market_regime_signal_future"
+      ],
+      "assets": [
+        "BTC",
+        "ETH",
+        "BNB",
+        "SOL",
+        "XRP",
+        "ADA",
+        "DOGE",
+        "AVAX",
+        "LINK",
+        "TRX",
+        "USDT",
+        "USDC"
+      ],
+      "forbidden_outputs": [
+        "hunter_authority",
+        "trade_signal",
+        "paper_signal",
+        "prosecutor_target_without_configured_pair"
+      ],
+      "role": "NEWS/panel/piyasa rejimi bağlamı"
+    }
+  },
+  "stage": "NEWS_MATCHER_SCOPE_SPLIT_APPLY_PLAN_NOAPI",
+  "warnings": []
+}
