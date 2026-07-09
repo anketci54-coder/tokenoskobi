@@ -1,0 +1,183 @@
+{
+  "adapter_dryrun_hard_checks": {
+    "all_cases_ok": true,
+    "all_no_api": true,
+    "all_no_db_write": true,
+    "all_no_network": true,
+    "all_no_trade": true,
+    "api_sources_not_live_enabled": true,
+    "incubation_no_prosecutor": true,
+    "quarantine_no_prosecutor": true,
+    "websocket_sources_not_live_enabled": true
+  },
+  "adapter_family_count": 5,
+  "adapter_mapping_count": 14,
+  "api_required_sources_disabled_until_explicit_api_phase": [
+    "binance_pair_update_stream_watch",
+    "dexscreener_market_anomaly",
+    "geckoterminal_market_anomaly"
+  ],
+  "authority": {
+    "api_call": false,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "classes": [
+    "cex_listing_market",
+    "chain_infra",
+    "dex_liquidity_market",
+    "general_crypto_quarantine",
+    "security_exploit"
+  ],
+  "critical_sources": [
+    "binance_pair_update_stream_watch",
+    "blocksec_alert",
+    "peckshield_alert",
+    "slowmist_alert"
+  ],
+  "db_after": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_INGRESS_CHAIN_FINAL_REVIEW_AND_SEAL_NOAPI",
+  "failures": [],
+  "file_checks": [
+    {
+      "exists": true,
+      "label": "registry",
+      "path": "config/news_source_registry_v1.json",
+      "sha256": "28f3091a2b96254e8a5645fbe923dc4f16869125bc409875f53c52321c63a72e"
+    },
+    {
+      "exists": true,
+      "label": "gate_contract",
+      "path": "config/news_gate_logic_contract_v1.json",
+      "sha256": "3ddefa49c2e747c9f2f0aeeedd7d756a0649ffb1f2cbd88bab0132019e397183"
+    },
+    {
+      "exists": true,
+      "label": "minimal_output_contract",
+      "path": "config/news_minimal_ingress_output_contract_v1.json",
+      "sha256": "ebfcf5e4db4ea044cca5d2fef4fa25d4f34e2c957928fc2f328af6c1e0582e9e"
+    },
+    {
+      "exists": true,
+      "label": "adapter_plan",
+      "path": "config/news_ingress_adapter_readonly_scaffold_plan_v1.json",
+      "sha256": "494fe3a3be92c12abffd38db4909d4a7723dbe6ad228e6ac0ff080554c552ecc"
+    },
+    {
+      "exists": true,
+      "label": "adapter_output_contract",
+      "path": "config/news_ingress_adapter_readonly_output_contract_v1.json",
+      "sha256": "957df9fe98cdb38cfad289ebe1acbf5e6b0c4d09ce4a894e618cdd1d5229300f"
+    },
+    {
+      "decision": "OK_NEWS_SOURCE_REGISTRY_V1_NOAPI",
+      "exists": true,
+      "failures": [],
+      "label": "registry_artifact",
+      "path": "data/control/news_source_registry_v1_noapi.json",
+      "sha256": "9dcce1311f896cd6453613731501cbd494f723c3b34695181314d70e90c4823d"
+    },
+    {
+      "decision": "OK_NEWS_GATE_LOGIC_CONTRACT_DRYRUN_NOAPI",
+      "exists": true,
+      "failures": [],
+      "label": "gate_dryrun_artifact",
+      "path": "data/control/news_gate_logic_contract_dryrun_noapi_v1.json",
+      "sha256": "9d5819ec6ee97a168ea576099aeadf2bcc2e6ce1dbe886734b19b1d8ffc58bb5"
+    },
+    {
+      "decision": "OK_NEWS_MINIMAL_INGRESS_SCAFFOLD_DRYRUN_NOAPI",
+      "exists": true,
+      "failures": [],
+      "label": "minimal_ingress_artifact",
+      "path": "data/control/news_minimal_ingress_scaffold_dryrun_noapi_v1.json",
+      "sha256": "febe6267fe68a51daaaeafcace3c2652dde7cffff397a7ae996341411bd538df"
+    },
+    {
+      "decision": "OK_NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_PLAN_NOAPI",
+      "exists": true,
+      "failures": [],
+      "label": "adapter_plan_artifact",
+      "path": "data/control/news_ingress_adapter_readonly_scaffold_plan_noapi_v1.json",
+      "sha256": "14b84a5022f8429789eafdfa32b871186f3dab8a64464c03e2e4dfbe5c16e07d"
+    },
+    {
+      "decision": "OK_NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_DRYRUN_NOAPI",
+      "exists": true,
+      "failures": [],
+      "label": "adapter_dryrun_artifact",
+      "path": "data/control/news_ingress_adapter_readonly_scaffold_dryrun_noapi_v1.json",
+      "sha256": "9a53ad5e3ee24ff5dc270013b8fe513bdb545de648f3c826b2c54cf0d50c6972"
+    },
+    {
+      "exists": true,
+      "label": "gate_tool",
+      "path": "tools/news_gate_logic_contract_dryrun_v1.py",
+      "sha256": "7a1b7de59b9327236e1fe8c6a8fc31a1918af76cb0f50c9c45098d76c388b2d8"
+    },
+    {
+      "exists": true,
+      "label": "minimal_tool",
+      "path": "tools/news_minimal_ingress_scaffold_dryrun_v1.py",
+      "sha256": "e3c0e3371bd3f2c482751ea9514017904d9a12f5c9d4080f52c5d19ad7ebc88c"
+    },
+    {
+      "exists": true,
+      "label": "adapter_plan_tool",
+      "path": "tools/news_ingress_adapter_readonly_scaffold_plan_v1.py",
+      "sha256": "09854c7a7ad8de623fdcc96e054f5cfca8329827574cb76cf72c6dd13dc40f78"
+    },
+    {
+      "exists": true,
+      "label": "adapter_dryrun_tool",
+      "path": "tools/news_ingress_adapter_readonly_scaffold_dryrun_v1.py",
+      "sha256": "a5b26cb600b406df93da3d0caa7b00e21ebb750b2eb95478ad20839cddd8b23a"
+    }
+  ],
+  "gate_count": 8,
+  "generated_at_utc": "2026-07-09T13:45:30.063181+00:00",
+  "git_head_before_commit": "710d94be985bc4e3a72e8fb47f8ed6842873ab47",
+  "git_status_before_commit": [],
+  "incubation_sources": [
+    "new_investigator_incubation_pool"
+  ],
+  "next": "NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI",
+  "quarantine_sources": [
+    "general_crypto_quarantine_pool"
+  ],
+  "sealed_chain": [
+    "NEWS_SOURCE_REGISTRY_V1_NOAPI",
+    "NEWS_GATE_LOGIC_CONTRACT_DRYRUN_NOAPI",
+    "NEWS_MINIMAL_INGRESS_SCAFFOLD_DRYRUN_NOAPI",
+    "NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_PLAN_NOAPI",
+    "NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_DRYRUN_NOAPI"
+  ],
+  "source_count": 14,
+  "stage": "NEWS_INGRESS_CHAIN_FINAL_REVIEW_AND_SEAL_NOAPI",
+  "websocket_sources_disabled_until_explicit_api_phase": [
+    "binance_pair_update_stream_watch"
+  ]
+}
