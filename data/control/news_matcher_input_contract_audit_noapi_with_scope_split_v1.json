@@ -1,0 +1,306 @@
+{
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "db": {
+    "counts": {
+      "news_raw_feed_events": 294,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "tables": {
+      "news_raw_feed_events": [
+        "news_uid",
+        "source_uid",
+        "published_at_utc",
+        "title",
+        "url_hash",
+        "raw_hash",
+        "fetched_at_utc"
+      ],
+      "news_score_events_v1": [
+        "score_uid",
+        "news_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "news_token_relevance_score_100",
+        "news_risk_score_100",
+        "news_fusion_score_100",
+        "importance_label",
+        "risk_label",
+        "fusion_label",
+        "explanation",
+        "created_at_utc"
+      ],
+      "news_signal_events": [
+        "signal_uid",
+        "news_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "signal_type",
+        "signal_strength",
+        "signal_label",
+        "source_match_uid",
+        "evidence_text",
+        "created_at_utc"
+      ],
+      "news_token_match_events": [
+        "match_uid",
+        "news_uid",
+        "source_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "match_type",
+        "match_confidence",
+        "match_score",
+        "match_reasons_json",
+        "evidence_text",
+        "is_duplicate",
+        "write_allowed",
+        "trade_signal",
+        "paper_signal",
+        "created_at_utc"
+      ]
+    }
+  },
+  "decision": "WARN_NEWS_MATCHER_INPUT_CONTRACT_NEEDS_EXPLICIT_SCOPE_SPLIT_APPLY_PLAN",
+  "diagnosis": {
+    "do_not_do": [
+      "Do not make BTC/ETH/XRP generic hunter targets.",
+      "Do not add broad major-coin matching into Hunter path.",
+      "Do not change service/timer/panel in matcher contract step."
+    ],
+    "next_apply_plan": [
+      "Keep market indicators as NEWS/panel context.",
+      "Add explicit scope field or route: MARKET_INDICATOR vs HUNT_TARGET.",
+      "For HUNT_TARGET, match only configured Tokenoskobi token/pair universe.",
+      "For MARKET_INDICATOR, allow BTC/ETH/BNB/SOL/XRP style dashboard/regime context without hunter authorization."
+    ],
+    "summary": "Matcher input/output contract must be split between NEWS market indicators and Tokenoskobi hunt targets.",
+    "why_previous_run_zero_match": "Bounded catch-up delivered 100 candidates, but matcher did not map those candidate rows into configured token/pair outputs."
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T05:05:50.478098+00:00",
+  "git_head_before": "3b14f97d7f5d8f570d028b7a37dc09b524b5d556",
+  "input_contract_findings": {
+    "matcher_match_many": {
+      "args": [
+        "raw_rows",
+        "tokens"
+      ],
+      "end_lineno": 150,
+      "kwonlyargs": [],
+      "lineno": 148
+    },
+    "matcher_match_one": null,
+    "matcher_mentions_chain": true,
+    "matcher_mentions_news_uid": true,
+    "matcher_mentions_pair_uid": true,
+    "matcher_mentions_paper_false": true,
+    "matcher_mentions_source_uid": true,
+    "matcher_mentions_symbol": true,
+    "matcher_mentions_title": true,
+    "matcher_mentions_trade_false": true,
+    "runner_calls_match_many": true,
+    "runner_candidate_selector": {
+      "args": [
+        "con",
+        "tracker",
+        "max_batch"
+      ],
+      "end_lineno": 513,
+      "kwonlyargs": [],
+      "lineno": 476
+    },
+    "runner_downstream_hook": {
+      "args": [
+        "before_count",
+        "after_count",
+        "rc"
+      ],
+      "end_lineno": 795,
+      "kwonlyargs": [],
+      "lineno": 682
+    },
+    "runner_imports_match_many": true
+  },
+  "matcher_scope_snippets": [
+    {
+      "line": 5,
+      "match": "REAL_REASONS = {\"SYMBOL_EXACT_WORD\", \"NAME_SUBSTRING\", \"CONTRACT_EXACT\", \"PAIR_EXACT\"}",
+      "snippet": "1: #!/usr/bin/env python3\n2: import hashlib\n3: import re\n4: \n5: REAL_REASONS = {\"SYMBOL_EXACT_WORD\", \"NAME_SUBSTRING\", \"CONTRACT_EXACT\", \"PAIR_EXACT\"}\n6: \n7: def stable_hash(x, n=20):\n8:     return hashlib.sha256(str(x).encode(\"utf-8\")).hexdigest()[:n]\n9: \n10: def norm(x):\n11:     return re.sub(r\"\\s+\", \" \", str(x or \"\").strip().lower())"
+    },
+    {
+      "line": 25,
+      "match": "return \" \".join(str(raw.get(k) or \"\") for k in [\"title\", \"description\", \"summary\", \"url\"])",
+      "snippet": "19: \n20: def contains_addr(text, addr):\n21:     a = norm(addr)\n22:     return bool(a and len(a) >= 12 and a in norm(text))\n23: \n24: def raw_text(raw):\n25:     return \" \".join(str(raw.get(k) or \"\") for k in [\"title\", \"description\", \"summary\", \"url\"])\n26: \n27: def ntok(t):\n28:     return {\n29:         \"token_uid\": t.get(\"token_uid\"),\n30:         \"pair_uid\": t.get(\"pair_uid\"),\n31:         \"symbol\": str(t.get(\"symbol\") or \"\").strip(),"
+    },
+    {
+      "line": 29,
+      "match": "\"token_uid\": t.get(\"token_uid\"),",
+      "snippet": "23: \n24: def raw_text(raw):\n25:     return \" \".join(str(raw.get(k) or \"\") for k in [\"title\", \"description\", \"summary\", \"url\"])\n26: \n27: def ntok(t):\n28:     return {\n29:         \"token_uid\": t.get(\"token_uid\"),\n30:         \"pair_uid\": t.get(\"pair_uid\"),\n31:         \"symbol\": str(t.get(\"symbol\") or \"\").strip(),\n32:         \"name\": str(t.get(\"name\") or t.get(\"display_name\") or t.get(\"symbol\") or \"\").strip(),\n33:         \"chain\": str(t.get(\"chain\") or \"\").strip(),\n34:         \"token_address\": str(t.get(\"token_address\") or t.get(\"address\") or t.get(\"contract_address\") or \"\").strip(),\n35:         \"pair_address\": str(t.get(\"pair_address\") or t.get(\"pool_address\") or \"\").strip(),"
+    },
+    {
+      "line": 30,
+      "match": "\"pair_uid\": t.get(\"pair_uid\"),",
+      "snippet": "24: def raw_text(raw):\n25:     return \" \".join(str(raw.get(k) or \"\") for k in [\"title\", \"description\", \"summary\", \"url\"])\n26: \n27: def ntok(t):\n28:     return {\n29:         \"token_uid\": t.get(\"token_uid\"),\n30:         \"pair_uid\": t.get(\"pair_uid\"),\n31:         \"symbol\": str(t.get(\"symbol\") or \"\").strip(),\n32:         \"name\": str(t.get(\"name\") or t.get(\"display_name\") or t.get(\"symbol\") or \"\").strip(),\n33:         \"chain\": str(t.get(\"chain\") or \"\").strip(),\n34:         \"token_address\": str(t.get(\"token_address\") or t.get(\"address\") or t.get(\"contract_address\") or \"\").strip(),\n35:         \"pair_address\": str(t.get(\"pair_address\") or t.get(\"pool_address\") or \"\").strip(),\n36:     }"
+    },
+    {
+      "line": 31,
+      "match": "\"symbol\": str(t.get(\"symbol\") or \"\").strip(),",
+      "snippet": "25:     return \" \".join(str(raw.get(k) or \"\") for k in [\"title\", \"description\", \"summary\", \"url\"])\n26: \n27: def ntok(t):\n28:     return {\n29:         \"token_uid\": t.get(\"token_uid\"),\n30:         \"pair_uid\": t.get(\"pair_uid\"),\n31:         \"symbol\": str(t.get(\"symbol\") or \"\").strip(),\n32:         \"name\": str(t.get(\"name\") or t.get(\"display_name\") or t.get(\"symbol\") or \"\").strip(),\n33:         \"chain\": str(t.get(\"chain\") or \"\").strip(),\n34:         \"token_address\": str(t.get(\"token_address\") or t.get(\"address\") or t.get(\"contract_address\") or \"\").strip(),\n35:         \"pair_address\": str(t.get(\"pair_address\") or t.get(\"pool_address\") or \"\").strip(),\n36:     }\n37: "
+    },
+    {
+      "line": 32,
+      "match": "\"name\": str(t.get(\"name\") or t.get(\"display_name\") or t.get(\"symbol\") or \"\").strip(),",
+      "snippet": "26: \n27: def ntok(t):\n28:     return {\n29:         \"token_uid\": t.get(\"token_uid\"),\n30:         \"pair_uid\": t.get(\"pair_uid\"),\n31:         \"symbol\": str(t.get(\"symbol\") or \"\").strip(),\n32:         \"name\": str(t.get(\"name\") or t.get(\"display_name\") or t.get(\"symbol\") or \"\").strip(),\n33:         \"chain\": str(t.get(\"chain\") or \"\").strip(),\n34:         \"token_address\": str(t.get(\"token_address\") or t.get(\"address\") or t.get(\"contract_address\") or \"\").strip(),\n35:         \"pair_address\": str(t.get(\"pair_address\") or t.get(\"pool_address\") or \"\").strip(),\n36:     }\n37: \n38: def score_token_against_raw(raw, token):"
+    },
+    {
+      "line": 44,
+      "match": "if tok[\"symbol\"] and exact_word(text, tok[\"symbol\"]):",
+      "snippet": "38: def score_token_against_raw(raw, token):\n39:     tok = ntok(token)\n40:     text = raw_text(raw)\n41:     score = 0\n42:     reasons = []\n43: \n44:     if tok[\"symbol\"] and exact_word(text, tok[\"symbol\"]):\n45:         score += 45\n46:         reasons.append(\"SYMBOL_EXACT_WORD\")\n47: \n48:     if tok[\"name\"] and len(norm(tok[\"name\"])) >= 3 and norm(tok[\"name\"]) in norm(text):\n49:         score += 35\n50:         reasons.append(\"NAME_SUBSTRING\")"
+    },
+    {
+      "line": 60,
+      "match": "if not any(r in REAL_REASONS for r in reasons):",
+      "snippet": "54:         reasons.append(\"CONTRACT_EXACT\")\n55: \n56:     if tok[\"pair_address\"] and contains_addr(text, tok[\"pair_address\"]):\n57:         score += 90\n58:         reasons.append(\"PAIR_EXACT\")\n59: \n60:     if not any(r in REAL_REASONS for r in reasons):\n61:         return {\n62:             \"confidence\": \"NONE\",\n63:             \"score\": 0,\n64:             \"reasons\": [],\n65:             \"token\": None,\n66:             \"support_reasons_ignored\": [\"TRACKED_TOKEN_PAIR_PRESENT\"],"
+    },
+    {
+      "line": 73,
+      "match": "if tok[\"token_uid\"] and tok[\"pair_uid\"]:",
+      "snippet": "67:         }\n68: \n69:     if tok[\"chain\"] and exact_word(text, tok[\"chain\"]):\n70:         score += 5\n71:         reasons.append(\"CHAIN_HINT\")\n72: \n73:     if tok[\"token_uid\"] and tok[\"pair_uid\"]:\n74:         score += 5\n75:         reasons.append(\"TRACKED_TOKEN_PAIR_PRESENT\")\n76: \n77:     score = min(score, 100)\n78:     conf = \"HIGH\" if score >= 70 else \"MEDIUM\" if score >= 45 else \"LOW\" if score > 0 else \"NONE\"\n79: "
+    },
+    {
+      "line": 105,
+      "match": "\"token_uid\": None,",
+      "snippet": "99: \n100:     if best is None:\n101:         return {\n102:             \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|none\"),\n103:             \"news_uid\": news_uid,\n104:             \"source_uid\": raw.get(\"source_uid\"),\n105:             \"token_uid\": None,\n106:             \"pair_uid\": None,\n107:             \"symbol\": None,\n108:             \"chain\": None,\n109:             \"match_type\": \"NO_REAL_ENTITY_MATCH\",\n110:             \"match_confidence\": \"NONE\",\n111:             \"match_score\": 0,"
+    },
+    {
+      "line": 106,
+      "match": "\"pair_uid\": None,",
+      "snippet": "100:     if best is None:\n101:         return {\n102:             \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|none\"),\n103:             \"news_uid\": news_uid,\n104:             \"source_uid\": raw.get(\"source_uid\"),\n105:             \"token_uid\": None,\n106:             \"pair_uid\": None,\n107:             \"symbol\": None,\n108:             \"chain\": None,\n109:             \"match_type\": \"NO_REAL_ENTITY_MATCH\",\n110:             \"match_confidence\": \"NONE\",\n111:             \"match_score\": 0,\n112:             \"match_reasons\": [],"
+    },
+    {
+      "line": 107,
+      "match": "\"symbol\": None,",
+      "snippet": "101:         return {\n102:             \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|none\"),\n103:             \"news_uid\": news_uid,\n104:             \"source_uid\": raw.get(\"source_uid\"),\n105:             \"token_uid\": None,\n106:             \"pair_uid\": None,\n107:             \"symbol\": None,\n108:             \"chain\": None,\n109:             \"match_type\": \"NO_REAL_ENTITY_MATCH\",\n110:             \"match_confidence\": \"NONE\",\n111:             \"match_score\": 0,\n112:             \"match_reasons\": [],\n113:             \"support_reasons_ignored\": [\"TRACKED_TOKEN_PAIR_PRESENT\"],"
+    },
+    {
+      "line": 114,
+      "match": "\"evidence_text\": raw.get(\"title\"),",
+      "snippet": "108:             \"chain\": None,\n109:             \"match_type\": \"NO_REAL_ENTITY_MATCH\",\n110:             \"match_confidence\": \"NONE\",\n111:             \"match_score\": 0,\n112:             \"match_reasons\": [],\n113:             \"support_reasons_ignored\": [\"TRACKED_TOKEN_PAIR_PRESENT\"],\n114:             \"evidence_text\": raw.get(\"title\"),\n115:             \"is_duplicate\": bool(raw.get(\"is_duplicate\", False)),\n116:             \"write_allowed\": False,\n117:             \"trade_signal\": False,\n118:             \"paper_signal\": False,\n119:         }\n120: "
+    },
+    {
+      "line": 125,
+      "match": "and any(r in REAL_REASONS for r in best[\"reasons\"])",
+      "snippet": "119:         }\n120: \n121:     tok = best[\"token\"]\n122:     allow = (\n123:         not bool(raw.get(\"is_duplicate\", False))\n124:         and best[\"confidence\"] in (\"HIGH\", \"MEDIUM\")\n125:         and any(r in REAL_REASONS for r in best[\"reasons\"])\n126:     )\n127: \n128:     return {\n129:         \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|real\"),\n130:         \"news_uid\": news_uid,\n131:         \"source_uid\": raw.get(\"source_uid\"),"
+    },
+    {
+      "line": 132,
+      "match": "\"token_uid\": tok.get(\"token_uid\"),",
+      "snippet": "126:     )\n127: \n128:     return {\n129:         \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|real\"),\n130:         \"news_uid\": news_uid,\n131:         \"source_uid\": raw.get(\"source_uid\"),\n132:         \"token_uid\": tok.get(\"token_uid\"),\n133:         \"pair_uid\": tok.get(\"pair_uid\"),\n134:         \"symbol\": tok.get(\"symbol\"),\n135:         \"chain\": tok.get(\"chain\"),\n136:         \"match_type\": \"REAL_ENTITY_MATCH\",\n137:         \"match_confidence\": best[\"confidence\"],\n138:         \"match_score\": best[\"score\"],"
+    },
+    {
+      "line": 133,
+      "match": "\"pair_uid\": tok.get(\"pair_uid\"),",
+      "snippet": "127: \n128:     return {\n129:         \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|real\"),\n130:         \"news_uid\": news_uid,\n131:         \"source_uid\": raw.get(\"source_uid\"),\n132:         \"token_uid\": tok.get(\"token_uid\"),\n133:         \"pair_uid\": tok.get(\"pair_uid\"),\n134:         \"symbol\": tok.get(\"symbol\"),\n135:         \"chain\": tok.get(\"chain\"),\n136:         \"match_type\": \"REAL_ENTITY_MATCH\",\n137:         \"match_confidence\": best[\"confidence\"],\n138:         \"match_score\": best[\"score\"],\n139:         \"match_reasons\": best[\"reasons\"],"
+    },
+    {
+      "line": 134,
+      "match": "\"symbol\": tok.get(\"symbol\"),",
+      "snippet": "128:     return {\n129:         \"match_uid\": \"match_\" + stable_hash(str(news_uid) + \"|real\"),\n130:         \"news_uid\": news_uid,\n131:         \"source_uid\": raw.get(\"source_uid\"),\n132:         \"token_uid\": tok.get(\"token_uid\"),\n133:         \"pair_uid\": tok.get(\"pair_uid\"),\n134:         \"symbol\": tok.get(\"symbol\"),\n135:         \"chain\": tok.get(\"chain\"),\n136:         \"match_type\": \"REAL_ENTITY_MATCH\",\n137:         \"match_confidence\": best[\"confidence\"],\n138:         \"match_score\": best[\"score\"],\n139:         \"match_reasons\": best[\"reasons\"],\n140:         \"support_reasons_ignored\": [],"
+    },
+    {
+      "line": 141,
+      "match": "\"evidence_text\": raw.get(\"title\"),",
+      "snippet": "135:         \"chain\": tok.get(\"chain\"),\n136:         \"match_type\": \"REAL_ENTITY_MATCH\",\n137:         \"match_confidence\": best[\"confidence\"],\n138:         \"match_score\": best[\"score\"],\n139:         \"match_reasons\": best[\"reasons\"],\n140:         \"support_reasons_ignored\": [],\n141:         \"evidence_text\": raw.get(\"title\"),\n142:         \"is_duplicate\": bool(raw.get(\"is_duplicate\", False)),\n143:         \"write_allowed\": bool(allow),\n144:         \"trade_signal\": False,\n145:         \"paper_signal\": False,\n146:     }\n147: "
+    },
+    {
+      "line": 148,
+      "match": "def match_many(raw_rows, tokens):",
+      "snippet": "142:         \"is_duplicate\": bool(raw.get(\"is_duplicate\", False)),\n143:         \"write_allowed\": bool(allow),\n144:         \"trade_signal\": False,\n145:         \"paper_signal\": False,\n146:     }\n147: \n148: def match_many(raw_rows, tokens):\n149:     token_list = list(tokens)\n150:     return [match_raw_news_to_tokens(r, token_list) for r in raw_rows]"
+    }
+  ],
+  "next": "NEWS_MATCHER_SCOPE_SPLIT_APPLY_PLAN_NOAPI",
+  "runner_match_many_snippets": [
+    {
+      "line": 476,
+      "match": "def _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100):",
+      "snippet": "470:         try:\n471:             if con is not None:\n472:                 con.close()\n473:         except Exception:\n474:             pass\n475: \n476: def _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100):\n477:     if not _tok_wrap_news_table_exists_v1(con, \"news_raw_feed_events\"):\n478:         return []\n479:     existing = _tok_wrap_news_existing_news_uids_v1(con)\n480:     tracker_uids = set(str(x) for x in tracker.get(\"processed_news_uids\", []))\n481:     tracker_hashes = set(str(x) for x in tracker.get(\"processed_hashes\", []))\n482: "
+    },
+    {
+      "line": 715,
+      "match": "candidates = _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100)",
+      "snippet": "709:                 sys.path.insert(0, base)\n710:             from news_token_matcher_v1 import match_many\n711: \n712:             con = sqlite3.connect(db_path, timeout=10)\n713:             con.row_factory = sqlite3.Row\n714:             tokens = _tok_wrap_news_load_tokens_v1(con)\n715:             candidates = _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100)\n716: \n717:             if not candidates or not tokens:\n718:                 tracker[\"updated_at_utc\"] = _tok_wrap_news_now_v1()\n719:                 tracker[\"last_raw_count_seen\"] = _tok_wrap_news_count_v1(con, \"news_raw_feed_events\")\n720:                 tracker[\"last_match_count_seen\"] = _tok_wrap_news_count_v1(con, \"news_token_match_events\")\n721:                 tracker[\"last_signal_count_seen\"] = _tok_wrap_news_count_v1(con, \"news_signal_events\")"
+    },
+    {
+      "line": 729,
+      "match": "matches = match_many(candidates, tokens)",
+      "snippet": "723:                 _tok_wrap_news_atomic_write_json_v1(tracker_path, tracker)\n724:                 con.close()\n725:                 _tok_wrap_trace_v1(\"news_downstream_hook_noop\", \"candidates=\"+str(len(candidates))+\" tokens=\"+str(len(tokens)))\n726:                 return 0\n727: \n728:             started = _tok_wrap_news_now_v1()\n729:             matches = match_many(candidates, tokens)\n730: \n731:             con.execute(\"BEGIN IMMEDIATE\")\n732:             inserted_match, inserted_signal, inserted_score = _tok_wrap_news_insert_downstream_v1(con, matches)\n733:             _tok_wrap_news_update_freshness_v1(con)\n734:             con.commit()\n735: "
+    },
+    {
+      "line": 777,
+      "match": "\"news_downstream_hook_done\",",
+      "snippet": "771:             }\n772: \n773:             _tok_wrap_news_atomic_write_json_v1(tracker_path, tracker)\n774:             con.close()\n775: \n776:             _tok_wrap_trace_v1(\n777:                 \"news_downstream_hook_done\",\n778:                 \"raw_delta=\"+str(raw_delta)\n779:                 +\" catchup_unprocessed=\"+str(catchup_unprocessed_count)\n780:                 +\" candidates=\"+str(len(candidates))\n781:                 +\" matches=\"+str(inserted_match)\n782:                 +\" signals=\"+str(inserted_signal)\n783:                 +\" scores=\"+str(inserted_score)"
+    }
+  ],
+  "scope_split_contract": {
+    "hunt_target_contract": {
+      "must_preserve": [
+        "trade_signal=false",
+        "paper_signal=false",
+        "duplicate_guard",
+        "tracker_guard"
+      ],
+      "required_fields": [
+        "news_uid",
+        "title",
+        "source_uid",
+        "published_at_utc",
+        "token_uid_or_pair_uid_if_configured"
+      ],
+      "role": "DEX/new-token/risk-opportunity universe",
+      "source_must_be": "configured Tokenoskobi token/pair universe, not generic major coin dictionary"
+    },
+    "market_indicator_contract": {
+      "allowed_assets": [
+        "BTC",
+        "ETH",
+        "BNB",
+        "SOL",
+        "XRP",
+        "ADA",
+        "DOGE",
+        "AVAX",
+        "LINK",
+        "TRX",
+        "USDT",
+        "USDC"
+      ],
+      "must_not_authorize_hunter": true,
+      "role": "NEWS/panel/market regime only"
+    }
+  },
+  "stage": "NEWS_MATCHER_INPUT_CONTRACT_AUDIT_NOAPI_WITH_SCOPE_SPLIT",
+  "warnings": [
+    "verify_runner_candidate_shape_matches_match_many_expected_input"
+  ]
+}
