@@ -1,0 +1,99 @@
+{
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "post_audit_and_seal_only": true,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "db_readonly_snapshot": {
+    "counts": {
+      "news_raw_feed_events": 300,
+      "news_runtime_freshness_v1": 2,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "duplicates": {
+      "match_uid": 0,
+      "matched_news_uid": 0,
+      "score_uid": 0,
+      "signal_uid": 0
+    },
+    "exists": true,
+    "journal_mode": "delete",
+    "raw_without_match": 253
+  },
+  "decision": "WARN_NEWS_TRACKER_REPROCESS_SEALED_SELECTOR_OK_MATCH_ZERO_TOKEN_UNIVERSE_NEXT",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T06:51:59.997282+00:00",
+  "git_head_before": "bf21668970dfb514a6a727e415ddefdb0c5effbe",
+  "input_controlled_decision": "WARN_NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_CONTROLLED_RUN_ONCE_NO_MATCH_DELTA",
+  "input_post_audit_decision": "PASS_NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_APPLY_POST_AUDIT_NOAPI",
+  "interpretation": {
+    "duplicate_status": "PASS: duplicate groups remain zero.",
+    "match_status": "WARN: candidates were processed but no match/signal/score rows were inserted.",
+    "next_problem": "Configured token universe / matcher target coverage is too narrow for current raw NEWS stream.",
+    "reprocess_status": "PASS: selector no longer returns zero; bounded reprocess selected and processed candidates."
+  },
+  "next": "NEWS_TOKEN_UNIVERSE_MATCH_COVERAGE_AUDIT_NOAPI",
+  "runner_trace": {
+    "candidates_from_stdout": 100,
+    "controlled_decision": "WARN_NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_CONTROLLED_RUN_ONCE_NO_MATCH_DELTA",
+    "db_delta": {
+      "match": 0,
+      "raw": 0,
+      "score": 0,
+      "signal": 0
+    },
+    "matches_from_stdout": 0,
+    "reprocess_delta": 100,
+    "runner_rc": 0,
+    "scores_from_stdout": 0,
+    "signals_from_stdout": 0
+  },
+  "stage": "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_CONTROLLED_RUN_POST_AUDIT_AND_SEAL_NOAPI",
+  "static_checks": {
+    "matcher_paper_false": true,
+    "matcher_scope_split": true,
+    "matcher_trade_false": true,
+    "runner_duplicate_guard": true,
+    "runner_match_many_contract": true,
+    "runner_max_batch_guard": true,
+    "runner_reprocess_marker": true,
+    "runner_reprocess_versions": true,
+    "runner_scope_version": true
+  },
+  "tracker_readonly_snapshot": {
+    "exists": true,
+    "last_match_count_seen": 47,
+    "last_raw_count_seen": 300,
+    "last_score_count_seen": 47,
+    "last_signal_count_seen": 47,
+    "parse_ok": true,
+    "processed_hash_count": 253,
+    "processed_news_uid_count": 253,
+    "reprocess_v1_exists": true,
+    "reprocess_v1_last_batch": {
+      "finished_at_utc": "2026-07-09T06:49:59.317317+00:00",
+      "input_raw": 100,
+      "new_reprocessed": 100,
+      "started_at_utc": "2026-07-09T06:49:59.278806+00:00"
+    },
+    "reprocess_v1_processed_hash_count": 199,
+    "reprocess_v1_processed_news_uid_count": 199,
+    "updated_at_utc": "2026-07-09T06:49:59.317325+00:00"
+  },
+  "warnings": [
+    "controlled_match_delta_zero",
+    "sqlite_journal_mode_not_wal"
+  ]
+}
