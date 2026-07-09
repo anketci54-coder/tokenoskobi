@@ -1,0 +1,190 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI",
+  "dryrun": {
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "execution_authority": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false
+    },
+    "db_after": {
+      "news_raw_feed_events": 325,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "db_before": {
+      "news_raw_feed_events": 325,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "db_delta": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 0,
+      "news_signal_events": 0,
+      "news_token_match_events": 0
+    },
+    "decision": "OK_NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_INTERNAL",
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T14:29:42.168555+00:00",
+    "history_access_status": {
+      "backfill_now": false,
+      "dedup_preview_readonly": true,
+      "index_preview_readonly": true,
+      "legacy_news_uid_supported": true,
+      "new_event_uid_artifact_supported": true,
+      "query_layer_readonly": true
+    },
+    "next": "NEWS_RUNTIME_AND_HISTORY_FINAL_SEAL_NOAPI",
+    "ok_count": 10,
+    "stage": "NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI",
+    "test_count": 10,
+    "tests": [
+      {
+        "ok": true,
+        "purpose": "count all historical NEWS tables",
+        "result": {
+          "news_raw_feed_events": 325,
+          "news_score_events_v1": 47,
+          "news_signal_events": 47,
+          "news_token_match_events": 47
+        },
+        "test_id": "T01_COUNT_ALL_TABLES"
+      },
+      {
+        "max": "2026-07-09T13:30:00+00:00",
+        "min": "2026-05-09T11:12:08+00:00",
+        "ok": true,
+        "purpose": "date range query on raw historical feed",
+        "query_field": "published_at_utc",
+        "result_count": 325,
+        "test_id": "T02_DATE_RANGE_QUERY"
+      },
+      {
+        "ok": true,
+        "purpose": "source_uid query",
+        "result_count": 315,
+        "source_uid": "src_seed_crypto_news_rss",
+        "test_id": "T03_SOURCE_QUERY"
+      },
+      {
+        "chain": "Bitcoin",
+        "ok": true,
+        "purpose": "token symbol + chain query",
+        "result_count": 35,
+        "symbol": "BTC",
+        "test_id": "T04_SYMBOL_CHAIN_QUERY"
+      },
+      {
+        "ok": true,
+        "purpose": "risk_label query",
+        "result_count": 32,
+        "risk_label": "MEDIUM",
+        "test_id": "T05_RISK_LABEL_QUERY"
+      },
+      {
+        "news_uid": "news12_09a20fc46204a4ca1ae7",
+        "ok": true,
+        "purpose": "legacy news_uid lookup across all layers",
+        "result": {
+          "match": 0,
+          "raw": 1,
+          "score": 0,
+          "signal": 0
+        },
+        "test_id": "T06_NEWS_UID_LOOKUP"
+      },
+      {
+        "event_uid": "6d3bd3cb3932bec479b3d443ad970615",
+        "ok": true,
+        "purpose": "new ingress artifact event_uid lookup",
+        "result_count": 1,
+        "sample": [
+          {
+            "decision": "ACCEPT_SECURITY_EARLY_WARNING",
+            "event_uid": "6d3bd3cb3932bec479b3d443ad970615",
+            "route": [
+              "Evidence Engine",
+              "Unknown Anomaly Engine",
+              "Prosecutor Engine"
+            ],
+            "source_id": "peckshield_alert"
+          }
+        ],
+        "test_id": "T07_ARTIFACT_EVENT_UID_LOOKUP"
+      },
+      {
+        "duplicate_raw_hash_groups": 0,
+        "duplicate_url_hash_groups": 0,
+        "ok": true,
+        "purpose": "preview duplicate candidates without writing",
+        "test_id": "T08_DEDUP_PREVIEW_READONLY"
+      },
+      {
+        "candidate_count": 15,
+        "create_now_all_false": true,
+        "ok": true,
+        "purpose": "verify index strategy remains preview-only",
+        "test_id": "T09_INDEX_PREVIEW_NO_CREATE"
+      },
+      {
+        "join_count": 47,
+        "ok": true,
+        "purpose": "join raw feed to token match layer",
+        "test_id": "T10_JOIN_RAW_TO_MATCH_READONLY"
+      }
+    ],
+    "warnings": []
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T14:29:42.182252+00:00",
+  "next": "NEWS_RUNTIME_AND_HISTORY_FINAL_SEAL_NOAPI",
+  "stage": "NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI",
+  "tool": "tools/news_historical_access_layer_dryrun_v1.py",
+  "warnings": []
+}
