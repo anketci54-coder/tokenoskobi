@@ -1,0 +1,184 @@
+{
+  "authority": {
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "nginx_change": true,
+    "nginx_reload": true,
+    "nginx_test": true,
+    "panel_file_change": false,
+    "paper_trade": false,
+    "public_url_probe": true,
+    "service_reload_only": true,
+    "timer_change": false
+  },
+  "db_after": {
+    "news_raw_feed_events": 320,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 320,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_PUBLIC_NGINX_ROUTE_FIX_SINGLE_BLOCK_NOAPI",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T12:09:32.793657+00:00",
+  "local8096_ok": true,
+  "localhost80_ok": false,
+  "next": "NEWS_PUBLIC_ROUTE_FIX_CLOSED_BROWSER_MANUAL_VERIFY_OPTIONAL",
+  "nginx_candidates": [
+    "/etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf",
+    "/etc/nginx/sites-enabled/panel.coinoskobi.com.conf",
+    "/etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf",
+    "/etc/nginx/sites-available/coinoskobi_xyz_staging.conf"
+  ],
+  "patch_results": [
+    {
+      "backup": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_route_fix/panel.coinoskobi.xyz.conf.20260709T120925Z.bak",
+      "patched": true,
+      "path": "/etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf"
+    }
+  ],
+  "patched_any": true,
+  "post": {
+    "nginx_active_after": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "nginx"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "nginx_test_after": {
+      "cmd": [
+        "nginx",
+        "-t"
+      ],
+      "rc": 0,
+      "stderr": "2026/07/09 15:09:25 [warn] 530775#530775: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:13\n2026/07/09 15:09:25 [warn] 530775#530775: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:14\n2026/07/09 15:09:25 [warn] 530775#530775: protocol options redefined for [::]:443 in /etc/nginx/sites-enabled/panel.coinoskobi.com.conf:28\nnginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful",
+      "stdout": ""
+    },
+    "public_after": [
+      {
+        "contains_link": false,
+        "contains_news": false,
+        "error": "URLError:<urlopen error [Errno -2] Name or service not known>",
+        "status": null,
+        "url": "https://www.coinoskobi.xyz/panel/panel_v2/news_coverage.html"
+      },
+      {
+        "contains_link": false,
+        "contains_news": false,
+        "error": "URLError:<urlopen error _ssl.c:1012: The handshake operation timed out>",
+        "status": null,
+        "url": "https://coinoskobi.xyz/panel/panel_v2/news_coverage.html"
+      },
+      {
+        "contains_link": false,
+        "contains_news": false,
+        "error": "HTTPError",
+        "status": 404,
+        "url": "http://127.0.0.1/panel/panel_v2/news_coverage.html"
+      },
+      {
+        "contains_link": true,
+        "contains_news": true,
+        "error": null,
+        "status": 200,
+        "url": "http://127.0.0.1:8096/panel/panel_v2/news_coverage.html"
+      }
+    ],
+    "reload_result": {
+      "cmd": [
+        "systemctl",
+        "reload",
+        "nginx"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  },
+  "pre": {
+    "listeners": {
+      "cmd": [
+        "bash",
+        "-lc",
+        "ss -ltnp | grep -E ':(80|443|8096)\\b' || true"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "LISTEN 0      5            0.0.0.0:8096       0.0.0.0:*    users:((\"python3\",pid=559310,fd=3))                                                                                                               \nLISTEN 0      511          0.0.0.0:80         0.0.0.0:*    users:((\"nginx\",pid=2808935,fd=7),(\"nginx\",pid=2808934,fd=7),(\"nginx\",pid=2808933,fd=7),(\"nginx\",pid=2808932,fd=7),(\"nginx\",pid=714261,fd=7))     \nLISTEN 0      511          0.0.0.0:443        0.0.0.0:*    users:((\"nginx\",pid=2808935,fd=21),(\"nginx\",pid=2808934,fd=21),(\"nginx\",pid=2808933,fd=21),(\"nginx\",pid=2808932,fd=21),(\"nginx\",pid=714261,fd=21))\nLISTEN 0      511             [::]:80            [::]:*    users:((\"nginx\",pid=2808935,fd=8),(\"nginx\",pid=2808934,fd=8),(\"nginx\",pid=2808933,fd=8),(\"nginx\",pid=2808932,fd=8),(\"nginx\",pid=714261,fd=8))     \nLISTEN 0      511             [::]:443           [::]:*    users:((\"nginx\",pid=2808935,fd=22),(\"nginx\",pid=2808934,fd=22),(\"nginx\",pid=2808933,fd=22),(\"nginx\",pid=2808932,fd=22),(\"nginx\",pid=714261,fd=22))"
+    },
+    "local_8096_news": {
+      "contains_link": true,
+      "contains_news": true,
+      "error": null,
+      "status": 200,
+      "url": "http://127.0.0.1:8096/panel/panel_v2/news_coverage.html"
+    },
+    "nginx_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "nginx"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "nginx_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "nginx"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "enabled"
+    },
+    "nginx_test_before": {
+      "cmd": [
+        "nginx",
+        "-t"
+      ],
+      "rc": 0,
+      "stderr": "2026/07/09 15:09:18 [warn] 530654#530654: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:13\n2026/07/09 15:09:18 [warn] 530654#530654: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:14\n2026/07/09 15:09:18 [warn] 530654#530654: protocol options redefined for [::]:443 in /etc/nginx/sites-enabled/panel.coinoskobi.com.conf:28\nnginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful",
+      "stdout": ""
+    },
+    "public_before": [
+      {
+        "contains_link": false,
+        "contains_news": false,
+        "error": "URLError:<urlopen error [Errno -2] Name or service not known>",
+        "status": null,
+        "url": "https://www.coinoskobi.xyz/panel/panel_v2/news_coverage.html"
+      },
+      {
+        "contains_link": false,
+        "contains_news": false,
+        "error": "URLError:<urlopen error _ssl.c:1012: The handshake operation timed out>",
+        "status": null,
+        "url": "https://coinoskobi.xyz/panel/panel_v2/news_coverage.html"
+      }
+    ]
+  },
+  "public_ok": false,
+  "stage": "NEWS_PUBLIC_NGINX_ROUTE_FIX_SINGLE_BLOCK_NOAPI",
+  "warnings": [
+    "public_https_body_not_confirmed_after_nginx_patch",
+    "localhost_80_body_not_confirmed_after_nginx_patch"
+  ]
+}
