@@ -1,0 +1,86 @@
+{
+  "adversarial_events_snapshot": {
+    "exists": false,
+    "line_count": 0,
+    "parse_errors": 0,
+    "unique_event_uid_count": 0
+  },
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "post_audit_and_seal_only": true,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "controlled_event_delta": {
+    "adversarial_line_delta": 0,
+    "adversarial_unique_uid_delta": 0,
+    "market_line_delta": 0,
+    "market_unique_uid_delta": 0
+  },
+  "controlled_runner_trace": {
+    "adversarial_events": 0,
+    "candidates": 2,
+    "market_events": 0,
+    "matches": 0,
+    "scores": 0,
+    "signals": 0
+  },
+  "db_readonly_snapshot": {
+    "counts": {
+      "news_raw_feed_events": 302,
+      "news_runtime_freshness_v1": 2,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "duplicates": {
+      "match_uid": 0,
+      "matched_news_uid": 0,
+      "score_uid": 0,
+      "signal_uid": 0
+    },
+    "exists": true,
+    "journal_mode": "delete"
+  },
+  "decision": "WARN_NEWS_COVERAGE_EXPANSION_SEALED_RUNTIME_OK_NO_READMODEL_DELTA_BACKFILL_NEXT",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T07:39:16.760529+00:00",
+  "git_head_before": "1a141dfdcb982c8fcd3fec90052c178720a6e716",
+  "input_controlled_decision": "WARN_NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_CONTROLLED_RUN_NO_READMODEL_DELTA",
+  "input_post_audit_decision": "PASS_NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_APPLY_POST_AUDIT_NOAPI",
+  "interpretation": {
+    "apply_status": "PASS: classifier and runner hook are installed and post-audited.",
+    "controlled_run_status": "WARN: runner executed rc=0 but selected only 2 candidates and produced no readmodel events.",
+    "root_cause": "Runtime candidate selection did not include market/adversarial-hit rows in this run.",
+    "safe_next": "Plan bounded readmodel backfill/classification over existing unmatched raw NEWS rows without DB match writes."
+  },
+  "market_events_snapshot": {
+    "exists": false,
+    "line_count": 0,
+    "parse_errors": 0,
+    "unique_event_uid_count": 0
+  },
+  "next": "NEWS_COVERAGE_READMODEL_BACKFILL_PLAN_NOAPI",
+  "stage": "NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_CONTROLLED_RUN_POST_AUDIT_AND_SEAL_NOAPI",
+  "static_checks": {
+    "classifier_db_match_write_false": true,
+    "classifier_hunter_authorized_false": true,
+    "classifier_marker": true,
+    "runner_classifier_helper": true,
+    "runner_coverage_call": true,
+    "runner_match_many_contract": true
+  },
+  "warnings": [
+    "controlled_run_only_2_candidates_no_readmodel_delta",
+    "sqlite_journal_mode_not_wal"
+  ]
+}
