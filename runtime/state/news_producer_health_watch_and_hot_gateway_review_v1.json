@@ -13,6 +13,7 @@
     "timer_change": false,
     "trade_signal": false
   },
+  "blockers": [],
   "db": {
     "counts": {
       "news_raw_feed_events": 317,
@@ -22,67 +23,82 @@
       "news_token_match_events": 47
     },
     "exists": true,
-    "journal_mode": "delete"
+    "journal_mode": "delete",
+    "max_times": {
+      "news_raw_feed_events": "2026-07-09T11:08:37+00:00",
+      "news_runtime_freshness_v1": "2026-07-09T11:09:55.078305+00:00",
+      "news_score_events_v1": "2026-07-06T06:44:10.288486+00:00",
+      "news_signal_events": "2026-07-06T06:44:10.288481+00:00",
+      "news_token_match_events": "2026-07-06T06:44:10.282634+00:00"
+    }
   },
-  "display": {
-    "authority": {
-      "active_panel_mutation": false,
-      "db_schema_change": false,
-      "db_write": false,
-      "hunter_authorized": false,
-      "live_trade": false,
-      "news_score_events_v1_write": false,
-      "news_signal_events_write": false,
-      "news_token_match_events_write": false,
-      "paper_signal": false,
-      "service_change": false,
-      "timer_change": false,
-      "trade_signal": false
+  "decision": "OK_PRODUCER_HEALTH_WATCH_AND_HOT_GATEWAY_REVIEW",
+  "generated_at_utc": "2026-07-09T11:11:40.420381+00:00",
+  "integration": {
+    "coverage_lanes": {
+      "adversarial_jsonl": 51,
+      "market_jsonl": 35,
+      "summary_adversarial": 51,
+      "summary_market": 35
     },
-    "exists": true,
-    "health": {
-      "duplicate_event_uids": 0,
-      "parse_errors": 0,
-      "source_authority_ok": true,
-      "summary_exists": true,
-      "unsafe_events": 0
+    "display": {
+      "exists": true,
+      "sections": [
+        "news_market_indicator",
+        "news_adversarial_intelligence",
+        "news_coverage_health"
+      ],
+      "source_authority_ok": true
     },
-    "sections": [
-      "news_market_indicator",
-      "news_adversarial_intelligence",
-      "news_coverage_health"
-    ]
-  },
-  "generated_at_utc": "2026-07-09T11:11:40.234995+00:00",
-  "hot_gateway": {
-    "authority": {
-      "db_schema_change": false,
-      "db_write": false,
-      "execution_authority": false,
-      "external_api_call": false,
-      "hunter_authorized": false,
-      "live_trade": false,
-      "network_call": false,
-      "paper_signal": false,
-      "service_change": false,
-      "timer_change": false,
-      "trade_signal": false
+    "downstream_db": {
+      "match_count": 47,
+      "raw_to_match_gap": 270,
+      "score_count": 47,
+      "signal_count": 47
     },
-    "exists": true,
-    "hot_queue_count": 50,
-    "source_health": {
-      "display_exists": true,
-      "display_source_authority_ok": true,
-      "summary_duplicate_event_uids": 0,
-      "summary_exists": true,
-      "summary_parse_errors": 0,
-      "summary_unsafe_events": 0
+    "hot_gateway": {
+      "authority": {
+        "db_schema_change": false,
+        "db_write": false,
+        "execution_authority": false,
+        "external_api_call": false,
+        "hunter_authorized": false,
+        "live_trade": false,
+        "network_call": false,
+        "paper_signal": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade_signal": false
+      },
+      "exists": true,
+      "hot_queue_count": 50,
+      "source_health": {
+        "display_exists": true,
+        "display_source_authority_ok": true,
+        "summary_duplicate_event_uids": 0,
+        "summary_exists": true,
+        "summary_parse_errors": 0,
+        "summary_unsafe_events": 0
+      }
+    },
+    "producer": {
+      "freshness_count": 2,
+      "raw_count": 317,
+      "service_active": "inactive",
+      "service_enabled": "static",
+      "timer_active": "active",
+      "timer_enabled": "enabled"
     }
   },
   "journal_tail": {
     "rc": 0,
     "stderr": "",
     "tail": [
+      "2026-07-09T11:29:48+03:00 v2202604354387455154 systemd[1]: Finished tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.",
+      "2026-07-09T11:49:48+03:00 v2202604354387455154 systemd[1]: Starting tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner...",
+      "2026-07-09T11:49:48+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Deactivated successfully.",
+      "2026-07-09T11:49:48+03:00 v2202604354387455154 systemd[1]: Finished tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.",
+      "2026-07-09T12:09:49+03:00 v2202604354387455154 systemd[1]: Starting tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner...",
       "2026-07-09T12:09:50+03:00 v2202604354387455154 systemd[1]: tokenoskobi-news-radar-refresh.service: Deactivated successfully.",
       "2026-07-09T12:09:50+03:00 v2202604354387455154 systemd[1]: Finished tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner.",
       "2026-07-09T12:29:50+03:00 v2202604354387455154 systemd[1]: Starting tokenoskobi-news-radar-refresh.service - Tokenoskobi News Radar Refresh Runner...",
@@ -121,30 +137,43 @@
       "unsafe_events": 0
     }
   },
-  "mode": "NOAPI_READONLY_PRODUCER_REVIEW",
-  "next_recommendation": "Keep producer under observation; refresh consumer/display/hot chain when JSONL counts drift.",
-  "review": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW_V1",
-  "schema_version": "1.0",
-  "summary": {
-    "adversarial_count": 51,
-    "authority": {
-      "db_write": false,
-      "hunter_authorized": false,
-      "live_trade": false,
-      "news_score_events_v1_write": false,
-      "news_signal_events_write": false,
-      "news_token_match_events_write": false,
-      "panel_change": false,
-      "paper_signal": false,
-      "service_timer_change": false,
-      "trade_signal": false
-    },
-    "duplicate_event_uids": 0,
+  "mode": "NOAPI_READONLY_HEALTH_WATCH_AND_INTEGRATION_REVIEW",
+  "next_recommendation": "Choose active panel binding only after explicit approval, or keep read-only producer watch running as manual review.",
+  "previous_stabilization": {
     "exists": true,
-    "market_indicator_count": 35,
-    "parse_errors": 0,
-    "unsafe_events": 0
+    "systemd": {
+      "service": "tokenoskobi-news-radar-refresh.service",
+      "service_active": {
+        "rc": 3,
+        "stderr": "",
+        "stdout": "inactive"
+      },
+      "service_enabled": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "static"
+      },
+      "timer": "tokenoskobi-news-radar-refresh.timer",
+      "timer_active": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "active"
+      },
+      "timer_enabled": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "enabled"
+      },
+      "timer_list": {
+        "rc": 0,
+        "stderr": "",
+        "stdout": "NEXT                          LEFT LAST                               PASSED UNIT                                 ACTIVATES\nThu 2026-07-09 14:29:54 EEST 18min Thu 2026-07-09 14:09:54 EEST 1min 45s ago tokenoskobi-news-radar-refresh.timer tokenoskobi-news-radar-refresh.service\n\n1 timers listed."
+      }
+    },
+    "warnings": []
   },
+  "review": "NEWS_PRODUCER_HEALTH_WATCH_AND_HOT_GATEWAY_REVIEW_V1",
+  "schema_version": "1.0",
   "systemd": {
     "service": "tokenoskobi-news-radar-refresh.service",
     "service_active": {
@@ -174,5 +203,8 @@
       "stdout": "NEXT                          LEFT LAST                               PASSED UNIT                                 ACTIVATES\nThu 2026-07-09 14:29:54 EEST 18min Thu 2026-07-09 14:09:54 EEST 1min 45s ago tokenoskobi-news-radar-refresh.timer tokenoskobi-news-radar-refresh.service\n\n1 timers listed."
     }
   },
-  "warnings": []
+  "warnings": [
+    "raw_count_greater_than_match_downstream_review_needed",
+    "sqlite_journal_mode_not_wal"
+  ]
 }
