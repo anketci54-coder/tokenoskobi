@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # NEWS27A11 runner wrapper: original runner + persistent Haber Radar panel mapping
-import os, sys, json, tempfile, subprocess
+import os, sys, json, tempfile, sqlite3, subprocess
 from collections import Counter
 
 ORIGINAL_RUNNER = '/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py'
