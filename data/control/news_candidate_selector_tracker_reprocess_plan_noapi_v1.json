@@ -1,0 +1,105 @@
+{
+  "apply_plan_next": {
+    "acceptance_gates": [
+      "py_compile runner and matcher PASS",
+      "static marker for reprocess policy present",
+      "match_many(candidates, tokens) contract preserved",
+      "normal candidate selector path preserved",
+      "reprocess candidate path bounded to max 100",
+      "duplicate groups remain 0 after controlled run",
+      "trade_signal=false preserved",
+      "paper_signal=false preserved",
+      "service/timer state unchanged"
+    ],
+    "minimal_changes": [
+      "Add matcher scope version constant: NEWS_MATCHER_SCOPE_SPLIT_V1.",
+      "Extend tracker JSON with reprocess version state without deleting existing processed lists.",
+      "Add bounded selector path for raw rows with no news_token_match_events row that are tracker-processed but not reprocessed for current matcher scope version.",
+      "Keep existing normal selector path unchanged for genuinely new raw rows.",
+      "Keep max batch 100.",
+      "Keep duplicate guard: never select rows already present in news_token_match_events.",
+      "After match_many, update tracker reprocess state atomically.",
+      "Do not change DB schema, WAL, service, timer, panel, trade, or paper."
+    ],
+    "name": "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL",
+    "post_apply_required_steps": [
+      "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_APPLY_POST_AUDIT_NOAPI",
+      "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_CONTROLLED_RUN_ONCE_AFTER_EXPLICIT_APPROVAL",
+      "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_CONTROLLED_RUN_POST_AUDIT_AND_SEAL_NOAPI"
+    ],
+    "target_file": "tools/news_radar_refresh_runner_v1.py"
+  },
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "plan_only": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "confirmed_snapshot": {
+    "duplicate_groups": {
+      "match_uid": 0,
+      "matched_news_uid": 0,
+      "score_uid": 0,
+      "signal_uid": 0
+    },
+    "journal_mode": "delete",
+    "match_count": 47,
+    "raw_count": 298,
+    "raw_without_match": 251,
+    "raw_without_match_tracker_processed": 251,
+    "score_count": 47,
+    "selector_candidate_count_now": 0,
+    "signal_count": 47,
+    "tracker_processed_hash_count": 251,
+    "tracker_processed_news_uid_count": 251
+  },
+  "decision": "PASS_NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_PLAN_READY",
+  "do_not_do": [
+    "Do not delete tracker.",
+    "Do not reset tracker wholesale.",
+    "Do not insert synthetic raw news.",
+    "Do not create duplicate match rows.",
+    "Do not add BTC/ETH/XRP as Hunter targets.",
+    "Do not change service/timer/panel/WAL in this workstream.",
+    "Do not enable trade/paper/live authority."
+  ],
+  "failures": [],
+  "generated_at_utc": "2026-07-09T06:27:59.134504+00:00",
+  "git_head_before": "274cb5088a881062dfad45b34dfb45aaffd5237f",
+  "input_audit_decision": "WARN_NEWS_CANDIDATE_SELECTOR_TRACKER_POLICY_REPROCESS_PLAN_NEEDED",
+  "input_seal_decision": "WARN_NEWS_MATCHER_SCOPE_SPLIT_CONTROLLED_RUN_SEALED_CANDIDATE_SELECTOR_ZERO",
+  "next": "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL",
+  "reprocess_policy": {
+    "do_not_change_service_timer_panel_wal": true,
+    "do_not_clear_tracker": true,
+    "do_not_create_duplicates": true,
+    "do_not_reset_all_processed_news_uids": true,
+    "matcher_scope_version": "NEWS_MATCHER_SCOPE_SPLIT_V1",
+    "max_batch": 100,
+    "name": "VERSIONED_BOUNDED_REPROCESS_FOR_TRACKER_PROCESSED_UNMATCHED_ROWS",
+    "paper_signal_must_remain_false": true,
+    "problem": "Rows can be tracker-processed but still have no news_token_match_events row, so selector skips them forever.",
+    "safe_rule": "Only reprocess rows that have no existing news_token_match_events row and are tracker-processed before the current matcher scope version.",
+    "trade_signal_must_remain_false": true
+  },
+  "root_cause": "TRACKER_MARKED_UNMATCHED_ROWS_PROCESSED_SO_SELECTOR_SKIPS_ALL",
+  "stage": "NEWS_CANDIDATE_SELECTOR_TRACKER_REPROCESS_PLAN_NOAPI",
+  "static_checks": {
+    "matcher_paper_false_present": true,
+    "matcher_scope_split_present": true,
+    "matcher_trade_false_present": true,
+    "runner_candidate_selector_present": true,
+    "runner_match_many_call_present": true,
+    "runner_tracker_hash_guard_present": true,
+    "runner_tracker_uid_guard_present": true
+  },
+  "warnings": []
+}
