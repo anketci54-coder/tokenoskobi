@@ -267,6 +267,9 @@ def _tok_wrap_rc2_raw_delta_url_empty_ok_v1(before_count, after_count):
 
 
 # === TOKENOSKOBI NEWS DOWNSTREAM HOOK V1 BEGIN ===
+NEWS_MATCHER_SCOPE_VERSION_V1 = "NEWS_MATCHER_SCOPE_SPLIT_V1"
+# TOKENOSKOBI NEWS TRACKER REPROCESS V1
+
 def _tok_wrap_news_now_v1():
     from datetime import datetime, timezone
     return datetime.now(timezone.utc).isoformat()
@@ -375,6 +378,7 @@ def _tok_wrap_news_empty_tracker_v1():
         "source": "NEWS_RUNNER_DOWNSTREAM_HOOK",
         "processed_news_uids": [],
         "processed_hashes": [],
+        "reprocess_versions": {},
         "last_raw_count_seen": 0,
         "last_match_count_seen": 0,
         "last_signal_count_seen": 0,
@@ -399,6 +403,8 @@ def _tok_wrap_news_load_tracker_v1(path):
         data["processed_news_uids"] = []
     if not isinstance(data.get("processed_hashes"), list):
         data["processed_hashes"] = []
+    if not isinstance(data.get("reprocess_versions"), dict):
+        data["reprocess_versions"] = {}
     return data
 
 def _tok_wrap_news_atomic_write_json_v1(path, data):
@@ -415,6 +421,35 @@ def _tok_wrap_news_atomic_write_json_v1(path, data):
     finally:
         if os.path.exists(tmp):
             os.unlink(tmp)
+
+def _tok_wrap_news_reprocess_state_v1(tracker, version=None):
+    # TOKENOSKOBI NEWS TRACKER REPROCESS V1
+    version = version or NEWS_MATCHER_SCOPE_VERSION_V1
+    versions = tracker.get("reprocess_versions")
+    if not isinstance(versions, dict):
+        versions = {}
+        tracker["reprocess_versions"] = versions
+    state = versions.get(version)
+    if not isinstance(state, dict):
+        state = {
+            "version": version,
+            "created_at_utc": _tok_wrap_news_now_v1(),
+            "updated_at_utc": _tok_wrap_news_now_v1(),
+            "processed_news_uids": [],
+            "processed_hashes": [],
+            "last_batch": {
+                "started_at_utc": None,
+                "finished_at_utc": None,
+                "input_raw": 0,
+                "new_reprocessed": 0
+            }
+        }
+        versions[version] = state
+    if not isinstance(state.get("processed_news_uids"), list):
+        state["processed_news_uids"] = []
+    if not isinstance(state.get("processed_hashes"), list):
+        state["processed_hashes"] = []
+    return state
 
 def _tok_wrap_news_count_v1(con, table):
     if not _tok_wrap_news_table_exists_v1(con, table):
@@ -480,12 +515,16 @@ def _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100):
     tracker_uids = set(str(x) for x in tracker.get("processed_news_uids", []))
     tracker_hashes = set(str(x) for x in tracker.get("processed_hashes", []))
 
+    reprocess_state = _tok_wrap_news_reprocess_state_v1(tracker, NEWS_MATCHER_SCOPE_VERSION_V1)
+    reprocess_uids = set(str(x) for x in reprocess_state.get("processed_news_uids", []))
+    reprocess_hashes = set(str(x) for x in reprocess_state.get("processed_hashes", []))
+
     rows = con.execute(
         """
         SELECT news_uid, source_uid, published_at_utc, title, url_hash, raw_hash, fetched_at_utc
         FROM news_raw_feed_events
         ORDER BY fetched_at_utc DESC
-        LIMIT 300
+        LIMIT 500
         """
     ).fetchall()
 
@@ -501,10 +540,22 @@ def _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100):
         if not news_uid:
             news_uid = "fallback_" + fallback[:20]
             d["news_uid"] = news_uid
-        if news_uid in seen or news_uid in existing or news_uid in tracker_uids:
+
+        if news_uid in seen or news_uid in existing:
             continue
-        if raw_hash and raw_hash in tracker_hashes:
-            continue
+
+        tracker_processed = (news_uid in tracker_uids) or (bool(raw_hash) and raw_hash in tracker_hashes)
+        reprocessed_for_version = (news_uid in reprocess_uids) or (bool(raw_hash) and raw_hash in reprocess_hashes)
+
+        if tracker_processed:
+            if reprocessed_for_version:
+                continue
+            d["_tok_reprocess_version"] = NEWS_MATCHER_SCOPE_VERSION_V1
+            d["_tok_reprocess_reason"] = "TRACKER_PROCESSED_WITHOUT_MATCH"
+        else:
+            d["_tok_reprocess_version"] = ""
+            d["_tok_reprocess_reason"] = ""
+
         out.append(d)
         seen.add(news_uid)
         if len(out) >= int(max_batch):
@@ -750,8 +801,41 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
                     processed_hashes.append(rh)
                     hash_set.add(rh)
 
+            reprocess_state = _tok_wrap_news_reprocess_state_v1(tracker, NEWS_MATCHER_SCOPE_VERSION_V1)
+            reprocess_uids = list(reprocess_state.get("processed_news_uids") or [])
+            reprocess_hashes = list(reprocess_state.get("processed_hashes") or [])
+            reprocess_uid_set = set(str(x) for x in reprocess_uids)
+            reprocess_hash_set = set(str(x) for x in reprocess_hashes)
+            new_reprocessed = 0
+
+            for row in candidates:
+                if str(row.get("_tok_reprocess_version") or "") != NEWS_MATCHER_SCOPE_VERSION_V1:
+                    continue
+                uid = str(row.get("news_uid") or "").strip()
+                rh = str(row.get("raw_hash") or "").strip()
+                added = False
+                if uid and uid not in reprocess_uid_set:
+                    reprocess_uids.append(uid)
+                    reprocess_uid_set.add(uid)
+                    added = True
+                if rh and rh not in reprocess_hash_set:
+                    reprocess_hashes.append(rh)
+                    reprocess_hash_set.add(rh)
+                    added = True
+                if added:
+                    new_reprocessed += 1
+
             processed_uids = processed_uids[-5000:]
             processed_hashes = processed_hashes[-5000:]
+            reprocess_state["updated_at_utc"] = _tok_wrap_news_now_v1()
+            reprocess_state["processed_news_uids"] = reprocess_uids[-5000:]
+            reprocess_state["processed_hashes"] = reprocess_hashes[-5000:]
+            reprocess_state["last_batch"] = {
+                "started_at_utc": started,
+                "finished_at_utc": _tok_wrap_news_now_v1(),
+                "input_raw": len(candidates),
+                "new_reprocessed": new_reprocessed
+            }
 
             tracker["updated_at_utc"] = _tok_wrap_news_now_v1()
             tracker["processed_news_uids"] = processed_uids
@@ -778,6 +862,7 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
                 "raw_delta="+str(raw_delta)
                 +" catchup_unprocessed="+str(catchup_unprocessed_count)
                 +" candidates="+str(len(candidates))
+                +" reprocess_version="+NEWS_MATCHER_SCOPE_VERSION_V1
                 +" matches="+str(inserted_match)
                 +" signals="+str(inserted_signal)
                 +" scores="+str(inserted_score)
