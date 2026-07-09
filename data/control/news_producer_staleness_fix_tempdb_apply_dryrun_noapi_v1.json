@@ -1,0 +1,364 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "decision": "OK_NEWS_PRODUCER_STALENESS_FIX_TEMPDB_APPLY_DRYRUN_NOAPI",
+  "dryrun": {
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "execution_authority": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false
+    },
+    "decision": "OK_NEWS_PRODUCER_STALENESS_FIX_TEMPDB_APPLY_DRYRUN_INTERNAL",
+    "expected_delta_difference": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 2,
+      "news_signal_events": 2,
+      "news_token_match_events": 2
+    },
+    "expected_tempdb_delta_from_plan": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 94,
+      "news_signal_events": 94,
+      "news_token_match_events": 94
+    },
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T15:52:37.399091+00:00",
+    "next": "NEWS_PRODUCER_STALENESS_FIX_TEMPDB_POST_AUDIT_NOAPI",
+    "ok_count": 8,
+    "real_db_after": {
+      "news_raw_feed_events": 327,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "real_db_before": {
+      "news_raw_feed_events": 327,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "real_db_delta": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 0,
+      "news_signal_events": 0,
+      "news_token_match_events": 0
+    },
+    "real_db_path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+    "service_after": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "service_before": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "stage": "NEWS_PRODUCER_STALENESS_FIX_TEMPDB_APPLY_DRYRUN_NOAPI",
+    "tempdb_apply_result": {
+      "candidate_count": 96,
+      "idempotency_second_pass_delta": {
+        "news_raw_feed_events": 0,
+        "news_score_events_v1": 0,
+        "news_signal_events": 0,
+        "news_token_match_events": 0
+      },
+      "idempotency_second_pass_remaining_candidates": 0,
+      "inserted": {
+        "news_score_events_v1": 96,
+        "news_signal_events": 96,
+        "news_token_match_events": 96
+      },
+      "latest_derived_before": "2026-07-06T06:44:10.288486+00:00",
+      "latest_raw_before": "2026-07-09T14:58:55+00:00",
+      "post_latest": {
+        "derived_latest": "2026-07-09T15:52:37.362440+00:00",
+        "raw_latest": "2026-07-09T14:58:55+00:00"
+      },
+      "samples": [
+        {
+          "chain": "Bitcoin",
+          "fusion_label": "MEDIUM",
+          "matched_keyword": "bitcoin",
+          "news_uid": "timer_news_128829ab132a1e986885",
+          "risk_label": "LOW",
+          "symbol": "BTC",
+          "title": "Live markets: Bitcoin pops to $63,900, then reverses, as week begins"
+        },
+        {
+          "chain": "Ethereum",
+          "fusion_label": "MEDIUM",
+          "matched_keyword": "ethereum",
+          "news_uid": "timer_news_a47d7bb0c482a5257a0b",
+          "risk_label": "LOW",
+          "symbol": "ETH",
+          "title": "Vitalik Buterin says Ethereum is preparing its 'biggest rebuild' since the Merge"
+        },
+        {
+          "chain": "Multi",
+          "fusion_label": "LOW",
+          "matched_keyword": "generic_crypto_news",
+          "news_uid": "timer_news_f1afbe86d403f039f2b5",
+          "risk_label": "LOW",
+          "symbol": "CRYPTO",
+          "title": "FOMC minutes, SpaceX joins Nasdaq 100: Crypto Week Ahead"
+        },
+        {
+          "chain": "Bitcoin",
+          "fusion_label": "MEDIUM",
+          "matched_keyword": "bitcoin",
+          "news_uid": "timer_news_b40993fedb67e6ecbaf1",
+          "risk_label": "MEDIUM",
+          "symbol": "BTC",
+          "title": "Dormant $1.9M Bitcoin tied to New York lawsuit moves after nearly 15 years"
+        },
+        {
+          "chain": "Multi",
+          "fusion_label": "LOW",
+          "matched_keyword": "generic_crypto_news",
+          "news_uid": "timer_news_e6b2992eedc07435d2a4",
+          "risk_label": "LOW",
+          "symbol": "CRYPTO",
+          "title": "Coinbase AI draws backlash after erroneously publishing World Cup result before kickoff"
+        },
+        {
+          "chain": "Multi",
+          "fusion_label": "LOW",
+          "matched_keyword": "generic_crypto_news",
+          "news_uid": "timer_news_0bcdbe5d4d2c29f41ed7",
+          "risk_label": "LOW",
+          "symbol": "CRYPTO",
+          "title": "South Korea weighs action against Polymarket over gambling concerns"
+        },
+        {
+          "chain": "Ripple",
+          "fusion_label": "MEDIUM",
+          "matched_keyword": "ripple",
+          "news_uid": "timer_news_792e9ccef326ca8a76d7",
+          "risk_label": "LOW",
+          "symbol": "XRP",
+          "title": "Ripple's preliminary crypto asset provider license in Luxembourg upgraded to fully compliant"
+        },
+        {
+          "chain": "Bitcoin",
+          "fusion_label": "MEDIUM",
+          "matched_keyword": "bitcoin",
+          "news_uid": "timer_news_e60b3b14fae18d017d2f",
+          "risk_label": "LOW",
+          "symbol": "BTC",
+          "title": "Bitcoin's Sharpe Ratio slides to lowest since 2022. Here's what it means."
+        },
+        {
+          "chain": "Bitcoin",
+          "fusion_label": "MEDIUM",
+          "matched_keyword": "bitcoin",
+          "news_uid": "timer_news_866b4830c260bfa5865e",
+          "risk_label": "LOW",
+          "symbol": "BTC",
+          "title": "$60.4K Becomes 'most important area:' Five things to know in Bitcoin this week"
+        },
+        {
+          "chain": "Multi",
+          "fusion_label": "LOW",
+          "matched_keyword": "generic_crypto_news",
+          "news_uid": "timer_news_2263f8eb8bf9f70f3a2b",
+          "risk_label": "LOW",
+          "symbol": "CRYPTO",
+          "title": "Crypto bounces back from the brink as altcoin optimism returns despite pockets of weakness"
+        }
+      ],
+      "tempdb_after": {
+        "news_raw_feed_events": 327,
+        "news_score_events_v1": 143,
+        "news_signal_events": 143,
+        "news_token_match_events": 143
+      },
+      "tempdb_before": {
+        "news_raw_feed_events": 327,
+        "news_score_events_v1": 47,
+        "news_signal_events": 47,
+        "news_token_match_events": 47
+      },
+      "tempdb_delta": {
+        "news_raw_feed_events": 0,
+        "news_score_events_v1": 96,
+        "news_signal_events": 96,
+        "news_token_match_events": 96
+      }
+    },
+    "tempdb_path": "/tmp/tokenoskobi_news_staleness_tempdb_apply_dryrun_20260709T155237Z.sqlite",
+    "test_count": 8,
+    "tests": [
+      {
+        "ok": true,
+        "tempdb_path": "/tmp/tokenoskobi_news_staleness_tempdb_apply_dryrun_20260709T155237Z.sqlite",
+        "tempdb_size": 5758976,
+        "test_id": "T01_TEMPDB_COPY_CREATED"
+      },
+      {
+        "ok": true,
+        "real_db_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "test_id": "T02_ALL_WRITES_TEMPDB_ONLY"
+      },
+      {
+        "ok": true,
+        "tempdb_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 96,
+          "news_signal_events": 96,
+          "news_token_match_events": 96
+        },
+        "test_id": "T03_TEMPDB_DERIVED_DELTA_POSITIVE"
+      },
+      {
+        "actual_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 96,
+          "news_signal_events": 96,
+          "news_token_match_events": 96
+        },
+        "difference": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 2,
+          "news_signal_events": 2,
+          "news_token_match_events": 2
+        },
+        "expected_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 94,
+          "news_signal_events": 94,
+          "news_token_match_events": 94
+        },
+        "explanation": "difference_allowed_if_raw_timer_added_rows_after_prior_plan",
+        "ok": true,
+        "test_id": "T04_EXPECTED_DELTA_MATCH_OR_EXPLAIN"
+      },
+      {
+        "ok": true,
+        "second_pass_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "test_id": "T05_IDEMPOTENCY_SECOND_PASS_ZERO_DELTA"
+      },
+      {
+        "nginx_change": false,
+        "ok": true,
+        "service_after": "inactive",
+        "service_before": "inactive",
+        "test_id": "T06_NO_SERVICE_TIMER_NGINX_CHANGE",
+        "timer_after": "active",
+        "timer_before": "active"
+      },
+      {
+        "api_call": false,
+        "execution_authority": false,
+        "live_trade": false,
+        "network_call": false,
+        "ok": true,
+        "paper_trade": false,
+        "test_id": "T07_NO_API_NETWORK_OR_TRADE"
+      },
+      {
+        "ok": true,
+        "post_latest": {
+          "derived_latest": "2026-07-09T15:52:37.362440+00:00",
+          "raw_latest": "2026-07-09T14:58:55+00:00"
+        },
+        "test_id": "T08_POST_TEMPDB_FRESHNESS_CHECK"
+      }
+    ],
+    "timer_after": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "timer_before": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "warnings": [
+      "expected_tempdb_delta_changed_due_to_live_raw_timer_or_candidate_recalc"
+    ]
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T15:52:37.416764+00:00",
+  "next": "NEWS_PRODUCER_STALENESS_FIX_TEMPDB_POST_AUDIT_NOAPI",
+  "prior_apply_plan": "data/control/news_producer_staleness_fix_apply_plan_noapi_v1.json",
+  "real_db_after": {
+    "news_raw_feed_events": 327,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "real_db_before": {
+    "news_raw_feed_events": 327,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "real_db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "stage": "NEWS_PRODUCER_STALENESS_FIX_TEMPDB_APPLY_DRYRUN_NOAPI",
+  "tool": "tools/news_producer_staleness_fix_tempdb_apply_dryrun_v1.py",
+  "warnings": [
+    "expected_tempdb_delta_changed_due_to_live_raw_timer_or_candidate_recalc"
+  ]
+}
