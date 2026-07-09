@@ -1,0 +1,766 @@
+{
+  "authority_boundary": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "deduplication_policy_plan_only": {
+    "backfill_now": false,
+    "create_now": false,
+    "future_backfill_rule": "Before any future historical backfill, compute dedup key from source_uid|url_hash|raw_hash|normalized_title|published_at_utc and reject duplicate raw_feed_events.",
+    "no_duplicate_raw_feed_events": true,
+    "primary_existing_keys": {
+      "legacy_db": [
+        "news_uid"
+      ],
+      "new_ingress_artifacts": [
+        "event_uid"
+      ]
+    },
+    "raw_feed_dedup_candidates": [
+      "url_hash",
+      "raw_hash",
+      "source_uid",
+      "published_at_utc",
+      "title"
+    ],
+    "required": true
+  },
+  "dryrun_requirements_next": {
+    "must_test": [
+      "date_range_query_does_not_write",
+      "source_query_does_not_write",
+      "symbol_chain_query_does_not_write",
+      "risk_label_query_does_not_write",
+      "news_uid_lookup_does_not_write",
+      "artifact_event_uid_lookup_does_not_write",
+      "dedup_preview_does_not_write",
+      "index_preview_does_not_create_index"
+    ],
+    "next_step": "NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI"
+  },
+  "freshness_alignment": {
+    "derived_layers_stale_reason": "latest derived layer created_at_utc is older than freshness threshold; historical access must expose this without treating it as query failure.",
+    "known_observations_from_prior_dryrun": [
+      "freshness_observation:news_raw_feed_events:UNKNOWN_TIMESTAMP",
+      "freshness_observation:news_token_match_events:STALE_FAIL_WINDOW",
+      "freshness_observation:news_signal_events:STALE_FAIL_WINDOW",
+      "freshness_observation:news_score_events_v1:STALE_FAIL_WINDOW"
+    ],
+    "raw_feed_unknown_timestamp_reason": "raw table has published_at_utc and fetched_at_utc; previous freshness candidate list did not include these. Historical layer must support them explicitly."
+  },
+  "generated_at_utc": "2026-07-09T14:23:27.504744+00:00",
+  "historical_scope": {
+    "artifact_paths": [
+      "data/control/news_source_registry_v1_noapi.json",
+      "data/control/news_gate_logic_contract_dryrun_noapi_v1.json",
+      "data/control/news_minimal_ingress_scaffold_dryrun_noapi_v1.json",
+      "data/control/news_ingress_adapter_readonly_scaffold_dryrun_noapi_v1.json",
+      "data/control/news_runtime_freshness_monitor_dryrun_noapi_v1.json"
+    ],
+    "db_inventory": {
+      "counts": {
+        "news_raw_feed_events": 325,
+        "news_score_events_v1": 47,
+        "news_signal_events": 47,
+        "news_token_match_events": 47
+      },
+      "db_path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "exists": true,
+      "indexes": {
+        "news_raw_feed_events": [
+          {
+            "columns": [
+              "source_uid",
+              "published_at_utc"
+            ],
+            "name": "idx_news_raw_source_time",
+            "origin": "c",
+            "partial": false,
+            "unique": false
+          },
+          {
+            "columns": [
+              "news_uid"
+            ],
+            "name": "sqlite_autoindex_news_raw_feed_events_1",
+            "origin": "pk",
+            "partial": false,
+            "unique": true
+          }
+        ],
+        "news_score_events_v1": [
+          {
+            "columns": [
+              "score_uid"
+            ],
+            "name": "sqlite_autoindex_news_score_events_v1_1",
+            "origin": "pk",
+            "partial": false,
+            "unique": true
+          }
+        ],
+        "news_signal_events": [
+          {
+            "columns": [
+              "signal_uid"
+            ],
+            "name": "sqlite_autoindex_news_signal_events_1",
+            "origin": "pk",
+            "partial": false,
+            "unique": true
+          }
+        ],
+        "news_token_match_events": [
+          {
+            "columns": [
+              "match_uid"
+            ],
+            "name": "sqlite_autoindex_news_token_match_events_1",
+            "origin": "pk",
+            "partial": false,
+            "unique": true
+          }
+        ]
+      },
+      "tables": {
+        "news_raw_feed_events": [
+          {
+            "cid": 0,
+            "name": "news_uid",
+            "notnull": 0,
+            "pk": 1,
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "source_uid",
+            "notnull": 1,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "published_at_utc",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "title",
+            "notnull": 1,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "url_hash",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "raw_hash",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "fetched_at_utc",
+            "notnull": 1,
+            "pk": 0,
+            "type": "TEXT"
+          }
+        ],
+        "news_score_events_v1": [
+          {
+            "cid": 0,
+            "name": "score_uid",
+            "notnull": 0,
+            "pk": 1,
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "news_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "token_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "pair_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "symbol",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "chain",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "news_token_relevance_score_100",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 7,
+            "name": "news_risk_score_100",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 8,
+            "name": "news_fusion_score_100",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 9,
+            "name": "importance_label",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 10,
+            "name": "risk_label",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 11,
+            "name": "fusion_label",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 12,
+            "name": "explanation",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 13,
+            "name": "created_at_utc",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          }
+        ],
+        "news_signal_events": [
+          {
+            "cid": 0,
+            "name": "signal_uid",
+            "notnull": 0,
+            "pk": 1,
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "news_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "token_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "pair_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "symbol",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "chain",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "signal_type",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 7,
+            "name": "signal_strength",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 8,
+            "name": "signal_label",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 9,
+            "name": "source_match_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 10,
+            "name": "evidence_text",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 11,
+            "name": "created_at_utc",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          }
+        ],
+        "news_token_match_events": [
+          {
+            "cid": 0,
+            "name": "match_uid",
+            "notnull": 0,
+            "pk": 1,
+            "type": "TEXT"
+          },
+          {
+            "cid": 1,
+            "name": "news_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 2,
+            "name": "source_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 3,
+            "name": "token_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 4,
+            "name": "pair_uid",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 5,
+            "name": "symbol",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 6,
+            "name": "chain",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 7,
+            "name": "match_type",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 8,
+            "name": "match_confidence",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 9,
+            "name": "match_score",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 10,
+            "name": "match_reasons_json",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 11,
+            "name": "evidence_text",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          },
+          {
+            "cid": 12,
+            "name": "is_duplicate",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 13,
+            "name": "write_allowed",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 14,
+            "name": "trade_signal",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 15,
+            "name": "paper_signal",
+            "notnull": 0,
+            "pk": 0,
+            "type": "INTEGER"
+          },
+          {
+            "cid": 16,
+            "name": "created_at_utc",
+            "notnull": 0,
+            "pk": 0,
+            "type": "TEXT"
+          }
+        ]
+      }
+    },
+    "db_tables": [
+      "news_raw_feed_events",
+      "news_token_match_events",
+      "news_signal_events",
+      "news_score_events_v1"
+    ]
+  },
+  "index_strategy_plan_only": {
+    "candidate_indexes": [
+      {
+        "candidate_name": "idx_news_raw_published_at_utc",
+        "columns": [
+          "published_at_utc"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "date_range historical replay and freshness lookup",
+        "table": "news_raw_feed_events"
+      },
+      {
+        "candidate_name": "idx_news_raw_fetched_at_utc",
+        "columns": [
+          "fetched_at_utc"
+        ],
+        "create_now": false,
+        "priority": "MEDIUM",
+        "reason": "ingestion-time replay",
+        "table": "news_raw_feed_events"
+      },
+      {
+        "candidate_name": "idx_news_raw_source_uid",
+        "columns": [
+          "source_uid"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "source filtering",
+        "table": "news_raw_feed_events"
+      },
+      {
+        "candidate_name": "idx_news_raw_url_hash",
+        "columns": [
+          "url_hash"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "deduplication lookup",
+        "table": "news_raw_feed_events"
+      },
+      {
+        "candidate_name": "idx_news_raw_raw_hash",
+        "columns": [
+          "raw_hash"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "deduplication lookup",
+        "table": "news_raw_feed_events"
+      },
+      {
+        "candidate_name": "idx_news_match_news_uid",
+        "columns": [
+          "news_uid"
+        ],
+        "create_now": false,
+        "priority": "CRITICAL",
+        "reason": "join raw news to token matches",
+        "table": "news_token_match_events"
+      },
+      {
+        "candidate_name": "idx_news_match_symbol_chain",
+        "columns": [
+          "symbol",
+          "chain"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "token and chain filtering",
+        "table": "news_token_match_events"
+      },
+      {
+        "candidate_name": "idx_news_match_created_at_utc",
+        "columns": [
+          "created_at_utc"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "date_range over token match layer",
+        "table": "news_token_match_events"
+      },
+      {
+        "candidate_name": "idx_news_signal_news_uid",
+        "columns": [
+          "news_uid"
+        ],
+        "create_now": false,
+        "priority": "CRITICAL",
+        "reason": "join signal to raw news",
+        "table": "news_signal_events"
+      },
+      {
+        "candidate_name": "idx_news_signal_symbol_chain",
+        "columns": [
+          "symbol",
+          "chain"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "token and chain signal filtering",
+        "table": "news_signal_events"
+      },
+      {
+        "candidate_name": "idx_news_signal_created_at_utc",
+        "columns": [
+          "created_at_utc"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "date_range over signal layer",
+        "table": "news_signal_events"
+      },
+      {
+        "candidate_name": "idx_news_score_news_uid",
+        "columns": [
+          "news_uid"
+        ],
+        "create_now": false,
+        "priority": "CRITICAL",
+        "reason": "join score to raw news",
+        "table": "news_score_events_v1"
+      },
+      {
+        "candidate_name": "idx_news_score_symbol_chain",
+        "columns": [
+          "symbol",
+          "chain"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "token and chain score filtering",
+        "table": "news_score_events_v1"
+      },
+      {
+        "candidate_name": "idx_news_score_created_at_utc",
+        "columns": [
+          "created_at_utc"
+        ],
+        "create_now": false,
+        "priority": "HIGH",
+        "reason": "date_range over score layer",
+        "table": "news_score_events_v1"
+      },
+      {
+        "candidate_name": "idx_news_score_risk_label",
+        "columns": [
+          "risk_label"
+        ],
+        "create_now": false,
+        "priority": "MEDIUM",
+        "reason": "severity/risk label filtering",
+        "table": "news_score_events_v1"
+      }
+    ],
+    "create_now": false,
+    "existing_indexes_readonly": {
+      "news_raw_feed_events": [
+        {
+          "columns": [
+            "source_uid",
+            "published_at_utc"
+          ],
+          "name": "idx_news_raw_source_time",
+          "origin": "c",
+          "partial": false,
+          "unique": false
+        },
+        {
+          "columns": [
+            "news_uid"
+          ],
+          "name": "sqlite_autoindex_news_raw_feed_events_1",
+          "origin": "pk",
+          "partial": false,
+          "unique": true
+        }
+      ],
+      "news_score_events_v1": [
+        {
+          "columns": [
+            "score_uid"
+          ],
+          "name": "sqlite_autoindex_news_score_events_v1_1",
+          "origin": "pk",
+          "partial": false,
+          "unique": true
+        }
+      ],
+      "news_signal_events": [
+        {
+          "columns": [
+            "signal_uid"
+          ],
+          "name": "sqlite_autoindex_news_signal_events_1",
+          "origin": "pk",
+          "partial": false,
+          "unique": true
+        }
+      ],
+      "news_token_match_events": [
+        {
+          "columns": [
+            "match_uid"
+          ],
+          "name": "sqlite_autoindex_news_token_match_events_1",
+          "origin": "pk",
+          "partial": false,
+          "unique": true
+        }
+      ]
+    },
+    "required": true,
+    "requires_future_approved_schema_phase": true
+  },
+  "plan_version": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_V1",
+  "prior_required_artifact": "data/control/news_runtime_freshness_monitor_dryrun_noapi_v1.json",
+  "prior_required_decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+  "purpose": "Create a read-only plan for querying NEWS historical data from local DB and sealed artifacts. No API, no network, no DB write, no index creation in this step.",
+  "query_contract": {
+    "contract_name": "NEWS_HISTORICAL_ACCESS_QUERY_CONTRACT_V1",
+    "join_policy": {
+      "artifact_to_db": "event_uid/new ingress artifacts are separate evidence refs unless explicit bridge exists",
+      "raw_to_match": "news_raw_feed_events.news_uid = news_token_match_events.news_uid",
+      "raw_to_score": "news_raw_feed_events.news_uid = news_score_events_v1.news_uid",
+      "raw_to_signal": "news_raw_feed_events.news_uid = news_signal_events.news_uid"
+    },
+    "legacy_id_policy": {
+      "bridge_rule": "Historical Access Layer must expose both news_uid and event_uid. If event_uid is missing in legacy DB rows, use news_uid as legacy_event_ref and never fabricate event_uid.",
+      "legacy_db_primary_news_id": "news_uid",
+      "new_ingress_primary_event_id": "event_uid"
+    },
+    "mode": "READONLY_LOCAL_DB_AND_ARTIFACTS",
+    "required_query_dimensions": [
+      "date_range",
+      "source_uid",
+      "source_id_from_artifacts",
+      "news_uid",
+      "event_uid_from_new_ingress_artifacts",
+      "symbol",
+      "token_uid",
+      "pair_uid",
+      "chain",
+      "risk_label",
+      "importance_label",
+      "fusion_label",
+      "signal_type",
+      "signal_strength",
+      "match_score",
+      "decision_from_artifacts",
+      "route_from_artifacts",
+      "title",
+      "evidence_text",
+      "url_hash",
+      "raw_hash"
+    ]
+  },
+  "source_of_truth_order": [
+    "local_sqlite_db_readonly",
+    "sealed_control_artifacts",
+    "canonical_docs",
+    "github_after_push"
+  ]
+}
