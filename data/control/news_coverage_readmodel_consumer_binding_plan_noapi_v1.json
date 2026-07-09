@@ -1,0 +1,457 @@
+{
+  "adversarial_jsonl_audit": {
+    "duplicate_event_uid_count": 0,
+    "exists": true,
+    "latest_examples": [
+      {
+        "db_match_write": false,
+        "event_uid": "adversarial_news_af3c9d9756488d4d68089a57",
+        "hits": [
+          "stablecoin"
+        ],
+        "hunter_authorized": false,
+        "lane": "ADVERSARIAL_NEWS",
+        "news_uid": "timer_news_d8860c034e43da8dfdbd",
+        "paper_signal": false,
+        "title": "England central banker says global stablecoin rules will ‘wrestle’ with US",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "adversarial_news_ff7aee8d49c228cc765bd7f4",
+        "hits": [
+          "defi",
+          "token"
+        ],
+        "hunter_authorized": false,
+        "lane": "ADVERSARIAL_NEWS",
+        "news_uid": "timer_news_c4b70ad19af2018521e3",
+        "paper_signal": false,
+        "title": "Three young DeFi apps return $100M in revenue to token holders in 30 days",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "adversarial_news_61c2e18d6f4bb7ab11a0a47e",
+        "hits": [
+          "defi"
+        ],
+        "hunter_authorized": false,
+        "lane": "ADVERSARIAL_NEWS",
+        "news_uid": "news12_2d41cd87aa094c92715a",
+        "paper_signal": false,
+        "title": "How DeFi is changing the financial landscape for Latin Americans",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "adversarial_news_39d9b61a6751cca4d3506bbf",
+        "hits": [
+          "wallet"
+        ],
+        "hunter_authorized": false,
+        "lane": "ADVERSARIAL_NEWS",
+        "news_uid": "news12_196be931da7a21407c66",
+        "paper_signal": false,
+        "title": "Crypto wallets are being rebuilt for AI agents, Trust Wallet and Mesh executives say at Consensus Miami",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "adversarial_news_903dbe29de187d4517743c8f",
+        "hits": [
+          "tokenized"
+        ],
+        "hunter_authorized": false,
+        "lane": "ADVERSARIAL_NEWS",
+        "news_uid": "timer_news_4e2a1dc046b16e30b84b",
+        "paper_signal": false,
+        "title": "SWIFT launches blockchain ledger with 17-bank tokenized deposit pilot",
+        "trade_signal": false
+      }
+    ],
+    "line_count": 49,
+    "parse_errors": 0,
+    "path": "runtime/state/news_adversarial_events_v1.jsonl",
+    "sample_keys": [
+      "created_at_utc",
+      "db_match_write",
+      "entity_binding_status",
+      "event_uid",
+      "fetched_at_utc",
+      "hits",
+      "hunter_authorized",
+      "lane",
+      "news_uid",
+      "paper_signal",
+      "published_at_utc",
+      "raw_hash",
+      "source_uid",
+      "title",
+      "trade_signal"
+    ],
+    "unique_event_uid_count": 49,
+    "unsafe_events": 0
+  },
+  "apply_plan": {
+    "acceptance_gates": [
+      "py_compile consumer PASS",
+      "consumer reads JSONL only",
+      "consumer writes only runtime/state summary JSON files",
+      "DB counts for news_token_match_events/news_signal_events/news_score_events_v1 unchanged",
+      "JSONL duplicate_event_uid_count remains zero",
+      "JSONL unsafe_events remains zero",
+      "hunter_authorized remains false",
+      "trade_signal remains false",
+      "paper_signal remains false",
+      "no service/timer/panel change",
+      "GitHub push and post-audit seal"
+    ],
+    "files_not_to_modify": [
+      "tools/news_token_matcher_v1.py",
+      "tools/news_radar_refresh_runner_v1.py",
+      "systemd service files",
+      "systemd timer files",
+      "panel files",
+      "database schema"
+    ],
+    "files_to_create": [
+      "tools/news_coverage_readmodel_consumer_v1.py",
+      "data/control/news_coverage_readmodel_consumer_binding_apply_noapi_after_explicit_approval_v1.json"
+    ],
+    "phase": "NEWS_COVERAGE_READMODEL_CONSUMER_BINDING_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL",
+    "runtime_outputs_created_by_apply": [
+      "runtime/state/news_coverage_readmodel_consumer_summary_v1.json",
+      "runtime/state/news_market_indicator_latest_v1.json",
+      "runtime/state/news_adversarial_latest_v1.json"
+    ]
+  },
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "plan_only": true,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "runtime_jsonl_write": false,
+    "runtime_summary_write": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "consumer_contract": {
+    "authority_guards": {
+      "db_write": false,
+      "hunter_authorized": false,
+      "live_trade": false,
+      "news_score_events_v1_write": false,
+      "news_signal_events_write": false,
+      "news_token_match_events_write": false,
+      "panel_change_in_this_plan": false,
+      "paper_signal": false,
+      "service_timer_change": false,
+      "trade_signal": false
+    },
+    "consumer_name": "NEWS_COVERAGE_READMODEL_CONSUMER_V1",
+    "consumer_output_fields": [
+      "generated_at_utc",
+      "market_indicator_count",
+      "adversarial_count",
+      "latest_market",
+      "latest_adversarial",
+      "top_market_hits",
+      "top_adversarial_hits",
+      "parse_errors",
+      "duplicate_event_uids",
+      "unsafe_events",
+      "authority"
+    ],
+    "inputs": [
+      "runtime/state/news_market_indicator_events_v1.jsonl",
+      "runtime/state/news_adversarial_events_v1.jsonl"
+    ],
+    "output_target_plan": {
+      "consumer_summary_json": "runtime/state/news_coverage_readmodel_consumer_summary_v1.json",
+      "latest_adversarial_json": "runtime/state/news_adversarial_latest_v1.json",
+      "latest_market_json": "runtime/state/news_market_indicator_latest_v1.json"
+    },
+    "purpose": "Read market/adversarial NEWS JSONL readmodels and expose bounded consumer output without giving Hunter/trade authority.",
+    "read_rules": {
+      "dedupe_key": "event_uid",
+      "max_events_per_lane": 100,
+      "missing_file_policy": "empty lane with warning, not crash",
+      "order": "append order, newest last; consumer may reverse for display",
+      "parse_error_policy": "skip invalid line and record parse_errors"
+    },
+    "required_event_fields": [
+      "event_uid",
+      "lane",
+      "news_uid",
+      "title",
+      "hits",
+      "hunter_authorized",
+      "db_match_write",
+      "trade_signal",
+      "paper_signal"
+    ]
+  },
+  "db_readonly_snapshot": {
+    "counts": {
+      "news_raw_feed_events": 306,
+      "news_runtime_freshness_v1": 2,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "exists": true,
+    "journal_mode": "delete"
+  },
+  "decision": "PASS_NEWS_COVERAGE_READMODEL_CONSUMER_BINDING_PLAN_READY",
+  "do_not_do": [
+    "Do not change Hunter authority.",
+    "Do not insert news_token_match_events.",
+    "Do not insert news_signal_events.",
+    "Do not insert news_score_events_v1.",
+    "Do not enable paper/live/trade.",
+    "Do not change service/timer.",
+    "Do not change panel in consumer binding apply.",
+    "Do not create synthetic token matches.",
+    "Do not make BTC/ETH/XRP Hunter targets."
+  ],
+  "existing_binding_scan": {
+    "adversarial_jsonl_references": [
+      "./data/control/news_coverage_readmodel_backfill_controlled_dedupe_run_noapi_v1.json:36:    \"adversarial_path\": \"/root/tokenoskobi_clean_v1/runtime/state/news_adversarial_events_v1.jsonl\",",
+      "./data/control/news_coverage_readmodel_backfill_plan_noapi_v1.json:52:      \"runtime/state/news_adversarial_events_v1.jsonl\"",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:101:    \"adversarial_path\": \"/root/tokenoskobi_clean_v1/runtime/state/news_adversarial_events_v1.jsonl\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:80:    \"adversarial_path\": \"/root/tokenoskobi_clean_v1/runtime/state/news_adversarial_events_v1.jsonl\",",
+      "./data/control/news_token_universe_coverage_expansion_apply_plan_noapi_v1.json:95:      \"write_target\": \"runtime/state/news_adversarial_events_v1.jsonl\"",
+      "./tools/news_coverage_classifier_v1.py:101:    adversarial_path: str = \"/root/tokenoskobi_clean_v1/runtime/state/news_adversarial_events_v1.jsonl\",",
+      "./tools/news_radar_refresh_runner_v1.py:584:            adversarial_path=\"/root/tokenoskobi_clean_v1/runtime/state/news_adversarial_events_v1.jsonl\","
+    ],
+    "adversarial_lane_references": [
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:13:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:27:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:40:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:53:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:66:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:12:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:25:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:39:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:52:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:65:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:13:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:26:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:40:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:53:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:66:        \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./data/config/news_adversarial_terms_v1.json:7:  \"role\": \"ADVERSARIAL_NEWS_INTELLIGENCE_ONLY\",",
+      "./tools/news_coverage_classifier_v1.py:163:                    \"lane\": \"ADVERSARIAL_NEWS\",",
+      "./runtime/state/news_adversarial_events_v1.jsonl:1:{\"created_at_utc\": \"2026-07-09T08:44:42.101960+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_58a9b04cfe8a06d064edcf00\", \"fetched_at_utc\": \"2026-07-09T06:09:29.590231+00:00\", \"hits\": [\"approval\", \"phishing\", \"token\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_e4d026b0870dff5c6a6c\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-09T05:57:23+00:00\", \"raw_hash\": \"e4d026b0870dff5c6a6cc34872453d8e\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Trader loses $1M after signing phishing token approval\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:2:{\"created_at_utc\": \"2026-07-09T08:44:42.102287+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_36fe9b6338d2bc5f77d970f6\", \"fetched_at_utc\": \"2026-07-09T02:49:14.516886+00:00\", \"hits\": [\"defi\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_97d2dc862b96050dffb1\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-09T02:32:20+00:00\", \"raw_hash\": \"97d2dc862b96050dffb128fa5018bf36\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Mark Cuban-backed DeFi dashboard Zapper shutters after 7 years\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:3:{\"created_at_utc\": \"2026-07-09T08:44:42.102407+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_084e1de5227b8624ee9299ca\", \"fetched_at_utc\": \"2026-07-08T20:48:45.941338+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_3db59291e1b019d65488\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T20:29:10+00:00\", \"raw_hash\": \"3db59291e1b019d65488ece17bc630b6\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Tokenized stock transfers surge 105% in a month to $8.4B\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:4:{\"created_at_utc\": \"2026-07-09T08:44:42.102536+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_903798e854167484832e7dc0\", \"fetched_at_utc\": \"2026-07-08T19:28:39.926826+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_d1d02b3229310136deb5\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T19:14:15+00:00\", \"raw_hash\": \"d1d02b3229310136deb584208d2bcca3\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Officials set to revise MiCA to cover non-EU stablecoin issuers: Report\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:5:{\"created_at_utc\": \"2026-07-09T08:44:42.102810+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_a85cbc0d44b1602ee65aa0bb\", \"fetched_at_utc\": \"2026-07-08T17:48:33.963960+00:00\", \"hits\": [\"perpetual\", \"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_6dd8b63c42757f67bd4b\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T17:23:19+00:00\", \"raw_hash\": \"6dd8b63c42757f67bd4b295524921a3e\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Stablecoin-settled TradFi perpetual trading tops $1.1T: Binance Research\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:6:{\"created_at_utc\": \"2026-07-09T08:44:42.103072+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_fd3d312dbf2de868c05c93a5\", \"fetched_at_utc\": \"2026-07-08T14:48:17.091431+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_9f81dffdf6079caf7048\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T14:35:04+00:00\", \"raw_hash\": \"9f81dffdf6079caf704893ac8644575e\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Dinari, tZERO join forces on turnkey platform for tokenized U.S. equities\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:7:{\"created_at_utc\": \"2026-07-09T08:44:42.103313+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_dc7247ba208922648b6237c6\", \"fetched_at_utc\": \"2026-07-08T13:48:15.945890+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_c270bf051f3fdcc58168\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T13:30:00+00:00\", \"raw_hash\": \"c270bf051f3fdcc58168ea38b8e44036\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"The 5 types of real world assets being tokenized fastest onchain\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:8:{\"created_at_utc\": \"2026-07-09T08:44:42.103593+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_83e1f1c2d794f774efae526a\", \"fetched_at_utc\": \"2026-07-08T12:48:10.036095+00:00\", \"hits\": [\"wallet\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_be1dfc1fd7f22609551d\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T12:44:27+00:00\", \"raw_hash\": \"be1dfc1fd7f22609551de8b829a34ec6\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"SpaceX's first bitcoin wallet movements in six months likely don't signal sales\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:9:{\"created_at_utc\": \"2026-07-09T08:44:42.103734+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_28278587a2c81be55c51c9c1\", \"fetched_at_utc\": \"2026-07-08T12:17:38.011467+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_f7bef7a09b0dd476b8cc\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-07T16:18:18+00:00\", \"raw_hash\": \"f7bef7a09b0dd476b8cc6f5f7daad648\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"SpaceX IPO powers record $3.86 billion in tokenized equities trading in June\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:10:{\"created_at_utc\": \"2026-07-09T08:44:42.103995+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_3aa901dc2659d90eaa864242\", \"fetched_at_utc\": \"2026-07-08T12:17:37.917978+00:00\", \"hits\": [\"token\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_3ab7d146c80da85df181\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T10:21:12+00:00\", \"raw_hash\": \"3ab7d146c80da85df1814d55c2ed137d\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Berachain hard fork to replace dual-token model with WBERA rewards\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:11:{\"created_at_utc\": \"2026-07-09T08:44:42.104128+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_a4655326f4148cd4446c268c\", \"fetched_at_utc\": \"2026-07-08T12:17:37.917773+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_ddc7c593ee6edf5d0e02\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T11:33:11+00:00\", \"raw_hash\": \"ddc7c593ee6edf5d0e02e4b332c2329c\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Mobile app Toss and blockchain Optimism to conduct Korean won stablecoin POC : report\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:12:{\"created_at_utc\": \"2026-07-09T08:44:42.104393+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_9c548557e1d47bb8e54bfb4d\", \"fetched_at_utc\": \"2026-07-06T11:54:16.119542+00:00\", \"hits\": [\"launch\", \"wallet\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_6e8c6c6ebf19accaf31d\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-06T11:36:05+00:00\", \"raw_hash\": \"6e8c6c6ebf19accaf31d14db5568580f\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Russia's largest bank plans crypto wallet launch as Moscow clears market path\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:13:{\"created_at_utc\": \"2026-07-09T08:44:42.104621+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_2767be66223b59d0f5d16a4b\", \"fetched_at_utc\": \"2026-07-06T11:14:12.631639+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_2cfbd90159a54d601b42\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-06T05:44:54+00:00\", \"raw_hash\": \"2cfbd90159a54d601b4276c48fb2bd13\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Stablecoin transaction volume hits record $1.79T in June\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:14:{\"created_at_utc\": \"2026-07-09T08:44:42.104774+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_95b5d85c0689f0aeec32b579\", \"fetched_at_utc\": \"2026-07-02T17:03:32.781678+00:00\", \"hits\": [\"defi\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_cfcbab324de0cd2abc57\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T17:00:00+00:00\", \"raw_hash\": \"cfcbab324de0cd2abc577f6e587a7c0f\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"EToro invests in onchain derivatives platform Extended as brokers race into DeFi\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:15:{\"created_at_utc\": \"2026-07-09T08:44:42.104901+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_3d8ac7ecb008ef929a67bfab\", \"fetched_at_utc\": \"2026-07-02T16:43:31.993542+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_b0b4bbfdd1027c4a4bba\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T16:25:01+00:00\", \"raw_hash\": \"b0b4bbfdd1027c4a4bbaa3b4c1020b94\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Ondo expands tokenized equities with onchain shareholder voting\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:16:{\"created_at_utc\": \"2026-07-09T08:44:42.105036+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_2c6cd17e937a86de5bc2adf1\", \"fetched_at_utc\": \"2026-07-02T14:23:14.857994+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_150b3e1ee964b0f45c2e\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T14:16:02+00:00\", \"raw_hash\": \"150b3e1ee964b0f45c2ee26fef103c1b\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Ondo Finance debuts SEC-aligned tokenized stock model with BlackRock ETF, Micron shares\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:17:{\"created_at_utc\": \"2026-07-09T08:44:42.105171+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_cbfe86c2740afa5b012f01d2\", \"fetched_at_utc\": \"2026-07-02T13:23:02.325602+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_fba2b0ecc359ddbe7fd2\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T13:04:23+00:00\", \"raw_hash\": \"fba2b0ecc359ddbe7fd2a115a09dca82\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"UK payments blueprint outlines tokenized payments for ‘multi-money ecosystem’\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:18:{\"created_at_utc\": \"2026-07-09T08:44:42.105283+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_ba56a5a85536d11e3c91cf75\", \"fetched_at_utc\": \"2026-07-02T13:02:59.995352+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_949c318864dae700cd74\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T13:00:00+00:00\", \"raw_hash\": \"949c318864dae700cd74a2bcbfce0b0d\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Aave brings V3 lending and GHO stablecoin to Monad\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:19:{\"created_at_utc\": \"2026-07-09T08:44:42.105411+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_8ec628b9a2b248567f75bad9\", \"fetched_at_utc\": \"2026-07-02T12:22:53.218233+00:00\", \"hits\": [\"bridge\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_f11f3049b67c90929393\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T08:35:28+00:00\", \"raw_hash\": \"f11f3049b67c90929393e2c9b0d8b329\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Taiko fully restores cross-chain bridge just 10 days after a $1.7 million hack\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:20:{\"created_at_utc\": \"2026-07-09T08:44:42.105524+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_d949add0b4c86337bcba89c1\", \"fetched_at_utc\": \"2026-07-02T12:22:53.071207+00:00\", \"hits\": [\"dex\", \"launch\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_84719921af26c33abe41\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T06:05:02+00:00\", \"raw_hash\": \"84719921af26c33abe4184a449e12515\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Robinhood links with dYdX Labs to launch new DEX Arcus\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:21:{\"created_at_utc\": \"2026-07-09T08:44:42.105683+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_df3005a41f792919bfa71640\", \"fetched_at_utc\": \"2026-07-02T12:22:53.071089+00:00\", \"hits\": [\"bridge\", \"exploit\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_d054476615e65e66287d\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T09:28:21+00:00\", \"raw_hash\": \"d054476615e65e66287d9e61f5510241\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Taiko reopens bridge after $1.7M exploit, says users made whole\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:22:{\"created_at_utc\": \"2026-07-09T08:44:42.105809+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_db60711a3e09fd274c1c5bc0\", \"fetched_at_utc\": \"2026-07-02T12:22:53.071051+00:00\", \"hits\": [\"wallet\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_e1cb795f9cbe7387eaca\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T10:23:29+00:00\", \"raw_hash\": \"e1cb795f9cbe7387eacac10a148ae4ed\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"OFAC sanctions 134 ISIS-K crypto wallet addresses as Tether freezes funds\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:23:{\"created_at_utc\": \"2026-07-09T08:44:42.105933+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_d6c7cd252ffbc38f3ae6a065\", \"fetched_at_utc\": \"2026-07-02T12:22:53.071017+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_844db38c46ba2bc08b98\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T10:23:33+00:00\", \"raw_hash\": \"844db38c46ba2bc08b982de0ac254518\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Yield-bearing stablecoin slowdown ends 3-year run for crypto-native products\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:24:{\"created_at_utc\": \"2026-07-09T08:44:42.106203+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_33faee27bbc1b71934d0ca06\", \"fetched_at_utc\": \"2026-06-17T07:39:51.047681+00:00\", \"hits\": [\"defi\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_41f16e27e0450e1f2b02\", \"paper_signal\": false, \"published_at_utc\": \"2026-06-16T20:20:35+00:00\", \"raw_hash\": \"41f16e27e0450e1f2b029c2f1f42538c\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Hyperliquid, Uniswap and Worldcoin buck crypto slump as traders chase AI, DeFi trends\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:25:{\"created_at_utc\": \"2026-07-09T08:44:42.106334+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_af5c6c9ec7fb1c7186f83fb3\", \"fetched_at_utc\": \"2026-06-17T07:39:51.047654+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_5714a15065938950e664\", \"paper_signal\": false, \"published_at_utc\": \"2026-06-16T20:36:09+00:00\", \"raw_hash\": \"5714a15065938950e664cca93ebd349c\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"U.S. senators urge Treasury not to leave states out of GENIUS Act stablecoin process\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:26:{\"created_at_utc\": \"2026-07-09T08:44:42.106462+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_cad659eff424b4d4ff5d9060\", \"fetched_at_utc\": \"2026-06-17T07:39:50.948932+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_02835cbbff58c1c3acd0\", \"paper_signal\": false, \"published_at_utc\": \"2026-06-16T20:55:09+00:00\", \"raw_hash\": \"02835cbbff58c1c3acd023e451ffff71\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Tokenized asset market tops $43B as institutions accelerate blockchain adoption\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:27:{\"created_at_utc\": \"2026-07-09T08:44:42.106744+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_29b423a5f46c33907fe3f9bc\", \"fetched_at_utc\": \"2026-05-12T21:20:49.318064+00:00\", \"hits\": [\"launch\", \"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_f637cea9d5f9b257d737\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T21:18:10+00:00\", \"raw_hash\": \"f637cea9d5f9b257d737ff070d039fe9\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"JPMorgan files to launch new tokenized fund as Wall Street tokenization race heats up\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:28:{\"created_at_utc\": \"2026-07-09T08:44:42.106877+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_f3f51b6f5e9bb611c4274d30\", \"fetched_at_utc\": \"2026-05-12T17:56:04.422499+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_7cfec476e07c5424110e\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T16:35:02+00:00\", \"raw_hash\": \"7cfec476e07c5424110eb7c4ceeefef8\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Stablecoin yield infrastructure project raises $13.5M in round led by Sky Ecosystem\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:29:{\"created_at_utc\": \"2026-07-09T08:44:42.107003+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_29c3451a95ed72ab48110ce8\", \"fetched_at_utc\": \"2026-05-12T17:56:04.289107+00:00\", \"hits\": [\"tokenized\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_96f38b450e537c9bdf54\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T14:00:00+00:00\", \"raw_hash\": \"96f38b450e537c9bdf54183a150b9528\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"FalconX expands tokenized credit facility to Monad network in lending push\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:30:{\"created_at_utc\": \"2026-07-09T08:44:42.107125+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_b60bb74ac3df2c0b7138128c\", \"fetched_at_utc\": \"2026-05-12T11:23:49.875268+00:00\", \"hits\": [\"wallet\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_295de8e83cfe9efcf0a8\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T10:23:25+00:00\", \"raw_hash\": \"295de8e83cfe9efcf0a88ab68c3422a6\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Rewardy Wallet launches global multi-chain swap campaign with incentives\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:31:{\"created_at_utc\": \"2026-07-09T08:44:42.107250+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_44a07a24503632563b4a3381\", \"fetched_at_utc\": \"2026-05-12T11:23:49.875141+00:00\", \"hits\": [\"stablecoin\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"timer_news_8288c14d966488a68a9d\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T11:10:00+00:00\", \"raw_hash\": \"8288c14d966488a68a9dc7a807666b60\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Bakkt pivots into stablecoin infrastructure as revenue tumbles 77% in Q1\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:32:{\"created_at_utc\": \"2026-07-09T08:44:42.107541+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_f1a79fc083bad76e44be4b09\", \"fetched_at_utc\": \"2026-05-12T09:08:26.842796+00:00\", \"hits\": [\"contract\", \"launch\", \"perpetual\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"news_seedofficialexchangeanno_bc86b80e17de5ac1\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T09:08:26.842796+00:00\", \"raw_hash\": \"bc86b80e17de5ac136ea651c8ad1ee3ced8234235881f4ac05adf541a394ae21\", \"source_uid\": \"src_seed_official_exchange_announcements\", \"title\": \"Binance Futures Will Launch USDⓈ-Margined BILLUSDT Perpetual Contract (2026-05-07)\", \"trade_signal\": false}",
+      "./runtime/state/news_adversarial_events_v1.jsonl:33:{\"created_at_utc\": \"2026-07-09T08:44:42.107717+00:00\", \"db_match_write\": false, \"entity_binding_status\": \"UNBOUND_NO_EXPLICIT_TOKEN_PAIR_EVIDENCE\", \"event_uid\": \"adversarial_news_022d579a4c456794469fa93c\", \"fetched_at_utc\": \"2026-05-12T09:08:26.842796+00:00\", \"hits\": [\"launch\", \"perpetual\"], \"hunter_authorized\": false, \"lane\": \"ADVERSARIAL_NEWS\", \"news_uid\": \"news_seedofficialexchangeanno_be3d1df37119c24e\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T09:08:26.842796+00:00\", \"raw_hash\": \"be3d1df37119c24ea11eb354a2cf8fb573f62bcb97ee9388b7587633ec0f41a4\", \"source_uid\": \"src_seed_official_exchange_announcements\", \"title\": \"Binance Futures Will Launch AMDUSDT, QCOMUSDT and USARUSDT USDⓈ-Margined Perpetual Contracts (2026-05-06)\", \"trade_signal\": false}"
+    ],
+    "market_jsonl_references": [
+      "./data/control/news_coverage_readmodel_backfill_controlled_dedupe_run_noapi_v1.json:44:    \"market_path\": \"/root/tokenoskobi_clean_v1/runtime/state/news_market_indicator_events_v1.jsonl\",",
+      "./data/control/news_coverage_readmodel_backfill_plan_noapi_v1.json:51:      \"runtime/state/news_market_indicator_events_v1.jsonl\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:109:    \"market_path\": \"/root/tokenoskobi_clean_v1/runtime/state/news_market_indicator_events_v1.jsonl\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:88:    \"market_path\": \"/root/tokenoskobi_clean_v1/runtime/state/news_market_indicator_events_v1.jsonl\",",
+      "./data/control/news_token_universe_coverage_expansion_apply_plan_noapi_v1.json:67:      \"write_target\": \"runtime/state/news_market_indicator_events_v1.jsonl\"",
+      "./tools/news_coverage_classifier_v1.py:100:    market_path: str = \"/root/tokenoskobi_clean_v1/runtime/state/news_market_indicator_events_v1.jsonl\",",
+      "./tools/news_radar_refresh_runner_v1.py:583:            market_path=\"/root/tokenoskobi_clean_v1/runtime/state/news_market_indicator_events_v1.jsonl\","
+    ],
+    "market_lane_references": [
+      "./data/control/news_matcher_input_contract_audit_noapi_with_scope_split_v1.json:93:      \"Add explicit scope field or route: MARKET_INDICATOR vs HUNT_TARGET.\",",
+      "./data/control/news_matcher_input_contract_audit_noapi_with_scope_split_v1.json:95:      \"For MARKET_INDICATOR, allow BTC/ETH/BNB/SOL/XRP style dashboard/regime context without hunter authorization.\"",
+      "./data/control/news_matcher_scope_split_apply_plan_noapi_v1.json:15:      \"Market regime readmodel istenirse ayrı NEWS_MARKET_INDICATOR_READMODEL planı yapılacak.\"",
+      "./data/control/news_matcher_scope_split_apply_plan_noapi_v1.json:63:    \"scope_alignment_decision\": \"WARN_NEWS_MATCHER_SCOPE_NEEDS_MARKET_INDICATOR_VS_HUNT_TARGET_SPLIT\"",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:178:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:191:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:204:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:217:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_final_seal_noapi_v1.json:230:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_matcher_scope_alignment_audit_noapi_v1.json:19:  \"decision\": \"WARN_NEWS_MATCHER_SCOPE_NEEDS_MARKET_INDICATOR_VS_HUNT_TARGET_SPLIT\",",
+      "./data/control/news_matcher_scope_alignment_audit_noapi_v1.json:23:      \"NEWS_MARKET_INDICATOR_MATCHER for BTC/ETH/BNB/SOL/XRP style market context\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:175:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:188:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:201:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:214:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_noapi_after_explicit_approval_v1.json:227:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:153:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:166:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:179:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:192:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/control/news_coverage_readmodel_backfill_apply_post_audit_noapi_v1.json:205:        \"lane\": \"MARKET_INDICATOR\",",
+      "./data/config/news_market_indicator_assets_v1.json:18:  \"name\": \"NEWS_MARKET_INDICATOR_ASSETS_V1\",",
+      "./data/config/news_market_indicator_assets_v1.json:20:  \"role\": \"MARKET_INDICATOR_NEWS_CONTEXT_ONLY\",",
+      "./tools/news_coverage_classifier_v1.py:141:                    \"lane\": \"MARKET_INDICATOR\",",
+      "./tools/news_token_matcher_v1.py:8:MARKET_INDICATOR_ASSETS_V1 = {",
+      "./tools/news_token_matcher_v1.py:20:    if raw_scope in (\"MARKET_INDICATOR\", \"NEWS_MARKET_INDICATOR\", \"MARKET_CONTEXT\"):",
+      "./tools/news_token_matcher_v1.py:21:        return \"MARKET_INDICATOR\"",
+      "./tools/news_token_matcher_v1.py:28:    if scope == \"MARKET_INDICATOR\":",
+      "./tools/news_token_matcher_v1.py:30:            \"news_scope\": \"MARKET_INDICATOR\",",
+      "./tools/news_token_matcher_v1.py:32:            \"scope_reason\": \"MARKET_INDICATOR_NEWS_CONTEXT_ONLY\",",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:1:{\"created_at_utc\": \"2026-07-09T08:44:42.102157+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_3a639850e4f65975d2ce7fe0\", \"fetched_at_utc\": \"2026-07-09T05:09:20.185139+00:00\", \"hits\": [\"XRP\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_4df84d4a54c82e7b72e7\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-09T05:07:11+00:00\", \"raw_hash\": \"4df84d4a54c82e7b72e78166569a3e71\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"XRP holds near $1.10 as traders watch long-term breakout setup\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:2:{\"created_at_utc\": \"2026-07-09T08:44:42.102687+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_1e4b28a2cae10ae034d4b34b\", \"fetched_at_utc\": \"2026-07-08T18:48:37.324070+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_d49e05d5d539b417e16c\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T18:41:25+00:00\", \"raw_hash\": \"d49e05d5d539b417e16c9f96cca6c25b\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Bitcoin peels back to $62K as Fed-wary futures traders cut risk: Is the BTC rally over?\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:3:{\"created_at_utc\": \"2026-07-09T08:44:42.102947+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_3950f66b65209887a941b6cb\", \"fetched_at_utc\": \"2026-07-08T15:28:20.028061+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_1d41589432a6a6dfaa51\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T15:18:10+00:00\", \"raw_hash\": \"1d41589432a6a6dfaa51672970613adc\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Crypto Long & Short: With MSTR concerns assuaged, look to traditional signals around BTC\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:4:{\"created_at_utc\": \"2026-07-09T08:44:42.103197+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_adaae4bcf677fdf491c291d6\", \"fetched_at_utc\": \"2026-07-08T14:08:16.595686+00:00\", \"hits\": [\"BNB\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_f789ad1a79561f2f1a0b\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T14:01:44+00:00\", \"raw_hash\": \"f789ad1a79561f2f1a0b67e3b9047869\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"BNB Chain is building a new layer-1 for high-frequency trading and AI agents\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:5:{\"created_at_utc\": \"2026-07-09T08:44:42.103466+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_9ccefc85161cd8461d64c316\", \"fetched_at_utc\": \"2026-07-08T13:08:14.289238+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_cc76011e15a5d8d4372e\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T12:59:06+00:00\", \"raw_hash\": \"cc76011e15a5d8d4372ea4fc5163a111\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"BTC speculators in focus as analysis says 'textbook Bitcoin bottom' is underway\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:6:{\"created_at_utc\": \"2026-07-09T08:44:42.103875+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_91892a6d67fd66c6ecaf4908\", \"fetched_at_utc\": \"2026-07-08T12:17:38.011308+00:00\", \"hits\": [\"XRP\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_e50a0f3129970089f6d1\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T08:40:22+00:00\", \"raw_hash\": \"e50a0f3129970089f6d16c552d90c583\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Validators embrace XRP Ledger's recent upgrade. But not everyone’s on board yet\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:7:{\"created_at_utc\": \"2026-07-09T08:44:42.104253+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_31c2db0f1d90debba9d4b3e6\", \"fetched_at_utc\": \"2026-07-08T12:17:37.917658+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_0029870a8c25cabd14ca\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-08T12:01:00+00:00\", \"raw_hash\": \"0029870a8c25cabd14ca7f4c04bcb953\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Lyn Alden says Bitcoin needs no savior as Strategy sells $216M of BTC\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:8:{\"created_at_utc\": \"2026-07-09T08:44:42.104508+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_0ab94083fdd818ed486dc251\", \"fetched_at_utc\": \"2026-07-06T11:14:12.736637+00:00\", \"hits\": [\"XRP\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_4606b58921f808b01d55\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-06T05:15:01+00:00\", \"raw_hash\": \"4606b58921f808b01d5510e7210450b9\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"XRP rises 3% as $1.14 breakout turns into support test\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:9:{\"created_at_utc\": \"2026-07-09T08:44:42.106068+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_8a3e72b664e37cb454d433e6\", \"fetched_at_utc\": \"2026-07-02T12:22:53.070836+00:00\", \"hits\": [\"USDC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_4319480993524b80c6bf\", \"paper_signal\": false, \"published_at_utc\": \"2026-07-02T11:41:44+00:00\", \"raw_hash\": \"4319480993524b80c6bf5c54745253af\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Standard Chartered, Circle bring USDC minting onto banking rails\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:10:{\"created_at_utc\": \"2026-07-09T08:44:42.106585+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_02139266871666c869538d50\", \"fetched_at_utc\": \"2026-06-16T12:58:54.335051+00:00\", \"hits\": [\"USDC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_2a166839af235cd4472f\", \"paper_signal\": false, \"published_at_utc\": \"2026-06-16T12:55:23+00:00\", \"raw_hash\": \"2a166839af235cd4472f72ddea17b100\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"This AI builds you a business, runs it, and settles payments in USDC\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:11:{\"created_at_utc\": \"2026-07-09T08:44:42.107390+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_b59b39224e5bfb41210c2075\", \"fetched_at_utc\": \"2026-05-12T10:22:20.123477+00:00\", \"hits\": [\"BTC\", \"ETH\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_67cca8474fbdcae4876c\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T10:20:51+00:00\", \"raw_hash\": \"67cca8474fbdcae4876c9265859b3835\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"ETH/BTC ratio falls to 10-month low as ether continues to underperform bitcoin\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:12:{\"created_at_utc\": \"2026-07-09T08:44:42.108116+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_ff97bb3962ec9cd2f2b3c516\", \"fetched_at_utc\": \"2026-05-12T06:39:20.006281+00:00\", \"hits\": [\"ETH\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_3427b5f5fe0689d3c9a7\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T06:35:55+00:00\", \"raw_hash\": \"3427b5f5fe0689d3c9a7e295c2ae97c6\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Aave launches binding Arbitrum vote to move $71 million in disputed ETH\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:13:{\"created_at_utc\": \"2026-07-09T08:44:42.108264+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_8725a59df6fec340e66a37d2\", \"fetched_at_utc\": \"2026-05-12T05:58:50.035950+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_fdced9c2d7002ad086a2\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T05:43:22+00:00\", \"raw_hash\": \"fdced9c2d7002ad086a26e010f879d97\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"'Bitcoin transactions can be monitored’: Ray Dalio explains why central banks won’t touch BTC\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:14:{\"created_at_utc\": \"2026-07-09T08:44:42.108397+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_5e193c4bb30d9ab8f8532aab\", \"fetched_at_utc\": \"2026-05-12T04:57:22.033541+00:00\", \"hits\": [\"XRP\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_2ed4ee59f0ad07747579\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T04:56:46+00:00\", \"raw_hash\": \"2ed4ee59f0ad0774757958a3e8a0da86\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Ripple-linked XRP holds near $1.46 as breakout attempt fades despite $200 million raise\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:15:{\"created_at_utc\": \"2026-07-09T08:44:42.108544+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_e1ef1e9f7a72ba9afa59dbab\", \"fetched_at_utc\": \"2026-05-12T04:37:19.979383+00:00\", \"hits\": [\"SOL\", \"DOGE\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_807b49e2d86906c0d875\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T04:32:48+00:00\", \"raw_hash\": \"807b49e2d86906c0d8754d61e7b5b242\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Bitcoin briefly hits $82,000, SOL, DOGE higher as Michael Burry warns of stock crash\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:16:{\"created_at_utc\": \"2026-07-09T08:44:42.108678+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_45b68cd9f7a6954290422d96\", \"fetched_at_utc\": \"2026-05-12T03:36:19.885002+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_1afff109c047286a78e9\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-12T02:42:27+00:00\", \"raw_hash\": \"1afff109c047286a78e9743da83a13a3\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Bitcoin funding rates turn positive: Is a BTC rally to $85K next?\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:17:{\"created_at_utc\": \"2026-07-09T08:44:42.108945+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_78e825f506e85a062509bfbe\", \"fetched_at_utc\": \"2026-05-11T22:31:19.886639+00:00\", \"hits\": [\"SOL\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_82345c89b886e5522781\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-11T21:47:41+00:00\", \"raw_hash\": \"82345c89b886e5522781818c06bb5ba7\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Solana ETF inflows show demand returning as traders eye SOL rally to $120\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:18:{\"created_at_utc\": \"2026-07-09T08:44:42.109185+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_7493aeaa8f8e82183a0d7052\", \"fetched_at_utc\": \"2026-05-11T20:29:50.125747+00:00\", \"hits\": [\"BTC\", \"ETH\", \"BNB\", \"SOL\", \"XRP\", \"ADA\", \"DOGE\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_9bd54aa3c100bf69a403\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-11T20:12:42+00:00\", \"raw_hash\": \"9bd54aa3c100bf69a4037bd681ed1e28\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Price predictions 5/11: SPX, DXY, BTC, ETH, XRP, BNB, SOL, DOGE, HYPE, ADA\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:19:{\"created_at_utc\": \"2026-07-09T08:44:42.109313+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_930949a95f62458aa8e3712d\", \"fetched_at_utc\": \"2026-05-11T18:27:19.931612+00:00\", \"hits\": [\"ETH\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_943d8ce7a1c86d5dc35d\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-11T17:26:07+00:00\", \"raw_hash\": \"943d8ce7a1c86d5dc35d00ebdc061cba\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Galaxy, Sharplink plan $125M institutional DeFi yield fund backed by ETH treasury\", \"trade_signal\": false}",
+      "./runtime/state/news_market_indicator_events_v1.jsonl:20:{\"created_at_utc\": \"2026-07-09T08:44:42.109474+00:00\", \"db_match_write\": false, \"event_uid\": \"market_news_bb077da41315cab201f33e3e\", \"fetched_at_utc\": \"2026-05-11T18:27:19.931541+00:00\", \"hits\": [\"BTC\"], \"hunter_authorized\": false, \"lane\": \"MARKET_INDICATOR\", \"news_uid\": \"timer_news_dcf3fe3ef93ce49470c5\", \"paper_signal\": false, \"published_at_utc\": \"2026-05-11T17:35:04+00:00\", \"raw_hash\": \"dcf3fe3ef93ce49470c5eebf3cc59706\", \"source_uid\": \"src_seed_crypto_news_rss\", \"title\": \"Bitcoin ‘golden cross’ appears for the first time since 2023: Will BTC price rally?\", \"trade_signal\": false}"
+    ]
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T09:28:39.389101+00:00",
+  "git_head_before": "8471a3ce7dc4388c424e68e481fec591618ce615",
+  "input_final_seal_decision": "PASS_NEWS_COVERAGE_READMODEL_BACKFILL_FINAL_SEAL_NOAPI",
+  "interpretation": {
+    "authority_boundary": "Consumer output is context/intelligence only; it is not Hunter, signal, score, trade, or paper authority.",
+    "future_panel_direction": "Panel binding can consume the summary JSON in a later explicit panel plan.",
+    "safe_direction": "Create a read-only consumer that converts JSONL lanes into bounded summary JSON files.",
+    "why_needed": "JSONL market/adversarial readmodels are populated but not yet bound to a stable consumer contract."
+  },
+  "market_jsonl_audit": {
+    "duplicate_event_uid_count": 0,
+    "exists": true,
+    "latest_examples": [
+      {
+        "db_match_write": false,
+        "event_uid": "market_news_dace82cb3a6b73d6f0042998",
+        "hits": [
+          "BTC"
+        ],
+        "hunter_authorized": false,
+        "lane": "MARKET_INDICATOR",
+        "news_uid": "timer_news_e9c8fa714e9214c5231b",
+        "paper_signal": false,
+        "title": "Bitcoin holds $80K into weekly close as traders say BTC price dip not yet over",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "market_news_423ada54248ba49da2b68d22",
+        "hits": [
+          "ETH"
+        ],
+        "hunter_authorized": false,
+        "lane": "MARKET_INDICATOR",
+        "news_uid": "news21_bde8e0b7d0cde2a3b22b",
+        "paper_signal": false,
+        "title": "Court lets Arbitrum DAO transfer $71M in ETH tied to North Korea hack to Aave",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "market_news_a6a22657c7c6f5736b0838bf",
+        "hits": [
+          "BTC"
+        ],
+        "hunter_authorized": false,
+        "lane": "MARKET_INDICATOR",
+        "news_uid": "news21_28738665391a7984bbc2",
+        "paper_signal": false,
+        "title": "Santiment flags risk as crypto bullish talk spikes while BTC holds $80K",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "market_news_9b821935704acce9653f8123",
+        "hits": [
+          "BTC"
+        ],
+        "hunter_authorized": false,
+        "lane": "MARKET_INDICATOR",
+        "news_uid": "news12_d67e01bbf96ff50784d0",
+        "paper_signal": false,
+        "title": "Strategy CEO Phong Le says company will sell BTC only in specific cases",
+        "trade_signal": false
+      },
+      {
+        "db_match_write": false,
+        "event_uid": "market_news_8e81a402a7943d5e70f7e56f",
+        "hits": [
+          "ETH"
+        ],
+        "hunter_authorized": false,
+        "lane": "MARKET_INDICATOR",
+        "news_uid": "news12_246eded69b84a0675178",
+        "paper_signal": false,
+        "title": "Court lets Arbitrum DAO to transfer $71M in ETH tied to North Korea hack to Aave",
+        "trade_signal": false
+      }
+    ],
+    "line_count": 34,
+    "parse_errors": 0,
+    "path": "runtime/state/news_market_indicator_events_v1.jsonl",
+    "sample_keys": [
+      "created_at_utc",
+      "db_match_write",
+      "event_uid",
+      "fetched_at_utc",
+      "hits",
+      "hunter_authorized",
+      "lane",
+      "news_uid",
+      "paper_signal",
+      "published_at_utc",
+      "raw_hash",
+      "source_uid",
+      "title",
+      "trade_signal"
+    ],
+    "unique_event_uid_count": 34,
+    "unsafe_events": 0
+  },
+  "next": "NEWS_COVERAGE_READMODEL_CONSUMER_BINDING_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL",
+  "stage": "NEWS_COVERAGE_READMODEL_CONSUMER_BINDING_PLAN_NOAPI",
+  "warnings": [
+    "sqlite_journal_mode_not_wal",
+    "existing_jsonl_references_found_review_before_apply"
+  ]
+}
