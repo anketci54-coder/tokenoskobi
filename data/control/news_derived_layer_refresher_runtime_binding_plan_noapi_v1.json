@@ -1,0 +1,686 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 332,
+    "news_score_events_v1": 145,
+    "news_signal_events": 145,
+    "news_token_match_events": 145
+  },
+  "db_before": {
+    "news_raw_feed_events": 332,
+    "news_score_events_v1": 145,
+    "news_signal_events": 145,
+    "news_token_match_events": 145
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_PLAN_NOAPI",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T16:56:09.339966+00:00",
+  "next": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_DRYRUN_NOAPI",
+  "plan": "config/news_derived_layer_refresher_runtime_binding_plan_v1.json",
+  "plan_result": {
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "execution_authority": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false
+    },
+    "binding_decision": {
+      "daemon_reload_required": false,
+      "mode": "PATCH_EXISTING_RUNNER_TO_CALL_DERIVED_REFRESHER_AFTER_RAW_REFRESH",
+      "new_helper": "tools/news_derived_layer_refresher_v1.py",
+      "systemd_unit_change_required": false,
+      "target_runner": "tools/news_radar_refresh_runner_v1.py"
+    },
+    "candidate_files": [
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": false,
+        "path": "config/news_gate_logic_contract_v1.json",
+        "size": 2510
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": true,
+        "path": "config/news_historical_access_layer_plan_v1.json",
+        "size": 20184
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": false,
+        "path": "config/news_ingress_adapter_readonly_output_contract_v1.json",
+        "size": 852
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": false,
+        "path": "config/news_ingress_adapter_readonly_scaffold_plan_v1.json",
+        "size": 10819
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": false,
+        "path": "config/news_minimal_ingress_output_contract_v1.json",
+        "size": 684
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": true,
+        "path": "config/news_producer_staleness_fix_apply_plan_v1.json",
+        "size": 12224
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": false,
+        "contains_refresh_runner": true,
+        "contains_sqlite3": false,
+        "contains_systemd": true,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": false,
+        "path": "config/news_producer_staleness_fix_plan_v1.json",
+        "size": 12117
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": true,
+        "path": "config/news_producer_staleness_fix_real_apply_plan_v1.json",
+        "size": 7224
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": true,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": true,
+        "path": "config/news_runtime_freshness_monitor_plan_v1.json",
+        "size": 11398
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": false,
+        "path": "config/news_source_registry_v1.json",
+        "size": 12753
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": true,
+        "contains_refresh_runner": true,
+        "contains_sqlite3": true,
+        "contains_systemd": true,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": true,
+        "path": "tools/news_derived_layer_refresher_runtime_binding_plan_v1.py",
+        "size": 16755
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": true,
+        "contains_systemd": true,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": true,
+        "path": "tools/news_radar_refresh_runner_v1.ORIGINAL_NEWS27A11_20260510_211813.py",
+        "size": 27157
+      },
+      {
+        "contains_derived_refresh_terms": true,
+        "contains_original_runner": true,
+        "contains_refresh_runner": true,
+        "contains_sqlite3": true,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "contains_write_flags": true,
+        "path": "tools/news_radar_refresh_runner_v1.py",
+        "size": 38496
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": true,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": true,
+        "path": "tools/news_social_launch_signal_writer_v1.py",
+        "size": 17170
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": false,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": true,
+        "path": "tools/news_token_matcher_v1.py",
+        "size": 6547
+      },
+      {
+        "contains_derived_refresh_terms": false,
+        "contains_original_runner": false,
+        "contains_refresh_runner": false,
+        "contains_sqlite3": true,
+        "contains_systemd": false,
+        "contains_tables": {
+          "news_raw_feed_events": false,
+          "news_score_events_v1": false,
+          "news_signal_events": false,
+          "news_token_match_events": false
+        },
+        "contains_write_flags": true,
+        "path": "tools/test_news_token_matcher_v1_noapi.py",
+        "size": 4843
+      }
+    ],
+    "current_db_preview": {
+      "counts": {
+        "news_raw_feed_events": 332,
+        "news_score_events_v1": 145,
+        "news_signal_events": 145,
+        "news_token_match_events": 145
+      },
+      "latest_by_table": {
+        "news_score_events_v1": "2026-07-09T16:32:24.615974+00:00",
+        "news_signal_events": "2026-07-09T16:32:24.615974+00:00",
+        "news_token_match_events": "2026-07-09T16:32:24.615974+00:00"
+      },
+      "latest_derived": "2026-07-09T16:32:24.615974+00:00",
+      "latest_raw": "2026-07-09T16:42:18+00:00",
+      "recent_raw_samples": [
+        {
+          "fetched_at_utc": "2026-07-09T16:50:24.171369+00:00",
+          "news_uid": "timer_news_22cad105ec0aa642e4bb",
+          "published_at_utc": "2026-07-09T16:42:18+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "UK politicians mull permanent crypto donation ban in wake of Nigel Farage scandal"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T16:50:24.171444+00:00",
+          "news_uid": "timer_news_df636c9c525f9bc67a04",
+          "published_at_utc": "2026-07-09T16:31:10+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Can Bitcoin hold $62K ahead of Friday’s $1.4 billion options expiry?"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T16:50:24.171492+00:00",
+          "news_uid": "timer_news_15145d6e9479cfea57af",
+          "published_at_utc": "2026-07-09T16:26:33+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "MARA shares surge after 2 GW Texas infrastructure deal expands AI ambitions"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T16:10:20.390869+00:00",
+          "news_uid": "timer_news_9c0c661531ecccd60dc0",
+          "published_at_utc": "2026-07-09T15:56:59+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Bitcoin traders reveal key levels as BTC price passes $63K after Trump Iran 'deal' comments"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T16:10:20.492500+00:00",
+          "news_uid": "timer_news_243bf64a26384edca010",
+          "published_at_utc": "2026-07-09T15:53:42+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "AI contracts, not bitcoin, now drive miner valuations, and Cipher and TeraWulf look cheap"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T15:10:16.404344+00:00",
+          "news_uid": "timer_news_aca8704659ce08e920c7",
+          "published_at_utc": "2026-07-09T14:58:55+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Ethereum's newest nonprofit wants to become Wall Street's guide to crypto"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T13:50:09.941412+00:00",
+          "news_uid": "timer_news_d209ed0bc1a34c65c12f",
+          "published_at_utc": "2026-07-09T13:30:00+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Bitcoin’s quantum dilemma: Bigger blocks or STARK proofs?"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T13:10:06.077198+00:00",
+          "news_uid": "timer_news_4b2cb90b3f72815ec9b1",
+          "published_at_utc": "2026-07-09T13:01:38+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Aave rolls out vaults for yield-hungry fintech investors"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T13:10:06.077249+00:00",
+          "news_uid": "timer_news_ba26332a05561486dd6d",
+          "published_at_utc": "2026-07-09T13:00:00+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Age verification is the surveillance nobody voted for"
+        },
+        {
+          "fetched_at_utc": "2026-07-09T13:10:05.973957+00:00",
+          "news_uid": "timer_news_35a37a44429e2a28a1d6",
+          "published_at_utc": "2026-07-09T12:53:44+00:00",
+          "source_uid": "src_seed_crypto_news_rss",
+          "title": "Hong Kong regulator orders new anti-phishing measures for crypto platforms"
+        }
+      ],
+      "tail_candidates": 1
+    },
+    "db_after": {
+      "news_raw_feed_events": 332,
+      "news_score_events_v1": 145,
+      "news_signal_events": 145,
+      "news_token_match_events": 145
+    },
+    "db_before": {
+      "news_raw_feed_events": 332,
+      "news_score_events_v1": 145,
+      "news_signal_events": 145,
+      "news_token_match_events": 145
+    },
+    "db_delta": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 0,
+      "news_signal_events": 0,
+      "news_token_match_events": 0
+    },
+    "decision": "OK_NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_PLAN_INTERNAL",
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T16:56:09.324041+00:00",
+    "next": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_DRYRUN_NOAPI",
+    "ok_count": 8,
+    "proposed_plan": {
+      "binding_decision": {
+        "daemon_reload_required": false,
+        "mode": "PATCH_EXISTING_RUNNER_TO_CALL_DERIVED_REFRESHER_AFTER_RAW_REFRESH",
+        "new_helper": "tools/news_derived_layer_refresher_v1.py",
+        "systemd_unit_change_required": false,
+        "target_runner": "tools/news_radar_refresh_runner_v1.py"
+      },
+      "current_root_cause_closed": "RAW_FEED_IS_CURRENT_BUT_DERIVED_LAYERS_WERE_STALE",
+      "current_runtime_preview": {
+        "candidate_file_count": 16,
+        "db_preview": {
+          "counts": {
+            "news_raw_feed_events": 332,
+            "news_score_events_v1": 145,
+            "news_signal_events": 145,
+            "news_token_match_events": 145
+          },
+          "latest_by_table": {
+            "news_score_events_v1": "2026-07-09T16:32:24.615974+00:00",
+            "news_signal_events": "2026-07-09T16:32:24.615974+00:00",
+            "news_token_match_events": "2026-07-09T16:32:24.615974+00:00"
+          },
+          "latest_derived": "2026-07-09T16:32:24.615974+00:00",
+          "latest_raw": "2026-07-09T16:42:18+00:00",
+          "recent_raw_samples": [
+            {
+              "fetched_at_utc": "2026-07-09T16:50:24.171369+00:00",
+              "news_uid": "timer_news_22cad105ec0aa642e4bb",
+              "published_at_utc": "2026-07-09T16:42:18+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "UK politicians mull permanent crypto donation ban in wake of Nigel Farage scandal"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T16:50:24.171444+00:00",
+              "news_uid": "timer_news_df636c9c525f9bc67a04",
+              "published_at_utc": "2026-07-09T16:31:10+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Can Bitcoin hold $62K ahead of Friday’s $1.4 billion options expiry?"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T16:50:24.171492+00:00",
+              "news_uid": "timer_news_15145d6e9479cfea57af",
+              "published_at_utc": "2026-07-09T16:26:33+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "MARA shares surge after 2 GW Texas infrastructure deal expands AI ambitions"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T16:10:20.390869+00:00",
+              "news_uid": "timer_news_9c0c661531ecccd60dc0",
+              "published_at_utc": "2026-07-09T15:56:59+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Bitcoin traders reveal key levels as BTC price passes $63K after Trump Iran 'deal' comments"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T16:10:20.492500+00:00",
+              "news_uid": "timer_news_243bf64a26384edca010",
+              "published_at_utc": "2026-07-09T15:53:42+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "AI contracts, not bitcoin, now drive miner valuations, and Cipher and TeraWulf look cheap"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T15:10:16.404344+00:00",
+              "news_uid": "timer_news_aca8704659ce08e920c7",
+              "published_at_utc": "2026-07-09T14:58:55+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Ethereum's newest nonprofit wants to become Wall Street's guide to crypto"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T13:50:09.941412+00:00",
+              "news_uid": "timer_news_d209ed0bc1a34c65c12f",
+              "published_at_utc": "2026-07-09T13:30:00+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Bitcoin’s quantum dilemma: Bigger blocks or STARK proofs?"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T13:10:06.077198+00:00",
+              "news_uid": "timer_news_4b2cb90b3f72815ec9b1",
+              "published_at_utc": "2026-07-09T13:01:38+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Aave rolls out vaults for yield-hungry fintech investors"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T13:10:06.077249+00:00",
+              "news_uid": "timer_news_ba26332a05561486dd6d",
+              "published_at_utc": "2026-07-09T13:00:00+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Age verification is the surveillance nobody voted for"
+            },
+            {
+              "fetched_at_utc": "2026-07-09T13:10:05.973957+00:00",
+              "news_uid": "timer_news_35a37a44429e2a28a1d6",
+              "published_at_utc": "2026-07-09T12:53:44+00:00",
+              "source_uid": "src_seed_crypto_news_rss",
+              "title": "Hong Kong regulator orders new anti-phishing measures for crypto platforms"
+            }
+          ],
+          "tail_candidates": 1
+        },
+        "unit_info": {
+          "execstarts": [
+            "/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+          ],
+          "service_active": "inactive",
+          "service_cat_rc": 0,
+          "service_unit_text_sample": "# /etc/systemd/system/tokenoskobi-news-radar-refresh.service\n[Unit]\nDescription=Tokenoskobi News Radar Refresh Runner\nAfter=network-online.target\nWants=network-online.target\n\n[Service]\nType=oneshot\nUser=root\nWorkingDirectory=/root/tokenoskobi_clean_v1\nExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py\nTimeoutStartSec=70\nNice=5\nIOSchedulingClass=best-effort\nStandardOutput=append:/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.log\nStandardError=append:/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.err.log",
+          "timer_active": "active",
+          "timer_cat_rc": 0,
+          "timer_enabled": "enabled",
+          "timer_unit_text_sample": "# /etc/systemd/system/tokenoskobi-news-radar-refresh.timer\n[Unit]\nDescription=Run Tokenoskobi News Radar Refresh every 20 minutes\n\n[Timer]\nOnActiveSec=20min\nOnUnitActiveSec=20min\nAccuracySec=30s\nRandomizedDelaySec=0\nPersistent=false\nUnit=tokenoskobi-news-radar-refresh.service\n\n[Install]\nWantedBy=timers.target"
+        }
+      },
+      "derived_refresher_contract": {
+        "api_call": false,
+        "idempotent_insert_required": true,
+        "index_creation": false,
+        "input_table": "news_raw_feed_events",
+        "network_call": false,
+        "new_helper": "tools/news_derived_layer_refresher_v1.py",
+        "output_tables": [
+          "news_token_match_events",
+          "news_signal_events",
+          "news_score_events_v1"
+        ],
+        "paper_signal": 0,
+        "schema_change": false,
+        "selection_rule": "raw rows newer than latest derived timestamp and not already present in news_token_match_events",
+        "trade_signal": 0,
+        "transaction_required": true,
+        "write_allowed": 0
+      },
+      "generated_at_utc": "2026-07-09T16:56:09.323956+00:00",
+      "new_prevention_goal": "Every timer-triggered raw refresh must be followed by deterministic derived-layer refresh.",
+      "plan_version": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_PLAN_V1",
+      "prior_required_artifact": "data/control/news_producer_staleness_post_apply_freshness_audit_noapi_v1.json",
+      "prior_required_decision": "OK_NEWS_PRODUCER_STALENESS_POST_APPLY_FRESHNESS_AUDIT_NOAPI",
+      "purpose": "Bind NEWS raw producer runtime to derived token_match, signal, and score refresh so stale derived layers do not recur.",
+      "runner_binding_contract": {
+        "backup_target_runner_before_patch": true,
+        "dryrun_first": true,
+        "post_apply_freshness_audit_required": true,
+        "preferred_order": [
+          "run_existing_raw_refresh_exactly_as_before",
+          "run_news_derived_layer_refresher_v1",
+          "write local artifact/runtime event",
+          "exit nonzero only if raw refresh or derived refresh hard fails"
+        ],
+        "preserve_existing_raw_runner": true
+      },
+      "runtime_binding_scope_this_step": {
+        "api_network_enable_now": false,
+        "nginx_change_now": false,
+        "plan_only": true,
+        "real_db_write_now": false,
+        "service_change_now": false,
+        "timer_change_now": false,
+        "trade_authority_now": false
+      },
+      "safety_gates_for_next": {
+        "must_hold": [
+          "do_not_patch_service_or_timer_in_dryrun",
+          "helper_py_compile_ok",
+          "helper_dryrun_tempdb_ok",
+          "runner_binding_preview_ok",
+          "real_db_delta_zero_in_dryrun",
+          "api_network_trade_all_false",
+          "then_request_apply"
+        ],
+        "next_step": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_DRYRUN_NOAPI"
+      }
+    },
+    "stage": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_PLAN_NOAPI",
+    "test_count": 8,
+    "tests": [
+      {
+        "ok": true,
+        "test_id": "T01_PRIOR_POST_APPLY_FRESHNESS_AUDIT_OK"
+      },
+      {
+        "execstarts": [
+          "/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+        ],
+        "ok": true,
+        "service_active": "inactive",
+        "test_id": "T02_NEWS_SYSTEMD_TIMER_DISCOVERED",
+        "timer_active": "active",
+        "timer_enabled": "enabled"
+      },
+      {
+        "counts": {
+          "news_raw_feed_events": 332,
+          "news_score_events_v1": 145,
+          "news_signal_events": 145,
+          "news_token_match_events": 145
+        },
+        "ok": true,
+        "test_id": "T03_CURRENT_DB_COUNTS_VALID"
+      },
+      {
+        "binding": {
+          "daemon_reload_required": false,
+          "mode": "PATCH_EXISTING_RUNNER_TO_CALL_DERIVED_REFRESHER_AFTER_RAW_REFRESH",
+          "new_helper": "tools/news_derived_layer_refresher_v1.py",
+          "systemd_unit_change_required": false,
+          "target_runner": "tools/news_radar_refresh_runner_v1.py"
+        },
+        "ok": true,
+        "test_id": "T04_BINDING_MODE_SELECTED"
+      },
+      {
+        "candidate_file_count": 16,
+        "ok": true,
+        "test_id": "T05_CANDIDATE_FILES_SCANNED"
+      },
+      {
+        "db_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "ok": true,
+        "test_id": "T06_PLAN_STEP_READONLY"
+      },
+      {
+        "ok": true,
+        "test_id": "T07_AUTHORITY_BOUNDARY_LOCKED"
+      },
+      {
+        "next": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_DRYRUN_NOAPI",
+        "ok": true,
+        "test_id": "T08_READY_FOR_DRYRUN"
+      }
+    ],
+    "unit_info": {
+      "execstarts": [
+        "/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+      ],
+      "service_active": "inactive",
+      "service_cat_rc": 0,
+      "service_unit_text_sample": "# /etc/systemd/system/tokenoskobi-news-radar-refresh.service\n[Unit]\nDescription=Tokenoskobi News Radar Refresh Runner\nAfter=network-online.target\nWants=network-online.target\n\n[Service]\nType=oneshot\nUser=root\nWorkingDirectory=/root/tokenoskobi_clean_v1\nExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py\nTimeoutStartSec=70\nNice=5\nIOSchedulingClass=best-effort\nStandardOutput=append:/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.log\nStandardError=append:/root/tokenoskobi_clean_v1/logs/news_radar/news_radar_refresh.err.log",
+      "timer_active": "active",
+      "timer_cat_rc": 0,
+      "timer_enabled": "enabled",
+      "timer_unit_text_sample": "# /etc/systemd/system/tokenoskobi-news-radar-refresh.timer\n[Unit]\nDescription=Run Tokenoskobi News Radar Refresh every 20 minutes\n\n[Timer]\nOnActiveSec=20min\nOnUnitActiveSec=20min\nAccuracySec=30s\nRandomizedDelaySec=0\nPersistent=false\nUnit=tokenoskobi-news-radar-refresh.service\n\n[Install]\nWantedBy=timers.target"
+    },
+    "warnings": []
+  },
+  "prior_post_apply_freshness_audit": "data/control/news_producer_staleness_post_apply_freshness_audit_noapi_v1.json",
+  "stage": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_PLAN_NOAPI",
+  "tool": "tools/news_derived_layer_refresher_runtime_binding_plan_v1.py",
+  "warnings": []
+}
