@@ -1,0 +1,332 @@
+{
+  "adapter_families": [
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "current_mode": "NOAPI_DISABLED_NETWORK",
+      "default_route": [
+        "SOURCE_TRUST_GATE",
+        "SECURITY_RELEVANCE_GATE",
+        "EVIDENCE_LINK_GATE"
+      ],
+      "future_input_modes": [
+        "rss_if_available",
+        "public_page_read",
+        "manual_seed",
+        "telegram_readonly_if_explicitly_enabled_later"
+      ],
+      "manual_review_default": false,
+      "priority": "CRITICAL_HIGH",
+      "runtime_enabled_now": false,
+      "source_classes": [
+        "security_exploit"
+      ]
+    },
+    {
+      "adapter_family": "cex_announcement_readonly",
+      "current_mode": "NOAPI_DISABLED_NETWORK",
+      "default_route": [
+        "SOURCE_TRUST_GATE",
+        "CEX_MARKET_IMPACT_GATE",
+        "TOKEN_MATCH_GATE"
+      ],
+      "future_input_modes": [
+        "rss",
+        "official_announcement_page",
+        "websocket_pair_watch_for_api_sources_later"
+      ],
+      "manual_review_default": false,
+      "priority": "HIGH_CRITICAL",
+      "runtime_enabled_now": false,
+      "source_classes": [
+        "cex_listing_market"
+      ]
+    },
+    {
+      "adapter_family": "dex_market_behavior_readonly",
+      "current_mode": "NOAPI_DISABLED_NETWORK",
+      "default_route": [
+        "DEX_MARKET_BEHAVIOR_GATE",
+        "LIQUIDITY_RISK_GATE",
+        "TOKEN_MATCH_GATE"
+      ],
+      "future_input_modes": [
+        "market_api_readonly_later",
+        "snapshot_file_later"
+      ],
+      "manual_review_default": false,
+      "priority": "HIGH",
+      "runtime_enabled_now": false,
+      "source_classes": [
+        "dex_liquidity_market"
+      ]
+    },
+    {
+      "adapter_family": "chain_infra_readonly",
+      "current_mode": "NOAPI_DISABLED_NETWORK",
+      "default_route": [
+        "SOURCE_TRUST_GATE",
+        "CHAIN_INFRA_RELEVANCE_GATE",
+        "MARKET_IMPACT_GATE"
+      ],
+      "future_input_modes": [
+        "rss",
+        "status_page_read",
+        "official_blog_read"
+      ],
+      "manual_review_default": false,
+      "priority": "HIGH",
+      "runtime_enabled_now": false,
+      "source_classes": [
+        "chain_infra"
+      ]
+    },
+    {
+      "adapter_family": "general_crypto_quarantine_readonly",
+      "current_mode": "NOAPI_DISABLED_NETWORK",
+      "default_route": [
+        "GENERAL_NEWS_QUARANTINE_GATE",
+        "MANUAL_REVIEW_GATE",
+        "MARKET_IMPACT_GATE"
+      ],
+      "future_input_modes": [
+        "rss",
+        "manual_seed"
+      ],
+      "manual_review_default": true,
+      "priority": "QUARANTINE",
+      "runtime_enabled_now": false,
+      "source_classes": [
+        "general_crypto_quarantine"
+      ]
+    }
+  ],
+  "generated_at_utc": "2026-07-09T13:37:40.282676+00:00",
+  "hard_guards": {
+    "all_outputs_must_match_envelope_contract": true,
+    "api_required_sources_must_remain_disabled_until_explicit_api_phase": true,
+    "incubation_sources_watch_only": true,
+    "no_trade_authority": true,
+    "quarantine_sources_never_go_direct_to_prosecutor": true,
+    "websocket_sources_must_remain_disabled_until_explicit_api_phase": true
+  },
+  "isolation_policy": {
+    "adapter_runtime_boundary": "external_source_read_only_boundary",
+    "allowed_downstream": [
+      "Gate Logic Contract",
+      "Evidence Engine",
+      "Manual Review Queue"
+    ],
+    "allowed_output": "NEWS_MINIMAL_INGRESS_ENVELOPE_V1 only",
+    "api_enabled_in_this_step": false,
+    "blocked_downstream": [
+      "Trade Execution",
+      "Paper Trade Execution",
+      "Direct DB Mutation"
+    ],
+    "network_enabled_in_this_step": false,
+    "runtime_service_change": false,
+    "runtime_timer_change": false,
+    "runtime_write_to_core_db": false,
+    "runtime_write_to_trade": false
+  },
+  "plan_version": "NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_PLAN_V1",
+  "purpose": "Define isolated read-only ingress adapters for external intelligence sources. This is a plan only. No network, no API, no DB writes, no service/timer change.",
+  "source_adapter_mapping": [
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "CRITICAL",
+      "registry_runtime_enabled": true,
+      "source_class": "security_exploit",
+      "source_id": "peckshield_alert",
+      "trust_score": 90,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "CRITICAL",
+      "registry_runtime_enabled": true,
+      "source_class": "security_exploit",
+      "source_id": "slowmist_alert",
+      "trust_score": 90,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "CRITICAL",
+      "registry_runtime_enabled": true,
+      "source_class": "security_exploit",
+      "source_id": "blocksec_alert",
+      "trust_score": 88,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": true,
+      "source_class": "security_exploit",
+      "source_id": "scamsniffer_alert",
+      "trust_score": 85,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": true,
+      "source_class": "security_exploit",
+      "source_id": "zachxbt_watch",
+      "trust_score": 86,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "security_social_alert_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": true,
+      "manual_review_required": true,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "WATCH",
+      "registry_runtime_enabled": false,
+      "source_class": "security_exploit",
+      "source_id": "new_investigator_incubation_pool",
+      "trust_score": 0,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "cex_announcement_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": true,
+      "source_class": "cex_listing_market",
+      "source_id": "binance_announcements",
+      "trust_score": 88,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "cex_announcement_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": true,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "CRITICAL",
+      "registry_runtime_enabled": false,
+      "source_class": "cex_listing_market",
+      "source_id": "binance_pair_update_stream_watch",
+      "trust_score": 75,
+      "websocket_supported": true
+    },
+    {
+      "adapter_family": "cex_announcement_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": true,
+      "source_class": "cex_listing_market",
+      "source_id": "coinbase_assets_announcements",
+      "trust_score": 86,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "dex_market_behavior_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": true,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": false,
+      "source_class": "dex_liquidity_market",
+      "source_id": "dexscreener_market_anomaly",
+      "trust_score": 72,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "dex_market_behavior_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": true,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": false,
+      "source_class": "dex_liquidity_market",
+      "source_id": "geckoterminal_market_anomaly",
+      "trust_score": 72,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "chain_infra_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": true,
+      "source_class": "chain_infra",
+      "source_id": "bnb_chain_infra",
+      "trust_score": 82,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "chain_infra_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": false,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "HIGH",
+      "registry_runtime_enabled": true,
+      "source_class": "chain_infra",
+      "source_id": "base_chain_infra",
+      "trust_score": 82,
+      "websocket_supported": false
+    },
+    {
+      "adapter_family": "general_crypto_quarantine_readonly",
+      "adapter_runtime_enabled_now": false,
+      "api_required": false,
+      "incubation_period": false,
+      "manual_review_required": true,
+      "noapi_status": "PLANNED_ONLY_DISABLED_NETWORK",
+      "priority": "QUARANTINE",
+      "registry_runtime_enabled": false,
+      "source_class": "general_crypto_quarantine",
+      "source_id": "general_crypto_quarantine_pool",
+      "trust_score": 45,
+      "websocket_supported": false
+    }
+  ]
+}
