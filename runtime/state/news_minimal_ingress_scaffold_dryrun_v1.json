@@ -1,0 +1,112 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_MINIMAL_INGRESS_SCAFFOLD_DRYRUN_NOAPI",
+  "dryrun": {
+    "checks": {
+      "decision_accept_security": true,
+      "event_uid_present": true,
+      "no_db_write": true,
+      "no_live_trade": true,
+      "no_paper_trade": true,
+      "no_trade_authority": true,
+      "normalized": true,
+      "route_evidence": true,
+      "route_prosecutor": true,
+      "route_unknown_anomaly": true
+    },
+    "decision": "OK_MINIMAL_INGRESS_ENVELOPE",
+    "envelope": {
+      "event_uid": "200b3065a2a2a1f07689607d80bd5b6a",
+      "gate_decision": {
+        "decision": "ACCEPT_SECURITY_EARLY_WARNING",
+        "priority": "CRITICAL",
+        "reasons": [
+          "SOURCE_TRUST_GATE",
+          "SECURITY_RELEVANCE_GATE",
+          "EVIDENCE_LINK_GATE"
+        ],
+        "route": [
+          "Evidence Engine",
+          "Unknown Anomaly Engine",
+          "Prosecutor Engine"
+        ],
+        "severity": "CRITICAL",
+        "source_class": "security_exploit",
+        "trade_authority": false,
+        "trust_score": 90
+      },
+      "generated_at_utc": "2026-07-09T13:28:25.756180+00:00",
+      "ingress_mode": "NOAPI_DRYRUN",
+      "normalized_event": {
+        "body": "wallet drain, liquidity attack and suspicious contract interaction evidence",
+        "chain": "BSC",
+        "event_uid": "200b3065a2a2a1f07689607d80bd5b6a",
+        "ingress_mode": "NOAPI_DRYRUN",
+        "normalized": true,
+        "observed_at_utc": "2026-07-09T13:30:00+00:00",
+        "raw_ref": "NOAPI_SYNTHETIC_SINGLE_EVENT",
+        "source_id": "peckshield_alert",
+        "title": "Exploit detected on tracked token liquidity pool",
+        "token": "TRACKED_TOKEN_FIXTURE",
+        "topic": "exploit"
+      },
+      "routing": {
+        "db_write": false,
+        "live_trade": false,
+        "paper_trade": false,
+        "route": [
+          "Evidence Engine",
+          "Unknown Anomaly Engine",
+          "Prosecutor Engine"
+        ],
+        "severity": "CRITICAL",
+        "trade_authority": false
+      },
+      "schema": "NEWS_MINIMAL_INGRESS_ENVELOPE_V1",
+      "source_id": "peckshield_alert"
+    },
+    "event_count": 1,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T13:28:25.756235+00:00",
+    "stage": "NEWS_MINIMAL_INGRESS_SCAFFOLD_DRYRUN_NOAPI"
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T13:28:25.769855+00:00",
+  "next": "NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_PLAN_NOAPI",
+  "output_contract": "config/news_minimal_ingress_output_contract_v1.json",
+  "stage": "NEWS_MINIMAL_INGRESS_SCAFFOLD_DRYRUN_NOAPI",
+  "tool": "tools/news_minimal_ingress_scaffold_dryrun_v1.py"
+}
