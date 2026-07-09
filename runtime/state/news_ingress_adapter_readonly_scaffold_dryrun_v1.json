@@ -1,0 +1,487 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_DRYRUN_NOAPI",
+  "dryrun": {
+    "case_count": 7,
+    "decision": "OK_INGRESS_ADAPTER_READONLY_SCAFFOLD_DRYRUN",
+    "envelopes": [
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "security_social_alert_readonly",
+        "case_id": "A01_SECURITY_ACCEPT",
+        "event_uid": "6d3bd3cb3932bec479b3d443ad970615",
+        "expected": "ACCEPT_SECURITY_EARLY_WARNING",
+        "gate_decision": {
+          "decision": "ACCEPT_SECURITY_EARLY_WARNING",
+          "reasons": [
+            "SOURCE_TRUST_GATE",
+            "SECURITY_RELEVANCE_GATE",
+            "EVIDENCE_LINK_GATE"
+          ],
+          "route": [
+            "Evidence Engine",
+            "Unknown Anomaly Engine",
+            "Prosecutor Engine"
+          ],
+          "severity": "CRITICAL",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182311+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "wallet drain and liquidity attack evidence",
+          "chain": "BSC",
+          "event_uid": "6d3bd3cb3932bec479b3d443ad970615",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182156+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "peckshield_alert",
+          "title": "Exploit detected on tracked token liquidity pool",
+          "token": "TRACKED_TOKEN_FIXTURE",
+          "topic": "exploit"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "Evidence Engine",
+            "Unknown Anomaly Engine",
+            "Prosecutor Engine"
+          ],
+          "severity": "CRITICAL",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "security_exploit",
+        "source_id": "peckshield_alert"
+      },
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "cex_announcement_readonly",
+        "case_id": "A02_CEX_LISTING_ACCEPT",
+        "event_uid": "04b15b1167045aa2c3199211db781984",
+        "expected": "ACCEPT_CEX_MARKET_IMPACT",
+        "gate_decision": {
+          "decision": "ACCEPT_CEX_MARKET_IMPACT",
+          "reasons": [
+            "SOURCE_TRUST_GATE",
+            "CEX_MARKET_IMPACT_GATE",
+            "TOKEN_MATCH_GATE"
+          ],
+          "route": [
+            "Evidence Engine",
+            "Opportunity Memory",
+            "Market Impact Review"
+          ],
+          "severity": "HIGH",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182342+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "deposit withdraw enabled network upgrade",
+          "chain": "BSC",
+          "event_uid": "04b15b1167045aa2c3199211db781984",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182323+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "binance_announcements",
+          "title": "New listing for tracked token",
+          "token": "TRACKED_TOKEN_FIXTURE",
+          "topic": "listing"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "Evidence Engine",
+            "Opportunity Memory",
+            "Market Impact Review"
+          ],
+          "severity": "HIGH",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "cex_listing_market",
+        "source_id": "binance_announcements"
+      },
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "cex_announcement_readonly",
+        "case_id": "A03_CEX_PAIR_PRE_ANNOUNCEMENT",
+        "event_uid": "f9eb7075da9fb76fed0dac3b08bdef0f",
+        "expected": "ACCEPT_CRITICAL_CEX_PRE_ANNOUNCEMENT_MARKET_INTEL",
+        "gate_decision": {
+          "decision": "ACCEPT_CRITICAL_CEX_PRE_ANNOUNCEMENT_MARKET_INTEL",
+          "reasons": [
+            "CEX_PAIR_PRE_ANNOUNCEMENT_GATE",
+            "not_confirmed_news",
+            "no_auto_trade"
+          ],
+          "route": [
+            "Evidence Engine",
+            "Opportunity Memory",
+            "Market Impact Review"
+          ],
+          "severity": "CRITICAL",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182363+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "market symbol enable",
+          "chain": "BSC",
+          "event_uid": "f9eb7075da9fb76fed0dac3b08bdef0f",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182352+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "binance_pair_update_stream_watch",
+          "title": "New pair seen before official announcement",
+          "token": "TRACKED_TOKEN_FIXTURE",
+          "topic": "new_pair_seen_before_announcement"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "Evidence Engine",
+            "Opportunity Memory",
+            "Market Impact Review"
+          ],
+          "severity": "CRITICAL",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "cex_listing_market",
+        "source_id": "binance_pair_update_stream_watch"
+      },
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "dex_market_behavior_readonly",
+        "case_id": "A04_DEX_BEHAVIOR_ACCEPT",
+        "event_uid": "08e061c5fe67748f53e8f51ea0a133d8",
+        "expected": "ACCEPT_DEX_MARKET_BEHAVIOR",
+        "gate_decision": {
+          "decision": "ACCEPT_DEX_MARKET_BEHAVIOR",
+          "reasons": [
+            "DEX_MARKET_BEHAVIOR_GATE",
+            "LIQUIDITY_RISK_GATE",
+            "TOKEN_MATCH_GATE"
+          ],
+          "route": [
+            "Evidence Engine",
+            "Risk Engine",
+            "Opportunity Memory"
+          ],
+          "severity": "HIGH",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182377+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "volume anomaly and price dislocation",
+          "chain": "BSC",
+          "event_uid": "08e061c5fe67748f53e8f51ea0a133d8",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182368+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "dexscreener_market_anomaly",
+          "title": "Pair creation and liquidity spike",
+          "token": "TRACKED_TOKEN_FIXTURE",
+          "topic": "liquidity_spike"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "Evidence Engine",
+            "Risk Engine",
+            "Opportunity Memory"
+          ],
+          "severity": "HIGH",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "dex_liquidity_market",
+        "source_id": "dexscreener_market_anomaly"
+      },
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "chain_infra_readonly",
+        "case_id": "A05_CHAIN_INFRA_ACCEPT",
+        "event_uid": "e519e8e0b90f715575610152636e3bfb",
+        "expected": "ACCEPT_CHAIN_INFRA_RISK",
+        "gate_decision": {
+          "decision": "ACCEPT_CHAIN_INFRA_RISK",
+          "reasons": [
+            "SOURCE_TRUST_GATE",
+            "CHAIN_INFRA_RELEVANCE_GATE",
+            "MARKET_IMPACT_GATE"
+          ],
+          "route": [
+            "System Risk Review",
+            "Market Impact Review"
+          ],
+          "severity": "HIGH",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182395+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "network upgrade and fee spike",
+          "chain": "BSC",
+          "event_uid": "e519e8e0b90f715575610152636e3bfb",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182381+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "bnb_chain_infra",
+          "title": "RPC issue and validator issue",
+          "token": "",
+          "topic": "chain_outage"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "System Risk Review",
+            "Market Impact Review"
+          ],
+          "severity": "HIGH",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "chain_infra",
+        "source_id": "bnb_chain_infra"
+      },
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "general_crypto_quarantine_readonly",
+        "case_id": "A06_GENERAL_QUARANTINE",
+        "event_uid": "3d96418dc1037ce5f3844926c3499da3",
+        "expected": "QUARANTINE_MANUAL_REVIEW",
+        "gate_decision": {
+          "decision": "QUARANTINE_MANUAL_REVIEW",
+          "reasons": [
+            "GENERAL_NEWS_QUARANTINE_GATE",
+            "no_auto_prosecutor"
+          ],
+          "route": [
+            "Manual Review Queue"
+          ],
+          "severity": "QUARANTINE",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182412+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "systemic market impact and legal issue",
+          "chain": "",
+          "event_uid": "3d96418dc1037ce5f3844926c3499da3",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182399+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "general_crypto_quarantine_pool",
+          "title": "Major exchange collapse",
+          "token": "",
+          "topic": "exchange_collapse"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "Manual Review Queue"
+          ],
+          "severity": "QUARANTINE",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "general_crypto_quarantine",
+        "source_id": "general_crypto_quarantine_pool"
+      },
+      {
+        "adapter_authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "network_call": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "adapter_family": "security_social_alert_readonly",
+        "case_id": "A07_INCUBATION_WATCH",
+        "event_uid": "194dbb2b68df362f9b52b2c18e426537",
+        "expected": "WATCH_INCUBATION_ONLY",
+        "gate_decision": {
+          "decision": "WATCH_INCUBATION_ONLY",
+          "reasons": [
+            "INCUBATION_GATE",
+            "no_direct_prosecutor"
+          ],
+          "route": [
+            "Evidence Engine Watch Only"
+          ],
+          "severity": "WATCH",
+          "trade_authority": false
+        },
+        "generated_at_utc": "2026-07-09T13:42:05.182424+00:00",
+        "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+        "normalized_event": {
+          "body": "unverified exploit claim",
+          "chain": "BSC",
+          "event_uid": "194dbb2b68df362f9b52b2c18e426537",
+          "ingress_mode": "NOAPI_ADAPTER_DRYRUN",
+          "normalized": true,
+          "observed_at_utc": "2026-07-09T13:42:05.182416+00:00",
+          "raw_ref": "NOAPI_ADAPTER_SYNTHETIC_FIXTURE",
+          "source_id": "new_investigator_incubation_pool",
+          "title": "New investigator wallet cluster claim",
+          "token": "TRACKED_TOKEN_FIXTURE",
+          "topic": "exploit_claim"
+        },
+        "ok": true,
+        "routing": {
+          "db_write": false,
+          "live_trade": false,
+          "paper_trade": false,
+          "route": [
+            "Evidence Engine Watch Only"
+          ],
+          "severity": "WATCH",
+          "trade_authority": false
+        },
+        "schema": "NEWS_INGRESS_ADAPTER_READONLY_ENVELOPE_V1",
+        "source_class": "security_exploit",
+        "source_id": "new_investigator_incubation_pool"
+      }
+    ],
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T13:42:05.182457+00:00",
+    "hard_checks": {
+      "all_cases_ok": true,
+      "all_no_api": true,
+      "all_no_db_write": true,
+      "all_no_network": true,
+      "all_no_trade": true,
+      "api_sources_not_live_enabled": true,
+      "incubation_no_prosecutor": true,
+      "quarantine_no_prosecutor": true,
+      "websocket_sources_not_live_enabled": true
+    },
+    "ok_count": 7,
+    "skipped_live_inputs": [
+      {
+        "api_required": true,
+        "reason": "live_input_disabled_noapi_dryrun_uses_synthetic_fixture_only",
+        "source_id": "binance_pair_update_stream_watch",
+        "websocket_supported": true
+      },
+      {
+        "api_required": true,
+        "reason": "live_input_disabled_noapi_dryrun_uses_synthetic_fixture_only",
+        "source_id": "dexscreener_market_anomaly",
+        "websocket_supported": false
+      }
+    ],
+    "stage": "NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_DRYRUN_NOAPI"
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T13:42:05.200654+00:00",
+  "next": "NEWS_INGRESS_CHAIN_FINAL_REVIEW_AND_SEAL_NOAPI",
+  "output_contract": "config/news_ingress_adapter_readonly_output_contract_v1.json",
+  "stage": "NEWS_INGRESS_ADAPTER_READONLY_SCAFFOLD_DRYRUN_NOAPI",
+  "tool": "tools/news_ingress_adapter_readonly_scaffold_dryrun_v1.py"
+}
