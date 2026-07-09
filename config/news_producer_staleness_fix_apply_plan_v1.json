@@ -1,0 +1,528 @@
+{
+  "apply_algorithm_plan": {
+    "batch_limit": 250,
+    "dedup_policy": {
+      "existing_news_uid_skip": true,
+      "insert_only_in_tempdb_next": true,
+      "raw_hash_duplicate_groups_allowed": 0,
+      "upsert_allowed_later": false,
+      "url_hash_duplicate_groups_allowed": 0
+    },
+    "idempotency_keys": {
+      "news_score_events_v1": "score_uid derived from news_uid + token_uid + pair_uid",
+      "news_signal_events": "signal_uid derived from news_uid + token_uid + pair_uid + signal_type",
+      "news_token_match_events": "match_uid derived from news_uid + token_uid + pair_uid + match_type"
+    },
+    "order": [
+      "copy_real_db_to_tempdb",
+      "verify_tempdb_schema_matches_required_columns",
+      "select_raw_rows_after_latest_derived_timestamp",
+      "exclude_news_uid_already_present_in_news_token_match_events",
+      "derive_token_match_candidates",
+      "derive_signal_candidates_from_token_matches",
+      "derive_score_candidates_from_token_matches_and_signals",
+      "write_to_tempdb_only",
+      "verify_expected_delta_on_tempdb",
+      "verify_real_db_delta_zero",
+      "emit_tempdb_apply_report"
+    ],
+    "raw_feed_mutation": false
+  },
+  "apply_plan_scope": {
+    "api_network_enable_now": false,
+    "nginx_change_now": false,
+    "real_db_apply_now": false,
+    "service_timer_change_now": false,
+    "tempdb_apply_next": true,
+    "trade_authority_now": false
+  },
+  "authority_boundary": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "expected_tempdb_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 94,
+    "news_signal_events": 94,
+    "news_token_match_events": 94
+  },
+  "generated_at_utc": "2026-07-09T15:36:13.954306+00:00",
+  "input_preview": {
+    "candidate_counts": {
+      "projected_score_candidate_count_after_token_match_apply": 94,
+      "projected_signal_candidate_count_after_token_match_apply": 94,
+      "score_candidate_count_without_write_existing_match_based": 0,
+      "score_candidate_count_without_write_existing_signal_based": 0,
+      "signal_candidate_count_without_write_existing": 0,
+      "token_match_candidate_count_without_write": 94
+    },
+    "latest_derived_created_at_utc": "2026-07-06T06:44:10.288486+00:00",
+    "new_raw_rows_since_latest_derived": 94,
+    "sample_count": 10,
+    "sample_news_uids": [
+      "timer_news_d209ed0bc1a34c65c12f",
+      "timer_news_4b2cb90b3f72815ec9b1",
+      "timer_news_ba26332a05561486dd6d",
+      "timer_news_35a37a44429e2a28a1d6",
+      "timer_news_c35d7f2d1542918f1b28",
+      "timer_news_ee5bd8538292693d88d7",
+      "timer_news_dd89330dacbb4d9f37a1",
+      "timer_news_484ae2580800d3d3a1d6",
+      "timer_news_9928da42c898c8c994d5",
+      "timer_news_74beb9df224fa92c2af4"
+    ]
+  },
+  "locked_root_cause": "RAW_FEED_IS_CURRENT_BUT_DERIVED_LAYERS_ARE_STALE",
+  "plan_version": "NEWS_PRODUCER_STALENESS_FIX_APPLY_PLAN_V1",
+  "prior_required_artifact": "data/control/news_producer_staleness_fix_dryrun_noapi_v1.json",
+  "prior_required_decision": "OK_NEWS_PRODUCER_STALENESS_FIX_DRYRUN_NOAPI",
+  "purpose": "Plan the controlled repair for stale NEWS derived layers without applying to real DB in this step.",
+  "real_apply_later_controls": {
+    "not_this_step": true,
+    "requires_backup_before_real_apply": true,
+    "requires_commander_approval": true,
+    "requires_github_seal": true,
+    "requires_post_apply_freshness_audit": true,
+    "requires_successful_tempdb_apply_dryrun": true
+  },
+  "real_db_delta_this_step": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "safety_gates_for_next": {
+    "must_hold": [
+      "real_db_is_readonly",
+      "tempdb_copy_created",
+      "db_backup_path_recorded",
+      "all_writes_tempdb_only",
+      "real_db_delta_zero",
+      "expected_tempdb_delta_matches_preview_or_explains_difference",
+      "no_service_timer_nginx_change",
+      "no_api_network_enable",
+      "no_paper_live_trade",
+      "post_tempdb_freshness_check"
+    ],
+    "next_step": "NEWS_PRODUCER_STALENESS_FIX_TEMPDB_APPLY_DRYRUN_NOAPI"
+  },
+  "schema_snapshot": {
+    "news_raw_feed_events": [
+      {
+        "cid": 0,
+        "default": null,
+        "name": "news_uid",
+        "notnull": 0,
+        "pk": 1,
+        "type": "TEXT"
+      },
+      {
+        "cid": 1,
+        "default": null,
+        "name": "source_uid",
+        "notnull": 1,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 2,
+        "default": null,
+        "name": "published_at_utc",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 3,
+        "default": null,
+        "name": "title",
+        "notnull": 1,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 4,
+        "default": null,
+        "name": "url_hash",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 5,
+        "default": null,
+        "name": "raw_hash",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 6,
+        "default": null,
+        "name": "fetched_at_utc",
+        "notnull": 1,
+        "pk": 0,
+        "type": "TEXT"
+      }
+    ],
+    "news_score_events_v1": [
+      {
+        "cid": 0,
+        "default": null,
+        "name": "score_uid",
+        "notnull": 0,
+        "pk": 1,
+        "type": "TEXT"
+      },
+      {
+        "cid": 1,
+        "default": null,
+        "name": "news_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 2,
+        "default": null,
+        "name": "token_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 3,
+        "default": null,
+        "name": "pair_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 4,
+        "default": null,
+        "name": "symbol",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 5,
+        "default": null,
+        "name": "chain",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 6,
+        "default": null,
+        "name": "news_token_relevance_score_100",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 7,
+        "default": null,
+        "name": "news_risk_score_100",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 8,
+        "default": null,
+        "name": "news_fusion_score_100",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 9,
+        "default": null,
+        "name": "importance_label",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 10,
+        "default": null,
+        "name": "risk_label",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 11,
+        "default": null,
+        "name": "fusion_label",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 12,
+        "default": null,
+        "name": "explanation",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 13,
+        "default": null,
+        "name": "created_at_utc",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      }
+    ],
+    "news_signal_events": [
+      {
+        "cid": 0,
+        "default": null,
+        "name": "signal_uid",
+        "notnull": 0,
+        "pk": 1,
+        "type": "TEXT"
+      },
+      {
+        "cid": 1,
+        "default": null,
+        "name": "news_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 2,
+        "default": null,
+        "name": "token_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 3,
+        "default": null,
+        "name": "pair_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 4,
+        "default": null,
+        "name": "symbol",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 5,
+        "default": null,
+        "name": "chain",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 6,
+        "default": null,
+        "name": "signal_type",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 7,
+        "default": null,
+        "name": "signal_strength",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 8,
+        "default": null,
+        "name": "signal_label",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 9,
+        "default": null,
+        "name": "source_match_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 10,
+        "default": null,
+        "name": "evidence_text",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 11,
+        "default": null,
+        "name": "created_at_utc",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      }
+    ],
+    "news_token_match_events": [
+      {
+        "cid": 0,
+        "default": null,
+        "name": "match_uid",
+        "notnull": 0,
+        "pk": 1,
+        "type": "TEXT"
+      },
+      {
+        "cid": 1,
+        "default": null,
+        "name": "news_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 2,
+        "default": null,
+        "name": "source_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 3,
+        "default": null,
+        "name": "token_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 4,
+        "default": null,
+        "name": "pair_uid",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 5,
+        "default": null,
+        "name": "symbol",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 6,
+        "default": null,
+        "name": "chain",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 7,
+        "default": null,
+        "name": "match_type",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 8,
+        "default": null,
+        "name": "match_confidence",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 9,
+        "default": null,
+        "name": "match_score",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 10,
+        "default": null,
+        "name": "match_reasons_json",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 11,
+        "default": null,
+        "name": "evidence_text",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      },
+      {
+        "cid": 12,
+        "default": "0",
+        "name": "is_duplicate",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 13,
+        "default": "0",
+        "name": "write_allowed",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 14,
+        "default": "0",
+        "name": "trade_signal",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 15,
+        "default": "0",
+        "name": "paper_signal",
+        "notnull": 0,
+        "pk": 0,
+        "type": "INTEGER"
+      },
+      {
+        "cid": 16,
+        "default": null,
+        "name": "created_at_utc",
+        "notnull": 0,
+        "pk": 0,
+        "type": "TEXT"
+      }
+    ]
+  }
+}
