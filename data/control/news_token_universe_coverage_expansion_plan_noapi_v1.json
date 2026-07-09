@@ -1,0 +1,170 @@
+{
+  "apply_plan_next": {
+    "acceptance_gates": [
+      "No automatic major-coin Hunter promotion.",
+      "No generic keyword-to-token match.",
+      "No synthetic token creation from headlines.",
+      "No DB schema change in plan step.",
+      "No service/timer/panel/WAL change in plan step.",
+      "No trade/paper/live authority.",
+      "Clear next apply only after explicit approval."
+    ],
+    "minimal_design_targets": [
+      "Audit current token/pair source tables and any repo target files.",
+      "Define token alias contract for configured HUNT_TARGET only.",
+      "Define market-indicator readmodel contract separately from Hunter.",
+      "Define adversarial-news classification contract separately from token matches.",
+      "Keep matcher scope split intact.",
+      "Keep match_many(candidates, tokens) contract intact.",
+      "Keep duplicate guard, max batch, tracker, trade=false and paper=false intact."
+    ],
+    "name": "NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_APPLY_PLAN_NOAPI",
+    "purpose": "Produce an apply design that adds safe coverage lanes without DB writes or service/timer/panel changes."
+  },
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "plan_only": true,
+    "read_only_inputs": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "confirmed_snapshot": {
+    "configured_symbol_hit_counter": {},
+    "configured_symbol_hit_rows": 0,
+    "configured_token_rows": 19,
+    "configured_tokens_with_symbol": 14,
+    "configured_unique_symbol_count": 14,
+    "configured_unique_symbols": [
+      "ASTEROID",
+      "ASTEROIDFLOKI",
+      "ASTEROIDOGE",
+      "MIRROR",
+      "QUEEN OF BINANCE",
+      "ROGUEAI",
+      "SAS",
+      "SR",
+      "TONCOIN",
+      "VELLUM",
+      "WINC2.0",
+      "小火種",
+      "币安好友",
+      "酱板鸭"
+    ],
+    "hunt_term_hit_counter": {
+      "approval": 2,
+      "bridge": 2,
+      "contract": 1,
+      "defi": 6,
+      "dex": 1,
+      "exploit": 1,
+      "launch": 6,
+      "perpetual": 3,
+      "phishing": 1,
+      "stablecoin": 15,
+      "token": 6,
+      "tokenized": 10,
+      "wallet": 6
+    },
+    "hunt_term_hit_rows": 48,
+    "market_indicator_hit_counter": {
+      "ADA": 1,
+      "BNB": 2,
+      "BTC": 17,
+      "DOGE": 2,
+      "ETH": 7,
+      "SOL": 3,
+      "USDC": 3,
+      "XRP": 7
+    },
+    "market_indicator_hit_rows": 34,
+    "raw_without_match": 253,
+    "raw_without_match_sample_size": 253
+  },
+  "decision": "PASS_NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_PLAN_READY",
+  "do_not_do": [
+    "Do not add BTC/ETH/XRP as Hunter targets by default.",
+    "Do not route market-indicator news into token match tables.",
+    "Do not route generic phishing/exploit/stablecoin news into token match tables without explicit token/pair evidence.",
+    "Do not delete tracker.",
+    "Do not reset tracker.",
+    "Do not change service/timer/panel/WAL.",
+    "Do not enable trade/paper/live authority."
+  ],
+  "failures": [],
+  "generated_at_utc": "2026-07-09T07:15:14.632087+00:00",
+  "git_head_before": "d9ccda0a254ced29303d44e6ad16090726ed506f",
+  "input_coverage_audit_decision": "WARN_NEWS_TOKEN_UNIVERSE_MATCH_COVERAGE_GAP_CONFIRMED",
+  "input_root_cause": "CONFIGURED_TOKEN_UNIVERSE_HAS_NO_LEXICAL_COVERAGE_FOR_CURRENT_NEWS_SAMPLE",
+  "interpretation": {
+    "safe_direction": "Expand coverage through scoped lanes: configured Hunter targets, market indicators, and adversarial intelligence.",
+    "what_is_fixed": "NEWS ingestion, downstream hook, selector, tracker reprocess path are working.",
+    "what_is_not_fixed": "Current configured token universe is too narrow for current NEWS stream, so match/signal/score remains zero."
+  },
+  "next": "NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_APPLY_PLAN_NOAPI",
+  "plan": {
+    "lane_1_hunt_target_universe_expansion": {
+      "allowed_inputs": [
+        "tokens table",
+        "pairs table",
+        "token_score_100_events",
+        "existing project target/pair files if present",
+        "future DEX/new-token discovery outputs after separate validation"
+      ],
+      "do_not_do": [
+        "Do not create synthetic token rows from news headlines.",
+        "Do not infer a tradable token only from generic words like DeFi, stablecoin, tokenized, wallet, phishing.",
+        "Do not add BTC/ETH/XRP as Hunter targets unless explicitly present in configured Tokenoskobi target universe."
+      ],
+      "matching_rule": "Configured token/pair symbols, names, aliases, contract addresses, and pair addresses may produce token match events if matcher confidence and duplicate guards pass.",
+      "required_fields": [
+        "token_uid or pair_uid",
+        "symbol",
+        "name/alias when available",
+        "chain",
+        "token_address or pair_address when available",
+        "news_scope=HUNT_TARGET"
+      ],
+      "role": "Hunter-eligible token/pair target coverage",
+      "source_rule": "Only configured Tokenoskobi token/pair universe can become Hunter target."
+    },
+    "lane_2_market_indicator_news": {
+      "future_apply_scope": [
+        "Create separate market-indicator readmodel or event file/table in a later phase.",
+        "Keep panel widgets separate from Hunter target matching.",
+        "Keep risk/regime intelligence separate from token/pair execution authority."
+      ],
+      "output_rule": "Market indicator news must not write Hunter token match rows and must not authorize trade/paper.",
+      "role": "NEWS context, regime, macro, major-asset and stablecoin intelligence",
+      "source_rule": "BTC/ETH/XRP/BNB/SOL/USDT/USDC and similar assets remain market indicators by default."
+    },
+    "lane_3_adversarial_news": {
+      "future_apply_scope": [
+        "Classify adversarial NEWS as threat intelligence.",
+        "Attach entities only when explicit token/pair/address/project evidence exists.",
+        "No trade or paper authority."
+      ],
+      "role": "Exploit/phishing/approval/bridge/rug/honeypot/wallet/contract threat intelligence",
+      "source_rule": "Generic adversarial events should feed threat memory/intelligence, not fake token matches."
+    },
+    "name": "SAFE_NEWS_COVERAGE_EXPANSION_WITH_SCOPE_SPLIT",
+    "purpose": "Fix NEWS match zero by expanding coverage safely without turning major coins into Hunter targets."
+  },
+  "stage": "NEWS_TOKEN_UNIVERSE_COVERAGE_EXPANSION_PLAN_NOAPI",
+  "static_checks": {
+    "matcher_market_indicator_assets_present": true,
+    "matcher_paper_false_present": true,
+    "matcher_scope_split_present": true,
+    "matcher_trade_false_present": true,
+    "runner_load_tokens_present": true,
+    "runner_match_many_contract": true
+  },
+  "warnings": []
+}
