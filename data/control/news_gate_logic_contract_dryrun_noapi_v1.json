@@ -1,0 +1,230 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "db_after": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 324,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_GATE_LOGIC_CONTRACT_DRYRUN_NOAPI",
+  "dryrun": {
+    "case_count": 10,
+    "contract": "/root/tokenoskobi_clean_v1/config/news_gate_logic_contract_v1.json",
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T13:23:09.291224+00:00",
+    "hard_assertions": {
+      "critical_cex_pair_is_not_trade": true,
+      "incubation_not_routed_to_prosecutor": true,
+      "no_trade_authority_in_all_cases": true,
+      "quarantine_not_routed_to_prosecutor": true
+    },
+    "ok_count": 10,
+    "registry": "/root/tokenoskobi_clean_v1/config/news_source_registry_v1.json",
+    "results": [
+      {
+        "decision": "ACCEPT_SECURITY_EARLY_WARNING",
+        "event_id": "T01_SECURITY_EXPLOIT_ACCEPT",
+        "expected": "ACCEPT_SECURITY_EARLY_WARNING",
+        "ok": true,
+        "reasons": [
+          "SOURCE_TRUST_GATE",
+          "SECURITY_RELEVANCE_GATE",
+          "EVIDENCE_LINK_GATE"
+        ],
+        "route": [
+          "Evidence Engine",
+          "Unknown Anomaly Engine",
+          "Prosecutor Engine"
+        ],
+        "severity": "CRITICAL",
+        "source_class": "security_exploit",
+        "source_id": "peckshield_alert",
+        "trade_authority": false
+      },
+      {
+        "decision": "DROP_NOISE",
+        "event_id": "T02_SECURITY_NOISE_DROP",
+        "expected": "DROP_NOISE",
+        "ok": true,
+        "reasons": [
+          "blocked_pattern_matched",
+          "NOISE_DROP_GATE"
+        ],
+        "route": [],
+        "severity": "DROP",
+        "source_class": "security_exploit",
+        "source_id": "blocksec_alert",
+        "trade_authority": false
+      },
+      {
+        "decision": "WATCH_INCUBATION_ONLY",
+        "event_id": "T03_INCUBATION_WATCH",
+        "expected": "WATCH_INCUBATION_ONLY",
+        "ok": true,
+        "reasons": [
+          "INCUBATION_GATE",
+          "no_direct_prosecutor"
+        ],
+        "route": [
+          "Evidence Engine Watch Only"
+        ],
+        "severity": "WATCH",
+        "source_class": "security_exploit",
+        "source_id": "new_investigator_incubation_pool",
+        "trade_authority": false
+      },
+      {
+        "decision": "QUARANTINE_MANUAL_REVIEW",
+        "event_id": "T04_GENERAL_QUARANTINE_ACCEPT",
+        "expected": "QUARANTINE_MANUAL_REVIEW",
+        "ok": true,
+        "reasons": [
+          "GENERAL_NEWS_QUARANTINE_GATE",
+          "no_auto_prosecutor"
+        ],
+        "route": [
+          "Manual Review Queue"
+        ],
+        "severity": "QUARANTINE",
+        "source_class": "general_crypto_quarantine",
+        "source_id": "general_crypto_quarantine_pool",
+        "trade_authority": false
+      },
+      {
+        "decision": "DROP_NOISE",
+        "event_id": "T05_GENERAL_NOISE_DROP",
+        "expected": "DROP_NOISE",
+        "ok": true,
+        "reasons": [
+          "blocked_pattern_matched",
+          "NOISE_DROP_GATE"
+        ],
+        "route": [],
+        "severity": "DROP",
+        "source_class": "general_crypto_quarantine",
+        "source_id": "general_crypto_quarantine_pool",
+        "trade_authority": false
+      },
+      {
+        "decision": "ACCEPT_CRITICAL_CEX_PRE_ANNOUNCEMENT_MARKET_INTEL",
+        "event_id": "T06_CEX_PAIR_PRE_ANNOUNCEMENT",
+        "expected": "ACCEPT_CRITICAL_CEX_PRE_ANNOUNCEMENT_MARKET_INTEL",
+        "ok": true,
+        "reasons": [
+          "CEX_PAIR_PRE_ANNOUNCEMENT_GATE",
+          "not_confirmed_news",
+          "no_auto_trade"
+        ],
+        "route": [
+          "Evidence Engine",
+          "Opportunity Memory",
+          "Market Impact Review"
+        ],
+        "severity": "CRITICAL",
+        "source_class": "cex_listing_market",
+        "source_id": "binance_pair_update_stream_watch",
+        "trade_authority": false
+      },
+      {
+        "decision": "ACCEPT_CEX_MARKET_IMPACT",
+        "event_id": "T07_CEX_LISTING_ACCEPT",
+        "expected": "ACCEPT_CEX_MARKET_IMPACT",
+        "ok": true,
+        "reasons": [
+          "SOURCE_TRUST_GATE",
+          "CEX_MARKET_IMPACT_GATE",
+          "TOKEN_MATCH_GATE"
+        ],
+        "route": [
+          "Evidence Engine",
+          "Opportunity Memory",
+          "Market Impact Review"
+        ],
+        "severity": "HIGH",
+        "source_class": "cex_listing_market",
+        "source_id": "binance_announcements",
+        "trade_authority": false
+      },
+      {
+        "decision": "ACCEPT_DEX_MARKET_BEHAVIOR",
+        "event_id": "T08_DEX_ANOMALY_ACCEPT",
+        "expected": "ACCEPT_DEX_MARKET_BEHAVIOR",
+        "ok": true,
+        "reasons": [
+          "DEX_MARKET_BEHAVIOR_GATE",
+          "LIQUIDITY_RISK_GATE",
+          "TOKEN_MATCH_GATE"
+        ],
+        "route": [
+          "Evidence Engine",
+          "Risk Engine",
+          "Opportunity Memory"
+        ],
+        "severity": "HIGH",
+        "source_class": "dex_liquidity_market",
+        "source_id": "dexscreener_market_anomaly",
+        "trade_authority": false
+      },
+      {
+        "decision": "ACCEPT_CHAIN_INFRA_RISK",
+        "event_id": "T09_CHAIN_INFRA_ACCEPT",
+        "expected": "ACCEPT_CHAIN_INFRA_RISK",
+        "ok": true,
+        "reasons": [
+          "SOURCE_TRUST_GATE",
+          "CHAIN_INFRA_RELEVANCE_GATE",
+          "MARKET_IMPACT_GATE"
+        ],
+        "route": [
+          "System Risk Review",
+          "Market Impact Review"
+        ],
+        "severity": "HIGH",
+        "source_class": "chain_infra",
+        "source_id": "bnb_chain_infra",
+        "trade_authority": false
+      },
+      {
+        "decision": "DROP_UNKNOWN_SOURCE",
+        "event_id": "T10_UNKNOWN_SOURCE_DROP",
+        "expected": "DROP_UNKNOWN_SOURCE",
+        "ok": true,
+        "reasons": [
+          "source_not_in_registry"
+        ],
+        "route": [],
+        "severity": "DROP",
+        "trade_authority": false
+      }
+    ],
+    "stage": "NEWS_GATE_LOGIC_CONTRACT_DRYRUN_NOAPI"
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T13:23:09.302002+00:00",
+  "next": "NEWS_MINIMAL_INGRESS_SCAFFOLD_DRYRUN_NOAPI",
+  "stage": "NEWS_GATE_LOGIC_CONTRACT_DRYRUN_NOAPI",
+  "tool": "tools/news_gate_logic_contract_dryrun_v1.py"
+}
