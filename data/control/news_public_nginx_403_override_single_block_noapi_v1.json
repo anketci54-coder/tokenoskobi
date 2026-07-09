@@ -1,0 +1,109 @@
+{
+  "actions": [
+    "public_static_files_refreshed"
+  ],
+  "authority": {
+    "auth_disabled_only_for_news_route": true,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "nginx_change": true,
+    "nginx_reload": true,
+    "panel_full_auth_removed": false,
+    "paper_trade": false,
+    "public_static_copy": true,
+    "timer_change": false
+  },
+  "before_probe": {
+    "contains_news": true,
+    "error": null,
+    "status": 200
+  },
+  "conf_files": [
+    "/etc/nginx/sites-available/panel.coinoskobi.xyz.conf",
+    "/etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf"
+  ],
+  "curl_probe": {
+    "cmd": [
+      "bash",
+      "-lc",
+      "curl -k -I --max-time 10 https://panel.coinoskobi.xyz/panel/panel_v2/news_coverage.html || true"
+    ],
+    "rc": 0,
+    "stderr": "% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0  5914    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0",
+    "stdout": "HTTP/2 200 \nserver: nginx\ndate: Thu, 09 Jul 2026 12:50:29 GMT\ncontent-type: text/html\ncontent-length: 5914\nlast-modified: Thu, 09 Jul 2026 11:25:49 GMT\netag: \"6a4f853d-171a\"\ncache-control: no-store\naccept-ranges: bytes"
+  },
+  "db_after": {
+    "news_raw_feed_events": 321,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 321,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_PUBLIC_NGINX_403_OVERRIDE_SINGLE_BLOCK_NOAPI",
+  "failures": [],
+  "final_probe": {
+    "contains_news": true,
+    "error": null,
+    "status": 200
+  },
+  "generated_at_utc": "2026-07-09T12:50:29.340028+00:00",
+  "local_check": {
+    "pub_dir_mode": "0o755",
+    "pub_index_exists": true,
+    "pub_news_exists": true,
+    "pub_news_marker": true,
+    "pub_news_mode": "0o644"
+  },
+  "next": "NEWS_PUBLIC_PANEL_FULLY_CLOSED",
+  "nginx_test": {
+    "cmd": [
+      "nginx",
+      "-t"
+    ],
+    "rc": 0,
+    "stderr": "2026/07/09 15:50:29 [warn] 573907#573907: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:13\n2026/07/09 15:50:29 [warn] 573907#573907: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:14\n2026/07/09 15:50:29 [warn] 573907#573907: protocol options redefined for [::]:443 in /etc/nginx/sites-enabled/panel.coinoskobi.com.conf:28\nnginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful",
+    "stdout": ""
+  },
+  "patch_results": [
+    {
+      "backup": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_403_override/panel.coinoskobi.xyz.conf.before_override.20260709T125029Z.bak",
+      "old_locations_removed": true,
+      "patched": true,
+      "path": "/etc/nginx/sites-available/panel.coinoskobi.xyz.conf",
+      "server_blocks_patched": 2
+    },
+    {
+      "backup": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_403_override/panel.coinoskobi.xyz.conf.before_override.20260709T125029Z.bak",
+      "old_locations_removed": true,
+      "patched": true,
+      "path": "/etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf",
+      "server_blocks_patched": 2
+    }
+  ],
+  "patched_any": true,
+  "reload_result": {
+    "cmd": [
+      "systemctl",
+      "reload",
+      "nginx"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "stage": "NEWS_PUBLIC_NGINX_403_OVERRIDE_SINGLE_BLOCK_NOAPI",
+  "url": "https://panel.coinoskobi.xyz/panel/panel_v2/news_coverage.html",
+  "warnings": []
+}

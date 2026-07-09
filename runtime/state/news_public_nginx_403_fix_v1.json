@@ -1,0 +1,86 @@
+{
+  "actions": [
+    "copied_public_files_to_var_www",
+    "removed_old_exact_news_locations",
+    "inserted_root_based_public_locations"
+  ],
+  "authority": {
+    "auth_disabled_only_for_news_route": true,
+    "db_write": false,
+    "execution_authority": false,
+    "live_trade": false,
+    "nginx_change": true,
+    "nginx_reload": true,
+    "panel_full_auth_removed": false,
+    "paper_trade": false,
+    "public_static_copy": true,
+    "timer_change": false
+  },
+  "backup_after": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_403_fix/panel.coinoskobi.xyz.conf.after403fix.20260709T122714Z.conf",
+  "backup_before": "/root/tokenoskobi_clean_v1/data/backups/nginx_news_public_403_fix/panel.coinoskobi.xyz.conf.before403fix.20260709T122714Z.bak",
+  "before_probe": {
+    "contains_news": false,
+    "error": "HTTPError",
+    "status": 403
+  },
+  "conf": "/etc/nginx/sites-enabled/panel.coinoskobi.xyz.conf",
+  "db_after": {
+    "news_raw_feed_events": 321,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 321,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "FAIL_NEWS_PUBLIC_NGINX_403_FIX_SINGLE_BLOCK_NOAPI",
+  "failures": [
+    "public_news_still_not_200_with_marker"
+  ],
+  "final_probe": {
+    "contains_news": false,
+    "error": "HTTPError",
+    "status": 403
+  },
+  "generated_at_utc": "2026-07-09T12:27:14.653033+00:00",
+  "local_file_check": {
+    "pub_dir_mode": "0o755",
+    "pub_index_exists": true,
+    "pub_news_exists": true,
+    "pub_news_marker": true,
+    "pub_news_mode": "0o644"
+  },
+  "next": "NEWS_PUBLIC_NGINX_403_FIX_REQUIRED",
+  "nginx_test": {
+    "cmd": [
+      "nginx",
+      "-t"
+    ],
+    "rc": 0,
+    "stderr": "2026/07/09 15:27:14 [warn] 548370#548370: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:13\n2026/07/09 15:27:14 [warn] 548370#548370: the \"listen ... http2\" directive is deprecated, use the \"http2\" directive instead in /etc/nginx/conf.d/coinoskobi_xyz_panel_staging.conf:14\n2026/07/09 15:27:14 [warn] 548370#548370: protocol options redefined for [::]:443 in /etc/nginx/sites-enabled/panel.coinoskobi.com.conf:28\nnginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful",
+    "stdout": ""
+  },
+  "public_root": "/var/www/tokenoskobi_public",
+  "reload_result": {
+    "cmd": [
+      "systemctl",
+      "reload",
+      "nginx"
+    ],
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "stage": "NEWS_PUBLIC_NGINX_403_FIX_SINGLE_BLOCK_NOAPI",
+  "url": "https://panel.coinoskobi.xyz/panel/panel_v2/news_coverage.html",
+  "warnings": []
+}
