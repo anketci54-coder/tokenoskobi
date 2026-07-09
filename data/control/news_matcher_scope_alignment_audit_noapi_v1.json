@@ -1,0 +1,530 @@
+{
+  "authority": {
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "db_summary": {
+    "match_count": 47,
+    "raw_count": 294
+  },
+  "decision": "WARN_NEWS_MATCHER_SCOPE_NEEDS_MARKET_INDICATOR_VS_HUNT_TARGET_SPLIT",
+  "diagnosis": {
+    "current_problem": "Previous eligibility audit proved token words exist, but scope was generic. This audit separates market-indicator news from Tokenoskobi hunt-target news.",
+    "required_design_split": [
+      "NEWS_MARKET_INDICATOR_MATCHER for BTC/ETH/BNB/SOL/XRP style market context",
+      "NEWS_HUNT_TARGET_MATCHER for configured DEX/new-token target universe",
+      "Panel may show selected major/minor prices as market context",
+      "Hunter/Prosecutor must not treat generic major coin mentions as DEX hunt targets"
+    ]
+  },
+  "examples": {
+    "both_market_indicator_and_hunt_signal": [
+      {
+        "hunt_signal_hits": [
+          "rug"
+        ],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_873307132f8c8647cef8",
+        "published_at_utc": "2026-07-02T12:10:15+00:00",
+        "scope_class": "both_market_indicator_and_hunt_signal",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "A struggling Nasdaq-listed company that tried to copy Saylor's Bitcoin playbook is completely dumping crypto for AI"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {
+          "SOL": [
+            "sol",
+            "solana"
+          ]
+        },
+        "news_uid": "timer_news_540e85ba60cdf01de2b6",
+        "published_at_utc": "2026-07-02T07:15:21+00:00",
+        "scope_class": "both_market_indicator_and_hunt_signal",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Solana launches onchain governance and sets entry fee at 100,000 SOL staked"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {
+          "SOL": [
+            "solana"
+          ]
+        },
+        "news_uid": "timer_news_57301c6f675b5cb997ab",
+        "published_at_utc": "2026-07-02T10:59:43+00:00",
+        "scope_class": "both_market_indicator_and_hunt_signal",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Solana Foundation launches framework for protocol-level governance"
+      },
+      {
+        "hunt_signal_hits": [
+          "spot"
+        ],
+        "market_indicator_hits": {
+          "XRP": [
+            "xrp"
+          ]
+        },
+        "news_uid": "timer_news_d50df92d7fa068e50988",
+        "published_at_utc": "2026-05-12T14:08:11+00:00",
+        "scope_class": "both_market_indicator_and_hunt_signal",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Spot XRP ETFs attract biggest inflows since January"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {
+          "ETH": [
+            "eth"
+          ]
+        },
+        "news_uid": "timer_news_3427b5f5fe0689d3c9a7",
+        "published_at_utc": "2026-05-12T06:35:55+00:00",
+        "scope_class": "both_market_indicator_and_hunt_signal",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Aave launches binding Arbitrum vote to move $71 million in disputed ETH"
+      }
+    ],
+    "hunt_signal_only": [
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_7bd7c469f2a974893433",
+        "published_at_utc": "2026-07-08T15:11:45+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto VC Paradigm launches $1.2 billion AI fund as it broadens beyond digital assets: BBG"
+      },
+      {
+        "hunt_signal_hits": [
+          "spot"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_e148d38e94d4a25a343c",
+        "published_at_utc": "2026-07-08T10:49:21+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "ESMA turns spotlight on crypto custody risks after MiCA transition"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_6e8c6c6ebf19accaf31d",
+        "published_at_utc": "2026-07-06T11:36:05+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Russia's largest bank plans crypto wallet launch as Moscow clears market path"
+      },
+      {
+        "hunt_signal_hits": [
+          "memecoin"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_298dc4ed745b4abe704e",
+        "published_at_utc": "2026-07-06T03:12:14+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Trump’s memecoin holders have lost over $3.8B: Report"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch",
+          "dex"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_84719921af26c33abe41",
+        "published_at_utc": "2026-07-02T06:05:02+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Robinhood links with dYdX Labs to launch new DEX Arcus"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_f637cea9d5f9b257d737",
+        "published_at_utc": "2026-05-12T21:18:10+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "JPMorgan files to launch new tokenized fund as Wall Street tokenization race heats up"
+      },
+      {
+        "hunt_signal_hits": [
+          "memecoin"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_fb9dbd3cfa4679fedc64",
+        "published_at_utc": "2026-05-12T13:44:12+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Roaring Kitty-linked RKC memecoin crashes as developer cashes out $729K"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_b46e9865fc687571a6d7",
+        "published_at_utc": "2026-05-12T14:15:17+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "LMAX Group launches digital asset collateral solution for institutions"
+      },
+      {
+        "hunt_signal_hits": [
+          "launch"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_295de8e83cfe9efcf0a8",
+        "published_at_utc": "2026-05-12T10:23:25+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Rewardy Wallet launches global multi-chain swap campaign with incentives"
+      },
+      {
+        "hunt_signal_hits": [
+          "new pair",
+          "margin will add"
+        ],
+        "market_indicator_hits": {},
+        "news_uid": "news_seedofficialexchangeanno_555e9765ca134c4d",
+        "published_at_utc": "2026-05-12T09:08:26.842796+00:00",
+        "scope_class": "hunt_signal_only",
+        "source_uid": "src_seed_official_exchange_announcements",
+        "title": "Binance Margin Will Add New Pairs - 2026-05-12"
+      }
+    ],
+    "market_indicator_only": [
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_80aede173eece9055564",
+        "published_at_utc": "2026-07-08T21:55:17+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin tumbles back to key $60K support level: What’s behind the sell pressure?"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "btc",
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_d49e05d5d539b417e16c",
+        "published_at_utc": "2026-07-08T18:41:25+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin peels back to $62K as Fed-wary futures traders cut risk: Is the BTC rally over?"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_ae5b084ab831b6e30823",
+        "published_at_utc": "2026-07-08T17:31:36+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Adam Back’s Bitcoin treasury company seeks new terms with Cantor for SPAC merger"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_66a350b8d0d238b370b9",
+        "published_at_utc": "2026-07-08T15:35:31+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin slides as Iran ceasefire collapse sees $75 oil on Hormuz blockade threats"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "btc"
+          ]
+        },
+        "news_uid": "timer_news_1d41589432a6a6dfaa51",
+        "published_at_utc": "2026-07-08T15:18:10+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto Long & Short: With MSTR concerns assuaged, look to traditional signals around BTC"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BNB": [
+            "bnb"
+          ]
+        },
+        "news_uid": "timer_news_f789ad1a79561f2f1a0b",
+        "published_at_utc": "2026-07-08T14:01:44+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "BNB Chain is building a new layer-1 for high-frequency trading and AI agents"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_5c2a7cb4d3786067fd39",
+        "published_at_utc": "2026-07-08T13:36:44+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bull Bitcoin asks French court to strike down DAC8 implementing decree"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "btc",
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_cc76011e15a5d8d4372e",
+        "published_at_utc": "2026-07-08T12:59:06+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "BTC speculators in focus as analysis says 'textbook Bitcoin bottom' is underway"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_be1dfc1fd7f22609551d",
+        "published_at_utc": "2026-07-08T12:44:27+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "SpaceX's first bitcoin wallet movements in six months likely don't signal sales"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {
+          "BTC": [
+            "bitcoin"
+          ]
+        },
+        "news_uid": "timer_news_27fa1375c2232b060533",
+        "published_at_utc": "2026-07-08T04:30:24+00:00",
+        "scope_class": "market_indicator_only",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bitcoin under pressure as Trump says Iran ceasefire is over"
+      }
+    ],
+    "neither": [
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_e83f78199e7150c4c879",
+        "published_at_utc": "2026-07-09T04:12:10+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "AI boom fuels inflation fears, complicating Fed’s next rate move"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_97d2dc862b96050dffb1",
+        "published_at_utc": "2026-07-09T02:32:20+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Mark Cuban-backed DeFi dashboard Zapper shutters after 7 years"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_3a781945c772cb476232",
+        "published_at_utc": "2026-07-09T02:33:00+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto VC Paradigm raises $1.2B to push into AI"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_8b201f5c1a54bee8a7fe",
+        "published_at_utc": "2026-07-09T01:32:12+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Crypto could benefit if Fed steps in to backstop US stock market: Analysts"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_3db59291e1b019d65488",
+        "published_at_utc": "2026-07-08T20:29:10+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Tokenized stock transfers surge 105% in a month to $8.4B"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_d1d02b3229310136deb5",
+        "published_at_utc": "2026-07-08T19:14:15+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Officials set to revise MiCA to cover non-EU stablecoin issuers: Report"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_6dd8b63c42757f67bd4b",
+        "published_at_utc": "2026-07-08T17:23:19+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Stablecoin-settled TradFi perpetual trading tops $1.1T: Binance Research"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_0910e821ba961bcc787d",
+        "published_at_utc": "2026-07-08T17:11:05+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Bank of England governor denies Farage lobbying swayed CBDC policy: Report"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_f0130b9b5a0f2e02c580",
+        "published_at_utc": "2026-07-08T15:58:40+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Polymarket bets on U.S. marketing blitz to win back trust after 4-year ban: Report"
+      },
+      {
+        "hunt_signal_hits": [],
+        "market_indicator_hits": {},
+        "news_uid": "timer_news_9f81dffdf6079caf7048",
+        "published_at_utc": "2026-07-08T14:35:04+00:00",
+        "scope_class": "neither",
+        "source_uid": "src_seed_crypto_news_rss",
+        "title": "Dinari, tZERO join forces on turnkey platform for tokenized U.S. equities"
+      }
+    ]
+  },
+  "failures": [],
+  "generated_at_utc": "2026-07-09T05:02:29.178260+00:00",
+  "git_head_before": "55920633c727aa1229e96c5f7aa8de82980c5879",
+  "matcher_static": {
+    "file_exists": true,
+    "mentions_hunt_target_signals": {
+      "airdrop": false,
+      "deployer": false,
+      "dex": false,
+      "futures will launch": false,
+      "honeypot": false,
+      "ico": false,
+      "ido": false,
+      "launch": false,
+      "liquidity": false,
+      "listing": false,
+      "margin will add": false,
+      "meme coin": false,
+      "memecoin": false,
+      "new pair": false,
+      "new trading pair": false,
+      "perpetual contract": false,
+      "presale": false,
+      "renounced": false,
+      "rug": false,
+      "spot": false,
+      "token generation": false,
+      "trading pairs": false,
+      "will list": false
+    },
+    "mentions_market_indicator_terms": {
+      "ADA": false,
+      "AVAX": false,
+      "BNB": false,
+      "BTC": false,
+      "DOGE": false,
+      "ETH": false,
+      "LINK": false,
+      "SOL": false,
+      "TRX": false,
+      "USDC": false,
+      "USDT": false,
+      "XRP": false
+    },
+    "mentions_match_many": true,
+    "mentions_paper_signal_false": true,
+    "mentions_trade_signal_false": true
+  },
+  "next": "NEWS_MATCHER_INPUT_CONTRACT_AUDIT_NOAPI_WITH_SCOPE_SPLIT",
+  "raw_recent_200_classification_counts": {
+    "both_market_indicator_and_hunt_signal": 5,
+    "hunt_signal_only": 13,
+    "market_indicator_only": 82,
+    "neither": 100
+  },
+  "scope_policy": {
+    "hard_rule": "Major/minor assets are not primary hunter targets unless explicitly present as a configured Tokenoskobi target/pair/context.",
+    "hunt_target_role": "DEX/new-token/risk-opportunity target universe. Must come from Tokenoskobi target/pair universe, not from generic major coin dictionary.",
+    "market_indicator_assets": [
+      "ADA",
+      "AVAX",
+      "BNB",
+      "BTC",
+      "DOGE",
+      "ETH",
+      "LINK",
+      "SOL",
+      "TRX",
+      "USDC",
+      "USDT",
+      "XRP"
+    ],
+    "market_indicator_role": "Allowed for NEWS context, market regime, sentiment, and optional panel price widgets."
+  },
+  "stage": "NEWS_MATCHER_SCOPE_ALIGNMENT_AUDIT_NOAPI",
+  "warnings": [
+    "market_indicator_news_present_should_not_be_hunter_target",
+    "hunt_signal_news_present_needs_target_universe_mapping",
+    "matcher_does_not_directly_encode_market_indicator_terms",
+    "matcher_static_has_no_clear_hunt_signal_terms"
+  ]
+}
