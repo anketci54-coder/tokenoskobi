@@ -1,0 +1,733 @@
+{
+  "acceptance_gates_for_apply": [
+    "py_compile classifier and runner PASS",
+    "Read raw NEWS from DB; no DB writes",
+    "Append only JSONL runtime/state readmodels",
+    "max_batch <= 100",
+    "event_uid dedupe active",
+    "market/adversarial events have hunter_authorized=false",
+    "market/adversarial events have db_match_write=false",
+    "trade_signal=false and paper_signal=false",
+    "news_token_match_events/news_signal_events/news_score_events_v1 counts unchanged",
+    "duplicate groups remain zero",
+    "service/timer/panel/WAL unchanged"
+  ],
+  "adversarial_events_snapshot": {
+    "exists": false,
+    "line_count": 0,
+    "parse_errors": 0,
+    "unique_event_uid_count": 0
+  },
+  "authority": {
+    "code_change": false,
+    "db_write": false,
+    "external_api_call": false,
+    "live_trade": false,
+    "network_call": false,
+    "panel_change": false,
+    "paper_trade": false,
+    "plan_only": true,
+    "read_only_db": true,
+    "repo_artifact_write": true,
+    "runner_main_execution": false,
+    "runtime_jsonl_write": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "backfill_plan": {
+    "classification_engine": "tools/news_coverage_classifier_v1.py classify_and_append_news_coverage_v1",
+    "db_match_write": false,
+    "db_schema_change": false,
+    "dedupe_rule": "Use classifier event_uid dedupe; do not duplicate existing JSONL event_uid.",
+    "hunter_authorized": false,
+    "max_batch": 100,
+    "name": "BOUNDED_NEWS_COVERAGE_READMODEL_BACKFILL_NOAPI",
+    "paper_signal": false,
+    "purpose": "Classify existing unmatched raw NEWS rows into market/adversarial JSONL readmodels without DB match writes.",
+    "selection_order": "fetched_at_utc DESC",
+    "service_timer_panel_change": false,
+    "source_rows": "news_raw_feed_events rows without news_token_match_events row",
+    "target_runtime_files": [
+      "runtime/state/news_market_indicator_events_v1.jsonl",
+      "runtime/state/news_adversarial_events_v1.jsonl"
+    ],
+    "trade_signal": false
+  },
+  "coverage_scan": {
+    "adversarial_examples": [
+      {
+        "fetched_at_utc": "2026-07-09T06:09:29.590231+00:00",
+        "hits": [
+          "approval",
+          "phishing",
+          "token"
+        ],
+        "news_uid": "timer_news_e4d026b0870dff5c6a6c",
+        "published_at_utc": "2026-07-09T05:57:23+00:00",
+        "title": "Trader loses $1M after signing phishing token approval"
+      },
+      {
+        "fetched_at_utc": "2026-07-09T02:49:14.516886+00:00",
+        "hits": [
+          "defi"
+        ],
+        "news_uid": "timer_news_97d2dc862b96050dffb1",
+        "published_at_utc": "2026-07-09T02:32:20+00:00",
+        "title": "Mark Cuban-backed DeFi dashboard Zapper shutters after 7 years"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T20:48:45.941338+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_3db59291e1b019d65488",
+        "published_at_utc": "2026-07-08T20:29:10+00:00",
+        "title": "Tokenized stock transfers surge 105% in a month to $8.4B"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T19:28:39.926826+00:00",
+        "hits": [
+          "stablecoin"
+        ],
+        "news_uid": "timer_news_d1d02b3229310136deb5",
+        "published_at_utc": "2026-07-08T19:14:15+00:00",
+        "title": "Officials set to revise MiCA to cover non-EU stablecoin issuers: Report"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T17:48:33.963960+00:00",
+        "hits": [
+          "perpetual",
+          "stablecoin"
+        ],
+        "news_uid": "timer_news_6dd8b63c42757f67bd4b",
+        "published_at_utc": "2026-07-08T17:23:19+00:00",
+        "title": "Stablecoin-settled TradFi perpetual trading tops $1.1T: Binance Research"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T14:48:17.091431+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_9f81dffdf6079caf7048",
+        "published_at_utc": "2026-07-08T14:35:04+00:00",
+        "title": "Dinari, tZERO join forces on turnkey platform for tokenized U.S. equities"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T13:48:15.945890+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_c270bf051f3fdcc58168",
+        "published_at_utc": "2026-07-08T13:30:00+00:00",
+        "title": "The 5 types of real world assets being tokenized fastest onchain"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T12:48:10.036095+00:00",
+        "hits": [
+          "wallet"
+        ],
+        "news_uid": "timer_news_be1dfc1fd7f22609551d",
+        "published_at_utc": "2026-07-08T12:44:27+00:00",
+        "title": "SpaceX's first bitcoin wallet movements in six months likely don't signal sales"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T12:17:38.011467+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_f7bef7a09b0dd476b8cc",
+        "published_at_utc": "2026-07-07T16:18:18+00:00",
+        "title": "SpaceX IPO powers record $3.86 billion in tokenized equities trading in June"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T12:17:37.917978+00:00",
+        "hits": [
+          "token"
+        ],
+        "news_uid": "timer_news_3ab7d146c80da85df181",
+        "published_at_utc": "2026-07-08T10:21:12+00:00",
+        "title": "Berachain hard fork to replace dual-token model with WBERA rewards"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T12:17:37.917773+00:00",
+        "hits": [
+          "stablecoin"
+        ],
+        "news_uid": "timer_news_ddc7c593ee6edf5d0e02",
+        "published_at_utc": "2026-07-08T11:33:11+00:00",
+        "title": "Mobile app Toss and blockchain Optimism to conduct Korean won stablecoin POC : report"
+      },
+      {
+        "fetched_at_utc": "2026-07-06T11:54:16.119542+00:00",
+        "hits": [
+          "launch",
+          "wallet"
+        ],
+        "news_uid": "timer_news_6e8c6c6ebf19accaf31d",
+        "published_at_utc": "2026-07-06T11:36:05+00:00",
+        "title": "Russia's largest bank plans crypto wallet launch as Moscow clears market path"
+      },
+      {
+        "fetched_at_utc": "2026-07-06T11:14:12.631639+00:00",
+        "hits": [
+          "stablecoin"
+        ],
+        "news_uid": "timer_news_2cfbd90159a54d601b42",
+        "published_at_utc": "2026-07-06T05:44:54+00:00",
+        "title": "Stablecoin transaction volume hits record $1.79T in June"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T17:03:32.781678+00:00",
+        "hits": [
+          "defi"
+        ],
+        "news_uid": "timer_news_cfcbab324de0cd2abc57",
+        "published_at_utc": "2026-07-02T17:00:00+00:00",
+        "title": "EToro invests in onchain derivatives platform Extended as brokers race into DeFi"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T16:43:31.993542+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_b0b4bbfdd1027c4a4bba",
+        "published_at_utc": "2026-07-02T16:25:01+00:00",
+        "title": "Ondo expands tokenized equities with onchain shareholder voting"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T14:23:14.857994+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_150b3e1ee964b0f45c2e",
+        "published_at_utc": "2026-07-02T14:16:02+00:00",
+        "title": "Ondo Finance debuts SEC-aligned tokenized stock model with BlackRock ETF, Micron shares"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T13:23:02.325602+00:00",
+        "hits": [
+          "tokenized"
+        ],
+        "news_uid": "timer_news_fba2b0ecc359ddbe7fd2",
+        "published_at_utc": "2026-07-02T13:04:23+00:00",
+        "title": "UK payments blueprint outlines tokenized payments for ‘multi-money ecosystem’"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T13:02:59.995352+00:00",
+        "hits": [
+          "stablecoin"
+        ],
+        "news_uid": "timer_news_949c318864dae700cd74",
+        "published_at_utc": "2026-07-02T13:00:00+00:00",
+        "title": "Aave brings V3 lending and GHO stablecoin to Monad"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T12:22:53.218233+00:00",
+        "hits": [
+          "bridge"
+        ],
+        "news_uid": "timer_news_f11f3049b67c90929393",
+        "published_at_utc": "2026-07-02T08:35:28+00:00",
+        "title": "Taiko fully restores cross-chain bridge just 10 days after a $1.7 million hack"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T12:22:53.071207+00:00",
+        "hits": [
+          "dex",
+          "launch"
+        ],
+        "news_uid": "timer_news_84719921af26c33abe41",
+        "published_at_utc": "2026-07-02T06:05:02+00:00",
+        "title": "Robinhood links with dYdX Labs to launch new DEX Arcus"
+      }
+    ],
+    "adversarial_hit_counter": {
+      "approval": 2,
+      "bridge": 2,
+      "contract": 1,
+      "defi": 6,
+      "dex": 1,
+      "exploit": 1,
+      "launch": 6,
+      "perpetual": 3,
+      "phishing": 1,
+      "stablecoin": 15,
+      "token": 6,
+      "tokenized": 10,
+      "wallet": 6
+    },
+    "adversarial_hit_rows": 48,
+    "any_hit_examples": [
+      {
+        "adversarial_hits": [
+          "approval",
+          "phishing",
+          "token"
+        ],
+        "fetched_at_utc": "2026-07-09T06:09:29.590231+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_e4d026b0870dff5c6a6c",
+        "published_at_utc": "2026-07-09T05:57:23+00:00",
+        "title": "Trader loses $1M after signing phishing token approval"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-09T05:09:20.185139+00:00",
+        "market_hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_4df84d4a54c82e7b72e7",
+        "published_at_utc": "2026-07-09T05:07:11+00:00",
+        "title": "XRP holds near $1.10 as traders watch long-term breakout setup"
+      },
+      {
+        "adversarial_hits": [
+          "defi"
+        ],
+        "fetched_at_utc": "2026-07-09T02:49:14.516886+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_97d2dc862b96050dffb1",
+        "published_at_utc": "2026-07-09T02:32:20+00:00",
+        "title": "Mark Cuban-backed DeFi dashboard Zapper shutters after 7 years"
+      },
+      {
+        "adversarial_hits": [
+          "tokenized"
+        ],
+        "fetched_at_utc": "2026-07-08T20:48:45.941338+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_3db59291e1b019d65488",
+        "published_at_utc": "2026-07-08T20:29:10+00:00",
+        "title": "Tokenized stock transfers surge 105% in a month to $8.4B"
+      },
+      {
+        "adversarial_hits": [
+          "stablecoin"
+        ],
+        "fetched_at_utc": "2026-07-08T19:28:39.926826+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_d1d02b3229310136deb5",
+        "published_at_utc": "2026-07-08T19:14:15+00:00",
+        "title": "Officials set to revise MiCA to cover non-EU stablecoin issuers: Report"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-08T18:48:37.324070+00:00",
+        "market_hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_d49e05d5d539b417e16c",
+        "published_at_utc": "2026-07-08T18:41:25+00:00",
+        "title": "Bitcoin peels back to $62K as Fed-wary futures traders cut risk: Is the BTC rally over?"
+      },
+      {
+        "adversarial_hits": [
+          "perpetual",
+          "stablecoin"
+        ],
+        "fetched_at_utc": "2026-07-08T17:48:33.963960+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_6dd8b63c42757f67bd4b",
+        "published_at_utc": "2026-07-08T17:23:19+00:00",
+        "title": "Stablecoin-settled TradFi perpetual trading tops $1.1T: Binance Research"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-08T15:28:20.028061+00:00",
+        "market_hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_1d41589432a6a6dfaa51",
+        "published_at_utc": "2026-07-08T15:18:10+00:00",
+        "title": "Crypto Long & Short: With MSTR concerns assuaged, look to traditional signals around BTC"
+      },
+      {
+        "adversarial_hits": [
+          "tokenized"
+        ],
+        "fetched_at_utc": "2026-07-08T14:48:17.091431+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_9f81dffdf6079caf7048",
+        "published_at_utc": "2026-07-08T14:35:04+00:00",
+        "title": "Dinari, tZERO join forces on turnkey platform for tokenized U.S. equities"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-08T14:08:16.595686+00:00",
+        "market_hits": [
+          "BNB"
+        ],
+        "news_uid": "timer_news_f789ad1a79561f2f1a0b",
+        "published_at_utc": "2026-07-08T14:01:44+00:00",
+        "title": "BNB Chain is building a new layer-1 for high-frequency trading and AI agents"
+      },
+      {
+        "adversarial_hits": [
+          "tokenized"
+        ],
+        "fetched_at_utc": "2026-07-08T13:48:15.945890+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_c270bf051f3fdcc58168",
+        "published_at_utc": "2026-07-08T13:30:00+00:00",
+        "title": "The 5 types of real world assets being tokenized fastest onchain"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-08T13:08:14.289238+00:00",
+        "market_hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_cc76011e15a5d8d4372e",
+        "published_at_utc": "2026-07-08T12:59:06+00:00",
+        "title": "BTC speculators in focus as analysis says 'textbook Bitcoin bottom' is underway"
+      },
+      {
+        "adversarial_hits": [
+          "wallet"
+        ],
+        "fetched_at_utc": "2026-07-08T12:48:10.036095+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_be1dfc1fd7f22609551d",
+        "published_at_utc": "2026-07-08T12:44:27+00:00",
+        "title": "SpaceX's first bitcoin wallet movements in six months likely don't signal sales"
+      },
+      {
+        "adversarial_hits": [
+          "tokenized"
+        ],
+        "fetched_at_utc": "2026-07-08T12:17:38.011467+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_f7bef7a09b0dd476b8cc",
+        "published_at_utc": "2026-07-07T16:18:18+00:00",
+        "title": "SpaceX IPO powers record $3.86 billion in tokenized equities trading in June"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-08T12:17:38.011308+00:00",
+        "market_hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_e50a0f3129970089f6d1",
+        "published_at_utc": "2026-07-08T08:40:22+00:00",
+        "title": "Validators embrace XRP Ledger's recent upgrade. But not everyone’s on board yet"
+      },
+      {
+        "adversarial_hits": [
+          "token"
+        ],
+        "fetched_at_utc": "2026-07-08T12:17:37.917978+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_3ab7d146c80da85df181",
+        "published_at_utc": "2026-07-08T10:21:12+00:00",
+        "title": "Berachain hard fork to replace dual-token model with WBERA rewards"
+      },
+      {
+        "adversarial_hits": [
+          "stablecoin"
+        ],
+        "fetched_at_utc": "2026-07-08T12:17:37.917773+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_ddc7c593ee6edf5d0e02",
+        "published_at_utc": "2026-07-08T11:33:11+00:00",
+        "title": "Mobile app Toss and blockchain Optimism to conduct Korean won stablecoin POC : report"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-08T12:17:37.917658+00:00",
+        "market_hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_0029870a8c25cabd14ca",
+        "published_at_utc": "2026-07-08T12:01:00+00:00",
+        "title": "Lyn Alden says Bitcoin needs no savior as Strategy sells $216M of BTC"
+      },
+      {
+        "adversarial_hits": [
+          "launch",
+          "wallet"
+        ],
+        "fetched_at_utc": "2026-07-06T11:54:16.119542+00:00",
+        "market_hits": [],
+        "news_uid": "timer_news_6e8c6c6ebf19accaf31d",
+        "published_at_utc": "2026-07-06T11:36:05+00:00",
+        "title": "Russia's largest bank plans crypto wallet launch as Moscow clears market path"
+      },
+      {
+        "adversarial_hits": [],
+        "fetched_at_utc": "2026-07-06T11:14:12.736637+00:00",
+        "market_hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_4606b58921f808b01d55",
+        "published_at_utc": "2026-07-06T05:15:01+00:00",
+        "title": "XRP rises 3% as $1.14 breakout turns into support test"
+      }
+    ],
+    "any_readmodel_hit_rows": 80,
+    "market_examples": [
+      {
+        "fetched_at_utc": "2026-07-09T05:09:20.185139+00:00",
+        "hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_4df84d4a54c82e7b72e7",
+        "published_at_utc": "2026-07-09T05:07:11+00:00",
+        "title": "XRP holds near $1.10 as traders watch long-term breakout setup"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T18:48:37.324070+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_d49e05d5d539b417e16c",
+        "published_at_utc": "2026-07-08T18:41:25+00:00",
+        "title": "Bitcoin peels back to $62K as Fed-wary futures traders cut risk: Is the BTC rally over?"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T15:28:20.028061+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_1d41589432a6a6dfaa51",
+        "published_at_utc": "2026-07-08T15:18:10+00:00",
+        "title": "Crypto Long & Short: With MSTR concerns assuaged, look to traditional signals around BTC"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T14:08:16.595686+00:00",
+        "hits": [
+          "BNB"
+        ],
+        "news_uid": "timer_news_f789ad1a79561f2f1a0b",
+        "published_at_utc": "2026-07-08T14:01:44+00:00",
+        "title": "BNB Chain is building a new layer-1 for high-frequency trading and AI agents"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T13:08:14.289238+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_cc76011e15a5d8d4372e",
+        "published_at_utc": "2026-07-08T12:59:06+00:00",
+        "title": "BTC speculators in focus as analysis says 'textbook Bitcoin bottom' is underway"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T12:17:38.011308+00:00",
+        "hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_e50a0f3129970089f6d1",
+        "published_at_utc": "2026-07-08T08:40:22+00:00",
+        "title": "Validators embrace XRP Ledger's recent upgrade. But not everyone’s on board yet"
+      },
+      {
+        "fetched_at_utc": "2026-07-08T12:17:37.917658+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_0029870a8c25cabd14ca",
+        "published_at_utc": "2026-07-08T12:01:00+00:00",
+        "title": "Lyn Alden says Bitcoin needs no savior as Strategy sells $216M of BTC"
+      },
+      {
+        "fetched_at_utc": "2026-07-06T11:14:12.736637+00:00",
+        "hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_4606b58921f808b01d55",
+        "published_at_utc": "2026-07-06T05:15:01+00:00",
+        "title": "XRP rises 3% as $1.14 breakout turns into support test"
+      },
+      {
+        "fetched_at_utc": "2026-07-02T12:22:53.070836+00:00",
+        "hits": [
+          "USDC"
+        ],
+        "news_uid": "timer_news_4319480993524b80c6bf",
+        "published_at_utc": "2026-07-02T11:41:44+00:00",
+        "title": "Standard Chartered, Circle bring USDC minting onto banking rails"
+      },
+      {
+        "fetched_at_utc": "2026-06-16T12:58:54.335051+00:00",
+        "hits": [
+          "USDC"
+        ],
+        "news_uid": "timer_news_2a166839af235cd4472f",
+        "published_at_utc": "2026-06-16T12:55:23+00:00",
+        "title": "This AI builds you a business, runs it, and settles payments in USDC"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T10:22:20.123477+00:00",
+        "hits": [
+          "BTC",
+          "ETH"
+        ],
+        "news_uid": "timer_news_67cca8474fbdcae4876c",
+        "published_at_utc": "2026-05-12T10:20:51+00:00",
+        "title": "ETH/BTC ratio falls to 10-month low as ether continues to underperform bitcoin"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T06:39:20.006281+00:00",
+        "hits": [
+          "ETH"
+        ],
+        "news_uid": "timer_news_3427b5f5fe0689d3c9a7",
+        "published_at_utc": "2026-05-12T06:35:55+00:00",
+        "title": "Aave launches binding Arbitrum vote to move $71 million in disputed ETH"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T05:58:50.035950+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_fdced9c2d7002ad086a2",
+        "published_at_utc": "2026-05-12T05:43:22+00:00",
+        "title": "'Bitcoin transactions can be monitored’: Ray Dalio explains why central banks won’t touch BTC"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:57:22.033541+00:00",
+        "hits": [
+          "XRP"
+        ],
+        "news_uid": "timer_news_2ed4ee59f0ad07747579",
+        "published_at_utc": "2026-05-12T04:56:46+00:00",
+        "title": "Ripple-linked XRP holds near $1.46 as breakout attempt fades despite $200 million raise"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T04:37:19.979383+00:00",
+        "hits": [
+          "SOL",
+          "DOGE"
+        ],
+        "news_uid": "timer_news_807b49e2d86906c0d875",
+        "published_at_utc": "2026-05-12T04:32:48+00:00",
+        "title": "Bitcoin briefly hits $82,000, SOL, DOGE higher as Michael Burry warns of stock crash"
+      },
+      {
+        "fetched_at_utc": "2026-05-12T03:36:19.885002+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_1afff109c047286a78e9",
+        "published_at_utc": "2026-05-12T02:42:27+00:00",
+        "title": "Bitcoin funding rates turn positive: Is a BTC rally to $85K next?"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T22:31:19.886639+00:00",
+        "hits": [
+          "SOL"
+        ],
+        "news_uid": "timer_news_82345c89b886e5522781",
+        "published_at_utc": "2026-05-11T21:47:41+00:00",
+        "title": "Solana ETF inflows show demand returning as traders eye SOL rally to $120"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T20:29:50.125747+00:00",
+        "hits": [
+          "BTC",
+          "ETH",
+          "BNB",
+          "SOL",
+          "XRP",
+          "ADA",
+          "DOGE"
+        ],
+        "news_uid": "timer_news_9bd54aa3c100bf69a403",
+        "published_at_utc": "2026-05-11T20:12:42+00:00",
+        "title": "Price predictions 5/11: SPX, DXY, BTC, ETH, XRP, BNB, SOL, DOGE, HYPE, ADA"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T18:27:19.931612+00:00",
+        "hits": [
+          "ETH"
+        ],
+        "news_uid": "timer_news_943d8ce7a1c86d5dc35d",
+        "published_at_utc": "2026-05-11T17:26:07+00:00",
+        "title": "Galaxy, Sharplink plan $125M institutional DeFi yield fund backed by ETH treasury"
+      },
+      {
+        "fetched_at_utc": "2026-05-11T18:27:19.931541+00:00",
+        "hits": [
+          "BTC"
+        ],
+        "news_uid": "timer_news_dcf3fe3ef93ce49470c5",
+        "published_at_utc": "2026-05-11T17:35:04+00:00",
+        "title": "Bitcoin ‘golden cross’ appears for the first time since 2023: Will BTC price rally?"
+      }
+    ],
+    "market_hit_counter": {
+      "ADA": 1,
+      "BNB": 2,
+      "BTC": 17,
+      "DOGE": 2,
+      "ETH": 7,
+      "SOL": 3,
+      "USDC": 3,
+      "XRP": 7
+    },
+    "market_hit_rows": 34,
+    "scan_rows": 255
+  },
+  "db_readonly_snapshot": {
+    "candidate_scope": "unmatched_raw_news_all_rows",
+    "counts": {
+      "news_raw_feed_events": 302,
+      "news_runtime_freshness_v1": 2,
+      "news_score_events_v1": 47,
+      "news_signal_events": 47,
+      "news_token_match_events": 47
+    },
+    "duplicates": {
+      "match_uid": 0,
+      "matched_news_uid": 0,
+      "score_uid": 0,
+      "signal_uid": 0
+    },
+    "exists": true,
+    "journal_mode": "delete",
+    "raw_without_match": 255
+  },
+  "decision": "PASS_NEWS_COVERAGE_READMODEL_BACKFILL_PLAN_READY",
+  "do_not_do": [
+    "Do not insert news_token_match_events.",
+    "Do not insert news_signal_events.",
+    "Do not insert news_score_events_v1.",
+    "Do not create synthetic token rows.",
+    "Do not make BTC/ETH/XRP Hunter targets.",
+    "Do not delete/reset tracker.",
+    "Do not change service/timer/panel/WAL.",
+    "Do not enable trade/paper/live authority."
+  ],
+  "failures": [],
+  "generated_at_utc": "2026-07-09T07:51:18.789251+00:00",
+  "git_head_before": "ed1d5ef30013e07097bd9ca25a9dbadbeacb76ce",
+  "input_seal_decision": "WARN_NEWS_COVERAGE_EXPANSION_SEALED_RUNTIME_OK_NO_READMODEL_DELTA_BACKFILL_NEXT",
+  "interpretation": {
+    "expected_result": "Market/adversarial JSONL readmodels become populated while token match tables remain unchanged.",
+    "safe_direction": "Run bounded classifier backfill directly over existing unmatched raw NEWS rows.",
+    "why_needed": "Controlled run selected only 2 runtime candidates, so readmodel event delta stayed zero despite historical unmatched rows containing market/adversarial hits."
+  },
+  "market_events_snapshot": {
+    "exists": false,
+    "line_count": 0,
+    "parse_errors": 0,
+    "unique_event_uid_count": 0
+  },
+  "next": "NEWS_COVERAGE_READMODEL_BACKFILL_APPLY_NOAPI_AFTER_EXPLICIT_APPROVAL",
+  "stage": "NEWS_COVERAGE_READMODEL_BACKFILL_PLAN_NOAPI",
+  "static_checks": {
+    "adversarial_config_db_match_false": true,
+    "adversarial_config_hunter_false": true,
+    "classifier_db_match_write_false": true,
+    "classifier_function": true,
+    "classifier_hunter_authorized_false": true,
+    "classifier_marker": true,
+    "market_config_db_match_false": true,
+    "market_config_hunter_false": true,
+    "runner_classifier_helper": true,
+    "runner_coverage_call": true,
+    "runner_match_many_contract": true
+  },
+  "warnings": [
+    "sqlite_journal_mode_not_wal"
+  ]
+}
