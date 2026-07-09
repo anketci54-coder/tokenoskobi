@@ -1,0 +1,94 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI",
+  "doc": "docs/canonical/NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI_V1.md",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T13:55:37.363643+00:00",
+  "history_alignment_locked": {
+    "deduplication_policy_required": true,
+    "historical_access_next": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+    "index_strategy_required": true
+  },
+  "next": "NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+  "observed_runtime_readonly": {
+    "service_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "timer_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "timer_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "enabled"
+    }
+  },
+  "plan": "config/news_runtime_freshness_monitor_plan_v1.json",
+  "stage": "NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI",
+  "tool": "tools/news_runtime_freshness_monitor_plan_v1.py",
+  "validation": {
+    "decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_VALIDATED",
+    "deduplication_policy_required": true,
+    "failures": [],
+    "history_query_dimension_count": 15,
+    "index_strategy_required": true,
+    "monitored_table_count": 4,
+    "plan": "/root/tokenoskobi_clean_v1/config/news_runtime_freshness_monitor_plan_v1.json",
+    "prior_final_seal": "/root/tokenoskobi_clean_v1/data/control/news_ingress_chain_final_review_and_seal_noapi_v1.json",
+    "warnings": []
+  }
+}

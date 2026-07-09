@@ -1,0 +1,441 @@
+{
+  "authority_boundary": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "final_seal_target": {
+    "must_confirm": [
+      "freshness_monitor_plan_closed",
+      "freshness_monitor_dryrun_closed",
+      "historical_access_layer_plan_closed",
+      "historical_access_layer_dryrun_closed",
+      "db_delta_zero",
+      "no_api_no_network_no_trade",
+      "index_strategy_documented",
+      "deduplication_policy_documented"
+    ],
+    "name": "NEWS_RUNTIME_AND_HISTORY_FINAL_SEAL_NOAPI"
+  },
+  "freshness_status_contract": {
+    "EMPTY": "table exists but has zero rows",
+    "FRESH": "latest relevant NEWS event is within accepted age threshold and producer timer is healthy",
+    "MISSING_TABLE": "expected table missing or unreadable",
+    "PRODUCER_DOWN": "timer/service evidence indicates producer is not scheduled or cannot run",
+    "STALE": "data exists but latest event age exceeds threshold",
+    "UNKNOWN_TIMESTAMP": "rows exist but no usable timestamp field found"
+  },
+  "generated_at_utc": "2026-07-09T13:55:37.363643+00:00",
+  "history_alignment": {
+    "deduplication_policy_plan_only_now": {
+      "backfill_must_not_duplicate_raw_feed_events": true,
+      "external_historical_backfill_requires_separate_explicit_phase": true,
+      "fallback_hash": "sha256(source_id|normalized_title|observed_at_rounded|token|chain)",
+      "primary_key_candidate": "event_uid"
+    },
+    "deduplication_policy_required": true,
+    "index_strategy_plan_only_now": {
+      "candidate_indexes": [
+        {
+          "columns": [
+            "created_at"
+          ],
+          "reason": "date_range freshness and replay",
+          "table": "news_raw_feed_events"
+        },
+        {
+          "columns": [
+            "source_id"
+          ],
+          "reason": "source filtering",
+          "table": "news_raw_feed_events"
+        },
+        {
+          "columns": [
+            "token"
+          ],
+          "reason": "token/project lookup",
+          "table": "news_token_match_events"
+        },
+        {
+          "columns": [
+            "event_uid"
+          ],
+          "reason": "evidence chain lookup",
+          "table": "news_signal_events"
+        },
+        {
+          "columns": [
+            "event_uid"
+          ],
+          "reason": "score to evidence join",
+          "table": "news_score_events_v1"
+        }
+      ],
+      "index_creation_requires_separate_approved_schema_phase": true,
+      "no_index_creation_in_this_step": true
+    },
+    "index_strategy_required": true,
+    "query_dimensions": [
+      "date_range",
+      "source_id",
+      "source_class",
+      "token",
+      "project",
+      "chain",
+      "severity",
+      "decision",
+      "route",
+      "event_uid",
+      "title",
+      "body",
+      "risk_score",
+      "signal_score",
+      "artifact_path"
+    ],
+    "required_next_phase": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI"
+  },
+  "monitored_tables": [
+    {
+      "freshness_fields_candidates": [
+        "created_at",
+        "observed_at",
+        "generated_at_utc",
+        "ts",
+        "timestamp"
+      ],
+      "minimum_check": "count_nonzero_and_latest_timestamp_if_column_exists",
+      "role": "raw external/news observation layer",
+      "table": "news_raw_feed_events"
+    },
+    {
+      "freshness_fields_candidates": [
+        "created_at",
+        "observed_at",
+        "generated_at_utc",
+        "ts",
+        "timestamp"
+      ],
+      "minimum_check": "count_nonzero_and_latest_timestamp_if_column_exists",
+      "role": "token/project/entity match layer",
+      "table": "news_token_match_events"
+    },
+    {
+      "freshness_fields_candidates": [
+        "created_at",
+        "observed_at",
+        "generated_at_utc",
+        "ts",
+        "timestamp"
+      ],
+      "minimum_check": "count_nonzero_and_latest_timestamp_if_column_exists",
+      "role": "signal layer",
+      "table": "news_signal_events"
+    },
+    {
+      "freshness_fields_candidates": [
+        "created_at",
+        "observed_at",
+        "generated_at_utc",
+        "ts",
+        "timestamp"
+      ],
+      "minimum_check": "count_nonzero_and_latest_timestamp_if_column_exists",
+      "role": "score/readmodel layer",
+      "table": "news_score_events_v1"
+    }
+  ],
+  "observed_runtime_readonly": {
+    "db_snapshot": {
+      "counts": {
+        "news_raw_feed_events": 325,
+        "news_score_events_v1": 47,
+        "news_signal_events": 47,
+        "news_token_match_events": 47
+      },
+      "db_path": "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite",
+      "exists": true,
+      "tables": {
+        "news_raw_feed_events": [
+          {
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "source_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "published_at_utc",
+            "type": "TEXT"
+          },
+          {
+            "name": "title",
+            "type": "TEXT"
+          },
+          {
+            "name": "url_hash",
+            "type": "TEXT"
+          },
+          {
+            "name": "raw_hash",
+            "type": "TEXT"
+          },
+          {
+            "name": "fetched_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "news_score_events_v1": [
+          {
+            "name": "score_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "token_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "pair_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "chain",
+            "type": "TEXT"
+          },
+          {
+            "name": "news_token_relevance_score_100",
+            "type": "INTEGER"
+          },
+          {
+            "name": "news_risk_score_100",
+            "type": "INTEGER"
+          },
+          {
+            "name": "news_fusion_score_100",
+            "type": "INTEGER"
+          },
+          {
+            "name": "importance_label",
+            "type": "TEXT"
+          },
+          {
+            "name": "risk_label",
+            "type": "TEXT"
+          },
+          {
+            "name": "fusion_label",
+            "type": "TEXT"
+          },
+          {
+            "name": "explanation",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "news_signal_events": [
+          {
+            "name": "signal_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "token_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "pair_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "chain",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_strength",
+            "type": "INTEGER"
+          },
+          {
+            "name": "signal_label",
+            "type": "TEXT"
+          },
+          {
+            "name": "source_match_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "evidence_text",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at_utc",
+            "type": "TEXT"
+          }
+        ],
+        "news_token_match_events": [
+          {
+            "name": "match_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "news_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "source_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "token_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "pair_uid",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "chain",
+            "type": "TEXT"
+          },
+          {
+            "name": "match_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "match_confidence",
+            "type": "TEXT"
+          },
+          {
+            "name": "match_score",
+            "type": "INTEGER"
+          },
+          {
+            "name": "match_reasons_json",
+            "type": "TEXT"
+          },
+          {
+            "name": "evidence_text",
+            "type": "TEXT"
+          },
+          {
+            "name": "is_duplicate",
+            "type": "INTEGER"
+          },
+          {
+            "name": "write_allowed",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trade_signal",
+            "type": "INTEGER"
+          },
+          {
+            "name": "paper_signal",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at_utc",
+            "type": "TEXT"
+          }
+        ]
+      }
+    },
+    "service_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "timer_active": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "timer_enabled": {
+      "cmd": [
+        "systemctl",
+        "is-enabled",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "enabled"
+    }
+  },
+  "output_contract_for_dryrun": {
+    "artifact": "data/control/news_runtime_freshness_monitor_dryrun_noapi_v1.json",
+    "required_fields": [
+      "decision",
+      "generated_at_utc",
+      "db_delta",
+      "table_freshness",
+      "producer_status",
+      "panel_public_status_optional",
+      "history_alignment_status",
+      "failures",
+      "warnings",
+      "next"
+    ]
+  },
+  "plan_version": "NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_V1",
+  "purpose": "Plan a read-only freshness monitor for NEWS runtime and align it with the future historical access layer. No live source ingestion, no API, no WebSocket, no DB writes.",
+  "scope": {
+    "after_next": "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+    "current_step": "PLAN_ONLY",
+    "freshness_side": "detect whether NEWS runtime data is fresh, stale, missing or structurally broken",
+    "history_side": "preserve every queryable historical artifact/DB path for later backtest, replay and proof search",
+    "next_step": "NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI"
+  },
+  "threshold_policy_noapi_plan": {
+    "derived_layer_fail_after_minutes": 360,
+    "derived_layer_warn_after_minutes": 120,
+    "no_auto_restart": true,
+    "raw_feed_fail_after_minutes": 240,
+    "raw_feed_warn_after_minutes": 90,
+    "timer_inactive_can_be_failure_in_dryrun": true,
+    "timer_inactive_is_warning_in_plan": true
+  }
+}
