@@ -440,6 +440,39 @@ def _tok_wrap_news_uid_exists_v1(con, table, col, value):
     ).fetchone()
     return row is not None
 
+
+def _tok_wrap_news_unprocessed_count_snapshot_v1():
+    # TOKENOSKOBI NEWS BOUNDED CATCHUP V1
+    db_path = "/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite"
+    con = None
+    try:
+        con = sqlite3.connect("file:" + db_path + "?mode=ro", uri=True, timeout=5)
+        if not _tok_wrap_news_table_exists_v1(con, "news_raw_feed_events"):
+            return 0
+        if not _tok_wrap_news_table_exists_v1(con, "news_token_match_events"):
+            return int(con.execute("SELECT COUNT(*) FROM news_raw_feed_events").fetchone()[0])
+        return int(con.execute("""
+            SELECT COUNT(*)
+            FROM news_raw_feed_events r
+            WHERE r.news_uid NOT IN (
+                SELECT DISTINCT news_uid
+                FROM news_token_match_events
+                WHERE news_uid IS NOT NULL
+            )
+        """).fetchone()[0])
+    except Exception as e:
+        try:
+            _tok_wrap_trace_v1("news_bounded_catchup_probe_error", repr(e))
+        except Exception:
+            pass
+        return 0
+    finally:
+        try:
+            if con is not None:
+                con.close()
+        except Exception:
+            pass
+
 def _tok_wrap_news_select_candidates_v1(con, tracker, max_batch=100):
     if not _tok_wrap_news_table_exists_v1(con, "news_raw_feed_events"):
         return []
@@ -651,9 +684,16 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
         before_count = int(before_count or 0)
         after_count = int(after_count or 0)
         raw_delta = after_count - before_count
+        catchup_unprocessed_count = None
         if raw_delta <= 0:
-            _tok_wrap_trace_v1("news_downstream_hook_skip", "raw_delta<=0")
-            return 0
+            catchup_unprocessed_count = _tok_wrap_news_unprocessed_count_snapshot_v1()
+            if int(catchup_unprocessed_count or 0) <= 0:
+                _tok_wrap_trace_v1("news_downstream_hook_skip", "raw_delta<=0 unprocessed=0")
+                return 0
+            _tok_wrap_trace_v1(
+                "news_downstream_hook_bounded_catchup",
+                "raw_delta<=0 unprocessed=" + str(catchup_unprocessed_count)
+            )
 
         tracker_path, lock_path = _tok_wrap_news_tracker_paths_v1()
         if not _tok_wrap_news_acquire_lock_v1(lock_path):
@@ -736,6 +776,7 @@ def _tok_wrap_news_downstream_hook_v1(before_count, after_count, rc):
             _tok_wrap_trace_v1(
                 "news_downstream_hook_done",
                 "raw_delta="+str(raw_delta)
+                +" catchup_unprocessed="+str(catchup_unprocessed_count)
                 +" candidates="+str(len(candidates))
                 +" matches="+str(inserted_match)
                 +" signals="+str(inserted_signal)
