@@ -1,0 +1,188 @@
+{
+  "apply": {
+    "apply_action": "APPLIED_WRAPPER_WITH_BACKUP",
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "execution_authority": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false
+    },
+    "backup_runner": "tools/news_radar_refresh_runner_v1.PRE_DERIVED_BINDING_20260709T171244Z.py",
+    "db_after": {
+      "news_raw_feed_events": 332,
+      "news_score_events_v1": 145,
+      "news_signal_events": 145,
+      "news_token_match_events": 145
+    },
+    "db_before": {
+      "news_raw_feed_events": 332,
+      "news_score_events_v1": 145,
+      "news_signal_events": 145,
+      "news_token_match_events": 145
+    },
+    "db_delta": {
+      "news_raw_feed_events": 0,
+      "news_score_events_v1": 0,
+      "news_signal_events": 0,
+      "news_token_match_events": 0
+    },
+    "decision": "OK_NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_APPLY_WITH_BACKUP_INTERNAL",
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-09T17:12:45.094660+00:00",
+    "helper": "tools/news_derived_layer_refresher_v1.py",
+    "next": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_POST_APPLY_AUDIT_NOAPI",
+    "ok_count": 8,
+    "service_after": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "service_before": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.service"
+      ],
+      "rc": 3,
+      "stderr": "",
+      "stdout": "inactive"
+    },
+    "service_unit_changed": false,
+    "sha256": {
+      "backup_runner": "271311cb5ce689ca99174688f02cd765a7cc29ccb0afb643efa8f9249909c1f1",
+      "helper": "e5e516456376d45c977a0a4aa2508fdd57ccd21f8394db960db8c9ec471ff532",
+      "target_after": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2",
+      "target_before": "271311cb5ce689ca99174688f02cd765a7cc29ccb0afb643efa8f9249909c1f1",
+      "wrapper_expected": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2"
+    },
+    "stage": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_APPLY_WITH_BACKUP",
+    "target_runner": "tools/news_radar_refresh_runner_v1.py",
+    "test_count": 8,
+    "tests": [
+      {
+        "ok": true,
+        "test_id": "T01_PRIOR_DRYRUN_OK"
+      },
+      {
+        "helper_sha256": "e5e516456376d45c977a0a4aa2508fdd57ccd21f8394db960db8c9ec471ff532",
+        "ok": true,
+        "test_id": "T02_HELPER_COMPILES"
+      },
+      {
+        "backup_runner": "tools/news_radar_refresh_runner_v1.PRE_DERIVED_BINDING_20260709T171244Z.py",
+        "ok": true,
+        "test_id": "T03_BACKUP_RUNNER_EXISTS"
+      },
+      {
+        "ok": true,
+        "target_runner_sha256_after": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2",
+        "target_runner_sha256_before": "271311cb5ce689ca99174688f02cd765a7cc29ccb0afb643efa8f9249909c1f1",
+        "test_id": "T04_TARGET_WRAPPER_BOUND",
+        "wrapper_sha256_expected": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2"
+      },
+      {
+        "ok": true,
+        "test_id": "T05_WRAPPER_COMPILES",
+        "wrapper_compile": {
+          "cmd": [
+            "/usr/bin/python3",
+            "-m",
+            "py_compile",
+            "/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py.tmp_derived_binding"
+          ],
+          "rc": 0,
+          "stderr": "",
+          "stdout": ""
+        }
+      },
+      {
+        "ok": true,
+        "service_after": "inactive",
+        "service_before": "inactive",
+        "test_id": "T06_SYSTEMD_UNIT_UNCHANGED",
+        "timer_after": "active",
+        "timer_before": "active"
+      },
+      {
+        "db_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "ok": true,
+        "test_id": "T07_REAL_DB_UNTOUCHED_BY_BINDING_APPLY"
+      },
+      {
+        "next": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_POST_APPLY_AUDIT_NOAPI",
+        "ok": true,
+        "test_id": "T08_READY_FOR_POST_APPLY_AUDIT"
+      }
+    ],
+    "timer_after": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "timer_before": {
+      "cmd": [
+        "systemctl",
+        "is-active",
+        "tokenoskobi-news-radar-refresh.timer"
+      ],
+      "rc": 0,
+      "stderr": "",
+      "stdout": "active"
+    },
+    "warnings": []
+  },
+  "compile": {
+    "tool_rc": 0,
+    "tool_stderr": "",
+    "tool_stdout": ""
+  },
+  "db_after": {
+    "news_raw_feed_events": 332,
+    "news_score_events_v1": 145,
+    "news_signal_events": 145,
+    "news_token_match_events": 145
+  },
+  "db_before": {
+    "news_raw_feed_events": 332,
+    "news_score_events_v1": 145,
+    "news_signal_events": 145,
+    "news_token_match_events": 145
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_APPLY_WITH_BACKUP",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T17:12:45.106345+00:00",
+  "next": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_POST_APPLY_AUDIT_NOAPI",
+  "prior_dryrun": "data/control/news_derived_layer_refresher_runtime_binding_dryrun_noapi_v1.json",
+  "stage": "NEWS_DERIVED_LAYER_REFRESHER_RUNTIME_BINDING_APPLY_WITH_BACKUP",
+  "tool": "tools/news_derived_layer_refresher_runtime_binding_apply_with_backup_v1.py",
+  "warnings": []
+}
