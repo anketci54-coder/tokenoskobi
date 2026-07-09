@@ -1,0 +1,149 @@
+{
+  "artifact_checks": [
+    {
+      "decision": "OK_NEWS_INGRESS_CHAIN_FINAL_REVIEW_AND_SEAL_NOAPI",
+      "exists": true,
+      "expected": "OK_NEWS_INGRESS_CHAIN_FINAL_REVIEW_AND_SEAL_NOAPI",
+      "failures": [],
+      "label": "ingress_final",
+      "path": "data/control/news_ingress_chain_final_review_and_seal_noapi_v1.json",
+      "sha256": "e9feb23f8bb5ec5f3745e8947c4637e4fbaa9eed6ff2c518f2b41e9a7df36764",
+      "warnings": null
+    },
+    {
+      "decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI",
+      "exists": true,
+      "expected": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI",
+      "failures": [],
+      "label": "freshness_plan",
+      "path": "data/control/news_runtime_freshness_monitor_plan_noapi_v1.json",
+      "sha256": "f928dc73a9ca591d4b11bbd843357593ae63d48d08affa42f4d300993db2f5cf",
+      "warnings": null
+    },
+    {
+      "decision": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+      "exists": true,
+      "expected": "OK_NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+      "failures": [],
+      "label": "freshness_dryrun",
+      "path": "data/control/news_runtime_freshness_monitor_dryrun_noapi_v1.json",
+      "sha256": "5eede7418f90acddff6f91572daae7f13ca130ed8b1534e6d89b55038955224d",
+      "warnings": [
+        "freshness_observation:news_raw_feed_events:UNKNOWN_TIMESTAMP",
+        "freshness_observation:news_token_match_events:STALE_FAIL_WINDOW",
+        "freshness_observation:news_signal_events:STALE_FAIL_WINDOW",
+        "freshness_observation:news_score_events_v1:STALE_FAIL_WINDOW"
+      ]
+    },
+    {
+      "decision": "OK_NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+      "exists": true,
+      "expected": "OK_NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+      "failures": [],
+      "label": "history_plan",
+      "path": "data/control/news_historical_access_layer_plan_noapi_v1.json",
+      "sha256": "7c7748f0ebf130d753a0afded40eb95995a068e8b168a099ceeac9a18fcdb8fa",
+      "warnings": null
+    },
+    {
+      "decision": "OK_NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI",
+      "exists": true,
+      "expected": "OK_NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI",
+      "failures": [],
+      "label": "history_dryrun",
+      "path": "data/control/news_historical_access_layer_dryrun_noapi_v1.json",
+      "sha256": "11108ec39fd4edf2af6e576c16d606d0dfce955262d020c7f5a50cc45bf246e9",
+      "warnings": []
+    }
+  ],
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "execution_authority": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false
+  },
+  "closure_result": {
+    "api_websocket_live_ingestion": "NOT_ENABLED",
+    "external_historical_backfill": "NOT_ENABLED",
+    "historical_access_layer": "SEALED",
+    "index_creation": "NOT_ENABLED",
+    "news_ingress_chain": "SEALED",
+    "runtime_freshness_monitor": "SEALED",
+    "trade_authority": "NOT_ENABLED"
+  },
+  "db_after": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_before": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "db_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "decision": "OK_NEWS_RUNTIME_AND_HISTORY_FINAL_SEAL_NOAPI",
+  "failures": [],
+  "generated_at_utc": "2026-07-09T14:37:36.786429+00:00",
+  "historical_access_summary": {
+    "fail_count": 0,
+    "history_access_status": {
+      "backfill_now": false,
+      "dedup_preview_readonly": true,
+      "index_preview_readonly": true,
+      "legacy_news_uid_supported": true,
+      "new_event_uid_artifact_supported": true,
+      "query_layer_readonly": true
+    },
+    "ok_count": 10,
+    "test_count": 10,
+    "warnings_carried_forward": []
+  },
+  "historical_data_counts": {
+    "news_raw_feed_events": 325,
+    "news_score_events_v1": 47,
+    "news_signal_events": 47,
+    "news_token_match_events": 47
+  },
+  "known_observations_not_blockers": [
+    "freshness:freshness_observation:news_raw_feed_events:UNKNOWN_TIMESTAMP",
+    "freshness:freshness_observation:news_token_match_events:STALE_FAIL_WINDOW",
+    "freshness:freshness_observation:news_signal_events:STALE_FAIL_WINDOW",
+    "freshness:freshness_observation:news_score_events_v1:STALE_FAIL_WINDOW"
+  ],
+  "next": "NEWS_INTELLIGENCE_RUNTIME_HISTORY_BLOCK_CLOSED_AWAIT_COMMANDER_DECISION",
+  "runtime_freshness_summary": {
+    "producer_interpretation": "OK_TIMER_ACTIVE_ONESHOT_SERVICE_CAN_BE_INACTIVE",
+    "service_active": "inactive",
+    "timer_active": "active",
+    "timer_enabled": "enabled",
+    "warnings_carried_forward": [
+      "freshness_observation:news_raw_feed_events:UNKNOWN_TIMESTAMP",
+      "freshness_observation:news_token_match_events:STALE_FAIL_WINDOW",
+      "freshness_observation:news_signal_events:STALE_FAIL_WINDOW",
+      "freshness_observation:news_score_events_v1:STALE_FAIL_WINDOW"
+    ]
+  },
+  "sealed_chain": [
+    "NEWS_INGRESS_CHAIN_FINAL_REVIEW_AND_SEAL_NOAPI",
+    "NEWS_RUNTIME_FRESHNESS_MONITOR_PLAN_NOAPI",
+    "NEWS_RUNTIME_FRESHNESS_MONITOR_DRYRUN_NOAPI",
+    "NEWS_HISTORICAL_ACCESS_LAYER_PLAN_NOAPI",
+    "NEWS_HISTORICAL_ACCESS_LAYER_DRYRUN_NOAPI"
+  ],
+  "stage": "NEWS_RUNTIME_AND_HISTORY_FINAL_SEAL_NOAPI"
+}
