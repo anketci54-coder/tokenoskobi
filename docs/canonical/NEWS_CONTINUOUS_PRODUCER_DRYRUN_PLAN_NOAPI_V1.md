@@ -1,0 +1,123 @@
+# NEWS Continuous Producer Dryrun Plan NOAPI V1
+
+Generated UTC: 2026-07-10T05:43:35.663066+00:00
+
+Decision: OK_NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI
+
+Summary:
+{
+  "decision": "OK_NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI",
+  "generated_at_utc": "2026-07-10T05:43:35.663066+00:00",
+  "result": {
+    "authority": {
+      "api_call": false,
+      "db_write": false,
+      "execution_authority": false,
+      "live_trade": false,
+      "network_call": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false
+    },
+    "decision": "OK_NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI",
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-10T05:43:35.158736+00:00",
+    "next": "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN_AND_POST_AUDIT_SEAL",
+    "ok_count": 3,
+    "plan": {
+      "api_call": false,
+      "command_template": [
+        "python3",
+        "tools/news_radar_refresh_runner_v1.py",
+        "--db-path",
+        "<TEMP_DB>",
+        "--stage",
+        "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN",
+        "--write"
+      ],
+      "dryrun_type": "TEMPDB_CONTROLLED_PRODUCER_DRYRUN",
+      "live_trade": false,
+      "network_call": true,
+      "paper_trade": false,
+      "real_db_write": false,
+      "runner": "tools/news_radar_refresh_runner_v1.py",
+      "service_change": false,
+      "service_trigger": false,
+      "success_criteria": [
+        "runner_rc_zero",
+        "real_db_counts_unchanged",
+        "temp_db_integrity_ok",
+        "temp_bad_trade_flags_zero",
+        "temp_raw_match_signal_score_delta_balanced_or_all_zero",
+        "no_service_or_timer_change"
+      ],
+      "temp_db_write": true,
+      "timeout_seconds": 180,
+      "timer_change": false,
+      "trade_authority": false
+    },
+    "stage": "NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI",
+    "test_count": 3,
+    "tests": [
+      {
+        "ok": true,
+        "test_id": "T01_RETRY_OK"
+      },
+      {
+        "ok": true,
+        "runner_review": {
+          "derived_helper_exists": true,
+          "helper_line_count": 377,
+          "helper_sha256": "e5e516456376d45c977a0a4aa2508fdd57ccd21f8394db960db8c9ec471ff532",
+          "runner_exists": true,
+          "runner_line_count": 19,
+          "runner_mentions_db_path": true,
+          "runner_mentions_derived_helper": true,
+          "runner_mentions_stage": true,
+          "runner_mentions_write": true,
+          "runner_sha256": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2"
+        },
+        "test_id": "T02_RUNNER_TEMPDB_CAPABILITY_PRESENT"
+      },
+      {
+        "ok": true,
+        "plan": {
+          "api_call": false,
+          "command_template": [
+            "python3",
+            "tools/news_radar_refresh_runner_v1.py",
+            "--db-path",
+            "<TEMP_DB>",
+            "--stage",
+            "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN",
+            "--write"
+          ],
+          "dryrun_type": "TEMPDB_CONTROLLED_PRODUCER_DRYRUN",
+          "live_trade": false,
+          "network_call": true,
+          "paper_trade": false,
+          "real_db_write": false,
+          "runner": "tools/news_radar_refresh_runner_v1.py",
+          "service_change": false,
+          "service_trigger": false,
+          "success_criteria": [
+            "runner_rc_zero",
+            "real_db_counts_unchanged",
+            "temp_db_integrity_ok",
+            "temp_bad_trade_flags_zero",
+            "temp_raw_match_signal_score_delta_balanced_or_all_zero",
+            "no_service_or_timer_change"
+          ],
+          "temp_db_write": true,
+          "timeout_seconds": 180,
+          "timer_change": false,
+          "trade_authority": false
+        },
+        "test_id": "T03_PLAN_BOUNDARY_LOCKED"
+      }
+    ],
+    "warnings": []
+  },
+  "stage": "NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI"
+}

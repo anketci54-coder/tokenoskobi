@@ -1,0 +1,850 @@
+{
+  "compile": {
+    "tool_rc": 0,
+    "tool_stderr": "",
+    "tool_stdout": ""
+  },
+  "decision": "OK_NEWS_CONTINUOUS_PRODUCER_ONE_SHOT_COMPLETION",
+  "failures": [],
+  "generated_at_utc": "2026-07-10T05:43:35.663066+00:00",
+  "next": "NEWS_CONTINUOUS_PRODUCER_OBSERVATION_WINDOW_NOAPI",
+  "outer_real_news_counts_after": {
+    "news_raw_feed_events": 356,
+    "news_score_events_v1": 169,
+    "news_signal_events": 169,
+    "news_token_match_events": 169
+  },
+  "outer_real_news_counts_before": {
+    "news_raw_feed_events": 356,
+    "news_score_events_v1": 169,
+    "news_signal_events": 169,
+    "news_token_match_events": 169
+  },
+  "outer_real_news_delta": {
+    "news_raw_feed_events": 0,
+    "news_score_events_v1": 0,
+    "news_signal_events": 0,
+    "news_token_match_events": 0
+  },
+  "prior": "data/control/bad_trade_flags_cleanup_apply_with_backup_noapi_v1.json",
+  "result": {
+    "decision": "OK_NEWS_CONTINUOUS_PRODUCER_ONE_SHOT_COMPLETION",
+    "failures": [],
+    "generated_at_utc": "2026-07-10T05:43:35.108401+00:00",
+    "next": "NEWS_CONTINUOUS_PRODUCER_OBSERVATION_WINDOW_NOAPI",
+    "remaining_after_this_if_ok": [
+      "NEWS_CONTINUOUS_PRODUCER_OBSERVATION_WINDOW_NOAPI"
+    ],
+    "stage": "NEWS_CONTINUOUS_PRODUCER_ONE_SHOT_COMPLETION",
+    "steps": {
+      "controlled_dryrun": {
+        "authority": {
+          "api_call": false,
+          "db_schema_change": false,
+          "execution_authority": false,
+          "index_creation": false,
+          "live_trade": false,
+          "network_call": true,
+          "nginx_change": false,
+          "paper_trade": false,
+          "real_db_write": false,
+          "service_change": false,
+          "temp_db_write": true,
+          "timer_change": false
+        },
+        "balanced_temp_delta": true,
+        "decision": "OK_NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN_AND_POST_AUDIT_SEAL",
+        "fail_count": 0,
+        "failures": [],
+        "generated_at_utc": "2026-07-10T05:43:35.158782+00:00",
+        "next": "NEWS_CONTINUOUS_PRODUCER_OBSERVATION_WINDOW_NOAPI",
+        "ok_count": 7,
+        "real_after": {
+          "bad_flags": 0,
+          "collision": {
+            "hist_prefix_count": 8,
+            "match_news_uid_duplicates": [],
+            "namespace_stats": [
+              {
+                "count": 8,
+                "namespace": "historical_hist_news"
+              },
+              {
+                "count": 34,
+                "namespace": "runtime_news"
+              },
+              {
+                "count": 314,
+                "namespace": "timer_news"
+              }
+            ],
+            "raw_news_uid_duplicates": [],
+            "score_news_uid_duplicates": [],
+            "signal_news_uid_duplicates": [],
+            "timer_prefix_count": 314
+          },
+          "counts": {
+            "news_raw_feed_events": 356,
+            "news_score_events_v1": 169,
+            "news_signal_events": 169,
+            "news_token_match_events": 169
+          },
+          "duplicates": {
+            "news_raw_feed_events": [],
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          },
+          "freshness": {
+            "columns": [
+              "freshness_uid",
+              "component",
+              "last_observed_at_utc",
+              "raw_count",
+              "match_count",
+              "signal_count",
+              "score_count",
+              "heartbeat_status",
+              "created_at_utc"
+            ],
+            "exists": true,
+            "latest": {
+              "created_at_utc": "2026-07-10T05:31:32.746256+00:00",
+              "last_observed_at_utc": "2026-07-10T05:31:32.746256+00:00"
+            },
+            "ok_historical_access_synced": true,
+            "target_historical_access": [
+              {
+                "component": "NEWS_HISTORICAL_ACCESS_LAYER",
+                "created_at_utc": "2026-07-10T04:42:42.934777+00:00",
+                "freshness_uid": "news_runtime_freshness_historical_access_v1",
+                "heartbeat_status": "OK_HISTORICAL_ACCESS_SYNCED",
+                "last_observed_at_utc": "2026-07-10T04:00:44.505461+00:00",
+                "match_count": 166,
+                "raw_count": 353,
+                "score_count": 166,
+                "signal_count": 166
+              }
+            ]
+          },
+          "integrity": "ok",
+          "orphans": {
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          }
+        },
+        "real_before": {
+          "bad_flags": 0,
+          "collision": {
+            "hist_prefix_count": 8,
+            "match_news_uid_duplicates": [],
+            "namespace_stats": [
+              {
+                "count": 8,
+                "namespace": "historical_hist_news"
+              },
+              {
+                "count": 34,
+                "namespace": "runtime_news"
+              },
+              {
+                "count": 314,
+                "namespace": "timer_news"
+              }
+            ],
+            "raw_news_uid_duplicates": [],
+            "score_news_uid_duplicates": [],
+            "signal_news_uid_duplicates": [],
+            "timer_prefix_count": 314
+          },
+          "counts": {
+            "news_raw_feed_events": 356,
+            "news_score_events_v1": 169,
+            "news_signal_events": 169,
+            "news_token_match_events": 169
+          },
+          "duplicates": {
+            "news_raw_feed_events": [],
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          },
+          "freshness": {
+            "columns": [
+              "freshness_uid",
+              "component",
+              "last_observed_at_utc",
+              "raw_count",
+              "match_count",
+              "signal_count",
+              "score_count",
+              "heartbeat_status",
+              "created_at_utc"
+            ],
+            "exists": true,
+            "latest": {
+              "created_at_utc": "2026-07-10T05:31:32.746256+00:00",
+              "last_observed_at_utc": "2026-07-10T05:31:32.746256+00:00"
+            },
+            "ok_historical_access_synced": true,
+            "target_historical_access": [
+              {
+                "component": "NEWS_HISTORICAL_ACCESS_LAYER",
+                "created_at_utc": "2026-07-10T04:42:42.934777+00:00",
+                "freshness_uid": "news_runtime_freshness_historical_access_v1",
+                "heartbeat_status": "OK_HISTORICAL_ACCESS_SYNCED",
+                "last_observed_at_utc": "2026-07-10T04:00:44.505461+00:00",
+                "match_count": 166,
+                "raw_count": 353,
+                "score_count": 166,
+                "signal_count": 166
+              }
+            ]
+          },
+          "integrity": "ok",
+          "orphans": {
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          }
+        },
+        "real_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "runner_result": {
+          "cmd": [
+            "python3",
+            "/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py",
+            "--db-path",
+            "/tmp/tokenoskobi_news_producer_dryrun_zyyv379w/tokenoskobi_clean_v1.CONTINUOUS_PRODUCER_DRYRUN.sqlite",
+            "--stage",
+            "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN",
+            "--write"
+          ],
+          "rc": 0,
+          "stderr": "",
+          "stdout": "TOKENOSKOBI_WRAPPER_TRACE_V1: main_enter\nTOKENOSKOBI_WRAPPER_TRACE_V1: before_count_start\nTOKENOSKOBI_WRAPPER_TRACE_V1: before_count_done | 356\nTOKENOSKOBI_WRAPPER_TRACE_V1: subprocess_start\nTOKENOSKOBI_WRAPPER_TRACE_V1: after_count_done | 356\nTOKENOSKOBI_WRAPPER_TRACE_V1: news_downstream_hook_bounded_catchup | raw_delta<=0 unprocessed=187\nTOKENOSKOBI_WRAPPER_TRACE_V1: news_downstream_hook_noop | candidates=0 tokens=19 market_events=0 adversarial_events=0\nTOKENOSKOBI_WRAPPER_TRACE_V1: final_return_after_downstream_hook | 0\nTOKENOSKOBI_WRAPPER_TRACE_V1: return_rc | 0\n{\n  \"authority\": {\n    \"api_call\": false,\n    \"execution_authority\": false,\n    \"index_creation\": false,\n    \"live_trade\": false,\n    \"network_call\": false,\n    \"paper_trade\": false,\n    \"schema_change\": false\n  },\n  \"bad_trade_flags\": 0,\n  \"candidate_count\": 0,\n  \"counts_after\": {\n    \"news_raw_feed_events\": 356,\n    \"news_score_events_v1\": 169,\n    \"news_signal_events\": 169,\n    \"news_token_match_events\": 169\n  },\n  \"counts_before\": {\n    \"news_raw_feed_events\": 356,\n    \"news_score_events_v1\": 169,\n    \"news_signal_events\": 169,\n    \"news_token_match_events\": 169\n  },\n  \"db_path\": \"/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite\",\n  \"decision\": \"OK_NEWS_DERIVED_LAYER_REFRESHER_V1\",\n  \"delta\": {\n    \"news_raw_feed_events\": 0,\n    \"news_score_events_v1\": 0,\n    \"news_signal_events\": 0,\n    \"news_token_match_events\": 0\n  },\n  \"fail_count\": 0,\n  \"failures\": [],\n  \"generated_at_utc\": \"2026-07-10T05:43:35.527889+00:00\",\n  \"inserted\": {\n    \"news_score_events_v1\": 0,\n    \"news_signal_events\": 0,\n    \"news_token_match_events\": 0\n  },\n  \"latest\": {\n    \"derived_after\": \"2026-07-10T05:31:32.802476+00:00\",\n    \"derived_before\": \"2026-07-10T05:31:32.802476+00:00\",\n    \"raw_after\": \"2026-07-10T05:13:48+00:00\",\n    \"raw_before\": \"2026-07-10T05:13:48+00:00\"\n  },\n  \"ok_count\": 5,\n  \"remaining_candidates\": 0,\n  \"samples\": [],\n  \"stage\": \"NEWS_SYSTEMD_TIMER_DERIVED_REFRESH\",\n  \"test_count\": 5,\n  \"tests\": [\n    {\n      \"integrity_after\": \"ok\",\n      \"integrity_before\": \"ok\",\n      \"ok\": true,\n      \"test_id\": \"T01_SQLITE_INTEGRITY_OK\"\n    },\n    {\n      \"candidate_count\": 0,\n      \"latest_derived_before\": \"2026-07-10T05:31:32.802476+00:00\",\n      \"latest_raw_before\": \"2026-07-10T05:13:48+00:00\",\n      \"ok\": true,\n      \"test_id\": \"T02_RAW_SELECTION_OK\"\n    },\n    {\n      \"candidate_count\": 0,\n      \"inserted\": {\n        \"news_score_events_v1\": 0,\n        \"news_signal_events\": 0,\n        \"news_token_match_events\": 0\n      },\n      \"ok\": true,\n      \"test_id\": \"T03_INSERTS_MATCH_CANDIDATES_OR_ZERO\"\n    },\n    {\n      \"delta\": {\n        \"news_raw_feed_events\": 0,\n        \"news_score_events_v1\": 0,\n        \"news_signal_events\": 0,\n        \"news_token_match_events\": 0\n      },\n      \"ok\": true,\n      \"test_id\": \"T04_RAW_FEED_UNCHANGED\"\n    },\n    {\n      \"bad_trade_flags\": 0,\n      \"ok\": true,\n      \"test_id\": \"T05_NO_TRADE_FLAGS\"\n    }\n  ],\n  \"warnings\": [\n    \"no_new_raw_candidates_to_refresh\"\n  ],\n  \"write\": true\n}"
+        },
+        "stage": "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN_AND_POST_AUDIT_SEAL",
+        "systemd_unchanged": true,
+        "temp_after": {
+          "bad_flags": 0,
+          "collision": {
+            "hist_prefix_count": 8,
+            "match_news_uid_duplicates": [],
+            "namespace_stats": [
+              {
+                "count": 8,
+                "namespace": "historical_hist_news"
+              },
+              {
+                "count": 34,
+                "namespace": "runtime_news"
+              },
+              {
+                "count": 314,
+                "namespace": "timer_news"
+              }
+            ],
+            "raw_news_uid_duplicates": [],
+            "score_news_uid_duplicates": [],
+            "signal_news_uid_duplicates": [],
+            "timer_prefix_count": 314
+          },
+          "counts": {
+            "news_raw_feed_events": 356,
+            "news_score_events_v1": 169,
+            "news_signal_events": 169,
+            "news_token_match_events": 169
+          },
+          "duplicates": {
+            "news_raw_feed_events": [],
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          },
+          "freshness": {
+            "columns": [
+              "freshness_uid",
+              "component",
+              "last_observed_at_utc",
+              "raw_count",
+              "match_count",
+              "signal_count",
+              "score_count",
+              "heartbeat_status",
+              "created_at_utc"
+            ],
+            "exists": true,
+            "latest": {
+              "created_at_utc": "2026-07-10T05:31:32.746256+00:00",
+              "last_observed_at_utc": "2026-07-10T05:31:32.746256+00:00"
+            },
+            "ok_historical_access_synced": true,
+            "target_historical_access": [
+              {
+                "component": "NEWS_HISTORICAL_ACCESS_LAYER",
+                "created_at_utc": "2026-07-10T04:42:42.934777+00:00",
+                "freshness_uid": "news_runtime_freshness_historical_access_v1",
+                "heartbeat_status": "OK_HISTORICAL_ACCESS_SYNCED",
+                "last_observed_at_utc": "2026-07-10T04:00:44.505461+00:00",
+                "match_count": 166,
+                "raw_count": 353,
+                "score_count": 166,
+                "signal_count": 166
+              }
+            ]
+          },
+          "integrity": "ok",
+          "orphans": {
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          }
+        },
+        "temp_before": {
+          "bad_flags": 0,
+          "collision": {
+            "hist_prefix_count": 8,
+            "match_news_uid_duplicates": [],
+            "namespace_stats": [
+              {
+                "count": 8,
+                "namespace": "historical_hist_news"
+              },
+              {
+                "count": 34,
+                "namespace": "runtime_news"
+              },
+              {
+                "count": 314,
+                "namespace": "timer_news"
+              }
+            ],
+            "raw_news_uid_duplicates": [],
+            "score_news_uid_duplicates": [],
+            "signal_news_uid_duplicates": [],
+            "timer_prefix_count": 314
+          },
+          "counts": {
+            "news_raw_feed_events": 356,
+            "news_score_events_v1": 169,
+            "news_signal_events": 169,
+            "news_token_match_events": 169
+          },
+          "duplicates": {
+            "news_raw_feed_events": [],
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          },
+          "freshness": {
+            "columns": [
+              "freshness_uid",
+              "component",
+              "last_observed_at_utc",
+              "raw_count",
+              "match_count",
+              "signal_count",
+              "score_count",
+              "heartbeat_status",
+              "created_at_utc"
+            ],
+            "exists": true,
+            "latest": {
+              "created_at_utc": "2026-07-10T05:31:32.746256+00:00",
+              "last_observed_at_utc": "2026-07-10T05:31:32.746256+00:00"
+            },
+            "ok_historical_access_synced": true,
+            "target_historical_access": [
+              {
+                "component": "NEWS_HISTORICAL_ACCESS_LAYER",
+                "created_at_utc": "2026-07-10T04:42:42.934777+00:00",
+                "freshness_uid": "news_runtime_freshness_historical_access_v1",
+                "heartbeat_status": "OK_HISTORICAL_ACCESS_SYNCED",
+                "last_observed_at_utc": "2026-07-10T04:00:44.505461+00:00",
+                "match_count": 166,
+                "raw_count": 353,
+                "score_count": 166,
+                "signal_count": 166
+              }
+            ]
+          },
+          "integrity": "ok",
+          "orphans": {
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          }
+        },
+        "temp_db": "/tmp/tokenoskobi_news_producer_dryrun_zyyv379w/tokenoskobi_clean_v1.CONTINUOUS_PRODUCER_DRYRUN.sqlite",
+        "temp_delta": {
+          "news_raw_feed_events": 0,
+          "news_score_events_v1": 0,
+          "news_signal_events": 0,
+          "news_token_match_events": 0
+        },
+        "temp_dir": "/tmp/tokenoskobi_news_producer_dryrun_zyyv379w",
+        "test_count": 7,
+        "tests": [
+          {
+            "ok": true,
+            "test_id": "T01_PLAN_OK"
+          },
+          {
+            "ok": true,
+            "runner_result": {
+              "cmd": [
+                "python3",
+                "/root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py",
+                "--db-path",
+                "/tmp/tokenoskobi_news_producer_dryrun_zyyv379w/tokenoskobi_clean_v1.CONTINUOUS_PRODUCER_DRYRUN.sqlite",
+                "--stage",
+                "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN",
+                "--write"
+              ],
+              "rc": 0,
+              "stderr": "",
+              "stdout": "TOKENOSKOBI_WRAPPER_TRACE_V1: main_enter\nTOKENOSKOBI_WRAPPER_TRACE_V1: before_count_start\nTOKENOSKOBI_WRAPPER_TRACE_V1: before_count_done | 356\nTOKENOSKOBI_WRAPPER_TRACE_V1: subprocess_start\nTOKENOSKOBI_WRAPPER_TRACE_V1: after_count_done | 356\nTOKENOSKOBI_WRAPPER_TRACE_V1: news_downstream_hook_bounded_catchup | raw_delta<=0 unprocessed=187\nTOKENOSKOBI_WRAPPER_TRACE_V1: news_downstream_hook_noop | candidates=0 tokens=19 market_events=0 adversarial_events=0\nTOKENOSKOBI_WRAPPER_TRACE_V1: final_return_after_downstream_hook | 0\nTOKENOSKOBI_WRAPPER_TRACE_V1: return_rc | 0\n{\n  \"authority\": {\n    \"api_call\": false,\n    \"execution_authority\": false,\n    \"index_creation\": false,\n    \"live_trade\": false,\n    \"network_call\": false,\n    \"paper_trade\": false,\n    \"schema_change\": false\n  },\n  \"bad_trade_flags\": 0,\n  \"candidate_count\": 0,\n  \"counts_after\": {\n    \"news_raw_feed_events\": 356,\n    \"news_score_events_v1\": 169,\n    \"news_signal_events\": 169,\n    \"news_token_match_events\": 169\n  },\n  \"counts_before\": {\n    \"news_raw_feed_events\": 356,\n    \"news_score_events_v1\": 169,\n    \"news_signal_events\": 169,\n    \"news_token_match_events\": 169\n  },\n  \"db_path\": \"/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite\",\n  \"decision\": \"OK_NEWS_DERIVED_LAYER_REFRESHER_V1\",\n  \"delta\": {\n    \"news_raw_feed_events\": 0,\n    \"news_score_events_v1\": 0,\n    \"news_signal_events\": 0,\n    \"news_token_match_events\": 0\n  },\n  \"fail_count\": 0,\n  \"failures\": [],\n  \"generated_at_utc\": \"2026-07-10T05:43:35.527889+00:00\",\n  \"inserted\": {\n    \"news_score_events_v1\": 0,\n    \"news_signal_events\": 0,\n    \"news_token_match_events\": 0\n  },\n  \"latest\": {\n    \"derived_after\": \"2026-07-10T05:31:32.802476+00:00\",\n    \"derived_before\": \"2026-07-10T05:31:32.802476+00:00\",\n    \"raw_after\": \"2026-07-10T05:13:48+00:00\",\n    \"raw_before\": \"2026-07-10T05:13:48+00:00\"\n  },\n  \"ok_count\": 5,\n  \"remaining_candidates\": 0,\n  \"samples\": [],\n  \"stage\": \"NEWS_SYSTEMD_TIMER_DERIVED_REFRESH\",\n  \"test_count\": 5,\n  \"tests\": [\n    {\n      \"integrity_after\": \"ok\",\n      \"integrity_before\": \"ok\",\n      \"ok\": true,\n      \"test_id\": \"T01_SQLITE_INTEGRITY_OK\"\n    },\n    {\n      \"candidate_count\": 0,\n      \"latest_derived_before\": \"2026-07-10T05:31:32.802476+00:00\",\n      \"latest_raw_before\": \"2026-07-10T05:13:48+00:00\",\n      \"ok\": true,\n      \"test_id\": \"T02_RAW_SELECTION_OK\"\n    },\n    {\n      \"candidate_count\": 0,\n      \"inserted\": {\n        \"news_score_events_v1\": 0,\n        \"news_signal_events\": 0,\n        \"news_token_match_events\": 0\n      },\n      \"ok\": true,\n      \"test_id\": \"T03_INSERTS_MATCH_CANDIDATES_OR_ZERO\"\n    },\n    {\n      \"delta\": {\n        \"news_raw_feed_events\": 0,\n        \"news_score_events_v1\": 0,\n        \"news_signal_events\": 0,\n        \"news_token_match_events\": 0\n      },\n      \"ok\": true,\n      \"test_id\": \"T04_RAW_FEED_UNCHANGED\"\n    },\n    {\n      \"bad_trade_flags\": 0,\n      \"ok\": true,\n      \"test_id\": \"T05_NO_TRADE_FLAGS\"\n    }\n  ],\n  \"warnings\": [\n    \"no_new_raw_candidates_to_refresh\"\n  ],\n  \"write\": true\n}"
+            },
+            "test_id": "T02_RUNNER_RC_ZERO"
+          },
+          {
+            "ok": true,
+            "real_bad_flags_after": 0,
+            "real_delta": {
+              "news_raw_feed_events": 0,
+              "news_score_events_v1": 0,
+              "news_signal_events": 0,
+              "news_token_match_events": 0
+            },
+            "test_id": "T03_REAL_DB_UNCHANGED"
+          },
+          {
+            "ok": true,
+            "temp_bad_flags": 0,
+            "temp_integrity": "ok",
+            "test_id": "T04_TEMP_DB_INTEGRITY_AND_FLAGS_OK"
+          },
+          {
+            "ok": true,
+            "temp_delta": {
+              "news_raw_feed_events": 0,
+              "news_score_events_v1": 0,
+              "news_signal_events": 0,
+              "news_token_match_events": 0
+            },
+            "test_id": "T05_TEMP_DELTA_BALANCED"
+          },
+          {
+            "ok": true,
+            "systemd_after": {
+              "service_active": "inactive",
+              "service_execstart_lines": [
+                "ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+              ],
+              "service_text_sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+              "service_unit_exists": true,
+              "timer_active": "active",
+              "timer_enabled": "enabled",
+              "timer_schedule_lines": [
+                "OnActiveSec=20min",
+                "OnUnitActiveSec=20min",
+                "Unit=tokenoskobi-news-radar-refresh.service"
+              ],
+              "timer_text_sha256": "47e5dacef0e068480bb2de67960f5320469910ab6ded80937266cf68081f1af5",
+              "timer_unit_exists": true
+            },
+            "systemd_before": {
+              "service_active": "inactive",
+              "service_execstart_lines": [
+                "ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+              ],
+              "service_text_sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+              "service_unit_exists": true,
+              "timer_active": "active",
+              "timer_enabled": "enabled",
+              "timer_schedule_lines": [
+                "OnActiveSec=20min",
+                "OnUnitActiveSec=20min",
+                "Unit=tokenoskobi-news-radar-refresh.service"
+              ],
+              "timer_text_sha256": "47e5dacef0e068480bb2de67960f5320469910ab6ded80937266cf68081f1af5",
+              "timer_unit_exists": true
+            },
+            "test_id": "T06_SYSTEMD_UNCHANGED"
+          },
+          {
+            "api_call": false,
+            "live_trade": false,
+            "network_call": true,
+            "ok": true,
+            "paper_trade": false,
+            "real_db_write": false,
+            "service_change": false,
+            "temp_db_write": true,
+            "test_id": "T07_BOUNDARY_LOCKED",
+            "timer_change": false,
+            "trade_authority": false
+          }
+        ],
+        "warnings": []
+      },
+      "plan": {
+        "authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "live_trade": false,
+          "network_call": false,
+          "paper_trade": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "decision": "OK_NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI",
+        "fail_count": 0,
+        "failures": [],
+        "generated_at_utc": "2026-07-10T05:43:35.158736+00:00",
+        "next": "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN_AND_POST_AUDIT_SEAL",
+        "ok_count": 3,
+        "plan": {
+          "api_call": false,
+          "command_template": [
+            "python3",
+            "tools/news_radar_refresh_runner_v1.py",
+            "--db-path",
+            "<TEMP_DB>",
+            "--stage",
+            "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN",
+            "--write"
+          ],
+          "dryrun_type": "TEMPDB_CONTROLLED_PRODUCER_DRYRUN",
+          "live_trade": false,
+          "network_call": true,
+          "paper_trade": false,
+          "real_db_write": false,
+          "runner": "tools/news_radar_refresh_runner_v1.py",
+          "service_change": false,
+          "service_trigger": false,
+          "success_criteria": [
+            "runner_rc_zero",
+            "real_db_counts_unchanged",
+            "temp_db_integrity_ok",
+            "temp_bad_trade_flags_zero",
+            "temp_raw_match_signal_score_delta_balanced_or_all_zero",
+            "no_service_or_timer_change"
+          ],
+          "temp_db_write": true,
+          "timeout_seconds": 180,
+          "timer_change": false,
+          "trade_authority": false
+        },
+        "stage": "NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI",
+        "test_count": 3,
+        "tests": [
+          {
+            "ok": true,
+            "test_id": "T01_RETRY_OK"
+          },
+          {
+            "ok": true,
+            "runner_review": {
+              "derived_helper_exists": true,
+              "helper_line_count": 377,
+              "helper_sha256": "e5e516456376d45c977a0a4aa2508fdd57ccd21f8394db960db8c9ec471ff532",
+              "runner_exists": true,
+              "runner_line_count": 19,
+              "runner_mentions_db_path": true,
+              "runner_mentions_derived_helper": true,
+              "runner_mentions_stage": true,
+              "runner_mentions_write": true,
+              "runner_sha256": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2"
+            },
+            "test_id": "T02_RUNNER_TEMPDB_CAPABILITY_PRESENT"
+          },
+          {
+            "ok": true,
+            "plan": {
+              "api_call": false,
+              "command_template": [
+                "python3",
+                "tools/news_radar_refresh_runner_v1.py",
+                "--db-path",
+                "<TEMP_DB>",
+                "--stage",
+                "NEWS_CONTINUOUS_PRODUCER_CONTROLLED_DRYRUN",
+                "--write"
+              ],
+              "dryrun_type": "TEMPDB_CONTROLLED_PRODUCER_DRYRUN",
+              "live_trade": false,
+              "network_call": true,
+              "paper_trade": false,
+              "real_db_write": false,
+              "runner": "tools/news_radar_refresh_runner_v1.py",
+              "service_change": false,
+              "service_trigger": false,
+              "success_criteria": [
+                "runner_rc_zero",
+                "real_db_counts_unchanged",
+                "temp_db_integrity_ok",
+                "temp_bad_trade_flags_zero",
+                "temp_raw_match_signal_score_delta_balanced_or_all_zero",
+                "no_service_or_timer_change"
+              ],
+              "temp_db_write": true,
+              "timeout_seconds": 180,
+              "timer_change": false,
+              "trade_authority": false
+            },
+            "test_id": "T03_PLAN_BOUNDARY_LOCKED"
+          }
+        ],
+        "warnings": []
+      },
+      "retry": {
+        "authority": {
+          "api_call": false,
+          "db_write": false,
+          "execution_authority": false,
+          "live_trade": false,
+          "network_call": false,
+          "paper_trade": false,
+          "runner_executed": false,
+          "service_change": false,
+          "timer_change": false
+        },
+        "decision": "OK_NEWS_RUNTIME_STABILIZATION_REVIEW_RETRY_NOAPI",
+        "fail_count": 0,
+        "failures": [],
+        "generated_at_utc": "2026-07-10T05:43:35.108442+00:00",
+        "next": "NEWS_CONTINUOUS_PRODUCER_DRYRUN_PLAN_NOAPI",
+        "ok_count": 7,
+        "runner_review": {
+          "derived_helper_exists": true,
+          "helper_line_count": 377,
+          "helper_sha256": "e5e516456376d45c977a0a4aa2508fdd57ccd21f8394db960db8c9ec471ff532",
+          "runner_exists": true,
+          "runner_line_count": 19,
+          "runner_mentions_db_path": true,
+          "runner_mentions_derived_helper": true,
+          "runner_mentions_stage": true,
+          "runner_mentions_write": true,
+          "runner_sha256": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2"
+        },
+        "snapshot": {
+          "bad_flags": 0,
+          "collision": {
+            "hist_prefix_count": 8,
+            "match_news_uid_duplicates": [],
+            "namespace_stats": [
+              {
+                "count": 8,
+                "namespace": "historical_hist_news"
+              },
+              {
+                "count": 34,
+                "namespace": "runtime_news"
+              },
+              {
+                "count": 314,
+                "namespace": "timer_news"
+              }
+            ],
+            "raw_news_uid_duplicates": [],
+            "score_news_uid_duplicates": [],
+            "signal_news_uid_duplicates": [],
+            "timer_prefix_count": 314
+          },
+          "counts": {
+            "news_raw_feed_events": 356,
+            "news_score_events_v1": 169,
+            "news_signal_events": 169,
+            "news_token_match_events": 169
+          },
+          "duplicates": {
+            "news_raw_feed_events": [],
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          },
+          "freshness": {
+            "columns": [
+              "freshness_uid",
+              "component",
+              "last_observed_at_utc",
+              "raw_count",
+              "match_count",
+              "signal_count",
+              "score_count",
+              "heartbeat_status",
+              "created_at_utc"
+            ],
+            "exists": true,
+            "latest": {
+              "created_at_utc": "2026-07-10T05:31:32.746256+00:00",
+              "last_observed_at_utc": "2026-07-10T05:31:32.746256+00:00"
+            },
+            "ok_historical_access_synced": true,
+            "target_historical_access": [
+              {
+                "component": "NEWS_HISTORICAL_ACCESS_LAYER",
+                "created_at_utc": "2026-07-10T04:42:42.934777+00:00",
+                "freshness_uid": "news_runtime_freshness_historical_access_v1",
+                "heartbeat_status": "OK_HISTORICAL_ACCESS_SYNCED",
+                "last_observed_at_utc": "2026-07-10T04:00:44.505461+00:00",
+                "match_count": 166,
+                "raw_count": 353,
+                "score_count": 166,
+                "signal_count": 166
+              }
+            ]
+          },
+          "integrity": "ok",
+          "orphans": {
+            "news_score_events_v1": [],
+            "news_signal_events": [],
+            "news_token_match_events": []
+          }
+        },
+        "stage": "NEWS_RUNTIME_STABILIZATION_REVIEW_RETRY_NOAPI",
+        "systemd_review": {
+          "service_active": "inactive",
+          "service_execstart_lines": [
+            "ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+          ],
+          "service_text_sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+          "service_unit_exists": true,
+          "timer_active": "active",
+          "timer_enabled": "enabled",
+          "timer_schedule_lines": [
+            "OnActiveSec=20min",
+            "OnUnitActiveSec=20min",
+            "Unit=tokenoskobi-news-radar-refresh.service"
+          ],
+          "timer_text_sha256": "47e5dacef0e068480bb2de67960f5320469910ab6ded80937266cf68081f1af5",
+          "timer_unit_exists": true
+        },
+        "test_count": 7,
+        "tests": [
+          {
+            "ok": true,
+            "test_id": "T01_PRIOR_CLEANUP_OK"
+          },
+          {
+            "integrity": "ok",
+            "ok": true,
+            "test_id": "T02_DB_INTEGRITY_OK"
+          },
+          {
+            "bad_flags": 0,
+            "ok": true,
+            "test_id": "T03_BAD_FLAGS_ZERO"
+          },
+          {
+            "duplicates": {
+              "news_raw_feed_events": [],
+              "news_score_events_v1": [],
+              "news_signal_events": [],
+              "news_token_match_events": []
+            },
+            "ok": true,
+            "orphans": {
+              "news_score_events_v1": [],
+              "news_signal_events": [],
+              "news_token_match_events": []
+            },
+            "test_id": "T04_NO_ORPHANS_AND_DUPLICATES"
+          },
+          {
+            "freshness": {
+              "columns": [
+                "freshness_uid",
+                "component",
+                "last_observed_at_utc",
+                "raw_count",
+                "match_count",
+                "signal_count",
+                "score_count",
+                "heartbeat_status",
+                "created_at_utc"
+              ],
+              "exists": true,
+              "latest": {
+                "created_at_utc": "2026-07-10T05:31:32.746256+00:00",
+                "last_observed_at_utc": "2026-07-10T05:31:32.746256+00:00"
+              },
+              "ok_historical_access_synced": true,
+              "target_historical_access": [
+                {
+                  "component": "NEWS_HISTORICAL_ACCESS_LAYER",
+                  "created_at_utc": "2026-07-10T04:42:42.934777+00:00",
+                  "freshness_uid": "news_runtime_freshness_historical_access_v1",
+                  "heartbeat_status": "OK_HISTORICAL_ACCESS_SYNCED",
+                  "last_observed_at_utc": "2026-07-10T04:00:44.505461+00:00",
+                  "match_count": 166,
+                  "raw_count": 353,
+                  "score_count": 166,
+                  "signal_count": 166
+                }
+              ]
+            },
+            "ok": true,
+            "test_id": "T05_FRESHNESS_SYNCED"
+          },
+          {
+            "ok": true,
+            "runner": {
+              "derived_helper_exists": true,
+              "helper_line_count": 377,
+              "helper_sha256": "e5e516456376d45c977a0a4aa2508fdd57ccd21f8394db960db8c9ec471ff532",
+              "runner_exists": true,
+              "runner_line_count": 19,
+              "runner_mentions_db_path": true,
+              "runner_mentions_derived_helper": true,
+              "runner_mentions_stage": true,
+              "runner_mentions_write": true,
+              "runner_sha256": "173a6bd91913b306dddf71f31d1cb76d45f5ef992dcb1efe8df9c2550167faf2"
+            },
+            "systemd": {
+              "service_active": "inactive",
+              "service_execstart_lines": [
+                "ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py"
+              ],
+              "service_text_sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+              "service_unit_exists": true,
+              "timer_active": "active",
+              "timer_enabled": "enabled",
+              "timer_schedule_lines": [
+                "OnActiveSec=20min",
+                "OnUnitActiveSec=20min",
+                "Unit=tokenoskobi-news-radar-refresh.service"
+              ],
+              "timer_text_sha256": "47e5dacef0e068480bb2de67960f5320469910ab6ded80937266cf68081f1af5",
+              "timer_unit_exists": true
+            },
+            "test_id": "T06_RUNNER_AND_SYSTEMD_DISCOVERED"
+          },
+          {
+            "api_call": false,
+            "db_write": false,
+            "network_call": false,
+            "ok": true,
+            "runner_executed": false,
+            "service_change": false,
+            "test_id": "T07_NOAPI_RETRY_BOUNDARY",
+            "timer_change": false
+          }
+        ],
+        "warnings": []
+      }
+    },
+    "warnings": []
+  },
+  "stage": "NEWS_CONTINUOUS_PRODUCER_ONE_SHOT_COMPLETION",
+  "tool": "tools/news_continuous_producer_one_shot_v1.py",
+  "warnings": []
+}
