@@ -1,3 +1,5 @@
+# 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
+
 <!-- ERA55_SELECTION_GATE_SYNC_ALMANAC_START -->
 ## ERA55 SELECTION GATE CANONICAL BINDING SYNC
 
@@ -11,7 +13,7 @@
 <!-- ERA55_SELECTION_GATE_SYNC_ALMANAC_END -->
 
 <!-- ERA54_FINAL_CLOSURE_INDEX_SYNC_CURRENT_START -->
-## CANONICAL CURRENT STATE — ERA54 FINAL CLOSURE SYNCED
+## ERA54 FINAL CLOSURE CANONICAL SYNC RECORD
 
 STATE_SYNC_UTC=2026-07-10T12:45:23.567774+00:00
 PREVIOUS_HEAD_BEFORE_CLOSURE_COMMIT=89d7371474aa0772c8d8265b82a712fa4c80c125
@@ -39,7 +41,7 @@ NEXT_SAFE_STEP=NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE
 <!-- ERA54_FINAL_CLOSURE_INDEX_SYNC_CURRENT_END -->
 
 <!-- HBR_CURRENT_ATTEMPT_CLOSE_START -->
-## CANONICAL CURRENT STATE — HBR ATTEMPT CLOSED
+## HBR ATTEMPT CLOSURE RECORD
 
 STATE_SYNC_UTC=2026-07-10T11:28:35.885453+00:00
 PREVIOUS_HEAD_BEFORE_CLOSURE_COMMIT=e7c850dc238cc10af2a2e47966d6bcd0876f592c
@@ -127,8 +129,6 @@ Boundary:
 - Next real software step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`
 - Deadline correction: stop opening micro ERA records; use A/B/C/D inside the active ERA.
 <!-- ERA47_PREFLIGHT_CHAIN_ALMANAC_END -->
-
-# 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
 ## ÖNSÖZ - BİR FİKRİN BAŞLANGICI
 
@@ -235,7 +235,7 @@ Atlas mimari bağı gösterir.
 Index içerik haritasıdır.
 Manifesto doktrindir.
 
-SON_DERLEME_UTC=2026-06-29 09:53:06 UTC
+İLK_CANONICAL_DERLEME_UTC=2026-06-29 09:53:06 UTC
 
 ---
 
@@ -5416,3 +5416,16 @@ Bu eser aşağıdaki canonical rehbere göre geliştirilir:
 - ERA55 opened: `false`
 - Next: `NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE`
 - Technical closure HEAD: `c72995c352a76fe8557de369228f86e6f7d2846e`
+
+---
+
+## ALMANAC RECORD INSERTION AND CORRECTION CONSTITUTION
+
+Yeni tamamlanmış kayıt ilgili PASS, PHASE, V veya ERA ailesinin altında tarihsel sıraya eklenir.
+Yeni doğrulanmış bilgi mevcut Almanac kaydıyla çakışıyorsa, hatalı kayıt kendi yerinde düzeltilir.
+Değiştirilen hatalı kayıt Almanac içinde ikinci bir kopya olarak tutulmaz.
+Aynı kapanış, audit, karar veya senkronizasyon olayı birden fazla bağımsız kayıt olarak eklenmez.
+Yeni ve çakışmayan tamamlanmış kayıt ilgili aile veya kronolojik kayıt alanına yerleştirilir.
+Current state, current gate ve next step ifadeleri yalnız olay tarihindeki tarihsel bağlamı gösterir; güncel durum yetkisi PROJECT_RUNTIME.json dosyasındadır.
+Roadmap yönü, Atlas mimari bağı, Manifesto doktrini ve Index navigation bilgisini taşır; Almanac yalnız gerçekleşmiş olayları ve kanıtlanmış geçmişi kaydeder.
+Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
