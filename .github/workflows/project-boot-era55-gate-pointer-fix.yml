@@ -1,0 +1,91 @@
+name: PROJECT BOOT ERA55 gate pointer fix
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  fix-boot:
+    if: github.head_ref == 'automation/boot-gate-pointer-fix-20260710'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Patch and validate PROJECT_BOOT
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONDONTWRITEBYTECODE=1 python3 - <<'PY'
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import json
+
+          path = Path('PROJECT_BOOT.json')
+          data = json.loads(path.read_text(encoding='utf-8'))
+          ts = datetime.now(timezone.utc).isoformat()
+          instruction = (
+              'Read PROJECT_RUNTIME.json first. ERA54 and the NEWS operational baseline are closed and verified. '
+              'The next safe step is ERA55_SELECTION_GATE under ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME, '
+              'serving V3_RUNTIME_INTELLIGENCE_OS. ERA55_RUNTIME_OPTIMIZATION remains '
+              'PLANNED_CANDIDATE_NOT_OPENED and must not be opened without explicit human authorization. '
+              'Do not reopen HBR, rebuild NEWS from zero, or run tk machine unless explicitly requested.'
+          )
+
+          data['last_completed'] = 'NEWS_READONLY_AUDIT_CLOSURE_20260710'
+          data['new_chat_instruction'] = instruction
+          data.setdefault('new_window_startup_instruction', {})['instruction'] = instruction
+          data['news_current_truth'] = {
+              'status': 'CLOSED_VERIFIED_BOUNDED_RUNTIME',
+              'raw_count': 374,
+              'match_count': 185,
+              'signal_count': 185,
+              'score_count': 185,
+              'raw_without_score': 189,
+              'historical_watermark_excluded': 189,
+              'after_watermark_unresolved': 0,
+              'proven_data_loss_count': 0,
+              'duplicate_uid_count': 0,
+              'bad_trade_flags': 0,
+              'audit_artifact': 'data/control/news_readonly_audit_closure_20260710_v1.json',
+              'next_safe_step': 'ERA55_SELECTION_GATE',
+              'era55_status': 'PLANNED_CANDIDATE_NOT_OPENED',
+              'new_era_opened': False,
+          }
+          data['updated_at'] = ts
+          data['updated_at_utc'] = ts
+          data['work_unit'] = 'NEWS_READONLY_AUDIT_CLOSURE_20260710'
+
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          check = json.loads(path.read_text(encoding='utf-8'))
+          assert check['last_completed'] == 'NEWS_READONLY_AUDIT_CLOSURE_20260710'
+          assert check['next_safe_step']['id'] == 'ERA55_SELECTION_GATE'
+          assert check['news_current_truth']['proven_data_loss_count'] == 0
+          assert check['news_current_truth']['new_era_opened'] is False
+          assert 'NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE' not in check['new_chat_instruction']
+          print('PROJECT_BOOT_GATE_POINTER_VALIDATED')
+          PY
+          git diff --check
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Tokenoskobi GitHub Canonical Sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add PROJECT_BOOT.json
+          git commit -m "PROJECT_BOOT_ERA55_SELECTION_GATE_POINTER_FIX | OK | NO_NEW_ERA"
+          git push origin HEAD:main
+
+      - name: Delete temporary branch
+        if: success()
+        shell: bash
+        run: git push origin --delete automation/boot-gate-pointer-fix-20260710 || true
