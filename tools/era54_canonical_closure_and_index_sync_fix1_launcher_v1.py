@@ -31,6 +31,52 @@ NEW_BOOT = '''    boot['current_checkpoint'] = checkpoint
     boot['last_completed'] = WORK_UNIT
 '''
 
+OLD_PROTOCOL = '''    boot.setdefault('project', {})
+    boot['project']['status'] = 'ACTIVE'
+'''
+
+NEW_PROTOCOL = '''    boot.setdefault('work_unit_protocol', {})
+    boot['work_unit_protocol'].update({
+        'boot_update_position': 'FINAL_CONTENT_MUTATION_BEFORE_ATOMIC_CLOSURE_COMMIT',
+        'closure_rule': (
+            'BOOT and RUNTIME are included in the atomic closure commit. '
+            'The work unit is declared closed only after push, remote verify, and GitHub seal.'
+        ),
+        'mandatory_sequence': [
+            'PLAN',
+            'APPROVAL',
+            'APPLY',
+            'TEST',
+            'AUDIT',
+            'POST_AUDIT',
+            'CLOSURE_DOCUMENT_SYNC',
+            'BOOT_RUNTIME_UPDATE',
+            'COMMIT',
+            'PUSH',
+            'REMOTE_VERIFY',
+            'GITHUB_SEAL',
+            'WORK_UNIT_CLOSED',
+        ],
+        'forbidden': [
+            'Do not mark work unit closed before remote verification.',
+            'Do not start next work unit before GitHub seal.',
+            'Do not rely on chat memory as closure evidence.',
+            'Do not create a second state-only commit when one atomic closure commit is sufficient.',
+        ],
+    })
+    boot.setdefault('project', {})
+    boot['project']['status'] = 'ACTIVE'
+'''
+
+OLD_LOCK_RULE = '''- PROJECT_HISTORY.json is append-only.
+- `tk machine` is not used by the current canonical flow.
+'''
+
+NEW_LOCK_RULE = '''- PROJECT_HISTORY.json is append-only.
+- BOOT and RUNTIME are included in the atomic closure commit; closure is declared only after push and remote verification.
+- `tk machine` is not used by the current canonical flow.
+'''
+
 OLD_HISTORY_STATUS = "            'status': 'CLOSED_READY_FOR_GITHUB_SEAL',\n"
 NEW_HISTORY_STATUS = "            'status': 'CLOSED_VERIFIED_GITHUB_SEALED_BY_ATOMIC_CLOSURE_COMMIT',\n"
 
@@ -77,13 +123,19 @@ def main() -> int:
         )
 
     source = SOURCE.read_text(encoding='utf-8')
-    if source.count(OLD_BOOT) != 1:
-        raise RuntimeError('BOOT_REQUIRED_FIELDS_PATCH_COUNT=' + str(source.count(OLD_BOOT)))
-    if source.count(OLD_HISTORY_STATUS) != 1:
-        raise RuntimeError('HISTORY_STATUS_PATCH_COUNT=' + str(source.count(OLD_HISTORY_STATUS)))
+    replacements = [
+        ('BOOT_REQUIRED_FIELDS_PATCH_COUNT', OLD_BOOT, NEW_BOOT),
+        ('ATOMIC_CLOSURE_PROTOCOL_PATCH_COUNT', OLD_PROTOCOL, NEW_PROTOCOL),
+        ('DOCUMENTATION_LOCK_SEQUENCE_PATCH_COUNT', OLD_LOCK_RULE, NEW_LOCK_RULE),
+        ('HISTORY_STATUS_PATCH_COUNT', OLD_HISTORY_STATUS, NEW_HISTORY_STATUS),
+    ]
+    patched = source
+    for label, old, new in replacements:
+        count = patched.count(old)
+        if count != 1:
+            raise RuntimeError(label + '=' + str(count))
+        patched = patched.replace(old, new, 1)
 
-    patched = source.replace(OLD_BOOT, NEW_BOOT, 1)
-    patched = patched.replace(OLD_HISTORY_STATUS, NEW_HISTORY_STATUS, 1)
     ast.parse(patched, filename=str(SOURCE) + '.fix1')
 
     with tempfile.NamedTemporaryFile(
