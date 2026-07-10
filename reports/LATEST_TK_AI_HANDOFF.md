@@ -1,59 +1,30 @@
-NEW AI: READ THIS FIRST. THIS IS THE SOURCE OF TRUTH FOR TOKENOSKOBI OS.
+# LATEST TK AI HANDOFF
 
-TOKENOSKOBI OS KERNEL BOOTSTRAP v1
-========================================================================
+<!-- HBR_CANONICAL_STATE_SYNC_CURRENT_START -->
+## CANONICAL CURRENT STATE — HBR SYNC CLOSED
 
-ABSOLUTE RULES:
-- Repository/server state is source of truth; AI memory is not.
-- Server workspace and GitHub main must remain mirror-synced.
-- Do not invent roadmap, status, phases, or next steps.
-- If data is missing, say data is missing.
-- Do not open a new ERA unless the user explicitly asks.
-- Do not write code unless the user says Ver/Yap or explicitly asks.
-- All server commands must start with: cd /root/tokenoskobi_clean_v1 || exit 1
-- Prefer one paste-and-run command block.
+STATE_SYNC_UTC=2026-07-10T10:48:41.748229+00:00
+PREVIOUS_HEAD_BEFORE_SYNC_COMMIT=86f4547bd97129e23bb40a57cfeb4a2ff4b6bf89
+CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
+LAST_COMPLETED=HBR_CANONICAL_STATE_SYNC_NOAPI
+LAST_DECISION=OK_HBR_CANONICAL_STATE_SYNC_NOAPI
+HBR_B_SEAL=SOLID
+HBR_C_STATUS=READY_NOT_EXECUTED
+NEXT_SAFE_STEP=HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI
+TEMP_INPUT_NAMESPACE=TEMP_INPUT_NAMESPACE_OK
+PRODUCTION_ADMISSION=HOLD_UID_NAMESPACE_POLICY
+WINDOW_GATE=HOLD
+HISTORICAL_REPLAY_ELIGIBILITY=HOLD_ZERO_ELIGIBLE_INPUT
+COLLISION_RESULT=UNKNOWN_UNTIL_HBR_C
+TK_MACHINE_EXECUTED=false
+ROADMAP_PLANNING_REWRITE=false
+SCHEMA_OR_UID_MUTATION=false
+SHADOW_CLEANUP=false
+<!-- HBR_CANONICAL_STATE_SYNC_CURRENT_END -->
 
-CURRENT CANONICAL STATE:
-- root: /root/tokenoskobi_clean_v1
-- branch: main
-- local_head: ba605ee220ae1058274c8c2ecfb1e10fc9cb697a
-- remote_head: ba605ee220ae1058274c8c2ecfb1e10fc9cb697a
-- head_sync: True
-- git_clean: False
-- active_work_unit: ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI
-- status: CLOSED
-- last_step: None
-- next_step: NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW
-- next_safe_step: {'name': 'NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW', 'status': 'READY'}
+`PROJECT_RUNTIME.json` is current-state authority.
 
-CURRENT PRIORITY ORDER:
-1. Harden Tokenoskobi Kernel / Registry.
-2. Build Core Isolation Map.
-3. Build Lifecycle Controller.
-4. Then resume ERA33 Phase3 Contamination Auditor.
+Proceed only to `HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI`.
 
-ARCHITECTURE DIRECTION:
-- Tokenoskobi is moving to Kernel + Registry + Core Freeze + Plugin architecture.
-- Layers: CONSTITUTION, BOOT, CORE, RUNTIME, STATE, CONFIG, PLUGINS, WORKSPACE, ARCHIVE.
-- New ERA work must become plugin-based.
-- CORE must not change unless CORE_UPGRADE is explicitly opened.
-- Repository must not become a temporary workspace.
-
-IMPORTANT FINDINGS:
-- tk ai uses FASTPATH. Use tk machine for full recursive inventory and graph details.
-- tk registry skips writing when semantic registry content is unchanged.
-- Real code duplicates: 0 according to REAL_CODE_DUPLICATES.json.
-- Repository bloat is mainly data/docs/backups/audit outputs, not Python code.
-
-KNOWN COMMANDS:
-- tk           => human status
-- tk ai        => this bootstrap
-- tk sync      => local/remote sync check
-- tk registry  => refresh TOKENOSKOBI_OS_REGISTRY.json
-- tk machine   => full JSON machine export
-
-WHAT THE NEXT AI SHOULD DO FIRST:
-- Confirm it understood the current state.
-- Do not propose a new ERA.
-- If asked to continue, continue with Kernel/Registry hardening or Core Isolation, not random audits.
-========================================================================
+Do not run TK machine, roadmap repair, schema/UID mutation,
+shadow cleanup, outcome fetch, prediction or production DB write.
