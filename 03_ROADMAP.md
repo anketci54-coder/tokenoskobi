@@ -1,260 +1,8 @@
-<!-- ERA55_SELECTION_GATE_BINDING_START -->
-## ERA55 SELECTION GATE — CURRENT NEXT STEP
-
-- Gate: `ERA55_SELECTION_GATE`
-- Parent: `ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME`
-- Serves: `V3_RUNTIME_INTELLIGENCE_OS`
-- Purpose: Select `ERA55_RUNTIME_OPTIMIZATION`, another major project line, or hold without opening a new ERA.
-- ERA55 status: `PLANNED_CANDIDATE_NOT_OPENED`
-- Human authorization required: `true`
-- New ERA opened: `false`
-<!-- ERA55_SELECTION_GATE_BINDING_END -->
-
-<!-- ERA54_FINAL_CLOSURE_INDEX_SYNC_CURRENT_START -->
-## CANONICAL CURRENT STATE — ERA54 FINAL CLOSURE SYNCED
-
-STATE_SYNC_UTC=2026-07-10T12:45:23.567774+00:00
-PREVIOUS_HEAD_BEFORE_CLOSURE_COMMIT=89d7371474aa0772c8d8265b82a712fa4c80c125
-TECHNICAL_CLOSURE_HEAD=c72995c352a76fe8557de369228f86e6f7d2846e
-CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
-LAST_COMPLETED=ERA54_CANONICAL_CLOSURE_AND_INDEX_SYNC_NOAPI
-LAST_DECISION=OK_ERA54_CANONICAL_CLOSURE_AND_INDEX_SYNC_NOAPI
-CURRENT_ERA=ERA54
-ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
-NEWS_OPERATIONAL_BASELINE=CLOSED_VERIFIED_BOUNDED_RUNTIME
-NATURAL_TIMER_FULL_CYCLE=OBSERVED_VERIFIED
-RAW_COUNT=372
-MATCH_COUNT=184
-SIGNAL_COUNT=184
-SCORE_COUNT=184
-MARKET_INDICATOR_COUNT=39
-ADVERSARIAL_COUNT=59
-HOT_QUEUE_COUNT=50
-HOT_QUEUE_BOUND=50
-PANEL_BRIDGE_DECISION=OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED
-INDEX_STATUS=CANONICAL_NAVIGATION_CORRECTED
-ERA_CLOSURE_DOCUMENT_SET=COMPLETE
-ERA55_OPENED=false
-NEXT_SAFE_STEP=ERA55_SELECTION_GATE
-<!-- ERA54_FINAL_CLOSURE_INDEX_SYNC_CURRENT_END -->
-
-<!-- HBR_CURRENT_ATTEMPT_CLOSE_START -->
-## CANONICAL CURRENT STATE — HBR ATTEMPT CLOSED
-
-STATE_SYNC_UTC=2026-07-10T11:28:35.885453+00:00
-PREVIOUS_HEAD_BEFORE_CLOSURE_COMMIT=e7c850dc238cc10af2a2e47966d6bcd0876f592c
-CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
-LAST_COMPLETED=HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI
-LAST_DECISION=OK_HBR_SOURCE_WINDOW_CLOSE_DECISION_NOAPI
-HBR_CLOSE_CHOICE=CLOSE_CURRENT_HBR_ATTEMPT_NO_WINDOW_REPAIR
-HBR_CURRENT_ATTEMPT_STATUS=CLOSED_INCONCLUSIVE_ZERO_ELIGIBLE_INPUT
-HBR_C_COLLISION_RESULT=NO_PRODUCTION_COLLISION
-SEALED_INPUT_COUNT=55
-LOCKED_WINDOW_ELIGIBLE_COUNT=0
-SOURCE_WINDOW_REPAIR_NOW=false
-HBR_B_RESEAL_NOW=false
-HBR_D_PREDICTION_RUN=false
-HBR_E_OUTCOME_FETCH=false
-HBR_F_SCORE_COMPARISON=false
-FUTURE_HBR_RETRY=BACKLOG_ARCHIVE_CAPABLE_SOURCE_NEW_SEAL_REQUIRED
-NEXT_SAFE_STEP=POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI
-TK_MACHINE_EXECUTED=false
-DB_OR_SCHEMA_MUTATION=false
-<!-- HBR_CURRENT_ATTEMPT_CLOSE_END -->
-
-<!-- ERA54_FINAL_CLOSURE_ROADMAP_START -->
-## ERA54 HOT INGRESS STANDALONE SCAFFOLD — CLOSED
-
-UPDATED_UTC: 2026-07-08T17:25:07+00:00
-
-Status: CLOSED_VERIFIED_NOAPI
-
-Closed items:
-- ERA54A scope/fix lock.
-- ERA54B standalone scaffold apply plan.
-- ERA54C minimal standalone scaffold dry-run.
-- ERA54D static and boundary audit.
-- ERA54F final closure.
-
-Result:
-- Minimal HOT ingress standalone scaffold exists.
-- Synthetic happy/duplicate/poison/noisy/conflicting events are covered.
-- Runtime import boundary is clean.
-- No API, DB, service, panel, wallet or trade change exists.
-
-Next safe step:
-- USER_APPROVED_NEXT_STEP_AFTER_ERA54_CLOSURE
-<!-- ERA54_FINAL_CLOSURE_ROADMAP_END -->
-
-<!-- ERA53_FINAL_CLOSE_ROADMAP_START -->
-## ERA53 FINAL CLOSE - HOT INTELLIGENCE INGRESS GATEWAY
-
-- Updated UTC: 2026-07-08T16:20:47.630453+00:00
-- Status: FINAL_CLOSED
-- Final seal: `data/control/era53_final_close_seal_noapi_v1.json`
-- Final head: `cd4c043bf79840b69b95ec38ad85ba4dada2502a`
-- Closed scope: HOT ingress minimal contract, canonical state sync, docs-only apply, final docs-only rule.
-- Next: `ERA54_PLAN_ONLY_IF_USER_REQUESTS`
-- Rule: small docs-only work uses single JSON seal only. No unnecessary extra doc/review loop.
-<!-- ERA53_FINAL_CLOSE_ROADMAP_END -->
-
-<!-- ERA52_READONLY_SCAFFOLD_CLOSURE_START -->
-## ERA52 READONLY SCAFFOLD CLOSURE — 2026-07-08T11:06:16.159789Z
-
-- Status: CLOSED
-- Scope: minimal read-only scaffold only
-- Module: `tools/discipline_layer_readonly_scaffold_v1.py`
-- Artifact: `data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json`
-- Next product line: `NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW`
-
-Rule: do not expand Discipline Layer before NEWS stabilization is closed.
-<!-- ERA52_READONLY_SCAFFOLD_CLOSURE_END -->
-
-<!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
-## CANONICAL GENERAL WORKFLOW RULES LOCK
-
-Updated UTC: `2026-07-08T10:48:50.680029Z`
-
-These rules are mandatory for every new ChatGPT window.
-
-### Startup
-
-Read in this order:
-
-1. `PROJECT_RUNTIME.json`
-2. `PROJECT_BOOT.json`
-3. `06_PROJECT_MASTER_STATE.md`
-4. `07_PROJECT_HANDOFF.md`
-5. `02_MANIFESTO.md`
-6. `03_ROADMAP.md`
-
-### General Main Line Rule
-
-- A main line is a real software/module milestone, major repair line, or major architecture line.
-- A main line must contain related work only.
-- Whatever the main line is called, do not create micro main lines for plan, apply, test, audit, review, risk decision, Go/No-Go, seal, documentation cleanup, state normalization, minor fix, or minor addition.
-- Internal work must stay under the same main line unless the split rule below applies.
-
-### Split Rule
-
-- Prefer one main line.
-- If one related topic is too large for one controlled closure, it may be split into 2-3 sibling main lines.
-- Splitting is allowed only with explicit reason, such as:
-  - scope is too large,
-  - risk profile is materially different,
-  - runtime/database/panel/service/integration impact areas are different,
-  - testing and audit must be independent,
-  - one main line would slow delivery instead of helping it.
-- More than 3 sibling main lines requires consolidation review before continuing.
-- If unsure whether to split, keep the work in the same main line and use A/B/C/D or A_1/A_2 first.
-
-### A/B/C/D Rule
-
-Use A/B/C/D/E/F under the same main line:
-
-- `A` = plan or scope
-- `B` = apply or build
-- `C` = test or dry-run
-- `D` = audit or review
-- `E` = external review if needed
-- `F` = GitHub seal or closure
-
-Examples:
-
-- `ERA52A_PLAN`
-- `ERA52B_APPLY`
-- `ERA52C_TEST`
-- `ERA52D_AUDIT`
-- `PHASE61A_PLAN`
-- `PHASE61B_APPLY`
-- `REPAIR_LINE_A_SCOPE`
-- `REPAIR_LINE_B_FIX`
-
-### Nested Number Rule
-
-Use numbering only inside the same letter when that exact sub-area needs smaller parts:
-
-- `ERA52B_1_FILE_LAYOUT`
-- `ERA52B_2_READONLY_CONTRACT`
-- `ERA52B_3_DRYRUN_WIRING`
-
-If numbering grows beyond `_3`, stop and consolidate before continuing.
-
-### Fix / Addition Rule
-
-Fixes stay under the relevant letter:
-
-- `ERA52B_FIX_1_READONLY_GUARD`
-- `ERA52C_FIX_1_TEST_EXPECTATION`
-
-Additions stay under the relevant letter:
-
-- `ERA52B_ADD_1_CONTRACT_FIELD`
-- `ERA52D_ADD_1_AUDIT_CHECK`
-
-A fix or addition becomes a new main line only if it is genuinely a new major module.
-
-### Current Consolidation
-
-- `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI` is the parent chain.
-- Old `ERA48` is historical alias for `ERA47B`.
-- Old `ERA49` is historical alias for `ERA47C`.
-- Old `ERA50` is historical alias for `ERA47D`.
-- Old `ERA51` is historical alias for `ERA47E`.
-- These old labels are not active work lanes.
-
-### Deadline Rule
-
-- Prefer small working code over repeated decision documents.
-- Reduce documents.
-- Reduce labels.
-- Avoid repeated gate chains.
-- The next real work must deliver minimal read-only scaffold, not another planning chain.
-
-### Safety Rule
-
-- `PROJECT_RUNTIME.json` is source of truth.
-- Human approval required.
-- AI trade authority is zero.
-- Live trade locked.
-- Paper trade locked until explicit phase.
-- No Runtime, DB, panel, service, timer, deploy mutation unless explicitly in scope.
-<!-- CANONICAL_WORKFLOW_RULES_LOCK_END -->
-
-<!-- ERA47_PREFLIGHT_CHAIN_CANONICAL_VIEW_START -->
-## CURRENT CANONICAL ROADMAP VIEW — 2026-07-08T10:34:05.417432Z
-
-`ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI` is the single parent for the previous preflight work.
-
-Canonical mapping:
-
-- `ERA47A` = plan validation
-- `ERA47B` = reachability classification
-- `ERA47C` = false-positive / active surface review
-- `ERA47D` = active runtime risk decision
-- `ERA47E` = implementation Go/No-Go
-
-Old labels are historical aliases:
-
-- old `ERA48` -> `ERA47B`
-- old `ERA49` -> `ERA47C`
-- old `ERA50` -> `ERA47D`
-- old `ERA51` -> `ERA47E`
-
-Current execution rule:
-
-- Do not open new micro ERA records.
-- Use A/B/C/D under the same ERA.
-- Use A_1/A_2 only when the same sub-area truly needs it.
-- Next real software step: `ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI`.
-- ERA52 must deliver minimal read-only scaffold, not another documentation chain.
-<!-- ERA47_PREFLIGHT_CHAIN_CANONICAL_VIEW_END -->
-
 # 03 ROADMAP - TOKENOSKOBI / COINOSKOBI MASTER ROADMAP
 
 Bu dosya projenin yön haritasıdır.
 
-Roadmap yalnızca ana yönü gösterir.
+Roadmap yalnızca ana yönü, açık seçim kapılarını ve henüz açılmamış gelecek hatlarını gösterir.
 
 Detaylı tarihçe Almanac içindedir.
 
@@ -262,7 +10,7 @@ Mimari bağ haritası Atlas içindedir.
 
 Anlık durum PROJECT_RUNTIME.json ve 06_PROJECT_MASTER_STATE.md içindedir.
 
-Roadmap içinde alt basamak, audit, JSON içeriği, HEAD, timestamp, GitHub logu, dosya listesi veya operasyon dökümü tutulmaz.
+Roadmap içinde alt basamak, audit, JSON içeriği, HEAD, timestamp, GitHub logu, dosya listesi, kapanış dökümü veya operasyon ayrıntısı tutulmaz.
 
 ---
 
@@ -277,6 +25,9 @@ Roadmap içinde alt basamak, audit, JSON içeriği, HEAD, timestamp, GitHub logu
 - Runtime does not grant wallet authority
 - Runtime does not grant signing authority
 - Runtime does not create real orders
+- Measure before optimize
+- Capability before expansion
+- One major capability per ERA
 
 ---
 
@@ -300,6 +51,7 @@ Rolling roadmap policy:
 - Future V = strategic detail
 - When a V closes, next V is expanded
 - Closed ERA/V is immutable
+- New ERA requires explicit human authorization
 
 Full detailed V1-V8 roadmap source:
 
@@ -344,7 +96,6 @@ Amaç:
 - Decision pipeline
 - Conflict resolver
 - State machine
-- End-to-end dry-run decision chain
 
 Durum:
 
@@ -352,7 +103,7 @@ V2 closed.
 
 ---
 
-## V3 - RUNTIME CONTINUATION
+## V3 - RUNTIME INTELLIGENCE OS
 
 Amaç:
 
@@ -371,16 +122,39 @@ Amaç:
 - Predictive intelligence
 - AI orchestration and veto gate
 - Continuous evolution and modular health layer
+- Hot intelligence ingress
+- Bounded queue and panel bridge
+- Runtime optimization
 
 Durum:
 
 V3 active.
 
-Current state source:
+Current major-line selection gate:
+
+- `ERA55_SELECTION_GATE`
+- Parent line: `ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME`
+- Candidate major line: `ERA55_RUNTIME_OPTIMIZATION`
+- Candidate status: `PLANNED_CANDIDATE_NOT_OPENED`
+- Human authorization required: `true`
+- New ERA opened: `false`
+
+ERA55 candidate direction:
+
+- End-to-end latency observability
+- Timer wait and queue residence measurement
+- Runner execution measurement
+- Derived write and panel propagation measurement
+- Queue saturation review
+- Cache and IO review
+- Query plan and index review
+- Hot-path optimization without security, power or economy regression
+
+Current state authority:
 
 `PROJECT_RUNTIME.json`
 
-Detailed roadmap source:
+Detailed roadmap authority:
 
 `data/tokenoskobi_v1_v8_master_era_roadmap.json`
 
@@ -494,8 +268,8 @@ Final doktrin:
 
 Her V / ERA kapanışında:
 
-- Roadmap yalnızca ana yön veya V-line durumu değiştiyse güncellenir.
-- Almanac detaylı tarihçe için güncellenir.
+- Roadmap yalnızca ana yön, V-line durumu veya açılmamış major-line seçeneği değiştiyse güncellenir.
+- Almanac detaylı tarihçe ve kapanış kayıtları için güncellenir.
 - Atlas yalnızca yeni mimari bağlantı varsa güncellenir.
 - Project Master State güncel durum için güncellenir.
 - Handoff gerekiyorsa güncellenir.
@@ -513,64 +287,15 @@ Roadmap içinde tutulmayacak içerikler:
 - Dosya adı listeleri
 - Uzun key/value state yığınları
 - Operasyon dökümleri
-- Current next work unit
-- Closure marker
+- Ayrıntılı kapanış kayıtları
+- Geçici runtime ölçümleri
 
 Bu içerikler Almanac, PROJECT_RUNTIME.json, 06_PROJECT_MASTER_STATE.md veya ilgili canonical kaynak dosyada tutulur.
 
-## ERA42 Final Close — 2026-07-07T10:34:59.172133+00:00
-- Status: CLOSED
-- Final gate: PASS_ERA42_FINAL_REVIEW_AND_CANONICAL_CLOSE_NOAPI
-- Next: ERA43_NEWS_SHADOW_REALTIME_READONLY_REAL_RUN_PLAN_NOAPI
-- Health: root/database size check recorded.
+## ROADMAP DIRECTION INSERTION AND REPLACEMENT CONSTITUTION
 
-
-## ERA44 Final Close — 2026-07-08T05:04:37.765358+00:00
-- Status: CLOSED
-- Final gate: PASS_ERA44_FINAL_REVIEW_AND_CANONICAL_CLOSE_NOAPI
-- Next: ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI
-- Health: root/database size check recorded.
-
-
-## ERA44 Final Close — 2026-07-08T05:05:45.104744+00:00
-- Status: CLOSED
-- Final gate: PASS_ERA44_FINAL_REVIEW_AND_CANONICAL_CLOSE_NOAPI
-- Next: ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI
-- Health: root/database size check recorded.
-
-
-## ERA44 Final Close — 2026-07-08T05:08:46.042076+00:00
-- Status: CLOSED
-- Final gate: PASS_ERA44_FINAL_REVIEW_AND_CANONICAL_CLOSE_NOAPI
-- Next: ERA45_CODEX_FULL_VERIFICATION_AUDIT_NOAPI
-- Health: root/database size check recorded.
-
-## CURRENT ROADMAP UPDATE — 2026-07-08T09:33:39.212698Z
-- `ERA46_ENGINE_INTERFACE_CONTRACT_NOAPI` closed.
-- `ERA46_DISCIPLINE_LAYER_PLAN_NOAPI` closed as plan-only.
-- Next: `ERA47_DISCIPLINE_LAYER_VALIDATION_NOAPI`.
-- Implementation remains blocked until validation.
-
-## CURRENT ROADMAP UPDATE — 2026-07-08T10:03:11.060911Z
-- `ERA48_REACHABILITY_CLASSIFICATION_NOAPI` closed.
-- Decision: `WARN_ACTIVE_RED_REQUIRES_REVIEW`.
-- Next: `ERA49_ACTIVE_SURFACE_REVIEW_NOAPI`.
-- Implementation remains blocked until active RED/UNKNOWN findings are reviewed.
-
-## CURRENT ROADMAP UPDATE — 2026-07-08T10:11:02.446239Z
-- `ERA50_ACTIVE_RUNTIME_RISK_DECISION_NOAPI` closed.
-- Decision: `PASS_RISK_DECIDED_NO_DISCIPLINE_BLOCKER`.
-- Next: `ERA51_DISCIPLINE_IMPLEMENTATION_GO_NOGO_NOAPI`.
-- ERA50 does not authorize implementation; separate Go/No-Go review required.
-
-<!-- ERA54_FINAL_CANONICAL_CLOSURE_ENTRY_V1 -->
-## ERA54 FINAL CANONICAL CLOSURE
-
-- Actual scope: `Hot Intelligence Ingress Bounded Runtime`
-- Status: `CLOSED_VERIFIED_BOUNDED_RUNTIME`
-- Technical closure HEAD: `c72995c352a76fe8557de369228f86e6f7d2846e`
-- Natural timer cycle: `OBSERVED_VERIFIED`
-- NEWS operational baseline: `CLOSED_VERIFIED_BOUNDED_RUNTIME`
-- Master-roadmap old ERA54 title `Massive Scale Processing` is preserved only as historical planning metadata.
-- ERA55 is not opened.
-- Next: `ERA55_SELECTION_GATE`
+Yeni onaylı bir yön mevcut roadmap yönüyle çakışıyorsa, mevcut yön kendi V-line veya başlık konumunda yeni yönle değiştirilir.
+Değiştirilen eski yön roadmap içinde ikinci bir kopya olarak tutulmaz; tarihsel kayıt gerekiyorsa Almanac veya PROJECT_HISTORY.json içinde korunur.
+Yeni onaylı yön roadmap içinde mevcut değilse ve hiçbir mevcut yönle çakışmıyorsa, ilgili V-line veya zaman ufku altında eklenir.
+Yeni yön sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; roadmap içindeki doğru gelecek katmanına yerleştirilir.
+Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
