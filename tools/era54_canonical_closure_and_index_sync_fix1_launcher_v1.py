@@ -80,6 +80,21 @@ NEW_LOCK_RULE = '''- PROJECT_HISTORY.json is append-only.
 OLD_HISTORY_STATUS = "            'status': 'CLOSED_READY_FOR_GITHUB_SEAL',\n"
 NEW_HISTORY_STATUS = "            'status': 'CLOSED_VERIFIED_GITHUB_SEALED_BY_ATOMIC_CLOSURE_COMMIT',\n"
 
+OLD_CHANGED_GATE = '''    changed = set(git_output('diff', '--name-only').splitlines())
+    expected_changed = set(ALL_CHANGED_FILES)
+'''
+
+NEW_CHANGED_GATE = '''    changed = set(git_output('diff', '--name-only').splitlines())
+    changed.update(
+        git_output(
+            'ls-files',
+            '--others',
+            '--exclude-standard',
+        ).splitlines()
+    )
+    expected_changed = set(ALL_CHANGED_FILES)
+'''
+
 
 def git_blob(path: Path) -> str:
     completed = subprocess.run(
@@ -128,6 +143,7 @@ def main() -> int:
         ('ATOMIC_CLOSURE_PROTOCOL_PATCH_COUNT', OLD_PROTOCOL, NEW_PROTOCOL),
         ('DOCUMENTATION_LOCK_SEQUENCE_PATCH_COUNT', OLD_LOCK_RULE, NEW_LOCK_RULE),
         ('HISTORY_STATUS_PATCH_COUNT', OLD_HISTORY_STATUS, NEW_HISTORY_STATUS),
+        ('UNTRACKED_CONTROL_ARTIFACT_GATE_PATCH_COUNT', OLD_CHANGED_GATE, NEW_CHANGED_GATE),
     ]
     patched = source
     for label, old, new in replacements:
@@ -136,13 +152,13 @@ def main() -> int:
             raise RuntimeError(label + '=' + str(count))
         patched = patched.replace(old, new, 1)
 
-    ast.parse(patched, filename=str(SOURCE) + '.fix1')
+    ast.parse(patched, filename=str(SOURCE) + '.fix2')
 
     with tempfile.NamedTemporaryFile(
         mode='w',
         encoding='utf-8',
         suffix='.py',
-        prefix='era54_closure_sync_fix1_',
+        prefix='era54_closure_sync_fix2_',
         dir='/tmp',
         delete=False,
     ) as handle:
@@ -168,7 +184,7 @@ def main() -> int:
         if completed.returncode != 0:
             return completed.returncode
         atomic_write(SOURCE, patched)
-        print('ERA54_CLOSURE_SYNC_SOURCE_FIX1_APPLIED=OK')
+        print('ERA54_CLOSURE_SYNC_SOURCE_FIX2_APPLIED=OK')
         return 0
     finally:
         temporary.unlink(missing_ok=True)
