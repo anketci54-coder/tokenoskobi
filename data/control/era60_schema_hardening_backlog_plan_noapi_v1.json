@@ -1,0 +1,305 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false,
+    "trade_authority": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "decision": "OK_ERA60_SCHEMA_HARDENING_BACKLOG_PLAN_NOAPI",
+  "failures": [],
+  "generated_at_utc": "2026-07-10T07:49:20.379322+00:00",
+  "next": "HISTORICAL_BLIND_REPLAY_PLAN_NOAPI",
+  "result": {
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade_authority": false
+    },
+    "blind_replay_rule": {
+      "input_first": true,
+      "next_stage": "HISTORICAL_BLIND_REPLAY_PLAN_NOAPI",
+      "outcome_labels_after_input_seal": true,
+      "prediction_before_result_fetch": true,
+      "score_comparison_last": true
+    },
+    "compile_verifier": {
+      "rc": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "db_counts": {
+      "news_raw_feed_events": 360,
+      "news_score_events_v1": 173,
+      "news_signal_events": 173,
+      "news_token_match_events": 173
+    },
+    "decision": "OK_ERA60_SCHEMA_HARDENING_BACKLOG_PLAN_NOAPI",
+    "existing_schema": {
+      "news_conflict_resolution_events_exists": false,
+      "news_event_hash_registry_exists": false,
+      "news_quarantine_events_exists": false,
+      "news_raw_feed_events_columns": [
+        "news_uid",
+        "source_uid",
+        "published_at_utc",
+        "title",
+        "url_hash",
+        "raw_hash",
+        "fetched_at_utc"
+      ],
+      "news_score_events_v1_columns": [
+        "score_uid",
+        "news_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "news_token_relevance_score_100",
+        "news_risk_score_100",
+        "news_fusion_score_100",
+        "importance_label",
+        "risk_label",
+        "fusion_label",
+        "explanation",
+        "created_at_utc"
+      ],
+      "news_signal_events_columns": [
+        "signal_uid",
+        "news_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "signal_type",
+        "signal_strength",
+        "signal_label",
+        "source_match_uid",
+        "evidence_text",
+        "created_at_utc"
+      ],
+      "news_token_match_events_columns": [
+        "match_uid",
+        "news_uid",
+        "source_uid",
+        "token_uid",
+        "pair_uid",
+        "symbol",
+        "chain",
+        "match_type",
+        "match_confidence",
+        "match_score",
+        "match_reasons_json",
+        "evidence_text",
+        "is_duplicate",
+        "write_allowed",
+        "trade_signal",
+        "paper_signal",
+        "created_at_utc"
+      ]
+    },
+    "fail_count": 0,
+    "failures": [],
+    "generated_at_utc": "2026-07-10T07:49:20.241953+00:00",
+    "hardening_backlog": {
+      "ERA60A_EVENT_HASH_BACKLOG": {
+        "acceptance": [
+          "event_hash deterministic",
+          "event_hash reproducible from canonical row fields",
+          "no existing row identity rewritten without backup",
+          "backfill uses tempdb dryrun before real apply"
+        ],
+        "currently_missing": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "purpose": "Add deterministic event_hash to NEWS raw and derived event rows for tamper/collision detection.",
+        "status": "PLANNED_NO_SCHEMA_CHANGE_IN_THIS_STEP",
+        "target_tables": [
+          "news_raw_feed_events",
+          "news_token_match_events",
+          "news_signal_events",
+          "news_score_events_v1"
+        ]
+      },
+      "ERA60B_QUARANTINE_BACKLOG": {
+        "acceptance": [
+          "quarantine_uid deterministic",
+          "source news_uid retained",
+          "reason_code required",
+          "no trade authority",
+          "quarantine can be reviewed without runtime writes"
+        ],
+        "currently_exists": false,
+        "purpose": "Route unclassified/conflicting NEWS items into quarantine instead of polluting runtime tables.",
+        "status": "PLANNED_NO_SCHEMA_CHANGE_IN_THIS_STEP",
+        "target_table": "news_quarantine_events_v1"
+      },
+      "ERA60C_CONFLICT_RESOLUTION_BACKLOG": {
+        "acceptance": [
+          "conflict_uid deterministic",
+          "conflict_type required",
+          "routing HOLD/QUARANTINE/OBSERVE/OK required",
+          "policy_verifier compatible",
+          "bounded recent-window audit only"
+        ],
+        "currently_exists": false,
+        "purpose": "Record duplicate/conflicting sources, symbol conflicts, stale items, and policy routing decisions.",
+        "status": "PLANNED_NO_SCHEMA_CHANGE_IN_THIS_STEP",
+        "target_table": "news_conflict_resolution_events_v1"
+      },
+      "ERA60D_BLIND_REPLAY_GATE": {
+        "acceptance": [
+          "input fetched before outcome labels",
+          "input manifest SHA sealed",
+          "prediction run writes predictions before result fetch",
+          "result fetch happens only after input/prediction seal",
+          "score comparison happens last"
+        ],
+        "next_stage": "HISTORICAL_BLIND_REPLAY_PLAN_NOAPI",
+        "purpose": "Open blind historical replay only after policy lock and schema-hardening backlog are canonically recorded.",
+        "status": "PLANNED_NO_SCHEMA_CHANGE_IN_THIS_STEP"
+      }
+    },
+    "next": "HISTORICAL_BLIND_REPLAY_PLAN_NOAPI",
+    "ok_count": 7,
+    "policy_json": "runtime/policies/news_runtime_policy_lock_v1.json",
+    "policy_json_sha256": "dd968cfd2e7045afedcd589cb4d856e1505e3722ab41bfb2e8f6ff863bae9296",
+    "policy_verifier": "tools/news_runtime_policy_verifier_v1.py",
+    "policy_verifier_sha256": "95c48441de6ffc541f453fc28d69e63c03bc6429e6c47a15eb6282862c826cbf",
+    "prior": "data/control/news_runtime_policy_lock_repair_noapi_v1.json",
+    "sqlite_integrity": "ok",
+    "stage": "ERA60_SCHEMA_HARDENING_BACKLOG_PLAN_NOAPI",
+    "stage_order": [
+      "ERA60A_EVENT_HASH_BACKLOG_PLAN_NOAPI",
+      "ERA60B_QUARANTINE_BACKLOG_PLAN_NOAPI",
+      "ERA60C_CONFLICT_RESOLUTION_BACKLOG_PLAN_NOAPI",
+      "ERA60D_HISTORICAL_BLIND_REPLAY_GATE_PLAN_NOAPI"
+    ],
+    "test_count": 7,
+    "tests": [
+      {
+        "ok": true,
+        "test_id": "T01_PRIOR_POLICY_LOCK_REPAIR_OK"
+      },
+      {
+        "ok": true,
+        "test_id": "T02_POLICY_VERIFIER_OK",
+        "verifier_decision": "OK_NEWS_RUNTIME_POLICY_VERIFIER_V1"
+      },
+      {
+        "integrity": "ok",
+        "ok": true,
+        "test_id": "T03_SQLITE_READONLY_INTEGRITY_OK"
+      },
+      {
+        "event_hash_missing": {
+          "news_raw_feed_events": true,
+          "news_score_events_v1": true,
+          "news_signal_events": true,
+          "news_token_match_events": true
+        },
+        "ok": true,
+        "test_id": "T04_EVENT_HASH_BACKLOG_IDENTIFIED"
+      },
+      {
+        "conflict_exists": false,
+        "ok": true,
+        "quarantine_exists": false,
+        "test_id": "T05_QUARANTINE_AND_CONFLICT_BACKLOG_IDENTIFIED"
+      },
+      {
+        "ok": true,
+        "test_id": "T06_BLIND_REPLAY_GATE_DEFINED"
+      },
+      {
+        "api_call": false,
+        "db_schema_change": false,
+        "db_write": false,
+        "live_trade": false,
+        "network_call": false,
+        "ok": true,
+        "paper_trade": false,
+        "service_change": false,
+        "test_id": "T07_NOAPI_BOUNDARY_LOCKED",
+        "timer_change": false,
+        "trade_authority": false
+      }
+    ],
+    "verifier_result": {
+      "authority": {
+        "api_call": false,
+        "db_schema_change": false,
+        "db_write": false,
+        "index_creation": false,
+        "live_trade": false,
+        "network_call": false,
+        "nginx_change": false,
+        "paper_trade": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade_authority": false
+      },
+      "bad_flags": 0,
+      "bounded_window_only": true,
+      "counts": {
+        "news_raw_feed_events": 360,
+        "news_score_events_v1": 173,
+        "news_signal_events": 173,
+        "news_token_match_events": 173
+      },
+      "decision": "OK_NEWS_RUNTIME_POLICY_VERIFIER_V1",
+      "derived_recent_counts": {
+        "news_score_events_v1": 173,
+        "news_signal_events": 173,
+        "news_token_match_events": 173
+      },
+      "failures": [],
+      "generated_at_utc": "2026-07-10T07:49:20.342773+00:00",
+      "integrity": "ok",
+      "policy_id": "NEWS_RUNTIME_POLICY_LOCK_V1",
+      "recent_duplicates": [],
+      "recent_limit": 500,
+      "recent_orphans": {
+        "news_score_events_v1": [],
+        "news_signal_events": [],
+        "news_token_match_events": []
+      },
+      "recent_raw_uid_count": 360,
+      "repair_id": "NEWS_RUNTIME_POLICY_LOCK_REPAIR_NOAPI_V1",
+      "routing": {
+        "hold_required": false,
+        "quarantine_required": false,
+        "route": "OK"
+      },
+      "stage": "NEWS_RUNTIME_POLICY_VERIFIER_V1",
+      "uid_policy_violations": [],
+      "warnings": []
+    },
+    "warnings": []
+  },
+  "stage": "ERA60_SCHEMA_HARDENING_BACKLOG_PLAN_NOAPI",
+  "tool": "tools/era60_schema_hardening_backlog_plan_noapi_v1.py",
+  "warnings": []
+}
