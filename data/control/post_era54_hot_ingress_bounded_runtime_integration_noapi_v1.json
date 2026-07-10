@@ -1,0 +1,162 @@
+{
+  "stage": "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI",
+  "generated_at_utc": "2026-07-10T11:41:45.442938+00:00",
+  "decision": "OK_POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI",
+  "decision_id": "POST_ERA54__HOT_INGRESS_BOUND_RUNTIME__49824938a074__2026-07-10T11:41:45.442938+00:00",
+  "previous_head_before_closure_commit": "49824938a074e51842d35dd2640f22dbd92f4277",
+  "authority": {
+    "api_call": false,
+    "network_call": false,
+    "db_read": true,
+    "db_write": false,
+    "db_schema_change": false,
+    "service_change": false,
+    "timer_change": false,
+    "panel_data_write": true,
+    "panel_html_change": false,
+    "hunter_authorized": false,
+    "trade_signal": false,
+    "paper_signal": false,
+    "live_trade": false,
+    "execution_authority": false,
+    "new_era_opened": false,
+    "runtime_output_index_hygiene": true
+  },
+  "failures": [],
+  "warnings": [],
+  "next": "POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
+  "result": {
+    "hbr_status": "CLOSED_INCONCLUSIVE_ZERO_ELIGIBLE_INPUT",
+    "era54_status": "CLOSED_VERIFIED_NOAPI",
+    "integration_status": "BOUND_HOT_ONLY_EXECUTION_VERIFIED",
+    "active_wrapper": "tools/news_radar_refresh_runner_v1.py",
+    "runtime_refresh_tool": "tools/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.py",
+    "runtime_chain": [
+      "news_coverage_readmodel_consumer_v1.py",
+      "news_coverage_panel_display_adapter_v1.py",
+      "hot_intelligence_ingress_gateway_v1.py",
+      "news_active_panel_data_bridge_v1.py"
+    ],
+    "runtime_order": "RAW_AND_DERIVED_SUCCESS_THEN_BOUNDED_HOT_REFRESH",
+    "fail_policy": "HOT_REFRESH_NONZERO_PROPAGATES_TO_RUNNER",
+    "hot_only_test": {
+      "rc": 0,
+      "stdout": "{\"adversarial_count\": 57, \"decision\": \"OK_NEWS_HOT_INGRESS_BOUNDED_RUNTIME_REFRESH_V1\", \"failures\": [], \"hot_queue_count\": 50, \"market_indicator_count\": 38, \"output\": \"/root/tokenoskobi_clean_v1/runtime/state/news_hot_ingress_bounded_runtime_refresh_v1.json\", \"panel_bridge_decision\": \"OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED\"}",
+      "state_decision": "OK_NEWS_HOT_INGRESS_BOUNDED_RUNTIME_REFRESH_V1"
+    },
+    "direct_test": {
+      "rc": 0,
+      "stdout": "{\"adversarial_count\": 57, \"decision\": \"OK_NEWS_HOT_INGRESS_BOUNDED_RUNTIME_REFRESH_V1\", \"failures\": [], \"hot_queue_count\": 50, \"market_indicator_count\": 38, \"output\": \"/root/tokenoskobi_clean_v1/runtime/state/news_hot_ingress_bounded_runtime_refresh_v1.json\", \"panel_bridge_decision\": \"OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED\"}",
+      "state_decision": "OK_NEWS_HOT_INGRESS_BOUNDED_RUNTIME_REFRESH_V1"
+    },
+    "db_before": {
+      "query_only": true,
+      "total_changes": 0,
+      "integrity": "ok",
+      "missing_tables": [],
+      "counts": {
+        "news_raw_feed_events": 368,
+        "news_token_match_events": 181,
+        "news_signal_events": 181,
+        "news_score_events_v1": 181,
+        "news_runtime_freshness_v1": 3
+      }
+    },
+    "db_after": {
+      "query_only": true,
+      "total_changes": 0,
+      "integrity": "ok",
+      "missing_tables": [],
+      "counts": {
+        "news_raw_feed_events": 368,
+        "news_token_match_events": 181,
+        "news_signal_events": 181,
+        "news_score_events_v1": 181,
+        "news_runtime_freshness_v1": 3
+      }
+    },
+    "db_delta": {
+      "news_raw_feed_events": 0,
+      "news_token_match_events": 0,
+      "news_signal_events": 0,
+      "news_score_events_v1": 0,
+      "news_runtime_freshness_v1": 0
+    },
+    "coverage_jsonl_sha_before": {
+      "market": "cb80386e8153f04fa63a6dfd92d6ed5e41b6d3a839e87008a2aac34ddf763932",
+      "adversarial": "7cec2d33c09b9a71346b92fc38d8e0bd955e92d182c0dfefef029b1f9c0af696"
+    },
+    "coverage_jsonl_sha_after": {
+      "market": "cb80386e8153f04fa63a6dfd92d6ed5e41b6d3a839e87008a2aac34ddf763932",
+      "adversarial": "7cec2d33c09b9a71346b92fc38d8e0bd955e92d182c0dfefef029b1f9c0af696"
+    },
+    "market_indicator_count": 38,
+    "adversarial_count": 57,
+    "hot_queue_count": 50,
+    "hot_queue_bound": 50,
+    "panel_bridge_decision": "OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED",
+    "service_snapshot": {
+      "tokenoskobi-news-radar-refresh.service": {
+        "active": "inactive",
+        "active_rc": 3,
+        "enabled": "static",
+        "enabled_rc": 0
+      },
+      "tokenoskobi-news-radar-refresh.timer": {
+        "active": "active",
+        "active_rc": 0,
+        "enabled": "enabled",
+        "enabled_rc": 0
+      }
+    },
+    "runtime_output_index_hygiene": {
+      "completed": true,
+      "tracked_before": [
+        "active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json",
+        "active_panel_8096/current/data/news_active_panel_data_bridge_manifest_v1.json",
+        "active_panel_8096/current/data/news_adversarial_latest_v1.json",
+        "active_panel_8096/current/data/news_coverage_panel_display_v1.json",
+        "active_panel_8096/current/data/news_coverage_readmodel_consumer_summary_v1.json",
+        "active_panel_8096/current/data/news_market_indicator_latest_v1.json",
+        "active_panel_8096/current/data/news_producer_health_watch_and_hot_gateway_review_v1.json",
+        "active_panel_8096/current/data/news_runtime_stabilization_review_v1.json",
+        "runtime/state/hot_intelligence_ingress_gateway_v1.json",
+        "runtime/state/news_active_panel_data_bridge_v1.json",
+        "runtime/state/news_adversarial_events_v1.jsonl",
+        "runtime/state/news_adversarial_latest_v1.json",
+        "runtime/state/news_coverage_panel_display_v1.html",
+        "runtime/state/news_coverage_panel_display_v1.json",
+        "runtime/state/news_coverage_readmodel_consumer_summary_v1.json",
+        "runtime/state/news_market_indicator_events_v1.jsonl",
+        "runtime/state/news_market_indicator_latest_v1.json"
+      ],
+      "tracked_after": [],
+      "local_files_preserved": true,
+      "gitignore_updated": true,
+      "paths": [
+        "runtime/state/news_market_indicator_events_v1.jsonl",
+        "runtime/state/news_adversarial_events_v1.jsonl",
+        "runtime/state/news_coverage_readmodel_consumer_summary_v1.json",
+        "runtime/state/news_market_indicator_latest_v1.json",
+        "runtime/state/news_adversarial_latest_v1.json",
+        "runtime/state/news_coverage_panel_display_v1.json",
+        "runtime/state/news_coverage_panel_display_v1.html",
+        "runtime/state/hot_intelligence_ingress_gateway_v1.json",
+        "runtime/state/news_active_panel_data_bridge_v1.json",
+        "active_panel_8096/current/data/news_coverage_readmodel_consumer_summary_v1.json",
+        "active_panel_8096/current/data/news_market_indicator_latest_v1.json",
+        "active_panel_8096/current/data/news_adversarial_latest_v1.json",
+        "active_panel_8096/current/data/news_coverage_panel_display_v1.json",
+        "active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json",
+        "active_panel_8096/current/data/news_runtime_stabilization_review_v1.json",
+        "active_panel_8096/current/data/news_producer_health_watch_and_hot_gateway_review_v1.json",
+        "active_panel_8096/current/data/news_active_panel_data_bridge_manifest_v1.json"
+      ],
+      "git_rm_stdout": "rm 'active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json'\nrm 'active_panel_8096/current/data/news_active_panel_data_bridge_manifest_v1.json'\nrm 'active_panel_8096/current/data/news_adversarial_latest_v1.json'\nrm 'active_panel_8096/current/data/news_coverage_panel_display_v1.json'\nrm 'active_panel_8096/current/data/news_coverage_readmodel_consumer_summary_v1.json'\nrm 'active_panel_8096/current/data/news_market_indicator_latest_v1.json'\nrm 'active_panel_8096/current/data/news_producer_health_watch_and_hot_gateway_review_v1.json'\nrm 'active_panel_8096/current/data/news_runtime_stabilization_review_v1.json'\nrm 'runtime/state/hot_intelligence_ingress_gateway_v1.json'\nrm 'runtime/state/news_active_panel_data_bridge_v1.json'\nrm 'runtime/state/news_adversarial_events_v1.jsonl'\nrm 'runtime/state/news_adversarial_latest_v1.json'\nrm 'runtime/state/news_coverage_panel_display_v1.html'\nrm 'runtime/state/news_coverage_panel_display_v1.json'\nrm 'runtime/state/news_coverage_readmodel_consumer_summary_v1.json'\nrm 'runtime/state/news_market_indicator_events_v1.jsonl'\nrm 'runtime/state/news_market_indicator_latest_v1.json'"
+    },
+    "service_file_changed": false,
+    "timer_file_changed": false,
+    "full_timer_cycle_observed_after_binding": false,
+    "next_safe_step": "POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI"
+  }
+}
