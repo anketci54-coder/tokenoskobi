@@ -14,7 +14,7 @@ import subprocess
 
 ROOT = Path('/root/tokenoskobi_clean_v1')
 DB = ROOT / 'data/tokenoskobi_clean_v1.sqlite'
-EXPECTED_HEAD = 'badcbf0890e07da40aa0a8f032e6ee16f43a527f'
+EXPECTED_HEAD = 'd9b6c8bc95217b7161694a73903fe4e8e676be93'
 WORK_UNIT = 'HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI'
 DECISION = 'OK_HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI'
 
