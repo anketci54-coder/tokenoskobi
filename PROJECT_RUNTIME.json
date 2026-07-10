@@ -5,16 +5,20 @@
     "mode": "WARN_ONLY",
     "no_new_canonical_files": true,
     "owners": {
-      "03_ROADMAP.md": "human_roadmap",
-      "04_ALMANAC.md": "closed_work_register",
+      "03_ROADMAP.md": "future_direction",
+      "04_ALMANAC.md": "completed_work_history",
       "05_ATLAS.md": "architecture_map",
       "06_PROJECT_MASTER_STATE.md": "master_state_summary",
       "07_PROJECT_HANDOFF.md": "handoff_boot_context",
       "PROJECT_HISTORY.json": "history_log",
       "PROJECT_RUNTIME.json": "runtime_state",
-      "data/tokenoskobi_v1_v8_master_era_roadmap.json": "v1_v8_era_roadmap"
+      "data/tokenoskobi_v1_v8_master_era_roadmap.json": "v1_v8_era_roadmap",
+      "README.md": "short_startup_pointer",
+      "01_INDEX.md": "canonical_navigation",
+      "02_MANIFESTO.md": "constitutional_doctrine",
+      "PROJECT_BOOT.json": "stable_boot_contract"
     },
-    "rule": "Each canonical file has exactly one ownership purpose. Wrong-writer detection starts in WARN mode; FAIL mode is future step.",
+    "rule": "Each canonical file has exactly one ownership purpose. Conflicting content is replaced in the owner file; duplicate canonical state copies are forbidden.",
     "work_unit": "ERA23E_CANONICAL_OWNERSHIP_ENFORCEMENT"
   },
   "canonical_workflow_rules": {
@@ -23,25 +27,6 @@
       "github_seal_only_at_logical_closure": true,
       "single_commit_when_possible": true,
       "single_push_when_possible": true
-    },
-    "current_consolidation_policy": {
-      "historical_aliases": {
-        "ERA48": "ERA47B",
-        "ERA49": "ERA47C",
-        "ERA50": "ERA47D",
-        "ERA51": "ERA47E"
-      },
-      "parent": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-      "rule": "Historical aliases remain for audit trail only; they are not active work lanes."
-    },
-    "deadline_policy": {
-      "avoid_repeated_gate_chains": true,
-      "deadline_mode": true,
-      "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "next_step_requirement": "The next real work must deliver minimal read-only scaffold, not another planning chain.",
-      "priority": "small working code over repeated decision documents",
-      "reduce_documents": true,
-      "reduce_labels": true
     },
     "fix_add_policy": {
       "addition_format": "<MAIN_LINE><LETTER>_ADD_1, <MAIN_LINE><LETTER>_ADD_2",
@@ -144,7 +129,8 @@
       "06_PROJECT_MASTER_STATE.md",
       "07_PROJECT_HANDOFF.md",
       "02_MANIFESTO.md",
-      "03_ROADMAP.md"
+      "03_ROADMAP.md",
+      "PROJECT_HISTORY.json only if historical context is required"
     ],
     "status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
     "substep_policy": {
@@ -181,15 +167,20 @@
       ],
       "forbidden_new_label_word": "PASS",
       "reason": "The forbidden word is reserved for older project history and must not be used in new work labels or command outputs."
+    },
+    "delivery_policy": {
+      "prefer_small_working_code_over_repeated_decision_documents": true,
+      "reduce_documents": true,
+      "reduce_labels": true,
+      "avoid_repeated_gate_chains": true,
+      "no_transient_next_step_in_general_policy": true
     }
   },
   "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal.",
   "current_checkpoint": {
     "git_branch": "main",
-    "previous_head_before_closure_commit": "266e32a9f40b03ff9607decd2cb7df3863cbac7a",
-    "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
-    "head_semantics": "PREVIOUS_HEAD_BEFORE_ERA55_SELECTION_GATE_CANONICAL_SYNC_COMMIT",
-    "source": "github_remote"
+    "source": "local_workspace_then_local_git_then_github",
+    "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD"
   },
   "current_era": "ERA54",
   "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
@@ -452,34 +443,6 @@
     "ERA55 remains PLANNED_CANDIDATE_NOT_OPENED and requires explicit human authorization.",
     "Risk is minimized, never zero."
   ],
-  "post_era42_claude_audit": {
-    "fixed_now": [
-      "era_close.py_future_current_state_sync",
-      "era_close.py_cli_validation_and_shell_false_git_commands",
-      "PROJECT_RUNTIME_current_state_synced_after_ERA42"
-    ],
-    "must_verify_before_era43_real_run": [
-      "canonical_schema_implementation_status",
-      "news_matcher_zero_result_root_cause"
-    ],
-    "status": "TRIAGED",
-    "triage_artifact": "data/control/post_era42_claude_audit_triage_noapi_v1.json"
-  },
-  "process_compaction": {
-    "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-    "new_canonical_substeps": [
-      "ERA47A",
-      "ERA47B",
-      "ERA47C",
-      "ERA47D",
-      "ERA47E"
-    ],
-    "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-    "old_names_are_historical_aliases": true,
-    "range": "ERA47_TO_ERA51",
-    "status": "CONSOLIDATED",
-    "updated_at_utc": "2026-07-08T10:34:05.417432Z"
-  },
   "project_status": "ACTIVE_NEWS_OPERATIONAL_BASELINE_CLOSED_SELECTION_GATE_READY",
   "recent_event": {
     "timestamp": "2026-07-10T14:02:44.985843+00:00",
@@ -823,5 +786,48 @@
     "new_era_opened": false,
     "next_safe_step": "ERA55_SELECTION_GATE",
     "closed_at_utc": "2026-07-10T13:43:00+00:00"
+  },
+  "current_state_contract": {
+    "runtime_is_primary_machine_authority": true,
+    "master_state_is_human_summary": true,
+    "handoff_is_continuation_context": true,
+    "boot_contains_stable_contract_only": true,
+    "history_is_append_only": true,
+    "git_head_is_dynamic": true
+  },
+  "canonical_document_condition": {
+    "README.md": "SHORT_STARTUP_POINTER_ONLY",
+    "01_INDEX.md": "NAVIGATION_ONLY",
+    "02_MANIFESTO.md": "DOCTRINE_ONLY",
+    "03_ROADMAP.md": "FUTURE_DIRECTION_ONLY",
+    "04_ALMANAC.md": "HISTORY_ONLY",
+    "05_ATLAS.md": "ARCHITECTURE_MAP_ONLY",
+    "06_PROJECT_MASTER_STATE.md": "CURRENT_SUMMARY_ONLY",
+    "07_PROJECT_HANDOFF.md": "CONTINUATION_CONTEXT_ONLY",
+    "PROJECT_BOOT.json": "STABLE_BOOT_CONTRACT_ONLY",
+    "PROJECT_RUNTIME.json": "CURRENT_MACHINE_STATE_AUTHORITY",
+    "PROJECT_HISTORY.json": "APPEND_ONLY_HISTORY"
+  },
+  "documentation_normalization": {
+    "event_id": "ROOT_CANONICAL_REMAINING_SCOPE_NORMALIZATION_V1",
+    "status": "CLOSED_VERIFIED",
+    "normalized_at_utc": "2026-07-10T15:59:48.209051+00:00",
+    "files_normalized": [
+      "02_MANIFESTO.md",
+      "03_ROADMAP.md",
+      "04_ALMANAC.md",
+      "05_ATLAS.md",
+      "06_PROJECT_MASTER_STATE.md",
+      "07_PROJECT_HANDOFF.md",
+      "PROJECT_BOOT.json",
+      "PROJECT_RUNTIME.json"
+    ],
+    "files_verified_unchanged": [
+      "README.md",
+      "01_INDEX.md",
+      "PROJECT_HISTORY.json"
+    ],
+    "new_era_opened": false,
+    "next_safe_step_unchanged": true
   }
 }

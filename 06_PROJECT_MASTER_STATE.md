@@ -182,7 +182,7 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 - `ERA55_RUNTIME_OPTIMIZATION` remains a candidate and is not opened.
 - No new major project line exists without explicit human authorization.
 - Runtime risk is minimized, never zero.
-- `PROJECT_RUNTIME.json` contains some historical workflow metadata; current-state fields override historical metadata.
+- `PROJECT_RUNTIME.json` keeps current state plus explicitly labeled bounded historical evidence; current-state fields remain authoritative.
 - Git HEAD must be read dynamically from Git and must not be embedded as a self-referential current value in this file.
 
 ---

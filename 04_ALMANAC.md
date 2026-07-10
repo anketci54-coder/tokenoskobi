@@ -5419,6 +5419,21 @@ Bu eser aşağıdaki canonical rehbere göre geliştirilir:
 
 ---
 
+## ROOT CANONICAL REMAINING SCOPE NORMALIZATION
+
+- UTC: `2026-07-10T15:59:48.209051+00:00`
+- Status: `CLOSED_VERIFIED`
+- `07_PROJECT_HANDOFF.md` reduced to continuation context only.
+- `PROJECT_BOOT.json` reduced to stable boot contract only.
+- `PROJECT_RUNTIME.json` transient workflow metadata normalized.
+- `06_PROJECT_MASTER_STATE.md` aligned with the runtime contract.
+- `01_INDEX.md` verified unchanged as navigation only.
+- `PROJECT_HISTORY.json` preserved as append-only history.
+- Next safe step remains `ERA55_SELECTION_GATE`.
+- New ERA opened: `false`.
+
+---
+
 ## ALMANAC RECORD INSERTION AND CORRECTION CONSTITUTION
 
 Yeni tamamlanmış kayıt ilgili PASS, PHASE, V veya ERA ailesinin altında tarihsel sıraya eklenir.

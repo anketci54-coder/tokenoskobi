@@ -17,8 +17,8 @@
   "boot_architecture": {
     "files": {
       "PROJECT_BOOT.json": "Stable identity, doctrine, architecture, hard rules and startup protocol.",
-      "PROJECT_HISTORY.json": "Append-only historical timeline. Read only when historical context is required.",
-      "PROJECT_RUNTIME.json": "Current state, latest checkpoint, active work unit and next safe step. Updated after every sealed work unit."
+      "PROJECT_RUNTIME.json": "Current state, latest verified work, active or closed work unit and next safe step.",
+      "PROJECT_HISTORY.json": "Append-only historical timeline. Read only when historical context is required."
     },
     "model": "THREE_LAYER_BOOT_SYSTEM",
     "new_window_read_order": [
@@ -30,27 +30,32 @@
       "03_ROADMAP.md",
       "PROJECT_HISTORY.json only if historical context is required"
     ],
-    "rule": "RUNTIME is current-state authority. BOOT is stable doctrine. HISTORY is append-only and read only when historical context is required."
+    "rule": "RUNTIME owns current state. BOOT owns stable identity and rules. HISTORY owns append-only historical events.",
+    "current_state_forbidden_in_boot": true
   },
   "boot_update_policy": {
-    "failure_message": "BOOT_NOT_UPDATED_CONTINUATION_UNSAFE",
-    "required_fields_on_each_update": [
-      "updated_at",
-      "current_checkpoint",
-      "last_action",
-      "next_safe_step",
-      "open_risks",
-      "work_unit"
+    "update_only_when": [
+      "stable project identity changes",
+      "constitutional doctrine changes",
+      "stable architecture ownership changes",
+      "hard safety rules change",
+      "startup read order changes",
+      "boot contract changes"
     ],
-    "when_to_update": [
-      "after commit",
-      "after push",
-      "after remote verify",
-      "after GitHub seal",
-      "immediately before declaring work unit closed"
-    ]
+    "do_not_update_for": [
+      "current work unit",
+      "current ERA or gate",
+      "next safe step",
+      "runtime counts",
+      "Git HEAD",
+      "timestamps",
+      "audit results",
+      "closure records"
+    ],
+    "current_state_owner": "PROJECT_RUNTIME.json",
+    "history_owner": "PROJECT_HISTORY.json"
   },
-  "boot_version": "2.0",
+  "boot_version": "3.0",
   "canonical_identity": {
     "doctrine": [
       "Defense like a fortress",
@@ -82,25 +87,6 @@
       "github_seal_only_at_logical_closure": true,
       "single_commit_when_possible": true,
       "single_push_when_possible": true
-    },
-    "current_consolidation_policy": {
-      "historical_aliases": {
-        "ERA48": "ERA47B",
-        "ERA49": "ERA47C",
-        "ERA50": "ERA47D",
-        "ERA51": "ERA47E"
-      },
-      "parent": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-      "rule": "Historical aliases remain for audit trail only; they are not active work lanes."
-    },
-    "deadline_policy": {
-      "avoid_repeated_gate_chains": true,
-      "deadline_mode": true,
-      "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "next_step_requirement": "The next real work must deliver minimal read-only scaffold, not another planning chain.",
-      "priority": "small working code over repeated decision documents",
-      "reduce_documents": true,
-      "reduce_labels": true
     },
     "fix_add_policy": {
       "addition_format": "<MAIN_LINE><LETTER>_ADD_1, <MAIN_LINE><LETTER>_ADD_2",
@@ -203,7 +189,8 @@
       "06_PROJECT_MASTER_STATE.md",
       "07_PROJECT_HANDOFF.md",
       "02_MANIFESTO.md",
-      "03_ROADMAP.md"
+      "03_ROADMAP.md",
+      "PROJECT_HISTORY.json only if historical context is required"
     ],
     "status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
     "substep_policy": {
@@ -240,6 +227,13 @@
       ],
       "forbidden_new_label_word": "PASS",
       "reason": "The forbidden word is reserved for older project history and must not be used in new work labels or command outputs."
+    },
+    "delivery_policy": {
+      "prefer_small_working_code_over_repeated_decision_documents": true,
+      "reduce_documents": true,
+      "reduce_labels": true,
+      "avoid_repeated_gate_chains": true,
+      "no_transient_next_step_in_boot": true
     }
   },
   "core_architecture": {
@@ -286,38 +280,6 @@
       }
     ]
   },
-  "current_checkpoint": {
-    "git_branch": "main",
-    "previous_head_before_closure_commit": "266e32a9f40b03ff9607decd2cb7df3863cbac7a",
-    "source": "github_remote"
-  },
-  "current_problem": null,
-  "current_work_unit": {
-    "id": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
-    "type": "POST_ERA54_READONLY_VERIFICATION_CLOSURE",
-    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
-    "artifact": "data/control/news_readonly_audit_closure_20260710_v1.json",
-    "status": "CLOSED",
-    "next_step": "ERA55_SELECTION_GATE"
-  },
-  "documentation_status": {
-    "desired_direction": "Consolidate and reduce, not expand.",
-    "problem": "Documentation became too broad and fragmented.",
-    "root_canonical_files_expected": [
-      "README.md",
-      "01_INDEX.md",
-      "02_MANIFESTO.md",
-      "03_ROADMAP.md",
-      "04_ALMANAC.md",
-      "05_ATLAS.md",
-      "06_PROJECT_MASTER_STATE.md",
-      "07_PROJECT_HANDOFF.md",
-      "PROJECT_BOOT.json",
-      "PROJECT_RUNTIME.json",
-      "PROJECT_HISTORY.json"
-    ],
-    "rule_now": "Do not create new canonical documentation when an existing owner file can be updated."
-  },
   "engine_relationships": {
     "Evidence Engine": "Stores evidence for both Hunter and Prosecutor",
     "Guardian": "Final constitutional safety gate",
@@ -328,92 +290,6 @@
     "Unknown Anomaly Engine": "Detects unknown attack patterns",
     "Whale Intelligence": "Provides wallet/entity intelligence"
   },
-  "era_status": {
-    "handoff_preview": [
-      "<!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->",
-      "## CANONICAL ACTIVE STATE — ERA20 SEALED",
-      "",
-      "STATE_SYNC_UTC=20260701T101455Z",
-      "",
-      "CURRENT_CANONICAL_BASE_HEAD=65b8936621f451bc1e7adb5b272190d93b3b650b",
-      "CURRENT_ALIGNMENT_SEAL_HEAD=e824585a7c898fd9be1c7c87526a8184891a3eca",
-      "CURRENT_ERA=ERA20",
-      "ERA20_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-      "LAST_COMPLETED=PASS_SHADOW_AUDIT_READONLY",
-      "CURRENT_HEAD=79ca5ce17c46bfdbf551ebc7235520c22f7a4648",
-      "REMOTE_SYNC=PASS",
-      "HARD_FAIL_COUNT=0",
-      "SHADOW_AUDIT_READONLY_STATUS=PASS",
-      "NEXT_SAFE_STEP=USER_APPROVED_NEXT_ERA_OR_POST_SEAL_MAINTENANCE",
-      "",
-      "PROJECT_MODE=CANONICAL_V1_CERTIFICATION_SEALED",
-      "V1_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-      "V2_STATUS=HISTORICAL_CONTROLLED_CONTINUATION",
-      "RUNTIME_SLICE_STATUS=HISTORICAL_UNDER_ERA_CHAIN",
-      "",
-      "LIVE_TRADE=false",
-      "PAPER_TRADE=false",
-      "WALLET=false",
-      "SIGNING=false",
-      "REAL_ORDER=false",
-      "ORDER_CREATE=false",
-      "AI_AUTHORITY=0",
-      "TRADE_AUTHORITY=0",
-      "",
-      "CANONICAL_RULE=TOP_ACTIVE_STATE_OVERRIDES_HISTORICAL_ENTRIES",
-      "HISTORICAL_ENTRIES_REMAIN_FOR_AUDIT_TRAIL=true",
-      "<!-- CANONICAL_ACTIVE_STATE_CURRENT_END -->",
-      "",
-      "",
-      "<!-- DOC_RESTRUCTURE_ALIGNMENT_START -->",
-      "## CANONICAL DOCUMENTATION RESTRUCTURE ALIGNMENT",
-      "",
-      "STATE_SYNC_UTC=20260629T105235Z",
-      ""
-    ],
-    "master_state_preview": [
-      "<!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->",
-      "## CANONICAL ACTIVE STATE — ERA20 SEALED",
-      "",
-      "STATE_SYNC_UTC=20260701T101455Z",
-      "",
-      "CURRENT_CANONICAL_BASE_HEAD=65b8936621f451bc1e7adb5b272190d93b3b650b",
-      "CURRENT_ALIGNMENT_SEAL_HEAD=e824585a7c898fd9be1c7c87526a8184891a3eca",
-      "CURRENT_ERA=ERA20",
-      "ERA20_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-      "LAST_COMPLETED=PASS_SHADOW_AUDIT_READONLY",
-      "CURRENT_HEAD=79ca5ce17c46bfdbf551ebc7235520c22f7a4648",
-      "REMOTE_SYNC=PASS",
-      "HARD_FAIL_COUNT=0",
-      "SHADOW_AUDIT_READONLY_STATUS=PASS",
-      "NEXT_SAFE_STEP=USER_APPROVED_NEXT_ERA_OR_POST_SEAL_MAINTENANCE",
-      "",
-      "PROJECT_MODE=CANONICAL_V1_CERTIFICATION_SEALED",
-      "V1_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-      "V2_STATUS=HISTORICAL_CONTROLLED_CONTINUATION",
-      "RUNTIME_SLICE_STATUS=HISTORICAL_UNDER_ERA_CHAIN",
-      "",
-      "LIVE_TRADE=false",
-      "PAPER_TRADE=false",
-      "WALLET=false",
-      "SIGNING=false",
-      "REAL_ORDER=false",
-      "ORDER_CREATE=false",
-      "AI_AUTHORITY=0",
-      "TRADE_AUTHORITY=0",
-      "",
-      "CANONICAL_RULE=TOP_ACTIVE_STATE_OVERRIDES_HISTORICAL_ENTRIES",
-      "HISTORICAL_ENTRIES_REMAIN_FOR_AUDIT_TRAIL=true",
-      "<!-- CANONICAL_ACTIVE_STATE_CURRENT_END -->",
-      "",
-      "",
-      "<!-- DOC_RESTRUCTURE_ALIGNMENT_START -->",
-      "## CANONICAL DOCUMENTATION RESTRUCTURE ALIGNMENT",
-      "",
-      "STATE_SYNC_UTC=20260629T105235Z",
-      ""
-    ]
-  },
   "hard_rules": {
     "ai_has_no_trade_authority": true,
     "human_approval_required": true,
@@ -423,18 +299,12 @@
     "no_new_features_until_boot_verified": true,
     "no_new_markdown_bloat": true,
     "no_repo_changes_without_risk_analysis": true,
-    "paper_trade_locked_until_explicit_phase": true
-  },
-  "last_action": {
-    "timestamp": "2026-07-10T14:02:44.985843+00:00",
-    "task": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
-    "result": "OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED",
-    "artifact": "data/control/news_readonly_audit_closure_20260710_v1.json"
-  },
-  "last_completed": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
-  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. ERA54 and the NEWS operational baseline are closed and verified. The next safe step is ERA55_SELECTION_GATE under ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME, serving V3_RUNTIME_INTELLIGENCE_OS. ERA55_RUNTIME_OPTIMIZATION remains PLANNED_CANDIDATE_NOT_OPENED and must not be opened without explicit human authorization. Do not reopen HBR, rebuild NEWS from zero, or run tk machine unless explicitly requested.",
-  "new_window_startup_instruction": {
-    "instruction": "Read PROJECT_RUNTIME.json first. ERA54 and the NEWS operational baseline are closed and verified. The next safe step is ERA55_SELECTION_GATE under ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME, serving V3_RUNTIME_INTELLIGENCE_OS. ERA55_RUNTIME_OPTIMIZATION remains PLANNED_CANDIDATE_NOT_OPENED and must not be opened without explicit human authorization. Do not reopen HBR, rebuild NEWS from zero, or run tk machine unless explicitly requested."
+    "paper_trade_locked_until_explicit_phase": true,
+    "boot_contains_no_current_state": true,
+    "runtime_is_current_state_authority": true,
+    "history_is_append_only": true,
+    "no_legacy_startup_filenames": true,
+    "no_duplicate_canonical_documents": true
   },
   "new_window_startup_test": {
     "must_answer": [
@@ -455,77 +325,12 @@
     ],
     "pass_score": "14/14"
   },
-  "news_current_truth": {
-    "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "raw_count": 374,
-    "match_count": 185,
-    "signal_count": 185,
-    "score_count": 185,
-    "raw_without_score": 189,
-    "historical_watermark_excluded": 189,
-    "after_watermark_unresolved": 0,
-    "proven_data_loss_count": 0,
-    "duplicate_uid_count": 0,
-    "bad_trade_flags": 0,
-    "audit_artifact": "data/control/news_readonly_audit_closure_20260710_v1.json",
-    "next_safe_step": "ERA55_SELECTION_GATE",
-    "era55_status": "PLANNED_CANDIDATE_NOT_OPENED",
-    "new_era_opened": false
-  },
-  "news_intelligence": {
-    "known_counts_from_prior_audit": {
-      "news_raw_feed_events": 151,
-      "news_score_events_v1": 0,
-      "news_signal_events": 0,
-      "news_token_match_events": 0
-    },
-    "known_issue": "Runtime had INVALIDARGUMENT history and timer/inactive issue; must be re-verified from local state before claims."
-  },
-  "next_safe_step": {
-    "id": "ERA55_SELECTION_GATE",
-    "type": "MAJOR_LINE_SELECTION_GATE",
-    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
-    "serves": "V3_RUNTIME_INTELLIGENCE_OS",
-    "purpose": "Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.",
-    "candidate_next_line": "ERA55_RUNTIME_OPTIMIZATION",
-    "candidate_status": "PLANNED_CANDIDATE_NOT_OPENED",
-    "human_authorization_required": true,
-    "new_era_opened": false,
-    "allowed_decisions": [
-      "OPEN_ERA55_RUNTIME_OPTIMIZATION",
-      "SELECT_ANOTHER_MAJOR_PROJECT_LINE",
-      "HOLD_NO_NEW_MAJOR_LINE"
-    ],
-    "status": "READY"
-  },
-  "open_risks": [
-    "ERA55_SELECTION_GATE is ready but unresolved; no major project line is selected yet.",
-    "ERA55 remains PLANNED_CANDIDATE_NOT_OPENED and requires explicit human authorization.",
-    "Risk is minimized, never zero."
-  ],
-  "process_compaction": {
-    "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-    "new_canonical_substeps": [
-      "ERA47A",
-      "ERA47B",
-      "ERA47C",
-      "ERA47D",
-      "ERA47E"
-    ],
-    "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-    "old_names_are_historical_aliases": true,
-    "range": "ERA47_TO_ERA51",
-    "status": "CONSOLIDATED",
-    "updated_at_utc": "2026-07-08T10:34:05.417432Z"
-  },
   "project": {
     "local_path": "/root/tokenoskobi_clean_v1",
-    "mode": "ERA54_CANONICAL_CLOSURE_AND_INDEX_SYNC_CLOSED",
     "name": "Tokenoskobi",
-    "repo": "anketci54-coder/tokenoskobi",
-    "status": "ACTIVE"
+    "repo": "anketci54-coder/tokenoskobi"
   },
-  "purpose": "Single machine-readable startup file for new ChatGPT windows. Use this before reading any other project file.",
+  "purpose": "Stable machine-readable identity, doctrine, architecture, hard rules and startup contract. This file contains no current work unit, next safe step, runtime counts, Git HEAD, timestamps or closure records.",
   "single_push_policy": {
     "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify.",
     "policy": "Git live HEAD is the source for current commit identity. PROJECT_RUNTIME.json stores last observed metadata and workflow position.",
@@ -535,15 +340,17 @@
   },
   "source_files": {
     "required": [
-      "NEW_CHAT_PROMPT.md",
-      "OKU.md",
+      "README.md",
       "01_INDEX.md",
       "02_MANIFESTO.md",
       "03_ROADMAP.md",
       "04_ALMANAC.md",
       "05_ATLAS.md",
       "06_PROJECT_MASTER_STATE.md",
-      "07_PROJECT_HANDOFF.md"
+      "07_PROJECT_HANDOFF.md",
+      "PROJECT_BOOT.json",
+      "PROJECT_RUNTIME.json",
+      "PROJECT_HISTORY.json"
     ]
   },
   "source_of_truth": {
@@ -555,12 +362,6 @@
     ],
     "rule": "Local server state overrides GitHub Remote and AI memory."
   },
-  "startup_priority": [
-    "PROJECT_RUNTIME.json",
-    "PROJECT_MASTER_STATE.md",
-    "PROJECT_HANDOFF.md",
-    "data/control/news_f_final_operational_seal_with_known_warnings_v1.json"
-  ],
   "tokenoskobi_motto_opportunity_cost_doctrine": {
     "decision_gate": {
       "accept_if": [
@@ -704,5 +505,31 @@
       "HOLD_NO_NEW_MAJOR_LINE"
     ],
     "status": "READY"
+  },
+  "documentation_contract": {
+    "one_purpose_one_canonical_file": true,
+    "no_new_canonical_file_when_owner_exists": true,
+    "owners": {
+      "README.md": "short_startup_pointer",
+      "01_INDEX.md": "canonical_navigation",
+      "02_MANIFESTO.md": "constitutional_doctrine",
+      "03_ROADMAP.md": "future_direction",
+      "04_ALMANAC.md": "completed_work_history",
+      "05_ATLAS.md": "architecture_map",
+      "06_PROJECT_MASTER_STATE.md": "current_human_summary",
+      "07_PROJECT_HANDOFF.md": "continuation_context",
+      "PROJECT_BOOT.json": "stable_boot_contract",
+      "PROJECT_RUNTIME.json": "current_runtime_state",
+      "PROJECT_HISTORY.json": "append_only_history"
+    },
+    "replacement_rule": "Conflicting information replaces the old information in the owning file. Non-conflicting information is inserted into the correct section of the owning file.",
+    "format_rule": "Existing writing style, heading order, spacing and formatting remain unchanged unless explicitly approved by the user."
+  },
+  "git_identity_policy": {
+    "head_source": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+    "single_commit_when_possible": true,
+    "single_push_when_possible": true,
+    "remote_verify_required": true,
+    "rule": "Tracked canonical files must not embed the hash of their own future commit."
   }
 }
