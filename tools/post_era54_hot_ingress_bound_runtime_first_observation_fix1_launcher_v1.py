@@ -4,7 +4,6 @@ from __future__ import annotations
 from pathlib import Path
 import argparse
 import ast
-import hashlib
 import os
 import subprocess
 import sys
@@ -12,7 +11,7 @@ import tempfile
 
 ROOT = Path('/root/tokenoskobi_clean_v1')
 SOURCE = ROOT / 'tools/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.py'
-EXPECTED_SOURCE_SHA256 = '4cf454118b8f3d43c69981ce94cff49c42608dfae0842f657b92f1988ea6f85d'
+EXPECTED_SOURCE_BLOB = '9c3f90b1a5028e0c71ce3a52b89e7e7adf013f40'
 
 OLD = '''    integration_service = integration_service_snapshot.get(
         SERVICE,
@@ -58,8 +57,15 @@ NEW = '''    service_sha_before = systemd_before['service'].get('FragmentSHA256'
 '''
 
 
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def git_blob(path: Path) -> str:
+    completed = subprocess.run(
+        ['git', 'hash-object', str(path)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    return completed.stdout.strip()
 
 
 def main() -> int:
@@ -70,13 +76,13 @@ def main() -> int:
     if not SOURCE.is_file():
         raise RuntimeError('SOURCE_OBSERVER_MISSING')
 
-    actual_sha = sha256(SOURCE)
-    if actual_sha != EXPECTED_SOURCE_SHA256:
+    actual_blob = git_blob(SOURCE)
+    if actual_blob != EXPECTED_SOURCE_BLOB:
         raise RuntimeError(
-            'SOURCE_SHA_MISMATCH:expected='
-            + EXPECTED_SOURCE_SHA256
+            'SOURCE_BLOB_MISMATCH:expected='
+            + EXPECTED_SOURCE_BLOB
             + ':actual='
-            + actual_sha
+            + actual_blob
         )
 
     source = SOURCE.read_text(encoding='utf-8')
