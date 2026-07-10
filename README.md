@@ -30,3 +30,4 @@ Canonical navigation için `01_INDEX.md` kullanılır.
 - Canlı trade, wallet signing, order creation ve AI trade authority kilitlidir.
 - GitHub incelemesi önce; server yalnız local/runtime kanıtı gerektiğinde kullanılır.
 - `tk machine` güncel canonical akışta çalıştırılmaz.
+- Manifestoya eklenecek onaylı bir kural mevcut kuralla çakışıyorsa eski kuralın yerinde onun yerine geçer; manifestoda bulunmayan yeni kural en sona eklenir; mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirme korunur.
