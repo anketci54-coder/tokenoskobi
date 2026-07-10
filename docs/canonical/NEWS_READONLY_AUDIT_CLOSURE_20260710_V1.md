@@ -41,4 +41,17 @@ All 189 raw rows without scores were at or before the latest derived watermark. 
 - Historical backfill: `HOLD_NOT_REQUIRED`
 - Runner refactor: `HOLD_NOT_REQUIRED`
 - Disposition ledger: `HOLD_NOT_REQUIRED_FROM_THIS_AUDIT`
-- Next safe step: `NEXT_MAJOR_PROJECT_LINE_SELECTION`
+- Next safe step: `ERA55_SELECTION_GATE`
+
+
+<!-- ERA55_SELECTION_GATE_AUDIT_BINDING_START -->
+## Selection gate binding
+
+- Next gate: `ERA55_SELECTION_GATE`
+- Parent: `ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME`
+- Serves: `V3_RUNTIME_INTELLIGENCE_OS`
+- Candidate: `ERA55_RUNTIME_OPTIMIZATION`
+- Candidate status: `PLANNED_CANDIDATE_NOT_OPENED`
+- Human authorization required: `true`
+- New ERA opened: `false`
+<!-- ERA55_SELECTION_GATE_AUDIT_BINDING_END -->

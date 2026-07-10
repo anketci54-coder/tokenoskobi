@@ -1,8 +1,8 @@
 {
   "schema": "tokenoskobi_os_full_v1_v8_master_roadmap_v2",
-  "updated_at": "2026-07-10T12:45:23.567774+00:00",
-  "git_head": "89d7371474aa0772c8d8265b82a712fa4c80c125",
-  "work_unit": "ERA54_CANONICAL_CLOSURE_AND_INDEX_SYNC_NOAPI",
+  "updated_at": "2026-07-10T14:02:44.985843+00:00",
+  "git_head": "266e32a9f40b03ff9607decd2cb7df3863cbac7a",
+  "work_unit": "ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC",
   "source_of_truth_order": [
     "LOCAL_WORKSPACE",
     "LOCAL_GIT",
@@ -411,11 +411,15 @@
           "title": "Runtime Optimization",
           "status": "PLANNED_CANDIDATE_NOT_OPENED",
           "purpose": "Latency, IO, cache, queue, hot-path optimizasyonu.",
-          "depends_on": "ERA54_CLOSED_AND_NEXT_MAJOR_LINE_SELECTION",
+          "depends_on": "ERA55_SELECTION_GATE",
           "connects_to": "ERA56",
           "selection_required": true,
           "human_authorization_required": true,
-          "provisional_only": true
+          "provisional_only": true,
+          "selection_gate_id": "ERA55_SELECTION_GATE",
+          "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+          "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+          "new_era_opened": false
         },
         {
           "id": "ERA56",
@@ -457,7 +461,24 @@
           "depends_on": "ERA59",
           "connects_to": "V4"
         }
-      ]
+      ],
+      "current_selection_gate": {
+        "id": "ERA55_SELECTION_GATE",
+        "type": "MAJOR_LINE_SELECTION_GATE",
+        "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+        "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+        "purpose": "Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.",
+        "candidate_next_line": "ERA55_RUNTIME_OPTIMIZATION",
+        "candidate_status": "PLANNED_CANDIDATE_NOT_OPENED",
+        "human_authorization_required": true,
+        "new_era_opened": false,
+        "allowed_decisions": [
+          "OPEN_ERA55_RUNTIME_OPTIMIZATION",
+          "SELECT_ANOTHER_MAJOR_PROJECT_LINE",
+          "HOLD_NO_NEW_MAJOR_LINE"
+        ],
+        "status": "READY"
+      }
     },
     {
       "id": "V4",

@@ -30,6 +30,25 @@
   "schema_change_allowed": false,
   "backfill_allowed": false,
   "runner_refactor_allowed": false,
-  "next_safe_step": "NEXT_MAJOR_PROJECT_LINE_SELECTION",
-  "evidence_note": "All 189 raw rows without score were proven to be at or before the runtime derived watermark using COALESCE(published_at_utc, fetched_at_utc). No unresolved row remained."
+  "next_safe_step": "ERA55_SELECTION_GATE",
+  "evidence_note": "All 189 raw rows without score were proven to be at or before the runtime derived watermark using COALESCE(published_at_utc, fetched_at_utc). No unresolved row remained.",
+  "selection_gate": {
+    "id": "ERA55_SELECTION_GATE",
+    "type": "MAJOR_LINE_SELECTION_GATE",
+    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+    "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+    "purpose": "Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.",
+    "candidate_next_line": "ERA55_RUNTIME_OPTIMIZATION",
+    "candidate_status": "PLANNED_CANDIDATE_NOT_OPENED",
+    "human_authorization_required": true,
+    "new_era_opened": false,
+    "allowed_decisions": [
+      "OPEN_ERA55_RUNTIME_OPTIMIZATION",
+      "SELECT_ANOTHER_MAJOR_PROJECT_LINE",
+      "HOLD_NO_NEW_MAJOR_LINE"
+    ],
+    "status": "READY"
+  },
+  "canonical_state_sync": "COMPLETE",
+  "canonical_state_sync_at_utc": "2026-07-10T14:02:44.985843+00:00"
 }
