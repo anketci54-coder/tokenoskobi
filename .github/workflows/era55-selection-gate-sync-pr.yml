@@ -34,15 +34,43 @@ jobs:
           body = source.split(start_marker, 1)[1].split(end_marker, 1)[0]
           Path('/tmp/era55_gate_sync.py').write_text(textwrap.dedent(body) + '\n', encoding='utf-8')
           PY
+          python3 -m py_compile /tmp/era55_gate_sync.py
+          rm -rf /tmp/__pycache__
 
-      - name: Apply to main and push one canonical commit
+      - name: Checkout main working tree
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin main
           git checkout -B main origin/main
+
+      - name: Apply canonical sync program
+        shell: bash
+        run: |
+          set -euo pipefail
           PYTHONDONTWRITEBYTECODE=1 python3 /tmp/era55_gate_sync.py
+
+      - name: Validate canonical changes
+        shell: bash
+        run: |
+          set -euo pipefail
           git diff --check
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          runtime = json.loads(Path('PROJECT_RUNTIME.json').read_text(encoding='utf-8'))
+          assert runtime['current_era'] == 'ERA54'
+          assert runtime['next_safe_step']['id'] == 'ERA55_SELECTION_GATE'
+          assert runtime['next_safe_step']['new_era_opened'] is False
+          assert runtime['news_readonly_audit_closure']['proven_data_loss_count'] == 0
+          print('VALIDATION_OK')
+          PY
+          git status --short
+
+      - name: Commit canonical changes
+        shell: bash
+        run: |
+          set -euo pipefail
           git config user.name "Tokenoskobi GitHub Canonical Sync"
           git config user.email "actions@users.noreply.github.com"
           git add \
@@ -59,6 +87,11 @@ jobs:
             07_PROJECT_HANDOFF.md \
             reports/LATEST_TK_AI_HANDOFF.md
           git commit -m "ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC | OK | NO_NEW_ERA"
+
+      - name: Push canonical commit to main
+        shell: bash
+        run: |
+          set -euo pipefail
           git push origin HEAD:main
 
       - name: Delete temporary automation branch
