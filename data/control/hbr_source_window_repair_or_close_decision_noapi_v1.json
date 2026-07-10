@@ -1,0 +1,71 @@
+{
+  "stage": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
+  "generated_at_utc": "2026-07-10T11:28:35.885453+00:00",
+  "decision": "OK_HBR_SOURCE_WINDOW_CLOSE_DECISION_NOAPI",
+  "decision_id": "HBR__SOURCE_WINDOW_CLOSE_DECISION__e7c850dc238c__2026-07-10T11:28:35.885453+00:00",
+  "previous_head_before_closure_commit": "e7c850dc238cc10af2a2e47966d6bcd0876f592c",
+  "authority": {
+    "api_call": false,
+    "network_call": false,
+    "db_read": false,
+    "db_write": false,
+    "db_schema_change": false,
+    "index_creation": false,
+    "outcome_fetch": false,
+    "prediction_run": false,
+    "service_change": false,
+    "timer_change": false,
+    "nginx_change": false,
+    "tk_machine_run": false,
+    "shadow_cleanup": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "trade_authority": false,
+    "new_era_opened": false
+  },
+  "failures": [],
+  "warnings": [],
+  "next": "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI",
+  "result": {
+    "choice": "CLOSE_CURRENT_HBR_ATTEMPT_NO_WINDOW_REPAIR",
+    "current_hbr_attempt_status": "CLOSED_INCONCLUSIVE_ZERO_ELIGIBLE_INPUT",
+    "hbr_a_status": "CLOSED",
+    "hbr_b_status": "CLOSED_SEALED",
+    "hbr_c_status": "CLOSED_NO_PRODUCTION_COLLISION",
+    "hbr_d_status": "NOT_RUN_ZERO_ELIGIBLE_INPUT",
+    "hbr_e_status": "NOT_RUN_NO_PREDICTION_SEAL",
+    "hbr_f_status": "NOT_RUN_NO_OUTCOME_COMPARISON",
+    "collision_result": "NO_PRODUCTION_COLLISION",
+    "sealed_input_count": 55,
+    "locked_window_eligible_count": 0,
+    "source_types": [
+      "rss"
+    ],
+    "window_ids": [
+      "HBR_W1_SETTLED_INPUT_2026_06_01_2026_06_15",
+      "HBR_W2_SETTLED_INPUT_2026_06_16_2026_06_30"
+    ],
+    "source_window_repair_now": false,
+    "hbr_b_reseal_now": false,
+    "prediction_now": false,
+    "outcome_fetch_now": false,
+    "future_hbr_retry_condition": "ARCHIVE_CAPABLE_INPUT_SOURCE_WITH_NEW_INPUT_SEAL",
+    "future_hbr_retry_priority": "BACKLOG_NOT_IMMEDIATE",
+    "return_line": "EXISTING_NEWS_HOT_INGRESS_CONTINUATION",
+    "next_safe_step": "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI",
+    "rationale": [
+      "HBR-C proved zero production collision across news_uid, url_hash, raw_hash and derived news_uid.",
+      "The sealed input contains 55 rows but zero rows inside the locked June 2026 historical windows.",
+      "The selected sources are rolling RSS feeds and did not provide archive-capable June input.",
+      "Moving the locked window to July would change the settled historical objective and require a new HBR-A/HBR-B seal.",
+      "Continuing to HBR-D without eligible historical input would create meaningless predictions.",
+      "Therefore the current HBR attempt closes as evidence-complete but replay-inconclusive."
+    ],
+    "era54_existing_scaffold": {
+      "status": "CLOSED_VERIFIED_NOAPI",
+      "tool": "tools/hot_ingress_minimal_readonly_scaffold_v1.py",
+      "runtime_change_in_era54": false,
+      "external_source_adapter_in_era54": false
+    }
+  }
+}

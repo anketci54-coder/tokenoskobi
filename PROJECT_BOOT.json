@@ -284,22 +284,18 @@
   },
   "current_checkpoint": {
     "git_branch": "main",
-    "previous_head_before_closure_commit": "d9b6c8bc95217b7161694a73903fe4e8e676be93",
+    "previous_head_before_closure_commit": "e7c850dc238cc10af2a2e47966d6bcd0876f592c",
     "head_semantics": "PREVIOUS_HEAD_BEFORE_ATOMIC_CLOSURE_COMMIT",
     "source": "local_git"
   },
-  "current_problem": {
-    "type": "HBR_ZERO_ELIGIBLE_INPUT",
-    "description": "HBR-C completed collision measurement, but sealed input has zero locked-window-eligible rows.",
-    "immediate_priority": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI"
-  },
+  "current_problem": null,
   "current_work_unit": {
-    "id": "HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI",
-    "type": "HISTORICAL_BLIND_REPLAY_POLICY_AND_COLLISION_DRYRUN",
-    "artifact": "data/control/hbr_c_policy_gate_and_collision_dryrun_noapi_v1.json",
-    "module": "tools/hbr_c_policy_gate_and_collision_dryrun_noapi_v1.py",
+    "id": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
+    "type": "HBR_SOURCE_WINDOW_CLOSE_DECISION",
+    "artifact": "data/control/hbr_source_window_repair_or_close_decision_noapi_v1.json",
+    "module": "tools/hbr_source_window_repair_or_close_decision_noapi_v1.py",
     "status": "CLOSED",
-    "next_step": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI"
+    "next_step": "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI"
   },
   "documentation_status": {
     "desired_direction": "Consolidate and reduce, not expand.",
@@ -426,15 +422,15 @@
     "paper_trade_locked_until_explicit_phase": true
   },
   "last_action": {
-    "timestamp": "2026-07-10T11:23:01.070211+00:00",
-    "task": "HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI",
-    "result": "OK_HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI",
-    "artifact": "data/control/hbr_c_policy_gate_and_collision_dryrun_noapi_v1.json"
+    "timestamp": "2026-07-10T11:28:35.885453+00:00",
+    "task": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
+    "result": "OK_HBR_SOURCE_WINDOW_CLOSE_DECISION_NOAPI",
+    "artifact": "data/control/hbr_source_window_repair_or_close_decision_noapi_v1.json"
   },
-  "last_completed": "HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI",
-  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. HBR-C is closed. collision_result=NO_PRODUCTION_COLLISION. Proceed only to HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI. Do not run tk machine or mutate DB/schema/UID/services/timers/nginx.",
+  "last_completed": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
+  "new_chat_instruction": "Read PROJECT_RUNTIME.json first. The current HBR attempt is closed with zero eligible historical input and no production collision. Proceed only to POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI. Do not reopen HBR-A/B, move the historical window, fetch outcomes, run predictions, or mutate DB/schema without explicit scope.",
   "new_window_startup_instruction": {
-    "instruction": "Read PROJECT_RUNTIME.json first. HBR-C is closed. collision_result=NO_PRODUCTION_COLLISION. Proceed only to HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI. Do not run tk machine or mutate DB/schema/UID/services/timers/nginx."
+    "instruction": "Read PROJECT_RUNTIME.json first. The current HBR attempt is closed with zero eligible historical input and no production collision. Proceed only to POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI. Do not reopen HBR-A/B, move the historical window, fetch outcomes, run predictions, or mutate DB/schema without explicit scope."
   },
   "new_window_startup_test": {
     "must_answer": [
@@ -511,7 +507,7 @@
     "known_issue": "Runtime had INVALIDARGUMENT history and timer/inactive issue; must be re-verified from local state before claims."
   },
   "next_safe_step": {
-    "name": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
+    "name": "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI",
     "status": "READY"
   },
   "open_risks": [
@@ -537,7 +533,7 @@
   },
   "project": {
     "local_path": "/root/tokenoskobi_clean_v1",
-    "mode": "HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_CLOSED",
+    "mode": "HBR_CURRENT_ATTEMPT_CLOSED_ZERO_ELIGIBLE_INPUT",
     "name": "Tokenoskobi",
     "repo": "anketci54-coder/tokenoskobi",
     "status": "ACTIVE"
@@ -694,14 +690,13 @@
   },
   "canonical_runtime_pointer": {
     "authority": "PROJECT_RUNTIME.json",
-    "previous_head_before_closure_commit": "d9b6c8bc95217b7161694a73903fe4e8e676be93",
-    "last_completed": "HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI",
-    "decision": "OK_HBR_C_POLICY_GATE_AND_COLLISION_DRYRUN_NOAPI",
+    "previous_head_before_closure_commit": "e7c850dc238cc10af2a2e47966d6bcd0876f592c",
+    "last_completed": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
+    "decision": "OK_HBR_SOURCE_WINDOW_CLOSE_DECISION_NOAPI",
+    "hbr_attempt_status": "CLOSED_INCONCLUSIVE_ZERO_ELIGIBLE_INPUT",
     "collision_result": "NO_PRODUCTION_COLLISION",
-    "policy_gate": "HOLD_ZERO_ELIGIBLE_INPUT",
     "locked_window_eligible_count": 0,
-    "historical_replay_eligibility": "HOLD_ZERO_ELIGIBLE_INPUT",
-    "next_safe_step": "HBR_SOURCE_WINDOW_REPAIR_OR_CLOSE_DECISION_NOAPI",
-    "updated_at_utc": "2026-07-10T11:23:01.070211+00:00"
+    "next_safe_step": "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI",
+    "updated_at_utc": "2026-07-10T11:28:35.885453+00:00"
   }
 }
