@@ -1,0 +1,102 @@
+{
+  "acceptance_policy": {
+    "downstream_balance_required": true,
+    "negative_delta_allowed": false,
+    "raw_delta_may_be_positive": true,
+    "raw_delta_may_be_zero": true,
+    "rule": "raw_delta >= match_delta = signal_delta = score_delta >= 0"
+  },
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false,
+    "trade_authority": false
+  },
+  "blind_replay_policy": {
+    "input_first": true,
+    "input_manifest_sha_required": true,
+    "next_planned_stage": "HISTORICAL_BLIND_REPLAY_PLAN_NOAPI",
+    "no_result_peeking": true,
+    "outcome_labels_separate_after_input_seal": true
+  },
+  "failure_routing_policy": {
+    "bad_trade_flags": "HOLD",
+    "derived_unbalanced": "HOLD",
+    "duplicate_uid": "HOLD",
+    "hard_volume_exceeded": "HOLD",
+    "negative_delta": "HOLD",
+    "orphan_derived": "HOLD",
+    "schema_drift": "HOLD",
+    "soft_volume_exceeded": "OBSERVE",
+    "uid_namespace_collision": "HOLD",
+    "unclassified_recent_item": "QUARANTINE"
+  },
+  "locked_at_utc": "2026-07-10T07:25:46.344419+00:00",
+  "mode": "CODE_AS_POLICY",
+  "observation_volume_note": "+2 is evidence, not a fixed success threshold",
+  "policy_id": "NEWS_RUNTIME_POLICY_LOCK_V1",
+  "repair_id": "NEWS_RUNTIME_POLICY_LOCK_REPAIR_NOAPI_V1",
+  "schema_hardening_backlog": {
+    "conflict_resolution_table": "ERA60_SCHEMA_HARDENING_BACKLOG",
+    "event_hash_column": "ERA60_SCHEMA_HARDENING_BACKLOG",
+    "quarantine_table": "ERA60_SCHEMA_HARDENING_BACKLOG"
+  },
+  "scope": "NEWS_RUNTIME_AND_CONTINUOUS_PRODUCER",
+  "success_is_not_fixed_volume": true,
+  "trade_authority_policy": {
+    "news_can_emit_live_trade": false,
+    "news_can_emit_paper_trade": false,
+    "news_can_emit_trade_authority": false,
+    "required_flags": {
+      "paper_signal": 0,
+      "trade_signal": 0,
+      "write_allowed": 0
+    }
+  },
+  "uid_policy": {
+    "allowed_prefixes": [
+      "hist_news_",
+      "timer_news_",
+      "news_",
+      "rss_news_",
+      "news12_",
+      "news21_"
+    ],
+    "collision_allowed": false,
+    "namespace_classes": {
+      "historical": [
+        "hist_news_"
+      ],
+      "legacy_runtime": [
+        "news12_",
+        "news21_"
+      ],
+      "live_runtime": [
+        "timer_news_",
+        "news_",
+        "rss_news_"
+      ]
+    },
+    "repair_reason": "DB contains legacy runtime namespaces news12_ and news21_; they are not historical and are locked as legacy_runtime, not rejected as collision."
+  },
+  "verifier_policy": {
+    "bounded_window_only": true,
+    "decorator_available": true,
+    "default_recent_limit": 500,
+    "full_history_scan_on_runtime": false
+  },
+  "volume_policy": {
+    "hard_route": "HOLD",
+    "max_single_cycle_raw_delta_hard": 1000,
+    "max_single_cycle_raw_delta_soft": 500,
+    "reason": "elastic to volatility, protected from overload",
+    "soft_route": "OBSERVE"
+  }
+}

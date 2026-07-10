@@ -1,0 +1,108 @@
+{
+  "authority": {
+    "api_call": false,
+    "db_schema_change": false,
+    "db_write": false,
+    "index_creation": false,
+    "live_trade": false,
+    "network_call": false,
+    "nginx_change": false,
+    "paper_trade": false,
+    "service_change": false,
+    "timer_change": false,
+    "trade_authority": false
+  },
+  "compile": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "db_counts": {
+    "news_raw_feed_events": 360,
+    "news_score_events_v1": 173,
+    "news_signal_events": 173,
+    "news_token_match_events": 173
+  },
+  "decision": "OK_NEWS_RUNTIME_POLICY_LOCK_REPAIR_NOAPI",
+  "failures": [],
+  "generated_at_utc": "2026-07-10T07:25:46.480526+00:00",
+  "next": "ERA60_SCHEMA_HARDENING_BACKLOG_PLAN_NOAPI",
+  "policy_json": "runtime/policies/news_runtime_policy_lock_v1.json",
+  "policy_summary": {
+    "blind_replay_next_after_schema_backlog_plan": "HISTORICAL_BLIND_REPLAY_PLAN_NOAPI",
+    "bounded_recent_window_only": true,
+    "delta_policy": "raw_delta >= match_delta = signal_delta = score_delta >= 0",
+    "fixed_volume_threshold_rejected": true,
+    "historical_prefix_still_isolated": [
+      "hist_news_"
+    ],
+    "legacy_runtime_prefixes_added": [
+      "news12_",
+      "news21_"
+    ],
+    "live_prefixes": [
+      "timer_news_",
+      "news_",
+      "rss_news_"
+    ],
+    "recent_limit": 500,
+    "trade_authority_locked_false": true
+  },
+  "previous_failed_artifact": "data/control/news_runtime_policy_lock_noapi_v1.json",
+  "prior_observation": "data/control/news_continuous_producer_observation_window_noapi_v1.json",
+  "repair_reason": "legacy runtime UID prefixes news12_ and news21_ were real DB namespaces, not policy violations",
+  "sqlite_integrity": "ok",
+  "stage": "NEWS_RUNTIME_POLICY_LOCK_REPAIR_NOAPI",
+  "verifier": "tools/news_runtime_policy_verifier_v1.py",
+  "verifier_result": {
+    "authority": {
+      "api_call": false,
+      "db_schema_change": false,
+      "db_write": false,
+      "index_creation": false,
+      "live_trade": false,
+      "network_call": false,
+      "nginx_change": false,
+      "paper_trade": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade_authority": false
+    },
+    "bad_flags": 0,
+    "bounded_window_only": true,
+    "counts": {
+      "news_raw_feed_events": 360,
+      "news_score_events_v1": 173,
+      "news_signal_events": 173,
+      "news_token_match_events": 173
+    },
+    "decision": "OK_NEWS_RUNTIME_POLICY_VERIFIER_V1",
+    "derived_recent_counts": {
+      "news_score_events_v1": 173,
+      "news_signal_events": 173,
+      "news_token_match_events": 173
+    },
+    "failures": [],
+    "generated_at_utc": "2026-07-10T07:25:46.453609+00:00",
+    "integrity": "ok",
+    "policy_id": "NEWS_RUNTIME_POLICY_LOCK_V1",
+    "recent_duplicates": [],
+    "recent_limit": 500,
+    "recent_orphans": {
+      "news_score_events_v1": [],
+      "news_signal_events": [],
+      "news_token_match_events": []
+    },
+    "recent_raw_uid_count": 360,
+    "repair_id": "NEWS_RUNTIME_POLICY_LOCK_REPAIR_NOAPI_V1",
+    "routing": {
+      "hold_required": false,
+      "quarantine_required": false,
+      "route": "OK"
+    },
+    "stage": "NEWS_RUNTIME_POLICY_VERIFIER_V1",
+    "uid_policy_violations": [],
+    "warnings": []
+  },
+  "warnings": []
+}
