@@ -1,3 +1,5 @@
+# 02 MANIFESTO
+
 <!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
 ## CANONICAL GENERAL WORKFLOW RULES LOCK
 
@@ -82,22 +84,12 @@ Additions stay under the relevant letter:
 
 A fix or addition becomes a new main line only if it is genuinely a new major module.
 
-### Current Consolidation
-
-- `ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI` is the parent chain.
-- Old `ERA48` is historical alias for `ERA47B`.
-- Old `ERA49` is historical alias for `ERA47C`.
-- Old `ERA50` is historical alias for `ERA47D`.
-- Old `ERA51` is historical alias for `ERA47E`.
-- These old labels are not active work lanes.
-
 ### Deadline Rule
 
 - Prefer small working code over repeated decision documents.
 - Reduce documents.
 - Reduce labels.
 - Avoid repeated gate chains.
-- The next real work must deliver minimal read-only scaffold, not another planning chain.
 
 ### Safety Rule
 
@@ -108,8 +100,6 @@ A fix or addition becomes a new main line only if it is genuinely a new major mo
 - Paper trade locked until explicit phase.
 - No Runtime, DB, panel, service, timer, deploy mutation unless explicitly in scope.
 <!-- CANONICAL_WORKFLOW_RULES_LOCK_END -->
-
-# 02 MANIFESTO
 
 Bu belge projenin kalıcı anayasal kurallarıdır.
 Bu belge proje tarihi, tamamlanan fazlar, roadmap, mimari detaylar, runtime durumu veya geçici kararlar içermez.
@@ -256,7 +246,7 @@ Navigation
 → Index
 
 Bootstrap
-→ OKU
+→ PROJECT_RUNTIME.json and PROJECT_BOOT.json
 
 Duplicate canonical documents are forbidden.
 Her onaylı değişiklik etkilenen canonical belgeye işlenir.
@@ -392,3 +382,10 @@ During an active ERA, new engines, memory types, states and metaphors do not ent
 - Opportunity Cost blocks non-critical bloat.
 - Runtime never imports Lab.
 - Lab remains read-only, NOAPI, and outside hot runtime path.
+
+## MANIFESTO RULE INSERTION AND REPLACEMENT CONSTITUTION
+
+Yeni onaylı bir kural mevcut manifesto kuralıyla çakışıyorsa, mevcut kural kendi yerinde yeni kuralla değiştirilir.
+Değiştirilen eski kural manifesto içinde ikinci bir kopya olarak tutulmaz.
+Yeni onaylı kural manifestoda mevcut değilse ve hiçbir mevcut kuralla çakışmıyorsa, manifestonun en sonuna eklenir.
+Manifestonun mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
