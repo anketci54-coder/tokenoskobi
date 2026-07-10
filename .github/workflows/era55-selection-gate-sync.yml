@@ -1,0 +1,348 @@
+name: ERA55 selection gate canonical sync
+
+on:
+  push:
+    branches:
+      - automation/era55-selection-gate-sync-20260710
+
+permissions:
+  contents: write
+
+jobs:
+  canonical-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Apply canonical gate binding
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONDONTWRITEBYTECODE=1
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import json
+          import subprocess
+
+          ROOT = Path('.')
+          OLD_LONG = 'NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE'
+          OLD_SHORT = 'NEXT_MAJOR_PROJECT_LINE_SELECTION'
+          GATE = 'ERA55_SELECTION_GATE'
+          PARENT = 'ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME'
+          SERVES = 'V3_RUNTIME_INTELLIGENCE_OS'
+          CANDIDATE = 'ERA55_RUNTIME_OPTIMIZATION'
+          AUDIT_ID = 'NEWS_READONLY_AUDIT_CLOSURE_20260710'
+          AUDIT_ARTIFACT = 'data/control/news_readonly_audit_closure_20260710_v1.json'
+          TS = datetime.now(timezone.utc).isoformat()
+          HEAD_BEFORE = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+
+          gate = {
+              'id': GATE,
+              'type': 'MAJOR_LINE_SELECTION_GATE',
+              'parent': PARENT,
+              'serves': SERVES,
+              'purpose': 'Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.',
+              'candidate_next_line': CANDIDATE,
+              'candidate_status': 'PLANNED_CANDIDATE_NOT_OPENED',
+              'human_authorization_required': True,
+              'new_era_opened': False,
+              'allowed_decisions': [
+                  'OPEN_ERA55_RUNTIME_OPTIMIZATION',
+                  'SELECT_ANOTHER_MAJOR_PROJECT_LINE',
+                  'HOLD_NO_NEW_MAJOR_LINE',
+              ],
+              'status': 'READY',
+          }
+
+          def read_json(path: str):
+              return json.loads((ROOT / path).read_text(encoding='utf-8'))
+
+          def write_json(path: str, data):
+              (ROOT / path).write_text(
+                  json.dumps(data, ensure_ascii=False, indent=2) + '\n',
+                  encoding='utf-8',
+              )
+
+          def replace_exact_values(node):
+              if isinstance(node, dict):
+                  return {key: replace_exact_values(value) for key, value in node.items()}
+              if isinstance(node, list):
+                  return [replace_exact_values(value) for value in node]
+              if node in {OLD_LONG, OLD_SHORT}:
+                  return GATE
+              return node
+
+          def replace_text(path: str):
+              target = ROOT / path
+              text = target.read_text(encoding='utf-8')
+              text = text.replace(OLD_LONG, GATE).replace(OLD_SHORT, GATE)
+              target.write_text(text, encoding='utf-8')
+
+          runtime = replace_exact_values(read_json('PROJECT_RUNTIME.json'))
+          runtime['current_checkpoint'] = {
+              'git_branch': 'main',
+              'previous_head_before_closure_commit': HEAD_BEFORE,
+              'technical_closure_head': runtime.get('current_checkpoint', {}).get('technical_closure_head'),
+              'head_semantics': 'PREVIOUS_HEAD_BEFORE_ERA55_SELECTION_GATE_CANONICAL_SYNC_COMMIT',
+              'source': 'github_remote',
+          }
+          runtime['current_era'] = 'ERA54'
+          runtime['current_state']['mode'] = 'NEWS_READONLY_AUDIT_CLOSURE_CLOSED_ERA55_SELECTION_GATE_READY'
+          runtime['current_state']['runtime_status'] = 'WORK_UNIT_CLOSED'
+          runtime['current_state']['updated_at'] = TS
+          runtime['current_state']['last_action'] = {
+              'timestamp': TS,
+              'task': AUDIT_ID,
+              'result': 'OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED',
+              'artifact': AUDIT_ARTIFACT,
+          }
+          runtime['current_state']['active_work_unit'] = {
+              'id': AUDIT_ID,
+              'type': 'POST_ERA54_READONLY_VERIFICATION_CLOSURE',
+              'parent': PARENT,
+              'artifact': AUDIT_ARTIFACT,
+              'status': 'CLOSED',
+              'next_step': GATE,
+          }
+          runtime['current_state']['next_safe_step'] = dict(gate)
+          runtime['current_work_unit'] = dict(runtime['current_state']['active_work_unit'])
+          runtime['era54_status']['next_safe_step'] = GATE
+          runtime['era54_status']['new_era_opened'] = False
+          runtime['last_action'] = dict(runtime['current_state']['last_action'])
+          runtime['last_completed'] = AUDIT_ID
+          runtime['mode'] = runtime['current_state']['mode']
+          runtime['news_operational_state']['raw_count'] = 374
+          runtime['news_operational_state']['match_count'] = 185
+          runtime['news_operational_state']['signal_count'] = 185
+          runtime['news_operational_state']['score_count'] = 185
+          runtime['next_safe_step'] = dict(gate)
+          runtime['era55_selection_gate'] = dict(gate)
+          runtime['news_readonly_audit_closure'] = {
+              'id': AUDIT_ID,
+              'status': 'CLOSED_VERIFIED',
+              'decision': 'OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED',
+              'artifact': AUDIT_ARTIFACT,
+              'raw_uid_count': 374,
+              'match_uid_count': 185,
+              'signal_uid_count': 185,
+              'score_uid_count': 185,
+              'raw_without_score': 189,
+              'historical_watermark_excluded': 189,
+              'after_watermark_unresolved': 0,
+              'proven_data_loss_count': 0,
+              'duplicate_uid_count': 0,
+              'bad_trade_flags': 0,
+              'new_era_opened': False,
+              'next_safe_step': GATE,
+              'closed_at_utc': '2026-07-10T13:43:00+00:00',
+          }
+          runtime['open_risks'] = [
+              'ERA55_SELECTION_GATE is ready but unresolved; no major project line is selected yet.',
+              'ERA55 remains PLANNED_CANDIDATE_NOT_OPENED and requires explicit human authorization.',
+              'Risk is minimized, never zero.',
+          ]
+          runtime['project_status'] = 'ACTIVE_NEWS_OPERATIONAL_BASELINE_CLOSED_SELECTION_GATE_READY'
+          runtime['recent_event'] = dict(runtime['current_state']['last_action'])
+          runtime['source'] = 'era55_selection_gate_canonical_binding_sync_github_v1'
+          runtime['status'] = 'WORK_UNIT_CLOSED'
+          runtime['updated_at'] = TS
+          runtime['updated_at_utc'] = TS
+          runtime['canonical_runtime_pointer']['previous_head_before_closure_commit'] = HEAD_BEFORE
+          runtime['canonical_runtime_pointer']['last_completed'] = AUDIT_ID
+          runtime['canonical_runtime_pointer']['decision'] = 'OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED'
+          runtime['canonical_runtime_pointer']['next_safe_step'] = GATE
+          runtime['canonical_runtime_pointer']['updated_at_utc'] = TS
+          if 'hot_intelligence_ingress_gateway_state' in runtime:
+              runtime['hot_intelligence_ingress_gateway_state']['next'] = GATE
+          if 'news_runtime_stabilization_state' in runtime:
+              runtime['news_runtime_stabilization_state']['next'] = GATE
+          write_json('PROJECT_RUNTIME.json', runtime)
+
+          boot = replace_exact_values(read_json('PROJECT_BOOT.json'))
+          boot['updated_at'] = TS
+          boot['current_checkpoint'] = {
+              'git_branch': 'main',
+              'previous_head_before_closure_commit': HEAD_BEFORE,
+              'source': 'github_remote',
+          }
+          boot['last_action'] = {
+              'timestamp': TS,
+              'task': AUDIT_ID,
+              'result': 'OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED',
+              'artifact': AUDIT_ARTIFACT,
+          }
+          boot['next_safe_step'] = dict(gate)
+          boot['open_risks'] = list(runtime['open_risks'])
+          boot['work_unit'] = AUDIT_ID
+          boot['current_work_unit'] = dict(runtime['current_work_unit'])
+          boot['current_problem'] = None
+          boot['era55_selection_gate'] = dict(gate)
+          write_json('PROJECT_BOOT.json', boot)
+
+          roadmap = read_json('data/tokenoskobi_v1_v8_master_era_roadmap.json')
+          roadmap['updated_at'] = TS
+          roadmap['git_head'] = HEAD_BEFORE
+          roadmap['work_unit'] = 'ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC'
+          for version in roadmap.get('versions', []):
+              if version.get('id') != 'V3':
+                  continue
+              version['current_selection_gate'] = dict(gate)
+              for child in version.get('children', []):
+                  if child.get('id') == 'ERA54':
+                      child['connects_to'] = GATE
+                  if child.get('id') == 'ERA55':
+                      child['depends_on'] = GATE
+                      child['selection_gate_id'] = GATE
+                      child['parent'] = PARENT
+                      child['serves'] = SERVES
+                      child['status'] = 'PLANNED_CANDIDATE_NOT_OPENED'
+                      child['human_authorization_required'] = True
+                      child['new_era_opened'] = False
+          write_json('data/tokenoskobi_v1_v8_master_era_roadmap.json', roadmap)
+
+          audit = read_json(AUDIT_ARTIFACT)
+          audit['next_safe_step'] = GATE
+          audit['selection_gate'] = dict(gate)
+          audit['canonical_state_sync'] = 'COMPLETE'
+          audit['canonical_state_sync_at_utc'] = TS
+          write_json(AUDIT_ARTIFACT, audit)
+
+          for path in [
+              '03_ROADMAP.md',
+              '06_PROJECT_MASTER_STATE.md',
+              '07_PROJECT_HANDOFF.md',
+              'reports/LATEST_TK_AI_HANDOFF.md',
+              'docs/canonical/NEWS_READONLY_AUDIT_CLOSURE_20260710_V1.md',
+          ]:
+              replace_text(path)
+
+          roadmap_path = ROOT / '03_ROADMAP.md'
+          roadmap_text = roadmap_path.read_text(encoding='utf-8')
+          marker = '<!-- ERA55_SELECTION_GATE_BINDING_START -->'
+          if marker not in roadmap_text:
+              block = f'''{marker}\n## ERA55 SELECTION GATE — CURRENT NEXT STEP\n\n- Gate: `{GATE}`\n- Parent: `{PARENT}`\n- Serves: `{SERVES}`\n- Purpose: Select `ERA55_RUNTIME_OPTIMIZATION`, another major project line, or hold without opening a new ERA.\n- ERA55 status: `PLANNED_CANDIDATE_NOT_OPENED`\n- Human authorization required: `true`\n- New ERA opened: `false`\n<!-- ERA55_SELECTION_GATE_BINDING_END -->\n\n'''
+              roadmap_path.write_text(block + roadmap_text, encoding='utf-8')
+
+          atlas_path = ROOT / '05_ATLAS.md'
+          atlas_text = atlas_path.read_text(encoding='utf-8')
+          marker = '<!-- ERA55_SELECTION_GATE_MAP_START -->'
+          if marker not in atlas_text:
+              block = f'''{marker}\n## ERA54 → ERA55 SELECTION MAP\n\n`V3_RUNTIME_INTELLIGENCE_OS`\n→ `{PARENT}` (`CLOSED`)\n→ `{GATE}` (`READY`)\n→ one of:\n- `OPEN_ERA55_RUNTIME_OPTIMIZATION`\n- `SELECT_ANOTHER_MAJOR_PROJECT_LINE`\n- `HOLD_NO_NEW_MAJOR_LINE`\n\n`ERA55_RUNTIME_OPTIMIZATION` remains `PLANNED_CANDIDATE_NOT_OPENED`.\n<!-- ERA55_SELECTION_GATE_MAP_END -->\n\n'''
+              atlas_path.write_text(block + atlas_text, encoding='utf-8')
+
+          handoff_path = ROOT / '07_PROJECT_HANDOFF.md'
+          handoff_text = handoff_path.read_text(encoding='utf-8')
+          marker = '<!-- ERA55_SELECTION_GATE_HANDOFF_START -->'
+          if marker not in handoff_text:
+              block = f'''{marker}\n## CURRENT HANDOFF — ERA55 SELECTION GATE\n\n- Current ERA: `ERA54` closed.\n- Next gate: `{GATE}`.\n- Parent: `{PARENT}`.\n- Serves: `{SERVES}`.\n- Candidate: `ERA55_RUNTIME_OPTIMIZATION`.\n- ERA55 opened: `false`.\n- Human selection required: `true`.\n<!-- ERA55_SELECTION_GATE_HANDOFF_END -->\n\n'''
+              handoff_path.write_text(block + handoff_text, encoding='utf-8')
+
+          master_path = ROOT / '06_PROJECT_MASTER_STATE.md'
+          master_text = master_path.read_text(encoding='utf-8')
+          marker = '<!-- ERA55_SELECTION_GATE_MASTER_STATE_START -->'
+          if marker not in master_text:
+              block = f'''{marker}\n## CURRENT STATE — ERA55 SELECTION GATE READY\n\n- Parent closed line: `{PARENT}`\n- Current gate: `{GATE}`\n- Serves: `{SERVES}`\n- ERA55 candidate status: `PLANNED_CANDIDATE_NOT_OPENED`\n- New ERA opened: `false`\n<!-- ERA55_SELECTION_GATE_MASTER_STATE_END -->\n\n'''
+              master_path.write_text(block + master_text, encoding='utf-8')
+
+          almanac_path = ROOT / '04_ALMANAC.md'
+          almanac_text = almanac_path.read_text(encoding='utf-8')
+          marker = '<!-- ERA55_SELECTION_GATE_SYNC_ALMANAC_START -->'
+          if marker not in almanac_text:
+              block = f'''{marker}\n## ERA55 SELECTION GATE CANONICAL BINDING SYNC\n\n- Status: `CLOSED`\n- Result: `OK_ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC`\n- Parent: `{PARENT}`\n- Gate: `{GATE}`\n- Candidate ERA55 status: `PLANNED_CANDIDATE_NOT_OPENED`\n- New ERA opened: `false`\n- Timestamp UTC: `{TS}`\n<!-- ERA55_SELECTION_GATE_SYNC_ALMANAC_END -->\n\n'''
+              almanac_path.write_text(block + almanac_text, encoding='utf-8')
+
+          audit_doc_path = ROOT / 'docs/canonical/NEWS_READONLY_AUDIT_CLOSURE_20260710_V1.md'
+          audit_doc = audit_doc_path.read_text(encoding='utf-8')
+          marker = '<!-- ERA55_SELECTION_GATE_AUDIT_BINDING_START -->'
+          if marker not in audit_doc:
+              audit_doc += f'''\n\n{marker}\n## Selection gate binding\n\n- Next gate: `{GATE}`\n- Parent: `{PARENT}`\n- Serves: `{SERVES}`\n- Candidate: `ERA55_RUNTIME_OPTIMIZATION`\n- Candidate status: `PLANNED_CANDIDATE_NOT_OPENED`\n- Human authorization required: `true`\n- New ERA opened: `false`\n<!-- ERA55_SELECTION_GATE_AUDIT_BINDING_END -->\n'''
+              audit_doc_path.write_text(audit_doc, encoding='utf-8')
+
+          history = read_json('PROJECT_HISTORY.json')
+          events = history.setdefault('events', [])
+          event_id = 'ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC'
+          if not any(isinstance(item, dict) and item.get('event_id') == event_id for item in events):
+              events.append({
+                  'event_id': event_id,
+                  'timestamp_utc': TS,
+                  'event': 'CANONICAL_STATE_AND_NEXT_GATE_BINDING_SYNC',
+                  'status': 'CLOSED',
+                  'result': 'OK_ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC',
+                  'parent': PARENT,
+                  'gate': GATE,
+                  'serves': SERVES,
+                  'candidate_next_line': CANDIDATE,
+                  'candidate_status': 'PLANNED_CANDIDATE_NOT_OPENED',
+                  'new_era_opened': False,
+                  'head_before_commit': HEAD_BEFORE,
+              })
+          history['updated_at'] = TS
+          history['updated_at_utc'] = TS
+          write_json('PROJECT_HISTORY.json', history)
+
+          for path in [
+              'PROJECT_RUNTIME.json',
+              'PROJECT_BOOT.json',
+              'PROJECT_HISTORY.json',
+              'data/tokenoskobi_v1_v8_master_era_roadmap.json',
+              AUDIT_ARTIFACT,
+          ]:
+              read_json(path)
+
+          runtime_check = read_json('PROJECT_RUNTIME.json')
+          assert runtime_check['current_era'] == 'ERA54'
+          assert runtime_check['next_safe_step']['id'] == GATE
+          assert runtime_check['next_safe_step']['new_era_opened'] is False
+          assert runtime_check['news_readonly_audit_closure']['proven_data_loss_count'] == 0
+          assert runtime_check['news_operational_state']['raw_count'] == 374
+          assert runtime_check['news_operational_state']['score_count'] == 185
+
+          roadmap_check = read_json('data/tokenoskobi_v1_v8_master_era_roadmap.json')
+          era55 = next(
+              child
+              for version in roadmap_check['versions'] if version['id'] == 'V3'
+              for child in version['children'] if child['id'] == 'ERA55'
+          )
+          assert era55['depends_on'] == GATE
+          assert era55['status'] == 'PLANNED_CANDIDATE_NOT_OPENED'
+          assert era55['new_era_opened'] is False
+          PY
+
+          git diff --check
+          git status --short
+
+      - name: Commit canonical sync to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Tokenoskobi GitHub Canonical Sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add \
+            PROJECT_RUNTIME.json \
+            PROJECT_BOOT.json \
+            PROJECT_HISTORY.json \
+            data/tokenoskobi_v1_v8_master_era_roadmap.json \
+            data/control/news_readonly_audit_closure_20260710_v1.json \
+            docs/canonical/NEWS_READONLY_AUDIT_CLOSURE_20260710_V1.md \
+            03_ROADMAP.md \
+            04_ALMANAC.md \
+            05_ATLAS.md \
+            06_PROJECT_MASTER_STATE.md \
+            07_PROJECT_HANDOFF.md \
+            reports/LATEST_TK_AI_HANDOFF.md
+          git commit -m "ERA55_SELECTION_GATE_CANONICAL_BINDING_SYNC | OK | NO_NEW_ERA"
+          git push origin HEAD:main
+
+      - name: Remove temporary branch
+        if: success()
+        shell: bash
+        run: |
+          git push origin --delete automation/era55-selection-gate-sync-20260710 || true
