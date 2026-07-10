@@ -1,3 +1,50 @@
+<!-- ERA54_FINAL_BOUNDED_NEWS_RUNTIME_ATLAS_START -->
+## ERA54 FINAL BOUNDED NEWS RUNTIME MAP
+
+UPDATED_UTC: 2026-07-10T12:45:23.567774+00:00
+STATUS: CLOSED_VERIFIED_BOUNDED_RUNTIME
+
+FLOW:
+
+systemd timer
+  -> tokenoskobi-news-radar-refresh.service
+  -> tools/news_radar_refresh_runner_v1.py
+  -> cold raw producer
+  -> derived matcher / signal / score refresh
+  -> news coverage readmodel consumer
+  -> panel display adapter
+  -> hot intelligence ingress gateway
+  -> bounded review-only queue (max 50)
+  -> active panel data bridge
+  -> human review
+
+VERIFIED COUNTS:
+- raw: 372
+- match: 184
+- signal: 184
+- score: 184
+- market indicator: 39
+- adversarial: 59
+- hot queue: 50/50
+
+AUTHORITY BOUNDARY:
+- news context only
+- review only
+- DB schema change: false
+- service/timer configuration change: false
+- trade signal: false
+- paper trade: false
+- live trade: false
+- wallet/signing/order authority: false
+- AI execution authority: false
+
+EVIDENCE:
+- technical closure HEAD: c72995c352a76fe8557de369228f86e6f7d2846e
+- natural timer cycle: OBSERVED_VERIFIED
+- panel bridge: OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED
+- observation artifact: data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json
+<!-- ERA54_FINAL_BOUNDED_NEWS_RUNTIME_ATLAS_END -->
+
 <!-- ERA54_HOT_INGRESS_STANDALONE_SCAFFOLD_ATLAS_START -->
 ## ERA54 HOT INGRESS STANDALONE SCAFFOLD FLOW
 

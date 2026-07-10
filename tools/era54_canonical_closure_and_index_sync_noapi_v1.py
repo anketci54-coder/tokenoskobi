@@ -290,6 +290,7 @@ RULES:
 - No new canonical document is created when an existing owner file can be updated.
 - PROJECT_RUNTIME.json is the current-state authority.
 - PROJECT_HISTORY.json is append-only.
+- BOOT and RUNTIME are included in the atomic closure commit; closure is declared only after push and remote verification.
 - `tk machine` is not used by the current canonical flow.
 
 CURRENT_ALIGNMENT:
@@ -526,6 +527,12 @@ def main() -> int:
     boot['current_checkpoint'] = checkpoint
     boot['current_problem'] = None
     boot['current_work_unit'] = work_unit
+    boot['work_unit'] = WORK_UNIT
+    boot['open_risks'] = [
+        'Next major project line is not selected yet.',
+        'ERA55 is not opened and requires explicit human selection.',
+        'Risk is minimized, never zero.',
+    ]
     boot['last_completed'] = WORK_UNIT
     boot['last_action'] = last_action
     boot['next_safe_step'] = next_safe_step
@@ -540,6 +547,35 @@ def main() -> int:
     )
     if isinstance(boot.get('new_window_startup_instruction'), dict):
         boot['new_window_startup_instruction']['instruction'] = boot['new_chat_instruction']
+    boot.setdefault('work_unit_protocol', {})
+    boot['work_unit_protocol'].update({
+        'boot_update_position': 'FINAL_CONTENT_MUTATION_BEFORE_ATOMIC_CLOSURE_COMMIT',
+        'closure_rule': (
+            'BOOT and RUNTIME are included in the atomic closure commit. '
+            'The work unit is declared closed only after push, remote verify, and GitHub seal.'
+        ),
+        'mandatory_sequence': [
+            'PLAN',
+            'APPROVAL',
+            'APPLY',
+            'TEST',
+            'AUDIT',
+            'POST_AUDIT',
+            'CLOSURE_DOCUMENT_SYNC',
+            'BOOT_RUNTIME_UPDATE',
+            'COMMIT',
+            'PUSH',
+            'REMOTE_VERIFY',
+            'GITHUB_SEAL',
+            'WORK_UNIT_CLOSED',
+        ],
+        'forbidden': [
+            'Do not mark work unit closed before remote verification.',
+            'Do not start next work unit before GitHub seal.',
+            'Do not rely on chat memory as closure evidence.',
+            'Do not create a second state-only commit when one atomic closure commit is sufficient.',
+        ],
+    })
     boot.setdefault('project', {})
     boot['project']['status'] = 'ACTIVE'
     boot['project']['mode'] = 'ERA54_CANONICAL_CLOSURE_AND_INDEX_SYNC_CLOSED'
@@ -574,7 +610,7 @@ def main() -> int:
             'era': 'ERA54',
             'work_unit': WORK_UNIT,
             'event': 'FINAL_CANONICAL_CLOSURE_AND_INDEX_SYNC',
-            'status': 'CLOSED_READY_FOR_GITHUB_SEAL',
+            'status': 'CLOSED_VERIFIED_GITHUB_SEALED_BY_ATOMIC_CLOSURE_COMMIT',
             'technical_closure_head': TECHNICAL_CLOSURE_HEAD,
             'head_before_closure_commit': current_head,
             'news_operational_baseline': 'CLOSED_VERIFIED_BOUNDED_RUNTIME',
@@ -947,6 +983,13 @@ EVIDENCE:
     atomic_write_json(CONTROL_REL, artifact)
 
     changed = set(git_output('diff', '--name-only').splitlines())
+    changed.update(
+        git_output(
+            'ls-files',
+            '--others',
+            '--exclude-standard',
+        ).splitlines()
+    )
     expected_changed = set(ALL_CHANGED_FILES)
     if changed != expected_changed:
         raise RuntimeError(

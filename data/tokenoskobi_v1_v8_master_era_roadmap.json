@@ -1,8 +1,8 @@
 {
   "schema": "tokenoskobi_os_full_v1_v8_master_roadmap_v2",
-  "updated_at": "2026-07-10T12:30:25.265514+00:00",
-  "git_head": "4b72e4cb675e7011a379135cffa1e92c08463908",
-  "work_unit": "POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
+  "updated_at": "2026-07-10T12:45:23.567774+00:00",
+  "git_head": "89d7371474aa0772c8d8265b82a712fa4c80c125",
+  "work_unit": "ERA54_CANONICAL_CLOSURE_AND_INDEX_SYNC_NOAPI",
   "source_of_truth_order": [
     "LOCAL_WORKSPACE",
     "LOCAL_GIT",
@@ -12,6 +12,7 @@
   "closure_update_rule": {
     "every_era_closure_updates": [
       "PROJECT_RUNTIME.json",
+      "PROJECT_BOOT.json",
       "PROJECT_HISTORY.json",
       "data/tokenoskobi_v1_v8_master_era_roadmap.json",
       "03_ROADMAP.md",
@@ -22,6 +23,7 @@
     ],
     "every_v_closure_updates": [
       "PROJECT_RUNTIME.json",
+      "PROJECT_BOOT.json",
       "PROJECT_HISTORY.json",
       "data/tokenoskobi_v1_v8_master_era_roadmap.json",
       "03_ROADMAP.md",
@@ -30,7 +32,16 @@
       "06_PROJECT_MASTER_STATE.md",
       "07_PROJECT_HANDOFF.md"
     ],
-    "rule": "Kapanan her ERA ve V sonunda roadmap/almanac/register/master/handoff güncellenmeden yeni iş açılmaz."
+    "rule": "Every ERA/V closure updates the complete mandatory set. Navigation files change only when startup/navigation ownership changes.",
+    "operational_companion_updates": [
+      "reports/LATEST_TK_AI_HANDOFF.md",
+      "data/control/latest_tk_machine_state.json"
+    ],
+    "conditional_navigation_updates": [
+      "README.md",
+      "01_INDEX.md",
+      "docs/canonical/CANONICAL_DOCUMENTATION_V1_LOCK.md"
+    ]
   },
   "doctrine": {
     "no_duplicate_canon_rule": "ONE_PURPOSE_ONE_CANONICAL_FILE",
@@ -383,19 +394,28 @@
         },
         {
           "id": "ERA54",
-          "title": "Massive Scale Processing",
-          "status": "PLANNED",
-          "purpose": "On binlerce token ve yüksek ölçek işleme.",
+          "title": "Hot Intelligence Ingress Bounded Runtime",
+          "status": "CLOSED",
+          "purpose": "NEWS cold producer, derived refresh, bounded hot ingress queue and active panel bridge verified by a natural timer cycle.",
           "depends_on": "ERA53",
-          "connects_to": "ERA55"
+          "connects_to": "ERA55_SELECTION_GATE",
+          "actual_scope_override": true,
+          "historical_planned_title": "Massive Scale Processing",
+          "historical_planned_purpose": "On binlerce token ve yüksek ölçek işleme.",
+          "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
+          "closure_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+          "closure_status": "CLOSED_VERIFIED_BOUNDED_RUNTIME"
         },
         {
           "id": "ERA55",
           "title": "Runtime Optimization",
-          "status": "PLANNED",
+          "status": "PLANNED_CANDIDATE_NOT_OPENED",
           "purpose": "Latency, IO, cache, queue, hot-path optimizasyonu.",
-          "depends_on": "ERA54",
-          "connects_to": "ERA56"
+          "depends_on": "ERA54_CLOSED_AND_NEXT_MAJOR_LINE_SELECTION",
+          "connects_to": "ERA56",
+          "selection_required": true,
+          "human_authorization_required": true,
+          "provisional_only": true
         },
         {
           "id": "ERA56",
@@ -1376,5 +1396,31 @@
     "natural_timer_cycle": "OBSERVED_VERIFIED",
     "evidence_source": "RUNTIME_STATE_CORRELATED_TO_SYSTEMD_SERVICE_CYCLE",
     "next_safe_step": "NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE"
+  },
+  "era54_final_closure": {
+    "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+    "actual_title": "Hot Intelligence Ingress Bounded Runtime",
+    "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
+    "observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "natural_timer_cycle": "OBSERVED_VERIFIED",
+    "news_operational_baseline": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+    "counts": {
+      "news_raw_feed_events": 372,
+      "news_token_match_events": 184,
+      "news_signal_events": 184,
+      "news_score_events_v1": 184,
+      "news_runtime_freshness_v1": 3
+    },
+    "market_indicator_count": 39,
+    "adversarial_count": 59,
+    "hot_queue_count": 50,
+    "next_safe_step": "NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE",
+    "era55_opened": false
+  },
+  "post_era54_selection_gate": {
+    "status": "READY",
+    "next_safe_step": "NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE",
+    "era55_opened": false,
+    "rule": "Do not open ERA55 until the next major line is explicitly selected by the user."
   }
 }

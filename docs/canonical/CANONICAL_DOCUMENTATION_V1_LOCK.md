@@ -1,34 +1,69 @@
 # CANONICAL DOCUMENTATION V1 LOCK
 
-STATUS=LOCKED
+STATUS=LOCKED_CURRENT
+CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
+UPDATED_AT_UTC=2026-07-10T12:45:23.567774+00:00
 
-ROOT_PUBLIC_DOCS:
+ROOT_NAVIGATION_AND_HUMAN_DOCS:
 - README.md
 - 01_INDEX.md
 - 02_MANIFESTO.md
 - 03_ROADMAP.md
 - 04_ALMANAC.md
 - 05_ATLAS.md
+- 06_PROJECT_MASTER_STATE.md
+- 07_PROJECT_HANDOFF.md
 
-SUPPORT_DOCS_DIR=docs/
-CONFIG_MD_COUNT=0
+MACHINE_CANONICAL_AUTHORITIES:
+- PROJECT_RUNTIME.json
+- PROJECT_BOOT.json
+- PROJECT_HISTORY.json
+- data/tokenoskobi_v1_v8_master_era_roadmap.json
 
-COVERAGE:
-- PASS0-PASS27D covered in 04_ALMANAC.md
-- PHASE0-PHASE41 covered in 04_ALMANAC.md
-- ROADMAP master timeline finalized in 03_ROADMAP.md
-- ATLAS master text map finalized in 05_ATLAS.md
-- MANIFESTO doctrine finalized in 02_MANIFESTO.md
+STARTUP_READ_ORDER:
+1. PROJECT_RUNTIME.json
+2. PROJECT_BOOT.json
+3. 06_PROJECT_MASTER_STATE.md
+4. 07_PROJECT_HANDOFF.md
+5. 02_MANIFESTO.md
+6. 03_ROADMAP.md
+7. PROJECT_HISTORY.json only when historical context is required
 
-UPDATE_RULE:
-- New PASS closeout updates 04_ALMANAC.md
-- New PHASE closeout updates 03_ROADMAP.md, 04_ALMANAC.md, 05_ATLAS.md
-- New doctrine updates 02_MANIFESTO.md
-- Index changes only when navigation changes
+MANDATORY_ERA_AND_V_CLOSURE_UPDATE_SET:
+- PROJECT_RUNTIME.json
+- PROJECT_BOOT.json
+- PROJECT_HISTORY.json
+- data/tokenoskobi_v1_v8_master_era_roadmap.json
+- 03_ROADMAP.md
+- 04_ALMANAC.md
+- 05_ATLAS.md
+- 06_PROJECT_MASTER_STATE.md
+- 07_PROJECT_HANDOFF.md
 
-FINAL_GATE=PASS_CANONICAL_DOCUMENTATION_V1_LOCK_REAL_APPLY
-NEXT_SAFE_STEP=CANONICAL_DOCUMENTATION_V1_GITHUB_PUSH_REAL_APPLY
+OPERATIONAL_CLOSURE_COMPANIONS:
+- reports/LATEST_TK_AI_HANDOFF.md
+- data/control/latest_tk_machine_state.json
 
+CONDITIONAL_NAVIGATION_UPDATE_SET:
+- README.md when startup pointers change
+- 01_INDEX.md when navigation changes
+- docs/canonical/CANONICAL_DOCUMENTATION_V1_LOCK.md when ownership or closure rules change
+
+RULES:
+- 02_MANIFESTO.md changes only when doctrine changes.
+- Index contains navigation only; no runtime state, heads, timestamps, or history.
+- One purpose equals one canonical file.
+- No new canonical document is created when an existing owner file can be updated.
+- PROJECT_RUNTIME.json is the current-state authority.
+- PROJECT_HISTORY.json is append-only.
+- BOOT and RUNTIME are included in the atomic closure commit; closure is declared only after push and remote verification.
+- `tk machine` is not used by the current canonical flow.
+
+CURRENT_ALIGNMENT:
+- ERA54 actual scope: Hot Intelligence Ingress Bounded Runtime
+- ERA54 status: CLOSED_VERIFIED_BOUNDED_RUNTIME
+- NEWS operational baseline: CLOSED_VERIFIED_BOUNDED_RUNTIME
+- Next safe step: NEXT_MAJOR_PROJECT_LINE_SELECTION_AFTER_NEWS_OPERATIONAL_BASELINE_CLOSURE
 ---
 
 ## PHASE42_UNKNOWN_ANOMALY_ENGINE

@@ -1,54 +1,51 @@
 # 01_INDEX.md - TOKENOSKOBI / COINOSKOBI CANONICAL INDEX
 
-```text
-TOKENOSKOBI / COINOSKOBI
-CANONICAL INDEX
+## 1. BOOT POINTER
 
-1. CANONICAL ROOT
-01_INDEX.md
-└─ navigation only
+- `README.md` — kısa başlangıç ve güvenlik işaretçisi
 
-2. CORE CANONICAL DOCUMENTS
-02_MANIFESTO.md
-└─ anayasa / doktrin / yasaklar / yetki sınırları
+## 2. HUMAN-READABLE CANONICAL DOCUMENTS
 
-03_ROADMAP.md
-└─ ileri yol / yapılacak ana yönler
+- `02_MANIFESTO.md` — anayasa, doktrin, yasaklar ve yetki sınırları
+- `03_ROADMAP.md` — ileri yön, ana hatlar ve açılmamış işler
+- `04_ALMANAC.md` — tamamlanan işler ve kapanış kayıtları
+- `05_ATLAS.md` — mimari bağ ve veri akış haritası
+- `06_PROJECT_MASTER_STATE.md` — güncel insan-okur proje özeti
+- `07_PROJECT_HANDOFF.md` — yeni oturum devam bilgisi
 
-04_ALMANAC.md
-└─ tamamlanan ana işler ve kapanış kayıtları
+## 3. MACHINE-READABLE CANONICAL AUTHORITIES
 
-05_ATLAS.md
-└─ mimari bağ haritası
+- `PROJECT_RUNTIME.json` — güncel durumun birincil kaynağı
+- `PROJECT_BOOT.json` — sabit kimlik, doktrin ve başlangıç sözleşmesi
+- `PROJECT_HISTORY.json` — eklemeli tarihsel kayıt; yalnız gerektiğinde okunur
+- `data/tokenoskobi_v1_v8_master_era_roadmap.json` — V/ERA ana yol haritası
 
-3. CURRENT STATE AND CONTINUATION
-06_PROJECT_MASTER_STATE.md
-└─ bugünkü gerçek durum
+## 4. DOCUMENTATION LOCK
 
-07_PROJECT_HANDOFF.md
-└─ yeni oturum devam bilgisi
-```
+- `docs/canonical/CANONICAL_DOCUMENTATION_V1_LOCK.md` — canonical doküman sahipliği ve kapanış güncelleme sözleşmesi
+
+## STARTUP READ ORDER
+
+1. `PROJECT_RUNTIME.json`
+2. `PROJECT_BOOT.json`
+3. `06_PROJECT_MASTER_STATE.md`
+4. `07_PROJECT_HANDOFF.md`
+5. `02_MANIFESTO.md`
+6. `03_ROADMAP.md`
+7. `PROJECT_HISTORY.json` yalnız tarihsel bağlam gerektiğinde
 
 ## INDEX CONSTITUTION
 
-01_INDEX.md is a navigation document.
+`01_INDEX.md` yalnız navigation içindir.
 
-It MUST NEVER contain:
+Bu dosya şunları içermez:
 
-- project history
-- runtime status
-- roadmap content
-- architecture details
-- canonical reference maps
-- completed phases
-- completed passes
-- implementation details
-- engine specifications
-- audit records
-- GitHub heads
-- timestamps
-- root directory inventory
-- temporary folders
-- archive inventories
+- canlı runtime durumu
+- GitHub HEAD veya zaman damgası
+- proje tarihi veya kapanış ayrıntıları
+- mimari teknik ayrıntı
+- faz/ERA sonuçları
+- root dizin envanteri
+- geçici veya arşiv dosyaları
 
-It ONLY points to canonical root documents.
+Navigation değişmedikçe bu dosya değiştirilmez.

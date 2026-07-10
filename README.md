@@ -1,38 +1,32 @@
 # TOKENOSKOBI / COINOSKOBI
 
-This README is only a boot pointer. Canonical live state is not stored here.
+Bu README yalnız başlangıç işaretçisidir. Canlı proje durumu burada tutulmaz.
 
-Use the kernel bootstrap:
+## Yetkili başlangıç sırası
 
-```bash
-cd /root/tokenoskobi_clean_v1 || exit 1
-git pull --ff-only origin main
-tk ai
-tk sync
-git status --short
-```
+1. `PROJECT_RUNTIME.json`
+2. `PROJECT_BOOT.json`
+3. `06_PROJECT_MASTER_STATE.md`
+4. `07_PROJECT_HANDOFF.md`
+5. `02_MANIFESTO.md`
+6. `03_ROADMAP.md`
+7. `PROJECT_HISTORY.json` yalnız tarihsel bağlam gerektiğinde
 
-New ChatGPT windows should read only:
+Canonical navigation için `01_INDEX.md` kullanılır.
 
-1. `NEXT_CHAT_HANDOFF.md`
-2. `PROJECT_RUNTIME.json`
-3. `TOKENOSKOBI_OS_REGISTRY.json`
-4. `PROJECT_HISTORY.json`
+## Kaynak önceliği
 
-Current direction:
+1. Local workspace
+2. Local Git
+3. GitHub remote
+4. AI memory
 
-- Keep root small.
-- Keep active code separate from archive/history.
-- Archive sealed or inert branches instead of deleting evidence.
-- Do not treat `docs/archive/*`, `data/archive/*`, or `archive/*` as active state.
-- Prefer GitHub-side inspection first; use server only for runtime/process/local generated evidence.
+## Çalışma kuralları
 
-Safety rules:
-
-- Repository/server state is source of truth.
-- Do not open a new ERA unless explicitly requested.
-- Do not repeat closed audits unless drift is detected.
-- Prefer one complete operation, one verification set, one commit, one push.
-- CORE changes require explicit `CORE_UPGRADE`.
-- New work should be plugin-based.
-- No live trade, wallet signing, paid/API calls, or policy apply unless explicitly approved.
+- Yeni ERA yalnız açık insan kararıyla açılır.
+- Kapanmış audit veya hat, kanıtlı drift yoksa yeniden açılmaz.
+- Tek mantıksal operasyon, tek doğrulama seti, mümkünse tek commit ve tek push kullanılır.
+- Runtime, DB, panel, service, timer veya yetki değişikliği yalnız açık kapsamla yapılır.
+- Canlı trade, wallet signing, order creation ve AI trade authority kilitlidir.
+- GitHub incelemesi önce; server yalnız local/runtime kanıtı gerektiğinde kullanılır.
+- `tk machine` güncel canonical akışta çalıştırılmaz.
