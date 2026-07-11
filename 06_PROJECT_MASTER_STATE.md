@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_NEWS_OPERATIONAL_BASELINE_CLOSED_SELECTION_GATE_READY
+PROJECT_STATUS=ACTIVE_ERA55_RUNTIME_OPTIMIZATION_BASELINE
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -32,36 +32,33 @@ BOOT_HEALTH=100/100
 ```text
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
-CURRENT_GATE=ERA55_SELECTION_GATE
-GATE_STATUS=READY
-GATE_SERVES=V3_RUNTIME_INTELLIGENCE_OS
-ERA55_CANDIDATE=ERA55_RUNTIME_OPTIMIZATION
-ERA55_CANDIDATE_STATUS=PLANNED_CANDIDATE_NOT_OPENED
-HUMAN_AUTHORIZATION_REQUIRED=true
-NEW_ERA_OPENED=false
+CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
+ERA55_STATUS=OPEN
+CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
+LAST_COMPLETED_SUBSTEP=ERA55A_1_READONLY_INSPECTION
+HUMAN_AUTHORIZATION_RECORDED=true
+GEMINI_RED_TEAM_REQUIRED=true
+OPTIMIZATION_APPLY_AUTHORIZED=false
+BURST_LOAD_AUTHORIZED=false
 ```
 
-Allowed decisions:
-
-- `OPEN_ERA55_RUNTIME_OPTIMIZATION`
-- `SELECT_ANOTHER_MAJOR_PROJECT_LINE`
-- `HOLD_NO_NEW_MAJOR_LINE`
-
-No major project line is selected until explicit human authorization is given.
+ERA55 is open only for measured runtime optimization. No optimization apply, watchdog, index, WAL, cache, queue-policy or incremental-write change is authorized yet.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=NEWS_READONLY_AUDIT_CLOSURE_20260710
-LAST_RESULT=OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED
-LAST_ARTIFACT=data/control/news_readonly_audit_closure_20260710_v1.json
+LAST_COMPLETED=ERA55A_1_READONLY_INSPECTION
+LAST_RESULT=WARN_P0_FINDINGS_RECORDED_READONLY
+LAST_ARTIFACT=data/control/era55_runtime_optimization_init_v1.json
+LAST_REPORT=reports/LATEST_ERA55A1_READONLY_INSPECTION.md
 WORK_UNIT_STATUS=CLOSED
-CURRENT_PROBLEM=null
+SYSTEM_INSPECTION=READ_ONLY
+RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 ```
 
-The verification belongs to the closed ERA54 line and does not open ERA55.
+ERA55A_1 recorded the natural system configuration and static queue policy without changing the live runtime.
 
 ---
 
@@ -178,24 +175,21 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- `ERA55_SELECTION_GATE` is ready but unresolved.
-- `ERA55_RUNTIME_OPTIMIZATION` remains a candidate and is not opened.
-- No new major project line exists without explicit human authorization.
+- `P0 QUEUE_OVERFLOW_SILENT_TRUNCATION_RISK` — Queue keeps deterministic top 50 but no overflow/drop ledger was found.
+- `P1 SQLITE_JOURNAL_MODE_NOT_WAL` — Current journal_mode=delete.
+- `P1 PANEL_PROPAGATION_LATENCY_NOT_YET_INSTRUMENTED` — Filesystem timestamps provide visibility but not end-to-end propagation latency.
 - Runtime risk is minimized, never zero.
-- `PROJECT_RUNTIME.json` keeps current state plus explicitly labeled bounded historical evidence; current-state fields remain authoritative.
-- Git HEAD must be read dynamically from Git and must not be embedded as a self-referential current value in this file.
+- Git HEAD remains dynamic and is not embedded self-referentially.
 
 ---
 
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55_SELECTION_GATE
+NEXT_SAFE_STEP=ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN
 ```
 
-The user must choose one of the allowed decisions before a new major line is opened.
-
-Documentation normalization does not count as opening ERA55 or selecting a new project line.
+The next step defines granular read-only timestamps and cold/hot normal-load baseline commands. Burst testing and optimization apply remain unauthorized.
 
 ---
 

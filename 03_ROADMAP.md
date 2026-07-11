@@ -130,14 +130,16 @@ Durum:
 
 V3 active.
 
-Current major-line selection gate:
+Current major line:
 
-- `ERA55_SELECTION_GATE`
+- `ERA55_RUNTIME_OPTIMIZATION`
 - Parent line: `ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME`
-- Candidate major line: `ERA55_RUNTIME_OPTIMIZATION`
-- Candidate status: `PLANNED_CANDIDATE_NOT_OPENED`
-- Human authorization required: `true`
-- New ERA opened: `false`
+- Status: `OPEN`
+- Human authorization recorded: `true`
+- Active baseline stage: `ERA55A`
+- Last completed substep: `ERA55A_1_READONLY_INSPECTION`
+- Next safe step: `ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN`
+- Gemini Red Team review required before optimization apply: `true`
 
 ERA55 candidate direction:
 

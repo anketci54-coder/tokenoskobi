@@ -24,35 +24,34 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_NEWS_OPERATIONAL_BASELINE_CLOSED_SELECTION_GATE_READY
+PROJECT_STATUS=ACTIVE_ERA55_RUNTIME_OPTIMIZATION_BASELINE
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
-ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
-CURRENT_GATE=ERA55_SELECTION_GATE
-GATE_STATUS=READY
-ERA55_CANDIDATE=ERA55_RUNTIME_OPTIMIZATION
-ERA55_CANDIDATE_STATUS=PLANNED_CANDIDATE_NOT_OPENED
-HUMAN_SELECTION_REQUIRED=true
-NEW_ERA_OPENED=false
+CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
+ERA55_STATUS=OPEN
+CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
+LAST_COMPLETED_SUBSTEP=ERA55A_1_READONLY_INSPECTION
+GEMINI_RED_TEAM_REQUIRED=true
+OPTIMIZATION_APPLY_AUTHORIZED=false
+BURST_LOAD_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-No new major project line has been selected.
-
-Documentation normalization does not open ERA55.
+ERA55 was opened by explicit user authorization. ERA55A_1 is closed as read-only inspection; no live runtime mutation was applied.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=NEWS_READONLY_AUDIT_CLOSURE_20260710
-LAST_RESULT=OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED
-LAST_ARTIFACT=data/control/news_readonly_audit_closure_20260710_v1.json
+LAST_COMPLETED=ERA55A_1_READONLY_INSPECTION
+LAST_RESULT=WARN_P0_FINDINGS_RECORDED_READONLY
+LAST_ARTIFACT=data/control/era55_runtime_optimization_init_v1.json
+LAST_REPORT=reports/LATEST_ERA55A1_READONLY_INSPECTION.md
 WORK_UNIT_STATUS=CLOSED
+SYSTEM_INSPECTION=READ_ONLY
+RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 CURRENT_PROBLEM=null
 
-The last verification belongs to the closed ERA54 line.
-
-Current runtime counts and detailed NEWS state must be read from `PROJECT_RUNTIME.json` and `06_PROJECT_MASTER_STATE.md`; they are not duplicated here.
+The next action is granular read-only instrumentation planning, not optimization apply.
 
 ---
 
@@ -98,42 +97,43 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 ## 06 DO NOT REOPEN OR REPEAT
 
 - Do not reopen ERA54.
-- Do not reopen the closed HBR attempt without a new archive-capable source and new sealed input.
 - Do not rebuild NEWS from zero.
+- Do not apply watchdog, index, WAL, cache, queue-policy or incremental-write changes before baseline evidence.
+- Do not run production BURST_LOAD before temp-copy test authorization.
+- Do not accept silent event loss.
 - Do not recreate removed historical current-state blocks.
 - Do not copy current state into Manifesto, Roadmap, Almanac, Atlas or Index.
 - Do not create a new canonical file when an owner file already exists.
-- Do not open micro ERA records for plan, test, audit, review, seal or documentation cleanup.
+- Do not open micro ERA records for plan, test, audit, review or seal.
 - Do not run `tk machine` unless explicitly requested.
-- Do not open ERA55 without explicit human authorization.
+- Do not close ERA55 before Gemini Red Team findings are resolved.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-The user must choose exactly one of:
+Current authorized direction:
 
-- `OPEN_ERA55_RUNTIME_OPTIMIZATION`
-- `SELECT_ANOTHER_MAJOR_PROJECT_LINE`
-- `HOLD_NO_NEW_MAJOR_LINE`
+- `ERA55_RUNTIME_OPTIMIZATION` is open.
+- `ERA55A_1_READONLY_INSPECTION` is complete.
+- Optimization apply is not authorized.
+- Burst load is not authorized.
 
-Until that choice is made:
-
-NEXT_SAFE_STEP=ERA55_SELECTION_GATE
-NEW_ERA_OPENED=false
+NEXT_SAFE_STEP=ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
 1. Read `PROJECT_RUNTIME.json`.
-2. Confirm `ERA55_SELECTION_GATE` remains the next safe step.
-3. Read Git HEAD dynamically.
-4. Confirm local and remote `main` are synchronized before mutation.
-5. Do not infer current state from AI memory or historical documents.
-6. Use GitHub inspection first.
-7. Use the server only when local or runtime evidence is required.
-8. Wait for explicit human selection before opening a new major line.
+2. Confirm `ERA55_STATUS=OPEN` and `ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN` remains the next safe step.
+3. Read Git HEAD dynamically and verify local/remote synchronization.
+4. Review `data/control/era55_runtime_optimization_init_v1.json` and `reports/LATEST_ERA55A1_READONLY_INSPECTION.md`.
+5. Define granular read-only stage timestamps.
+6. Collect normal cold-start and hot-state baselines.
+7. Submit the completed baseline report to Gemini Red Team.
+8. Use a temp DB copy for burst, saturation, lock and recovery tests.
+9. Do not apply optimization until evidence and Red Team review support it.
 
 ---
 
