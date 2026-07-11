@@ -5629,3 +5629,20 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - P0 F1 closed: `false`
 - Next safe step: `ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST`
 
+---
+
+## ERA55A_13 PRE-GATEWAY STREAM TEMP-COPY BINDING
+
+- Status: `CLOSED_TEMP_COPY_BINDING_OK`
+- Result: `OK_COMPLETE_PRE_GATEWAY_JSONL_STREAM_TEMP_COPY_BOUND`
+- Real pre-gateway candidates: `106`
+- Display projection candidates: `50`
+- Physical non-empty line accounting: `true`
+- Unobservable rows: `0`
+- Queue parity: `true`
+- Production mutation: `false`
+- Bounded canary authorized: `false`
+- Production writer activation authorized: `false`
+- P0 F1 closed: `false`
+- Next safe step: `ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION`
+
