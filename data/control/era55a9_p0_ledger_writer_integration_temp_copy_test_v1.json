@@ -1,0 +1,297 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+  "era": "ERA55",
+  "tested_at_utc": "2026-07-11T11:08:11.850316+00:00",
+  "status": "CLOSED_TEMP_COPY_INTEGRATION_OK",
+  "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
+  "head_before_commit": "9b6c1fc1bb0412ff7252504d9f0f4414337ae5a4",
+  "source_a8_artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
+  "temp_environment": {
+    "choice": {
+      "root": "/dev/shm",
+      "mode": "TMPFS_CAPACITY_PROVEN",
+      "free_bytes": 4165636096,
+      "required_bytes": 90701824
+    },
+    "temp_dir": "/dev/shm/era55a9_c4fxtndd",
+    "production_db_open_mode": "READ_ONLY_BACKUP_SOURCE"
+  },
+  "tests": {
+    "ok": true,
+    "model": {
+      "policy_version": "PRIORITY_DESC_THEN_HOT_UID_TOP_50_LEDGER_V1",
+      "capacity": 50,
+      "batch_uid": "batch_a4cd5d3c7102010ccf20e13bd519",
+      "source_snapshot_hash": "0ea3bee904c005ae35873853642937357bca9764e2082c5e81606e5079635126",
+      "queue_output_hash": "6c09e6578d44a625d547ecc9a519df6c99890dcf5621095ffaf34f6027fae212",
+      "source_candidate_count": 71,
+      "normalized_candidate_count": 66,
+      "deduplicated_candidate_count": 61,
+      "admitted_count": 50,
+      "overflow_count": 10,
+      "duplicate_removed_count": 5,
+      "unsafe_filtered_count": 3,
+      "invalid_candidate_count": 2,
+      "replaced_count": 1,
+      "lowest_admitted_priority": 5,
+      "highest_overflow_priority": 0,
+      "disposition_counts": {
+        "ADMITTED": 50,
+        "REPLACED_BY_HIGHER_PRIORITY": 1,
+        "OVERFLOW_TRUNCATED": 10,
+        "DUPLICATE_REMOVED": 5,
+        "INVALID_CANDIDATE": 2,
+        "UNSAFE_AUTHORITY_FILTERED": 3
+      }
+    },
+    "expected_disposition_counts": {
+      "ADMITTED": 50,
+      "DUPLICATE_REMOVED": 5,
+      "INVALID_CANDIDATE": 2,
+      "OVERFLOW_TRUNCATED": 10,
+      "REPLACED_BY_HIGHER_PRIORITY": 1,
+      "UNSAFE_AUTHORITY_FILTERED": 3
+    },
+    "current_gateway_queue_count": 50,
+    "candidate_gateway_queue_count": 50,
+    "queue_hot_uid_parity": true,
+    "success_and_idempotency": {
+      "decision": "COMMITTED_AND_PUBLISHED",
+      "publish_state": "OUTPUT_PUBLISHED_OR_RECOVERED",
+      "verification": {
+        "ledger_count": 71,
+        "disposition_counts": {
+          "ADMITTED": 50,
+          "DUPLICATE_REMOVED": 5,
+          "INVALID_CANDIDATE": 2,
+          "OVERFLOW_TRUNCATED": 10,
+          "REPLACED_BY_HIGHER_PRIORITY": 1,
+          "UNSAFE_AUTHORITY_FILTERED": 3
+        },
+        "unobservable_rows": 0,
+        "row_count_match": true,
+        "counts_match": true
+      },
+      "idempotent_replay_decision": "IDEMPOTENT_REPLAY_NOOP",
+      "idempotent_replay_publish_state": "OUTPUT_ALREADY_MATCHED",
+      "batch_rows_before_replay": 1,
+      "batch_rows_after_replay": 1,
+      "ledger_rows_before_replay": 71,
+      "ledger_rows_after_replay": 71,
+      "output_hash_before_replay": "b43f23d0b76fa702beadb92ae50d2819a213a6c73e2d81ebddae25a601077b17",
+      "output_hash_after_replay": "b43f23d0b76fa702beadb92ae50d2819a213a6c73e2d81ebddae25a601077b17",
+      "integrity_before": "ok",
+      "integrity_after": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_rows": 0,
+      "source_tables_before": {
+        "news_raw_feed_events": {
+          "exists": true,
+          "row_count": 391
+        },
+        "news_token_match_events": {
+          "exists": true,
+          "row_count": 202
+        },
+        "news_signal_events": {
+          "exists": true,
+          "row_count": 202
+        },
+        "news_score_events_v1": {
+          "exists": true,
+          "row_count": 202
+        }
+      },
+      "source_tables_after": {
+        "news_raw_feed_events": {
+          "exists": true,
+          "row_count": 391
+        },
+        "news_token_match_events": {
+          "exists": true,
+          "row_count": 202
+        },
+        "news_signal_events": {
+          "exists": true,
+          "row_count": 202
+        },
+        "news_score_events_v1": {
+          "exists": true,
+          "row_count": 202
+        }
+      },
+      "source_tables_unchanged": true,
+      "idempotent_replay_ok": true
+    },
+    "replacement_atomic_rollback": {
+      "error": "INJECTED_REPLACEMENT_ATOMICITY_FAILURE",
+      "batch_rows_after_rollback": 0,
+      "ledger_rows_after_rollback": 0,
+      "output_exists": false,
+      "integrity_check": "ok",
+      "ok": true
+    },
+    "postcommit_publish_recovery": {
+      "error": "INJECTED_POSTCOMMIT_PREPUBLISH_FAILURE",
+      "batch_rows_after_failure": 1,
+      "ledger_rows_after_failure": 71,
+      "output_exists_after_failure": false,
+      "replay_decision": "IDEMPOTENT_REPLAY_NOOP",
+      "replay_publish_state": "OUTPUT_PUBLISHED_OR_RECOVERED",
+      "batch_rows_after_replay": 1,
+      "ledger_rows_after_replay": 71,
+      "verification": {
+        "ledger_count": 71,
+        "disposition_counts": {
+          "ADMITTED": 50,
+          "DUPLICATE_REMOVED": 5,
+          "INVALID_CANDIDATE": 2,
+          "OVERFLOW_TRUNCATED": 10,
+          "REPLACED_BY_HIGHER_PRIORITY": 1,
+          "UNSAFE_AUTHORITY_FILTERED": 3
+        },
+        "unobservable_rows": 0,
+        "row_count_match": true,
+        "counts_match": true
+      },
+      "output_hash_matches": true,
+      "ok": true
+    },
+    "hard_gates": {
+      "source_candidate_count": 71,
+      "accounted_count": 71,
+      "unledgered_disposition": 0,
+      "uid_loss": 0,
+      "duplicate_regression": 0,
+      "new_ledger_batch_unobservable_rows": 0,
+      "queue_parity_with_current_gateway": true,
+      "idempotent_replay_ok": true,
+      "replacement_atomic_rollback_ok": true,
+      "postcommit_publish_recovery_ok": true,
+      "source_tables_unchanged": true,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_rows": 0
+    },
+    "cross_resource_boundary": {
+      "db_ledger_transaction": "ATOMIC_TEMP_COPY_PROVEN",
+      "replaced_update_and_new_insert": "SAME_BEGIN_COMMIT_PROVEN",
+      "queue_file_write": "ATOMIC_RENAME_PROVEN",
+      "db_to_file_strict_atomicity": false,
+      "db_to_file_protocol": "COMMIT_THEN_PUBLISH_FAIL_CLOSED_REPLAY_RECOVERY",
+      "recovery_tested": true
+    }
+  },
+  "production_guard_before": {
+    "production_db": {
+      "sha256": "0c03d3039e1d2cca7e3812ecd7280fc038e390c9fbf41b624e8dc2cdea853f42",
+      "size_bytes": 5898240,
+      "mtime_ns": 1783765436587812285
+    },
+    "files": {
+      "tools/hot_intelligence_ingress_gateway_v1.py": {
+        "exists": true,
+        "sha256": "8d4c1cb568ab194dfb010d66859c45aa29fa044aff1518a656a9f78ecc4fb263",
+        "size_bytes": 5469,
+        "mtime_ns": 1783594676106859132
+      },
+      "tools/news_radar_refresh_runner_v1.py": {
+        "exists": true,
+        "sha256": "76794993a67cc50f7cd8d3c84fe3cc1a02485eea08688f35a4c7718e81d18500",
+        "size_bytes": 1166,
+        "mtime_ns": 1783683705806667053
+      },
+      "runtime/state/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "b6e25fad09805c729eacff21f1c1e47c9563c44714b4e83f7944079baa26dcaf",
+        "size_bytes": 37998,
+        "mtime_ns": 1783767320449208150
+      },
+      "runtime/state/news_coverage_panel_display_v1.json": {
+        "exists": true,
+        "sha256": "ebb8a0597fe7515c18e00806a33e75068a5e7d0d523f53edb9d48051118af58f",
+        "size_bytes": 35497,
+        "mtime_ns": 1783767320409205815
+      },
+      "runtime/state/news_active_panel_data_bridge_v1.json": {
+        "exists": true,
+        "sha256": "48fcaee6914d25da8f7618ceb1d020afe0b2bba3fd305698d769b8e0a185764b",
+        "size_bytes": 5654,
+        "mtime_ns": 1783767320501211185
+      },
+      "active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "b6e25fad09805c729eacff21f1c1e47c9563c44714b4e83f7944079baa26dcaf",
+        "size_bytes": 37998,
+        "mtime_ns": 1783767320501211185
+      }
+    }
+  },
+  "production_guard_after": {
+    "production_db": {
+      "sha256": "0c03d3039e1d2cca7e3812ecd7280fc038e390c9fbf41b624e8dc2cdea853f42",
+      "size_bytes": 5898240,
+      "mtime_ns": 1783765436587812285
+    },
+    "files": {
+      "tools/hot_intelligence_ingress_gateway_v1.py": {
+        "exists": true,
+        "sha256": "8d4c1cb568ab194dfb010d66859c45aa29fa044aff1518a656a9f78ecc4fb263",
+        "size_bytes": 5469,
+        "mtime_ns": 1783594676106859132
+      },
+      "tools/news_radar_refresh_runner_v1.py": {
+        "exists": true,
+        "sha256": "76794993a67cc50f7cd8d3c84fe3cc1a02485eea08688f35a4c7718e81d18500",
+        "size_bytes": 1166,
+        "mtime_ns": 1783683705806667053
+      },
+      "runtime/state/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "b6e25fad09805c729eacff21f1c1e47c9563c44714b4e83f7944079baa26dcaf",
+        "size_bytes": 37998,
+        "mtime_ns": 1783767320449208150
+      },
+      "runtime/state/news_coverage_panel_display_v1.json": {
+        "exists": true,
+        "sha256": "ebb8a0597fe7515c18e00806a33e75068a5e7d0d523f53edb9d48051118af58f",
+        "size_bytes": 35497,
+        "mtime_ns": 1783767320409205815
+      },
+      "runtime/state/news_active_panel_data_bridge_v1.json": {
+        "exists": true,
+        "sha256": "48fcaee6914d25da8f7618ceb1d020afe0b2bba3fd305698d769b8e0a185764b",
+        "size_bytes": 5654,
+        "mtime_ns": 1783767320501211185
+      },
+      "active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "b6e25fad09805c729eacff21f1c1e47c9563c44714b4e83f7944079baa26dcaf",
+        "size_bytes": 37998,
+        "mtime_ns": 1783767320501211185
+      }
+    }
+  },
+  "production_unchanged": true,
+  "decision": {
+    "a9_temp_copy_writer_integration_validated": true,
+    "idempotent_replay_validated": true,
+    "replacement_atomicity_validated": true,
+    "publish_recovery_validated": true,
+    "strict_cross_resource_atomicity_proven": false,
+    "production_writer_activation_authorized": false,
+    "p0_f1_closed": false,
+    "option_b_development_authorized": false,
+    "optimization_apply_authorized": false
+  },
+  "next_safe_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
+  "mutation_statement": {
+    "production_database": false,
+    "production_schema": false,
+    "live_gateway": false,
+    "service": false,
+    "timer": false,
+    "panel": false
+  }
+}

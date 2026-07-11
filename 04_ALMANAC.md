@@ -5559,6 +5559,22 @@ Bu eser aşağıdaki canonical rehbere göre geliştirilir:
 
 ---
 
+## ERA55A_9 P0 LEDGER WRITER INTEGRATION TEMP-COPY TEST
+
+- Status: `CLOSED_TEMP_COPY_INTEGRATION_OK`
+- Result: `OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY`
+- Source candidates/accounted: `71/71`
+- New ledger batch unobservable rows: `0`
+- Idempotent replay: `true`
+- Replacement atomic rollback: `true`
+- Publish recovery: `true`
+- Production unchanged: `true`
+- Production writer active: `false`
+- P0 F1 closed: `false`
+- Next safe step: `ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION`
+
+---
+
 ## ALMANAC RECORD INSERTION AND CORRECTION CONSTITUTION
 
 Yeni tamamlanmış kayıt ilgili PASS, PHASE, V veya ERA ailesinin altında tarihsel sıraya eklenir.

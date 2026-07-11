@@ -185,52 +185,50 @@
   "current_era": "ERA55",
   "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
   "current_state": {
-    "mode": "ERA55A8_LEDGER_SCHEMA_ONLY_MIGRATION_OK",
+    "mode": "ERA55A9_LEDGER_WRITER_TEMP_COPY_INTEGRATION_OK",
     "runtime_status": "WORK_UNIT_CLOSED",
     "project_status": "ACTIVE",
-    "updated_at": "2026-07-11T10:23:56.616022+00:00",
+    "updated_at": "2026-07-11T11:08:11.850316+00:00",
     "last_action": {
-      "timestamp": "2026-07-11T10:23:56.616022+00:00",
-      "task": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-      "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
-      "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json"
+      "timestamp": "2026-07-11T11:08:11.850316+00:00",
+      "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+      "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
+      "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json"
     },
     "active_work_unit": {
-      "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-      "type": "ERA55_P0_DROP_LEDGER_SCHEMA_ONLY_MIGRATION",
-      "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
-      "report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
-      "schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
-      "status": "CLOSED_SCHEMA_ONLY_MIGRATION_OK",
-      "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
-      "live_db_schema_mutation": true,
-      "live_db_row_mutation": false,
-      "gateway_writer_active": false,
-      "next_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST"
-    },
-    "next_safe_step": {
       "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
       "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-      "purpose": "Integrate ledger writer only on a temp copy and prove atomic reconciliation.",
-      "temp_copy_required": true,
+      "parent": "ERA55_RUNTIME_OPTIMIZATION",
+      "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
+      "report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
+      "status": "CLOSED_TEMP_COPY_INTEGRATION_OK",
+      "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
+      "production_mutation": false,
+      "next_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION"
+    },
+    "next_safe_step": {
+      "id": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
+      "type": "ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_APPLY_DECISION",
+      "parent": "ERA55_RUNTIME_OPTIMIZATION",
+      "purpose": "Audit A9 integration evidence and decide the bounded production writer implementation plan without activating it.",
+      "human_authorization_required": true,
       "production_writer_activation_authorized": false,
+      "option_b_authorized": false,
       "optimization_apply_authorized": false,
       "status": "READY"
     },
     "current_problem": null
   },
   "current_work_unit": {
-    "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-    "type": "ERA55_P0_DROP_LEDGER_SCHEMA_ONLY_MIGRATION",
-    "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
-    "report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
-    "schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
-    "status": "CLOSED_SCHEMA_ONLY_MIGRATION_OK",
-    "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
-    "live_db_schema_mutation": true,
-    "live_db_row_mutation": false,
-    "gateway_writer_active": false,
-    "next_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST"
+    "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "parent": "ERA55_RUNTIME_OPTIMIZATION",
+    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
+    "report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
+    "status": "CLOSED_TEMP_COPY_INTEGRATION_OK",
+    "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
+    "production_mutation": false,
+    "next_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION"
   },
   "disaster_recovery_policy": {
     "hard_rules": [
@@ -363,13 +361,13 @@
     "status": "ACTIVE"
   },
   "last_action": {
-    "timestamp": "2026-07-11T10:23:56.616022+00:00",
-    "task": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-    "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
-    "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json"
+    "timestamp": "2026-07-11T11:08:11.850316+00:00",
+    "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
+    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json"
   },
-  "last_completed": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-  "mode": "ERA55A8_LEDGER_SCHEMA_ONLY_MIGRATION_OK",
+  "last_completed": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+  "mode": "ERA55A9_LEDGER_WRITER_TEMP_COPY_INTEGRATION_OK",
   "news_operational_state": {
     "hot_gateway_deferred": false,
     "hot_gateway_next": null,
@@ -424,27 +422,30 @@
     "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e"
   },
   "next_safe_step": {
-    "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-    "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-    "purpose": "Integrate ledger writer only on a temp copy and prove atomic reconciliation.",
-    "temp_copy_required": true,
+    "id": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
+    "type": "ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_APPLY_DECISION",
+    "parent": "ERA55_RUNTIME_OPTIMIZATION",
+    "purpose": "Audit A9 integration evidence and decide the bounded production writer implementation plan without activating it.",
+    "human_authorization_required": true,
     "production_writer_activation_authorized": false,
+    "option_b_authorized": false,
     "optimization_apply_authorized": false,
     "status": "READY"
   },
   "open_risks": [
-    "P0:F1_PRODUCTION_LEDGER_WRITER_INACTIVE:OPEN",
+    "P0:F1_PRODUCTION_LEDGER_WRITER_NOT_ACTIVE:OPEN",
+    "P0:CROSS_RESOURCE_DB_TO_FILE_STRICT_ATOMICITY_NOT_PROVEN:OPEN",
     "P1:F2_DELETE_VS_WAL_HYPOTHESIS:OPEN",
-    "P1:F3_ATOMIC_KILL_RECOVERY:UNTESTED",
+    "P1:F3_PROCESS_KILL_RECOVERY:PARTIAL",
     "P2:F4_STAGE_TIMING_AND_PANEL_LATENCY:MISSING",
     "Risk is minimized, never zero."
   ],
-  "project_status": "ACTIVE_ERA55_P0_LEDGER_WRITER_TEMP_COPY_REQUIRED",
+  "project_status": "ACTIVE_ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_REQUIRED",
   "recent_event": {
-    "timestamp": "2026-07-11T10:23:56.616022+00:00",
-    "task": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-    "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
-    "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json"
+    "timestamp": "2026-07-11T11:08:11.850316+00:00",
+    "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
+    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json"
   },
   "runtime_version": "1.0",
   "semantic_drift_guard": {
@@ -474,10 +475,10 @@
     ],
     "work_unit": "ERA23G_SEMANTIC_DRIFT_GUARD"
   },
-  "source": "era55a8_schema_only_migration_v1",
+  "source": "era55a9_p0_ledger_writer_integration_temp_copy_test_v1",
   "status": "WORK_UNIT_CLOSED",
-  "updated_at": "2026-07-11T10:23:56.616022+00:00",
-  "updated_at_utc": "2026-07-11T10:23:56.616022+00:00",
+  "updated_at": "2026-07-11T11:08:11.850316+00:00",
+  "updated_at_utc": "2026-07-11T11:08:11.850316+00:00",
   "news_coverage_panel_display_state": {
     "status": "CLOSED_VERIFIED_CURRENT",
     "stage": "NEWS_COVERAGE_PANEL_DISPLAY_BINDING_FINAL_SEAL_NOAPI",
@@ -834,9 +835,9 @@
     "authorization": "USER_APPROVED_OPEN_ERA55_RUNTIME_OPTIMIZATION",
     "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
     "serves": "V3_RUNTIME_INTELLIGENCE_OS",
-    "active_stage": "ERA55A_P0_DROP_LEDGER",
-    "last_completed_substep": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-    "next_safe_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "active_stage": "ERA55A_P0_LEDGER_WRITER",
+    "last_completed_substep": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "next_safe_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
     "opening_artifact": "data/control/era55_runtime_optimization_init_v1.json",
     "report": "reports/LATEST_ERA55A1_READONLY_INSPECTION.md",
     "gemini_red_team_required": true,
@@ -869,13 +870,23 @@
     "a7_report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
     "a7_schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
     "p0_ledger_schema_temp_copy_validated": true,
-    "p0_f1_status": "OPEN_PENDING_LIVE_WRITER_INTEGRATION_AND_NATURAL_CYCLE_RECONCILIATION",
+    "p0_f1_status": "OPEN_PENDING_PRODUCTION_WRITER_AND_NATURAL_CYCLE_PROOF",
     "production_ledger_apply_authorized": false,
     "a8_artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
     "a8_report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
     "a8_schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
     "production_ledger_schema_present": true,
     "production_ledger_writer_active": false,
-    "p0_f1_closed": false
+    "p0_f1_closed": false,
+    "a9_artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
+    "a9_report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
+    "a9_temp_copy_writer_integration_validated": true,
+    "idempotent_replay_validated": true,
+    "replacement_atomicity_validated": true,
+    "publish_recovery_validated": true,
+    "strict_cross_resource_atomicity_proven": false,
+    "new_ledger_batch_unobservable_rows": 0,
+    "production_writer_activation_authorized": false,
+    "option_b_authorized": false
   }
 }

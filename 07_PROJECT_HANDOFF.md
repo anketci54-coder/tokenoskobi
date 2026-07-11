@@ -24,25 +24,34 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_WRITER_TEMP_COPY_REQUIRED
+PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_REQUIRED
+CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
+LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-LAST_COMPLETED_SUBSTEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
-PRODUCTION_LEDGER_SCHEMA_PRESENT=true
+CURRENT_STAGE=ERA55A_P0_LEDGER_WRITER
+LAST_COMPLETED_SUBSTEP=ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST
+A9_TEMP_COPY_WRITER_INTEGRATION_VALIDATED=true
+NEW_LEDGER_BATCH_UNOBSERVABLE_ROWS=0
+STRICT_CROSS_RESOURCE_ATOMICITY_PROVEN=false
+P0_F1_STATUS=OPEN_PENDING_PRODUCTION_WRITER_AND_NATURAL_CYCLE_PROOF
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
-P0_F1_CLOSED=false
+OPTION_B_AUTHORIZED=false
 OPTIMIZATION_APPLY_AUTHORIZED=false
+CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
+
+A9 is closed with isolated integration evidence. A10 audit is the only authorized next work.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
-LAST_RESULT=OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY
-LAST_ARTIFACT=data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json
-LAST_REPORT=reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md
-LAST_SCHEMA=data/control/era55a8_p0_disposition_ledger_schema_v2.sql
-WORK_UNIT_STATUS=CLOSED_SCHEMA_ONLY_MIGRATION_OK
+LAST_COMPLETED=ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST
+LAST_RESULT=OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY
+LAST_ARTIFACT=data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json
+LAST_REPORT=reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md
+WORK_UNIT_STATUS=CLOSED_TEMP_COPY_INTEGRATION_OK
+LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 CURRENT_PROBLEM=null
 
 ---
@@ -88,32 +97,35 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A8 unless evidence is invalidated.
-- Do not insert production ledger rows manually.
-- Do not activate the production writer.
-- Do not mark P0 F1 closed.
-- Do not begin performance optimization.
+- Do not reopen A8 or rerun A9 unless evidence is invalidated.
+- Do not activate the production ledger writer.
+- Do not modify the live gateway, service, timer or panel.
+- Do not start Option B before the canonical P0 writer path is audited and proven.
+- Do not claim strict DB-to-file atomicity.
+- Do not mark F1 closed from temp-copy evidence.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Production schema-only migration: `OK`.
+- A9 temp-copy writer integration: `VALIDATED`.
+- Idempotent replay and replacement rollback: `VALIDATED`.
+- Cross-resource publication: `FAIL_CLOSED_REPLAY_RECOVERABLE_NOT_STRICT_ATOMIC`.
 - Production writer activation: `NOT_AUTHORIZED`.
-- P0 F1: `OPEN`.
-- A9 temp-copy writer test is authorized.
+- Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST
+NEXT_SAFE_STEP=ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A9 is current.
-2. Integrate ledger generation only on a temp copy.
-3. Couple ledger commit with queue publication or fail-closed marker.
-4. Test all dispositions and writer failure.
-5. Do not activate production writer.
+1. Confirm A10 is current.
+2. Read A8 and A9 artifacts.
+3. Audit the DB-to-file recovery boundary and gateway integration surface.
+4. Define bounded production backup, rollback, feature flag and natural-cycle gates.
+5. Decide apply or reject; do not activate in A10.
+6. Preserve zero unobservable rows for every new ledger-enabled batch.
 
 ---
 
