@@ -5646,3 +5646,19 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - P0 F1 closed: `false`
 - Next safe step: `ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION`
 
+---
+
+## ERA55A_14 BOUNDED CANARY DECISION
+
+- Status: `CLOSED_BOUNDED_CANARY_REJECTED`
+- Result: `REJECT_BOUNDED_CANARY_QUEUE_SEMANTIC_PARITY_NOT_PROVEN`
+- Source candidates: `106`
+- Complete accounting: `true`
+- Legacy rebuild matches current hot: `true`
+- Pre-gateway writer matches legacy queue: `false`
+- Single-cycle bounded canary authorized: `false`
+- General production activation authorized: `false`
+- Production mutation: `false`
+- P0 F1 closed: `false`
+- Next safe step: `ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST`
+

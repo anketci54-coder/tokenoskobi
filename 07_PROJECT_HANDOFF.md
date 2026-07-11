@@ -24,39 +24,36 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_PRE_GATEWAY_WRITER_CANARY_DECISION_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_P0_CANARY_OR_PARITY_REPAIR
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
-LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_P0_PRE_GATEWAY_WRITER
-LAST_COMPLETED_SUBSTEP=ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST
-PRE_GATEWAY_JSONL_STREAM_EXTRACTED=true
-PHYSICAL_NONEMPTY_LINE_ACCOUNTING=true
-REAL_SOURCE_CANDIDATES=106
-DISPLAY_PROJECTION_CANDIDATES=50
+CURRENT_STAGE=ERA55A_P0_BOUNDED_CANARY_DECISION
+LAST_COMPLETED_SUBSTEP=ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
+CURRENT_SOURCE_CANDIDATES=106
+COMPLETE_PRE_GATEWAY_ACCOUNTING=true
 UNOBSERVABLE_ROWS=0
-QUEUE_PARITY=true
+LEGACY_REBUILD_MATCHES_CURRENT_HOT=true
+PRE_GATEWAY_WRITER_MATCHES_LEGACY_GATEWAY=false
+SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=false
+GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
-BOUNDED_CANARY_AUTHORIZED=false
-PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 P0_F1_CLOSED=false
 OPTION_B_AUTHORIZED=false
-OPTIMIZATION_APPLY_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-A13 completed on a disposable database copy. Only A14 independent audit and bounded-canary decision is authorized next.
+A14 decision is canonical. Follow only the recorded next safe step.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST
-LAST_RESULT=OK_COMPLETE_PRE_GATEWAY_JSONL_STREAM_TEMP_COPY_BOUND
-LAST_ARTIFACT=data/control/era55a13_p0_pre_gateway_candidate_stream_extraction_and_temp_copy_binding_test_v1.json
-WORK_UNIT_STATUS=CLOSED_TEMP_COPY_BINDING_OK
+LAST_COMPLETED=ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
+LAST_RESULT=REJECT_BOUNDED_CANARY_QUEUE_SEMANTIC_PARITY_NOT_PROVEN
+LAST_ARTIFACT=data/control/era55a14_p0_pre_gateway_writer_post_test_audit_and_bounded_canary_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_BOUNDED_CANARY_REJECTED
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
-CURRENT_PROBLEM=PRE_GATEWAY_WRITER_NOT_PRODUCTION_BOUND_CANARY_DECISION_PENDING
+CURRENT_PROBLEM=PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_NOT_PROVEN
 
 ---
 
@@ -101,36 +98,35 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A13 unless evidence is invalidated.
-- Do not fall back to the 25+25 display projection as the writer source.
-- Do not enable production writer or runner-lock flags before A14 decision.
-- Do not modify live DB, service, timer, gateway or panel from A13 evidence alone.
+- Do not rerun A9-A14 unless evidence is invalidated.
+- Do not activate a canary unless A14 explicitly authorizes it.
+- Do not change the current gateway queue semantics silently.
+- Do not enable general production writer activation.
 - Do not start Option B or mark P0 F1 closed.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Writer module: `VALIDATED`.
-- Complete pre-gateway JSONL extraction: `VALIDATED_TEMP_COPY`.
-- Physical non-empty line accounting: `VALIDATED`.
-- Zero unobservable rows: `VALIDATED_TEMP_COPY`.
-- Bounded canary: `PENDING_A14_DECISION`.
-- Production activation: `BLOCKED`.
+- Complete pre-gateway accounting: `VALIDATED`.
+- Legacy gateway rebuild parity: `True`.
+- Pre-gateway writer queue parity: `False`.
+- Single-cycle bounded canary: `False`.
+- General production activation: `BLOCKED`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
+NEXT_SAFE_STEP=ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A14 is current.
-2. Independently audit the A13 extractor and artifact.
-3. Reconcile physical JSONL line counts, ledger counts and output queue.
-4. Verify production guards and feature flags remain unchanged.
-5. Decide only whether one bounded natural-cycle canary may be authorized.
-6. Do not close P0 F1 or authorize general production from temp-copy evidence.
+1. Confirm queue semantic parity repair is current.
+2. Keep complete pre-gateway accounting as the ledger source.
+3. Use the legacy gateway queue as the admitted-output contract.
+4. Mark every other valid source observation as overflow without losing evidence.
+5. Prove exact UID order parity on temp copy.
+6. Do not activate production or close P0 F1.
 
 ---
 
