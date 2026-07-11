@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE",
+  "era": "ERA55",
+  "title": "Runtime Optimization",
+  "generated_at_utc": "2026-07-11T09:17:04.298908+00:00",
+  "status": "PACKAGE_READY_REVIEW_PENDING",
+  "result": "OK_BASELINE_REPORT_AND_GEMINI_PACKAGE_READY_NO_APPLY",
+  "head_before_commit": "1954e02d7367e29137c5b9418cc4c9f104069ff0",
+  "source_artifacts": {
+    "a1": "data/control/era55_runtime_optimization_init_v1.json",
+    "a2": "data/control/era55a2_granular_instrumentation_and_baseline_measurement_plan_v1.json",
+    "a3": "data/control/era55a3_natural_cycle_baseline_collection_v1.json",
+    "a4": "data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json"
+  },
+  "baseline": {
+    "canonical_assessment": "OPERATIONALLY_STABLE_LOW_LOAD_WITH_BOUNDARY_RISKS",
+    "era55_status": "OPEN",
+    "low_load_operational_stability": {
+      "historical_cycles_24h": 72,
+      "historical_coverage_ratio": 1.0,
+      "precise_natural_runner_ms": 939.311,
+      "timer_interval_ms": 1200000,
+      "precise_timer_margin_ms": 1199060.689,
+      "service_timeout_ms": 70000,
+      "timeout_headroom_ms": 69060.689,
+      "runner_interval_utilization_pct": 0.078276,
+      "runner_timeout_utilization_pct": 1.341873,
+      "timer_overlap_observed_24h": false,
+      "service_timeout_observed_24h": false,
+      "watchdog_decision": "NOT_URGENT_LOW_LOAD_NO_APPLY"
+    },
+    "queue_boundary": {
+      "capacity": 50,
+      "candidates": 50,
+      "admitted": 50,
+      "overflow_current_snapshot": 0,
+      "capacity_utilization_pct": 100.0,
+      "drop_ledger_detected": false,
+      "silent_drop_observed_current_snapshot": false,
+      "silent_drop_capability_confirmed": true,
+      "historical_zero_loss_claim_allowed": false,
+      "p0_status": "OPEN"
+    },
+    "sqlite": {
+      "journal_mode": "delete",
+      "synchronous": 2,
+      "integrity_preserved": true,
+      "duplicate_uid_groups": 0,
+      "decision": "OBSERVE_ONLY_TEMP_COPY_BENCHMARK_REQUIRED"
+    },
+    "cold_start": {
+      "classification": "TRUE_COLD_START_NOT_OBSERVED",
+      "true_cold_start_observed": false,
+      "sufficient_for_optimization_apply": false,
+      "production_restart_authorized": false
+    },
+    "panel_propagation": {
+      "status": "VISIBLE_BUT_NOT_GRANULAR",
+      "file_change_visibility_observed": true,
+      "exact_stage_latency_available": false,
+      "sufficient_for_optimization_apply": false
+    },
+    "data_correctness": {
+      "sqlite_integrity_preserved": true,
+      "actual_queue_matches_deterministic_top50": true,
+      "duplicate_uid_groups": 0,
+      "natural_service_result": "success",
+      "natural_service_exit_status": "0",
+      "correctness_gate_status": "OK_FOR_BASELINE_REPORT",
+      "speed_cannot_override_correctness": true
+    }
+  },
+  "epistemic_register": [
+    {
+      "claim": "The runtime is stable under the observed low-load profile.",
+      "classification": "PROVEN_WITHIN_OBSERVED_SCOPE",
+      "evidence": "72/72 natural timer cycles, no observed overlap or timeout, one precise 939.311 ms natural sample.",
+      "limit": "Does not prove burst, lock-contention or cold-start stability."
+    },
+    {
+      "claim": "The hot queue is at its configured boundary.",
+      "classification": "PROVEN_CURRENT_SNAPSHOT",
+      "evidence": "50 deduplicated candidates, 50 admitted, capacity 50.",
+      "limit": "Single/current snapshot; historical occupancy distribution is unavailable."
+    },
+    {
+      "claim": "A silent drop occurred in the measured snapshot.",
+      "classification": "NOT_OBSERVED",
+      "evidence": "Current overflow count is zero.",
+      "limit": "Historical zero-loss cannot be claimed because no disposition/drop ledger exists."
+    },
+    {
+      "claim": "Silent truncation is possible.",
+      "classification": "PROVEN_CAPABILITY",
+      "evidence": "Deterministic top-50 policy exists and the queue is exactly saturated.",
+      "limit": "Occurrence frequency is unknown."
+    },
+    {
+      "claim": "SQLite DELETE journal mode is the dominant cause of the 939.311 ms runtime.",
+      "classification": "HYPOTHESIS_UNPROVEN",
+      "evidence": "DELETE mode is present; no controlled DELETE-vs-WAL benchmark exists.",
+      "limit": "Must be tested on immutable/temp copy with durability and recovery gates."
+    },
+    {
+      "claim": "The current 70-second timeout is unsafe under lock contention.",
+      "classification": "UNTESTED_RISK",
+      "evidence": "No timeout or overlap was observed at low load; lock and kill tests were not run.",
+      "limit": "No production kill/restart is authorized."
+    },
+    {
+      "claim": "Historical runner p95/p99 is known at millisecond precision.",
+      "classification": "NOT_PROVEN",
+      "evidence": "Historical values are journal-derived; one monotonic natural sample is precise.",
+      "limit": "Stage-level perf_counter_ns instrumentation is still absent."
+    },
+    {
+      "claim": "DB-to-panel propagation latency is known.",
+      "classification": "NOT_PROVEN",
+      "evidence": "File change visibility was observed but exact stage latency was not measured.",
+      "limit": "Stale-data exposure duration is unknown."
+    }
+  ],
+  "red_team_intervention_order": [
+    {
+      "order": 1,
+      "priority": "P0",
+      "id": "DISPOSITION_DROP_LEDGER",
+      "mode": "DESIGN_THEN_TEMP_COPY_VALIDATION_BEFORE_PRODUCTION_APPLY",
+      "reason": "Queue is 50/50 and historical zero-loss cannot be claimed."
+    },
+    {
+      "order": 2,
+      "priority": "P1",
+      "id": "TEMP_COPY_DELETE_VS_WAL_BENCHMARK",
+      "mode": "HYPOTHESIS_TEST_ONLY",
+      "reason": "DELETE mode is present; bottleneck attribution is not proven."
+    },
+    {
+      "order": 3,
+      "priority": "P1",
+      "id": "TEMP_COPY_BURST_LOCK_KILL_RECOVERY",
+      "mode": "ISOLATED_FAILURE_TEST",
+      "reason": "Stress, lock contention and atomic recovery remain untested."
+    },
+    {
+      "order": 4,
+      "priority": "P2",
+      "id": "PERF_COUNTER_NS_STAGE_TIMING",
+      "mode": "GRANULAR_OBSERVABILITY",
+      "reason": "Historical journal timing is insufficient for precise stage claims."
+    },
+    {
+      "order": 5,
+      "priority": "P2",
+      "id": "DB_TO_PANEL_PROPAGATION_AND_STALE_GUARD",
+      "mode": "EXTERNAL_CORRELATION_THEN_GUARD_DESIGN",
+      "reason": "Panel change is visible but exact latency and stale exposure are unknown."
+    },
+    {
+      "order": 6,
+      "priority": "P2",
+      "id": "FULL_REFRESH_VS_DELTA_WRITE_AMPLIFICATION",
+      "mode": "TEMP_COPY_EQUIVALENCE_BENCHMARK",
+      "reason": "Delta refresh is a candidate, not an approved optimization."
+    }
+  ],
+  "p0_disposition_ledger_contract": {
+    "priority": "P0",
+    "purpose": "Make every candidate disposition observable before any speed optimization.",
+    "must_record": [
+      "batch_uid",
+      "policy_version",
+      "queue_capacity",
+      "source_candidate_count",
+      "normalized_candidate_count",
+      "deduplicated_candidate_count",
+      "candidate_rank",
+      "hot_uid",
+      "event_uid_or_news_uid",
+      "lane",
+      "priority_score",
+      "disposition",
+      "disposition_reason",
+      "admitted_at_utc_or_dropped_at_utc",
+      "lowest_admitted_priority",
+      "highest_overflow_priority",
+      "source_snapshot_hash"
+    ],
+    "allowed_dispositions": [
+      "ADMITTED",
+      "DUPLICATE_REMOVED",
+      "UNSAFE_AUTHORITY_FILTERED",
+      "OVERFLOW_TRUNCATED",
+      "REPLACED_BY_HIGHER_PRIORITY",
+      "INVALID_CANDIDATE"
+    ],
+    "hard_properties": {
+      "atomic_write": true,
+      "deterministic_uid": true,
+      "no_silent_disposition": true,
+      "append_or_immutable_batch_record": true,
+      "bounded_retention_policy_must_be_explicit": true,
+      "runtime_failure_must_fail_closed_or_emit_incomplete_batch_marker": true,
+      "trade_wallet_signing_order_authority": 0
+    },
+    "apply_status": "DESIGN_REQUIRED_NOT_AUTHORIZED"
+  },
+  "temp_copy_validation_matrix": {
+    "environment": "IMMUTABLE_OR_DISPOSABLE_TEMP_COPY_ONLY",
+    "production_db_burst_test": false,
+    "production_service_kill_test": false,
+    "test_families": [
+      {
+        "id": "DELETE_VS_WAL",
+        "variants": [
+          "DELETE_CURRENT",
+          "WAL_CANDIDATE"
+        ],
+        "measure": [
+          "total_runtime_ns",
+          "stage_runtime_ns",
+          "fsync_or_commit_latency_proxy",
+          "db_size_delta",
+          "wal_or_journal_size",
+          "write_amplification_bytes",
+          "reader_block_ms",
+          "writer_lock_ms",
+          "integrity_check",
+          "quick_check",
+          "event_count",
+          "uid_set_hash"
+        ],
+        "decision_rule": "WAL may proceed only if correctness and recovery are identical and measured benefit is material."
+      },
+      {
+        "id": "BURST_SATURATION_LOCK",
+        "variants": [
+          "NORMAL",
+          "QUEUE_OVER_CAPACITY",
+          "SLOW_IO",
+          "CONCURRENT_READER",
+          "CONCURRENT_WRITER"
+        ],
+        "measure": [
+          "queue_candidate_count",
+          "admitted_count",
+          "overflow_count",
+          "drop_ledger_completeness",
+          "lock_wait_ms",
+          "timeout_count",
+          "stage_runtime_ns",
+          "recovery_result"
+        ],
+        "decision_rule": "No unledgered event disposition and no data-integrity regression."
+      },
+      {
+        "id": "PROCESS_KILL_RECOVERY",
+        "variants": [
+          "KILL_BEFORE_COMMIT",
+          "KILL_DURING_COMMIT",
+          "KILL_AFTER_COMMIT_BEFORE_PANEL_PUBLISH"
+        ],
+        "measure": [
+          "atomic_batch_state",
+          "partial_rows",
+          "orphan_rows",
+          "duplicate_rows",
+          "integrity_check",
+          "quick_check",
+          "event_count",
+          "uid_set_hash",
+          "panel_snapshot_consistency"
+        ],
+        "decision_rule": "Recovery must be deterministic with no ambiguous committed state."
+      },
+      {
+        "id": "FULL_REFRESH_VS_DELTA",
+        "variants": [
+          "FULL_REFRESH_CURRENT",
+          "DELTA_CANDIDATE"
+        ],
+        "measure": [
+          "rows_read",
+          "rows_written",
+          "bytes_written",
+          "runtime_ns",
+          "lock_wait_ms",
+          "event_count",
+          "uid_set_hash",
+          "panel_equivalence_hash"
+        ],
+        "decision_rule": "Delta may proceed only with byte-for-byte or semantic equivalence and zero UID loss."
+      }
+    ]
+  },
+  "granular_instrumentation_contract": {
+    "priority": "P2_BEFORE_PERFORMANCE_CLAIM",
+    "clock": "time.perf_counter_ns",
+    "required_stages": [
+      "RUNNER_TOTAL",
+      "RAW_PRODUCER",
+      "DERIVED_REFRESH",
+      "QUEUE_BUILD",
+      "QUEUE_LEDGER_WRITE",
+      "HOT_GATEWAY_PUBLISH",
+      "PANEL_BRIDGE_PUBLISH",
+      "PANEL_VISIBLE_SNAPSHOT"
+    ],
+    "required_fields": [
+      "run_uid",
+      "stage",
+      "start_ns",
+      "end_ns",
+      "duration_ns",
+      "rows_in",
+      "rows_out",
+      "bytes_before",
+      "bytes_after",
+      "result",
+      "error_code"
+    ],
+    "stale_guard_requirement": {
+      "db_source_timestamp": true,
+      "gateway_generated_at_utc": true,
+      "panel_generated_at_utc": true,
+      "age_ms": true,
+      "stale_threshold_ms": true,
+      "visible_stale_flag": true
+    },
+    "apply_status": "PLAN_REQUIRED_NOT_AUTHORIZED"
+  },
+  "optimization_correctness_gate": {
+    "event_count_loss": 0,
+    "uid_loss": 0,
+    "duplicate_regression": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "authority_regression": 0,
+    "queue_disposition_without_ledger": 0,
+    "panel_equivalence_required": true,
+    "speed_gain_cannot_override_correctness": true,
+    "failure_decision": "REJECT_OPTIMIZATION"
+  },
+  "gemini_review_request": {
+    "role": "Tokenoskobi ERA55 independent adversarial runtime reviewer",
+    "mission": "Attack the baseline conclusions, identify missing failure modes, and issue a structured verdict before any optimization apply.",
+    "hard_rules": [
+      "Do not assume facts not present in A1-A5 evidence.",
+      "Separate proven facts, hypotheses, not-observed conditions and untested risks.",
+      "Do not recommend production burst, kill, restart, WAL, index, cache or queue-policy changes.",
+      "All destructive or load tests must use immutable/disposable temp copies and isolated subprocesses.",
+      "Any performance recommendation that risks event or UID loss must be rejected.",
+      "Trade, wallet, signing and order authority remain zero."
+    ],
+    "required_reviews": [
+      {
+        "id": "QUEUE_LEDGER",
+        "question": "Can the proposed disposition ledger prove every admitted, filtered, deduplicated, replaced and overflow-truncated candidate without becoming a new silent-failure point?"
+      },
+      {
+        "id": "QUEUE_ATTACKS",
+        "question": "Which adversarial burst, priority-tie, duplicate-UID, malformed-candidate and ledger-write-failure scenarios are missing?"
+      },
+      {
+        "id": "SQLITE_DELETE_WAL",
+        "question": "Is the DELETE-vs-WAL temp-copy matrix sufficient to measure latency, locks, durability, recovery and write amplification without bias?"
+      },
+      {
+        "id": "KILL_RECOVERY",
+        "question": "Which exact kill points and post-recovery invariants are required to prove atomic state across DB, gateway and panel publication?"
+      },
+      {
+        "id": "TIMING",
+        "question": "Does perf_counter_ns stage instrumentation avoid observer distortion and capture p50/p95/p99 under normal, cold, slow-IO and contention conditions?"
+      },
+      {
+        "id": "PANEL_STALENESS",
+        "question": "What minimum stale-data contract prevents users from treating old panel data as current?"
+      },
+      {
+        "id": "DELTA_REFRESH",
+        "question": "What equivalence and rollback gates are required before replacing full refresh with delta processing?"
+      },
+      {
+        "id": "UNKNOWN_UNKNOWNS",
+        "question": "Identify additional race conditions, crash windows, corruption paths, observability failures and adversarial inputs not covered by this package."
+      }
+    ],
+    "required_output_schema": {
+      "overall_verdict": "ACCEPT | CONDITIONAL_ACCEPT | REJECT",
+      "optimization_apply_verdict": "MUST_BE_REJECT_UNTIL_GATES_CLOSE",
+      "findings": [
+        {
+          "priority": "P0 | P1 | P2 | INFO",
+          "code": "stable_identifier",
+          "claim_attacked": "package claim",
+          "finding": "specific finding",
+          "evidence_basis": "provided evidence or explicit absence",
+          "required_fix_or_test": "concrete action",
+          "blocks_production_apply": true
+        }
+      ],
+      "ledger_verdict": {
+        "design_sufficient": false,
+        "missing_fields_or_failure_modes": [],
+        "minimum_acceptance_tests": []
+      },
+      "temp_copy_test_verdict": {
+        "matrix_sufficient": false,
+        "missing_variants": [],
+        "required_metrics": []
+      },
+      "correctness_gate_verdict": {
+        "gate_sufficient": false,
+        "missing_invariants": []
+      },
+      "recommended_next_safe_step": "single canonical work unit"
+    }
+  },
+  "decision": {
+    "baseline_report_complete": true,
+    "gemini_package_ready": true,
+    "gemini_review_complete": false,
+    "optimization_apply_authorized": false,
+    "production_burst_load_authorized": false,
+    "production_process_kill_authorized": false,
+    "production_service_timer_change_authorized": false,
+    "production_database_change_authorized": false,
+    "queue_policy_change_authorized": false,
+    "drop_ledger_apply_authorized": false,
+    "watchdog_apply_authorized": false,
+    "wal_apply_authorized": false,
+    "index_apply_authorized": false,
+    "delta_refresh_apply_authorized": false
+  },
+  "next_safe_step": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
+  "mutation_statement": {
+    "live_runtime": false,
+    "database": false,
+    "service": false,
+    "timer": false,
+    "panel": false,
+    "queue_policy": false,
+    "drop_ledger": false,
+    "watchdog": false,
+    "index": false,
+    "journal_mode": false,
+    "cache": false,
+    "delta_refresh": false
+  }
+}

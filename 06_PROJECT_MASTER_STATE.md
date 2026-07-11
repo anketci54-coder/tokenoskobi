@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_BASELINE_READY_FOR_GEMINI_PACKAGE
+PROJECT_STATUS=ACTIVE_ERA55_AWAITING_GEMINI_RED_TEAM_REVIEW
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -34,32 +34,32 @@ LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
-LAST_COMPLETED_SUBSTEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
-BASELINE_READY_FOR_A5=true
-BASELINE_SUFFICIENT_FOR_OPTIMIZATION_APPLY=false
+CURRENT_STAGE=ERA55A_EXTERNAL_RED_TEAM_GATE
+LAST_COMPLETED_SUBSTEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
+BASELINE_REPORT_COMPLETE=true
+GEMINI_PACKAGE_READY=true
+GEMINI_REVIEW_COMPLETE=false
 P0_QUEUE_RISK_OPEN=true
-GEMINI_RED_TEAM_REQUIRED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
 BURST_LOAD_AUTHORIZED=false
 ```
 
-A4 determined that the baseline is sufficient for the A5 report and Gemini review, but insufficient for optimization apply.
+A5 produced the canonical baseline report and structured Gemini Red Team package. No runtime optimization was applied.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
-LAST_RESULT=WARN_BASELINE_SUFFICIENT_FOR_A5_P0_REMAINS_OPEN
-LAST_ARTIFACT=data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json
-LAST_REPORT=reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md
-WORK_UNIT_STATUS=CLOSED
+LAST_COMPLETED=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
+LAST_RESULT=OK_BASELINE_REPORT_AND_GEMINI_PACKAGE_READY_NO_APPLY
+LAST_ARTIFACT=data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json
+LAST_REPORT=reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md
+WORK_UNIT_STATUS=CLOSED_PACKAGE_READY_REVIEW_PENDING
 LIVE_RUNTIME_MUTATION=false
 ```
 
-Historical journal durations are treated as `VARIABLE_PRECISION`. The precise natural runner sample is `939.311 ms`. Queue utilization is `100.0%`; overflow was not observed, but the drop ledger is absent.
+Observed low-load runner duration is `939.311 ms`. Queue remains `50/50` with no drop ledger. The package separates proven facts, hypotheses and untested risks.
 
 ---
 
@@ -176,13 +176,13 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- `P0 QUEUE_SILENT_TRUNCATION_CAPABILITY` remains open: candidate count `50`, capacity `50`, overflow `0`, drop ledger `false`.
-- Historical journal p50/p95/max values are second-quantized and must not be presented as millisecond-precision measurements.
-- Low-load timer overlap was not observed; stress and lock contention remain untested.
-- True cold-start performance remains unverified for optimization apply.
-- SQLite remains unchanged; WAL and index changes require temp-copy evidence.
-- Panel propagation is visible but not granular unless exact timestamps are present.
-- Optimization apply and production burst load remain blocked.
+- `P0 QUEUE_SILENT_TRUNCATION_CAPABILITY` remains open; disposition ledger design and temp-copy validation are mandatory before production apply.
+- `P0 GEMINI_RED_TEAM_REVIEW` is pending.
+- DELETE journal bottleneck attribution is an unproven hypothesis.
+- True cold-start, burst, slow-IO, lock-contention and kill-recovery behavior remain untested.
+- Granular stage timing and exact DB-to-panel propagation latency remain unknown.
+- Full refresh versus delta equivalence and write amplification remain untested.
+- Optimization apply, production burst, production kill, WAL, index, watchdog, cache and queue changes remain blocked.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
 
@@ -191,10 +191,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
+NEXT_SAFE_STEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
 ```
 
-A5 will produce one consolidated baseline report and Gemini Red Team package. It will preserve all open P0 risks and unknowns and will not authorize optimization apply.
+Submit the copy-paste package in the A5 report to Gemini. Register its structured findings without altering or interpreting missing evidence. No implementation begins before this gate closes.
 
 ---
 

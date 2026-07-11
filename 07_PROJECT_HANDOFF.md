@@ -24,36 +24,36 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_BASELINE_READY_FOR_GEMINI_PACKAGE
+PROJECT_STATUS=ACTIVE_ERA55_AWAITING_GEMINI_RED_TEAM_REVIEW
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
-LAST_COMPLETED_SUBSTEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
-BASELINE_READY_FOR_A5=true
-BASELINE_SUFFICIENT_FOR_OPTIMIZATION_APPLY=false
+CURRENT_STAGE=ERA55A_EXTERNAL_RED_TEAM_GATE
+LAST_COMPLETED_SUBSTEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
+BASELINE_REPORT_COMPLETE=true
+GEMINI_PACKAGE_READY=true
+GEMINI_REVIEW_COMPLETE=false
 P0_QUEUE_RISK_OPEN=true
-GEMINI_RED_TEAM_REQUIRED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
 BURST_LOAD_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-A4 is closed. No runner, service, timer, database, queue policy or panel mutation was applied.
+A5 is closed. The package is ready, but external review is not yet complete.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
-LAST_RESULT=WARN_BASELINE_SUFFICIENT_FOR_A5_P0_REMAINS_OPEN
-LAST_ARTIFACT=data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json
-LAST_REPORT=reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md
-WORK_UNIT_STATUS=CLOSED
+LAST_COMPLETED=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
+LAST_RESULT=OK_BASELINE_REPORT_AND_GEMINI_PACKAGE_READY_NO_APPLY
+LAST_ARTIFACT=data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json
+LAST_REPORT=reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md
+WORK_UNIT_STATUS=CLOSED_PACKAGE_READY_REVIEW_PENDING
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 CURRENT_PROBLEM=null
 
-A5 must package the evidence without hiding queue saturation or missing stress/cold-start evidence.
+Queue is `50/50` and the P0 disposition-ledger gap remains open.
 
 ---
 
@@ -99,14 +99,13 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 ## 06 DO NOT REOPEN OR REPEAT
 
 - Do not reopen ERA54.
-- Do not rebuild NEWS from zero.
-- Do not treat second-precision journal durations as exact millisecond measurements.
-- Do not claim zero queue loss while no drop ledger exists.
-- Do not manually invoke or restart the production runner for baseline claims.
-- Do not change the service, timer, SQLite mode, index, cache or queue policy.
-- Do not run production BURST_LOAD.
-- Do not infer cold-start, lock-contention or panel-latency results that were not measured.
-- Do not apply optimization before Gemini Red Team review.
+- Do not begin disposition-ledger implementation before Gemini findings are registered.
+- Do not claim a DELETE-mode bottleneck without temp-copy comparison.
+- Do not run production burst, kill, restart, service/timer or SQLite-mode tests.
+- Do not apply watchdog, WAL, index, cache, delta refresh or queue-policy changes.
+- Do not treat no current overflow as proof of historical zero loss.
+- Do not infer cold-start, lock-contention, p99 or panel-latency results.
+- Do not proceed to optimization implementation before the Gemini gate closes.
 
 ---
 
@@ -114,26 +113,26 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 Current authorized direction:
 
-- A1 inspection, A2 plan, A3 evidence and A4 consolidation are complete.
-- Baseline is sufficient for A5 and Gemini review.
-- Queue capacity utilization is `100.0%`; the P0 ledger gap remains open.
-- Optimization apply and burst load remain unauthorized.
+- The A5 report and Gemini package are ready.
+- The next action is external Gemini review and exact findings registration.
+- P0 disposition-ledger design is the first candidate intervention after review, not yet authorized for apply.
+- All performance and runtime mutations remain blocked.
 
-NEXT_SAFE_STEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
+NEXT_SAFE_STEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
 1. Read `PROJECT_RUNTIME.json`.
-2. Confirm `ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE` is current.
+2. Confirm `ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER` is current.
 3. Verify local and remote `main` synchronization.
-4. Read A1-A4 artifacts.
-5. Generate one concise baseline report and Gemini Red Team package.
-6. Mark journal precision, cold-start, stress/lock and panel granularity limits explicitly.
-7. Keep queue silent-truncation capability as P0 open.
-8. Do not authorize optimization apply.
-9. Wait for Gemini findings before selecting implementation targets.
+4. Open `reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md`.
+5. Copy the `Gemini Red Team Copy-Paste Package` section exactly to Gemini.
+6. Return Gemini's complete structured response without summarizing away details.
+7. Register every finding by priority and blocking status.
+8. Reject any production apply recommendation that bypasses temp-copy or correctness gates.
+9. Select the next canonical work unit only after the review verdict is recorded.
 
 ---
 
