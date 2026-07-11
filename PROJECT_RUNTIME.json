@@ -1,25 +1,50 @@
 {
   "boot_health": "100/100",
+  "canonical_document_condition": {
+    "01_INDEX.md": "NAVIGATION_ONLY",
+    "02_MANIFESTO.md": "DOCTRINE_ONLY",
+    "03_ROADMAP.md": "FUTURE_DIRECTION_ONLY",
+    "04_ALMANAC.md": "HISTORY_ONLY",
+    "05_ATLAS.md": "ARCHITECTURE_MAP_ONLY",
+    "06_PROJECT_MASTER_STATE.md": "CURRENT_SUMMARY_ONLY",
+    "07_PROJECT_HANDOFF.md": "CONTINUATION_CONTEXT_ONLY",
+    "PROJECT_BOOT.json": "STABLE_BOOT_CONTRACT_ONLY",
+    "PROJECT_HISTORY.json": "APPEND_ONLY_HISTORY",
+    "PROJECT_RUNTIME.json": "CURRENT_MACHINE_STATE_AUTHORITY",
+    "README.md": "SHORT_STARTUP_POINTER_ONLY"
+  },
   "canonical_ownership_policy": {
     "concept_freeze": true,
     "mode": "WARN_ONLY",
     "no_new_canonical_files": true,
     "owners": {
+      "01_INDEX.md": "canonical_navigation",
+      "02_MANIFESTO.md": "constitutional_doctrine",
       "03_ROADMAP.md": "future_direction",
       "04_ALMANAC.md": "completed_work_history",
       "05_ATLAS.md": "architecture_map",
       "06_PROJECT_MASTER_STATE.md": "master_state_summary",
       "07_PROJECT_HANDOFF.md": "handoff_boot_context",
+      "PROJECT_BOOT.json": "stable_boot_contract",
       "PROJECT_HISTORY.json": "history_log",
       "PROJECT_RUNTIME.json": "runtime_state",
-      "data/tokenoskobi_v1_v8_master_era_roadmap.json": "v1_v8_era_roadmap",
       "README.md": "short_startup_pointer",
-      "01_INDEX.md": "canonical_navigation",
-      "02_MANIFESTO.md": "constitutional_doctrine",
-      "PROJECT_BOOT.json": "stable_boot_contract"
+      "data/tokenoskobi_v1_v8_master_era_roadmap.json": "v1_v8_era_roadmap"
     },
     "rule": "Each canonical file has exactly one ownership purpose. Conflicting content is replaced in the owner file; duplicate canonical state copies are forbidden.",
     "work_unit": "ERA23E_CANONICAL_OWNERSHIP_ENFORCEMENT"
+  },
+  "canonical_runtime_pointer": {
+    "authority": "PROJECT_RUNTIME.json",
+    "decision": "OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED",
+    "era": "ERA54",
+    "era_status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+    "last_completed": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
+    "news_operational_baseline": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+    "next_safe_step": "ERA55_SELECTION_GATE",
+    "previous_head_before_closure_commit": "266e32a9f40b03ff9607decd2cb7df3863cbac7a",
+    "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
+    "updated_at_utc": "2026-07-10T14:02:44.985843+00:00"
   },
   "canonical_workflow_rules": {
     "commit_policy": {
@@ -27,6 +52,13 @@
       "github_seal_only_at_logical_closure": true,
       "single_commit_when_possible": true,
       "single_push_when_possible": true
+    },
+    "delivery_policy": {
+      "avoid_repeated_gate_chains": true,
+      "no_transient_next_step_in_general_policy": true,
+      "prefer_small_working_code_over_repeated_decision_documents": true,
+      "reduce_documents": true,
+      "reduce_labels": true
     },
     "fix_add_policy": {
       "addition_format": "<MAIN_LINE><LETTER>_ADD_1, <MAIN_LINE><LETTER>_ADD_2",
@@ -167,68 +199,73 @@
       ],
       "forbidden_new_label_word": "PASS",
       "reason": "The forbidden word is reserved for older project history and must not be used in new work labels or command outputs."
-    },
-    "delivery_policy": {
-      "prefer_small_working_code_over_repeated_decision_documents": true,
-      "reduce_documents": true,
-      "reduce_labels": true,
-      "avoid_repeated_gate_chains": true,
-      "no_transient_next_step_in_general_policy": true
     }
   },
   "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal.",
   "current_checkpoint": {
+    "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
     "git_branch": "main",
-    "source": "local_workspace_then_local_git_then_github",
-    "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD"
+    "source": "local_workspace_then_local_git_then_github"
   },
   "current_era": "ERA55",
+  "current_era_status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
   "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+  "current_problem": null,
   "current_state": {
-    "mode": "ERA55A9_LEDGER_WRITER_TEMP_COPY_INTEGRATION_OK",
-    "runtime_status": "WORK_UNIT_CLOSED",
-    "project_status": "ACTIVE",
-    "updated_at": "2026-07-11T11:08:11.850316+00:00",
-    "last_action": {
-      "timestamp": "2026-07-11T11:08:11.850316+00:00",
-      "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-      "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
-      "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json"
-    },
     "active_work_unit": {
-      "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-      "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+      "artifact": "data/control/era55a10_red_team_production_authorization_decision_v1.json",
+      "id": "ERA55A_10_RED_TEAM_PRODUCTION_AUTHORIZATION_DECISION",
+      "next_step": "ERA55A_11_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_AND_TEMP_COPY_BINDING_TEST",
       "parent": "ERA55_RUNTIME_OPTIMIZATION",
-      "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
-      "report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
-      "status": "CLOSED_TEMP_COPY_INTEGRATION_OK",
-      "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
       "production_mutation": false,
-      "next_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION"
+      "result": "REJECT_PRODUCTION_ACTIVATION_RUNTIME_WRITER_NOT_BOUND",
+      "status": "CLOSED_PRODUCTION_ACTIVATION_REJECTED",
+      "type": "ERA55_P0_LEDGER_WRITER_PRODUCTION_AUTHORIZATION_DECISION"
     },
+    "current_problem": {
+      "code": "RUNTIME_LEDGER_WRITER_MODULE_NOT_BOUND",
+      "evidence": "data/control/era55a10_red_team_production_authorization_decision_v1.json",
+      "severity": "P0"
+    },
+    "last_action": {
+      "artifact": "data/control/era55a10_red_team_production_authorization_decision_v1.json",
+      "result": "REJECT_PRODUCTION_ACTIVATION_RUNTIME_WRITER_NOT_BOUND",
+      "task": "ERA55A_10_RED_TEAM_PRODUCTION_AUTHORIZATION_DECISION",
+      "timestamp": "2026-07-11T15:52:47.637904+00:00"
+    },
+    "mode": "ERA55A10_PRODUCTION_ACTIVATION_REJECTED_WRITER_NOT_BOUND",
     "next_safe_step": {
-      "id": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
-      "type": "ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_APPLY_DECISION",
-      "parent": "ERA55_RUNTIME_OPTIMIZATION",
-      "purpose": "Audit A9 integration evidence and decide the bounded production writer implementation plan without activating it.",
-      "human_authorization_required": true,
-      "production_writer_activation_authorized": false,
-      "option_b_authorized": false,
+      "id": "ERA55A_11_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_AND_TEMP_COPY_BINDING_TEST",
       "optimization_apply_authorized": false,
-      "status": "READY"
+      "option_b_authorized": false,
+      "parent": "ERA55_RUNTIME_OPTIMIZATION",
+      "production_writer_activation_authorized": false,
+      "purpose": "Create the missing reusable runtime writer and prove its real candidate-set binding only on a disposable database copy.",
+      "status": "READY",
+      "temp_copy_required": true,
+      "type": "ERA55_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_TEMP_COPY_BINDING_TEST"
     },
-    "current_problem": null
+    "project_status": "ACTIVE",
+    "runtime_status": "WORK_UNIT_CLOSED",
+    "updated_at": "2026-07-11T15:52:47.637904+00:00"
+  },
+  "current_state_contract": {
+    "boot_contains_stable_contract_only": true,
+    "git_head_is_dynamic": true,
+    "handoff_is_continuation_context": true,
+    "history_is_append_only": true,
+    "master_state_is_human_summary": true,
+    "runtime_is_primary_machine_authority": true
   },
   "current_work_unit": {
-    "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-    "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "artifact": "data/control/era55a10_red_team_production_authorization_decision_v1.json",
+    "id": "ERA55A_10_RED_TEAM_PRODUCTION_AUTHORIZATION_DECISION",
+    "next_step": "ERA55A_11_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_AND_TEMP_COPY_BINDING_TEST",
     "parent": "ERA55_RUNTIME_OPTIMIZATION",
-    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
-    "report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
-    "status": "CLOSED_TEMP_COPY_INTEGRATION_OK",
-    "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
     "production_mutation": false,
-    "next_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION"
+    "result": "REJECT_PRODUCTION_ACTIVATION_RUNTIME_WRITER_NOT_BOUND",
+    "status": "CLOSED_PRODUCTION_ACTIVATION_REJECTED",
+    "type": "ERA55_P0_LEDGER_WRITER_PRODUCTION_AUTHORIZATION_DECISION"
   },
   "disaster_recovery_policy": {
     "hard_rules": [
@@ -260,8 +297,31 @@
     "sealed_head": "d30d1f086178e858788b1176dbf790bc95d2f472",
     "work_unit": "ERA23F_DISASTER_RECOVERY_AND_ROLLBACK_PROTOCOL"
   },
+  "documentation_normalization": {
+    "event_id": "ROOT_CANONICAL_REMAINING_SCOPE_NORMALIZATION_V1",
+    "files_normalized": [
+      "02_MANIFESTO.md",
+      "03_ROADMAP.md",
+      "04_ALMANAC.md",
+      "05_ATLAS.md",
+      "06_PROJECT_MASTER_STATE.md",
+      "07_PROJECT_HANDOFF.md",
+      "PROJECT_BOOT.json",
+      "PROJECT_RUNTIME.json"
+    ],
+    "files_verified_unchanged": [
+      "README.md",
+      "01_INDEX.md",
+      "PROJECT_HISTORY.json"
+    ],
+    "new_era_opened": false,
+    "next_safe_step_unchanged": true,
+    "normalized_at_utc": "2026-07-10T15:59:48.209051+00:00",
+    "status": "CLOSED_VERIFIED"
+  },
   "era54_status": {
     "closed_at_utc": "2026-07-08T17:25:07+00:00",
+    "closure_sync_at_utc": "2026-07-10T12:45:23.567774+00:00",
     "completed_units": [
       {
         "artifact": "data/control/era54a_scope_fix_lock_noapi_v1.json",
@@ -286,6 +346,9 @@
       }
     ],
     "era": "ERA54",
+    "final_closed_at_utc": "2026-07-10T12:30:25.265514+00:00",
+    "final_observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "final_observation_decision": "OK_POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
     "guarantees": {
       "db_change": false,
       "external_source_adapter": false,
@@ -305,18 +368,93 @@
       "security": "runtime import block and boundary audit clean",
       "speed": "manual standalone scaffold only"
     },
+    "natural_timer_cycle": "OBSERVED_VERIFIED",
+    "new_era_opened": false,
+    "news_operational_baseline": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
     "next_safe_step": "ERA55_SELECTION_GATE",
     "stage": "ERA54F_FINAL_CLOSURE_NOAPI",
     "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "title": "Hot Intelligence Ingress Bounded Runtime",
     "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
-    "final_observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
-    "final_observation_decision": "OK_POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
-    "final_closed_at_utc": "2026-07-10T12:30:25.265514+00:00",
-    "closure_sync_at_utc": "2026-07-10T12:45:23.567774+00:00",
-    "natural_timer_cycle": "OBSERVED_VERIFIED",
-    "news_operational_baseline": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "new_era_opened": false
+    "title": "Hot Intelligence Ingress Bounded Runtime"
+  },
+  "era55_selection_gate": {
+    "allowed_decisions": [
+      "OPEN_ERA55_RUNTIME_OPTIMIZATION",
+      "SELECT_ANOTHER_MAJOR_PROJECT_LINE",
+      "HOLD_NO_NEW_MAJOR_LINE"
+    ],
+    "candidate_next_line": "ERA55_RUNTIME_OPTIMIZATION",
+    "candidate_status": "PLANNED_CANDIDATE_NOT_OPENED",
+    "human_authorization_required": true,
+    "id": "ERA55_SELECTION_GATE",
+    "new_era_opened": false,
+    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+    "purpose": "Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.",
+    "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+    "status": "READY",
+    "type": "MAJOR_LINE_SELECTION_GATE"
+  },
+  "era55_status": {
+    "a2_artifact": "data/control/era55a2_granular_instrumentation_and_baseline_measurement_plan_v1.json",
+    "a2_report": "reports/LATEST_ERA55A2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN.md",
+    "a3_artifact": "data/control/era55a3_natural_cycle_baseline_collection_v1.json",
+    "a3_report": "reports/LATEST_ERA55A3_NATURAL_CYCLE_BASELINE_COLLECTION.md",
+    "a4_artifact": "data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json",
+    "a4_report": "reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md",
+    "a5_artifact": "data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json",
+    "a5_report": "reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md",
+    "a6_artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
+    "a6_report": "reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md",
+    "a7_artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
+    "a7_report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
+    "a7_schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
+    "a7_temp_copy_test_authorized": true,
+    "a8_artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
+    "a8_report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
+    "a8_schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
+    "a9_artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
+    "a9_report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
+    "a9_temp_copy_writer_integration_validated": true,
+    "active_stage": "ERA55A_P0_LEDGER_WRITER",
+    "authorization": "USER_APPROVED_OPEN_ERA55_RUNTIME_OPTIMIZATION",
+    "baseline_evidence_collected": true,
+    "baseline_ready_for_a5": true,
+    "baseline_report_complete": true,
+    "baseline_sufficient_for_optimization_apply": false,
+    "burst_load_authorized": false,
+    "era": "ERA55",
+    "gemini_baseline_verdict": "BASELINE_ACCEPTED",
+    "gemini_package_ready": true,
+    "gemini_red_team_required": true,
+    "gemini_review_complete": true,
+    "idempotent_replay_validated": true,
+    "last_completed_substep": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "manual_runner_execution_authorized": false,
+    "measurement_plan_locked": true,
+    "new_ledger_batch_unobservable_rows": 0,
+    "next_safe_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
+    "opened_at_utc": "2026-07-11T06:15:55.480509+00:00",
+    "opening_artifact": "data/control/era55_runtime_optimization_init_v1.json",
+    "optimization_apply_authorized": false,
+    "optimization_apply_verdict": "REJECTED_UNTIL_P0_CLEARED",
+    "option_b_authorized": false,
+    "p0_f1_closed": false,
+    "p0_f1_status": "OPEN_PENDING_PRODUCTION_WRITER_AND_NATURAL_CYCLE_PROOF",
+    "p0_ledger_schema_temp_copy_validated": true,
+    "p0_queue_risk_open": true,
+    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+    "production_ledger_apply_authorized": false,
+    "production_ledger_schema_present": true,
+    "production_ledger_writer_active": false,
+    "production_writer_activation_authorized": false,
+    "publish_recovery_validated": true,
+    "replacement_atomicity_validated": true,
+    "report": "reports/LATEST_ERA55A1_READONLY_INSPECTION.md",
+    "runtime_db_service_timer_panel_mutation": false,
+    "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+    "status": "OPEN",
+    "strict_cross_resource_atomicity_proven": false,
+    "title": "Runtime Optimization"
   },
   "era_closure_update_policy": {
     "json_and_markdown_sync": true,
@@ -360,36 +498,145 @@
     "rule": "If roadmap, implementation, AI recommendation or documentation conflicts with 02_MANIFESTO.md, 02_MANIFESTO.md prevails.",
     "status": "ACTIVE"
   },
+  "hot_intelligence_ingress_gateway_state": {
+    "artifact": "data/control/hot_intelligence_ingress_gateway_single_block_noapi_v1.json",
+    "authority": {
+      "db_write": false,
+      "hunter": false,
+      "live": false,
+      "network_call": false,
+      "panel_change": false,
+      "paper": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade": false
+    },
+    "closed_at_utc": "2026-07-09T10:57:56.200057+00:00",
+    "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "hot_queue_count": 50,
+    "module": "tools/hot_intelligence_ingress_gateway_v1.py",
+    "next": "ERA55_SELECTION_GATE",
+    "state": "runtime/state/hot_intelligence_ingress_gateway_v1.json",
+    "status": "CLOSED_VERIFIED_BOUND_RUNTIME"
+  },
   "last_action": {
-    "timestamp": "2026-07-11T11:08:11.850316+00:00",
-    "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
     "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
-    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json"
+    "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "timestamp": "2026-07-11T11:08:11.850316+00:00"
   },
   "last_completed": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
   "mode": "ERA55A9_LEDGER_WRITER_TEMP_COPY_INTEGRATION_OK",
-  "news_operational_state": {
-    "hot_gateway_deferred": false,
-    "hot_gateway_next": null,
-    "known_warnings": [],
-    "match_count": 185,
-    "raw_count": 374,
-    "score_count": 185,
-    "seal_head": "8c0cdb3c3c63797959a0dd83b2872956dc67f47c",
-    "seal_stage": "NEWS_F_FINAL_OPERATIONAL_SEAL_WITH_KNOWN_WARNINGS",
-    "signal_count": 185,
-    "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "timer_active": "active",
-    "timer_enabled": "enabled",
-    "timer_role": "COLD_BACKFILL_FALLBACK_ONLY",
-    "module_status": "OPERATIONAL_BASELINE_CLOSED_FUTURE_EVOLUTION_BACKLOG",
-    "freshness_count": 3,
-    "market_indicator_count": 39,
-    "adversarial_count": 59,
+  "news_active_panel_data_binding_state": {
+    "artifact": "data/control/news_active_panel_data_binding_single_block_noapi_v1.json",
+    "authority": {
+      "active_panel_data_write": true,
+      "db_write": false,
+      "hunter": false,
+      "live": false,
+      "network_call": false,
+      "panel_html_change": false,
+      "paper": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade": false
+    },
+    "closed_at_utc": "2026-07-09T11:20:49.517981+00:00",
+    "files": [
+      "hot_intelligence_ingress_gateway_v1.json",
+      "news_adversarial_latest_v1.json",
+      "news_coverage_panel_display_v1.json",
+      "news_coverage_readmodel_consumer_summary_v1.json",
+      "news_market_indicator_latest_v1.json",
+      "news_producer_health_watch_and_hot_gateway_review_v1.json",
+      "news_runtime_stabilization_review_v1.json"
+    ],
+    "module": "tools/news_active_panel_data_bridge_v1.py",
+    "next": "ACTIVE_PANEL_UI_ROUTE_BINDING_REVIEW_SINGLE_BLOCK",
+    "state": "runtime/state/news_active_panel_data_bridge_v1.json",
+    "status": "CLOSED",
+    "target_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data",
+    "warnings": [
+      "sqlite_journal_mode_not_wal"
+    ]
+  },
+  "news_active_panel_ui_route_state": {
+    "active_panel_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
+    "artifact": "data/control/news_active_panel_ui_route_binding_single_block_noapi_v1.json",
+    "authority": {
+      "active_panel_data_write": true,
+      "db_write": false,
+      "hunter": false,
+      "live": false,
+      "network_call": false,
+      "panel_html_change": true,
+      "paper": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade": false
+    },
+    "closed_at_utc": "2026-07-09T11:25:49.964278+00:00",
+    "index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+    "module": "tools/news_active_panel_ui_route_binding_v1.py",
+    "news_page": "/root/tokenoskobi_clean_v1/active_panel_8096/current/news_coverage.html",
+    "next": "LOCALHOST_PANEL_STATIC_SERVE_PROBE_SINGLE_BLOCK",
+    "route": "/news_coverage.html",
+    "state": "runtime/state/news_active_panel_ui_route_binding_v1.json",
+    "status": "CLOSED",
+    "warnings": [
+      "sqlite_journal_mode_not_wal"
+    ]
+  },
+  "news_coverage_panel_display_state": {
+    "adversarial_jsonl_events": 59,
+    "authority": {
+      "active_panel_mutation": false,
+      "db_write": false,
+      "hunter": false,
+      "live": false,
+      "paper": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade": false
+    },
+    "closed_at_utc": "2026-07-09T10:43:51.583817+00:00",
+    "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "display_adversarial_count": 59,
+    "display_html_size": 13021,
+    "display_market_count": 39,
+    "display_sections": [
+      "news_market_indicator",
+      "news_adversarial_intelligence",
+      "news_coverage_health"
+    ],
+    "market_jsonl_events": 39,
+    "seal_artifact": "data/control/news_coverage_panel_display_binding_final_seal_noapi_v1.json",
+    "seal_head_before_runtime_sync": "0e088cd1a60de60410e432acc52ad8fe92f99885",
+    "stage": "NEWS_COVERAGE_PANEL_DISPLAY_BINDING_FINAL_SEAL_NOAPI",
+    "status": "CLOSED_VERIFIED_CURRENT",
+    "summary_adversarial_count": 59,
+    "summary_market_indicator_count": 39,
+    "warnings": [
+      "adversarial_jsonl_count_differs_from_summary_consumer_refresh_later",
+      "sqlite_journal_mode_not_wal"
+    ]
+  },
+  "news_operational_baseline": {
+    "artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "closed_at_utc": "2026-07-10T12:30:25.265514+00:00",
+    "derived_counts_equal": true,
+    "evidence_source": "RUNTIME_STATE_CORRELATED_TO_SYSTEMD_SERVICE_CYCLE",
     "hot_queue_count": 50,
-    "hot_queue_bound": 50,
-    "service_result": "success",
+    "hot_refresh_marker": true,
+    "natural_timer_cycle_observed": true,
     "panel_bridge_decision": "OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED",
+    "service_success": true,
+    "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME"
+  },
+  "news_operational_state": {
+    "adversarial_count": 59,
+    "final_observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "freshness_count": 3,
     "historical_known_warnings": [
       {
         "code": "PANEL_READMODEL_COUNT_MATCH_NOT_FOUND",
@@ -417,20 +664,165 @@
         "source": "NEWS-D"
       }
     ],
-    "warnings_status": "OLDER_WARNINGS_SUPERSEDED_BY_VERIFIED_NATURAL_TIMER_CYCLE",
-    "final_observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
-    "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e"
+    "hot_gateway_deferred": false,
+    "hot_gateway_next": null,
+    "hot_queue_bound": 50,
+    "hot_queue_count": 50,
+    "known_warnings": [],
+    "market_indicator_count": 39,
+    "match_count": 185,
+    "module_status": "OPERATIONAL_BASELINE_CLOSED_FUTURE_EVOLUTION_BACKLOG",
+    "panel_bridge_decision": "OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED",
+    "raw_count": 374,
+    "score_count": 185,
+    "seal_head": "8c0cdb3c3c63797959a0dd83b2872956dc67f47c",
+    "seal_stage": "NEWS_F_FINAL_OPERATIONAL_SEAL_WITH_KNOWN_WARNINGS",
+    "service_result": "success",
+    "signal_count": 185,
+    "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+    "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
+    "timer_active": "active",
+    "timer_enabled": "enabled",
+    "timer_role": "COLD_BACKFILL_FALLBACK_ONLY",
+    "warnings_status": "OLDER_WARNINGS_SUPERSEDED_BY_VERIFIED_NATURAL_TIMER_CYCLE"
+  },
+  "news_panel_chain_state": {
+    "artifact": "data/control/news_panel_chain_closed_or_public_url_probe_single_block_noapi_v1.json",
+    "closed_at_utc": "2026-07-09T11:50:40.346753+00:00",
+    "local_static_verified": true,
+    "next": "NEWS_PANEL_CHAIN_CLOSED_MANUAL_PUBLIC_CHECK_OPTIONAL",
+    "public_or_8096_body_verified": true,
+    "route": "/news_coverage.html",
+    "state": "runtime/state/news_panel_chain_closed_or_public_url_probe_v1.json",
+    "status": "CLOSED",
+    "warnings": []
+  },
+  "news_panel_public_route_mirror_state": {
+    "artifact": "data/control/news_panel_public_proxy_route_mirror_single_block_noapi_v1.json",
+    "closed_at_utc": "2026-07-09T12:04:34.728455+00:00",
+    "local_8096_verified": true,
+    "next": "NEWS_PANEL_PUBLIC_ROUTE_MIRROR_CLOSED_MANUAL_DOMAIN_AUTH_CHECK_OPTIONAL",
+    "public_body_verified": false,
+    "public_route_seen": false,
+    "route": "/panel/panel_v2/news_coverage.html",
+    "state": "runtime/state/news_panel_public_proxy_route_mirror_v1.json",
+    "status": "CLOSED",
+    "warnings": [
+      "public_body_not_confirmed",
+      "public_route_no_http_response_from_server_probe"
+    ]
+  },
+  "news_producer_health_watch_state": {
+    "adversarial_jsonl": 51,
+    "artifact": "data/control/news_producer_health_watch_and_hot_gateway_integration_review_single_block_noapi_v1.json",
+    "authority": {
+      "db_write": false,
+      "hunter": false,
+      "live": false,
+      "network_call": false,
+      "panel_change": false,
+      "paper": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade": false
+    },
+    "closed_at_utc": "2026-07-09T11:11:40.437745+00:00",
+    "hot_queue_count": 50,
+    "market_jsonl": 35,
+    "match": 47,
+    "module": "tools/news_producer_health_watch_and_hot_gateway_review_v1.py",
+    "next": "ACTIVE_PANEL_BINDING_DECISION_OR_MANUAL_HEALTH_WATCH_CONTINUE_SINGLE_BLOCK",
+    "raw": 317,
+    "score": 47,
+    "signal": 47,
+    "state": "runtime/state/news_producer_health_watch_and_hot_gateway_review_v1.json",
+    "status": "CLOSED",
+    "summary_adversarial": 51,
+    "summary_market": 35,
+    "warnings": [
+      "sqlite_journal_mode_not_wal",
+      "raw_count_greater_than_match_downstream_review_needed",
+      "sqlite_journal_mode_not_wal"
+    ]
+  },
+  "news_public_nginx_route_fix_state": {
+    "artifact": "data/control/news_public_nginx_route_fix_single_block_noapi_v1.json",
+    "closed_at_utc": "2026-07-09T12:09:32.793657+00:00",
+    "local8096_ok": true,
+    "localhost80_ok": false,
+    "next": "NEWS_PUBLIC_ROUTE_FIX_CLOSED_BROWSER_MANUAL_VERIFY_OPTIONAL",
+    "patched_any": true,
+    "public_ok": false,
+    "route": "/panel/panel_v2/news_coverage.html",
+    "state": "runtime/state/news_public_nginx_route_fix_v1.json",
+    "status": "CLOSED",
+    "warnings": [
+      "public_https_body_not_confirmed_after_nginx_patch",
+      "localhost_80_body_not_confirmed_after_nginx_patch"
+    ]
+  },
+  "news_readonly_audit_closure": {
+    "after_watermark_unresolved": 0,
+    "artifact": "data/control/news_readonly_audit_closure_20260710_v1.json",
+    "bad_trade_flags": 0,
+    "closed_at_utc": "2026-07-10T13:43:00+00:00",
+    "decision": "OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED",
+    "duplicate_uid_count": 0,
+    "historical_watermark_excluded": 189,
+    "id": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
+    "match_uid_count": 185,
+    "new_era_opened": false,
+    "next_safe_step": "ERA55_SELECTION_GATE",
+    "proven_data_loss_count": 0,
+    "raw_uid_count": 374,
+    "raw_without_score": 189,
+    "score_uid_count": 185,
+    "signal_uid_count": 185,
+    "status": "CLOSED_VERIFIED"
+  },
+  "news_runtime_stabilization_state": {
+    "adversarial_jsonl_events": 59,
+    "artifact": "data/control/news_runtime_stabilization_and_continuous_producer_review_single_block_noapi_v1.json",
+    "authority": {
+      "db_write": false,
+      "hunter": false,
+      "live": false,
+      "network_call": false,
+      "panel_change": false,
+      "paper": false,
+      "service_change": false,
+      "timer_change": false,
+      "trade": false
+    },
+    "closed_at_utc": "2026-07-09T11:02:29.074921+00:00",
+    "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+    "db_counts": {
+      "news_raw_feed_events": 372,
+      "news_runtime_freshness_v1": 3,
+      "news_score_events_v1": 184,
+      "news_signal_events": 184,
+      "news_token_match_events": 184
+    },
+    "hot_queue_count": 50,
+    "market_jsonl_events": 39,
+    "module": "tools/news_runtime_stabilization_review_v1.py",
+    "next": "ERA55_SELECTION_GATE",
+    "state": "runtime/state/news_runtime_stabilization_review_v1.json",
+    "status": "CLOSED_VERIFIED_NATURAL_TIMER_CYCLE",
+    "summary_adversarial": 59,
+    "summary_market": 39,
+    "warnings": []
   },
   "next_safe_step": {
-    "id": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
-    "type": "ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_APPLY_DECISION",
-    "parent": "ERA55_RUNTIME_OPTIMIZATION",
-    "purpose": "Audit A9 integration evidence and decide the bounded production writer implementation plan without activating it.",
     "human_authorization_required": true,
-    "production_writer_activation_authorized": false,
-    "option_b_authorized": false,
+    "id": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
     "optimization_apply_authorized": false,
-    "status": "READY"
+    "option_b_authorized": false,
+    "parent": "ERA55_RUNTIME_OPTIMIZATION",
+    "production_writer_activation_authorized": false,
+    "purpose": "Audit A9 integration evidence and decide the bounded production writer implementation plan without activating it.",
+    "status": "READY",
+    "type": "ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_APPLY_DECISION"
   },
   "open_risks": [
     "P0:F1_PRODUCTION_LEDGER_WRITER_NOT_ACTIVE:OPEN",
@@ -440,12 +832,32 @@
     "P2:F4_STAGE_TIMING_AND_PANEL_LATENCY:MISSING",
     "Risk is minimized, never zero."
   ],
+  "post_era54_hot_ingress_bounded_runtime_state": {
+    "active_wrapper": "tools/news_radar_refresh_runner_v1.py",
+    "artifact": "data/control/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.json",
+    "db_write": false,
+    "full_timer_cycle_observed_after_binding": false,
+    "hot_queue_bound": 50,
+    "hot_queue_count": 50,
+    "module": "tools/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.py",
+    "next": "POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
+    "runtime_chain": [
+      "news_coverage_readmodel_consumer_v1.py",
+      "news_coverage_panel_display_adapter_v1.py",
+      "hot_intelligence_ingress_gateway_v1.py",
+      "news_active_panel_data_bridge_v1.py"
+    ],
+    "service_change": false,
+    "status": "BOUND_HOT_ONLY_EXECUTION_VERIFIED",
+    "timer_change": false,
+    "trade_authority": false
+  },
   "project_status": "ACTIVE_ERA55_P0_LEDGER_WRITER_POST_TEST_AUDIT_REQUIRED",
   "recent_event": {
-    "timestamp": "2026-07-11T11:08:11.850316+00:00",
-    "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
     "result": "OK_LEDGER_WRITER_TEMP_COPY_INTEGRATION_WITH_RECOVERABLE_PUBLISH_BOUNDARY",
-    "artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json"
+    "task": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "timestamp": "2026-07-11T11:08:11.850316+00:00"
   },
   "runtime_version": "1.0",
   "semantic_drift_guard": {
@@ -478,415 +890,5 @@
   "source": "era55a9_p0_ledger_writer_integration_temp_copy_test_v1",
   "status": "WORK_UNIT_CLOSED",
   "updated_at": "2026-07-11T11:08:11.850316+00:00",
-  "updated_at_utc": "2026-07-11T11:08:11.850316+00:00",
-  "news_coverage_panel_display_state": {
-    "status": "CLOSED_VERIFIED_CURRENT",
-    "stage": "NEWS_COVERAGE_PANEL_DISPLAY_BINDING_FINAL_SEAL_NOAPI",
-    "seal_artifact": "data/control/news_coverage_panel_display_binding_final_seal_noapi_v1.json",
-    "seal_head_before_runtime_sync": "0e088cd1a60de60410e432acc52ad8fe92f99885",
-    "market_jsonl_events": 39,
-    "adversarial_jsonl_events": 59,
-    "summary_market_indicator_count": 39,
-    "summary_adversarial_count": 59,
-    "display_market_count": 39,
-    "display_adversarial_count": 59,
-    "display_html_size": 13021,
-    "display_sections": [
-      "news_market_indicator",
-      "news_adversarial_intelligence",
-      "news_coverage_health"
-    ],
-    "authority": {
-      "db_write": false,
-      "hunter": false,
-      "trade": false,
-      "paper": false,
-      "live": false,
-      "active_panel_mutation": false,
-      "service_change": false,
-      "timer_change": false
-    },
-    "warnings": [
-      "adversarial_jsonl_count_differs_from_summary_consumer_refresh_later",
-      "sqlite_journal_mode_not_wal"
-    ],
-    "closed_at_utc": "2026-07-09T10:43:51.583817+00:00",
-    "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json"
-  },
-  "hot_intelligence_ingress_gateway_state": {
-    "status": "CLOSED_VERIFIED_BOUND_RUNTIME",
-    "artifact": "data/control/hot_intelligence_ingress_gateway_single_block_noapi_v1.json",
-    "module": "tools/hot_intelligence_ingress_gateway_v1.py",
-    "state": "runtime/state/hot_intelligence_ingress_gateway_v1.json",
-    "hot_queue_count": 50,
-    "authority": {
-      "db_write": false,
-      "hunter": false,
-      "trade": false,
-      "paper": false,
-      "live": false,
-      "service_change": false,
-      "timer_change": false,
-      "panel_change": false,
-      "network_call": false
-    },
-    "closed_at_utc": "2026-07-09T10:57:56.200057+00:00",
-    "next": "ERA55_SELECTION_GATE",
-    "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json"
-  },
-  "news_runtime_stabilization_state": {
-    "status": "CLOSED_VERIFIED_NATURAL_TIMER_CYCLE",
-    "artifact": "data/control/news_runtime_stabilization_and_continuous_producer_review_single_block_noapi_v1.json",
-    "module": "tools/news_runtime_stabilization_review_v1.py",
-    "state": "runtime/state/news_runtime_stabilization_review_v1.json",
-    "market_jsonl_events": 39,
-    "adversarial_jsonl_events": 59,
-    "summary_market": 39,
-    "summary_adversarial": 59,
-    "hot_queue_count": 50,
-    "db_counts": {
-      "news_raw_feed_events": 372,
-      "news_token_match_events": 184,
-      "news_signal_events": 184,
-      "news_score_events_v1": 184,
-      "news_runtime_freshness_v1": 3
-    },
-    "warnings": [],
-    "authority": {
-      "db_write": false,
-      "hunter": false,
-      "trade": false,
-      "paper": false,
-      "live": false,
-      "service_change": false,
-      "timer_change": false,
-      "panel_change": false,
-      "network_call": false
-    },
-    "closed_at_utc": "2026-07-09T11:02:29.074921+00:00",
-    "next": "ERA55_SELECTION_GATE",
-    "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json"
-  },
-  "news_producer_health_watch_state": {
-    "status": "CLOSED",
-    "artifact": "data/control/news_producer_health_watch_and_hot_gateway_integration_review_single_block_noapi_v1.json",
-    "module": "tools/news_producer_health_watch_and_hot_gateway_review_v1.py",
-    "state": "runtime/state/news_producer_health_watch_and_hot_gateway_review_v1.json",
-    "raw": 317,
-    "match": 47,
-    "signal": 47,
-    "score": 47,
-    "market_jsonl": 35,
-    "adversarial_jsonl": 51,
-    "summary_market": 35,
-    "summary_adversarial": 51,
-    "hot_queue_count": 50,
-    "warnings": [
-      "sqlite_journal_mode_not_wal",
-      "raw_count_greater_than_match_downstream_review_needed",
-      "sqlite_journal_mode_not_wal"
-    ],
-    "authority": {
-      "db_write": false,
-      "hunter": false,
-      "trade": false,
-      "paper": false,
-      "live": false,
-      "service_change": false,
-      "timer_change": false,
-      "panel_change": false,
-      "network_call": false
-    },
-    "closed_at_utc": "2026-07-09T11:11:40.437745+00:00",
-    "next": "ACTIVE_PANEL_BINDING_DECISION_OR_MANUAL_HEALTH_WATCH_CONTINUE_SINGLE_BLOCK"
-  },
-  "news_active_panel_data_binding_state": {
-    "status": "CLOSED",
-    "artifact": "data/control/news_active_panel_data_binding_single_block_noapi_v1.json",
-    "module": "tools/news_active_panel_data_bridge_v1.py",
-    "state": "runtime/state/news_active_panel_data_bridge_v1.json",
-    "target_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data",
-    "files": [
-      "hot_intelligence_ingress_gateway_v1.json",
-      "news_adversarial_latest_v1.json",
-      "news_coverage_panel_display_v1.json",
-      "news_coverage_readmodel_consumer_summary_v1.json",
-      "news_market_indicator_latest_v1.json",
-      "news_producer_health_watch_and_hot_gateway_review_v1.json",
-      "news_runtime_stabilization_review_v1.json"
-    ],
-    "warnings": [
-      "sqlite_journal_mode_not_wal"
-    ],
-    "authority": {
-      "db_write": false,
-      "hunter": false,
-      "trade": false,
-      "paper": false,
-      "live": false,
-      "service_change": false,
-      "timer_change": false,
-      "panel_html_change": false,
-      "active_panel_data_write": true,
-      "network_call": false
-    },
-    "closed_at_utc": "2026-07-09T11:20:49.517981+00:00",
-    "next": "ACTIVE_PANEL_UI_ROUTE_BINDING_REVIEW_SINGLE_BLOCK"
-  },
-  "news_active_panel_ui_route_state": {
-    "status": "CLOSED",
-    "artifact": "data/control/news_active_panel_ui_route_binding_single_block_noapi_v1.json",
-    "module": "tools/news_active_panel_ui_route_binding_v1.py",
-    "state": "runtime/state/news_active_panel_ui_route_binding_v1.json",
-    "active_panel_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
-    "route": "/news_coverage.html",
-    "index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
-    "news_page": "/root/tokenoskobi_clean_v1/active_panel_8096/current/news_coverage.html",
-    "warnings": [
-      "sqlite_journal_mode_not_wal"
-    ],
-    "authority": {
-      "db_write": false,
-      "hunter": false,
-      "trade": false,
-      "paper": false,
-      "live": false,
-      "service_change": false,
-      "timer_change": false,
-      "panel_html_change": true,
-      "active_panel_data_write": true,
-      "network_call": false
-    },
-    "closed_at_utc": "2026-07-09T11:25:49.964278+00:00",
-    "next": "LOCALHOST_PANEL_STATIC_SERVE_PROBE_SINGLE_BLOCK"
-  },
-  "news_panel_chain_state": {
-    "status": "CLOSED",
-    "artifact": "data/control/news_panel_chain_closed_or_public_url_probe_single_block_noapi_v1.json",
-    "state": "runtime/state/news_panel_chain_closed_or_public_url_probe_v1.json",
-    "route": "/news_coverage.html",
-    "local_static_verified": true,
-    "public_or_8096_body_verified": true,
-    "warnings": [],
-    "closed_at_utc": "2026-07-09T11:50:40.346753+00:00",
-    "next": "NEWS_PANEL_CHAIN_CLOSED_MANUAL_PUBLIC_CHECK_OPTIONAL"
-  },
-  "news_panel_public_route_mirror_state": {
-    "status": "CLOSED",
-    "artifact": "data/control/news_panel_public_proxy_route_mirror_single_block_noapi_v1.json",
-    "state": "runtime/state/news_panel_public_proxy_route_mirror_v1.json",
-    "route": "/panel/panel_v2/news_coverage.html",
-    "local_8096_verified": true,
-    "public_body_verified": false,
-    "public_route_seen": false,
-    "warnings": [
-      "public_body_not_confirmed",
-      "public_route_no_http_response_from_server_probe"
-    ],
-    "closed_at_utc": "2026-07-09T12:04:34.728455+00:00",
-    "next": "NEWS_PANEL_PUBLIC_ROUTE_MIRROR_CLOSED_MANUAL_DOMAIN_AUTH_CHECK_OPTIONAL"
-  },
-  "news_public_nginx_route_fix_state": {
-    "status": "CLOSED",
-    "artifact": "data/control/news_public_nginx_route_fix_single_block_noapi_v1.json",
-    "state": "runtime/state/news_public_nginx_route_fix_v1.json",
-    "route": "/panel/panel_v2/news_coverage.html",
-    "public_ok": false,
-    "localhost80_ok": false,
-    "local8096_ok": true,
-    "patched_any": true,
-    "warnings": [
-      "public_https_body_not_confirmed_after_nginx_patch",
-      "localhost_80_body_not_confirmed_after_nginx_patch"
-    ],
-    "closed_at_utc": "2026-07-09T12:09:32.793657+00:00",
-    "next": "NEWS_PUBLIC_ROUTE_FIX_CLOSED_BROWSER_MANUAL_VERIFY_OPTIONAL"
-  },
-  "canonical_runtime_pointer": {
-    "authority": "PROJECT_RUNTIME.json",
-    "previous_head_before_closure_commit": "266e32a9f40b03ff9607decd2cb7df3863cbac7a",
-    "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
-    "last_completed": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
-    "decision": "OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED",
-    "era": "ERA54",
-    "era_status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "news_operational_baseline": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "next_safe_step": "ERA55_SELECTION_GATE",
-    "updated_at_utc": "2026-07-10T14:02:44.985843+00:00"
-  },
-  "current_problem": null,
-  "post_era54_hot_ingress_bounded_runtime_state": {
-    "status": "BOUND_HOT_ONLY_EXECUTION_VERIFIED",
-    "artifact": "data/control/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.json",
-    "module": "tools/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.py",
-    "active_wrapper": "tools/news_radar_refresh_runner_v1.py",
-    "runtime_chain": [
-      "news_coverage_readmodel_consumer_v1.py",
-      "news_coverage_panel_display_adapter_v1.py",
-      "hot_intelligence_ingress_gateway_v1.py",
-      "news_active_panel_data_bridge_v1.py"
-    ],
-    "hot_queue_count": 50,
-    "hot_queue_bound": 50,
-    "db_write": false,
-    "service_change": false,
-    "timer_change": false,
-    "trade_authority": false,
-    "full_timer_cycle_observed_after_binding": false,
-    "next": "POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI"
-  },
-  "news_operational_baseline": {
-    "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-    "natural_timer_cycle_observed": true,
-    "evidence_source": "RUNTIME_STATE_CORRELATED_TO_SYSTEMD_SERVICE_CYCLE",
-    "service_success": true,
-    "hot_refresh_marker": true,
-    "derived_counts_equal": true,
-    "hot_queue_count": 50,
-    "panel_bridge_decision": "OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED",
-    "closed_at_utc": "2026-07-10T12:30:25.265514+00:00",
-    "artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json"
-  },
-  "current_era_status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
-  "era55_selection_gate": {
-    "id": "ERA55_SELECTION_GATE",
-    "type": "MAJOR_LINE_SELECTION_GATE",
-    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
-    "serves": "V3_RUNTIME_INTELLIGENCE_OS",
-    "purpose": "Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.",
-    "candidate_next_line": "ERA55_RUNTIME_OPTIMIZATION",
-    "candidate_status": "PLANNED_CANDIDATE_NOT_OPENED",
-    "human_authorization_required": true,
-    "new_era_opened": false,
-    "allowed_decisions": [
-      "OPEN_ERA55_RUNTIME_OPTIMIZATION",
-      "SELECT_ANOTHER_MAJOR_PROJECT_LINE",
-      "HOLD_NO_NEW_MAJOR_LINE"
-    ],
-    "status": "READY"
-  },
-  "news_readonly_audit_closure": {
-    "id": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
-    "status": "CLOSED_VERIFIED",
-    "decision": "OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED",
-    "artifact": "data/control/news_readonly_audit_closure_20260710_v1.json",
-    "raw_uid_count": 374,
-    "match_uid_count": 185,
-    "signal_uid_count": 185,
-    "score_uid_count": 185,
-    "raw_without_score": 189,
-    "historical_watermark_excluded": 189,
-    "after_watermark_unresolved": 0,
-    "proven_data_loss_count": 0,
-    "duplicate_uid_count": 0,
-    "bad_trade_flags": 0,
-    "new_era_opened": false,
-    "next_safe_step": "ERA55_SELECTION_GATE",
-    "closed_at_utc": "2026-07-10T13:43:00+00:00"
-  },
-  "current_state_contract": {
-    "runtime_is_primary_machine_authority": true,
-    "master_state_is_human_summary": true,
-    "handoff_is_continuation_context": true,
-    "boot_contains_stable_contract_only": true,
-    "history_is_append_only": true,
-    "git_head_is_dynamic": true
-  },
-  "canonical_document_condition": {
-    "README.md": "SHORT_STARTUP_POINTER_ONLY",
-    "01_INDEX.md": "NAVIGATION_ONLY",
-    "02_MANIFESTO.md": "DOCTRINE_ONLY",
-    "03_ROADMAP.md": "FUTURE_DIRECTION_ONLY",
-    "04_ALMANAC.md": "HISTORY_ONLY",
-    "05_ATLAS.md": "ARCHITECTURE_MAP_ONLY",
-    "06_PROJECT_MASTER_STATE.md": "CURRENT_SUMMARY_ONLY",
-    "07_PROJECT_HANDOFF.md": "CONTINUATION_CONTEXT_ONLY",
-    "PROJECT_BOOT.json": "STABLE_BOOT_CONTRACT_ONLY",
-    "PROJECT_RUNTIME.json": "CURRENT_MACHINE_STATE_AUTHORITY",
-    "PROJECT_HISTORY.json": "APPEND_ONLY_HISTORY"
-  },
-  "documentation_normalization": {
-    "event_id": "ROOT_CANONICAL_REMAINING_SCOPE_NORMALIZATION_V1",
-    "status": "CLOSED_VERIFIED",
-    "normalized_at_utc": "2026-07-10T15:59:48.209051+00:00",
-    "files_normalized": [
-      "02_MANIFESTO.md",
-      "03_ROADMAP.md",
-      "04_ALMANAC.md",
-      "05_ATLAS.md",
-      "06_PROJECT_MASTER_STATE.md",
-      "07_PROJECT_HANDOFF.md",
-      "PROJECT_BOOT.json",
-      "PROJECT_RUNTIME.json"
-    ],
-    "files_verified_unchanged": [
-      "README.md",
-      "01_INDEX.md",
-      "PROJECT_HISTORY.json"
-    ],
-    "new_era_opened": false,
-    "next_safe_step_unchanged": true
-  },
-  "era55_status": {
-    "era": "ERA55",
-    "title": "Runtime Optimization",
-    "status": "OPEN",
-    "opened_at_utc": "2026-07-11T06:15:55.480509+00:00",
-    "authorization": "USER_APPROVED_OPEN_ERA55_RUNTIME_OPTIMIZATION",
-    "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
-    "serves": "V3_RUNTIME_INTELLIGENCE_OS",
-    "active_stage": "ERA55A_P0_LEDGER_WRITER",
-    "last_completed_substep": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
-    "next_safe_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
-    "opening_artifact": "data/control/era55_runtime_optimization_init_v1.json",
-    "report": "reports/LATEST_ERA55A1_READONLY_INSPECTION.md",
-    "gemini_red_team_required": true,
-    "optimization_apply_authorized": false,
-    "burst_load_authorized": false,
-    "runtime_db_service_timer_panel_mutation": false,
-    "a2_artifact": "data/control/era55a2_granular_instrumentation_and_baseline_measurement_plan_v1.json",
-    "a2_report": "reports/LATEST_ERA55A2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN.md",
-    "measurement_plan_locked": true,
-    "manual_runner_execution_authorized": false,
-    "a3_artifact": "data/control/era55a3_natural_cycle_baseline_collection_v1.json",
-    "a3_report": "reports/LATEST_ERA55A3_NATURAL_CYCLE_BASELINE_COLLECTION.md",
-    "baseline_evidence_collected": true,
-    "a4_artifact": "data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json",
-    "a4_report": "reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md",
-    "baseline_ready_for_a5": true,
-    "baseline_sufficient_for_optimization_apply": false,
-    "p0_queue_risk_open": true,
-    "a5_artifact": "data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json",
-    "a5_report": "reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md",
-    "baseline_report_complete": true,
-    "gemini_package_ready": true,
-    "gemini_review_complete": true,
-    "a6_artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
-    "a6_report": "reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md",
-    "gemini_baseline_verdict": "BASELINE_ACCEPTED",
-    "optimization_apply_verdict": "REJECTED_UNTIL_P0_CLEARED",
-    "a7_temp_copy_test_authorized": true,
-    "a7_artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
-    "a7_report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
-    "a7_schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
-    "p0_ledger_schema_temp_copy_validated": true,
-    "p0_f1_status": "OPEN_PENDING_PRODUCTION_WRITER_AND_NATURAL_CYCLE_PROOF",
-    "production_ledger_apply_authorized": false,
-    "a8_artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
-    "a8_report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
-    "a8_schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
-    "production_ledger_schema_present": true,
-    "production_ledger_writer_active": false,
-    "p0_f1_closed": false,
-    "a9_artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
-    "a9_report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
-    "a9_temp_copy_writer_integration_validated": true,
-    "idempotent_replay_validated": true,
-    "replacement_atomicity_validated": true,
-    "publish_recovery_validated": true,
-    "strict_cross_resource_atomicity_proven": false,
-    "new_ledger_batch_unobservable_rows": 0,
-    "production_writer_activation_authorized": false,
-    "option_b_authorized": false
-  }
+  "updated_at_utc": "2026-07-11T11:08:11.850316+00:00"
 }
