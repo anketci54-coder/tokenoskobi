@@ -5463,6 +5463,22 @@ Bu eser aşağıdaki canonical rehbere göre geliştirilir:
 
 ---
 
+## ERA55A_3 NATURAL CYCLE BASELINE COLLECTION
+
+- Status: `CLOSED`
+- Result: `WARN_P0_BASELINE_FINDINGS_RECORDED`
+- Historical runner evidence: collected from systemd journal.
+- Queue top-50 and overflow evidence: independently reconstructed from display candidates.
+- Natural timer-cycle observation: bounded external read-only observer.
+- Manual runner execution: `false`
+- Service/timer/DB/queue/panel mutation: `false`
+- Finding codes: `SILENT_TRUNCATION_CAPABILITY_EXISTS_NOT_OBSERVED, TIMER_OVERLAP_NOT_OBSERVED_24H`
+- Optimization apply: `blocked`
+- Gemini Red Team review: required after baseline report.
+- Next safe step: `ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW`
+
+---
+
 ## ALMANAC RECORD INSERTION AND CORRECTION CONSTITUTION
 
 Yeni tamamlanmış kayıt ilgili PASS, PHASE, V veya ERA ailesinin altında tarihsel sıraya eklenir.

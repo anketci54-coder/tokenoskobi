@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_RUNTIME_OPTIMIZATION_BASELINE_PLAN_LOCKED
+PROJECT_STATUS=ACTIVE_ERA55_RUNTIME_OPTIMIZATION_BASELINE_EVIDENCE
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -35,30 +35,30 @@ ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
 CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
-LAST_COMPLETED_SUBSTEP=ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN
-MEASUREMENT_PLAN_LOCKED=true
+LAST_COMPLETED_SUBSTEP=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
+BASELINE_EVIDENCE_COLLECTED=true
 GEMINI_RED_TEAM_REQUIRED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
 BURST_LOAD_AUTHORIZED=false
 MANUAL_RUNNER_EXECUTION_AUTHORIZED=false
 ```
 
-The measurement plan uses an external read-only observer. It does not modify the runner, service, timer, database, queue policy or panel.
+A3 collected historical and natural-cycle evidence through an external read-only observer. No live runtime configuration was changed.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN
-LAST_RESULT=OK_PLAN_LOCKED_NO_LIVE_MUTATION
-LAST_ARTIFACT=data/control/era55a2_granular_instrumentation_and_baseline_measurement_plan_v1.json
-LAST_REPORT=reports/LATEST_ERA55A2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN.md
+LAST_COMPLETED=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
+LAST_RESULT=WARN_P0_BASELINE_FINDINGS_RECORDED
+LAST_ARTIFACT=data/control/era55a3_natural_cycle_baseline_collection_v1.json
+LAST_REPORT=reports/LATEST_ERA55A3_NATURAL_CYCLE_BASELINE_COLLECTION.md
 WORK_UNIT_STATUS=CLOSED
 LIVE_RUNTIME_MUTATION=false
 ```
 
-A2 locked stage boundaries, baseline profiles, metrics, hard gates and the A3 collector contract.
+The evidence includes reconstructed queue overflow, historical runner distributions, overlap/timeout review, SQLite checks and one bounded natural-cycle observation attempt.
 
 ---
 
@@ -175,12 +175,8 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- `P0 QUEUE_OVERFLOW_SILENT_TRUNCATION` remains open until candidate, admitted and overflow counts are measured and a later explicit policy is approved.
-- `P0 TIMER_RUNNER_MARGIN` requires historical and natural-cycle duration evidence.
-- `P0 DATA_CORRECTNESS` is a permanent hard gate.
-- Panel propagation latency remains unmeasured.
-- SQLite remains `journal_mode=delete`, `synchronous=2`; no PRAGMA change is authorized.
-- Manual runner execution and production burst load remain blocked.
+- `P0 SILENT_TRUNCATION_CAPABILITY_EXISTS_NOT_OBSERVED` — Top-50 truncation exists but current snapshot produced no overflow; absence of historical ledger prevents a no-loss claim.
+- Optimization apply and production burst load remain blocked.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
 
@@ -189,10 +185,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
+NEXT_SAFE_STEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
 ```
 
-A3 may only observe historical logs and natural timer cycles. It may not invoke the runner or mutate service, timer, database, queue policy or panel.
+A4 will judge whether A3 evidence is sufficient, define any additional read-only samples and prepare the consolidated baseline path toward A5 and Gemini review.
 
 ---
 
