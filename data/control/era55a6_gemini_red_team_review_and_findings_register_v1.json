@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
+  "era": "ERA55",
+  "registered_at_utc": "2026-07-11T09:40:41.079488+00:00",
+  "status": "CLOSED_FINDINGS_REGISTERED",
+  "result": "BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED",
+  "head_before_commit": "950e3250d89b68ec10e490f1eba607c126178a02",
+  "review_source": {
+    "reviewer": "GEMINI_RED_TEAM",
+    "canonical_head_reviewed": "c916660b1f1047370d04893a504d7867fd7597c5",
+    "source_artifact": "data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json"
+  },
+  "verdict": {
+    "baseline_verdict": "BASELINE_ACCEPTED",
+    "canonical_assessment": "OPERATIONALLY_STABLE_LOW_LOAD_WITH_BOUNDARY_RISKS",
+    "optimization_apply_verdict": "REJECTED_UNTIL_P0_CLEARED",
+    "a7_design_and_temp_copy_test_authorized": true,
+    "production_apply_authorized": false
+  },
+  "findings": [
+    {
+      "finding_id": "F1",
+      "priority": "P0",
+      "title": "SILENT_TRUNCATION_DISPOSITION_BLINDNESS",
+      "received_finding": "Queue is 50/50 and no drop ledger exists.",
+      "canonical_interpretation": "CURRENT_OVERFLOW_NOT_OBSERVED_BUT_TOP50_SILENT_TRUNCATION_CAPABILITY_PROVEN",
+      "evidence": {
+        "capacity": 50,
+        "candidates": 50,
+        "admitted": 50,
+        "overflow_current_snapshot": 0,
+        "drop_ledger_detected": false,
+        "silent_drop_current_snapshot": false,
+        "silent_truncation_capability": true,
+        "historical_zero_loss_claim_allowed": false
+      },
+      "required_action": "ATOMIC_DISPOSITION_LEDGER_DESIGN_AND_TEMP_COPY_VALIDATION",
+      "blocks_production_apply": true,
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F2",
+      "priority": "P1",
+      "title": "DELETE_VS_WAL_IO_HYPOTHESIS",
+      "canonical_interpretation": "HYPOTHESIS_UNPROVEN_TEMP_COPY_COMPARISON_REQUIRED",
+      "evidence": {
+        "runner_ms": 939.311,
+        "journal_mode": "delete",
+        "synchronous": 2
+      },
+      "required_action": "TEMP_COPY_DELETE_VS_WAL_DURABILITY_LOCK_WRITE_AMPLIFICATION_BENCHMARK",
+      "blocks_production_apply": true,
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F3",
+      "priority": "P1",
+      "title": "ATOMIC_KILL_RECOVERY_UNTESTED",
+      "canonical_interpretation": "LOW_LOAD_FAILURE_NOT_OBSERVED_BUT_KILL_RECOVERY_UNTESTED",
+      "evidence": {
+        "service_timeout_ms": 70000,
+        "timeout_observed": false,
+        "overlap_observed": false,
+        "cold_start": "TRUE_COLD_START_NOT_OBSERVED"
+      },
+      "required_action": "ISOLATED_TEMP_COPY_PROCESS_KILL_ATOMIC_RECOVERY_MATRIX",
+      "blocks_production_apply": true,
+      "status": "OPEN"
+    },
+    {
+      "finding_id": "F4",
+      "priority": "P2",
+      "title": "STAGE_TIMING_AND_PANEL_LATENCY_GAP",
+      "canonical_interpretation": "ONE_PRECISE_TOTAL_SAMPLE_EXISTS_STAGE_P95_P99_AND_PANEL_LATENCY_NOT_PROVEN",
+      "evidence": {
+        "runner_ms": 939.311,
+        "panel_status": "VISIBLE_BUT_NOT_GRANULAR",
+        "exact_stage_latency_available": false
+      },
+      "required_action": "PERF_COUNTER_NS_STAGE_AND_DB_TO_PANEL_PROPAGATION_INSTRUMENTATION",
+      "blocks_production_apply": true,
+      "status": "OPEN"
+    }
+  ],
+  "hard_gates": {
+    "event_count_loss": 0,
+    "uid_loss": 0,
+    "duplicate_regression": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "authority_regression": 0,
+    "unledgered_disposition": 0
+  },
+  "authorized_next_work": {
+    "id": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+    "temp_copy_required": true,
+    "overflow_simulation_required": true,
+    "production_mutation_authorized": false,
+    "every_overflow_reason_code": "QUEUE_OVERFLOW"
+  },
+  "next_safe_step": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+  "mutation_statement": {
+    "live_runtime": false,
+    "production_database": false,
+    "service": false,
+    "timer": false,
+    "panel": false,
+    "queue_policy": false
+  }
+}

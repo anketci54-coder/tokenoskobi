@@ -24,36 +24,34 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_AWAITING_GEMINI_RED_TEAM_REVIEW
+PROJECT_STATUS=ACTIVE_ERA55_P0_DROP_LEDGER_TEMP_COPY_AUTHORIZED
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_EXTERNAL_RED_TEAM_GATE
-LAST_COMPLETED_SUBSTEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
-BASELINE_REPORT_COMPLETE=true
-GEMINI_PACKAGE_READY=true
-GEMINI_REVIEW_COMPLETE=false
+CURRENT_STAGE=ERA55A_P0_DROP_LEDGER
+LAST_COMPLETED_SUBSTEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
+GEMINI_REVIEW_COMPLETE=true
+GEMINI_BASELINE_VERDICT=BASELINE_ACCEPTED
+OPTIMIZATION_APPLY_VERDICT=REJECTED_UNTIL_P0_CLEARED
 P0_QUEUE_RISK_OPEN=true
+A7_TEMP_COPY_TEST_AUTHORIZED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
-BURST_LOAD_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-A5 is closed. The package is ready, but external review is not yet complete.
+A6 is closed. A7 temp-copy work is the only authorized next step.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
-LAST_RESULT=OK_BASELINE_REPORT_AND_GEMINI_PACKAGE_READY_NO_APPLY
-LAST_ARTIFACT=data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json
-LAST_REPORT=reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md
-WORK_UNIT_STATUS=CLOSED_PACKAGE_READY_REVIEW_PENDING
+LAST_COMPLETED=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
+LAST_RESULT=BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED
+LAST_ARTIFACT=data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json
+LAST_REPORT=reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md
+WORK_UNIT_STATUS=CLOSED
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 CURRENT_PROBLEM=null
-
-Queue is `50/50` and the P0 disposition-ledger gap remains open.
 
 ---
 
@@ -99,40 +97,35 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 ## 06 DO NOT REOPEN OR REPEAT
 
 - Do not reopen ERA54.
-- Do not begin disposition-ledger implementation before Gemini findings are registered.
-- Do not claim a DELETE-mode bottleneck without temp-copy comparison.
-- Do not run production burst, kill, restart, service/timer or SQLite-mode tests.
-- Do not apply watchdog, WAL, index, cache, delta refresh or queue-policy changes.
-- Do not treat no current overflow as proof of historical zero loss.
-- Do not infer cold-start, lock-contention, p99 or panel-latency results.
-- Do not proceed to optimization implementation before the Gemini gate closes.
+- Do not apply a ledger schema to production.
+- Do not modify the live gateway, queue policy, service, timer or panel.
+- Do not run production overflow, burst, kill, restart or WAL tests.
+- Do not claim an observed drop from the zero-overflow snapshot.
+- Do not proceed to production optimization while F1 remains open.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-Current authorized direction:
+- Gemini baseline verdict: `BASELINE_ACCEPTED`.
+- Production optimization verdict: `REJECTED_UNTIL_P0_CLEARED`.
+- A7 disposable-copy schema/test is authorized.
+- All live apply authority remains false.
 
-- The A5 report and Gemini package are ready.
-- The next action is external Gemini review and exact findings registration.
-- P0 disposition-ledger design is the first candidate intervention after review, not yet authorized for apply.
-- All performance and runtime mutations remain blocked.
-
-NEXT_SAFE_STEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
+NEXT_SAFE_STEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Read `PROJECT_RUNTIME.json`.
-2. Confirm `ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER` is current.
-3. Verify local and remote `main` synchronization.
-4. Open `reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md`.
-5. Copy the `Gemini Red Team Copy-Paste Package` section exactly to Gemini.
-6. Return Gemini's complete structured response without summarizing away details.
-7. Register every finding by priority and blocking status.
-8. Reject any production apply recommendation that bypasses temp-copy or correctness gates.
-9. Select the next canonical work unit only after the review verdict is recorded.
+1. Confirm A7 is current.
+2. Snapshot production DB and runtime-state hashes.
+3. Create a disposable SQLite backup through a read-only source connection.
+4. Apply the candidate ledger schema only to the copy.
+5. Simulate overflow and every disposition.
+6. Test rollback, uniqueness and foreign keys.
+7. Verify event counts, UID sets and production hashes are unchanged.
+8. Do not apply to production.
 
 ---
 

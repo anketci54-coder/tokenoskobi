@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_AWAITING_GEMINI_RED_TEAM_REVIEW
+PROJECT_STATUS=ACTIVE_ERA55_P0_DROP_LEDGER_TEMP_COPY_AUTHORIZED
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -34,32 +34,32 @@ LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_EXTERNAL_RED_TEAM_GATE
-LAST_COMPLETED_SUBSTEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
-BASELINE_REPORT_COMPLETE=true
-GEMINI_PACKAGE_READY=true
-GEMINI_REVIEW_COMPLETE=false
+CURRENT_STAGE=ERA55A_P0_DROP_LEDGER
+LAST_COMPLETED_SUBSTEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
+GEMINI_REVIEW_COMPLETE=true
+GEMINI_BASELINE_VERDICT=BASELINE_ACCEPTED
+OPTIMIZATION_APPLY_VERDICT=REJECTED_UNTIL_P0_CLEARED
 P0_QUEUE_RISK_OPEN=true
+A7_TEMP_COPY_TEST_AUTHORIZED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
-BURST_LOAD_AUTHORIZED=false
 ```
 
-A5 produced the canonical baseline report and structured Gemini Red Team package. No runtime optimization was applied.
+A6 registered Gemini findings. Only A7 disposable-copy design and testing are authorized.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
-LAST_RESULT=OK_BASELINE_REPORT_AND_GEMINI_PACKAGE_READY_NO_APPLY
-LAST_ARTIFACT=data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json
-LAST_REPORT=reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md
-WORK_UNIT_STATUS=CLOSED_PACKAGE_READY_REVIEW_PENDING
+LAST_COMPLETED=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
+LAST_RESULT=BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED
+LAST_ARTIFACT=data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json
+LAST_REPORT=reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md
+WORK_UNIT_STATUS=CLOSED
 LIVE_RUNTIME_MUTATION=false
 ```
 
-Observed low-load runner duration is `939.311 ms`. Queue remains `50/50` with no drop ledger. The package separates proven facts, hypotheses and untested risks.
+F1-F4 are registered with evidence limits preserved.
 
 ---
 
@@ -176,13 +176,12 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- `P0 QUEUE_SILENT_TRUNCATION_CAPABILITY` remains open; disposition ledger design and temp-copy validation are mandatory before production apply.
-- `P0 GEMINI_RED_TEAM_REVIEW` is pending.
-- DELETE journal bottleneck attribution is an unproven hypothesis.
-- True cold-start, burst, slow-IO, lock-contention and kill-recovery behavior remain untested.
-- Granular stage timing and exact DB-to-panel propagation latency remain unknown.
-- Full refresh versus delta equivalence and write amplification remain untested.
-- Optimization apply, production burst, production kill, WAL, index, watchdog, cache and queue changes remain blocked.
+- `P0 F1 SILENT_TRUNCATION_DISPOSITION_BLINDNESS` remains open and blocks production apply.
+- Current snapshot overflow is zero; historical zero-loss is unprovable without a ledger.
+- F2 DELETE-vs-WAL is an unproven hypothesis.
+- F3 kill/atomic recovery is untested.
+- F4 stage timing and panel latency are incomplete.
+- Production DB, service, timer, panel and queue policy remain immutable.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
 
@@ -191,10 +190,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
+NEXT_SAFE_STEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
 ```
 
-Submit the copy-paste package in the A5 report to Gemini. Register its structured findings without altering or interpreting missing evidence. No implementation begins before this gate closes.
+Design and test the disposition ledger only on a disposable SQLite copy.
 
 ---
 
