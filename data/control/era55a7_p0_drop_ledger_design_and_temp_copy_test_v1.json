@@ -1,0 +1,3112 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+  "era": "ERA55",
+  "tested_at_utc": "2026-07-11T09:40:41.428070+00:00",
+  "status": "CLOSED_TEMP_COPY_TEST_PASS",
+  "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
+  "head_before_commit": "a661b7da9b1fd5e7f3e83dae1360027943bbe661",
+  "source_review": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
+  "design": {
+    "schema_file": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
+    "schema_sha256": "f5cb638bcce84e04e7303daccc6913302efce3f58a465dc8268165818d5b0502",
+    "batch_table": "news_disposition_batches_v1",
+    "ledger_table": "news_disposition_ledger_v1",
+    "policy_version": "PRIORITY_DESC_THEN_HOT_UID_TOP_50_V1",
+    "atomicity": "SINGLE_TRANSACTION_FAIL_CLOSED",
+    "production_apply_authorized": false
+  },
+  "test_environment": {
+    "mode": "DISPOSABLE_TEMP_COPY",
+    "temp_dir": "/tmp/era55a7_temp_copy_tqg_601t",
+    "production_db_open_mode": "READ_ONLY_BACKUP_SOURCE",
+    "production_burst": false,
+    "production_service_kill": false,
+    "production_service_timer_change": false
+  },
+  "test_result": {
+    "pass": true,
+    "temp_db_path": "/tmp/era55a7_temp_copy_tqg_601t/tokenoskobi_temp_copy.sqlite",
+    "temp_db_sha256": "63ffe9d967b5f7baa83bc215c924ef2ad56309d8a36a37c2ce4a2d37d0f5cf03",
+    "integrity_before": "ok",
+    "quick_before": "ok",
+    "integrity_after": "ok",
+    "quick_after": "ok",
+    "main_batch": {
+      "batch_uid": "batch_3d2f09237164a430a96ba5fb",
+      "policy_version": "PRIORITY_DESC_THEN_HOT_UID_TOP_50_V1",
+      "queue_capacity": 50,
+      "source_candidate_count": 70,
+      "normalized_candidate_count": 65,
+      "deduplicated_candidate_count": 60,
+      "admitted_count": 50,
+      "overflow_count": 10,
+      "duplicate_removed_count": 5,
+      "unsafe_filtered_count": 3,
+      "invalid_candidate_count": 2,
+      "lowest_admitted_priority": 20,
+      "highest_overflow_priority": 15,
+      "source_snapshot_hash": "3d2f09237164a430a96ba5fb310cdebbb1c91ec79689bd70b66edccfef4aa6a7",
+      "status": "COMMITTED",
+      "created_at_utc": "2026-07-11T09:40:41.495717+00:00",
+      "committed_at_utc": "2026-07-11T09:40:41.496888+00:00",
+      "incomplete_reason": null
+    },
+    "model": {
+      "source_snapshot_hash": "3d2f09237164a430a96ba5fb310cdebbb1c91ec79689bd70b66edccfef4aa6a7",
+      "source_count": 70,
+      "normalized_count": 65,
+      "deduplicated_count": 60,
+      "admitted_count": 50,
+      "overflow_count": 10,
+      "duplicate_removed_count": 5,
+      "unsafe_filtered_count": 3,
+      "invalid_candidate_count": 2,
+      "lowest_admitted_priority": 20,
+      "highest_overflow_priority": 15,
+      "disposition_counts": {
+        "ADMITTED": 50,
+        "OVERFLOW_TRUNCATED": 10,
+        "DUPLICATE_REMOVED": 5,
+        "UNSAFE_AUTHORITY_FILTERED": 3,
+        "INVALID_CANDIDATE": 2
+      }
+    },
+    "disposition_counts": {
+      "ADMITTED": 50,
+      "DUPLICATE_REMOVED": 5,
+      "INVALID_CANDIDATE": 2,
+      "OVERFLOW_TRUNCATED": 10,
+      "UNSAFE_AUTHORITY_FILTERED": 3
+    },
+    "overflow_event_uids": [
+      "hot_53bf9cf9fcf63beb12671ccb",
+      "hot_da9c2e7c5d1dd427aad5e41f",
+      "hot_3586df0728b101a508845bbb",
+      "hot_03b47f17585e1ab951118df4",
+      "hot_8f3197af853d708df8d64ab6",
+      "hot_1b81b282e993adf906f63f70",
+      "hot_bf69f1b6b639000eae6d95e4",
+      "hot_9e10bf844dd2952a62e53d96",
+      "hot_3cfa7a2d82544837786f81b7",
+      "hot_19c10a9dc9baa3be9a3003f6"
+    ],
+    "uid_loss_set": [],
+    "atomic_rollback": {
+      "batch_rows_after_rollback": 0,
+      "ledger_rows_after_rollback": 0,
+      "pass": true
+    },
+    "constraint_tests": {
+      "duplicate_disposition_uid_rejected": true,
+      "missing_batch_foreign_key_rejected": true,
+      "pass": true
+    },
+    "gates": {
+      "event_count_loss": 0,
+      "uid_loss": 0,
+      "duplicate_regression": 0,
+      "unledgered_disposition": 0,
+      "overflow_wrong_reason_count": 0,
+      "source_index_distinct": 70,
+      "ledger_count": 70,
+      "expected_source_count": 70,
+      "integrity_check": "ok",
+      "quick_check": "ok",
+      "foreign_key_check_rows": 0,
+      "source_tables_unchanged": true,
+      "atomic_rollback_pass": true,
+      "constraint_tests_pass": true
+    },
+    "existing_source_table_snapshot_before": {
+      "ai_dataset_registry_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "ai_dataset_rows_v1": {
+        "row_count": 2,
+        "uid_hashes": {
+          "event_uid": "5e2bcea24aa5339df1d68dac5991149fb0f6ded6004d2c8cb5e488580b356171"
+        }
+      },
+      "ai_feature_schema_registry_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "ai_model_artifact_registry_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "ai_training_run_registry_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "alias_conflict_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "api_budget_spend_ledger": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "archive_birth_anchor_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_candle_policy_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_checkpoint_snapshots_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_minute_candles_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_missing_window_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_momentum_acceleration_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_momentum_policy_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_momentum_warning_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_momentum_window_metrics_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_money_flow_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_timeline_quality_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_commercial_policy_review_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_roi_score_inputs_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_scoreboard_alerts_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_scoreboard_metrics_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_scoreboard_periods_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_identity_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_reputation_event_rollup_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_reputation_evidence_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_entity_reputation_ledger_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_reputation_summary_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_preflight_audit_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_rpc_budget_guard_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_gate_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_gate_events_v2_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_time_series_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_threshold_evaluation_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_execution_threshold_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_known_wallet_registry_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_known_wallet_source_registry_readmodel_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_moonshot_memory_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_narrative_bridge_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_outcome_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_source_pressure_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_wallet_bridge_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_news_score_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_news_signal_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_news_token_match_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_phase41_command_center_score_snapshot_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_command_center_unified_readmodel_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_fast_source_agent_dryrun_event_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_phase41_outcome_memory_event_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_paper_position_lifecycle_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_provider_fetch_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_phase41_provider_paid_call_reason_ledger_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_phase41_simulation_drift_snapshot_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_risk_budget_profiles_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_gate_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_outcome_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_risk_route_decision_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_state_time_series_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_tier_capital_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_tier_transition_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_to_morgue_transitions_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_command_output_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_decision_labels_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_freshness_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_missing_evidence_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_negative_memory_summary_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_risk_block_reasons_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_source_map_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_technical_evidence_summary_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_alert_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_balance_snapshots_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_cluster_links_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_link_graph_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_outcome_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_wallet_risk_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_wallet_source_registry_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_tier_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_token_entry_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_transfer_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_whale_flow_time_series_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_evidence_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_flow_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_registry_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_risk_links_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_screen_readmodel_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_token_exposure_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_wallet_links_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "asymmetric_micro_guard_results_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "asymmetric_micro_observation_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "asymmetric_micro_observation_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "asymmetric_route_guard_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "asymmetric_speculative_route_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "asymmetric_watch_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "autopsy_cases": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "autopsy_evidence_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "autopsy_lessons": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "autopsy_required_tests": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "avoided_loss_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "backpressure_rollup_snapshot_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "bsc_event_source_probes": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "bsc_pair_created_candidates": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "buyer_seller_balance_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cascading_execution_filter_eval_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "cascading_execution_filter_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "center_signal_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "command_center_output_contract_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "command_decision_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "command_decision_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "confirmation_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "control_dashboard_view_model_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "control_dashboard_view_model_events_v1__old_nullable_source_counts": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "data_evidence_policy": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "data_quality_time_series_v1": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "decision_binding_evaluation_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "decision_binding_rule_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "deployer_receipt_evidence_events_v1": {
+        "row_count": 18,
+        "uid_hashes": {
+          "event_uid": "80c814cb44961aaeb7c975920eb0aef5dcc097bc05f5b45bacbccecf24fce61b"
+        }
+      },
+      "deployer_wallet_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "dex_microstructure_signal_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "dex_microstructure_technical_evidence_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "dynamic_position_size_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "early_death_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "emergency_monitor_trigger_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "emergency_monitor_trigger_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "entry_exit_decision_logs": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "event_outcome_labels_v1": {
+        "row_count": 2,
+        "uid_hashes": {
+          "event_uid": "5e2bcea24aa5339df1d68dac5991149fb0f6ded6004d2c8cb5e488580b356171"
+        }
+      },
+      "event_outcome_observations_v1": {
+        "row_count": 10,
+        "uid_hashes": {
+          "event_uid": "443f6b434c83c1976b472c2f0a8bcbbfdd5d9a6894330a0e5398c34aa17e30e9"
+        }
+      },
+      "event_outcome_registry_v1": {
+        "row_count": 13,
+        "uid_hashes": {
+          "event_uid": "5c1e222dde041ef7d8cca409b9842dc30b1975e3756f9dccd7311a0b8561e86d"
+        }
+      },
+      "event_source_safety_ledger": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "evidence_event_ledger_v1": {
+        "row_count": 1,
+        "uid_hashes": {
+          "event_uid": "1d500760703751c85c8f47ec17e0cf1ec1e6693cfd4c3a73cdee7996884ccb58"
+        }
+      },
+      "evidence_object_store_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "external_reputation_comparison_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "false_positive_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "fast_decay_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "fusion_score_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "gas_anomaly_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "high_risk_tiny_route_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "holder_distribution_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "holder_distribution_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "holder_growth_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "holder_snapshots": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "hypothetical_position_simulations": {
+        "row_count": 0,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "initial_holder_evidence_events_v1": {
+        "row_count": 7,
+        "uid_hashes": {
+          "event_uid": "02580f002fcf6812062821e90c7112fa4b21e227496cf349601f0143d7dd22b6"
+        }
+      },
+      "known_wallet_cex_classification_events_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "known_wallet_label_conflict_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_label_quality_events_v1": {
+        "row_count": 9,
+        "uid_hashes": {}
+      },
+      "known_wallet_mev_noise_classification_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_quarantine_seed_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_seed_queue_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "known_wallet_shadow_label_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_source_registry_v1": {
+        "row_count": 8,
+        "uid_hashes": {}
+      },
+      "life_gate_decisions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "life_signal_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "liquidity_alive_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "liquidity_birth_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "liquidity_depth_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "liquidity_snapshots": {
+        "row_count": 46,
+        "uid_hashes": {}
+      },
+      "live_data_quality_events": {
+        "row_count": 99,
+        "uid_hashes": {}
+      },
+      "live_fetch_ledger": {
+        "row_count": 166,
+        "uid_hashes": {}
+      },
+      "live_refresh_queue": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "lp_wallet_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "market_ohlcv_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "market_snapshots": {
+        "row_count": 46,
+        "uid_hashes": {}
+      },
+      "mev_outcome_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "mev_permission_gate_events": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "mev_risk_guard_events": {
+        "row_count": 1,
+        "uid_hashes": {
+          "event_uid": "d2e79849aac023ebca08ac2fdc077cd68560f3afbae0466594e093bd6600e7d1"
+        }
+      },
+      "mev_route_profiles": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "mev_sandwich_risk_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "mev_sandwich_risk_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "micro_budget_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "micro_route_size_plan_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "min_received_guard_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "missed_opportunity_audit_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "missed_opportunity_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "model_feedback_candidate_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "momentum_timeline_panel_rows": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "morgue_entries": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "morgue_route_decisions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "narrative_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "narrative_outcome_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "narrative_signal_events_v2": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "narrative_token_match_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "negative_memory": {
+        "row_count": 2,
+        "uid_hashes": {}
+      },
+      "negative_memory_guard_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "negative_memory_lookup_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "negative_memory_lookup_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "net_commercial_score_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_impact_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_narrative_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_raw_feed_events": {
+        "row_count": 391,
+        "uid_hashes": {
+          "news_uid": "510a1028949579df7f6f2911892241d8d4f7e516108303f8c4a924091d5f7f38"
+        }
+      },
+      "news_runtime_freshness_v1": {
+        "row_count": 3,
+        "uid_hashes": {}
+      },
+      "news_score_component_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_score_events_v1": {
+        "row_count": 202,
+        "uid_hashes": {
+          "news_uid": "3406f3b74d6853e06cb7bb2722f44998895cf069b6bb2d8437615b0773506ae2",
+          "score_uid": "7a291cef063becba78eafd63d2a2ac1ec78c2a39273118d6ae1cab1c41b77824"
+        }
+      },
+      "news_signal_events": {
+        "row_count": 202,
+        "uid_hashes": {
+          "news_uid": "3406f3b74d6853e06cb7bb2722f44998895cf069b6bb2d8437615b0773506ae2",
+          "signal_uid": "3f28e5c229254b54f3f64e84cc15834ea5574f71acd1105c62ce7b96df405808"
+        }
+      },
+      "news_social_false_negative_memory_links_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_launch_signals_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_review_queue_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_signal_evidence_links_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_sources_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_source_budget_ledger_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_source_dedup_policy_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_fetch_policy_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_panel_lane_policy_v1": {
+        "row_count": 8,
+        "uid_hashes": {}
+      },
+      "news_source_quality_stats_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_registry": {
+        "row_count": 5,
+        "uid_hashes": {}
+      },
+      "news_source_registry_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_reliability_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_token_match_events": {
+        "row_count": 202,
+        "uid_hashes": {
+          "news_uid": "3406f3b74d6853e06cb7bb2722f44998895cf069b6bb2d8437615b0773506ae2"
+        }
+      },
+      "news_translation_cache_v1": {
+        "row_count": 25,
+        "uid_hashes": {}
+      },
+      "news_translation_quality_events_v1": {
+        "row_count": 25,
+        "uid_hashes": {
+          "event_uid": "6f0739d228618dcfc2b34ba9e28ad303ba6028830611cde169fdeadc47b1de63"
+        }
+      },
+      "no_pair_memory": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "observation_runtime_status_latest_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "opening_baseline_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "opening_price_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "opportunity_outcome_snapshot_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "organic_volume_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "outcome_lesson_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "outcome_memory_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "outcome_memory_events_v2": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "outcome_observation_window_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "pair_birth_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "pair_verification_events": {
+        "row_count": 3,
+        "uid_hashes": {
+          "event_uid": "539a20eed9049721ebd7580c775c744c1ee0e556ac26547c0e77d4b736d453c3"
+        }
+      },
+      "pairs": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "paper_decision_reports": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_observation_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_route_decision_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_costs": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_executions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_outcomes": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_plans": {
+        "row_count": 2,
+        "uid_hashes": {}
+      },
+      "paper_trade_positions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "parsed_live_observation_staging": {
+        "row_count": 153,
+        "uid_hashes": {}
+      },
+      "portfolio_heat_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "pre_trade_simulation_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "price_impact_events": {
+        "row_count": 1,
+        "uid_hashes": {
+          "event_uid": "117e4664b932a557bff92503221490a6eda282daa4becd58e106372afb5b50bf"
+        }
+      },
+      "private_route_guard_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "provider_probe_runs": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "radar_alerts": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "radar_fusion_alert_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "raw_discovery_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "raw_response_archive": {
+        "row_count": 166,
+        "uid_hashes": {}
+      },
+      "rejected_token_followup_queue_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "rejection_micro_log": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "repeat_offender_fast_kill_cache": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "replay_case_registry_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "reputation_policy_registry_v1": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "route_performance_memory_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "route_quality_feedback_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "rug_evidence_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "rumor_filter_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "sandwich_exposure_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "schema_metadata": {
+        "row_count": 9,
+        "uid_hashes": {}
+      },
+      "score_calibration_events": {
+        "row_count": 44,
+        "uid_hashes": {
+          "event_uid": "ee49ec3c5f7d1406fce39ebab53990ca303c205a307bd2dd7c4dd73b9adde2a3"
+        }
+      },
+      "score_validation_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "sell_route_guard_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "sellability_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "slippage_estimates": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "smart_money_cluster_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "snapshot_commit_ledger": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "snapshot_strength_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_conflict_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "source_gate_decisions": {
+        "row_count": 3,
+        "uid_hashes": {}
+      },
+      "source_reliability_ledger": {
+        "row_count": 33,
+        "uid_hashes": {}
+      },
+      "staged_entry_plan_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "staged_exit_plan_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "stale_data_guard_evaluation_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "stale_data_guard_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "stale_snapshot_blocks": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "state_aggregated_token_readmodel_v1": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "stillborn_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "system_events": {
+        "row_count": 22,
+        "uid_hashes": {
+          "event_uid": "d99331548ea745f6d5ddeb2dc168c2fcd4a9bda1f792173a1541fad8e6f8e89f"
+        }
+      },
+      "technical_signal_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "tiny_basket_candidate_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_archive_evidence": {
+        "row_count": 28,
+        "uid_hashes": {}
+      },
+      "token_birth_events": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "token_death_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_hard_block_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_intelligence_summary": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_lifecycle": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "token_lifecycle_autopsy_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_lifecycle_events": {
+        "row_count": 2,
+        "uid_hashes": {}
+      },
+      "token_radar_scores": {
+        "row_count": 0,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_revival_watch_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_risk_events": {
+        "row_count": 15,
+        "uid_hashes": {}
+      },
+      "token_score_100_events": {
+        "row_count": 19,
+        "uid_hashes": {
+          "score_uid": "56ac87265dbb8e7925e1ecc33f43ff9d519f5362574f3ed68f43a80da464a186"
+        }
+      },
+      "token_score_component_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_score_evidence_events": {
+        "row_count": 10,
+        "uid_hashes": {
+          "score_uid": "5c210454b1facc1e317a759f6059324f793841eb23d1f549179b64d1584c55f8"
+        }
+      },
+      "token_score_policy_rules": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_score_snapshots": {
+        "row_count": 2,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_soft_weakness_events": {
+        "row_count": 408,
+        "uid_hashes": {
+          "event_uid": "069c4b74ed45166642178dd3a1f538772336e02c7d574bd3ca04788e5c90eba2"
+        }
+      },
+      "token_status_history": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "token_time_series_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "tokens": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "transaction_activity_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "trend_pressure_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "tx_flow_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "validation_runs": {
+        "row_count": 22,
+        "uid_hashes": {}
+      },
+      "whale_flow_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "whale_movement_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "whale_wallet_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      }
+    },
+    "existing_source_table_snapshot_after": {
+      "ai_dataset_registry_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "ai_dataset_rows_v1": {
+        "row_count": 2,
+        "uid_hashes": {
+          "event_uid": "5e2bcea24aa5339df1d68dac5991149fb0f6ded6004d2c8cb5e488580b356171"
+        }
+      },
+      "ai_feature_schema_registry_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "ai_model_artifact_registry_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "ai_training_run_registry_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "alias_conflict_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "api_budget_spend_ledger": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "archive_birth_anchor_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_candle_policy_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_checkpoint_snapshots_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_minute_candles_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_missing_window_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_momentum_acceleration_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_momentum_policy_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_momentum_warning_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_momentum_window_metrics_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_birth_money_flow_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_birth_timeline_quality_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_commercial_policy_review_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_roi_score_inputs_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_scoreboard_alerts_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_scoreboard_metrics_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_commercial_scoreboard_periods_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_identity_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_reputation_event_rollup_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_reputation_evidence_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_entity_reputation_ledger_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_entity_reputation_summary_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_preflight_audit_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_rpc_budget_guard_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_gate_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_gate_events_v2_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_safety_time_series_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_execution_threshold_evaluation_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_execution_threshold_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_known_wallet_registry_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_known_wallet_source_registry_readmodel_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_moonshot_memory_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_narrative_bridge_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_outcome_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_source_pressure_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_moonshot_wallet_bridge_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_news_score_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_news_signal_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_news_token_match_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_phase41_command_center_score_snapshot_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_command_center_unified_readmodel_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_fast_source_agent_dryrun_event_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_phase41_outcome_memory_event_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_paper_position_lifecycle_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_phase41_provider_fetch_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_phase41_provider_paid_call_reason_ledger_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_phase41_simulation_drift_snapshot_v1_20260616": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "archive_risk_budget_profiles_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_gate_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_outcome_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_risk_route_decision_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_state_time_series_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_tier_capital_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_tier_transition_policy_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_risk_to_morgue_transitions_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_command_output_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_decision_labels_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_freshness_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_missing_evidence_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_negative_memory_summary_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_risk_block_reasons_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_source_map_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_state_aggregated_token_technical_evidence_summary_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_alert_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_balance_snapshots_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_cluster_links_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_link_graph_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_outcome_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_wallet_risk_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "archive_wallet_source_registry_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_tier_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_token_entry_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_transfer_events_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_wallet_whale_flow_time_series_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_evidence_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_flow_events_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_registry_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_risk_links_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_screen_readmodel_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_token_exposure_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "archive_whale_entity_wallet_links_v1_20260616": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "asymmetric_micro_guard_results_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "asymmetric_micro_observation_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "asymmetric_micro_observation_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "asymmetric_route_guard_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "asymmetric_speculative_route_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "asymmetric_watch_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "autopsy_cases": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "autopsy_evidence_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "autopsy_lessons": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "autopsy_required_tests": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "avoided_loss_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "backpressure_rollup_snapshot_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "bsc_event_source_probes": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "bsc_pair_created_candidates": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "buyer_seller_balance_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cascading_execution_filter_eval_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "cascading_execution_filter_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "center_signal_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "command_center_output_contract_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "command_decision_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "command_decision_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "confirmation_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "control_dashboard_view_model_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "control_dashboard_view_model_events_v1__old_nullable_source_counts": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "data_evidence_policy": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "data_quality_time_series_v1": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "decision_binding_evaluation_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "decision_binding_rule_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "deployer_receipt_evidence_events_v1": {
+        "row_count": 18,
+        "uid_hashes": {
+          "event_uid": "80c814cb44961aaeb7c975920eb0aef5dcc097bc05f5b45bacbccecf24fce61b"
+        }
+      },
+      "deployer_wallet_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "dex_microstructure_signal_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "dex_microstructure_technical_evidence_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "dynamic_position_size_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "early_death_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "emergency_monitor_trigger_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "emergency_monitor_trigger_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "entry_exit_decision_logs": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "event_outcome_labels_v1": {
+        "row_count": 2,
+        "uid_hashes": {
+          "event_uid": "5e2bcea24aa5339df1d68dac5991149fb0f6ded6004d2c8cb5e488580b356171"
+        }
+      },
+      "event_outcome_observations_v1": {
+        "row_count": 10,
+        "uid_hashes": {
+          "event_uid": "443f6b434c83c1976b472c2f0a8bcbbfdd5d9a6894330a0e5398c34aa17e30e9"
+        }
+      },
+      "event_outcome_registry_v1": {
+        "row_count": 13,
+        "uid_hashes": {
+          "event_uid": "5c1e222dde041ef7d8cca409b9842dc30b1975e3756f9dccd7311a0b8561e86d"
+        }
+      },
+      "event_source_safety_ledger": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "evidence_event_ledger_v1": {
+        "row_count": 1,
+        "uid_hashes": {
+          "event_uid": "1d500760703751c85c8f47ec17e0cf1ec1e6693cfd4c3a73cdee7996884ccb58"
+        }
+      },
+      "evidence_object_store_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "external_reputation_comparison_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "false_positive_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "fast_decay_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "fusion_score_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "gas_anomaly_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "high_risk_tiny_route_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "holder_distribution_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "holder_distribution_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "holder_growth_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "holder_snapshots": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "hypothetical_position_simulations": {
+        "row_count": 0,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "initial_holder_evidence_events_v1": {
+        "row_count": 7,
+        "uid_hashes": {
+          "event_uid": "02580f002fcf6812062821e90c7112fa4b21e227496cf349601f0143d7dd22b6"
+        }
+      },
+      "known_wallet_cex_classification_events_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "known_wallet_label_conflict_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_label_quality_events_v1": {
+        "row_count": 9,
+        "uid_hashes": {}
+      },
+      "known_wallet_mev_noise_classification_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_quarantine_seed_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_seed_queue_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "known_wallet_shadow_label_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "known_wallet_source_registry_v1": {
+        "row_count": 8,
+        "uid_hashes": {}
+      },
+      "life_gate_decisions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "life_signal_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "liquidity_alive_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "liquidity_birth_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "liquidity_depth_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "liquidity_snapshots": {
+        "row_count": 46,
+        "uid_hashes": {}
+      },
+      "live_data_quality_events": {
+        "row_count": 99,
+        "uid_hashes": {}
+      },
+      "live_fetch_ledger": {
+        "row_count": 166,
+        "uid_hashes": {}
+      },
+      "live_refresh_queue": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "lp_wallet_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "market_ohlcv_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "market_snapshots": {
+        "row_count": 46,
+        "uid_hashes": {}
+      },
+      "mev_outcome_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "mev_permission_gate_events": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "mev_risk_guard_events": {
+        "row_count": 1,
+        "uid_hashes": {
+          "event_uid": "d2e79849aac023ebca08ac2fdc077cd68560f3afbae0466594e093bd6600e7d1"
+        }
+      },
+      "mev_route_profiles": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "mev_sandwich_risk_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "mev_sandwich_risk_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "micro_budget_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "micro_route_size_plan_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "min_received_guard_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "missed_opportunity_audit_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "missed_opportunity_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "model_feedback_candidate_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "momentum_timeline_panel_rows": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "morgue_entries": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "morgue_route_decisions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "narrative_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "narrative_outcome_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "narrative_signal_events_v2": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "narrative_token_match_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "negative_memory": {
+        "row_count": 2,
+        "uid_hashes": {}
+      },
+      "negative_memory_guard_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "negative_memory_lookup_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "negative_memory_lookup_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "net_commercial_score_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_impact_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_narrative_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_raw_feed_events": {
+        "row_count": 391,
+        "uid_hashes": {
+          "news_uid": "510a1028949579df7f6f2911892241d8d4f7e516108303f8c4a924091d5f7f38"
+        }
+      },
+      "news_runtime_freshness_v1": {
+        "row_count": 3,
+        "uid_hashes": {}
+      },
+      "news_score_component_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "news_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_score_events_v1": {
+        "row_count": 202,
+        "uid_hashes": {
+          "news_uid": "3406f3b74d6853e06cb7bb2722f44998895cf069b6bb2d8437615b0773506ae2",
+          "score_uid": "7a291cef063becba78eafd63d2a2ac1ec78c2a39273118d6ae1cab1c41b77824"
+        }
+      },
+      "news_signal_events": {
+        "row_count": 202,
+        "uid_hashes": {
+          "news_uid": "3406f3b74d6853e06cb7bb2722f44998895cf069b6bb2d8437615b0773506ae2",
+          "signal_uid": "3f28e5c229254b54f3f64e84cc15834ea5574f71acd1105c62ce7b96df405808"
+        }
+      },
+      "news_social_false_negative_memory_links_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_launch_signals_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_review_queue_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_signal_evidence_links_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_social_sources_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_source_budget_ledger_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "news_source_dedup_policy_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_fetch_policy_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_panel_lane_policy_v1": {
+        "row_count": 8,
+        "uid_hashes": {}
+      },
+      "news_source_quality_stats_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_registry": {
+        "row_count": 5,
+        "uid_hashes": {}
+      },
+      "news_source_registry_v1": {
+        "row_count": 12,
+        "uid_hashes": {}
+      },
+      "news_source_reliability_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "news_token_match_events": {
+        "row_count": 202,
+        "uid_hashes": {
+          "news_uid": "3406f3b74d6853e06cb7bb2722f44998895cf069b6bb2d8437615b0773506ae2"
+        }
+      },
+      "news_translation_cache_v1": {
+        "row_count": 25,
+        "uid_hashes": {}
+      },
+      "news_translation_quality_events_v1": {
+        "row_count": 25,
+        "uid_hashes": {
+          "event_uid": "6f0739d228618dcfc2b34ba9e28ad303ba6028830611cde169fdeadc47b1de63"
+        }
+      },
+      "no_pair_memory": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "observation_runtime_status_latest_v1": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "opening_baseline_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "opening_price_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "opportunity_outcome_snapshot_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "organic_volume_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "outcome_lesson_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "outcome_memory_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "outcome_memory_events_v2": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "outcome_observation_window_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "pair_birth_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "pair_verification_events": {
+        "row_count": 3,
+        "uid_hashes": {
+          "event_uid": "539a20eed9049721ebd7580c775c744c1ee0e556ac26547c0e77d4b736d453c3"
+        }
+      },
+      "pairs": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "paper_decision_reports": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_observation_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_route_decision_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_costs": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_executions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_outcomes": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "paper_trade_plans": {
+        "row_count": 2,
+        "uid_hashes": {}
+      },
+      "paper_trade_positions": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "parsed_live_observation_staging": {
+        "row_count": 153,
+        "uid_hashes": {}
+      },
+      "portfolio_heat_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "pre_trade_simulation_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "price_impact_events": {
+        "row_count": 1,
+        "uid_hashes": {
+          "event_uid": "117e4664b932a557bff92503221490a6eda282daa4becd58e106372afb5b50bf"
+        }
+      },
+      "private_route_guard_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "provider_probe_runs": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "radar_alerts": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "radar_fusion_alert_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "raw_discovery_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "raw_response_archive": {
+        "row_count": 166,
+        "uid_hashes": {}
+      },
+      "rejected_token_followup_queue_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "rejection_micro_log": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "repeat_offender_fast_kill_cache": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "replay_case_registry_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "reputation_policy_registry_v1": {
+        "row_count": 4,
+        "uid_hashes": {}
+      },
+      "route_performance_memory_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "route_quality_feedback_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "rug_evidence_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "rumor_filter_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "sandwich_exposure_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "schema_metadata": {
+        "row_count": 9,
+        "uid_hashes": {}
+      },
+      "score_calibration_events": {
+        "row_count": 44,
+        "uid_hashes": {
+          "event_uid": "ee49ec3c5f7d1406fce39ebab53990ca303c205a307bd2dd7c4dd73b9adde2a3"
+        }
+      },
+      "score_validation_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "sell_route_guard_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "sellability_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "slippage_estimates": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "smart_money_cluster_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "snapshot_commit_ledger": {
+        "row_count": 1,
+        "uid_hashes": {}
+      },
+      "snapshot_strength_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_conflict_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "source_gate_decisions": {
+        "row_count": 3,
+        "uid_hashes": {}
+      },
+      "source_reliability_ledger": {
+        "row_count": 33,
+        "uid_hashes": {}
+      },
+      "staged_entry_plan_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "staged_exit_plan_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "stale_data_guard_evaluation_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "stale_data_guard_policy_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "stale_snapshot_blocks": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "state_aggregated_token_readmodel_v1": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "stillborn_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "system_events": {
+        "row_count": 22,
+        "uid_hashes": {
+          "event_uid": "d99331548ea745f6d5ddeb2dc168c2fcd4a9bda1f792173a1541fad8e6f8e89f"
+        }
+      },
+      "technical_signal_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {
+          "signal_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "tiny_basket_candidate_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_archive_evidence": {
+        "row_count": 28,
+        "uid_hashes": {}
+      },
+      "token_birth_events": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "token_death_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_hard_block_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_intelligence_summary": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_lifecycle": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "token_lifecycle_autopsy_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_lifecycle_events": {
+        "row_count": 2,
+        "uid_hashes": {}
+      },
+      "token_radar_scores": {
+        "row_count": 0,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_revival_watch_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_risk_events": {
+        "row_count": 15,
+        "uid_hashes": {}
+      },
+      "token_score_100_events": {
+        "row_count": 19,
+        "uid_hashes": {
+          "score_uid": "56ac87265dbb8e7925e1ecc33f43ff9d519f5362574f3ed68f43a80da464a186"
+        }
+      },
+      "token_score_component_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_score_evidence_events": {
+        "row_count": 10,
+        "uid_hashes": {
+          "score_uid": "5c210454b1facc1e317a759f6059324f793841eb23d1f549179b64d1584c55f8"
+        }
+      },
+      "token_score_policy_rules": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "token_score_snapshots": {
+        "row_count": 2,
+        "uid_hashes": {
+          "score_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "token_soft_weakness_events": {
+        "row_count": 408,
+        "uid_hashes": {
+          "event_uid": "069c4b74ed45166642178dd3a1f538772336e02c7d574bd3ca04788e5c90eba2"
+        }
+      },
+      "token_status_history": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "token_time_series_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "tokens": {
+        "row_count": 19,
+        "uid_hashes": {}
+      },
+      "transaction_activity_time_series_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "trend_pressure_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "tx_flow_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "validation_runs": {
+        "row_count": 22,
+        "uid_hashes": {}
+      },
+      "whale_flow_events_v1": {
+        "row_count": 0,
+        "uid_hashes": {}
+      },
+      "whale_movement_events": {
+        "row_count": 0,
+        "uid_hashes": {
+          "event_uid": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "whale_wallet_events": {
+        "row_count": 0,
+        "uid_hashes": {}
+      }
+    }
+  },
+  "production_guard_before": {
+    "production_db": {
+      "path": "data/tokenoskobi_clean_v1.sqlite",
+      "sha256": "b4413ed001ef9e3c4061085e1207c3b2ffaed49cc58999b828c58da4d82d847c",
+      "size_bytes": 5857280,
+      "mtime_ns": 1783762518272130669
+    },
+    "runtime_files": {
+      "runtime/state/news_coverage_panel_display_v1.json": {
+        "exists": true,
+        "sha256": "1e1b7c64dfec2413df266b3043c586ea68105d0f08ca4349ed7f61a34aab6111",
+        "size_bytes": 35497,
+        "mtime_ns": 1783762518408138590
+      },
+      "runtime/state/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "4be1b97ad264d80b9651f8c31210ba9c2557111b3ca6d6fc37590dadfc5da9ee",
+        "size_bytes": 37998,
+        "mtime_ns": 1783762518444140686
+      },
+      "runtime/state/news_active_panel_data_bridge_v1.json": {
+        "exists": true,
+        "sha256": "d2507b76aa051baa64a440ed1c18d7c2f4961e44209588a82f44d58b98a6be1f",
+        "size_bytes": 5654,
+        "mtime_ns": 1783762518500143947
+      },
+      "active_panel_8096/current/data/news_coverage_panel_display_v1.json": {
+        "exists": true,
+        "sha256": "1e1b7c64dfec2413df266b3043c586ea68105d0f08ca4349ed7f61a34aab6111",
+        "size_bytes": 35497,
+        "mtime_ns": 1783762518496143714
+      },
+      "active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "4be1b97ad264d80b9651f8c31210ba9c2557111b3ca6d6fc37590dadfc5da9ee",
+        "size_bytes": 37998,
+        "mtime_ns": 1783762518500143947
+      }
+    },
+    "systemd_units": {
+      "/etc/systemd/system/tokenoskobi-news-radar-refresh.service": {
+        "exists": true,
+        "sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+        "size_bytes": 518,
+        "mtime_ns": 1778403257157674303
+      },
+      "/etc/systemd/system/tokenoskobi-news-radar-refresh.timer": {
+        "exists": true,
+        "sha256": "47e5dacef0e068480bb2de67960f5320469910ab6ded80937266cf68081f1af5",
+        "size_bytes": 252,
+        "mtime_ns": 1778403257157674303
+      }
+    }
+  },
+  "production_guard_after": {
+    "production_db": {
+      "path": "data/tokenoskobi_clean_v1.sqlite",
+      "sha256": "b4413ed001ef9e3c4061085e1207c3b2ffaed49cc58999b828c58da4d82d847c",
+      "size_bytes": 5857280,
+      "mtime_ns": 1783762518272130669
+    },
+    "runtime_files": {
+      "runtime/state/news_coverage_panel_display_v1.json": {
+        "exists": true,
+        "sha256": "1e1b7c64dfec2413df266b3043c586ea68105d0f08ca4349ed7f61a34aab6111",
+        "size_bytes": 35497,
+        "mtime_ns": 1783762518408138590
+      },
+      "runtime/state/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "4be1b97ad264d80b9651f8c31210ba9c2557111b3ca6d6fc37590dadfc5da9ee",
+        "size_bytes": 37998,
+        "mtime_ns": 1783762518444140686
+      },
+      "runtime/state/news_active_panel_data_bridge_v1.json": {
+        "exists": true,
+        "sha256": "d2507b76aa051baa64a440ed1c18d7c2f4961e44209588a82f44d58b98a6be1f",
+        "size_bytes": 5654,
+        "mtime_ns": 1783762518500143947
+      },
+      "active_panel_8096/current/data/news_coverage_panel_display_v1.json": {
+        "exists": true,
+        "sha256": "1e1b7c64dfec2413df266b3043c586ea68105d0f08ca4349ed7f61a34aab6111",
+        "size_bytes": 35497,
+        "mtime_ns": 1783762518496143714
+      },
+      "active_panel_8096/current/data/hot_intelligence_ingress_gateway_v1.json": {
+        "exists": true,
+        "sha256": "4be1b97ad264d80b9651f8c31210ba9c2557111b3ca6d6fc37590dadfc5da9ee",
+        "size_bytes": 37998,
+        "mtime_ns": 1783762518500143947
+      }
+    },
+    "systemd_units": {
+      "/etc/systemd/system/tokenoskobi-news-radar-refresh.service": {
+        "exists": true,
+        "sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+        "size_bytes": 518,
+        "mtime_ns": 1778403257157674303
+      },
+      "/etc/systemd/system/tokenoskobi-news-radar-refresh.timer": {
+        "exists": true,
+        "sha256": "47e5dacef0e068480bb2de67960f5320469910ab6ded80937266cf68081f1af5",
+        "size_bytes": 252,
+        "mtime_ns": 1778403257157674303
+      }
+    }
+  },
+  "production_unchanged": true,
+  "hard_gates": {
+    "event_count_loss": 0,
+    "uid_loss": 0,
+    "duplicate_regression": 0,
+    "unledgered_disposition": 0,
+    "overflow_wrong_reason_count": 0,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "atomic_rollback_pass": true,
+    "constraint_tests_pass": true,
+    "production_unchanged": true
+  },
+  "decision": {
+    "p0_ledger_schema_design_validated": true,
+    "temp_copy_overflow_accounting_validated": true,
+    "production_implementation_authorized": false,
+    "p0_f1_closed": false,
+    "p0_f1_status": "OPEN_PENDING_PRODUCTION_DESIGN_AUDIT_AND_APPLY_DECISION",
+    "optimization_apply_authorized": false
+  },
+  "next_safe_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+  "mutation_statement": {
+    "production_database": false,
+    "live_runtime": false,
+    "service": false,
+    "timer": false,
+    "panel": false,
+    "queue_policy": false
+  }
+}

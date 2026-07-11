@@ -24,32 +24,31 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_DROP_LEDGER_TEMP_COPY_AUTHORIZED
+PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_POST_TEST_AUDIT_REQUIRED
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
 CURRENT_STAGE=ERA55A_P0_DROP_LEDGER
-LAST_COMPLETED_SUBSTEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
-GEMINI_REVIEW_COMPLETE=true
-GEMINI_BASELINE_VERDICT=BASELINE_ACCEPTED
-OPTIMIZATION_APPLY_VERDICT=REJECTED_UNTIL_P0_CLEARED
-P0_QUEUE_RISK_OPEN=true
-A7_TEMP_COPY_TEST_AUTHORIZED=true
+LAST_COMPLETED_SUBSTEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
+P0_LEDGER_SCHEMA_TEMP_COPY_VALIDATED=true
+P0_F1_STATUS=OPEN_PENDING_POST_TEST_AUDIT_AND_APPLY_DECISION
+PRODUCTION_LEDGER_APPLY_AUTHORIZED=false
 OPTIMIZATION_APPLY_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-A6 is closed. A7 temp-copy work is the only authorized next step.
+A7 is closed with temp-copy PASS. A8 audit is the only authorized next work.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
-LAST_RESULT=BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED
-LAST_ARTIFACT=data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json
-LAST_REPORT=reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md
-WORK_UNIT_STATUS=CLOSED
+LAST_COMPLETED=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
+LAST_RESULT=PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION
+LAST_ARTIFACT=data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json
+LAST_REPORT=reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md
+LAST_SCHEMA=data/control/era55a7_p0_disposition_ledger_schema_v1.sql
+WORK_UNIT_STATUS=CLOSED_TEMP_COPY_TEST_PASS
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 CURRENT_PROBLEM=null
 
@@ -97,35 +96,33 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 ## 06 DO NOT REOPEN OR REPEAT
 
 - Do not reopen ERA54.
-- Do not apply a ledger schema to production.
+- Do not rerun A7 unless evidence is invalidated.
+- Do not apply the ledger schema to production before A8 audit and explicit approval.
 - Do not modify the live gateway, queue policy, service, timer or panel.
-- Do not run production overflow, burst, kill, restart or WAL tests.
-- Do not claim an observed drop from the zero-overflow snapshot.
-- Do not proceed to production optimization while F1 remains open.
+- Do not run production burst, kill, restart or WAL tests.
+- Do not mark F1 closed based only on temp-copy success.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Gemini baseline verdict: `BASELINE_ACCEPTED`.
-- Production optimization verdict: `REJECTED_UNTIL_P0_CLEARED`.
-- A7 disposable-copy schema/test is authorized.
-- All live apply authority remains false.
+- A7 temp-copy design/test verdict: `PASS`.
+- Production ledger apply: `NOT_AUTHORIZED`.
+- F1 remains open until an audited production implementation is verified.
+- A8 may prepare apply/reject decision and rollback controls only.
 
-NEXT_SAFE_STEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
+NEXT_SAFE_STEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A7 is current.
-2. Snapshot production DB and runtime-state hashes.
-3. Create a disposable SQLite backup through a read-only source connection.
-4. Apply the candidate ledger schema only to the copy.
-5. Simulate overflow and every disposition.
-6. Test rollback, uniqueness and foreign keys.
-7. Verify event counts, UID sets and production hashes are unchanged.
-8. Do not apply to production.
+1. Confirm A8 is current.
+2. Read A6 and A7 artifacts and the SQL schema.
+3. Audit schema compatibility, migration idempotency, retention and failure behavior.
+4. Define production backup, rollback, shadow observation and post-apply gates.
+5. Decide apply or reject; do not mutate production in A8.
+6. Preserve event-count, UID, integrity and authority gates.
 
 ---
 

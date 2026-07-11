@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_P0_DROP_LEDGER_TEMP_COPY_AUTHORIZED
+PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_POST_TEST_AUDIT_REQUIRED
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -35,31 +35,30 @@ ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
 CURRENT_STAGE=ERA55A_P0_DROP_LEDGER
-LAST_COMPLETED_SUBSTEP=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
-GEMINI_REVIEW_COMPLETE=true
-GEMINI_BASELINE_VERDICT=BASELINE_ACCEPTED
-OPTIMIZATION_APPLY_VERDICT=REJECTED_UNTIL_P0_CLEARED
-P0_QUEUE_RISK_OPEN=true
-A7_TEMP_COPY_TEST_AUTHORIZED=true
+LAST_COMPLETED_SUBSTEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
+P0_LEDGER_SCHEMA_TEMP_COPY_VALIDATED=true
+P0_F1_STATUS=OPEN_PENDING_POST_TEST_AUDIT_AND_APPLY_DECISION
+PRODUCTION_LEDGER_APPLY_AUTHORIZED=false
 OPTIMIZATION_APPLY_AUTHORIZED=false
 ```
 
-A6 registered Gemini findings. Only A7 disposable-copy design and testing are authorized.
+A7 validated the ledger schema and deterministic overflow accounting on a disposable copy. Production remains unchanged.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER
-LAST_RESULT=BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED
-LAST_ARTIFACT=data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json
-LAST_REPORT=reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md
-WORK_UNIT_STATUS=CLOSED
+LAST_COMPLETED=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
+LAST_RESULT=PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION
+LAST_ARTIFACT=data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json
+LAST_REPORT=reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md
+LAST_SCHEMA=data/control/era55a7_p0_disposition_ledger_schema_v1.sql
+WORK_UNIT_STATUS=CLOSED_TEMP_COPY_TEST_PASS
 LIVE_RUNTIME_MUTATION=false
 ```
 
-F1-F4 are registered with evidence limits preserved.
+All temp-copy correctness gates passed, including atomic rollback and zero unledgered disposition.
 
 ---
 
@@ -176,12 +175,12 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- `P0 F1 SILENT_TRUNCATION_DISPOSITION_BLINDNESS` remains open and blocks production apply.
-- Current snapshot overflow is zero; historical zero-loss is unprovable without a ledger.
-- F2 DELETE-vs-WAL is an unproven hypothesis.
-- F3 kill/atomic recovery is untested.
-- F4 stage timing and panel latency are incomplete.
-- Production DB, service, timer, panel and queue policy remain immutable.
+- P0 ledger design passed temp-copy tests but is not applied to production; F1 remains open.
+- A8 post-test audit must decide production apply or reject scope.
+- F2 DELETE-vs-WAL remains untested.
+- F3 kill recovery remains untested.
+- F4 stage timing and panel latency remain incomplete.
+- Production DB, service, timer, panel and queue policy remain unchanged.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
 
@@ -190,10 +189,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
+NEXT_SAFE_STEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
 ```
 
-Design and test the disposition ledger only on a disposable SQLite copy.
+Audit the A7 schema and test evidence, define rollback and migration controls, then issue a production apply or reject decision. Do not apply yet.
 
 ---
 

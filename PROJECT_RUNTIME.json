@@ -185,33 +185,34 @@
   "current_era": "ERA55",
   "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
   "current_state": {
-    "mode": "ERA55A6_GEMINI_FINDINGS_REGISTERED",
+    "mode": "ERA55A7_P0_LEDGER_TEMP_COPY_TEST_PASS",
     "runtime_status": "WORK_UNIT_CLOSED",
     "project_status": "ACTIVE",
-    "updated_at": "2026-07-11T09:40:41.079488+00:00",
+    "updated_at": "2026-07-11T09:40:41.428070+00:00",
     "last_action": {
-      "timestamp": "2026-07-11T09:40:41.079488+00:00",
-      "task": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-      "result": "BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED",
-      "artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json"
+      "timestamp": "2026-07-11T09:40:41.428070+00:00",
+      "task": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+      "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
+      "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json"
     },
     "active_work_unit": {
-      "id": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-      "type": "ERA55_EXTERNAL_RED_TEAM_REVIEW_REGISTER",
-      "parent": "ERA55_RUNTIME_OPTIMIZATION",
-      "artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
-      "report": "reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md",
-      "status": "CLOSED",
-      "result": "BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED",
-      "runtime_db_service_timer_panel_mutation": false,
-      "next_step": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST"
-    },
-    "next_safe_step": {
       "id": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
       "type": "ERA55_P0_DROP_LEDGER_DESIGN_TEMP_COPY_TEST",
       "parent": "ERA55_RUNTIME_OPTIMIZATION",
-      "purpose": "Design and validate an atomic disposition ledger only on a disposable SQLite copy.",
-      "temp_copy_required": true,
+      "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
+      "report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
+      "schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
+      "status": "CLOSED_TEMP_COPY_TEST_PASS",
+      "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
+      "runtime_db_service_timer_panel_mutation": false,
+      "next_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION"
+    },
+    "next_safe_step": {
+      "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+      "type": "ERA55_P0_DROP_LEDGER_POST_TEST_AUDIT_APPLY_DECISION",
+      "parent": "ERA55_RUNTIME_OPTIMIZATION",
+      "purpose": "Audit the validated temp-copy design and produce a production apply or reject plan without changing live runtime.",
+      "human_authorization_required": true,
       "production_mutation_authorized": false,
       "optimization_apply_authorized": false,
       "status": "READY"
@@ -219,15 +220,16 @@
     "current_problem": null
   },
   "current_work_unit": {
-    "id": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-    "type": "ERA55_EXTERNAL_RED_TEAM_REVIEW_REGISTER",
+    "id": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+    "type": "ERA55_P0_DROP_LEDGER_DESIGN_TEMP_COPY_TEST",
     "parent": "ERA55_RUNTIME_OPTIMIZATION",
-    "artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
-    "report": "reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md",
-    "status": "CLOSED",
-    "result": "BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED",
+    "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
+    "report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
+    "schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
+    "status": "CLOSED_TEMP_COPY_TEST_PASS",
+    "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
     "runtime_db_service_timer_panel_mutation": false,
-    "next_step": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST"
+    "next_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION"
   },
   "disaster_recovery_policy": {
     "hard_rules": [
@@ -360,13 +362,13 @@
     "status": "ACTIVE"
   },
   "last_action": {
-    "timestamp": "2026-07-11T09:40:41.079488+00:00",
-    "task": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-    "result": "BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED",
-    "artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json"
+    "timestamp": "2026-07-11T09:40:41.428070+00:00",
+    "task": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+    "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
+    "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json"
   },
-  "last_completed": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-  "mode": "ERA55A6_GEMINI_FINDINGS_REGISTERED",
+  "last_completed": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+  "mode": "ERA55A7_P0_LEDGER_TEMP_COPY_TEST_PASS",
   "news_operational_state": {
     "hot_gateway_deferred": false,
     "hot_gateway_next": null,
@@ -421,28 +423,28 @@
     "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e"
   },
   "next_safe_step": {
-    "id": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-    "type": "ERA55_P0_DROP_LEDGER_DESIGN_TEMP_COPY_TEST",
+    "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "type": "ERA55_P0_DROP_LEDGER_POST_TEST_AUDIT_APPLY_DECISION",
     "parent": "ERA55_RUNTIME_OPTIMIZATION",
-    "purpose": "Design and validate an atomic disposition ledger only on a disposable SQLite copy.",
-    "temp_copy_required": true,
+    "purpose": "Audit the validated temp-copy design and produce a production apply or reject plan without changing live runtime.",
+    "human_authorization_required": true,
     "production_mutation_authorized": false,
     "optimization_apply_authorized": false,
     "status": "READY"
   },
   "open_risks": [
-    "P0:F1_SILENT_TRUNCATION_DISPOSITION_BLINDNESS:OPEN",
+    "P0:F1_PRODUCTION_DISPOSITION_LEDGER_NOT_APPLIED:OPEN",
     "P1:F2_DELETE_VS_WAL_HYPOTHESIS:OPEN",
     "P1:F3_ATOMIC_KILL_RECOVERY:UNTESTED",
     "P2:F4_STAGE_TIMING_AND_PANEL_LATENCY:MISSING",
     "Risk is minimized, never zero."
   ],
-  "project_status": "ACTIVE_ERA55_P0_DROP_LEDGER_TEMP_COPY_AUTHORIZED",
+  "project_status": "ACTIVE_ERA55_P0_LEDGER_POST_TEST_AUDIT_REQUIRED",
   "recent_event": {
-    "timestamp": "2026-07-11T09:40:41.079488+00:00",
-    "task": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-    "result": "BASELINE_ACCEPTED_OPTIMIZATION_REJECTED_UNTIL_P0_CLEARED",
-    "artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json"
+    "timestamp": "2026-07-11T09:40:41.428070+00:00",
+    "task": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+    "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
+    "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json"
   },
   "runtime_version": "1.0",
   "semantic_drift_guard": {
@@ -472,10 +474,10 @@
     ],
     "work_unit": "ERA23G_SEMANTIC_DRIFT_GUARD"
   },
-  "source": "era55a6_gemini_red_team_findings_register_v1",
+  "source": "era55a7_p0_drop_ledger_temp_copy_test_v1",
   "status": "WORK_UNIT_CLOSED",
-  "updated_at": "2026-07-11T09:40:41.079488+00:00",
-  "updated_at_utc": "2026-07-11T09:40:41.079488+00:00",
+  "updated_at": "2026-07-11T09:40:41.428070+00:00",
+  "updated_at_utc": "2026-07-11T09:40:41.428070+00:00",
   "news_coverage_panel_display_state": {
     "status": "CLOSED_VERIFIED_CURRENT",
     "stage": "NEWS_COVERAGE_PANEL_DISPLAY_BINDING_FINAL_SEAL_NOAPI",
@@ -833,8 +835,8 @@
     "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
     "serves": "V3_RUNTIME_INTELLIGENCE_OS",
     "active_stage": "ERA55A_P0_DROP_LEDGER",
-    "last_completed_substep": "ERA55A_6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER",
-    "next_safe_step": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+    "last_completed_substep": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
+    "next_safe_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
     "opening_artifact": "data/control/era55_runtime_optimization_init_v1.json",
     "report": "reports/LATEST_ERA55A1_READONLY_INSPECTION.md",
     "gemini_red_team_required": true,
@@ -862,6 +864,12 @@
     "a6_report": "reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md",
     "gemini_baseline_verdict": "BASELINE_ACCEPTED",
     "optimization_apply_verdict": "REJECTED_UNTIL_P0_CLEARED",
-    "a7_temp_copy_test_authorized": true
+    "a7_temp_copy_test_authorized": true,
+    "a7_artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
+    "a7_report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
+    "a7_schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
+    "p0_ledger_schema_temp_copy_validated": true,
+    "p0_f1_status": "OPEN_PENDING_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "production_ledger_apply_authorized": false
   }
 }
