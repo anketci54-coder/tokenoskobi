@@ -1,0 +1,278 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "ERA55A_2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN",
+  "era": "ERA55",
+  "title": "Runtime Optimization",
+  "planned_at_utc": "2026-07-11T07:41:46.167264+00:00",
+  "status": "CLOSED_PLAN_LOCKED",
+  "result": "OK_PLAN_LOCKED_NO_LIVE_MUTATION",
+  "head_before_commit": "c09ef253a83de1a42265391e68327f5435369742",
+  "source_artifact": "data/control/era55_runtime_optimization_init_v1.json",
+  "a1_facts": {
+    "a1_result": "WARN_P0_FINDINGS_RECORDED_READONLY",
+    "service_type": "oneshot",
+    "service_result": "success",
+    "timeout_start_seconds": 70,
+    "runtime_max": "infinity",
+    "restart_policy": "no",
+    "kill_mode": "control-group",
+    "timer_active_state": "active",
+    "timer_sub_state": "waiting",
+    "timer_enabled_state": "enabled",
+    "timer_cadence_seconds": 1200,
+    "timer_accuracy": "30s",
+    "timer_randomized_delay": "0",
+    "last_runner_duration_ms": 726.154,
+    "timer_safety_margin_ms": null,
+    "queue_capacity": 50,
+    "queue_policy": "PRIORITY_DESC_THEN_HOT_UID_TOP_50",
+    "queue_drop_ledger_detected": false,
+    "queue_silent_truncation_risk": true,
+    "sqlite_journal_mode": "delete",
+    "sqlite_synchronous": 2,
+    "sqlite_integrity": "ok",
+    "sqlite_quick_check": "ok"
+  },
+  "objective": "Measure the existing runtime before any optimization, separate latency stages, expose queue overflow and preserve data correctness.",
+  "stage_map": [
+    {
+      "stage": "TIMER_WAIT",
+      "source": "systemd timer properties and list-timers",
+      "start_signal": "previous service exit or timer activation",
+      "end_signal": "service ExecMainStartTimestampMonotonic",
+      "metric": "timer_wait_ms",
+      "method": "external read-only observation"
+    },
+    {
+      "stage": "RUNNER_TOTAL",
+      "source": "systemd service monotonic timestamps",
+      "start_signal": "ExecMainStartTimestampMonotonic",
+      "end_signal": "ExecMainExitTimestampMonotonic",
+      "metric": "runner_execution_ms",
+      "method": "external read-only observation"
+    },
+    {
+      "stage": "RAW_PRODUCER",
+      "source": "news_raw_feed_events count/max timestamp",
+      "start_signal": "service start snapshot",
+      "end_signal": "raw count or max timestamp change",
+      "metric": "raw_producer_observed_ms",
+      "method": "SQLite mode=ro polling; no write"
+    },
+    {
+      "stage": "DERIVED_REFRESH",
+      "source": "match/signal/score/freshness counts and timestamps",
+      "start_signal": "raw stage change",
+      "end_signal": "derived table change",
+      "metric": "derived_refresh_observed_ms",
+      "method": "SQLite mode=ro polling; no write"
+    },
+    {
+      "stage": "HOT_GATEWAY",
+      "source": "hot_intelligence_ingress_gateway_v1.json",
+      "start_signal": "derived stage change",
+      "end_signal": "generated_at_utc or file mtime change",
+      "metric": "hot_gateway_observed_ms",
+      "method": "read-only file observation"
+    },
+    {
+      "stage": "PANEL_BRIDGE",
+      "source": "news_active_panel_data_bridge_v1.json and active panel files",
+      "start_signal": "hot gateway change",
+      "end_signal": "bridge/panel generated time or mtime change",
+      "metric": "panel_propagation_observed_ms",
+      "method": "read-only file observation"
+    },
+    {
+      "stage": "QUEUE_RESIDENCE_PROXY",
+      "source": "display candidate timestamps versus hot queue generated time",
+      "start_signal": "candidate published/generated timestamp",
+      "end_signal": "gateway generated_at_utc",
+      "metric": "queue_residence_proxy_ms",
+      "method": "read-only JSON correlation"
+    }
+  ],
+  "baseline_profiles": [
+    {
+      "id": "HISTORICAL_24H",
+      "purpose": "Immediate runner duration and cadence distribution",
+      "source": "journalctl and systemd properties",
+      "runner_invocation": false,
+      "required_samples": "all complete natural cycles in 24h"
+    },
+    {
+      "id": "NATURAL_NEXT_CYCLE",
+      "purpose": "One end-to-end stage propagation observation",
+      "source": "next timer-triggered natural cycle",
+      "runner_invocation": false,
+      "required_samples": 1
+    },
+    {
+      "id": "HOT_STEADY_STATE",
+      "purpose": "Steady-state variance across consecutive cycles",
+      "source": "natural timer cycles",
+      "runner_invocation": false,
+      "required_samples": 3
+    },
+    {
+      "id": "LOGICAL_COLD_START",
+      "purpose": "First natural cycle after reboot or at least two timer cadences without a completed cycle",
+      "source": "natural condition only",
+      "runner_invocation": false,
+      "required_samples": 1,
+      "forced_cache_drop": false,
+      "if_unavailable": "REPORT_NOT_OBSERVED"
+    }
+  ],
+  "required_metrics": [
+    "timer_interval_ms",
+    "timer_accuracy_ms",
+    "service_timeout_ms",
+    "runner_execution_ms",
+    "timer_safety_margin_ms",
+    "raw_count_before_after",
+    "raw_max_timestamp_before_after",
+    "match_count_before_after",
+    "signal_count_before_after",
+    "score_count_before_after",
+    "freshness_count_before_after",
+    "derived_refresh_observed_ms",
+    "hot_gateway_observed_ms",
+    "panel_propagation_observed_ms",
+    "source_candidate_count",
+    "queue_admitted_count",
+    "queue_overflow_count",
+    "queue_drop_ledger_count",
+    "queue_residence_proxy_ms",
+    "db_size_before_after",
+    "db_freelist_before_after",
+    "journal_mode",
+    "synchronous",
+    "integrity_check",
+    "quick_check",
+    "duplicate_uid_count",
+    "unsafe_authority_count"
+  ],
+  "collector_contract": {
+    "mode": "EXTERNAL_READONLY_OBSERVER",
+    "must_not_import_runtime_modules": true,
+    "must_not_invoke_runner": true,
+    "must_not_start_or_restart_service": true,
+    "must_not_enable_disable_or_edit_timer": true,
+    "sqlite_uri": "file:/root/tokenoskobi_clean_v1/data/tokenoskobi_clean_v1.sqlite?mode=ro",
+    "sqlite_query_only": true,
+    "polling_interval_ms": 250,
+    "maximum_observation_window": "next natural timer cycle plus completion buffer",
+    "output_atomic_write_only": true,
+    "output_location": "data/control and reports only",
+    "failure_behavior": "FAIL_CLOSED_WITH_PARTIAL_EVIDENCE",
+    "hash_or_count_before_after_required": true,
+    "git_clean_before_and_after_required": true
+  },
+  "hard_gates": {
+    "silent_event_loss_allowed": false,
+    "data_correctness_regression_allowed": false,
+    "manual_runner_execution_allowed": false,
+    "production_burst_load_allowed": false,
+    "service_or_timer_change_allowed": false,
+    "watchdog_apply_allowed": false,
+    "index_apply_allowed": false,
+    "journal_mode_change_allowed": false,
+    "cache_apply_allowed": false,
+    "queue_policy_change_allowed": false,
+    "incremental_write_apply_allowed": false,
+    "database_write_allowed": false,
+    "panel_write_allowed": false,
+    "trade_wallet_signing_order_authority": 0
+  },
+  "red_team_gates": [
+    {
+      "priority": "P0",
+      "code": "QUEUE_OVERFLOW_SILENT_TRUNCATION",
+      "current_state": "OPEN_RISK",
+      "closure_requirement": "candidate_count, admitted_count and overflow_count must be measured; no claim of zero loss without ledger"
+    },
+    {
+      "priority": "P0",
+      "code": "TIMER_RUNNER_MARGIN",
+      "current_state": "BASELINE_REQUIRED",
+      "closure_requirement": "timer interval, timeout, p50/p95/max runner duration and overlap evidence must be reported"
+    },
+    {
+      "priority": "P0",
+      "code": "DATA_CORRECTNESS",
+      "current_state": "HARD_GATE",
+      "closure_requirement": "counts, UIDs, authority flags and integrity checks must remain correct"
+    },
+    {
+      "priority": "P1",
+      "code": "PANEL_PROPAGATION_VISIBILITY",
+      "current_state": "BASELINE_REQUIRED",
+      "closure_requirement": "DB-to-gateway-to-panel timing must be observable or explicitly marked unmeasurable"
+    },
+    {
+      "priority": "P1",
+      "code": "SQLITE_DURABILITY",
+      "current_state": "journal=delete;sync=2",
+      "closure_requirement": "no PRAGMA mutation in baseline; temp-copy recovery testing required before any mode change"
+    }
+  ],
+  "acceptance_logic": {
+    "baseline_may_close_with_warnings": true,
+    "optimization_may_start_with_open_p0": false,
+    "unknown_metric_must_be_reported_as_unknown": true,
+    "missing_evidence_must_not_be_inferred": true,
+    "speed_gain_cannot_override_correctness": true
+  },
+  "gemini_review": {
+    "required_after": "ERA55A_5_BASELINE_REPORT",
+    "before_optimization_apply": true,
+    "minimum_inputs": [
+      "A1 inspection artifact",
+      "A2 measurement plan",
+      "A3/A4 baseline evidence",
+      "A5 baseline report",
+      "queue overflow evidence",
+      "timer overlap evidence",
+      "SQLite durability evidence",
+      "panel propagation evidence"
+    ]
+  },
+  "next_safe_step": {
+    "id": "ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION",
+    "scope": "COLLECT_BASELINE_ONLY",
+    "allowed": [
+      "read systemd properties and journal",
+      "read SQLite with mode=ro and query_only",
+      "read runtime JSON/JSONL/HTML metadata",
+      "observe one or more natural timer cycles",
+      "write isolated evidence artifact and report",
+      "update canonical state after evidence"
+    ],
+    "forbidden": [
+      "manual runner invocation",
+      "service start restart or edit",
+      "timer start restart enable disable or edit",
+      "database mutation",
+      "watchdog apply",
+      "index apply",
+      "WAL or synchronous change",
+      "cache apply",
+      "queue policy change",
+      "production burst load"
+    ],
+    "completion_output": "ERA55A_3 baseline artifact with historical, natural-cycle and steady-state measurements"
+  },
+  "mutation_statement": {
+    "live_runtime": false,
+    "database": false,
+    "service": false,
+    "timer": false,
+    "panel": false,
+    "queue_policy": false,
+    "watchdog": false,
+    "index": false,
+    "journal_mode": false,
+    "cache": false
+  }
+}

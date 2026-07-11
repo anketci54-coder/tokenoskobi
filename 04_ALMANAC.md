@@ -5448,6 +5448,21 @@ Bu eser aşağıdaki canonical rehbere göre geliştirilir:
 
 ---
 
+## ERA55A_2 GRANULAR INSTRUMENTATION AND BASELINE MEASUREMENT PLAN
+
+- Status: `CLOSED`
+- Result: `OK_PLAN_LOCKED_NO_LIVE_MUTATION`
+- Measurement approach: external read-only observer.
+- Baseline profiles: historical 24h, next natural cycle, hot steady state and logical cold start when naturally available.
+- Manual production runner execution: `false`
+- Service/timer/DB/queue/panel mutation: `false`
+- Production burst load: `false`
+- P0 gates: silent queue loss, timer margin and data correctness.
+- Gemini Red Team review: required after baseline report.
+- Next safe step: `ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION`
+
+---
+
 ## ALMANAC RECORD INSERTION AND CORRECTION CONSTITUTION
 
 Yeni tamamlanmış kayıt ilgili PASS, PHASE, V veya ERA ailesinin altında tarihsel sıraya eklenir.
