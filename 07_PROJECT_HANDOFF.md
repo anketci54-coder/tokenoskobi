@@ -24,32 +24,25 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_POST_TEST_AUDIT_REQUIRED
-CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
-LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
+PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_WRITER_TEMP_COPY_REQUIRED
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_P0_DROP_LEDGER
-LAST_COMPLETED_SUBSTEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
-P0_LEDGER_SCHEMA_TEMP_COPY_VALIDATED=true
-P0_F1_STATUS=OPEN_PENDING_POST_TEST_AUDIT_AND_APPLY_DECISION
-PRODUCTION_LEDGER_APPLY_AUTHORIZED=false
+LAST_COMPLETED_SUBSTEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
+PRODUCTION_LEDGER_SCHEMA_PRESENT=true
+PRODUCTION_LEDGER_WRITER_ACTIVE=false
+P0_F1_CLOSED=false
 OPTIMIZATION_APPLY_AUTHORIZED=false
-CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
-
-A7 is closed with temp-copy PASS. A8 audit is the only authorized next work.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
-LAST_RESULT=PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION
-LAST_ARTIFACT=data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json
-LAST_REPORT=reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md
-LAST_SCHEMA=data/control/era55a7_p0_disposition_ledger_schema_v1.sql
-WORK_UNIT_STATUS=CLOSED_TEMP_COPY_TEST_PASS
-LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
+LAST_COMPLETED=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
+LAST_RESULT=OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY
+LAST_ARTIFACT=data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json
+LAST_REPORT=reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md
+LAST_SCHEMA=data/control/era55a8_p0_disposition_ledger_schema_v2.sql
+WORK_UNIT_STATUS=CLOSED_SCHEMA_ONLY_MIGRATION_OK
 CURRENT_PROBLEM=null
 
 ---
@@ -95,34 +88,32 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not reopen ERA54.
-- Do not rerun A7 unless evidence is invalidated.
-- Do not apply the ledger schema to production before A8 audit and explicit approval.
-- Do not modify the live gateway, queue policy, service, timer or panel.
-- Do not run production burst, kill, restart or WAL tests.
-- Do not mark F1 closed based only on temp-copy success.
+- Do not rerun A8 unless evidence is invalidated.
+- Do not insert production ledger rows manually.
+- Do not activate the production writer.
+- Do not mark P0 F1 closed.
+- Do not begin performance optimization.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- A7 temp-copy design/test verdict: `PASS`.
-- Production ledger apply: `NOT_AUTHORIZED`.
-- F1 remains open until an audited production implementation is verified.
-- A8 may prepare apply/reject decision and rollback controls only.
+- Production schema-only migration: `OK`.
+- Production writer activation: `NOT_AUTHORIZED`.
+- P0 F1: `OPEN`.
+- A9 temp-copy writer test is authorized.
 
-NEXT_SAFE_STEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
+NEXT_SAFE_STEP=ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A8 is current.
-2. Read A6 and A7 artifacts and the SQL schema.
-3. Audit schema compatibility, migration idempotency, retention and failure behavior.
-4. Define production backup, rollback, shadow observation and post-apply gates.
-5. Decide apply or reject; do not mutate production in A8.
-6. Preserve event-count, UID, integrity and authority gates.
+1. Confirm A9 is current.
+2. Integrate ledger generation only on a temp copy.
+3. Couple ledger commit with queue publication or fail-closed marker.
+4. Test all dispositions and writer failure.
+5. Do not activate production writer.
 
 ---
 

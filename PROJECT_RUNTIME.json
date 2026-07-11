@@ -185,51 +185,52 @@
   "current_era": "ERA55",
   "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
   "current_state": {
-    "mode": "ERA55A7_P0_LEDGER_TEMP_COPY_TEST_PASS",
+    "mode": "ERA55A8_LEDGER_SCHEMA_ONLY_MIGRATION_OK",
     "runtime_status": "WORK_UNIT_CLOSED",
     "project_status": "ACTIVE",
-    "updated_at": "2026-07-11T09:40:41.428070+00:00",
+    "updated_at": "2026-07-11T10:23:56.616022+00:00",
     "last_action": {
-      "timestamp": "2026-07-11T09:40:41.428070+00:00",
-      "task": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-      "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
-      "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json"
+      "timestamp": "2026-07-11T10:23:56.616022+00:00",
+      "task": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+      "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
+      "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json"
     },
     "active_work_unit": {
-      "id": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-      "type": "ERA55_P0_DROP_LEDGER_DESIGN_TEMP_COPY_TEST",
-      "parent": "ERA55_RUNTIME_OPTIMIZATION",
-      "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
-      "report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
-      "schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
-      "status": "CLOSED_TEMP_COPY_TEST_PASS",
-      "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
-      "runtime_db_service_timer_panel_mutation": false,
-      "next_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION"
+      "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+      "type": "ERA55_P0_DROP_LEDGER_SCHEMA_ONLY_MIGRATION",
+      "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
+      "report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
+      "schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
+      "status": "CLOSED_SCHEMA_ONLY_MIGRATION_OK",
+      "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
+      "live_db_schema_mutation": true,
+      "live_db_row_mutation": false,
+      "gateway_writer_active": false,
+      "next_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST"
     },
     "next_safe_step": {
-      "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-      "type": "ERA55_P0_DROP_LEDGER_POST_TEST_AUDIT_APPLY_DECISION",
-      "parent": "ERA55_RUNTIME_OPTIMIZATION",
-      "purpose": "Audit the validated temp-copy design and produce a production apply or reject plan without changing live runtime.",
-      "human_authorization_required": true,
-      "production_mutation_authorized": false,
+      "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+      "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+      "purpose": "Integrate ledger writer only on a temp copy and prove atomic reconciliation.",
+      "temp_copy_required": true,
+      "production_writer_activation_authorized": false,
       "optimization_apply_authorized": false,
       "status": "READY"
     },
     "current_problem": null
   },
   "current_work_unit": {
-    "id": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-    "type": "ERA55_P0_DROP_LEDGER_DESIGN_TEMP_COPY_TEST",
-    "parent": "ERA55_RUNTIME_OPTIMIZATION",
-    "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
-    "report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
-    "schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
-    "status": "CLOSED_TEMP_COPY_TEST_PASS",
-    "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
-    "runtime_db_service_timer_panel_mutation": false,
-    "next_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION"
+    "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "type": "ERA55_P0_DROP_LEDGER_SCHEMA_ONLY_MIGRATION",
+    "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
+    "report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
+    "schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
+    "status": "CLOSED_SCHEMA_ONLY_MIGRATION_OK",
+    "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
+    "live_db_schema_mutation": true,
+    "live_db_row_mutation": false,
+    "gateway_writer_active": false,
+    "next_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST"
   },
   "disaster_recovery_policy": {
     "hard_rules": [
@@ -362,13 +363,13 @@
     "status": "ACTIVE"
   },
   "last_action": {
-    "timestamp": "2026-07-11T09:40:41.428070+00:00",
-    "task": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-    "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
-    "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json"
+    "timestamp": "2026-07-11T10:23:56.616022+00:00",
+    "task": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
+    "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json"
   },
-  "last_completed": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-  "mode": "ERA55A7_P0_LEDGER_TEMP_COPY_TEST_PASS",
+  "last_completed": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+  "mode": "ERA55A8_LEDGER_SCHEMA_ONLY_MIGRATION_OK",
   "news_operational_state": {
     "hot_gateway_deferred": false,
     "hot_gateway_next": null,
@@ -423,28 +424,27 @@
     "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e"
   },
   "next_safe_step": {
-    "id": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
-    "type": "ERA55_P0_DROP_LEDGER_POST_TEST_AUDIT_APPLY_DECISION",
-    "parent": "ERA55_RUNTIME_OPTIMIZATION",
-    "purpose": "Audit the validated temp-copy design and produce a production apply or reject plan without changing live runtime.",
-    "human_authorization_required": true,
-    "production_mutation_authorized": false,
+    "id": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "type": "ERA55_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+    "purpose": "Integrate ledger writer only on a temp copy and prove atomic reconciliation.",
+    "temp_copy_required": true,
+    "production_writer_activation_authorized": false,
     "optimization_apply_authorized": false,
     "status": "READY"
   },
   "open_risks": [
-    "P0:F1_PRODUCTION_DISPOSITION_LEDGER_NOT_APPLIED:OPEN",
+    "P0:F1_PRODUCTION_LEDGER_WRITER_INACTIVE:OPEN",
     "P1:F2_DELETE_VS_WAL_HYPOTHESIS:OPEN",
     "P1:F3_ATOMIC_KILL_RECOVERY:UNTESTED",
     "P2:F4_STAGE_TIMING_AND_PANEL_LATENCY:MISSING",
     "Risk is minimized, never zero."
   ],
-  "project_status": "ACTIVE_ERA55_P0_LEDGER_POST_TEST_AUDIT_REQUIRED",
+  "project_status": "ACTIVE_ERA55_P0_LEDGER_WRITER_TEMP_COPY_REQUIRED",
   "recent_event": {
-    "timestamp": "2026-07-11T09:40:41.428070+00:00",
-    "task": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-    "result": "PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION",
-    "artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json"
+    "timestamp": "2026-07-11T10:23:56.616022+00:00",
+    "task": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
+    "artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json"
   },
   "runtime_version": "1.0",
   "semantic_drift_guard": {
@@ -474,10 +474,10 @@
     ],
     "work_unit": "ERA23G_SEMANTIC_DRIFT_GUARD"
   },
-  "source": "era55a7_p0_drop_ledger_temp_copy_test_v1",
+  "source": "era55a8_schema_only_migration_v1",
   "status": "WORK_UNIT_CLOSED",
-  "updated_at": "2026-07-11T09:40:41.428070+00:00",
-  "updated_at_utc": "2026-07-11T09:40:41.428070+00:00",
+  "updated_at": "2026-07-11T10:23:56.616022+00:00",
+  "updated_at_utc": "2026-07-11T10:23:56.616022+00:00",
   "news_coverage_panel_display_state": {
     "status": "CLOSED_VERIFIED_CURRENT",
     "stage": "NEWS_COVERAGE_PANEL_DISPLAY_BINDING_FINAL_SEAL_NOAPI",
@@ -835,8 +835,8 @@
     "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
     "serves": "V3_RUNTIME_INTELLIGENCE_OS",
     "active_stage": "ERA55A_P0_DROP_LEDGER",
-    "last_completed_substep": "ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST",
-    "next_safe_step": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "last_completed_substep": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+    "next_safe_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
     "opening_artifact": "data/control/era55_runtime_optimization_init_v1.json",
     "report": "reports/LATEST_ERA55A1_READONLY_INSPECTION.md",
     "gemini_red_team_required": true,
@@ -869,7 +869,13 @@
     "a7_report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
     "a7_schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
     "p0_ledger_schema_temp_copy_validated": true,
-    "p0_f1_status": "OPEN_PENDING_POST_TEST_AUDIT_AND_APPLY_DECISION",
-    "production_ledger_apply_authorized": false
+    "p0_f1_status": "OPEN_PENDING_LIVE_WRITER_INTEGRATION_AND_NATURAL_CYCLE_RECONCILIATION",
+    "production_ledger_apply_authorized": false,
+    "a8_artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
+    "a8_report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
+    "a8_schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
+    "production_ledger_schema_present": true,
+    "production_ledger_writer_active": false,
+    "p0_f1_closed": false
   }
 }

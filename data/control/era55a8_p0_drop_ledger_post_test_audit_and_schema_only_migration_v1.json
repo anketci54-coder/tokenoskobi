@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION",
+  "era": "ERA55",
+  "completed_at_utc": "2026-07-11T10:23:56.616022+00:00",
+  "status": "CLOSED_SCHEMA_ONLY_MIGRATION_OK",
+  "result": "OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY",
+  "head_before_commit": "f34b64cfbbe87e60fd0eb8ee4ac15ecb18957f8b",
+  "source_a7_artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
+  "repaired_schema": {
+    "path": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
+    "sha256": "d014a152dabc70bc197ae3c4abe274a74d472e4633a7177dce7ff8074a6f389a",
+    "replaced_count_added": true,
+    "payload_limit_bytes": 16384,
+    "retention_days": 30,
+    "archive_before_delete_required": true
+  },
+  "complete_disposition_temp_copy_test": {
+    "source_candidate_count": 71,
+    "normalized_candidate_count": 66,
+    "deduplicated_candidate_count": 61,
+    "replaced_count": 1,
+    "accounted_count": 71,
+    "ledger_count": 71,
+    "disposition_counts": {
+      "ADMITTED": 50,
+      "DUPLICATE_REMOVED": 5,
+      "INVALID_CANDIDATE": 2,
+      "OVERFLOW_TRUNCATED": 10,
+      "REPLACED_BY_HIGHER_PRIORITY": 1,
+      "UNSAFE_AUTHORITY_FILTERED": 3
+    },
+    "event_count_loss": 0,
+    "uid_loss": 0,
+    "duplicate_regression": 0,
+    "unledgered_disposition": 0,
+    "payload_limit_rejected": true,
+    "atomic_rollback_rows": 0,
+    "unarchived_delete_rejected": true,
+    "archived_delete_allowed": true,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_rows": 0,
+    "source_tables_unchanged": true,
+    "ok": true
+  },
+  "production_schema_only_migration": {
+    "mode": "PRODUCTION_DDL_ONLY_EMPTY_TABLES",
+    "backup": {
+      "backup_db": "/root/tokenoskobi_backups/era55a8_20260711T102356Z/tokenoskobi_clean_v1.sqlite",
+      "sha256": "cf5dbdfdb478a3d34843c22df75e49264a317de42c3bb7af686415dfd0a85e1b",
+      "integrity_check": "ok",
+      "quick_check": "ok"
+    },
+    "foreign_keys_migration_connection": 1,
+    "foreign_keys_fresh_after_enable": 1,
+    "journal_mode_before": "delete",
+    "journal_mode_after": "delete",
+    "synchronous_before": 2,
+    "synchronous_after": 2,
+    "integrity_check": "ok",
+    "quick_check": "ok",
+    "foreign_key_check_rows": 0,
+    "batch_rows": 0,
+    "ledger_rows": 0,
+    "gateway_hash_before": "8d4c1cb568ab194dfb010d66859c45aa29fa044aff1518a656a9f78ecc4fb263",
+    "gateway_hash_after": "8d4c1cb568ab194dfb010d66859c45aa29fa044aff1518a656a9f78ecc4fb263",
+    "gateway_writer_active": false,
+    "runtime_and_gateway_unchanged": true,
+    "production_data_rows_mutated": false,
+    "ok": true
+  },
+  "decision": {
+    "production_schema_present": true,
+    "production_ledger_writer_active": false,
+    "p0_f1_closed": false,
+    "p0_f1_status": "OPEN_PENDING_LIVE_WRITER_INTEGRATION_AND_NATURAL_CYCLE_RECONCILIATION",
+    "production_writer_activation_authorized": false,
+    "optimization_apply_authorized": false
+  },
+  "next_safe_step": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+  "mutation_statement": {
+    "production_database_schema": true,
+    "production_database_rows": false,
+    "gateway_code": false,
+    "service": false,
+    "timer": false,
+    "panel": false,
+    "queue_policy": false
+  }
+}

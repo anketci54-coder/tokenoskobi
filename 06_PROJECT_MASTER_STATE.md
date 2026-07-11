@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_POST_TEST_AUDIT_REQUIRED
+PROJECT_STATUS=ACTIVE_ERA55_P0_LEDGER_WRITER_TEMP_COPY_REQUIRED
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -30,35 +30,30 @@ BOOT_HEALTH=100/100
 ## 02 CURRENT MAJOR-LINE POSITION
 
 ```text
-LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
-ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
 CURRENT_STAGE=ERA55A_P0_DROP_LEDGER
-LAST_COMPLETED_SUBSTEP=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
-P0_LEDGER_SCHEMA_TEMP_COPY_VALIDATED=true
-P0_F1_STATUS=OPEN_PENDING_POST_TEST_AUDIT_AND_APPLY_DECISION
-PRODUCTION_LEDGER_APPLY_AUTHORIZED=false
+LAST_COMPLETED_SUBSTEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
+PRODUCTION_LEDGER_SCHEMA_PRESENT=true
+PRODUCTION_LEDGER_WRITER_ACTIVE=false
+P0_F1_CLOSED=false
 OPTIMIZATION_APPLY_AUTHORIZED=false
 ```
 
-A7 validated the ledger schema and deterministic overflow accounting on a disposable copy. Production remains unchanged.
+Repaired empty schema is present. Writer integration remains temp-copy only.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST
-LAST_RESULT=PASS_P0_LEDGER_DESIGN_TEMP_COPY_VALIDATED_NO_PRODUCTION_MUTATION
-LAST_ARTIFACT=data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json
-LAST_REPORT=reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md
-LAST_SCHEMA=data/control/era55a7_p0_disposition_ledger_schema_v1.sql
-WORK_UNIT_STATUS=CLOSED_TEMP_COPY_TEST_PASS
-LIVE_RUNTIME_MUTATION=false
+LAST_COMPLETED=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
+LAST_RESULT=OK_REPAIRED_SCHEMA_COMPLETE_TEMP_COPY_AND_PRODUCTION_DDL_ONLY
+LAST_ARTIFACT=data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json
+LAST_REPORT=reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md
+LAST_SCHEMA=data/control/era55a8_p0_disposition_ledger_schema_v2.sql
+WORK_UNIT_STATUS=CLOSED_SCHEMA_ONLY_MIGRATION_OK
 ```
-
-All temp-copy correctness gates passed, including atomic rollback and zero unledgered disposition.
 
 ---
 
@@ -175,13 +170,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- P0 ledger design passed temp-copy tests but is not applied to production; F1 remains open.
-- A8 post-test audit must decide production apply or reject scope.
-- F2 DELETE-vs-WAL remains untested.
-- F3 kill recovery remains untested.
-- F4 stage timing and panel latency remain incomplete.
-- Production DB, service, timer, panel and queue policy remain unchanged.
-- Runtime risk is minimized, never zero.
+- P0 F1 remains open because the production writer is inactive.
+- Schema presence alone does not prove runtime reconciliation.
+- A9 must test writer integration and atomic publication on a temp copy.
+- Production writer activation and optimization remain blocked.
 - Git HEAD must be read dynamically.
 
 ---
@@ -189,10 +181,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_APPLY_DECISION
+NEXT_SAFE_STEP=ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST
 ```
 
-Audit the A7 schema and test evidence, define rollback and migration controls, then issue a production apply or reject decision. Do not apply yet.
+Test writer integration only on a disposable copy.
 
 ---
 
