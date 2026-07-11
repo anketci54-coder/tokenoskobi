@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_RUNTIME_OPTIMIZATION_BASELINE_EVIDENCE
+PROJECT_STATUS=ACTIVE_ERA55_BASELINE_READY_FOR_GEMINI_PACKAGE
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -35,30 +35,31 @@ ERA54_STATUS=CLOSED_VERIFIED_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
 CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
-LAST_COMPLETED_SUBSTEP=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
-BASELINE_EVIDENCE_COLLECTED=true
+LAST_COMPLETED_SUBSTEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
+BASELINE_READY_FOR_A5=true
+BASELINE_SUFFICIENT_FOR_OPTIMIZATION_APPLY=false
+P0_QUEUE_RISK_OPEN=true
 GEMINI_RED_TEAM_REQUIRED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
 BURST_LOAD_AUTHORIZED=false
-MANUAL_RUNNER_EXECUTION_AUTHORIZED=false
 ```
 
-A3 collected historical and natural-cycle evidence through an external read-only observer. No live runtime configuration was changed.
+A4 determined that the baseline is sufficient for the A5 report and Gemini review, but insufficient for optimization apply.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
-LAST_RESULT=WARN_P0_BASELINE_FINDINGS_RECORDED
-LAST_ARTIFACT=data/control/era55a3_natural_cycle_baseline_collection_v1.json
-LAST_REPORT=reports/LATEST_ERA55A3_NATURAL_CYCLE_BASELINE_COLLECTION.md
+LAST_COMPLETED=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
+LAST_RESULT=WARN_BASELINE_SUFFICIENT_FOR_A5_P0_REMAINS_OPEN
+LAST_ARTIFACT=data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json
+LAST_REPORT=reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md
 WORK_UNIT_STATUS=CLOSED
 LIVE_RUNTIME_MUTATION=false
 ```
 
-The evidence includes reconstructed queue overflow, historical runner distributions, overlap/timeout review, SQLite checks and one bounded natural-cycle observation attempt.
+Historical journal durations are treated as `VARIABLE_PRECISION`. The precise natural runner sample is `939.311 ms`. Queue utilization is `100.0%`; overflow was not observed, but the drop ledger is absent.
 
 ---
 
@@ -175,7 +176,12 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- `P0 SILENT_TRUNCATION_CAPABILITY_EXISTS_NOT_OBSERVED` — Top-50 truncation exists but current snapshot produced no overflow; absence of historical ledger prevents a no-loss claim.
+- `P0 QUEUE_SILENT_TRUNCATION_CAPABILITY` remains open: candidate count `50`, capacity `50`, overflow `0`, drop ledger `false`.
+- Historical journal p50/p95/max values are second-quantized and must not be presented as millisecond-precision measurements.
+- Low-load timer overlap was not observed; stress and lock contention remain untested.
+- True cold-start performance remains unverified for optimization apply.
+- SQLite remains unchanged; WAL and index changes require temp-copy evidence.
+- Panel propagation is visible but not granular unless exact timestamps are present.
 - Optimization apply and production burst load remain blocked.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
@@ -185,10 +191,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
+NEXT_SAFE_STEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
 ```
 
-A4 will judge whether A3 evidence is sufficient, define any additional read-only samples and prepare the consolidated baseline path toward A5 and Gemini review.
+A5 will produce one consolidated baseline report and Gemini Red Team package. It will preserve all open P0 risks and unknowns and will not authorize optimization apply.
 
 ---
 

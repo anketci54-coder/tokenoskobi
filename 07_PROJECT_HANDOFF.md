@@ -24,35 +24,36 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_RUNTIME_OPTIMIZATION_BASELINE_EVIDENCE
+PROJECT_STATUS=ACTIVE_ERA55_BASELINE_READY_FOR_GEMINI_PACKAGE
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
 CURRENT_STAGE=ERA55A_BASELINE_MEASUREMENT
-LAST_COMPLETED_SUBSTEP=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
-BASELINE_EVIDENCE_COLLECTED=true
+LAST_COMPLETED_SUBSTEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
+BASELINE_READY_FOR_A5=true
+BASELINE_SUFFICIENT_FOR_OPTIMIZATION_APPLY=false
+P0_QUEUE_RISK_OPEN=true
 GEMINI_RED_TEAM_REQUIRED=true
 OPTIMIZATION_APPLY_AUTHORIZED=false
 BURST_LOAD_AUTHORIZED=false
-MANUAL_RUNNER_EXECUTION_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-A3 is closed. No runner, service, timer, database, queue policy or panel mutation was applied.
+A4 is closed. No runner, service, timer, database, queue policy or panel mutation was applied.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_3_NATURAL_CYCLE_BASELINE_COLLECTION
-LAST_RESULT=WARN_P0_BASELINE_FINDINGS_RECORDED
-LAST_ARTIFACT=data/control/era55a3_natural_cycle_baseline_collection_v1.json
-LAST_REPORT=reports/LATEST_ERA55A3_NATURAL_CYCLE_BASELINE_COLLECTION.md
+LAST_COMPLETED=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
+LAST_RESULT=WARN_BASELINE_SUFFICIENT_FOR_A5_P0_REMAINS_OPEN
+LAST_ARTIFACT=data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json
+LAST_REPORT=reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md
 WORK_UNIT_STATUS=CLOSED
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
 CURRENT_PROBLEM=null
 
-A4 must consolidate the evidence before any optimization target is selected.
+A5 must package the evidence without hiding queue saturation or missing stress/cold-start evidence.
 
 ---
 
@@ -99,13 +100,13 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 - Do not reopen ERA54.
 - Do not rebuild NEWS from zero.
-- Do not manually invoke the production runner for baseline claims.
-- Do not start, restart, edit, enable or disable the service or timer.
-- Do not apply watchdog, index, WAL, cache, queue-policy or incremental-write changes.
+- Do not treat second-precision journal durations as exact millisecond measurements.
+- Do not claim zero queue loss while no drop ledger exists.
+- Do not manually invoke or restart the production runner for baseline claims.
+- Do not change the service, timer, SQLite mode, index, cache or queue policy.
 - Do not run production BURST_LOAD.
-- Do not infer zero event loss from raw-to-queue absence.
-- Do not infer missing latency measurements.
-- Do not close ERA55 before Gemini Red Team findings are resolved.
+- Do not infer cold-start, lock-contention or panel-latency results that were not measured.
+- Do not apply optimization before Gemini Red Team review.
 
 ---
 
@@ -113,26 +114,26 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 Current authorized direction:
 
-- `ERA55_RUNTIME_OPTIMIZATION` is open.
-- A1 inspection, A2 planning and A3 baseline evidence collection are complete.
-- A4 evidence consolidation is the only next action.
+- A1 inspection, A2 plan, A3 evidence and A4 consolidation are complete.
+- Baseline is sufficient for A5 and Gemini review.
+- Queue capacity utilization is `100.0%`; the P0 ledger gap remains open.
 - Optimization apply and burst load remain unauthorized.
 
-NEXT_SAFE_STEP=ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW
+NEXT_SAFE_STEP=ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
 1. Read `PROJECT_RUNTIME.json`.
-2. Confirm `ERA55A_4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW` is current.
+2. Confirm `ERA55A_5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE` is current.
 3. Verify local and remote `main` synchronization.
-4. Review `data/control/era55_runtime_optimization_init_v1.json`, `data/control/era55a2_granular_instrumentation_and_baseline_measurement_plan_v1.json` and `data/control/era55a3_natural_cycle_baseline_collection_v1.json`.
-5. Decide sample sufficiency without inventing missing data.
-6. Preserve P0 queue-loss, timer-margin and correctness gates.
-7. Define any extended read-only collection required.
-8. Prepare A5 baseline report only after A4 consolidation.
-9. Do not apply optimization before Gemini Red Team review.
+4. Read A1-A4 artifacts.
+5. Generate one concise baseline report and Gemini Red Team package.
+6. Mark journal precision, cold-start, stress/lock and panel granularity limits explicitly.
+7. Keep queue silent-truncation capability as P0 open.
+8. Do not authorize optimization apply.
+9. Wait for Gemini findings before selecting implementation targets.
 
 ---
 
