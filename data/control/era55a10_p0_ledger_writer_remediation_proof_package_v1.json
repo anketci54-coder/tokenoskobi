@@ -1,0 +1,247 @@
+{
+  "decision": {
+    "fsync_protocol_implemented": true,
+    "global_runner_lock_implemented": true,
+    "json_contract_backward_compatible": true,
+    "natural_recovery_trigger_implemented": true,
+    "option_b_authorized": false,
+    "p0_f1_closed": false,
+    "poison_pill_quarantine_implemented": true,
+    "production_writer_activation_authorized": false,
+    "real_natural_timer_writer_cycle_proven": false,
+    "recovery_alerting_implemented": true,
+    "red_team_review_required": true
+  },
+  "next_safe_step": "ERA55A_10_RED_TEAM_PRODUCTION_AUTHORIZATION_DECISION",
+  "package_type": "REMEDIATION_PROOF_REVIEW_PENDING",
+  "production_database": {
+    "batch_rows": 0,
+    "integrity_check": "ok",
+    "ledger_rows": 0,
+    "quick_check": "ok"
+  },
+  "production_guard_after": {
+    "database": {
+      "exists": true,
+      "mtime_ns": 1783776936302089840,
+      "sha256": "222e54a33c3a29982490b3099d09ea3fad70f9a2c98f10224fd9977aad53ce2b",
+      "size_bytes": 5906432
+    },
+    "gateway_output": {
+      "exists": true,
+      "mtime_ns": 1783778140433013195,
+      "sha256": "bb6b88895d6cebb3b210958809e661e188f1b3caf67099233ff91e91d9eb787f",
+      "size_bytes": 37908
+    },
+    "recovery_state": {
+      "exists": false
+    }
+  },
+  "production_guard_before": {
+    "database": {
+      "exists": true,
+      "mtime_ns": 1783776936302089840,
+      "sha256": "222e54a33c3a29982490b3099d09ea3fad70f9a2c98f10224fd9977aad53ce2b",
+      "size_bytes": 5906432
+    },
+    "gateway_output": {
+      "exists": true,
+      "mtime_ns": 1783778140433013195,
+      "sha256": "bb6b88895d6cebb3b210958809e661e188f1b3caf67099233ff91e91d9eb787f",
+      "size_bytes": 37908
+    },
+    "recovery_state": {
+      "exists": false
+    }
+  },
+  "production_unchanged": true,
+  "result": "OK_A10_SHIELDS_TEMP_COPY_VALIDATED_PRODUCTION_AUTHORIZATION_PENDING",
+  "schema_version": "1.0",
+  "status": "REMEDIATION_VALIDATED_REVIEW_PENDING",
+  "temp_environment": {
+    "choice": {
+      "free_bytes": 4147777536,
+      "mode": "TMPFS_CAPACITY_PROVEN",
+      "required_bytes": 136101888,
+      "root": "/dev/shm"
+    },
+    "temp_dir": "/dev/shm/era55a10_6x54jvds"
+  },
+  "tested_at_utc": "2026-07-11T13:55:55.568912+00:00",
+  "tests": {
+    "feature_flag_default_inactive": {
+      "default_order": [
+        "RAW_START",
+        "RAW_DEFAULT_STUB",
+        "RAW_END:0",
+        "DERIVED_START",
+        "DERIVED_DEFAULT_STUB",
+        "DERIVED_END:0",
+        "HOT_START",
+        "HOT_DEFAULT_STUB",
+        "HOT_END:0"
+      ],
+      "lock_default_enabled": false,
+      "pass": true,
+      "runner_stdout": "",
+      "writer_default_enabled": false
+    },
+    "fsync_cost_measurement": {
+      "decision_role": "MEASUREMENT_ONLY_NOT_A_SECURITY_BYPASS",
+      "durable_median_ns": 421778,
+      "durable_samples_ns": [
+        708615,
+        422920,
+        319459,
+        316845,
+        421778
+      ],
+      "nondurable_median_ns": 199783,
+      "nondurable_samples_ns": [
+        327230,
+        249038,
+        199783,
+        184768,
+        167801
+      ]
+    },
+    "gate_1_fresh_process_recovery": {
+      "batch_sequence": 1,
+      "fresh_subprocess": true,
+      "pass": true,
+      "recovery_alert_present": true,
+      "result": {
+        "attempt_count": 1,
+        "batch_sequence": 1,
+        "batch_uid": "a10_fresh_batch",
+        "output_hash": "b0d770c79ec67f23c0595ba0b616e87db90cf39e46b7f2ca69e75d26c202aa2a",
+        "queue_output_hash": "28e16e7e23b43ba0330181b9ba053fbe565366cd4cbeeddfe11a064e42f901d5",
+        "recovery_executed": true,
+        "status": "RECOVERED"
+      },
+      "shared_in_memory_state": false
+    },
+    "gate_2_natural_runner_trigger": {
+      "order": [
+        "LOCK_ACQUIRED",
+        "RECOVERY_DONE:RECOVERED",
+        "RAW_START",
+        "RAW_STUB",
+        "RAW_END:0",
+        "DERIVED_START",
+        "DERIVED_STUB",
+        "DERIVED_END:0",
+        "HOT_START",
+        "HOT_STUB",
+        "HOT_END:0"
+      ],
+      "pass": true,
+      "real_timer_with_writer_enabled": false,
+      "recovery_before_raw": true,
+      "runner_stdout": "[RECOVERY_EVENT_TRIGGERED] batch_uid=a10_natural_batch batch_sequence=1 attempt=1\n[RECOVERY_EVENT_COMPLETED] batch_uid=a10_natural_batch output_hash=51f3d239459d70e4404aaed23533ad04e8e8b33099f734e7d88354380cbe6109\n[LEDGER_RECOVERY_RESULT] {\"attempt_count\": 1, \"batch_sequence\": 1, \"batch_uid\": \"a10_natural_batch\", \"output_hash\": \"51f3d239459d70e4404aaed23533ad04e8e8b33099f734e7d88354380cbe6109\", \"queue_output_hash\": \"28e16e7e23b43ba0330181b9ba053fbe565366cd4cbeeddfe11a064e42f901d5\", \"recovery_executed\": true, \"status\": \"RECOVERED\"}\n",
+      "scope": "ACTUAL_RUNNER_CODEPATH_WITH_ISOLATED_ENV_AND_READONLY_SYSTEMD_EXECSTART_BINDING",
+      "systemd_binding": {
+        "rc": 0,
+        "runner_bound": true,
+        "stderr": "",
+        "stdout": "ExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[Sat 2026-07-11 16:55:39 EEST] ; stop_time=[Sat 2026-07-11 16:55:40 EEST] ; pid=3962948 ; code=exited ; status=0 }\nUser=root\nFragmentPath=/etc/systemd/system/tokenoskobi-news-radar-refresh.service"
+      }
+    },
+    "gate_3_fsync_durability": {
+      "events": [
+        "FILE_FSYNC",
+        "REPLACE",
+        "DIR_FSYNC"
+      ],
+      "pass": true
+    },
+    "gate_4_monotonic_output_protection": {
+      "new_sequence": 2,
+      "old_sequence": 1,
+      "ordering_key": "SQLITE_BATCH_ROWID",
+      "output_hash_unchanged": true,
+      "pass": true,
+      "stale_result": {
+        "batch_sequence": 1,
+        "batch_uid": "a10_old_batch",
+        "recovery_executed": false,
+        "status": "TARGET_NEWER_THAN_RECOVERY",
+        "target_batch_sequence": 2,
+        "target_batch_uid": "a10_new_batch"
+      },
+      "uid_role": "IDENTITY_NOT_ORDERING"
+    },
+    "gate_5_logical_rollback_runbook": {
+      "full_db_blind_restore_prohibited": true,
+      "ledger_tables_preserved_on_tier_1": true,
+      "pass": true,
+      "path": "docs/runbooks/ERA55A10_LEDGER_WRITER_ROLLBACK_RUNBOOK.md",
+      "required_terms_present": true
+    },
+    "gate_6_json_contract_parity": {
+      "additive_top_level_keys": [
+        "ledger_publish"
+      ],
+      "existing_required_fields_removed": false,
+      "existing_required_types_changed": false,
+      "generated_hot_item_keys": [
+        "authority",
+        "event_uid",
+        "gateway_decision",
+        "hits",
+        "hot_uid",
+        "lane",
+        "news_uid",
+        "priority_score",
+        "published_at_utc",
+        "source_uid",
+        "title"
+      ],
+      "old_hot_item_keys": [
+        "authority",
+        "event_uid",
+        "gateway_decision",
+        "hits",
+        "hot_uid",
+        "lane",
+        "news_uid",
+        "priority_score",
+        "published_at_utc",
+        "source_uid",
+        "title"
+      ],
+      "pass": true,
+      "required_top_level_type_parity": {
+        "authority": true,
+        "gateway": true,
+        "generated_at_utc": true,
+        "hot_queue": true,
+        "hot_queue_count": true,
+        "mode": true,
+        "schema_version": true,
+        "source_health": true,
+        "sources": true
+      }
+    },
+    "poison_pill_quarantine": {
+      "attempt_count_after_fourth_call": 3,
+      "infinite_retry_prevented": true,
+      "max_attempts": 3,
+      "pass": true,
+      "quarantine_alert_present": true,
+      "statuses": [
+        "RETRY_PENDING",
+        "RETRY_PENDING",
+        "QUARANTINED",
+        "QUARANTINED"
+      ]
+    },
+    "strict_single_instance_lock": {
+      "pass": true,
+      "raw_execution_count": 1,
+      "second_runner_rc": 0,
+      "second_runner_stdout": "[RUNNER_ALREADY_ACTIVE] lock_path=/dev/shm/era55a10_6x54jvds/single_instance.lock"
+    }
+  },
+  "work_unit": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION"
+}
