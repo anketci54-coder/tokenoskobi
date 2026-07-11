@@ -1,0 +1,130 @@
+{
+  "a11_evidence": {
+    "idempotent_replay_ok": true,
+    "postcommit_recovery_ok": true,
+    "production_unchanged": true,
+    "six_disposition_synthetic_model_ok": true,
+    "temp_copy_binding_ok": true,
+    "transaction_rollback_ok": true,
+    "writer_module_implemented": true
+  },
+  "a13_scope": {
+    "id": "ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST",
+    "production_db_mutation": false,
+    "requirements": [
+      "Extract a deterministic candidate stream directly from the market and adversarial JSONL inputs before consumer deduplication and truncation.",
+      "Preserve parse failures, duplicate candidates and unsafe candidates as explicit ledger dispositions.",
+      "Bind the existing writer module to that pre-gateway stream on a disposable database copy.",
+      "Prove real source count exceeds or independently differs from the 50-row display projection when historical input contains more records.",
+      "Prove zero unobservable rows across the complete pre-gateway candidate stream.",
+      "Preserve current gateway output parity and keep all production feature flags disabled."
+    ],
+    "service_timer_panel_mutation": false,
+    "temp_copy_only": true
+  },
+  "authorization": {
+    "bounded_canary_authorized": false,
+    "optimization_apply_authorized": false,
+    "option_b_authorized": false,
+    "p0_f1_closed": false,
+    "production_writer_activation_authorized": false,
+    "production_writer_active": false
+  },
+  "critical_finding": {
+    "classification": "BOUND_SOURCE_IS_POST_FILTER_POST_DEDUP_POST_TRUNCATION",
+    "consumer_behavior": "DEDUPLICATE_AND_UNSAFE_FILTER_BEFORE_SUMMARY",
+    "consumer_lane_caps": {
+      "adversarial": 25,
+      "market": 25
+    },
+    "display_lane_caps": {
+      "adversarial": 25,
+      "market": 25
+    },
+    "gateway_total_cap": 50,
+    "meaning": "The writer algorithm is correct, but the bound live-shaped source cannot expose records already discarded by consumer deduplication, unsafe filtering, parse rejection, lane caps, or the final gateway cap. Zero unobservable rows is therefore not proven for an unbounded real cycle.",
+    "real_a11_candidate_count": 50,
+    "real_a11_negative_dispositions": 0,
+    "writer_input": "runtime/state/news_coverage_panel_display_v1.json"
+  },
+  "next_safe_step": "ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST",
+  "production_guard_after": {
+    "database": {
+      "exists": true,
+      "mtime_ns": 1783782948459382098,
+      "sha256": "2353a8d6da56f7787fb6b34c714f5a7f42fd1833a6b7663f5260068c047b54db",
+      "size_bytes": 5910528
+    },
+    "database_state": {
+      "batch_rows": 0,
+      "foreign_key_check_rows": 0,
+      "integrity_check": "ok",
+      "ledger_rows": 0,
+      "query_only": true,
+      "quick_check": "ok"
+    },
+    "hot_output": {
+      "exists": true,
+      "mtime_ns": 1783787755437589065,
+      "sha256": "1c910d7d73bbaafea27412dc2985430b804464f1eb8ee30d599c81585e621220",
+      "size_bytes": 37908
+    },
+    "recovery_state": {
+      "exists": false
+    },
+    "service_environment": {
+      "rc": 0,
+      "runner_lock_enabled_explicitly": false,
+      "stdout": "ExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[Sat 2026-07-11 19:35:54 EEST] ; stop_time=[Sat 2026-07-11 19:35:55 EEST] ; pid=4149500 ; code=exited ; status=0 }\nEnvironment=",
+      "writer_enabled_explicitly": false
+    }
+  },
+  "production_guard_before": {
+    "database": {
+      "exists": true,
+      "mtime_ns": 1783782948459382098,
+      "sha256": "2353a8d6da56f7787fb6b34c714f5a7f42fd1833a6b7663f5260068c047b54db",
+      "size_bytes": 5910528
+    },
+    "database_state": {
+      "batch_rows": 0,
+      "foreign_key_check_rows": 0,
+      "integrity_check": "ok",
+      "ledger_rows": 0,
+      "query_only": true,
+      "quick_check": "ok"
+    },
+    "hot_output": {
+      "exists": true,
+      "mtime_ns": 1783787755437589065,
+      "sha256": "1c910d7d73bbaafea27412dc2985430b804464f1eb8ee30d599c81585e621220",
+      "size_bytes": 37908
+    },
+    "recovery_state": {
+      "exists": false
+    },
+    "service_environment": {
+      "rc": 0,
+      "runner_lock_enabled_explicitly": false,
+      "stdout": "ExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[Sat 2026-07-11 19:35:54 EEST] ; stop_time=[Sat 2026-07-11 19:35:55 EEST] ; pid=4149500 ; code=exited ; status=0 }\nEnvironment=",
+      "writer_enabled_explicitly": false
+    }
+  },
+  "production_unchanged": true,
+  "result": "REJECT_BOUNDED_CANARY_SOURCE_ALREADY_FILTERED_AND_TRUNCATED",
+  "schema_version": "1.0",
+  "source_chain_audit": {
+    "consumer_deduplicates_before_summary": true,
+    "consumer_filters_unsafe_before_summary": true,
+    "consumer_latest_adversarial_capped_25": true,
+    "consumer_latest_market_capped_25": true,
+    "display_adversarial_capped_25": true,
+    "display_market_capped_25": true,
+    "display_safe_items_default_25": true,
+    "gateway_final_cap_50": true,
+    "writer_reads_display_sections": true
+  },
+  "status": "CLOSED_BOUNDED_CANARY_REJECTED",
+  "timestamp_utc": "2026-07-11T16:37:30.806839+00:00",
+  "work_unit": "ERA55A_12_P0_RUNTIME_LEDGER_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION"
+}

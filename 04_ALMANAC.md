@@ -5613,3 +5613,19 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Production mutation: `false`
 - P0 F1 closed: `false`
 - Next safe step: `ERA55A_12_P0_RUNTIME_LEDGER_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION`
+
+---
+
+## ERA55A_12 BOUNDED CANARY DECISION
+
+- Status: `CLOSED_BOUNDED_CANARY_REJECTED`
+- Result: `REJECT_BOUNDED_CANARY_SOURCE_ALREADY_FILTERED_AND_TRUNCATED`
+- Writer module: `VALIDATED`
+- Current source: `POST_FILTER_POST_DEDUP_POST_TRUNCATION`
+- Pre-gateway source bound: `false`
+- Production mutation: `false`
+- Bounded canary authorized: `false`
+- Production writer activation authorized: `false`
+- P0 F1 closed: `false`
+- Next safe step: `ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST`
+

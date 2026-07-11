@@ -24,18 +24,17 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_RUNTIME_LEDGER_WRITER_POST_TEST_AUDIT_REQUIRED
+PROJECT_STATUS=ACTIVE_ERA55_P0_PRE_GATEWAY_CANDIDATE_STREAM_REQUIRED
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 LAST_CLOSED_MAJOR_LINE=ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_P0_RUNTIME_LEDGER_WRITER
-LAST_COMPLETED_SUBSTEP=ERA55A_11_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_AND_TEMP_COPY_BINDING_TEST
-A10_REMEDIATION_SHIELDS_VALIDATED=true
-RUNTIME_LEDGER_WRITER_MODULE_IMPLEMENTED=true
-REAL_SOURCE_TEMP_COPY_BINDING_VALIDATED=true
-REAL_SOURCE_QUEUE_PARITY=true
-PRODUCTION_RUNTIME_BOUND=false
+CURRENT_STAGE=ERA55A_P0_PRE_GATEWAY_CANDIDATE_STREAM
+LAST_COMPLETED_SUBSTEP=ERA55A_12_P0_RUNTIME_LEDGER_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
+A11_WRITER_MODULE_VALIDATED=true
+CURRENT_BINDING_SOURCE=POST_FILTER_POST_DEDUP_POST_TRUNCATION_DISPLAY
+PRE_GATEWAY_SOURCE_BOUND=false
+BOUNDED_CANARY_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
 PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 P0_F1_CLOSED=false
@@ -43,20 +42,18 @@ OPTION_B_AUTHORIZED=false
 OPTIMIZATION_APPLY_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
-A11 is closed with real-source temp-copy evidence. Only A12 post-test audit and bounded-canary decision is authorized.
+A12 rejected the bounded canary. Only A13 pre-gateway JSONL candidate-stream extraction and temp-copy binding is authorized.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_11_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_AND_TEMP_COPY_BINDING_TEST
-LAST_RESULT=OK_RUNTIME_WRITER_MODULE_REAL_SOURCE_TEMP_COPY_BOUND
-LAST_ARTIFACT=data/control/era55a11_p0_runtime_ledger_writer_module_extraction_and_temp_copy_binding_test_v1.json
-LAST_REPORT=reports/LATEST_ERA55A11_P0_RUNTIME_LEDGER_WRITER_MODULE_EXTRACTION_AND_TEMP_COPY_BINDING_TEST.md
-WRITER_MODULE=tools/news_disposition_ledger_writer_v1.py
-WORK_UNIT_STATUS=CLOSED_TEMP_COPY_BINDING_OK
+LAST_COMPLETED=ERA55A_12_P0_RUNTIME_LEDGER_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
+LAST_RESULT=REJECT_BOUNDED_CANARY_SOURCE_ALREADY_FILTERED_AND_TRUNCATED
+LAST_ARTIFACT=data/control/era55a12_p0_runtime_ledger_writer_post_test_audit_and_bounded_canary_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_BOUNDED_CANARY_REJECTED
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
-CURRENT_PROBLEM=RUNTIME_LEDGER_WRITER_MODULE_NOT_PRODUCTION_BOUND
+CURRENT_PROBLEM=LEDGER_WRITER_SOURCE_ALREADY_FILTERED_AND_TRUNCATED
 
 ---
 
@@ -101,36 +98,36 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9, A10 or A11 unless their evidence is invalidated.
-- Do not enable the production ledger writer flags.
-- Do not bind the writer to the live runner before A12 authorization.
-- Do not modify live DB, service, timer, gateway or panel during A12 decision work.
-- Do not start Option B before a bounded natural-cycle writer proof.
-- Do not mark P0 F1 closed from temp-copy evidence.
+- Do not rerun A9-A11 unless evidence is invalidated.
+- Do not authorize a bounded canary from the display-bound A11 evidence.
+- Do not treat 50 admitted display rows as proof of complete candidate accounting.
+- Do not enable production writer or runner-lock feature flags.
+- Do not modify live DB, service, timer, gateway or panel during A13.
+- Do not start Option B or mark P0 F1 closed.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- A10 shielding/remediation: `VALIDATED`.
-- Runtime ledger writer module: `IMPLEMENTED`.
-- Real-source temp-copy binding: `VALIDATED`.
-- Current gateway queue parity: `VALIDATED`.
-- Production runtime binding: `NOT_AUTHORIZED`.
+- Writer module: `VALIDATED`.
+- Display-bound temp-copy integration: `VALIDATED_WITH_SOURCE_LIMITATION`.
+- Pre-gateway complete candidate accounting: `NOT_PROVEN`.
+- Bounded canary: `REJECTED_SOURCE_ALREADY_FILTERED_AND_TRUNCATED`.
+- Production activation: `BLOCKED`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_12_P0_RUNTIME_LEDGER_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
+NEXT_SAFE_STEP=ERA55A_13_P0_PRE_GATEWAY_CANDIDATE_STREAM_EXTRACTION_AND_TEMP_COPY_BINDING_TEST
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A12 is current.
-2. Audit the A11 module, real-source evidence and rollback boundary.
-3. Define a one-cycle bounded canary with pre/post backup, feature flags and automatic rollback.
-4. Decide authorize or reject; do not silently activate production.
-5. Preserve zero unobservable rows and exact gateway queue parity.
-6. Keep P0 F1 open until a real natural timer cycle is proven.
+1. Confirm A13 is current.
+2. Read both lane JSONL files directly before consumer filtering and truncation.
+3. Convert every non-empty physical source line into one candidate observation, including parse failures.
+4. Preserve duplicate and unsafe observations as ledger dispositions instead of dropping them.
+5. Bind the existing writer to the extracted stream only on a disposable DB copy.
+6. Prove complete accounting, queue parity, idempotency, rollback and recovery without production activation.
 
 ---
 
