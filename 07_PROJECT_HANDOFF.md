@@ -24,36 +24,31 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_CANARY_OR_PARITY_REPAIR
-CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
+PROJECT_STATUS=ACTIVE_ERA55_P0_QUEUE_PARITY_CANARY_DECISION_PENDING
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_P0_BOUNDED_CANARY_DECISION
-LAST_COMPLETED_SUBSTEP=ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
-CURRENT_SOURCE_CANDIDATES=106
-COMPLETE_PRE_GATEWAY_ACCOUNTING=true
+CURRENT_STAGE=ERA55A_P0_QUEUE_PARITY_REPAIR
+LAST_COMPLETED_SUBSTEP=ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST
+SOURCE_CANDIDATES=106
+LEGACY_QUEUE_COUNT=50
 UNOBSERVABLE_ROWS=0
-LEGACY_REBUILD_MATCHES_CURRENT_HOT=true
-PRE_GATEWAY_WRITER_MATCHES_LEGACY_GATEWAY=false
+EXACT_LEGACY_OBJECT_PARITY=true
+EXACT_LEGACY_UID_ORDER_PARITY=true
 SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=false
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
-PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
 OPTION_B_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
-
-A14 decision is canonical. Follow only the recorded next safe step.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_14_P0_PRE_GATEWAY_WRITER_POST_TEST_AUDIT_AND_BOUNDED_CANARY_DECISION
-LAST_RESULT=REJECT_BOUNDED_CANARY_QUEUE_SEMANTIC_PARITY_NOT_PROVEN
-LAST_ARTIFACT=data/control/era55a14_p0_pre_gateway_writer_post_test_audit_and_bounded_canary_decision_v1.json
-WORK_UNIT_STATUS=CLOSED_BOUNDED_CANARY_REJECTED
+LAST_COMPLETED=ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST
+LAST_RESULT=OK_COMPLETE_LEDGER_LEGACY_QUEUE_SEMANTIC_PARITY_TEMP_COPY
+LAST_ARTIFACT=data/control/era55a15_p0_pre_gateway_queue_semantic_parity_repair_and_temp_copy_test_v1.json
+WORK_UNIT_STATUS=CLOSED_TEMP_COPY_PARITY_REPAIR_OK
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
-CURRENT_PROBLEM=PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_NOT_PROVEN
+CURRENT_PROBLEM=QUEUE_PARITY_REPAIR_NOT_YET_INDEPENDENTLY_AUDITED
 
 ---
 
@@ -98,35 +93,30 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A14 unless evidence is invalidated.
-- Do not activate a canary unless A14 explicitly authorizes it.
-- Do not change the current gateway queue semantics silently.
-- Do not enable general production writer activation.
-- Do not start Option B or mark P0 F1 closed.
+- Do not rerun A9-A15 unless evidence is invalidated.
+- Do not bind the admission-contract adapter before A16.
+- Do not enable production writer or runner-lock flags.
+- Do not start Option B or close P0 F1.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Complete pre-gateway accounting: `VALIDATED`.
-- Legacy gateway rebuild parity: `True`.
-- Pre-gateway writer queue parity: `False`.
-- Single-cycle bounded canary: `False`.
-- General production activation: `BLOCKED`.
-- Option B: `BLOCKED`.
+- Complete accounting: `VALIDATED`.
+- Exact legacy parity: `VALIDATED_TEMP_COPY`.
+- Single-cycle canary: `PENDING_A16_DECISION`.
+- General production: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST
+NEXT_SAFE_STEP=ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm queue semantic parity repair is current.
-2. Keep complete pre-gateway accounting as the ledger source.
-3. Use the legacy gateway queue as the admitted-output contract.
-4. Mark every other valid source observation as overflow without losing evidence.
-5. Prove exact UID order parity on temp copy.
-6. Do not activate production or close P0 F1.
+1. Confirm A16 is current.
+2. Independently audit A15 on a fresh temp copy.
+3. Decide only one guarded natural cycle.
+4. Do not authorize general production or close P0 F1.
 
 ---
 

@@ -5662,3 +5662,15 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - P0 F1 closed: `false`
 - Next safe step: `ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST`
 
+---
+
+## ERA55A_15 QUEUE SEMANTIC PARITY REPAIR
+
+- Status: `CLOSED_TEMP_COPY_PARITY_REPAIR_OK`
+- Result: `OK_COMPLETE_LEDGER_LEGACY_QUEUE_SEMANTIC_PARITY_TEMP_COPY`
+- Source candidates: `106`
+- Legacy queue: `50`
+- Unobservable rows: `0`
+- Exact legacy parity: `true`
+- Production mutation: `false`
+- Next: `ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION`
