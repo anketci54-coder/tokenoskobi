@@ -1,0 +1,230 @@
+{
+  "activation_apply_contract": {
+    "additional_canary_allowed": false,
+    "all_existing_committed_batches_must_be_preserved": true,
+    "apply_work_unit": "ERA55A_23_P0_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_APPLY_AND_POST_AUDIT",
+    "batch_uid_computed_after_natural_refresh": true,
+    "batch_uid_must_differ_from_all_existing_committed_batches": true,
+    "bounded_dynamic_batch_identity_required": true,
+    "byte_preserving_panel_bridge_in_same_cycle_required": true,
+    "complete_source_accounting_required": true,
+    "configuration_backup_required": true,
+    "database_backup_required": true,
+    "exact_legacy_object_parity_required": true,
+    "exact_legacy_uid_order_parity_required": true,
+    "fail_closed_on_any_contract_violation": true,
+    "idempotent_replay_required": true,
+    "one_shot_canary_wrapper_forbidden": true,
+    "option_b_allowed": false,
+    "original_and_rollback_errors_must_be_exposed": true,
+    "output_loss_recovery_required": true,
+    "p0_f1_close_allowed_during_a23": false,
+    "permanent_writer_enablement_allowed_only_after_post_audit": true,
+    "persistent_runtime_integration_required": true,
+    "post_apply_cycle_must_end_hot_end_zero": true,
+    "post_apply_database_integrity_required": true,
+    "post_apply_panel_hot_hash_parity_required": true,
+    "postcommit_rollback_guard_policy": "POSTCOMMIT_ARCHIVE_TRIGGER_ROLLBACK_GUARD_V1",
+    "postcommit_rollback_guard_required": true,
+    "queue_capacity": 50,
+    "rollback_or_disable_on_post_apply_failure": true,
+    "rollback_scope_new_batch_only": true,
+    "runner_lock_required": true,
+    "runtime_output_backups_required": true,
+    "service_inactive_precondition_required": true,
+    "single_controlled_post_apply_service_cycle_required": true,
+    "source_candidate_maximum": 5000,
+    "source_candidate_minimum": 1,
+    "timer_pause_during_apply_required": true,
+    "timer_state_restore_required": true,
+    "unobservable_rows_must_equal": 0
+  },
+  "authorization": {
+    "activation_apply_completed": false,
+    "additional_canary_authorized": false,
+    "general_production_writer_activation_authorized": true,
+    "guarded_general_production_writer_activation_apply_authorized": true,
+    "new_production_canary_authorized": false,
+    "optimization_apply_authorized": false,
+    "option_b_authorized": false,
+    "p0_f1_closed": false,
+    "production_writer_active": false
+  },
+  "decision_gates": {
+    "additional_canary_not_authorized": true,
+    "baseline_batch_preserved": true,
+    "new_batch_distinct_and_committed": true,
+    "production_database_integrity_clean": true,
+    "production_runtime_overrides_removed": true,
+    "production_writer_currently_disabled": true,
+    "real_service_byte_preserving_panel_bridge": true,
+    "real_service_complete_source_accounting": true,
+    "real_service_dynamic_identity_canary_completed": true,
+    "real_service_exact_legacy_queue_parity": true,
+    "real_service_runner_hot_end_zero": true,
+    "real_service_writer_commit_completed": true,
+    "real_service_zero_unobservable_rows": true,
+    "temp_copy_archive_trigger_safe_rollback_proven": true,
+    "temp_copy_idempotent_replay_proven": true,
+    "temp_copy_output_loss_recovery_proven": true,
+    "temp_copy_rollback_failure_reversion_proven": true,
+    "timer_state_restored": true
+  },
+  "next_safe_step": "ERA55A_23_P0_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_APPLY_AND_POST_AUDIT",
+  "production_guard_after": {
+    "bridge_state_sha256": "bc9a25f0cb31f159c9489452fa19d22b414e5feae1d498a7a9dffb524ce6b3ef",
+    "database": {
+      "batch_rows": 2,
+      "batches": [
+        {
+          "admitted_count": 50,
+          "batch_sequence": 1,
+          "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+          "disposition_counts": {
+            "ADMITTED": 50,
+            "OVERFLOW_TRUNCATED": 56
+          },
+          "duplicate_removed_count": 0,
+          "invalid_candidate_count": 0,
+          "ledger_rows": 106,
+          "overflow_count": 56,
+          "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+          "queue_capacity": 50,
+          "replaced_count": 0,
+          "source_candidate_count": 106,
+          "status": "COMMITTED",
+          "unsafe_filtered_count": 0
+        },
+        {
+          "admitted_count": 50,
+          "batch_sequence": 2,
+          "batch_uid": "batch_5b348d2eab80b2929c5ef5b66e407e46",
+          "disposition_counts": {
+            "ADMITTED": 50,
+            "OVERFLOW_TRUNCATED": 57
+          },
+          "duplicate_removed_count": 0,
+          "invalid_candidate_count": 0,
+          "ledger_rows": 107,
+          "overflow_count": 57,
+          "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+          "queue_capacity": 50,
+          "replaced_count": 0,
+          "source_candidate_count": 107,
+          "status": "COMMITTED",
+          "unsafe_filtered_count": 0
+        }
+      ],
+      "foreign_key_check_rows": 0,
+      "integrity_check": "ok",
+      "ledger_rows": 213,
+      "quick_check": "ok",
+      "triggers": [
+        "trg_news_disposition_batch_archive_before_delete_v2",
+        "trg_news_disposition_ledger_archive_before_delete_v2"
+      ]
+    },
+    "database_sha256": "e5ae53619e869ef10b1fb34f6113ea31a3d633a8a56855ae1336dbce4859a411",
+    "environment": {
+      "a21_retry_enabled": false,
+      "hot_override_enabled": false,
+      "runner_bound": true,
+      "runner_lock_enabled": false,
+      "writer_enabled": false
+    },
+    "hot_sha256": "7f2082eaa4da39ecec7d663e43a1e307ed6d01a21ead645e53eeb2f0c68bd198",
+    "panel_hot_sha256": "7f2082eaa4da39ecec7d663e43a1e307ed6d01a21ead645e53eeb2f0c68bd198",
+    "service": {
+      "active": "inactive",
+      "enabled": "static"
+    },
+    "timer": {
+      "active": "active",
+      "enabled": "enabled"
+    }
+  },
+  "production_guard_before": {
+    "bridge_state_sha256": "bc9a25f0cb31f159c9489452fa19d22b414e5feae1d498a7a9dffb524ce6b3ef",
+    "database": {
+      "batch_rows": 2,
+      "batches": [
+        {
+          "admitted_count": 50,
+          "batch_sequence": 1,
+          "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+          "disposition_counts": {
+            "ADMITTED": 50,
+            "OVERFLOW_TRUNCATED": 56
+          },
+          "duplicate_removed_count": 0,
+          "invalid_candidate_count": 0,
+          "ledger_rows": 106,
+          "overflow_count": 56,
+          "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+          "queue_capacity": 50,
+          "replaced_count": 0,
+          "source_candidate_count": 106,
+          "status": "COMMITTED",
+          "unsafe_filtered_count": 0
+        },
+        {
+          "admitted_count": 50,
+          "batch_sequence": 2,
+          "batch_uid": "batch_5b348d2eab80b2929c5ef5b66e407e46",
+          "disposition_counts": {
+            "ADMITTED": 50,
+            "OVERFLOW_TRUNCATED": 57
+          },
+          "duplicate_removed_count": 0,
+          "invalid_candidate_count": 0,
+          "ledger_rows": 107,
+          "overflow_count": 57,
+          "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+          "queue_capacity": 50,
+          "replaced_count": 0,
+          "source_candidate_count": 107,
+          "status": "COMMITTED",
+          "unsafe_filtered_count": 0
+        }
+      ],
+      "foreign_key_check_rows": 0,
+      "integrity_check": "ok",
+      "ledger_rows": 213,
+      "quick_check": "ok",
+      "triggers": [
+        "trg_news_disposition_batch_archive_before_delete_v2",
+        "trg_news_disposition_ledger_archive_before_delete_v2"
+      ]
+    },
+    "database_sha256": "e5ae53619e869ef10b1fb34f6113ea31a3d633a8a56855ae1336dbce4859a411",
+    "environment": {
+      "a21_retry_enabled": false,
+      "hot_override_enabled": false,
+      "runner_bound": true,
+      "runner_lock_enabled": false,
+      "writer_enabled": false
+    },
+    "hot_sha256": "7f2082eaa4da39ecec7d663e43a1e307ed6d01a21ead645e53eeb2f0c68bd198",
+    "panel_hot_sha256": "7f2082eaa4da39ecec7d663e43a1e307ed6d01a21ead645e53eeb2f0c68bd198",
+    "service": {
+      "active": "inactive",
+      "enabled": "static"
+    },
+    "timer": {
+      "active": "active",
+      "enabled": "enabled"
+    }
+  },
+  "production_unchanged": true,
+  "result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_ACTIVATION_APPLY_AUTHORIZED",
+  "schema_version": "1.0",
+  "status": "CLOSED_GUARDED_GENERAL_PRODUCTION_ACTIVATION_APPLY_AUTHORIZED",
+  "timestamp_utc": "2026-07-12T10:57:27.297921+00:00",
+  "verified_batches": {
+    "baseline_batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+    "batch_rows": 2,
+    "canary_batch_uid": "batch_5b348d2eab80b2929c5ef5b66e407e46",
+    "ledger_rows": 213
+  },
+  "work_unit": "ERA55A_22_P0_POST_REMEDIATION_CANARY_RED_TEAM_GENERAL_PRODUCTION_ACTIVATION_DECISION"
+}
