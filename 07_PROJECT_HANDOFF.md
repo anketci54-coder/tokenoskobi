@@ -24,17 +24,17 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_QUEUE_PARITY_CANARY_DECISION_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_P0_SINGLE_CYCLE_CANARY_AUTHORIZED
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_QUEUE_PARITY_REPAIR
-LAST_COMPLETED_SUBSTEP=ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST
-SOURCE_CANDIDATES=106
-LEGACY_QUEUE_COUNT=50
+CURRENT_STAGE=ERA55A_P0_SINGLE_CYCLE_CANARY
+LAST_COMPLETED_SUBSTEP=ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION
+FRESH_SOURCE_CANDIDATES=106
 UNOBSERVABLE_ROWS=0
 EXACT_LEGACY_OBJECT_PARITY=true
 EXACT_LEGACY_UID_ORDER_PARITY=true
-SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=false
+SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=true
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
+PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
 OPTION_B_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
@@ -43,12 +43,12 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST
-LAST_RESULT=OK_COMPLETE_LEDGER_LEGACY_QUEUE_SEMANTIC_PARITY_TEMP_COPY
-LAST_ARTIFACT=data/control/era55a15_p0_pre_gateway_queue_semantic_parity_repair_and_temp_copy_test_v1.json
-WORK_UNIT_STATUS=CLOSED_TEMP_COPY_PARITY_REPAIR_OK
+LAST_COMPLETED=ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION
+LAST_RESULT=OK_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_AUTHORIZED
+LAST_ARTIFACT=data/control/era55a16_p0_queue_parity_post_test_audit_and_single_cycle_canary_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED
 LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
-CURRENT_PROBLEM=QUEUE_PARITY_REPAIR_NOT_YET_INDEPENDENTLY_AUDITED
+CURRENT_PROBLEM=SINGLE_CYCLE_BOUNDED_CANARY_NOT_YET_EXECUTED
 
 ---
 
@@ -93,30 +93,36 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A15 unless evidence is invalidated.
-- Do not bind the admission-contract adapter before A16.
-- Do not enable production writer or runner-lock flags.
-- Do not start Option B or close P0 F1.
+- Do not rerun A9-A16 unless evidence is invalidated.
+- Do not execute more than one full runner canary cycle.
+- Do not leave writer, lock, or hot-path override enabled after A17.
+- Do not authorize general production or close P0 F1 from the decision alone.
+- Do not start Option B.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
 - Complete accounting: `VALIDATED`.
-- Exact legacy parity: `VALIDATED_TEMP_COPY`.
-- Single-cycle canary: `PENDING_A16_DECISION`.
-- General production: `BLOCKED`.
+- Exact legacy parity: `VALIDATED`.
+- Single-cycle bounded canary: `AUTHORIZED_NOT_EXECUTED`.
+- General production activation: `BLOCKED`.
+- Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION
+NEXT_SAFE_STEP=ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A16 is current.
-2. Independently audit A15 on a fresh temp copy.
-3. Decide only one guarded natural cycle.
-4. Do not authorize general production or close P0 F1.
+1. Confirm A17 and the one-cycle authorization.
+2. Capture timer/service state and create backups.
+3. Pause the timer and require the service to be inactive.
+4. Install only a runtime systemd drop-in under /run.
+5. Enable writer, runner lock and one-shot hot wrapper for one full service cycle.
+6. Remove the drop-in immediately and restore timer state.
+7. Post-audit DB, output parity, service/timer state and feature flags.
+8. Roll back on any failed gate; do not enable general production.
 
 ---
 

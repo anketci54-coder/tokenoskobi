@@ -5674,3 +5674,19 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Exact legacy parity: `true`
 - Production mutation: `false`
 - Next: `ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION`
+
+---
+
+## ERA55A_16 SINGLE-CYCLE CANARY DECISION
+
+- Status: `CLOSED_SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED`
+- Result: `OK_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_AUTHORIZED`
+- Fresh source candidates: `106`
+- Unobservable rows: `0`
+- Exact legacy parity: `true`
+- Production mutation: `false`
+- Single-cycle canary authorized: `true`
+- General production activation authorized: `false`
+- P0 F1 closed: `false`
+- Next safe step: `ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT`
+
