@@ -24,21 +24,22 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_GUARDED_GENERAL_ACTIVATION_APPLY_AUTHORIZED
+PROJECT_STATUS=ACTIVE_ERA55_P0_GUARDED_PRODUCTION_WRITER_ACTIVE
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_GUARDED_GENERAL_PRODUCTION_ACTIVATION_APPLY
-LAST_COMPLETED_SUBSTEP=ERA55A_22_P0_POST_REMEDIATION_CANARY_RED_TEAM_GENERAL_PRODUCTION_ACTIVATION_DECISION
+CURRENT_STAGE=ERA55A_P0_POST_ACTIVATION_OBSERVATION
+LAST_COMPLETED_SUBSTEP=ERA55A_23_P0_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_APPLY_AND_POST_AUDIT
 PRODUCTION_BATCH_ROWS=2
 PRODUCTION_LEDGER_ROWS=213
-BASELINE_BATCH_UID=batch_58401c9613b091aa251a130383ced8a5
-CANARY_BATCH_UID=batch_5b348d2eab80b2929c5ef5b66e407e46
-BASELINE_BATCH_PRESERVED=true
-DYNAMIC_CANARY_COMPLETED=true
+CONTROLLED_CYCLE_WRITER_STATUS=IDEMPOTENT_REPLAY_NOOP
+CONTROLLED_CYCLE_BATCH_UID=batch_5b348d2eab80b2929c5ef5b66e407e46
+CONTROLLED_CYCLE_SOURCE_ROWS=107
+CONTROLLED_CYCLE_SOURCE_ACCOUNTED=107
+EXISTING_BATCHES_PRESERVED=true
 RUNNER_HOT_END_ZERO=true
 PANEL_HOT_HASH_PARITY=true
-GUARDED_GENERAL_PRODUCTION_ACTIVATION_APPLY_AUTHORIZED=true
+PERSISTENT_GUARDED_WRITER_INTEGRATION=true
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=true
-PRODUCTION_LEDGER_WRITER_ACTIVE=false
+PRODUCTION_LEDGER_WRITER_ACTIVE=true
 ADDITIONAL_CANARY_AUTHORIZED=false
 P0_F1_CLOSED=false
 OPTION_B_AUTHORIZED=false
@@ -48,12 +49,12 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_22_P0_POST_REMEDIATION_CANARY_RED_TEAM_GENERAL_PRODUCTION_ACTIVATION_DECISION
-LAST_RESULT=OK_GUARDED_GENERAL_PRODUCTION_WRITER_ACTIVATION_APPLY_AUTHORIZED
-LAST_ARTIFACT=data/control/era55a22_p0_post_remediation_canary_red_team_general_production_activation_decision_v1.json
-WORK_UNIT_STATUS=CLOSED_GUARDED_GENERAL_PRODUCTION_ACTIVATION_APPLY_AUTHORIZED
-PRODUCTION_MUTATION=false
-CURRENT_PROBLEM=GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_NOT_YET_APPLIED
+LAST_COMPLETED=ERA55A_23_P0_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_APPLY_AND_POST_AUDIT
+LAST_RESULT=OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE
+LAST_ARTIFACT=data/control/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.json
+WORK_UNIT_STATUS=CLOSED_GUARDED_GENERAL_PRODUCTION_WRITER_ACTIVE_POST_AUDIT
+PRODUCTION_MUTATION=true
+CURRENT_PROBLEM=POST_ACTIVATION_OBSERVATION_AND_P0_F1_DECISION_PENDING
 
 ---
 
@@ -98,37 +99,33 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A22 unless evidence is invalidated.
-- Do not execute another production canary.
-- Do not enable the writer outside the A23 guarded apply contract.
-- Do not delete either valid committed production batch.
-- Do not start Option B or close P0 F1 during A23.
+- Do not rerun A9-A23 unless evidence is invalidated.
+- Do not execute another canary.
+- Do not remove or edit the A23 persistent integration without a rollback plan.
+- Do not delete any valid committed production batch.
+- Do not start Option B or close P0 F1 before A24 observation.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- A21 dynamic production canary: `COMPLETED_AND_CONSUMED`.
-- Guarded general writer apply: `AUTHORIZED_ONCE_IN_A23`.
-- Production writer active now: `false`.
+- Guarded production writer: `ACTIVE`.
 - Additional canary: `BLOCKED`.
+- P0 F1 closure: `PENDING_POST_ACTIVATION_OBSERVATION`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_23_P0_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_APPLY_AND_POST_AUDIT
+NEXT_SAFE_STEP=ERA55A_24_P0_POST_ACTIVATION_OBSERVATION_AND_P0_F1_CLOSURE_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A23 is current and A22 authorization is unused.
-2. Back up production DB, runtime outputs and service configuration.
-3. Install a persistent non-one-shot guarded writer integration.
-4. Keep dynamic identity, complete accounting, runner lock and rollback guard mandatory.
-5. Run one controlled post-apply service cycle ending HOT_END:0.
-6. Preserve both existing committed batches.
-7. Retain permanent enablement only after clean DB, panel, service and timer audits.
-8. On any failure, disable the integration and restore configuration and data.
-9. Keep Option B blocked and P0 F1 open.
+1. Confirm A24 is current.
+2. Observe scheduled timer-triggered guarded writer cycles without forcing another canary.
+3. Verify service success, runner HOT_END:0, complete accounting, DB integrity and panel hash parity.
+4. Confirm rollback guard remains armed and no runtime override drift exists.
+5. Decide P0 F1 closure separately.
+6. Keep Option B blocked unless explicitly authorized after closure.
 
 ---
 
