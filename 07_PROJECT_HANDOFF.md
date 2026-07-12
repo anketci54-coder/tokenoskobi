@@ -24,21 +24,17 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_POST_REMEDIATION_AUDIT_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_P0_POST_REMEDIATION_CANARY_AUTHORIZED
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_POST_REMEDIATION_AUDIT
-LAST_COMPLETED_SUBSTEP=ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST
-ARCHIVE_TRIGGER_SAFE_ROLLBACK_PROVEN=true
-ROLLBACK_ORIGINAL_ERROR_PRESERVED=true
-ROLLBACK_FAILURE_EXPOSED=true
-ROLLBACK_FAILURE_TRANSACTION_REVERTED=true
-ISOLATED_END_TO_END_HOT_END_ZERO=true
-ISOLATED_IDEMPOTENT_REPLAY=true
-ISOLATED_RECOVERY_AFTER_OUTPUT_LOSS=true
-SOURCE_CANDIDATES=107
+CURRENT_STAGE=ERA55A_P0_POST_REMEDIATION_PRODUCTION_CANARY
+LAST_COMPLETED_SUBSTEP=ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION
+ARCHIVE_TRIGGER_SAFE_ROLLBACK_INDEPENDENTLY_REPRODUCED=true
+ROLLBACK_FAILURE_TRANSACTION_REVERSION_INDEPENDENTLY_REPRODUCED=true
+FRESH_SOURCE_CANDIDATES=107
+FRESH_SOURCE_ACCOUNTED=107
 UNOBSERVABLE_ROWS=0
-PRODUCTION_UNCHANGED=true
-NEW_PRODUCTION_CANARY_AUTHORIZED=false
+PROSPECTIVE_BATCH_DISTINCT=true
+ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED=true
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
@@ -49,12 +45,12 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST
-LAST_RESULT=OK_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY
-LAST_ARTIFACT=data/control/era55a19_p0_automatic_rollback_and_end_to_end_success_remediation_temp_copy_test_v1.json
-WORK_UNIT_STATUS=CLOSED_TEMP_COPY_REMEDIATION_OK
+LAST_COMPLETED=ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION
+LAST_RESULT=OK_ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED
+LAST_ARTIFACT=data/control/era55a20_p0_post_remediation_audit_and_production_canary_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED
 PRODUCTION_MUTATION=false
-CURRENT_PROBLEM=POST_REMEDIATION_AUDIT_AND_CANARY_DECISION_PENDING
+CURRENT_PROBLEM=POST_REMEDIATION_PRODUCTION_CANARY_NOT_YET_EXECUTED
 
 ---
 
@@ -99,33 +95,37 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A19 unless evidence is invalidated.
-- Do not execute a new production canary before A20.
-- Do not enable the production writer.
-- Do not delete the valid A17 batch.
+- Do not rerun A9-A20 unless evidence is invalidated.
+- Execute at most one A21 production canary cycle.
+- Do not enable general production.
+- Do not delete or mutate the valid A17 batch.
 - Do not start Option B or close P0 F1.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Rollback remediation: `TEMP_COPY_VALIDATED`.
-- End-to-end runner success: `ISOLATED_VALIDATED`.
-- New production canary: `BLOCKED_PENDING_A20`.
+- Rollback remediation: `INDEPENDENTLY_VALIDATED`.
+- Fresh prospective batch: `DISTINCT_AND_FULLY_ACCOUNTED`.
+- One post-remediation production canary: `AUTHORIZED_NOT_EXECUTED`.
 - General production activation: `BLOCKED`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION
+NEXT_SAFE_STEP=ERA55A_21_P0_SINGLE_NATURAL_CYCLE_POST_REMEDIATION_CANARY_APPLY_AND_POST_AUDIT
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A20 is current.
-2. Independently audit A19 artifacts and production guards.
-3. Decide a new bounded production canary separately.
-4. Do not enable general production from temp-copy evidence alone.
-5. Keep Option B blocked.
+1. Confirm A21 and the exact one-cycle authorization.
+2. Back up the production DB and all mutable runtime outputs.
+3. Pause the timer and require the service to be inactive.
+4. Install only a runtime systemd drop-in.
+5. Execute one full runner cycle with writer, lock, byte-preserving bridge and rollback guard.
+6. On post-commit failure, roll back only the new batch and expose both errors.
+7. Remove all overrides and restore timer state.
+8. Post-audit existing-batch preservation, new-batch accounting, DB integrity and panel parity.
+9. Do not enable general production after A21.
 
 ---
 

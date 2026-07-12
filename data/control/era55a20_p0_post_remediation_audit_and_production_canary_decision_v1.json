@@ -1,0 +1,261 @@
+{
+  "a19_evidence": {
+    "artifact": "data/control/era55a19_p0_automatic_rollback_and_end_to_end_success_remediation_temp_copy_test_v1.json",
+    "artifact_sha256": "4523d013773db920e3a581d116b460ab05d279b25594954ef1291b33a49d633e",
+    "isolated_first_writer_status": "COMMITTED",
+    "isolated_hot_end_zero": true,
+    "isolated_recovery_after_output_loss": true,
+    "isolated_second_writer_status": "IDEMPOTENT_REPLAY_NOOP",
+    "rollback_guard_policy": "POSTCOMMIT_ARCHIVE_TRIGGER_ROLLBACK_GUARD_V1"
+  },
+  "authorization": {
+    "general_production_writer_activation_authorized": false,
+    "new_production_canary_authorized": true,
+    "one_post_remediation_production_canary_authorized": true,
+    "optimization_apply_authorized": false,
+    "option_b_authorized": false,
+    "p0_f1_closed": false,
+    "production_writer_active": false,
+    "second_production_canary_authorized": true
+  },
+  "canary_execution_contract": {
+    "byte_preserving_bridge_in_same_cycle_required": true,
+    "database_backup_required": true,
+    "database_integrity_post_audit_required": true,
+    "dropin_removal_after_cycle_required": true,
+    "existing_batch_uid_must_be_preserved": "batch_58401c9613b091aa251a130383ced8a5",
+    "expected_new_ledger_rows": 107,
+    "expected_total_batch_rows_on_success": 2,
+    "expected_total_ledger_rows_on_success": 213,
+    "general_activation_after_canary": false,
+    "maximum_new_batch_rows": 1,
+    "maximum_source_rows": 5000,
+    "one_full_runner_cycle_only": true,
+    "one_shot_hot_wrapper_required": true,
+    "original_and_rollback_errors_must_be_exposed": true,
+    "panel_hot_hash_parity_required": true,
+    "postcommit_rollback_guard_policy": "POSTCOMMIT_ARCHIVE_TRIGGER_ROLLBACK_GUARD_V1",
+    "postcommit_rollback_guard_required": true,
+    "preserve_existing_batch_on_failure": true,
+    "prospective_batch_uid": "batch_c8a673e2fe9b01697df48627251bcc0c",
+    "rollback_only_new_batch_on_failure": true,
+    "runner_lock_enabled_for_canary": true,
+    "runner_order_must_end_hot_end_zero": true,
+    "runtime_only_systemd_dropin_required": true,
+    "runtime_output_backups_required": true,
+    "service_inactive_precondition_required": true,
+    "timer_pause_during_canary_required": true,
+    "timer_state_restore_required": true,
+    "writer_enabled_for_canary": true
+  },
+  "decision_gates": {
+    "a18_blockers_understood": true,
+    "a19_temp_copy_remediation_validated": true,
+    "archive_trigger_safe_rollback_independently_reproduced": true,
+    "byte_preserving_bridge_in_same_flow": true,
+    "fresh_complete_candidate_accounting": true,
+    "fresh_exact_legacy_queue_parity": true,
+    "fresh_prospective_batch_is_distinct": true,
+    "fresh_source_within_bound": true,
+    "fresh_zero_unobservable_rows": true,
+    "isolated_actual_runner_hot_end_zero": true,
+    "isolated_idempotent_replay": true,
+    "isolated_recovery_after_output_loss": true,
+    "original_and_rollback_errors_exposed_together": true,
+    "production_database_unchanged": true,
+    "production_runtime_overrides_absent": true,
+    "production_writer_default_off": true,
+    "rollback_failure_transaction_reversion_independently_reproduced": true
+  },
+  "fresh_prospective_canary": {
+    "admitted_count": 50,
+    "exact_legacy_object_parity": true,
+    "exact_legacy_uid_order_parity": true,
+    "existing_batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+    "legacy_queue_count": 50,
+    "overflow_count": 57,
+    "prospective_batch_is_distinct": true,
+    "prospective_batch_uid": "batch_c8a673e2fe9b01697df48627251bcc0c",
+    "snapshot_attempt": 1,
+    "snapshot_hashes": {
+      "adversarial": "804ad3f16e092e8777138d9249478b036bebbbed58b6d2ea0274f5eebbb92046",
+      "display": "cae9222fa98784df9c7c3a6fa1bee337351b194f85ac234a0d4356ba4c4b45f4",
+      "hot": "1c91e9f64bb3f4e55c93489bdbeec14e78a6b5a67b6e381f45a22edd0d674b58",
+      "market": "093277f6b129a481ac5d76b3c8fb9023496689f7fe079ca22af375ff613485ae",
+      "panel_hot": "1c91e9f64bb3f4e55c93489bdbeec14e78a6b5a67b6e381f45a22edd0d674b58"
+    },
+    "source_accounted": 107,
+    "source_candidate_count": 107,
+    "unobservable_rows": 0
+  },
+  "independent_rollback_audit": {
+    "failure_database_after": {
+      "batch_rows": 1,
+      "foreign_key_check_rows": 0,
+      "integrity_check": "ok",
+      "latest_batch": {
+        "admitted_count": 50,
+        "batch_sequence": 1,
+        "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+        "ledger_rows": 106,
+        "overflow_count": 56,
+        "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+        "source_candidate_count": 106,
+        "status": "COMMITTED"
+      },
+      "ledger_rows": 106,
+      "quick_check": "ok",
+      "triggers": [
+        "trg_news_disposition_batch_archive_before_delete_v2",
+        "trg_news_disposition_ledger_archive_before_delete_v2"
+      ]
+    },
+    "failure_result": {
+      "batch_before": {
+        "archive_location": null,
+        "archived_at_utc": null,
+        "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+        "retention_expires_at_utc": "2026-08-11T05:35:34.330883+00:00",
+        "status": "COMMITTED"
+      },
+      "batch_deleted": false,
+      "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+      "database_after": {
+        "batch_rows": 1,
+        "ledger_rows": 106
+      },
+      "database_before": {
+        "batch_rows": 1,
+        "ledger_rows": 106
+      },
+      "finished_at_utc": "2026-07-12T07:05:39.479411+00:00",
+      "injected_failure_stage": "AFTER_LEDGER_DELETE",
+      "ledger_rows_deleted": 0,
+      "original_error": "A20_INDEPENDENT_FAILURE_AUDIT",
+      "policy_version": "POSTCOMMIT_ARCHIVE_TRIGGER_ROLLBACK_GUARD_V1",
+      "rollback_error": "RuntimeError:INJECTED_ROLLBACK_FAILURE_AFTER_LEDGER_DELETE",
+      "started_at_utc": "2026-07-12T07:05:39.474619+00:00",
+      "status": "ROLLBACK_FAILED_TRANSACTION_REVERTED",
+      "target_batch_after": {
+        "archive_location": null,
+        "archived_at_utc": null,
+        "retention_expires_at_utc": "2026-08-11T05:35:34.330883+00:00",
+        "status": "COMMITTED"
+      },
+      "target_ledger_rows_after": 106,
+      "transaction_rolled_back": true
+    },
+    "require_success_error": "POSTCOMMIT_ROLLBACK_FAILED:RuntimeError:INJECTED_ROLLBACK_FAILURE_AFTER_LEDGER_DELETE:ORIGINAL_ERROR:A20_INDEPENDENT_FAILURE_AUDIT",
+    "rollback_guard_path": "tools/news_disposition_postcommit_rollback_guard_v1.py",
+    "rollback_guard_sha256": "70c0dab9f2b988414048a56c4b1d8080fbc08534af73f5c01001471567177483",
+    "success_database_after": {
+      "batch_rows": 0,
+      "foreign_key_check_rows": 0,
+      "integrity_check": "ok",
+      "latest_batch": null,
+      "ledger_rows": 0,
+      "quick_check": "ok",
+      "triggers": [
+        "trg_news_disposition_batch_archive_before_delete_v2",
+        "trg_news_disposition_ledger_archive_before_delete_v2"
+      ]
+    },
+    "success_result": {
+      "archive_location": "rollback://a20/independent-audit",
+      "archive_transition_applied": true,
+      "batch_before": {
+        "archive_location": null,
+        "archived_at_utc": null,
+        "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+        "retention_expires_at_utc": "2026-08-11T05:35:34.330883+00:00",
+        "status": "COMMITTED"
+      },
+      "batch_deleted": true,
+      "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+      "database_after": {
+        "batch_rows": 0,
+        "ledger_rows": 0
+      },
+      "database_before": {
+        "batch_rows": 1,
+        "ledger_rows": 106
+      },
+      "finished_at_utc": "2026-07-12T07:05:39.449049+00:00",
+      "ledger_rows_deleted": 106,
+      "original_error": "A20_INDEPENDENT_ROLLBACK_AUDIT",
+      "policy_version": "POSTCOMMIT_ARCHIVE_TRIGGER_ROLLBACK_GUARD_V1",
+      "rollback_error": null,
+      "started_at_utc": "2026-07-12T07:05:39.443600+00:00",
+      "status": "ROLLED_BACK_ARCHIVE_TRIGGER_SAFE",
+      "target_batch_rows_after": 0,
+      "target_ledger_rows_after": 0,
+      "transaction_rolled_back": false
+    }
+  },
+  "next_safe_step": "ERA55A_21_P0_SINGLE_NATURAL_CYCLE_POST_REMEDIATION_CANARY_APPLY_AND_POST_AUDIT",
+  "production_database_after": {
+    "batch_rows": 1,
+    "foreign_key_check_rows": 0,
+    "integrity_check": "ok",
+    "latest_batch": {
+      "admitted_count": 50,
+      "batch_sequence": 1,
+      "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+      "ledger_rows": 106,
+      "overflow_count": 56,
+      "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+      "source_candidate_count": 106,
+      "status": "COMMITTED"
+    },
+    "ledger_rows": 106,
+    "quick_check": "ok",
+    "triggers": [
+      "trg_news_disposition_batch_archive_before_delete_v2",
+      "trg_news_disposition_ledger_archive_before_delete_v2"
+    ]
+  },
+  "production_database_before": {
+    "batch_rows": 1,
+    "foreign_key_check_rows": 0,
+    "integrity_check": "ok",
+    "latest_batch": {
+      "admitted_count": 50,
+      "batch_sequence": 1,
+      "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+      "ledger_rows": 106,
+      "overflow_count": 56,
+      "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+      "source_candidate_count": 106,
+      "status": "COMMITTED"
+    },
+    "ledger_rows": 106,
+    "quick_check": "ok",
+    "triggers": [
+      "trg_news_disposition_batch_archive_before_delete_v2",
+      "trg_news_disposition_ledger_archive_before_delete_v2"
+    ]
+  },
+  "production_ledger_unchanged": true,
+  "result": "OK_ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED",
+  "runtime_observation": {
+    "environment": {
+      "canary_mode_enabled": false,
+      "hot_override_enabled": false,
+      "runner_bound": true,
+      "runner_lock_enabled": false,
+      "writer_enabled": false
+    },
+    "service": {
+      "active": "inactive",
+      "enabled": "static"
+    },
+    "timer": {
+      "active": "active",
+      "enabled": "enabled"
+    }
+  },
+  "schema_version": "1.0",
+  "status": "CLOSED_ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED",
+  "timestamp_utc": "2026-07-12T07:05:39.515036+00:00",
+  "work_unit": "ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION"
+}
