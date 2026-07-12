@@ -1,11 +1,440 @@
 #!/usr/bin/env python3
-import base64
-import gzip
-import hashlib
+from __future__ import annotations
 
-_PAYLOAD = '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'
-_SOURCE = gzip.decompress(base64.b64decode(_PAYLOAD, validate=True))
-_SOURCE_SHA256 = hashlib.sha256(_SOURCE).hexdigest()
-if _SOURCE_SHA256 != 'e528eee230c4379af1c8db418b10bafb6c0e4a6b5a011bdeedfd51b882f9c2b2':
-    raise RuntimeError("A15_SOURCE_SHA256_MISMATCH")
-exec(compile(_SOURCE.decode("utf-8"), __file__, "exec"), globals(), globals())
+import copy
+import hashlib
+import importlib.util
+import json
+import os
+import re
+import shutil
+import sqlite3
+import subprocess
+import sys
+sys.dont_write_bytecode = True
+import tempfile
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+ROOT = Path("/root/tokenoskobi_clean_v1")
+EXPECTED_HEAD = os.environ.get("TOKENOSKOBI_EXPECTED_HEAD", "").strip()
+
+A14 = ROOT / "data/control/era55a14_p0_pre_gateway_writer_post_test_audit_and_bounded_canary_decision_v1.json"
+ADAPTER = ROOT / "tools/news_disposition_admission_contract_v1.py"
+EXTRACTOR = ROOT / "tools/news_pre_gateway_candidate_stream_v1.py"
+WRITER = ROOT / "tools/news_disposition_ledger_writer_v1.py"
+RECOVERY = ROOT / "tools/news_ledger_recovery_guard_v1.py"
+GATEWAY = ROOT / "tools/hot_intelligence_ingress_gateway_v1.py"
+MARKET = ROOT / "runtime/state/news_market_indicator_events_v1.jsonl"
+ADVERSARIAL = ROOT / "runtime/state/news_adversarial_events_v1.jsonl"
+DISPLAY = ROOT / "runtime/state/news_coverage_panel_display_v1.json"
+SUMMARY = ROOT / "runtime/state/news_coverage_readmodel_consumer_summary_v1.json"
+HOT = ROOT / "runtime/state/hot_intelligence_ingress_gateway_v1.json"
+DB = ROOT / "data/tokenoskobi_clean_v1.sqlite"
+OBSOLETE = ROOT / "tools/era55a15_payload_padding_recovery_runner_v1.py"
+
+ARTIFACT = ROOT / "data/control/era55a15_p0_pre_gateway_queue_semantic_parity_repair_and_temp_copy_test_v1.json"
+REPORT = ROOT / "reports/LATEST_ERA55A15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST.md"
+RUNTIME = ROOT / "PROJECT_RUNTIME.json"
+HISTORY = ROOT / "PROJECT_HISTORY.json"
+MASTER = ROOT / "06_PROJECT_MASTER_STATE.md"
+HANDOFF = ROOT / "07_PROJECT_HANDOFF.md"
+ALMANAC = ROOT / "04_ALMANAC.md"
+
+RESULT = "OK_COMPLETE_LEDGER_LEGACY_QUEUE_SEMANTIC_PARITY_TEMP_COPY"
+NEXT = "ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION"
+SUBJECT = "ERA55A15_QUEUE_PARITY_REPAIR_TEMP_COPY | OK | PRODUCTION_UNBOUND"
+POLICY = "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2"
+
+
+def git(*args: str) -> str:
+    return subprocess.run(["git", *args], cwd=ROOT, text=True, capture_output=True, check=True).stdout.strip()
+
+
+def load(path: Path) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise RuntimeError(f"JSON_OBJECT_REQUIRED:{path}")
+    return value
+
+
+def dump(path: Path, value: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def sha(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def module(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"IMPORT_FAILED:{path}")
+    value = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(value)
+    return value
+
+
+def canon(value: Any) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()
+
+
+def uid_hash(queue: list[dict[str, Any]]) -> str:
+    return hashlib.sha256("\n".join(str(x.get("hot_uid") or "") for x in queue).encode()).hexdigest()
+
+
+def db_state(path: Path) -> dict[str, Any]:
+    conn = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    try:
+        conn.execute("PRAGMA query_only=ON")
+        return {
+            "batch_rows": int(conn.execute("SELECT COUNT(*) FROM news_disposition_batches_v2").fetchone()[0]),
+            "ledger_rows": int(conn.execute("SELECT COUNT(*) FROM news_disposition_ledger_v2").fetchone()[0]),
+            "integrity_check": str(conn.execute("PRAGMA integrity_check").fetchone()[0]),
+            "quick_check": str(conn.execute("PRAGMA quick_check").fetchone()[0]),
+            "foreign_key_check_rows": len(conn.execute("PRAGMA foreign_key_check").fetchall()),
+        }
+    finally:
+        conn.close()
+
+
+def service_state() -> dict[str, Any]:
+    r = subprocess.run(
+        ["systemctl", "show", "tokenoskobi-news-radar-refresh.service", "-p", "Environment", "-p", "ExecStart", "-p", "FragmentPath"],
+        text=True,
+        capture_output=True,
+    )
+    text = r.stdout
+    return {
+        "rc": r.returncode,
+        "runner_bound": str(ROOT / "tools/news_radar_refresh_runner_v1.py") in text,
+        "writer_enabled": "TOKENOSKOBI_LEDGER_WRITER_ENABLED=1" in text,
+        "lock_enabled": "TOKENOSKOBI_RUNNER_LOCK_ENABLED=1" in text,
+        "fragment": next((line.split("=", 1)[1] for line in text.splitlines() if line.startswith("FragmentPath=")), ""),
+    }
+
+
+def guard() -> dict[str, Any]:
+    return {"database": db_state(DB), "service": service_state()}
+
+
+def snapshot(temp: Path) -> dict[str, Any]:
+    sources = {"market": MARKET, "adversarial": ADVERSARIAL, "display": DISPLAY, "hot": HOT}
+    for attempt in range(1, 9):
+        before = {k: sha(v) for k, v in sources.items()}
+        paths: dict[str, Path] = {}
+        for key, source in sources.items():
+            target = temp / f"{key}{source.suffix}"
+            shutil.copy2(source, target)
+            paths[key] = target
+        after = {k: sha(v) for k, v in sources.items()}
+        copied = {k: sha(v) for k, v in paths.items()}
+        if before == after == copied:
+            return {"attempt": attempt, "hashes": before, "paths": paths}
+        time.sleep(0.25)
+    raise RuntimeError("STABLE_SNAPSHOT_FAILED")
+
+
+def backup(source: Path, target: Path) -> None:
+    a = sqlite3.connect(f"file:{source}?mode=ro", uri=True)
+    b = sqlite3.connect(target)
+    try:
+        a.backup(b)
+    finally:
+        b.close(); a.close()
+
+
+def batch_metrics(path: Path, batch_uid: str) -> dict[str, Any]:
+    conn = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    try:
+        return {
+            "batch_rows": int(conn.execute("SELECT COUNT(*) FROM news_disposition_batches_v2 WHERE batch_uid=?", (batch_uid,)).fetchone()[0]),
+            "ledger_rows": int(conn.execute("SELECT COUNT(*) FROM news_disposition_ledger_v2 WHERE batch_uid=?", (batch_uid,)).fetchone()[0]),
+            "dispositions": {str(r[0]): int(r[1]) for r in conn.execute("SELECT disposition, COUNT(*) FROM news_disposition_ledger_v2 WHERE batch_uid=? GROUP BY disposition", (batch_uid,)).fetchall()},
+            "integrity": str(conn.execute("PRAGMA integrity_check").fetchone()[0]),
+            "quick": str(conn.execute("PRAGMA quick_check").fetchone()[0]),
+            "fk": len(conn.execute("PRAGMA foreign_key_check").fetchall()),
+        }
+    finally:
+        conn.close()
+
+
+def contract_error(adapter: Any, display: dict[str, Any], queue: list[dict[str, Any]]) -> str:
+    try:
+        adapter.build_plan_with_admission_contract(display, queue, queue_capacity=50)
+    except ValueError as exc:
+        return str(exc)
+    raise AssertionError("EXPECTED_CONTRACT_ERROR")
+
+
+def section(text: str, heading: str, body: str) -> str:
+    pattern = re.compile(rf"({re.escape(heading)}\n)(.*?)(?=\n---\n|\Z)", re.DOTALL)
+    match = pattern.search(text)
+    if not match:
+        raise RuntimeError(f"SECTION_NOT_FOUND:{heading}")
+    return text[:match.start()] + heading + "\n\n" + body.rstrip() + "\n" + text[match.end():]
+
+
+def main() -> int:
+    if not EXPECTED_HEAD:
+        raise RuntimeError("TOKENOSKOBI_EXPECTED_HEAD_REQUIRED")
+    if git("branch", "--show-current") != "main" or git("rev-parse", "HEAD") != EXPECTED_HEAD:
+        raise RuntimeError("HEAD_OR_BRANCH_MISMATCH")
+    if git("status", "--porcelain"):
+        raise RuntimeError("WORKTREE_NOT_CLEAN")
+
+    for path in (A14, ADAPTER, EXTRACTOR, WRITER, RECOVERY, GATEWAY, MARKET, ADVERSARIAL, DISPLAY, SUMMARY, HOT, DB, RUNTIME, HISTORY, MASTER, HANDOFF, ALMANAC):
+        if not path.exists():
+            raise FileNotFoundError(path)
+
+    a14 = load(A14)
+    assert a14["result"] == "REJECT_BOUNDED_CANARY_QUEUE_SEMANTIC_PARITY_NOT_PROVEN"
+    assert a14["production_unchanged"] is True
+
+    before = guard()
+    assert before["database"] == {"batch_rows": 0, "ledger_rows": 0, "integrity_check": "ok", "quick_check": "ok", "foreign_key_check_rows": 0}
+    assert before["service"]["runner_bound"] is True
+    assert before["service"]["writer_enabled"] is False
+    assert before["service"]["lock_enabled"] is False
+
+    tools = str(ROOT / "tools")
+    if tools not in sys.path:
+        sys.path.insert(0, tools)
+    extractor = module("a15_extractor", EXTRACTOR)
+    writer = module("a15_writer", WRITER)
+    recovery = module("a15_recovery", RECOVERY)
+    gateway = module("a15_gateway", GATEWAY)
+    adapter = module("a15_adapter", ADAPTER)
+    assert adapter.POLICY_VERSION == POLICY
+
+    temp = Path(tempfile.mkdtemp(prefix="era55a15_", dir="/tmp"))
+    try:
+        snap = snapshot(temp)
+        paths = snap["paths"]
+        legacy = gateway.normalize_items(load(paths["display"]))
+        current = load(paths["hot"])["hot_queue"]
+        assert canon(legacy) == canon(current)
+
+        full = extractor.build_candidate_display(paths["market"], paths["adversarial"])
+        full_path = temp / "full.json"
+        dump(full_path, full)
+        standard = writer.build_plan(full, queue_capacity=50)
+        repaired = adapter.build_plan_with_admission_contract(full, legacy, queue_capacity=50)
+
+        counts = repaired["counts"]
+        source_count = int(counts["source_candidate_count"])
+        accounted = sum(int(counts[k]) for k in ("admitted_count", "overflow_count", "duplicate_removed_count", "unsafe_filtered_count", "invalid_candidate_count", "replaced_count"))
+        assert 0 < len(legacy) <= 50 <= source_count <= 5000
+        assert accounted == source_count
+        assert canon(repaired["hot_queue"]) == canon(legacy)
+        standard_mismatch = canon(standard["hot_queue"]) != canon(legacy)
+
+        temp_db = temp / "test.sqlite"
+        backup(DB, temp_db)
+        out = temp / "out.json"
+        state = temp / "state.json"
+        lock = temp / "lock"
+        first = adapter.write_and_publish_with_admission_contract(
+            display_path=full_path, admission_contract_path=paths["hot"], summary_path=SUMMARY,
+            db_path=temp_db, output_path=out, recovery_state_path=state,
+            contract_seed_path=paths["hot"], queue_capacity=50, lock_path=lock,
+        )
+        first_hash = sha(out)
+        metrics = batch_metrics(temp_db, repaired["batch_uid"])
+        assert canon(load(out)["hot_queue"]) == canon(legacy)
+        second = adapter.write_and_publish_with_admission_contract(
+            display_path=full_path, admission_contract_path=paths["hot"], summary_path=SUMMARY,
+            db_path=temp_db, output_path=out, recovery_state_path=state,
+            contract_seed_path=paths["hot"], queue_capacity=50, lock_path=lock,
+        )
+        assert first["write_result"]["status"] == "COMMITTED"
+        assert second["write_result"]["status"] == "IDEMPOTENT_REPLAY_NOOP"
+        assert first_hash == sha(out)
+        assert metrics["batch_rows"] == 1 and metrics["ledger_rows"] == source_count
+        assert metrics["integrity"] == "ok" and metrics["quick"] == "ok" and metrics["fk"] == 0
+
+        out.unlink()
+        recovered = recovery.recover_committed_batch(temp_db, out, state, contract_seed_path=paths["hot"], batch_sequence=int(first["batch_sequence"]))
+        assert recovered["status"] == "RECOVERED"
+        assert canon(load(out)["hot_queue"]) == canon(legacy)
+
+        duplicate = copy.deepcopy(legacy); duplicate[-1] = copy.deepcopy(legacy[0])
+        unknown = copy.deepcopy(legacy); unknown[0]["hot_uid"] = "hot_unknown_a15"
+        drift = copy.deepcopy(legacy); drift[0]["title"] = str(drift[0].get("title") or "") + " [DRIFT]"
+        duplicate_error = contract_error(adapter, full, duplicate)
+        unknown_error = contract_error(adapter, full, unknown)
+        drift_error = contract_error(adapter, full, drift)
+        assert duplicate_error.startswith("ADMISSION_CONTRACT_DUPLICATE_UID:")
+        assert unknown_error.startswith("ADMISSION_CONTRACT_UID_NOT_FOUND:")
+        assert drift_error.startswith("ADMISSION_CONTRACT_PAYLOAD_MISMATCH:")
+
+        rollback_db = temp / "rollback.sqlite"
+        backup(DB, rollback_db)
+        injected = None
+        try:
+            writer.write_plan(rollback_db, repaired, inject_failure_after_ledger_rows=True)
+        except RuntimeError as exc:
+            injected = str(exc)
+        assert injected == "INJECTED_FAILURE_AFTER_LEDGER_ROWS"
+        assert db_state(rollback_db)["batch_rows"] == 0 and db_state(rollback_db)["ledger_rows"] == 0
+
+        after = guard()
+        assert before == after
+        now = datetime.now(timezone.utc).isoformat()
+        artifact = {
+            "schema_version": "1.0",
+            "work_unit": "ERA55A_15_P0_PRE_GATEWAY_QUEUE_SEMANTIC_PARITY_REPAIR_AND_TEMP_COPY_TEST",
+            "tested_at_utc": now,
+            "status": "CLOSED_TEMP_COPY_PARITY_REPAIR_OK",
+            "result": RESULT,
+            "adapter_module": {"path": str(ADAPTER.relative_to(ROOT)), "sha256": sha(ADAPTER), "policy_version": POLICY, "production_runtime_bound": False},
+            "stable_snapshot": {"attempt": snap["attempt"], **snap["hashes"]},
+            "parity_repair": {
+                "source_candidate_count": source_count, "accounted_count": accounted, "unobservable_rows": 0,
+                "legacy_queue_count": len(legacy), "standard_pre_gateway_queue_mismatched_before_repair": standard_mismatch,
+                "repaired_queue_exact_object_parity": True, "repaired_queue_exact_uid_order_parity": True,
+                "legacy_uid_hash": uid_hash(legacy), "repaired_uid_hash": uid_hash(repaired["hot_queue"]),
+                "counts": counts, "ledger_rows": metrics["ledger_rows"], "disposition_counts": metrics["dispositions"],
+            },
+            "idempotency": {"first_write_status": first["write_result"]["status"], "second_write_status": second["write_result"]["status"], "batch_rows_after_replay": 1, "ledger_rows_after_replay": source_count, "output_hash_unchanged": True},
+            "postcommit_publish_recovery": {"status": recovered["status"], "exact_legacy_queue_parity": True, "db_rewrite": False},
+            "fail_closed_contract_tests": {"duplicate_uid_error": duplicate_error, "unknown_uid_error": unknown_error, "payload_drift_error": drift_error, "all_passed": True},
+            "transaction_rollback": {"injected_error": injected, "batch_rows_after_rollback": 0, "ledger_rows_after_rollback": 0, "ok": True},
+            "production_guard_before": before, "production_guard_after": after, "production_ledger_unchanged": True,
+            "authorization": {"single_natural_cycle_bounded_canary_authorized": False, "general_production_writer_activation_authorized": False, "production_writer_active": False, "p0_f1_closed": False, "option_b_authorized": False, "optimization_apply_authorized": False},
+            "next_safe_step": NEXT,
+        }
+        dump(ARTIFACT, artifact)
+        REPORT.write_text(f"# ERA55A15 Queue Semantic Parity Repair\n\n- Result: `{RESULT}`\n- Source candidates: `{source_count}`\n- Legacy queue: `{len(legacy)}`\n- Unobservable rows: `0`\n- Exact object parity: `true`\n- Exact UID order parity: `true`\n- Production unchanged: `true`\n- Next: `{NEXT}`\n", encoding="utf-8")
+
+        runtime = load(RUNTIME); current = runtime["current_state"]
+        current.update({
+            "mode": "ERA55A15_QUEUE_SEMANTIC_PARITY_REPAIR_TEMP_COPY_OK", "runtime_status": "WORK_UNIT_CLOSED", "updated_at": now,
+            "last_action": {"timestamp": now, "task": artifact["work_unit"], "result": RESULT, "artifact": str(ARTIFACT.relative_to(ROOT))},
+            "active_work_unit": {"id": artifact["work_unit"], "type": "ERA55_P0_QUEUE_SEMANTIC_PARITY_REPAIR_TEMP_COPY_TEST", "parent": "ERA55_RUNTIME_OPTIMIZATION", "artifact": str(ARTIFACT.relative_to(ROOT)), "status": artifact["status"], "result": RESULT, "production_mutation": False, "next_step": NEXT},
+            "next_safe_step": {"id": NEXT, "type": "ERA55_P0_QUEUE_PARITY_POST_TEST_AUDIT_SINGLE_CYCLE_CANARY_DECISION", "parent": "ERA55_RUNTIME_OPTIMIZATION", "purpose": "Audit exact legacy parity and decide one guarded natural cycle.", "human_authorization_required": True, "single_cycle_bounded_canary_authorized": False, "general_production_writer_activation_authorized": False, "option_b_authorized": False, "optimization_apply_authorized": False, "status": "READY"},
+            "current_problem": {"code": "QUEUE_PARITY_REPAIR_NOT_YET_INDEPENDENTLY_AUDITED", "severity": "P0", "evidence": str(ARTIFACT.relative_to(ROOT))},
+        })
+        runtime["current_work_unit"] = current["active_work_unit"]; dump(RUNTIME, runtime)
+
+        history = load(HISTORY); events = history.setdefault("events", [])
+        if not any(isinstance(x, dict) and x.get("event_id") == "ERA55A15_QUEUE_SEMANTIC_PARITY_REPAIR_TEMP_COPY_V1" for x in events):
+            events.append({"event_id": "ERA55A15_QUEUE_SEMANTIC_PARITY_REPAIR_TEMP_COPY_V1", "timestamp_utc": now, "era": "ERA55", "work_unit": artifact["work_unit"], "event": "TEMP_COPY_PARITY_REPAIR_TEST", "status": artifact["status"], "result": RESULT, "artifact": str(ARTIFACT.relative_to(ROOT)), "source_candidate_count": source_count, "legacy_queue_count": len(legacy), "unobservable_rows": 0, "exact_legacy_queue_parity": True, "production_unchanged": True, "single_cycle_bounded_canary_authorized": False, "p0_f1_closed": False, "next_safe_step": NEXT})
+        history["updated_at"] = history["updated_at_utc"] = now; dump(HISTORY, history)
+
+        master = MASTER.read_text(encoding="utf-8")
+        master = section(master, "## 01 PROJECT STATUS", """```text
+PROJECT=TOKENOSKOBI / COINOSKOBI
+PROJECT_STATUS=ACTIVE_ERA55_P0_QUEUE_PARITY_CANARY_DECISION_PENDING
+CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
+CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
+CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
+GIT_BRANCH=main
+GIT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
+BOOT_HEALTH=100/100
+```""")
+        master = section(master, "## 02 CURRENT MAJOR-LINE POSITION", f"""```text
+CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
+ERA55_STATUS=OPEN
+CURRENT_STAGE=ERA55A_P0_QUEUE_PARITY_REPAIR
+LAST_COMPLETED_SUBSTEP={artifact['work_unit']}
+COMPLETE_PRE_GATEWAY_ACCOUNTING=true
+SOURCE_CANDIDATES={source_count}
+LEGACY_QUEUE_COUNT={len(legacy)}
+UNOBSERVABLE_ROWS=0
+EXACT_LEGACY_OBJECT_PARITY=true
+EXACT_LEGACY_UID_ORDER_PARITY=true
+SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=false
+GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
+P0_F1_CLOSED=false
+OPTION_B_AUTHORIZED=false
+```""")
+        master = section(master, "## 03 LAST VERIFIED WORK", f"""```text
+LAST_COMPLETED={artifact['work_unit']}
+LAST_RESULT={RESULT}
+LAST_ARTIFACT={ARTIFACT.relative_to(ROOT)}
+WORK_UNIT_STATUS={artifact['status']}
+LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
+```
+
+NEXT_SAFE_STEP={NEXT}"""); MASTER.write_text(master, encoding="utf-8")
+
+        handoff = HANDOFF.read_text(encoding="utf-8")
+        handoff = section(handoff, "## 02 CURRENT CONTINUATION CHECKPOINT", f"""PROJECT_STATUS=ACTIVE_ERA55_P0_QUEUE_PARITY_CANARY_DECISION_PENDING
+CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
+CURRENT_STAGE=ERA55A_P0_QUEUE_PARITY_REPAIR
+LAST_COMPLETED_SUBSTEP={artifact['work_unit']}
+SOURCE_CANDIDATES={source_count}
+LEGACY_QUEUE_COUNT={len(legacy)}
+UNOBSERVABLE_ROWS=0
+EXACT_LEGACY_OBJECT_PARITY=true
+EXACT_LEGACY_UID_ORDER_PARITY=true
+SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=false
+GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
+P0_F1_CLOSED=false
+OPTION_B_AUTHORIZED=false
+CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD""")
+        handoff = section(handoff, "## 03 LAST VERIFIED WORK", f"""LAST_COMPLETED={artifact['work_unit']}
+LAST_RESULT={RESULT}
+LAST_ARTIFACT={ARTIFACT.relative_to(ROOT)}
+WORK_UNIT_STATUS={artifact['status']}
+LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
+CURRENT_PROBLEM=QUEUE_PARITY_REPAIR_NOT_YET_INDEPENDENTLY_AUDITED""")
+        handoff = section(handoff, "## 06 DO NOT REOPEN OR REPEAT", """- Do not rerun A9-A15 unless evidence is invalidated.
+- Do not bind the admission-contract adapter before A16.
+- Do not enable production writer or runner-lock flags.
+- Do not start Option B or close P0 F1.""")
+        handoff = section(handoff, "## 07 ALLOWED NEXT DECISIONS", f"""- Complete accounting: `VALIDATED`.
+- Exact legacy parity: `VALIDATED_TEMP_COPY`.
+- Single-cycle canary: `PENDING_A16_DECISION`.
+- General production: `BLOCKED`.
+
+NEXT_SAFE_STEP={NEXT}""")
+        handoff = section(handoff, "## 08 NEXT SESSION EXECUTION RULE", """1. Confirm A16 is current.
+2. Independently audit A15 on a fresh temp copy.
+3. Decide only one guarded natural cycle.
+4. Do not authorize general production or close P0 F1."""); HANDOFF.write_text(handoff, encoding="utf-8")
+
+        almanac = ALMANAC.read_text(encoding="utf-8")
+        if "## ERA55A_15 QUEUE SEMANTIC PARITY REPAIR" not in almanac:
+            ALMANAC.write_text(almanac.rstrip() + f"\n\n---\n\n## ERA55A_15 QUEUE SEMANTIC PARITY REPAIR\n\n- Status: `{artifact['status']}`\n- Result: `{RESULT}`\n- Source candidates: `{source_count}`\n- Legacy queue: `{len(legacy)}`\n- Unobservable rows: `0`\n- Exact legacy parity: `true`\n- Production mutation: `false`\n- Next: `{NEXT}`\n", encoding="utf-8")
+
+        if OBSOLETE.exists():
+            subprocess.run(["git", "rm", "-f", str(OBSOLETE.relative_to(ROOT))], cwd=ROOT, check=True)
+        git("add", str(ADAPTER.relative_to(ROOT)), str(ARTIFACT.relative_to(ROOT)), str(RUNTIME.relative_to(ROOT)), str(HISTORY.relative_to(ROOT)), str(MASTER.relative_to(ROOT)), str(HANDOFF.relative_to(ROOT)), str(ALMANAC.relative_to(ROOT)))
+        subprocess.run(["git", "add", "-f", str(REPORT.relative_to(ROOT))], cwd=ROOT, check=True)
+        git("commit", "-m", SUBJECT)
+
+        print("ERA55A15_QUEUE_PARITY_REPAIR_TEMP_COPY=SUCCESS")
+        print("RESULT=" + RESULT)
+        print("SOURCE_CANDIDATES=" + str(source_count))
+        print("SOURCE_ACCOUNTED=" + str(accounted))
+        print("UNOBSERVABLE_ROWS=0")
+        print("LEGACY_QUEUE_EXACT_OBJECT_PARITY=true")
+        print("LEGACY_QUEUE_EXACT_UID_ORDER_PARITY=true")
+        print("IDEMPOTENT_REPLAY=true")
+        print("POSTCOMMIT_PUBLISH_RECOVERY_PARITY=true")
+        print("FAIL_CLOSED_CONTRACT_TESTS=true")
+        print("TRANSACTION_ROLLBACK=true")
+        print("PRODUCTION_RUNTIME_BOUND=false")
+        print("PRODUCTION_LEDGER_UNCHANGED=true")
+        print("SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=false")
+        print("GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false")
+        print("P0_F1_CLOSED=false")
+        print("OPTION_B_AUTHORIZED=false")
+        print("NEXT_SAFE_STEP=" + NEXT)
+        print("LOCAL_COMMIT=" + git("rev-parse", "HEAD"))
+        return 0
+    finally:
+        shutil.rmtree(temp, ignore_errors=True)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
