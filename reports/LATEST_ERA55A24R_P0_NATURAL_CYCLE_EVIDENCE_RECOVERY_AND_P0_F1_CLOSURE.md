@@ -1,0 +1,22 @@
+# ERA55A24R Natural Cycle Evidence Recovery and P0 F1 Closure
+
+- Status: `CLOSED_NATURAL_CYCLE_EVIDENCE_RECOVERED_P0_F1_CLOSED`
+- Result: `OK_NATURAL_TIMER_EVIDENCE_RECOVERED_P0_F1_CLOSED`
+- Recovery reason: `SYSTEMD_SERVICE_STDOUT_DID_NOT_RETAIN_PER_CYCLE_JSON_PAYLOADS`
+- Forced service cycle: `false`
+- Natural timer cycles observed: `12`
+- Successful service completions: `12`
+- Committed natural cycles: `1`
+- Idempotent replay cycles: `11`
+- Production batch rows: `3`
+- Production ledger rows: `321`
+- Original committed batches preserved: `true`
+- Runner HOT_END:0 for every observed cycle: `true`
+- Current complete source accounting: `true`
+- Current unobservable rows: `0`
+- Current panel hash parity: `true`
+- Rollback guard armed: `true`
+- Production writer active: `true`
+- P0 F1 closed: `true`
+- Option B authorized: `false`
+- Next safe step: `ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION`

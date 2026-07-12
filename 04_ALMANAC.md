@@ -5813,3 +5813,20 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Option B authorized: `false`
 - Next safe step: `ERA55A_24_P0_POST_ACTIVATION_OBSERVATION_AND_P0_F1_CLOSURE_DECISION`
 
+---
+
+## ERA55A_24R NATURAL CYCLE EVIDENCE RECOVERY AND P0 F1 CLOSURE
+
+- Status: `CLOSED_NATURAL_CYCLE_EVIDENCE_RECOVERED_P0_F1_CLOSED`
+- Result: `OK_NATURAL_TIMER_EVIDENCE_RECOVERED_P0_F1_CLOSED`
+- Recovery reason: `SYSTEMD_SERVICE_STDOUT_DID_NOT_RETAIN_PER_CYCLE_JSON_PAYLOADS`
+- Forced service cycle: `false`
+- Natural timer cycles observed: `12`
+- Production batch rows: `3`
+- Production ledger rows: `321`
+- Original committed batches preserved: `true`
+- Production writer active: `true`
+- P0 F1 closed: `true`
+- Option B authorized: `false`
+- Next safe step: `ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION`
+
