@@ -24,19 +24,21 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_ROLLBACK_END_TO_END_REMEDIATION_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_P0_POST_REMEDIATION_AUDIT_PENDING
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_ROLLBACK_END_TO_END_REMEDIATION
-LAST_COMPLETED_SUBSTEP=ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION
-VALID_CANARY_BATCH=true
-PRODUCTION_BATCH_ROWS=1
-PRODUCTION_LEDGER_ROWS=106
+CURRENT_STAGE=ERA55A_P0_POST_REMEDIATION_AUDIT
+LAST_COMPLETED_SUBSTEP=ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST
+ARCHIVE_TRIGGER_SAFE_ROLLBACK_PROVEN=true
+ROLLBACK_ORIGINAL_ERROR_PRESERVED=true
+ROLLBACK_FAILURE_EXPOSED=true
+ROLLBACK_FAILURE_TRANSACTION_REVERTED=true
+ISOLATED_END_TO_END_HOT_END_ZERO=true
+ISOLATED_IDEMPOTENT_REPLAY=true
+ISOLATED_RECOVERY_AFTER_OUTPUT_LOSS=true
+SOURCE_CANDIDATES=107
 UNOBSERVABLE_ROWS=0
-PANEL_BRIDGE_RECOVERED=true
-AUTOMATIC_ROLLBACK_OBSERVED=false
-END_TO_END_RUNNER_SUCCESS_PROVEN=false
-CLEAN_POST_FIX_NATURAL_CYCLE_PROVEN=false
-NEW_CANARY_AUTHORIZED=false
+PRODUCTION_UNCHANGED=true
+NEW_PRODUCTION_CANARY_AUTHORIZED=false
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
@@ -47,12 +49,12 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION
-LAST_RESULT=REJECT_GENERAL_PRODUCTION_ACTIVATION_END_TO_END_SUCCESS_AND_AUTOMATIC_ROLLBACK_NOT_PROVEN
-LAST_ARTIFACT=data/control/era55a18_p0_post_canary_red_team_production_activation_decision_v1.json
-WORK_UNIT_STATUS=CLOSED_GENERAL_PRODUCTION_ACTIVATION_REJECTED
+LAST_COMPLETED=ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST
+LAST_RESULT=OK_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY
+LAST_ARTIFACT=data/control/era55a19_p0_automatic_rollback_and_end_to_end_success_remediation_temp_copy_test_v1.json
+WORK_UNIT_STATUS=CLOSED_TEMP_COPY_REMEDIATION_OK
 PRODUCTION_MUTATION=false
-CURRENT_PROBLEM=AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_NOT_PROVEN
+CURRENT_PROBLEM=POST_REMEDIATION_AUDIT_AND_CANARY_DECISION_PENDING
 
 ---
 
@@ -97,34 +99,33 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A18 unless evidence is invalidated.
-- Do not execute another production canary.
-- Do not delete the valid A17 batch.
+- Do not rerun A9-A19 unless evidence is invalidated.
+- Do not execute a new production canary before A20.
 - Do not enable the production writer.
+- Do not delete the valid A17 batch.
 - Do not start Option B or close P0 F1.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Valid canary ledger batch: `PRESERVED`.
-- General production activation: `REJECTED`.
-- New production canary: `NOT_AUTHORIZED`.
-- Rollback and end-to-end remediation: `TEMP_COPY_ONLY`.
+- Rollback remediation: `TEMP_COPY_VALIDATED`.
+- End-to-end runner success: `ISOLATED_VALIDATED`.
+- New production canary: `BLOCKED_PENDING_A20`.
+- General production activation: `BLOCKED`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST
+NEXT_SAFE_STEP=ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A19 is current.
-2. Work only on disposable DB and runtime-state copies.
-3. Repair deterministic automatic rollback and expose rollback failures.
-4. Prove a clean isolated runner sequence ending HOT_END:0.
-5. Keep all production flags disabled.
-6. Do not authorize a new production canary from A19 alone.
+1. Confirm A20 is current.
+2. Independently audit A19 artifacts and production guards.
+3. Decide a new bounded production canary separately.
+4. Do not enable general production from temp-copy evidence alone.
+5. Keep Option B blocked.
 
 ---
 
