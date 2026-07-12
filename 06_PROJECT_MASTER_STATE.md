@@ -180,13 +180,13 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- P0 F1 remains open because the production ledger writer is inactive.
+- P0 F1 is closed and the guarded production ledger writer is active.
 - Strict DB-to-file cross-resource atomicity is not proven; replay recovery passed on temp-copy.
-- Option B remains blocked until the P0 writer production path and natural cycle are proven.
+- Option B apply remains blocked pending the separate A25 readiness and authorization decision.
 - DELETE-vs-WAL remains an unproven hypothesis.
 - Process-kill recovery remains partial.
 - Stage timing and exact panel latency remain incomplete.
-- Production DB, gateway, service, timer and panel were unchanged.
+- A24R introduced no additional production mutation; the guarded production writer remains active and unchanged.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
 
@@ -195,10 +195,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION
+NEXT_SAFE_STEP=ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
 ```
 
-Audit the A9 evidence and define the bounded production writer implementation, rollback and natural-cycle proof plan. Do not activate the writer yet.
+Evaluate Option B measurable benefit, speed, power, security, economy, maintenance burden, rollback boundary and runtime risk. Do not apply Option B during A25.
 
 ---
 
