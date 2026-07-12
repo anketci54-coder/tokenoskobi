@@ -24,17 +24,21 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_POST_REMEDIATION_CANARY_AUTHORIZED
+PROJECT_STATUS=ACTIVE_ERA55_P0_POST_REMEDIATION_CANARY_DECISION_PENDING
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_POST_REMEDIATION_PRODUCTION_CANARY
-LAST_COMPLETED_SUBSTEP=ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION
-ARCHIVE_TRIGGER_SAFE_ROLLBACK_INDEPENDENTLY_REPRODUCED=true
-ROLLBACK_FAILURE_TRANSACTION_REVERSION_INDEPENDENTLY_REPRODUCED=true
-FRESH_SOURCE_CANDIDATES=107
-FRESH_SOURCE_ACCOUNTED=107
+CURRENT_STAGE=ERA55A_P0_POST_REMEDIATION_CANARY_DECISION
+LAST_COMPLETED_SUBSTEP=ERA55A_21_P0_SINGLE_NATURAL_CYCLE_POST_REMEDIATION_CANARY_DYNAMIC_IDENTITY_RETRY_AND_POST_AUDIT
+BASELINE_BATCH_UID=batch_58401c9613b091aa251a130383ced8a5
+BASELINE_BATCH_PRESERVED=true
+NEW_BATCH_UID=batch_5b348d2eab80b2929c5ef5b66e407e46
+NEW_SOURCE_CANDIDATES=107
+NEW_SOURCE_ACCOUNTED=107
+PRODUCTION_BATCH_ROWS=2
+PRODUCTION_LEDGER_ROWS=213
 UNOBSERVABLE_ROWS=0
-PROSPECTIVE_BATCH_DISTINCT=true
-ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED=true
+RUNNER_HOT_END_ZERO=true
+PANEL_HOT_HASH_PARITY=true
+DYNAMIC_RETRY_CONSUMED=true
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
@@ -45,12 +49,13 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_20_P0_POST_REMEDIATION_AUDIT_AND_PRODUCTION_CANARY_DECISION
-LAST_RESULT=OK_ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED
-LAST_ARTIFACT=data/control/era55a20_p0_post_remediation_audit_and_production_canary_decision_v1.json
-WORK_UNIT_STATUS=CLOSED_ONE_POST_REMEDIATION_PRODUCTION_CANARY_AUTHORIZED
-PRODUCTION_MUTATION=false
-CURRENT_PROBLEM=POST_REMEDIATION_PRODUCTION_CANARY_NOT_YET_EXECUTED
+LAST_COMPLETED=ERA55A_21_P0_SINGLE_NATURAL_CYCLE_POST_REMEDIATION_CANARY_DYNAMIC_IDENTITY_RETRY_AND_POST_AUDIT
+LAST_RESULT=OK_POST_REMEDIATION_DYNAMIC_IDENTITY_SINGLE_CYCLE_PRODUCTION_CANARY_COMPLETED
+LAST_ARTIFACT=data/control/era55a21_p0_single_natural_cycle_post_remediation_canary_dynamic_identity_retry_and_post_audit_v2.json
+WORK_UNIT_STATUS=CLOSED_POST_REMEDIATION_DYNAMIC_IDENTITY_SINGLE_CYCLE_CANARY_OK
+PRODUCTION_MUTATION=true
+RUNTIME_OVERRIDE_ACTIVE=false
+CURRENT_PROBLEM=GENERAL_PRODUCTION_WRITER_ACTIVATION_NOT_AUTHORIZED
 
 ---
 
@@ -95,37 +100,33 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A20 unless evidence is invalidated.
-- Execute at most one A21 production canary cycle.
-- Do not enable general production.
-- Do not delete or mutate the valid A17 batch.
+- Do not rerun A9-A21 unless evidence is invalidated.
+- Do not execute another production canary.
+- Do not enable the production writer generally before A22.
+- Do not delete either valid production batch.
 - Do not start Option B or close P0 F1.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Rollback remediation: `INDEPENDENTLY_VALIDATED`.
-- Fresh prospective batch: `DISTINCT_AND_FULLY_ACCOUNTED`.
-- One post-remediation production canary: `AUTHORIZED_NOT_EXECUTED`.
-- General production activation: `BLOCKED`.
+- Dynamic-identity production canary: `COMPLETED_AND_CONSUMED`.
+- Baseline batch: `PRESERVED`.
+- New batch accounting: `COMPLETE`.
+- General production activation: `BLOCKED_PENDING_A22`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_21_P0_SINGLE_NATURAL_CYCLE_POST_REMEDIATION_CANARY_APPLY_AND_POST_AUDIT
+NEXT_SAFE_STEP=ERA55A_22_P0_POST_REMEDIATION_CANARY_RED_TEAM_GENERAL_PRODUCTION_ACTIVATION_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A21 and the exact one-cycle authorization.
-2. Back up the production DB and all mutable runtime outputs.
-3. Pause the timer and require the service to be inactive.
-4. Install only a runtime systemd drop-in.
-5. Execute one full runner cycle with writer, lock, byte-preserving bridge and rollback guard.
-6. On post-commit failure, roll back only the new batch and expose both errors.
-7. Remove all overrides and restore timer state.
-8. Post-audit existing-batch preservation, new-batch accounting, DB integrity and panel parity.
-9. Do not enable general production after A21.
+1. Confirm A22 is current.
+2. Independently audit baseline preservation, dynamic new-batch accounting and runtime cleanup.
+3. Decide general production writer activation separately.
+4. Do not run another canary.
+5. Keep Option B blocked until the production decision is sealed.
 
 ---
 
