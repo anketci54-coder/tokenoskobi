@@ -1,0 +1,144 @@
+{
+  "a19_scope": {
+    "id": "ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST",
+    "new_canary_authorized": false,
+    "production_db_mutation": false,
+    "requirements": [
+      "Make post-commit failure handling preserve the original error and expose rollback result.",
+      "Prove deterministic automatic rollback against archive triggers on a disposable database copy.",
+      "Prove a clean end-to-end runner sequence ending HOT_END:0 in an isolated temp environment.",
+      "Prove bridge byte-preserving copy inside the same isolated end-to-end flow.",
+      "Prove idempotent replay and recovery after the rollback remediation.",
+      "Keep all production feature flags and runtime overrides disabled."
+    ],
+    "service_timer_panel_mutation": false,
+    "temp_copy_only": true
+  },
+  "decision": {
+    "decision_basis": "A valid ledger canary batch is necessary but not sufficient. General activation remains blocked until deterministic automatic rollback and clean end-to-end runner completion are proven.",
+    "general_production_writer_activation_authorized": false,
+    "new_canary_authorized": false,
+    "optimization_apply_authorized": false,
+    "option_b_authorized": false,
+    "p0_f1_closed": false,
+    "production_writer_active": false,
+    "second_canary_cycle_authorized": false
+  },
+  "next_safe_step": "ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST",
+  "positive_canary_evidence": {
+    "admitted_count": 50,
+    "database_integrity_ok": true,
+    "hot_unchanged_during_recovery": true,
+    "ledger_batch_committed": true,
+    "ledger_rows": 106,
+    "one_canary_cycle_consumed": true,
+    "overflow_count": 56,
+    "panel_bridge_recovered": true,
+    "panel_hash_parity": true,
+    "queue_capacity": 50,
+    "runtime_overrides_removed": true,
+    "source_candidate_count": 106,
+    "timer_active_and_enabled": true,
+    "unobservable_rows": 0
+  },
+  "production_database_after": {
+    "batch_rows": 1,
+    "foreign_key_check_rows": 0,
+    "integrity_check": "ok",
+    "latest_batch": {
+      "admitted_count": 50,
+      "batch_sequence": 1,
+      "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+      "disposition_counts": {
+        "ADMITTED": 50,
+        "OVERFLOW_TRUNCATED": 56
+      },
+      "duplicate_removed_count": 0,
+      "invalid_candidate_count": 0,
+      "ledger_rows": 106,
+      "overflow_count": 56,
+      "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+      "queue_capacity": 50,
+      "replaced_count": 0,
+      "source_candidate_count": 106,
+      "unsafe_filtered_count": 0
+    },
+    "ledger_rows": 106,
+    "quick_check": "ok"
+  },
+  "production_database_before": {
+    "batch_rows": 1,
+    "foreign_key_check_rows": 0,
+    "integrity_check": "ok",
+    "latest_batch": {
+      "admitted_count": 50,
+      "batch_sequence": 1,
+      "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+      "disposition_counts": {
+        "ADMITTED": 50,
+        "OVERFLOW_TRUNCATED": 56
+      },
+      "duplicate_removed_count": 0,
+      "invalid_candidate_count": 0,
+      "ledger_rows": 106,
+      "overflow_count": 56,
+      "policy_version": "LEGACY_GATEWAY_ADMISSION_CONTRACT_V1_FULL_LEDGER_V2",
+      "queue_capacity": 50,
+      "replaced_count": 0,
+      "source_candidate_count": 106,
+      "unsafe_filtered_count": 0
+    },
+    "ledger_rows": 106,
+    "quick_check": "ok"
+  },
+  "production_unchanged": true,
+  "red_team_blockers": [
+    {
+      "code": "AUTOMATIC_ROLLBACK_NOT_OBSERVED",
+      "evidence": "A17 rollback expected true, observed false",
+      "severity": "P0"
+    },
+    {
+      "code": "END_TO_END_RUNNER_SUCCESS_NOT_PROVEN",
+      "evidence": "A17 runner order ends A17_PANEL_BRIDGE_END:2 then HOT_END:1",
+      "severity": "P0"
+    },
+    {
+      "code": "POST_COMMIT_MANUAL_RECOVERY_REQUIRED",
+      "evidence": "Panel bridge convergence required a separate recovery work unit",
+      "severity": "P0"
+    },
+    {
+      "code": "CLEAN_POST_FIX_NATURAL_CYCLE_NOT_PROVEN",
+      "evidence": "No second canary cycle was authorized or executed after the bridge fix",
+      "severity": "P0"
+    }
+  ],
+  "result": "REJECT_GENERAL_PRODUCTION_ACTIVATION_END_TO_END_SUCCESS_AND_AUTOMATIC_ROLLBACK_NOT_PROVEN",
+  "runtime_observation": {
+    "environment": {
+      "canary_mode_enabled": false,
+      "hot_override_enabled": false,
+      "runner_bound": true,
+      "runner_lock_enabled": false,
+      "writer_enabled": false
+    },
+    "runtime_dropin_present": false,
+    "service": {
+      "active": "inactive",
+      "active_rc": 3,
+      "enabled": "static",
+      "enabled_rc": 0
+    },
+    "timer": {
+      "active": "active",
+      "active_rc": 0,
+      "enabled": "enabled",
+      "enabled_rc": 0
+    }
+  },
+  "schema_version": "1.0",
+  "status": "CLOSED_GENERAL_PRODUCTION_ACTIVATION_REJECTED",
+  "timestamp_utc": "2026-07-12T06:20:01.076289+00:00",
+  "work_unit": "ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION"
+}

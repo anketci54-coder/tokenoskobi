@@ -5709,3 +5709,18 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - P0 F1 closed: `false`
 - Next safe step: `ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION`
 
+---
+
+## ERA55A_18 POST-CANARY RED-TEAM PRODUCTION DECISION
+
+- Status: `CLOSED_GENERAL_PRODUCTION_ACTIVATION_REJECTED`
+- Result: `REJECT_GENERAL_PRODUCTION_ACTIVATION_END_TO_END_SUCCESS_AND_AUTOMATIC_ROLLBACK_NOT_PROVEN`
+- Valid canary batch: `true`
+- Automatic rollback observed: `false`
+- End-to-end runner success proven: `false`
+- General production activation authorized: `false`
+- New canary authorized: `false`
+- P0 F1 closed: `false`
+- Option B authorized: `false`
+- Next safe step: `ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST`
+

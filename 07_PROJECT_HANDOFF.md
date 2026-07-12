@@ -24,19 +24,19 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_POST_CANARY_DECISION_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_P0_ROLLBACK_END_TO_END_REMEDIATION_PENDING
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_POST_CANARY_DECISION
-LAST_COMPLETED_SUBSTEP=ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT
-RUNNER_CYCLES_EXECUTED=1
-SECOND_CANARY_CYCLE_EXECUTED=false
+CURRENT_STAGE=ERA55A_P0_ROLLBACK_END_TO_END_REMEDIATION
+LAST_COMPLETED_SUBSTEP=ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION
+VALID_CANARY_BATCH=true
 PRODUCTION_BATCH_ROWS=1
 PRODUCTION_LEDGER_ROWS=106
-SOURCE_CANDIDATES=106
 UNOBSERVABLE_ROWS=0
-PANEL_HOT_HASH_PARITY=true
-RUNTIME_OVERRIDE_ACTIVE=false
-SINGLE_CYCLE_BOUNDED_CANARY_CONSUMED=true
+PANEL_BRIDGE_RECOVERED=true
+AUTOMATIC_ROLLBACK_OBSERVED=false
+END_TO_END_RUNNER_SUCCESS_PROVEN=false
+CLEAN_POST_FIX_NATURAL_CYCLE_PROVEN=false
+NEW_CANARY_AUTHORIZED=false
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
@@ -47,14 +47,12 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT
-LAST_RESULT=OK_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_COMPLETED_POST_COMMIT_BRIDGE_RECOVERY
-LAST_ARTIFACT=data/control/era55a17_p0_single_natural_cycle_bounded_canary_apply_and_post_audit_v1.json
-WORK_UNIT_STATUS=CLOSED_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_OK_WITH_POST_COMMIT_BRIDGE_RECOVERY
-SINGLE_NATURAL_CYCLE_EXECUTED=true
-SECOND_CANARY_CYCLE_EXECUTED=false
-RUNTIME_OVERRIDE_ACTIVE=false
-CURRENT_PROBLEM=GENERAL_PRODUCTION_WRITER_ACTIVATION_NOT_AUTHORIZED
+LAST_COMPLETED=ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION
+LAST_RESULT=REJECT_GENERAL_PRODUCTION_ACTIVATION_END_TO_END_SUCCESS_AND_AUTOMATIC_ROLLBACK_NOT_PROVEN
+LAST_ARTIFACT=data/control/era55a18_p0_post_canary_red_team_production_activation_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_GENERAL_PRODUCTION_ACTIVATION_REJECTED
+PRODUCTION_MUTATION=false
+CURRENT_PROBLEM=AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_NOT_PROVEN
 
 ---
 
@@ -99,34 +97,34 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A17 unless evidence is invalidated.
-- Do not execute another bounded canary cycle.
+- Do not rerun A9-A18 unless evidence is invalidated.
+- Do not execute another production canary.
 - Do not delete the valid A17 batch.
-- Do not re-enable writer, runner lock, or hot-path override.
-- Do not authorize general production without A18.
+- Do not enable the production writer.
 - Do not start Option B or close P0 F1.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Complete accounting: `VALIDATED_PRODUCTION_CANARY`.
-- One-cycle bounded canary: `COMPLETED_AND_CONSUMED`.
-- Post-commit panel bridge: `RECOVERED_NO_SECOND_CYCLE`.
-- General production activation: `BLOCKED_PENDING_A18`.
+- Valid canary ledger batch: `PRESERVED`.
+- General production activation: `REJECTED`.
+- New production canary: `NOT_AUTHORIZED`.
+- Rollback and end-to-end remediation: `TEMP_COPY_ONLY`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION
+NEXT_SAFE_STEP=ERA55A_19_P0_AUTOMATIC_ROLLBACK_AND_END_TO_END_SUCCESS_REMEDIATION_TEMP_COPY_TEST
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A18 is current.
-2. Review the A17 recovery artifact, committed batch, bridge convergence and cleanup state.
-3. Decide general writer activation separately from canary completion.
-4. Do not run another canary.
-5. Keep Option B blocked until the production decision is sealed.
+1. Confirm A19 is current.
+2. Work only on disposable DB and runtime-state copies.
+3. Repair deterministic automatic rollback and expose rollback failures.
+4. Prove a clean isolated runner sequence ending HOT_END:0.
+5. Keep all production flags disabled.
+6. Do not authorize a new production canary from A19 alone.
 
 ---
 
