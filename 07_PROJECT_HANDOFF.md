@@ -24,23 +24,20 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_F1_CLOSED_OPTION_B_DECISION_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_OPTION_B_TEMP_COPY_BENCHMARK_READY
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_F1_CLOSED_OPTION_B_DECISION_PENDING
-LAST_COMPLETED_SUBSTEP=ERA55A_24R_P0_NATURAL_CYCLE_EVIDENCE_RECOVERY_AND_P0_F1_CLOSURE
+CURRENT_STAGE=ERA55A_OPTION_B_TEMP_COPY_BENCHMARK_READY
+LAST_COMPLETED_SUBSTEP=ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
 NATURAL_TIMER_CYCLES_OBSERVED=12
-PRODUCTION_BATCH_ROWS=3
-PRODUCTION_LEDGER_ROWS=321
-ORIGINAL_BATCHES_PRESERVED=true
-RUNNER_HOT_END_ZERO=true
-COMPLETE_SOURCE_ACCOUNTING=true
-UNOBSERVABLE_ROWS=0
-PANEL_HOT_HASH_PARITY=true
-ROLLBACK_GUARD_ARMED_FOR_EVERY_CYCLE=true
+PRODUCTION_BATCH_ROWS=4
+PRODUCTION_LEDGER_ROWS=430
+PRODUCTION_JOURNAL_MODE=delete
 PRODUCTION_LEDGER_WRITER_ACTIVE=true
 ADDITIONAL_CANARY_AUTHORIZED=false
 P0_F1_CLOSED=true
-OPTION_B_READINESS_DECISION_AUTHORIZED=true
+OPTION_B_READINESS_CONFIRMED=true
+OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED=true
+OPTION_B_PRODUCTION_APPLY_AUTHORIZED=false
 OPTION_B_AUTHORIZED=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
@@ -48,12 +45,12 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_24R_P0_NATURAL_CYCLE_EVIDENCE_RECOVERY_AND_P0_F1_CLOSURE
-LAST_RESULT=OK_NATURAL_TIMER_EVIDENCE_RECOVERED_P0_F1_CLOSED
-LAST_ARTIFACT=data/control/era55a24r_p0_natural_cycle_evidence_recovery_and_p0_f1_closure_v1.json
-WORK_UNIT_STATUS=CLOSED_NATURAL_CYCLE_EVIDENCE_RECOVERED_P0_F1_CLOSED
+LAST_COMPLETED=ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
+LAST_RESULT=OK_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED
+LAST_ARTIFACT=data/control/era55a25_p1_option_b_readiness_and_authorization_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED
 PRODUCTION_MUTATION=false
-CURRENT_PROBLEM=OPTION_B_READINESS_AND_AUTHORIZATION_DECISION_PENDING
+CURRENT_PROBLEM=OPTION_B_DELETE_VS_WAL_HYPOTHESIS_UNPROVEN
 
 ---
 
@@ -98,11 +95,12 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A24R unless evidence is invalidated.
+- Do not rerun A9-A25 unless evidence is invalidated.
 - Do not execute another canary.
 - Do not remove or edit the A23 persistent integration without a rollback plan.
-- Do not delete any valid committed production batch.
-- Do not apply Option B inside A24R.
+- Do not delete or mutate any valid committed production batch.
+- Do not change the production database journal mode in A26.
+- Do not treat temp-copy benchmark authorization as production apply authorization.
 
 ---
 
@@ -111,20 +109,21 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 - Guarded production writer: `ACTIVE`.
 - P0 F1: `CLOSED`.
 - Additional canary: `BLOCKED`.
-- Option B readiness decision: `AUTHORIZED`.
-- Option B apply: `BLOCKED`.
+- Option B temp-copy benchmark: `AUTHORIZED`.
+- Option B production apply: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
+NEXT_SAFE_STEP=ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A25 is current and A24R closure evidence remains valid.
-2. Evaluate Option B scope, measurable benefit, safety, economy and rollback boundaries.
-3. Do not apply Option B during the readiness decision.
-4. Keep the guarded production writer active and unchanged.
-5. Require explicit human authorization for any Option B apply step.
+1. Confirm A26 is current and A25 decision evidence remains valid.
+2. Create independent immutable/disposable copies for DELETE-current and WAL-candidate variants.
+3. Measure runtime, stage timing, commit proxy, write amplification, reader/writer blocking, integrity, event count and UID hash.
+4. Do not modify the production database, service, timer, panel or guarded writer integration.
+5. Do not authorize production WAL/apply unless correctness and recovery are identical and benefit is material.
+6. Require a separate explicit human decision after the benchmark.
 
 ---
 

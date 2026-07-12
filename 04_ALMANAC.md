@@ -5830,3 +5830,18 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Option B authorized: `false`
 - Next safe step: `ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION`
 
+---
+
+## ERA55A_25 OPTION B READINESS AND AUTHORIZATION DECISION
+
+- Status: `CLOSED_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED`
+- Result: `OK_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED`
+- Option B: `P1_DELETE_VS_WAL_DURABILITY_LOCK_WRITE_AMPLIFICATION_BENCHMARK`
+- Readiness confirmed: `true`
+- Temp-copy benchmark authorized: `true`
+- Production apply authorized: `false`
+- Production mutation: `false`
+- Production writer active: `true`
+- P0 F1 closed: `true`
+- Next safe step: `ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK`
+

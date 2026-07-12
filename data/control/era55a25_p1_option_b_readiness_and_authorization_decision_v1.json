@@ -1,0 +1,137 @@
+{
+  "authorization": {
+    "additional_canary_authorized": false,
+    "human_authorization_required_for_next_execution": true,
+    "optimization_apply_authorized": false,
+    "option_b_authorized": false,
+    "option_b_production_apply_authorized": false,
+    "option_b_readiness_confirmed": true,
+    "option_b_temp_copy_benchmark_authorized": true,
+    "p0_f1_closed": true,
+    "production_database_mutation_authorized": false,
+    "production_service_timer_mutation_authorized": false,
+    "production_writer_active": true
+  },
+  "economy": {
+    "available_bytes": 234764976128,
+    "measure_before_spend": true,
+    "minimum_required_bytes": 268435456,
+    "network_api_required": false,
+    "new_server_required": false,
+    "paid_provider_required": false,
+    "production_downtime_required": false
+  },
+  "next_safe_step": "ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK",
+  "option_b_definition": {
+    "authorized_scope": "IMMUTABLE_OR_DISPOSABLE_TEMP_COPY_ONLY",
+    "baseline_precise_runner_ms": 939.311,
+    "decision_rule": "WAL may proceed only if correctness and recovery are identical and measured benefit is material.",
+    "epistemic_status": "UNPROVEN_HYPOTHESIS",
+    "finding": "F2_DELETE_VS_WAL_IO_HYPOTHESIS",
+    "hypothesis": "SQLite DELETE journal mode may contribute materially to runtime IO and lock cost.",
+    "id": "P1_DELETE_VS_WAL_DURABILITY_LOCK_WRITE_AMPLIFICATION_BENCHMARK",
+    "measurements": [
+      "total_runtime_ns",
+      "stage_runtime_ns",
+      "fsync_or_commit_latency_proxy",
+      "db_size_delta",
+      "wal_or_journal_size",
+      "write_amplification_bytes",
+      "reader_block_ms",
+      "writer_lock_ms",
+      "integrity_check",
+      "quick_check",
+      "event_count",
+      "uid_set_hash"
+    ],
+    "priority": "P1",
+    "production_journal_mode_at_decision": "delete",
+    "production_synchronous_at_decision": 2,
+    "variants": [
+      "DELETE_CURRENT",
+      "WAL_CANDIDATE"
+    ]
+  },
+  "production_snapshot": {
+    "batch_rows": 4,
+    "batches": [
+      {
+        "batch_sequence": 1,
+        "batch_uid": "batch_58401c9613b091aa251a130383ced8a5",
+        "source_candidate_count": 106,
+        "status": "COMMITTED"
+      },
+      {
+        "batch_sequence": 2,
+        "batch_uid": "batch_5b348d2eab80b2929c5ef5b66e407e46",
+        "source_candidate_count": 107,
+        "status": "COMMITTED"
+      },
+      {
+        "batch_sequence": 3,
+        "batch_uid": "batch_ca06bfed9c91f15904f14b73741789c3",
+        "source_candidate_count": 108,
+        "status": "COMMITTED"
+      },
+      {
+        "batch_sequence": 4,
+        "batch_uid": "batch_e7d2ad4503c9c3b8bcd096c4972e3351",
+        "source_candidate_count": 109,
+        "status": "COMMITTED"
+      }
+    ],
+    "foreign_key_check_rows": 0,
+    "integrity_check": "ok",
+    "journal_mode": "delete",
+    "ledger_rows": 430,
+    "query_only": true,
+    "quick_check": "ok",
+    "sha256": "79e844432636e86a1d85e2a7be53422ac4355f46279b4e8f90c6507871d1db2f",
+    "size_bytes": 6406144,
+    "synchronous": 2
+  },
+  "readiness_gates": {
+    "a24r_p0_f1_closed": true,
+    "complete_source_accounting": true,
+    "correctness_and_recovery_equivalence_required": true,
+    "delete_vs_wal_temp_copy_matrix_present": true,
+    "human_authorization_required_for_execution": true,
+    "measurable_benefit_rule_present": true,
+    "natural_timer_evidence_valid": true,
+    "option_b_hypothesis_identified": true,
+    "original_committed_batches_preserved": true,
+    "panel_hash_parity": true,
+    "persistent_guarded_environment_unchanged": true,
+    "production_apply_remains_blocked": true,
+    "production_database_integrity_clean": true,
+    "production_writer_active": true,
+    "rollback_guard_armed_not_triggered": true,
+    "temp_copy_disk_capacity_sufficient": true,
+    "zero_unobservable_rows": true
+  },
+  "result": "OK_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED",
+  "runtime_snapshot": {
+    "bridge_hash_match_all": true,
+    "committed_natural_cycles": 1,
+    "hot_panel_hash_match": true,
+    "idempotent_replay_cycles": 11,
+    "latest_writer_status": "IDEMPOTENT_REPLAY_NOOP",
+    "natural_timer_cycles_observed": 12,
+    "rollback_guard_armed": true,
+    "rollback_guard_triggered": false,
+    "service_exec_main_status": "0",
+    "service_result": "success",
+    "timer_active": "active",
+    "timer_enabled": "enabled"
+  },
+  "schema_version": "1.0",
+  "source_artifacts": {
+    "baseline_and_red_team_package": "data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json",
+    "gemini_findings_register": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
+    "guarded_writer_activation": "data/control/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.json",
+    "p0_f1_closure": "data/control/era55a24r_p0_natural_cycle_evidence_recovery_and_p0_f1_closure_v1.json"
+  },
+  "status": "CLOSED_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED",
+  "timestamp_utc": "2026-07-12T19:13:59.075049+00:00",
+  "work_unit": "ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION"
+}

@@ -16,7 +16,7 @@ Bu dosyada geçmiş current-state kopyaları, arşiv envanteri, uzun dosya liste
 
 ```text
 PROJECT=TOKENOSKOBI / COINOSKOBI
-PROJECT_STATUS=ACTIVE_ERA55_P0_F1_CLOSED_OPTION_B_DECISION_PENDING
+PROJECT_STATUS=ACTIVE_ERA55_OPTION_B_TEMP_COPY_BENCHMARK_READY
 CURRENT_VERSION_LINE=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_STATE_AUTHORITY=PROJECT_RUNTIME.json
 CURRENT_HUMAN_SUMMARY=06_PROJECT_MASTER_STATE.md
@@ -32,38 +32,35 @@ BOOT_HEALTH=100/100
 ```text
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_P0_F1_CLOSED_OPTION_B_DECISION_PENDING
-LAST_COMPLETED_SUBSTEP=ERA55A_24R_P0_NATURAL_CYCLE_EVIDENCE_RECOVERY_AND_P0_F1_CLOSURE
+CURRENT_STAGE=ERA55A_OPTION_B_TEMP_COPY_BENCHMARK_READY
+LAST_COMPLETED_SUBSTEP=ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
 NATURAL_TIMER_CYCLES_OBSERVED=12
-PRODUCTION_BATCH_ROWS=3
-PRODUCTION_LEDGER_ROWS=321
-ORIGINAL_BATCHES_PRESERVED=true
-RUNNER_HOT_END_ZERO=true
-COMPLETE_SOURCE_ACCOUNTING=true
-UNOBSERVABLE_ROWS=0
-PANEL_HOT_HASH_PARITY=true
-ROLLBACK_GUARD_ARMED_FOR_EVERY_CYCLE=true
+PRODUCTION_BATCH_ROWS=4
+PRODUCTION_LEDGER_ROWS=430
+PRODUCTION_JOURNAL_MODE=delete
 PRODUCTION_LEDGER_WRITER_ACTIVE=true
 P0_F1_CLOSED=true
-OPTION_B_READINESS_DECISION_AUTHORIZED=true
+OPTION_B_READINESS_CONFIRMED=true
+OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED=true
+OPTION_B_PRODUCTION_APPLY_AUTHORIZED=false
 OPTION_B_AUTHORIZED=false
 ```
 
-P0 F1 is closed through recovered natural-cycle evidence. Option B remains blocked pending a separate decision.
+Option B is the P1 DELETE-vs-WAL hypothesis test. Only an immutable or disposable temp-copy benchmark is authorized; production WAL/apply remains blocked.
 
 ---
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_24R_P0_NATURAL_CYCLE_EVIDENCE_RECOVERY_AND_P0_F1_CLOSURE
-LAST_RESULT=OK_NATURAL_TIMER_EVIDENCE_RECOVERED_P0_F1_CLOSED
-LAST_ARTIFACT=data/control/era55a24r_p0_natural_cycle_evidence_recovery_and_p0_f1_closure_v1.json
-WORK_UNIT_STATUS=CLOSED_NATURAL_CYCLE_EVIDENCE_RECOVERED_P0_F1_CLOSED
+LAST_COMPLETED=ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
+LAST_RESULT=OK_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED
+LAST_ARTIFACT=data/control/era55a25_p1_option_b_readiness_and_authorization_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED
 PRODUCTION_MUTATION=false
 ```
 
-NEXT_SAFE_STEP=ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
+NEXT_SAFE_STEP=ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK
 
 ---
 
@@ -180,13 +177,12 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- P0 F1 is closed and the guarded production ledger writer is active.
-- Strict DB-to-file cross-resource atomicity is not proven; replay recovery passed on temp-copy.
-- Option B apply remains blocked pending the separate A25 readiness and authorization decision.
-- DELETE-vs-WAL remains an unproven hypothesis.
-- Process-kill recovery remains partial.
+- P0 F1 is closed and the guarded production writer remains active.
+- Option B remains an unproven DELETE-vs-WAL performance and lock-cost hypothesis.
+- A temp-copy benchmark is authorized; production WAL/apply is not authorized.
+- Correctness, durability, recovery, event count, UID set and panel equivalence must not regress.
+- Process-kill recovery remains partial and is outside the A26 benchmark unless separately authorized.
 - Stage timing and exact panel latency remain incomplete.
-- A24R introduced no additional production mutation; the guarded production writer remains active and unchanged.
 - Runtime risk is minimized, never zero.
 - Git HEAD must be read dynamically.
 
@@ -195,10 +191,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_25_P0_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
+NEXT_SAFE_STEP=ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK
 ```
 
-Evaluate Option B measurable benefit, speed, power, security, economy, maintenance burden, rollback boundary and runtime risk. Do not apply Option B during A25.
+Run an immutable/disposable temp-copy DELETE-current versus WAL-candidate benchmark. Do not change the production database, service, timer, panel or guarded writer integration. Production apply requires a separate decision after measured equivalence and material benefit are proven.
 
 ---
 
