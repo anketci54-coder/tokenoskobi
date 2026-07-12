@@ -24,15 +24,19 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ACTIVE_ERA55_P0_SINGLE_CYCLE_CANARY_AUTHORIZED
+PROJECT_STATUS=ACTIVE_ERA55_P0_POST_CANARY_DECISION_PENDING
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
-CURRENT_STAGE=ERA55A_P0_SINGLE_CYCLE_CANARY
-LAST_COMPLETED_SUBSTEP=ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION
-FRESH_SOURCE_CANDIDATES=106
+CURRENT_STAGE=ERA55A_P0_POST_CANARY_DECISION
+LAST_COMPLETED_SUBSTEP=ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT
+RUNNER_CYCLES_EXECUTED=1
+SECOND_CANARY_CYCLE_EXECUTED=false
+PRODUCTION_BATCH_ROWS=1
+PRODUCTION_LEDGER_ROWS=106
+SOURCE_CANDIDATES=106
 UNOBSERVABLE_ROWS=0
-EXACT_LEGACY_OBJECT_PARITY=true
-EXACT_LEGACY_UID_ORDER_PARITY=true
-SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED=true
+PANEL_HOT_HASH_PARITY=true
+RUNTIME_OVERRIDE_ACTIVE=false
+SINGLE_CYCLE_BOUNDED_CANARY_CONSUMED=true
 GENERAL_PRODUCTION_WRITER_ACTIVATION_AUTHORIZED=false
 PRODUCTION_LEDGER_WRITER_ACTIVE=false
 P0_F1_CLOSED=false
@@ -43,12 +47,14 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=ERA55A_16_P0_QUEUE_PARITY_POST_TEST_AUDIT_AND_SINGLE_CYCLE_CANARY_DECISION
-LAST_RESULT=OK_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_AUTHORIZED
-LAST_ARTIFACT=data/control/era55a16_p0_queue_parity_post_test_audit_and_single_cycle_canary_decision_v1.json
-WORK_UNIT_STATUS=CLOSED_SINGLE_CYCLE_BOUNDED_CANARY_AUTHORIZED
-LIVE_RUNTIME_DB_SERVICE_TIMER_PANEL_MUTATION=false
-CURRENT_PROBLEM=SINGLE_CYCLE_BOUNDED_CANARY_NOT_YET_EXECUTED
+LAST_COMPLETED=ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT
+LAST_RESULT=OK_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_COMPLETED_POST_COMMIT_BRIDGE_RECOVERY
+LAST_ARTIFACT=data/control/era55a17_p0_single_natural_cycle_bounded_canary_apply_and_post_audit_v1.json
+WORK_UNIT_STATUS=CLOSED_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_OK_WITH_POST_COMMIT_BRIDGE_RECOVERY
+SINGLE_NATURAL_CYCLE_EXECUTED=true
+SECOND_CANARY_CYCLE_EXECUTED=false
+RUNTIME_OVERRIDE_ACTIVE=false
+CURRENT_PROBLEM=GENERAL_PRODUCTION_WRITER_ACTIVATION_NOT_AUTHORIZED
 
 ---
 
@@ -93,36 +99,34 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 06 DO NOT REOPEN OR REPEAT
 
-- Do not rerun A9-A16 unless evidence is invalidated.
-- Do not execute more than one full runner canary cycle.
-- Do not leave writer, lock, or hot-path override enabled after A17.
-- Do not authorize general production or close P0 F1 from the decision alone.
-- Do not start Option B.
+- Do not rerun A9-A17 unless evidence is invalidated.
+- Do not execute another bounded canary cycle.
+- Do not delete the valid A17 batch.
+- Do not re-enable writer, runner lock, or hot-path override.
+- Do not authorize general production without A18.
+- Do not start Option B or close P0 F1.
 
 ---
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Complete accounting: `VALIDATED`.
-- Exact legacy parity: `VALIDATED`.
-- Single-cycle bounded canary: `AUTHORIZED_NOT_EXECUTED`.
-- General production activation: `BLOCKED`.
+- Complete accounting: `VALIDATED_PRODUCTION_CANARY`.
+- One-cycle bounded canary: `COMPLETED_AND_CONSUMED`.
+- Post-commit panel bridge: `RECOVERED_NO_SECOND_CYCLE`.
+- General production activation: `BLOCKED_PENDING_A18`.
 - Option B: `BLOCKED`.
 
-NEXT_SAFE_STEP=ERA55A_17_P0_SINGLE_NATURAL_CYCLE_BOUNDED_CANARY_APPLY_AND_POST_AUDIT
+NEXT_SAFE_STEP=ERA55A_18_P0_POST_CANARY_RED_TEAM_PRODUCTION_ACTIVATION_DECISION
 
 ---
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A17 and the one-cycle authorization.
-2. Capture timer/service state and create backups.
-3. Pause the timer and require the service to be inactive.
-4. Install only a runtime systemd drop-in under /run.
-5. Enable writer, runner lock and one-shot hot wrapper for one full service cycle.
-6. Remove the drop-in immediately and restore timer state.
-7. Post-audit DB, output parity, service/timer state and feature flags.
-8. Roll back on any failed gate; do not enable general production.
+1. Confirm A18 is current.
+2. Review the A17 recovery artifact, committed batch, bridge convergence and cleanup state.
+3. Decide general writer activation separately from canary completion.
+4. Do not run another canary.
+5. Keep Option B blocked until the production decision is sealed.
 
 ---
 
