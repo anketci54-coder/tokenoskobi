@@ -136,7 +136,7 @@ Current major line:
 - Parent line: `ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME`
 - Status: `CLOSED`
 - Human authorization recorded: `true`
-- Active baseline stage: `ERA55A_OPTION_B_DEFERRED_FINAL_CLOSURE_READINESS_PENDING`
+- Active baseline stage: `ERA55_POST_CLOSE_CLEANUP_HARDENED`
 - Last completed substep: `ERA55A_27_P1_WAL_BOUNDED_APPLY_READINESS_ROLLBACK_AND_AUTHORIZATION_DECISION`
 - Next safe step: `ERA55A_28_ERA55_FINAL_CLOSURE_READINESS_AND_CANONICAL_ALIGNMENT_DECISION`
 - Gemini Red Team review required before optimization apply: `true`

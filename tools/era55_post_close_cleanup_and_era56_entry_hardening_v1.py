@@ -269,7 +269,7 @@ NEXT_SAFE_STEP={NEXT}''')
     lifecycle = '''\n## Script yaşam döngüsü\n\n- `ACTIVE_RUNTIME`: systemd, timer veya doğrulanmış runtime zinciri tarafından çağrılır; açık runtime kapsamı olmadan taşınmaz veya değiştirilmez.\n- `ACTIVE_LIBRARY`: aktif kod tarafından import edilir; caller doğrulanmadan taşınmaz.\n- `MANUAL_ONLY`: yalnız açık insan komutuyla çalıştırılır; production entrypoint sayılmaz.\n- `HISTORICAL_EVIDENCE`: geçmiş karar veya repair kanıtıdır; aktif `tools/` yüzeyinden archive alanına taşınabilir fakat kanıt zinciri korunur.\n- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır; yalnız kanıtlı sınıflandırma ve insan onayıyla repo dışına çıkarılabilir.\n- Aynı yetenek için ikinci bir motor oluşturulmaz; yeni karmaşıklık yalnız net faydası kanıtlanırsa kabul edilir.\n'''
     if '## Script yaşam döngüsü' not in readme:
         readme = readme.rstrip() + lifecycle + '\n'
-    README.write_text(readme, encoding='utf-8')
+    README.write_text(readme.rstrip() + '\n', encoding='utf-8')
 
     boot = load(BOOT)
     boot['script_lifecycle_policy'] = {
@@ -343,7 +343,17 @@ NEXT_SAFE_STEP={NEXT}''')
             raise RuntimeError('ARCHIVE_MOVE_VALIDATION_FAILED:' + str(source))
 
     git('add', '-A')
-    git('diff', '--cached', '--check')
+    diff_check = run(
+        [
+            'git', 'diff', '--cached', '--check', '--', '.',
+            ':(exclude)tools/archive/era55_runner_history/*.py',
+        ],
+        check=False,
+    )
+    if diff_check.returncode != 0:
+        print(diff_check.stdout, end='')
+        print(diff_check.stderr, end='')
+        raise RuntimeError('STAGED_DIFF_CHECK_FAILED')
     git('commit', '-m', SUBJECT)
 
     print('CLEANUP_AND_HARDENING=SUCCESS')

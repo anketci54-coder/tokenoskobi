@@ -31,3 +31,11 @@ Canonical navigation için `01_INDEX.md` kullanılır.
 - GitHub incelemesi önce; server yalnız local/runtime kanıtı gerektiğinde kullanılır.
 - `tk machine` güncel canonical akışta çalıştırılmaz.
 - Manifestoya eklenecek onaylı bir kural mevcut kuralla çakışıyorsa eski kuralın yerinde onun yerine geçer; manifestoda bulunmayan yeni kural en sona eklenir; mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirme korunur.
+## Script yaşam döngüsü
+
+- `ACTIVE_RUNTIME`: systemd, timer veya doğrulanmış runtime zinciri tarafından çağrılır; açık runtime kapsamı olmadan taşınmaz veya değiştirilmez.
+- `ACTIVE_LIBRARY`: aktif kod tarafından import edilir; caller doğrulanmadan taşınmaz.
+- `MANUAL_ONLY`: yalnız açık insan komutuyla çalıştırılır; production entrypoint sayılmaz.
+- `HISTORICAL_EVIDENCE`: geçmiş karar veya repair kanıtıdır; aktif `tools/` yüzeyinden archive alanına taşınabilir fakat kanıt zinciri korunur.
+- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır; yalnız kanıtlı sınıflandırma ve insan onayıyla repo dışına çıkarılabilir.
+- Aynı yetenek için ikinci bir motor oluşturulmaz; yeni karmaşıklık yalnız net faydası kanıtlanırsa kabul edilir.
