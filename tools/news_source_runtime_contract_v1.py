@@ -51,6 +51,13 @@ def resolve(db_path: Path, contract_path: Path) -> dict:
     if policy_table != "news_source_fetch_policy_v1":
         raise RuntimeError("UNSUPPORTED_FETCH_POLICY")
 
+    contract_truth = contract.get("current_truth") or {}
+    configured_live = bool(contract_truth.get("live_fetch_authorized"))
+    configured_eligible = int(contract_truth.get("runtime_eligible_source_count") or 0)
+
+    if configured_live or configured_eligible != 0:
+        raise RuntimeError("CONTRACT_LIVE_TRUTH_NOT_FAIL_CLOSED")
+
     con = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True, timeout=10)
     con.row_factory = sqlite3.Row
     try:
@@ -100,7 +107,9 @@ def resolve(db_path: Path, contract_path: Path) -> dict:
         con.close()
 
     sources = []
+    policy_authorized = []
     eligible = []
+
     for row in rows:
         status = str(row["status"] or "").strip().upper()
         method = str(row["fetch_method"] or "").strip().upper()
@@ -108,19 +117,22 @@ def resolve(db_path: Path, contract_path: Path) -> dict:
         fetch_enabled = int(row["fetch_enabled"] or 0) == 1
         budget = int(row["daily_call_budget"] or 0)
         approval_required = int(row["requires_approval_for_live_fetch"] or 0) == 1
+        approval_satisfied = (not approval_required) or configured_live
         runtime_enabled = status in ACTIVE_STATUSES
         endpoint_valid = valid_http_url(url)
         adapter_supported = method in SUPPORTED_METHODS
-        is_eligible = all(
+
+        is_policy_authorized = all(
             (
                 runtime_enabled,
                 fetch_enabled,
                 budget > 0,
-                not approval_required,
+                approval_satisfied,
                 endpoint_valid,
-                adapter_supported,
             )
         )
+        is_eligible = is_policy_authorized and adapter_supported
+
         item = {
             "source_uid": str(row["source_uid"]),
             "source_name": str(row["source_name"] or ""),
@@ -129,20 +141,17 @@ def resolve(db_path: Path, contract_path: Path) -> dict:
             "fetch_enabled": fetch_enabled,
             "daily_call_budget": budget,
             "approval_required": approval_required,
+            "approval_satisfied": approval_satisfied,
             "endpoint_valid": endpoint_valid,
             "adapter_supported": adapter_supported,
+            "policy_authorized": is_policy_authorized,
             "runtime_eligible": is_eligible,
         }
         sources.append(item)
+        if is_policy_authorized:
+            policy_authorized.append(item)
         if is_eligible:
             eligible.append(item)
-
-    contract_truth = contract.get("current_truth") or {}
-    configured_live = bool(contract_truth.get("live_fetch_authorized"))
-    configured_eligible = int(contract_truth.get("runtime_eligible_source_count") or 0)
-
-    if configured_live or configured_eligible != 0:
-        raise RuntimeError("CONTRACT_LIVE_TRUTH_NOT_FAIL_CLOSED")
 
     return {
         "schema": "news_source_runtime_contract_result_v1",
@@ -150,6 +159,7 @@ def resolve(db_path: Path, contract_path: Path) -> dict:
         "database": str(db_path),
         "contract": str(contract_path),
         "registered_source_count": len(sources),
+        "policy_authorized_source_count": len(policy_authorized),
         "runtime_eligible_source_count": len(eligible),
         "live_fetch_authorized": configured_live,
         "network_call": False,
@@ -196,15 +206,22 @@ def main() -> int:
         )
         return 77
 
+    authorized = int(result["policy_authorized_source_count"])
     eligible = int(result["runtime_eligible_source_count"])
-    if eligible == 0:
+
+    if authorized == 0:
         result["status"] = "SUCCESS_NOOP_FAIL_CLOSED"
         print(json.dumps(result, ensure_ascii=False, sort_keys=True), flush=True)
         return EXIT_NO_AUTHORIZED_SOURCES
 
-    result["status"] = "AUTHORIZED_SOURCE_ADAPTER_REQUIRED_FAIL_CLOSED"
+    if eligible == 0:
+        result["status"] = "AUTHORIZED_SOURCE_ADAPTER_REQUIRED_FAIL_CLOSED"
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True), flush=True)
+        return EXIT_ADAPTER_REQUIRED
+
+    result["status"] = "SOURCE_SELECTION_READY"
     print(json.dumps(result, ensure_ascii=False, sort_keys=True), flush=True)
-    return EXIT_ADAPTER_REQUIRED
+    return 0
 
 
 if __name__ == "__main__":
