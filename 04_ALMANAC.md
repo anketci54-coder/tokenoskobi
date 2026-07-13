@@ -6030,3 +6030,15 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Runtime binding authorized: `false`
 - Production mutation: `false`
 - Next safe step: `ERA56J_GLOBAL_CACHE_ADDITIONAL_NATURAL_CYCLE_EVIDENCE_DECISION`
+
+---
+
+## ERA56J GLOBAL CACHE ADDITIONAL NATURAL CYCLE EVIDENCE DECISION
+
+- Status: `CLOSED_ADDITIONAL_CANARY_REJECTED`
+- Result: `OK_ADDITIONAL_CANARY_REJECTED_RUNTIME_BINDING_DEFERRED`
+- Decision: `REJECT_ADDITIONAL_CANARY`
+- Additional canary authorized: `false`
+- Runtime binding authorized: `false`
+- Production mutation: `false`
+- Next safe step: `ERA56K_GLOBAL_CACHE_FINAL_CLOSURE_READINESS_DECISION`
