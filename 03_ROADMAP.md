@@ -130,8 +130,8 @@ Current direction:
 - Canonical drift sync is closed.
 - Active/archive/evidence classification is next.
 - Runner contract review follows classification.
-- Policy/authority reachability proof follows runner review.
-- Final isolated stress verification remains the ERA57 gate.
+- Policy/authority reachability is closed with scoped fail-closed enforcement.
+- Final isolated stress verification is the remaining ERA57 gate.
 
 Current state authority:
 
@@ -290,4 +290,4 @@ Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi v
 - Stress final gate: `NOT_CLOSED`.
 - ERA57 opened: `false`.
 - Active line: `GENERAL_RUNTIME_HARDENING`.
-- Next safe step: `GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY`.
+- Next safe step: `GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE`.

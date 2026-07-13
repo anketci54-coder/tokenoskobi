@@ -38,13 +38,14 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_C_GENERAL_RUNNER_CONTRACT
-LAST_RESULT=OK_GENERAL_RUNNER_CONTRACT_FAIL_CLOSED
-LAST_ARTIFACT=data/control/general_runtime_hardening_c_general_runner_contract_v1.json
-SOURCE_SELECTION=SUCCESS_NOOP_FAIL_CLOSED
-PRODUCTION_DB_MUTATION=false
-SERVICE_TIMER_CHANGE=false
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY
+LAST_RESULT=OK_POLICY_AUTHORITY_REACHABLE_FAIL_CLOSED
+LAST_ARTIFACT=data/control/general_runtime_hardening_d_policy_authority_reachability_v1.json
+POLICY_AUTHORITY_REACHABLE=true
+RUNTIME_GATE=core/runtime_policy_authority_gate.py
+BROAD_AUTHORITY_EXPANSION=false
 ERA57_OPENED=false
+PRODUCTION_MUTATION=false
 
 ## 04 CURRENT CANONICAL DOCUMENT CONDITION
 
@@ -98,13 +99,14 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Trace the live wrapper to policy and authority enforcement.
-- Prove reachable enforcement, not file existence.
+- Run only the reusable isolated stress harness on disposable copies.
+- Verify policy/authority positive and negative paths under stress.
+- Do not run production chaos tests.
 - Do not enable live source fetch.
-- Do not start ERA57.
-- Do not change production DB, service, timer or panel.
+- Do not broaden runtime stage grants.
+- ERA57 remains closed.
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY
+NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE
 
 ## 08 NEXT SESSION EXECUTION RULE
 

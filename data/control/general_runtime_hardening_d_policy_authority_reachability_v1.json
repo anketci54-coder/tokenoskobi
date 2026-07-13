@@ -1,0 +1,550 @@
+{
+  "authority_engine": "authority_state_v1",
+  "broad_authority_expansion": false,
+  "era57_opened": false,
+  "grant_registry": "config/runtime_stage_grants_v1.json",
+  "live_fetch_change": false,
+  "negative_tests": {
+    "live_fetch_authority_expansion": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:SOURCE_CONTRACT_RESOLUTION:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:SOURCE_CONTRACT_RESOLUTION:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "DENY",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": true,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service",
+        "stage_effect": "read_only",
+        "stage_mutating": false
+      },
+      "ok": false,
+      "reason_codes": [
+        "CANONICAL_REQUIREMENT_MISMATCH:canonical_runtime_pointer.live_source_fetch_authorized"
+      ],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "SOURCE_CONTRACT_RESOLUTION"
+    },
+    "missing_required_environment": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:LEDGER_RECOVERY:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:LEDGER_RECOVERY:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "DENY",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "environment:TOKENOSKOBI_A23_GUARDED_PRODUCTION": null,
+        "environment:TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+        "environment:TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py",
+        "environment:TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service",
+        "stage_effect": "guarded_recovery_file_write",
+        "stage_mutating": true
+      },
+      "ok": false,
+      "reason_codes": [
+        "RUNTIME_ENVIRONMENT_MISMATCH:TOKENOSKOBI_A23_GUARDED_PRODUCTION"
+      ],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "LEDGER_RECOVERY"
+    },
+    "unknown_stage": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:UNKNOWN_STAGE:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:UNKNOWN_STAGE:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "DENY",
+      "fail_closed": true,
+      "matched": {
+        "grant_id": "news_radar_refresh_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service"
+      },
+      "ok": false,
+      "reason_codes": [
+        "RUNTIME_STAGE_NOT_GRANTED"
+      ],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "UNKNOWN_STAGE"
+    },
+    "wrong_service_identity": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:SOURCE_CONTRACT_RESOLUTION:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:SOURCE_CONTRACT_RESOLUTION:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "DENY",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "unauthorized.service",
+        "stage_effect": "read_only",
+        "stage_mutating": false
+      },
+      "ok": false,
+      "reason_codes": [
+        "RUNTIME_SERVICE_IDENTITY_MISMATCH"
+      ],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "SOURCE_CONTRACT_RESOLUTION"
+    }
+  },
+  "next_safe_step": "GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE",
+  "policy_engine": "project_policy_registry_v1",
+  "production_db_mutation": false,
+  "production_db_sha256_after": "b6ea7cbcdaff19c4acd30595a0d00cbb5c75af94d9a513dbc82878dfbbcba9be",
+  "production_db_sha256_before": "b6ea7cbcdaff19c4acd30595a0d00cbb5c75af94d9a513dbc82878dfbbcba9be",
+  "result": "OK_POLICY_AUTHORITY_REACHABLE_FAIL_CLOSED",
+  "runtime_gate": "core/runtime_policy_authority_gate.py",
+  "schema": "general_runtime_hardening_d_policy_authority_reachability_v1",
+  "service_execution": false,
+  "service_timer_change": false,
+  "stage_decisions": {
+    "DERIVED_DB_WRITE": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:DERIVED_DB_WRITE:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:DERIVED_DB_WRITE:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "ALLOW",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "environment:TOKENOSKOBI_A23_GUARDED_PRODUCTION": "1",
+        "environment:TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+        "environment:TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py",
+        "environment:TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service",
+        "stage_effect": "guarded_derived_db_write",
+        "stage_mutating": true
+      },
+      "ok": true,
+      "reason_codes": [],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "DERIVED_DB_WRITE"
+    },
+    "HOT_PUBLISH": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:HOT_PUBLISH:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:HOT_PUBLISH:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "ALLOW",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "environment:TOKENOSKOBI_A23_GUARDED_PRODUCTION": "1",
+        "environment:TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+        "environment:TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py",
+        "environment:TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service",
+        "stage_effect": "guarded_hot_and_panel_publish",
+        "stage_mutating": true
+      },
+      "ok": true,
+      "reason_codes": [],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "HOT_PUBLISH"
+    },
+    "LEDGER_RECOVERY": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:LEDGER_RECOVERY:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:LEDGER_RECOVERY:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "ALLOW",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "environment:TOKENOSKOBI_A23_GUARDED_PRODUCTION": "1",
+        "environment:TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+        "environment:TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py",
+        "environment:TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service",
+        "stage_effect": "guarded_recovery_file_write",
+        "stage_mutating": true
+      },
+      "ok": true,
+      "reason_codes": [],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "LEDGER_RECOVERY"
+    },
+    "SOURCE_CONTRACT_RESOLUTION": {
+      "baseline_authority": {
+        "audit": {
+          "deny_by_default": true,
+          "state_schema_version": "authority_state_v1"
+        },
+        "decision": "ALLOW",
+        "engine": "authority_state_v1",
+        "matched_authority": {
+          "operation_classes.read_only.allowed": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:SOURCE_CONTRACT_RESOLUTION:authority-baseline",
+        "operation_type": "read_only",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "baseline_policy": {
+        "audit": {
+          "fail_closed": true,
+          "policy_schema_version": "project_policy_registry_v1"
+        },
+        "decision": "ALLOW",
+        "domain": "logging_redaction",
+        "engine": "project_policy_registry_v1",
+        "matched_policy": {
+          "domains.logging_redaction.full_url_print_forbidden": true,
+          "domains.logging_redaction.large_payload_dump_forbidden": true,
+          "domains.logging_redaction.secret_print_forbidden": true
+        },
+        "ok": true,
+        "operation_id": "runtime-gate:SOURCE_CONTRACT_RESOLUTION:policy-baseline",
+        "operation_type": "logging_check",
+        "reason_codes": [],
+        "required_controls": []
+      },
+      "decision": "ALLOW",
+      "fail_closed": true,
+      "matched": {
+        "authority_engine": "authority_state_v1",
+        "authorization:authorization.activation_apply_completed": true,
+        "authorization:authorization.general_production_writer_activation_authorized": true,
+        "authorization:authorization.production_writer_active": true,
+        "authorization:result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE",
+        "canonical:canonical_runtime_pointer.era57_opened": false,
+        "canonical:canonical_runtime_pointer.legacy_raw_runner_reference_present": false,
+        "canonical:canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical:canonical_runtime_pointer.production_ledger_writer_active": true,
+        "grant_id": "news_radar_refresh_v1",
+        "policy_engine": "project_policy_registry_v1",
+        "root": "/root/tokenoskobi_clean_v1",
+        "runner_path": "tools/news_radar_refresh_runner_v1.py",
+        "service_name": "tokenoskobi-news-radar-refresh.service",
+        "stage_effect": "read_only",
+        "stage_mutating": false
+      },
+      "ok": true,
+      "reason_codes": [],
+      "schema": "runtime_policy_authority_gate_v1",
+      "stage": "SOURCE_CONTRACT_RESOLUTION"
+    }
+  },
+  "status": "CLOSED_VERIFIED",
+  "systemd_truth": {
+    "active_state": "failed",
+    "dropins": [
+      {
+        "path": "/etc/systemd/system/tokenoskobi-news-radar-refresh.service.d/90-era55a23-guarded-production.conf",
+        "sha256": "844a0dab42008af4156f849a0348e56246851a0ed7eab6866bb958305916a3f5"
+      }
+    ],
+    "environment": "TOKENOSKOBI_LEDGER_WRITER_ENABLED=1 TOKENOSKOBI_RUNNER_LOCK_ENABLED=1 TOKENOSKOBI_NEWS_HOT_PATH=/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py TOKENOSKOBI_A23_GUARDED_PRODUCTION=1 TOKENOSKOBI_A10_ORDER_LOG=/run/tokenoskobi/era55a23_guarded_order.log",
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/news_radar_refresh_runner_v1.py ; ignore_errors=no ; start_time=[Mon 2026-07-13 17:06:50 EEST] ; stop_time=[Mon 2026-07-13 17:06:50 EEST] ; pid=3027225 ; code=exited ; status=2 }",
+    "fragment_path": "/etc/systemd/system/tokenoskobi-news-radar-refresh.service",
+    "fragment_sha256": "97829c2a13305a6b011dec317f89b710d6c605715cfbfdecab7bb5291fc5fe4b",
+    "required_environment_match": true,
+    "result": "exit-code",
+    "runner_binding_match": true,
+    "service": "tokenoskobi-news-radar-refresh.service",
+    "sub_state": "failed"
+  },
+  "temp_wrapper": {
+    "returncode": 0,
+    "stderr_tail": "",
+    "stdout_tail": "quired\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"RSS_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Coinbase Official Listing/Exchange Updates\", \"source_uid\": \"src_coinbase_listing_official_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"RSS_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"CoinDesk General Crypto News\", \"source_uid\": \"src_coindesk_general_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"RSS_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Cointelegraph General Crypto News\", \"source_uid\": \"src_cointelegraph_general_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"MANUAL_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Major Chain / Market Impact Source Placeholder\", \"source_uid\": \"src_major_chain_market_impact_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": true, \"fetch_enabled\": false, \"fetch_method\": \"RSS_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"ENDPOINT_CONFIRMED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"OKX Official Announcements\", \"source_uid\": \"src_okx_announcement_official_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"MANUAL_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Project Official Channels Placeholder\", \"source_uid\": \"src_project_official_channels_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"MANUAL_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Security / Exploit Alert Source Placeholder\", \"source_uid\": \"src_security_exploit_alert_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"MANUAL_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Social Narrative Low Trust Placeholder\", \"source_uid\": \"src_social_narrative_low_trust_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"RSS_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"The Block General Crypto News\", \"source_uid\": \"src_theblock_general_v1\"}, {\"adapter_supported\": false, \"approval_required\": true, \"approval_satisfied\": false, \"daily_call_budget\": 0, \"endpoint_valid\": false, \"fetch_enabled\": false, \"fetch_method\": \"MANUAL_OR_HTTP\", \"policy_authorized\": false, \"registry_status\": \"PLANNED_DISABLED\", \"runtime_eligible\": false, \"source_name\": \"Token Unlock / Vesting Calendar Placeholder\", \"source_uid\": \"src_token_unlock_calendar_v1\"}], \"status\": \"SUCCESS_NOOP_FAIL_CLOSED\"}\n[SOURCE_CONTRACT_NO_AUTHORIZED_SOURCES] status=SUCCESS_NOOP_FAIL_CLOSED derived_skipped=true hot_skipped=true\n",
+    "success_noop_fail_closed": true,
+    "temp_db_hash_after": "b6ea7cbcdaff19c4acd30595a0d00cbb5c75af94d9a513dbc82878dfbbcba9be"
+  },
+  "timestamp_utc": "2026-07-13T14:19:25.645421+00:00",
+  "work_unit": "GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY",
+  "wrapper": "tools/news_radar_refresh_runner_v1.py"
+}

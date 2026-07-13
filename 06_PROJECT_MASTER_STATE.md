@@ -43,17 +43,17 @@ PRODUCTION_MUTATION=false
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_C_GENERAL_RUNNER_CONTRACT
-LAST_RESULT=OK_GENERAL_RUNNER_CONTRACT_FAIL_CLOSED
-LAST_ARTIFACT=data/control/general_runtime_hardening_c_general_runner_contract_v1.json
-SOURCE_SELECTION=SUCCESS_NOOP_FAIL_CLOSED
-RUNTIME_ELIGIBLE_SOURCE_COUNT=0
-PRODUCTION_DB_MUTATION=false
-SERVICE_TIMER_CHANGE=false
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY
+LAST_RESULT=OK_POLICY_AUTHORITY_REACHABLE_FAIL_CLOSED
+LAST_ARTIFACT=data/control/general_runtime_hardening_d_policy_authority_reachability_v1.json
+POLICY_AUTHORITY_REACHABLE=true
+BROAD_AUTHORITY_EXPANSION=false
+LIVE_FETCH_AUTHORIZED=false
 ERA57_OPENED=false
+PRODUCTION_MUTATION=false
 ```
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY
+NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE
 
 ## 04 NEWS OPERATIONAL BASELINE
 
@@ -178,10 +178,12 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY
+NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE
 ```
 
-Prove that the reachable live wrapper chain enforces the general policy and authority layers. File presence alone is not proof.
+Run the reusable isolated stress harness against disposable copies and
+close the final pre-ERA57 gate. Production chaos, live source activation,
+service mutation and uncontrolled writes remain forbidden.
 
 ## MASTER STATE INSERTION AND REPLACEMENT CONSTITUTION
 
