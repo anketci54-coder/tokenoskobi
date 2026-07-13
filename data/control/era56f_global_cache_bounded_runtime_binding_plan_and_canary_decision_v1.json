@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "era56_open": true,
+    "era56e_ready": true,
+    "next_step_matches": true,
+    "option_b_blocked": true,
+    "production_apply_blocked": true,
+    "runner_lock_enabled": true,
+    "writer_active": true
+  },
+  "decision": "AUTHORIZE_FUTURE_SINGLE_CYCLE_CANARY_APPLY_DECISION",
+  "next_safe_step": "ERA56G_GLOBAL_CACHE_SINGLE_CYCLE_CANARY_APPLY_DECISION",
+  "plan": {
+    "abort_gates": [
+      "stale",
+      "hash mismatch",
+      "schema mismatch",
+      "lock failure",
+      "disk guard failure",
+      "consumer error"
+    ],
+    "cache_file": "separate dedicated cache DB outside authoritative source DB",
+    "consumer": "read-only, fail-closed on stale/hash/schema mismatch",
+    "preconditions": [
+      "disk free guard",
+      "source hash/version capture",
+      "runner lock enabled",
+      "existing writer healthy"
+    ],
+    "production_db_mutation": false,
+    "publish": "atomic temp-file build plus os.replace",
+    "rollback": "unbind cache consumer and delete/rebuild derived cache only",
+    "scope": "single natural cycle only",
+    "service_timer_panel_mutation": false,
+    "source_authority_mutation": false,
+    "success_gates": [
+      "one cycle complete",
+      "source unchanged",
+      "cache READY",
+      "logical parity",
+      "consumer read-only",
+      "panel unaffected"
+    ],
+    "writer": "single writer under existing runner lock"
+  },
+  "production_apply_authorized": false,
+  "production_mutation": false,
+  "result": "OK_BOUNDED_BINDING_CANARY_PLAN_AUTHORIZED_APPLY_BLOCKED",
+  "runtime_binding_authorized": false,
+  "schema": "era56f_global_cache_bounded_runtime_binding_plan_and_canary_decision_v1",
+  "service_timer_panel_mutation": false,
+  "single_cycle_canary_apply_authorized": false,
+  "status": "CLOSED_CANARY_PLAN_DECIDED",
+  "timestamp_utc": "2026-07-13T07:52:30.141742+00:00",
+  "work_unit": "ERA56F_GLOBAL_CACHE_BOUNDED_RUNTIME_BINDING_PLAN_AND_CANARY_DECISION"
+}
