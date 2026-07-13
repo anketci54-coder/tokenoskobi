@@ -24,26 +24,29 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ERA56_CLOSED_PRE_ERA57_GENERAL_RUNTIME_HARDENING
+PROJECT_STATUS=ERA56_CLOSED_ERA57_OPENING_DECISION_READY
 CURRENT_VERSION=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_MAIN_LINE=GENERAL_RUNTIME_HARDENING
-CURRENT_STAGE=GENERAL_RUNTIME_HARDENING_C_GENERAL_RUNNER_CONTRACT_CLOSED
-LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_C_GENERAL_RUNNER_CONTRACT
-GENERAL_SOURCE_CONTRACT_BOUND=true
-LEGACY_RAW_REFERENCE_PRESENT=false
-LIVE_FETCH_AUTHORIZED=false
+CURRENT_STAGE=GENERAL_RUNTIME_HARDENING_CLOSED_VERIFIED
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE
+FINAL_STRESS_GATE=CLOSED_VERIFIED
+ERA57_OPENING_DECISION_READY=true
 ERA57_OPENED=false
+LIVE_FETCH_AUTHORIZED=false
 PRODUCTION_MUTATION=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY
-LAST_RESULT=OK_POLICY_AUTHORITY_REACHABLE_FAIL_CLOSED
-LAST_ARTIFACT=data/control/general_runtime_hardening_d_policy_authority_reachability_v1.json
-POLICY_AUTHORITY_REACHABLE=true
-RUNTIME_GATE=core/runtime_policy_authority_gate.py
-BROAD_AUTHORITY_EXPANSION=false
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE
+LAST_RESULT=OK_GENERAL_RUNTIME_HARDENING_FINAL_STRESS_GATE_CLOSED
+LAST_ARTIFACT=data/control/general_runtime_hardening_e_final_stress_gate_v1.json
+SYNTHETIC_SCENARIOS=10/10
+POLICY_AUTHORITY_POSITIVE=100/100
+POLICY_AUTHORITY_NEGATIVE=100/100
+PARALLEL_WRAPPER_NOOP=12/12
+IDENTITY_TAMPER_DENIED=6/6
+GENERAL_RUNTIME_HARDENING=CLOSED_VERIFIED
 ERA57_OPENED=false
 PRODUCTION_MUTATION=false
 
@@ -99,23 +102,22 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Run only the reusable isolated stress harness on disposable copies.
-- Verify policy/authority positive and negative paths under stress.
-- Do not run production chaos tests.
-- Do not enable live source fetch.
-- Do not broaden runtime stage grants.
-- ERA57 remains closed.
+- Decide whether to open ERA57 under a separate bounded scope.
+- Do not treat readiness as ERA57 authorization.
+- Do not enable live source fetch automatically.
+- Do not grant network budget implicitly.
+- Do not broaden policy/authority grants.
+- Production mutation remains blocked.
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE
+NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Read live systemd ExecStart, Environment and drop-ins.
-2. Build the reachable runtime/import/reference graph.
-3. Classify tools, data, runtime/state, reports and shadow lab.
-4. Produce a keep/archive/delete proposal.
-5. Do not move or delete anything during classification.
-6. Do not modify DB, service, timer, panel or wrapper.
+1. Read PROJECT_RUNTIME.json first.
+2. Confirm GENERAL_RUNTIME_HARDENING is CLOSED_VERIFIED.
+3. Treat ERA57 as not opened until explicit human approval.
+4. If opened, create a bounded ERA57 scope before implementation.
+5. Preserve live-fetch, network-budget and production-mutation locks.
 
 ## 09 HANDOFF CONTENT BOUNDARY
 

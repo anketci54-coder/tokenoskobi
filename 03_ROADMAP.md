@@ -126,12 +126,12 @@ Current direction:
 - ERA56 closed and sealed.
 - ERA57 is not opened.
 - Live source activation remains deferred.
-- General runtime hardening is active.
+- General runtime hardening is closed and verified.
 - Canonical drift sync is closed.
 - Active/archive/evidence classification is next.
 - Runner contract review follows classification.
 - Policy/authority reachability is closed with scoped fail-closed enforcement.
-- Final isolated stress verification is the remaining ERA57 gate.
+- Final isolated stress verification is closed and verified.
 
 Current state authority:
 
@@ -290,4 +290,4 @@ Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi v
 - Stress final gate: `NOT_CLOSED`.
 - ERA57 opened: `false`.
 - Active line: `GENERAL_RUNTIME_HARDENING`.
-- Next safe step: `GENERAL_RUNTIME_HARDENING_E_FINAL_STRESS_GATE`.
+- Next safe step: `ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION`.
