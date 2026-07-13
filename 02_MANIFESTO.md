@@ -404,3 +404,14 @@ UPDATED_UTC: 2026-07-13T10:21:10.001914+00:00
 6. Current state has one owner: `PROJECT_RUNTIME.json`. Other documents reference or summarize it and may not create competing current-state authority.
 7. Prefer the smallest safe playbook that satisfies the risk class and evidence requirement.
 <!-- RISK_DRIVEN_PLAYBOOK_DOCTRINE_END -->
+
+## GENERAL SOLUTION AND ANTI-PATCH DOCTRINE
+
+- Constitution is invariant; playbook is risk-driven.
+- Genel çözüm özel yamadan üstündür.
+- Silinmiş legacy bir dosyayı geri getirmek, yalnız eski bağımlılığı diriltir; genel contract onarımı yerine kullanılamaz.
+- Tek kullanımlık plan, karar, test, audit veya repair script zincirleri yasaktır.
+- Aynı yetenek için ikinci motor veya olay/ERA-özel kalıcı araç oluşturulmaz.
+- Genel ve yeniden kullanılabilir araç korunur; tek kullanımlık araç kapanışta kaldırılır.
+- Evidence never disappears; araç kanıt değildir.
+- Complexity must pay for itself.

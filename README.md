@@ -31,6 +31,8 @@ Anayasal yaşam döngüsü değişmez. Temp-copy, shadow, canary, benchmark, str
 ## Kalıcı kısa kurallar
 
 - Constitution is invariant; playbook is risk-driven.
+- Genel çözüm özel yamadan üstündür; silinmiş legacy dosya geri getirmek genel onarım sayılmaz.
+- Tek kullanımlık karar/test/audit script zincirleri oluşturulmaz.
 - Complexity must pay for itself.
 - Evidence never disappears; geçici araç kalıcı olmak zorunda değildir.
 - One source of truth: current state owner is `PROJECT_RUNTIME.json`.
@@ -42,6 +44,8 @@ Anayasal yaşam döngüsü değişmez. Temp-copy, shadow, canary, benchmark, str
 
 - `ACTIVE_RUNTIME`: doğrulanmış runtime zinciri tarafından çağrılır.
 - `ACTIVE_LIBRARY`: aktif kod tarafından import edilir.
+- `GENERAL_TOOL`: birden çok ERA ve bileşende yeniden kullanılabilen kalıcı araçtır.
 - `MANUAL_ONLY`: yalnız açık insan komutuyla çalışır.
-- `HISTORICAL_EVIDENCE`: geçmiş kanıtıdır; archive alanında korunabilir.
-- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır.
+- `HISTORICAL_EVIDENCE`: geçmiş kanıtıdır; archive alanında korunur.
+- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır; silinir.
+- Bir defalık karar aracı kapanışta silinir; ürettiği kanıt korunur.

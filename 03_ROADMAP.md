@@ -109,48 +109,27 @@ Amaç:
 
 - Runtime readiness
 - Observability
-- Async logger isolation
-- Shadow feed
-- Multi RPC trust
-- Whale intelligence runtime
-- Hybrid RPC cost guard
-- Chain abstraction
-- Read-only provider / RPC intake
-- Runtime certification path
-- Engineering decision framework
-- Adaptive intelligence
-- Predictive intelligence
+- Shadow feed and provider abstraction
+- Multi-RPC trust and cost discipline
+- Whale and news intelligence runtime
+- Hot intelligence ingress and bounded readmodels
+- General runtime producer contracts
+- Reusable verification and stress tooling
+- Adaptive and predictive intelligence
 - AI orchestration and veto gate
-- Continuous evolution and modular health layer
-- Hot intelligence ingress
-- Bounded queue and panel bridge
-- Runtime optimization
 
 Durum:
 
 V3 active.
 
-Current major line:
+Current direction:
 
-- `ERA55_RUNTIME_OPTIMIZATION`
-- Parent line: `ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME`
-- Status: `CLOSED`
-- Human authorization recorded: `true`
-- Active baseline stage: `ERA55_POST_CLOSE_CLEANUP_HARDENED`
-- Last completed substep: `ERA55A_27_P1_WAL_BOUNDED_APPLY_READINESS_ROLLBACK_AND_AUTHORIZATION_DECISION`
-- Next safe step: `ERA55A_28_ERA55_FINAL_CLOSURE_READINESS_AND_CANONICAL_ALIGNMENT_DECISION`
-- Gemini Red Team review required before optimization apply: `true`
-
-ERA55 candidate direction:
-
-- End-to-end latency observability
-- Timer wait and queue residence measurement
-- Runner execution measurement
-- Derived write and panel propagation measurement
-- Queue saturation review
-- Cache and IO review
-- Query plan and index review
-- Hot-path optimization without security, power or economy regression
+- ERA55 closed and sealed.
+- ERA56 closed and sealed.
+- ERA57 is not opened.
+- Emergency PRE-ERA57 patch chain removed.
+- Legacy raw runner restore is forbidden.
+- Next work is a general runtime producer contract repair decision.
 
 Current state authority:
 
@@ -159,8 +138,6 @@ Current state authority:
 Detailed roadmap authority:
 
 `data/tokenoskobi_v1_v8_master_era_roadmap.json`
-
----
 
 ## V4 - PRODUCTIZATION AND LIVE READINESS
 

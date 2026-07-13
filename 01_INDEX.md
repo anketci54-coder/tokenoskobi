@@ -60,5 +60,5 @@ Navigation değişmedikçe bu dosya değiştirilmez.
 - Constitution: `02_MANIFESTO.md`
 - Future direction: `03_ROADMAP.md`
 - History: `PROJECT_HISTORY.json`
-- Pre-ERA57 isolated harness: `tests/pre_era57_stress_harness.py`
+- General isolated runtime stress harness: `tests/general_runtime_stress_harness_v1.py`
 <!-- STARTUP_RESUME_MAP_END -->

@@ -6078,3 +6078,17 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Raw runner resolved: `false`
 - Production mutation: `false`
 - Next safe step: `PRE_ERA57_LIVE_RAW_RUNNER_RESOLUTION_AND_RUNTIME_ENTRY_DECISION`
+
+---
+
+## GENERAL RUNTIME EMERGENCY PATCH CLEANUP
+
+- Status: `CLOSED_VERIFIED`
+- Result: `OK_EMERGENCY_PATCH_CHAIN_REMOVED_GENERAL_CONTRACT_RESTORED`
+- Emergency one-off scripts removed: `6`
+- Evidence artifacts archived: `4`
+- General harness: `tests/general_runtime_stress_harness_v1.py`
+- Legacy raw runner restore: `FORBIDDEN`
+- ERA57 opened: `false`
+- Production mutation: `false`
+- Next safe step: `GENERAL_RUNTIME_PRODUCER_CONTRACT_REPAIR_DECISION`
