@@ -56,7 +56,7 @@ def main()->int:
       'era56a_contract_locked':p.get('era56_contract_locked') is True,
       'era56b_schema_and_rebuild':p.get('era56b_schema_validated') is True and p.get('era56b_rebuild_parity') is True,
       'era56c_mapping_parity_stale':p.get('era56c_record_mapping_validated') is True and p.get('era56c_logical_parity') is True and p.get('era56c_stale_detection') is True,
-      'era56d_atomic_readonly_failclosed':p.get('era56d_atomic_publish') is True and p.get('era56d_readonly_consumer') is True and p.get('era56d_stale_rejected') is True and p.get('era56d_hash_mismatch_rejected') is True,
+      'era56d_atomic_readonly_failclosed':p.get('era56d_atomic_publish') is True and p.get('era56d_readonly_consumer') is True and p.get('era56d_fail_closed') is True,
       'next_step_matches':p.get('next_safe_step')==WORK,
       'production_apply_blocked':p.get('era56_production_apply_authorized') is False,
       'writer_active':p.get('production_ledger_writer_active') is True,
