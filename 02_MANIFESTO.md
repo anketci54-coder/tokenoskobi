@@ -1,417 +1,714 @@
-# 02 MANIFESTO
+# 02 MANIFESTO - TOKENOSKOBI CONSTITUTION
 
-<!-- CANONICAL_WORKFLOW_RULES_LOCK_START -->
-## CANONICAL GENERAL WORKFLOW RULES LOCK
+## 0. CONSTITUTIONAL SCOPE AND SUPREMACY
 
-Updated UTC: `2026-07-08T10:48:50.680029Z`
+Bu belge Tokenoskobi / Coinoskobi projesinin eksiksiz kalıcı anayasasıdır.
 
-These rules are mandatory for every new ChatGPT window.
+“Eksiksiz” ifadesi anayasa, doktrin, yasak, yetki sınırı, çalışma disiplini, güvenlik ilkesi ve AI rol sınırlarının tamamını kapsar.
 
-### Startup
+Bu belge şunları içermez:
 
-Read in this order:
+- Anlık runtime durumu
+- Güncel `NEXT_SAFE_STEP`
+- Git HEAD veya tag
+- Kapanış tarihçesi
+- Ayrıntılı roadmap
+- Geçici ölçümler
+- Operasyon logları
 
-1. `PROJECT_RUNTIME.json`
-2. `PROJECT_BOOT.json`
-3. `06_PROJECT_MASTER_STATE.md`
-4. `07_PROJECT_HANDOFF.md`
-5. `02_MANIFESTO.md`
-6. `03_ROADMAP.md`
+Bu içeriklerin sahipleri ayrı canonical dosyalardır.
 
-### General Main Line Rule
+Üstünlük kuralı:
 
-- A main line is a real software/module milestone, major repair line, or major architecture line.
-- A main line must contain related work only.
-- Whatever the main line is called, do not create micro main lines for plan, apply, test, audit, review, risk decision, Go/No-Go, seal, documentation cleanup, state normalization, minor fix, or minor addition.
-- Internal work must stay under the same main line unless the split rule below applies.
+```text
+MANIFESTO
+> AI önerisi
+> dış red-team önerisi
+> kolaylık
+> hız baskısı
+```
 
-### Split Rule
+Manifesto ile çelişen roadmap, uygulama, öneri veya dokümantasyon geçersizdir.
 
-- Prefer one main line.
-- If one related topic is too large for one controlled closure, it may be split into 2-3 sibling main lines.
-- Splitting is allowed only with explicit reason, such as:
-  - scope is too large,
-  - risk profile is materially different,
-  - runtime/database/panel/service/integration impact areas are different,
-  - testing and audit must be independent,
-  - one main line would slow delivery instead of helping it.
-- More than 3 sibling main lines requires consolidation review before continuing.
-- If unsure whether to split, keep the work in the same main line and use A/B/C/D or A_1/A_2 first.
+---
 
-### A/B/C/D Rule
+## 1. PROJECT IDENTITY AND FINAL PURPOSE
 
-Use A/B/C/D/E/F under the same main line:
+Tokenoskobi:
 
-- `A` = plan or scope
-- `B` = apply or build
-- `C` = test or dry-run
-- `D` = audit or review
-- `E` = external review if needed
-- `F` = GitHub seal or closure
+- Risk-first kripto intelligence ve decision-support sistemidir.
+- Otonom trade botu değildir.
+- Önce kanıt, sonra risk, sonra fırsat, en son insan kararı üretir.
+- Amaç sermayeyi koruyarak kaliteli fırsatları bulmak, zayıf adayları çürütmek ve karar verene doğrulanabilir bağlam sağlamaktır.
+- Sistemin gücü yalnız sinyal üretmekten değil; kanıt, itiraz, bilinmeyen anomali, hafıza ve fail-closed yönetiminden gelir.
 
-Examples:
+Final authority insandır.
 
-- `ERA52A_PLAN`
-- `ERA52B_APPLY`
-- `ERA52C_TEST`
-- `ERA52D_AUDIT`
-- `PHASE61A_PLAN`
-- `PHASE61B_APPLY`
-- `REPAIR_LINE_A_SCOPE`
-- `REPAIR_LINE_B_FIX`
+---
 
-### Nested Number Rule
+## 2. CORE MOTTO GATE
 
-Use numbering only inside the same letter when that exact sub-area needs smaller parts:
-
-- `ERA52B_1_FILE_LAYOUT`
-- `ERA52B_2_READONLY_CONTRACT`
-- `ERA52B_3_DRYRUN_WIRING`
-
-If numbering grows beyond `_3`, stop and consolidate before continuing.
-
-### Fix / Addition Rule
-
-Fixes stay under the relevant letter:
-
-- `ERA52B_FIX_1_READONLY_GUARD`
-- `ERA52C_FIX_1_TEST_EXPECTATION`
-
-Additions stay under the relevant letter:
-
-- `ERA52B_ADD_1_CONTRACT_FIELD`
-- `ERA52D_ADD_1_AUDIT_CHECK`
-
-A fix or addition becomes a new main line only if it is genuinely a new major module.
-
-### Deadline Rule
-
-- Prefer small working code over repeated decision documents.
-- Reduce documents.
-- Reduce labels.
-- Avoid repeated gate chains.
-
-### Safety Rule
-
-- `PROJECT_RUNTIME.json` is source of truth.
-- Human approval required.
-- AI trade authority is zero.
-- Live trade locked.
-- Paper trade locked until explicit phase.
-- No Runtime, DB, panel, service, timer, deploy mutation unless explicitly in scope.
-<!-- CANONICAL_WORKFLOW_RULES_LOCK_END -->
-
-Bu belge projenin kalıcı anayasal kurallarıdır.
-Bu belge proje tarihi, tamamlanan fazlar, roadmap, mimari detaylar, runtime durumu veya geçici kararlar içermez.
-
-## PROJECT PHILOSOPHY
-
-<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_DOCTRINE_START -->
-## TOKENOSKOBI MOTTO AND OPPORTUNITY COST DOCTRINE
-
-STATUS: PERMANENT CONSTITUTIONAL RULE  
-UPDATED_UTC: 2026-07-08T16:34:38.515049+00:00
-
-Core motto:
+Kalıcı motto:
 
 - Şimşek kadar hızlı.
 - Balyoz kadar güçlü.
 - Kale kadar güvenli.
 - Karınca kadar tutumlu.
+- Değişime uyumlu.
+
+Zorunlu boyutlar:
 
-This motto is not slogan text. It is a mandatory decision gate.
-
-Any idea, module, red-team suggestion, AI recommendation, architecture change, documentation change, runtime change, or optimization may enter Tokenoskobi only if it passes this doctrine:
-
-1. SPEED must not decrease unless explicitly measured and accepted.
-2. POWER must not decrease unless explicitly measured and accepted.
-3. SECURITY must not decrease unless explicitly measured and accepted.
-4. ECONOMY / COST-EFFICIENCY must not decrease unless explicitly measured and accepted.
-5. If at least one of SPEED, POWER, SECURITY, or ECONOMY increases and none decreases, the idea may continue.
-6. If one decreases but others increase, opportunity cost calculation is mandatory before acceptance.
-7. If the opportunity cost is negative, unclear, unmeasured, or creates bloat, the idea is rejected or deferred.
-8. External red-team outputs, Gemini, Claude, Codex, Copilot, or any AI output are advisory only. They are never binding unless they pass this doctrine and receive user approval.
-9. The system must never become heavy, bloated, slow, expensive, or over-documented merely because an external reviewer suggested more work.
-10. Minimal safe path wins unless measured evidence proves a heavier path improves the motto balance.
-
-Short form for every new window:
-
-`SPEED ↑ / POWER ↑ / SECURITY ↑ / ECONOMY ↑ or OPPORTUNITY_COST_POSITIVE. Otherwise reject/defer.`
-
-<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_DOCTRINE_END -->
-
-<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_FORMULA_BINDING_START -->
-## TOKENOSKOBI MOTTO OPPORTUNITY COST FORMULA BINDING
-
-STATUS: PERMANENT_CONSTITUTIONAL_FORMULA_BINDING
-UPDATED_UTC: 2026-07-08T16:48:01.474705+00:00
-
-Existing formula source:
-- tools/ede_opportunity_cost_baseline_v1.py
-- data/era24f_ede_opportunity_cost_baseline_v1.json
-
-ERA24F formula:
-- expected_gain = (reliability + security + probability) / 3
-- cost_penalty = max(0, 100 - performance)
-- uncertainty_penalty = max(0, 100 - statistics)
-- net_utility = expected_gain - cost_penalty - uncertainty_penalty
-- accept_baseline = net_utility >= 95
+```text
+SPEED_NEVER_DOWN
+POWER_NEVER_DOWN
+SECURITY_NEVER_DOWN
+ECONOMY_NEVER_DOWN
+ADAPTABILITY_NEVER_DOWN
+```
 
-Motto mapping:
-- SPEED = performance
-- POWER = average(reliability, probability)
-- SECURITY = security
-- ECONOMY = inverse cost, bloat, and maintenance burden
+Yeni fikir, modül, AI önerisi, mimari değişiklik veya optimizasyon:
 
-Decision:
-- No regression and at least one dimension improves: continue.
-- One dimension decreases but others improve: run opportunity cost.
-- net_utility >= 95 plus explicit user approval: continue.
-- net_utility < 95, unclear cost, bloat, missing evidence, or no user approval: reject or defer.
-- External AI output is advisory only.
+- En az bir boyutu iyileştirmeli.
+- Diğer boyutları ölçülmeden düşürmemeli.
+- Bloat, bakım yükü veya maliyet yaratıyorsa opportunity-cost testine girmeli.
+- Negatif, belirsiz veya ölçülmemiş sonuçta reddedilmeli ya da ertelenmelidir.
 
-Short rule:
-MOTTO_GATE = SPEED / POWER / SECURITY / ECONOMY.
-OPPORTUNITY_COST_BASE = ERA24F_EDE.
-ACCEPT = NO_REGRESSION OR NET_UTILITY_GE_95_WITH_USER_APPROVAL.
-<!-- TOKENOSKOBI_MOTTO_OPPORTUNITY_COST_FORMULA_BINDING_END -->
+Minimal güvenli yol, ölçülmüş üstünlük kanıtlanmadıkça ağır çözümden üstündür.
 
+---
 
-Şimşek kadar hızlı.
-Balyoz kadar güçlü.
-Kale kadar güvenli.
-Karınca kadar tutumlu.
-Veriye göre konuş.
-Veri yoksa konuşma.
-Kanıt yoksa güven yok.
-Risk skordan üstündür.
-Önce hayatta kal.
-Disiplin tahminden üstündür.
-Genel çözüm özel yamadan üstündür.
-Shadow canlıdan önce gelir.
+## 3. OPPORTUNITY COST FORMULA BINDING
 
-## CONSTITUTIONAL PRINCIPLES
+Canonical temel:
 
-Kalıcı kural geçici karardan üstündür.
-Kanıt varsayımdan üstündür.
-Güvenlik hızdan taviz vermez.
-Risk kabulü açık onay gerektirir.
-Onaysız kapsam genişletme yasaktır.
-Hiçbir iş canonical senkron olmadan tamamlanmış sayılmaz.
+```text
+expected_gain = (reliability + security + probability) / 3
+cost_penalty = max(0, 100 - performance)
+uncertainty_penalty = max(0, 100 - statistics)
+net_utility = expected_gain - cost_penalty - uncertainty_penalty
+accept_baseline = net_utility >= 95
+```
 
-## AI BEHAVIOR RULES
+Eşleme:
 
-AI is assistant.
-AI is never authority.
-AI never guesses.
-AI never fabricates.
-AI never invents architecture.
-AI never invents roadmap.
-AI never invents phases.
-AI never invents passes.
-AI never invents engines.
-AI always requests approval before implementation.
+```text
+SPEED = performance
+POWER = average(reliability, probability)
+SECURITY = security
+ECONOMY = inverse cost, bloat and maintenance burden
+ADAPTABILITY = measured ability to evolve without breaking the other gates
+```
 
-## HUMAN AUTHORITY
+Bir boyut gerilerse açık kullanıcı onayı ve pozitif opportunity cost zorunludur.
 
-Nihai otorite kullanıcıdır.
-Açık kullanıcı onayı olmadan uygulama yapılmaz.
-Belirsizlik varsa durulur, raporlanır ve kullanıcı beklenir.
-AI hiçbir zaman kullanıcı adına karar vermez.
+External AI çıktıları binding değildir.
 
-## DOCUMENTATION CONSTITUTION
+---
 
-One document.
-One responsibility.
+## 4. EPISTEMIC DISCIPLINE
 
-Rule changes
-→ Manifesto
+- Veriye göre konuş.
+- Veri yoksa konuşma.
+- Kanıt yoksa güven yok.
+- Kanıt varsayımdan üstündür.
+- Belirsizlik rahatlatıcı yorumla kapatılamaz.
+- “Olabilir”, “sanırım”, “muhtemelen” kanıt yerine kullanılamaz.
+- AI hiçbir zaman veri, mimari, roadmap, phase, pass, engine, status veya sonuç uyduramaz.
+- Kanıt seviyesi açıkça ayrılır: isim referansı, schema, fiziksel varlık, veri, producer, runtime chain, consumer chain ve outcome aynı şey değildir.
 
-Roadmap
-→ Roadmap
+---
 
-Completed work
-→ Almanac
+## 5. SOURCE OF TRUTH AND CANONICAL OWNERSHIP
 
-Architecture
-→ Atlas
+Çelişki halinde:
 
-Current state
-→ Project Master State
+```text
+LOCAL_WORKSPACE
+> LOCAL_GIT
+> GITHUB_REMOTE
+> AI_MEMORY
+```
 
-Continuation
-→ Project Handoff
+Canonical sahiplik:
 
-Navigation
-→ Index
+```text
+README.md = single entry boot pointer
+01_INDEX.md = navigation
+02_MANIFESTO.md = constitutional doctrine
+03_ROADMAP.md = future direction summary
+04_ALMANAC.md = completed-work ledger
+05_ATLAS.md = architecture map
+06_PROJECT_MASTER_STATE.md = current human summary
+07_PROJECT_HANDOFF.md = continuation context
+PROJECT_BOOT.json = stable machine-readable boot contract
+PROJECT_RUNTIME.json = current machine-state authority
+PROJECT_HISTORY.json = append-only history
+data/tokenoskobi_v1_v8_master_era_roadmap.json = detailed V1-V8 roadmap authority
+```
 
-Bootstrap
-→ PROJECT_RUNTIME.json and PROJECT_BOOT.json
+Kurallar:
+
+- One purpose = one canonical file.
+- Duplicate canonical state yasaktır.
+- Çelişen bilgi owner dosyada değiştirilir; ikinci kopya oluşturulmaz.
+- Current-state sahibi yalnız `PROJECT_RUNTIME.json` dosyasıdır.
+- Roadmap sırası yalnız master roadmap JSON’dan okunur.
+- Kapanış kanıtı Almanac ve History’den doğrulanır.
 
-Duplicate canonical documents are forbidden.
-Her onaylı değişiklik etkilenen canonical belgeye işlenir.
-Dokümantasyon etki analizi yapılmadan canonical değişiklik yapılmaz.
+---
 
-## CODE GENERATION CONSTITUTION
+## 6. SINGLE ENTRY BOOT CONSTITUTION
 
-Unless explicitly requested:
+Tek giriş kapısı `README.md` dosyasıdır.
 
-Never generate code.
+Yeni pencereye şu talimat yeterlidir:
 
-When code is requested:
+> `README.md dosyasını oku ve canonical boot protocolünü uygula.`
 
-- single block
-- paste-and-run
-- reusable
-- generic
-- minimal
-- compact
-- production-safe
+README:
 
-Never require nano.
-Never require vim.
-Never require interactive editors.
+- Current state kopyalamaz.
+- Bütün canonical dosyaların yerini, okuma sırasını ve owner sınırını gösterir.
+- AI hafızasını source of truth olarak kullanmaz.
+- Yeni pencerenin `NEXT_SAFE_STEP` değerini Runtime’dan, gelecek sırayı master roadmap’ten bulmasını zorunlu kılar.
 
-## SERVER OPERATION CONSTITUTION
+Boot tamamlanmadan yeni iş başlatılamaz.
 
-All server commands must:
+---
 
-start with
+## 7. HUMAN AUTHORITY AND AUTONOMY BOUNDARY
 
-cd /root/tokenoskobi_clean_v1
+```text
+HUMAN_FINAL_AUTHORITY=true
+AI_AUTHORITY=ADVISORY_ONLY
+AI_TRADE_AUTHORITY=0
+AI_WALLET_AUTHORITY=0
+AI_SIGNING_AUTHORITY=0
+AI_ORDER_AUTHORITY=0
+```
 
-Commands must:
+Açık insan onayı olmadan:
 
-- be safe
-- be idempotent
-- be SSH-safe
-- be mobile-safe
-- be 4G-safe
+- ERA/work unit açılamaz.
+- Scope genişletilemez.
+- Live fetch açılamaz.
+- Production mutation yapılamaz.
+- Runtime, DB, panel, service veya timer değiştirilemez.
+- Wallet/signing/order/trade yetkisi verilemez.
+- Paper veya live execution başlatılamaz.
+- Risk kabul edilemez.
 
-Never risk disconnecting the user.
-Never terminate SSH.
-Never require manual recovery without approval.
+Otonom araştırma, otonom icra demek değildir.
 
-## GITHUB CONSTITUTION
+Policy-based governance insan veto hakkını ortadan kaldırmaz.
 
-Nothing is complete before:
+---
+
+## 8. FAIL-CLOSED SECURITY CONSTITUTION
 
-git status clean
+- Güvenlik varsayılan durumdur.
+- Least privilege zorunludur.
+- Bilinmeyen veya eksik policy durumunda default deny uygulanır.
+- Empty selection güvenli no-op/fail-closed davranır.
+- Seed registry network izni değildir.
+- Source kaydı runtime eligibility değildir.
+- Runtime sözleşmesi canlı erişimi otomatik açmaz.
+- Hard kill yalnız emergency içindir.
+- Graceful decay varsayılan retirement yöntemidir.
+- Runtime fail-silent olabilir; closure fail-safe olmak zorundadır.
+- Güvenlik bariyeri “otonom esnetilemez”.
 
-tests successful
+---
 
-post audit completed
+## 9. EXECUTION LIFECYCLE
 
-GitHub synchronized
+Değişmez sıra:
 
-canonical documents synchronized
+```text
+CURRENT_STATE_READ
+→ IMPACT_ANALYSIS
+→ PLAN
+→ USER_APPROVAL
+→ APPLY
+→ TEST
+→ AUDIT
+→ POST_AUDIT
+→ CANONICAL_SYNC
+→ COMMIT
+→ PUSH
+→ REMOTE_VERIFY
+→ GITHUB_SEAL
+→ WORK_UNIT_CLOSED
+→ NEXT_SAFE_STEP
+```
 
-## SECURITY CONSTITUTION
+İş:
 
-Güvenlik varsayılan durumdur.
-Yetki en az ayrıcalık ilkesine göre ele alınır.
-Onaysız risk artıran işlem yapılamaz.
-İnteraktif, geri dönüşü zor veya kullanıcıyı düşürebilecek adımlar açık onay ister.
+- Clean status,
+- başarılı test,
+- post-audit,
+- canonical sync,
+- push,
+- remote verification,
+- seal
 
-## RISK CONSTITUTION
+olmadan tamamlanmış sayılmaz.
 
-Risk skordan üstündür.
-Belirsizlik rahatlatıcı yorumla kapatılamaz.
-Bilinmeyen risk varsa güvenli varsayılan uygulanır.
-Risk görünürlüğü, performans baskısından üstündür.
+Mümkünse tek mantıksal commit ve tek push kullanılır.
 
-## CHANGE MANAGEMENT CONSTITUTION
+---
 
-Every approved change must include:
+## 10. ONE ACTIVE WORK UNIT AND ROADMAP DISCIPLINE
 
-impact analysis
+- Aynı anda yalnız bir aktif work unit yürütülür.
+- `NEXT_SAFE_STEP` dışına çıkılmaz.
+- Kapanmış ERA/V immutable’dır.
+- Kapanmış iş tekrar açılmaz.
+- Yeni ERA açık insan kararı olmadan açılamaz.
+- Canonical alt plan yoksa AI ayrıntı uyduramaz.
+- Plan, test, audit, review, seal, küçük fix veya dokümantasyon için ayrı micro main-line açılmaz.
+- One major capability per ERA.
+- ERA purity korunur.
+- Concept freeze aktif ERA boyunca geçerlidir.
 
-documentation update
+Concept lifecycle:
 
-verification
+```text
+IDEA
+→ HYPOTHESIS
+→ EXPERIMENT
+→ EVIDENCE
+→ CAPABILITY
+→ CORE
+```
 
-post audit
+---
 
-GitHub synchronization
+## 11. MAIN-LINE AND SUBSTEP CONSTITUTION
 
-## AMENDMENT PROCESS
+Ana hat gerçek yazılım, modül, büyük repair veya mimari milestone olmalıdır.
 
-Manifesto changes are constitutional amendments.
-They require explicit user approval.
+Varsayılan iç sıra:
 
-<!-- ERA23_GOVERNING_DOCTRINE_ADDENDUM_BEGIN -->
+```text
+A = PLAN_OR_SCOPE
+B = APPLY_OR_BUILD
+C = TEST_OR_DRYRUN
+D = AUDIT_OR_REVIEW
+E = EXTERNAL_REVIEW_IF_NEEDED
+F = GITHUB_SEAL_OR_CLOSURE
+```
 
-## ERA23 GOVERNING DOCTRINE ADDENDUM
+- İlgili işler aynı main-line altında kalır.
+- Gerekiyorsa en fazla 2–3 sibling main-line’a gerekçeli bölünür.
+- Sırf etiket üretmek için bölünmez.
+- `_1/_2/_3` ötesinde nesting büyürse konsolidasyon yapılır.
+- Fix/addition ilgili parent letter altında tutulur.
 
-STATUS: ACTIVE
+---
 
-This manifesto is the highest governing document of Tokenoskobi OS. If roadmap, implementation, AI recommendation or documentation conflicts with this document, this document prevails.
+## 12. GENERAL SOLUTION AND ANTI-PATCH DOCTRINE
 
-CORE RULES:
-1. Evidence First
-2. Capability Before Implementation
-3. Concept Freeze
-4. Concept Budget
-5. Architectural Budget
-6. Opportunity Cost
-7. One Capability Per ERA
-8. ERA Purity
-9. One Purpose = One Canonical File
-10. Canonical Source of Truth
-11. Recovery Before Mutation
-12. Measure Before Optimize
-13. Local Before Push
-14. Simulation Before Capital
-15. Capital Preservation First
-16. Evolution Through Evidence
-
-DOCTRINE LIBRARY RULE:
-War, nature, economics, game theory and technology doctrines are not copied as stories. They are converted into measurable decision principles. No doctrine enters the system because a famous commander, animal model or technology trend suggests it. It must pass mathematical verification, simulation advantage, paper-trade advantage, real-data statistical significance and positive opportunity cost.
-
-CONCEPT LIFECYCLE:
-IDEA -> HYPOTHESIS -> EXPERIMENT -> EVIDENCE -> CAPABILITY -> CORE
-
-CONCEPT FREEZE:
-During an active ERA, new engines, memory types, states and metaphors do not enter the core. They wait in backlog unless they are required for the current ERA capability.
-<!-- ERA23_GOVERNING_DOCTRINE_ADDENDUM_END -->
-
-## DISCIPLINE DOCTRINE SYNC — 2026-07-08T09:33:39.212698Z
-
-- Risk is minimized, never zero.
-- Runtime fail-silent, closure fail-safe.
-- Opportunity Cost blocks non-critical bloat.
-- Runtime never imports Lab.
-- Lab remains read-only, NOAPI, and outside hot runtime path.
-
-## MANIFESTO RULE INSERTION AND REPLACEMENT CONSTITUTION
-
-Yeni onaylı bir kural mevcut manifesto kuralıyla çakışıyorsa, mevcut kural kendi yerinde yeni kuralla değiştirilir.
-Değiştirilen eski kural manifesto içinde ikinci bir kopya olarak tutulmaz.
-Yeni onaylı kural manifestoda mevcut değilse ve hiçbir mevcut kuralla çakışmıyorsa, manifestonun en sonuna eklenir.
-Manifestonun mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
-
-<!-- RISK_DRIVEN_PLAYBOOK_DOCTRINE_START -->
-## RISK-DRIVEN PLAYBOOK AND COMPLEXITY DOCTRINE
-
-STATUS: PERMANENT CONSTITUTIONAL RULE
-UPDATED_UTC: 2026-07-13T10:21:10.001914+00:00
-
-1. Constitution is invariant. It defines mandatory authority, evidence, canonical synchronization, commit, push, remote verification and closure rules.
-2. Playbook is risk-driven. Read-only, temp-copy, shadow runtime, canary, benchmark, stress, chaos and external review are selected only when the work's risk justifies them.
-3. No playbook may bypass or replace the Constitution.
-4. Complexity must pay for itself through measured SPEED, POWER, SECURITY, ECONOMY or ADAPTABILITY value. Otherwise it is rejected or deferred.
-5. Evidence never disappears. Reproducible temporary tools may be removed after their evidence and decision remain canonical.
-6. Current state has one owner: `PROJECT_RUNTIME.json`. Other documents reference or summarize it and may not create competing current-state authority.
-7. Prefer the smallest safe playbook that satisfies the risk class and evidence requirement.
-<!-- RISK_DRIVEN_PLAYBOOK_DOCTRINE_END -->
-
-## GENERAL SOLUTION AND ANTI-PATCH DOCTRINE
-
-- Constitution is invariant; playbook is risk-driven.
 - Genel çözüm özel yamadan üstündür.
-- Silinmiş legacy bir dosyayı geri getirmek, yalnız eski bağımlılığı diriltir; genel contract onarımı yerine kullanılamaz.
-- Tek kullanımlık plan, karar, test, audit veya repair script zincirleri yasaktır.
-- Aynı yetenek için ikinci motor veya olay/ERA-özel kalıcı araç oluşturulmaz.
-- Genel ve yeniden kullanılabilir araç korunur; tek kullanımlık araç kapanışta kaldırılır.
-- Evidence never disappears; araç kanıt değildir.
+- Silinmiş legacy dosyayı geri getirmek general contract repair değildir.
+- Aynı yetenek için ikinci engine oluşturulmaz.
+- ERA/token/olay-özel kalıcı patch yasaktır.
+- Tek kullanımlık plan/karar/test/audit/repair script zincirleri yasaktır.
+- Reusable general tool korunur.
+- Temporary tool kapanışta kaldırılabilir; kanıt korunur.
 - Complexity must pay for itself.
+- Emergency patch chain kapanışta sökülür ve general solution ile değiştirilir.
+
+---
+
+## 13. AI COMMAND AND RED-TEAM ROLE CONSTITUTION
+
+### Başkomutan / Kullanıcı
+
+- Nihai karar ve veto otoritesidir.
+- Scope, risk, mutation, live erişim ve sermaye yetkisini yalnız kullanıcı verir.
+
+### ChatGPT
+
+- Planlar, analiz eder, kod tasarlar ve canonical bağlamı birleştirir.
+- Kanıt olmadan tamamlandı demez.
+- Onaysız write/apply yapmaz.
+
+### Claude
+
+- Code review, kontrol, mantık ve güvenlik eleştirisi yapar.
+- Karar yetkisi yoktur.
+
+### Gemini
+
+- Red team ve mimari saldırı rolündedir.
+- Zayıf varsayım, exploit yüzeyi, bypass ve adversarial senaryo arar.
+- Çıktıları advisory-only’dir.
+
+### GitHub Copilot
+
+- Inline/repository destek sağlar.
+- Doğrudan denetimsiz canonical write yapamaz.
+
+### GitHub
+
+- Source of truth zincirinde remote evidence, commit, diff, review ve seal katmanıdır.
+
+### Harekât Subayı
+
+- Tüm model çıktılarını karşılaştırır.
+- Çelişki, risk, kanıt seviyesi ve opportunity cost skorlar.
+- Merge/reject/defer önerisi verir.
+- Trade, wallet, signing veya production authority yaratamaz.
+
+Hiçbir AI başka bir AI’nın çıktısını otomatik onaylayamaz.
+
+---
+
+## 14. EVIDENCE, HUNTER, PROSECUTOR AND GUARDIAN DOCTRINE
+
+- Hunter aday ve fırsat bulur.
+- Prosecutor adayın karşı kanıtını, fraud/risk işaretlerini ve reddetme gerekçesini arar.
+- Evidence Engine her iddiayı kaynak ve confidence ile bağlar.
+- Guardian yalnız block/allow güvenlik kapısıdır; trade yetkisi yaratmaz.
+- Fusion tek başına gerçeklik kaynağı değildir; kaynak kanıtlarını birleştirir.
+- Recommendation, evidence ve authority birbirinden ayrıdır.
+- Risk skordan üstündür.
+- Capital preservation first.
+
+---
+
+## 15. UNKNOWN ANOMALY DOCTRINE
+
+Sistem yalnız bilinen saldırı isimlerini aramaz.
+
+Temel soru:
+
+> “Bu saldırının adı nedir?” değil, “Bu davranış neden normal değil?”
+
+Unknown Anomaly Engine:
+
+- Normal davranış baseline’ını ölçer.
+- Yeni ve etiketsiz sapmaları yakalar.
+- Bilinmeyeni güvenli varsayımla ele alır.
+- Yeni pattern’i evidence olmadan known attack olarak etiketlemez.
+- Anomaliyi Prosecutor ve Guardian’a taşır.
+- Unknown unknown riskini açık bırakır; sessizce yok saymaz.
+
+---
+
+## 16. ADVERSARIAL INTELLIGENCE DOCTRINE
+
+Sistem saldırgan yöntemlerini sürekli öğrenilecek evolving doctrine olarak ele alır:
+
+- Smart-contract exploit patternleri
+- Rug pull ve upgradeable rug yöntemleri
+- Honeypot ve hidden restriction teknikleri
+- Liquidity/volume/price manipulation
+- MEV, sandwich, bait ve route saldırıları
+- Oracle manipulation
+- Bridge exploitleri
+- Wallet ve signing saldırıları
+- Deployer/proxy/ownership deception
+- Bot networkleri ve fake-volume ağları
+- Social engineering ve psikolojik savaş
+- News/narrative deception
+- Exchange-flow ve market microstructure manipülasyonu
+
+Her yeni taktik için:
+
+```text
+HOW_IT_WORKS
+IS_TOKENOSKOBI_EXPOSED
+DETECTION_SIGNAL
+EVIDENCE_REQUIRED
+DEFENSE
+REPLAY_CASE
+NEGATIVE_MEMORY_UPDATE
+```
+
+Bu bilgi saldırı yürütmek için değil, erken tespit ve savunma içindir.
+
+---
+
+## 17. MEMORY AND LEARNING DOCTRINE
+
+### Negative Memory
+
+- Doğrulanmış kötü pattern, reddedilme nedeni ve geçmiş failure korunur.
+- Aynı hatanın sessizce tekrarına izin verilmez.
+
+### Opportunity Memory
+
+- Kaçan fırsatlar ve false negative’ler evidence ile kaydedilir.
+- Gelecekteki aday bulma ve threshold kalibrasyonunda kullanılır.
+
+### Outcome Memory
+
+- Sinyal sonrası gerçek sonuç, fiyat etkisi, risk gerçekleşmesi ve karar kalitesi izlenir.
+- Başarı iddiası outcome olmadan kurulmaz.
+
+### Replay
+
+- Geçmiş vakalar deterministik olarak yeniden çalıştırılabilir.
+- Replay production mutation yaratmaz.
+
+### Learning Boundary
+
+- Öğrenme policy veya authority’yi kendi kendine genişletemez.
+- Model improvement insan governance sınırına tabidir.
+
+---
+
+## 18. WHALE INTELLIGENCE DOCTRINE
+
+- Önemli eşik: 50 BTC veya eşdeğer değer.
+- Bilinen wallet gerçek entity adıyla yalnız evidence varsa etiketlenir.
+- Sub-wallet, related-wallet ve cluster bağlantıları çıkarılır.
+- Exchange inflow/outflow izlenir.
+- Transfer sonrası fiyat hareketi karşılaştırılır.
+- Wallet flow geçmiş haber ve event akışıyla korele edilir.
+- Matematiksel, istatistiksel ve probabilistic pattern üretilir.
+- Büyük transfer tek başına trade sinyali değildir.
+
+---
+
+## 19. NEWS AND TECHNOLOGY INTELLIGENCE DOCTRINE
+
+News Intelligence:
+
+- Kaynak güveni, identity match, evidence ledger, confidence ve freshness ile çalışır.
+- Haber başlığı tek başına karar kanıtı değildir.
+- Narrative, hype, opportunity ve risk ayrılır.
+- Live source activation açık insan onayı gerektirir.
+- Default deny geçerlidir.
+
+Technology news geniş ve rastgele toplanmaz.
+
+Yalnız Tokenoskobi’ye operasyonel etkisi olan gelişmeler öncelenir:
+
+- AI model yetenekleri
+- AI infrastructure
+- GPU/CPU/AI accelerator
+- Database/runtime/security tooling
+- Blockchain/DEX/onchain altyapısı
+- Kullanılan provider ve protokol değişiklikleri
+
+---
+
+## 20. DATA, EVIDENCE AND RETENTION CONSTITUTION
+
+- Evidence never disappears.
+- Provenance, timestamp, source, confidence ve decision link korunur.
+- Immutable snapshot tercih edilir.
+- Readmodel source of truth değildir.
+- Cache yeniden üretilebilir olmalıdır.
+- Historical evidence aktif runtime yüzeyinden ayrılabilir ama kaybolamaz.
+- Blind bulk delete yasaktır.
+- Unclassified/manual-only dosya kanıtsız silinemez.
+- Production DB mutation açık kapsam ve rollback olmadan yapılamaz.
+- Temp-copy test production kanıtı değildir; yalnız güvenli doğrulama aracıdır.
+
+---
+
+## 21. SCRIPT AND ARTIFACT LIFECYCLE
+
+```text
+ACTIVE_RUNTIME = runtime reachable; explicit scope olmadan dokunma
+ACTIVE_LIBRARY = active code tarafından import edilir
+ACTIVE_RUNTIME_DATA = active runtime tarafından kullanılan veri/contract
+GENERAL_TOOL = birden çok ERA için reusable araç
+MANUAL_ONLY = yalnız insan komutuyla çalışır
+HISTORICAL_EVIDENCE = geçmiş kanıt; archive’da korunur
+DISPOSABLE = reproducible, evidence-free, explicit inventory ile silinebilir
+UNCLASSIFIED = körlemesine silinemez
+```
+
+Bir defalık araç kapanışta kaldırılır; ürettiği evidence korunur.
+
+---
+
+## 22. CODE GENERATION CONSTITUTION
+
+Kullanıcı açıkça istemeden kod veya komut verilmez.
+
+İstendiğinde:
+
+- Tek paste-and-run blok
+- Reusable
+- Generic
+- Minimal
+- Compact
+- Production-safe
+- Idempotent
+- Rollback-aware
+
+`nano`, `vim` ve interaktif editor yasaktır.
+
+Quoted Python heredoc içinde kırılabilir `$S`, `$TS` veya shell interpolation kullanılmaz; değer literal, argument veya environment ile güvenli aktarılır.
+
+---
+
+## 23. SERVER OPERATION CONSTITUTION
+
+Bütün server komutları:
+
+```text
+cd /root/tokenoskobi_clean_v1
+```
+
+ile başlar.
+
+Komutlar:
+
+- SSH-safe
+- Mobile-safe
+- 4G-safe
+- Re-runnable
+- Disconnect-resilient
+- Non-destructive by default
+
+olmalıdır.
+
+SSH oturumu gereksiz kapatılamaz, runtime gereksiz durdurulamaz ve kullanıcı manuel recovery’ye zorlanamaz.
+
+---
+
+## 24. RUNTIME AND MUTATION CONSTITUTION
+
+Açık kapsam olmadan:
+
+- Runtime mutation
+- Database mutation
+- Panel mutation
+- Service mutation
+- Timer mutation
+- Deploy mutation
+- Network mutation
+- Authority expansion
+
+yapılamaz.
+
+Runtime hiçbir zaman Lab import etmez.
+
+Lab:
+
+- Read-only
+- NOAPI varsayılan
+- Hot path dışında
+- Production authority’siz
+
+kalır.
+
+---
+
+## 25. RECOVERY, ROLLBACK AND KILL-SWITCH DOCTRINE
+
+- Recovery mutation’dan önce tasarlanır.
+- Her riskli işlem rollback contractüne sahip olmalıdır.
+- Atomic publish ve fail-closed tercih edilir.
+- Partial publish kabul edilmez.
+- Kill switch ayrı, basit ve test edilmiş olmalıdır.
+- Emergency hard kill yalnız güvenli kapanış mümkün değilse kullanılır.
+- Recovery kanıtlanmadan live readiness ilan edilemez.
+- Backup, restore ve replay düzenli doğrulanır.
+
+---
+
+## 26. COST, PROVIDER AND SCALE DISCIPLINE
+
+- Önce ölç, sonra harca.
+- 0$ / free UI / local / GitHub tabanlı yol önce değerlendirilir.
+- Ücretli API yalnız ölçülmüş fayda, bütçe, limit ve human approval ile açılır.
+- Provider rate-limit, backpressure, timeout ve failover sözleşmesi olmadan hot path’e bağlanmaz.
+- Ölçekleme capability kanıtından sonra gelir.
+- GPU, distributed runtime ve multi-chain genişleme ölçülmüş ihtiyaç olmadan açılmaz.
+- Maliyet saklanamaz; per-source/per-run görünür olmalıdır.
+
+---
+
+## 27. MULTI-CHAIN AND DEX EXPANSION SAFETY
+
+- Yeni chain adapter read-only ve shadow-first başlar.
+- Chain identity, address normalization ve unsupported-chain reject zorunludur.
+- 13–15 chain hedefi roadmap konusudur; authority genişlemesi değildir.
+- DEX route intelligence execution authority yaratmaz.
+- Liquidity, slippage, fee, MEV ve route riskleri net expectancy’den önce değerlendirilir.
+- Bridge ve cross-chain bağlantılar ayrı risk sınıfıdır.
+
+---
+
+## 28. GITHUB AND CLOSURE CONSTITUTION
+
+İş tamamlanmadan önce:
+
+```text
+TEST=OK
+POST_AUDIT=OK
+CANONICAL_SYNC=OK
+GIT_STATUS=CLEAN
+COMMIT=CREATED
+PUSH=OK
+REMOTE_VERIFY=OK
+GITHUB_SEAL=OK
+```
+
+olmalıdır.
+
+- Tracked canonical dosya kendi gelecekteki commit hash’ini içermez.
+- HEAD dinamik Git kaynağından okunur.
+- Mid-substep push varsayılan değildir.
+- Seal yalnız logical closure’da oluşturulur.
+- GitHub remote AI hafızasından üstündür; local workspace/local Git remote’dan üstündür.
+
+---
+
+## 29. AMENDMENT CONSTITUTION
+
+Manifesto değişikliği anayasa değişikliğidir.
+
+Zorunludur:
+
+- Açık kullanıcı onayı
+- Impact analysis
+- Çelişki kontrolü
+- Eski çelişen kuralın kaldırılması
+- Duplicate doctrine oluşmaması
+- Verification
+- GitHub synchronization
+- Final seal
+
+Yeni kural doğru başlığa eklenir; dosyanın sonuna rastgele yapıştırılmaz.
+
+---
+
+## 30. FINAL NON-NEGOTIABLE LOCK
+
+```text
+EVIDENCE_FIRST=true
+RISK_FIRST=true
+READ_ONLY_FIRST=true
+SHADOW_FIRST=true
+MEASURE_BEFORE_SPEND=true
+CAPABILITY_BEFORE_EXPANSION=true
+CAPITAL_PRESERVATION_FIRST=true
+HUMAN_FINAL_AUTHORITY=true
+FAIL_CLOSED_DEFAULT=true
+ONE_PURPOSE_ONE_CANONICAL_FILE=true
+ONE_ACTIVE_WORK_UNIT=true
+CLOSED_ERA_IMMUTABLE=true
+NEXT_SAFE_STEP_ONLY=true
+NO_UNAUTHORIZED_LIVE_FETCH=true
+NO_UNAUTHORIZED_PRODUCTION_MUTATION=true
+NO_UNAUTHORIZED_TRADE=true
+NO_UNAUTHORIZED_WALLET_ACCESS=true
+NO_UNAUTHORIZED_SIGNING=true
+NO_UNAUTHORIZED_ORDER_CREATION=true
+GENERAL_SOLUTION_OVER_PATCH=true
+EVIDENCE_NEVER_DISAPPEARS=true
+COMPLEXITY_MUST_PAY_FOR_ITSELF=true
+```
+
+Final doctrine:
+
+**Önce kanıt. Sonra risk. Sonra fırsat. En son insan kararı.**

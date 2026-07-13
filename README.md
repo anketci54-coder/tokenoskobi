@@ -1,62 +1,252 @@
 # TOKENOSKOBI / COINOSKOBI
 
-Bu dosya kısa başlangıç ve devam işaretçisidir. Canlı proje durumu burada kopyalanmaz; `PROJECT_RUNTIME.json` dosyasından okunur.
+## SINGLE ENTRY BOOT CONTRACT
 
-## Yeni pencere başlangıç sırası
+Bu repository için tek başlangıç kapısı `README.md` dosyasıdır.
 
-1. `PROJECT_RUNTIME.json` — mevcut durum ve gerçek `NEXT_SAFE_STEP`
-2. `PROJECT_BOOT.json` — kalıcı kimlik, anayasa ve başlangıç sözleşmesi
-3. `06_PROJECT_MASTER_STATE.md` — okunabilir mevcut durum özeti
-4. `07_PROJECT_HANDOFF.md` — devam bağlamı
-5. `02_MANIFESTO.md` — kalıcı anayasal kurallar
-6. `03_ROADMAP.md` — gelecek yönü
-7. `PROJECT_HISTORY.json` — yalnız tarih gerektiğinde
+Yeni bir ChatGPT/AI penceresine yalnız şu talimat verilmesi yeterlidir:
 
-Canonical navigation için `01_INDEX.md` kullanılır.
+> `README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.`
 
-## Devam garantisi
+README mevcut proje durumunu kopyalamaz. Mevcut durum her zaman `PROJECT_RUNTIME.json` içinden okunur.
 
-- Önce `git rev-parse HEAD` ve tag doğrulaması yapılır.
-- Mevcut ERA, son tamamlanan iş ve sonraki güvenli adım yalnız `PROJECT_RUNTIME.json` içinden okunur.
-- README, Boot, Master State veya AI hafızası Runtime ile çelişirse Runtime üstün gelir.
-- Local workspace ve Local Git, GitHub remote ve AI hafızasından üstündür.
-- Yeni ERA yalnız açık insan kararıyla açılır.
+---
 
-## İcra modeli
+## 1. SOURCE OF TRUTH ORDER
 
-`CONSTITUTION → RISK CLASSIFICATION → PLAYBOOK SELECTION → EXECUTION → EVIDENCE → SEAL`
+Çelişki halinde kesin üstünlük sırası:
 
-Anayasal yaşam döngüsü değişmez. Temp-copy, shadow, canary, benchmark, stress veya red-team teknikleri zorunlu anayasa adımları değil; işin riskine göre seçilen playbook araçlarıdır.
+```text
+LOCAL_WORKSPACE
+> LOCAL_GIT
+> GITHUB_REMOTE
+> AI_MEMORY
+```
 
-## Kalıcı kısa kurallar
+Dosya yetkisi:
 
-- Constitution is invariant; playbook is risk-driven.
-- Genel çözüm özel yamadan üstündür; silinmiş legacy dosya geri getirmek genel onarım sayılmaz.
-- Tek kullanımlık karar/test/audit script zincirleri oluşturulmaz.
-- Complexity must pay for itself.
-- Evidence never disappears; geçici araç kalıcı olmak zorunda değildir.
-- One source of truth: current state owner is `PROJECT_RUNTIME.json`.
-- Tek mantıksal operasyon, mümkünse tek commit ve tek push.
-- Runtime, DB, panel, service, timer veya yetki mutasyonu yalnız açık kapsamla yapılır.
-- Canlı trade, wallet signing, order creation ve AI trade authority kilitlidir.
+```text
+PROJECT_RUNTIME.json
+= güncel machine-state, son doğrulanmış iş ve NEXT_SAFE_STEP
 
-## Script yaşam döngüsü
+data/tokenoskobi_v1_v8_master_era_roadmap.json
+= ayrıntılı V1-V8 / ERA sırası, status, depends_on ve connects_to
 
-- `ACTIVE_RUNTIME`: doğrulanmış runtime zinciri tarafından çağrılır.
-- `ACTIVE_LIBRARY`: aktif kod tarafından import edilir.
-- `GENERAL_TOOL`: birden çok ERA ve bileşende yeniden kullanılabilen kalıcı araçtır.
-- `MANUAL_ONLY`: yalnız açık insan komutuyla çalışır.
-- `HISTORICAL_EVIDENCE`: geçmiş kanıtıdır; archive alanında korunur.
-- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır; silinir.
-- Bir defalık karar aracı kapanışta silinir; ürettiği kanıt korunur.
+02_MANIFESTO.md
+= değişmez anayasa, doktrin, yasaklar ve yetki sınırları
 
-## Runtime source contract
+PROJECT_BOOT.json
+= sabit kimlik, boot sözleşmesi ve machine-readable kalıcı kurallar
 
-- Seed registry: `news_source_registry_v1`.
-- Fetch policy: `news_source_fetch_policy_v1`.
-- Seed presence does not authorize network access.
-- Runtime eligibility is derived from registry + policy + explicit human authorization.
-- Default behavior is deny/fail-closed.
-- Current runtime-eligible source count: `0`.
-- Canonical contract: `config/news_runtime_source_contract_v1.json`.
-- No legacy raw runner restoration and no hardcoded runtime source list.
+03_ROADMAP.md
+= insan-okunur gelecek yön özeti
+
+04_ALMANAC.md
+= kapanmış işlerin insan-okunur kayıt defteri
+
+PROJECT_HISTORY.json
+= append-only machine-readable tarihçe
+
+05_ATLAS.md
+= mimari bileşen ve bağlantı haritası
+
+06_PROJECT_MASTER_STATE.md
+= güncel insan-okunur durum özeti
+
+07_PROJECT_HANDOFF.md
+= devam bağlamı ve son oturum aktarımı
+
+01_INDEX.md
+= canonical navigation
+```
+
+Bir özet dosyası kendi owner kaynağıyla çelişirse owner kaynak üstün gelir.
+
+---
+
+## 2. MANDATORY READ ORDER
+
+Yeni pencere aşağıdaki dosyaları bu sırayla okumalıdır:
+
+1. `README.md`
+2. `02_MANIFESTO.md`
+3. `PROJECT_BOOT.json`
+4. `PROJECT_RUNTIME.json`
+5. `data/tokenoskobi_v1_v8_master_era_roadmap.json`
+6. `03_ROADMAP.md`
+7. `04_ALMANAC.md`
+8. `05_ATLAS.md`
+9. `06_PROJECT_MASTER_STATE.md`
+10. `07_PROJECT_HANDOFF.md`
+11. `PROJECT_HISTORY.json`
+12. `01_INDEX.md`
+
+Hiçbir dosya sohbet hafızasıyla ikame edilemez.
+
+---
+
+## 3. REPOSITORY AND SERVER VERIFICATION
+
+Server erişimi varsa önce repository doğrulanır:
+
+```bash
+cd /root/tokenoskobi_clean_v1
+git status --short
+git rev-parse HEAD
+git rev-parse origin/main
+git tag --points-at HEAD
+```
+
+Kurallar:
+
+- Working tree kirliyse nedenini raporla; körlemesine silme veya reset yapma.
+- Local HEAD ile `origin/main` farklıysa senkron varsayma.
+- Tag yalnız gerçek ref doğrulamasıyla kabul edilir.
+- Server erişimi yoksa GitHub `main` okunur ve local workspace’in doğrulanamadığı açıkça belirtilir.
+- AI hafızasındaki HEAD, status veya next-step kanıt sayılmaz.
+
+---
+
+## 4. BOOT RESOLUTION ALGORITHM
+
+Yeni pencere şu algoritmayı uygular:
+
+```text
+A. Manifestodan anayasal sınırları yükle.
+B. Boot dosyasından kalıcı kimlik, mimari ve startup contractünü yükle.
+C. Runtime içinden current_version, current_era, current_stage,
+   last_completed, last_result ve NEXT_SAFE_STEP değerlerini çıkar.
+D. Master roadmap JSON içinde NEXT_SAFE_STEP ile ilgili ERA/work unit'i bul.
+E. İlgili kaydın status, depends_on, purpose ve connects_to alanlarını doğrula.
+F. Almanac ve History içinden kapanış kanıtını doğrula.
+G. Atlas içinden etkilenecek mimariyi doğrula.
+H. Master State ve Handoff ile insan-okunur devam bağlamını karşılaştır.
+I. Çelişki varsa owner dosyaya dön; tahmin yapma.
+J. Kullanıcıya yalnız doğrulanmış mevcut durum ve sıradaki tek güvenli adımı söyle.
+```
+
+---
+
+## 5. NEXT WORK DETERMINATION
+
+Sıradaki iş yalnız şu şekilde belirlenir:
+
+```text
+PROJECT_RUNTIME.NEXT_SAFE_STEP
+→ master roadmap kaydını bul
+→ depends_on kapanmış mı doğrula
+→ status/opened durumunu doğrula
+→ purpose ve connects_to alanlarını oku
+→ açık insan onayı olmadan ERA/work unit açma
+```
+
+Alt plan canonical kaynaklarda yoksa:
+
+- Uydurma.
+- Hafızadan üretme.
+- Önce kapsam, güvenlik sınırı, test planı ve kapanış kriteri öner.
+- Kullanıcı onayı olmadan apply/write/refactor yapma.
+
+Kapanmış ERA/V tekrar açılmaz.
+
+---
+
+## 6. MANDATORY BOOT OUTPUT
+
+Boot tamamlanınca yeni pencere önce yalnız şu özeti vermelidir:
+
+```text
+REPOSITORY_SYNC=
+CURRENT_VERSION=
+CURRENT_ERA_OR_STAGE=
+LAST_COMPLETED=
+NEXT_SAFE_STEP=
+BLOCKERS=
+```
+
+Ardından:
+
+- Kod verme.
+- Yeni ERA açma.
+- Dosya değiştirme.
+- Live fetch, runtime, DB, service, timer, wallet, signing veya trade yetkisi açma.
+- Kullanıcıdan daha önce canonical dosyalarda bulunan bilgiyi tekrar isteme.
+
+---
+
+## 7. EXECUTION CONSTITUTION
+
+Zorunlu sıra:
+
+```text
+CURRENT_STATE_READ
+→ IMPACT_ANALYSIS
+→ USER_APPROVAL
+→ APPLY
+→ TEST
+→ POST_AUDIT
+→ CANONICAL_SYNC
+→ SINGLE_COMMIT
+→ SINGLE_PUSH
+→ REMOTE_VERIFY
+→ GITHUB_SEAL
+→ NEXT_SAFE_STEP
+```
+
+Kurallar:
+
+- Aynı anda yalnız bir aktif work unit.
+- `NEXT_SAFE_STEP` dışına çıkılmaz.
+- Genel çözüm özel yamadan üstündür.
+- Tek kullanımlık script zinciri oluşturulmaz.
+- Mümkünse tek commit ve tek push.
+- Kanıt yoksa tamamlandı denmez.
+- Veri yoksa “veri yok” denir.
+
+---
+
+## 8. HARD SAFETY BOUNDARIES
+
+```text
+HUMAN_FINAL_AUTHORITY=true
+AI_TRADE_AUTHORITY=0
+AUTOMATIC_LIVE_FETCH=false
+AUTOMATIC_PRODUCTION_MUTATION=false
+AUTOMATIC_WALLET_AUTHORITY=false
+AUTOMATIC_SIGNING_AUTHORITY=false
+AUTOMATIC_ORDER_CREATION=false
+FAIL_CLOSED_DEFAULT=true
+```
+
+Seed/source kaydı network erişim izni değildir.
+
+---
+
+## 9. CODE AND SERVER RULES
+
+Kullanıcı açıkça istemeden kod veya komut verilmez.
+
+Kod/komut istendiğinde:
+
+- Tek paste-and-run blok.
+- İlk satır `cd /root/tokenoskobi_clean_v1`.
+- `nano`, `vim` veya interaktif editor yok.
+- İdempotent, SSH-safe, mobile/4G-safe ve rollback-aware.
+- Uzun işlemler bağlantı kopmasına dayanıklı tasarlanır.
+- Quoted Python heredoc içinde kırılabilir shell değişkeni kullanılmaz.
+
+---
+
+## 10. SUCCESS CONDITION
+
+Yeni pencere başarılı şekilde boot olmuş sayılır ancak:
+
+- Manifesto sınırlarını biliyorsa,
+- Runtime’daki gerçek mevcut durumu biliyorsa,
+- Master roadmap’ten gelecek sırayı bulabiliyorsa,
+- Kapanmış işleri tekrar açmıyorsa,
+- Mimari owner dosyalarını ayırabiliyorsa,
+- `NEXT_SAFE_STEP` dışına çıkmıyorsa,
+- Kullanıcı onayı olmadan mutation yapmıyorsa.
+
+Bu README tek giriş kapısıdır; current state veya roadmap’in ikinci kopyası değildir.
