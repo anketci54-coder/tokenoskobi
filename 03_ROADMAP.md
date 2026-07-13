@@ -1,16 +1,16 @@
 # 03 ROADMAP - TOKENOSKOBI / COINOSKOBI MASTER ROADMAP
 
-Bu dosya projenin yön haritasıdır.
+Bu dosya projenin insan-okunur yön özetidir.
 
-Roadmap yalnızca ana yönü, açık seçim kapılarını ve henüz açılmamış gelecek hatlarını gösterir.
+Ayrıntılı V1-V8 ve ERA planının tek canonical kaynağı:
 
-Detaylı tarihçe Almanac içindedir.
+`data/tokenoskobi_v1_v8_master_era_roadmap.json`
 
-Mimari bağ haritası Atlas içindedir.
+Anlık durumun tek machine-state authority kaynağı:
 
-Anlık durum PROJECT_RUNTIME.json ve 06_PROJECT_MASTER_STATE.md içindedir.
+`PROJECT_RUNTIME.json`
 
-Roadmap içinde alt basamak, audit, JSON içeriği, HEAD, timestamp, GitHub logu, dosya listesi, kapanış dökümü veya operasyon ayrıntısı tutulmaz.
+Bu dosyada alt basamak, audit dökümü, JSON içeriği, HEAD, timestamp, GitHub logu, operasyon ayrıntısı veya kapanış geçmişi tutulmaz.
 
 ---
 
@@ -28,202 +28,119 @@ Roadmap içinde alt basamak, audit, JSON içeriği, HEAD, timestamp, GitHub logu
 - Measure before optimize
 - Capability before expansion
 - One major capability per ERA
+- Closed ERA/V is immutable
+- New ERA requires explicit human authorization
+
+---
+
+## CURRENT CANONICAL POSITION
+
+```text
+CURRENT_VERSION=V3_RUNTIME_INTELLIGENCE_OS
+CURRENT_STATUS=V3_ACTIVE
+ERA55=CLOSED_SEALED
+ERA56=CLOSED_SEALED
+GENERAL_RUNTIME_HARDENING=CLOSED_VERIFIED
+PRE_ERA57_REPO_PIPELINE_HYGIENE=CLOSED_VERIFIED
+ERA57_OPENED=false
+LIVE_SOURCE_FETCH_AUTHORIZED=false
+PRODUCTION_MUTATION=false
+NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
+```
 
 ---
 
 ## V1-V8 MASTER ROADMAP
 
-Canonical V-line haritası:
+### V1 - Canonical Foundation
 
-- V1 = PHASE0-PHASE60 closed
-- V2 = V2_00-V2_60 closed
-- V3 = ERA21-ERA60 active
-- V4 = ERA61-ERA80 planned
-- V5 = ERA81-ERA100 planned
-- V6 = ERA101-ERA120 planned
-- V7 = ERA121-ERA140 planned
-- V8 = ERA141-ERA160 planned
+```text
+RANGE=PHASE0-PHASE60
+STATUS=CLOSED
+PURPOSE=Canonical foundation: evidence, risk, panel, lifecycle, news/whale/technical intelligence core.
+```
 
-Rolling roadmap policy:
+### V2 - Productization and Decision Boundary
+
+```text
+RANGE=V2_00-V2_60
+STATUS=CLOSED
+PURPOSE=Productization and decision boundary: real evidence, provider policy, scoring, security, chaos, state machine.
+```
+
+### V3 - Runtime Intelligence OS
+
+```text
+RANGE=ERA21-ERA60
+STATUS=ACTIVE
+PURPOSE=Runtime Intelligence OS.
+```
+
+V3 kalan canonical zinciri:
+
+- ERA57 - Autonomous Research Layer
+- ERA58 - AI Command Center Evolution
+- ERA59 - War Room Final Integration
+- ERA60 - V3 Final Canonical Closure
+
+ERA57 henüz açılmamıştır. ERA57 açılışı yalnız açık insan kararıyla mümkündür.
+
+### V4 - Autonomous Intelligence / Multi-Agent Command
+
+```text
+RANGE=ERA61-ERA80
+STATUS=PLANNED
+PURPOSE=Autonomous Intelligence / Multi-Agent Command.
+```
+
+### V5 - Controlled Trading
+
+```text
+RANGE=ERA81-ERA100
+STATUS=PLANNED
+PURPOSE=Controlled Trading: observe-only -> paper -> limited live -> live governance.
+```
+
+### V6 - Intelligence Platform
+
+```text
+RANGE=ERA101-ERA120
+STATUS=PLANNED
+PURPOSE=Intelligence Platform: API, plugin, SaaS, multi-user, enterprise.
+```
+
+### V7 - Global Intelligence Network
+
+```text
+RANGE=ERA121-ERA140
+STATUS=PLANNED
+PURPOSE=Global Intelligence Network: federated intelligence, chain/wallet/news graph scale.
+```
+
+### V8 - Strategic AI
+
+```text
+RANGE=ERA141-ERA160
+STATUS=PLANNED
+PURPOSE=Strategic AI: self-improving research, simulation, long-term prediction.
+```
+
+---
+
+## ROLLING ROADMAP POLICY
 
 - Current V = high detail
 - Next V = medium detail
 - Future V = strategic detail
-- When a V closes, next V is expanded
+- When a V closes, the next V is expanded
 - Closed ERA/V is immutable
 - New ERA requires explicit human authorization
-
-Full detailed V1-V8 roadmap source:
-
-`data/tokenoskobi_v1_v8_master_era_roadmap.json`
+- Aynı anda yalnız bir aktif work unit yürütülür
+- `NEXT_SAFE_STEP` dışına çıkılmaz
 
 ---
 
-## V1 - CANONICAL FOUNDATION
-
-Amaç:
-
-- Güvenli token radar omurgası
-- Onchain evidence backbone
-- Risk gate
-- Whale intelligence
-- News intelligence
-- Unknown anomaly
-- Prosecutor evidence weighing
-- Fusion summary
-- Readonly decision surface
-- V1 final closure
-
-Durum:
-
-V1 closed.
-
----
-
-## V2 - CONTROLLED CONTINUATION
-
-Amaç:
-
-- V1 sealed base üzerinde kontrollü devam
-- Real evidence bootstrap
-- Source trust
-- Shadow observation
-- Replay harness
-- Real data intake boundary
-- Whale source taxonomy
-- Time drift / TTL
-- Opportunity engine
-- Decision pipeline
-- Conflict resolver
-- State machine
-
-Durum:
-
-V2 closed.
-
----
-
-## V3 - RUNTIME INTELLIGENCE OS
-
-Amaç:
-
-- Runtime readiness
-- Observability
-- Whale and news intelligence runtime
-- Hot intelligence ingress and bounded readmodels
-- General runtime contracts
-- Reusable verification and stress tooling
-- Adaptive and predictive intelligence
-- AI orchestration and veto gate
-
-Durum:
-
-V3 active.
-
-Current direction:
-
-- ERA55 closed and sealed.
-- ERA56 closed and sealed.
-- ERA57 is not opened.
-- Live source activation remains deferred.
-- General runtime hardening is closed and verified.
-- Canonical drift sync is closed.
-- Active/archive/evidence classification is next.
-- Runner contract review follows classification.
-- Policy/authority reachability is closed with scoped fail-closed enforcement.
-- Final isolated stress verification is closed and verified.
-
-Current state authority:
-
-`PROJECT_RUNTIME.json`
-
-Next safe step:
-
-`GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY`
-
-## V4 - PRODUCTIZATION AND LIVE READINESS
-
-Amaç:
-
-- Production hardening
-- Live-readiness gates
-- Controlled micro-live readiness
-- Risk and execution boundary certification
-- Manual approval discipline
-- Provider cost discipline
-
-Durum:
-
-Planned.
-
----
-
-## V5 - SCALE AND MULTI-CHAIN EXPANSION
-
-Amaç:
-
-- Multi-chain runtime expansion
-- DEX route intelligence
-- Whale graph expansion
-- News / adversarial intelligence expansion
-- Scalable readmodel and async deep analysis
-
-Durum:
-
-Planned.
-
----
-
-## V6 - ADVERSARIAL INTELLIGENCE AND RED TEAM SYSTEM
-
-Amaç:
-
-- Attack doctrine tracking
-- Rug / honeypot / manipulation intelligence
-- MEV and liquidity deception analysis
-- Internal safety watchdog
-- External threat defense architecture
-
-Durum:
-
-Planned.
-
----
-
-## V7 - AUTONOMY BOUNDARY AND GOVERNANCE
-
-Amaç:
-
-- Authority boundary hardening
-- Human approval integrity
-- Auditability
-- Recovery and kill-switch discipline
-- No unauthorized live execution
-
-Durum:
-
-Planned.
-
----
-
-## V8 - FULL INTELLIGENCE OPERATING SYSTEM
-
-Amaç:
-
-- Full evidence-driven operating system
-- Continuous learning
-- Opportunity memory
-- Outcome memory
-- Risk-first decision support
-- Manual decision cockpit
-
-Durum:
-
-Planned.
-
----
-
-## LONG TERM TARGET
+## LONG-TERM TARGET
 
 - Güvenli radar
 - Kaliteli aday keşfi
@@ -241,53 +158,42 @@ Planned.
 
 Final doktrin:
 
-Önce kanıt. Sonra risk. Sonra fırsat. En son karar.
+**Önce kanıt. Sonra risk. Sonra fırsat. En son karar.**
 
 ---
 
 ## UPDATE RULE
 
-Her V / ERA kapanışında:
+Roadmap yalnız şu durumlarda güncellenir:
 
-- Roadmap yalnızca ana yön, V-line durumu veya açılmamış major-line seçeneği değiştiyse güncellenir.
-- Almanac detaylı tarihçe ve kapanış kayıtları için güncellenir.
-- Atlas yalnızca yeni mimari bağlantı varsa güncellenir.
-- Project Master State güncel durum için güncellenir.
-- Handoff gerekiyorsa güncellenir.
-- Index sadece canonical içerik haritası değişirse güncellenir.
-- Manifesto sadece doktrin değişirse güncellenir.
+- Ana yön değişirse
+- V-line durumu değişirse
+- Açılmamış major-line seçeneği değişirse
+- Canonical master roadmap ile drift oluşursa
 
 Roadmap içinde tutulmayacak içerikler:
 
 - Alt basamak kayıtları
 - Audit dökümleri
 - JSON içerikleri
-- HEAD dump
+- HEAD veya tag dump
 - Timestamp
 - GitHub logu
-- Dosya adı listeleri
-- Uzun key/value state yığınları
+- Dosya listeleri
 - Operasyon dökümleri
 - Ayrıntılı kapanış kayıtları
 - Geçici runtime ölçümleri
 
-Bu içerikler Almanac, PROJECT_RUNTIME.json, 06_PROJECT_MASTER_STATE.md veya ilgili canonical kaynak dosyada tutulur.
+Bu içerikler `04_ALMANAC.md`, `PROJECT_RUNTIME.json`, `PROJECT_HISTORY.json`, `06_PROJECT_MASTER_STATE.md` veya ilgili canonical owner dosyada tutulur.
 
-## ROADMAP DIRECTION INSERTION AND REPLACEMENT CONSTITUTION
+---
 
-Yeni onaylı bir yön mevcut roadmap yönüyle çakışıyorsa, mevcut yön kendi V-line veya başlık konumunda yeni yönle değiştirilir.
-Değiştirilen eski yön roadmap içinde ikinci bir kopya olarak tutulmaz; tarihsel kayıt gerekiyorsa Almanac veya PROJECT_HISTORY.json içinde korunur.
-Yeni onaylı yön roadmap içinde mevcut değilse ve hiçbir mevcut yönle çakışmıyorsa, ilgili V-line veya zaman ufku altında eklenir.
-Yeni yön sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; roadmap içindeki doğru gelecek katmanına yerleştirilir.
-Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+## CURRENT SAFE STEP
 
-## CURRENT RUNTIME SOURCE POSITION
-
-- General source contract: `LOCKED`.
-- Registered seed sources: `12`.
-- Runtime-eligible sources: `0`.
-- Live network fetch: `NOT_AUTHORIZED`.
-- Stress final gate: `NOT_CLOSED`.
-- ERA57 opened: `false`.
-- Active line: `GENERAL_RUNTIME_HARDENING`.
-- Next safe step: `ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION`.
+```text
+NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
+ERA57_OPENED=false
+LIVE_SOURCE_FETCH_AUTHORIZED=false
+PRODUCTION_MUTATION=false
+HUMAN_FINAL_AUTHORITY=true
+```
