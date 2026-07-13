@@ -1,12 +1,12 @@
-
 #!/usr/bin/env python3
 from __future__ import annotations
 
-from pathlib import Path
 import json
 import os
+from pathlib import Path
 import subprocess
 import sys
+
 sys.dont_write_bytecode = True
 
 from news_ledger_recovery_guard_v1 import (
@@ -17,14 +17,16 @@ from news_ledger_recovery_guard_v1 import (
 DEFAULT_ROOT = Path("/root/tokenoskobi_clean_v1")
 PYTHON_BIN = os.environ.get("TOKENOSKOBI_PYTHON_BIN", "/usr/bin/python3")
 ROOT = Path(os.environ.get("TOKENOSKOBI_ROOT", str(DEFAULT_ROOT)))
-ORIGINAL = Path(
+SOURCE_CONTRACT_RUNNER = Path(
     os.environ.get(
-        "TOKENOSKOBI_NEWS_ORIGINAL_PATH",
-        str(
-            ROOT
-            / "tools"
-            / "news_radar_refresh_runner_v1.PRE_DERIVED_BINDING_20260709T171244Z.py"
-        ),
+        "TOKENOSKOBI_NEWS_SOURCE_CONTRACT_RUNNER_PATH",
+        str(ROOT / "tools" / "news_source_runtime_contract_v1.py"),
+    )
+)
+SOURCE_CONTRACT = Path(
+    os.environ.get(
+        "TOKENOSKOBI_NEWS_SOURCE_CONTRACT_PATH",
+        str(ROOT / "config" / "news_runtime_source_contract_v1.json"),
     )
 )
 HELPER = Path(
@@ -74,6 +76,9 @@ RUNNER_LOCK = Path(
     )
 )
 ORDER_LOG = os.environ.get("TOKENOSKOBI_A10_ORDER_LOG")
+STAGE_TIMEOUT = int(os.environ.get("TOKENOSKOBI_STAGE_TIMEOUT_SECONDS", "120"))
+NO_AUTHORIZED_SOURCES = 78
+ADAPTER_REQUIRED = 79
 
 
 def env_true(name: str) -> bool:
@@ -96,14 +101,35 @@ def append_order(marker: str) -> None:
         os.fsync(handle.fileno())
 
 
-def run_hot() -> int:
-    append_order("HOT_START")
-    result = subprocess.run(
-        [PYTHON_BIN, str(HOT), "--runtime-refresh"],
-        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
-    ).returncode
-    append_order(f"HOT_END:{result}")
+def run_stage(marker: str, argv: list[str]) -> int:
+    target = Path(argv[1]) if len(argv) > 1 else None
+    if target is not None and not target.is_file():
+        print(f"[{marker}_TARGET_MISSING] path={target}", flush=True)
+        append_order(f"{marker}_END:66")
+        return 66
+
+    append_order(f"{marker}_START")
+    try:
+        result = subprocess.run(
+            argv,
+            env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+            timeout=STAGE_TIMEOUT,
+        ).returncode
+    except subprocess.TimeoutExpired:
+        print(
+            f"[{marker}_TIMEOUT_FAIL_CLOSED] timeout_seconds={STAGE_TIMEOUT}",
+            flush=True,
+        )
+        result = 124
+    append_order(f"{marker}_END:{result}")
     return result
+
+
+def run_hot() -> int:
+    return run_stage(
+        "HOT",
+        [PYTHON_BIN, str(HOT), "--runtime-refresh"],
+    )
 
 
 def run_recovery() -> dict:
@@ -132,6 +158,26 @@ def run_recovery() -> dict:
     return result
 
 
+def run_source_contract() -> int:
+    if not SOURCE_CONTRACT.is_file():
+        print(
+            f"[SOURCE_CONTRACT_MISSING] path={SOURCE_CONTRACT}",
+            flush=True,
+        )
+        return 66
+    return run_stage(
+        "SOURCE_CONTRACT",
+        [
+            PYTHON_BIN,
+            str(SOURCE_CONTRACT_RUNNER),
+            "--db-path",
+            str(DB),
+            "--contract-path",
+            str(SOURCE_CONTRACT),
+        ],
+    )
+
+
 def _run_pipeline() -> int:
     writer_enabled = env_true("TOKENOSKOBI_LEDGER_WRITER_ENABLED")
     hot_blocked = False
@@ -152,7 +198,7 @@ def _run_pipeline() -> int:
             hot_blocked = True
             print(
                 "[LEDGER_RECOVERY_QUARANTINE_ACTIVE] "
-                "raw_and_derived_continue hot_publish_blocked=true",
+                "source_and_derived_continue hot_publish_blocked=true",
                 flush=True,
             )
 
@@ -161,24 +207,33 @@ def _run_pipeline() -> int:
 
     if "--hot-only" in sys.argv[1:]:
         if hot_blocked:
-            print(
-                "[HOT_PUBLISH_SKIPPED_DUE_TO_QUARANTINE]",
-                flush=True,
-            )
+            print("[HOT_PUBLISH_SKIPPED_DUE_TO_QUARANTINE]", flush=True)
             return 0
         return run_hot()
 
-    append_order("RAW_START")
-    raw = subprocess.run(
-        [PYTHON_BIN, str(ORIGINAL)] + sys.argv[1:],
-        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
-    )
-    append_order(f"RAW_END:{raw.returncode}")
-    if raw.returncode != 0:
-        return raw.returncode
+    source_result = run_source_contract()
 
-    append_order("DERIVED_START")
-    derived = subprocess.run(
+    if source_result == NO_AUTHORIZED_SOURCES:
+        print(
+            "[SOURCE_CONTRACT_NO_AUTHORIZED_SOURCES] "
+            "status=SUCCESS_NOOP_FAIL_CLOSED "
+            "derived_skipped=true hot_skipped=true",
+            flush=True,
+        )
+        return 0
+
+    if source_result == ADAPTER_REQUIRED:
+        print(
+            "[SOURCE_ADAPTER_REQUIRED_FAIL_CLOSED]",
+            flush=True,
+        )
+        return ADAPTER_REQUIRED
+
+    if source_result != 0:
+        return source_result
+
+    derived = run_stage(
+        "DERIVED",
         [
             PYTHON_BIN,
             str(HELPER),
@@ -188,17 +243,12 @@ def _run_pipeline() -> int:
             "--stage",
             "NEWS_SYSTEMD_TIMER_DERIVED_REFRESH",
         ],
-        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
     )
-    append_order(f"DERIVED_END:{derived.returncode}")
-    if derived.returncode != 0:
-        return derived.returncode
+    if derived != 0:
+        return derived
 
     if hot_blocked:
-        print(
-            "[HOT_PUBLISH_SKIPPED_DUE_TO_QUARANTINE]",
-            flush=True,
-        )
+        print("[HOT_PUBLISH_SKIPPED_DUE_TO_QUARANTINE]", flush=True)
         return 0
 
     return run_hot()
