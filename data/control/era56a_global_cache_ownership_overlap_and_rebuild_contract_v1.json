@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "era56_design_only": true,
+    "era56_open": true,
+    "next_step_matches": true,
+    "option_b_blocked": true,
+    "required_files_present": true,
+    "runner_lock_enabled": true,
+    "writer_active": true
+  },
+  "contract": {
+    "authority_limits": {
+      "human_final_authority": true,
+      "ledger_write_authority": 0,
+      "panel_write_authority": 0,
+      "production_db_write_authority": 0,
+      "service_timer_authority": 0,
+      "trade_authority": 0,
+      "wallet_authority": 0
+    },
+    "next_build_limits": {
+      "panel_binding_authorized": false,
+      "production_binding_authorized": false,
+      "service_timer_binding_authorized": false,
+      "temp_copy_or_new_isolated_file_only": true
+    },
+    "overlap_boundaries": {
+      "backpressure": "ERA56 records backpressure metadata but does not own queue control.",
+      "hot_ingress": "ERA56 may consume published outputs only; it may not become ingress authority.",
+      "ledger": "ERA56 must not write, replace or reinterpret ledger authority.",
+      "panel_bridge": "ERA56 publishes no panel-specific state directly; panel bridges consume approved snapshots.",
+      "readmodel": "ERA56 aggregates readmodels but does not replace owner-specific readmodels."
+    },
+    "rebuild": {
+      "cache_loss_must_not_cause_source_loss": true,
+      "delete_and_rebuild_supported": true,
+      "deterministic_uid_order_required": true,
+      "fully_rebuildable_from_authoritative_sources": true,
+      "logical_parity_required": true
+    },
+    "single_owner": {
+      "authoritative_sources": [
+        "existing runtime DB tables",
+        "existing ledgers",
+        "producer artifacts",
+        "canonical readmodel owners"
+      ],
+      "era56_owner": "derived global immutable snapshot publication only",
+      "second_source_of_truth_forbidden": true
+    },
+    "snapshot_identity": {
+      "atomic_publish_required": true,
+      "content_hash_required": true,
+      "created_at_utc_required": true,
+      "immutable": true,
+      "schema_version_required": true,
+      "source_version_vector_required": true
+    },
+    "staleness": {
+      "expired_snapshot_not_served_as_fresh": true,
+      "panel_must_receive_staleness_state": true,
+      "source_version_mismatch_fails_closed": true,
+      "unknown_freshness_status": "STALE_UNKNOWN"
+    }
+  },
+  "era56_production_apply_authorized": false,
+  "next_safe_step": "ERA56B_GLOBAL_CACHE_READONLY_SCHEMA_AND_TEMP_COPY_BUILD",
+  "production_mutation": false,
+  "result": "OK_ERA56A_OWNERSHIP_OVERLAP_REBUILD_CONTRACT_LOCKED",
+  "schema": "era56a_global_cache_ownership_overlap_and_rebuild_contract_v1",
+  "status": "CLOSED_CONTRACT_LOCKED",
+  "timestamp_utc": "2026-07-13T07:01:15.599125+00:00",
+  "work_unit": "ERA56A_GLOBAL_CACHE_OWNERSHIP_OVERLAP_AND_REBUILD_CONTRACT"
+}
