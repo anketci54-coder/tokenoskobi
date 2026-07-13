@@ -5845,3 +5845,15 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - P0 F1 closed: `true`
 - Next safe step: `ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK`
 
+---
+
+## ERA55A_27 ERA24F OPPORTUNITY COST DECISION
+
+- Status: `CLOSED_OPTION_B_DEFERRED`
+- Result: `OK_OPTION_B_DEFERRED_ERA24F_NET_UTILITY_BELOW_BASELINE`
+- Decision: `DEFER_OPTION_B`
+- ERA24F net utility: `-18.6667`
+- Accept baseline: `95.0`
+- Production mutation: `false`
+- WAL apply authorized: `false`
+- Next safe step: `ERA55_POST_OPTION_B_STRATEGIC_PRIORITY_SELECTION_DECISION`

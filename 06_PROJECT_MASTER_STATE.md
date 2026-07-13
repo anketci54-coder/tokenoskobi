@@ -32,37 +32,28 @@ BOOT_HEALTH=100/100
 ```text
 CURRENT_ERA=ERA55_RUNTIME_OPTIMIZATION
 ERA55_STATUS=OPEN
-CURRENT_STAGE=ERA55A_OPTION_B_TEMP_COPY_BENCHMARK_READY
-LAST_COMPLETED_SUBSTEP=ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
-NATURAL_TIMER_CYCLES_OBSERVED=12
-PRODUCTION_BATCH_ROWS=4
-PRODUCTION_LEDGER_ROWS=430
-PRODUCTION_JOURNAL_MODE=delete
+CURRENT_STAGE=ERA55A_OPTION_B_DEFERRED_PRIORITY_SELECTION_PENDING
+LAST_COMPLETED_SUBSTEP=ERA55A_27_P1_WAL_BOUNDED_APPLY_READINESS_ROLLBACK_AND_AUTHORIZATION_DECISION
 PRODUCTION_LEDGER_WRITER_ACTIVE=true
 P0_F1_CLOSED=true
-OPTION_B_READINESS_CONFIRMED=true
-OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED=true
-OPTION_B_PRODUCTION_APPLY_AUTHORIZED=false
-OPTION_B_AUTHORIZED=false
+OPTION_B_DECISION=DEFER_OPTION_B
+ERA24F_NET_UTILITY=-18.6667
+ERA24F_ACCEPT_BASELINE=95.0
+WAL_APPLY_AUTHORIZED=false
+PRODUCTION_MUTATION=false
 ```
-
-Option B is the P1 DELETE-vs-WAL hypothesis test. Only an immutable or disposable temp-copy benchmark is authorized; production WAL/apply remains blocked.
-
----
 
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=ERA55A_25_P1_OPTION_B_READINESS_AND_AUTHORIZATION_DECISION
-LAST_RESULT=OK_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED
-LAST_ARTIFACT=data/control/era55a25_p1_option_b_readiness_and_authorization_decision_v1.json
-WORK_UNIT_STATUS=CLOSED_OPTION_B_TEMP_COPY_BENCHMARK_AUTHORIZED_PRODUCTION_APPLY_BLOCKED
+LAST_COMPLETED=ERA55A_27_P1_WAL_BOUNDED_APPLY_READINESS_ROLLBACK_AND_AUTHORIZATION_DECISION
+LAST_RESULT=OK_OPTION_B_DEFERRED_ERA24F_NET_UTILITY_BELOW_BASELINE
+LAST_ARTIFACT=data/control/era55a27_p1_wal_readiness_rollback_and_opportunity_cost_decision_v1.json
+WORK_UNIT_STATUS=CLOSED_OPTION_B_DEFERRED
 PRODUCTION_MUTATION=false
 ```
 
-NEXT_SAFE_STEP=ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK
-
----
+NEXT_SAFE_STEP=ERA55_POST_OPTION_B_STRATEGIC_PRIORITY_SELECTION_DECISION
 
 ## 04 NEWS OPERATIONAL BASELINE
 
@@ -177,26 +168,20 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 
 ## 09 OPEN RISKS AND DECISIONS
 
-- P0 F1 is closed and the guarded production writer remains active.
-- Option B remains an unproven DELETE-vs-WAL performance and lock-cost hypothesis.
-- A temp-copy benchmark is authorized; production WAL/apply is not authorized.
-- Correctness, durability, recovery, event count, UID set and panel equivalence must not regress.
-- Process-kill recovery remains partial and is outside the A26 benchmark unless separately authorized.
-- Stage timing and exact panel latency remain incomplete.
-- Runtime risk is minimized, never zero.
-- Git HEAD must be read dynamically.
-
----
+- WAL showed strong sandbox performance gains.
+- ERA24F net utility remains below the canonical acceptance baseline.
+- Production migration security, quiescence and lossless rollback remain unproven.
+- Statistical coverage is limited to one workload and one controlled recovery class.
+- Option B production apply remains blocked.
+- Opportunity-cost superiority over higher-value intelligence lines remains unproven.
 
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=ERA55A_26_P1_OPTION_B_DELETE_VS_WAL_TEMP_COPY_BENCHMARK
+NEXT_SAFE_STEP=ERA55_POST_OPTION_B_STRATEGIC_PRIORITY_SELECTION_DECISION
 ```
 
-Run an immutable/disposable temp-copy DELETE-current versus WAL-candidate benchmark. Do not change the production database, service, timer, panel or guarded writer integration. Production apply requires a separate decision after measured equivalence and material benefit are proven.
-
----
+Select the highest-value strategic project line. Do not apply WAL without separate future authorization and new evidence.
 
 ## MASTER STATE INSERTION AND REPLACEMENT CONSTITUTION
 
