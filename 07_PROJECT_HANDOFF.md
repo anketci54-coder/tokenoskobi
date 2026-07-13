@@ -37,13 +37,13 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_CONTRACT
-LAST_RESULT=OK_POLICY_DRIVEN_SOURCE_CONTRACT_LOCKED_NO_LIVE_FETCH
-LAST_ARTIFACT=data/control/general_runtime_source_contract_v1.json
-RUNTIME_SOURCE_CONTRACT=config/news_runtime_source_contract_v1.json
-RUNTIME_ELIGIBLE_SOURCE_COUNT=0
+LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
+LAST_RESULT=DEFER_LIVE_SOURCE_ACTIVATION
+LAST_ARTIFACT=data/control/general_runtime_source_activation_decision_v1.json
 LIVE_FETCH_AUTHORIZED=false
+RUNTIME_ELIGIBLE_SOURCE_COUNT=0
 ERA57_OPENED=false
+PRODUCTION_MUTATION=false
 
 ## 04 CURRENT CANONICAL DOCUMENT CONDITION
 
@@ -97,13 +97,13 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Review at most one source for bounded activation.
-- Do not activate from seed presence alone.
-- Do not restore legacy raw runner.
-- Do not add a hardcoded source list.
-- ERA57 remains closed.
+- Live source activation remains deferred.
+- No source may be enabled automatically.
+- No network budget has been authorized.
+- ERA57 remains closed until its explicit opening decision.
+- Production mutation remains blocked.
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
+NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
 
 ## 08 NEXT SESSION EXECUTION RULE
 

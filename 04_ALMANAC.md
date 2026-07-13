@@ -6106,3 +6106,21 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Production mutation: `false`
 - ERA57 opened: `false`
 - Next safe step: `GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION`
+
+
+---
+
+## GENERAL RUNTIME SOURCE ACTIVATION DECISION
+
+- Status: `CLOSED_VERIFIED`
+- Decision: `DEFER_LIVE_SOURCE_ACTIVATION`
+- Registered sources: `12`
+- Runtime-eligible sources: `0`
+- Live fetch authorized: `false`
+- Network call: `false`
+- Database write: `false`
+- Service/timer change: `false`
+- ERA57 opened: `false`
+- Production mutation: `false`
+- Artifact: `data/control/general_runtime_source_activation_decision_v1.json`
+- Next safe step: `ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION`

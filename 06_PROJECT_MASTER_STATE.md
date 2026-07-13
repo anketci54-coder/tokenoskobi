@@ -43,18 +43,17 @@ PRODUCTION_MUTATION=false
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_CONTRACT
-LAST_RESULT=OK_POLICY_DRIVEN_SOURCE_CONTRACT_LOCKED_NO_LIVE_FETCH
-LAST_ARTIFACT=data/control/general_runtime_source_contract_v1.json
-RUNTIME_SOURCE_CONTRACT=config/news_runtime_source_contract_v1.json
+LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
+LAST_RESULT=DEFER_LIVE_SOURCE_ACTIVATION
+LAST_ARTIFACT=data/control/general_runtime_source_activation_decision_v1.json
 REGISTERED_SOURCE_COUNT=12
 RUNTIME_ELIGIBLE_SOURCE_COUNT=0
 LIVE_FETCH_AUTHORIZED=false
+AUTOMATIC_ACTIVATION=false
 ERA57_OPENED=false
 PRODUCTION_MUTATION=false
-```
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
+NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
 
 ## 04 NEWS OPERATIONAL BASELINE
 
@@ -179,10 +178,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
-```
+NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
 
-Select at most one source for bounded activation review. Seed registry presence alone is never authorization.
+
+Live source activation is deferred. ERA57 may be considered only under its own bounded opening decision; no source, budget or network authority is implied.
 
 ## MASTER STATE INSERTION AND REPLACEMENT CONSTITUTION
 
