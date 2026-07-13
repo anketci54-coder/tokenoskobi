@@ -5993,3 +5993,15 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Runtime binding authorized: `false`
 - Production mutation: `false`
 - Next safe step: `ERA56G_GLOBAL_CACHE_SINGLE_CYCLE_CANARY_APPLY_DECISION`
+
+---
+
+## ERA56G GLOBAL CACHE SINGLE CYCLE CANARY APPLY DECISION
+
+- Status: `CLOSED_CANARY_APPLY_DECISION_VERIFIED`
+- Result: `OK_SINGLE_CYCLE_CANARY_APPLY_AUTHORIZED_RUNTIME_BINDING_STILL_BLOCKED`
+- Decision: `AUTHORIZE_SINGLE_CYCLE_CANARY_APPLY`
+- Single-cycle canary apply authorized: `true`
+- Runtime binding authorized: `false`
+- Production mutation: `false`
+- Next safe step: `ERA56H_GLOBAL_CACHE_SINGLE_CYCLE_CANARY_APPLY_AND_POSTCHECK`
