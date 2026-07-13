@@ -2,7 +2,8 @@
 
 ## 1. BOOT POINTER
 
-- `README.md` — kısa başlangıç ve güvenlik işaretçisi
+- `README.md` — tek girişli canonical boot protokolü ve bütün owner
+  dosyalara zorunlu yönlendirme
 
 ## 2. HUMAN-READABLE CANONICAL DOCUMENTS
 
@@ -26,13 +27,10 @@
 
 ## STARTUP READ ORDER
 
-1. `PROJECT_RUNTIME.json`
-2. `PROJECT_BOOT.json`
-3. `06_PROJECT_MASTER_STATE.md`
-4. `07_PROJECT_HANDOFF.md`
-5. `02_MANIFESTO.md`
-6. `03_ROADMAP.md`
-7. `PROJECT_HISTORY.json` yalnız tarihsel bağlam gerektiğinde
+1. `README.md`
+2. README içindeki `MANDATORY READ ORDER` eksiksiz uygulanır.
+3. Current state yalnız `PROJECT_RUNTIME.json` içinden çözülür.
+4. Gelecek sıra yalnız master roadmap JSON içinden çözülür.
 
 ## INDEX CONSTITUTION
 
@@ -53,13 +51,18 @@ Navigation değişmedikçe bu dosya değiştirilmez.
 <!-- STARTUP_RESUME_MAP_START -->
 ## STARTUP AND RESUME MAP
 
-- Current state: `PROJECT_RUNTIME.json`
+- Single entry: `README.md`
+- Constitution: `02_MANIFESTO.md`
 - Stable boot contract: `PROJECT_BOOT.json`
+- Current state: `PROJECT_RUNTIME.json`
+- Detailed future sequence: `data/tokenoskobi_v1_v8_master_era_roadmap.json`
+- Future direction summary: `03_ROADMAP.md`
+- Completed work: `04_ALMANAC.md`
+- Architecture: `05_ATLAS.md`
 - Human-readable state: `06_PROJECT_MASTER_STATE.md`
 - Continuation context: `07_PROJECT_HANDOFF.md`
-- Constitution: `02_MANIFESTO.md`
-- Future direction: `03_ROADMAP.md`
 - History: `PROJECT_HISTORY.json`
+- Navigation: `01_INDEX.md`
 - General isolated runtime stress harness: `tests/general_runtime_stress_harness_v1.py`
 <!-- STARTUP_RESUME_MAP_END -->
 

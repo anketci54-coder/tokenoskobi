@@ -1,5 +1,26 @@
 # 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
+<!-- README_MANIFESTO_SINGLE_ENTRY_CLOSURE_START -->
+## README AND MANIFESTO SINGLE-ENTRY CONSTITUTION LOCK
+
+- Status: `CLOSED_VERIFIED`
+- Work unit: `README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK`
+- Result: `OK_README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK_CLOSED_VERIFIED`
+- Source commit: `06361bf3ef72612c07b225c1807e48afcd527573`
+- Source seal: `PRE_ERA57_README_MANIFESTO_CONSTITUTION_FINAL_SEAL`
+- Canonical sync artifact: `data/control/pre_era57_readme_manifesto_canonical_closure_sync_v1.json`
+- README single-entry boot: `true`
+- Manifesto constitution complete: `true`
+- Documentation-only change: `true`
+- Runtime mutation: `false`
+- Database mutation: `false`
+- Network mutation: `false`
+- Production mutation: `false`
+- ERA57 opened: `false`
+- Next safe step: `ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION`
+- Canonical sync UTC: `2026-07-13T18:30:52.472318+00:00`
+<!-- README_MANIFESTO_SINGLE_ENTRY_CLOSURE_END -->
+
 <!-- ERA55_SELECTION_GATE_SYNC_ALMANAC_START -->
 ## ERA55 SELECTION GATE CANONICAL BINDING SYNC
 
