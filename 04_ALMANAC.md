@@ -5956,3 +5956,15 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Stale detection: `true`
 - Production mutation: `false`
 - Next safe step: `ERA56D_GLOBAL_CACHE_ATOMIC_PUBLISH_AND_READONLY_CONSUMER_DRYRUN`
+
+---
+
+## ERA56D GLOBAL CACHE ATOMIC PUBLISH AND READONLY CONSUMER DRYRUN
+
+- Status: `CLOSED_DRYRUN_VERIFIED`
+- Result: `OK_ERA56D_ATOMIC_PUBLISH_READONLY_CONSUMER_FAIL_CLOSED`
+- Atomic publish: `true`
+- Read-only consumer: `true`
+- Fail-closed: `true`
+- Production mutation: `false`
+- Next safe step: `ERA56E_GLOBAL_CACHE_BOUNDED_RUNTIME_BINDING_READINESS_DECISION`
