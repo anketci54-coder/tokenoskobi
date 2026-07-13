@@ -48,7 +48,7 @@ from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
-CONTRACT_VERSION = "NEWS_SOURCE_INGESTION_V1"
+CONTRACT_VERSION = "NEWS_SOURCE_INGESTION_V1_1"
 ROOT = Path(os.environ.get("TOKENOSKOBI_ROOT", "/root/tokenoskobi_clean_v1"))
 DB = Path(os.environ.get("TOKENOSKOBI_DB_PATH", str(ROOT / "data/tokenoskobi_clean_v1.sqlite")))
 STATE = Path(os.environ.get("TOKENOSKOBI_SOURCE_INGESTION_STATE_PATH", str(ROOT / "runtime/state/news_source_ingestion_state_v1.json")))
@@ -113,32 +113,112 @@ def pick(mapping: dict, names: tuple[str, ...], default: object = None):
 
 
 def registry_sources(con: sqlite3.Connection) -> list[dict]:
-    if not table_exists(con, "news_source_registry"):
-        raise RuntimeError("NEWS_SOURCE_REGISTRY_MISSING")
-    cols = columns(con, "news_source_registry")
-    url_col = next((x for x in ("url", "feed_url", "rss_url", "source_url", "endpoint_url") if x in cols), None)
-    if not url_col:
-        raise RuntimeError("NEWS_SOURCE_REGISTRY_URL_COLUMN_MISSING")
-    rows = [dict(zip(cols, row)) for row in con.execute('SELECT * FROM "news_source_registry"').fetchall()]
+    table = "news_source_registry_v1"
+
+    if not table_exists(con, table):
+        raise RuntimeError("NEWS_SOURCE_REGISTRY_V1_MISSING")
+
+    cols = columns(con, table)
+
+    required = {
+        "source_uid",
+        "source_name",
+        "source_url",
+        "fetch_method",
+        "status",
+    }
+    missing = sorted(required - set(cols))
+    if missing:
+        raise RuntimeError(
+            "NEWS_SOURCE_REGISTRY_V1_CONTRACT_MISSING:"
+            + ",".join(missing)
+        )
+
+    rows = [
+        dict(zip(cols, row))
+        for row in con.execute(
+            """
+            SELECT *
+            FROM news_source_registry_v1
+            ORDER BY
+                COALESCE(priority, 0) DESC,
+                source_uid ASC
+            """
+        ).fetchall()
+    ]
+
+    blocked_statuses = {
+        "DISABLED",
+        "INACTIVE",
+        "BLOCKED",
+        "REJECTED",
+        "DEPRECATED",
+        "ARCHIVED",
+        "DENIED",
+    }
+
+    supported_methods = {
+        "RSS",
+        "ATOM",
+        "FEED",
+        "HTTP",
+        "HTTPS",
+        "GET",
+        "XML",
+    }
+
     out = []
+
     for row in rows:
-        enabled = pick(row, ("enabled", "is_enabled", "active"), 1)
-        try:
-            if int(enabled or 0) != 1:
-                continue
-        except Exception:
+        status = str(row.get("status") or "").strip().upper()
+        if status in blocked_statuses:
             continue
-        url = str(row.get(url_col) or "").strip()
+
+        url = str(row.get("source_url") or "").strip()
         if not url.startswith(("http://", "https://")):
             continue
-        source_type = str(pick(row, ("source_type", "type", "format"), "rss")).lower()
-        if source_type not in {"rss", "atom", "feed", "news", "xml"}:
+
+        fetch_method = str(
+            row.get("fetch_method") or "RSS"
+        ).strip().upper()
+
+        if fetch_method not in supported_methods:
             continue
-        out.append({
-            "source_uid": str(pick(row, ("source_uid", "uid", "id"), stable(url, size=20))),
-            "source_name": str(pick(row, ("source_name", "name", "label"), url)),
-            "url": url,
-        })
+
+        source_class = str(
+            row.get("source_class") or ""
+        ).strip().lower()
+
+        if source_class and not any(
+            marker in source_class
+            for marker in (
+                "rss",
+                "atom",
+                "feed",
+                "news",
+                "media",
+                "official",
+            )
+        ):
+            continue
+
+        out.append(
+            {
+                "source_uid": str(row["source_uid"]),
+                "source_name": str(row["source_name"]),
+                "url": url,
+                "fetch_method": fetch_method,
+                "priority": int(row.get("priority") or 0),
+                "trust_level": row.get("trust_level"),
+                "source_domain": row.get("source_domain"),
+            }
+        )
+
+    if not out:
+        raise RuntimeError(
+            "NO_ENABLED_SUPPORTED_SOURCES_IN_NEWS_SOURCE_REGISTRY_V1"
+        )
+
     return out[:MAX_SOURCES]
 
 
