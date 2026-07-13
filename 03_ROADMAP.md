@@ -109,11 +109,9 @@ Amaç:
 
 - Runtime readiness
 - Observability
-- Shadow feed and provider abstraction
-- Multi-RPC trust and cost discipline
 - Whale and news intelligence runtime
 - Hot intelligence ingress and bounded readmodels
-- General runtime producer contracts
+- General runtime contracts
 - Reusable verification and stress tooling
 - Adaptive and predictive intelligence
 - AI orchestration and veto gate
@@ -127,17 +125,21 @@ Current direction:
 - ERA55 closed and sealed.
 - ERA56 closed and sealed.
 - ERA57 is not opened.
-- Emergency PRE-ERA57 patch chain removed.
-- Legacy raw runner restore is forbidden.
-- Next work is a general runtime producer contract repair decision.
+- Live source activation remains deferred.
+- General runtime hardening is active.
+- Canonical drift sync is closed.
+- Active/archive/evidence classification is next.
+- Runner contract review follows classification.
+- Policy/authority reachability proof follows runner review.
+- Final isolated stress verification remains the ERA57 gate.
 
 Current state authority:
 
 `PROJECT_RUNTIME.json`
 
-Detailed roadmap authority:
+Next safe step:
 
-`data/tokenoskobi_v1_v8_master_era_roadmap.json`
+`GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION`
 
 ## V4 - PRODUCTIZATION AND LIVE READINESS
 
@@ -285,5 +287,7 @@ Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi v
 - Registered seed sources: `12`.
 - Runtime-eligible sources: `0`.
 - Live network fetch: `NOT_AUTHORIZED`.
+- Stress final gate: `NOT_CLOSED`.
 - ERA57 opened: `false`.
-- Next safe step: `GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION`.
+- Active line: `GENERAL_RUNTIME_HARDENING`.
+- Next safe step: `GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION`.

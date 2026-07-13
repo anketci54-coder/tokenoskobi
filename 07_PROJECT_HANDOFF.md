@@ -24,24 +24,26 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ERA56_CLOSED_ERA57_NOT_OPENED
+PROJECT_STATUS=ERA56_CLOSED_PRE_ERA57_GENERAL_RUNTIME_HARDENING
 CURRENT_VERSION=V3_RUNTIME_INTELLIGENCE_OS
-CURRENT_STAGE=GENERAL_RUNTIME_CONTRACT_CLEANUP_CLOSED
-LAST_COMPLETED=GENERAL_RUNTIME_EMERGENCY_PATCH_CLEANUP_AND_CANONICAL_REALIGN
-EMERGENCY_PATCH_CHAIN_REMOVED=true
+CURRENT_MAIN_LINE=GENERAL_RUNTIME_HARDENING
+CURRENT_STAGE=GENERAL_RUNTIME_HARDENING_A_CANONICAL_SYNC_CLOSED
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_A_CANONICAL_SYNC
 GENERAL_HARNESS=tests/general_runtime_stress_harness_v1.py
+STRESS_FINAL_GATE_CLOSED=false
 LEGACY_RAW_RESTORE_FORBIDDEN=true
+LIVE_FETCH_AUTHORIZED=false
 ERA57_OPENED=false
 PRODUCTION_MUTATION=false
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
-LAST_RESULT=DEFER_LIVE_SOURCE_ACTIVATION
-LAST_ARTIFACT=data/control/general_runtime_source_activation_decision_v1.json
-LIVE_FETCH_AUTHORIZED=false
-RUNTIME_ELIGIBLE_SOURCE_COUNT=0
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_A_CANONICAL_SYNC
+LAST_RESULT=OK_CANONICAL_DRIFT_ZEROED
+LAST_ARTIFACT=data/control/general_runtime_hardening_a_canonical_sync_v1.json
+STRESS_GATE_STATUS=EVIDENCE_PRESENT_NOT_ACCEPTED_AS_FINAL_GATE
+STRESS_EVIDENCE=archive/evidence/pre_era57_runtime_review/pre_era57_isolated_stress_harness_result_v1.json
 ERA57_OPENED=false
 PRODUCTION_MUTATION=false
 
@@ -97,24 +99,24 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Live source activation remains deferred.
-- No source may be enabled automatically.
-- No network budget has been authorized.
-- ERA57 remains closed until its explicit opening decision.
-- Production mutation remains blocked.
+- Build the reachable runtime and import graph.
+- Classify active runtime, libraries, general tools, manual tools,
+  historical evidence and disposable files.
+- Do not delete or move files by name alone.
+- Do not change the runtime wrapper in this substep.
+- Do not enable live source fetch.
+- ERA57 remains closed.
 
-NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
+NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION
 
 ## 08 NEXT SESSION EXECUTION RULE
 
-1. Confirm A26 is current and A25 decision evidence remains valid.
-2. Create independent immutable/disposable copies for DELETE-current and WAL-candidate variants.
-3. Measure runtime, stage timing, commit proxy, write amplification, reader/writer blocking, integrity, event count and UID hash.
-4. Do not modify the production database, service, timer, panel or guarded writer integration.
-5. Do not authorize production WAL/apply unless correctness and recovery are identical and benefit is material.
-6. Require a separate explicit human decision after the benchmark.
-
----
+1. Read live systemd ExecStart, Environment and drop-ins.
+2. Build the reachable runtime/import/reference graph.
+3. Classify tools, data, runtime/state, reports and shadow lab.
+4. Produce a keep/archive/delete proposal.
+5. Do not move or delete anything during classification.
+6. Do not modify DB, service, timer, panel or wrapper.
 
 ## 09 HANDOFF CONTENT BOUNDARY
 
@@ -145,12 +147,3 @@ Yeni doğrulanmış devam bilgisi bu dosyada mevcut değilse ve hiçbir mevcut b
 Yeni bilgi sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; Handoff içindeki doğru devam katmanına yerleştirilir.
 
 Handoff'un mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
-
-<!-- PRE_ERA57_CONTINUATION_START -->
-## PRE-ERA57 CONTINUATION
-
-Read `PROJECT_RUNTIME.json` first. ERA56 is sealed. ERA57 is not opened.
-The single reusable harness is `tests/pre_era57_stress_harness.py`.
-It has not been executed by this preparation work unit.
-NEXT_SAFE_STEP=PRE_ERA57_ISOLATED_ADVERSARIAL_STRESS_HARNESS_EXECUTION_DECISION
-<!-- PRE_ERA57_CONTINUATION_END -->
