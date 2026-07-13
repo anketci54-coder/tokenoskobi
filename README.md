@@ -1,41 +1,47 @@
 # TOKENOSKOBI / COINOSKOBI
 
-Bu README yalnız başlangıç işaretçisidir. Canlı proje durumu burada tutulmaz.
+Bu dosya kısa başlangıç ve devam işaretçisidir. Canlı proje durumu burada kopyalanmaz; `PROJECT_RUNTIME.json` dosyasından okunur.
 
-## Yetkili başlangıç sırası
+## Yeni pencere başlangıç sırası
 
-1. `PROJECT_RUNTIME.json`
-2. `PROJECT_BOOT.json`
-3. `06_PROJECT_MASTER_STATE.md`
-4. `07_PROJECT_HANDOFF.md`
-5. `02_MANIFESTO.md`
-6. `03_ROADMAP.md`
-7. `PROJECT_HISTORY.json` yalnız tarihsel bağlam gerektiğinde
+1. `PROJECT_RUNTIME.json` — mevcut durum ve gerçek `NEXT_SAFE_STEP`
+2. `PROJECT_BOOT.json` — kalıcı kimlik, anayasa ve başlangıç sözleşmesi
+3. `06_PROJECT_MASTER_STATE.md` — okunabilir mevcut durum özeti
+4. `07_PROJECT_HANDOFF.md` — devam bağlamı
+5. `02_MANIFESTO.md` — kalıcı anayasal kurallar
+6. `03_ROADMAP.md` — gelecek yönü
+7. `PROJECT_HISTORY.json` — yalnız tarih gerektiğinde
 
 Canonical navigation için `01_INDEX.md` kullanılır.
 
-## Kaynak önceliği
+## Devam garantisi
 
-1. Local workspace
-2. Local Git
-3. GitHub remote
-4. AI memory
-
-## Çalışma kuralları
-
+- Önce `git rev-parse HEAD` ve tag doğrulaması yapılır.
+- Mevcut ERA, son tamamlanan iş ve sonraki güvenli adım yalnız `PROJECT_RUNTIME.json` içinden okunur.
+- README, Boot, Master State veya AI hafızası Runtime ile çelişirse Runtime üstün gelir.
+- Local workspace ve Local Git, GitHub remote ve AI hafızasından üstündür.
 - Yeni ERA yalnız açık insan kararıyla açılır.
-- Kapanmış audit veya hat, kanıtlı drift yoksa yeniden açılmaz.
-- Tek mantıksal operasyon, tek doğrulama seti, mümkünse tek commit ve tek push kullanılır.
-- Runtime, DB, panel, service, timer veya yetki değişikliği yalnız açık kapsamla yapılır.
+
+## İcra modeli
+
+`CONSTITUTION → RISK CLASSIFICATION → PLAYBOOK SELECTION → EXECUTION → EVIDENCE → SEAL`
+
+Anayasal yaşam döngüsü değişmez. Temp-copy, shadow, canary, benchmark, stress veya red-team teknikleri zorunlu anayasa adımları değil; işin riskine göre seçilen playbook araçlarıdır.
+
+## Kalıcı kısa kurallar
+
+- Constitution is invariant; playbook is risk-driven.
+- Complexity must pay for itself.
+- Evidence never disappears; geçici araç kalıcı olmak zorunda değildir.
+- One source of truth: current state owner is `PROJECT_RUNTIME.json`.
+- Tek mantıksal operasyon, mümkünse tek commit ve tek push.
+- Runtime, DB, panel, service, timer veya yetki mutasyonu yalnız açık kapsamla yapılır.
 - Canlı trade, wallet signing, order creation ve AI trade authority kilitlidir.
-- GitHub incelemesi önce; server yalnız local/runtime kanıtı gerektiğinde kullanılır.
-- `tk machine` güncel canonical akışta çalıştırılmaz.
-- Manifestoya eklenecek onaylı bir kural mevcut kuralla çakışıyorsa eski kuralın yerinde onun yerine geçer; manifestoda bulunmayan yeni kural en sona eklenir; mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirme korunur.
+
 ## Script yaşam döngüsü
 
-- `ACTIVE_RUNTIME`: systemd, timer veya doğrulanmış runtime zinciri tarafından çağrılır; açık runtime kapsamı olmadan taşınmaz veya değiştirilmez.
-- `ACTIVE_LIBRARY`: aktif kod tarafından import edilir; caller doğrulanmadan taşınmaz.
-- `MANUAL_ONLY`: yalnız açık insan komutuyla çalıştırılır; production entrypoint sayılmaz.
-- `HISTORICAL_EVIDENCE`: geçmiş karar veya repair kanıtıdır; aktif `tools/` yüzeyinden archive alanına taşınabilir fakat kanıt zinciri korunur.
-- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır; yalnız kanıtlı sınıflandırma ve insan onayıyla repo dışına çıkarılabilir.
-- Aynı yetenek için ikinci bir motor oluşturulmaz; yeni karmaşıklık yalnız net faydası kanıtlanırsa kabul edilir.
+- `ACTIVE_RUNTIME`: doğrulanmış runtime zinciri tarafından çağrılır.
+- `ACTIVE_LIBRARY`: aktif kod tarafından import edilir.
+- `MANUAL_ONLY`: yalnız açık insan komutuyla çalışır.
+- `HISTORICAL_EVIDENCE`: geçmiş kanıtıdır; archive alanında korunabilir.
+- `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır.

@@ -196,3 +196,18 @@ Yeni bilgi sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; Master S
 Bu dosya yalnız `PROJECT_RUNTIME.json` ile doğrulanmış güncel insan-okunur özeti taşır.
 
 Master State'in mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+
+<!-- EXECUTION_MODEL_CANONICAL_START -->
+## EXECUTION MODEL AND PRE-ERA57 ENTRY
+
+CONSTITUTION=INVARIANT
+PLAYBOOK=RISK_DRIVEN
+COMPLEXITY_MUST_PAY_FOR_ITSELF=true
+CURRENT_STATE_OWNER=PROJECT_RUNTIME.json
+ERA56_CLOSED=true
+ERA57_OPENED=false
+STRESS_HARNESS_PREPARED=true
+STRESS_HARNESS_EXECUTED=false
+PRODUCTION_CHAOS_TEST=false
+NEXT_SAFE_STEP=PRE_ERA57_ISOLATED_ADVERSARIAL_STRESS_HARNESS_EXECUTION_DECISION
+<!-- EXECUTION_MODEL_CANONICAL_END -->

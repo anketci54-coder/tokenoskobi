@@ -143,3 +143,12 @@ Yeni doğrulanmış devam bilgisi bu dosyada mevcut değilse ve hiçbir mevcut b
 Yeni bilgi sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; Handoff içindeki doğru devam katmanına yerleştirilir.
 
 Handoff'un mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+
+<!-- PRE_ERA57_CONTINUATION_START -->
+## PRE-ERA57 CONTINUATION
+
+Read `PROJECT_RUNTIME.json` first. ERA56 is sealed. ERA57 is not opened.
+The single reusable harness is `tests/pre_era57_stress_harness.py`.
+It has not been executed by this preparation work unit.
+NEXT_SAFE_STEP=PRE_ERA57_ISOLATED_ADVERSARIAL_STRESS_HARNESS_EXECUTION_DECISION
+<!-- PRE_ERA57_CONTINUATION_END -->

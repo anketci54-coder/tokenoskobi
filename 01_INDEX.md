@@ -49,3 +49,16 @@ Bu dosya şunları içermez:
 - geçici veya arşiv dosyaları
 
 Navigation değişmedikçe bu dosya değiştirilmez.
+
+<!-- STARTUP_RESUME_MAP_START -->
+## STARTUP AND RESUME MAP
+
+- Current state: `PROJECT_RUNTIME.json`
+- Stable boot contract: `PROJECT_BOOT.json`
+- Human-readable state: `06_PROJECT_MASTER_STATE.md`
+- Continuation context: `07_PROJECT_HANDOFF.md`
+- Constitution: `02_MANIFESTO.md`
+- Future direction: `03_ROADMAP.md`
+- History: `PROJECT_HISTORY.json`
+- Pre-ERA57 isolated harness: `tests/pre_era57_stress_harness.py`
+<!-- STARTUP_RESUME_MAP_END -->

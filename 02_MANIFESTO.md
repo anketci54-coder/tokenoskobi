@@ -389,3 +389,18 @@ Yeni onaylı bir kural mevcut manifesto kuralıyla çakışıyorsa, mevcut kural
 Değiştirilen eski kural manifesto içinde ikinci bir kopya olarak tutulmaz.
 Yeni onaylı kural manifestoda mevcut değilse ve hiçbir mevcut kuralla çakışmıyorsa, manifestonun en sonuna eklenir.
 Manifestonun mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+
+<!-- RISK_DRIVEN_PLAYBOOK_DOCTRINE_START -->
+## RISK-DRIVEN PLAYBOOK AND COMPLEXITY DOCTRINE
+
+STATUS: PERMANENT CONSTITUTIONAL RULE
+UPDATED_UTC: 2026-07-13T10:21:10.001914+00:00
+
+1. Constitution is invariant. It defines mandatory authority, evidence, canonical synchronization, commit, push, remote verification and closure rules.
+2. Playbook is risk-driven. Read-only, temp-copy, shadow runtime, canary, benchmark, stress, chaos and external review are selected only when the work's risk justifies them.
+3. No playbook may bypass or replace the Constitution.
+4. Complexity must pay for itself through measured SPEED, POWER, SECURITY, ECONOMY or ADAPTABILITY value. Otherwise it is rejected or deferred.
+5. Evidence never disappears. Reproducible temporary tools may be removed after their evidence and decision remain canonical.
+6. Current state has one owner: `PROJECT_RUNTIME.json`. Other documents reference or summarize it and may not create competing current-state authority.
+7. Prefer the smallest safe playbook that satisfies the risk class and evidence requirement.
+<!-- RISK_DRIVEN_PLAYBOOK_DOCTRINE_END -->
