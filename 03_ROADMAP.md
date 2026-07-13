@@ -139,7 +139,7 @@ Current state authority:
 
 Next safe step:
 
-`GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION`
+`GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY`
 
 ## V4 - PRODUCTIZATION AND LIVE READINESS
 
@@ -290,4 +290,4 @@ Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi v
 - Stress final gate: `NOT_CLOSED`.
 - ERA57 opened: `false`.
 - Active line: `GENERAL_RUNTIME_HARDENING`.
-- Next safe step: `GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION`.
+- Next safe step: `GENERAL_RUNTIME_HARDENING_D_POLICY_AUTHORITY_REACHABILITY`.
