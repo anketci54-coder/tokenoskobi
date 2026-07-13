@@ -27,11 +27,12 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 PROJECT_STATUS=ERA56_CLOSED_PRE_ERA57_GENERAL_RUNTIME_HARDENING
 CURRENT_VERSION=V3_RUNTIME_INTELLIGENCE_OS
 CURRENT_MAIN_LINE=GENERAL_RUNTIME_HARDENING
-CURRENT_STAGE=GENERAL_RUNTIME_HARDENING_A_CANONICAL_SYNC_CLOSED
-LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_A_CANONICAL_SYNC
-GENERAL_HARNESS=tests/general_runtime_stress_harness_v1.py
-STRESS_FINAL_GATE_CLOSED=false
-LEGACY_RAW_RESTORE_FORBIDDEN=true
+CURRENT_STAGE=GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION_CLOSED
+LAST_COMPLETED=GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION
+LAST_RESULT=OK_ACTIVE_SURFACE_CLASSIFIED
+LAST_ARTIFACT=data/control/general_runtime_hardening_b_active_surface_classification_v1.json
+FILE_MOVE=false
+FILE_DELETE=false
 LIVE_FETCH_AUTHORIZED=false
 ERA57_OPENED=false
 PRODUCTION_MUTATION=false
@@ -99,15 +100,13 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Build the reachable runtime and import graph.
-- Classify active runtime, libraries, general tools, manual tools,
-  historical evidence and disposable files.
-- Do not delete or move files by name alone.
-- Do not change the runtime wrapper in this substep.
+- Use the classification artifact as runtime-surface evidence.
+- Repair the general runner contract without restoring PRE_DERIVED files.
 - Do not enable live source fetch.
+- Do not delete or move evidence in the runner-contract step.
 - ERA57 remains closed.
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_B_ACTIVE_SURFACE_CLASSIFICATION
+NEXT_SAFE_STEP=GENERAL_RUNTIME_HARDENING_C_GENERAL_RUNNER_CONTRACT
 
 ## 08 NEXT SESSION EXECUTION RULE
 

@@ -108,7 +108,7 @@ def units(root):
     listing = cmd(
         [
             "systemctl", "list-unit-files",
-            "--type=service", "--type=timer",
+            "--type=service,timer",
             "--no-legend", "--no-pager",
         ],
         check=False,
