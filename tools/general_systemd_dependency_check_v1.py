@@ -98,7 +98,6 @@ def unit_record(unit: str) -> dict[str, Any]:
         unit,
         [
             "Id",
-            "Names",
             "Description",
             "LoadState",
             "ActiveState",
@@ -109,22 +108,16 @@ def unit_record(unit: str) -> dict[str, Any]:
             "DropInPaths",
             "ExecStart",
             "Environment",
-            "EnvironmentFiles",
             "Triggers",
             "TriggeredBy",
             "Requires",
-            "Requisite",
             "Wants",
             "WantedBy",
             "Before",
             "After",
             "PartOf",
-            "Upholds",
-            "ConsistsOf",
             "OnCalendar",
-            "OnBootUSec",
             "OnUnitActiveUSec",
-            "OnUnitInactiveUSec",
             "LastTriggerUSec",
             "NextElapseUSecRealtime",
         ],
@@ -178,11 +171,8 @@ def unit_record(unit: str) -> dict[str, Any]:
             }
             for path in dropins
         ],
-        "cat_returncode": cat.returncode,
         "cat": cat.stdout,
-        "reverse_dependencies_returncode": reverse.returncode,
         "reverse_dependencies": reverse.stdout.splitlines(),
-        "forward_dependencies_returncode": forward.returncode,
         "forward_dependencies": forward.stdout.splitlines(),
     }
 
@@ -213,8 +203,7 @@ def git_grep(root: Path, patterns: list[str]) -> list[dict[str, Any]]:
                 category = "ACTIVE_CODE_REFERENCE"
             else:
                 category = "OTHER_REFERENCE"
-            key = (path, line_number, text)
-            rows[key] = {
+            rows[(path, line_number, text)] = {
                 "path": path,
                 "line": line_number,
                 "text": text[:1000],
@@ -296,16 +285,40 @@ def journal_record(unit: str, since: str) -> dict[str, Any]:
     }
 
 
-def active_dependency_names(lines: list[str], ignored: set[str]) -> list[str]:
+def external_unit_consumers(
+    lines: list[str],
+    ignored: set[str],
+) -> list[str]:
     result = []
     for line in lines:
-        text = line.strip()
-        text = re.sub(r"^[●○*+\-\s]+", "", text)
-        if not text or text in ignored:
+        text = re.sub(
+            r"^[●○*+\-\s]+",
+            "",
+            line.strip(),
+        )
+        if not text or text in ignored or text.endswith(".target"):
             continue
-        if text.endswith((".service", ".timer", ".target", ".socket", ".path")):
+        if text.endswith((".service", ".timer", ".socket", ".path")):
             result.append(text)
     return sorted(set(result))
+
+
+def expected_systemd_reference(
+    item: dict[str, str],
+    timer: str,
+    service: str,
+    fragment_paths: set[str],
+) -> bool:
+    path = item["path"]
+    if path in fragment_paths:
+        return True
+    if item["kind"] != "symlink":
+        return False
+    target = item["target_or_line"]
+    name = Path(path).name
+    if name in {timer, service}:
+        return True
+    return target.endswith("/" + timer) or target.endswith("/" + service)
 
 
 def main() -> int:
@@ -326,10 +339,14 @@ def main() -> int:
     args = parser.parse_args()
 
     root = Path(args.root).resolve()
-    script_rel = args.script.lstrip("/")
-    if str(root) + "/" in args.script:
-        script_rel = str(Path(args.script).resolve().relative_to(root))
-    script_path = root / script_rel
+    script_path = Path(args.script)
+    if not script_path.is_absolute():
+        script_path = root / script_path
+    script_path = script_path.resolve()
+    try:
+        script_rel = str(script_path.relative_to(root))
+    except ValueError as exc:
+        raise SystemExit("SCRIPT_OUTSIDE_ROOT") from exc
     if not script_path.is_file():
         raise SystemExit(f"SCRIPT_MISSING:{script_path}")
 
@@ -347,17 +364,22 @@ def main() -> int:
     timer = unit_record(args.timer)
     service = unit_record(args.service)
 
+    script_text = script_path.read_text(
+        encoding="utf-8",
+        errors="replace",
+    )
     patterns = [
         args.timer,
         args.service,
         script_rel,
         str(script_path),
     ]
-    output_paths = re.findall(
-        r"(?:BASE\s*/\s*)?[\"']([^\"']*(?:LATEST|STATUS)[^\"']*)[\"']",
-        script_path.read_text(encoding="utf-8", errors="replace"),
+    patterns.extend(
+        re.findall(
+            r"[\"']([^\"']*(?:LATEST|STATUS)[^\"']*)[\"']",
+            script_text,
+        )
     )
-    patterns.extend(output_paths)
 
     repo_references = git_grep(root, patterns)
     filesystem_refs = filesystem_references(patterns)
@@ -383,7 +405,7 @@ def main() -> int:
     )
 
     ignored_units = {args.timer, args.service}
-    reverse_consumers = active_dependency_names(
+    reverse_consumers = external_unit_consumers(
         timer["reverse_dependencies"] + service["reverse_dependencies"],
         ignored_units,
     )
@@ -391,23 +413,21 @@ def main() -> int:
     service_exec = service["properties"].get("ExecStart", "")
     timer_triggers = timer["properties"].get("Triggers", "")
     service_triggered_by = service["properties"].get("TriggeredBy", "")
-
     binding_ok = (
         str(script_path) in service_exec
         and args.service in timer_triggers
         and args.timer in service_triggered_by
     )
 
-    script_text = script_path.read_text(encoding="utf-8", errors="replace")
     script_declares_inert = all(
         token in script_text
         for token in (
-            "runtime_enabled\": False",
-            "api_calls\": 0",
-            "rpc_calls\": 0",
-            "fetch_calls\": 0",
-            "paper_allowed\": False",
-            "live_allowed\": False",
+            '"runtime_enabled": False',
+            '"api_calls": 0',
+            '"rpc_calls": 0',
+            '"fetch_calls": 0',
+            '"paper_allowed": False',
+            '"live_allowed": False',
             "INERT_INSTALL_ONLY_NO_RUNTIME_LOOP",
         )
     )
@@ -423,20 +443,24 @@ def main() -> int:
             "panel_apply_allowed",
         ):
             config_flags[key] = config.get(key)
-        config_inert = all(value is False for value in config_flags.values())
+        config_inert = all(
+            value is False
+            for value in config_flags.values()
+        )
 
+    fragment_paths = {
+        str(timer["fragment"]["path"] or ""),
+        str(service["fragment"]["path"] or ""),
+    }
     active_filesystem_consumers = sorted(
         {
             item["path"]
             for item in filesystem_refs
-            if item["path"]
-            not in {
-                timer["fragment"]["path"],
-                service["fragment"]["path"],
-            }
-            and not item["path"].startswith(
-                "/etc/systemd/system/"
-                + args.timer
+            if not expected_systemd_reference(
+                item,
+                args.timer,
+                args.service,
+                fragment_paths,
             )
         }
     )
@@ -465,10 +489,10 @@ def main() -> int:
     else:
         decision = "ALREADY_INACTIVE_NO_ACTION"
 
-    now = datetime.now(timezone.utc).isoformat()
+    pointer = runtime.get("canonical_runtime_pointer", {})
     result = {
         "schema": SCHEMA,
-        "timestamp_utc": now,
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "mode": "READ_ONLY_DEPENDENCY_CHECK",
         "target": {
             "timer": args.timer,
@@ -513,24 +537,10 @@ def main() -> int:
             args.service: journal_record(args.service, args.since),
         },
         "canonical_runtime_snapshot": {
-            "current_era": (
-                runtime.get("canonical_runtime_pointer", {}).get("current_era")
-            ),
-            "next_safe_step": (
-                runtime.get("canonical_runtime_pointer", {}).get(
-                    "next_safe_step"
-                )
-            ),
-            "era57_opened": (
-                runtime.get("canonical_runtime_pointer", {}).get(
-                    "era57_opened"
-                )
-            ),
-            "production_mutation": (
-                runtime.get("canonical_runtime_pointer", {}).get(
-                    "production_mutation"
-                )
-            ),
+            "current_era": pointer.get("current_era"),
+            "next_safe_step": pointer.get("next_safe_step"),
+            "era57_opened": pointer.get("era57_opened"),
+            "production_mutation": pointer.get("production_mutation"),
         },
     }
 
