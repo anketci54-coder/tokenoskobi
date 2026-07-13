@@ -278,3 +278,12 @@ Değiştirilen eski yön roadmap içinde ikinci bir kopya olarak tutulmaz; tarih
 Yeni onaylı yön roadmap içinde mevcut değilse ve hiçbir mevcut yönle çakışmıyorsa, ilgili V-line veya zaman ufku altında eklenir.
 Yeni yön sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; roadmap içindeki doğru gelecek katmanına yerleştirilir.
 Roadmapin mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+
+## CURRENT RUNTIME SOURCE POSITION
+
+- General source contract: `LOCKED`.
+- Registered seed sources: `12`.
+- Runtime-eligible sources: `0`.
+- Live network fetch: `NOT_AUTHORIZED`.
+- ERA57 opened: `false`.
+- Next safe step: `GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION`.

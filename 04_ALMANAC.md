@@ -6092,3 +6092,17 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - ERA57 opened: `false`
 - Production mutation: `false`
 - Next safe step: `GENERAL_RUNTIME_PRODUCER_CONTRACT_REPAIR_DECISION`
+
+
+---
+
+## GENERAL RUNTIME SOURCE CONTRACT
+
+- Status: `CLOSED_VERIFIED`
+- Contract: `config/news_runtime_source_contract_v1.json`
+- Registered seed sources: `12`
+- Runtime-eligible sources: `0`
+- Live fetch authorized: `false`
+- Production mutation: `false`
+- ERA57 opened: `false`
+- Next safe step: `GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION`

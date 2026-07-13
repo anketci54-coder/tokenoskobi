@@ -43,17 +43,18 @@ PRODUCTION_MUTATION=false
 ## 03 LAST VERIFIED WORK
 
 ```text
-LAST_COMPLETED=GENERAL_RUNTIME_EMERGENCY_PATCH_CLEANUP_AND_CANONICAL_REALIGN
-LAST_RESULT=OK_EMERGENCY_PATCH_CHAIN_REMOVED_GENERAL_CONTRACT_RESTORED
-LAST_ARTIFACT=data/control/general_runtime_emergency_patch_cleanup_and_canonical_realign_v1.json
-EMERGENCY_PATCH_CHAIN_REMOVED=true
-GENERAL_HARNESS=tests/general_runtime_stress_harness_v1.py
-LEGACY_RAW_RESTORE_FORBIDDEN=true
+LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_CONTRACT
+LAST_RESULT=OK_POLICY_DRIVEN_SOURCE_CONTRACT_LOCKED_NO_LIVE_FETCH
+LAST_ARTIFACT=data/control/general_runtime_source_contract_v1.json
+RUNTIME_SOURCE_CONTRACT=config/news_runtime_source_contract_v1.json
+REGISTERED_SOURCE_COUNT=12
+RUNTIME_ELIGIBLE_SOURCE_COUNT=0
+LIVE_FETCH_AUTHORIZED=false
 ERA57_OPENED=false
 PRODUCTION_MUTATION=false
 ```
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_PRODUCER_CONTRACT_REPAIR_DECISION
+NEXT_SAFE_STEP=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
 
 ## 04 NEWS OPERATIONAL BASELINE
 
@@ -178,10 +179,10 @@ Current-state data must not be copied into Index, Manifesto, Roadmap, Atlas or l
 ## 10 NEXT SAFE STEP
 
 ```text
-NEXT_SAFE_STEP=GENERAL_RUNTIME_PRODUCER_CONTRACT_REPAIR_DECISION
+NEXT_SAFE_STEP=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
 ```
 
-Repair the active producer boundary as one general contract. Do not restore the deleted legacy runner and do not create another one-off decision chain.
+Select at most one source for bounded activation review. Seed registry presence alone is never authorization.
 
 ## MASTER STATE INSERTION AND REPLACEMENT CONSTITUTION
 

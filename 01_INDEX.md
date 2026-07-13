@@ -62,3 +62,7 @@ Navigation değişmedikçe bu dosya değiştirilmez.
 - History: `PROJECT_HISTORY.json`
 - General isolated runtime stress harness: `tests/general_runtime_stress_harness_v1.py`
 <!-- STARTUP_RESUME_MAP_END -->
+
+## Runtime source contract
+
+- `config/news_runtime_source_contract_v1.json` — policy-driven source activation contract; default deny.

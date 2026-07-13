@@ -49,3 +49,14 @@ Anayasal yaşam döngüsü değişmez. Temp-copy, shadow, canary, benchmark, str
 - `HISTORICAL_EVIDENCE`: geçmiş kanıtıdır; archive alanında korunur.
 - `DISPOSABLE`: yeniden üretilebilir ve kanıt değeri olmayan geçici araçtır; silinir.
 - Bir defalık karar aracı kapanışta silinir; ürettiği kanıt korunur.
+
+## Runtime source contract
+
+- Seed registry: `news_source_registry_v1`.
+- Fetch policy: `news_source_fetch_policy_v1`.
+- Seed presence does not authorize network access.
+- Runtime eligibility is derived from registry + policy + explicit human authorization.
+- Default behavior is deny/fail-closed.
+- Current runtime-eligible source count: `0`.
+- Canonical contract: `config/news_runtime_source_contract_v1.json`.
+- No legacy raw runner restoration and no hardcoded runtime source list.

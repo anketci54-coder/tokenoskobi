@@ -37,10 +37,13 @@ CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
-LAST_COMPLETED=GENERAL_RUNTIME_EMERGENCY_PATCH_CLEANUP_AND_CANONICAL_REALIGN
-LAST_RESULT=OK_EMERGENCY_PATCH_CHAIN_REMOVED_GENERAL_CONTRACT_RESTORED
-LAST_ARTIFACT=data/control/general_runtime_emergency_patch_cleanup_and_canonical_realign_v1.json
-CURRENT_PROBLEM=GENERAL_RUNTIME_PRODUCER_CONTRACT_REPAIR_REQUIRED
+LAST_COMPLETED=GENERAL_RUNTIME_SOURCE_CONTRACT
+LAST_RESULT=OK_POLICY_DRIVEN_SOURCE_CONTRACT_LOCKED_NO_LIVE_FETCH
+LAST_ARTIFACT=data/control/general_runtime_source_contract_v1.json
+RUNTIME_SOURCE_CONTRACT=config/news_runtime_source_contract_v1.json
+RUNTIME_ELIGIBLE_SOURCE_COUNT=0
+LIVE_FETCH_AUTHORIZED=false
+ERA57_OPENED=false
 
 ## 04 CURRENT CANONICAL DOCUMENT CONDITION
 
@@ -94,13 +97,13 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Do not restore the deleted legacy raw runner.
-- Do not create another ERA-specific repair chain.
-- Use one general runtime producer contract repair.
+- Review at most one source for bounded activation.
+- Do not activate from seed presence alone.
+- Do not restore legacy raw runner.
+- Do not add a hardcoded source list.
 - ERA57 remains closed.
-- Production mutation remains blocked.
 
-NEXT_SAFE_STEP=GENERAL_RUNTIME_PRODUCER_CONTRACT_REPAIR_DECISION
+NEXT_SAFE_STEP=GENERAL_RUNTIME_SOURCE_ACTIVATION_DECISION
 
 ## 08 NEXT SESSION EXECUTION RULE
 
