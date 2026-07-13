@@ -5857,3 +5857,17 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - Production mutation: `false`
 - WAL apply authorized: `false`
 - Next safe step: `ERA55_POST_OPTION_B_STRATEGIC_PRIORITY_SELECTION_DECISION`
+
+
+---
+
+## ERA55A27 POST-DECISION CANONICAL ALIGNMENT
+
+- Status: `CLOSED_VERIFIED`
+- Result: `OK_A27_AND_NESTED_ERA55_CANONICAL_STATE_ALIGNED`
+- ERA55 status: `OPEN`
+- Option B: `DEFERRED`
+- ERA24F net utility: `-18.6667`
+- Production mutation: `false`
+- ERA56 opened: `false`
+- Next safe step: `ERA55A_28_ERA55_FINAL_CLOSURE_READINESS_AND_CANONICAL_ALIGNMENT_DECISION`
