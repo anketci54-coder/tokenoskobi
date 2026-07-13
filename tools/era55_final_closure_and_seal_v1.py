@@ -14,6 +14,7 @@ HANDOFF=ROOT/'07_PROJECT_HANDOFF.md'
 HISTORY=ROOT/'PROJECT_HISTORY.json'
 ALMANAC=ROOT/'04_ALMANAC.md'
 ARTIFACT=ROOT/'data/control/era55_final_closure_and_github_seal_v1.json'
+DECISION='ERA55_FINAL_CLOSURE_AND_GITHUB_SEAL_DECISION'
 WORK='ERA55_FINAL_CLOSURE_AND_GITHUB_SEAL'
 RESULT='OK_ERA55_CLOSED_VERIFIED_READY_FOR_SEAL'
 NEXT='ERA56_GLOBAL_INTELLIGENCE_CACHE_OPENING_DECISION'
@@ -56,7 +57,7 @@ def main():
     checks={
       'a28_last_completed':p.get('last_completed')=='ERA55A_28_ERA55_FINAL_CLOSURE_READINESS_AND_CANONICAL_ALIGNMENT_DECISION',
       'a28_result':p.get('last_result')=='OK_ERA55_FINAL_CLOSURE_READINESS_CONFIRMED_NOT_YET_CLOSED',
-      'next_is_final_closure':p.get('next_safe_step')==WORK,
+      'next_is_final_closure':p.get('next_safe_step')==DECISION,
       'era55_open':runtime.get('current_era')=='ERA55' and runtime.get('current_era_status')=='OPEN' and e55.get('status')=='OPEN',
       'closure_ready':e55.get('final_closure_ready') is True,
       'writer_active':p.get('production_ledger_writer_active') is True and e55.get('production_ledger_writer_active') is True,
@@ -67,7 +68,7 @@ def main():
     if not all(checks.values()): raise RuntimeError('CLOSURE_CHECK_FAILED:'+','.join(k for k,v in checks.items() if not v))
 
     ts=datetime.now(timezone.utc).isoformat(); rel=str(ARTIFACT.relative_to(ROOT))
-    dump(ARTIFACT,{'schema':'era55_final_closure_and_github_seal_v1','timestamp_utc':ts,'work_unit':WORK,'status':'CLOSED_VERIFIED_READY_FOR_SEAL','result':RESULT,'checks':checks,'era55_closed':True,'era56_opened':False,'production_mutation':False,'next_safe_step':NEXT})
+    dump(ARTIFACT,{'schema':'era55_final_closure_and_github_seal_v1','timestamp_utc':ts,'decision_step':DECISION,'work_unit':WORK,'status':'CLOSED_VERIFIED_READY_FOR_SEAL','result':RESULT,'checks':checks,'era55_closed':True,'era56_opened':False,'production_mutation':False,'next_safe_step':NEXT})
 
     runtime['current_era']='ERA55'; runtime['current_era_status']='CLOSED'
     runtime['current_problem']={'code':'ERA56_OPENING_DECISION_PENDING','severity':'P1','evidence':rel}
@@ -123,7 +124,7 @@ Decide whether to open ERA56 Global Intelligence Cache. ERA56 is not opened by E
 
     hist=load(HISTORY); events=hist.setdefault('events',[])
     if not any(isinstance(x,dict) and x.get('event_id')=='ERA55_FINAL_CLOSURE' for x in events):
-        events.append({'event_id':'ERA55_FINAL_CLOSURE','timestamp_utc':ts,'era':'ERA55','work_unit':WORK,'status':'CLOSED_VERIFIED_READY_FOR_SEAL','result':RESULT,'artifact':rel,'era55_closed':True,'era56_opened':False,'production_mutation':False,'next_safe_step':NEXT})
+        events.append({'event_id':'ERA55_FINAL_CLOSURE','timestamp_utc':ts,'era':'ERA55','decision_step':DECISION,'work_unit':WORK,'status':'CLOSED_VERIFIED_READY_FOR_SEAL','result':RESULT,'artifact':rel,'era55_closed':True,'era56_opened':False,'production_mutation':False,'next_safe_step':NEXT})
     hist['updated_at']=ts; hist['updated_at_utc']=ts; dump(HISTORY,hist)
 
     marker='## ERA55 FINAL CLOSURE AND GITHUB SEAL'
