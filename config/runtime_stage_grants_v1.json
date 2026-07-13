@@ -1,0 +1,69 @@
+{
+  "schema_version": "runtime_stage_grants_v1",
+  "status": "ACTIVE_SCOPED_EXISTING_AUTHORITY_ONLY",
+  "deny_unknown_grant": true,
+  "deny_unknown_stage": true,
+  "no_authority_expansion": true,
+  "authority_sources": [
+    "PROJECT_RUNTIME.json",
+    "config/authority_state_v1.json",
+    "config/project_policy_registry_v1.json"
+  ],
+  "grants": {
+    "news_radar_refresh_v1": {
+      "enabled": true,
+      "service_name": "tokenoskobi-news-radar-refresh.service",
+      "runner_path": "tools/news_radar_refresh_runner_v1.py",
+      "authorization_artifact": "data/control/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.json",
+      "authorization_requirements": {
+        "authorization.activation_apply_completed": true,
+        "authorization.general_production_writer_activation_authorized": true,
+        "authorization.production_writer_active": true,
+        "result": "OK_GUARDED_GENERAL_PRODUCTION_WRITER_RUNTIME_INTEGRATION_ACTIVE"
+      },
+      "canonical_requirements": {
+        "canonical_runtime_pointer.production_ledger_writer_active": true,
+        "canonical_runtime_pointer.live_source_fetch_authorized": false,
+        "canonical_runtime_pointer.era57_opened": false,
+        "canonical_runtime_pointer.legacy_raw_runner_reference_present": false
+      },
+      "stages": {
+        "SOURCE_CONTRACT_RESOLUTION": {
+          "mutating": false,
+          "effect": "read_only",
+          "required_environment": {}
+        },
+        "LEDGER_RECOVERY": {
+          "mutating": true,
+          "effect": "guarded_recovery_file_write",
+          "required_environment": {
+            "TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+            "TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+            "TOKENOSKOBI_A23_GUARDED_PRODUCTION": "1",
+            "TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py"
+          }
+        },
+        "DERIVED_DB_WRITE": {
+          "mutating": true,
+          "effect": "guarded_derived_db_write",
+          "required_environment": {
+            "TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+            "TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+            "TOKENOSKOBI_A23_GUARDED_PRODUCTION": "1",
+            "TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py"
+          }
+        },
+        "HOT_PUBLISH": {
+          "mutating": true,
+          "effect": "guarded_hot_and_panel_publish",
+          "required_environment": {
+            "TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
+            "TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
+            "TOKENOSKOBI_A23_GUARDED_PRODUCTION": "1",
+            "TOKENOSKOBI_NEWS_HOT_PATH": "/root/tokenoskobi_clean_v1/tools/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.py"
+          }
+        }
+      }
+    }
+  }
+}
