@@ -103,7 +103,7 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 - WAL production apply: `BLOCKED`.
 - Strategic priority selection: `AUTHORIZED`.
 
-NEXT_SAFE_STEP=ERA55A_28_ERA55_FINAL_CLOSURE_READINESS_AND_CANONICAL_ALIGNMENT_DECISION
+NEXT_SAFE_STEP=ERA55_FINAL_CLOSURE_AND_GITHUB_SEAL_DECISION
 
 ## 08 NEXT SESSION EXECUTION RULE
 
