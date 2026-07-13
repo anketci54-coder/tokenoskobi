@@ -17,6 +17,20 @@ from news_ledger_recovery_guard_v1 import (
 DEFAULT_ROOT = Path("/root/tokenoskobi_clean_v1")
 PYTHON_BIN = os.environ.get("TOKENOSKOBI_PYTHON_BIN", "/usr/bin/python3")
 ROOT = Path(os.environ.get("TOKENOSKOBI_ROOT", str(DEFAULT_ROOT)))
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.runtime_policy_authority_gate import (  # noqa: E402
+    EXIT_POLICY_AUTHORITY_DENIED,
+    enforce_runtime_stage,
+)
+
+RUNNER_RELATIVE_PATH = "tools/news_radar_refresh_runner_v1.py"
+SERVICE_IDENTITY = os.environ.get(
+    "TOKENOSKOBI_SERVICE_IDENTITY",
+    "tokenoskobi-news-radar-refresh.service",
+)
 SOURCE_CONTRACT_RUNNER = Path(
     os.environ.get(
         "TOKENOSKOBI_NEWS_SOURCE_CONTRACT_RUNNER_PATH",
@@ -101,6 +115,27 @@ def append_order(marker: str) -> None:
         os.fsync(handle.fileno())
 
 
+def run_policy_authority_gate(stage: str) -> int:
+    decision = enforce_runtime_stage(
+        stage,
+        root=ROOT,
+        service_name=SERVICE_IDENTITY,
+        runner_path=RUNNER_RELATIVE_PATH,
+        environ=dict(os.environ),
+    )
+    print(
+        "[RUNTIME_POLICY_AUTHORITY_GATE] "
+        + json.dumps(decision, ensure_ascii=False, sort_keys=True),
+        flush=True,
+    )
+    append_order(
+        f"POLICY_AUTHORITY_{stage}:{decision.get('decision', 'DENY')}"
+    )
+    if decision.get("ok") is True and decision.get("decision") == "ALLOW":
+        return 0
+    return EXIT_POLICY_AUTHORITY_DENIED
+
+
 def run_stage(marker: str, argv: list[str]) -> int:
     target = Path(argv[1]) if len(argv) > 1 else None
     if target is not None and not target.is_file():
@@ -126,6 +161,9 @@ def run_stage(marker: str, argv: list[str]) -> int:
 
 
 def run_hot() -> int:
+    gate = run_policy_authority_gate("HOT_PUBLISH")
+    if gate != 0:
+        return gate
     return run_stage(
         "HOT",
         [PYTHON_BIN, str(HOT), "--runtime-refresh"],
@@ -159,6 +197,9 @@ def run_recovery() -> dict:
 
 
 def run_source_contract() -> int:
+    gate = run_policy_authority_gate("SOURCE_CONTRACT_RESOLUTION")
+    if gate != 0:
+        return gate
     if not SOURCE_CONTRACT.is_file():
         print(
             f"[SOURCE_CONTRACT_MISSING] path={SOURCE_CONTRACT}",
@@ -183,6 +224,9 @@ def _run_pipeline() -> int:
     hot_blocked = False
 
     if writer_enabled:
+        gate = run_policy_authority_gate("LEDGER_RECOVERY")
+        if gate != 0:
+            return gate
         recovery = run_recovery()
         recovery_status = str(recovery.get("status") or "UNKNOWN")
 
@@ -231,6 +275,10 @@ def _run_pipeline() -> int:
 
     if source_result != 0:
         return source_result
+
+    gate = run_policy_authority_gate("DERIVED_DB_WRITE")
+    if gate != 0:
+        return gate
 
     derived = run_stage(
         "DERIVED",
