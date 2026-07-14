@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Design-safe authority evaluator for Phase41.
+"""Active authority layer — ERA56 migration complete.
 
-This module is intentionally inert until imported by a future approved
-migration. It performs no writes, no network calls, no DB access, and no
-runtime side effects.
+This module evaluates authority for runtime operations.  It performs no
+writes, no network calls, no DB access, and no runtime side effects.
+Live runtime bindings are declared in LIVE_RUNTIME_BINDINGS below.
 """
 
 import json
@@ -11,6 +11,10 @@ from pathlib import Path
 
 
 SCHEMA_VERSION = "authority_state_v1"
+
+LIVE_RUNTIME_BINDINGS = (
+    "news_radar_refresh_runner + post_era54_hot_ingress_bounded_runtime_integration"
+)
 
 DEFAULT_CONFIG_PATH = (
     Path(__file__).resolve().parents[1] / "config" / "authority_state_v1.json"
@@ -26,6 +30,8 @@ KNOWN_OPERATION_TYPES = {
     "dashboard_active_mutation",
     "service_enablement",
     "schema_apply",
+    "news_runner_pipeline",
+    "news_runner_original_binding",
 }
 
 EFFECT_TO_AUTHORITY = {
@@ -54,6 +60,11 @@ OPERATION_TO_AUTHORITY = {
     ),
     "service_enablement": ("service", "enable_allowed", "SERVICE_ENABLE_AUTHORITY_DENIED"),
     "schema_apply": ("schema", "apply_allowed", "SCHEMA_APPLY_AUTHORITY_DENIED"),
+    "news_runner_original_binding": (
+        "news_runner",
+        "original_binding_allowed",
+        "NEWS_RUNNER_ORIGINAL_BINDING_DENIED",
+    ),
 }
 
 
@@ -346,3 +357,30 @@ def explain_authority_decision(decision):
     if reasons:
         return f"DENY: {operation_type} blocked by " + ", ".join(str(r) for r in reasons)
     return f"DENY: {operation_type} blocked by deny-by-default authority"
+
+
+def check_operation(operation_id, config_path=None):
+    """Convenience wrapper: evaluate authority for a named operation.
+
+    Returns a decision dict with an added ``exit_code`` field (0=ALLOW,
+    1=DENY).  Fails closed on missing or invalid config.
+    """
+    request = {
+        "operation_type": str(operation_id),
+        "operation_id": str(operation_id),
+        "effects": {},
+        "target": {},
+    }
+    loaded = load_authority_state(config_path)
+    if not loaded.get("ok"):
+        result = _decision(
+            False,
+            reason_codes=[loaded.get("error") or "AUTHORITY_CONFIG_LOAD_FAILED"],
+            required_controls=["valid_authority_config"],
+            audit={"config_path": str(config_path or DEFAULT_CONFIG_PATH)},
+        )
+        result["exit_code"] = 1
+        return result
+    result = evaluate_authority(request, loaded["state"])
+    result["exit_code"] = 0 if result.get("ok") else 1
+    return result

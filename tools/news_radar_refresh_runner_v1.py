@@ -17,6 +17,12 @@ from news_ledger_recovery_guard_v1 import (
 DEFAULT_ROOT = Path("/root/tokenoskobi_clean_v1")
 PYTHON_BIN = os.environ.get("TOKENOSKOBI_PYTHON_BIN", "/usr/bin/python3")
 ROOT = Path(os.environ.get("TOKENOSKOBI_ROOT", str(DEFAULT_ROOT)))
+
+# Ensure core/ is importable from ROOT
+_ROOT_STR = str(ROOT)
+if _ROOT_STR not in sys.path:
+    sys.path.insert(0, _ROOT_STR)
+
 ORIGINAL = Path(
     os.environ.get(
         "TOKENOSKOBI_NEWS_ORIGINAL_PATH",
@@ -133,6 +139,34 @@ def run_recovery() -> dict:
 
 
 def _run_pipeline() -> int:
+    try:
+        from core.authority import check_operation  # noqa: PLC0415
+        _auth_pipeline = check_operation(
+            "news_runner_pipeline", ROOT / "config/authority_state_v1.json"
+        )
+        if _auth_pipeline.get("decision") != "ALLOW":
+            print(
+                "[AUTHORITY_DENIED] news_runner_pipeline "
+                + json.dumps(_auth_pipeline, ensure_ascii=False, sort_keys=True),
+                flush=True,
+            )
+            return _auth_pipeline.get("exit_code", 1)
+        _auth_binding = check_operation(
+            "news_runner_original_binding", ROOT / "config/authority_state_v1.json"
+        )
+        if _auth_binding.get("decision") != "ALLOW":
+            print(
+                "[AUTHORITY_DENIED] news_runner_original_binding "
+                + json.dumps(_auth_binding, ensure_ascii=False, sort_keys=True),
+                flush=True,
+            )
+            return _auth_binding.get("exit_code", 1)
+    except ImportError:
+        print(
+            "[AUTHORITY_WARN] core.authority not importable; proceeding without authority check",
+            flush=True,
+        )
+
     writer_enabled = env_true("TOKENOSKOBI_LEDGER_WRITER_ENABLED")
     hot_blocked = False
 

@@ -21,6 +21,11 @@ SELF = Path(__file__).resolve()
 WORK_UNIT = "POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI"
 DECISION = "OK_POST_ERA54_HOT_INGRESS_BOUNDED_RUNTIME_INTEGRATION_NOAPI"
 
+# Ensure core/ is importable from ROOT
+_ROOT_STR = str(ROOT)
+if _ROOT_STR not in sys.path:
+    sys.path.insert(0, _ROOT_STR)
+
 DB = ROOT / "data/tokenoskobi_clean_v1.sqlite"
 ACTIVE_WRAPPER = ROOT / "tools/news_radar_refresh_runner_v1.py"
 HBR_CLOSE = ROOT / "data/control/hbr_source_window_repair_or_close_decision_noapi_v1.json"
@@ -319,6 +324,24 @@ def run_step(name: str, path: Path, timeout: int) -> dict[str, Any]:
 
 
 def runtime_refresh() -> int:
+    try:
+        from core.authority import check_operation  # noqa: PLC0415
+        _auth = check_operation(
+            "news_runner_pipeline", ROOT / "config/authority_state_v1.json"
+        )
+        if _auth.get("decision") != "ALLOW":
+            print(
+                "[AUTHORITY_DENIED] hot_ingress_runtime_refresh "
+                + json.dumps(_auth, ensure_ascii=False, sort_keys=True),
+                flush=True,
+            )
+            return _auth.get("exit_code", 1)
+    except ImportError:
+        print(
+            "[AUTHORITY_WARN] core.authority not importable; proceeding without authority check",
+            flush=True,
+        )
+
     generated = utc_now()
     locked, lock_message = acquire_lock()
     if not locked:

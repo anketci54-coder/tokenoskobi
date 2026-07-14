@@ -1,12 +1,13 @@
 {
   "schema_version": "authority_state_v1",
-  "scaffold_status": "INERT_CONFIG_ONLY_NO_RUNTIME_EFFECT",
+  "scaffold_status": "ACTIVE_ERA56_LIVE_RUNTIME_BINDING",
   "created_by_phase": "PHASE41_AUTHORITY_POLICY_CONFIG_SCAFFOLD_NOAPI",
   "documentation": {
     "purpose": "Machine-readable authority state scaffold for future core/authority.py.",
-    "runtime_effect": "None. No current tool imports or evaluates this file.",
+    "runtime_effect": "Active. news_radar_refresh_runner and post_era54_hot_ingress_bounded_runtime_integration import and evaluate this config via core/authority.py.",
     "source_of_truth_note": "PROJECT_HANDOFF.md remains the human-readable project memory and authority source until a future approved migration.",
-    "default_doctrine": "Deny real, mutating, live, paper execution, secret update, service enablement, schema apply, and active hot-path mutation by default."
+    "default_doctrine": "Deny real, mutating, live, paper execution, secret update, service enablement, schema apply, and active hot-path mutation by default.",
+    "migration_state": "ERA56_LIVE_RUNTIME_BOUND"
   },
   "project": {
     "name": "TOKENOSKOBI",
@@ -88,6 +89,11 @@
       "active_panel_8096_mutation_allowed": false,
       "active_db_mutation_allowed": false,
       "uncontrolled_write_allowed": false
+    },
+    "news_runner": {
+      "original_binding_allowed": true,
+      "pipeline_allowed": true,
+      "reason": "ERA56_AUTHORITY_BINDING_ACTIVE"
     }
   },
   "operation_classes": {
@@ -131,6 +137,14 @@
       "requires_approval": true,
       "requires_backup": true,
       "requires_dryrun": true
+    },
+    "news_runner_pipeline": {
+      "allowed": true,
+      "requires_approval": false
+    },
+    "news_runner_original_binding": {
+      "allowed": true,
+      "requires_approval": false
     }
   },
   "future_consumers": [
@@ -144,11 +158,9 @@
   ],
   "audit": {
     "known_issues": [
-      "PASSWORD_INPUT_MISSING",
       "OLD_INTERNAL_PATH_STILL_PRESENT",
-      "POLICY_DRIFT_RISK",
-      "AUTHORITY_FRAGMENTATION"
+      "POLICY_DRIFT_RISK"
     ],
-    "migration_state": "scaffold_only_no_consumers"
+    "migration_state": "ERA56_live_runtime_consumers_bound"
   }
 }
