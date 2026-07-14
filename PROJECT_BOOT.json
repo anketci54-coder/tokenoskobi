@@ -67,7 +67,7 @@
       "boot contract changes"
     ]
   },
-  "boot_version": "3.2",
+  "boot_version": "3.3",
   "canonical_identity": {
     "doctrine": [
       "Defense like a fortress",
@@ -101,14 +101,92 @@
       "do_not_push_mid_substep_unless_user_requests": true,
       "github_seal_only_at_logical_closure": true,
       "single_commit_when_possible": true,
-      "single_push_when_possible": true
+      "single_push_when_possible": true,
+      "tag_only_when_checkpoint_or_closure_requires_it": true
+    },
+    "compact_workflow": {
+      "first_verify": {
+        "no_guessing": true,
+        "owner_file_wins_on_conflict": true,
+        "scope": [
+          "local_workspace",
+          "local_git",
+          "origin_main",
+          "working_tree",
+          "PROJECT_RUNTIME.json",
+          "relevant_roadmap_or_work_unit",
+          "authority_and_safety_boundaries"
+        ]
+      },
+      "read": {
+        "memory_is_not_authority": true,
+        "rule": "README.md is the single entry point and routes the AI through the canonical mandatory read order."
+      },
+      "seal": {
+        "logical_closure_only": true,
+        "no_micro_commit_push_tag_chain": true,
+        "steps": [
+          "canonical_state_sync",
+          "runtime_history_handoff_update_when_required",
+          "single_commit_when_possible",
+          "single_push_when_possible",
+          "remote_verification",
+          "checkpoint_tag_when_required",
+          "set_one_next_safe_step"
+        ]
+      },
+      "second_verify": {
+        "examples": {
+          "code": [
+            "test",
+            "regression_check"
+          ],
+          "dataset": [
+            "schema_validation",
+            "semantic_validation",
+            "evidence_validation",
+            "checksum_validation"
+          ],
+          "documentation": [
+            "consistency_check",
+            "authority_check"
+          ],
+          "research": [
+            "source_check",
+            "factual_verification"
+          ],
+          "runtime": [
+            "dry_run",
+            "fail_closed_check",
+            "post_audit"
+          ]
+        },
+        "no_completion_without_evidence": true,
+        "rule": "Verification must match the actual work type."
+      },
+      "sequence": [
+        "READ",
+        "VERIFY",
+        "WORK",
+        "VERIFY",
+        "SEAL"
+      ],
+      "work": {
+        "do_not_force_repeated_gate_chains": true,
+        "do_not_leave_NEXT_SAFE_STEP": true,
+        "explicit_approval_required_for_mutation_or_authority_change": true,
+        "general_reusable_solution_over_special_patch": true,
+        "single_active_bounded_work_unit": true,
+        "use_only_work_relevant_steps": true
+      }
     },
     "delivery_policy": {
       "avoid_repeated_gate_chains": true,
       "no_transient_next_step_in_boot": true,
       "prefer_small_working_code_over_repeated_decision_documents": true,
       "reduce_documents": true,
-      "reduce_labels": true
+      "reduce_labels": true,
+      "single_entry_prompt_only": true
     },
     "fix_add_policy": {
       "addition_format": "<MAIN_LINE><LETTER>_ADD_1, <MAIN_LINE><LETTER>_ADD_2",
@@ -185,7 +263,7 @@
         "the split exists only to create another label"
       ]
     },
-    "name": "CANONICAL_GENERAL_WORKFLOW_RULES",
+    "name": "CANONICAL_COMPACT_WORKFLOW",
     "nested_policy": {
       "examples": [
         "ERA52B_1_FILE_LAYOUT",
@@ -205,6 +283,7 @@
       "paper_trade_locked_until_explicit_phase": true,
       "runtime_is_source_of_truth": true
     },
+    "startup_prompt": "README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.",
     "startup_read_order": [
       "README.md",
       "02_MANIFESTO.md",
@@ -219,7 +298,7 @@
       "PROJECT_HISTORY.json",
       "01_INDEX.md"
     ],
-    "status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
+    "status": "LOCKED_COMPACT_READ_VERIFY_WORK_VERIFY_SEAL",
     "substep_policy": {
       "examples": [
         "ERA52A_PLAN",
@@ -232,6 +311,7 @@
         "REPAIR_LINE_B_FIX"
       ],
       "format": "<MAIN_LINE>A, <MAIN_LINE>B, <MAIN_LINE>C",
+      "rule": "A/B/C/D naming may be used only when useful inside a main line. It does not replace or expand the compact canonical workflow.",
       "standard_order": {
         "A": "PLAN_OR_SCOPE",
         "B": "APPLY_OR_BUILD",
@@ -239,9 +319,10 @@
         "D": "AUDIT_OR_REVIEW",
         "E": "EXTERNAL_REVIEW_IF_NEEDED",
         "F": "GITHUB_SEAL_OR_CLOSURE"
-      }
+      },
+      "standard_order_is_mandatory_workflow": false
     },
-    "updated_at_utc": "2026-07-08T10:48:50.680029Z",
+    "updated_at_utc": "2026-07-14T00:00:00Z",
     "word_policy": {
       "allowed_result_words": [
         "OK",
@@ -261,8 +342,8 @@
     "legacy_file_restore_is_not_a_general_repair": true,
     "one_off_decision_script_chains_forbidden": true,
     "readme_is_pointer_not_state_copy": true,
-    "resume_from": "README.md -> PROJECT_RUNTIME.json",
-    "readme_is_single_entry": true
+    "readme_is_single_entry": true,
+    "resume_from": "README.md -> PROJECT_RUNTIME.json"
   },
   "core_architecture": {
     "engines": [

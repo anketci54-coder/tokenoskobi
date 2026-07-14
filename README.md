@@ -174,34 +174,88 @@ Ardından:
 
 ---
 
-## 7. EXECUTION CONSTITUTION
+## 7. CANONICAL COMPACT WORKFLOW
 
-Zorunlu sıra:
+Tokenoskobi içindeki bütün işler tek ana çalışma modeliyle yürütülür:
 
 ```text
-CURRENT_STATE_READ
-→ IMPACT_ANALYSIS
-→ USER_APPROVAL
-→ APPLY
-→ TEST
-→ POST_AUDIT
-→ CANONICAL_SYNC
-→ SINGLE_COMMIT
-→ SINGLE_PUSH
-→ REMOTE_VERIFY
-→ GITHUB_SEAL
-→ NEXT_SAFE_STEP
+READ
+↓
+VERIFY
+↓
+WORK
+↓
+VERIFY
+↓
+SEAL
 ```
 
-Kurallar:
+### READ
 
-- Aynı anda yalnız bir aktif work unit.
+- `README.md` tek başlangıç kapısıdır.
+- README içindeki mandatory read order eksiksiz uygulanır.
+- Güncel durum yalnız owner dosyalardan okunur.
+- AI hafızası, eski sohbet veya tarihsel next-step çalışma otoritesi değildir.
+
+### VERIFY
+
+İş başlamadan önce yalnız gerekli doğrulamalar yapılır:
+
+- local workspace
+- local Git
+- `origin/main`
+- working tree
+- `PROJECT_RUNTIME.json`
+- ilgili roadmap/work-unit kaydı
+- güvenlik ve yetki sınırları
+- gerekli dependency ve closure durumu
+
+Çelişki varsa owner dosya üstün gelir. Tahmin yapılmaz.
+
+### WORK
+
+- Aynı anda yalnız bir aktif bounded work unit yürütülür.
+- İşin ihtiyacı neyse uygulanır: araştırma, planlama, kodlama, veri hazırlama,
+  düzeltme, test, audit veya dokümantasyon.
+- Her işe gereksiz, sabit ve uzun bir alt workflow zorlanmaz.
+- Kullanıcı onayı gerektiren mutation veya yetki değişikliği açık onay olmadan
+  uygulanmaz.
 - `NEXT_SAFE_STEP` dışına çıkılmaz.
-- Genel çözüm özel yamadan üstündür.
-- Tek kullanımlık script zinciri oluşturulmaz.
-- Mümkünse tek commit ve tek push.
-- Kanıt yoksa tamamlandı denmez.
-- Veri yoksa “veri yok” denir.
+- Genel ve tekrar kullanılabilir çözüm, özel yamadan üstündür.
+
+### VERIFY
+
+Yapılan işe uygun kanıt üretilir:
+
+- kod için test ve regression kontrolü
+- veri için schema, semantic, evidence ve checksum kontrolü
+- runtime için dry-run, fail-closed ve post-audit
+- dokümantasyon için consistency ve authority kontrolü
+- araştırma için kaynak ve doğruluk kontrolü
+
+Kanıt yoksa tamamlandı denmez.
+
+### SEAL
+
+Mantıksal iş kapanışında gerekli olanlar tek kapanış altında uygulanır:
+
+- canonical state sync
+- ilgili runtime/history/handoff güncellemesi
+- mümkünse tek commit
+- mümkünse tek push
+- remote verification
+- gerekiyorsa checkpoint tag
+- yeni tek `NEXT_SAFE_STEP`
+
+Her küçük alt adım için ayrı commit, push, tag veya kapanış dosyası oluşturulmaz.
+
+### Tek başlangıç promptu
+
+Yeni bir AI penceresine yalnız şu talimat verilir:
+
+> `README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.`
+
+Başka devir promptu, uzun sohbet özeti veya elle yazılmış next-step metni gerekmez.
 
 ---
 
