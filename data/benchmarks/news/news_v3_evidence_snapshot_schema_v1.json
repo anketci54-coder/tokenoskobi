@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "news_v3_evidence_snapshot_schema_v1",
+  "title": "Tokenoskobi NEWS V3 Evidence Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_uid",
+    "candidate_uid",
+    "source_uid",
+    "source_family_uid",
+    "source_name",
+    "source_class",
+    "canonical_source_locator",
+    "canonical_source_locator_hash",
+    "title",
+    "bounded_excerpt",
+    "published_at_utc",
+    "captured_at_utc",
+    "capture_method",
+    "content_hash",
+    "snapshot_checksum",
+    "verification_status",
+    "source_availability_status",
+    "reviewer_notes"
+  ],
+  "properties": {
+    "evidence_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_family_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_source_locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_source_locator_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bounded_excerpt": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "published_at_utc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "captured_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "capture_method": {
+      "enum": [
+        "MANUAL_HISTORICAL_RESEARCH",
+        "ARCHIVED_LOCAL_SOURCE",
+        "OFFICIAL_DOCUMENT_REVIEW"
+      ]
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "snapshot_checksum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of canonical JSON payload excluding the snapshot_checksum field itself."
+    },
+    "verification_status": {
+      "enum": [
+        "VERIFIED_PRIMARY",
+        "VERIFIED_CORROBORATING",
+        "PARTIALLY_VERIFIED",
+        "UNVERIFIED",
+        "CONFLICTING"
+      ]
+    },
+    "source_availability_status": {
+      "enum": [
+        "AVAILABLE_AT_CAPTURE",
+        "ARCHIVED_COPY_ONLY",
+        "UNAVAILABLE_BUT_CORROBORATED",
+        "UNAVAILABLE_UNVERIFIED"
+      ]
+    },
+    "reviewer_notes": {
+      "type": "string"
+    }
+  }
+}

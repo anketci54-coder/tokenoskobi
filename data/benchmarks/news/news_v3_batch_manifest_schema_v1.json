@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "news_v3_batch_manifest_schema_v1",
+  "title": "Tokenoskobi NEWS V3 Batch Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "batch_uid",
+    "batch_status",
+    "batch_role",
+    "candidate_file",
+    "evidence_directory",
+    "candidate_count",
+    "evidence_count",
+    "candidate_file_checksum",
+    "evidence_file_checksums",
+    "created_at_utc",
+    "updated_at_utc",
+    "automated_live_fetch",
+    "runtime_network_access",
+    "manual_historical_source_research",
+    "runtime_mutation",
+    "database_mutation",
+    "validation_state",
+    "merge_state"
+  ],
+  "properties": {
+    "schema": {
+      "const": "news_v3_batch_manifest_v1"
+    },
+    "batch_uid": {
+      "const": "batch_01"
+    },
+    "batch_status": {
+      "enum": [
+        "EMPTY_INITIALIZED",
+        "STAGED",
+        "VALIDATED",
+        "MERGED",
+        "REJECTED",
+        "QUARANTINED"
+      ]
+    },
+    "batch_role": {
+      "const": "SMOKE_TEST_ONLY"
+    },
+    "candidate_file": {
+      "const": "data/benchmarks/news/batches/batch_01/candidates.jsonl"
+    },
+    "evidence_directory": {
+      "const": "data/benchmarks/news/batches/batch_01/evidence"
+    },
+    "candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "evidence_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "candidate_file_checksum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "evidence_file_checksums": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "automated_live_fetch": {
+      "const": false
+    },
+    "runtime_network_access": {
+      "const": false
+    },
+    "manual_historical_source_research": {
+      "const": true
+    },
+    "runtime_mutation": {
+      "const": false
+    },
+    "database_mutation": {
+      "const": false
+    },
+    "validation_state": {
+      "enum": [
+        "NOT_RUN",
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "merge_state": {
+      "enum": [
+        "NOT_MERGED",
+        "MERGED"
+      ]
+    }
+  }
+}
