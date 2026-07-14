@@ -1,0 +1,402 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "news_v3_benchmark_schema_v1",
+  "title": "Tokenoskobi NEWS V3 Golden Dataset Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_uid",
+    "event_uid",
+    "canonical_incident_uid",
+    "event_group_uid",
+    "content_cluster_uid",
+    "source_family_uid",
+    "source_uid",
+    "source_name",
+    "source_class",
+    "source_trust_level",
+    "published_at_utc",
+    "fetched_at_utc",
+    "language",
+    "title",
+    "bounded_excerpt",
+    "normalized_text",
+    "canonical_url_hash",
+    "content_hash",
+    "evidence_snapshot_pointer",
+    "body_available",
+    "expected_entities",
+    "expected_tokens",
+    "expected_chains",
+    "expected_contract_addresses",
+    "expected_wallets",
+    "ambiguous_entities",
+    "expected_narrative_labels",
+    "expected_adversarial_labels",
+    "expected_severity",
+    "expected_market_impact",
+    "market_impact_horizon",
+    "expected_relevance",
+    "is_real_incident",
+    "is_fake_announcement",
+    "is_duplicate",
+    "duplicate_cluster_uid",
+    "is_stale",
+    "is_conflicting_source",
+    "requires_human_review",
+    "ground_truth_sources",
+    "evidence_pointers",
+    "labeling_notes",
+    "reviewer_count",
+    "reviewer_agreement",
+    "dataset_split",
+    "dataset_version",
+    "created_at_utc"
+  ],
+  "$defs": {
+    "nullableUid": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "narrativeLabel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "label_confidence",
+        "evidence_pointer",
+        "reviewer_agreement"
+      ],
+      "properties": {
+        "label": {
+          "enum": [
+            "LISTING",
+            "DELISTING",
+            "MAINNET",
+            "UPGRADE",
+            "PARTNERSHIP",
+            "FUNDING",
+            "TOKEN_UNLOCK",
+            "REGULATION",
+            "ENFORCEMENT",
+            "MARKET_IMPACT",
+            "NORMAL_INFORMATION",
+            "UNKNOWN"
+          ]
+        },
+        "label_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_pointer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer_agreement": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "adversarialLabel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "label_confidence",
+        "evidence_pointer",
+        "reviewer_agreement"
+      ],
+      "properties": {
+        "label": {
+          "enum": [
+            "SMART_CONTRACT_EXPLOIT",
+            "BRIDGE_DRAIN",
+            "RUG_PULL",
+            "HONEYPOT",
+            "PHISHING",
+            "WALLET_COMPROMISE",
+            "ORACLE_MANIPULATION",
+            "LIQUIDITY_MANIPULATION",
+            "MEV_ATTACK",
+            "SOCIAL_ENGINEERING",
+            "FAKE_ANNOUNCEMENT",
+            "IMPERSONATION",
+            "COORDINATED_NARRATIVE",
+            "NONE",
+            "UNKNOWN"
+          ]
+        },
+        "label_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_pointer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer_agreement": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "severityLabel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "label_confidence",
+        "evidence_pointer",
+        "reviewer_agreement"
+      ],
+      "properties": {
+        "label": {
+          "enum": [
+            "CRITICAL",
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "INFORMATIONAL",
+            "UNKNOWN"
+          ]
+        },
+        "label_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_pointer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer_agreement": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  },
+  "properties": {
+    "record_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_incident_uid": {
+      "$ref": "#/$defs/nullableUid"
+    },
+    "event_group_uid": {
+      "$ref": "#/$defs/nullableUid"
+    },
+    "content_cluster_uid": {
+      "$ref": "#/$defs/nullableUid"
+    },
+    "source_family_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_trust_level": {
+      "enum": [
+        "VERY_HIGH",
+        "HIGH",
+        "MEDIUM_HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ]
+    },
+    "published_at_utc": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "fetched_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bounded_excerpt": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "normalized_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000
+    },
+    "canonical_url_hash": {
+      "type": "string",
+      "minLength": 16
+    },
+    "content_hash": {
+      "type": "string",
+      "minLength": 16
+    },
+    "evidence_snapshot_pointer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "body_available": {
+      "type": "boolean"
+    },
+    "expected_entities": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "expected_tokens": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "expected_chains": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "expected_contract_addresses": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "expected_wallets": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "ambiguous_entities": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "expected_narrative_labels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/narrativeLabel"
+      }
+    },
+    "expected_adversarial_labels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/adversarialLabel"
+      },
+      "$comment": "NONE and UNKNOWN must not coexist. Enforced by semantic validator."
+    },
+    "expected_severity": {
+      "$ref": "#/$defs/severityLabel"
+    },
+    "expected_market_impact": {
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "MIXED",
+        "NEUTRAL",
+        "UNCERTAIN"
+      ]
+    },
+    "market_impact_horizon": {
+      "enum": [
+        "IMMEDIATE",
+        "SHORT_TERM",
+        "MEDIUM_TERM",
+        "UNKNOWN"
+      ]
+    },
+    "expected_market_direction": {
+      "type": ["string", "null"],
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "MIXED",
+        "NEUTRAL",
+        "UNCERTAIN",
+        null
+      ]
+    },
+    "expected_relevance": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "is_real_incident": {
+      "type": "boolean"
+    },
+    "is_fake_announcement": {
+      "type": "boolean"
+    },
+    "is_duplicate": {
+      "type": "boolean"
+    },
+    "duplicate_cluster_uid": {
+      "$ref": "#/$defs/nullableUid"
+    },
+    "is_stale": {
+      "type": "boolean"
+    },
+    "is_conflicting_source": {
+      "type": "boolean"
+    },
+    "requires_human_review": {
+      "type": "boolean"
+    },
+    "ground_truth_sources": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "evidence_pointers": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "labeling_notes": {
+      "type": "string"
+    },
+    "reviewer_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "reviewer_agreement": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "dataset_split": {
+      "enum": [
+        "TRAIN",
+        "TUNING",
+        "BLIND_TEST",
+        "ADVERSARIAL_STRESS"
+      ]
+    },
+    "dataset_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
