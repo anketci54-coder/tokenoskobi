@@ -153,3 +153,26 @@ Yeni doğrulanmış devam bilgisi bu dosyada mevcut değilse ve hiçbir mevcut b
 Yeni bilgi sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; Handoff içindeki doğru devam katmanına yerleştirilir.
 
 Handoff'un mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+
+<!-- NEWS_V3_BATCH_01_HANDOFF -->
+## Active Continuation
+
+`README.md` remains the single entry point.
+
+Current canonical work direction:
+
+- Last completed: `NEWS_V3_BATCH_01_RUNTIME_DIRECTION_SYNC`
+- Next safe step: `NEWS_V3_BATCH_01_REAL_HISTORICAL_DATA_STAGING`
+- Work mode: offline historical data staging
+- Initial target: 5-10 real historical candidates
+- Staging file:
+  `data/benchmarks/news/batches/batch_01/candidates.jsonl`
+- Evidence directory:
+  `data/benchmarks/news/batches/batch_01/evidence/`
+- Validator:
+  `tools/news_v3_batch_staging_validator_v1.py`
+- Canonical merge before human review: forbidden
+- Live source fetch: false
+- Runtime/database mutation: false
+- ERA57 opened: false
+- Artifact: `data/control/news_v3_batch_01_runtime_direction_sync_v1.json`

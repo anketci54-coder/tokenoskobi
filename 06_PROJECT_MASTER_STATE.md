@@ -216,3 +216,24 @@ Yeni bilgi sırf yeni olduğu için dosyanın sonuna rastgele eklenmez; Master S
 Bu dosya yalnız `PROJECT_RUNTIME.json` ile doğrulanmış güncel insan-okunur özeti taşır.
 
 Master State'in mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve biçimlendirmesi açık kullanıcı onayı olmadan değiştirilmez.
+
+<!-- NEWS_V3_BATCH_01_DIRECTION_SYNC -->
+## NEWS V3 Batch-01 Canonical Direction
+
+- Work unit: `NEWS_V3_BATCH_01_RUNTIME_DIRECTION_SYNC`
+- Status: `CLOSED_VERIFIED`
+- Result: `OK_NEWS_V3_BATCH_01_RUNTIME_DIRECTION_SYNC_CLOSED_VERIFIED`
+- Current stage: `NEWS_V3_BATCH_01_RUNTIME_DIRECTION_SYNC_CLOSED_VERIFIED`
+- Next safe step: `NEWS_V3_BATCH_01_REAL_HISTORICAL_DATA_STAGING`
+- Batch-01 candidates: `0`
+- Batch-01 evidence snapshots: `0`
+- Canonical candidate queue: `0`
+- Golden dataset: `0`
+- Canonical merge authorized: `false`
+- Live source fetch: `false`
+- Runtime mutation: `false`
+- Database mutation: `false`
+- ERA57 opened: `false`
+- NEWS V3 complete: `false`
+- Closure approval: `BLOCKED`
+- Artifact: `data/control/news_v3_batch_01_runtime_direction_sync_v1.json`
