@@ -1,0 +1,86 @@
+{
+  "schema": "news_v3_batch_01_human_review_v1",
+  "batch_uid": "batch_01",
+  "reviewed_head": "5e610e35552965ede9fe40a6105650418fd55753",
+  "reviewed_at_utc": "2026-07-14T15:15:00+00:00",
+  "review_scope": {
+    "candidate_count": 9,
+    "evidence_count": 9,
+    "server_validator_self_test": "PASS",
+    "server_validator_error_count": 0,
+    "server_validator_warning_count": 0
+  },
+  "overall_decision": "CHANGES_REQUIRED",
+  "human_review_ok": false,
+  "batch_01_complete": false,
+  "canonical_merge_authorized": false,
+  "runtime_mutation": false,
+  "database_mutation": false,
+  "era57_opened": false,
+  "summary": {
+    "accepted_for_smoke_staging": 8,
+    "correction_required": 1,
+    "rejected": 0
+  },
+  "records": [
+    {
+      "candidate_uid": "news-v3-b01-952629565e273c2916378992",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Established-news regulation candidate; Q015 and INFORMATIONAL/NONE are acceptable for smoke coverage. Not golden-label approval."
+    },
+    {
+      "candidate_uid": "news-v3-b01-438f24bc4bb892466b6f6cb9",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Established-news market-infrastructure candidate accepted for smoke coverage under broad Q014 intake. Not golden-label approval."
+    },
+    {
+      "candidate_uid": "news-v3-b01-a6d68ea8e108fa428dc6cde6",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Established-news blockchain-infrastructure rollout accepted for smoke coverage under Q014. Not golden-label approval."
+    },
+    {
+      "candidate_uid": "news-v3-b01-69c03889eb9d9f1ee767df83",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Established-news cross-chain infrastructure migration accepted for smoke coverage under Q014. Not golden-label approval."
+    },
+    {
+      "candidate_uid": "news-v3-b01-435da2bfe4678bd9582ad541",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Established-news institutional ecosystem candidate accepted for smoke coverage under broad Q014 intake. Not golden-label approval."
+    },
+    {
+      "candidate_uid": "news-v3-b01-nomad-immunefi",
+      "decision": "CORRECTION_REQUIRED",
+      "review_notes": "Nomad is a bridge-drain case. Current Q001/SMART_CONTRACT_EXPLOIT mapping is semantically wrong for the locked collection queue. Correct target is Q002/BRIDGE_DRAIN. Current SPECIALIST_SECURITY_RESEARCH source class is not an allowed Q002 source class; replace or corroborate with OFFICIAL_SECURITY_DISCLOSURE or BLOCKCHAIN_ANALYSIS evidence before review can pass."
+    },
+    {
+      "candidate_uid": "news-v3-b01-ledger-mail-phishing",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Real phishing and impersonation case resulting in wallet compromise. Q005, ESTABLISHED_NEWS, PHISHING/IMPERSONATION and MEDIUM are acceptable for smoke staging."
+    },
+    {
+      "candidate_uid": "news-v3-b01-ap-btc-etf",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Verified non-adversarial AP report in the January 2024 spot-bitcoin-ETF event cluster. Q017A/NONE duplicate-path use is acceptable when paired with the Reuters record."
+    },
+    {
+      "candidate_uid": "news-v3-b01-reuters-btc-etf",
+      "decision": "ACCEPT_FOR_SMOKE_STAGING",
+      "review_notes": "Reuters report belongs to the same January 2024 spot-bitcoin-ETF approval/trading event cluster as the AP record. Q017A/NONE near-duplicate-path use is acceptable; exact source snapshot remains partially verified."
+    }
+  ],
+  "required_corrections": [
+    {
+      "candidate_uid": "news-v3-b01-nomad-immunefi",
+      "required_changes": [
+        "collection_task_uid: Q001 -> Q002",
+        "proposed_adversarial_labels: SMART_CONTRACT_EXPLOIT -> BRIDGE_DRAIN",
+        "source_class must become OFFICIAL_SECURITY_DISCLOSURE or BLOCKCHAIN_ANALYSIS",
+        "evidence snapshot and all affected hashes/checksums must be regenerated",
+        "server validator must be rerun with error_count=0 and warning_count=0"
+      ]
+    }
+  ],
+  "next_safe_step": "NEWS_V3_BATCH_01_NOMAD_BRIDGE_MAPPING_AND_SOURCE_CORRECTION",
+  "merge_state": "NOT_MERGED"
+}
