@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "news_v3_candidate_intake_schema_v1",
+  "title": "Tokenoskobi NEWS V3 Candidate Intake Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_uid",
+    "collection_task_uid",
+    "candidate_status",
+    "source_uid",
+    "source_family_uid",
+    "source_name",
+    "source_class",
+    "source_locator_hash",
+    "content_hash",
+    "title",
+    "bounded_excerpt",
+    "normalized_text",
+    "language",
+    "published_at_utc",
+    "captured_at_utc",
+    "proposed_narrative_labels",
+    "proposed_adversarial_labels",
+    "proposed_severity",
+    "is_synthetic",
+    "evidence_snapshot_pointer",
+    "incident_uid_hint",
+    "event_group_uid_hint",
+    "content_cluster_uid_hint",
+    "duplicate_candidate_uid",
+    "collector_notes",
+    "created_at_utc"
+  ],
+  "$defs": {
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "properties": {
+    "candidate_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_task_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_status": {
+      "enum": [
+        "QUEUED",
+        "EVIDENCE_CAPTURED",
+        "NORMALIZED",
+        "READY_FOR_LABELING",
+        "REJECTED",
+        "QUARANTINED"
+      ]
+    },
+    "source_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_family_uid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_locator_hash": {
+      "type": "string",
+      "minLength": 16
+    },
+    "content_hash": {
+      "type": "string",
+      "minLength": 16
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bounded_excerpt": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "normalized_text": {
+      "type": "string",
+      "maxLength": 10000
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2
+    },
+    "published_at_utc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "captured_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "proposed_narrative_labels": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "proposed_adversarial_labels": {
+      "$ref": "#/$defs/stringArray",
+      "$comment": "NONE and UNKNOWN coexistence is prohibited by semantic validation."
+    },
+    "proposed_severity": {
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "INFORMATIONAL",
+        "UNKNOWN"
+      ]
+    },
+    "is_synthetic": {
+      "type": "boolean"
+    },
+    "evidence_snapshot_pointer": {
+      "$ref": "#/$defs/nullableString"
+    },
+    "incident_uid_hint": {
+      "$ref": "#/$defs/nullableString"
+    },
+    "event_group_uid_hint": {
+      "$ref": "#/$defs/nullableString"
+    },
+    "content_cluster_uid_hint": {
+      "$ref": "#/$defs/nullableString"
+    },
+    "duplicate_candidate_uid": {
+      "$ref": "#/$defs/nullableString"
+    },
+    "collector_notes": {
+      "type": "string"
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

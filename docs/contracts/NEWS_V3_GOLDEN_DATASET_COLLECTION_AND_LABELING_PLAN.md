@@ -38,6 +38,21 @@ The dataset must measure whether the NEWS engine can distinguish:
 
 Attack-only datasets are prohibited.
 
+## 2A. Candidate Intake Gate
+
+All discovered records must first enter the isolated candidate-intake
+layer defined by:
+
+`docs/contracts/NEWS_V3_CANDIDATE_INTAKE_CONTRACT.md`
+
+Candidate records are stored in:
+
+`data/benchmarks/news/news_v3_candidate_intake_queue_v1.jsonl`
+
+Candidate intake is not golden-dataset acceptance. Split assignment and
+ground-truth promotion are prohibited until evidence, semantic validation,
+labeling, review, clustering and leakage controls pass.
+
 ## 3. Collection Workflow
 
 Every collection item moves through these states:
