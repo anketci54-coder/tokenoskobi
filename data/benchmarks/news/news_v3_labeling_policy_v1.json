@@ -1,0 +1,101 @@
+{
+  "accepted_dataset_state": "ACCEPTED",
+  "authority": {
+    "database_mutation_authorized": false,
+    "live_fetch_authorized": false,
+    "order_authority": false,
+    "panel_mutation_authorized": false,
+    "paper_authority": false,
+    "runtime_mutation_authorized": false,
+    "signing_authority": false,
+    "trade_authority": false,
+    "wallet_authority": false
+  },
+  "closure_state": {
+    "news_v3_feature_complete": false,
+    "reason": "DATASET_EMPTY_BASELINE_NOT_EXECUTED",
+    "v3_news_closure_approval": "BLOCKED"
+  },
+  "collection_plan_path": "docs/contracts/NEWS_V3_GOLDEN_DATASET_COLLECTION_AND_LABELING_PLAN.md",
+  "contract_path": "docs/contracts/NEWS_V3_BENCHMARK_CONTRACT.md",
+  "created_at_utc": "2026-07-14T06:47:08.886836+00:00",
+  "evidence_policy": {
+    "bounded_excerpt_max_characters": 2000,
+    "canonical_url_hash_required": true,
+    "content_hash_required": true,
+    "evidence_pointers_required": true,
+    "evidence_snapshot_pointer_required": true,
+    "fabricated_evidence_allowed": false,
+    "full_article_body_required": false,
+    "ground_truth_sources_required": true,
+    "normalized_text_max_characters": 10000,
+    "source_uid_required": true
+  },
+  "fatal_blockers": [
+    "UNAUTHORIZED_MUTATION",
+    "BLIND_TEST_LEAKAGE",
+    "FAIL_CLOSED_VIOLATION",
+    "PROVENANCE_LOSS",
+    "FABRICATED_EVIDENCE"
+  ],
+  "golden_dataset_path": "data/benchmarks/news/news_v3_golden_dataset_v1.jsonl",
+  "label_policy": {
+    "adversarial_mode": "MULTI_LABEL",
+    "empty_equals_none": false,
+    "empty_equals_unknown": false,
+    "label_confidence_required": true,
+    "label_evidence_required": true,
+    "narrative_mode": "MULTI_LABEL",
+    "none_definition": "REVIEWED_EVIDENCE_SUPPORTS_NO_ADVERSARIAL_CONDITION",
+    "none_unknown_coexistence_allowed": false,
+    "reviewer_agreement_required": true,
+    "severity_mode": "SINGLE_LABEL",
+    "unknown_definition": "EVIDENCE_INSUFFICIENT_OR_CONFLICTING"
+  },
+  "record_schema_path": "data/benchmarks/news/news_v3_benchmark_schema_v1.json",
+  "reviewer_policy": {
+    "community_claim_alone_cannot_confirm_high_or_critical": true,
+    "critical_minimum_reviewers": 2,
+    "default_minimum_reviewers": 1,
+    "disagreement_requires_adjudication": true,
+    "disagreement_requires_human_review_flag": true,
+    "high_minimum_reviewers": 2
+  },
+  "schema": "news_v3_labeling_policy_v1",
+  "split_policy": {
+    "allowed_splits": [
+      "TRAIN",
+      "TUNING",
+      "BLIND_TEST",
+      "ADVERSARIAL_STRESS"
+    ],
+    "assignment_before_clustering_allowed": false,
+    "blind_labels_visible_to_engine": false,
+    "blind_test_time_separated": true,
+    "blind_test_withheld_source_family_required": true,
+    "content_cluster_cross_split_allowed": false,
+    "duplicate_cluster_cross_split_allowed": false,
+    "event_group_cross_split_allowed": false,
+    "incident_cluster_cross_split_allowed": false,
+    "rewritten_content_cross_split_allowed": false
+  },
+  "status": "LOCKED_COLLECTION_POLICY_NO_RUNTIME_EFFECT",
+  "synthetic_policy": {
+    "allowed_split": "ADVERSARIAL_STRESS",
+    "synthetic_can_establish_real_incident_ground_truth": false,
+    "synthetic_must_be_explicitly_marked": true,
+    "synthetic_records_allowed": true
+  },
+  "version": "1.0",
+  "workflow_states": [
+    "QUEUED",
+    "EVIDENCE_CAPTURED",
+    "NORMALIZED",
+    "LABELED",
+    "REVIEW_REQUIRED",
+    "REVIEWED",
+    "ACCEPTED",
+    "REJECTED",
+    "QUARANTINED"
+  ]
+}
