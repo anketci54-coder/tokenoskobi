@@ -1,0 +1,231 @@
+{
+  "schema": "whale_thin_general_event_identity_adapter_ephemeral_reference_implementation_plan_v1",
+  "work_unit": "WHALE_THIN_GENERAL_EVENT_IDENTITY_ADAPTER_EPHEMERAL_REFERENCE_IMPLEMENTATION_PLAN",
+  "status": "PLAN_LOCKED_NO_EXECUTION",
+  "created_at_utc": "2026-07-15T06:20:00Z",
+  "purpose": "Define one ephemeral, in-memory reference implementation test for the thin general event identity adapter without adding permanent code, changing the existing graph core, binding runtime, mutating databases, or duplicating threshold, graph, registry, or decision logic.",
+  "source_contracts": [
+    "data/contracts/whale_economic_intelligence_contract_v1.md",
+    "data/contracts/whale_event_identity_normalization_contract_v1.md",
+    "data/contracts/whale_thin_general_event_identity_adapter_contract_v1.md"
+  ],
+  "source_seals": [
+    "data/control/whale_event_identity_ephemeral_dryrun_result_review_and_seal_v1.json",
+    "data/control/whale_existing_graph_core_compatibility_result_review_and_seal_v1.json"
+  ],
+  "constitutional_gates": {
+    "no_estimation": true,
+    "measure_before_decide": true,
+    "general_solution_over_special_patch": true,
+    "no_addition_without_retirement": true,
+    "human_final_authority": true
+  },
+  "hard_bounds": {
+    "execution_mode": "EPHEMERAL_IN_MEMORY_ONLY",
+    "permanent_script": false,
+    "repository_file_write_during_execution": false,
+    "core_code_change": false,
+    "core_interface_change": false,
+    "runtime_binding": false,
+    "database_mutation": false,
+    "schema_mutation": false,
+    "panel_mutation": false,
+    "network_access": false,
+    "live_fetch": false,
+    "product_specific_code": false,
+    "token_specific_code": false,
+    "threshold_logic_copy": false,
+    "wallet_registry_copy": false,
+    "graph_logic_copy": false,
+    "terminal_decision_authority": false,
+    "trade_authority": false,
+    "retirement_authorized_count": 0
+  },
+  "reference_input_contract": {
+    "required_fields": [
+      "chain",
+      "txid",
+      "transaction_index",
+      "source_wallet",
+      "destination_wallet",
+      "asset_uid",
+      "amount_native",
+      "btc_equivalent",
+      "gas_btc_equivalent",
+      "event_time_utc",
+      "source_class",
+      "evidence_level",
+      "ingest_provenance",
+      "schema_version"
+    ],
+    "optional_identity_hints": [
+      "parent_event_uid",
+      "route_hint",
+      "principal_hint",
+      "cluster_hint",
+      "block_number",
+      "pair_address",
+      "route_depth_usd",
+      "liquidity_depth_usd"
+    ],
+    "forbidden_fields": [
+      "private_key",
+      "seed_phrase",
+      "wallet_signature",
+      "trade_instruction",
+      "order_instruction",
+      "runtime_command",
+      "provider_secret"
+    ]
+  },
+  "reference_output_contract": {
+    "required_fields": [
+      "event_uid",
+      "parent_event_uid",
+      "route_uid",
+      "cluster_uid",
+      "economic_event_uid",
+      "deduplication_class",
+      "linkage_class",
+      "normalized_core_input",
+      "identity_evidence",
+      "adapter_status",
+      "schema_version"
+    ],
+    "normalized_core_input_fields": [
+      "txid",
+      "src",
+      "dst",
+      "btc_eq",
+      "gas_btc_eq",
+      "depth",
+      "ts_mono_ns"
+    ],
+    "adapter_status_values": [
+      "READY_FOR_CORE",
+      "REVIEW_REQUIRED",
+      "INSUFFICIENT_EVIDENCE",
+      "REJECTED"
+    ],
+    "rule": "The adapter may normalize identity and bounded core input only. It may not classify whale tier, duplicate core thresholds, resolve final entity truth, produce terminal market-impact decisions, or grant authority."
+  },
+  "reference_functions_to_model_ephemerally": [
+    "canonical_event_uid",
+    "canonical_route_uid",
+    "canonical_cluster_uid",
+    "canonical_economic_event_uid",
+    "classify_duplicate_relation",
+    "link_fragmented_transfers",
+    "link_multi_hop_route",
+    "detect_label_conflict",
+    "build_existing_core_input"
+  ],
+  "forbidden_reference_functions": [
+    "whale_tier",
+    "wallet_label_registry",
+    "graph_traversal",
+    "probability_score",
+    "market_impact_terminal_decision",
+    "database_write",
+    "runtime_publish",
+    "panel_publish"
+  ],
+  "mandatory_test_cases": [
+    {
+      "id": "A01_REQUIRED_FIELD_NORMALIZATION",
+      "expected": "READY_FOR_CORE"
+    },
+    {
+      "id": "A02_MISSING_REQUIRED_FIELD_FAIL_CLOSED",
+      "expected": "REJECTED"
+    },
+    {
+      "id": "A03_FORBIDDEN_FIELD_REJECTION",
+      "expected": "REJECTED"
+    },
+    {
+      "id": "A04_EVENT_UID_DETERMINISM",
+      "expected": "IDENTICAL_HASHES"
+    },
+    {
+      "id": "A05_EXACT_DUPLICATE_CLASSIFICATION",
+      "expected": "EXACT_DUPLICATE"
+    },
+    {
+      "id": "A06_NEAR_DUPLICATE_CLASSIFICATION",
+      "expected": "NEAR_DUPLICATE"
+    },
+    {
+      "id": "A07_RELATED_NOT_DUPLICATE_CLASSIFICATION",
+      "expected": "RELATED_NOT_DUPLICATE"
+    },
+    {
+      "id": "A08_FRAGMENTED_TRANSFER_POSITIVE_LINKAGE",
+      "expected": "LINKED_WITH_EVIDENCE"
+    },
+    {
+      "id": "A09_FRAGMENTED_TRANSFER_NEGATIVE_LINKAGE",
+      "expected": "NOT_LINKED"
+    },
+    {
+      "id": "A10_MULTI_HOP_ROUTE_DOUBLE_COUNT_GUARD",
+      "expected": "ONE_PRINCIPAL_VALUE"
+    },
+    {
+      "id": "A11_LABEL_CONFLICT_PRESERVATION",
+      "expected": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "A12_UNKNOWN_PRESERVATION",
+      "expected": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "id": "A13_EXISTING_CORE_INPUT_SHAPE",
+      "expected": "EXACT_CORE_ARGUMENT_SET"
+    },
+    {
+      "id": "A14_NO_THRESHOLD_OR_REGISTRY_COPY",
+      "expected": "ZERO_DUPLICATED_CORE_CONSTANTS"
+    },
+    {
+      "id": "A15_CORE_IMPORT_AND_ACCEPTANCE",
+      "expected": "EXISTING_CORE_CALLED_UNCHANGED"
+    },
+    {
+      "id": "A16_REPOSITORY_IMMUTABILITY",
+      "expected": "HEAD_AND_WORKTREE_UNCHANGED"
+    }
+  ],
+  "acceptance_criteria": {
+    "required_case_count": 16,
+    "required_pass_count": 16,
+    "error_count": 0,
+    "warning_count": 0,
+    "deterministic_output": true,
+    "existing_core_imported_unchanged": true,
+    "core_threshold_logic_reused_not_copied": true,
+    "known_wallet_registry_reused_not_copied": true,
+    "repository_immutable": true,
+    "database_immutable": true,
+    "runtime_immutable": true,
+    "network_access": false,
+    "permanent_script_created": false
+  },
+  "decision_rules": {
+    "all_pass": "EPHEMERAL_REFERENCE_BEHAVIOR_VALIDATED",
+    "core_boundary_failure": "STOP_AND_REVIEW_EXISTING_CORE_ASSUMPTIONS",
+    "identity_failure": "REVISE_CONTRACT_OR_REFERENCE_LOGIC_NO_PERMANENT_CODE",
+    "immutability_failure": "INVALID_TEST_RUN",
+    "permanent_adapter_authorization": "NOT_GRANTED_BY_THIS_PLAN"
+  },
+  "completion_state": {
+    "plan_complete": true,
+    "execution_complete": false,
+    "reference_behavior_validated": false,
+    "permanent_adapter_code_complete": false,
+    "runtime_pipeline_complete": false,
+    "live_whale_intelligence": false
+  },
+  "next_safe_step": "WHALE_THIN_GENERAL_EVENT_IDENTITY_ADAPTER_EPHEMERAL_REFERENCE_EXECUTION_DECISION",
+  "human_approval_required_for_next_step": true
+}
