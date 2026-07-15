@@ -1,0 +1,163 @@
+{
+  "schema": "whale_evidence_producer_ephemeral_compatibility_test_design_v1",
+  "status": "DESIGN_ONLY",
+  "work_unit": "WHALE_EVIDENCE_PRODUCER_EPHEMERAL_COMPATIBILITY_TEST_DESIGN",
+  "purpose": "Define a bounded process-local compatibility test design for evidence package assembly without authorizing producer implementation, persistence, runtime binding, inference, or decision authority.",
+  "execution_mode": "EPHEMERAL_PROCESS_LOCAL",
+  "required_case_count": 16,
+  "required_pass_count": 16,
+  "required_error_count": 0,
+  "required_warning_count": 0,
+  "test_cases": [
+    {
+      "case_id": "T01_EVENT_IDENTITY_REFERENCE",
+      "requirement": "Preserve the canonical event_uid and related event identity references without regeneration or copy of identity logic."
+    },
+    {
+      "case_id": "T02_GRAPH_EVIDENCE_REFERENCE",
+      "requirement": "Accept bounded Graph Core observations as evidence references without copying graph traversal, thresholds, tiers, or registry behavior."
+    },
+    {
+      "case_id": "T03_ENTITY_READMODEL_REFERENCE",
+      "requirement": "Accept Entity Attribution Readmodel output only as evidence input and preserve its non-decision fields."
+    },
+    {
+      "case_id": "T04_SOURCE_PROVENANCE",
+      "requirement": "Retain source_id, source_class, observed_at, schema version, and evidence provenance for every evidence item."
+    },
+    {
+      "case_id": "T05_EVIDENCE_STALENESS",
+      "requirement": "Preserve stale, freshness, expiry, or age metadata without silently converting stale evidence into current evidence."
+    },
+    {
+      "case_id": "T06_CONFLICT_PRESERVATION",
+      "requirement": "Preserve contradictory labels, behavior, history, and source claims as separate evidence items without forced resolution."
+    },
+    {
+      "case_id": "T07_INSUFFICIENT_EVIDENCE_PRESERVATION",
+      "requirement": "Represent missing or insufficient evidence distinctly and never convert it into NO_SIGNIFICANT_IMPACT, rejection, or a positive conclusion."
+    },
+    {
+      "case_id": "T08_DUPLICATE_EVIDENCE_GUARD",
+      "requirement": "Deduplicate exact evidence identity while retaining related but non-identical evidence and provenance."
+    },
+    {
+      "case_id": "T09_DETERMINISTIC_PACKAGE_UID",
+      "requirement": "Generate the same package_uid from the same ordered canonical inputs and package version."
+    },
+    {
+      "case_id": "T10_NO_ENTITY_DECISION",
+      "requirement": "The package must not decide entity identity or choose one label as truth."
+    },
+    {
+      "case_id": "T11_NO_INTENT_INFERENCE",
+      "requirement": "The package must not infer transfer intent."
+    },
+    {
+      "case_id": "T12_NO_MARKET_IMPACT_DECISION",
+      "requirement": "The package must not decide market impact or significance."
+    },
+    {
+      "case_id": "T13_NO_RISK_DECISION",
+      "requirement": "The package must not emit a final risk decision or risk authority result."
+    },
+    {
+      "case_id": "T14_NO_TERMINAL_DECISION",
+      "requirement": "The package assembler must not assign the pipeline terminal state."
+    },
+    {
+      "case_id": "T15_NO_LOGIC_COPY",
+      "requirement": "No graph, threshold, registry, event identity, attribution, risk, or trade logic may be copied into the ephemeral reference assembler."
+    },
+    {
+      "case_id": "T16_IMMUTABILITY_AND_REPEATABILITY",
+      "requirement": "Repeated execution must remain deterministic and leave repository, production database, runtime services, network, and source components unchanged."
+    }
+  ],
+  "required_output_shape": [
+    "package_uid",
+    "package_version",
+    "event_identity_reference",
+    "graph_evidence_references",
+    "entity_readmodel_reference",
+    "evidence_items",
+    "conflict_markers",
+    "insufficiency_markers",
+    "provenance_summary",
+    "freshness_summary",
+    "assembly_observed_at_utc"
+  ],
+  "mandatory_non_decision_clause": {
+    "required": true,
+    "evidence_package_assembly_only": true,
+    "final_evidence_synthesis_authority": false,
+    "entity_decision_authority": false,
+    "intent_inference_authority": false,
+    "market_impact_decision_authority": false,
+    "risk_decision_authority": false,
+    "terminal_decision_authority": false,
+    "trade_authority": false
+  },
+  "reuse_constraints": {
+    "event_identity_reuse": "REFERENCE_ONLY_UNCHANGED",
+    "graph_core_reuse": "REFERENCE_ONLY_UNCHANGED",
+    "entity_readmodel_reuse": "EVIDENCE_INPUT_ONLY",
+    "known_wallet_registry_reuse": "REFERENCE_ONLY",
+    "graph_logic_copy": false,
+    "threshold_logic_copy": false,
+    "registry_copy": false,
+    "event_identity_logic_copy": false,
+    "entity_attribution_logic_copy": false,
+    "risk_logic_copy": false,
+    "trade_logic_copy": false
+  },
+  "hard_bounds": {
+    "new_producer_code": false,
+    "new_script": false,
+    "new_engine": false,
+    "new_database_schema": false,
+    "repository_write_during_execution": false,
+    "database_mutation": false,
+    "runtime_mutation": false,
+    "runtime_binding": false,
+    "network_access": false,
+    "live_fetch": false,
+    "panel_mutation": false,
+    "product_specific_logic": false,
+    "token_specific_logic": false,
+    "chain_specific_logic": false,
+    "retirement_authorized_count": 0
+  },
+  "acceptance_gate": {
+    "case_count": 16,
+    "pass_count": 16,
+    "fail_count": 0,
+    "error_count": 0,
+    "warning_count": 0,
+    "evidence_package_assembly_only": true,
+    "deterministic": true,
+    "conflicts_preserved": true,
+    "insufficient_evidence_preserved": true,
+    "duplicate_guard_validated": true,
+    "source_provenance_preserved": true,
+    "immutability": true,
+    "no_decision_authority": true,
+    "no_logic_copy": true
+  },
+  "claims_explicitly_not_validated": {
+    "real_world_evidence_quality": false,
+    "entity_classification_correctness": false,
+    "intent_classification": false,
+    "market_impact_analysis": false,
+    "risk_decision": false,
+    "terminal_pipeline_decision": false,
+    "real_producer_implementation": false,
+    "runtime_binding": false,
+    "live_whale_intelligence": false,
+    "permanent_implementation_necessity": false
+  },
+  "implementation_authorized": false,
+  "execution_authorized": false,
+  "retirement_authorized_count": 0,
+  "next_safe_step": "WHALE_EVIDENCE_PRODUCER_EPHEMERAL_COMPATIBILITY_TEST_EXECUTION_DECISION"
+}
