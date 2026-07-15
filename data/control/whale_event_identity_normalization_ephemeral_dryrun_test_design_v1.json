@@ -1,0 +1,216 @@
+{
+  "schema": "whale_event_identity_normalization_ephemeral_dryrun_test_design_v1",
+  "work_unit": "WHALE_EVENT_IDENTITY_NORMALIZATION_EPHEMERAL_DRYRUN_TEST_DESIGN",
+  "status": "PLAN_LOCKED_NO_EXECUTION",
+  "created_at_utc": "2026-07-15T06:20:00Z",
+  "source_contract": "data/contracts/whale_event_identity_normalization_contract_v1.md",
+  "purpose": "Define deterministic, ephemeral, in-memory dry-run cases for Whale event identity, route linkage, deduplication, conflict handling, bounded reassessment, and terminal-state finality without creating permanent scripts, schemas, runtime bindings, or database mutations.",
+  "hard_bounds": {
+    "new_engine": false,
+    "new_permanent_script": false,
+    "new_schema": false,
+    "runtime_binding": false,
+    "database_mutation": false,
+    "panel_mutation": false,
+    "live_fetch": false,
+    "api_rpc": false,
+    "product_specific_code": false,
+    "token_specific_code": false,
+    "trade_authority": false,
+    "wallet_signing_authority": false,
+    "era57_opened": false
+  },
+  "execution_policy": {
+    "execution_authorized": false,
+    "preferred_method": "ONE_EPHEMERAL_IN_MEMORY_SERVER_RUN",
+    "repository_output": "RESULT_ARTIFACT_ONLY_IF_SEPARATELY_AUTHORIZED",
+    "temporary_files": "TMP_ONLY_AND_REMOVED_AFTER_RUN",
+    "network_access": false,
+    "database_access": false,
+    "runtime_process_access": false
+  },
+  "oracle_rules": [
+    "INSUFFICIENT_EVIDENCE must never become NO_SIGNIFICANT_IMPACT.",
+    "Every assessment must terminate in exactly one terminal state.",
+    "No single evidence source may determine the final decision.",
+    "Economic route identity is created only after evidence synthesis, never at ingest.",
+    "Duplicate suppression must not destroy provenance.",
+    "Fragment aggregation requires linkage evidence, not amount sum alone.",
+    "Multi-hop principal value must be counted once per economic route.",
+    "Label conflict must remain explicit evidence and cannot be force-resolved.",
+    "Bounded reassessment may run at most once.",
+    "A reassessment produces a new assessment record and does not overwrite prior terminal history."
+  ],
+  "test_cases": [
+    {
+      "id": "EID01_EXACT_DUPLICATE",
+      "input": "Two records with identical chain, txid, transaction_index, source, destination, asset and amount.",
+      "expected": {
+        "identity_relation": "EXACT_DUPLICATE",
+        "canonical_event_count": 1,
+        "provenance_record_count": 2,
+        "terminal_state_count": 1
+      }
+    },
+    {
+      "id": "EID02_NEAR_DUPLICATE",
+      "input": "Same underlying transfer represented by two source families with formatting or timestamp drift.",
+      "expected": {
+        "identity_relation": "NEAR_DUPLICATE_REVIEW_REQUIRED",
+        "automatic_collapse": false,
+        "provenance_preserved": true,
+        "terminal_state": "REVIEW_REQUIRED"
+      }
+    },
+    {
+      "id": "EID03_RELATED_NOT_DUPLICATE",
+      "input": "Two transfers between related wallets but with distinct txids and economically distinct values.",
+      "expected": {
+        "identity_relation": "RELATED_BUT_NOT_DUPLICATE",
+        "canonical_event_count": 2,
+        "shared_cluster_allowed": true
+      }
+    },
+    {
+      "id": "EID04_FRAGMENTED_TRANSFER_POSITIVE",
+      "input": "Multiple sub-threshold transfers linked by common controller evidence, common destination and bounded time relation.",
+      "expected": {
+        "fragmented_linkage": "SUPPORTED",
+        "economic_event_candidate": true,
+        "amount_sum_alone_sufficient": false
+      }
+    },
+    {
+      "id": "EID05_FRAGMENTED_TRANSFER_NEGATIVE",
+      "input": "Multiple sub-threshold transfers sharing only the same asset and time range.",
+      "expected": {
+        "fragmented_linkage": "INSUFFICIENT_EVIDENCE",
+        "economic_event_candidate": false,
+        "terminal_state": "INSUFFICIENT_EVIDENCE"
+      }
+    },
+    {
+      "id": "EID06_FAN_IN",
+      "input": "Several linked source wallets converge on one destination with cluster and provenance support.",
+      "expected": {
+        "topology": "FAN_IN",
+        "cluster_uid_required": true,
+        "entity_truth_created": false,
+        "review_required_on_conflict": true
+      }
+    },
+    {
+      "id": "EID07_FAN_OUT",
+      "input": "One source disperses value across several destinations.",
+      "expected": {
+        "topology": "FAN_OUT",
+        "single_economic_event_allowed": true,
+        "requires_common_principal_evidence": true,
+        "amount_double_count_forbidden": true
+      }
+    },
+    {
+      "id": "EID08_MULTI_HOP_BRIDGE",
+      "input": "Bridge ingress, intermediate routing and destination-chain egress represent one principal movement.",
+      "expected": {
+        "route_uid_shared": true,
+        "economic_event_uid_shared": true,
+        "principal_value_count": 1,
+        "bridge_legs_preserved": true
+      }
+    },
+    {
+      "id": "EID09_CEX_INTERNAL_REBALANCE",
+      "input": "Large transfer between verified exchange-controlled wallets with no supported external market-impact evidence.",
+      "expected": {
+        "entity_context": "CEX_INTERNAL",
+        "wallet_permanent_non_whale_label": false,
+        "event_result": "NO_SIGNIFICANT_IMPACT",
+        "future_events_remain_evaluable": true
+      }
+    },
+    {
+      "id": "EID10_LABEL_CONFLICT",
+      "input": "Static entity label indicates CEX while behavior and cluster evidence indicate suspicious fan-out.",
+      "expected": {
+        "label_conflict": true,
+        "single_source_winner": false,
+        "terminal_state": "REVIEW_REQUIRED",
+        "conflict_evidence_preserved": true
+      }
+    },
+    {
+      "id": "EID11_INSUFFICIENT_EVIDENCE",
+      "input": "Large event with missing liquidity, route depth and unresolved entity attribution after one bounded reassessment.",
+      "expected": {
+        "reassessment_rounds": 1,
+        "terminal_state": "INSUFFICIENT_EVIDENCE",
+        "no_significant_impact_forbidden": true,
+        "pipeline_terminated": true
+      }
+    },
+    {
+      "id": "EID12_EXACTLY_ONE_TERMINAL_STATE",
+      "input": "Assessment receives conflicting evidence and a timeout-like evidence gap.",
+      "expected": {
+        "terminal_state_count": 1,
+        "allowed_terminal_states": [
+          "COMPLETED",
+          "REVIEW_REQUIRED",
+          "INSUFFICIENT_EVIDENCE",
+          "REJECTED"
+        ],
+        "simultaneous_terminal_states_forbidden": true
+      }
+    },
+    {
+      "id": "EID13_BOUNDED_REASSESSMENT_HISTORY",
+      "input": "Initial assessment ends REVIEW_REQUIRED and one additional evidence expansion is performed.",
+      "expected": {
+        "max_reassessment_rounds": 1,
+        "prior_assessment_immutable": true,
+        "new_assessment_record_required": true,
+        "unbounded_loop_forbidden": true
+      }
+    },
+    {
+      "id": "EID14_DETERMINISM",
+      "input": "Same ordered fixture is evaluated twice under identical policy inputs.",
+      "expected": {
+        "identity_output_hash_equal": true,
+        "terminal_state_equal": true,
+        "route_linkage_equal": true
+      }
+    }
+  ],
+  "global_pass_criteria": {
+    "required_test_count": 14,
+    "required_pass_count": 14,
+    "error_count": 0,
+    "warning_count": 0,
+    "runtime_mutation": false,
+    "database_mutation": false,
+    "network_access": false,
+    "permanent_script_created": false,
+    "temporary_artifacts_removed": true,
+    "deterministic_output": true
+  },
+  "failure_conditions": [
+    "Any event produces more than one terminal state.",
+    "INSUFFICIENT_EVIDENCE is converted to NO_SIGNIFICANT_IMPACT.",
+    "Multi-hop principal value is counted more than once.",
+    "Fragmented transfer is aggregated using amount sum alone.",
+    "A static label or one evidence source determines the final decision.",
+    "Prior terminal assessment is overwritten.",
+    "Any repository script, schema, runtime, panel, service, database or network mutation occurs."
+  ],
+  "completion_state": {
+    "test_design_complete": true,
+    "execution_complete": false,
+    "compatibility_proven": false,
+    "event_identity_pipeline_complete": false,
+    "live_whale_intelligence": false
+  },
+  "next_safe_step": "WHALE_EVENT_IDENTITY_NORMALIZATION_EPHEMERAL_DRYRUN_EXECUTION_DECISION",
+  "human_approval_required_for_next_step": true
+}
