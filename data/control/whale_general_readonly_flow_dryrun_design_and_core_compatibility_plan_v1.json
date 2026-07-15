@@ -1,0 +1,252 @@
+{
+  "schema": "whale_general_readonly_flow_dryrun_design_and_core_compatibility_plan_v1",
+  "work_unit": "WHALE_GENERAL_READONLY_FLOW_DRYRUN_DESIGN_AND_EXISTING_CORE_COMPATIBILITY_TEST_PLAN",
+  "status": "PLAN_LOCKED_NO_EXECUTION",
+  "created_at_utc": "2026-07-15T06:05:00Z",
+  "source_contract": "data/control/whale_general_readonly_flow_contract_and_reuse_plan_v1.json",
+  "purpose": "Define a bounded, deterministic, read-only dry-run that measures whether the existing Whale graph core can consume the general normalized flow contract without copying threshold logic, creating a second engine, changing the core interface, writing the database, binding runtime, or accessing the network.",
+  "constitutional_gates": {
+    "no_estimation": true,
+    "measure_before_decide": true,
+    "general_solution_over_special_patch": true,
+    "no_addition_without_retirement": true,
+    "complexity_must_pay_for_itself": true,
+    "human_final_authority": true
+  },
+  "hard_bounds": {
+    "execution_authorized": false,
+    "new_engine": false,
+    "new_permanent_script": false,
+    "core_interface_change": false,
+    "threshold_copy": false,
+    "wallet_registry_copy": false,
+    "product_specific_code": false,
+    "token_specific_code": false,
+    "runtime_binding": false,
+    "runtime_mutation": false,
+    "database_read": false,
+    "database_write": false,
+    "panel_write": false,
+    "live_fetch": false,
+    "api_rpc": false,
+    "service_timer_change": false,
+    "wallet_signing_authority": false,
+    "trade_order_authority": false,
+    "era57_opened": false
+  },
+  "dryrun_input_policy": {
+    "allowed_sources": [
+      "IN_MEMORY_FIXTURE",
+      "EXISTING_STATIC_FIXTURE",
+      "APPROVED_LOCAL_JSONL_READONLY"
+    ],
+    "forbidden_sources": [
+      "LIVE_API",
+      "RPC_NODE",
+      "PRODUCTION_DATABASE",
+      "PANEL_PAYLOAD",
+      "NETWORK_STREAM"
+    ],
+    "fixture_rule": "Fixtures must exercise the general normalized_whale_flow_event_v1 contract and must not contain token-specific branching or production secrets.",
+    "bounded_event_count": 12,
+    "input_mutation": false
+  },
+  "compatibility_mapping": {
+    "normalized_event_to_existing_core": {
+      "txid": "txid",
+      "source_wallet": "src",
+      "destination_wallet": "dst",
+      "btc_equivalent": "btc_eq",
+      "gas_btc_equivalent": "gas_btc_eq",
+      "graph_depth": "depth",
+      "monotonic_test_timestamp": "ts_mono_ns"
+    },
+    "fields_not_consumed_by_graph_core": [
+      "event_uid",
+      "chain",
+      "asset_uid",
+      "amount_native",
+      "amount_usd",
+      "event_time_utc",
+      "source_class",
+      "evidence_level",
+      "ingest_provenance",
+      "schema_version",
+      "liquidity_depth_usd",
+      "route_depth_usd"
+    ],
+    "boundary_rule": "Fields not consumed by the graph core remain available to later attribution, economic-impact, evidence and risk stages. They must not be discarded or invented by the graph core.",
+    "initial_compatibility_hypothesis": "A thin in-memory mapping can call WhaleGraphEngine.add_transfer without changing runtime_whale_graph_v1.py.",
+    "hypothesis_is_not_result": true
+  },
+  "test_matrix": [
+    {
+      "id": "T01_CORE_THRESHOLD",
+      "input": "50 BTC-equivalent transfer",
+      "expected": "CORE",
+      "gate": "Existing threshold logic is imported and not reimplemented."
+    },
+    {
+      "id": "T02_SOFT_THRESHOLD",
+      "input": "45 BTC-equivalent transfer",
+      "expected": "SOFT",
+      "gate": "Existing threshold logic remains unchanged."
+    },
+    {
+      "id": "T03_WATCH_THRESHOLD",
+      "input": "35 BTC-equivalent transfer",
+      "expected": "WATCH",
+      "gate": "Existing threshold logic remains unchanged."
+    },
+    {
+      "id": "T04_BELOW_THRESHOLD",
+      "input": "Unknown-wallet transfer below watch threshold",
+      "expected": "DROP/BELOW_THRESHOLD",
+      "gate": "No false whale escalation."
+    },
+    {
+      "id": "T05_KNOWN_WALLET_TRIGGER",
+      "input": "Below-threshold transfer involving an existing known-wallet label",
+      "expected": "TRIGGER_KNOWN_WALLET",
+      "gate": "Existing registry is reused as signal only."
+    },
+    {
+      "id": "T06_DUST_REJECTION",
+      "input": "Transfer below MIN_VALUE_BTC_EQ",
+      "expected": "DUST_OR_GAS_RATIO_REJECTED or bounded rejection",
+      "gate": "Dust cannot create graph evidence."
+    },
+    {
+      "id": "T07_GAS_RATIO_REJECTION",
+      "input": "Gas/value ratio above existing maximum",
+      "expected": "DUST_OR_GAS_RATIO_REJECTED",
+      "gate": "Existing gas guard remains authoritative."
+    },
+    {
+      "id": "T08_DEPTH_BOUND",
+      "input": "Depth above MAX_GRAPH_DEPTH",
+      "expected": "MAX_GRAPH_DEPTH_EXCEEDED",
+      "gate": "Graph traversal remains bounded."
+    },
+    {
+      "id": "T09_NODE_BOUND",
+      "input": "Events exceeding MAX_NODES",
+      "expected": "MAX_NODES_EXCEEDED",
+      "gate": "Memory growth remains bounded."
+    },
+    {
+      "id": "T10_CEX_INFLOW",
+      "input": "Transfer to existing CEX-labelled destination",
+      "expected": "exchange_inflow_count increments",
+      "gate": "CEX omnibus remains context, not individual-whale truth."
+    },
+    {
+      "id": "T11_DETERMINISM",
+      "input": "Same ordered fixture executed twice with fixed monotonic timestamps",
+      "expected": "Identical edge hashes and snapshot",
+      "gate": "Deterministic dry-run evidence."
+    },
+    {
+      "id": "T12_UNKNOWN_PRESERVATION",
+      "input": "Missing liquidity, attribution or evidence context",
+      "expected": "Graph observation only; no REAL_WHALE_CANDIDATE, evidence truth or risk escalation",
+      "gate": "Unknown cannot become zero, safe or truth."
+    }
+  ],
+  "post_core_contract_tests": {
+    "attribution": [
+      "External and registry labels remain signal-only.",
+      "Unknown wallets remain UNKNOWN.",
+      "CEX omnibus cannot be promoted to individual whale.",
+      "No entity merge occurs in this dry-run."
+    ],
+    "economic_impact": [
+      "Missing liquidity or route depth yields REVIEW_REQUIRED.",
+      "Low-liquidity ghost move blocks REAL_WHALE_CANDIDATE.",
+      "No single graph observation creates a central alarm."
+    ],
+    "evidence_and_risk": [
+      "Evidence ordering is evaluated as contract-only; no table write occurs.",
+      "Risk link cannot exist without evidence reference.",
+      "Trade, paper, wallet and signing authority remain false."
+    ],
+    "readmodel": [
+      "No panel file is written.",
+      "Expected payload remains small, bounded and freshness-aware.",
+      "When no validated flow exists, DATA_MISSING remains the required consumer state."
+    ]
+  },
+  "required_measurements": {
+    "fixture_event_count": true,
+    "accepted_count": true,
+    "rejected_count_by_reason": true,
+    "node_count": true,
+    "edge_count": true,
+    "exchange_inflow_count": true,
+    "deterministic_hash_match": true,
+    "core_source_checksum_before_after": true,
+    "database_checksum_before_after": false,
+    "network_call_count": 0,
+    "filesystem_write_count_outside_single_ephemeral_result": 0,
+    "runtime_service_change_count": 0
+  },
+  "core_compatibility_decision_rules": {
+    "COMPATIBLE_UNCHANGED": [
+      "All T01-T12 gates pass.",
+      "runtime_whale_graph_v1.py checksum is unchanged.",
+      "No threshold or label logic is copied.",
+      "Normalized event maps deterministically through a thin in-memory boundary.",
+      "No runtime, DB, panel, service or network mutation occurs."
+    ],
+    "COMPATIBLE_WITH_GENERAL_ADAPTER": [
+      "Core logic passes unchanged but a reusable general adapter is measurably required to validate and map normalized events.",
+      "Adapter contains no whale threshold, wallet label, economic-impact or risk logic.",
+      "Adapter is chain-agnostic and token-agnostic.",
+      "Separate human approval is required before code creation."
+    ],
+    "CORE_INTERFACE_CHANGE_REVIEW": [
+      "Only allowed if measured evidence proves deterministic mapping is impossible without modifying the core interface.",
+      "No interface change is automatically authorized by this plan.",
+      "Opportunity-cost and regression evidence are required before approval."
+    ],
+    "REJECT": [
+      "Any runtime, DB, network, panel, service, wallet, signing or trade mutation occurs.",
+      "Threshold or known-wallet logic is copied into a second implementation.",
+      "Unknown values are converted to zero, safe or whale truth.",
+      "Fixture requires product-specific or token-specific branches."
+    ]
+  },
+  "retirement_gate": {
+    "retirement_decision_in_this_work_unit": false,
+    "proven_duplicate_component_count": 0,
+    "retirement_authorized_count": 0,
+    "rule": "Dry-run compatibility alone cannot retire an active component. Retirement requires replacement parity, consumer migration, fail-closed proof and rollback evidence.",
+    "conditional_candidate": "tools/whale_center_live_producer_v1.py remains protected until a future general small-readmodel producer proves full DATA_MISSING parity."
+  },
+  "execution_shape_if_later_authorized": {
+    "preferred_method": "Use an existing general test harness if one can express the matrix without permanent Whale-specific tooling.",
+    "fallback_method": "Run one ephemeral in-memory Python invocation from the server without adding a repository script.",
+    "permanent_script_creation": "FORBIDDEN_UNLESS_REUSABLE_GENERAL_CAPABILITY_IS_PROVEN_NECESSARY",
+    "result_artifact_limit": 1,
+    "commit_policy": "No commit for execution unless a logically necessary reusable artifact or canonical state update is produced."
+  },
+  "acceptance_criteria": [
+    "Plan contains all twelve compatibility tests.",
+    "Existing core remains the only threshold and graph implementation.",
+    "Inputs are bounded and read-only.",
+    "Unknown and economic-impact fail-closed rules are explicit.",
+    "No code or runtime execution is authorized.",
+    "No retirement is authorized without replacement evidence."
+  ],
+  "completion_state": {
+    "dryrun_design_complete": true,
+    "compatibility_test_plan_complete": true,
+    "execution_complete": false,
+    "core_compatibility_measured": false,
+    "adapter_code_authorized": false,
+    "runtime_binding": false,
+    "live_whale_intelligence": false
+  },
+  "next_safe_step": "WHALE_GENERAL_READONLY_FLOW_CORE_COMPATIBILITY_EPHEMERAL_DRYRUN_DECISION",
+  "human_approval_required_for_next_step": true
+}
