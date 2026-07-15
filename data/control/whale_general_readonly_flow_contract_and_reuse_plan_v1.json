@@ -1,0 +1,223 @@
+{
+  "schema": "whale_general_readonly_flow_contract_and_reuse_plan_v1",
+  "work_unit": "WHALE_GENERAL_READONLY_FLOW_CONTRACT_AND_EXISTING_COMPONENT_REUSE_PLAN",
+  "status": "CONTRACT_LOCKED_READONLY",
+  "created_at_utc": "2026-07-15T05:30:00Z",
+  "purpose": "Define one general, reusable, fail-closed Whale Intelligence flow using existing components without creating a second engine, product-specific code, patch chain, live fetch, runtime binding, or database mutation.",
+  "constitutional_gates": {
+    "no_estimation": true,
+    "measure_before_decide": true,
+    "general_solution_over_special_patch": true,
+    "no_addition_without_retirement": true,
+    "complexity_must_pay_for_itself": true,
+    "human_final_authority": true
+  },
+  "hard_bounds": {
+    "new_engine": false,
+    "new_script": false,
+    "product_specific_code": false,
+    "token_specific_code": false,
+    "runtime_mutation": false,
+    "database_mutation": false,
+    "panel_mutation": false,
+    "live_fetch": false,
+    "api_rpc": false,
+    "service_timer_change": false,
+    "wallet_signing_authority": false,
+    "trade_order_authority": false,
+    "era57_opened": false
+  },
+  "canonical_flow": [
+    "READONLY_SOURCE_ADAPTER",
+    "NORMALIZED_WHALE_FLOW_EVENT",
+    "EXISTING_WHALE_GRAPH_CORE",
+    "ENTITY_ATTRIBUTION",
+    "ECONOMIC_IMPACT_GATE",
+    "EVIDENCE_EVENT",
+    "RISK_LINK",
+    "SMALL_READMODEL",
+    "FAIL_CLOSED_CONSUMER"
+  ],
+  "normalized_whale_flow_event_contract": {
+    "required_fields": [
+      "event_uid",
+      "chain",
+      "txid",
+      "source_wallet",
+      "destination_wallet",
+      "asset_uid",
+      "amount_native",
+      "amount_usd",
+      "btc_equivalent",
+      "gas_btc_equivalent",
+      "event_time_utc",
+      "source_class",
+      "evidence_level",
+      "ingest_provenance",
+      "schema_version"
+    ],
+    "optional_fields": [
+      "token_address",
+      "pair_address",
+      "route_uid",
+      "block_number",
+      "transaction_index",
+      "source_label_hint",
+      "destination_label_hint",
+      "liquidity_depth_usd",
+      "route_depth_usd"
+    ],
+    "forbidden_fields": [
+      "private_key",
+      "seed_phrase",
+      "wallet_signature",
+      "trade_instruction",
+      "order_instruction",
+      "runtime_command",
+      "provider_secret"
+    ],
+    "deduplication_key": "chain + txid + transaction_index + source_wallet + destination_wallet",
+    "unknown_value_rule": "Missing economic or attribution context remains explicit UNKNOWN and cannot be converted to zero, safe, or real-whale truth.",
+    "source_rule": "Only explicitly approved read-only source classes may produce normalized events. Source registration is not runtime eligibility."
+  },
+  "component_reuse_map": [
+    {
+      "component": "tools/runtime_whale_graph_v1.py",
+      "reuse_role": "EXISTING_WHALE_GRAPH_CORE",
+      "decision": "REUSE_UNCHANGED_FIRST",
+      "evidence": [
+        "50 BTC core threshold",
+        "45 BTC soft threshold",
+        "35 BTC watch threshold",
+        "bounded graph depth and node limits",
+        "dust and gas/value guards",
+        "known-wallet labels",
+        "CEX inflow detection",
+        "trade authority false"
+      ],
+      "interface_change": "DEFERRED_UNTIL_MEASURED_INCOMPATIBILITY",
+      "retirement": "NOT_AUTHORIZED"
+    },
+    {
+      "component": "whale_entity_registry_v1 and related Whale schema tables",
+      "reuse_role": "CANONICAL_EMPTY_STORAGE_CONTRACT",
+      "decision": "REUSE_SCHEMA_NO_WRITE_IN_THIS_WORK_UNIT",
+      "evidence": "Schema and indexes exist; row counts were zero at post-audit.",
+      "retirement": "NOT_AUTHORIZED"
+    },
+    {
+      "component": "known-wallet source registry and CEX classification artifacts",
+      "reuse_role": "ENTITY_ATTRIBUTION_INPUT",
+      "decision": "REUSE_AS_SIGNAL_NOT_TRUTH",
+      "rule": "External or registry labels cannot create final entity truth without onchain behavior and evidence cross-check.",
+      "retirement": "NOT_AUTHORIZED"
+    },
+    {
+      "component": "tools/whale_center_live_producer_v1.py",
+      "reuse_role": "FAIL_CLOSED_CONSUMER_PLACEHOLDER",
+      "decision": "KEEP_UNTIL_REAL_SMALL_READMODEL_PROVEN",
+      "rule": "Continue to show DATA_MISSING when no validated flow exists; never convert missing data to zero activity.",
+      "retirement": "CONDITIONAL_ONLY_AFTER_REPLACEMENT_PARITY_AND_FAIL_CLOSED_TEST"
+    },
+    {
+      "component": "planned Whale entity readmodel contract",
+      "reuse_role": "SMALL_READMODEL_TARGET_CONTRACT",
+      "decision": "REUSE_FIELDS_AND_GUARDS_NO_BUILDER_YET",
+      "rule": "Prefer precomputed summaries; no heavy graph traversal on consumer path.",
+      "retirement": "NOT_AUTHORIZED"
+    }
+  ],
+  "stage_gates": {
+    "source_adapter_gate": [
+      "read-only",
+      "bounded input",
+      "explicit provenance",
+      "no API or RPC until separate approval",
+      "fail closed on unknown schema"
+    ],
+    "graph_core_gate": [
+      "existing core imported rather than copied",
+      "no second threshold implementation",
+      "no duplicate wallet-label registry",
+      "bounded depth and nodes preserved",
+      "deterministic event-to-edge mapping"
+    ],
+    "attribution_gate": [
+      "CEX omnibus not individual whale",
+      "unknown wallet remains unknown",
+      "external label is signal only",
+      "entity merge requires evidence chain",
+      "sniper, MEV, wash and sybil classes cannot be promoted to smart money without outcome evidence"
+    ],
+    "economic_impact_gate": [
+      "transfer value evaluated against liquidity or route depth",
+      "missing or stale depth yields REVIEW_REQUIRED",
+      "low-liquidity ghost move blocks REAL_WHALE_CANDIDATE",
+      "single source cannot create central alarm"
+    ],
+    "evidence_risk_gate": [
+      "evidence event precedes risk link",
+      "risk link cannot grant trade authority",
+      "unresolved evidence remains blocking or review-required",
+      "News and Technical inputs are cross-checks, not authority"
+    ],
+    "readmodel_gate": [
+      "small bounded payload",
+      "freshness explicit",
+      "unknowns explicit",
+      "trade, paper and live flags false",
+      "DATA_MISSING preserved when producer chain is absent"
+    ]
+  },
+  "producer_consumer_ownership": {
+    "source_adapter_produces": "normalized_whale_flow_event_v1",
+    "graph_core_consumes": "normalized_whale_flow_event_v1",
+    "graph_core_produces": "bounded_whale_graph_observation_v1",
+    "attribution_consumes": "bounded_whale_graph_observation_v1 + registry signals",
+    "attribution_produces": "whale_entity_attribution_candidate_v1",
+    "economic_gate_produces": "whale_economic_impact_assessment_v1",
+    "evidence_producer_produces": "whale_entity_evidence_event_v1",
+    "risk_bridge_produces": "whale_entity_risk_link_v1",
+    "readmodel_builder_produces": "whale_entity_small_readmodel_v1",
+    "panel_consumes": "whale_entity_small_readmodel_v1 or fail-closed DATA_MISSING"
+  },
+  "duplicate_and_retirement_decision": {
+    "proven_duplicate_component_count": 0,
+    "retirement_authorized_count": 0,
+    "rule": "No active component may be retired until replacement parity, consumer migration, fail-closed behavior, and rollback evidence are measured.",
+    "conditional_retirement_candidate": "tools/whale_center_live_producer_v1.py only after a validated general small-readmodel producer fully replaces its DATA_MISSING duty.",
+    "archive_cleanup": "Historical plan and audit artifacts are not executable duplicates. Cleanup requires a separate dependency and canonical-reference audit; no deletion is authorized here."
+  },
+  "implementation_decision": {
+    "existing_graph_core": "REUSE_UNCHANGED_FIRST",
+    "core_interface_change": "DEFER",
+    "adapter_requirement": "GENERAL_THIN_ADAPTER_CONTRACT_ONLY",
+    "adapter_code_authorized": false,
+    "database_writer_authorized": false,
+    "runtime_binding_authorized": false,
+    "reason": "No measured evidence yet proves that the existing graph core interface cannot consume a normalized general event through a thin boundary."
+  },
+  "acceptance_criteria_for_future_bounded_dryrun": [
+    "fixture or approved local read-only input only",
+    "same normalized event contract across chains",
+    "existing graph core imported without copied threshold logic",
+    "zero runtime, DB, panel, service and network mutation",
+    "deterministic output hashes",
+    "duplicate UID and flow rejection",
+    "explicit unknown handling",
+    "economic-impact fail-closed behavior",
+    "evidence-before-risk ordering",
+    "trade authority remains false",
+    "no new permanent script unless a reusable general capability is proven necessary"
+  ],
+  "completion_state": {
+    "contract_complete": true,
+    "reuse_plan_complete": true,
+    "code_complete": false,
+    "flow_pipeline_complete": false,
+    "live_whale_intelligence": false,
+    "runtime_binding": false
+  },
+  "next_safe_step": "WHALE_GENERAL_READONLY_FLOW_DRYRUN_DESIGN_AND_EXISTING_CORE_COMPATIBILITY_TEST_PLAN",
+  "human_approval_required_for_next_step": true
+}
