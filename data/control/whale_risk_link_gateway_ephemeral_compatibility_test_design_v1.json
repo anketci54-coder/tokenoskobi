@@ -1,0 +1,235 @@
+{
+  "schema": "whale_risk_link_gateway_ephemeral_compatibility_test_design_v1",
+  "status": "DESIGN_ONLY",
+  "scope": "WHALE_RISK_LINK_GATEWAY",
+  "purpose": "Define bounded process-local compatibility tests for a reference-based canonical evidence gateway without creating permanent gateway code, changing the Risk Engine, or granting decision authority.",
+  "contract_reference": "data/contracts/whale_risk_link_producer_io_and_reuse_contract_v1.md",
+  "gateway_role": "CANONICAL_EVIDENCE_INTEGRITY_AND_STANDARDIZED_RISK_INPUT_GATE_ONLY",
+  "instrumentation_spec_version": "v1",
+  "required_case_count": 12,
+  "required_pass_count": 12,
+  "required_error_count": 0,
+  "required_warning_count": 0,
+  "test_cases": [
+    {
+      "case_id": "T01_THREE_LEVEL_REFERENCE_VALIDATION",
+      "requirements": [
+        "UID_EXISTS_CHECK",
+        "UID_VALID_STATE_CHECK",
+        "UID_TYPE_MATCH_CHECK",
+        "ACTIVE_TOMBSTONE_MISSING_WRONG_TYPE_STATES_PRESERVED"
+      ]
+    },
+    {
+      "case_id": "T02_REFERENCE_INTEGRITY_AND_ORPHAN_GUARD",
+      "requirements": [
+        "EVENT_UID_POINTER_VALIDATION",
+        "ENTITY_UID_POINTER_VALIDATION",
+        "EVIDENCE_PACKAGE_UID_POINTER_VALIDATION",
+        "ORPHANED_REFERENCE_RETURNS_VALIDATION_ERROR_METADATA",
+        "NO_REFERENCE_REPAIR_OR_MUTATION"
+      ]
+    },
+    {
+      "case_id": "T03_PACKAGE_HASH_DETERMINISM",
+      "requirements": [
+        "IDENTICAL_CANONICAL_INPUT_PRODUCES_IDENTICAL_PACKAGE_HASH",
+        "HASH_INPUT_ORDER_IS_CANONICAL",
+        "NO_SOURCE_HASH_OR_CHAIN_HASH_RUNTIME_REQUIRED"
+      ]
+    },
+    {
+      "case_id": "T04_VERSION_PINNING",
+      "requirements": [
+        "EVENT_IDENTITY_VERSION_PRESERVED",
+        "GRAPH_VERSION_PRESERVED",
+        "ENTITY_READMODEL_VERSION_PRESERVED",
+        "EVIDENCE_PACKAGE_VERSION_PRESERVED",
+        "UNSUPPORTED_VERSION_FLAGGED_WITHOUT_SEMANTIC_MUTATION"
+      ]
+    },
+    {
+      "case_id": "T05_TEMPORAL_POLICY_METADATA",
+      "requirements": [
+        "CORRELATION_POLICY_ID_PRESERVED",
+        "SOURCE_EVENT_TIME_PRESERVED",
+        "CORRELATION_WINDOW_START_PRESERVED",
+        "CORRELATION_WINDOW_END_PRESERVED",
+        "NO_FIXED_GLOBAL_THIRTY_SECOND_ASSUMPTION"
+      ]
+    },
+    {
+      "case_id": "T06_NO_SEMANTIC_TRANSFORMATION",
+      "requirements": [
+        "SOURCE_REFERENCES_UNCHANGED",
+        "EVIDENCE_MEANING_UNCHANGED",
+        "ONLY_INTEGRITY_ROUTING_AND_VERSION_METADATA_ADDED",
+        "NO_RISK_OR_PERFORMANCE_REINTERPRETATION"
+      ]
+    },
+    {
+      "case_id": "T07_NO_DECISION_AUTHORITY",
+      "requirements": [
+        "RISK_SCORE_NOT_PRODUCED",
+        "FINAL_RISK_DECISION_NOT_PRODUCED",
+        "MARKET_IMPACT_DECISION_NOT_PRODUCED",
+        "TRADE_SIGNAL_NOT_PRODUCED",
+        "SMIE_SCORE_NOT_PRODUCED",
+        "TERMINAL_DECISION_NOT_PRODUCED"
+      ]
+    },
+    {
+      "case_id": "T08_REPLAY_ID_PASSIVE_FIELD",
+      "requirements": [
+        "REPLAY_ID_PRESERVED_WHEN_PRESENT",
+        "REPLAY_ID_NOT_GENERATED_AS_RUNTIME_AUTHORITY",
+        "REPLAY_EXECUTION_NOT_TRIGGERED"
+      ]
+    },
+    {
+      "case_id": "T09_REVIEW_PRIORITY_AND_SNAPSHOT_BOUNDARY",
+      "requirements": [
+        "REVIEW_REQUIRED_STATE_PRESERVED",
+        "REVIEW_PRIORITY_METADATA_PRESERVED",
+        "LOW_MEDIUM_DO_NOT_REQUIRE_SNAPSHOT",
+        "HIGH_CRITICAL_MAY_DECLARE_SNAPSHOT_REQUIRED",
+        "NO_SNAPSHOT_FILE_CREATED_DURING_EPHEMERAL_TEST"
+      ]
+    },
+    {
+      "case_id": "T10_PASSIVE_INSTRUMENTATION_V1",
+      "requirements": [
+        "INSTRUMENTATION_SIDE_CHANNEL_ONLY",
+        "NO_LOCK_WAIT_OR_GATEWAY_DEPENDENCY",
+        "METRICS_DO_NOT_CHANGE_GATEWAY_OUTPUT",
+        "RAW_METRICS_ONLY_NO_RECOMMENDATION_OR_DECISION"
+      ]
+    },
+    {
+      "case_id": "T11_INSTRUMENTATION_V1_METRIC_TRACE",
+      "requirements": [
+        "DPR_INPUT_COUNTS_TRACEABLE",
+        "VALIDATION_LATENCY_P50_P95_P99_TRACEABLE",
+        "FALSE_POSITIVE_AND_FALSE_NEGATIVE_COUNTS_TRACEABLE",
+        "REUSABILITY_COEFFICIENT_INPUTS_TRACEABLE",
+        "COVERAGE_RATIO_INPUTS_TRACEABLE",
+        "DETERMINISM_STABILITY_INPUTS_TRACEABLE",
+        "NO_SYNTHETIC_NET_VALUE_CLAIM"
+      ]
+    },
+    {
+      "case_id": "T12_DETERMINISM_IMMUTABILITY_AND_FUTURE_ENGINE_COMPATIBILITY",
+      "requirements": [
+        "REPEATED_IDENTICAL_INPUT_PRODUCES_IDENTICAL_OUTPUT",
+        "ENGINE_SOURCE_TYPE_PRESERVED",
+        "TASK_ID_PRESERVED",
+        "FUTURE_SMIE_PACKAGE_CAN_USE_SAME_GENERIC_ENVELOPE_WITHOUT_WHALE_LOGIC_COPY",
+        "REPOSITORY_DATABASE_RUNTIME_AND_NETWORK_IMMUTABILITY"
+      ]
+    }
+  ],
+  "instrumentation_v1_raw_measurement_inputs": {
+    "defect_prevention_rate": [
+      "validated_uid_count",
+      "validation_failure_count",
+      "orphan_uid_count",
+      "type_mismatch_count"
+    ],
+    "validation_latency": [
+      "validation_latency_samples_ms",
+      "validation_latency_p50_ms",
+      "validation_latency_p95_ms",
+      "validation_latency_p99_ms"
+    ],
+    "reliability": [
+      "false_positive_count",
+      "false_negative_count",
+      "verified_valid_reference_count",
+      "verified_invalid_reference_count"
+    ],
+    "reusability_coefficient": [
+      "engine_source_type_count",
+      "task_id_count"
+    ],
+    "coverage_ratio": [
+      "gateway_packet_count",
+      "fully_validated_gateway_packet_count"
+    ],
+    "determinism_stability": [
+      "deterministic_run_count",
+      "deterministic_failure_count"
+    ]
+  },
+  "instrumentation_constraints": {
+    "mode": "PASSIVE_OBSERVATION",
+    "blocking": false,
+    "gateway_output_mutation": false,
+    "decision_authority": false,
+    "opportunity_cost_output": "RAW_MEASUREMENT_INPUT_ONLY",
+    "automatic_optimization": false,
+    "automatic_retirement": false
+  },
+  "mandatory_gateway_metadata": [
+    "engine_source_type",
+    "task_id",
+    "event_uid",
+    "entity_uid",
+    "evidence_package_uid",
+    "reference_validity_status",
+    "reference_checked_at",
+    "reference_tombstone_status",
+    "correlation_policy_id",
+    "source_event_time",
+    "correlation_window_start",
+    "correlation_window_end",
+    "event_identity_version",
+    "graph_version",
+    "entity_readmodel_version",
+    "evidence_package_version",
+    "package_hash",
+    "replay_id",
+    "review_priority",
+    "conflict_flags"
+  ],
+  "hard_bounds": {
+    "new_gateway_code": false,
+    "new_producer_code": false,
+    "new_script": false,
+    "new_engine": false,
+    "risk_engine_change": false,
+    "repository_write_during_execution": false,
+    "database_mutation": false,
+    "runtime_mutation": false,
+    "runtime_binding": false,
+    "network_access": false,
+    "live_fetch": false,
+    "risk_score_authority": false,
+    "final_risk_authority": false,
+    "trade_authority": false,
+    "smie_score_authority": false,
+    "retirement_authorized_count": 0
+  },
+  "claims_not_validated_by_design": {
+    "real_world_accuracy": false,
+    "real_runtime_latency": false,
+    "real_defect_prevention_rate": false,
+    "real_false_positive_rate": false,
+    "real_false_negative_rate": false,
+    "real_reusability_coefficient": false,
+    "permanent_gateway_implementation_required": false,
+    "production_binding_ready": false
+  },
+  "success_criteria": {
+    "case_count": 12,
+    "pass_count": 12,
+    "error_count": 0,
+    "warning_count": 0,
+    "reference_integrity_validated": true,
+    "no_semantic_transformation": true,
+    "no_decision_authority": true,
+    "passive_instrumentation": true,
+    "deterministic_output": true,
+    "immutability": true
+  },
+  "next_safe_step": "WHALE_RISK_LINK_GATEWAY_EPHEMERAL_COMPATIBILITY_TEST_EXECUTION_DECISION"
+}
