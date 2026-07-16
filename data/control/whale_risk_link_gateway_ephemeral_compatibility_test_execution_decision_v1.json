@@ -1,0 +1,93 @@
+{
+  "schema": "whale_risk_link_gateway_ephemeral_compatibility_test_execution_decision_v1",
+  "status": "APPROVED_WITH_BOUNDS",
+  "scope": "WHALE_RISK_LINK_GATEWAY",
+  "execution_mode": "EPHEMERAL_PROCESS_LOCAL",
+  "design_artifact": "data/control/whale_risk_link_gateway_ephemeral_compatibility_test_design_v1.json",
+  "required_case_count": 12,
+  "required_pass_count": 12,
+  "required_error_count": 0,
+  "required_warning_count": 0,
+  "authorized_cases": [
+    "T01_THREE_LEVEL_REFERENCE_VALIDATION",
+    "T02_REFERENCE_INTEGRITY_AND_ORPHAN_GUARD",
+    "T03_PACKAGE_HASH_DETERMINISM",
+    "T04_VERSION_PINNING",
+    "T05_TEMPORAL_POLICY_METADATA",
+    "T06_NO_SEMANTIC_TRANSFORMATION",
+    "T07_NO_DECISION_AUTHORITY",
+    "T08_REPLAY_ID_PASSIVE_FIELD",
+    "T09_REVIEW_PRIORITY_AND_SNAPSHOT_BOUNDARY",
+    "T10_PASSIVE_INSTRUMENTATION_V1",
+    "T11_INSTRUMENTATION_V1_METRIC_TRACE",
+    "T12_DETERMINISM_IMMUTABILITY_AND_FUTURE_ENGINE_COMPATIBILITY"
+  ],
+  "instrumentation": {
+    "spec_version": "v1",
+    "mode": "PASSIVE_OBSERVATION",
+    "decision_authority": false,
+    "gateway_output_mutation": false,
+    "critical_path_lock": false,
+    "critical_path_wait": false,
+    "metrics": [
+      "DEFECT_PREVENTION_RATE_INPUTS",
+      "VALIDATION_LATENCY_P50_P95_P99",
+      "FALSE_POSITIVE_FALSE_NEGATIVE_COUNTS",
+      "REUSABILITY_COEFFICIENT_INPUTS",
+      "COVERAGE_RATIO_INPUTS",
+      "DETERMINISM_STABILITY_INPUTS"
+    ],
+    "net_value_calculation_authorized": false,
+    "optimization_decision_authorized": false,
+    "retirement_decision_authorized": false
+  },
+  "hard_bounds": {
+    "new_gateway_code": false,
+    "new_script": false,
+    "new_engine": false,
+    "risk_engine_change": false,
+    "repository_write_during_execution": false,
+    "database_mutation": false,
+    "runtime_mutation": false,
+    "network_access": false,
+    "live_fetch": false,
+    "risk_score_authority": false,
+    "final_risk_authority": false,
+    "market_impact_decision_authority": false,
+    "terminal_decision_authority": false,
+    "trade_authority": false,
+    "semantic_transformation_authorized": false,
+    "retirement_authorized_count": 0
+  },
+  "required_reference_validation": {
+    "uid_exists": true,
+    "uid_valid_state": true,
+    "uid_type_match": true,
+    "tombstone_compatible": true,
+    "orphan_reference_flag_required": true
+  },
+  "required_metadata": {
+    "correlation_policy_id": true,
+    "correlation_window_start": true,
+    "correlation_window_end": true,
+    "source_event_time": true,
+    "event_identity_version": true,
+    "entity_version": true,
+    "evidence_version": true,
+    "graph_version": true,
+    "package_hash": true,
+    "replay_id_passive": true,
+    "review_priority": true
+  },
+  "success_criteria": {
+    "reference_integrity": true,
+    "deterministic_package_hash": true,
+    "version_metadata_preserved": true,
+    "temporal_policy_metadata_preserved": true,
+    "no_semantic_transformation": true,
+    "no_decision_authority": true,
+    "instrumentation_non_intrusive": true,
+    "immutability": true
+  },
+  "next_safe_step": "WHALE_RISK_LINK_GATEWAY_EPHEMERAL_COMPATIBILITY_TEST_EXECUTION"
+}
