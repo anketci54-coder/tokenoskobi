@@ -176,3 +176,33 @@ Current canonical work direction:
 - Runtime/database mutation: false
 - ERA57 opened: false
 - Artifact: `data/control/news_v3_batch_01_runtime_direction_sync_v1.json`
+
+<!-- NEW_WINDOW_CONTINUATION:BEGIN -->
+## New Window Continuation
+
+Start only with:
+
+`README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.`
+
+Last verified closure:
+
+- Event: `A30_CRASH_RECOVERY_POST_MERGE_CANONICAL_CLOSURE`
+- Status: `CLOSED_VERIFIED`
+- Result: `OK_A30_CLOSED_VERIFIED_GITHUB_MERGED`
+- Branch: `main`
+- Verified source HEAD: `d3cc1f9d6fb3502a277b09a55b7a1dc145e03564`
+- Pull request: `#4`
+- A30 verification cases: `21/21`
+- Closure artifact: `data/control/a30_crash_recovery_post_merge_closure_v1.json`
+- Current problem: `NONE`
+- Next safe step: `NEXT_WORK_UNIT_PLAN`
+
+Mandatory rules:
+
+- Local workspace and local Git override GitHub and AI memory.
+- Read canonical files before deciding the next work unit.
+- Do not reopen A30.
+- Do not delete the A30 test or workflow; they are permanent regression evidence.
+- Do not mutate runtime, database, panel, service, timer, trading or signing authority without explicit scope and human approval.
+- Use one bounded work unit and one logical GitHub closure.
+<!-- NEW_WINDOW_CONTINUATION:END -->

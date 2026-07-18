@@ -6163,3 +6163,20 @@ Almanacın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi 
 - ERA57 opened: `false`
 - Artifact: `data/control/pre_era57_repo_pipeline_hygiene_closure_v1.json`
 - Next safe step: `ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION`
+
+<!-- A30_CANONICAL_CLOSURE:BEGIN -->
+## A30 Crash Recovery Policy — Closed
+
+- Status: `CLOSED_VERIFIED`
+- Result: `OK_A30_CLOSED_VERIFIED_GITHUB_MERGED`
+- GitHub PR: `#4`
+- Merge/source HEAD: `d3cc1f9d6fb3502a277b09a55b7a1dc145e03564`
+- Verification cases: `21/21`
+- GitHub Actions: `VERIFIED`
+- Local compile and execution: `VERIFIED`
+- Fail-closed quarantine and recovery-gate paths: `VERIFIED`
+- Production/database/runtime mutation: `false`
+- Auto repair and network access: `false`
+- Closure artifact: `data/control/a30_crash_recovery_post_merge_closure_v1.json`
+- Closed at UTC: `2026-07-18T10:44:58.093160+00:00`
+<!-- A30_CANONICAL_CLOSURE:END -->

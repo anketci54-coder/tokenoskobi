@@ -237,3 +237,27 @@ Master State'in mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı 
 - NEWS V3 complete: `false`
 - Closure approval: `BLOCKED`
 - Artifact: `data/control/news_v3_batch_01_runtime_direction_sync_v1.json`
+
+<!-- CURRENT_VERIFIED_STATE:BEGIN -->
+## Current Verified State
+
+`A30_CRASH_RECOVERY_POST_MERGE_CANONICAL_CLOSURE`
+
+- Project state: `A30_CLOSED_VERIFIED_GITHUB_MERGED`
+- Branch: `main`
+- Verified source HEAD: `d3cc1f9d6fb3502a277b09a55b7a1dc145e03564`
+- PR: `#4`
+- A30 cases: `21/21`
+- Local verification: `VERIFIED`
+- GitHub Actions: `VERIFIED`
+- Worktree before closure: `CLEAN`
+- Production mutation: `false`
+- Database mutation: `false`
+- Runtime mutation: `false`
+- Trade/signing authority change: `false`
+- Current problem: `NONE`
+- Next safe step: `NEXT_WORK_UNIT_PLAN`
+
+Current machine authority remains `PROJECT_RUNTIME.json`.
+Git HEAD must be resolved dynamically with `git rev-parse HEAD`.
+<!-- CURRENT_VERIFIED_STATE:END -->
