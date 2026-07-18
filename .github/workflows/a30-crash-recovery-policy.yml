@@ -1,0 +1,35 @@
+name: A30 Crash Recovery Policy
+
+on:
+  pull_request:
+    paths:
+      - "tools/a30_process_crash_recovery_policy_test.py"
+      - ".github/workflows/a30-crash-recovery-policy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  a30:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Compile
+        run: python -m py_compile tools/a30_process_crash_recovery_policy_test.py
+
+      - name: Execute A30
+        run: python -B tools/a30_process_crash_recovery_policy_test.py
