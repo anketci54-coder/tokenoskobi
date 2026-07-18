@@ -304,3 +304,48 @@ Yeni pencere başarılı şekilde boot olmuş sayılır ancak:
 - Kullanıcı onayı olmadan mutation yapmıyorsa.
 
 Bu README tek giriş kapısıdır; current state veya roadmap’in ikinci kopyası değildir.
+
+
+---
+
+<!-- README_AUTO_CONTINUATION:BEGIN -->
+## README AUTO-CONTINUATION CONTRACT
+
+Reading `README.md` alone does not complete boot.
+
+```text
+README_ONLY_IS_NOT_BOOT_COMPLETE=true
+MANDATORY_READ_ORDER_AUTO_CONTINUES=true
+DO_NOT_STOP_AFTER_README_SUMMARY=true
+DO_NOT_REQUEST_ALREADY_ACCESSIBLE_CANONICAL_FILES=true
+```
+
+After reading README, the AI must continue the mandatory read order automatically without waiting for another instruction.
+
+Rules:
+
+1. Use the local workspace when available.
+2. Otherwise read the same canonical files from GitHub `main`.
+3. Do not stop after summarizing README.
+4. Do not ask the user to resend canonical files that are already accessible.
+5. Do not state HEAD, current state, or `NEXT_SAFE_STEP` before the mandatory read order is complete.
+6. Only when neither local nor GitHub canonical access is available, return:
+
+```text
+BOOT_RESULT=BLOCKED
+BLOCKER=NO_CANONICAL_REPOSITORY_ACCESS
+```
+
+Required final boot output:
+
+```text
+REPOSITORY_SOURCE=
+REPOSITORY_SYNC=
+CURRENT_VERSION=
+CURRENT_ERA_OR_STAGE=
+LAST_COMPLETED=
+NEXT_SAFE_STEP=
+BLOCKERS=
+BOOT_RESULT=
+```
+<!-- README_AUTO_CONTINUATION:END -->
