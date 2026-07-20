@@ -1,0 +1,80 @@
+{
+  "schema": "tokenoskobi.era59f.calibration.v1",
+  "status": "LOCAL_COMPLETE_PENDING_READ_ONLY_AUDIT",
+  "base_contract": "config/era59_human_decision_package_cognitive_load_contract_v1.json",
+  "role": "POST_DECISION_EVIDENCE_QUALITY_AUDITOR",
+  "metrics": [
+    "PREDICTION_VS_OUTCOME",
+    "PRIMARY_HYPOTHESIS_CALIBRATION",
+    "ALTERNATIVE_HYPOTHESIS_CALIBRATION",
+    "SOURCE_RELIABILITY_DRIFT",
+    "ATTRIBUTION_ERROR_RATE",
+    "FALSE_PROMOTION_RATE",
+    "FALSE_QUARANTINE_RATE",
+    "HUMAN_OVERRIDE_RATE",
+    "DECISION_REVERSAL_RATE",
+    "EVIDENCE_GAP_RATE"
+  ],
+  "allowed_outputs": [
+    "CALIBRATION_WARNING",
+    "POLICY_REVIEW_REQUIRED",
+    "HUMAN_REVIEW",
+    "REPLAY_TEST_REQUIRED"
+  ],
+  "forbidden_actions": [
+    "AUTO_WEIGHT_CHANGE",
+    "AUTO_POLICY_CHANGE",
+    "AUTO_PROMOTION",
+    "AUTO_TRADE"
+  ],
+  "rules": [
+    "SELF_CORRECTION_HAS_ZERO_DECISION_AUTHORITY",
+    "CANONICAL_UTILITY_FORMULA_IMMUTABLE",
+    "POST_DECISION_AUDIT_ONLY",
+    "NO_AUTOMATIC_WEIGHT_CHANGE",
+    "NO_AUTOMATIC_POLICY_CHANGE",
+    "NO_AUTOMATIC_PROMOTION",
+    "NO_AUTOMATIC_TRADE",
+    "HUMAN_APPROVAL_REQUIRED_FOR_POLICY_CHANGE"
+  ],
+  "evaluation_windows": [
+    "ROLLING",
+    "OUT_OF_SAMPLE",
+    "REGIME_SEGMENTED",
+    "EDGE_DECAY"
+  ],
+  "canonical_invariants": [
+    "MODEL_VOTES_HAVE_ZERO_AUTHORITY",
+    "SHARED_EVIDENCE_DEPENDENCY_MUST_BE_EXPOSED",
+    "REGIME_DRIFT_GATE_MUST_NOT_MODIFY_CANONICAL_UTILITY_FORMULA",
+    "ENTITY_CLUSTER_FLOW_REQUIRES_ATTRIBUTION_CONFIDENCE",
+    "NO_SINGLE_SYBIL_SIGNAL_CAN_FORCE_CLASSIFICATION",
+    "MATERIAL_ALTERNATIVE_HYPOTHESIS_BLOCKS_PROMOTION",
+    "RED_TEAM_SCORE_IS_NOT_CANONICAL_EVIDENCE",
+    "SYNTHETIC_SUCCESS_IS_NOT_PRODUCTION_PROOF",
+    "NO_VISUAL_SUPPRESSION_OF_UNCERTAINTY",
+    "SELF_CORRECTION_HAS_ZERO_DECISION_AUTHORITY",
+    "UNKNOWN_IS_NOT_SAFE",
+    "MISSING_ENGINE_IS_NOT_NEUTRAL",
+    "WAR_ROOM_OUTPUT_IS_AN_INDICTMENT_NOT_AN_ORDER",
+    "HUMAN_COGNITIVE_LOAD_MUST_BE_MEASURED"
+  ],
+  "locks": {
+    "live_data": false,
+    "network_binding": false,
+    "database_write": false,
+    "production_binding": false,
+    "automatic_action": false,
+    "ai_authority": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0,
+    "signing_authority": 0,
+    "order_create_authority": 0
+  },
+  "canonical_utility_formula_mutation": false,
+  "decision_authority": 0,
+  "automatic_action": false,
+  "commit": false,
+  "push": false,
+  "next_safe_step": "ERA59F_READ_ONLY_CALIBRATION_AUDIT"
+}
