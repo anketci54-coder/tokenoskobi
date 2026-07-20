@@ -1,0 +1,11 @@
+def classify(f):
+    alt="UNOBSERVED_STRATEGY_OR_COINCIDENCE"
+    if f.get("drift_score",0)>=.60: return {"classification":"RE_EVALUATION_PENDING","confidence_cap":.40,"copyable":False,"quarantine":True,"strongest_alternative_hypothesis":"TEMPORARY_MARKET_REGIME_SHIFT"}
+    if f.get("team_or_deployer_link"): return {"classification":"TEAM_OR_DEPLOYER_LINKED","confidence_cap":.95,"copyable":False,"quarantine":True,"strongest_alternative_hypothesis":"LEGITIMATE_TREASURY_OR_MARKET_MAKER"}
+    if f.get("mev_pattern") or (f.get("same_block_round_trip") and f.get("priority_fee_extreme")): return {"classification":"NON_COPYABLE_MEV","confidence_cap":.90,"copyable":False,"quarantine":False,"strongest_alternative_hypothesis":"MARKET_MAKING_OR_LATENCY_ARBITRAGE"}
+    if all(f.get(k) for k in ("first_blocks_entry","liquidity_event_proximity","ultra_short_hold")): return {"classification":"SNIPER","confidence_cap":.85,"copyable":False,"quarantine":False,"strongest_alternative_hypothesis":"EARLY_NON_PRIVILEGED_ENTRY"}
+    if f.get("pre_news_positioning") and f.get("repeat_early_entry") and f.get("independent_evidence_count",0)>=2: return {"classification":"INSIDER_SUSPECTED","confidence_cap":.75,"copyable":False,"quarantine":True,"strongest_alternative_hypothesis":"SUPERIOR_RESEARCH_OR_LUCK"}
+    if f.get("realized_trades",0)>=8 and f.get("consistency",0)>=.65 and f.get("liquidity_actionable") and max(f.get("mev_risk",0),f.get("team_risk",0),f.get("sybil_risk",0))<.40: return {"classification":"COPYABLE_SMART_MONEY","confidence_cap":.80,"copyable":True,"quarantine":False,"strongest_alternative_hypothesis":"REGIME_SPECIFIC_SUCCESS_OR_SURVIVORSHIP_BIAS"}
+    if f.get("profit_positive") and not f.get("liquidity_actionable"): return {"classification":"NON_COPYABLE_PROFIT","confidence_cap":.60,"copyable":False,"quarantine":False,"strongest_alternative_hypothesis":"UNREALIZABLE_MARK_TO_MARKET_GAIN"}
+    if f.get("realized_trades",0)<3 and f.get("x_return",0)>=10: return {"classification":"LUCKY_ONE_OFF","confidence_cap":.45,"copyable":False,"quarantine":False,"strongest_alternative_hypothesis":"EMERGING_REPEATABLE_EDGE"}
+    return {"classification":"UNRESOLVED","confidence_cap":.30,"copyable":False,"quarantine":False,"strongest_alternative_hypothesis":alt}

@@ -1,0 +1,95 @@
+{
+  "schema": "tokenoskobi.era58.cross_venue_watch_state_machine.v1",
+  "status": "LOCKED_LOCAL_UNBOUND",
+  "states": [
+    "CEX_WITHDRAWAL_OBSERVED",
+    "DESTINATION_WALLET_ACTIVATED",
+    "BRIDGE_ACTIVITY",
+    "DEX_APPROVAL",
+    "DEX_SWAP",
+    "POSITION_BUILDING",
+    "PARTIAL_EXIT",
+    "FULL_EXIT",
+    "CEX_RETURN",
+    "QUARANTINED",
+    "HUMAN_REVIEW",
+    "CLOSED"
+  ],
+  "transitions": {
+    "CEX_WITHDRAWAL_OBSERVED": [
+      "DESTINATION_WALLET_ACTIVATED",
+      "QUARANTINED"
+    ],
+    "DESTINATION_WALLET_ACTIVATED": [
+      "BRIDGE_ACTIVITY",
+      "DEX_APPROVAL",
+      "DEX_SWAP",
+      "QUARANTINED"
+    ],
+    "BRIDGE_ACTIVITY": [
+      "DEX_APPROVAL",
+      "DEX_SWAP",
+      "QUARANTINED"
+    ],
+    "DEX_APPROVAL": [
+      "DEX_SWAP",
+      "QUARANTINED"
+    ],
+    "DEX_SWAP": [
+      "POSITION_BUILDING",
+      "PARTIAL_EXIT",
+      "FULL_EXIT",
+      "QUARANTINED"
+    ],
+    "POSITION_BUILDING": [
+      "PARTIAL_EXIT",
+      "FULL_EXIT",
+      "CEX_RETURN",
+      "QUARANTINED"
+    ],
+    "PARTIAL_EXIT": [
+      "FULL_EXIT",
+      "CEX_RETURN",
+      "HUMAN_REVIEW"
+    ],
+    "FULL_EXIT": [
+      "CEX_RETURN",
+      "CLOSED"
+    ],
+    "CEX_RETURN": [
+      "CLOSED"
+    ]
+  },
+  "promotion_requirements": [
+    "source_provenance",
+    "transaction_integrity",
+    "attribution_confidence",
+    "mev_risk",
+    "insider_risk",
+    "sybil_risk",
+    "liquidity_actionability"
+  ],
+  "quarantine_triggers": [
+    "invalid_provenance",
+    "identity_conflict",
+    "high_sybil_risk",
+    "graph_pollution",
+    "privacy_break_without_support",
+    "insufficient_evidence"
+  ],
+  "invariants": {
+    "cex_withdrawal_is_buy_signal": false,
+    "single_event_can_promote": false,
+    "automatic_action": false,
+    "human_final_authority": true,
+    "risk_flags_cannot_be_dropped": true
+  },
+  "authority": {
+    "network": false,
+    "database_write": false,
+    "production_binding": false,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0
+  }
+}

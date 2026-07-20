@@ -1,0 +1,142 @@
+{
+  "schema": "tokenoskobi.era58.graph_evidence_contract.v1",
+  "status": "LOCKED_LOCAL_UNBOUND",
+  "roles": {
+    "graph_engine": "EVIDENCE_PRODUCER",
+    "research_runtime": "EVIDENCE_VALIDATOR",
+    "harekat_subayi": "HUMAN_DECISION_PACKAGE",
+    "human": "FINAL_AUTHORITY"
+  },
+  "node_types": [
+    "WALLET",
+    "SMART_ACCOUNT",
+    "MULTISIG",
+    "CEX_CLUSTER",
+    "CEX_HOT_WALLET",
+    "CEX_COLD_WALLET",
+    "DEX_POOL",
+    "ROUTER",
+    "AGGREGATOR",
+    "BRIDGE",
+    "TOKEN",
+    "DEPLOYER",
+    "TEAM_WALLET",
+    "MEV_BOT",
+    "PRIVACY_POOL",
+    "TRANSACTION",
+    "FLOW_EVENT"
+  ],
+  "edge_types": [
+    "FUNDED_BY",
+    "WITHDREW_FROM_CEX",
+    "DEPOSITED_TO_CEX",
+    "BRIDGED_TO",
+    "SWAPPED_IN",
+    "SWAPPED_OUT",
+    "ADDED_LIQUIDITY",
+    "REMOVED_LIQUIDITY",
+    "COMMON_GAS_FUNDER",
+    "PROBABLE_SAME_CONTROLLER",
+    "DEPLOYER_CONNECTED",
+    "TEAM_CONNECTED",
+    "FOLLOWS_WALLET",
+    "PRECEDES_WALLET",
+    "PROFIT_RETURNED_TO",
+    "PRIVACY_CONTINUITY_BROKEN"
+  ],
+  "required_node_fields": [
+    "node_id",
+    "node_type",
+    "chain",
+    "address",
+    "first_seen",
+    "last_seen",
+    "labels",
+    "attribution_confidence",
+    "provenance_refs",
+    "risk_flags"
+  ],
+  "required_edge_fields": [
+    "edge_id",
+    "edge_type",
+    "from_node",
+    "to_node",
+    "observed_at",
+    "evidence_refs",
+    "confidence",
+    "relation_basis",
+    "privacy_break",
+    "sybil_risk"
+  ],
+  "required_event_fields": [
+    "event_id",
+    "schema_version",
+    "observed_at",
+    "chain",
+    "source_id",
+    "source_hash",
+    "integrity_verified",
+    "truth_status",
+    "node_refs",
+    "edge_refs",
+    "evidence_refs",
+    "risk_flags"
+  ],
+  "attribution_levels": [
+    "CONFIRMED",
+    "HIGH_CONFIDENCE",
+    "MEDIUM_CONFIDENCE",
+    "LOW_CONFIDENCE",
+    "BROKEN_BY_PRIVACY",
+    "UNKNOWN"
+  ],
+  "watch_states": [
+    "CEX_WITHDRAWAL_OBSERVED",
+    "DESTINATION_WALLET_ACTIVATED",
+    "BRIDGE_ACTIVITY",
+    "DEX_APPROVAL",
+    "DEX_SWAP",
+    "POSITION_BUILDING",
+    "PARTIAL_EXIT",
+    "FULL_EXIT",
+    "CEX_RETURN"
+  ],
+  "risk_flags": [
+    "MEV",
+    "INSIDER",
+    "SYBIL",
+    "GRAPH_POLLUTION",
+    "HERD_FOLLOWER",
+    "PRIVACY_BREAK",
+    "LOW_LIQUIDITY"
+  ],
+  "sybil_features": [
+    "funding_concentration",
+    "common_gas_funder",
+    "temporal_synchronization",
+    "route_similarity",
+    "token_choice_entropy",
+    "counterparty_diversity",
+    "round_trip_flow",
+    "wallet_creation_pattern"
+  ],
+  "invariants": {
+    "model_output_is_evidence": false,
+    "majority_is_authority": false,
+    "probabilistic_attribution_explicit": true,
+    "single_metric_hard_zero_forbidden": true,
+    "privacy_break_proves_identity": false,
+    "common_router_proves_control": false,
+    "dissent_preserved": true,
+    "human_final_authority": true
+  },
+  "authority": {
+    "network": false,
+    "database_write": false,
+    "production_binding": false,
+    "automatic_action": false,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0
+  }
+}
