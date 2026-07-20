@@ -1,0 +1,20 @@
+[Unit]
+Description=Tokenoskobi ERA57F7 Audit Service
+
+[Service]
+User=tokenoskobi-audit
+Group=tokenoskobi-audit
+SupplementaryGroups=tokenoskobi-audit-ipc
+ExecStart=/usr/bin/python3 /usr/local/lib/tokenoskobi-era57f7/audit_service.py
+Restart=on-failure
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+ReadWritePaths=/run/tokenoskobi-era57f7/audit /var/lib/tokenoskobi-era57f7/audit
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=
+UMask=0007
+
+[Install]
+WantedBy=multi-user.target

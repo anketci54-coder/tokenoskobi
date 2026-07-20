@@ -1,0 +1,123 @@
+{
+  "amplification_probe": {
+    "claims": 150,
+    "elapsed_microseconds": 3059.615,
+    "evidence_items": 300,
+    "terminal_stage": "RESOURCE_GOVERNOR"
+  },
+  "audit_opportunity_cost": {
+    "accept_baseline": 95,
+    "decision": "ACCEPT_AUDIT_RESULT_NOT_SYSTEM_READINESS",
+    "formula_owner": "02_MANIFESTO.md_SECTION_3",
+    "net_utility": 100.0,
+    "performance": 100.0,
+    "probability": 100.0,
+    "reliability": 100.0,
+    "security": 100.0,
+    "statistics": 100.0
+  },
+  "authority_lock": {
+    "database_mutation": false,
+    "execution_authority": 0,
+    "external_runtime_binding": false,
+    "file_mutation": false,
+    "network_access": false,
+    "order_create_authority": 0,
+    "production_access": false,
+    "signing_authority": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "benchmark": {
+    "p95_microseconds": 107.66,
+    "samples": 1000,
+    "successful_runs": 1000
+  },
+  "commit": false,
+  "finding_counts": {
+    "critical": 2,
+    "high": 5,
+    "total": 7
+  },
+  "findings": [
+    {
+      "code": "CALLER_RESETTABLE_GOVERNOR_STATE",
+      "evidence": "Twenty-five repeated calls using the same zero governor state were accepted; cumulative iteration, token and duplicate limits are not enforced across calls.",
+      "severity": "CRITICAL"
+    },
+    {
+      "code": "CALLER_RESETTABLE_LEDGER_STATE",
+      "evidence": "Repeated calls can reset ledger entries and byte counters; each accepted result produced sequence number 1.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "CALLER_SELF_ATTESTED_SOURCE_REGISTRY",
+      "evidence": "A registry and verified-independent source identities supplied entirely by the request caller passed the research quality gate.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "EVIDENCE_NOT_BOUND_TO_QUARANTINED_SOURCE",
+      "evidence": "The quarantined source URI and content hash are not cryptographically bound to evidence-item or source-registry identities.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "REPORT_COMPLETENESS_SELF_ASSERTED",
+      "evidence": "A report containing a critical unresolved unknown passed because report_complete is supplied as a separate caller-controlled boolean.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "CALLER_CONTROLLED_LEDGER_BYTE_ACCOUNTING",
+      "evidence": "An existing ledger larger than the declared quota was accepted when the caller reported ledger_current_bytes as zero.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "UNBOUNDED_COLLECTIONS_PROCESSED_BEFORE_GOVERNOR",
+      "evidence": "A request with 150 claims and 300 evidence items was fully claim-assessed before the resource governor rejected it.",
+      "severity": "CRITICAL"
+    }
+  ],
+  "new_core_modules": 0,
+  "new_runtime_adapters": 0,
+  "new_test_files": 0,
+  "next_safe_step": "ERA57F1_BOUNDED_RUNTIME_REMEDIATION_DECISION",
+  "patch_files": 0,
+  "protected_source_hashes_after": {
+    "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+    "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+    "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+    "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+    "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+    "tests/test_research_bounded_runtime_v1.py": "aa8a594c7348b8cc80b6ab45725ddebf3194bf97228b096054b77c7066ac00f7",
+    "tools/runtime_research_bounded_v1.py": "d2862b8cefad9ea7524b0e1081ea93cc1e9ed8e9813f2909ffe6dd2c281dc691"
+  },
+  "protected_source_hashes_before": {
+    "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+    "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+    "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+    "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+    "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+    "tests/test_research_bounded_runtime_v1.py": "aa8a594c7348b8cc80b6ab45725ddebf3194bf97228b096054b77c7066ac00f7",
+    "tools/runtime_research_bounded_v1.py": "d2862b8cefad9ea7524b0e1081ea93cc1e9ed8e9813f2909ffe6dd2c281dc691"
+  },
+  "protected_sources_mutated": false,
+  "protected_stress": {
+    "passed": 5000,
+    "total": 5000
+  },
+  "push": false,
+  "regression_tests": {
+    "count": 76,
+    "result": "OK"
+  },
+  "schema": "era57f_bounded_runtime_adversarial_audit_v1",
+  "static_safety_scan": {
+    "forbidden_calls": [],
+    "forbidden_imports": [],
+    "result": "PASS"
+  },
+  "status": "COMPLETED_WITH_FINDINGS_LOCAL",
+  "system_readiness": "BLOCKED_PENDING_REMEDIATION",
+  "temporary_backup_retained": false,
+  "timestamp_utc": "2026-07-19T05:39:28.692996+00:00",
+  "verification_level": "LOCAL_IN_MEMORY_ADVERSARIAL_AUDIT"
+}

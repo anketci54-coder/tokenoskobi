@@ -20,36 +20,31 @@ Bu dosya tarihçe, roadmap, mimari açıklama, audit dökümü, dosya envanteri 
 
 ## 02 CURRENT CONTINUATION CHECKPOINT
 
-PROJECT_STATUS=ERA56_CLOSED_ERA57_OPENING_DECISION_READY
+PROJECT_STATUS=ERA57_CLOSED_VERIFIED_ERA58_OPENING_DECISION_READY
 CURRENT_VERSION=V3_RUNTIME_INTELLIGENCE_OS
-CURRENT_MAIN_LINE=README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK
-CURRENT_STAGE=README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK_CLOSED_VERIFIED
-LAST_COMPLETED=README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK
-README_SINGLE_ENTRY_BOOT=true
-MANIFESTO_CONSTITUTION_COMPLETE=true
-CANONICAL_CLOSURE_SYNC=CLOSED_VERIFIED
-PRE_ERA57_REPO_PIPELINE_HYGIENE=CLOSED_VERIFIED
-PHASE9_TIMER=DISABLED_INACTIVE
-ERA57_OPENING_DECISION_READY=true
-ERA57_OPENED=false
+CURRENT_MAIN_LINE=ERA58_OPENING_DECISION
+ERA57_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+ERA57_SCOPE_LOCKED=true
+ERA57C_IMPLEMENTATION_AUTHORIZED=true
 LIVE_FETCH_AUTHORIZED=false
 PRODUCTION_MUTATION=false
+NEXT_SAFE_STEP=ERA58_OPENING_DECISION
 CURRENT_HEAD=DYNAMIC_USE_GIT_REV_PARSE_HEAD
 
 ## 03 LAST VERIFIED WORK
 
 LAST_COMPLETED=README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK
 LAST_RESULT=OK_README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK_CLOSED_VERIFIED
-LAST_ARTIFACT=data/control/pre_era57_readme_manifesto_canonical_closure_sync_v1.json
+LAST_ARTIFACT=data/control/era57_final_closure_and_github_seal_v1.json
 SOURCE_COMMIT=06361bf3ef72612c07b225c1807e48afcd527573
-SOURCE_SEAL=PRE_ERA57_README_MANIFESTO_CONSTITUTION_FINAL_SEAL
+SOURCE_SEAL=ERA57_FINAL_GITHUB_SEAL
 README_SINGLE_ENTRY_BOOT=true
 MANIFESTO_CONSTITUTION_COMPLETE=true
 DOCUMENTATION_ONLY=true
 RUNTIME_MUTATION=false
 DATABASE_MUTATION=false
 NETWORK_MUTATION=false
-ERA57_OPENED=false
+ERA57_OPENED=true
 PRODUCTION_MUTATION=false
 
 ## 04 CURRENT CANONICAL DOCUMENT CONDITION
@@ -106,14 +101,14 @@ No Runtime, DB, panel, service, timer or deployment mutation is permitted withou
 
 ## 07 ALLOWED NEXT DECISIONS
 
-- Decide whether to open ERA57 under a separate bounded scope.
-- Do not treat readiness as ERA57 authorization.
+- ERA57 is closed; ERA58 requires a separate human opening decision.
+- Do not open ERA58 without separate human authorization.
 - Do not enable live source fetch automatically.
 - Do not grant network budget implicitly.
 - Do not broaden policy/authority grants.
 - Production mutation remains blocked.
 
-NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
+NEXT_SAFE_STEP=ERA58_OPENING_DECISION
 
 ## 08 NEXT SESSION EXECUTION RULE
 
@@ -121,7 +116,7 @@ NEXT_SAFE_STEP=ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION
 2. Follow README's complete canonical read order.
 3. Verify Runtime `last_completed`, `last_result` and `NEXT_SAFE_STEP`.
 4. Confirm README single-entry and Manifesto constitution locks are closed.
-5. Treat ERA57 as not opened until explicit human approval.
+5. Treat ERA58 as not opened until explicit human approval.
 6. Preserve live-fetch, network-budget and production-mutation locks.
 
 ## 09 HANDOFF CONTENT BOUNDARY
@@ -174,7 +169,7 @@ Current canonical work direction:
 - Canonical merge before human review: forbidden
 - Live source fetch: false
 - Runtime/database mutation: false
-- ERA57 opened: false
+- ERA57 opened: true
 - Artifact: `data/control/news_v3_batch_01_runtime_direction_sync_v1.json`
 
 <!-- NEW_WINDOW_CONTINUATION:BEGIN -->

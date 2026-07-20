@@ -1,0 +1,200 @@
+{
+  "a30_contract": {
+    "fail_closed_after_restart": true,
+    "persistent_recovery": false,
+    "restart_old_session_resume": false
+  },
+  "audit_opportunity_cost": {
+    "accept_baseline": 95,
+    "decision": "ACCEPT_AUDIT_RESULT_NOT_SYSTEM_READINESS",
+    "formula_owner": "02_MANIFESTO.md_SECTION_3",
+    "net_utility": 100.0,
+    "performance": 100.0,
+    "probability": 100.0,
+    "reliability": 100.0,
+    "security": 100.0,
+    "statistics": 100.0
+  },
+  "authority_lock": {
+    "database_mutation": false,
+    "execution_authority": 0,
+    "external_runtime_binding": false,
+    "file_mutation": false,
+    "network_access": false,
+    "order_create_authority": 0,
+    "production_access": false,
+    "signing_authority": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "automatic_remediation": false,
+  "benchmark": {
+    "absolute_p95_budget_microseconds": 5000,
+    "max_microseconds": 414.57,
+    "p50_microseconds": 142.342,
+    "p95_microseconds": 187.083,
+    "p99_microseconds": 230.23,
+    "samples": 1000,
+    "successful_runs": 1000
+  },
+  "canonical_seal_authorized": false,
+  "commit": false,
+  "era57g_authorized": false,
+  "finding_counts": {
+    "critical": 2,
+    "high": 6,
+    "medium": 1,
+    "total": 9
+  },
+  "findings": [
+    {
+      "code": "GLOBAL_GOVERNOR_NOISY_NEIGHBOR_DOS",
+      "details": {
+        "attacker_calls_accepted": 2,
+        "victim_reasons": [
+          "RESOURCE_LIMIT_EXCEEDED:iterations"
+        ],
+        "victim_stage": "PRE_PROCESS_RESOURCE_GOVERNOR"
+      },
+      "evidence": "One session exhausted the global iteration budget and caused an independent session to be rejected.",
+      "severity": "CRITICAL"
+    },
+    {
+      "code": "CROSS_SESSION_GLOBAL_FINGERPRINT_POISONING",
+      "details": {
+        "third_reasons": [
+          "DUPLICATE_LOOP_DETECTED"
+        ],
+        "third_stage": "PRE_PROCESS_RESOURCE_GOVERNOR"
+      },
+      "evidence": "Duplicate fingerprint counters are shared globally; activity in earlier sessions caused a later independent session to be rejected.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "CROSS_SESSION_GLOBAL_NO_GAIN_POISONING",
+      "details": {
+        "fourth_reasons": [
+          "NO_GAIN_LOOP_DETECTED"
+        ],
+        "fourth_stage": "PRE_PROCESS_RESOURCE_GOVERNOR"
+      },
+      "evidence": "The global no-gain streak was increased across independent sessions and rejected the fourth session.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "CROSS_REPORT_SEMANTIC_EVIDENCE_CONTAMINATION",
+      "details": {
+        "first_report_quality": false,
+        "second_report_quality": true,
+        "shared_claim_id": "shared-claim"
+      },
+      "evidence": "Evidence accumulated for report-a was reused to pass report-b because both reports used the same claim ID, despite different report IDs and research questions.",
+      "severity": "CRITICAL"
+    },
+    {
+      "code": "EXTERNAL_REASON_CODE_POLICY_ORACLE",
+      "details": {
+        "capability_response": {
+          "reason_codes": [
+            "UNKNOWN_CAPABILITY:socket_access"
+          ],
+          "stage": "CAPABILITY_GATE"
+        },
+        "request_validation_response": {
+          "reason_codes": [
+            "UNEXPECTED_FIELD:runtime_command"
+          ],
+          "stage": "REQUEST_VALIDATION"
+        }
+      },
+      "evidence": "Externally returned stages and detailed reason codes reveal which policy gate rejected the request.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "UNAUTHENTICATED_CONSTRUCTOR_REGISTRY_TRUST_ROOT",
+      "details": {
+        "quality_gate_passed": true,
+        "registry_hash": "084b8544341e94f6fca9758b3f6977cd5645844970fa9e0305cfb516840766f5"
+      },
+      "evidence": "An arbitrary registry supplied during runtime construction established two trusted independent sources and passed the research quality gate.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "NO_CRITICAL_TASK_RESERVED_CAPACITY",
+      "evidence": "The runtime has no distinct reserved budget for critical tasks after normal sessions consume the global governor budget.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "GLOBAL_RUNTIME_LOCK_CONVOY",
+      "details": {
+        "victim_wait_microseconds": 51436.994
+      },
+      "evidence": "A deliberately slow operation in one session held the global runtime lock and delayed an independent session by more than 40 milliseconds.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "REPRODUCIBLE_COLLECTION_THRESHOLD_TIMING_ORACLE",
+      "details": {
+        "absolute_delta_microseconds": 567.385,
+        "claim_32_median_microseconds": 602.084,
+        "claim_33_median_microseconds": 34.7,
+        "ratio": 17.351
+      },
+      "evidence": "Accepted-boundary and rejected-boundary requests showed a repeatable timing difference.",
+      "severity": "MEDIUM"
+    }
+  ],
+  "github_coordination_issue": "https://github.com/anketci54-coder/tokenoskobi/issues/5",
+  "new_core_modules": 0,
+  "new_runtime_adapters": 0,
+  "new_test_files": 0,
+  "next_safe_step": "ERA57F3_STATEFUL_RUNTIME_REMEDIATION_DECISION",
+  "patch_files": 0,
+  "protected_source_hashes_after": {
+    "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+    "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+    "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+    "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+    "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+    "tests/test_research_bounded_runtime_v1.py": "0139ac85a76257407312b1b76e2223e2d3f41bfb55006c7bbb498aa818d6ee27",
+    "tools/runtime_research_bounded_v1.py": "506ba87e4b579b21b7ad0a64878144b7fe74dcc1a3a515500ac5b1aa0fc6dd07"
+  },
+  "protected_source_hashes_before": {
+    "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+    "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+    "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+    "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+    "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+    "tests/test_research_bounded_runtime_v1.py": "0139ac85a76257407312b1b76e2223e2d3f41bfb55006c7bbb498aa818d6ee27",
+    "tools/runtime_research_bounded_v1.py": "506ba87e4b579b21b7ad0a64878144b7fe74dcc1a3a515500ac5b1aa0fc6dd07"
+  },
+  "protected_sources_mutated": false,
+  "protected_stress": {
+    "passed": 5500,
+    "total": 5500
+  },
+  "push": false,
+  "regression_tests": {
+    "count": 81,
+    "result": "OK"
+  },
+  "resource_isolation_observations": {
+    "claim_32_median_microseconds": 602.084,
+    "claim_33_median_microseconds": 34.7,
+    "global_lock_convoy_wait_microseconds": 51436.994,
+    "max_collection_current_memory_bytes": 50488,
+    "max_collection_peak_memory_bytes": 103616
+  },
+  "schema": "era57f2_stateful_runtime_adversarial_reaudit_v1",
+  "status": "COMPLETED_WITH_FINDINGS_LOCAL",
+  "temporary_backup_retained": false,
+  "timestamp_utc": "2026-07-19T10:25:34.247499+00:00",
+  "truth_boundary": {
+    "actionable": false,
+    "execution_eligible": false,
+    "human_review_required": true,
+    "model_consensus_is_evidence": false,
+    "truthfulness_guaranteed": false
+  },
+  "verification_level": "LOCAL_IN_MEMORY_INDEPENDENT_ADVERSARIAL_REAUDIT"
+}

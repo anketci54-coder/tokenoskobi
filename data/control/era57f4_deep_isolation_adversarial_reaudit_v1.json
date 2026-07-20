@@ -1,0 +1,213 @@
+{
+  "a30_contract": {
+    "fail_closed_after_restart": true,
+    "persistent_recovery": false,
+    "restart_old_session_resume": false
+  },
+  "audit_opportunity_cost": {
+    "accept_baseline": 95,
+    "decision": "ACCEPT_AUDIT_RESULT_NOT_SYSTEM_READINESS",
+    "formula_owner": "02_MANIFESTO.md_SECTION_3",
+    "net_utility": 100.0,
+    "performance": 100.0,
+    "probability": 100.0,
+    "reliability": 100.0,
+    "security": 100.0,
+    "statistics": 100.0
+  },
+  "authority_lock": {
+    "database_mutation": false,
+    "execution_authority": 0,
+    "external_runtime_binding": false,
+    "file_mutation": false,
+    "network_access": false,
+    "order_create_authority": 0,
+    "production_access": false,
+    "signing_authority": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "automatic_remediation": false,
+  "benchmark": {
+    "absolute_p95_budget_microseconds": 5000,
+    "current_memory_bytes": 75949,
+    "lock_convoy_victim_wait_microseconds": 587.901,
+    "max_microseconds": 1199.55,
+    "p50_microseconds": 206.553,
+    "p95_microseconds": 286.42,
+    "p99_microseconds": 390.062,
+    "parallel_p95_microseconds": 454.762,
+    "parallel_p99_microseconds": 460.551,
+    "parallel_sessions": 32,
+    "peak_memory_bytes": 157488,
+    "samples": 1000,
+    "successful_runs": 1000
+  },
+  "canonical_seal_authorized": false,
+  "commit": false,
+  "correlation_id": {
+    "all_unique": true,
+    "expected_shape": true,
+    "external_to_internal_mapping_callable": true,
+    "samples": 1000
+  },
+  "era57g_authorized": false,
+  "finding_counts": {
+    "critical": 2,
+    "high": 3,
+    "medium": 1,
+    "total": 6
+  },
+  "findings": [
+    {
+      "code": "CRITICAL_SESSION_SLOT_STARVATION",
+      "details": {
+        "critical_open_result": {
+          "actionable": false,
+          "audit_payload_redacted": true,
+          "correlation_id": "ee225b7927949b2954c7bd0b731de10c",
+          "database_mutation": false,
+          "decision": "FAIL_CLOSED",
+          "decision_eligible": false,
+          "execution_eligible": false,
+          "external_runtime_binding": false,
+          "fail_closed": true,
+          "file_mutation": false,
+          "human_review_required": true,
+          "network_access": false,
+          "ok": false,
+          "order_create_eligible": false,
+          "production_access": false,
+          "reason_codes": [
+            "REQUEST_REJECTED"
+          ],
+          "runtime_binding": "LOCAL_IN_MEMORY_DEEP_ISOLATION_READ_ONLY",
+          "schema": "era57_deep_isolation_runtime_result_v3",
+          "signing_eligible": false,
+          "stage": "REQUEST_REJECTED",
+          "trade_eligible": false,
+          "wallet_eligible": false
+        },
+        "normal_sessions_opened": 32
+      },
+      "evidence": "Thirty-two normal sessions occupied the complete session table and prevented a SECURITY_AUDIT session from opening, despite critical resource capacity being reserved.",
+      "severity": "CRITICAL"
+    },
+    {
+      "code": "IN_PROCESS_CRITICAL_AUTHORITY_ESCALATION",
+      "details": {
+        "critical_bucket_used": 1,
+        "private_method_callable": true,
+        "session_task_class_mutable": true
+      },
+      "evidence": "A caller holding the runtime object could obtain or mutate a session into a critical task class without an unforgeable internal capability.",
+      "severity": "CRITICAL"
+    },
+    {
+      "code": "SELF_AUTHENTICATED_HASH_PIN_TRUST_ROOT",
+      "details": {
+        "forged_policy_accepted": true,
+        "forged_registry_accepted": true,
+        "forged_registry_quality_passed": true,
+        "signed_manifest_present": false
+      },
+      "evidence": "The pinned object and its expected hash are mutable within the same runtime trust domain. Replacing both allowed a forged registry or policy to authenticate itself without an external signature or immutable trust anchor.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "PUBLIC_INTERNAL_AUDIT_CORRELATION_ORACLE",
+      "details": {
+        "external_response_generalized": true,
+        "internal_snapshot_callable": true,
+        "mapped_internal_stage": "REQUEST_VALIDATION",
+        "policy_hash_exposed": true,
+        "registry_hash_exposed": true
+      },
+      "evidence": "The opaque external correlation ID could be mapped through a callable runtime audit snapshot to internal stage, reason codes, policy hash and registry hash.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "MUTABLE_EVICTABLE_IN_MEMORY_AUDIT_TRAIL",
+      "details": {
+        "direct_clear_supported": true,
+        "immutable_external_sink": false,
+        "oldest_event_evicted": true,
+        "ring_capacity": 2048
+      },
+      "evidence": "The in-memory audit trail could be directly cleared or old security records could be evicted through bounded rejection flooding.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "GENERALIZED_REJECTION_TIMING_ORACLE",
+      "details": {
+        "absolute_delta_microseconds": 44.159,
+        "capability_median_microseconds": 80.305,
+        "random_padding_enabled": false,
+        "ratio": 2.222,
+        "validation_median_microseconds": 36.147
+      },
+      "evidence": "Externally identical rejection classes retained a repeatable processing-time distinction.",
+      "severity": "MEDIUM"
+    }
+  ],
+  "github_coordination_issue": "https://github.com/anketci54-coder/tokenoskobi/issues/5",
+  "new_core_modules": 0,
+  "new_runtime_adapters": 0,
+  "new_test_files": 0,
+  "next_safe_step": "ERA57F5_TRUST_ROOT_AND_CRITICAL_AUTHORITY_REMEDIATION_DECISION",
+  "patch_files": 0,
+  "protected_source_hashes_after": {
+    "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+    "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+    "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+    "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+    "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+    "tests/test_research_bounded_runtime_v1.py": "65cd3835fba172ba651629b247df85057b87dfb566da08b6c07170e61042480e",
+    "tools/runtime_research_bounded_v1.py": "48e3d941ab9d83f07f9d12308ad365cba8605dacf140a5512718fa03a4950681"
+  },
+  "protected_source_hashes_before": {
+    "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+    "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+    "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+    "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+    "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+    "tests/test_research_bounded_runtime_v1.py": "65cd3835fba172ba651629b247df85057b87dfb566da08b6c07170e61042480e",
+    "tools/runtime_research_bounded_v1.py": "48e3d941ab9d83f07f9d12308ad365cba8605dacf140a5512718fa03a4950681"
+  },
+  "protected_sources_mutated": false,
+  "protected_stress": {
+    "passed": 6000,
+    "total": 6000
+  },
+  "push": false,
+  "regression_tests": {
+    "count": 88,
+    "result": "OK"
+  },
+  "schema": "era57f4_deep_isolation_adversarial_reaudit_v1",
+  "signed_manifest_integration": false,
+  "status": "COMPLETED_WITH_FINDINGS_LOCAL",
+  "temporary_backup_retained": false,
+  "timestamp_utc": "2026-07-19T14:00:17.932420+00:00",
+  "timing_oracle": {
+    "absolute_delta_microseconds": 44.159,
+    "capability_median_microseconds": 80.305,
+    "ratio": 2.222,
+    "validation_median_microseconds": 36.147
+  },
+  "trust_boundary": {
+    "production_trust_root_verified": false,
+    "registry_authentication": "HASH_PIN_ONLY",
+    "sha256_collision_cryptanalysis_performed": false,
+    "signed_registry_manifest": false,
+    "unicode_namespace_fixture": "EXECUTED"
+  },
+  "truth_boundary": {
+    "actionable": false,
+    "execution_eligible": false,
+    "human_review_required": true,
+    "model_consensus_is_evidence": false,
+    "truthfulness_guaranteed": false
+  },
+  "verification_level": "LOCAL_INDEPENDENT_READ_ONLY_ADVERSARIAL_REAUDIT"
+}

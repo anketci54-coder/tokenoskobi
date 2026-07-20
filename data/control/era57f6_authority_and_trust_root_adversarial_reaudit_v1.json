@@ -1,0 +1,585 @@
+{
+  "audit_boundary": {
+    "external_root_anchor": false,
+    "fsync_failure_fail_closed": true,
+    "independent_audit_os_user": false,
+    "live_path_replacement_detection": false,
+    "live_unlink_detection": true,
+    "multi_process_coordination": false,
+    "multi_runtime_coordination": false,
+    "offline_truncation_detection": false,
+    "partial_write_fail_closed": true,
+    "quota_fail_closed": true,
+    "same_os_user_correlation_mapping": true
+  },
+  "authority_lock": {
+    "database_mutation": false,
+    "execution_authority": 0,
+    "external_runtime_binding": false,
+    "network_access": false,
+    "order_create_authority": 0,
+    "production_mutation": false,
+    "signing_authority": 0,
+    "trade_authority": 0,
+    "wallet_authority": 0
+  },
+  "automatic_remediation": false,
+  "automatic_transition": false,
+  "canonical_seal_authorized": false,
+  "capability_boundary": {
+    "boot_binding": true,
+    "caller_identity_binding": false,
+    "forgery_protection": true,
+    "manifest_binding": true,
+    "process_binding": false,
+    "replay_protection": true,
+    "theft_before_use_protection": false
+  },
+  "commit": false,
+  "era57g_authorized": false,
+  "finding_counts": {
+    "critical": 1,
+    "high": 10,
+    "medium": 2,
+    "total": 13
+  },
+  "findings": [
+    {
+      "code": "RESEARCH_TEST_INVENTORY_NET_LOSS",
+      "details": {
+        "bounded_tests_added_or_renamed": [
+          "test_audit_flood_does_not_evict",
+          "test_constructor_override_denied",
+          "test_critical_capability_replay_denied",
+          "test_expired_capability_denied",
+          "test_external_rejection_masking",
+          "test_invalid_critical_capability_denied",
+          "test_private_internal_opener_removed",
+          "test_reserved_critical_session_slots",
+          "test_runtime_audit_reader_removed",
+          "test_semantic_contamination_blocked",
+          "test_signed_manifest_boot",
+          "test_source_content_rebind_denied",
+          "test_task_class_mutation_denied",
+          "test_valid_critical_capability",
+          "test_wrong_boot_capability_denied"
+        ],
+        "bounded_tests_removed_or_renamed": [
+          "test_active_session_limit",
+          "test_boot_and_policy_hashes",
+          "test_claim_text_change_blocks_reuse",
+          "test_constructor_registry_substitution_denied",
+          "test_cross_report_semantic_contamination_blocked",
+          "test_downstream_reject_consumes_reserved_budget",
+          "test_external_registry_mutation_has_no_effect",
+          "test_external_rejection_masking_and_internal_correlation",
+          "test_fingerprint_and_no_gain_are_session_local",
+          "test_global_canonical_evidence_reuse_disabled",
+          "test_global_hard_cap_and_critical_reserve",
+          "test_no_nested_global_session_locks",
+          "test_parallel_different_sessions_complete",
+          "test_policy_and_registry_hash_rollback_detected",
+          "test_pre_gate_reject_does_not_consume_budget",
+          "test_source_content_rebind_rejected"
+        ],
+        "era57f4_total": 88,
+        "era57f5_reported_total": 87,
+        "era57f6_current_total": 87,
+        "net_delta_from_f4": -1,
+        "semantic_coverage_equivalence_proven": false
+      },
+      "evidence": "The research regression inventory contains fewer discovered tests than the ERA57F4 baseline.",
+      "severity": "MEDIUM"
+    },
+    {
+      "code": "CRITICAL_CAPABILITY_BEARER_THEFT_BEFORE_USE",
+      "details": {
+        "boot_binding": true,
+        "caller_binding_fields": [],
+        "single_use_replay_protection": true,
+        "stolen_token_accepted": true
+      },
+      "evidence": "A valid unused critical capability could be used by any code holding the bearer token because the signed payload contains no caller, process, OS identity or channel binding.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "MANIFEST_AND_CAPABILITY_KEY_PURPOSE_COLLISION",
+      "details": {
+        "capability_signature_verified": true,
+        "independent_capability_key": false,
+        "key_purpose_separation": false,
+        "manifest_signature_verified": true
+      },
+      "evidence": "The same Ed25519 authority key successfully verified both the long-lived runtime manifest and short-lived critical capability tokens.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "VALID_OLD_MANIFEST_REPLAY_AFTER_HIGHER_SEQUENCE",
+      "details": {
+        "external_monotonic_sequence_store": false,
+        "sequence_1_accepted_after_sequence_2": true,
+        "sequence_2_accepted": true
+      },
+      "evidence": "After a valid sequence-2 manifest was accepted, a still-valid signed sequence-1 manifest was accepted because no external persistent high-water mark exists.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "LOCAL_ROOT_COMPLETE_TRUST_BUNDLE_REPLACEMENT",
+      "details": {
+        "critical_session_opened": true,
+        "external_hardware_or_remote_anchor": false,
+        "root_tamper_resistance": false,
+        "runtime_booted": true
+      },
+      "evidence": "Replacing the local public key, fingerprint, signed manifest and signature with an attacker-controlled bundle allowed runtime boot and attacker-signed critical capability authorization.",
+      "severity": "CRITICAL"
+    },
+    {
+      "code": "OFFLINE_AUDIT_TRUNCATION_ACCEPTED_AS_NEW_CHAIN",
+      "details": {
+        "external_root_anchor": false,
+        "previous_root_hash": "84f1fde4a83eea79663e26f52dc29351b8e81140a2fa33dda982d0679eb901fb",
+        "restart_after_truncation": true
+      },
+      "evidence": "A non-empty valid audit chain was truncated while the runtime was offline, and a new runtime accepted the empty file as a valid chain origin.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "LIVE_AUDIT_PATH_REPLACEMENT_NOT_DETECTED",
+      "details": {
+        "canonical_path_size": 0,
+        "health_check_after_path_swap": true,
+        "renamed_inode_grew": true
+      },
+      "evidence": "The audit pathname was replaced while the runtime continued appending through its old file descriptor to the renamed inode; the canonical path remained an empty replacement file.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "MULTI_RUNTIME_AUDIT_APPEND_COORDINATION_FAILURE",
+      "details": {
+        "chain_error": null,
+        "chain_valid": true,
+        "process_shared_lock": false,
+        "record_count": 1,
+        "runtime_a_healthy": true,
+        "runtime_b_healthy": false
+      },
+      "evidence": "Two runtime instances sharing one audit file did not maintain two healthy coordinated writers and a valid two-entry chain.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "MULTI_PROCESS_AUDIT_APPEND_COORDINATION_FAILURE",
+      "details": {
+        "interprocess_file_lock": false,
+        "trials": [
+          {
+            "chain_error": null,
+            "chain_valid": true,
+            "ok": false,
+            "record_count": 1,
+            "result_a": {
+              "audit_failed": false,
+              "audit_healthy": false,
+              "correlation_id": "ad65e16fb74c6b9a158570f14b2ae8e9",
+              "stage": "REQUEST_REJECTED"
+            },
+            "result_b": {
+              "audit_failed": false,
+              "audit_healthy": true,
+              "correlation_id": "f7cdba6beba8bd1b65f52e993f12bd84",
+              "stage": "REQUEST_REJECTED"
+            },
+            "returncode_a": 0,
+            "returncode_b": 0,
+            "stderr_a": "",
+            "stderr_b": "",
+            "trial": 0
+          },
+          {
+            "chain_error": null,
+            "chain_valid": true,
+            "ok": false,
+            "record_count": 1,
+            "result_a": {
+              "audit_failed": false,
+              "audit_healthy": true,
+              "correlation_id": "15446853229ee445b9451421e2c848d7",
+              "stage": "REQUEST_REJECTED"
+            },
+            "result_b": {
+              "audit_failed": false,
+              "audit_healthy": false,
+              "correlation_id": "9ba7c2d1047e511dfcde01a003771b9a",
+              "stage": "REQUEST_REJECTED"
+            },
+            "returncode_a": 0,
+            "returncode_b": 0,
+            "stderr_a": "",
+            "stderr_b": "",
+            "trial": 1
+          },
+          {
+            "chain_error": null,
+            "chain_valid": true,
+            "ok": false,
+            "record_count": 1,
+            "result_a": {
+              "audit_failed": false,
+              "audit_healthy": true,
+              "correlation_id": "7038a212084ff4a820cf731b8577a7b5",
+              "stage": "REQUEST_REJECTED"
+            },
+            "result_b": {
+              "audit_failed": false,
+              "audit_healthy": false,
+              "correlation_id": "c8e423e3e73b3b0beb8687fcc17edee3",
+              "stage": "REQUEST_REJECTED"
+            },
+            "returncode_a": 0,
+            "returncode_b": 0,
+            "stderr_a": "",
+            "stderr_b": "",
+            "trial": 2
+          },
+          {
+            "chain_error": "SEQUENCE_INVALID",
+            "chain_valid": false,
+            "ok": false,
+            "record_count": 1,
+            "result_a": {
+              "audit_failed": false,
+              "audit_healthy": false,
+              "correlation_id": "4a2b3019097e8d8870e4e2face225964",
+              "stage": "REQUEST_REJECTED"
+            },
+            "result_b": {
+              "audit_failed": false,
+              "audit_healthy": false,
+              "correlation_id": "e063de6ff6d7047e08e806d89eec8272",
+              "stage": "REQUEST_REJECTED"
+            },
+            "returncode_a": 0,
+            "returncode_b": 0,
+            "stderr_a": "",
+            "stderr_b": "",
+            "trial": 3
+          },
+          {
+            "chain_error": null,
+            "chain_valid": true,
+            "ok": false,
+            "record_count": 1,
+            "result_a": {
+              "audit_failed": false,
+              "audit_healthy": true,
+              "correlation_id": "a9e425cf341e3d071b975afe830d5045",
+              "stage": "REQUEST_REJECTED"
+            },
+            "result_b": {
+              "audit_failed": true,
+              "audit_healthy": false,
+              "correlation_id": "80ab1cefae209224d2437331bf0ad7a9",
+              "stage": "REQUEST_REJECTED"
+            },
+            "returncode_a": 0,
+            "returncode_b": 0,
+            "stderr_a": "",
+            "stderr_b": "",
+            "trial": 4
+          }
+        ]
+      },
+      "evidence": "At least one concurrent two-process append trial failed to produce two healthy writers and one valid two-record hash chain.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "AUDIT_QUOTA_EXHAUSTION_FAIL_CLOSED_DOS",
+      "details": {
+        "audit_rotation": false,
+        "configured_quota_bytes": 67108864,
+        "projected_records_to_quota": 38216,
+        "sample_record_bytes": 1756,
+        "valid_work_blocked_after_quota": true
+      },
+      "evidence": "Once the fixed append-only audit quota is exhausted, the runtime fails closed for otherwise valid work. Unauthenticated rejection traffic can consume this finite audit capacity and no rotation or emergency reserve channel is present.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "SAME_OS_USER_AUDIT_CORRELATION_ORACLE",
+      "details": {
+        "independent_audit_os_user": false,
+        "mapped_internal_stage": "REQUEST_VALIDATION",
+        "policy_hash_readable": true,
+        "public_runtime_reader": false,
+        "registry_hash_readable": true,
+        "same_os_user_file_reader": true
+      },
+      "evidence": "Although the runtime API exposes no audit reader, code running as the same OS user can read the local audit file and map an external correlation ID to internal stage, reason codes and trust hashes.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "KEY_ROTATION_AND_REVOCATION_PROTOCOL_ABSENT",
+      "details": {
+        "manifest_capability_key_separation": false,
+        "revocation_list": false,
+        "rotation_state": false,
+        "single_public_key": true
+      },
+      "evidence": "The runtime has one local authority public key and no verified key ring, revocation list, rotation state, overlap period or emergency revocation path.",
+      "severity": "HIGH"
+    },
+    {
+      "code": "GENERALIZED_REJECTION_TIMING_ORACLE",
+      "details": {
+        "absolute_delta_microseconds": 104.694,
+        "early_reject_p50_microseconds": 57.16,
+        "late_reject_p50_microseconds": 161.854,
+        "ratio": 2.832
+      },
+      "evidence": "Early validation rejection and late capability rejection produce externally identical responses but retain a repeatable median timing distinction.",
+      "severity": "MEDIUM"
+    }
+  ],
+  "github_coordination_issue": "https://github.com/anketci54-coder/tokenoskobi/issues/5",
+  "new_config_files": 0,
+  "new_core_modules": 0,
+  "new_runtime_adapters": 0,
+  "new_test_files": 0,
+  "next_safe_step": "ERA57F7_RUNTIME_ENVIRONMENT_AND_TRUST_REMEDIATION_DECISION",
+  "opportunity_cost": {
+    "accept_baseline": 95,
+    "decision": "ACCEPT_AUDIT_RESULT_NOT_SYSTEM_READINESS",
+    "formula_owner": "02_MANIFESTO.md_SECTION_3",
+    "net_utility": 100.0,
+    "performance": 100.0,
+    "probability": 100.0,
+    "reliability": 100.0,
+    "security": 100.0,
+    "statistics": 100.0
+  },
+  "patch_files": 0,
+  "performance_profile": {
+    "absolute_success_p95_budget_microseconds": 5000,
+    "boot_p50_microseconds": 237.293,
+    "boot_p95_microseconds": 395.581,
+    "boot_samples": 100,
+    "current_memory_bytes": 75949,
+    "early_reject_p50_microseconds": 57.16,
+    "early_reject_p95_microseconds": 84.903,
+    "early_reject_samples": 200,
+    "late_reject_p50_microseconds": 161.854,
+    "late_reject_p95_microseconds": 250.864,
+    "late_reject_samples": 200,
+    "parallel_p95_microseconds": 800.817,
+    "parallel_p99_microseconds": 819.906,
+    "parallel_sessions": 28,
+    "peak_memory_bytes": 157606,
+    "success_p50_microseconds": 267.761,
+    "success_p95_microseconds": 375.72,
+    "success_p99_microseconds": 418.016,
+    "success_samples": 300
+  },
+  "protected_stress": {
+    "passed": 6000,
+    "total": 6000
+  },
+  "push": false,
+  "regression_tests": {
+    "count": 87,
+    "result": "OK"
+  },
+  "residual_boundaries": {
+    "a30_persistent_recovery": false,
+    "os_process_isolation_verified": false,
+    "physical_memory_zeroization_verified": false,
+    "root_tamper_resistance_verified": false,
+    "same_process_arbitrary_code_isolation": false
+  },
+  "schema": "era57f6_authority_and_trust_root_adversarial_reaudit_v1",
+  "source_integrity": {
+    "protected_hashes_after": {
+      "config/research_runtime_signed_manifest_v1.json": "a3d2816d5ca51e0e53b8b14379f331b82823756efba94296edbf08619ec70f08",
+      "config/research_runtime_signed_manifest_v1.sig": "408d9e2284ff814733b3d9076718821db1bfceca9a4c509edf18abb55eef3907",
+      "config/research_trust_anchor_descriptor_v1.json": "fe6ecd8216573c8bd0f938a232a0c40d31e134cdb08a987135e8211a819d8761",
+      "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+      "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+      "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+      "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+      "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+      "tests/test_research_bounded_runtime_v1.py": "af6fc7e4149eef7fd8d9df34d29ce765b1d6ded8e6ac5859156c0015707f6ecd",
+      "tests/test_research_consensus_policy.py": "92fd835d26c013d1365d2b344e230244d741af6b6c1ec1e0b2efc9a936bd7fc5",
+      "tests/test_research_content_quarantine.py": "a54e51f77e39e71ef4bae041c6a77e5c09c31a4564ff7e6acce37c2662c0ec1a",
+      "tests/test_research_end_to_end_adversarial.py": "f5b07c407a7e0dc0a2a2d670792372ce6f5f8f3efdbbd8f3a9d28501b84160c3",
+      "tests/test_research_evidence_ledger.py": "ea535b2c18e1097d421412753d26c748e2ecdd28bcc0d4fede17c111ec4b717a",
+      "tests/test_research_execution_firewall.py": "65ff07705ab7ca9a997eff0f2821393fc8c97f0bcb995760bc0835afad152176",
+      "tests/test_research_safety_governor.py": "177719124694300c5fc9a05675b6aef33586c5fdb5cac7a04965989459c6505c",
+      "tools/runtime_research_bounded_v1.py": "fbdc9613255d66e2e576cd8a4457547ee3f043667005afc63d17aadeee0a00b4"
+    },
+    "protected_hashes_before": {
+      "config/research_runtime_signed_manifest_v1.json": "a3d2816d5ca51e0e53b8b14379f331b82823756efba94296edbf08619ec70f08",
+      "config/research_runtime_signed_manifest_v1.sig": "408d9e2284ff814733b3d9076718821db1bfceca9a4c509edf18abb55eef3907",
+      "config/research_trust_anchor_descriptor_v1.json": "fe6ecd8216573c8bd0f938a232a0c40d31e134cdb08a987135e8211a819d8761",
+      "core/research_consensus_policy.py": "7ee0c518b4f079b3e1c749bdff4e0c6ffa712d6dc494a50cc313c2c966382877",
+      "core/research_content_quarantine.py": "b8a263455e3412a684342327924521aeee8f21c68ee8f900c084df7aa225971d",
+      "core/research_evidence_ledger.py": "4a7dd5b42334a011d6fe9440c49399b1dd2302b3355d075a6210f0ab72fb396e",
+      "core/research_execution_firewall.py": "0a0414e24d4df2af818ddc38188dbca0fd9c4302f40e91339c976897471e4f70",
+      "core/research_safety_governor.py": "81fbede5ce5018407c721e974be318f353bb7b3622ad2a78a509fec32f8d8d17",
+      "tests/test_research_bounded_runtime_v1.py": "af6fc7e4149eef7fd8d9df34d29ce765b1d6ded8e6ac5859156c0015707f6ecd",
+      "tests/test_research_consensus_policy.py": "92fd835d26c013d1365d2b344e230244d741af6b6c1ec1e0b2efc9a936bd7fc5",
+      "tests/test_research_content_quarantine.py": "a54e51f77e39e71ef4bae041c6a77e5c09c31a4564ff7e6acce37c2662c0ec1a",
+      "tests/test_research_end_to_end_adversarial.py": "f5b07c407a7e0dc0a2a2d670792372ce6f5f8f3efdbbd8f3a9d28501b84160c3",
+      "tests/test_research_evidence_ledger.py": "ea535b2c18e1097d421412753d26c748e2ecdd28bcc0d4fede17c111ec4b717a",
+      "tests/test_research_execution_firewall.py": "65ff07705ab7ca9a997eff0f2821393fc8c97f0bcb995760bc0835afad152176",
+      "tests/test_research_safety_governor.py": "177719124694300c5fc9a05675b6aef33586c5fdb5cac7a04965989459c6505c",
+      "tools/runtime_research_bounded_v1.py": "fbdc9613255d66e2e576cd8a4457547ee3f043667005afc63d17aadeee0a00b4"
+    },
+    "protected_sources_mutated": false,
+    "real_external_state_restored": true
+  },
+  "status": "COMPLETED_WITH_FINDINGS_LOCAL",
+  "temporary_backup_retained": false,
+  "test_inventory": {
+    "bounded_tests_added_or_renamed": [
+      "test_audit_flood_does_not_evict",
+      "test_constructor_override_denied",
+      "test_critical_capability_replay_denied",
+      "test_expired_capability_denied",
+      "test_external_rejection_masking",
+      "test_invalid_critical_capability_denied",
+      "test_private_internal_opener_removed",
+      "test_reserved_critical_session_slots",
+      "test_runtime_audit_reader_removed",
+      "test_semantic_contamination_blocked",
+      "test_signed_manifest_boot",
+      "test_source_content_rebind_denied",
+      "test_task_class_mutation_denied",
+      "test_valid_critical_capability",
+      "test_wrong_boot_capability_denied"
+    ],
+    "bounded_tests_removed_or_renamed": [
+      "test_active_session_limit",
+      "test_boot_and_policy_hashes",
+      "test_claim_text_change_blocks_reuse",
+      "test_constructor_registry_substitution_denied",
+      "test_cross_report_semantic_contamination_blocked",
+      "test_downstream_reject_consumes_reserved_budget",
+      "test_external_registry_mutation_has_no_effect",
+      "test_external_rejection_masking_and_internal_correlation",
+      "test_fingerprint_and_no_gain_are_session_local",
+      "test_global_canonical_evidence_reuse_disabled",
+      "test_global_hard_cap_and_critical_reserve",
+      "test_no_nested_global_session_locks",
+      "test_parallel_different_sessions_complete",
+      "test_policy_and_registry_hash_rollback_detected",
+      "test_pre_gate_reject_does_not_consume_budget",
+      "test_source_content_rebind_rejected"
+    ],
+    "current_test_ids": [
+      "test_research_bounded_runtime_v1.Tests.test_audit_flood_does_not_evict",
+      "test_research_bounded_runtime_v1.Tests.test_constructor_override_denied",
+      "test_research_bounded_runtime_v1.Tests.test_critical_capability_replay_denied",
+      "test_research_bounded_runtime_v1.Tests.test_expired_capability_denied",
+      "test_research_bounded_runtime_v1.Tests.test_external_rejection_masking",
+      "test_research_bounded_runtime_v1.Tests.test_global_lock_convoy_removed",
+      "test_research_bounded_runtime_v1.Tests.test_input_not_mutated",
+      "test_research_bounded_runtime_v1.Tests.test_invalid_critical_capability_denied",
+      "test_research_bounded_runtime_v1.Tests.test_parallel_same_session_one_wins",
+      "test_research_bounded_runtime_v1.Tests.test_private_internal_opener_removed",
+      "test_research_bounded_runtime_v1.Tests.test_reserved_critical_session_slots",
+      "test_research_bounded_runtime_v1.Tests.test_restart_old_session_denied",
+      "test_research_bounded_runtime_v1.Tests.test_runtime_audit_reader_removed",
+      "test_research_bounded_runtime_v1.Tests.test_secret_not_logged",
+      "test_research_bounded_runtime_v1.Tests.test_semantic_contamination_blocked",
+      "test_research_bounded_runtime_v1.Tests.test_session_resource_isolation",
+      "test_research_bounded_runtime_v1.Tests.test_signed_manifest_boot",
+      "test_research_bounded_runtime_v1.Tests.test_source_content_rebind_denied",
+      "test_research_bounded_runtime_v1.Tests.test_stateless_wrapper_denied",
+      "test_research_bounded_runtime_v1.Tests.test_task_class_mutation_denied",
+      "test_research_bounded_runtime_v1.Tests.test_two_source_quality_flow",
+      "test_research_bounded_runtime_v1.Tests.test_valid_critical_capability",
+      "test_research_bounded_runtime_v1.Tests.test_wrong_boot_capability_denied",
+      "test_research_consensus_policy.Tests.test_contradiction_blocks_consensus",
+      "test_research_consensus_policy.Tests.test_duplicate_source_not_independent",
+      "test_research_consensus_policy.Tests.test_human_review_always_required",
+      "test_research_consensus_policy.Tests.test_incomplete_report_non_actionable",
+      "test_research_consensus_policy.Tests.test_independent_evidence_consensus",
+      "test_research_consensus_policy.Tests.test_invalid_status_fail_closed",
+      "test_research_consensus_policy.Tests.test_missing_claim_assessment_blocks",
+      "test_research_consensus_policy.Tests.test_models_not_evidence",
+      "test_research_consensus_policy.Tests.test_unresolved_contradiction_non_actionable",
+      "test_research_consensus_policy.Tests.test_unverified_source_ignored",
+      "test_research_consensus_policy.Tests.test_verified_quality_still_non_actionable",
+      "test_research_content_quarantine.Tests.test_archive_rejected",
+      "test_research_content_quarantine.Tests.test_bad_json",
+      "test_research_content_quarantine.Tests.test_bad_uri",
+      "test_research_content_quarantine.Tests.test_executable_rejected",
+      "test_research_content_quarantine.Tests.test_html_script_removed",
+      "test_research_content_quarantine.Tests.test_network_enabled_denied",
+      "test_research_content_quarantine.Tests.test_plain",
+      "test_research_content_quarantine.Tests.test_synthesis_envelope",
+      "test_research_end_to_end_adversarial.Tests.test_critical_watermark_denied",
+      "test_research_end_to_end_adversarial.Tests.test_duplicate_loop_denied",
+      "test_research_end_to_end_adversarial.Tests.test_execution_bypass_denied",
+      "test_research_end_to_end_adversarial.Tests.test_full_chain_non_actionable",
+      "test_research_end_to_end_adversarial.Tests.test_future_time_denied",
+      "test_research_end_to_end_adversarial.Tests.test_incomplete_non_actionable",
+      "test_research_end_to_end_adversarial.Tests.test_ledger_tamper_denied",
+      "test_research_end_to_end_adversarial.Tests.test_missing_taint_denied",
+      "test_research_end_to_end_adversarial.Tests.test_model_consensus_not_evidence",
+      "test_research_end_to_end_adversarial.Tests.test_paid_api_denied",
+      "test_research_end_to_end_adversarial.Tests.test_partial_output_non_actionable",
+      "test_research_evidence_ledger.Tests.test_append_no_delete",
+      "test_research_evidence_ledger.Tests.test_critical_fail_closed",
+      "test_research_evidence_ledger.Tests.test_entry_quota",
+      "test_research_evidence_ledger.Tests.test_genesis",
+      "test_research_evidence_ledger.Tests.test_normal_capacity",
+      "test_research_evidence_ledger.Tests.test_payload_tamper",
+      "test_research_evidence_ledger.Tests.test_previous_hash_tamper",
+      "test_research_evidence_ledger.Tests.test_rejected_partial_not_actionable",
+      "test_research_evidence_ledger.Tests.test_sequence_tamper",
+      "test_research_evidence_ledger.Tests.test_valid_chain",
+      "test_research_evidence_ledger.Tests.test_warning_backpressure",
+      "test_research_execution_firewall.T.test_actionable",
+      "test_research_execution_firewall.T.test_exception",
+      "test_research_execution_firewall.T.test_extra",
+      "test_research_execution_firewall.T.test_missing",
+      "test_research_execution_firewall.T.test_nested_forbidden",
+      "test_research_execution_firewall.T.test_research_rejected",
+      "test_research_execution_firewall.T.test_unknown_rejected",
+      "test_research_execution_firewall.T.test_valid",
+      "test_research_safety_governor.Tests.test_cost_limit",
+      "test_research_safety_governor.Tests.test_declared_time_mismatch_denied",
+      "test_research_safety_governor.Tests.test_duplicate_loop",
+      "test_research_safety_governor.Tests.test_future_time_poisoning_denied",
+      "test_research_safety_governor.Tests.test_iteration_limit",
+      "test_research_safety_governor.Tests.test_missing_taint_denied",
+      "test_research_safety_governor.Tests.test_naive_timestamp_denied",
+      "test_research_safety_governor.Tests.test_no_gain_loop",
+      "test_research_safety_governor.Tests.test_normal_iteration",
+      "test_research_safety_governor.Tests.test_paid_api_denied",
+      "test_research_safety_governor.Tests.test_prompt_injection_contained",
+      "test_research_safety_governor.Tests.test_stale_time_denied",
+      "test_research_safety_governor.Tests.test_token_limit",
+      "test_research_safety_governor.Tests.test_wall_time_limit",
+      "test_research_safety_governor.Tests.test_wrong_role_denied"
+    ],
+    "era57f4_total": 88,
+    "era57f5_reported_total": 87,
+    "era57f6_current_total": 87,
+    "net_delta_from_f4": -1,
+    "semantic_coverage_equivalence_proven": false
+  },
+  "timestamp_utc": "2026-07-19T17:45:29.451854+00:00",
+  "trust_root_boundary": {
+    "basic_sequence_floor": true,
+    "external_monotonic_high_water_mark": false,
+    "key_revocation_protocol": false,
+    "key_rotation_protocol": false,
+    "local_root_bundle_replacement": true,
+    "manifest_capability_key_separation": false,
+    "old_valid_manifest_replay_protection": false,
+    "root_tamper_resistance_verified": false,
+    "signed_manifest": true
+  },
+  "verification_level": "LOCAL_INDEPENDENT_READ_ONLY_ADVERSARIAL_REAUDIT"
+}

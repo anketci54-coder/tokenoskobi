@@ -1,0 +1,22 @@
+[Unit]
+Description=Tokenoskobi ERA57F7 Runtime Service
+Requires=tokenoskobi-era57f7-authority.service tokenoskobi-era57f7-audit.service
+After=tokenoskobi-era57f7-authority.service tokenoskobi-era57f7-audit.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=tokenoskobi-runtime
+Group=tokenoskobi-runtime
+SupplementaryGroups=tokenoskobi-authority-ipc tokenoskobi-audit-ipc
+ExecStart=/usr/bin/python3 /usr/local/lib/tokenoskobi-era57f7/runtime_service.py
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
