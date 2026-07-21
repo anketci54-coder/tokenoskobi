@@ -1,0 +1,149 @@
+{
+  "schema": "tokenoskobi.era60a.nvidia_opportunity_cost.v1",
+  "status": "OK",
+  "formula": {
+    "expected_gain": "(reliability + security + probability) / 3",
+    "cost_penalty": "max(0, 100 - performance)",
+    "uncertainty_penalty": "max(0, 100 - statistics)",
+    "net_utility": "expected_gain - cost_penalty - uncertainty_penalty",
+    "accept_baseline": "net_utility >= 95"
+  },
+  "scores": {
+    "ERA60A_SECURITY_LOCK": {
+      "reliability": 98,
+      "security": 100,
+      "probability": 99,
+      "performance": 100,
+      "statistics": 96,
+      "expected_gain": 99.0,
+      "cost_penalty": 0,
+      "uncertainty_penalty": 4,
+      "net_utility": 95.0,
+      "accept_baseline": true
+    },
+    "SELECTED_SKILLS_STATIC_AUDIT": {
+      "reliability": 99,
+      "security": 100,
+      "probability": 99,
+      "performance": 100,
+      "statistics": 96,
+      "expected_gain": 99.3333,
+      "cost_penalty": 0,
+      "uncertainty_penalty": 4,
+      "net_utility": 95.3333,
+      "accept_baseline": true
+    },
+    "AIQ_RESEARCH_RUNTIME_NOW": {
+      "reliability": 65,
+      "security": 60,
+      "probability": 55,
+      "performance": 35,
+      "statistics": 20,
+      "expected_gain": 60.0,
+      "cost_penalty": 65,
+      "uncertainty_penalty": 80,
+      "net_utility": -85.0,
+      "accept_baseline": false
+    },
+    "CUDF_RUNTIME_NOW": {
+      "reliability": 75,
+      "security": 70,
+      "probability": 20,
+      "performance": 0,
+      "statistics": 10,
+      "expected_gain": 55.0,
+      "cost_penalty": 100,
+      "uncertainty_penalty": 90,
+      "net_utility": -135.0,
+      "accept_baseline": false
+    },
+    "CUPYNUMERIC_RUNTIME_NOW": {
+      "reliability": 70,
+      "security": 70,
+      "probability": 20,
+      "performance": 0,
+      "statistics": 10,
+      "expected_gain": 53.3333,
+      "cost_penalty": 100,
+      "uncertainty_penalty": 90,
+      "net_utility": -136.6667,
+      "accept_baseline": false
+    },
+    "NEMO_EVAL_GUARDRAILS_NOW": {
+      "reliability": 70,
+      "security": 75,
+      "probability": 55,
+      "performance": 40,
+      "statistics": 25,
+      "expected_gain": 66.6667,
+      "cost_penalty": 60,
+      "uncertainty_penalty": 75,
+      "net_utility": -68.3333,
+      "accept_baseline": false
+    },
+    "NVIDIA_BUILD_ENDPOINT_NOW": {
+      "reliability": 65,
+      "security": 55,
+      "probability": 50,
+      "performance": 60,
+      "statistics": 20,
+      "expected_gain": 56.6667,
+      "cost_penalty": 40,
+      "uncertainty_penalty": 80,
+      "net_utility": -63.3333,
+      "accept_baseline": false
+    },
+    "RAG_BLUEPRINT_NOW": {
+      "reliability": 60,
+      "security": 65,
+      "probability": 30,
+      "performance": 20,
+      "statistics": 15,
+      "expected_gain": 51.6667,
+      "cost_penalty": 80,
+      "uncertainty_penalty": 85,
+      "net_utility": -113.3333,
+      "accept_baseline": false
+    },
+    "CUFOLIO_NOW": {
+      "reliability": 65,
+      "security": 70,
+      "probability": 10,
+      "performance": 0,
+      "statistics": 5,
+      "expected_gain": 48.3333,
+      "cost_penalty": 100,
+      "uncertainty_penalty": 95,
+      "net_utility": -146.6667,
+      "accept_baseline": false
+    },
+    "LOCAL_GPU_INFRASTRUCTURE_NOW": {
+      "reliability": 30,
+      "security": 50,
+      "probability": 20,
+      "performance": 0,
+      "statistics": 0,
+      "expected_gain": 33.3333,
+      "cost_penalty": 100,
+      "uncertainty_penalty": 100,
+      "net_utility": -166.6667,
+      "accept_baseline": false
+    }
+  },
+  "accepted_now": [
+    "ERA60A_SECURITY_LOCK",
+    "SELECTED_SKILLS_STATIC_AUDIT"
+  ],
+  "deferred_now": [
+    "AIQ_RESEARCH_RUNTIME_NOW",
+    "CUDF_RUNTIME_NOW",
+    "CUPYNUMERIC_RUNTIME_NOW",
+    "NEMO_EVAL_GUARDRAILS_NOW",
+    "NVIDIA_BUILD_ENDPOINT_NOW",
+    "RAG_BLUEPRINT_NOW",
+    "CUFOLIO_NOW",
+    "LOCAL_GPU_INFRASTRUCTURE_NOW"
+  ],
+  "decision": "ONLY_SELECTED_SKILLS_STATIC_AUDIT_MAY_PROCEED",
+  "runtime_install_api_gpu_authorized": false
+}

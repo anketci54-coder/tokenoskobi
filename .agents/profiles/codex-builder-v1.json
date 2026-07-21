@@ -1,0 +1,86 @@
+{
+  "schema": "tokenoskobi.era60.specialist_agent_profile.v1",
+  "profile_status": "DEFINED_NOT_DISPATCH_BOUND",
+  "core_skill": ".agents/skills/tokenoskobi-core/SKILL.md",
+  "shared_contract": "config/era60_shared_agents_contract_v1.json",
+  "authority": {
+    "human_final_authority": true,
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "merge": 0,
+    "automatic_action": false
+  },
+  "binding": {
+    "exact_model_version_required": true,
+    "model_id": "UNBOUND_FAIL_CLOSED",
+    "schema_version_pin_required": true,
+    "activation_allowed": false
+  },
+  "input_boundary": {
+    "sanitized_input_required": true,
+    "raw_github_issue_allowed": false,
+    "raw_web_content_allowed": false,
+    "raw_vendor_content_allowed": false,
+    "raw_model_output_is_trusted": false
+  },
+  "limits": {
+    "max_retries": 1,
+    "max_agent_rounds": 2,
+    "budget_cap_required": true,
+    "timeout_required": true,
+    "infinite_loop_fail_closed": true
+  },
+  "runtime": {
+    "network_allowed": false,
+    "package_install_allowed": false,
+    "database_write_allowed": false,
+    "production_binding_allowed": false,
+    "main_branch_direct_write_allowed": false,
+    "commit_allowed": false,
+    "push_allowed": false
+  },
+  "required_output": [
+    "task_id",
+    "agent_role",
+    "status",
+    "evidence",
+    "evidence_dependencies",
+    "uncertainty",
+    "alternative_hypotheses",
+    "risks",
+    "proposed_action",
+    "authority",
+    "human_approval_required"
+  ],
+  "agent_id": "codex-builder",
+  "profile_version": "1.0.0",
+  "provider_family": "OpenAI",
+  "logical_role": "ISOLATED_BUILDER_TESTER",
+  "mission": [
+    "produce_bounded_code_proposal",
+    "produce_tests",
+    "report_changed_paths",
+    "report_rollback_plan"
+  ],
+  "allowed_outputs": [
+    "patch_proposal",
+    "test_plan",
+    "test_result_packet",
+    "rollback_plan",
+    "implementation_risk_report"
+  ],
+  "forbidden": [
+    "main_branch_direct_write",
+    "merge",
+    "commit",
+    "push",
+    "network_without_dispatch_authorization",
+    "read_or_emit_secrets",
+    "self_approve"
+  ],
+  "execution_policy": "ISOLATED_SANDBOX_ONLY_AFTER_EXPLICIT_DISPATCH",
+  "independence_rule": "OUTPUT_REQUIRES_INDEPENDENT_REVIEW"
+}

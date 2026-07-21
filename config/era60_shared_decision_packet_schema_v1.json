@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tokenoskobi://era60/decision-packet/v1",
+  "title": "ERA60 Shared Decision Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_id",
+    "task_id",
+    "agent_id",
+    "logical_role",
+    "model_binding",
+    "status",
+    "evidence",
+    "evidence_dependency_graph",
+    "uncertainty",
+    "alternative_hypotheses",
+    "engine_coverage",
+    "utility_assessment",
+    "risk_assessment",
+    "proposed_action",
+    "authority",
+    "human_approval_required"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "tokenoskobi.era60.decision_packet.v1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "chatgpt-planner",
+        "claude-reviewer",
+        "codex-builder",
+        "gemini-red-team"
+      ]
+    },
+    "logical_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_family",
+        "model_id",
+        "exact_version_pinned",
+        "schema_version"
+      ],
+      "properties": {
+        "provider_family": {
+          "type": "string"
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "exact_version_pinned": {
+          "type": "boolean"
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "BLOCK",
+        "ERROR",
+        "INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "claim",
+          "provenance"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "provenance": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence_dependency_graph": {
+      "$ref": "era60_evidence_dependency_schema_v1.json"
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statistics",
+        "unknowns",
+        "blocking_unknowns"
+      ],
+      "properties": {
+        "statistics": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocking_unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "alternative_hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hypothesis_id",
+          "description",
+          "material",
+          "status"
+        ],
+        "properties": {
+          "hypothesis_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "material": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "OPEN",
+              "RESOLVED",
+              "REJECTED"
+            ]
+          }
+        }
+      }
+    },
+    "engine_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_engines",
+        "missing_engines"
+      ],
+      "properties": {
+        "required_engines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "missing_engines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "utility_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reliability",
+        "security",
+        "probability",
+        "performance",
+        "statistics",
+        "expected_gain",
+        "cost_penalty",
+        "uncertainty_penalty",
+        "net_utility",
+        "accept_baseline"
+      ],
+      "properties": {
+        "reliability": {
+          "type": "number"
+        },
+        "security": {
+          "type": "number"
+        },
+        "probability": {
+          "type": "number"
+        },
+        "performance": {
+          "type": "number"
+        },
+        "statistics": {
+          "type": "number"
+        },
+        "expected_gain": {
+          "type": "number"
+        },
+        "cost_penalty": {
+          "type": "number"
+        },
+        "uncertainty_penalty": {
+          "type": "number"
+        },
+        "net_utility": {
+          "type": "number"
+        },
+        "accept_baseline": {
+          "type": "boolean"
+        }
+      }
+    },
+    "risk_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "blocking_risk_present",
+        "risks"
+      ],
+      "properties": {
+        "blocking_risk_present": {
+          "type": "boolean"
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "proposed_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "execution_allowed",
+        "requires_human_approval"
+      ],
+      "properties": {
+        "action": {
+          "enum": [
+            "NO_ACTION",
+            "REQUEST_MORE_EVIDENCE",
+            "PROPOSE_LOCAL_CHANGE",
+            "PROMOTE",
+            "MERGE",
+            "DEPLOY",
+            "EXECUTE"
+          ]
+        },
+        "execution_allowed": {
+          "const": false
+        },
+        "requires_human_approval": {
+          "const": true
+        }
+      }
+    },
+    "authority": {
+      "const": 0
+    },
+    "human_approval_required": {
+      "const": true
+    }
+  }
+}

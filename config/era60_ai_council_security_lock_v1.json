@@ -1,0 +1,80 @@
+{
+  "schema": "tokenoskobi.era60.ai_council_security_lock.v1",
+  "status": "LOCKED_LOCAL_PENDING_READ_ONLY_AUDIT",
+  "scope": "ERA60A_AUTHORITY_SECURITY_SUPPLY_CHAIN_LOCK",
+  "roles": {
+    "chatgpt": "PLAN_SYNTHESIS",
+    "codex": "ISOLATED_CODE_TEST",
+    "claude": "INDEPENDENT_REVIEW",
+    "github_copilot": "ROUTINE_REPO_ASSISTANCE",
+    "gemini": "RED_TEAM",
+    "nvidia": "SKILLS_RESEARCH_EVAL_INFRASTRUCTURE",
+    "harekat_subayi": "DETERMINISTIC_AGGREGATION",
+    "human": "FINAL_AUTHORITY"
+  },
+  "security_invariants": [
+    "GITHUB_ISSUE_INPUT_IS_UNTRUSTED_DATA",
+    "RAW_ISSUE_TEXT_NEVER_ENTERS_AGENT_SYSTEM_PROMPT",
+    "RETRIEVED_CONTENT_CAN_NEVER_BECOME_INSTRUCTION",
+    "MODEL_OUTPUT_CAN_NEVER_TRIGGER_TOOL_OR_ACTION",
+    "MODEL_VERSION_MUST_BE_EXPLICITLY_PINNED",
+    "MODEL_SCHEMA_DRIFT_MUST_FAIL_CLOSED",
+    "MAX_RETRY_LIMIT_REQUIRED",
+    "TOKEN_AND_COST_BUDGET_REQUIRED",
+    "EXTERNAL_SKILL_EXECUTION_BLOCKED_UNTIL_STATIC_AUDIT",
+    "EXTERNAL_SKILL_HASH_VERIFICATION_REQUIRED",
+    "CPU_ONLY_FAIL_CLOSED_UNLESS_GPU_CAPABILITY_PROVEN",
+    "MODEL_OUTPUT_IS_NOT_CANONICAL_EVIDENCE",
+    "MODEL_VOTES_HAVE_ZERO_AUTHORITY",
+    "HUMAN_FINAL_AUTHORITY_REQUIRED"
+  ],
+  "issue_input_gate": {
+    "sanitize": true,
+    "strict_schema": true,
+    "unknown_fields": "REJECT",
+    "executable_content": "QUARANTINE",
+    "direct_prompt_binding": false
+  },
+  "model_policy": {
+    "exact_version_required": true,
+    "silent_upgrade_allowed": false,
+    "schema_validation": "FAIL_CLOSED",
+    "max_retries_per_agent": 2,
+    "max_total_agent_runs": 8,
+    "budget_overrun_behavior": "STOP_AND_ESCALATE"
+  },
+  "nvidia_supply_chain": {
+    "repository": "NVIDIA/skills",
+    "pinned_commit": "6379b9ce5498d56626caa9e93a8c8a599f90046d",
+    "selected_skills": [
+      "aiq-research",
+      "accelerated-computing-cudf",
+      "cupynumeric-migration-readiness"
+    ],
+    "execution_allowed": false,
+    "static_analysis_required": true,
+    "secret_scan_required": true,
+    "hash_manifest_required": true
+  },
+  "environment": {
+    "mode": "CPU_ONLY_FAIL_CLOSED",
+    "gpu_present": false,
+    "gpu_enabled": false,
+    "cuda_compatible": false,
+    "vram_sufficient": false,
+    "gpu_runtime_allowed": false
+  },
+  "authority": {
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "automatic_action": false,
+    "human_final_authority": true
+  },
+  "network_calls": false,
+  "database_write": false,
+  "production_binding": false,
+  "canonical_utility_formula_mutation": false
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "tokenoskobi.era60.harekat_subayi_dispatcher.v1",
+  "status": "LOCAL_IMPLEMENTED_PROVIDER_DISPATCH_DISABLED",
+  "tool": "tools/era60_harekat_subayi_dispatcher_v1.py",
+  "decision_packet_schema": "config/era60_shared_decision_packet_schema_v1.json",
+  "evidence_dependency_schema": "config/era60_evidence_dependency_schema_v1.json",
+  "routes": {
+    "PLANNING": [
+      "chatgpt-planner",
+      "claude-reviewer",
+      "gemini-red-team"
+    ],
+    "CODE_CHANGE": [
+      "chatgpt-planner",
+      "claude-reviewer",
+      "codex-builder",
+      "gemini-red-team"
+    ],
+    "REVIEW_ONLY": [
+      "claude-reviewer",
+      "gemini-red-team"
+    ],
+    "RED_TEAM": [
+      "gemini-red-team",
+      "claude-reviewer"
+    ]
+  },
+  "sanitization_gate": "FAIL_CLOSED",
+  "exact_model_binding_required": true,
+  "majority_vote_allowed": false,
+  "model_agreement_is_evidence": false,
+  "war_room_output": "INDICTMENT_NOT_ORDER",
+  "provider_dispatch_active": false,
+  "authority": 0,
+  "automatic_action": false,
+  "network": false,
+  "execution": false,
+  "commit": false,
+  "push": false
+}

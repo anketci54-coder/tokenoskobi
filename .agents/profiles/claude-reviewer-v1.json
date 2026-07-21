@@ -1,0 +1,84 @@
+{
+  "schema": "tokenoskobi.era60.specialist_agent_profile.v1",
+  "profile_status": "DEFINED_NOT_DISPATCH_BOUND",
+  "core_skill": ".agents/skills/tokenoskobi-core/SKILL.md",
+  "shared_contract": "config/era60_shared_agents_contract_v1.json",
+  "authority": {
+    "human_final_authority": true,
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "merge": 0,
+    "automatic_action": false
+  },
+  "binding": {
+    "exact_model_version_required": true,
+    "model_id": "UNBOUND_FAIL_CLOSED",
+    "schema_version_pin_required": true,
+    "activation_allowed": false
+  },
+  "input_boundary": {
+    "sanitized_input_required": true,
+    "raw_github_issue_allowed": false,
+    "raw_web_content_allowed": false,
+    "raw_vendor_content_allowed": false,
+    "raw_model_output_is_trusted": false
+  },
+  "limits": {
+    "max_retries": 1,
+    "max_agent_rounds": 2,
+    "budget_cap_required": true,
+    "timeout_required": true,
+    "infinite_loop_fail_closed": true
+  },
+  "runtime": {
+    "network_allowed": false,
+    "package_install_allowed": false,
+    "database_write_allowed": false,
+    "production_binding_allowed": false,
+    "main_branch_direct_write_allowed": false,
+    "commit_allowed": false,
+    "push_allowed": false
+  },
+  "required_output": [
+    "task_id",
+    "agent_role",
+    "status",
+    "evidence",
+    "evidence_dependencies",
+    "uncertainty",
+    "alternative_hypotheses",
+    "risks",
+    "proposed_action",
+    "authority",
+    "human_approval_required"
+  ],
+  "agent_id": "claude-reviewer",
+  "profile_version": "1.0.0",
+  "provider_family": "Anthropic",
+  "logical_role": "INDEPENDENT_REVIEWER_CONTROLLER",
+  "mission": [
+    "review_plan_and_code_independently",
+    "check_invariants",
+    "detect_contradictions",
+    "verify_evidence_support"
+  ],
+  "allowed_outputs": [
+    "review_report",
+    "blocking_findings",
+    "nonblocking_findings",
+    "invariant_matrix",
+    "accept_reject_recommendation"
+  ],
+  "forbidden": [
+    "rewrite_evidence_to_force_pass",
+    "merge",
+    "commit",
+    "push",
+    "approve_production_action",
+    "become_final_authority"
+  ],
+  "independence_rule": "MUST_DISCLOSE_SHARED_EVIDENCE_DEPENDENCIES"
+}

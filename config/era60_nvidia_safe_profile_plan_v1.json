@@ -1,0 +1,39 @@
+{
+  "schema": "tokenoskobi.era60.nvidia_safe_profile_plan.v1",
+  "status": "DESIGN_APPROVED_PROFILES_INACTIVE",
+  "evidence_class": "LOCAL_DETERMINISTIC_SUPPLY_CHAIN_AUDIT",
+  "raw_vendor_content_untrusted": true,
+  "raw_vendor_direct_agent_loading": false,
+  "execution_allowed": false,
+  "network_allowed": false,
+  "package_install_allowed": false,
+  "profiles": {
+    "aiq-research": {
+      "decision": "QUARANTINE_PROVENANCE_ONLY",
+      "reason": "NETWORK_BACKEND_AND_LOW_EVALUATION_SAMPLE",
+      "safe_profile_activation": false
+    },
+    "accelerated-computing-cudf": {
+      "decision": "SANITIZED_ADVISORY_PROFILE_CANDIDATE",
+      "allowed": [
+        "STATIC_GUIDANCE",
+        "CPU_FIRST_COMPATIBILITY_REVIEW"
+      ],
+      "forbidden": [
+        "GPU_ASSUMPTION",
+        "CODE_EXECUTION",
+        "PACKAGE_INSTALL",
+        "NETWORK_CALL",
+        "AUTOMATIC_REWRITE"
+      ],
+      "safe_profile_activation": false
+    },
+    "cupynumeric-migration-readiness": {
+      "decision": "STATIC_ADVISORY_ONLY",
+      "reason": "UPSTREAM_BENCHMARK_FAIL",
+      "safe_profile_activation": false
+    }
+  },
+  "activation_gate": "ERA60B_TOKENOSKOBI_SANITIZED_PROFILE_BUILD_AND_TEST",
+  "human_review_required": true
+}

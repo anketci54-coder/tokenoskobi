@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tokenoskobi://era60/evidence-dependency/v1",
+  "title": "ERA60 Evidence Dependency Graph",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "graph_id",
+    "nodes",
+    "dependency_groups",
+    "independence_degraded"
+  ],
+  "properties": {
+    "graph_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "origin_agent",
+          "source_class",
+          "canonical_evidence",
+          "synthetic",
+          "red_team_score",
+          "reliability"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "origin_agent": {
+            "enum": [
+              "chatgpt-planner",
+              "claude-reviewer",
+              "codex-builder",
+              "gemini-red-team"
+            ]
+          },
+          "source_class": {
+            "enum": [
+              "LOCAL_FILE",
+              "LOCAL_GIT",
+              "REMOTE_GIT",
+              "MODEL_OUTPUT",
+              "SYNTHETIC",
+              "RED_TEAM"
+            ]
+          },
+          "canonical_evidence": {
+            "type": "boolean"
+          },
+          "synthetic": {
+            "type": "boolean"
+          },
+          "red_team_score": {
+            "type": "boolean"
+          },
+          "reliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        }
+      }
+    },
+    "dependency_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "dependency_id",
+          "evidence_ids",
+          "agents_using",
+          "shared_across_agents",
+          "independence_impact",
+          "missing_behavior"
+        ],
+        "properties": {
+          "dependency_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "agents_using": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "chatgpt-planner",
+                "claude-reviewer",
+                "codex-builder",
+                "gemini-red-team"
+              ]
+            }
+          },
+          "shared_across_agents": {
+            "type": "boolean"
+          },
+          "independence_impact": {
+            "enum": [
+              "NONE",
+              "DEGRADED",
+              "BLOCKED"
+            ]
+          },
+          "missing_behavior": {
+            "const": "BLOCK"
+          }
+        }
+      }
+    },
+    "independence_degraded": {
+      "type": "boolean"
+    }
+  }
+}

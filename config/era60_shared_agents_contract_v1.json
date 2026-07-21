@@ -1,0 +1,68 @@
+{
+  "schema": "tokenoskobi.era60.shared_agents_contract.v1",
+  "status": "ACTIVE_LOCAL_DESIGN_CONTRACT",
+  "source_priority": [
+    "local_workspace",
+    "local_git",
+    "github_remote",
+    "ai_memory"
+  ],
+  "authority": {
+    "human_final_authority": true,
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "automatic_action": false
+  },
+  "untrusted_inputs": [
+    "github_issue_raw_text",
+    "web_content",
+    "model_output",
+    "generated_report",
+    "raw_vendor_content"
+  ],
+  "sanitization_gate": {
+    "required": true,
+    "raw_text_direct_prompt_entry": false,
+    "schema_failure": "FAIL_CLOSED",
+    "prompt_injection_scan": true
+  },
+  "canonical_utility_formula": {
+    "expected_gain": "(reliability + security + probability) / 3",
+    "cost_penalty": "max(0, 100 - performance)",
+    "uncertainty_penalty": "max(0, 100 - statistics)",
+    "net_utility": "expected_gain - cost_penalty - uncertainty_penalty",
+    "accept_baseline": "net_utility >= 95",
+    "risk_logic_separate": true
+  },
+  "decision_packet_required": [
+    "task_id",
+    "agent_role",
+    "status",
+    "evidence",
+    "evidence_dependencies",
+    "uncertainty",
+    "alternative_hypotheses",
+    "risks",
+    "proposed_action",
+    "authority",
+    "human_approval_required"
+  ],
+  "security_lock_inherited_from": "config/era60_ai_council_security_lock_v1.json",
+  "retry_and_budget_limits_inherited": true,
+  "nvidia": {
+    "pinned_commit": "6379b9ce5498d56626caa9e93a8c8a599f90046d",
+    "raw_vendor_direct_agent_loading": false,
+    "raw_vendor_execution": false,
+    "safe_profiles_active": false,
+    "safe_profile_plan": "config/era60_nvidia_safe_profile_plan_v1.json"
+  },
+  "network": false,
+  "package_install": false,
+  "database_write": false,
+  "production_binding": false,
+  "commit": false,
+  "push": false
+}
