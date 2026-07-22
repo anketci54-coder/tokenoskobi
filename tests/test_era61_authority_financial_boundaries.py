@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import sys
 import unittest
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from core.authority import evaluate_authority, load_authority_state, validate_authority_state
 
-ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "config" / "authority_state_v1.json"
 
 
