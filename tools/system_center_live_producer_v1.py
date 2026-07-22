@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 from pathlib import Path
 from datetime import datetime, timezone
-import json, subprocess, os, tempfile
+import json
+import os
+import subprocess
+import tempfile
+
+from core.authority import evaluate_authority
 
 ROOT = Path('/root/tokenoskobi_clean_v1')
 PANEL_DATA = ROOT / 'active_panel_8096/current/data'
@@ -14,8 +19,22 @@ def now():
 
 
 def run(cmd):
-    p = subprocess.run(cmd, shell=True, cwd=str(ROOT), text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return {'cmd': cmd, 'rc': p.returncode, 'stdout': p.stdout[-4000:], 'stderr': p.stderr[-2000:]}
+    """Run a fixed argv command without a shell."""
+    p = subprocess.run(
+        cmd,
+        shell=False,
+        cwd=str(ROOT),
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    return {
+        'cmd': list(cmd),
+        'rc': p.returncode,
+        'stdout': p.stdout[-4000:],
+        'stderr': p.stderr[-2000:],
+    }
 
 
 def read_json(path):
@@ -42,12 +61,42 @@ def file_ok(rel):
     return p.exists() and p.is_file()
 
 
+def enforce_publish_authority():
+    decision = evaluate_authority({
+        'operation_id': 'system-center-live-producer:publish',
+        'operation_type': 'dashboard_active_mutation',
+        'effects': {
+            'writes_file': True,
+            'mutates_dashboard_active': True,
+        },
+        'target': {
+            'hot_path': True,
+            'paths': [str(TARGET), str(OUT)],
+        },
+    })
+    if decision.get('decision') != 'ALLOW':
+        print('[AUTHORITY_DENIED] ' + json.dumps(decision, sort_keys=True), flush=True)
+        return False
+    return True
+
+
 def main():
-    sync = run('tk sync')
-    panel = run('systemctl is-active tokenoskobi-active-panel-8096.service')
-    nginx = run('systemctl is-active nginx')
-    https = run("curl -ksS -o /tmp/n16d_panel_https.html -w '%{http_code}' --max-time 8 https://panel.coinoskobi.com/ || true")
-    bridge = run("curl -ksS -o /tmp/n16d_panel_bridge.json -w '%{http_code}' --max-time 8 https://panel.coinoskobi.com/data/backpressure_readmodel_refresh_cache.json || true")
+    # Fail closed before any active panel or control-artifact write.
+    if not enforce_publish_authority():
+        return 76
+
+    sync = run(['tk', 'sync'])
+    panel = run(['systemctl', 'is-active', 'tokenoskobi-active-panel-8096.service'])
+    nginx = run(['systemctl', 'is-active', 'nginx'])
+    https = run([
+        'curl', '-ksS', '-o', '/tmp/n16d_panel_https.html', '-w', '%{http_code}',
+        '--max-time', '8', 'https://panel.coinoskobi.com/'
+    ])
+    bridge = run([
+        'curl', '-ksS', '-o', '/tmp/n16d_panel_bridge.json', '-w', '%{http_code}',
+        '--max-time', '8',
+        'https://panel.coinoskobi.com/data/backpressure_readmodel_refresh_cache.json'
+    ])
 
     local_remote_synced = 'LOCAL :' in sync['stdout'] and 'REMOTE:' in sync['stdout'] and sync['rc'] == 0
     panel_active = panel['stdout'].strip() == 'active'
@@ -103,6 +152,8 @@ def main():
     print('DECISION=' + decision)
     print('JSON=' + str(OUT.relative_to(ROOT)))
     print('TARGET=' + str(TARGET.relative_to(ROOT)))
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
