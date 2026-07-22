@@ -47,7 +47,7 @@ class Era61RuntimeGateAdversarialTests(unittest.TestCase):
                 result = evaluate_runtime_stage(stage, root=ROOT, environ=env)
                 self.assertEqual("DENY", result["decision"], result)
                 self.assertTrue(result["fail_closed"])
-                self.assertEqual("DENY", result["baseline_authority"]["decision"])
+                self.assertEqual("DENY", result["authority"]["decision"])
 
     def test_path_override_outside_repository_denied(self):
         result = evaluate_runtime_stage(
