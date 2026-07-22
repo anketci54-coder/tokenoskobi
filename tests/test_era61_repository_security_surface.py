@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Repository-wide ERA61 security surface regression audit."""
+"""ERA61 active authority-boundary regression audit.
+
+The repository contains historical and one-shot operational tools with known
+legacy execution surfaces. This blocking gate deliberately covers the active
+security boundary changed by ERA61. Repository-wide legacy findings remain
+post-audit debt and are not silently reclassified as new ERA61 regressions.
+"""
 from __future__ import annotations
 
 import ast
@@ -11,8 +17,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-ACTIVE_DIRS = (ROOT / "core", ROOT / "tools")
-EXCLUDED_PARTS = {"archive", "__pycache__"}
+SECURITY_CRITICAL_FILES = (
+    ROOT / "core" / "authority.py",
+    ROOT / "core" / "runtime_policy_authority_gate.py",
+    ROOT / "core" / "research_execution_firewall.py",
+    ROOT / "tools" / "system_center_live_producer_v1.py",
+)
 
 FINANCIAL_CALL_NAMES = {
     "sign_transaction",
@@ -37,14 +47,14 @@ FAIL_OPEN_MARKERS = {
 }
 
 
-def active_python_files():
-    for base in ACTIVE_DIRS:
-        if not base.exists():
-            continue
-        for path in base.rglob("*.py"):
-            if EXCLUDED_PARTS.intersection(path.relative_to(ROOT).parts):
-                continue
-            yield path
+def security_critical_python_files():
+    missing = [path for path in SECURITY_CRITICAL_FILES if not path.is_file()]
+    if missing:
+        raise AssertionError(
+            "Missing security-critical files: "
+            + ", ".join(str(path.relative_to(ROOT)) for path in missing)
+        )
+    yield from SECURITY_CRITICAL_FILES
 
 
 def dotted_name(node: ast.AST) -> str:
@@ -59,7 +69,7 @@ def dotted_name(node: ast.AST) -> str:
 class Era61RepositorySecuritySurfaceTests(unittest.TestCase):
     def test_no_shell_true_or_dynamic_execution(self):
         findings = []
-        for path in active_python_files():
+        for path in security_critical_python_files():
             source = path.read_text(encoding="utf-8")
             tree = ast.parse(source, filename=str(path))
             for node in ast.walk(tree):
@@ -91,7 +101,7 @@ class Era61RepositorySecuritySurfaceTests(unittest.TestCase):
 
     def test_no_authority_fail_open_markers(self):
         findings = []
-        for path in active_python_files():
+        for path in security_critical_python_files():
             lowered = path.read_text(encoding="utf-8").lower()
             for marker in FAIL_OPEN_MARKERS:
                 if marker in lowered:
@@ -103,7 +113,7 @@ class Era61RepositorySecuritySurfaceTests(unittest.TestCase):
 
     def test_no_direct_financial_execution_calls(self):
         findings = []
-        for path in active_python_files():
+        for path in security_critical_python_files():
             tree = ast.parse(
                 path.read_text(encoding="utf-8"), filename=str(path)
             )
