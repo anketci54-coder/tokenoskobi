@@ -1,13 +1,14 @@
 {
   "schema_version": "runtime_stage_grants_v1",
-  "status": "ACTIVE_SCOPED_EXISTING_AUTHORITY_ONLY",
+  "status": "ERA61_EXPLICIT_STAGE_SEMANTICS_FAIL_CLOSED",
   "deny_unknown_grant": true,
   "deny_unknown_stage": true,
   "no_authority_expansion": true,
   "authority_sources": [
     "PROJECT_RUNTIME.json",
     "config/authority_state_v1.json",
-    "config/project_policy_registry_v1.json"
+    "config/project_policy_registry_v1.json",
+    "data/control/era55a23_p0_guarded_general_production_writer_runtime_integration_apply_and_post_audit_v1.json"
   ],
   "grants": {
     "news_radar_refresh_v1": {
@@ -24,18 +25,24 @@
       "canonical_requirements": {
         "canonical_runtime_pointer.production_ledger_writer_active": true,
         "canonical_runtime_pointer.live_source_fetch_authorized": false,
-        "canonical_runtime_pointer.era57_opened": false,
+        "canonical_runtime_pointer.era57_opened": true,
         "canonical_runtime_pointer.legacy_raw_runner_reference_present": false
       },
       "stages": {
         "SOURCE_CONTRACT_RESOLUTION": {
           "mutating": false,
-          "effect": "read_only",
+          "operation_type": "read_only",
+          "effects": {},
+          "target": {"hot_path": false},
+          "approval_required": false,
           "required_environment": {}
         },
         "LEDGER_RECOVERY": {
           "mutating": true,
-          "effect": "guarded_recovery_file_write",
+          "operation_type": "file_write",
+          "effects": {"writes_file": true},
+          "target": {"hot_path": false},
+          "approval_required": true,
           "required_environment": {
             "TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
             "TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
@@ -45,7 +52,10 @@
         },
         "DERIVED_DB_WRITE": {
           "mutating": true,
-          "effect": "guarded_derived_db_write",
+          "operation_type": "db_write",
+          "effects": {"writes_db": true},
+          "target": {"hot_path": false},
+          "approval_required": true,
           "required_environment": {
             "TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
             "TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",
@@ -55,7 +65,15 @@
         },
         "HOT_PUBLISH": {
           "mutating": true,
-          "effect": "guarded_hot_and_panel_publish",
+          "operation_type": "hot_path_publish",
+          "effects": {
+            "writes_db": true,
+            "writes_file": true,
+            "mutates_dashboard_active": true,
+            "publishes_hot_path": true
+          },
+          "target": {"hot_path": true},
+          "approval_required": true,
           "required_environment": {
             "TOKENOSKOBI_LEDGER_WRITER_ENABLED": "1",
             "TOKENOSKOBI_RUNNER_LOCK_ENABLED": "1",

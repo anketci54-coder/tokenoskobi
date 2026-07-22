@@ -1,12 +1,10 @@
 {
   "audit": {
     "known_issues": [
-      "PASSWORD_INPUT_MISSING",
       "OLD_INTERNAL_PATH_STILL_PRESENT",
-      "POLICY_DRIFT_RISK",
-      "AUTHORITY_FRAGMENTATION"
+      "POLICY_DRIFT_RISK"
     ],
-    "migration_state": "baseline_active_scoped_runtime_gate_bound"
+    "migration_state": "ERA61_EXPLICIT_FINANCIAL_AUTHORITY_TYPES_DEFAULT_DENY"
   },
   "authority": {
     "ai": {
@@ -25,6 +23,12 @@
       "active_db_mutation_allowed": false,
       "active_panel_8096_mutation_allowed": false,
       "uncontrolled_write_allowed": false
+    },
+    "order": {
+      "cancel_allowed": false,
+      "create_allowed": false,
+      "replace_allowed": false,
+      "reason": "ORDER_AUTHORITY_ZERO"
     },
     "policy": {
       "apply_allowed": false,
@@ -63,7 +67,15 @@
       "level": 0,
       "live_allowed": false,
       "paper_allowed": false,
+      "swap_allowed": false,
       "reason": "TRADE_AUTHORITY_ZERO"
+    },
+    "wallet": {
+      "broadcast_allowed": false,
+      "connect_allowed": false,
+      "read_allowed": false,
+      "sign_allowed": false,
+      "reason": "WALLET_AND_SIGNING_AUTHORITY_ZERO"
     },
     "write": {
       "dashboard_active_write_allowed": false,
@@ -85,72 +97,49 @@
     "rollback_required_for_mutation": true
   },
   "documentation": {
-    "default_doctrine": "Deny real, mutating, live, paper execution, secret update, service enablement, schema apply, and active hot-path mutation by default.",
-    "purpose": "Machine-readable authority state scaffold for future core/authority.py.",
-    "runtime_effect": "Loaded and validated by core/runtime_policy_authority_gate.py. Broad deny-by-default remains unchanged; scoped runtime grants are stored separately in config/runtime_stage_grants_v1.json.",
-    "source_of_truth_note": "PROJECT_HANDOFF.md remains the human-readable project memory and authority source until a future approved migration."
+    "default_doctrine": "Every unknown, financial, mutating, wallet, signing, broadcast, order, swap, paper or live operation is denied unless a separately approved bounded authority state explicitly allows it.",
+    "purpose": "Machine-readable fail-closed authority state consumed by core/authority.py and runtime gates.",
+    "runtime_effect": "Active deny-by-default baseline. Runtime stage grants may narrow execution but may never expand financial authority.",
+    "source_of_truth_note": "02_MANIFESTO.md defines constitutional authority; this file enforces the machine-readable baseline."
   },
   "future_consumers": [
     "core/authority.py",
     "core/policy.py",
     "core/approval.py",
+    "core/runtime_policy_authority_gate.py",
     "tools/*",
     "control_dashboard_engine_v1/*",
-    "systemd_drafts/*",
-    "future_schema_apply_tools",
-    "core/runtime_policy_authority_gate.py",
-    "tools/news_radar_refresh_runner_v1.py"
+    "systemd_drafts/*"
   ],
   "operation_classes": {
-    "dashboard_active_mutation": {
-      "allowed": false,
-      "requires_approval": true
-    },
-    "db_write": {
-      "allowed": false,
-      "requires_approval": true,
-      "requires_rollback": true
-    },
-    "dryrun": {
-      "allowed": true,
-      "requires_approval": false
-    },
-    "file_write": {
-      "allowed": false,
-      "requires_approval": true
-    },
-    "read_only": {
-      "allowed": true,
-      "requires_approval": false
-    },
-    "rpc_call": {
-      "allowed": false,
-      "requires_approval": true,
-      "requires_budget_guard": true
-    },
-    "schema_apply": {
-      "allowed": false,
-      "requires_approval": true,
-      "requires_backup": true,
-      "requires_dryrun": true
-    },
-    "secret_update": {
-      "allowed": false,
-      "requires_approval": true,
-      "requires_authentication": true
-    },
-    "service_enablement": {
-      "allowed": false,
-      "requires_approval": true
-    }
+    "dashboard_active_mutation": {"allowed": false, "requires_approval": true},
+    "db_write": {"allowed": false, "requires_approval": true, "requires_rollback": true},
+    "dryrun": {"allowed": true, "requires_approval": false},
+    "file_write": {"allowed": false, "requires_approval": true},
+    "hot_path_publish": {"allowed": false, "requires_approval": true, "requires_rollback": true},
+    "order_cancel": {"allowed": false, "requires_approval": true},
+    "order_create": {"allowed": false, "requires_approval": true},
+    "order_replace": {"allowed": false, "requires_approval": true},
+    "paper_trade_execution": {"allowed": false, "requires_approval": true, "requires_rollback": true},
+    "read_only": {"allowed": true, "requires_approval": false},
+    "rpc_call": {"allowed": false, "requires_approval": true, "requires_budget_guard": true},
+    "schema_apply": {"allowed": false, "requires_approval": true, "requires_backup": true, "requires_dryrun": true},
+    "secret_update": {"allowed": false, "requires_approval": true, "requires_authentication": true},
+    "service_enablement": {"allowed": false, "requires_approval": true},
+    "swap_execution": {"allowed": false, "requires_approval": true, "requires_rollback": true},
+    "trade_execution": {"allowed": false, "requires_approval": true, "requires_rollback": true},
+    "transaction_broadcast": {"allowed": false, "requires_approval": true, "requires_rollback": true},
+    "wallet_connect": {"allowed": false, "requires_approval": true},
+    "wallet_read": {"allowed": false, "requires_approval": true},
+    "wallet_sign": {"allowed": false, "requires_approval": true, "requires_authentication": true}
   },
   "project": {
-    "human_authority_source": "PROJECT_HANDOFF.md",
+    "human_authority_source": "02_MANIFESTO.md",
     "mode": "CONTROLLED_EXECUTION",
     "name": "TOKENOSKOBI",
-    "phase_family": "PHASE41_FAMILY",
-    "status": "STABLE_MONITOR_MODE"
+    "phase_family": "ERA61_SECURITY_HARDENING",
+    "status": "FAIL_CLOSED_FINANCIAL_AUTHORITY_LOCKED"
   },
-  "scaffold_status": "ACTIVE_RUNTIME_BASELINE_CONSUMED_BY_SCOPED_GATE",
+  "scaffold_status": "ACTIVE_ERA61_FAIL_CLOSED_BASELINE",
   "schema_version": "authority_state_v1"
 }
