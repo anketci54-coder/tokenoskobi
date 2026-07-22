@@ -199,6 +199,24 @@ AUTO_BLOCK=0
 
 ---
 
+
+<!-- EXECUTABLE_AUTHORITY_GATE_START -->
+### Executable Authority Gate
+
+OPERATION + DECLARED_EFFECTS + TARGET
+-> AUTHORITY_STATE
+-> RUNTIME_POLICY
+-> HUMAN_APPROVAL_WHEN_REQUIRED
+-> FAIL_CLOSED_DENY
+
+Rules:
+
+- Missing or unknown operation, effect, target, authority or policy is denied.
+- Read-only classification cannot hide a mutating effect.
+- Human approval is a required condition where declared; it does not create authority.
+- Trade, order, wallet-signing and transaction-broadcast paths remain denied unless every required authority boundary is explicitly satisfied.
+<!-- EXECUTABLE_AUTHORITY_GATE_END -->
+
 ## 07 CORE CAPABILITY MAP
 
 ```text

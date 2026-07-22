@@ -35,16 +35,20 @@ Bu dosyada alt basamak, audit dökümü, JSON içeriği, HEAD, timestamp, GitHub
 
 ## CURRENT CANONICAL POSITION
 
-```text
-CURRENT_VERSION=V3_RUNTIME_INTELLIGENCE_OS
-ERA56=CLOSED_SEALED
-ERA57=CLOSED_VERIFIED_GITHUB_SEALED
-ERA57C_IMPLEMENTATION_AUTHORIZED=true
-LIVE_SOURCE_FETCH_AUTHORIZED=false
-PRODUCTION_MUTATION=false
-NEXT_SAFE_STEP=ERA58_OPENING_DECISION
-```
-
+CURRENT_VERSION=V4
+CURRENT_VERSION_TITLE=Autonomous Intelligence / Multi-Agent Command
+V3_STATUS=CLOSED
+V4_STATUS=ACTIVE
+ERA61_PLANNED_TITLE=Autonomous Intelligence ERA61
+ERA61_ACTUAL_TITLE=Security Authority Boundary Hardening
+ERA61_IMPLEMENTATION=MERGED_AND_POST_MERGE_REVERIFIED
+ERA61_CANONICAL_PROCESS=IMPLEMENTATION_PRECEDED_CANONICAL_STATE_SYNCHRONIZATION
+ERA61_TARGET_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+ERA61_TARGET_STATUS_VALIDITY=EFFECTIVE_ONLY_WHEN_REMOTE_MAIN_EQUALS_CLOSURE_COMMIT
+ERA61_LOCAL_CLOSURE_SYNC=APPLIED_POST_AUDIT_PASS_PENDING_REMOTE_VERIFY
+ERA62_OPENED=false
+NEW_WORK_UNIT_OPENED=false
+NEXT_SAFE_STEP=ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL
 ## V1-V8 MASTER ROADMAP
 
 ### V1 - Canonical Foundation
@@ -65,29 +69,26 @@ PURPOSE=Productization and decision boundary: real evidence, provider policy, sc
 
 ### V3 - Runtime Intelligence OS
 
-```text
 RANGE=ERA21-ERA60
-STATUS=ACTIVE
-PURPOSE=Runtime Intelligence OS.
-```
+STATUS=CLOSED
 
-V3 kalan canonical zinciri:
-
-- ERA57 - Autonomous Research Layer
-- ERA58 - AI Command Center Evolution
-- ERA59 - War Room Final Integration
-- ERA60 - V3 Final Canonical Closure
-
-ERA57 insan onayıyla uygulanmış ve GitHub seal ile kapatılmıştır.
-
+V3 runtime intelligence hattı ERA60 ile tamamlanmıştır.
+ERA61 ve sonrası V4 hattına aittir.
 ### V4 - Autonomous Intelligence / Multi-Agent Command
 
-```text
 RANGE=ERA61-ERA80
-STATUS=PLANNED
-PURPOSE=Autonomous Intelligence / Multi-Agent Command.
-```
+STATUS=ACTIVE
 
+ERA61 planned identity:
+- Autonomous Intelligence ERA61
+
+ERA61 actual implemented scope:
+- Security Authority Boundary Hardening
+- Implementation and merge occurred before canonical state synchronization.
+- Retrospective canonical drift repair was performed during closure sync.
+- Target closure status becomes effective only after remote verification.
+
+ERA62 remains planned and unopened.
 ### V5 - Controlled Trading
 
 ```text
@@ -185,10 +186,10 @@ Bu içerikler `04_ALMANAC.md`, `PROJECT_RUNTIME.json`, `PROJECT_HISTORY.json`, `
 
 ## CURRENT SAFE STEP
 
-```text
-NEXT_SAFE_STEP=ERA58_OPENING_DECISION
-ERA57_OPENED=true
-LIVE_SOURCE_FETCH_AUTHORIZED=false
-PRODUCTION_MUTATION=false
-HUMAN_FINAL_AUTHORITY=true
-```
+NEXT_SAFE_STEP=ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL
+ERA61_TARGET_STATUS=CLOSED_VERIFIED_GITHUB_SEALED
+ERA61_TARGET_STATUS_VALIDITY=EFFECTIVE_ONLY_WHEN_REMOTE_MAIN_EQUALS_CLOSURE_COMMIT
+ERA62_OPENED=false
+NEW_WORK_UNIT_OPENED=false
+
+No ERA62 opening or new work unit is permitted without separate human approval.
