@@ -113,8 +113,8 @@
     "canonical_seal_authorized": false,
     "critical_capability_required": true,
     "critical_reserved_session_slots": 4,
-    "current_era": "ERA62",
-    "current_stage": "ERA62C_LOCAL_SYNTHETIC_AND_REPLAY_TESTS",
+    "current_era": "ERA63",
+    "current_stage": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
     "current_version_line": "V4",
     "emergency_patch_chain_removed": true,
     "empty_source_selection_behavior": "SUCCESS_NOOP_FAIL_CLOSED",
@@ -311,7 +311,7 @@
       "status": "MERGED_AND_POST_MERGE_SEALED",
       "updated_at_utc": "2026-07-15T04:54:32.381505+00:00"
     },
-    "next_safe_step": "ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL",
+    "next_safe_step": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
     "option_b_authorized": false,
     "p0_f1_closed": true,
     "phase9_observation_timer_active": false,
@@ -460,7 +460,10 @@
     "era62_synthetic_replay_verified": true,
     "era62c_matrix": "28/28",
     "era62c_replay_artifact": "data/replay/era62c_fail_closed_advisory_council_replay_v1.json",
-    "era62c_control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json"
+    "era62c_control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
+    "era62_closed": true,
+    "era62d_opened": false,
+    "era63_opened": true
   },
   "canonical_workflow_rules": {
     "commit_policy": {
@@ -623,7 +626,7 @@
     "git_branch": "main",
     "source": "local_workspace_then_local_git_then_github"
   },
-  "current_era": "ERA62",
+  "current_era": "ERA63",
   "current_era_status": "OPEN_LOCAL_SYNTHETIC_REPLAY_VERIFIED",
   "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
   "current_problem": {
@@ -665,58 +668,6 @@
     "history_is_append_only": true,
     "master_state_is_human_summary": true,
     "runtime_is_primary_machine_authority": true
-  },
-  "current_work_unit": {
-    "id": "ERA62_FAIL_CLOSED_ADVISORY_COUNCIL_RUNTIME_ORCHESTRATION",
-    "title": "Fail-Closed Advisory Council Runtime Orchestration",
-    "status": "LOCAL_SYNTHETIC_REPLAY_VERIFIED",
-    "current_substage": "ERA62C_LOCAL_SYNTHETIC_AND_REPLAY_TESTS",
-    "next_step": "ERA62D_LOCAL_ADVERSARIAL_AUTHORITY_INJECTION_AUDIT_REQUIRES_USER_APPROVAL",
-    "opened_at_utc": "2026-07-22T19:05:26Z",
-    "artifact": "data/control/era62a_opening_scope_lock_v1.json",
-    "contract": "config/era62_fail_closed_advisory_council_runtime_contract_v1.json",
-    "scope_locked": true,
-    "concept_freeze": true,
-    "implementation_authorized": true,
-    "external_model_binding_authorized": false,
-    "network_access_authorized": false,
-    "production_runtime_open_authorized": false,
-    "database_mutation_authorized": false,
-    "panel_mutation_authorized": false,
-    "service_mutation_authorized": false,
-    "timer_mutation_authorized": false,
-    "red_team_controls_locked": true,
-    "authority": {
-      "ai": 0,
-      "trade": 0,
-      "wallet": 0,
-      "signing": 0,
-      "order_create": 0,
-      "live_trade": "DISABLED",
-      "paper_trade": "DISABLED",
-      "human_final_authority": true
-    },
-    "implementation_applied": true,
-    "local_runtime_build_verified": true,
-    "smoke_tests": "11/11",
-    "runtime_config": "config/era62_advisory_council_runtime_v1.json",
-    "runtime_tool": "tools/era62_fail_closed_advisory_council_runtime_v1.py",
-    "smoke_test": "tests/era62b_runtime_contract_smoke_test_v1.py",
-    "build_artifact": "data/control/era62b_local_readonly_council_runtime_build_v1.json",
-    "provider_dispatch_active": false,
-    "execution_allowed": false,
-    "era62c_authorized": true,
-    "era62c_applied": true,
-    "synthetic_replay_verified": true,
-    "synthetic_matrix": "28/28",
-    "era58_replay": "7/7",
-    "era59_replay": "8/8",
-    "era60_negative_replay": "8/8",
-    "era60_exception_gates": "2/2",
-    "era61_authority_tests": "7/7",
-    "matrix_test": "tests/era62c_synthetic_replay_matrix_v1.py",
-    "replay_artifact": "data/replay/era62c_fail_closed_advisory_council_replay_v1.json",
-    "control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json"
   },
   "disaster_recovery_policy": {
     "hard_rules": [
@@ -1012,8 +963,8 @@
     "timestamp": "2026-07-22T21:10:08Z"
   },
   "last_artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
-  "last_completed": "ERA62_FAIL_CLOSED_ADVISORY_COUNCIL_RUNTIME",
-  "last_result": "OK_ERA62_CLOSED_VERIFIED_GITHUB_SEALED",
+  "last_completed": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
+  "last_result": "COMPLETED_READONLY",
   "mode": "ERA55A9_LEDGER_WRITER_TEMP_COPY_INTEGRATION_OK",
   "news_active_panel_data_binding_state": {
     "artifact": "data/control/news_active_panel_data_binding_single_block_noapi_v1.json",
@@ -1301,14 +1252,16 @@
     "summary_market": 39,
     "warnings": []
   },
-  "next_safe_step": "POST_ERA62_ACCELERATED_PAPER_TRADING_GAP_PLAN_REQUIRES_USER_APPROVAL",
+  "next_safe_step": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
   "open_risks": [
-    "P0:F1_PRODUCTION_LEDGER_WRITER_NOT_ACTIVE:OPEN",
-    "P0:CROSS_RESOURCE_DB_TO_FILE_STRICT_ATOMICITY_NOT_PROVEN:OPEN",
-    "P1:F2_DELETE_VS_WAL_HYPOTHESIS:OPEN",
-    "P1:F3_PROCESS_KILL_RECOVERY:PARTIAL",
-    "P2:F4_STAGE_TIMING_AND_PANEL_LATENCY:MISSING",
-    "Risk is minimized, never zero."
+    "PAPER_BLOCKER:MARKET_DATA_AND_LIQUIDITY",
+    "PAPER_BLOCKER:TECHNICAL_ANALYSIS_RUNTIME",
+    "PAPER_BLOCKER:OPPORTUNITY_AND_EDGE_ENGINE",
+    "PAPER_BLOCKER:POSITION_SIZING_AND_RISK_ENVELOPE",
+    "PAPER_BLOCKER:PAPER_ORDER_AND_FILL_ENGINE",
+    "PAPER_BLOCKER:FEE_SLIPPAGE_MEV_COST_MODEL",
+    "PAPER_BLOCKER:PORTFOLIO_PNL_DRAWDOWN_MEMORY",
+    "PAPER_BLOCKER:END_TO_END_LATENCY_MEASUREMENT"
   ],
   "post_era54_hot_ingress_bounded_runtime_state": {
     "active_wrapper": "tools/news_radar_refresh_runner_v1.py",
@@ -1330,7 +1283,7 @@
     "timer_change": false,
     "trade_authority": false
   },
-  "project_status": "ERA61_TARGET_CLOSED_VERIFIED_GITHUB_SEALED_PENDING_REMOTE_VERIFY",
+  "project_status": "V4_ERA63_ACTIVE",
   "recent_event": {
     "artifact": "data/control/era61_canonical_closure_sync_v1.json",
     "result": "LOCAL_APPLIED_POST_AUDIT_PASS_PENDING_REMOTE_VERIFY",
@@ -1366,56 +1319,58 @@
     "work_unit": "ERA23G_SEMANTIC_DRIFT_GUARD"
   },
   "source": "news_v3_batch_01_runtime_direction_sync_v1",
-  "status": "CANONICAL_SYNC_LOCAL_APPLIED_POST_AUDIT_PASS_PENDING_SINGLE_COMMIT_PUSH_REMOTE_VERIFY",
-  "updated_at": "2026-07-22T16:51:48.375160+00:00",
-  "updated_at_utc": "2026-07-22T21:54:32.398082+00:00",
-  "work_unit": "ERA60_AI_COUNCIL_AGENT_OS_AND_NVIDIA_CAPABILITY_FOUNDATION",
-  "current_version": "V4",
-  "current_stage": "ERA62_FINAL_CLOSURE",
-  "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
-  "current_era_title": "Security Authority Boundary Hardening",
-  "era61_canonical_closure": {
-    "planned_title": "Autonomous Intelligence ERA61",
-    "actual_title": "Security Authority Boundary Hardening",
-    "implementation_merge_head": "f50651db0e2fd6356d9e4beb50e3804c8d72d566",
-    "implementation_preceded_canonical_state_sync": true,
-    "canonical_opening_retroactively_fabricated": false,
-    "canonical_drift_repaired_during_closure_sync": true,
-    "local_preflight": "PASS",
-    "owner_and_closure_rule_verification": "PASS",
-    "post_merge_reverify": "15/15_PASS",
-    "local_apply_post_audit": "PASS",
-    "target_status": "CLOSED_VERIFIED_GITHUB_SEALED",
-    "target_status_validity_condition": "EFFECTIVE_ONLY_WHEN_REMOTE_MAIN_EQUALS_CLOSURE_COMMIT",
-    "project_boot_decision": "VERIFY_UNCHANGED",
-    "authority": {
-      "ai": 0,
-      "trade": 0,
-      "wallet": 0,
-      "signing": 0,
-      "order_create": 0,
-      "live_trade": "DISABLED",
-      "paper_trade": "DISABLED",
-      "human_final_authority": true
-    },
-    "era62_opened": false,
-    "new_work_unit_opened": false,
-    "next_safe_step": "ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL"
+  "status": "ACTIVE",
+  "updated_at": "2026-07-22T22:47:23.236370+00:00",
+  "updated_at_utc": "2026-07-22T22:47:23.236370+00:00",
+  "work_unit": {
+    "id": "ERA63_ACCELERATED_PAPER_TRADING_CORE",
+    "title": "Accelerated Paper Trading Core",
+    "status": "OPEN_GAP_AUDIT_COMPLETED",
+    "next_substep": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD"
   },
-  "current_status": "CLOSED_VERIFIED_GITHUB_SEALED",
+  "current_version": "V4",
+  "current_stage": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
+  "current_version_label": "Autonomous Intelligence and Paper-Trading Proving Ground",
+  "current_era_title": "Accelerated Paper Trading Core",
+  "current_status": "ACTIVE",
   "era62_final_closure": {
     "status": "CLOSED_VERIFIED_GITHUB_SEALED",
-    "status_validity": "EFFECTIVE_ONLY_AFTER_REMOTE_MAIN_VERIFY",
-    "result": "OK_ERA62_CLOSED_VERIFIED_GITHUB_SEALED",
-    "closed_at_utc": "2026-07-22T21:54:32.398082+00:00",
-    "closed_substeps": [
+    "closure_head": "4fc9e0f977299f2a1273bae54a994b18e8298f00",
+    "closed_scope": [
       "ERA62A",
       "ERA62B",
       "ERA62C"
     ],
-    "closure_test": "28/28_VERIFIED",
     "era62d_cancelled": true,
-    "new_work_unit_opened": false,
-    "next_safe_step": "POST_ERA62_ACCELERATED_PAPER_TRADING_GAP_PLAN_REQUIRES_USER_APPROVAL"
+    "remote_verified": true
+  },
+  "last_closed_era": "ERA62",
+  "authority": {
+    "paper_trade": "ENABLED_AFTER_ERA63B_BUILD_AND_ERA63C_VALIDATION",
+    "paper_order_authority": "SIMULATION_ONLY_AFTER_VALIDATION",
+    "paper_position_authority": "SIMULATION_ONLY_AFTER_VALIDATION",
+    "paper_unattended_execution": "ALLOWED_AFTER_VALIDATION",
+    "human_per_paper_trade_approval": false,
+    "real_trade_authority": 0,
+    "real_wallet_authority": 0,
+    "real_signing_authority": 0,
+    "real_order_authority": 0,
+    "live_trade": "DISABLED",
+    "risk_engine_veto": true,
+    "system_may_not_expand_policy": true
+  },
+  "era63_gap_audit": {
+    "status": "COMPLETED_READONLY",
+    "artifact": "data/control/era63a_accelerated_paper_trading_gap_audit_v1.json",
+    "paper_trade_blockers": [
+      "MARKET_DATA_AND_LIQUIDITY",
+      "TECHNICAL_ANALYSIS_RUNTIME",
+      "OPPORTUNITY_AND_EDGE_ENGINE",
+      "POSITION_SIZING_AND_RISK_ENVELOPE",
+      "PAPER_ORDER_AND_FILL_ENGINE",
+      "FEE_SLIPPAGE_MEV_COST_MODEL",
+      "PORTFOLIO_PNL_DRAWDOWN_MEMORY",
+      "END_TO_END_LATENCY_MEASUREMENT"
+    ]
   }
 }

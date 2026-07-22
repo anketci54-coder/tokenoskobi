@@ -2280,11 +2280,11 @@
     "updated_at_utc": "2026-07-22T16:51:48.375160+00:00"
   },
   "current_state_authority": "PROJECT_RUNTIME.json",
-  "updated_at_utc": "2026-07-22T21:54:32.398082+00:00",
+  "updated_at_utc": "2026-07-22T22:47:23.236370+00:00",
   "current_version": "V4",
   "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
-  "current_era": "ERA62",
-  "current_stage": "ERA62_FINAL_CLOSURE",
+  "current_era": "ERA63",
+  "current_stage": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
   "status": "LOCAL_SYNTHETIC_REPLAY_VERIFIED",
   "branch": "main",
   "base_head": "11f05676f69c4f301e3756daa5d7cddb86120a4d",
@@ -2298,16 +2298,20 @@
   "contract": "config/era62_fail_closed_advisory_council_runtime_contract_v1.json",
   "opening_artifact": "data/control/era62a_opening_scope_lock_v1.json",
   "authority": {
-    "ai": 0,
-    "trade": 0,
-    "wallet": 0,
-    "signing": 0,
-    "order_create": 0,
+    "paper_trade": "ENABLED_AFTER_ERA63B_BUILD_AND_ERA63C_VALIDATION",
+    "paper_order_authority": "SIMULATION_ONLY_AFTER_VALIDATION",
+    "paper_position_authority": "SIMULATION_ONLY_AFTER_VALIDATION",
+    "paper_unattended_execution": "ALLOWED_AFTER_VALIDATION",
+    "human_per_paper_trade_approval": false,
+    "real_trade_authority": 0,
+    "real_wallet_authority": 0,
+    "real_signing_authority": 0,
+    "real_order_authority": 0,
     "live_trade": "DISABLED",
-    "paper_trade": "DISABLED",
-    "human_final_authority": true
+    "risk_engine_veto": true,
+    "system_may_not_expand_policy": true
   },
-  "next_safe_step": "POST_ERA62_ACCELERATED_PAPER_TRADING_GAP_PLAN_REQUIRES_USER_APPROVAL",
+  "next_safe_step": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
   "commit": false,
   "push": false,
   "local_runtime_build_verified": true,
@@ -2336,8 +2340,8 @@
   "matrix_test": "tests/era62c_synthetic_replay_matrix_v1.py",
   "replay_artifact": "data/replay/era62c_fail_closed_advisory_council_replay_v1.json",
   "control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
-  "current_status": "CLOSED_VERIFIED_GITHUB_SEALED",
-  "last_completed": "ERA62_FAIL_CLOSED_ADVISORY_COUNCIL_RUNTIME",
+  "current_status": "ACTIVE",
+  "last_completed": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
   "last_result": "OK_ERA62_CLOSED_VERIFIED_GITHUB_SEALED",
   "era62_final_closure": {
     "status": "CLOSED_VERIFIED_GITHUB_SEALED",
@@ -2353,5 +2357,18 @@
     "era62d_cancelled": true,
     "new_work_unit_opened": false,
     "next_safe_step": "POST_ERA62_ACCELERATED_PAPER_TRADING_GAP_PLAN_REQUIRES_USER_APPROVAL"
-  }
+  },
+  "era62_closed": true,
+  "era62d_cancelled": true,
+  "era63_opened": true,
+  "paper_trade_blockers": [
+    "MARKET_DATA_AND_LIQUIDITY",
+    "TECHNICAL_ANALYSIS_RUNTIME",
+    "OPPORTUNITY_AND_EDGE_ENGINE",
+    "POSITION_SIZING_AND_RISK_ENVELOPE",
+    "PAPER_ORDER_AND_FILL_ENGINE",
+    "FEE_SLIPPAGE_MEV_COST_MODEL",
+    "PORTFOLIO_PNL_DRAWDOWN_MEMORY",
+    "END_TO_END_LATENCY_MEASUREMENT"
+  ]
 }

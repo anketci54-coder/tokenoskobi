@@ -192,7 +192,7 @@ WALLET_AUTHORITY=0
 SIGNING_AUTHORITY=0
 ORDER_CREATE_AUTHORITY=0
 LIVE_TRADE=DISABLED
-PAPER_TRADE=DISABLED
+PAPER_TRADE=ERA_SCOPED_ZERO_REAL_FUNDS_SIMULATION
 AUTO_APPLY=0
 AUTO_BLOCK=0
 ```
@@ -612,3 +612,14 @@ Atlasın mevcut yazım şekli, başlık düzeni, boşluk yapısı, yazı tipi ve
 Bu eser aşağıdaki canonical rehbere göre geliştirilir:
 
 `docs/design/ATLAS_AUTHORING_GUIDE.md`
+
+<!-- ERA63_PAPER_PATH:BEGIN -->
+## PAPER PATH
+
+```text
+ASYNC NEWS/WHALE/ONCHAIN/AI CONTEXT -> CACHE
+FRESH MARKET DATA -> TECHNICAL/EDGE -> RISK ENGINE -> SIZING -> SIMULATED FILL -> COSTS -> P&L/DRAWDOWN -> OUTCOME MEMORY
+```
+
+Paper authority is simulation only. Real wallet, signing, broadcast and capital authority remain zero. Risk Engine has veto.
+<!-- ERA63_PAPER_PATH:END -->

@@ -349,3 +349,11 @@ BLOCKERS=
 BOOT_RESULT=
 ```
 <!-- README_AUTO_CONTINUATION:END -->
+
+<!-- PAPER_LIVE_AUTHORITY_SPLIT:BEGIN -->
+## PAPER / LIVE AUTHORITY SPLIT
+
+README remains a boot pointer. Current state is read only from `PROJECT_RUNTIME.json`.
+
+Paper trade is zero-real-funds simulation authority. Live trade is real wallet, signing, broadcast and capital authority. Paper may run unattended only after build and validation. External AI and red team are advisory and outside the synchronous hot path.
+<!-- PAPER_LIVE_AUTHORITY_SPLIT:END -->

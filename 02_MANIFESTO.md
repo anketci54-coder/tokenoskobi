@@ -37,7 +37,7 @@ Manifesto ile çelişen roadmap, uygulama, öneri veya dokümantasyon geçersizd
 Tokenoskobi:
 
 - Risk-first kripto intelligence ve decision-support sistemidir.
-- Otonom trade botu değildir.
+- Sınırsız veya kendi yetkisini büyüten bir trade botu değildir; tam doğrulama sonrasında insanın tanımladığı politika zarfı içinde bounded otonom execution hedefler.
 - Önce kanıt, sonra risk, sonra fırsat, en son insan kararı üretir.
 - Amaç sermayeyi koruyarak kaliteli fırsatları bulmak, zayıf adayları çürütmek ve karar verene doğrulanabilir bağlam sağlamaktır.
 - Sistemin gücü yalnız sinyal üretmekten değil; kanıt, itiraz, bilinmeyen anomali, hafıza ve fail-closed yönetiminden gelir.
@@ -712,3 +712,9 @@ COMPLEXITY_MUST_PAY_FOR_ITSELF=true
 Final doctrine:
 
 **Önce kanıt. Sonra risk. Sonra fırsat. En son insan kararı.**
+
+<!-- BOUNDED_AUTONOMY:BEGIN -->
+## BOUNDED AUTONOMY
+
+Paper authority may create only simulated orders, fills, positions, costs, P&L and drawdown. Real wallet, signing, broadcast and capital authority remain locked. Human defines the policy envelope; Risk Engine has veto; the system cannot expand its own authority. Paper findings outrank speculative perfection work.
+<!-- BOUNDED_AUTONOMY:END -->

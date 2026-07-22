@@ -12,7 +12,10 @@
     "require_user_approval_for_any_negative_tradeoff": true,
     "risk_analysis_before_repo_change": true,
     "say_unknown_when_unknown": true,
-    "use_era24f_formula_for_opportunity_cost": true
+    "use_era24f_formula_for_opportunity_cost": true,
+    "paper_findings_before_speculative_perfection": true,
+    "red_team_advisory_not_controlling": true,
+    "external_ai_outside_hot_path": true
   },
   "boot_architecture": {
     "current_state_forbidden_in_boot": true,
@@ -88,12 +91,13 @@
       "Playbooks are risk-driven",
       "Complexity must pay for itself"
     ],
-    "one_sentence": "Tokenoskobi is a risk-first crypto intelligence and decision-support system, not an autonomous trading bot.",
+    "one_sentence": "Tokenoskobi is a risk-first intelligence, decision and bounded autonomous execution system operating only after validation inside a human-defined policy envelope.",
     "trade_authority": {
-      "ai": 0,
-      "guardian": "block_or_allow_gate_only",
-      "human": "final_approval_required",
-      "live_execution": "locked"
+      "human": "policy_envelope_and_veto",
+      "risk_engine": "absolute_veto",
+      "paper": "simulation_after_validation",
+      "live": "separately_locked",
+      "self_expansion": "forbidden"
     }
   },
   "canonical_workflow_rules": {
@@ -281,7 +285,13 @@
       "live_trade_locked": true,
       "no_runtime_db_panel_service_timer_mutation_without_explicit_scope": true,
       "paper_trade_locked_until_explicit_phase": true,
-      "runtime_is_source_of_truth": true
+      "runtime_is_source_of_truth": true,
+      "paper_trade_zero_real_funds": true,
+      "paper_trade_may_run_unattended_after_validation": true,
+      "real_wallet_authority": 0,
+      "real_signing_authority": 0,
+      "real_order_broadcast_authority": 0,
+      "live_trade_locked_until_separate_validation": true
     },
     "startup_prompt": "README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.",
     "startup_read_order": [
