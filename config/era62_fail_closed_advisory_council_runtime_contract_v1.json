@@ -1,0 +1,335 @@
+{
+  "contract_id": "ERA62_FAIL_CLOSED_ADVISORY_COUNCIL_RUNTIME_CONTRACT_V1",
+  "contract_version": "1.0",
+  "era": "ERA62",
+  "actual_title": "Fail-Closed Advisory Council Runtime Orchestration",
+  "status": "LOCKED",
+  "opened_at_utc": "2026-07-22T19:05:26Z",
+  "immutable_during_era": true,
+  "purpose": "Bind the existing specialist profiles, Harekat Subayi dispatcher, evidence dependency contract, conflict and dissent preservation, Risk Engine boundary and ERA61 executable authority gate into one deterministic local read-only advisory council runtime that produces human review packets and never executes financial actions.",
+  "operating_mode": "LOCAL_SYNTHETIC_READONLY_FAIL_CLOSED",
+  "one_major_capability": "Fail-closed orchestration and human decision packet production.",
+  "specialists": [
+    {
+      "id": "CHATGPT",
+      "role": "PLAN_ARCHITECTURE_IMPLEMENTATION_ADVISORY"
+    },
+    {
+      "id": "CLAUDE",
+      "role": "CODE_LOGIC_CONSISTENCY_REVIEW"
+    },
+    {
+      "id": "GEMINI",
+      "role": "RED_TEAM_ATTACK_SURFACE_REVIEW"
+    },
+    {
+      "id": "COPILOT",
+      "role": "REPOSITORY_IMPLEMENTATION_CONTEXT_ADVISORY"
+    }
+  ],
+  "dispatcher": {
+    "role": "HAREKAT_SUBAYI",
+    "allowed_actions": [
+      "VALIDATE_INPUT",
+      "VALIDATE_AUTHORITY",
+      "VALIDATE_EVIDENCE",
+      "DISPATCH_SPECIALISTS",
+      "COMPARE_OUTPUTS",
+      "PRESERVE_DISSENT",
+      "CLASSIFY_CONFLICTS",
+      "SYNTHESIZE_CONTEXT",
+      "REQUEST_MORE_EVIDENCE",
+      "RECOMMEND_BLOCK",
+      "PREPARE_HUMAN_DECISION_PACKET"
+    ],
+    "forbidden_actions": [
+      "CREATE_ORDER",
+      "SIGN_TRANSACTION",
+      "BROADCAST_TRANSACTION",
+      "CALL_WALLET",
+      "ENABLE_RUNTIME_AUTHORITY",
+      "BYPASS_RISK_ENGINE",
+      "REMOVE_HARD_BLOCK",
+      "SUPPRESS_CRITICAL_DISSENT",
+      "MAKE_FINAL_HUMAN_DECISION"
+    ]
+  },
+  "input_contract": {
+    "required_fields": [
+      "request_id",
+      "task_type",
+      "target",
+      "declared_effects",
+      "evidence_pointers",
+      "risk_class",
+      "required_specialists",
+      "human_approval_requirement"
+    ],
+    "unknown_operation": "BLOCK",
+    "unknown_effect": "BLOCK",
+    "missing_required_field": "BLOCK",
+    "read_only_label_cannot_hide_mutation": true
+  },
+  "specialist_output_contract": {
+    "required_fields": [
+      "specialist_id",
+      "verdict",
+      "confidence",
+      "evidence_used",
+      "assumptions",
+      "risks",
+      "objections",
+      "recommended_action",
+      "forbidden_actions"
+    ],
+    "strict_json_schema": true,
+    "majority_vote_allowed": false,
+    "unsupported_claim_weight": 0,
+    "unsupported_claim_authority": 0
+  },
+  "conflict_and_dissent": {
+    "conflict_classes": [
+      "FACT_CONFLICT",
+      "RISK_CONFLICT",
+      "SCOPE_CONFLICT",
+      "IMPLEMENTATION_CONFLICT",
+      "EVIDENCE_CONFLICT",
+      "AUTHORITY_CONFLICT"
+    ],
+    "minority_view_deleted": false,
+    "critical_objection_suppressed": false,
+    "unresolved_conflict_visible": true,
+    "critical_blocking_categories": [
+      "AUTHORITY",
+      "SECURITY",
+      "EVIDENCE_INTEGRITY",
+      "UNKNOWN_EFFECT",
+      "HUMAN_APPROVAL"
+    ],
+    "unresolved_critical_dissent_result": "BLOCK_OR_HUMAN_REVIEW"
+  },
+  "evidence_dependency": {
+    "pipeline": [
+      "CLAIM",
+      "EVIDENCE_POINTER",
+      "PATH_SECURITY_VALIDATION",
+      "FILE_EXISTS",
+      "SCHEMA_VALID",
+      "FRESHNESS_VALID",
+      "PROVENANCE_VALID",
+      "CHECKSUM_VALID",
+      "SUPPORTED_OR_REJECTED"
+    ],
+    "ai_memory_is_evidence": false,
+    "prediction_is_evidence": false,
+    "unattributed_comment_is_evidence": false,
+    "other_ai_unverified_opinion_is_evidence": false
+  },
+  "human_decision_packet": {
+    "required_fields": [
+      "decision_summary",
+      "supported_facts",
+      "unsupported_claims",
+      "specialist_verdicts",
+      "agreements",
+      "conflicts",
+      "critical_dissent",
+      "risk_engine_result",
+      "authority_gate_result",
+      "recommended_options",
+      "rejected_options",
+      "required_human_decision"
+    ],
+    "execution_output_allowed": false,
+    "final_authority": "HUMAN"
+  },
+  "red_team_mandatory_controls": {
+    "strict_specialist_output": {
+      "format": "STRICT_JSON_OBJECT_ONLY",
+      "schema_validation_required": true,
+      "reject_non_json": true,
+      "reject_trailing_content": true,
+      "reject_unknown_fields": true,
+      "raw_model_text_is_not_trusted": true,
+      "specialist_id_source": "DISPATCHER_ASSIGNED_IMMUTABLE",
+      "model_provided_specialist_id_trusted": false,
+      "specialist_id_mismatch_action": "BLOCK"
+    },
+    "evidence_pointer_security": {
+      "repo_relative_only": true,
+      "absolute_paths_denied": true,
+      "parent_traversal_denied": true,
+      "null_byte_denied": true,
+      "symlink_escape_denied": true,
+      "resolved_path_must_remain_inside_repository": true,
+      "allowed_roots": [
+        "config",
+        "data/control",
+        "data/replay",
+        "data/training",
+        "reports",
+        "tests/fixtures"
+      ],
+      "existence_required": true,
+      "regular_file_required": true,
+      "checksum_required_for_decision_weight": true,
+      "unauthorized_pointer_action": "BLOCK"
+    },
+    "missing_specialist_policy": {
+      "critical_task_classes": [
+        "AUTHORITY",
+        "SECURITY",
+        "FINANCIAL",
+        "EXECUTION",
+        "PRODUCTION_MUTATION",
+        "WALLET",
+        "SIGNING",
+        "ORDER_CREATE",
+        "TRADE"
+      ],
+      "critical_task_missing_any_required_specialist": "BLOCK",
+      "noncritical_missing_specialist": "DEGRADED_HUMAN_REVIEW_ONLY",
+      "degraded_auto_apply_allowed": false,
+      "degraded_execution_allowed": false
+    }
+  },
+  "internal_plan": [
+    {
+      "order": 1,
+      "stage": "ERA62A",
+      "name": "OPENING_SCOPE_AND_CONTRACT_LOCK"
+    },
+    {
+      "order": 2,
+      "stage": "ERA62B",
+      "name": "STRICT_INPUT_AND_DECISION_PACKET_CONTRACT"
+    },
+    {
+      "order": 3,
+      "stage": "ERA62B",
+      "name": "IMMUTABLE_SPECIALIST_IDENTITY_AND_DISPATCH"
+    },
+    {
+      "order": 4,
+      "stage": "ERA62B",
+      "name": "EVIDENCE_DEPENDENCY_AND_POINTER_SECURITY"
+    },
+    {
+      "order": 5,
+      "stage": "ERA62B",
+      "name": "CONFLICT_AND_DISSENT_ENGINE"
+    },
+    {
+      "order": 6,
+      "stage": "ERA62B",
+      "name": "HAREKAT_SUBAYI_FAIL_CLOSED_SYNTHESIS"
+    },
+    {
+      "order": 7,
+      "stage": "ERA62B",
+      "name": "HUMAN_DECISION_PACKET_OUTPUT"
+    },
+    {
+      "order": 8,
+      "stage": "ERA62C",
+      "name": "LOCAL_SYNTHETIC_TEST_MATRIX"
+    },
+    {
+      "order": 9,
+      "stage": "ERA62C",
+      "name": "ERA58_TO_ERA61_REPLAY_REGRESSION"
+    },
+    {
+      "order": 10,
+      "stage": "ERA62D",
+      "name": "ADVERSARIAL_AUTHORITY_AND_INJECTION_AUDIT"
+    },
+    {
+      "order": 11,
+      "stage": "ERA62E",
+      "name": "EXTERNAL_ADVISORY_REVIEW_IF_REQUIRED"
+    },
+    {
+      "order": 12,
+      "stage": "ERA62F",
+      "name": "CANONICAL_SYNC_SINGLE_COMMIT_PUSH_REMOTE_SEAL"
+    }
+  ],
+  "test_plan": {
+    "strict_json_and_schema_cases": [
+      "NON_JSON_OUTPUT",
+      "TRAILING_TEXT",
+      "UNKNOWN_FIELD",
+      "SPECIALIST_ID_MISMATCH",
+      "PROMPT_INJECTION_ROLE_OVERRIDE"
+    ],
+    "evidence_pointer_cases": [
+      "ABSOLUTE_PATH",
+      "PARENT_TRAVERSAL",
+      "SYMLINK_ESCAPE",
+      "OUTSIDE_ALLOWED_ROOT",
+      "MISSING_FILE",
+      "CHECKSUM_MISMATCH"
+    ],
+    "missing_specialist_cases": [
+      "CRITICAL_TASK_ONE_SPECIALIST_MISSING",
+      "CRITICAL_TASK_MULTIPLE_SPECIALISTS_MISSING",
+      "NONCRITICAL_TASK_SPECIALIST_MISSING"
+    ],
+    "authority_regression_cases": [
+      "UNKNOWN_OPERATION",
+      "UNKNOWN_EFFECT",
+      "READONLY_HIDDEN_MUTATION",
+      "FAKE_HUMAN_APPROVAL",
+      "FORCE_OVERRIDE",
+      "DEBUG_OVERRIDE",
+      "ENVIRONMENT_AUTHORITY_OVERRIDE",
+      "RISK_ENGINE_BYPASS"
+    ],
+    "required_final_result": {
+      "critical_findings": 0,
+      "high_findings": 0,
+      "authority_regressions": 0,
+      "fail_open_paths": 0
+    }
+  },
+  "closure_criteria": [
+    "STRICT_SPECIALIST_JSON_SCHEMA_VERIFIED",
+    "IMMUTABLE_SPECIALIST_IDENTITY_VERIFIED",
+    "EVIDENCE_POINTER_SECURITY_VERIFIED",
+    "CRITICAL_MISSING_SPECIALIST_BLOCK_VERIFIED",
+    "EVIDENCE_DEPENDENCY_VALIDATED",
+    "CONFLICT_AND_DISSENT_PRESERVED",
+    "HUMAN_DECISION_PACKET_VERIFIED",
+    "AUTHORITY_REGRESSION_ZERO",
+    "NETWORK_AND_FINANCIAL_EXECUTION_ZERO",
+    "WORKTREE_CLEAN_AT_CLOSURE",
+    "REMOTE_MAIN_EQUALS_CLOSURE_COMMIT"
+  ],
+  "authority": {
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "live_trade": "DISABLED",
+    "paper_trade": "DISABLED",
+    "human_final_authority": true
+  },
+  "forbidden_scope": {
+    "external_model_binding": false,
+    "network_access": false,
+    "live_data": false,
+    "database_write": false,
+    "panel_mutation": false,
+    "service_mutation": false,
+    "timer_mutation": false,
+    "production_runtime_binding": false,
+    "wallet_access": false,
+    "signing": false,
+    "order_creation": false,
+    "trade_execution": false
+  },
+  "concept_freeze": true,
+  "scope_expansion_requires_separate_human_approval": true
+}

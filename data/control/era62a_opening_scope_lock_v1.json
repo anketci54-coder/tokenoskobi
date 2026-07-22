@@ -1,0 +1,100 @@
+{
+  "artifact_id": "ERA62A_OPENING_SCOPE_LOCK_V1",
+  "era": "ERA62",
+  "stage": "ERA62A_OPENING_SCOPE_AND_CONTRACT_LOCK",
+  "actual_title": "Fail-Closed Advisory Council Runtime Orchestration",
+  "status": "OPEN_SCOPE_LOCKED",
+  "opened_at_utc": "2026-07-22T19:05:26Z",
+  "baseline": {
+    "branch": "main",
+    "local_head": "11f05676f69c4f301e3756daa5d7cddb86120a4d",
+    "origin_main": "11f05676f69c4f301e3756daa5d7cddb86120a4d",
+    "era61_status": "CLOSED_VERIFIED_GITHUB_SEALED"
+  },
+  "human_authorization": {
+    "required": true,
+    "recorded": true,
+    "decision": "OPEN_ERA62A_WITH_LOCKED_SCOPE"
+  },
+  "red_team_review": {
+    "source": "USER_PROVIDED_EXTERNAL_RED_TEAM_REVIEW",
+    "binding_authority": false,
+    "decision": "ACCEPTED_WITH_MANDATORY_CONTROLS",
+    "mandatory_controls": {
+      "strict_specialist_output": {
+        "format": "STRICT_JSON_OBJECT_ONLY",
+        "schema_validation_required": true,
+        "reject_non_json": true,
+        "reject_trailing_content": true,
+        "reject_unknown_fields": true,
+        "raw_model_text_is_not_trusted": true,
+        "specialist_id_source": "DISPATCHER_ASSIGNED_IMMUTABLE",
+        "model_provided_specialist_id_trusted": false,
+        "specialist_id_mismatch_action": "BLOCK"
+      },
+      "evidence_pointer_security": {
+        "repo_relative_only": true,
+        "absolute_paths_denied": true,
+        "parent_traversal_denied": true,
+        "null_byte_denied": true,
+        "symlink_escape_denied": true,
+        "resolved_path_must_remain_inside_repository": true,
+        "allowed_roots": [
+          "config",
+          "data/control",
+          "data/replay",
+          "data/training",
+          "reports",
+          "tests/fixtures"
+        ],
+        "existence_required": true,
+        "regular_file_required": true,
+        "checksum_required_for_decision_weight": true,
+        "unauthorized_pointer_action": "BLOCK"
+      },
+      "missing_specialist_policy": {
+        "critical_task_classes": [
+          "AUTHORITY",
+          "SECURITY",
+          "FINANCIAL",
+          "EXECUTION",
+          "PRODUCTION_MUTATION",
+          "WALLET",
+          "SIGNING",
+          "ORDER_CREATE",
+          "TRADE"
+        ],
+        "critical_task_missing_any_required_specialist": "BLOCK",
+        "noncritical_missing_specialist": "DEGRADED_HUMAN_REVIEW_ONLY",
+        "degraded_auto_apply_allowed": false,
+        "degraded_execution_allowed": false
+      }
+    }
+  },
+  "contract": "config/era62_fail_closed_advisory_council_runtime_contract_v1.json",
+  "scope_locked": true,
+  "implementation_authorized": false,
+  "runtime_binding_authorized": false,
+  "external_model_binding_authorized": false,
+  "network_access_authorized": false,
+  "database_mutation": false,
+  "panel_mutation": false,
+  "service_mutation": false,
+  "timer_mutation": false,
+  "production_mutation": false,
+  "authority": {
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "live_trade": "DISABLED",
+    "paper_trade": "DISABLED",
+    "human_final_authority": true
+  },
+  "next_safe_step": "ERA62B_LOCAL_READONLY_COUNCIL_RUNTIME_BUILD_REQUIRES_USER_APPROVAL",
+  "commit": false,
+  "push": false,
+  "github_seal": false,
+  "local_post_write_verification": "VERIFIED"
+}

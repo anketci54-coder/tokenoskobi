@@ -1,0 +1,195 @@
+{
+  "schema": "tokenoskobi.era62.advisory_council_runtime.v1",
+  "status": "LOCAL_IMPLEMENTED_PROVIDER_DISPATCH_DISABLED",
+  "era": "ERA62",
+  "stage": "ERA62B_LOCAL_READONLY_COUNCIL_RUNTIME_BUILD",
+  "canonical_specialists": [
+    "chatgpt-planner",
+    "claude-reviewer",
+    "codex-builder",
+    "gemini-red-team"
+  ],
+  "routes": {
+    "PLANNING": [
+      "chatgpt-planner",
+      "claude-reviewer",
+      "gemini-red-team"
+    ],
+    "CODE_CHANGE": [
+      "chatgpt-planner",
+      "claude-reviewer",
+      "codex-builder",
+      "gemini-red-team"
+    ],
+    "REVIEW_ONLY": [
+      "claude-reviewer",
+      "gemini-red-team"
+    ],
+    "RED_TEAM": [
+      "gemini-red-team",
+      "claude-reviewer"
+    ],
+    "AUTHORITY_REVIEW": [
+      "chatgpt-planner",
+      "claude-reviewer",
+      "codex-builder",
+      "gemini-red-team"
+    ],
+    "SECURITY_REVIEW": [
+      "chatgpt-planner",
+      "claude-reviewer",
+      "codex-builder",
+      "gemini-red-team"
+    ]
+  },
+  "critical_task_types": [
+    "AUTHORITY_REVIEW",
+    "SECURITY_REVIEW"
+  ],
+  "allowed_risk_classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL",
+    "AUTHORITY_CRITICAL",
+    "SECURITY_CRITICAL",
+    "FINANCIAL_CRITICAL"
+  ],
+  "critical_risk_classes": [
+    "CRITICAL",
+    "AUTHORITY_CRITICAL",
+    "SECURITY_CRITICAL",
+    "FINANCIAL_CRITICAL"
+  ],
+  "known_effects": [
+    "writes_db",
+    "writes_file",
+    "touches_secret",
+    "calls_rpc",
+    "mutates_dashboard_active",
+    "enables_service",
+    "applies_schema",
+    "executes_trade",
+    "executes_paper_trade",
+    "connects_wallet",
+    "reads_wallet",
+    "signs_wallet",
+    "broadcasts_transaction",
+    "creates_order",
+    "cancels_order",
+    "replaces_order",
+    "executes_swap",
+    "publishes_hot_path"
+  ],
+  "allowed_target_resources": [
+    "ADVISORY_TASK",
+    "REPOSITORY_FILE",
+    "CANONICAL_STATE",
+    "CONFIG",
+    "REPORT",
+    "TEST_FIXTURE"
+  ],
+  "allowed_target_roots": [
+    "config",
+    "core",
+    "data",
+    "reports",
+    "tests",
+    "tools"
+  ],
+  "allowed_evidence_roots": [
+    "config",
+    "data/control",
+    "data/replay",
+    "data/training",
+    "reports",
+    "tests/fixtures"
+  ],
+  "allowed_verdicts": [
+    "SUPPORT",
+    "WARN",
+    "BLOCK",
+    "INSUFFICIENT_EVIDENCE"
+  ],
+  "allowed_actions": [
+    "NO_ACTION",
+    "REQUEST_MORE_EVIDENCE",
+    "PROPOSE_LOCAL_CHANGE",
+    "BLOCK",
+    "HUMAN_REVIEW"
+  ],
+  "allowed_issue_categories": [
+    "FACT",
+    "RISK",
+    "SCOPE",
+    "IMPLEMENTATION",
+    "EVIDENCE",
+    "EVIDENCE_INTEGRITY",
+    "AUTHORITY",
+    "SECURITY",
+    "FINANCIAL",
+    "EXECUTION",
+    "HUMAN_APPROVAL",
+    "UNKNOWN_EFFECT"
+  ],
+  "critical_dissent_categories": [
+    "EVIDENCE_INTEGRITY",
+    "AUTHORITY",
+    "SECURITY",
+    "FINANCIAL",
+    "EXECUTION",
+    "HUMAN_APPROVAL",
+    "UNKNOWN_EFFECT"
+  ],
+  "allowed_severities": [
+    "INFO",
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "mandatory_forbidden_actions": [
+    "CREATE_ORDER",
+    "SIGN_TRANSACTION",
+    "BROADCAST_TRANSACTION",
+    "CALL_WALLET",
+    "ENABLE_RUNTIME_AUTHORITY",
+    "BYPASS_RISK_ENGINE",
+    "REMOVE_HARD_BLOCK",
+    "SUPPRESS_CRITICAL_DISSENT",
+    "MAKE_FINAL_HUMAN_DECISION",
+    "EXECUTE_TRADE",
+    "EXECUTE_PAPER_TRADE"
+  ],
+  "limits": {
+    "max_json_bytes": 262144,
+    "max_evidence_pointers": 32,
+    "max_issue_items": 64
+  },
+  "identity_policy": {
+    "dispatcher_assignment_is_immutable": true,
+    "model_supplied_identity_is_not_trusted": true,
+    "human_labels_do_not_create_model_binding": true
+  },
+  "provider_dispatch_active": false,
+  "external_model_binding": false,
+  "network": false,
+  "live_data": false,
+  "database_write": false,
+  "panel_mutation": false,
+  "service_mutation": false,
+  "timer_mutation": false,
+  "production_runtime_binding": false,
+  "automatic_action": false,
+  "execution": false,
+  "authority": {
+    "ai": 0,
+    "trade": 0,
+    "wallet": 0,
+    "signing": 0,
+    "order_create": 0,
+    "live_trade": "DISABLED",
+    "paper_trade": "DISABLED",
+    "human_final_authority": true
+  }
+}
