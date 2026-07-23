@@ -681,21 +681,22 @@ The runtime may calculate technical and DEX execution evidence, but unknown toke
 <!-- ERA63D_REAL_MARKET_TECHNICAL_RUNTIME:END -->
 
 <!-- ERA63E_ALWAYS_ON_RUNTIME:START -->
-## ERA63E ALWAYS-ON EVENT RUNTIME
+## ERA63 ALWAYS-ON TECHNICAL CONTEXT PRODUCER
 
 ```text
 RESIDENT SYSTEMD SERVICE
 → BSC NEW BLOCK HEAD OBSERVATION
 → BLOCK PRESSURE / GAS / TRANSACTION CHANGE STATE
 → ADAPTIVE TRIGGER
-→ PROVIDER REQUEST BUDGET + HTTP 429 CIRCUIT BREAKER/BACKOFF
 → REAL POOL + MARKET + TECHNICAL REFRESH
 → TECHNICAL + MEV + SANDWICH + ROUTE READMODEL
+→ ERA64 / ERA65 / ERA66 CONTEXT ALIGNMENT
+→ ERA67 COORDINATED FUSION
 ```
 
-- No fixed 15-minute runtime clock.
+- No fixed runtime clock.
 - Service remains resident and restarts automatically.
 - Every observed BSC block updates rolling state.
-- Full external market refresh is adaptive and bounded to protect the free provider.
-- Paper/live trade, wallet, signing, order and broadcast authority remain disabled.
+- Full external market refresh is adaptive and bounded.
+- The producer supplies context only and cannot create paper/live trade, wallet, signing, order or broadcast authority.
 <!-- ERA63E_ALWAYS_ON_RUNTIME:END -->
