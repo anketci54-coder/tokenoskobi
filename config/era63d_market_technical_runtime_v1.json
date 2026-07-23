@@ -1,62 +1,73 @@
 {
-  "schema": "tokenoskobi.era63d.market_technical_runtime_config.v1",
-  "mode": "READ_ONLY_REAL_MARKET_TECHNICAL_OBSERVATION",
-  "runtime_enabled": true,
-  "observation_only": true,
-  "paper_runtime_enabled": false,
-  "paper_position_write_enabled": false,
-  "real_trade_enabled": false,
-  "wallet_enabled": false,
-  "signing_enabled": false,
-  "real_order_enabled": false,
   "broadcast_enabled": false,
-  "policy_expansion_enabled": false,
-  "provider": {
-    "name": "GECKOTERMINAL_KEYLESS_PUBLIC",
-    "base_url": "https://api.geckoterminal.com/api/v2",
-    "allowed_hosts": ["api.geckoterminal.com"],
-    "network": "bsc",
-    "max_pools": 3,
-    "min_successful_pools": 1,
-    "min_liquidity_usd": 250000.0,
-    "min_volume_h24_usd": 100000.0,
-    "minimum_candles": 60,
-    "ohlcv_limit": 100,
-    "request_timeout_sec": 25,
-    "retries": 3,
-    "minimum_request_interval_sec": 1.1,
-    "user_agent": "Tokenoskobi-ERA63D/1.0 read-only",
-    "timeframes": {
-      "5m": {"timeframe": "minute", "aggregate": 5},
-      "15m": {"timeframe": "minute", "aggregate": 15},
-      "1h": {"timeframe": "hour", "aggregate": 1}
-    }
-  },
-  "runtime_model": {
-    "primary_timeframe": "1h",
-    "observation_equity_usd": 10000.0,
-    "observation_slippage_bps": 80.0,
-    "default_dex_fee_bps": 30.0,
-    "conservative_gas_usd": 0.15,
-    "provider_cache_age_bound_sec": 60.0,
-    "conservative_historical_sandwich_rate": 0.08,
-    "pending_tx_proxy_multiplier": 2.0,
-    "gas_competition_tx_h1_saturation": 500.0,
-    "unknown_token_tax_policy": "BLOCK",
-    "unknown_direct_mempool_policy": "PROXY_AND_BLOCK_PAPER",
-    "estimated_reserve_policy": "ALLOW_OBSERVATION_BLOCK_PAPER",
-    "coordinated_intelligence_policy": "BLOCK_PAPER_UNTIL_ERA67"
-  },
+  "mode": "READ_ONLY_REAL_MARKET_TECHNICAL_OBSERVATION",
+  "observation_only": true,
   "outputs": {
-    "latest_snapshot": "runtime/era63d/latest_real_market_technical_snapshot_v1.json",
     "health": "runtime/era63d/health_v1.json",
+    "latest_snapshot": "runtime/era63d/latest_real_market_technical_snapshot_v1.json",
     "observations_jsonl": "runtime/era63d/technical_observations_v1.jsonl",
     "observations_max_bytes": 52428800,
     "panel_readmodel": "active_panel_8096/current/data/technical_center_live_readmodel_v1.json"
   },
+  "paper_position_write_enabled": false,
+  "paper_runtime_enabled": false,
+  "policy_expansion_enabled": false,
+  "provider": {
+    "allowed_hosts": [
+      "api.geckoterminal.com"
+    ],
+    "base_url": "https://api.geckoterminal.com/api/v2",
+    "max_pools": 2,
+    "min_liquidity_usd": 250000.0,
+    "min_successful_pools": 1,
+    "min_volume_h24_usd": 100000.0,
+    "minimum_candles": 60,
+    "minimum_request_interval_sec": 2.5,
+    "name": "GECKOTERMINAL_KEYLESS_PUBLIC",
+    "network": "bsc",
+    "ohlcv_limit": 100,
+    "request_timeout_sec": 25,
+    "retries": 1,
+    "timeframes": {
+      "15m": {
+        "aggregate": 15,
+        "timeframe": "minute"
+      },
+      "1h": {
+        "aggregate": 1,
+        "timeframe": "hour"
+      },
+      "5m": {
+        "aggregate": 5,
+        "timeframe": "minute"
+      }
+    },
+    "user_agent": "Tokenoskobi-ERA63D/1.0 read-only"
+  },
+  "real_order_enabled": false,
+  "real_trade_enabled": false,
+  "runtime_enabled": true,
+  "runtime_model": {
+    "conservative_gas_usd": 0.15,
+    "conservative_historical_sandwich_rate": 0.08,
+    "coordinated_intelligence_policy": "BLOCK_PAPER_UNTIL_ERA67",
+    "default_dex_fee_bps": 30.0,
+    "estimated_reserve_policy": "ALLOW_OBSERVATION_BLOCK_PAPER",
+    "gas_competition_tx_h1_saturation": 500.0,
+    "observation_equity_usd": 10000.0,
+    "observation_slippage_bps": 80.0,
+    "pending_tx_proxy_multiplier": 2.0,
+    "primary_timeframe": "1h",
+    "provider_cache_age_bound_sec": 60.0,
+    "unknown_direct_mempool_policy": "PROXY_AND_BLOCK_PAPER",
+    "unknown_token_tax_policy": "BLOCK"
+  },
   "schedule": {
     "interval_minutes": 15,
-    "randomized_delay_seconds": 45,
-    "persistent": true
-  }
+    "persistent": true,
+    "randomized_delay_seconds": 45
+  },
+  "schema": "tokenoskobi.era63d.market_technical_runtime_config.v1",
+  "signing_enabled": false,
+  "wallet_enabled": false
 }

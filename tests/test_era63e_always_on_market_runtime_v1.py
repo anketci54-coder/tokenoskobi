@@ -88,7 +88,7 @@ class Era63EAlwaysOnTests(unittest.TestCase):
     def test_09_high_pressure_triggers_after_minimum(self):
         state = {'full_refresh_count': 1, 'last_full_refresh_monotonic': 100.0, 'previous_transaction_count': 1, 'previous_block_timestamp': 1000}
         event = module.block_event(raw_block(101, 1003, tx_count=999))
-        reason = module.refresh_reason(event, state, self.config, 200.0)
+        reason = module.refresh_reason(event, state, self.config, 500.0)
         self.assertEqual(reason, 'HIGH_TRANSACTION_COUNT')
 
     def test_10_runtime_processes_block_and_refreshes_async(self):
@@ -142,6 +142,43 @@ class Era63EAlwaysOnTests(unittest.TestCase):
         self.assertIn('Restart=always', unit)
         self.assertNotIn('[Timer]', unit)
         self.assertNotIn('OnUnitActiveSec', unit)
+
+
+    def test_15_config_has_bounded_provider_backoff(self):
+        adaptive = self.config['adaptive_refresh']
+        self.assertGreaterEqual(adaptive['minimum_full_market_refresh_sec'], 300)
+        self.assertGreaterEqual(adaptive['provider_rate_limit_base_backoff_sec'], adaptive['minimum_full_market_refresh_sec'])
+        self.assertGreaterEqual(adaptive['provider_rate_limit_max_backoff_sec'], adaptive['provider_rate_limit_base_backoff_sec'])
+
+    def test_16_backoff_gate_prevents_provider_storm(self):
+        state = {
+            'full_refresh_count': 1,
+            'last_full_refresh_monotonic': 100.0,
+            'refresh_backoff_until_monotonic': 1000.0,
+            'previous_transaction_count': 1,
+            'previous_block_timestamp': 1000,
+        }
+        event = module.block_event(raw_block(101, 1003, tx_count=999, gas_used=99, gas_limit=100))
+        self.assertIsNone(module.refresh_reason(event, state, self.config, 500.0))
+
+    def test_17_rate_limit_classification_and_exponential_backoff(self):
+        exc = RuntimeError('PROVIDER_REQUEST_FAILED:HTTP_429:https://api.geckoterminal.com')
+        error_class = module.classify_refresh_error(exc)
+        self.assertEqual(error_class, 'PROVIDER_RATE_LIMIT')
+        first = module.refresh_backoff_seconds(self.config, 1, error_class)
+        second = module.refresh_backoff_seconds(self.config, 2, error_class)
+        maximum = self.config['adaptive_refresh']['provider_rate_limit_max_backoff_sec']
+        self.assertGreaterEqual(first, 900)
+        self.assertGreater(second, first)
+        self.assertLessEqual(second, maximum)
+
+    def test_18_start_refresh_respects_active_backoff(self):
+        calls = []
+        runtime = module.AlwaysOnRuntime(self.config, rpc=FakeRpc(), market_refresh=lambda: calls.append(1) or {})
+        runtime.state['refresh_backoff_until_monotonic'] = time.monotonic() + 60.0
+        self.assertFalse(runtime.start_refresh('TEST'))
+        self.assertEqual(calls, [])
+
 
 
 if __name__ == '__main__':

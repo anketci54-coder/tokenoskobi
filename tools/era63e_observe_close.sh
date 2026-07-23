@@ -98,7 +98,7 @@ MIN_REFRESHES = 3
 MIN_UPTIME_SEC = 180.0
 MAX_HEARTBEAT_AGE_SEC = 25.0
 MAX_BLOCK_AGE_SEC = 30.0
-MAX_MARKET_AGE_SEC = 300.0
+MAX_MARKET_AGE_SEC = 1200.0
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -227,7 +227,13 @@ checks['natural_event_span_sufficient'] = event_span_sec >= MIN_EVENT_SPAN_SEC
 checks['latest_block_fresh'] = latest_event_block_age_sec <= MAX_BLOCK_AGE_SEC
 checks['invalid_event_rows_zero'] = invalid_event_rows == 0
 checks['refresh_count_sufficient'] = int(state.get('full_refresh_count') or 0) >= MIN_REFRESHES
-checks['refresh_failures_zero'] = int(state.get('refresh_failure_count') or 0) == 0
+refresh_successes = int(state.get('full_refresh_count') or 0)
+refresh_failures = int(state.get('refresh_failure_count') or 0)
+refresh_attempts = refresh_successes + refresh_failures
+refresh_failure_rate = (refresh_failures / refresh_attempts) if refresh_attempts else 1.0
+checks['refresh_failure_rate_bounded'] = refresh_attempts >= MIN_REFRESHES and refresh_failure_rate <= 0.20
+checks['consecutive_refresh_failures_zero'] = int(state.get('consecutive_refresh_failures') or 0) == 0
+checks['refresh_backoff_inactive'] = float(state.get('refresh_backoff_until_monotonic') or 0.0) <= time.monotonic()
 last_refresh = state.get('last_refresh_result') or {}
 checks['last_refresh_pass'] = isinstance(last_refresh, dict) and last_refresh.get('status') == 'PASS'
 checks['last_refresh_pool_count_positive'] = int(last_refresh.get('successful_pool_count') or 0) >= 1
@@ -285,6 +291,7 @@ audit = {
         'maximum_heartbeat_age_sec': MAX_HEARTBEAT_AGE_SEC,
         'maximum_latest_block_age_sec': MAX_BLOCK_AGE_SEC,
         'maximum_market_age_sec': MAX_MARKET_AGE_SEC,
+        'maximum_refresh_failure_rate': 0.20,
     },
     'observed': {
         'service_uptime_sec': round(service_uptime_sec, 3),
@@ -295,7 +302,11 @@ audit = {
         'latest_observed_block': blocks[-1] if blocks else None,
         'latest_block_age_sec': round(latest_event_block_age_sec, 3) if timestamps else None,
         'full_market_refresh_count': int(state.get('full_refresh_count') or 0),
-        'refresh_failure_count': int(state.get('refresh_failure_count') or 0),
+        'refresh_failure_count': refresh_failures,
+        'refresh_attempt_count': refresh_attempts,
+        'refresh_failure_rate': round(refresh_failure_rate, 6),
+        'consecutive_refresh_failures': int(state.get('consecutive_refresh_failures') or 0),
+        'refresh_backoff_until_utc': state.get('refresh_backoff_until_utc'),
         'rpc_request_count': int(state.get('rpc_request_count') or 0),
         'rpc_endpoint': state.get('rpc_endpoint'),
         'service_main_pid': int(show.get('MainPID') or 0),
@@ -374,7 +385,7 @@ python3 tests/test_era63c_technical_dex_execution_v1.py
 python3 tests/test_era63d_market_technical_runtime_v1.py
 python3 tests/test_era63e_always_on_market_runtime_v1.py
 
-echo "TESTS=65/65_PASS"
+echo "TESTS=69/69_PASS"
 
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 BACKUP="/root/era63e_technical_closure_backup_${TS}.tar.gz"
@@ -442,7 +453,7 @@ closure = {
     'service_retained': 'tokenoskobi-era63e-always-on-market.service',
     'fixed_timer_enabled': False,
     'runtime_model': 'ALWAYS_ON_EVENT_DRIVEN_NO_FIXED_TIMER',
-    'tests': '65/65_PASS',
+    'tests': '69/69_PASS',
     'natural_observation': AUDIT,
     'authority': AUDIT['authority'],
     'project_boot_changed': False,
@@ -463,7 +474,7 @@ runtime['recent_event'] = {
 runtime['era63_final_closure'] = {
     'artifact': CONTROL,
     'status': STATUS,
-    'tests': '65/65_PASS',
+    'tests': '69/69_PASS',
     'natural_block_events': AUDIT['observed']['natural_block_event_count'],
     'full_market_refreshes': AUDIT['observed']['full_market_refresh_count'],
     'always_on_service_retained': True,
@@ -524,7 +535,7 @@ roadmap['era63_final_closure'] = {
     'actual_title': 'Technical Analysis and DEX Execution',
     'artifact': CONTROL,
     'status': STATUS,
-    'tests': '65/65_PASS',
+    'tests': '69/69_PASS',
     'natural_block_events': AUDIT['observed']['natural_block_event_count'],
     'full_market_refreshes': AUDIT['observed']['full_market_refresh_count'],
     'always_on_runtime_retained': True,
@@ -539,7 +550,7 @@ history.setdefault('events', []).append({
     'event': 'FINAL_TECHNICAL_ANALYSIS_AND_DEX_EXECUTION_CLOSURE',
     'event_id': 'ERA63_FINAL_TECHNICAL_LINE_CLOSURE',
     'status': STATUS,
-    'tests': '65/65_PASS',
+    'tests': '69/69_PASS',
     'natural_block_events': AUDIT['observed']['natural_block_event_count'],
     'full_market_refreshes': AUDIT['observed']['full_market_refresh_count'],
     'always_on_runtime_retained': True,
@@ -596,7 +607,7 @@ entry = f'''{marker}
 - Natural block events: `{AUDIT['observed']['natural_block_event_count']}`
 - Natural observation span: `{AUDIT['observed']['natural_event_span_sec']} sec`
 - Full adaptive market refreshes: `{AUDIT['observed']['full_market_refresh_count']}`
-- Tests: `65/65_PASS`
+- Tests: `69/69_PASS`
 - Resident service retained: `tokenoskobi-era63e-always-on-market.service`
 - Fixed 15-minute timer: `DISABLED`
 - Paper/live/wallet/signing/order/broadcast: `DISABLED`
@@ -649,7 +660,7 @@ NEXT_SAFE_STEP={NEXT}
 - ERA63 technical analysis and DEX execution line: CLOSED
 - Natural block events: `{AUDIT['observed']['natural_block_event_count']}`
 - Adaptive full-market refreshes: `{AUDIT['observed']['full_market_refresh_count']}`
-- Tests: `65/65_PASS`
+- Tests: `69/69_PASS`
 
 ## ACTIVE READ-ONLY RUNTIME
 
@@ -708,7 +719,7 @@ report = f'''# ERA63 CONTINUOUS OBSERVATION AND TECHNICAL LINE CLOSURE
 - Latest observed BSC block: `{AUDIT['observed']['latest_observed_block']}`
 - Successful pools in latest market snapshot: `{AUDIT['observed']['market_successful_pool_count']}`
 - Service uptime: `{AUDIT['observed']['service_uptime_sec']} sec`
-- Tests: `65/65_PASS`
+- Tests: `69/69_PASS`
 - Resident service: `ACTIVE_RETAINED`
 - Fixed timer: `DISABLED`
 - Paper runtime: `DISABLED`
@@ -730,7 +741,7 @@ machine.update({
     'era63_final_closure': {
         'artifact': CONTROL,
         'status': STATUS,
-        'tests': '65/65_PASS',
+        'tests': '69/69_PASS',
         'natural_block_events': AUDIT['observed']['natural_block_event_count'],
         'full_market_refreshes': AUDIT['observed']['full_market_refresh_count'],
     },

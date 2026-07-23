@@ -24,9 +24,20 @@ ERA63A=GAP_AUDIT=COMPLETED
 ERA63B=BASE_PAPER_CORE=COMPLETED
 ERA63C=TECHNICAL_DEX_EXECUTION=VALIDATED
 ERA63D=REAL_MARKET_BINDING=COMPLETED
-ERA63E=ALWAYS_ON_BLOCK_EVENT_RUNTIME=ACTIVE_OBSERVATION_PENDING
+ERA63E=ALWAYS_ON_BLOCK_EVENT_RUNTIME=RATE_LIMIT_HARDENED_OBSERVATION_PENDING
 ```
 
 The fixed 15-minute timer is disabled. The resident service observes every new BSC block and adaptively refreshes full market/technical state. Classical candle timeframes remain secondary derived views, not the runtime clock.
 
 Paper and live trading remain disabled.
+
+<!-- ERA63E_RATE_LIMIT_REPAIR -->
+## ERA63E PROVIDER RELIABILITY
+
+- GeckoTerminal HTTP 429 root cause: `CONFIRMED`
+- Request fan-out: `REDUCED`
+- Adaptive refresh floor/ceiling: `300/900 seconds`
+- Rate-limit backoff: `900..3600 seconds`
+- Always-on BSC block observation: `RETAINED`
+- Status: `OBSERVATION_PENDING`
+- Next: `ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE`

@@ -21,7 +21,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import deque
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -121,6 +121,35 @@ def validate_config(config: dict[str, Any]) -> None:
     maximum = finite(adaptive.get('maximum_full_market_refresh_sec'), 'maximum_refresh')
     if minimum < 30 or maximum < minimum:
         raise Era63EError('ADAPTIVE_REFRESH_BOUNDS_INVALID')
+    rate_base = finite(adaptive.get('provider_rate_limit_base_backoff_sec'), 'rate_limit_base_backoff')
+    rate_max = finite(adaptive.get('provider_rate_limit_max_backoff_sec'), 'rate_limit_max_backoff')
+    other_base = finite(adaptive.get('provider_other_failure_base_backoff_sec'), 'other_failure_base_backoff')
+    multiplier = finite(adaptive.get('refresh_failure_backoff_multiplier'), 'refresh_failure_backoff_multiplier')
+    if rate_base < minimum or rate_max < rate_base or other_base < minimum or multiplier < 1.0 or multiplier > 8.0:
+        raise Era63EError('ADAPTIVE_BACKOFF_BOUNDS_INVALID')
+
+
+def classify_refresh_error(exc: Exception) -> str:
+    text = f'{type(exc).__name__}:{exc}'.upper()
+    if 'HTTP_429' in text or 'RATE_LIMIT' in text or 'TOO MANY REQUESTS' in text:
+        return 'PROVIDER_RATE_LIMIT'
+    if 'TIMEOUT' in text or 'TIMED OUT' in text:
+        return 'PROVIDER_TIMEOUT'
+    if 'HTTP_5' in text or 'URLERROR' in text or 'CONNECTION' in text:
+        return 'PROVIDER_TRANSIENT_NETWORK'
+    return 'PROVIDER_OR_DATA_FAILURE'
+
+
+def refresh_backoff_seconds(config: dict[str, Any], consecutive_failures: int, error_class: str) -> float:
+    adaptive = config['adaptive_refresh']
+    if error_class == 'PROVIDER_RATE_LIMIT':
+        base = float(adaptive['provider_rate_limit_base_backoff_sec'])
+    else:
+        base = float(adaptive['provider_other_failure_base_backoff_sec'])
+    maximum = float(adaptive['provider_rate_limit_max_backoff_sec'])
+    multiplier = float(adaptive['refresh_failure_backoff_multiplier'])
+    exponent = max(0, int(consecutive_failures) - 1)
+    return min(maximum, base * (multiplier ** exponent))
 
 
 class RpcClient:
@@ -216,6 +245,9 @@ def block_event(block: dict[str, Any]) -> dict[str, Any]:
 
 def refresh_reason(event: dict[str, Any], state: dict[str, Any], config: dict[str, Any], now_monotonic: float) -> str | None:
     adaptive = config['adaptive_refresh']
+    backoff_until = float(state.get('refresh_backoff_until_monotonic', 0.0) or 0.0)
+    if now_monotonic < backoff_until:
+        return None
     last_refresh = float(state.get('last_full_refresh_monotonic', 0.0))
     elapsed = now_monotonic - last_refresh if last_refresh else float('inf')
     minimum = float(adaptive['minimum_full_market_refresh_sec'])
@@ -275,6 +307,10 @@ class AlwaysOnRuntime:
             'block_event_count': 0,
             'full_refresh_count': 0,
             'refresh_failure_count': 0,
+            'consecutive_refresh_failures': 0,
+            'refresh_backoff_until_monotonic': 0.0,
+            'refresh_backoff_until_utc': None,
+            'last_refresh_error_class': None,
             'last_full_refresh_at_utc': None,
             'last_full_refresh_monotonic': 0.0,
             'last_refresh_reason': None,
@@ -322,6 +358,9 @@ class AlwaysOnRuntime:
             'block_event_count': snapshot.get('block_event_count'),
             'full_refresh_count': snapshot.get('full_refresh_count'),
             'refresh_in_progress': snapshot.get('refresh_in_progress'),
+            'consecutive_refresh_failures': snapshot.get('consecutive_refresh_failures'),
+            'refresh_backoff_until_utc': snapshot.get('refresh_backoff_until_utc'),
+            'last_refresh_error_class': snapshot.get('last_refresh_error_class'),
             'last_refresh_result': snapshot.get('last_refresh_result'),
             'paper_runtime': False,
             'live_trade': False,
@@ -354,12 +393,25 @@ class AlwaysOnRuntime:
                 self.state['last_full_refresh_monotonic'] = time.monotonic()
                 self.state['last_refresh_reason'] = reason
                 self.state['last_refresh_result'] = result
+                self.state['consecutive_refresh_failures'] = 0
+                self.state['refresh_backoff_until_monotonic'] = 0.0
+                self.state['refresh_backoff_until_utc'] = None
+                self.state['last_refresh_error_class'] = None
         except Exception as exc:
+            error_class = classify_refresh_error(exc)
             with self.lock:
                 self.state['refresh_failure_count'] += 1
+                self.state['consecutive_refresh_failures'] += 1
+                consecutive = int(self.state['consecutive_refresh_failures'])
+                backoff_sec = refresh_backoff_seconds(self.config, consecutive, error_class)
+                self.state['refresh_backoff_until_monotonic'] = time.monotonic() + backoff_sec
+                self.state['refresh_backoff_until_utc'] = (datetime.now(timezone.utc) + timedelta(seconds=backoff_sec)).isoformat()
+                self.state['last_refresh_error_class'] = error_class
                 self.state['last_refresh_reason'] = reason
                 self.state['last_refresh_result'] = {
                     'status': 'FAIL_CLOSED',
+                    'error_class': error_class,
+                    'backoff_sec': backoff_sec,
                     'error': f'{type(exc).__name__}:{exc}',
                 }
         finally:
@@ -369,6 +421,9 @@ class AlwaysOnRuntime:
 
     def start_refresh(self, reason: str) -> bool:
         with self.lock:
+            current = time.monotonic()
+            if current < float(self.state.get('refresh_backoff_until_monotonic', 0.0) or 0.0):
+                return False
             if self.state['refresh_in_progress']:
                 return False
             self.state['refresh_in_progress'] = True

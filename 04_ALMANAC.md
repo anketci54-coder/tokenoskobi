@@ -6301,3 +6301,19 @@ NEXT_SAFE_STEP=ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL
 - Artifact: `data/control/era63e_always_on_market_runtime_binding_v1.json`
 - Next: `ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE`
 - UTC: `2026-07-23T09:38:28.161609+00:00`
+
+<!-- ERA63E_RATE_LIMIT_RELIABILITY_REPAIR -->
+## ERA63E RATE-LIMIT RELIABILITY REPAIR
+
+- Status: `APPLIED_VERIFIED_OBSERVATION_PENDING`
+- Root cause: `GECKOTERMINAL HTTP 429`
+- Pre-repair failure rate: `0.164835`
+- Request interval: `2.5 sec`
+- Refresh bounds: `300..900 sec`
+- Rate-limit backoff: `900..3600 sec`
+- Tests: `69/69_PASS`
+- Always-on BSC service: `ACTIVE_RETAINED`
+- Financial authority: `0`
+- Artifact: `data/control/era63e_rate_limit_reliability_repair_v1.json`
+- Next: `ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE`
+- UTC: `2026-07-23T11:32:37.980101+00:00`
