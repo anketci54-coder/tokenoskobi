@@ -2,26 +2,19 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA63
-CURRENT_STAGE=ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION
-CURRENT_STATUS=LOCAL_TECHNICAL_DEX_EXECUTION_VALIDATED
-NEXT_SAFE_STEP=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
+CURRENT_STAGE=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
+CURRENT_STATUS=READONLY_REAL_MARKET_TECHNICAL_RUNTIME_ACTIVE
+NEXT_SAFE_STEP=ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
 
-ERA63C completed the deterministic technical-analysis and DEX-execution layer.
+ERA63D bound a real BSC market and technical-analysis observation runtime.
 
 Evidence:
 
-- `data/control/era63c_technical_dex_execution_validation_v1.json`
-- `data/replay/era63c_technical_dex_execution_replay_matrix_result_v1.json`
-- `reports/LATEST_ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION.md`
+- `data/control/era63d_real_market_technical_runtime_binding_v1.json`
+- `reports/LATEST_ERA63D_REAL_MARKET_TECHNICAL_RUNTIME_BINDING.md`
+- Dynamic latest snapshot: `runtime/era63d/latest_real_market_technical_snapshot_v1.json`
+- Dynamic panel readmodel: `active_panel_8096/current/data/technical_center_live_readmodel_v1.json`
 
-Locked continuation:
+The timer runs every 15 minutes. It is observation-only. It cannot create paper positions, real orders, wallet connections, signatures or broadcasts.
 
-1. ERA63D real market/candle/pool/route/mempool binding
-2. ERA63E observation and technical-line closure
-3. ERA64 successful-wallet statistics and sub-wallet clustering
-4. ERA65 onchain and CEX-to-DEX whale flows
-5. ERA66 news, airdrop, ICO/IDO and launch intelligence
-6. ERA67 coordinated fusion
-7. ERA68 unattended coordinated paper runtime
-
-No real wallet, signing, order or broadcast authority is enabled.
+ERA63E must verify natural timer cycles, freshness, provider failure behavior and panel continuity, then close the technical foundation before ERA64 successful-wallet statistics and clustering.

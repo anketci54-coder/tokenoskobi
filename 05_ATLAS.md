@@ -659,3 +659,23 @@ Rules:
 - Dynamic MEV and sandwich expected loss are deducted from edge before sizing.
 - Paper runtime is not enabled before all required lines are coordinated.
 <!-- V4_COORDINATED_INTELLIGENCE_FLOW_END -->
+
+<!-- ERA63D_REAL_MARKET_TECHNICAL_RUNTIME:START -->
+## ERA63D REAL MARKET TECHNICAL RUNTIME CONTRACT
+
+```text
+PROVIDER=GECKOTERMINAL_KEYLESS_PUBLIC
+FIRST_CHAIN=BSC
+MODE=READ_ONLY_OBSERVATION
+INTERVAL=15_MINUTES
+REAL_OHLCV=true
+REAL_POOL_LIQUIDITY=true
+DIRECT_TOKEN_TAX=false
+DIRECT_MEMPOOL=false
+PAPER_RUNTIME=false
+LIVE_TRADE=DISABLED
+NEXT=ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
+```
+
+The runtime may calculate technical and DEX execution evidence, but unknown token tax, proxy-only mempool data, estimated reserves and missing coordinated intelligence block paper action.
+<!-- ERA63D_REAL_MARKET_TECHNICAL_RUNTIME:END -->

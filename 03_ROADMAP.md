@@ -3,9 +3,9 @@
 ```text
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA63
-CURRENT_STAGE=ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION
-ERA63_STATUS=LOCAL_TECHNICAL_DEX_EXECUTION_VALIDATED
-NEXT_SAFE_STEP=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
+CURRENT_STAGE=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
+ERA63_STATUS=READONLY_REAL_MARKET_TECHNICAL_RUNTIME_ACTIVE
+NEXT_SAFE_STEP=ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
 ```
 
 ## LOCKED V4 EXECUTION ORDER
@@ -25,12 +25,12 @@ ERA68=UNATTENDED_COORDINATED_PAPER_RUNTIME
 ERA63A=REAL_GAP_AUDIT=COMPLETED
 ERA63B=BASE_PAPER_CORE=COMPLETED_13_OF_13
 ERA63C=TECHNICAL_DEX_EXECUTION=COMPLETED_34_OF_34_AND_8_OF_8
-ERA63D=REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING=NEXT
-ERA63E=REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
+ERA63D=REAL_BSC_MARKET_TECHNICAL_READONLY_RUNTIME=ACTIVE_VERIFIED
+ERA63E=NATURAL_TIMER_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE=NEXT
 ```
 
-ERA63C includes multi-timeframe technical analysis, AMM price impact, dynamic MEV and sandwich simulation, route selection, token tax, adaptive sizing and execution protection.
+ERA63D reads real BSC pool and OHLCV data through a bounded keyless provider runtime every 15 minutes. It writes technical observation and panel readmodels only.
 
-Paper runtime remains disabled until real data binding and the coordinated V4 intelligence sequence are complete.
+Direct token-tax and direct mempool measurements remain fail-closed data gaps. Paper position writes and all real financial authority remain disabled.
 
-ERA69-ERA80 are reserved only for evidence-proven gaps. They are not mandatory placeholders.
+ERA69-ERA80 remain reserved only for evidence-proven gaps.
