@@ -700,3 +700,29 @@ RESIDENT SYSTEMD SERVICE
 - Full external market refresh is adaptive and bounded.
 - The producer supplies context only and cannot create paper/live trade, wallet, signing, order or broadcast authority.
 <!-- ERA63E_ALWAYS_ON_RUNTIME:END -->
+
+<!-- ERA64_SUCCESSFUL_WALLET_INTELLIGENCE_FLOW:BEGIN -->
+## ERA64 SUCCESSFUL WALLET INTELLIGENCE FLOW
+
+```text
+OBSERVED WALLET + VERIFIED IDENTITY EVIDENCE
+→ MAIN / SUB-WALLET / FUNDING RELATIONSHIP GRAPH
+→ TOKEN POSITION-CYCLE RECONSTRUCTION
+→ BLOCK-TIME / MARKET-TIME / PRICE / LIQUIDITY ALIGNMENT
+→ COST-ADJUSTED RETURN AND PNL
+→ WIN RATE / ROI / MEDIAN RETURN / DRAWDOWN
+→ RISK-ADJUSTED PERFORMANCE / CONSISTENCY
+→ ENTRY AND EXIT QUALITY
+→ CLUSTER CONFIDENCE + PROVENANCE
+→ SUCCESSFUL-WALLET CONTEXT
+→ ERA65 FLOW INTELLIGENCE
+→ ERA67 COORDINATED FUSION
+```
+
+Rules:
+
+- A wallet or cluster is never classified as successful from a single trade or raw balance.
+- Identity, funding relationships, position cycles, market-time alignment, costs and provenance are mandatory evidence.
+- Cluster confidence is explicit and fail-closed when evidence is incomplete or conflicting.
+- Successful-wallet context cannot create paper/live trade, wallet, signing, order or broadcast authority.
+<!-- ERA64_SUCCESSFUL_WALLET_INTELLIGENCE_FLOW:END -->

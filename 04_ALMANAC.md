@@ -6333,3 +6333,20 @@ NEXT_SAFE_STEP=ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL
 - Artifact: `data/control/era63e_continuous_observation_and_technical_closure_v1.json`
 - Next: `ERA64_SUCCESSFUL_WALLET_STATS_AND_CLUSTERING_OPENING_DECISION`
 - UTC: `2026-07-23T14:47:10.323870+00:00`
+
+<!-- ERA64A_OPENING_AND_EVIDENCE_AUDIT:BEGIN -->
+## ERA64A OPENING, SCOPE LOCK AND READ-ONLY EVIDENCE AUDIT
+
+- Status: `OPEN_SCOPE_LOCKED_AUDIT_COMPLETED`
+- Title: `Successful Wallet Intelligence and Statistical Performance`
+- Dependency: `ERA63=CLOSED_VERIFIED_GITHUB_SEALED`
+- Artifact: `data/control/era64a_opening_scope_and_evidence_audit_v1.json`
+- Implementation authorized: `false`
+- Network access authorized: `false`
+- Database write authorized: `false`
+- Runtime/panel/service/timer mutation authorized: `false`
+- Real financial authority: `0`
+- Core blocker count: `3`
+- Next: `ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION_BUILD_REQUIRES_USER_APPROVAL`
+- UTC: `2026-07-23T16:47:43.309270+00:00`
+<!-- ERA64A_OPENING_AND_EVIDENCE_AUDIT:END -->
