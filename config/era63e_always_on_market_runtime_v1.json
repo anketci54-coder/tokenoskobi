@@ -1,0 +1,55 @@
+{
+  "schema": "tokenoskobi.era63e.always_on_market_runtime_config.v1",
+  "mode": "ALWAYS_ON_BLOCK_EVENT_DRIVEN_READ_ONLY_OBSERVATION",
+  "runtime_enabled": true,
+  "always_on_enabled": true,
+  "fixed_timer_enabled": false,
+  "observation_only": true,
+  "paper_runtime_enabled": false,
+  "paper_position_write_enabled": false,
+  "real_trade_enabled": false,
+  "wallet_enabled": false,
+  "signing_enabled": false,
+  "real_order_enabled": false,
+  "broadcast_enabled": false,
+  "policy_expansion_enabled": false,
+  "rpc": {
+    "chain_id": 56,
+    "endpoints": [
+      "https://bsc-dataseed.bnbchain.org",
+      "https://bsc-dataseed-public.bnbchain.org",
+      "https://bsc-dataseed.nariox.org",
+      "https://bsc-dataseed.defibit.io"
+    ],
+    "allowed_hosts": [
+      "bsc-dataseed.bnbchain.org",
+      "bsc-dataseed-public.bnbchain.org",
+      "bsc-dataseed.nariox.org",
+      "bsc-dataseed.defibit.io"
+    ],
+    "request_timeout_sec": 8,
+    "retries_per_endpoint": 1,
+    "head_poll_interval_sec": 0.8,
+    "max_catchup_blocks": 64,
+    "heartbeat_max_sec": 10
+  },
+  "adaptive_refresh": {
+    "minimum_full_market_refresh_sec": 45,
+    "maximum_full_market_refresh_sec": 180,
+    "high_transaction_count": 250,
+    "high_gas_utilization": 0.75,
+    "transaction_count_delta": 60,
+    "block_interval_anomaly_sec": 8,
+    "market_refresh_on_start": true,
+    "refresh_thread_enabled": true
+  },
+  "inputs": {
+    "era63d_runtime_config": "config/era63d_market_technical_runtime_v1.json"
+  },
+  "outputs": {
+    "state": "runtime/era63e/always_on_state_v1.json",
+    "health": "runtime/era63e/health_v1.json",
+    "block_events_jsonl": "runtime/era63e/block_events_v1.jsonl",
+    "max_jsonl_bytes": 52428800
+  }
+}

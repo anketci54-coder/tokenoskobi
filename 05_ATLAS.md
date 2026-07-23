@@ -679,3 +679,22 @@ NEXT=ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
 
 The runtime may calculate technical and DEX execution evidence, but unknown token tax, proxy-only mempool data, estimated reserves and missing coordinated intelligence block paper action.
 <!-- ERA63D_REAL_MARKET_TECHNICAL_RUNTIME:END -->
+
+<!-- ERA63E_ALWAYS_ON_RUNTIME:START -->
+## ERA63E ALWAYS-ON EVENT RUNTIME
+
+```text
+RESIDENT SYSTEMD SERVICE
+→ BSC NEW BLOCK HEAD OBSERVATION
+→ BLOCK PRESSURE / GAS / TRANSACTION CHANGE STATE
+→ ADAPTIVE TRIGGER
+→ REAL POOL + MARKET + TECHNICAL REFRESH
+→ TECHNICAL + MEV + SANDWICH + ROUTE READMODEL
+```
+
+- No fixed 15-minute runtime clock.
+- Service remains resident and restarts automatically.
+- Every observed BSC block updates rolling state.
+- Full external market refresh is adaptive and bounded to protect the free provider.
+- Paper/live trade, wallet, signing, order and broadcast authority remain disabled.
+<!-- ERA63E_ALWAYS_ON_RUNTIME:END -->

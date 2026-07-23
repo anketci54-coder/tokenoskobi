@@ -2,19 +2,18 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA63
-CURRENT_STAGE=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
-CURRENT_STATUS=READONLY_REAL_MARKET_TECHNICAL_RUNTIME_ACTIVE
-NEXT_SAFE_STEP=ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
+CURRENT_STAGE=ERA63E_ADAPTIVE_ALWAYS_ON_MARKET_RUNTIME
+CURRENT_STATUS=ALWAYS_ON_BLOCK_EVENT_RUNTIME_ACTIVE
+NEXT_SAFE_STEP=ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
 
-ERA63D bound a real BSC market and technical-analysis observation runtime.
+The previous 15-minute timer is disabled. A resident systemd service now watches BSC block heads continuously and launches bounded full-market technical refreshes from adaptive block-pressure triggers.
 
 Evidence:
+- `data/control/era63e_always_on_market_runtime_binding_v1.json`
+- `reports/LATEST_ERA63E_ALWAYS_ON_MARKET_RUNTIME.md`
+- `runtime/era63e/always_on_state_v1.json`
+- `runtime/era63e/block_events_v1.jsonl`
 
-- `data/control/era63d_real_market_technical_runtime_binding_v1.json`
-- `reports/LATEST_ERA63D_REAL_MARKET_TECHNICAL_RUNTIME_BINDING.md`
-- Dynamic latest snapshot: `runtime/era63d/latest_real_market_technical_snapshot_v1.json`
-- Dynamic panel readmodel: `active_panel_8096/current/data/technical_center_live_readmodel_v1.json`
+Next: observe continuous real block/market cycles, verify freshness and continuity, close ERA63 technical line, then open ERA64 successful-wallet statistics and clustering.
 
-The timer runs every 15 minutes. It is observation-only. It cannot create paper positions, real orders, wallet connections, signatures or broadcasts.
-
-ERA63E must verify natural timer cycles, freshness, provider failure behavior and panel continuity, then close the technical foundation before ERA64 successful-wallet statistics and clustering.
+No paper/live trade or real financial authority is enabled.

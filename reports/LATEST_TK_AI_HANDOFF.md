@@ -1,18 +1,19 @@
-# TOKENOSKOBI LATEST AI HANDOFF
+# 07 PROJECT HANDOFF - TOKENOSKOBI
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA63
-CURRENT_STAGE=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
-CURRENT_STATUS=READONLY_REAL_MARKET_TECHNICAL_RUNTIME_ACTIVE
-LAST_COMPLETED=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
-NEXT_SAFE_STEP=ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
+CURRENT_STAGE=ERA63E_ADAPTIVE_ALWAYS_ON_MARKET_RUNTIME
+CURRENT_STATUS=ALWAYS_ON_BLOCK_EVENT_RUNTIME_ACTIVE
+NEXT_SAFE_STEP=ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE
 
-CONTROL_ARTIFACT=data/control/era63d_real_market_technical_runtime_binding_v1.json
-REPORT=reports/LATEST_ERA63D_REAL_MARKET_TECHNICAL_RUNTIME_BINDING.md
-REAL_MARKET_PROVIDER=GECKOTERMINAL_KEYLESS_PUBLIC
-REAL_POOL_COUNT=1
-OBSERVATION_TIMER=enabled/active
-PAPER_RUNTIME=false
-LIVE_TRADE=DISABLED
+The previous 15-minute timer is disabled. A resident systemd service now watches BSC block heads continuously and launches bounded full-market technical refreshes from adaptive block-pressure triggers.
 
-LOCKED_CONTINUATION=ERA63E→ERA64→ERA65→ERA66→ERA67→ERA68
+Evidence:
+- `data/control/era63e_always_on_market_runtime_binding_v1.json`
+- `reports/LATEST_ERA63E_ALWAYS_ON_MARKET_RUNTIME.md`
+- `runtime/era63e/always_on_state_v1.json`
+- `runtime/era63e/block_events_v1.jsonl`
+
+Next: observe continuous real block/market cycles, verify freshness and continuity, close ERA63 technical line, then open ERA64 successful-wallet statistics and clustering.
+
+No paper/live trade or real financial authority is enabled.
