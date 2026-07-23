@@ -623,3 +623,39 @@ FRESH MARKET DATA -> TECHNICAL/EDGE -> RISK ENGINE -> SIZING -> SIMULATED FILL -
 
 Paper authority is simulation only. Real wallet, signing, broadcast and capital authority remain zero. Risk Engine has veto.
 <!-- ERA63_PAPER_PATH:END -->
+
+<!-- V4_COORDINATED_INTELLIGENCE_FLOW_START -->
+## COORDINATED V4 INTELLIGENCE AND PAPER DECISION FLOW
+
+```text
+REAL MARKET / CANDLES / DEX POOLS / MEMPOOL
+→ MULTI-TIMEFRAME TECHNICAL ANALYSIS
+→ AMM PRICE IMPACT + MEV + SANDWICH + TOKEN TAX + ROUTE RISK
+
+SUCCESSFUL WALLET PERFORMANCE
+→ MAIN WALLET + SUB-WALLET + FUNDING + CLUSTER GRAPH
+
+ONCHAIN + CEX-TO-DEX / DEX-TO-CEX FLOW
+→ WHALE + LIQUIDITY + HOLDER + BRIDGE + POST-FLOW PRICE EFFECT
+
+NEWS + AIRDROP + ICO/IDO + LAUNCH + LISTING + UNLOCK
+→ IDENTITY + SOURCE TRUST + FRESHNESS + EVENT EVIDENCE
+
+ALL LINES
+→ TOKEN / PAIR / CHAIN / WALLET_CLUSTER / EVENT / TIMESTAMP ALIGNMENT
+→ OPPORTUNITY ENGINE
+→ PROSECUTOR
+→ RISK ENGINE VETO
+→ ZERO-REAL-FUNDS PAPER DECISION
+→ OUTCOME MEMORY
+```
+
+Rules:
+
+- No intelligence line acts alone.
+- Successful-wallet activity is measured statistically before influence.
+- Whale scope includes CEX-to-DEX movement and related sub-wallets, not only large transfers.
+- News includes airdrop, snapshot, ICO, IDO, launchpad, TGE, listing, unlock and vesting.
+- Dynamic MEV and sandwich expected loss are deducted from edge before sizing.
+- Paper runtime is not enabled before all required lines are coordinated.
+<!-- V4_COORDINATED_INTELLIGENCE_FLOW_END -->

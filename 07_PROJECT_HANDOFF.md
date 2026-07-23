@@ -2,22 +2,26 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA63
-CURRENT_STAGE=ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD
-CURRENT_STATUS=LOCAL_CORE_BUILD_VERIFIED
-NEXT_SAFE_STEP=ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION
+CURRENT_STAGE=ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION
+CURRENT_STATUS=LOCAL_TECHNICAL_DEX_EXECUTION_VALIDATED
+NEXT_SAFE_STEP=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
 
-ERA63A gap audit is complete.
+ERA63C completed the deterministic technical-analysis and DEX-execution layer.
 
-ERA63B built one reusable deterministic paper core covering all eight mandatory capability gaps. The build passed 13/13 tests and one CLI fixture.
+Evidence:
 
-Paper calculation exists. Persistent or unattended paper runtime is not enabled yet.
+- `data/control/era63c_technical_dex_execution_validation_v1.json`
+- `data/replay/era63c_technical_dex_execution_replay_matrix_result_v1.json`
+- `reports/LATEST_ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION.md`
 
-ERA63C must validate:
+Locked continuation:
 
-1. end-to-end deterministic replay,
-2. fee/slippage/MEV/gas boundary behavior,
-3. paper-versus-real authority separation,
-4. extreme volatility, stale data and low-liquidity blocks,
-5. accounting and latency limits.
+1. ERA63D real market/candle/pool/route/mempool binding
+2. ERA63E observation and technical-line closure
+3. ERA64 successful-wallet statistics and sub-wallet clustering
+4. ERA65 onchain and CEX-to-DEX whale flows
+5. ERA66 news, airdrop, ICO/IDO and launch intelligence
+6. ERA67 coordinated fusion
+7. ERA68 unattended coordinated paper runtime
 
-No real wallet, signing, order or broadcast authority exists.
+No real wallet, signing, order or broadcast authority is enabled.

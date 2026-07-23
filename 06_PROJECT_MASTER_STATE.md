@@ -1,41 +1,38 @@
 # 06 PROJECT MASTER STATE - TOKENOSKOBI
 
-## CURRENT POSITION
-
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA63
-CURRENT_TITLE=Accelerated Paper Trading Core
-CURRENT_STAGE=ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD
-CURRENT_STATUS=LOCAL_CORE_BUILD_VERIFIED
-LAST_CLOSED_ERA=ERA62
-NEXT_SAFE_STEP=ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION
+CURRENT_STAGE=ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION
+CURRENT_STATUS=LOCAL_TECHNICAL_DEX_EXECUTION_VALIDATED
+NEXT_SAFE_STEP=ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING
 
-## ERA63B BUILD
+## VERIFIED
 
-CORE_ENGINE=tools/era63_paper_trading_core_v1.py
-CORE_CONFIG=config/era63_paper_trading_core_v1.json
-CORE_TEST=tests/test_era63b_paper_trading_core_v1.py
-BUILD_ARTIFACT=data/control/era63b_accelerated_paper_trading_core_build_v1.json
-TESTS=13/13_PASS
+- ERA63B regression: `13/13_PASS`
+- ERA63C technical/execution tests: `21/21_PASS`
+- Combined tests: `34/34_PASS`
+- End-to-end replay matrix: `8/8_PASS`
 
-BUILT_CAPABILITIES:
+## ERA63C CAPABILITY
 
-- Market/candle validation and liquidity gate
-- Technical indicators: SMA, RSI, ATR, volatility
-- Gross and cost-adjusted edge
-- Bounded position sizing
-- Simulated paper fill
-- Fee, spread, slippage, MEV and gas model
-- Portfolio P&L and drawdown
-- Stage and total latency
+- Multi-timeframe EMA/RSI/ATR/ADX/MACD/Bollinger/volume/OBV/support-resistance
+- Constant-product AMM price impact
+- Dynamic sandwich probability
+- Front-run/back-run attack simulation
+- Expected sandwich and other MEV loss
+- Buy/sell token tax
+- Route and multi-hop selection
+- Adaptive sizing and execution protections
 
-## AUTHORITY STATE
+## CURRENT BOUNDARY
 
 PAPER_CALCULATION=true
-PAPER_RUNTIME=DISABLED_PENDING_ERA63C_VALIDATION
+PAPER_RUNTIME=false
 UNATTENDED_RUNTIME=false
 LIVE_TRADE=DISABLED
 REAL_WALLET=false
 REAL_SIGNING=false
 REAL_ORDER=false
 REAL_BROADCAST=false
+
+Real market, pool, route and mempool binding is the next technical step.
