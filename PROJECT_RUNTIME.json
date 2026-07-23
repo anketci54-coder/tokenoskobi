@@ -114,7 +114,7 @@
     "critical_capability_required": true,
     "critical_reserved_session_slots": 4,
     "current_era": "ERA63",
-    "current_stage": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
+    "current_stage": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
     "current_version_line": "V4",
     "emergency_patch_chain_removed": true,
     "empty_source_selection_behavior": "SUCCESS_NOOP_FAIL_CLOSED",
@@ -311,7 +311,7 @@
       "status": "MERGED_AND_POST_MERGE_SEALED",
       "updated_at_utc": "2026-07-15T04:54:32.381505+00:00"
     },
-    "next_safe_step": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
+    "next_safe_step": "ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION",
     "option_b_authorized": false,
     "p0_f1_closed": true,
     "phase9_observation_timer_active": false,
@@ -463,7 +463,9 @@
     "era62c_control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
     "era62_closed": true,
     "era62d_opened": false,
-    "era63_opened": true
+    "era63_opened": true,
+    "era63b_core_build_verified": true,
+    "paper_runtime_enabled": false
   },
   "canonical_workflow_rules": {
     "commit_policy": {
@@ -963,8 +965,8 @@
     "timestamp": "2026-07-22T21:10:08Z"
   },
   "last_artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
-  "last_completed": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
-  "last_result": "COMPLETED_READONLY",
+  "last_completed": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
+  "last_result": "ERA63B_CORE_BUILD_13_OF_13_PASS",
   "mode": "ERA55A9_LEDGER_WRITER_TEMP_COPY_INTEGRATION_OK",
   "news_active_panel_data_binding_state": {
     "artifact": "data/control/news_active_panel_data_binding_single_block_noapi_v1.json",
@@ -1252,16 +1254,12 @@
     "summary_market": 39,
     "warnings": []
   },
-  "next_safe_step": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
+  "next_safe_step": "ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION",
   "open_risks": [
-    "PAPER_BLOCKER:MARKET_DATA_AND_LIQUIDITY",
-    "PAPER_BLOCKER:TECHNICAL_ANALYSIS_RUNTIME",
-    "PAPER_BLOCKER:OPPORTUNITY_AND_EDGE_ENGINE",
-    "PAPER_BLOCKER:POSITION_SIZING_AND_RISK_ENVELOPE",
-    "PAPER_BLOCKER:PAPER_ORDER_AND_FILL_ENGINE",
-    "PAPER_BLOCKER:FEE_SLIPPAGE_MEV_COST_MODEL",
-    "PAPER_BLOCKER:PORTFOLIO_PNL_DRAWDOWN_MEMORY",
-    "PAPER_BLOCKER:END_TO_END_LATENCY_MEASUREMENT"
+    "ERA63C_REQUIRED:END_TO_END_REPLAY",
+    "ERA63C_REQUIRED:COST_MODEL_BOUNDARY_VALIDATION",
+    "ERA63C_REQUIRED:PAPER_AUTHORITY_SPLIT_VALIDATION",
+    "ERA63D_REQUIRED:UNATTENDED_RUNTIME_BINDING"
   ],
   "post_era54_hot_ingress_bounded_runtime_state": {
     "active_wrapper": "tools/news_radar_refresh_runner_v1.py",
@@ -1321,18 +1319,27 @@
   "source": "news_v3_batch_01_runtime_direction_sync_v1",
   "status": "ACTIVE",
   "updated_at": "2026-07-22T22:47:23.236370+00:00",
-  "updated_at_utc": "2026-07-22T22:47:23.236370+00:00",
+  "updated_at_utc": "2026-07-23T07:56:06.638035+00:00",
   "work_unit": {
     "id": "ERA63_ACCELERATED_PAPER_TRADING_CORE",
     "title": "Accelerated Paper Trading Core",
-    "status": "OPEN_GAP_AUDIT_COMPLETED",
-    "next_substep": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD"
+    "status": "LOCAL_CORE_BUILD_VERIFIED",
+    "next_substep": "ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION",
+    "completed_substeps": [
+      "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
+      "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD"
+    ],
+    "paper_trade_currently": "DISABLED_PENDING_ERA63C_VALIDATION",
+    "live_trade": "DISABLED",
+    "wallet_authority": 0,
+    "signing_authority": 0,
+    "real_order_create_authority": 0
   },
   "current_version": "V4",
-  "current_stage": "ERA63A_ACCELERATED_PAPER_TRADING_GAP_AUDIT",
+  "current_stage": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
   "current_version_label": "Autonomous Intelligence and Paper-Trading Proving Ground",
   "current_era_title": "Accelerated Paper Trading Core",
-  "current_status": "ACTIVE",
+  "current_status": "LOCAL_CORE_BUILD_VERIFIED",
   "era62_final_closure": {
     "status": "CLOSED_VERIFIED_GITHUB_SEALED",
     "closure_head": "4fc9e0f977299f2a1273bae54a994b18e8298f00",
@@ -1372,5 +1379,61 @@
       "PORTFOLIO_PNL_DRAWDOWN_MEMORY",
       "END_TO_END_LATENCY_MEASUREMENT"
     ]
+  },
+  "era63b_core_build": {
+    "schema": "tokenoskobi.era63b.paper_core_build.v1",
+    "era": "ERA63",
+    "stage": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
+    "status": "LOCAL_CORE_BUILD_VERIFIED",
+    "built_at_utc": "2026-07-23T07:56:06.638035+00:00",
+    "baseline_head": "5fef1db853999b6e7c448fdf35d58e2f700420f2",
+    "files": {
+      "config": "config/era63_paper_trading_core_v1.json",
+      "engine": "tools/era63_paper_trading_core_v1.py",
+      "tests": "tests/test_era63b_paper_trading_core_v1.py",
+      "fixture": "data/replay/era63b_paper_core_fixture_v1.json",
+      "sample_result": "data/replay/era63b_paper_core_sample_result_v1.json"
+    },
+    "sha256": {
+      "config": "28abc13b10dc3891776a3f4b1627f559bd7b819ef5115f325a9320a230bf4f68",
+      "engine": "cd4d720399d12c6591d8288500bca6f9f4c97868834b9ee5d2ec729cdaaf5885",
+      "tests": "eaa7e99b6613c1db35f2b14cc99e267c1b3cdab4f2128bd2571fdfd9e2b0fb46",
+      "fixture": "8b499a34e15a0e1403a397d0ef6fd85dca1de914d753abbc7aae5729e4c8b758",
+      "sample_result": "5afe2dde88e295904b860494505f99e209e92955464bd0f2ded4fa6f595168fc"
+    },
+    "verification": {
+      "syntax": "PASS",
+      "unit_tests": "13/13_PASS",
+      "cli_fixture": "PASS",
+      "sample_action": "BUY",
+      "sample_fill": "SIMULATED_FILLED",
+      "sample_total_latency_ms": 0.12817233800888062
+    },
+    "capabilities_built": [
+      "MARKET_DATA_VALIDATION_AND_LIQUIDITY_GATE",
+      "TECHNICAL_ANALYSIS_RUNTIME",
+      "OPPORTUNITY_AND_NET_EDGE_ENGINE",
+      "POSITION_SIZING_AND_RISK_ENVELOPE",
+      "PAPER_ORDER_AND_FILL_SIMULATION",
+      "FEE_SLIPPAGE_MEV_GAS_COST_MODEL",
+      "PORTFOLIO_PNL_AND_DRAWDOWN",
+      "END_TO_END_STAGE_LATENCY"
+    ],
+    "authority": {
+      "paper_calculation": true,
+      "paper_runtime_enabled": false,
+      "unattended_runtime_enabled": false,
+      "real_trade": false,
+      "wallet": false,
+      "signing": false,
+      "real_order": false,
+      "broadcast": false
+    },
+    "production_binding": false,
+    "database_mutation": false,
+    "service_mutation": false,
+    "timer_mutation": false,
+    "network_access": false,
+    "next_safe_step": "ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION"
   }
 }
