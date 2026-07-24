@@ -438,18 +438,23 @@ def fetch_enrichment(client: RpcClient,source: dict[str,Any]) -> dict[str,Any]:
     effective_value=receipt.get('effectiveGasPrice')
     raw_transaction=''
     gas_price_source='RECEIPT_EFFECTIVE_GAS_PRICE'
-    if effective_value in (None,''):
+    receipt_effective_gas_price=0
+    if effective_value not in (None,''):
+        receipt_effective_gas_price=as_hex_int(effective_value,'receipt.effectiveGasPrice')
+    if receipt_effective_gas_price>0:
+        effective_gas_price=receipt_effective_gas_price
+    else:
         transaction=client.call('eth_getTransactionByHash',[tx_hash])
         if not isinstance(transaction,dict):
             raise Era64JError(f'TRANSACTION_NOT_OBJECT:{tx_hash}')
         if normalize_hash(transaction.get('hash'))!=tx_hash:
             raise Era64JError(f'TRANSACTION_HASH_MISMATCH:{tx_hash}')
-        effective_value=transaction.get('gasPrice')
+        transaction_gas_price=as_hex_int(transaction.get('gasPrice'),'transaction.gasPrice')
+        if transaction_gas_price<=0:
+            raise Era64JError(f'TRANSACTION_GAS_PRICE_INVALID:{tx_hash}')
+        effective_gas_price=transaction_gas_price
         raw_transaction=json.dumps(transaction,sort_keys=True,separators=(',',':'),ensure_ascii=True)
         gas_price_source='TRANSACTION_GAS_PRICE_FALLBACK'
-    effective_gas_price=as_hex_int(effective_value,'effectiveGasPrice')
-    if effective_gas_price<=0:
-        raise Era64JError(f'EFFECTIVE_GAS_PRICE_INVALID:{tx_hash}')
     gas_cost=gas_used*effective_gas_price
     if gas_cost<=0:
         raise Era64JError(f'GAS_COST_INVALID:{tx_hash}')
