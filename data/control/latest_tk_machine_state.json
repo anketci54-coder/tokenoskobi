@@ -38,46 +38,79 @@
   "boot_json": {
     "assistant_behavior_rules": {
       "answer_only_asked_question": true,
+      "apply_motto_opportunity_cost_gate_before_accepting_suggestions": true,
+      "check_speed_power_security_economy_before_accepting_any_idea": true,
       "do_not_comment_unless_asked": true,
+      "do_not_count_tests_docs_or_standalone_engines_as_product_completion": true,
       "do_not_give_code_unless_requested": true,
+      "do_not_open_new_era_while_product_completion_lock_active": true,
+      "external_ai_outputs_are_advisory_not_binding": true,
+      "external_ai_outside_hot_path": true,
       "no_promises_without_proof": true,
+      "paper_findings_before_speculative_perfection": true,
       "prefer_short_direct_answers": true,
+      "red_team_advisory_not_controlling": true,
+      "reject_bloat_unless_opportunity_cost_positive": true,
+      "require_user_approval_for_any_negative_tradeoff": true,
+      "require_user_visible_acceptance_for_product_progress": true,
       "risk_analysis_before_repo_change": true,
-      "say_unknown_when_unknown": true
+      "say_unknown_when_unknown": true,
+      "use_era24f_formula_for_opportunity_cost": true
     },
     "boot_architecture": {
+      "current_state_forbidden_in_boot": true,
       "files": {
         "PROJECT_BOOT.json": "Stable identity, doctrine, architecture, hard rules and startup protocol.",
         "PROJECT_HISTORY.json": "Append-only historical timeline. Read only when historical context is required.",
-        "PROJECT_RUNTIME.json": "Current state, latest checkpoint, active work unit and next safe step. Updated after every sealed work unit."
+        "PROJECT_RUNTIME.json": "Current state, latest verified work, active or closed work unit and next safe step.",
+        "README.md": "Single-entry startup pointer. Routes each new AI window through the canonical boot protocol without copying current state."
       },
       "model": "THREE_LAYER_BOOT_SYSTEM",
       "new_window_read_order": [
+        "README.md",
+        "02_MANIFESTO.md",
         "PROJECT_BOOT.json",
         "PROJECT_RUNTIME.json",
-        "PROJECT_HISTORY.json only if needed"
+        "data/tokenoskobi_v1_v8_master_era_roadmap.json",
+        "03_ROADMAP.md",
+        "04_ALMANAC.md",
+        "05_ATLAS.md",
+        "06_PROJECT_MASTER_STATE.md",
+        "07_PROJECT_HANDOFF.md",
+        "PROJECT_HISTORY.json",
+        "01_INDEX.md"
       ],
-      "rule": "BOOT stays small and stable. RUNTIME changes every work unit. HISTORY accumulates past events."
+      "resume_guarantee": {
+        "conflict_rule": "Runtime wins over summaries; local workspace and local Git win over remote and AI memory.",
+        "goal": "Any new AI window resumes from canonical files without chat memory.",
+        "head_owner": "local_git_dynamic",
+        "state_owner": "PROJECT_RUNTIME.json"
+      },
+      "rule": "RUNTIME owns current state. BOOT owns stable identity and rules. HISTORY owns append-only historical events."
     },
     "boot_update_policy": {
-      "failure_message": "BOOT_NOT_UPDATED_CONTINUATION_UNSAFE",
-      "required_fields_on_each_update": [
-        "updated_at",
-        "current_checkpoint",
-        "last_action",
-        "next_safe_step",
-        "open_risks",
-        "work_unit"
+      "current_state_owner": "PROJECT_RUNTIME.json",
+      "do_not_update_for": [
+        "current work unit",
+        "current ERA or gate",
+        "next safe step",
+        "runtime counts",
+        "Git HEAD",
+        "timestamps",
+        "audit results",
+        "closure records"
       ],
-      "when_to_update": [
-        "after commit",
-        "after push",
-        "after remote verify",
-        "after GitHub seal",
-        "immediately before declaring work unit closed"
+      "history_owner": "PROJECT_HISTORY.json",
+      "update_only_when": [
+        "stable project identity changes",
+        "constitutional doctrine changes",
+        "stable architecture ownership changes",
+        "hard safety rules change",
+        "startup read order changes",
+        "boot contract changes"
       ]
     },
-    "boot_version": "2.0",
+    "boot_version": "3.4",
     "canonical_identity": {
       "doctrine": [
         "Defense like a fortress",
@@ -87,14 +120,24 @@
         "Evidence before recommendation",
         "Risk before opportunity",
         "Guardian before execution",
-        "Human before action"
+        "Human before action",
+        "Speed like lightning",
+        "Power like a sledgehammer",
+        "Security like a fortress",
+        "Economy like an ant",
+        "Opportunity cost before accepting costly suggestions",
+        "External AI outputs are advisory, never binding",
+        "Constitution is invariant",
+        "Playbooks are risk-driven",
+        "Complexity must pay for itself"
       ],
-      "one_sentence": "Tokenoskobi is a risk-first crypto intelligence and decision-support system, not an autonomous trading bot.",
+      "one_sentence": "Tokenoskobi is a risk-first intelligence, decision and bounded autonomous execution system operating only after validation inside a human-defined policy envelope.",
       "trade_authority": {
-        "ai": 0,
-        "guardian": "block_or_allow_gate_only",
-        "human": "final_approval_required",
-        "live_execution": "locked"
+        "human": "policy_envelope_and_veto",
+        "live": "separately_locked",
+        "paper": "simulation_after_validation",
+        "risk_engine": "absolute_veto",
+        "self_expansion": "forbidden"
       }
     },
     "canonical_workflow_rules": {
@@ -102,26 +145,93 @@
         "do_not_push_mid_substep_unless_user_requests": true,
         "github_seal_only_at_logical_closure": true,
         "single_commit_when_possible": true,
-        "single_push_when_possible": true
+        "single_push_when_possible": true,
+        "tag_only_when_checkpoint_or_closure_requires_it": true
       },
-      "current_consolidation_policy": {
-        "historical_aliases": {
-          "ERA48": "ERA47B",
-          "ERA49": "ERA47C",
-          "ERA50": "ERA47D",
-          "ERA51": "ERA47E"
+      "compact_workflow": {
+        "first_verify": {
+          "no_guessing": true,
+          "owner_file_wins_on_conflict": true,
+          "scope": [
+            "local_workspace",
+            "local_git",
+            "origin_main",
+            "working_tree",
+            "PROJECT_RUNTIME.json",
+            "relevant_roadmap_or_work_unit",
+            "authority_and_safety_boundaries"
+          ]
         },
-        "parent": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-        "rule": "Historical aliases remain for audit trail only; they are not active work lanes."
+        "read": {
+          "memory_is_not_authority": true,
+          "rule": "README.md is the single entry point and routes the AI through the canonical mandatory read order."
+        },
+        "seal": {
+          "logical_closure_only": true,
+          "no_micro_commit_push_tag_chain": true,
+          "steps": [
+            "canonical_state_sync",
+            "runtime_history_handoff_update_when_required",
+            "single_commit_when_possible",
+            "single_push_when_possible",
+            "remote_verification",
+            "checkpoint_tag_when_required",
+            "set_one_next_safe_step"
+          ]
+        },
+        "second_verify": {
+          "examples": {
+            "code": [
+              "test",
+              "regression_check"
+            ],
+            "dataset": [
+              "schema_validation",
+              "semantic_validation",
+              "evidence_validation",
+              "checksum_validation"
+            ],
+            "documentation": [
+              "consistency_check",
+              "authority_check"
+            ],
+            "research": [
+              "source_check",
+              "factual_verification"
+            ],
+            "runtime": [
+              "dry_run",
+              "fail_closed_check",
+              "post_audit"
+            ]
+          },
+          "no_completion_without_evidence": true,
+          "rule": "Verification must match the actual work type."
+        },
+        "sequence": [
+          "READ",
+          "VERIFY",
+          "WORK",
+          "VERIFY",
+          "SEAL"
+        ],
+        "work": {
+          "do_not_force_repeated_gate_chains": true,
+          "do_not_leave_NEXT_SAFE_STEP": true,
+          "explicit_approval_required_for_mutation_or_authority_change": true,
+          "general_reusable_solution_over_special_patch": true,
+          "single_active_bounded_work_unit": true,
+          "use_only_work_relevant_steps": true
+        }
       },
-      "deadline_policy": {
+      "delivery_policy": {
         "avoid_repeated_gate_chains": true,
-        "deadline_mode": true,
-        "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-        "next_step_requirement": "The next real work must deliver minimal read-only scaffold, not another planning chain.",
-        "priority": "small working code over repeated decision documents",
+        "no_transient_next_step_in_boot": true,
+        "prefer_small_working_code_over_repeated_decision_documents": true,
+        "product_completion_precedence": "VISIBLE_WORKING_PRODUCT_OVER_NEW_ENGINE_ERA_OR_DOCUMENT",
         "reduce_documents": true,
-        "reduce_labels": true
+        "reduce_labels": true,
+        "single_entry_prompt_only": true
       },
       "fix_add_policy": {
         "addition_format": "<MAIN_LINE><LETTER>_ADD_1, <MAIN_LINE><LETTER>_ADD_2",
@@ -198,7 +308,7 @@
           "the split exists only to create another label"
         ]
       },
-      "name": "CANONICAL_GENERAL_WORKFLOW_RULES",
+      "name": "CANONICAL_COMPACT_WORKFLOW",
       "nested_policy": {
         "examples": [
           "ERA52B_1_FILE_LAYOUT",
@@ -214,19 +324,32 @@
         "ai_trade_authority": 0,
         "human_approval_required": true,
         "live_trade_locked": true,
+        "live_trade_locked_until_separate_validation": true,
         "no_runtime_db_panel_service_timer_mutation_without_explicit_scope": true,
         "paper_trade_locked_until_explicit_phase": true,
+        "paper_trade_may_run_unattended_after_validation": true,
+        "paper_trade_zero_real_funds": true,
+        "real_order_broadcast_authority": 0,
+        "real_signing_authority": 0,
+        "real_wallet_authority": 0,
         "runtime_is_source_of_truth": true
       },
+      "startup_prompt": "README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.",
       "startup_read_order": [
-        "PROJECT_RUNTIME.json",
+        "README.md",
+        "02_MANIFESTO.md",
         "PROJECT_BOOT.json",
+        "PROJECT_RUNTIME.json",
+        "data/tokenoskobi_v1_v8_master_era_roadmap.json",
+        "03_ROADMAP.md",
+        "04_ALMANAC.md",
+        "05_ATLAS.md",
         "06_PROJECT_MASTER_STATE.md",
         "07_PROJECT_HANDOFF.md",
-        "02_MANIFESTO.md",
-        "03_ROADMAP.md"
+        "PROJECT_HISTORY.json",
+        "01_INDEX.md"
       ],
-      "status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
+      "status": "LOCKED_COMPACT_READ_VERIFY_WORK_VERIFY_SEAL",
       "substep_policy": {
         "examples": [
           "ERA52A_PLAN",
@@ -239,6 +362,7 @@
           "REPAIR_LINE_B_FIX"
         ],
         "format": "<MAIN_LINE>A, <MAIN_LINE>B, <MAIN_LINE>C",
+        "rule": "A/B/C/D naming may be used only when useful inside a main line. It does not replace or expand the compact canonical workflow.",
         "standard_order": {
           "A": "PLAN_OR_SCOPE",
           "B": "APPLY_OR_BUILD",
@@ -246,9 +370,10 @@
           "D": "AUDIT_OR_REVIEW",
           "E": "EXTERNAL_REVIEW_IF_NEEDED",
           "F": "GITHUB_SEAL_OR_CLOSURE"
-        }
+        },
+        "standard_order_is_mandatory_workflow": false
       },
-      "updated_at_utc": "2026-07-08T10:48:50.680029Z",
+      "updated_at_utc": "2026-07-14T00:00:00Z",
       "word_policy": {
         "allowed_result_words": [
           "OK",
@@ -262,6 +387,14 @@
         "forbidden_new_label_word": "PASS",
         "reason": "The forbidden word is reserved for older project history and must not be used in new work labels or command outputs."
       }
+    },
+    "continuation_contract": {
+      "general_reusable_tool_required": true,
+      "legacy_file_restore_is_not_a_general_repair": true,
+      "one_off_decision_script_chains_forbidden": true,
+      "readme_is_pointer_not_state_copy": true,
+      "readme_is_single_entry": true,
+      "resume_from": "README.md -> PROJECT_RUNTIME.json"
     },
     "core_architecture": {
       "engines": [
@@ -307,50 +440,25 @@
         }
       ]
     },
-    "current_checkpoint": {
-      "git_branch": "main",
-      "git_head": "1dc4742cd1382e30c0930166afba70d6e7ba637c",
-      "git_status_clean": false,
-      "git_status_summary": "?? PROJECT_BOOT.json\n?? PROJECT_STATE.json",
-      "source": "local_git"
-    },
-    "current_problem": {
-      "description": "Long chats lose continuity; new windows fail to understand project state; documentation became over-expanded and duplicated.",
-      "immediate_priority": "Stabilize machine-readable project memory before any new Tokenoskobi feature.",
-      "type": "WORKFLOW_MEMORY_FAILURE_AND_DOCUMENTATION_BLOAT"
-    },
-    "current_work_unit": {
-      "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-      "id": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "module": "tools/discipline_layer_readonly_scaffold_v1.py",
-      "next_step": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
-      "status": "CLOSED",
-      "substeps": {
-        "ERA52A": "SCOPE_LOCKED",
-        "ERA52B": "READONLY_SCAFFOLD_CREATED",
-        "ERA52C": "SNAPSHOT_TESTED",
-        "ERA52D": "STATIC_AND_BOUNDARY_AUDITED",
-        "ERA52E": "CODEX_REVIEW_PROMPT_CREATED",
-        "ERA52F": "GITHUB_SEAL_PENDING_IN_THIS_RUN"
+    "current_checkpoint": "TOKENOSKOBI_PRODUCT_COMPLETION_PLAN_LOCKED",
+    "documentation_contract": {
+      "format_rule": "Existing writing style, heading order, spacing and formatting remain unchanged unless explicitly approved by the user.",
+      "no_new_canonical_file_when_owner_exists": true,
+      "one_purpose_one_canonical_file": true,
+      "owners": {
+        "01_INDEX.md": "canonical_navigation",
+        "02_MANIFESTO.md": "constitutional_doctrine",
+        "03_ROADMAP.md": "future_direction",
+        "04_ALMANAC.md": "completed_work_history",
+        "05_ATLAS.md": "architecture_map",
+        "06_PROJECT_MASTER_STATE.md": "current_human_summary",
+        "07_PROJECT_HANDOFF.md": "continuation_context",
+        "PROJECT_BOOT.json": "stable_boot_contract",
+        "PROJECT_HISTORY.json": "append_only_history",
+        "PROJECT_RUNTIME.json": "current_runtime_state",
+        "README.md": "single_entry_boot_pointer"
       },
-      "type": "DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD"
-    },
-    "documentation_status": {
-      "desired_direction": "Consolidate and reduce, not expand.",
-      "problem": "Documentation became too broad and fragmented.",
-      "root_canonical_files_expected": [
-        "README.md",
-        "NEW_CHAT_PROMPT.md",
-        "OKU.md",
-        "01_INDEX.md",
-        "02_MANIFESTO.md",
-        "03_ROADMAP.md",
-        "04_ALMANAC.md",
-        "05_ATLAS.md",
-        "06_PROJECT_MASTER_STATE.md",
-        "07_PROJECT_HANDOFF.md"
-      ],
-      "rule_now": "Do not create new documentation unless explicitly required."
+      "replacement_rule": "Conflicting information replaces the old information in the owning file. Non-conflicting information is inserted into the correct section of the owning file."
     },
     "engine_relationships": {
       "Evidence Engine": "Stores evidence for both Hunter and Prosecutor",
@@ -362,138 +470,41 @@
       "Unknown Anomaly Engine": "Detects unknown attack patterns",
       "Whale Intelligence": "Provides wallet/entity intelligence"
     },
-    "era_status": {
-      "handoff_preview": [
-        "<!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->",
-        "## CANONICAL ACTIVE STATE — ERA20 SEALED",
-        "",
-        "STATE_SYNC_UTC=20260701T101455Z",
-        "",
-        "CURRENT_CANONICAL_BASE_HEAD=65b8936621f451bc1e7adb5b272190d93b3b650b",
-        "CURRENT_ALIGNMENT_SEAL_HEAD=e824585a7c898fd9be1c7c87526a8184891a3eca",
-        "CURRENT_ERA=ERA20",
-        "ERA20_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-        "LAST_COMPLETED=PASS_SHADOW_AUDIT_READONLY",
-        "CURRENT_HEAD=79ca5ce17c46bfdbf551ebc7235520c22f7a4648",
-        "REMOTE_SYNC=PASS",
-        "HARD_FAIL_COUNT=0",
-        "SHADOW_AUDIT_READONLY_STATUS=PASS",
-        "NEXT_SAFE_STEP=USER_APPROVED_NEXT_ERA_OR_POST_SEAL_MAINTENANCE",
-        "",
-        "PROJECT_MODE=CANONICAL_V1_CERTIFICATION_SEALED",
-        "V1_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-        "V2_STATUS=HISTORICAL_CONTROLLED_CONTINUATION",
-        "RUNTIME_SLICE_STATUS=HISTORICAL_UNDER_ERA_CHAIN",
-        "",
-        "LIVE_TRADE=false",
-        "PAPER_TRADE=false",
-        "WALLET=false",
-        "SIGNING=false",
-        "REAL_ORDER=false",
-        "ORDER_CREATE=false",
-        "AI_AUTHORITY=0",
-        "TRADE_AUTHORITY=0",
-        "",
-        "CANONICAL_RULE=TOP_ACTIVE_STATE_OVERRIDES_HISTORICAL_ENTRIES",
-        "HISTORICAL_ENTRIES_REMAIN_FOR_AUDIT_TRAIL=true",
-        "<!-- CANONICAL_ACTIVE_STATE_CURRENT_END -->",
-        "",
-        "",
-        "<!-- DOC_RESTRUCTURE_ALIGNMENT_START -->",
-        "## CANONICAL DOCUMENTATION RESTRUCTURE ALIGNMENT",
-        "",
-        "STATE_SYNC_UTC=20260629T105235Z",
-        ""
-      ],
-      "master_state_preview": [
-        "<!-- CANONICAL_ACTIVE_STATE_CURRENT_START -->",
-        "## CANONICAL ACTIVE STATE — ERA20 SEALED",
-        "",
-        "STATE_SYNC_UTC=20260701T101455Z",
-        "",
-        "CURRENT_CANONICAL_BASE_HEAD=65b8936621f451bc1e7adb5b272190d93b3b650b",
-        "CURRENT_ALIGNMENT_SEAL_HEAD=e824585a7c898fd9be1c7c87526a8184891a3eca",
-        "CURRENT_ERA=ERA20",
-        "ERA20_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-        "LAST_COMPLETED=PASS_SHADOW_AUDIT_READONLY",
-        "CURRENT_HEAD=79ca5ce17c46bfdbf551ebc7235520c22f7a4648",
-        "REMOTE_SYNC=PASS",
-        "HARD_FAIL_COUNT=0",
-        "SHADOW_AUDIT_READONLY_STATUS=PASS",
-        "NEXT_SAFE_STEP=USER_APPROVED_NEXT_ERA_OR_POST_SEAL_MAINTENANCE",
-        "",
-        "PROJECT_MODE=CANONICAL_V1_CERTIFICATION_SEALED",
-        "V1_STATUS=CLOSED_VERIFIED_GITHUB_SEALED",
-        "V2_STATUS=HISTORICAL_CONTROLLED_CONTINUATION",
-        "RUNTIME_SLICE_STATUS=HISTORICAL_UNDER_ERA_CHAIN",
-        "",
-        "LIVE_TRADE=false",
-        "PAPER_TRADE=false",
-        "WALLET=false",
-        "SIGNING=false",
-        "REAL_ORDER=false",
-        "ORDER_CREATE=false",
-        "AI_AUTHORITY=0",
-        "TRADE_AUTHORITY=0",
-        "",
-        "CANONICAL_RULE=TOP_ACTIVE_STATE_OVERRIDES_HISTORICAL_ENTRIES",
-        "HISTORICAL_ENTRIES_REMAIN_FOR_AUDIT_TRAIL=true",
-        "<!-- CANONICAL_ACTIVE_STATE_CURRENT_END -->",
-        "",
-        "",
-        "<!-- DOC_RESTRUCTURE_ALIGNMENT_START -->",
-        "## CANONICAL DOCUMENTATION RESTRUCTURE ALIGNMENT",
-        "",
-        "STATE_SYNC_UTC=20260629T105235Z",
-        ""
-      ]
+    "execution_model": {
+      "complexity_must_pay_for_itself": true,
+      "constitution": "INVARIANT",
+      "evidence_never_disappears": true,
+      "general_solution_over_special_patch": true,
+      "one_source_of_truth": "PROJECT_RUNTIME.json",
+      "playbook": "RISK_DRIVEN"
+    },
+    "git_identity_policy": {
+      "head_source": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+      "remote_verify_required": true,
+      "rule": "Tracked canonical files must not embed the hash of their own future commit.",
+      "single_commit_when_possible": true,
+      "single_push_when_possible": true
     },
     "hard_rules": {
       "ai_has_no_trade_authority": true,
+      "boot_contains_no_current_state": true,
+      "history_is_append_only": true,
       "human_approval_required": true,
       "live_trade_locked": true,
       "no_code_without_user_request": true,
       "no_copilot_direct_writes_without_review": true,
+      "no_duplicate_canonical_documents": true,
+      "no_legacy_startup_filenames": true,
       "no_new_features_until_boot_verified": true,
       "no_new_markdown_bloat": true,
       "no_repo_changes_without_risk_analysis": true,
-      "paper_trade_locked_until_explicit_phase": true
+      "paper_trade_locked_until_explicit_phase": true,
+      "runtime_is_current_state_authority": true
     },
-    "last_action": {
-      "files_created_or_updated": [
-        "tools/discipline_layer_readonly_scaffold_v1.py",
-        "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-        "reports/LATEST_ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI.md",
-        "PROJECT_RUNTIME.json",
-        "PROJECT_BOOT.json",
-        "06_PROJECT_MASTER_STATE.md",
-        "07_PROJECT_HANDOFF.md",
-        "03_ROADMAP.md",
-        "04_ALMANAC.md",
-        "reports/LATEST_TK_AI_HANDOFF.md",
-        "data/control/latest_tk_machine_state.json",
-        "reports/LATEST_CODEX_REVIEW_PROMPT.md"
-      ],
-      "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
-      "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "timestamp": "2026-07-08T11:06:16.159789Z"
-    },
-    "last_completed": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-    "new_chat_instruction": "Read PROJECT_RUNTIME.json first. ERA52 minimal read-only scaffold is closed. Do not expand Discipline Layer. Next real product line is NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW. Use A/B/C/D under that same NEWS line. Do not open micro main lines.",
-    "new_window_startup_instruction": {
-      "instruction": "Read PROJECT_BOOT.json only. Do not use assumptions. Summarize current state, hard rules, architecture, whale/news state and next safe step. Then wait.",
-      "test_success_criteria": [
-        "Must identify workflow memory failure and documentation bloat as current problem.",
-        "Must identify local server as source of truth over GitHub Remote.",
-        "Must identify AI has no trading authority.",
-        "Must identify live trading locked.",
-        "Must identify Whale Intelligence threshold as 50 BTC or equivalent.",
-        "Must identify News Intelligence raw=151 and match/signal/score=0 from prior audit.",
-        "Must not suggest new docs, commits, pushes or features unless asked."
-      ]
-    },
+    "last_action": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE_CANONICAL_PLAN_SYNC",
     "new_window_startup_test": {
       "must_answer": [
+        "README single-entry boot contract",
         "What is Tokenoskobi?",
         "Current project status",
         "Current checkpoint",
@@ -509,49 +520,65 @@
         "Hard rules",
         "Next safe step"
       ],
-      "pass_score": "14/14"
+      "pass_score": "15/15"
     },
-    "news_intelligence": {
-      "known_counts_from_prior_audit": {
-        "news_raw_feed_events": 151,
-        "news_score_events_v1": 0,
-        "news_signal_events": 0,
-        "news_token_match_events": 0
-      },
-      "known_issue": "Runtime had INVALIDARGUMENT history and timer/inactive issue; must be re-verified from local state before claims."
-    },
-    "next_safe_step": {
-      "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
-      "status": "READY"
-    },
+    "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
     "open_risks": [
-      "ERA46 sealed interface contract only; Discipline Layer engines are not implemented yet.",
-      "Runtime never imports Lab rule must be validated before future implementation.",
-      "tk ai and tk machine must be regenerated and committed at every ERA closure."
+      "PRODUCT_SURFACE_NOT_DEPLOYED",
+      "NEWS_LIVE_HEALTH_NOT_REVERIFIED",
+      "PANEL_URL_AND_AUTH_NOT_REVERIFIED",
+      "ALCHEMY_HYBRID_RUNTIME_NOT_REVERIFIED",
+      "INTERNAL_EXTERNAL_SECURITY_NOT_REVERIFIED",
+      "SUCCESSFUL_WALLET_CLASSIFICATION_NOT_READY",
+      "CHATBOT_AI_COUNCIL_SELF_HEALING_NOT_BOUND"
     ],
-    "process_compaction": {
-      "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-      "new_canonical_substeps": [
-        "ERA47A",
-        "ERA47B",
-        "ERA47C",
-        "ERA47D",
-        "ERA47E"
+    "product_delivery_contract": {
+      "completion_definition": [
+        "Canlı panel URL telefondan açılır.",
+        "Kullanıcı BSC token adresi girer.",
+        "Gerçek veri kaynakları birleşik karar paketi üretir.",
+        "Eksik veri açıkça VERI_YETERSIZ olarak gösterilir.",
+        "Risk kararı ve kanıt bağlantıları görünür.",
+        "İnsan kararı kaydedilir ve geçmişten tekrar açılır.",
+        "Sonuç takibi çalışır.",
+        "Daha sonra sınırlı paper trade aynı akışa bağlanır."
       ],
-      "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "old_names_are_historical_aliases": true,
-      "range": "ERA47_TO_ERA51",
-      "status": "CONSOLIDATED",
-      "updated_at_utc": "2026-07-08T10:34:05.417432Z"
+      "definition_of_progress": "USER_VISIBLE_END_TO_END_FLOW_ACCEPTED_BY_USER",
+      "engine_deepening_rule": "ONLY_WHEN_DIRECT_BLOCKER_TO_ACTIVE_PRODUCT_STEP",
+      "live_authority_unchanged": true,
+      "lock_field": "product_completion_program.no_new_era_until_complete",
+      "missing_data_rule": "SHOW_VERI_YETERSIZ_NEVER_FABRICATE",
+      "name": "USER_VISIBLE_PRODUCT_COMPLETION_CONTRACT",
+      "new_alt_era_forbidden_while_locked": true,
+      "new_canonical_document_forbidden_while_locked": true,
+      "new_era_forbidden_while_locked": true,
+      "paper_gate": "CORE_USER_LOOP_ACCEPTED_BEFORE_PAPER_RUNTIME",
+      "runtime_lock_owner": "PROJECT_RUNTIME.json",
+      "single_active_product_step": true
     },
     "project": {
       "local_path": "/root/tokenoskobi_clean_v1",
-      "mode": "CANONICAL_V1_POST_SEAL_RECOVERY",
       "name": "Tokenoskobi",
-      "repo": "anketci54-coder/tokenoskobi",
-      "status": "ACTIVE_BUT_WORKFLOW_UNSTABLE"
+      "repo": "anketci54-coder/tokenoskobi"
     },
-    "purpose": "Single machine-readable startup file for new ChatGPT windows. Use this before reading any other project file.",
+    "purpose": "Stable machine-readable identity, doctrine, architecture, hard rules and startup contract. This file contains no current work unit, next safe step, runtime counts, Git HEAD, timestamps or closure records.",
+    "runtime_source_contract": {
+      "automatic_activation": false,
+      "default_deny": true,
+      "path": "config/news_runtime_source_contract_v1.json",
+      "runtime_selection_is_policy_derived": true,
+      "seed_registry_is_not_live_registry": true
+    },
+    "script_lifecycle_policy": {
+      "active_library": "Imported by active code. Preserve caller compatibility.",
+      "active_runtime": "Runtime reachable. Do not move or modify without explicit runtime scope.",
+      "bulk_delete_without_inventory": false,
+      "disposable": "Remove only when reproducible, evidence-free and explicitly approved.",
+      "historical_evidence": "Retain evidence; archive outside active surface when safe.",
+      "manual_only": "Human-invoked only. Not a production entrypoint.",
+      "one_capability_one_engine": true,
+      "unjustified_complexity_never_up": true
+    },
     "single_push_policy": {
       "closure_requirement": "Work unit closure requires commander PASS, commit, push and remote verify.",
       "policy": "Git live HEAD is the source for current commit identity. PROJECT_RUNTIME.json stores last observed metadata and workflow position.",
@@ -561,15 +588,17 @@
     },
     "source_files": {
       "required": [
-        "NEW_CHAT_PROMPT.md",
-        "OKU.md",
+        "README.md",
         "01_INDEX.md",
         "02_MANIFESTO.md",
         "03_ROADMAP.md",
         "04_ALMANAC.md",
         "05_ATLAS.md",
         "06_PROJECT_MASTER_STATE.md",
-        "07_PROJECT_HANDOFF.md"
+        "07_PROJECT_HANDOFF.md",
+        "PROJECT_BOOT.json",
+        "PROJECT_RUNTIME.json",
+        "PROJECT_HISTORY.json"
       ]
     },
     "source_of_truth": {
@@ -581,8 +610,72 @@
       ],
       "rule": "Local server state overrides GitHub Remote and AI memory."
     },
-    "updated_at": "2026-07-02T07:36:08.953037+00:00",
-    "updated_at_utc": "2026-07-08T11:06:16.159789Z",
+    "tokenoskobi_motto_opportunity_cost_doctrine": {
+      "decision_gate": {
+        "accept_if": [
+          "speed_does_not_decrease_and_at_least_one_dimension_improves",
+          "power_does_not_decrease_and_at_least_one_dimension_improves",
+          "security_does_not_decrease_and_at_least_one_dimension_improves",
+          "economy_does_not_decrease_and_at_least_one_dimension_improves"
+        ],
+        "opportunity_cost_required_if": [
+          "one_dimension_decreases_but_others_increase",
+          "benefit_is_claimed_but_cost_or_bloat_may_increase",
+          "external_red_team_or_ai_suggests_extra_work"
+        ],
+        "reject_or_defer_if": [
+          "opportunity_cost_negative",
+          "opportunity_cost_unclear",
+          "impact_unmeasured",
+          "creates_bloat",
+          "slows_system_without_clear_gain",
+          "reduces_security_without_explicit_approved_gain",
+          "increases_cost_without_clear_gain"
+        ],
+        "rule": "Every idea, module, red-team suggestion, AI recommendation, architecture change, documentation change, runtime change, or optimization must pass this gate before entering the system."
+      },
+      "external_ai_rule": {
+        "binding": false,
+        "gemini_claude_codex_copilot_outputs": "ADVISORY_ONLY",
+        "requires": [
+          "manifesto_gate",
+          "opportunity_cost_positive_or_accepted",
+          "explicit_user_approval"
+        ]
+      },
+      "motto": {
+        "economy": "Karınca kadar tutumlu",
+        "power": "Balyoz kadar güçlü",
+        "security": "Kale kadar güvenli",
+        "speed": "Şimşek kadar hızlı"
+      },
+      "short_form": "SPEED_UP_POWER_UP_SECURITY_UP_ECONOMY_UP_OR_POSITIVE_OPPORTUNITY_COST_ELSE_REJECT_OR_DEFER",
+      "status": "PERMANENT_CONSTITUTIONAL_RULE",
+      "updated_at_utc": "2026-07-08T16:34:38.515049+00:00"
+    },
+    "tokenoskobi_motto_opportunity_cost_formula_binding": {
+      "external_ai_rule": "Advisory only. Must pass formula binding plus user approval.",
+      "formula": {
+        "accept_baseline": "net_utility >= 95",
+        "cost_penalty": "max(0, 100 - performance)",
+        "expected_gain": "(reliability + security + probability) / 3",
+        "net_utility": "expected_gain - cost_penalty - uncertainty_penalty",
+        "uncertainty_penalty": "max(0, 100 - statistics)"
+      },
+      "formula_output": "data/era24f_ede_opportunity_cost_baseline_v1.json",
+      "formula_source": "ERA24F_EDE_OPPORTUNITY_COST_BASELINE",
+      "formula_tool": "tools/ede_opportunity_cost_baseline_v1.py",
+      "motto_mapping": {
+        "economy": "inverse cost, bloat, and maintenance burden",
+        "power": "average(reliability, probability)",
+        "security": "security",
+        "speed": "performance"
+      },
+      "status": "PERMANENT_CONSTITUTIONAL_FORMULA_BINDING",
+      "updated_at_utc": "2026-07-08T16:48:01.474705+00:00"
+    },
+    "updated_at": "2026-07-24T17:54:31.332165+00:00",
+    "updated_at_utc": "2026-07-24T17:54:31.332165+00:00",
     "whale_intelligence": {
       "requirements": [
         "track significant whale wallet movements",
@@ -596,15 +689,14 @@
       "threshold": "50 BTC or equivalent value"
     },
     "work_unit_protocol": {
-      "boot_update_position": "LAST_STEP_ONLY",
-      "closure_rule": "A work unit is NOT closed until PROJECT_BOOT.json is updated after GitHub seal.",
+      "boot_update_position": "FINAL_CONTENT_MUTATION_BEFORE_ATOMIC_CLOSURE_COMMIT",
+      "closure_rule": "BOOT and RUNTIME are included in the atomic closure commit. The work unit is declared closed only after push, remote verify, and GitHub seal.",
       "definition": "WORK_UNIT is the smallest planned project progress unit that must produce closure evidence.",
       "forbidden": [
-        "Do not mark work unit closed before BOOT_UPDATE.",
-        "Do not start next work unit before BOOT_UPDATE.",
+        "Do not mark work unit closed before remote verification.",
+        "Do not start next work unit before GitHub seal.",
         "Do not rely on chat memory as closure evidence.",
-        "Do not use GitHub remote alone as source of truth.",
-        "Do not create new feature work while current work unit is unclosed."
+        "Do not create a second state-only commit when one atomic closure commit is sufficient."
       ],
       "mandatory_sequence": [
         "PLAN",
@@ -613,11 +705,12 @@
         "TEST",
         "AUDIT",
         "POST_AUDIT",
+        "CLOSURE_DOCUMENT_SYNC",
+        "BOOT_RUNTIME_UPDATE",
         "COMMIT",
         "PUSH",
         "REMOTE_VERIFY",
         "GITHUB_SEAL",
-        "BOOT_UPDATE",
         "WORK_UNIT_CLOSED"
       ],
       "valid_types": [
@@ -677,7 +770,7 @@
   "control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
   "created_at_utc": "2026-07-13T14:27:40.170589+00:00",
   "current_era": "ERA64",
-  "current_stage": "ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT",
+  "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
   "current_state": {
     "active_work_unit": null,
     "authority": "PROJECT_RUNTIME.json",
@@ -692,7 +785,7 @@
     "runtime_status": "GENERAL_RUNTIME_HARDENING_CLOSED_VERIFIED"
   },
   "current_state_authority": "PROJECT_RUNTIME.json",
-  "current_status": "ACTIVE_HISTORICAL_TRANSFER_RECEIPT_GAS_COST_ENRICHMENT_VERIFIED",
+  "current_status": "PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED",
   "current_version": "V4",
   "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
   "era58_replay": "7/7",
@@ -810,6 +903,7 @@
   "era64i_staging_event_count": 367,
   "era64j_receipt_cost_enrichment_verified": true,
   "era64j_receipt_enriched_event_count": 367,
+  "era64k_status": "DEFERRED_NOT_NEXT_STEP",
   "execution_allowed": false,
   "external_model_binding": false,
   "fixed_timer_enabled": false,
@@ -2031,9 +2125,43 @@
   "last_result": "65/65_PASS_ALWAYS_ON_BLOCK_EVENT_RUNTIME",
   "live_trade": "DISABLED",
   "local_runtime_build_verified": true,
+  "master_roadmap_current_direction": {
+    "always_on_runtime_active": true,
+    "current_era": "ERA64",
+    "current_line": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+    "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+    "current_status": "PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED",
+    "current_version": "V4",
+    "current_version_label": "Coordinated Intelligence and Paper-Trading Proving Ground",
+    "era57_opened": true,
+    "era57c_implementation_authorized": false,
+    "era62_closed": true,
+    "era62_implementation_authorized": true,
+    "era62_opened": false,
+    "era62_provider_dispatch_active": false,
+    "era62_scope_locked": true,
+    "era62_synthetic_replay_verified": true,
+    "era63_closed": true,
+    "era63_opened": false,
+    "era64_deepening_status": "FROZEN_AFTER_ERA64J_BY_PRODUCT_PRIORITY",
+    "era64_implementation_authorized": false,
+    "era64_opened": true,
+    "era64k_status": "DEFERRED_NOT_NEXT_STEP",
+    "fixed_timer_enabled": false,
+    "new_era_opened": false,
+    "new_work_unit_opened": true,
+    "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+    "previous_era": "ERA61",
+    "previous_era_closure_head": "11f05676f69c4f301e3756daa5d7cddb86120a4d",
+    "product_completion_lock": true,
+    "state_authority": "PROJECT_RUNTIME.json",
+    "status": "PRODUCT_COMPLETION_PLAN_LOCKED",
+    "updated_at_utc": "2026-07-24T17:54:31.332165+00:00"
+  },
   "matrix_test": "tests/era62c_synthetic_replay_matrix_v1.py",
   "network_access": false,
-  "next_safe_step": "ERA64K_DEX_SWAP_DIRECTION_TOKEN_METADATA_AND_PRICE_CONTEXT_REQUIRES_EXPLICIT_USER_APPROVAL",
+  "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+  "no_new_era": true,
   "observation_runtime_enabled": true,
   "opening_artifact": "data/control/era62a_opening_scope_lock_v1.json",
   "paper_runtime_enabled": false,
@@ -2048,6 +2176,153 @@
     "END_TO_END_LATENCY_MEASUREMENT"
   ],
   "paper_trade_currently": "DISABLED_PENDING_ERA63C_VALIDATION",
+  "product_completion_lock": true,
+  "product_completion_program": {
+    "current_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+    "definition_of_done": [
+      "Canlı panel URL telefondan açılır.",
+      "Kullanıcı BSC token adresi girer.",
+      "Gerçek veri kaynakları birleşik karar paketi üretir.",
+      "Eksik veri açıkça VERI_YETERSIZ olarak gösterilir.",
+      "Risk kararı ve kanıt bağlantıları görünür.",
+      "İnsan kararı kaydedilir ve geçmişten tekrar açılır.",
+      "Sonuç takibi çalışır.",
+      "Daha sonra sınırlı paper trade aynı akışa bağlanır."
+    ],
+    "engine_deepening_only_when_product_blocked": true,
+    "era64k_status": "DEFERRED_NOT_NEXT_STEP",
+    "failed_builder_attempt": {
+      "cleanup_required": true,
+      "commit": "034b16387ed5e9966db637003cfc3f077abebe8e",
+      "result": "ROLLED_BACK_NO_PRODUCT_DEPLOYED"
+    },
+    "forbidden_until_core_user_loop_accepted": [
+      "NEW_ERA",
+      "NEW_ALT_ERA",
+      "UNRELATED_ENGINE_DEEPENING",
+      "NEW_ARCHITECTURE_EXPANSION",
+      "NEW_CANONICAL_DOCUMENT",
+      "PAPER_RUNTIME_ENABLEMENT",
+      "LIVE_TRADE_ENABLEMENT",
+      "WALLET_SIGNING_ORDER_BROADCAST_AUTHORITY"
+    ],
+    "id": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+    "last_verified_technical_baseline": {
+      "gas_cost_enriched_event_count": 367,
+      "live_trade": "DISABLED",
+      "paper_runtime": "DISABLED",
+      "real_data": true,
+      "real_financial_authority": 0,
+      "receipt_enriched_event_count": 367,
+      "source_event_count": 367,
+      "source_transaction_count": 277,
+      "stage": "ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT",
+      "status": "HISTORICAL_TRANSFER_RECEIPT_GAS_COST_ENRICHMENT_VERIFIED",
+      "successful_wallet_classification_ready": false,
+      "synthetic_data": false,
+      "technical_head": "43279c41d63250893540553994598a7418dc91ca",
+      "tests": "172/172_VERIFIED"
+    },
+    "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+    "no_new_alt_era": true,
+    "no_new_canonical_document": true,
+    "no_new_era_until_complete": true,
+    "opened_at_utc": "2026-07-24T17:54:31.332165+00:00",
+    "opened_by": "EXPLICIT_USER_DIRECTION",
+    "ordered_steps": [
+      {
+        "acceptance": [
+          "Kesin panel URL ve kimlik doğrulama yolu telefondan açılır ve doğrulanır.",
+          "NEWS producer/timer/readmodel zincirinin güncel canlı veya arızalı durumu ölçülür.",
+          "Alchemy bağlantısı sır basmadan doğrulanır; public BSC RPC ve piyasa veri fallback zinciri ölçülür.",
+          "Onchain olaydan readmodel/panel görünümüne gerçek gecikme ölçülür.",
+          "Nginx, TLS, auth, port, firewall, SSH, secret, izin, rate-limit ve servis yüzeyi için iç/dış güvenlik bulgusu çıkarılır.",
+          "Bu adım runtime, DB, panel, service, timer veya authority mutation yapmaz."
+        ],
+        "id": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+        "mode": "READ_ONLY",
+        "order": 1,
+        "purpose": "NEWS canlılığı, gerçek panel URL/auth yolu, servisler, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenliği güncel kanıtla doğrulamak.",
+        "title": "Canlı Gerçeklik, Panel Erişimi ve Güvenlik Doğrulaması"
+      },
+      {
+        "acceptance": [
+          "BSC adresi server-side doğrulanır; geçersiz veya kontrat olmayan adres fail-closed reddedilir.",
+          "Onchain, kontrat, holder/deployer, likidite, teknik, NEWS ve mevcut wallet bağlamı tek pakette birleşir.",
+          "Online timeframe seti 1m, 5m, 15m, 1h, 4h ve 1d olarak çalışır; yeterli mum yoksa VERI_YETERSIZ gösterilir.",
+          "Alchemy WebSocket/HTTP birincil, allowlisted public BSC RPC fallback/cross-check, GeckoTerminal piyasa kaynağı ve local cache hibrit çalışır.",
+          "Risk Engine ALLOW, BLOCK, WAIT veya REVIEW kararı ve gerekçelerini üretir; panel trade yetkisi üretmez.",
+          "Kullanıcı telefondan canlı URL üzerinde ekranı açar ve kabul eder."
+        ],
+        "id": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
+        "mode": "BOUNDED_PRODUCT_BUILD",
+        "order": 2,
+        "purpose": "Kullanıcının BSC token adresi girip gerçek, gerekçeli ve kanıt bağlantılı karar paketi görmesini sağlamak.",
+        "title": "Tek Token Giriş Ekranı ve Gerçek Karar Paketi"
+      },
+      {
+        "acceptance": [
+          "İnsan ACCEPT, REJECT, WAIT veya REVIEW seçimi kanıt paketiyle birlikte append-only kaydedilir.",
+          "Kayıt trade, wallet, signing veya order authority oluşturmaz.",
+          "Geçmiş karar tekrar açılır ve kullanılan kanıt sürümü görülür.",
+          "Belirlenen izleme pencerelerinde fiyat, risk ve sonuç değişimi kayda bağlanır.",
+          "Panelde karar geçmişi ve sonuç takibi görünür."
+        ],
+        "id": "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING",
+        "mode": "BOUNDED_PRODUCT_BUILD",
+        "order": 3,
+        "purpose": "Kararı insan onayıyla kaydetmek, tekrar açmak ve sonucunu izlemek.",
+        "title": "İnsan Onayı, Karar Geçmişi ve Sonuç Takibi"
+      },
+      {
+        "acceptance": [
+          "Router, pool, token metadata/decimals, alış-satış yönü, gerçekleşme fiyatı, gas, fee, slippage ve kapalı döngü belirlenir.",
+          "Başarılı cüzdan etiketi yalnız yeterli örnek, maliyet-tam PnL ve confidence eşiğiyle verilir.",
+          "CEX deposit/withdrawal ilişkileri ve 50 BTC veya eşdeğer balina eşiği izlenir.",
+          "Wallet, CEX, DEX, pool, token, transaction, news ve decision düğümleri Obsidian tarzı grafikte gösterilir.",
+          "Transfer ilişkisi tek başına ortak sahiplik veya kimlik iddiasına çevrilmez."
+        ],
+        "id": "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE",
+        "mode": "BOUNDED_PRODUCT_BUILD",
+        "order": 4,
+        "purpose": "Gerçek swap döngülerini, maliyet-tam performansı ve kanıt-temelli wallet/entity ilişkilerini görselleştirmek.",
+        "title": "DEX İşlemi, Başarılı Cüzdan, CEX Balina ve Obsidian Grafiği"
+      },
+      {
+        "acceptance": [
+          "Panel veya Telegram chatbot durum, token, risk, neden, uyarı, onay ve reddet komutlarını destekler.",
+          "NVIDIA API, ChatGPT/Codex, Claude, Gemini ve GitHub Copilot rolleri advisory-only ve hot-path dışı olarak doğrulanır.",
+          "Sorun algılama kök neden, düzeltme diffi, test sonucu, risk ve rollback önerisi üretir; insan onayı olmadan kod uygulamaz.",
+          "İstihbarat genel kripto haberini değil DEX operasyonu, yeni saldırı, AI/hardware/software/provider ve güvenlik gelişmelerini filtreler.",
+          "Her öneri opportunity cost, uygulanabilirlik, güvenlik etkisi ve APPLY/DEFER/REJECT kararıyla kullanıcıya gelir."
+        ],
+        "id": "PRODUCT_SLICE_05_HAREKAT_SUBAYI_AI_COUNCIL_SELF_HEALING_AND_OPERATIONAL_INTELLIGENCE",
+        "mode": "ADVISORY_ONLY_PRODUCT_BUILD",
+        "order": 5,
+        "purpose": "Sistemle sürekli temas, çoklu AI incelemesi, arıza teşhisi ve DEX-operasyonel teknoloji/saldırı istihbaratı sağlamak.",
+        "title": "Harekât Subayı, AI Konseyi, Onarım Önerisi ve Operasyonel İstihbarat"
+      },
+      {
+        "acceptance": [
+          "Adım 1-5 kullanıcı kabulü olmadan paper runtime açılmaz.",
+          "Risk Engine veto, insan politika zarfı, bounded sizing ve stop/rollback zorunludur.",
+          "Wallet, signing, broadcast, live order ve gerçek sermaye yetkileri sıfır kalır.",
+          "Simülasyon emri, maliyet modeli, karar kanıtı ve sonuç geçmişi panelde görünür.",
+          "Canlı trade ayrı açık insan kararı ve ayrı güvenlik doğrulaması olmadan açılamaz."
+        ],
+        "id": "PRODUCT_SLICE_06_LIMITED_PAPER_TRADE",
+        "mode": "ZERO_REAL_FUNDS_SIMULATION_ONLY",
+        "order": 6,
+        "purpose": "Önceki ürün adımları kullanıcı tarafından kabul edildikten sonra sıfır gerçek fonla izlenebilir simülasyon çalıştırmak.",
+        "title": "Sınırlı Paper Trade"
+      }
+    ],
+    "single_active_product_step": true,
+    "status": "ACTIVE_PLAN_LOCKED",
+    "tests_docs_schemas_and_standalone_engines_are_not_product_completion": true,
+    "title": "Tokenoskobi Kullanılabilir Ürün Dikey Dilimi",
+    "user_visible_acceptance_required_for_progress": true
+  },
   "production_runtime_binding": false,
   "project": {
     "branch": "main",
@@ -2063,23 +2338,731 @@
   "replay_artifact": "data/replay/era62c_fail_closed_advisory_council_replay_v1.json",
   "runtime_config": "config/era62_advisory_council_runtime_v1.json",
   "runtime_json": {
+    "a30_crash_recovery_closure": {
+      "artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
+      "auto_repair": false,
+      "branch": "main",
+      "case_count": 21,
+      "closed_at_utc": "2026-07-18T10:44:58.093160+00:00",
+      "database_mutation": false,
+      "git_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+      "github_actions_verified": true,
+      "github_merged": true,
+      "id": "A30_CRASH_RECOVERY_POST_MERGE_CANONICAL_CLOSURE",
+      "local_compile_verified": true,
+      "local_execution_verified": true,
+      "local_fast_forward_verified": true,
+      "network_access": false,
+      "next_safe_step": "NEXT_WORK_UNIT_PLAN",
+      "production_mutation": false,
+      "pull_request": 4,
+      "repository_mutation_during_test": false,
+      "result": "OK_A30_CLOSED_VERIFIED_GITHUB_MERGED",
+      "runtime_mutation": false,
+      "source_head": "d3cc1f9d6fb3502a277b09a55b7a1dc145e03564",
+      "status": "CLOSED_VERIFIED",
+      "test": "tools/a30_process_crash_recovery_policy_test.py",
+      "trade_authority_changed": false,
+      "wallet_signing_authority_changed": false,
+      "workflow": ".github/workflows/a30-crash-recovery-policy.yml",
+      "worktree_clean_before_closure": true
+    },
+    "authority": {
+      "human_per_paper_trade_approval": false,
+      "live_trade": "DISABLED",
+      "paper_order_authority": "SIMULATION_ENGINE_ONLY_NO_RUNTIME_WRITE",
+      "paper_position_authority": "SIMULATION_ENGINE_ONLY_NO_RUNTIME_WRITE",
+      "paper_trade": "DISABLED_PENDING_COORDINATED_INTELLIGENCE",
+      "paper_unattended_execution": "NOT_ALLOWED_YET",
+      "real_order_authority": 0,
+      "real_signing_authority": 0,
+      "real_trade_authority": 0,
+      "real_wallet_authority": 0,
+      "risk_engine_veto": true,
+      "system_may_not_expand_policy": true
+    },
     "boot_health": "100/100",
+    "canonical_alignment": {
+      "a24r_checkpoint_preserved": true,
+      "option_b_applied": false,
+      "production_writer_changed": false,
+      "repair_work_unit": "ERA55A_24R_FIX_1_CANONICAL_DRIFT_REPAIR_AND_ALIGNMENT",
+      "runtime_db_panel_service_timer_mutation": false,
+      "status": "OK_CANONICAL_DRIFT_REPAIRED",
+      "updated_at_utc": "2026-07-12T18:57:59.870886+00:00"
+    },
+    "canonical_document_condition": {
+      "01_INDEX.md": "NAVIGATION_ONLY",
+      "02_MANIFESTO.md": "DOCTRINE_ONLY",
+      "03_ROADMAP.md": "FUTURE_DIRECTION_ONLY",
+      "04_ALMANAC.md": "HISTORY_ONLY",
+      "05_ATLAS.md": "ARCHITECTURE_MAP_ONLY",
+      "06_PROJECT_MASTER_STATE.md": "CURRENT_SUMMARY_ONLY",
+      "07_PROJECT_HANDOFF.md": "CONTINUATION_CONTEXT_ONLY",
+      "PROJECT_BOOT.json": "STABLE_BOOT_CONTRACT_ONLY",
+      "PROJECT_HISTORY.json": "APPEND_ONLY_HISTORY",
+      "PROJECT_RUNTIME.json": "CURRENT_MACHINE_STATE_AUTHORITY",
+      "README.md": "SINGLE_ENTRY_BOOT_POINTER_ONLY"
+    },
     "canonical_ownership_policy": {
       "concept_freeze": true,
       "mode": "WARN_ONLY",
       "no_new_canonical_files": true,
       "owners": {
-        "03_ROADMAP.md": "human_roadmap",
-        "04_ALMANAC.md": "closed_work_register",
+        "01_INDEX.md": "canonical_navigation",
+        "02_MANIFESTO.md": "constitutional_doctrine",
+        "03_ROADMAP.md": "future_direction",
+        "04_ALMANAC.md": "completed_work_history",
         "05_ATLAS.md": "architecture_map",
         "06_PROJECT_MASTER_STATE.md": "master_state_summary",
         "07_PROJECT_HANDOFF.md": "handoff_boot_context",
+        "PROJECT_BOOT.json": "stable_boot_contract",
         "PROJECT_HISTORY.json": "history_log",
         "PROJECT_RUNTIME.json": "runtime_state",
+        "README.md": "single_entry_boot_pointer",
         "data/tokenoskobi_v1_v8_master_era_roadmap.json": "v1_v8_era_roadmap"
       },
-      "rule": "Each canonical file has exactly one ownership purpose. Wrong-writer detection starts in WARN mode; FAIL mode is future step.",
+      "rule": "Each canonical file has exactly one ownership purpose. Conflicting content is replaced in the owner file; duplicate canonical state copies are forbidden.",
       "work_unit": "ERA23E_CANONICAL_OWNERSHIP_ENFORCEMENT"
+    },
+    "canonical_runtime_pointer": {
+      "a30_crash_recovery": {
+        "artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
+        "auto_repair": false,
+        "branch": "main",
+        "case_count": 21,
+        "closed_at_utc": "2026-07-18T10:44:58.093160+00:00",
+        "database_mutation": false,
+        "git_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+        "github_actions_verified": true,
+        "github_merged": true,
+        "id": "A30_CRASH_RECOVERY_POST_MERGE_CANONICAL_CLOSURE",
+        "local_compile_verified": true,
+        "local_execution_verified": true,
+        "local_fast_forward_verified": true,
+        "network_access": false,
+        "next_safe_step": "NEXT_WORK_UNIT_PLAN",
+        "production_mutation": false,
+        "pull_request": 4,
+        "repository_mutation_during_test": false,
+        "result": "OK_A30_CLOSED_VERIFIED_GITHUB_MERGED",
+        "runtime_mutation": false,
+        "source_head": "d3cc1f9d6fb3502a277b09a55b7a1dc145e03564",
+        "status": "CLOSED_VERIFIED",
+        "test": "tools/a30_process_crash_recovery_policy_test.py",
+        "trade_authority_changed": false,
+        "wallet_signing_authority_changed": false,
+        "workflow": ".github/workflows/a30-crash-recovery-policy.yml",
+        "worktree_clean_before_closure": true
+      },
+      "a30_persistent_recovery": false,
+      "always_on_block_event_runtime": true,
+      "append_only_audit_store": true,
+      "audit_immutability_certified": false,
+      "authority": "PROJECT_RUNTIME.json",
+      "authority_integrity_certified": false,
+      "automatic_source_activation": false,
+      "broad_authority_expansion": false,
+      "canonical_closure_sync": "CLOSED_VERIFIED_GITHUB_SEALED",
+      "canonical_seal_authorized": false,
+      "critical_capability_required": true,
+      "critical_reserved_session_slots": 4,
+      "current_era": "ERA64",
+      "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+      "current_status": "PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED",
+      "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
+      "current_version_line": "V4",
+      "emergency_patch_chain_removed": true,
+      "empty_source_selection_behavior": "SUCCESS_NOOP_FAIL_CLOSED",
+      "era24f_net_utility": -18.6667,
+      "era55_closed": true,
+      "era56_additional_canary_authorized": false,
+      "era56_bounded_binding_plan_authorized": true,
+      "era56_closed": true,
+      "era56_closure_readiness_review_authorized": true,
+      "era56_contract_locked": true,
+      "era56_final_closure_ready": true,
+      "era56_opened": false,
+      "era56_production_apply_authorized": false,
+      "era56_runtime_binding_authorized": false,
+      "era56_single_cycle_canary_apply_authorized": false,
+      "era56b_rebuild_parity": true,
+      "era56b_schema_validated": true,
+      "era56c_logical_parity": true,
+      "era56c_record_mapping_validated": true,
+      "era56c_stale_detection": true,
+      "era56d_atomic_publish": true,
+      "era56d_fail_closed": true,
+      "era56d_readonly_consumer": true,
+      "era56e_net_utility": 61.6667,
+      "era56e_readiness_decision": "AUTHORIZE_FUTURE_BOUNDED_BINDING_PLAN",
+      "era56f_canary_plan_locked": true,
+      "era56g_canary_apply_decision": "AUTHORIZE_SINGLE_CYCLE_CANARY_APPLY",
+      "era56h_canary_passed": true,
+      "era56h_canary_unbound": true,
+      "era56i_net_utility": 3.25,
+      "era56i_runtime_binding_decision": "DEFER_RUNTIME_BINDING",
+      "era56j_additional_evidence_decision": "REJECT_ADDITIONAL_CANARY",
+      "era57_closure": {
+        "artifact": "data/control/era57_final_closure_and_github_seal_v1.json",
+        "research_regression": "91/91_OK",
+        "services_active": "3/3",
+        "status": "CLOSED_VERIFIED_GITHUB_SEALED"
+      },
+      "era57_opened": true,
+      "era57_opening_decision_ready": true,
+      "era57_scope_locked": true,
+      "era57c_c10_c11_applied": true,
+      "era57c_c10_c11_authorized": true,
+      "era57c_c10_c11_tested": true,
+      "era57c_c12_c13_applied": true,
+      "era57c_c12_c13_authorized": true,
+      "era57c_c12_c13_tested": true,
+      "era57c_c1_c11_local_end_to_end_verified": true,
+      "era57c_c1_c3_applied": true,
+      "era57c_c1_c3_tested": true,
+      "era57c_c4_c5_applied": true,
+      "era57c_c4_c5_authorized": true,
+      "era57c_c4_c5_tested": true,
+      "era57c_c6_c7_applied": true,
+      "era57c_c6_c7_authorized": true,
+      "era57c_c6_c7_tested": true,
+      "era57c_c8_c9_applied": true,
+      "era57c_c8_c9_authorized": true,
+      "era57c_c8_c9_tested": true,
+      "era57c_heavy_chain_verified": false,
+      "era57c_implementation_authorized": false,
+      "era57c_preemptible_execution_implemented": false,
+      "era57c_runtime_integration_verified": false,
+      "era57d1_authorized": true,
+      "era57d1_remediation_applied": true,
+      "era57d1_remediation_tested": true,
+      "era57d_authorized": true,
+      "era57d_critical_findings": 0,
+      "era57d_high_findings": 0,
+      "era57d_passed": true,
+      "era57d_remediation_required": false,
+      "era57d_stress_tested": true,
+      "era57e_applied": true,
+      "era57e_authorized": true,
+      "era57e_database_mutation": false,
+      "era57e_execution_authority": 0,
+      "era57e_external_runtime_binding": false,
+      "era57e_order_create_authority": 0,
+      "era57e_passed": true,
+      "era57e_production_mutation": false,
+      "era57e_real_network": false,
+      "era57e_runtime_binding": "LOCAL_IN_MEMORY_READ_ONLY",
+      "era57e_signing_authority": 0,
+      "era57e_tested": true,
+      "era57e_trade_authority": 0,
+      "era57e_wallet_authority": 0,
+      "era57f1_a30_persistent_recovery": false,
+      "era57f1_authorized": true,
+      "era57f1_fail_closed_after_restart": true,
+      "era57f1_independent_reaudit_completed": true,
+      "era57f1_remediation_applied": true,
+      "era57f1_remediation_tested": true,
+      "era57f1_targeted_critical_findings": 0,
+      "era57f1_targeted_high_findings": 0,
+      "era57f2_authorized": true,
+      "era57f2_critical_findings": 2,
+      "era57f2_high_findings": 6,
+      "era57f2_medium_findings": 1,
+      "era57f2_passed": false,
+      "era57f2_reaudited": true,
+      "era57f2_remediation_required": false,
+      "era57f3_authorized": true,
+      "era57f3_independent_reaudit_completed": true,
+      "era57f3_remediation_applied": true,
+      "era57f3_remediation_tested": true,
+      "era57f3_targeted_critical_findings": 0,
+      "era57f3_targeted_high_findings": 0,
+      "era57f4_authorized": true,
+      "era57f4_critical_findings": 2,
+      "era57f4_high_findings": 3,
+      "era57f4_medium_findings": 1,
+      "era57f4_passed": false,
+      "era57f4_reaudited": true,
+      "era57f4_remediation_required": false,
+      "era57f5_authorized": true,
+      "era57f5_independent_reaudit_completed": true,
+      "era57f5_remediation_applied": true,
+      "era57f5_remediation_tested": true,
+      "era57f5_targeted_critical_findings": 0,
+      "era57f5_targeted_high_findings": 0,
+      "era57f6_authorized": true,
+      "era57f6_critical_findings": 1,
+      "era57f6_high_findings": 10,
+      "era57f6_medium_findings": 2,
+      "era57f6_passed": false,
+      "era57f6_reaudited": true,
+      "era57f6_remediation_required": true,
+      "era57f7a2_minimum_working_isolation": {
+        "artifact": "data/control/era57f7a2_minimum_working_isolation_local_closure_v1.json",
+        "research_regression": "91/91_OK",
+        "services_active": "3/3",
+        "status": "LOCAL_CLOSURE_PASS"
+      },
+      "era57f_audited": true,
+      "era57f_authorized": true,
+      "era57f_critical_findings": 2,
+      "era57f_high_findings": 5,
+      "era57f_passed": false,
+      "era57f_remediation_required": false,
+      "era57g_authorized": false,
+      "era61": {
+        "actual_title": "Security Authority Boundary Hardening",
+        "authority": {
+          "ai": 0,
+          "human_final_authority": true,
+          "live_trade": "DISABLED",
+          "order_create": 0,
+          "paper_trade": "DISABLED",
+          "signing": 0,
+          "trade": 0,
+          "wallet": 0
+        },
+        "implementation_preceded_canonical_state_sync": true,
+        "planned_title": "Autonomous Intelligence ERA61",
+        "post_merge_reverify": "15/15_PASS",
+        "retrospective_drift_repair": true,
+        "status_validity_condition": "EFFECTIVE_ONLY_WHEN_REMOTE_MAIN_EQUALS_CLOSURE_COMMIT",
+        "target_status": "CLOSED_VERIFIED_GITHUB_SEALED"
+      },
+      "era61_closed": true,
+      "era62_build_artifact": "data/control/era62b_local_readonly_council_runtime_build_v1.json",
+      "era62_closed": true,
+      "era62_contract": "config/era62_fail_closed_advisory_council_runtime_contract_v1.json",
+      "era62_external_model_binding": false,
+      "era62_implementation_authorized": true,
+      "era62_local_runtime_build_verified": true,
+      "era62_network_access": false,
+      "era62_opened": true,
+      "era62_opening_artifact": "data/control/era62a_opening_scope_lock_v1.json",
+      "era62_production_runtime_binding": false,
+      "era62_provider_dispatch_active": false,
+      "era62_runtime_config": "config/era62_advisory_council_runtime_v1.json",
+      "era62_runtime_tool": "tools/era62_fail_closed_advisory_council_runtime_v1.py",
+      "era62_scope_locked": true,
+      "era62_smoke_tests": "11/11",
+      "era62_synthetic_replay_verified": true,
+      "era62c_control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
+      "era62c_matrix": "28/28",
+      "era62c_replay_artifact": "data/replay/era62c_fail_closed_advisory_council_replay_v1.json",
+      "era62d_opened": false,
+      "era63_closed": true,
+      "era63_opened": true,
+      "era63b_core_build_verified": true,
+      "era63c_technical_dex_execution_validated": true,
+      "era63d_real_market_runtime_active": true,
+      "era63e_rate_limit_reliability_repaired": true,
+      "era63e_rate_limit_repair_artifact": "data/control/era63e_rate_limit_reliability_repair_v1.json",
+      "era64_implementation_authorized": true,
+      "era64_opened": true,
+      "era64b_foundation_verified": true,
+      "era64c_artifact": "data/control/era64c_real_historical_wallet_replay_and_validation_v1.json",
+      "era64c_closed_cycle_count": 0,
+      "era64c_cost_complete_trade_event_count": 0,
+      "era64c_database_source_count": 1,
+      "era64c_real_data_gap_confirmed": true,
+      "era64c_real_historical_replay_validated": false,
+      "era64c_relationship_event_count": 0,
+      "era64c_relevant_table_count": 50,
+      "era64c_scanned_row_count": 840,
+      "era64d_artifact": "data/control/era64d_real_wallet_event_coverage_gap_repair_v1.json",
+      "era64d_candidate_source_table_count": 8,
+      "era64d_closed_cycle_count": 0,
+      "era64d_cost_complete_trade_event_count": 0,
+      "era64d_coverage_classification_repaired": true,
+      "era64d_empty_candidate_table_count": 8,
+      "era64d_nonempty_candidate_table_count": 0,
+      "era64d_relationship_event_count": 0,
+      "era64d_source_contract_ready": true,
+      "era64d_status": "REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY",
+      "era64e_artifact": "data/control/era64e_bounded_wallet_event_acquisition_backfill_plan_v1.json",
+      "era64e_database_write_used": false,
+      "era64e_execution_started": false,
+      "era64e_network_access_used": false,
+      "era64e_plan_locked": true,
+      "era64f_artifact": "data/control/era64f_bounded_readonly_wallet_event_canary_v1.json",
+      "era64f_canary_verified": true,
+      "era64f_database_write_used": false,
+      "era64f_distinct_wallet_count": 150,
+      "era64f_network_access_used": true,
+      "era64f_network_canary_executed": true,
+      "era64f_real_wallet_event_count": 191,
+      "era64g_artifact": "data/control/era64g_bounded_staging_database_backfill_v1.json",
+      "era64g_distinct_wallet_count": 150,
+      "era64g_production_database_write_used": false,
+      "era64g_source_event_count": 191,
+      "era64g_staging_database": "runtime/era64g/wallet_events_staging_v1.sqlite3",
+      "era64g_staging_database_write_used": true,
+      "era64g_staging_event_count": 191,
+      "era64h_artifact": "data/control/era64h_staging_replay_relationship_graph_validation_v1.json",
+      "era64h_cluster_inference_performed": false,
+      "era64h_connected_component_count": 35,
+      "era64h_database_write_used": false,
+      "era64h_detail_artifact": "data/replay/era64h_staging_replay_relationship_graph_v1.json",
+      "era64h_network_access_used": false,
+      "era64h_node_count": 150,
+      "era64h_relationship_edge_count": 160,
+      "era64h_relationship_event_count": 190,
+      "era64h_staging_event_count": 191,
+      "era64h_staging_replay_validated": true,
+      "era64h_successful_wallet_classification_ready": false,
+      "era64i_artifact": "data/control/era64i_bounded_historical_wallet_event_backfill_v1.json",
+      "era64i_cluster_inference_performed": false,
+      "era64i_cost_enrichment_complete": false,
+      "era64i_detail_artifact": "data/replay/era64i_bounded_historical_wallet_event_backfill_v1.json",
+      "era64i_distinct_token_count": 3,
+      "era64i_distinct_wallet_count": 340,
+      "era64i_end_block": 111858187,
+      "era64i_historical_backfill_verified": true,
+      "era64i_historical_block_span": 2048,
+      "era64i_network_access_used": true,
+      "era64i_production_database_write_used": false,
+      "era64i_sampled_block_count": 32,
+      "era64i_scanned_chunk_count": 32,
+      "era64i_selected_event_count": 367,
+      "era64i_staging_database_write_used": true,
+      "era64i_staging_event_count": 367,
+      "era64i_start_block": 111856140,
+      "era64i_successful_wallet_classification_ready": false,
+      "era64j_artifact": "data/control/era64j_historical_transfer_receipt_cost_enrichment_v1.json",
+      "era64j_detail_artifact": "data/replay/era64j_historical_transfer_receipt_cost_enrichment_v1.json",
+      "era64j_gas_cost_enriched_event_count": 367,
+      "era64j_network_access_used": true,
+      "era64j_performance_cost_enrichment_complete": false,
+      "era64j_production_database_write_used": false,
+      "era64j_receipt_cost_enrichment_verified": true,
+      "era64j_receipt_enriched_event_count": 367,
+      "era64j_receipt_enriched_transaction_count": 277,
+      "era64j_receipt_gas_cost_enrichment_complete": true,
+      "era64j_source_event_count": 367,
+      "era64j_source_transaction_count": 277,
+      "era64j_staging_database_write_used": true,
+      "era64j_successful_wallet_classification_ready": false,
+      "era64j_swap_direction_classification_ready": false,
+      "era64k_status": "DEFERRED_NOT_NEXT_STEP",
+      "fixed_timer_enabled": false,
+      "general_runtime_hardening": {
+        "broad_authority_expansion": false,
+        "closed_at_utc": "2026-07-13T14:27:40.170589+00:00",
+        "era57_opened": false,
+        "era57_opening_decision_ready": true,
+        "final_stress_artifact": "data/control/general_runtime_hardening_e_final_stress_gate_v1.json",
+        "final_stress_gate_closed": true,
+        "final_stress_result": "OK_GENERAL_RUNTIME_HARDENING_FINAL_STRESS_GATE_CLOSED",
+        "id": "GENERAL_RUNTIME_HARDENING",
+        "missing_active_reference_count": 0,
+        "next_safe_step": "ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION",
+        "policy_authority_reachable": true,
+        "production_mutation": false,
+        "runtime_gate": "core/runtime_policy_authority_gate.py",
+        "runtime_grant_registry": "config/runtime_stage_grants_v1.json",
+        "status": "CLOSED_VERIFIED",
+        "substeps": {
+          "A_CANONICAL_SYNC": "CLOSED_VERIFIED",
+          "B_ACTIVE_SURFACE_CLASSIFICATION": "CLOSED_VERIFIED",
+          "C_GENERAL_RUNNER_CONTRACT": "CLOSED_VERIFIED",
+          "D_POLICY_AUTHORITY_REACHABILITY": "CLOSED_VERIFIED",
+          "E_FINAL_STRESS_GATE": "CLOSED_VERIFIED"
+        },
+        "surface_classification_artifact": "data/control/general_runtime_hardening_b_active_surface_classification_v1.json",
+        "surface_classification_result": "OK_ACTIVE_SURFACE_CLASSIFIED",
+        "updated_at_utc": "2026-07-13T14:27:40.170589+00:00"
+      },
+      "general_runtime_stress_harness": "tests/general_runtime_stress_harness_v1.py",
+      "general_runtime_stress_harness_verified": true,
+      "general_source_contract_bound": true,
+      "git_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+      "implementation_merge_head": "f50651db0e2fd6356d9e4beb50e3804c8d72d566",
+      "last_artifact": "data/control/era57f6_authority_and_trust_root_adversarial_reaudit_v1.json",
+      "last_completed": "ERA61_CANONICAL_CLOSURE_SYNC_LOCAL_APPLY_AND_POST_AUDIT",
+      "last_result": "LOCAL_PASS_TARGET_CLOSURE_PENDING_REMOTE_VERIFY",
+      "legacy_raw_runner_reference_present": false,
+      "legacy_raw_runner_restore_authorized": false,
+      "legacy_raw_runner_restore_forbidden": true,
+      "live_source_fetch_authorized": false,
+      "manifest_sequence": 1,
+      "manifesto_constitution_complete": true,
+      "new_era_opened": false,
+      "new_work_unit_opened": true,
+      "news_v3_batch_01": {
+        "artifact": "data/control/news_v3_batch_01_atomic_merge_post_audit_v1.json",
+        "atomic_merge_complete": true,
+        "atomic_merge_tool_complete": true,
+        "batch_staging_gate_complete": true,
+        "batch_status": "MERGED",
+        "benchmark_complete": false,
+        "benchmark_contract_complete": true,
+        "candidate_count": 9,
+        "candidate_intake_foundation_complete": true,
+        "canonical_candidate_queue_count": 9,
+        "canonical_merge_authorized": true,
+        "closure_approval": "APPROVED_AND_MERGED",
+        "collection_foundation_complete": true,
+        "evidence_count": 9,
+        "evidence_schema_complete": true,
+        "golden_dataset_count": 0,
+        "human_review_ok": true,
+        "human_review_required_before_merge": false,
+        "merge_state": "MERGED",
+        "news_v3_complete": false,
+        "next_safe_step": "WHALE_GENERAL_READONLY_FLOW_CONTRACT_AND_EXISTING_COMPONENT_REUSE_PLAN",
+        "post_merge_checkpoint_sealed": true,
+        "real_data_path_validated": true,
+        "runtime_direction_synced": true,
+        "status": "MERGED_AND_POST_MERGE_SEALED",
+        "updated_at_utc": "2026-07-15T04:54:32.381505+00:00"
+      },
+      "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+      "option_b_authorized": false,
+      "p0_f1_closed": true,
+      "paper_runtime_enabled": false,
+      "phase9_observation_timer_active": false,
+      "phase9_observation_timer_enabled": false,
+      "pipeline_hygiene_ready_for_era57": true,
+      "policy_authority_reachable": true,
+      "pre_era57_hardening_closed": true,
+      "pre_era57_repo_pipeline_hygiene": {
+        "active_runtime_data_unchanged": true,
+        "active_runtime_unchanged": true,
+        "artifact": "data/control/pre_era57_repo_pipeline_hygiene_closure_v1.json",
+        "closed_at_utc": "2026-07-13T15:44:29.700548+00:00",
+        "phase9_timer_retired": true,
+        "pipeline_hygiene_ready_for_era57": true,
+        "repo_hygiene_ready_for_era57": true,
+        "status": "CLOSED_VERIFIED",
+        "transient_failed_unit_cleared": true,
+        "unclassified_blind_delete": false
+      },
+      "product_completion_lock": true,
+      "product_completion_program": {
+        "current_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+        "definition_of_done": [
+          "Canlı panel URL telefondan açılır.",
+          "Kullanıcı BSC token adresi girer.",
+          "Gerçek veri kaynakları birleşik karar paketi üretir.",
+          "Eksik veri açıkça VERI_YETERSIZ olarak gösterilir.",
+          "Risk kararı ve kanıt bağlantıları görünür.",
+          "İnsan kararı kaydedilir ve geçmişten tekrar açılır.",
+          "Sonuç takibi çalışır.",
+          "Daha sonra sınırlı paper trade aynı akışa bağlanır."
+        ],
+        "engine_deepening_only_when_product_blocked": true,
+        "era64k_status": "DEFERRED_NOT_NEXT_STEP",
+        "failed_builder_attempt": {
+          "cleanup_required": true,
+          "commit": "034b16387ed5e9966db637003cfc3f077abebe8e",
+          "result": "ROLLED_BACK_NO_PRODUCT_DEPLOYED"
+        },
+        "forbidden_until_core_user_loop_accepted": [
+          "NEW_ERA",
+          "NEW_ALT_ERA",
+          "UNRELATED_ENGINE_DEEPENING",
+          "NEW_ARCHITECTURE_EXPANSION",
+          "NEW_CANONICAL_DOCUMENT",
+          "PAPER_RUNTIME_ENABLEMENT",
+          "LIVE_TRADE_ENABLEMENT",
+          "WALLET_SIGNING_ORDER_BROADCAST_AUTHORITY"
+        ],
+        "id": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+        "last_verified_technical_baseline": {
+          "gas_cost_enriched_event_count": 367,
+          "live_trade": "DISABLED",
+          "paper_runtime": "DISABLED",
+          "real_data": true,
+          "real_financial_authority": 0,
+          "receipt_enriched_event_count": 367,
+          "source_event_count": 367,
+          "source_transaction_count": 277,
+          "stage": "ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT",
+          "status": "HISTORICAL_TRANSFER_RECEIPT_GAS_COST_ENRICHMENT_VERIFIED",
+          "successful_wallet_classification_ready": false,
+          "synthetic_data": false,
+          "technical_head": "43279c41d63250893540553994598a7418dc91ca",
+          "tests": "172/172_VERIFIED"
+        },
+        "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+        "no_new_alt_era": true,
+        "no_new_canonical_document": true,
+        "no_new_era_until_complete": true,
+        "opened_at_utc": "2026-07-24T17:54:31.332165+00:00",
+        "opened_by": "EXPLICIT_USER_DIRECTION",
+        "ordered_steps": [
+          {
+            "acceptance": [
+              "Kesin panel URL ve kimlik doğrulama yolu telefondan açılır ve doğrulanır.",
+              "NEWS producer/timer/readmodel zincirinin güncel canlı veya arızalı durumu ölçülür.",
+              "Alchemy bağlantısı sır basmadan doğrulanır; public BSC RPC ve piyasa veri fallback zinciri ölçülür.",
+              "Onchain olaydan readmodel/panel görünümüne gerçek gecikme ölçülür.",
+              "Nginx, TLS, auth, port, firewall, SSH, secret, izin, rate-limit ve servis yüzeyi için iç/dış güvenlik bulgusu çıkarılır.",
+              "Bu adım runtime, DB, panel, service, timer veya authority mutation yapmaz."
+            ],
+            "id": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+            "mode": "READ_ONLY",
+            "order": 1,
+            "purpose": "NEWS canlılığı, gerçek panel URL/auth yolu, servisler, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenliği güncel kanıtla doğrulamak.",
+            "title": "Canlı Gerçeklik, Panel Erişimi ve Güvenlik Doğrulaması"
+          },
+          {
+            "acceptance": [
+              "BSC adresi server-side doğrulanır; geçersiz veya kontrat olmayan adres fail-closed reddedilir.",
+              "Onchain, kontrat, holder/deployer, likidite, teknik, NEWS ve mevcut wallet bağlamı tek pakette birleşir.",
+              "Online timeframe seti 1m, 5m, 15m, 1h, 4h ve 1d olarak çalışır; yeterli mum yoksa VERI_YETERSIZ gösterilir.",
+              "Alchemy WebSocket/HTTP birincil, allowlisted public BSC RPC fallback/cross-check, GeckoTerminal piyasa kaynağı ve local cache hibrit çalışır.",
+              "Risk Engine ALLOW, BLOCK, WAIT veya REVIEW kararı ve gerekçelerini üretir; panel trade yetkisi üretmez.",
+              "Kullanıcı telefondan canlı URL üzerinde ekranı açar ve kabul eder."
+            ],
+            "id": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
+            "mode": "BOUNDED_PRODUCT_BUILD",
+            "order": 2,
+            "purpose": "Kullanıcının BSC token adresi girip gerçek, gerekçeli ve kanıt bağlantılı karar paketi görmesini sağlamak.",
+            "title": "Tek Token Giriş Ekranı ve Gerçek Karar Paketi"
+          },
+          {
+            "acceptance": [
+              "İnsan ACCEPT, REJECT, WAIT veya REVIEW seçimi kanıt paketiyle birlikte append-only kaydedilir.",
+              "Kayıt trade, wallet, signing veya order authority oluşturmaz.",
+              "Geçmiş karar tekrar açılır ve kullanılan kanıt sürümü görülür.",
+              "Belirlenen izleme pencerelerinde fiyat, risk ve sonuç değişimi kayda bağlanır.",
+              "Panelde karar geçmişi ve sonuç takibi görünür."
+            ],
+            "id": "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING",
+            "mode": "BOUNDED_PRODUCT_BUILD",
+            "order": 3,
+            "purpose": "Kararı insan onayıyla kaydetmek, tekrar açmak ve sonucunu izlemek.",
+            "title": "İnsan Onayı, Karar Geçmişi ve Sonuç Takibi"
+          },
+          {
+            "acceptance": [
+              "Router, pool, token metadata/decimals, alış-satış yönü, gerçekleşme fiyatı, gas, fee, slippage ve kapalı döngü belirlenir.",
+              "Başarılı cüzdan etiketi yalnız yeterli örnek, maliyet-tam PnL ve confidence eşiğiyle verilir.",
+              "CEX deposit/withdrawal ilişkileri ve 50 BTC veya eşdeğer balina eşiği izlenir.",
+              "Wallet, CEX, DEX, pool, token, transaction, news ve decision düğümleri Obsidian tarzı grafikte gösterilir.",
+              "Transfer ilişkisi tek başına ortak sahiplik veya kimlik iddiasına çevrilmez."
+            ],
+            "id": "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE",
+            "mode": "BOUNDED_PRODUCT_BUILD",
+            "order": 4,
+            "purpose": "Gerçek swap döngülerini, maliyet-tam performansı ve kanıt-temelli wallet/entity ilişkilerini görselleştirmek.",
+            "title": "DEX İşlemi, Başarılı Cüzdan, CEX Balina ve Obsidian Grafiği"
+          },
+          {
+            "acceptance": [
+              "Panel veya Telegram chatbot durum, token, risk, neden, uyarı, onay ve reddet komutlarını destekler.",
+              "NVIDIA API, ChatGPT/Codex, Claude, Gemini ve GitHub Copilot rolleri advisory-only ve hot-path dışı olarak doğrulanır.",
+              "Sorun algılama kök neden, düzeltme diffi, test sonucu, risk ve rollback önerisi üretir; insan onayı olmadan kod uygulamaz.",
+              "İstihbarat genel kripto haberini değil DEX operasyonu, yeni saldırı, AI/hardware/software/provider ve güvenlik gelişmelerini filtreler.",
+              "Her öneri opportunity cost, uygulanabilirlik, güvenlik etkisi ve APPLY/DEFER/REJECT kararıyla kullanıcıya gelir."
+            ],
+            "id": "PRODUCT_SLICE_05_HAREKAT_SUBAYI_AI_COUNCIL_SELF_HEALING_AND_OPERATIONAL_INTELLIGENCE",
+            "mode": "ADVISORY_ONLY_PRODUCT_BUILD",
+            "order": 5,
+            "purpose": "Sistemle sürekli temas, çoklu AI incelemesi, arıza teşhisi ve DEX-operasyonel teknoloji/saldırı istihbaratı sağlamak.",
+            "title": "Harekât Subayı, AI Konseyi, Onarım Önerisi ve Operasyonel İstihbarat"
+          },
+          {
+            "acceptance": [
+              "Adım 1-5 kullanıcı kabulü olmadan paper runtime açılmaz.",
+              "Risk Engine veto, insan politika zarfı, bounded sizing ve stop/rollback zorunludur.",
+              "Wallet, signing, broadcast, live order ve gerçek sermaye yetkileri sıfır kalır.",
+              "Simülasyon emri, maliyet modeli, karar kanıtı ve sonuç geçmişi panelde görünür.",
+              "Canlı trade ayrı açık insan kararı ve ayrı güvenlik doğrulaması olmadan açılamaz."
+            ],
+            "id": "PRODUCT_SLICE_06_LIMITED_PAPER_TRADE",
+            "mode": "ZERO_REAL_FUNDS_SIMULATION_ONLY",
+            "order": 6,
+            "purpose": "Önceki ürün adımları kullanıcı tarafından kabul edildikten sonra sıfır gerçek fonla izlenebilir simülasyon çalıştırmak.",
+            "title": "Sınırlı Paper Trade"
+          }
+        ],
+        "single_active_product_step": true,
+        "status": "ACTIVE_PLAN_LOCKED",
+        "tests_docs_schemas_and_standalone_engines_are_not_product_completion": true,
+        "title": "Tokenoskobi Kullanılabilir Ürün Dikey Dilimi",
+        "user_visible_acceptance_required_for_progress": true
+      },
+      "production_chaos_test_authorized": false,
+      "production_ledger_writer_active": true,
+      "production_mutation": false,
+      "project_status": "ERA61_TARGET_CLOSED_VERIFIED_GITHUB_SEALED_PENDING_REMOTE_VERIFY",
+      "readme_manifesto_single_entry_constitution_lock": {
+        "canonical_sync_artifact": "data/control/pre_era57_readme_manifesto_canonical_closure_sync_v1.json",
+        "database_mutation": false,
+        "documentation_only": true,
+        "era57_opened": false,
+        "manifesto_constitution_complete": true,
+        "network_mutation": false,
+        "next_safe_step": "ERA57_AUTONOMOUS_RESEARCH_LAYER_OPENING_DECISION",
+        "production_mutation": false,
+        "readme_single_entry_boot": true,
+        "result": "OK_README_AND_MANIFESTO_SINGLE_ENTRY_CONSTITUTION_LOCK_CLOSED_VERIFIED",
+        "runtime_mutation": false,
+        "source_commit": "06361bf3ef72612c07b225c1807e48afcd527573",
+        "source_seal": "PRE_ERA57_README_MANIFESTO_CONSTITUTION_FINAL_SEAL",
+        "status": "CLOSED_VERIFIED",
+        "updated_at_utc": "2026-07-13T18:30:52.472318+00:00"
+      },
+      "readme_single_entry_boot": true,
+      "registered_source_count": 12,
+      "repo_hygiene_ready_for_era57": true,
+      "root_tamper_resistance_verified": false,
+      "runner_lock_enabled": true,
+      "runner_subprocess_timeout_enforced": true,
+      "runtime_authority_engine": "core/authority.py",
+      "runtime_eligible_source_count": 0,
+      "runtime_policy_authority_gate": "core/runtime_policy_authority_gate.py",
+      "runtime_policy_engine": "core/policy.py",
+      "runtime_producer_contract_status": "REPAIR_GENERAL_CONTRACT_NOT_RESTORE_LEGACY",
+      "runtime_source_activation_decision": "DEFER_LIVE_SOURCE_ACTIVATION",
+      "runtime_source_contract": "config/news_runtime_source_contract_v1.json",
+      "runtime_source_contract_locked": true,
+      "runtime_stage_grant_registry": "config/runtime_stage_grants_v1.json",
+      "runtime_stage_grant_scope": "NEWS_RADAR_EXISTING_AUTHORITY_ONLY",
+      "rwa_future_backlog_id": "RWA_AND_TOKENIZED_SECURITIES_INTELLIGENCE_LAYER",
+      "rwa_future_backlog_status": "BACKLOG_LOCKED_NOT_AUTHORIZED",
+      "same_process_arbitrary_code_isolation": false,
+      "signed_registry_manifest": true,
+      "source_activation_deferred": true,
+      "source_activation_requires_human_approval": true,
+      "stress_harness_execution_evidence": "data/control/general_runtime_hardening_e_final_stress_gate_v1.json",
+      "stress_harness_execution_result": "OK_GENERAL_RUNTIME_HARDENING_FINAL_STRESS_GATE_CLOSED",
+      "stress_harness_final_gate_closed": true,
+      "technical_line_closed": true,
+      "test_inventory_current": 87,
+      "test_inventory_delta_from_f4": -1,
+      "trust_root_certified": false,
+      "updated_at_utc": "2026-07-24T14:38:25.100576+00:00",
+      "wal_apply_authorized": false,
+      "whale_intelligence": {
+        "database_mutation": false,
+        "database_schema": "COMPLETED_EMPTY_SCHEMA",
+        "economic_impact_contract": "COMPLETED_CONTRACT_ONLY",
+        "entity_boundaries": "COMPLETED_CONTRACT_ONLY",
+        "evidence_producer": "MISSING",
+        "graph_detection_core": "COMPLETED_BOUNDED_NO_RUNTIME",
+        "known_wallet_attribution": "PARTIAL",
+        "live_fetch": false,
+        "live_whale_intelligence": false,
+        "next_safe_step": "WHALE_GENERAL_READONLY_FLOW_CONTRACT_AND_EXISTING_COMPONENT_REUSE_PLAN",
+        "onchain_binding": "MISSING_UNVERIFIED",
+        "proven_duplicate_component_count": 0,
+        "readmodel_builder": "PLANNED_ONLY",
+        "real_flow_ingestion": "MISSING",
+        "retirement_authorized_count": 0,
+        "risk_link_producer": "MISSING",
+        "runtime_binding": false,
+        "source_taxonomy": "COMPLETED_CONTRACT_ONLY",
+        "status": "CANONICAL_STATE_AND_GAP_AUDIT_READONLY_COMPLETE",
+        "trade_authority": false,
+        "transition_artifact": "data/control/whale_transition_decision_after_news_batch_01_v1.json",
+        "transition_decision": "APPROVED_WITH_BOUNDS",
+        "updated_at_utc": "2026-07-15T04:54:32.381505+00:00",
+        "wallet_signing_authority": false
+      }
     },
     "canonical_workflow_rules": {
       "commit_policy": {
@@ -2088,22 +3071,10 @@
         "single_commit_when_possible": true,
         "single_push_when_possible": true
       },
-      "current_consolidation_policy": {
-        "historical_aliases": {
-          "ERA48": "ERA47B",
-          "ERA49": "ERA47C",
-          "ERA50": "ERA47D",
-          "ERA51": "ERA47E"
-        },
-        "parent": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-        "rule": "Historical aliases remain for audit trail only; they are not active work lanes."
-      },
-      "deadline_policy": {
+      "delivery_policy": {
         "avoid_repeated_gate_chains": true,
-        "deadline_mode": true,
-        "next_real_software_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-        "next_step_requirement": "The next real work must deliver minimal read-only scaffold, not another planning chain.",
-        "priority": "small working code over repeated decision documents",
+        "no_transient_next_step_in_general_policy": true,
+        "prefer_small_working_code_over_repeated_decision_documents": true,
         "reduce_documents": true,
         "reduce_labels": true
       },
@@ -2208,7 +3179,8 @@
         "06_PROJECT_MASTER_STATE.md",
         "07_PROJECT_HANDOFF.md",
         "02_MANIFESTO.md",
-        "03_ROADMAP.md"
+        "03_ROADMAP.md",
+        "PROJECT_HISTORY.json only if historical context is required"
       ],
       "status": "LOCKED_WITH_MAIN_LINE_SPLIT_POLICY",
       "substep_policy": {
@@ -2248,55 +3220,74 @@
       }
     },
     "closure_rule": "No work unit is closed unless PROJECT_RUNTIME.json is updated after GitHub seal.",
-    "current_head": "DYNAMIC_USE_TK_MACHINE",
+    "current_checkpoint": {
+      "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+      "git_branch": "main",
+      "source": "local_workspace_then_local_git_then_github"
+    },
+    "current_era": "ERA64",
+    "current_era_status": "OPEN_LOCAL_SYNTHETIC_REPLAY_VERIFIED",
+    "current_era_title": "Successful Wallet Intelligence and Statistical Performance",
+    "current_head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
+    "current_problem": {
+      "code": "NONE",
+      "evidence": "data/control/pre_era57_repo_pipeline_hygiene_closure_v1.json",
+      "severity": "NONE"
+    },
+    "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
     "current_state": {
       "active_work_unit": {
-        "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-        "id": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-        "module": "tools/discipline_layer_readonly_scaffold_v1.py",
-        "next_step": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
-        "status": "CLOSED",
-        "substeps": {
-          "ERA52A": "SCOPE_LOCKED",
-          "ERA52B": "READONLY_SCAFFOLD_CREATED",
-          "ERA52C": "SNAPSHOT_TESTED",
-          "ERA52D": "STATIC_AND_BOUNDARY_AUDITED",
-          "ERA52E": "CODEX_REVIEW_PROMPT_CREATED",
-          "ERA52F": "GITHUB_SEAL_PENDING_IN_THIS_RUN"
-        },
-        "type": "DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD"
+        "id": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+        "new_era": false,
+        "next_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+        "stage": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+        "status": "ACTIVE_PLAN_LOCKED",
+        "type": "PRODUCT_COMPLETION_PROGRAM"
       },
-      "current_problem": null,
+      "current_era": "ERA62",
+      "current_problem": {
+        "code": "NONE",
+        "severity": "NONE"
+      },
+      "current_version": "V4",
       "last_action": {
-        "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-        "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
-        "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-        "timestamp": "2026-07-08T11:06:16.159789Z"
+        "control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
+        "era62c_matrix": "28/28",
+        "legacy_replay_regression": "VERIFIED",
+        "matrix_test": "tests/era62c_synthetic_replay_matrix_v1.py",
+        "replay_artifact": "data/replay/era62c_fail_closed_advisory_council_replay_v1.json",
+        "result": "LOCAL_SYNTHETIC_REPLAY_VERIFIED",
+        "task": "ERA62C_LOCAL_SYNTHETIC_AND_REPLAY_TESTS",
+        "timestamp": "2026-07-22T21:10:08Z"
       },
-      "mode": "NEWS_READY_AFTER_ERA52_READONLY_SCAFFOLD_CLOSURE",
+      "mode": "USABLE_PRODUCT_VERTICAL_SLICE_CLOSURE",
       "next_safe_step": {
-        "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
-        "status": "READY"
+        "human_authorization_required": true,
+        "id": "ERA62D_LOCAL_ADVERSARIAL_AUTHORITY_INJECTION_AUDIT_REQUIRES_USER_APPROVAL",
+        "status": "LOCKED_PENDING_USER_APPROVAL"
       },
-      "project_status": "ACTIVE",
-      "runtime_status": "WORK_UNIT_CLOSED",
-      "updated_at": "2026-07-08T11:06:16.159789Z"
+      "project_status": "ACTIVE_PRODUCT_COMPLETION_MODE",
+      "runtime_status": "LOCAL_READONLY_SYNTHETIC_REPLAY_VERIFIED_PROVIDER_DISPATCH_DISABLED",
+      "updated_at": "2026-07-22T21:10:08Z"
     },
+    "current_state_contract": {
+      "boot_contains_stable_contract_only": true,
+      "git_head_is_dynamic": true,
+      "handoff_is_continuation_context": true,
+      "history_is_append_only": true,
+      "master_state_is_human_summary": true,
+      "runtime_is_primary_machine_authority": true
+    },
+    "current_status": "PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED",
+    "current_version": "V4",
+    "current_version_label": "Coordinated Intelligence and Paper-Trading Proving Ground",
     "current_work_unit": {
-      "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-      "id": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "module": "tools/discipline_layer_readonly_scaffold_v1.py",
-      "next_step": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
-      "status": "CLOSED",
-      "substeps": {
-        "ERA52A": "SCOPE_LOCKED",
-        "ERA52B": "READONLY_SCAFFOLD_CREATED",
-        "ERA52C": "SNAPSHOT_TESTED",
-        "ERA52D": "STATIC_AND_BOUNDARY_AUDITED",
-        "ERA52E": "CODEX_REVIEW_PROMPT_CREATED",
-        "ERA52F": "GITHUB_SEAL_PENDING_IN_THIS_RUN"
-      },
-      "type": "DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD"
+      "id": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+      "new_era": false,
+      "next_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+      "stage": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+      "status": "ACTIVE_PLAN_LOCKED",
+      "type": "PRODUCT_COMPLETION_PROGRAM"
     },
     "disaster_recovery_policy": {
       "hard_rules": [
@@ -2328,6 +3319,576 @@
       "sealed_head": "d30d1f086178e858788b1176dbf790bc95d2f472",
       "work_unit": "ERA23F_DISASTER_RECOVERY_AND_ROLLBACK_PROTOCOL"
     },
+    "documentation_normalization": {
+      "event_id": "ROOT_CANONICAL_REMAINING_SCOPE_NORMALIZATION_V1",
+      "files_normalized": [
+        "02_MANIFESTO.md",
+        "03_ROADMAP.md",
+        "04_ALMANAC.md",
+        "05_ATLAS.md",
+        "06_PROJECT_MASTER_STATE.md",
+        "07_PROJECT_HANDOFF.md",
+        "PROJECT_BOOT.json",
+        "PROJECT_RUNTIME.json"
+      ],
+      "files_verified_unchanged": [
+        "README.md",
+        "01_INDEX.md",
+        "PROJECT_HISTORY.json"
+      ],
+      "new_era_opened": false,
+      "next_safe_step_unchanged": true,
+      "normalized_at_utc": "2026-07-10T15:59:48.209051+00:00",
+      "status": "CLOSED_VERIFIED"
+    },
+    "era54_status": {
+      "closed_at_utc": "2026-07-08T17:25:07+00:00",
+      "closure_sync_at_utc": "2026-07-10T12:45:23.567774+00:00",
+      "completed_units": [
+        {
+          "artifact": "data/control/era54a_scope_fix_lock_noapi_v1.json",
+          "id": "ERA54A_SCOPE_FIX_LOCK_NOAPI",
+          "result": "OK_SCOPE_FIX_LOCKED"
+        },
+        {
+          "artifact": "data/control/era54b_standalone_scaffold_apply_plan_noapi_v1.json",
+          "id": "ERA54B_STANDALONE_SCAFFOLD_APPLY_PLAN_NOAPI",
+          "result": "OK_STANDALONE_SCAFFOLD_APPLY_PLAN_LOCKED"
+        },
+        {
+          "artifact": "data/control/era54c_hot_ingress_minimal_readonly_scaffold_dryrun_noapi_v1.json",
+          "id": "ERA54C_STANDALONE_SCAFFOLD_DRYRUN_NOAPI",
+          "result": "OK_DRYRUN_CLEAN",
+          "tool": "tools/hot_ingress_minimal_readonly_scaffold_v1.py"
+        },
+        {
+          "artifact": "data/control/era54d_static_and_boundary_audit_noapi_v1.json",
+          "id": "ERA54D_STATIC_AND_BOUNDARY_AUDIT_NOAPI",
+          "result": "OK_STATIC_AND_BOUNDARY_AUDIT_CLEAN"
+        }
+      ],
+      "era": "ERA54",
+      "final_closed_at_utc": "2026-07-10T12:30:25.265514+00:00",
+      "final_observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+      "final_observation_decision": "OK_POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
+      "guarantees": {
+        "db_change": false,
+        "external_source_adapter": false,
+        "new_top_level_directory": false,
+        "noapi": true,
+        "panel_change": false,
+        "runtime_change": false,
+        "runtime_import": false,
+        "service_change": false,
+        "wallet_or_trade": false
+      },
+      "head_before_closure_commit": "4e913a02994b24543e3a53f611f5b5992a3624c0",
+      "motto_gate": {
+        "economy": "minimal files, no docs bloat, no runtime cost",
+        "formula_source": "ERA24F_EDE_OPPORTUNITY_COST_BASELINE",
+        "power": "happy duplicate poison noisy conflicting cases covered",
+        "security": "runtime import block and boundary audit clean",
+        "speed": "manual standalone scaffold only"
+      },
+      "natural_timer_cycle": "OBSERVED_VERIFIED",
+      "new_era_opened": false,
+      "news_operational_baseline": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+      "next_safe_step": "ERA55_SELECTION_GATE",
+      "stage": "ERA54F_FINAL_CLOSURE_NOAPI",
+      "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+      "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
+      "title": "Hot Intelligence Ingress Bounded Runtime"
+    },
+    "era55_selection_gate": {
+      "allowed_decisions": [
+        "OPEN_ERA55_RUNTIME_OPTIMIZATION",
+        "SELECT_ANOTHER_MAJOR_PROJECT_LINE",
+        "HOLD_NO_NEW_MAJOR_LINE"
+      ],
+      "candidate_next_line": "ERA55_RUNTIME_OPTIMIZATION",
+      "candidate_status": "PLANNED_CANDIDATE_NOT_OPENED",
+      "human_authorization_required": true,
+      "id": "ERA55_SELECTION_GATE",
+      "new_era_opened": false,
+      "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+      "purpose": "Select ERA55 Runtime Optimization, select another major project line, or hold without opening a new ERA.",
+      "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+      "status": "READY",
+      "type": "MAJOR_LINE_SELECTION_GATE"
+    },
+    "era55_status": {
+      "a2_artifact": "data/control/era55a2_granular_instrumentation_and_baseline_measurement_plan_v1.json",
+      "a2_report": "reports/LATEST_ERA55A2_GRANULAR_INSTRUMENTATION_AND_BASELINE_MEASUREMENT_PLAN.md",
+      "a3_artifact": "data/control/era55a3_natural_cycle_baseline_collection_v1.json",
+      "a3_report": "reports/LATEST_ERA55A3_NATURAL_CYCLE_BASELINE_COLLECTION.md",
+      "a4_artifact": "data/control/era55a4_baseline_consolidation_and_extended_sample_review_v1.json",
+      "a4_report": "reports/LATEST_ERA55A4_BASELINE_CONSOLIDATION_AND_EXTENDED_SAMPLE_REVIEW.md",
+      "a5_artifact": "data/control/era55a5_baseline_report_and_gemini_red_team_package_v1.json",
+      "a5_report": "reports/LATEST_ERA55A5_BASELINE_REPORT_AND_GEMINI_RED_TEAM_PACKAGE.md",
+      "a6_artifact": "data/control/era55a6_gemini_red_team_review_and_findings_register_v1.json",
+      "a6_report": "reports/LATEST_ERA55A6_GEMINI_RED_TEAM_REVIEW_AND_FINDINGS_REGISTER.md",
+      "a7_artifact": "data/control/era55a7_p0_drop_ledger_design_and_temp_copy_test_v1.json",
+      "a7_report": "reports/LATEST_ERA55A7_P0_DROP_LEDGER_DESIGN_AND_TEMP_COPY_TEST.md",
+      "a7_schema": "data/control/era55a7_p0_disposition_ledger_schema_v1.sql",
+      "a7_temp_copy_test_authorized": true,
+      "a8_artifact": "data/control/era55a8_p0_drop_ledger_post_test_audit_and_schema_only_migration_v1.json",
+      "a8_report": "reports/LATEST_ERA55A8_P0_DROP_LEDGER_POST_TEST_AUDIT_AND_SCHEMA_ONLY_MIGRATION.md",
+      "a8_schema": "data/control/era55a8_p0_disposition_ledger_schema_v2.sql",
+      "a9_artifact": "data/control/era55a9_p0_ledger_writer_integration_temp_copy_test_v1.json",
+      "a9_report": "reports/LATEST_ERA55A9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST.md",
+      "a9_temp_copy_writer_integration_validated": true,
+      "active_stage": "ERA55A_P0_LEDGER_WRITER",
+      "authorization": "USER_APPROVED_OPEN_ERA55_RUNTIME_OPTIMIZATION",
+      "baseline_evidence_collected": true,
+      "baseline_ready_for_a5": true,
+      "baseline_report_complete": true,
+      "baseline_sufficient_for_optimization_apply": false,
+      "burst_load_authorized": false,
+      "era": "ERA55",
+      "gemini_baseline_verdict": "BASELINE_ACCEPTED",
+      "gemini_package_ready": true,
+      "gemini_red_team_required": true,
+      "gemini_review_complete": true,
+      "idempotent_replay_validated": true,
+      "last_completed_substep": "ERA55A_9_P0_LEDGER_WRITER_INTEGRATION_TEMP_COPY_TEST",
+      "manual_runner_execution_authorized": false,
+      "measurement_plan_locked": true,
+      "new_ledger_batch_unobservable_rows": 0,
+      "next_safe_step": "ERA55A_10_P0_LEDGER_WRITER_POST_TEST_AUDIT_AND_PRODUCTION_APPLY_DECISION",
+      "opened_at_utc": "2026-07-11T06:15:55.480509+00:00",
+      "opening_artifact": "data/control/era55_runtime_optimization_init_v1.json",
+      "optimization_apply_authorized": false,
+      "optimization_apply_verdict": "REJECTED_UNTIL_P0_CLEARED",
+      "option_b_authorized": false,
+      "p0_f1_closed": false,
+      "p0_f1_status": "OPEN_PENDING_PRODUCTION_WRITER_AND_NATURAL_CYCLE_PROOF",
+      "p0_ledger_schema_temp_copy_validated": true,
+      "p0_queue_risk_open": true,
+      "parent": "ERA54_HOT_INTELLIGENCE_INGRESS_BOUNDED_RUNTIME",
+      "production_ledger_apply_authorized": false,
+      "production_ledger_schema_present": true,
+      "production_ledger_writer_active": false,
+      "production_writer_activation_authorized": false,
+      "publish_recovery_validated": true,
+      "replacement_atomicity_validated": true,
+      "report": "reports/LATEST_ERA55A1_READONLY_INSPECTION.md",
+      "runtime_db_service_timer_panel_mutation": false,
+      "serves": "V3_RUNTIME_INTELLIGENCE_OS",
+      "status": "OPEN",
+      "strict_cross_resource_atomicity_proven": false,
+      "title": "Runtime Optimization"
+    },
+    "era62_final_closure": {
+      "closed_scope": [
+        "ERA62A",
+        "ERA62B",
+        "ERA62C"
+      ],
+      "closure_head": "4fc9e0f977299f2a1273bae54a994b18e8298f00",
+      "era62d_cancelled": true,
+      "remote_verified": true,
+      "status": "CLOSED_VERIFIED_GITHUB_SEALED"
+    },
+    "era63_final_closure": {
+      "always_on_service_retained": true,
+      "artifact": "data/control/era63e_continuous_observation_and_technical_closure_v1.json",
+      "fixed_timer_enabled": false,
+      "full_market_refreshes": 32,
+      "natural_block_events": 25941,
+      "next_safe_step": "ERA64_SUCCESSFUL_WALLET_STATS_AND_CLUSTERING_OPENING_DECISION",
+      "status": "CLOSED_VERIFIED_GITHUB_SEALED",
+      "tests": "69/69_PASS"
+    },
+    "era63_gap_audit": {
+      "artifact": "data/control/era63a_accelerated_paper_trading_gap_audit_v1.json",
+      "paper_trade_blockers": [
+        "MARKET_DATA_AND_LIQUIDITY",
+        "TECHNICAL_ANALYSIS_RUNTIME",
+        "OPPORTUNITY_AND_EDGE_ENGINE",
+        "POSITION_SIZING_AND_RISK_ENVELOPE",
+        "PAPER_ORDER_AND_FILL_ENGINE",
+        "FEE_SLIPPAGE_MEV_COST_MODEL",
+        "PORTFOLIO_PNL_DRAWDOWN_MEMORY",
+        "END_TO_END_LATENCY_MEASUREMENT"
+      ],
+      "status": "COMPLETED_READONLY"
+    },
+    "era63b_core_build": {
+      "authority": {
+        "broadcast": false,
+        "paper_calculation": true,
+        "paper_runtime_enabled": false,
+        "real_order": false,
+        "real_trade": false,
+        "signing": false,
+        "unattended_runtime_enabled": false,
+        "wallet": false
+      },
+      "baseline_head": "5fef1db853999b6e7c448fdf35d58e2f700420f2",
+      "built_at_utc": "2026-07-23T07:56:06.638035+00:00",
+      "capabilities_built": [
+        "MARKET_DATA_VALIDATION_AND_LIQUIDITY_GATE",
+        "TECHNICAL_ANALYSIS_RUNTIME",
+        "OPPORTUNITY_AND_NET_EDGE_ENGINE",
+        "POSITION_SIZING_AND_RISK_ENVELOPE",
+        "PAPER_ORDER_AND_FILL_SIMULATION",
+        "FEE_SLIPPAGE_MEV_GAS_COST_MODEL",
+        "PORTFOLIO_PNL_AND_DRAWDOWN",
+        "END_TO_END_STAGE_LATENCY"
+      ],
+      "database_mutation": false,
+      "era": "ERA63",
+      "files": {
+        "config": "config/era63_paper_trading_core_v1.json",
+        "engine": "tools/era63_paper_trading_core_v1.py",
+        "fixture": "data/replay/era63b_paper_core_fixture_v1.json",
+        "sample_result": "data/replay/era63b_paper_core_sample_result_v1.json",
+        "tests": "tests/test_era63b_paper_trading_core_v1.py"
+      },
+      "network_access": false,
+      "next_safe_step": "ERA63C_END_TO_END_REPLAY_AND_COST_VALIDATION",
+      "production_binding": false,
+      "schema": "tokenoskobi.era63b.paper_core_build.v1",
+      "service_mutation": false,
+      "sha256": {
+        "config": "28abc13b10dc3891776a3f4b1627f559bd7b819ef5115f325a9320a230bf4f68",
+        "engine": "cd4d720399d12c6591d8288500bca6f9f4c97868834b9ee5d2ec729cdaaf5885",
+        "fixture": "8b499a34e15a0e1403a397d0ef6fd85dca1de914d753abbc7aae5729e4c8b758",
+        "sample_result": "5afe2dde88e295904b860494505f99e209e92955464bd0f2ded4fa6f595168fc",
+        "tests": "eaa7e99b6613c1db35f2b14cc99e267c1b3cdab4f2128bd2571fdfd9e2b0fb46"
+      },
+      "stage": "ERA63B_ACCELERATED_PAPER_TRADING_CORE_BUILD",
+      "status": "LOCAL_CORE_BUILD_VERIFIED",
+      "timer_mutation": false,
+      "verification": {
+        "cli_fixture": "PASS",
+        "sample_action": "BUY",
+        "sample_fill": "SIMULATED_FILLED",
+        "sample_total_latency_ms": 0.12817233800888062,
+        "syntax": "PASS",
+        "unit_tests": "13/13_PASS"
+      }
+    },
+    "era63c_validation": {
+      "authority": {
+        "broadcast_authority": 0,
+        "paper_order_create": "SIMULATION_ONLY",
+        "paper_position_management": "SIMULATION_ONLY",
+        "paper_runtime_enabled": false,
+        "paper_simulation": true,
+        "real_order_authority": 0,
+        "real_trade_authority": 0,
+        "risk_engine_veto": true,
+        "signing_authority": 0,
+        "unattended_runtime_enabled": false,
+        "wallet_authority": 0
+      },
+      "era": "ERA63",
+      "implemented": [
+        "MULTI_TIMEFRAME_TECHNICAL_ANALYSIS",
+        "EMA_RSI_ATR_ADX_MACD_BOLLINGER_VOLUME_OBV_SUPPORT_RESISTANCE",
+        "CONSTANT_PRODUCT_AMM_PRICE_IMPACT",
+        "MULTI_ROUTE_AND_MULTIHOP_EVALUATION",
+        "DYNAMIC_SANDWICH_PROBABILITY",
+        "FRONT_RUN_BACK_RUN_SANDWICH_SIMULATION",
+        "EXPECTED_SANDWICH_LOSS",
+        "OTHER_MEV_EXPECTED_COST",
+        "BUY_SELL_TOKEN_TAX",
+        "GAS_AND_DEX_FEE",
+        "ADAPTIVE_POSITION_SIZING",
+        "PRIVATE_RELAY_SPLIT_AND_ROUTE_PROTECTION_RECOMMENDATIONS",
+        "END_TO_END_ZERO_REAL_FUNDS_REPLAY"
+      ],
+      "locked_v4_sequence": [
+        "ERA63_TECHNICAL_AND_DEX_EXECUTION",
+        "ERA64_SUCCESSFUL_WALLET_STATS_AND_CLUSTERING",
+        "ERA65_ONCHAIN_CEX_TO_DEX_WHALE_FLOW",
+        "ERA66_NEWS_AIRDROP_ICO_IDO_LAUNCH_INTELLIGENCE",
+        "ERA67_COORDINATED_MULTI_INTELLIGENCE_FUSION",
+        "ERA68_UNATTENDED_PAPER_RUNTIME"
+      ],
+      "next_safe_step": "ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING",
+      "remaining_before_technical_line_complete": [
+        "REAL_MARKET_AND_CANDLE_SOURCE_BINDING",
+        "REAL_DEX_POOL_RESERVE_AND_ROUTE_SOURCE_BINDING",
+        "REAL_MEMPOOL_MEV_SIGNAL_SOURCE_BINDING",
+        "OBSERVATION_WITH_FRESHNESS_AND_LATENCY_EVIDENCE"
+      ],
+      "replay_matrix": {
+        "artifact": "data/replay/era63c_technical_dex_execution_replay_matrix_result_v1.json",
+        "scenarios": "8/8_PASS"
+      },
+      "schema": "tokenoskobi.era63c.technical_dex_execution_validation.v1",
+      "stage": "ERA63C_TECHNICAL_DEX_EXECUTION_VALIDATION",
+      "status": "LOCAL_TECHNICAL_DEX_EXECUTION_VALIDATED",
+      "tests": {
+        "combined": "34/34_PASS",
+        "era63b_regression": "13/13_PASS",
+        "era63c_new_tests": "21/21_PASS"
+      },
+      "validated_at_utc": "2026-07-23T08:44:03.574493+00:00"
+    },
+    "era63d_runtime": {
+      "authority": {
+        "broadcast": false,
+        "observation_runtime": true,
+        "paper_position_write": false,
+        "paper_runtime": false,
+        "real_order": false,
+        "real_trade": false,
+        "risk_engine_veto": true,
+        "signing": false,
+        "system_may_expand_policy": false,
+        "wallet": false
+      },
+      "baseline_head": "eaa6829ab3645a861c8bc0becbfd03e822c9fc39",
+      "bound_at_utc": "2026-07-23T09:16:29.348875+00:00",
+      "era": "ERA63",
+      "known_fail_closed_limits": [
+        "TOKEN_TAX_DIRECT_SOURCE_NOT_BOUND",
+        "DIRECT_MEMPOOL_MEASUREMENT_NOT_BOUND",
+        "POOL_RESERVES_ESTIMATED_FROM_TVL_AND_BASE_PRICE",
+        "COORDINATED_WALLET_ONCHAIN_WHALE_NEWS_INTELLIGENCE_NOT_BOUND",
+        "PAPER_RUNTIME_DISABLED"
+      ],
+      "next_safe_step": "ERA63E_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE",
+      "provider": {
+        "base_url": "https://api.geckoterminal.com/api/v2",
+        "mode": "KEYLESS_PUBLIC_LOW_VOLUME_READ_ONLY",
+        "name": "GECKOTERMINAL_KEYLESS_PUBLIC",
+        "network": "bsc",
+        "request_count_last_cycle": 20
+      },
+      "real_data": {
+        "candidate_count": 3,
+        "generated_at_utc": "2026-07-23T09:16:07.622560+00:00",
+        "pool_summaries": [
+          {
+            "blocks": [
+              "TOKEN_TAX_UNKNOWN",
+              "MEMPOOL_DIRECT_MEASUREMENT_MISSING",
+              "POOL_RESERVES_ESTIMATED_FROM_TVL",
+              "COORDINATED_INTELLIGENCE_NOT_BOUND",
+              "PAPER_RUNTIME_NOT_AUTHORIZED"
+            ],
+            "confidence": 0.8333911007652329,
+            "consensus": 1.0,
+            "directional_score": -0.4341009548667636,
+            "engine_action": "WAIT",
+            "execution_risk_score": 0.2929803271917002,
+            "expected_sandwich_loss_bps": 0.0,
+            "gross_edge_bps": 0.0,
+            "liquidity_usd": 9862192.8925,
+            "paper_action": "DISABLED",
+            "pool_address": "0x26a8e4591b7a0efcd45a577ad0d54aa64a99efaf2546ad4d5b0454c99eb70eab",
+            "pool_name": "BSB / USDT 0.007%",
+            "price_impact_bps": 0.20277634694143565,
+            "price_usd": 0.138380772430953,
+            "probe_net_edge_bps": -36.302776346941585,
+            "runtime_status": "OBSERVE_WAIT",
+            "sandwich_probability": 0.3909272661016349,
+            "volume_h24_usd": 5621228.57304135
+          }
+        ],
+        "successful_pool_count": 1,
+        "verified": true
+      },
+      "runtime": {
+        "config": "config/era63d_market_technical_runtime_v1.json",
+        "dynamic_state": "runtime/era63d",
+        "engine": "tools/era63d_market_technical_runtime_v1.py",
+        "interval_minutes": 15,
+        "panel_readmodel": "active_panel_8096/current/data/technical_center_live_readmodel_v1.json",
+        "service": "tokenoskobi-era63d-market-technical.service",
+        "service_result": "success",
+        "technical_center_bridge": "tools/technical_center_live_producer_v1.py",
+        "technical_engine": "tools/era63_technical_dex_execution_v1.py",
+        "timer": "tokenoskobi-era63d-market-technical.timer",
+        "timer_active": "active",
+        "timer_enabled": "enabled"
+      },
+      "schema": "tokenoskobi.era63d.real_market_technical_runtime_binding.v1",
+      "sha256": {
+        "config": "2bb6a7dc1795cb00f4324dda9ad3df67c6bda3f7072651f2729061b35cba81df",
+        "runtime": "3f92cbb1c9f5bdac97018f0639f9811bb8a0c43a01e84ebb229d2bcc48b73dd1",
+        "service": "3e85ef4593f79c9453d6c5b35335e1e304cfd483985b47fe84d16def151e9364",
+        "tests": "7e21954965f0c29ed6d1d2ecda4c5e27bf4aa0f0101f19ba7828da9c2a33c433",
+        "timer": "113d35ce2426ac96bb8c25abf11dc85a75d9c2289737a6f4101290c89fc8006f"
+      },
+      "stage": "ERA63D_REAL_MARKET_AND_TECHNICAL_RUNTIME_BINDING",
+      "status": "READONLY_REAL_MARKET_TECHNICAL_RUNTIME_ACTIVE",
+      "verification": {
+        "combined_static_and_regression": "51/51_PASS",
+        "era63b_regression": "13/13_PASS",
+        "era63c_regression": "21/21_PASS",
+        "era63d_tests": "17/17_PASS",
+        "real_provider_cycle": "PASS",
+        "systemd_timer": "ACTIVE_ENABLED",
+        "technical_center_bridge": "PASS"
+      }
+    },
+    "era63e_always_on_runtime": {
+      "active_runtime": "tokenoskobi-era63e-always-on-market.service",
+      "authority": {
+        "broadcast": false,
+        "observation_runtime": true,
+        "paper_runtime": false,
+        "real_order": false,
+        "real_trade": false,
+        "signing": false,
+        "wallet": false
+      },
+      "block_event_stream_active": true,
+      "bound_at_utc": "2026-07-23T09:38:28.161609+00:00",
+      "era": "ERA63",
+      "files": {
+        "config": "config/era63e_always_on_market_runtime_v1.json",
+        "engine": "tools/era63e_always_on_market_runtime_v1.py",
+        "service": "systemd_drafts/tokenoskobi-era63e-always-on-market.service",
+        "tests": "tests/test_era63e_always_on_market_runtime_v1.py"
+      },
+      "fixed_timer_enabled": false,
+      "full_market_refreshes": 1,
+      "latest_observed_block": 111644018,
+      "next_safe_step": "ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE",
+      "observed_block_events": 1,
+      "replaced_runtime": "tokenoskobi-era63d-market-technical.timer",
+      "rpc_endpoint": "https://bsc-dataseed.bnbchain.org",
+      "runtime_model": "RESIDENT_BLOCK_EVENT_LOOP_WITH_ADAPTIVE_FULL_MARKET_REFRESH",
+      "schema": "tokenoskobi.era63e.always_on_market_runtime_binding.v1",
+      "sha256": {
+        "config": "13e2514bf5d5d4dc9aeaed5f4263267ebfcc1a3a726f7847925e8bc9553d8ae2",
+        "engine": "ba30e40cfeeec36fa2bba1dd9d9022e3cffcd9a8e65374321f553be2483180ad",
+        "service": "7de383f8872c10bc44a28f72cdbb443f377e46d2daa6c9e8ef20140a11c989d8",
+        "tests": "9e254ca51aab4b6ebfcf51250e85423eb429423276a1a5edf19695c989106ffc"
+      },
+      "stage": "ERA63E_ADAPTIVE_ALWAYS_ON_MARKET_RUNTIME",
+      "status": "ALWAYS_ON_BLOCK_EVENT_RUNTIME_ACTIVE",
+      "tests": {
+        "combined": "65/65_PASS",
+        "era63b": "13/13_PASS",
+        "era63c": "21/21_PASS",
+        "era63d": "17/17_PASS",
+        "era63e": "14/14_PASS"
+      }
+    },
+    "era63e_rate_limit_reliability_repair": {
+      "always_on_service_retained": true,
+      "artifact": "data/control/era63e_rate_limit_reliability_repair_v1.json",
+      "fixed_timer_enabled": false,
+      "next_safe_step": "ERA63E_CONTINUOUS_REAL_DATA_OBSERVATION_AND_TECHNICAL_LINE_CLOSURE",
+      "root_cause": "GECKOTERMINAL_HTTP_429_RATE_LIMIT",
+      "status": "APPLIED_VERIFIED_OBSERVATION_PENDING",
+      "tests": "69/69_PASS"
+    },
+    "era64_deepening_status": "FROZEN_AFTER_ERA64J_BY_PRODUCT_PRIORITY",
+    "era64_foundation": {
+      "artifact": "data/control/era64b_successful_wallet_statistics_and_cluster_foundation_v1.json",
+      "database_write": false,
+      "implementation_authorized_for_stage": true,
+      "module": "tools/era64_successful_wallet_foundation_v1.py",
+      "network_access": false,
+      "real_financial_authority": 0,
+      "runtime_panel_service_timer_mutation": false,
+      "status": "FOUNDATION_BUILT_VERIFIED",
+      "tests": "86/86_VERIFIED"
+    },
+    "era64_implementation_authorized": true,
+    "era64_opening": {
+      "artifact": "data/control/era64a_opening_scope_and_evidence_audit_v1.json",
+      "core_blockers": [
+        "POSITION_CYCLE_RECONSTRUCTION",
+        "COST_ADJUSTED_PERFORMANCE_METRICS",
+        "HISTORICAL_REPLAY_AND_VALIDATION"
+      ],
+      "implementation_authorized": false,
+      "next_safe_step": "ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION_BUILD_REQUIRES_USER_APPROVAL",
+      "status": "OPEN_SCOPE_LOCKED_AUDIT_COMPLETED"
+    },
+    "era64c_artifact": "data/control/era64c_real_historical_wallet_replay_and_validation_v1.json",
+    "era64c_closed_cycle_count": 0,
+    "era64c_cost_complete_trade_event_count": 0,
+    "era64c_database_source_count": 1,
+    "era64c_real_data_gap_confirmed": true,
+    "era64c_real_historical_replay_validated": false,
+    "era64c_relationship_event_count": 0,
+    "era64c_relevant_table_count": 50,
+    "era64c_scanned_row_count": 840,
+    "era64d_artifact": "data/control/era64d_real_wallet_event_coverage_gap_repair_v1.json",
+    "era64d_candidate_source_table_count": 8,
+    "era64d_closed_cycle_count": 0,
+    "era64d_cost_complete_trade_event_count": 0,
+    "era64d_coverage_classification_repaired": true,
+    "era64d_empty_candidate_table_count": 8,
+    "era64d_nonempty_candidate_table_count": 0,
+    "era64d_relationship_event_count": 0,
+    "era64d_source_contract_ready": true,
+    "era64d_status": "REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY",
+    "era64e_artifact": "data/control/era64e_bounded_wallet_event_acquisition_backfill_plan_v1.json",
+    "era64e_database_write_used": false,
+    "era64e_execution_started": false,
+    "era64e_network_access_used": false,
+    "era64e_plan_locked": true,
+    "era64f_artifact": "data/control/era64f_bounded_readonly_wallet_event_canary_v1.json",
+    "era64f_canary_verified": true,
+    "era64f_database_write_used": false,
+    "era64f_distinct_wallet_count": 150,
+    "era64f_network_access_used": true,
+    "era64f_network_canary_executed": true,
+    "era64f_real_wallet_event_count": 191,
+    "era64g_artifact": "data/control/era64g_bounded_staging_database_backfill_v1.json",
+    "era64g_distinct_wallet_count": 150,
+    "era64g_production_database_write_used": false,
+    "era64g_source_event_count": 191,
+    "era64g_staging_database": "runtime/era64g/wallet_events_staging_v1.sqlite3",
+    "era64g_staging_database_write_used": true,
+    "era64g_staging_event_count": 191,
+    "era64h_artifact": "data/control/era64h_staging_replay_relationship_graph_validation_v1.json",
+    "era64h_cluster_inference_performed": false,
+    "era64h_connected_component_count": 35,
+    "era64h_database_write_used": false,
+    "era64h_detail_artifact": "data/replay/era64h_staging_replay_relationship_graph_v1.json",
+    "era64h_network_access_used": false,
+    "era64h_node_count": 150,
+    "era64h_relationship_edge_count": 160,
+    "era64h_relationship_event_count": 190,
+    "era64h_staging_event_count": 191,
+    "era64h_staging_replay_validated": true,
+    "era64h_successful_wallet_classification_ready": false,
+    "era64i_artifact": "data/control/era64i_bounded_historical_wallet_event_backfill_v1.json",
+    "era64i_cluster_inference_performed": false,
+    "era64i_cost_enrichment_complete": false,
+    "era64i_detail_artifact": "data/replay/era64i_bounded_historical_wallet_event_backfill_v1.json",
+    "era64i_distinct_token_count": 3,
+    "era64i_distinct_wallet_count": 340,
+    "era64i_end_block": 111858187,
+    "era64i_historical_backfill_verified": true,
+    "era64i_historical_block_span": 2048,
+    "era64i_network_access_used": true,
+    "era64i_production_database_write_used": false,
+    "era64i_sampled_block_count": 32,
+    "era64i_scanned_chunk_count": 32,
+    "era64i_selected_event_count": 367,
+    "era64i_staging_database_write_used": true,
+    "era64i_staging_event_count": 367,
+    "era64i_start_block": 111856140,
+    "era64i_successful_wallet_classification_ready": false,
+    "era64j_artifact": "data/control/era64j_historical_transfer_receipt_cost_enrichment_v1.json",
+    "era64j_detail_artifact": "data/replay/era64j_historical_transfer_receipt_cost_enrichment_v1.json",
+    "era64j_gas_cost_enriched_event_count": 367,
+    "era64j_network_access_used": true,
+    "era64j_performance_cost_enrichment_complete": false,
+    "era64j_production_database_write_used": false,
+    "era64j_receipt_cost_enrichment_verified": true,
+    "era64j_receipt_enriched_event_count": 367,
+    "era64j_receipt_enriched_transaction_count": 277,
+    "era64j_receipt_gas_cost_enrichment_complete": true,
+    "era64j_source_event_count": 367,
+    "era64j_source_transaction_count": 277,
+    "era64j_staging_database_write_used": true,
+    "era64j_successful_wallet_classification_ready": false,
+    "era64j_swap_direction_classification_ready": false,
+    "era64k_status": "DEFERRED_NOT_NEXT_STEP",
     "era_closure_update_policy": {
       "json_and_markdown_sync": true,
       "push_policy": "PUSH_ONLY_AT_ERA_CLOSURE",
@@ -2345,21 +3906,56 @@
       "rule": "Do not split one ERA into many A/B/C work units unless explicitly necessary.",
       "status": "ACTIVE"
     },
+    "execution_model": {
+      "constitution": "INVARIANT",
+      "maintenance_window_test": false,
+      "one_result_artifact": true,
+      "playbook": "RISK_DRIVEN",
+      "production_chaos_test": false,
+      "risk_level": "HIGH_PRE_ERA_RUNTIME_ENTRY",
+      "selected_playbook": "ISOLATED_TEMP_COPY_AND_SHADOW_STRESS"
+    },
+    "fixed_timer_enabled": false,
+    "general_runtime_hardening": {
+      "era57_opened": false,
+      "id": "GENERAL_RUNTIME_HARDENING",
+      "missing_active_reference_count": 0,
+      "next_safe_step": "GENERAL_RUNTIME_HARDENING_C_GENERAL_RUNNER_CONTRACT",
+      "production_mutation": false,
+      "status": "OPEN",
+      "substeps": {
+        "A_CANONICAL_SYNC": "CLOSED_VERIFIED",
+        "B_ACTIVE_SURFACE_CLASSIFICATION": "CLOSED_VERIFIED",
+        "C_GENERAL_RUNNER_CONTRACT": "READY",
+        "D_POLICY_AUTHORITY_REACHABILITY": "PENDING",
+        "E_FINAL_STRESS_GATE": "PENDING"
+      },
+      "surface_classification_artifact": "data/control/general_runtime_hardening_b_active_surface_classification_v1.json",
+      "surface_classification_result": "OK_ACTIVE_SURFACE_CLASSIFIED",
+      "updated_at_utc": "2026-07-13T13:58:04.240496+00:00"
+    },
     "git": {
+      "base_head": "11f05676f69c4f301e3756daa5d7cddb86120a4d",
       "branch": "main",
+      "closure_commit_self_reference_embedded": false,
       "head": "DYNAMIC_USE_GIT_REV_PARSE_HEAD",
-      "status_clean": true,
-      "status_summary": "HEAD is validated by tk machine, not embedded self-referentially in PROJECT_RUNTIME.json"
+      "implementation_merge_head": "f50651db0e2fd6356d9e4beb50e3804c8d72d566",
+      "remote_verification_required": true,
+      "status_clean": false,
+      "status_summary": "ERA62A, ERA62B and ERA62C applied locally; RWA future backlog preserved; no commit or push."
     },
     "hard_rules": {
       "ai_has_no_trade_authority": true,
+      "ai_trade_authority": "ZERO",
       "human_approval_required": true,
+      "live_trade": "LOCKED",
       "live_trade_locked": true,
       "no_code_without_user_request": true,
       "no_copilot_direct_writes_without_review": true,
       "no_new_features_until_boot_verified": true,
       "no_new_markdown_bloat": true,
       "no_repo_changes_without_risk_analysis": true,
+      "paper_trade": "LOCKED",
       "paper_trade_locked_until_explicit_phase": true
     },
     "highest_governing_document": {
@@ -2367,56 +3963,520 @@
       "rule": "If roadmap, implementation, AI recommendation or documentation conflicts with 02_MANIFESTO.md, 02_MANIFESTO.md prevails.",
       "status": "ACTIVE"
     },
-    "last_action": {
-      "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-      "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
-      "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "timestamp": "2026-07-08T11:06:16.159789Z"
+    "hot_intelligence_ingress_gateway_state": {
+      "artifact": "data/control/hot_intelligence_ingress_gateway_single_block_noapi_v1.json",
+      "authority": {
+        "db_write": false,
+        "hunter": false,
+        "live": false,
+        "network_call": false,
+        "panel_change": false,
+        "paper": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade": false
+      },
+      "closed_at_utc": "2026-07-09T10:57:56.200057+00:00",
+      "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+      "hot_queue_count": 50,
+      "module": "tools/hot_intelligence_ingress_gateway_v1.py",
+      "next": "ERA55_SELECTION_GATE",
+      "state": "runtime/state/hot_intelligence_ingress_gateway_v1.json",
+      "status": "CLOSED_VERIFIED_BOUND_RUNTIME"
     },
-    "last_completed": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-    "next_safe_step": {
-      "name": "NEWS_RUNTIME_STABILIZATION_AND_CONTINUOUS_PRODUCER_REVIEW",
-      "status": "READY"
+    "last_action": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE_CANONICAL_PLAN_SYNC",
+    "last_artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
+    "last_closed_era": "ERA63",
+    "last_completed": "ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION",
+    "last_result": "PRODUCT_COMPLETION_PLAN_LOCKED_NO_NEW_ERA",
+    "last_verified_technical_baseline": {
+      "gas_cost_enriched_event_count": 367,
+      "live_trade": "DISABLED",
+      "paper_runtime": "DISABLED",
+      "real_data": true,
+      "real_financial_authority": 0,
+      "receipt_enriched_event_count": 367,
+      "source_event_count": 367,
+      "source_transaction_count": 277,
+      "stage": "ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT",
+      "status": "HISTORICAL_TRANSFER_RECEIPT_GAS_COST_ENRICHMENT_VERIFIED",
+      "successful_wallet_classification_ready": false,
+      "synthetic_data": false,
+      "technical_head": "43279c41d63250893540553994598a7418dc91ca",
+      "tests": "172/172_VERIFIED"
     },
+    "mode": "USABLE_PRODUCT_VERTICAL_SLICE_CLOSURE",
+    "news_active_panel_data_binding_state": {
+      "artifact": "data/control/news_active_panel_data_binding_single_block_noapi_v1.json",
+      "authority": {
+        "active_panel_data_write": true,
+        "db_write": false,
+        "hunter": false,
+        "live": false,
+        "network_call": false,
+        "panel_html_change": false,
+        "paper": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade": false
+      },
+      "closed_at_utc": "2026-07-09T11:20:49.517981+00:00",
+      "files": [
+        "hot_intelligence_ingress_gateway_v1.json",
+        "news_adversarial_latest_v1.json",
+        "news_coverage_panel_display_v1.json",
+        "news_coverage_readmodel_consumer_summary_v1.json",
+        "news_market_indicator_latest_v1.json",
+        "news_producer_health_watch_and_hot_gateway_review_v1.json",
+        "news_runtime_stabilization_review_v1.json"
+      ],
+      "module": "tools/news_active_panel_data_bridge_v1.py",
+      "next": "ACTIVE_PANEL_UI_ROUTE_BINDING_REVIEW_SINGLE_BLOCK",
+      "state": "runtime/state/news_active_panel_data_bridge_v1.json",
+      "status": "CLOSED",
+      "target_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current/data",
+      "warnings": [
+        "sqlite_journal_mode_not_wal"
+      ]
+    },
+    "news_active_panel_ui_route_state": {
+      "active_panel_dir": "/root/tokenoskobi_clean_v1/active_panel_8096/current",
+      "artifact": "data/control/news_active_panel_ui_route_binding_single_block_noapi_v1.json",
+      "authority": {
+        "active_panel_data_write": true,
+        "db_write": false,
+        "hunter": false,
+        "live": false,
+        "network_call": false,
+        "panel_html_change": true,
+        "paper": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade": false
+      },
+      "closed_at_utc": "2026-07-09T11:25:49.964278+00:00",
+      "index": "/root/tokenoskobi_clean_v1/active_panel_8096/current/index.html",
+      "module": "tools/news_active_panel_ui_route_binding_v1.py",
+      "news_page": "/root/tokenoskobi_clean_v1/active_panel_8096/current/news_coverage.html",
+      "next": "LOCALHOST_PANEL_STATIC_SERVE_PROBE_SINGLE_BLOCK",
+      "route": "/news_coverage.html",
+      "state": "runtime/state/news_active_panel_ui_route_binding_v1.json",
+      "status": "CLOSED",
+      "warnings": [
+        "sqlite_journal_mode_not_wal"
+      ]
+    },
+    "news_coverage_panel_display_state": {
+      "adversarial_jsonl_events": 59,
+      "authority": {
+        "active_panel_mutation": false,
+        "db_write": false,
+        "hunter": false,
+        "live": false,
+        "paper": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade": false
+      },
+      "closed_at_utc": "2026-07-09T10:43:51.583817+00:00",
+      "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+      "display_adversarial_count": 59,
+      "display_html_size": 13021,
+      "display_market_count": 39,
+      "display_sections": [
+        "news_market_indicator",
+        "news_adversarial_intelligence",
+        "news_coverage_health"
+      ],
+      "market_jsonl_events": 39,
+      "seal_artifact": "data/control/news_coverage_panel_display_binding_final_seal_noapi_v1.json",
+      "seal_head_before_runtime_sync": "0e088cd1a60de60410e432acc52ad8fe92f99885",
+      "stage": "NEWS_COVERAGE_PANEL_DISPLAY_BINDING_FINAL_SEAL_NOAPI",
+      "status": "CLOSED_VERIFIED_CURRENT",
+      "summary_adversarial_count": 59,
+      "summary_market_indicator_count": 39,
+      "warnings": [
+        "adversarial_jsonl_count_differs_from_summary_consumer_refresh_later",
+        "sqlite_journal_mode_not_wal"
+      ]
+    },
+    "news_operational_baseline": {
+      "artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+      "closed_at_utc": "2026-07-10T12:30:25.265514+00:00",
+      "derived_counts_equal": true,
+      "evidence_source": "RUNTIME_STATE_CORRELATED_TO_SYSTEMD_SERVICE_CYCLE",
+      "hot_queue_count": 50,
+      "hot_refresh_marker": true,
+      "natural_timer_cycle_observed": true,
+      "panel_bridge_decision": "OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED",
+      "service_success": true,
+      "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME"
+    },
+    "news_operational_state": {
+      "adversarial_count": 59,
+      "final_observation_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+      "freshness_count": 3,
+      "historical_known_warnings": [
+        {
+          "code": "PANEL_READMODEL_COUNT_MATCH_NOT_FOUND",
+          "message": "DB sayılarıyla güçlü JSON/readmodel count eşleşmesi bulunamadı.",
+          "source": "NEWS-D"
+        },
+        {
+          "code": "RAW_NEWER_THAN_DOWNSTREAM",
+          "message": "Raw haberler downstream match/signal/score zamanından daha yeni; downstream freshness/staleness takip edilmeli.",
+          "source": "NEWS-D"
+        },
+        {
+          "code": "FRESHNESS_HEARTBEAT_STALER_THAN_RAW",
+          "message": "freshness heartbeat raw max timestamp'ten daha eski.",
+          "source": "NEWS-D"
+        },
+        {
+          "code": "RAW_NEWER_THAN_DOWNSTREAM_CONFIRMED",
+          "message": "Raw producer yeni haber alıyor; downstream 47/47/47 zinciri yeni raw haberleri henüz işlemiyor.",
+          "source": "NEWS-D"
+        },
+        {
+          "code": "PANEL_READMODEL_STRONG_COUNT_MATCH_ZERO",
+          "message": "DB sayılarıyla güçlü panel/readmodel JSON count eşleşmesi bulunmadı.",
+          "source": "NEWS-D"
+        }
+      ],
+      "hot_gateway_deferred": false,
+      "hot_gateway_next": null,
+      "hot_queue_bound": 50,
+      "hot_queue_count": 50,
+      "known_warnings": [],
+      "market_indicator_count": 39,
+      "match_count": 185,
+      "module_status": "OPERATIONAL_BASELINE_CLOSED_FUTURE_EVOLUTION_BACKLOG",
+      "panel_bridge_decision": "OK_NEWS_ACTIVE_PANEL_DATA_BRIDGE_APPLIED",
+      "raw_count": 374,
+      "score_count": 185,
+      "seal_head": "8c0cdb3c3c63797959a0dd83b2872956dc67f47c",
+      "seal_stage": "NEWS_F_FINAL_OPERATIONAL_SEAL_WITH_KNOWN_WARNINGS",
+      "service_result": "success",
+      "signal_count": 185,
+      "status": "CLOSED_VERIFIED_BOUNDED_RUNTIME",
+      "technical_closure_head": "c72995c352a76fe8557de369228f86e6f7d2846e",
+      "timer_active": "active",
+      "timer_enabled": "enabled",
+      "timer_role": "COLD_BACKFILL_FALLBACK_ONLY",
+      "warnings_status": "OLDER_WARNINGS_SUPERSEDED_BY_VERIFIED_NATURAL_TIMER_CYCLE"
+    },
+    "news_panel_chain_state": {
+      "artifact": "data/control/news_panel_chain_closed_or_public_url_probe_single_block_noapi_v1.json",
+      "closed_at_utc": "2026-07-09T11:50:40.346753+00:00",
+      "local_static_verified": true,
+      "next": "NEWS_PANEL_CHAIN_CLOSED_MANUAL_PUBLIC_CHECK_OPTIONAL",
+      "public_or_8096_body_verified": true,
+      "route": "/news_coverage.html",
+      "state": "runtime/state/news_panel_chain_closed_or_public_url_probe_v1.json",
+      "status": "CLOSED",
+      "warnings": []
+    },
+    "news_panel_public_route_mirror_state": {
+      "artifact": "data/control/news_panel_public_proxy_route_mirror_single_block_noapi_v1.json",
+      "closed_at_utc": "2026-07-09T12:04:34.728455+00:00",
+      "local_8096_verified": true,
+      "next": "NEWS_PANEL_PUBLIC_ROUTE_MIRROR_CLOSED_MANUAL_DOMAIN_AUTH_CHECK_OPTIONAL",
+      "public_body_verified": false,
+      "public_route_seen": false,
+      "route": "/panel/panel_v2/news_coverage.html",
+      "state": "runtime/state/news_panel_public_proxy_route_mirror_v1.json",
+      "status": "CLOSED",
+      "warnings": [
+        "public_body_not_confirmed",
+        "public_route_no_http_response_from_server_probe"
+      ]
+    },
+    "news_producer_health_watch_state": {
+      "adversarial_jsonl": 51,
+      "artifact": "data/control/news_producer_health_watch_and_hot_gateway_integration_review_single_block_noapi_v1.json",
+      "authority": {
+        "db_write": false,
+        "hunter": false,
+        "live": false,
+        "network_call": false,
+        "panel_change": false,
+        "paper": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade": false
+      },
+      "closed_at_utc": "2026-07-09T11:11:40.437745+00:00",
+      "hot_queue_count": 50,
+      "market_jsonl": 35,
+      "match": 47,
+      "module": "tools/news_producer_health_watch_and_hot_gateway_review_v1.py",
+      "next": "ACTIVE_PANEL_BINDING_DECISION_OR_MANUAL_HEALTH_WATCH_CONTINUE_SINGLE_BLOCK",
+      "raw": 317,
+      "score": 47,
+      "signal": 47,
+      "state": "runtime/state/news_producer_health_watch_and_hot_gateway_review_v1.json",
+      "status": "CLOSED",
+      "summary_adversarial": 51,
+      "summary_market": 35,
+      "warnings": [
+        "sqlite_journal_mode_not_wal",
+        "raw_count_greater_than_match_downstream_review_needed",
+        "sqlite_journal_mode_not_wal"
+      ]
+    },
+    "news_public_nginx_route_fix_state": {
+      "artifact": "data/control/news_public_nginx_route_fix_single_block_noapi_v1.json",
+      "closed_at_utc": "2026-07-09T12:09:32.793657+00:00",
+      "local8096_ok": true,
+      "localhost80_ok": false,
+      "next": "NEWS_PUBLIC_ROUTE_FIX_CLOSED_BROWSER_MANUAL_VERIFY_OPTIONAL",
+      "patched_any": true,
+      "public_ok": false,
+      "route": "/panel/panel_v2/news_coverage.html",
+      "state": "runtime/state/news_public_nginx_route_fix_v1.json",
+      "status": "CLOSED",
+      "warnings": [
+        "public_https_body_not_confirmed_after_nginx_patch",
+        "localhost_80_body_not_confirmed_after_nginx_patch"
+      ]
+    },
+    "news_readonly_audit_closure": {
+      "after_watermark_unresolved": 0,
+      "artifact": "data/control/news_readonly_audit_closure_20260710_v1.json",
+      "bad_trade_flags": 0,
+      "closed_at_utc": "2026-07-10T13:43:00+00:00",
+      "decision": "OK_ALL_GAP_ROWS_EXACT_WATERMARK_EXCLUDED",
+      "duplicate_uid_count": 0,
+      "historical_watermark_excluded": 189,
+      "id": "NEWS_READONLY_AUDIT_CLOSURE_20260710",
+      "match_uid_count": 185,
+      "new_era_opened": false,
+      "next_safe_step": "ERA55_SELECTION_GATE",
+      "proven_data_loss_count": 0,
+      "raw_uid_count": 374,
+      "raw_without_score": 189,
+      "score_uid_count": 185,
+      "signal_uid_count": 185,
+      "status": "CLOSED_VERIFIED"
+    },
+    "news_runtime_stabilization_state": {
+      "adversarial_jsonl_events": 59,
+      "artifact": "data/control/news_runtime_stabilization_and_continuous_producer_review_single_block_noapi_v1.json",
+      "authority": {
+        "db_write": false,
+        "hunter": false,
+        "live": false,
+        "network_call": false,
+        "panel_change": false,
+        "paper": false,
+        "service_change": false,
+        "timer_change": false,
+        "trade": false
+      },
+      "closed_at_utc": "2026-07-09T11:02:29.074921+00:00",
+      "current_evidence_artifact": "data/control/post_era54_hot_ingress_bound_runtime_first_observation_noapi_v1.json",
+      "db_counts": {
+        "news_raw_feed_events": 372,
+        "news_runtime_freshness_v1": 3,
+        "news_score_events_v1": 184,
+        "news_signal_events": 184,
+        "news_token_match_events": 184
+      },
+      "hot_queue_count": 50,
+      "market_jsonl_events": 39,
+      "module": "tools/news_runtime_stabilization_review_v1.py",
+      "next": "ERA55_SELECTION_GATE",
+      "state": "runtime/state/news_runtime_stabilization_review_v1.json",
+      "status": "CLOSED_VERIFIED_NATURAL_TIMER_CYCLE",
+      "summary_adversarial": 59,
+      "summary_market": 39,
+      "warnings": []
+    },
+    "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+    "no_new_era_until_product_completion": true,
     "open_risks": [
-      "NEWS product line still needs stabilization and continuous producer review.",
-      "Do not expand Discipline Layer before NEWS stabilization is closed.",
-      "Do not open new workflow rule work unless explicitly requested.",
-      "Risk is minimized, never zero."
+      "PRODUCT_SURFACE_NOT_DEPLOYED",
+      "NEWS_LIVE_HEALTH_NOT_REVERIFIED",
+      "PANEL_URL_AND_AUTH_NOT_REVERIFIED",
+      "ALCHEMY_HYBRID_RUNTIME_NOT_REVERIFIED",
+      "INTERNAL_EXTERNAL_SECURITY_NOT_REVERIFIED",
+      "SUCCESSFUL_WALLET_CLASSIFICATION_NOT_READY",
+      "CHATBOT_AI_COUNCIL_SELF_HEALING_NOT_BOUND",
+      "PAPER_RUNTIME_DISABLED_UNTIL_PRODUCT_ACCEPTANCE"
     ],
-    "post_era42_claude_audit": {
-      "fixed_now": [
-        "era_close.py_future_current_state_sync",
-        "era_close.py_cli_validation_and_shell_false_git_commands",
-        "PROJECT_RUNTIME_current_state_synced_after_ERA42"
+    "paper_runtime_enabled": false,
+    "post_era54_hot_ingress_bounded_runtime_state": {
+      "active_wrapper": "tools/news_radar_refresh_runner_v1.py",
+      "artifact": "data/control/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.json",
+      "db_write": false,
+      "full_timer_cycle_observed_after_binding": false,
+      "hot_queue_bound": 50,
+      "hot_queue_count": 50,
+      "module": "tools/post_era54_hot_ingress_bounded_runtime_integration_noapi_v1.py",
+      "next": "POST_ERA54_HOT_INGRESS_BOUND_RUNTIME_FIRST_OBSERVATION_NOAPI",
+      "runtime_chain": [
+        "news_coverage_readmodel_consumer_v1.py",
+        "news_coverage_panel_display_adapter_v1.py",
+        "hot_intelligence_ingress_gateway_v1.py",
+        "news_active_panel_data_bridge_v1.py"
       ],
-      "must_verify_before_era43_real_run": [
-        "canonical_schema_implementation_status",
-        "news_matcher_zero_result_root_cause"
-      ],
-      "status": "TRIAGED",
-      "triage_artifact": "data/control/post_era42_claude_audit_triage_noapi_v1.json"
+      "service_change": false,
+      "status": "BOUND_HOT_ONLY_EXECUTION_VERIFIED",
+      "timer_change": false,
+      "trade_authority": false
     },
-    "process_compaction": {
-      "name": "ERA47_DISCIPLINE_PREFLIGHT_CHAIN_NOAPI",
-      "new_canonical_substeps": [
-        "ERA47A",
-        "ERA47B",
-        "ERA47C",
-        "ERA47D",
-        "ERA47E"
+    "product_completion_lock": true,
+    "product_completion_program": {
+      "current_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+      "definition_of_done": [
+        "Canlı panel URL telefondan açılır.",
+        "Kullanıcı BSC token adresi girer.",
+        "Gerçek veri kaynakları birleşik karar paketi üretir.",
+        "Eksik veri açıkça VERI_YETERSIZ olarak gösterilir.",
+        "Risk kararı ve kanıt bağlantıları görünür.",
+        "İnsan kararı kaydedilir ve geçmişten tekrar açılır.",
+        "Sonuç takibi çalışır.",
+        "Daha sonra sınırlı paper trade aynı akışa bağlanır."
       ],
-      "next_safe_step": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "old_names_are_historical_aliases": true,
-      "range": "ERA47_TO_ERA51",
-      "status": "CONSOLIDATED",
-      "updated_at_utc": "2026-07-08T10:34:05.417432Z"
+      "engine_deepening_only_when_product_blocked": true,
+      "era64k_status": "DEFERRED_NOT_NEXT_STEP",
+      "failed_builder_attempt": {
+        "cleanup_required": true,
+        "commit": "034b16387ed5e9966db637003cfc3f077abebe8e",
+        "result": "ROLLED_BACK_NO_PRODUCT_DEPLOYED"
+      },
+      "forbidden_until_core_user_loop_accepted": [
+        "NEW_ERA",
+        "NEW_ALT_ERA",
+        "UNRELATED_ENGINE_DEEPENING",
+        "NEW_ARCHITECTURE_EXPANSION",
+        "NEW_CANONICAL_DOCUMENT",
+        "PAPER_RUNTIME_ENABLEMENT",
+        "LIVE_TRADE_ENABLEMENT",
+        "WALLET_SIGNING_ORDER_BROADCAST_AUTHORITY"
+      ],
+      "id": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+      "last_verified_technical_baseline": {
+        "gas_cost_enriched_event_count": 367,
+        "live_trade": "DISABLED",
+        "paper_runtime": "DISABLED",
+        "real_data": true,
+        "real_financial_authority": 0,
+        "receipt_enriched_event_count": 367,
+        "source_event_count": 367,
+        "source_transaction_count": 277,
+        "stage": "ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT",
+        "status": "HISTORICAL_TRANSFER_RECEIPT_GAS_COST_ENRICHMENT_VERIFIED",
+        "successful_wallet_classification_ready": false,
+        "synthetic_data": false,
+        "technical_head": "43279c41d63250893540553994598a7418dc91ca",
+        "tests": "172/172_VERIFIED"
+      },
+      "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+      "no_new_alt_era": true,
+      "no_new_canonical_document": true,
+      "no_new_era_until_complete": true,
+      "opened_at_utc": "2026-07-24T17:54:31.332165+00:00",
+      "opened_by": "EXPLICIT_USER_DIRECTION",
+      "ordered_steps": [
+        {
+          "acceptance": [
+            "Kesin panel URL ve kimlik doğrulama yolu telefondan açılır ve doğrulanır.",
+            "NEWS producer/timer/readmodel zincirinin güncel canlı veya arızalı durumu ölçülür.",
+            "Alchemy bağlantısı sır basmadan doğrulanır; public BSC RPC ve piyasa veri fallback zinciri ölçülür.",
+            "Onchain olaydan readmodel/panel görünümüne gerçek gecikme ölçülür.",
+            "Nginx, TLS, auth, port, firewall, SSH, secret, izin, rate-limit ve servis yüzeyi için iç/dış güvenlik bulgusu çıkarılır.",
+            "Bu adım runtime, DB, panel, service, timer veya authority mutation yapmaz."
+          ],
+          "id": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+          "mode": "READ_ONLY",
+          "order": 1,
+          "purpose": "NEWS canlılığı, gerçek panel URL/auth yolu, servisler, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenliği güncel kanıtla doğrulamak.",
+          "title": "Canlı Gerçeklik, Panel Erişimi ve Güvenlik Doğrulaması"
+        },
+        {
+          "acceptance": [
+            "BSC adresi server-side doğrulanır; geçersiz veya kontrat olmayan adres fail-closed reddedilir.",
+            "Onchain, kontrat, holder/deployer, likidite, teknik, NEWS ve mevcut wallet bağlamı tek pakette birleşir.",
+            "Online timeframe seti 1m, 5m, 15m, 1h, 4h ve 1d olarak çalışır; yeterli mum yoksa VERI_YETERSIZ gösterilir.",
+            "Alchemy WebSocket/HTTP birincil, allowlisted public BSC RPC fallback/cross-check, GeckoTerminal piyasa kaynağı ve local cache hibrit çalışır.",
+            "Risk Engine ALLOW, BLOCK, WAIT veya REVIEW kararı ve gerekçelerini üretir; panel trade yetkisi üretmez.",
+            "Kullanıcı telefondan canlı URL üzerinde ekranı açar ve kabul eder."
+          ],
+          "id": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
+          "mode": "BOUNDED_PRODUCT_BUILD",
+          "order": 2,
+          "purpose": "Kullanıcının BSC token adresi girip gerçek, gerekçeli ve kanıt bağlantılı karar paketi görmesini sağlamak.",
+          "title": "Tek Token Giriş Ekranı ve Gerçek Karar Paketi"
+        },
+        {
+          "acceptance": [
+            "İnsan ACCEPT, REJECT, WAIT veya REVIEW seçimi kanıt paketiyle birlikte append-only kaydedilir.",
+            "Kayıt trade, wallet, signing veya order authority oluşturmaz.",
+            "Geçmiş karar tekrar açılır ve kullanılan kanıt sürümü görülür.",
+            "Belirlenen izleme pencerelerinde fiyat, risk ve sonuç değişimi kayda bağlanır.",
+            "Panelde karar geçmişi ve sonuç takibi görünür."
+          ],
+          "id": "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING",
+          "mode": "BOUNDED_PRODUCT_BUILD",
+          "order": 3,
+          "purpose": "Kararı insan onayıyla kaydetmek, tekrar açmak ve sonucunu izlemek.",
+          "title": "İnsan Onayı, Karar Geçmişi ve Sonuç Takibi"
+        },
+        {
+          "acceptance": [
+            "Router, pool, token metadata/decimals, alış-satış yönü, gerçekleşme fiyatı, gas, fee, slippage ve kapalı döngü belirlenir.",
+            "Başarılı cüzdan etiketi yalnız yeterli örnek, maliyet-tam PnL ve confidence eşiğiyle verilir.",
+            "CEX deposit/withdrawal ilişkileri ve 50 BTC veya eşdeğer balina eşiği izlenir.",
+            "Wallet, CEX, DEX, pool, token, transaction, news ve decision düğümleri Obsidian tarzı grafikte gösterilir.",
+            "Transfer ilişkisi tek başına ortak sahiplik veya kimlik iddiasına çevrilmez."
+          ],
+          "id": "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE",
+          "mode": "BOUNDED_PRODUCT_BUILD",
+          "order": 4,
+          "purpose": "Gerçek swap döngülerini, maliyet-tam performansı ve kanıt-temelli wallet/entity ilişkilerini görselleştirmek.",
+          "title": "DEX İşlemi, Başarılı Cüzdan, CEX Balina ve Obsidian Grafiği"
+        },
+        {
+          "acceptance": [
+            "Panel veya Telegram chatbot durum, token, risk, neden, uyarı, onay ve reddet komutlarını destekler.",
+            "NVIDIA API, ChatGPT/Codex, Claude, Gemini ve GitHub Copilot rolleri advisory-only ve hot-path dışı olarak doğrulanır.",
+            "Sorun algılama kök neden, düzeltme diffi, test sonucu, risk ve rollback önerisi üretir; insan onayı olmadan kod uygulamaz.",
+            "İstihbarat genel kripto haberini değil DEX operasyonu, yeni saldırı, AI/hardware/software/provider ve güvenlik gelişmelerini filtreler.",
+            "Her öneri opportunity cost, uygulanabilirlik, güvenlik etkisi ve APPLY/DEFER/REJECT kararıyla kullanıcıya gelir."
+          ],
+          "id": "PRODUCT_SLICE_05_HAREKAT_SUBAYI_AI_COUNCIL_SELF_HEALING_AND_OPERATIONAL_INTELLIGENCE",
+          "mode": "ADVISORY_ONLY_PRODUCT_BUILD",
+          "order": 5,
+          "purpose": "Sistemle sürekli temas, çoklu AI incelemesi, arıza teşhisi ve DEX-operasyonel teknoloji/saldırı istihbaratı sağlamak.",
+          "title": "Harekât Subayı, AI Konseyi, Onarım Önerisi ve Operasyonel İstihbarat"
+        },
+        {
+          "acceptance": [
+            "Adım 1-5 kullanıcı kabulü olmadan paper runtime açılmaz.",
+            "Risk Engine veto, insan politika zarfı, bounded sizing ve stop/rollback zorunludur.",
+            "Wallet, signing, broadcast, live order ve gerçek sermaye yetkileri sıfır kalır.",
+            "Simülasyon emri, maliyet modeli, karar kanıtı ve sonuç geçmişi panelde görünür.",
+            "Canlı trade ayrı açık insan kararı ve ayrı güvenlik doğrulaması olmadan açılamaz."
+          ],
+          "id": "PRODUCT_SLICE_06_LIMITED_PAPER_TRADE",
+          "mode": "ZERO_REAL_FUNDS_SIMULATION_ONLY",
+          "order": 6,
+          "purpose": "Önceki ürün adımları kullanıcı tarafından kabul edildikten sonra sıfır gerçek fonla izlenebilir simülasyon çalıştırmak.",
+          "title": "Sınırlı Paper Trade"
+        }
+      ],
+      "single_active_product_step": true,
+      "status": "ACTIVE_PLAN_LOCKED",
+      "tests_docs_schemas_and_standalone_engines_are_not_product_completion": true,
+      "title": "Tokenoskobi Kullanılabilir Ürün Dikey Dilimi",
+      "user_visible_acceptance_required_for_progress": true
     },
+    "project_status": "V4_ERA64_ACTIVE",
     "recent_event": {
-      "artifact": "data/control/era52_discipline_layer_minimal_readonly_scaffold_noapi_v1.json",
-      "result": "OK_ERA52_MINIMAL_READONLY_SCAFFOLD_CLOSED",
-      "task": "ERA52_DISCIPLINE_LAYER_MINIMAL_READONLY_SCAFFOLD_NOAPI",
-      "timestamp_utc": "2026-07-08T11:06:16.159789Z"
+      "event": "ERA63_FINAL_TECHNICAL_LINE_CLOSURE",
+      "result": "CLOSED_VERIFIED_GITHUB_SEALED",
+      "timestamp": "2026-07-23T14:47:10.323870+00:00"
     },
     "runtime_version": "1.0",
     "semantic_drift_guard": {
@@ -2446,9 +4506,38 @@
       ],
       "work_unit": "ERA23G_SEMANTIC_DRIFT_GUARD"
     },
-    "source": "era52_discipline_layer_minimal_readonly_scaffold_closure",
-    "status": "WORK_UNIT_CLOSED",
-    "updated_at": "2026-07-08T11:06:16.159789Z"
+    "source": "news_v3_batch_01_runtime_direction_sync_v1",
+    "status": "ACTIVE",
+    "updated_at": "2026-07-24T07:44:44.641249+00:00",
+    "updated_at_utc": "2026-07-24T17:54:31.332165+00:00",
+    "work_unit": {
+      "completed_substeps": [
+        "ERA64A_EXISTING_WALLET_DATA_AND_CAPABILITY_AUDIT",
+        "ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION"
+      ],
+      "database_write_authorized": false,
+      "id": "ERA64_SUCCESSFUL_WALLET_INTELLIGENCE_AND_STATISTICAL_PERFORMANCE",
+      "implementation_authorized": false,
+      "live_trade": "DISABLED",
+      "network_access_authorized": false,
+      "next_substep": "ERA64C_REAL_HISTORICAL_WALLET_REPLAY_AND_VALIDATION_REQUIRES_USER_APPROVAL",
+      "panel_mutation_authorized": false,
+      "paper_trade_currently": "DISABLED_PENDING_COORDINATED_INTELLIGENCE",
+      "real_order_create_authority": 0,
+      "runtime_mutation_authorized": false,
+      "service_mutation_authorized": false,
+      "signing_authority": 0,
+      "status": "OPEN_FOUNDATION_BUILT_VERIFIED",
+      "timer_mutation_authorized": false,
+      "title": "Successful Wallet Intelligence and Statistical Performance",
+      "wallet_authority": 0
+    }
+  },
+  "runtime_product_completion_pointer": {
+    "authority": "PROJECT_RUNTIME.json",
+    "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+    "current_status": "PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED",
+    "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION"
   },
   "runtime_tool": "tools/era62_fail_closed_advisory_council_runtime_v1.py",
   "rwa_future_backlog": {
@@ -2464,6 +4553,6 @@
   "status": "LOCAL_SYNTHETIC_REPLAY_VERIFIED",
   "synthetic_replay_verified": true,
   "tk_machine_executed": false,
-  "updated_at_utc": "2026-07-24T14:38:25.100576+00:00",
+  "updated_at_utc": "2026-07-24T17:54:31.332165+00:00",
   "worktree_clean": false
 }

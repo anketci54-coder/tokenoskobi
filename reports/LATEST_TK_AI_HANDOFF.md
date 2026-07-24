@@ -3,9 +3,13 @@
 ```text
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR
-RESULT=REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY
-NEXT_SAFE_STEP=ERA64E_BOUNDED_REAL_WALLET_EVENT_ACQUISITION_AND_BACKFILL_PLAN_REQUIRES_USER_APPROVAL
+CURRENT_STAGE=TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE
+STATUS=PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED
+NO_NEW_ERA=true
+ERA64K_STATUS=DEFERRED_NOT_NEXT_STEP
+LAST_VERIFIED_TECHNICAL_BASELINE=ERA64J_172_OF_172
+PRODUCT_SURFACE_DEPLOYED=false
+NEXT_SAFE_STEP=PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION
 ```
 
-ERA64D repaired wallet-event coverage classification and produced a bounded real-data source contract. No financial authority was opened.
+Tokenoskobi is now locked to user-visible product completion. The next window must boot from README and perform only the read-only live NEWS, panel, Alchemy/hybrid, latency and internal/external security truth verification. No financial authority is opened.

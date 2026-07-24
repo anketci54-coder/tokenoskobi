@@ -1,5 +1,19 @@
 # 02 MANIFESTO - TOKENOSKOBI CONSTITUTION
 
+<!-- PRODUCT_COMPLETION_CONSTITUTION:BEGIN -->
+## PRODUCT COMPLETION AND DEFINITION OF DONE
+
+- Test, schema, doküman, bağımsız engine, plan, commit veya audit tek başına ürün tamamlanması değildir.
+- İlerleme; kullanıcının canlı yüzeyde açabildiği, gerçek veriyle çalışan, kanıt gösteren ve kabul ettiği uçtan uca akışla ölçülür.
+- `PROJECT_RUNTIME.json` içinde product-completion lock aktifken yeni ERA veya alt ERA açılamaz.
+- Yeni mimari veya engine derinleştirmesi yalnız aktif kullanıcı akışını doğrudan bloke eden eksik için yapılabilir.
+- Aynı anda yalnız bir görünür ürün adımı yürütülür.
+- Veri yoksa veya doğrulanamıyorsa sistem `VERI_YETERSIZ` der; sahte skor, sahte canlılık veya sahte karar üretmez.
+- Tek token ekranı, gerçek karar paketi, insan kararı ve geçmiş takibi kullanıcı tarafından kabul edilmeden paper runtime açılamaz.
+- Paper trade sıfır gerçek fonlu simülasyondur; live wallet, signing, order ve broadcast yetkisi oluşturmaz.
+- Kapanış ölçütü etiket veya test sayısı değil, çalışan ve kullanıcı tarafından kabul edilmiş ürün döngüsüdür.
+<!-- PRODUCT_COMPLETION_CONSTITUTION:END -->
+
 ## 0. CONSTITUTIONAL SCOPE AND SUPREMACY
 
 Bu belge Tokenoskobi / Coinoskobi projesinin eksiksiz kalıcı anayasasıdır.

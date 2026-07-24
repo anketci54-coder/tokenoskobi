@@ -1,5 +1,27 @@
 # 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
+<!-- PRODUCT_COMPLETION_PIVOT:BEGIN -->
+## TOKENOSKOBI PRODUCT COMPLETION PIVOT DECISION
+
+- Timestamp UTC: `2026-07-24T17:54:31.332165+00:00`
+- Status: `DECISION_RECORDED_PLAN_LOCKED`
+- Program: `TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE`
+- New ERA opened: `false`
+- New alt ERA opened: `false`
+- ERA64 deepening: `FROZEN_AFTER_ERA64J_BY_PRODUCT_PRIORITY`
+- ERA64K: `DEFERRED_NOT_NEXT_STEP`
+- Last verified technical baseline: `ERA64J`, `172/172_VERIFIED`, 367 real BSC events, 277 transactions
+- Failed product builder attempt: `ROLLED_BACK_NO_PRODUCT_DEPLOYED`
+- Broken builder payload cleanup: `INCLUDED_IN_CANONICAL_SYNC`
+- Product completion metric: `USER_VISIBLE_END_TO_END_FLOW_ACCEPTED_BY_USER`
+- Next safe step: `PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION`
+- Authority change: `NONE`
+- Paper runtime: `DISABLED`
+- Live trade: `DISABLED`
+- Real financial authority: `0`
+- Note: This record locks the product-completion direction; it does not claim the product is completed.
+<!-- PRODUCT_COMPLETION_PIVOT:END -->
+
 <!-- README_MANIFESTO_SINGLE_ENTRY_CLOSURE_START -->
 ## README AND MANIFESTO SINGLE-ENTRY CONSTITUTION LOCK
 
