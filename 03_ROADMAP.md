@@ -25,3 +25,11 @@ ERA64B now provides deterministic wallet identity, evidence-preserving labels, b
 - Status: `REAL_DATA_DISCOVERED_REPLAY_GAP_CONFIRMED`
 - Real SQLite sources: `1`
 - Next approval gate: `ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR_REQUIRES_USER_APPROVAL`
+
+<!-- ERA64D_WALLET_EVENT_COVERAGE_GAP_REPAIR -->
+## ERA64D wallet event coverage gap repair
+
+- Status: `REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY`
+- Candidate source tables: `8`
+- Empty candidate tables: `8`
+- Next approval gate: `ERA64E_BOUNDED_REAL_WALLET_EVENT_ACQUISITION_AND_BACKFILL_PLAN_REQUIRES_USER_APPROVAL`

@@ -6368,3 +6368,8 @@ NEXT_SAFE_STEP=ERA62_OPENING_DECISION_REQUIRES_USER_APPROVAL
 ## 2026-07-24T09:01:08.334350+00:00 — ERA64C
 
 Real historical wallet evidence was scanned read-only and replay validation completed with status `REAL_DATA_DISCOVERED_REPLAY_GAP_CONFIRMED`. Tests: `96/96_VERIFIED`.
+
+<!-- ERA64D_WALLET_EVENT_COVERAGE_GAP_REPAIR -->
+## 2026-07-24T09:17:06.900854+00:00 — ERA64D
+
+The real SQLite wallet-event gap was repaired at the schema-classification and source-contract layer. Status: `REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY`. Tests: `108/108_VERIFIED`.

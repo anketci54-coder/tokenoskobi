@@ -34,3 +34,8 @@ The resident ERA63E technical observation service remains active and read-only. 
 ## Current ERA64 state
 
 `ERA64C_REAL_HISTORICAL_WALLET_REPLAY_AND_VALIDATION` completed with `REAL_DATA_DISCOVERED_REPLAY_GAP_CONFIRMED`. Scanned rows: `840`. Closed cycles: `0`. All real financial authorities remain zero.
+
+<!-- ERA64D_WALLET_EVENT_COVERAGE_GAP_REPAIR -->
+## Current ERA64 state
+
+`ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR` completed with `REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY`. The previous row-global missing-column diagnosis was replaced by source-specific capability classification. Real financial authority remains zero.

@@ -24,3 +24,13 @@ No network, database, panel, service, timer or real financial authority was open
 - Next: `ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR_REQUIRES_USER_APPROVAL`
 - Paper/live runtime: disabled
 - Real financial authority: zero
+
+<!-- ERA64D_WALLET_EVENT_COVERAGE_GAP_REPAIR -->
+## ERA64 handoff
+
+- Current stage: `ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR`
+- Result: `REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY`
+- Source contract ready: `true`
+- Next: `ERA64E_BOUNDED_REAL_WALLET_EVENT_ACQUISITION_AND_BACKFILL_PLAN_REQUIRES_USER_APPROVAL`
+- Paper/live runtime: disabled
+- Real financial authority: zero
