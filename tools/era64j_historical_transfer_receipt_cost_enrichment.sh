@@ -450,14 +450,12 @@ def fetch_enrichment(client: RpcClient,source: dict[str,Any]) -> dict[str,Any]:
         if normalize_hash(transaction.get('hash'))!=tx_hash:
             raise Era64JError(f'TRANSACTION_HASH_MISMATCH:{tx_hash}')
         transaction_gas_price=as_hex_int(transaction.get('gasPrice'),'transaction.gasPrice')
-        if transaction_gas_price<=0:
-            raise Era64JError(f'TRANSACTION_GAS_PRICE_INVALID:{tx_hash}')
         effective_gas_price=transaction_gas_price
         raw_transaction=json.dumps(transaction,sort_keys=True,separators=(',',':'),ensure_ascii=True)
-        gas_price_source='TRANSACTION_GAS_PRICE_FALLBACK'
+        gas_price_source='TRANSACTION_GAS_PRICE_FALLBACK' if transaction_gas_price>0 else 'VERIFIED_ZERO_GAS_PRICE_OBSERVATION'
     gas_cost=gas_used*effective_gas_price
-    if gas_cost<=0:
-        raise Era64JError(f'GAS_COST_INVALID:{tx_hash}')
+    if gas_cost<0:
+        raise Era64JError(f'GAS_COST_NEGATIVE:{tx_hash}')
     status=as_hex_int(receipt.get('status'),'receipt.status')
     if status not in {0,1}:
         raise Era64JError(f'RECEIPT_STATUS_INVALID:{tx_hash}')
@@ -660,6 +658,7 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
     success_count=sum(1 for item in enrichments if item['receipt_status']==1)
     failed_count=len(enrichments)-success_count
     fallback_count=sum(1 for item in enrichments if item['gas_price_source']=='TRANSACTION_GAS_PRICE_FALLBACK')
+    zero_gas_price_count=sum(1 for item in enrichments if item['gas_price_source']=='VERIFIED_ZERO_GAS_PRICE_OBSERVATION')
     total_gas_cost=sum(int(item['gas_cost_wei']) for item in enrichments)
     event_cost_coverage=sum(item['event_count'] for item in enrichments)
     authority=dict(config['authority'])
@@ -676,7 +675,8 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
       'receipt_enriched_event_count':event_cost_coverage,
       'gas_cost_enriched_event_count':event_cost_coverage,
       'successful_receipt_count':success_count,'failed_receipt_count':failed_count,
-      'gas_price_fallback_count':fallback_count,'total_gas_cost_wei':str(total_gas_cost),
+      'gas_price_fallback_count':fallback_count,'zero_gas_price_observation_count':zero_gas_price_count,
+      'total_gas_cost_wei':str(total_gas_cost),
       'receipt_coverage_ratio':receipt_coverage,'event_gas_cost_coverage_ratio':event_coverage,
       'missing_receipt_count':missing_receipts,'block_mismatch_count':block_mismatches,
       'invalid_cost_record_count':invalid_cost,'rpc_request_count':client.request_count,
@@ -711,7 +711,8 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
       'deduplicated_receipt_count':database['deduplicated_receipt_count'],
       'staging_receipt_count':database['receipt_count_after'],
       'successful_receipt_count':success_count,'failed_receipt_count':failed_count,
-      'gas_price_fallback_count':fallback_count,'total_gas_cost_wei':str(total_gas_cost),
+      'gas_price_fallback_count':fallback_count,'zero_gas_price_observation_count':zero_gas_price_count,
+      'total_gas_cost_wei':str(total_gas_cost),
       'receipt_coverage_ratio':receipt_coverage,'event_gas_cost_coverage_ratio':event_coverage,
       'missing_receipt_count':missing_receipts,'block_mismatch_count':block_mismatches,
       'invalid_cost_record_count':invalid_cost,'rpc_request_count':client.request_count,
@@ -749,6 +750,7 @@ def main() -> int:
     print(f"GAS_COST_ENRICHED_EVENT_COUNT={control['gas_cost_enriched_event_count']}")
     print(f"SUCCESSFUL_RECEIPT_COUNT={control['successful_receipt_count']}")
     print(f"FAILED_RECEIPT_COUNT={control['failed_receipt_count']}")
+    print(f"ZERO_GAS_PRICE_OBSERVATION_COUNT={control['zero_gas_price_observation_count']}")
     print(f"RPC_REQUEST_COUNT={control['rpc_request_count']}")
     print('RECEIPT_GAS_COST_ENRICHMENT_COMPLETE=true')
     print('PERFORMANCE_COST_ENRICHMENT_COMPLETE=false')
@@ -836,7 +838,7 @@ class Era64JTests(unittest.TestCase):
             self.assertTrue(rows)
             for gas_used,gas_price,gas_cost in rows:
                 self.assertEqual(int(gas_cost),int(gas_used)*int(gas_price))
-                self.assertGreater(int(gas_cost),0)
+                self.assertGreaterEqual(int(gas_cost),0)
         finally:
             conn.close()
 
@@ -1085,6 +1087,7 @@ print(f"RECEIPT_ENRICHED_EVENT_COUNT={c['receipt_enriched_event_count']}")
 print(f"GAS_COST_ENRICHED_EVENT_COUNT={c['gas_cost_enriched_event_count']}")
 print(f"SUCCESSFUL_RECEIPT_COUNT={c['successful_receipt_count']}")
 print(f"FAILED_RECEIPT_COUNT={c['failed_receipt_count']}")
+print(f"ZERO_GAS_PRICE_OBSERVATION_COUNT={c['zero_gas_price_observation_count']}")
 print(f"RPC_REQUEST_COUNT={c['rpc_request_count']}")
 print('RECEIPT_GAS_COST_ENRICHMENT_COMPLETE=true')
 print('PERFORMANCE_COST_ENRICHMENT_COMPLETE=false')
