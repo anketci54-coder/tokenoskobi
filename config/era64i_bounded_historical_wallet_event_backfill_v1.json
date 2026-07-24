@@ -1,0 +1,70 @@
+{
+  "schema": "tokenoskobi.era64i.bounded_historical_wallet_event_backfill.config.v1",
+  "mode": "BOUNDED_HISTORICAL_BSC_TRANSFER_LOG_BACKFILL_TO_DEDICATED_STAGING",
+  "chain": {
+    "name": "BSC",
+    "chain_id": 56,
+    "confirmation_depth": 12,
+    "historical_safety_lag_blocks": 512
+  },
+  "provider_config": "config/era63e_always_on_market_runtime_v1.json",
+  "wallet_scope_artifact": "data/replay/era64h_staging_replay_relationship_graph_v1.json",
+  "rpc_method_allowlist": [
+    "eth_chainId",
+    "eth_blockNumber",
+    "eth_getTransactionReceipt",
+    "eth_getBlockByNumber"
+  ],
+  "scope_tokens": [
+    "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+    "0x55d398326f99059ff775485246999027b3197955",
+    "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+    "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+  ],
+  "limits": {
+    "historical_block_span": 2048,
+    "log_chunk_size": 64,
+    "maximum_sampled_blocks_per_chunk": 1,
+    "maximum_wallet_scope": 16,
+    "maximum_receipts_per_sampled_block": 24,
+    "log_query_sampling_mode": "FULL_BLOCK_TRANSACTION_RECEIPT_SAMPLING_PROVIDER_SAFE",
+    "maximum_logs_per_sampled_block": 12,
+    "maximum_events": 768,
+    "maximum_distinct_blocks": 128,
+    "maximum_rpc_requests": 900,
+    "maximum_runtime_seconds": 1200,
+    "request_timeout_seconds": 12,
+    "retries_per_endpoint": 1,
+    "retry_backoff_seconds": 0.5
+  },
+  "acceptance": {
+    "minimum_scanned_chunks": 32,
+    "minimum_sampled_blocks": 16,
+    "minimum_real_transfer_events": 100,
+    "minimum_distinct_wallets": 20,
+    "maximum_duplicate_events": 0,
+    "maximum_missing_timestamp_events": 0,
+    "maximum_missing_provenance_events": 0
+  },
+  "staging_database": "runtime/era64i/historical_wallet_transfer_staging_v1.sqlite3",
+  "source_table": "era64i_historical_wallet_transfer_staging_v1",
+  "cost_coverage_policy": "RAW_TRANSFER_LOGS_ONLY_COST_ENRICHMENT_DEFERRED",
+  "successful_wallet_classification_authorized": false,
+  "cluster_inference_authorized": false,
+  "synthetic_data_allowed": false,
+  "authority": {
+    "network_access": true,
+    "network_mode": "READ_ONLY_ALLOWLISTED_BSC_RPC",
+    "staging_database_write": true,
+    "production_database_write": false,
+    "runtime_service_mutation": false,
+    "panel_mutation": false,
+    "timer_mutation": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "wallet": false,
+    "signing": false,
+    "order_create": false,
+    "broadcast": false
+  }
+}
