@@ -2,8 +2,8 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=ERA64G_BOUNDED_STAGING_DATABASE_BACKFILL
-ERA64_STATUS=ACTIVE_BOUNDED_STAGING_DATABASE_BACKFILL_VERIFIED
-NEXT_SAFE_STEP=ERA64H_STAGING_REPLAY_AND_RELATIONSHIP_GRAPH_VALIDATION_REQUIRES_USER_APPROVAL
+CURRENT_STAGE=ERA64H_STAGING_REPLAY_AND_RELATIONSHIP_GRAPH_VALIDATION
+ERA64_STATUS=ACTIVE_STAGING_REPLAY_RELATIONSHIP_GRAPH_VALIDATED
+NEXT_SAFE_STEP=ERA64I_BOUNDED_HISTORICAL_WALLET_EVENT_BACKFILL_REQUIRES_EXPLICIT_USER_APPROVAL
 
-ERA64G transactionally imported the sealed real BSC wallet-event canary into a dedicated staging SQLite database. Production database writes and all financial authorities remain disabled.
+ERA64H validated the immutable read-only replay of 191 real BSC transfer events and built an evidence-only relationship graph. Historical depth and cost-complete trade cycles remain insufficient for successful-wallet classification.
