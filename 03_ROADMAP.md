@@ -2,8 +2,8 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=ERA64I_BOUNDED_HISTORICAL_WALLET_EVENT_BACKFILL
-ERA64_STATUS=ACTIVE_BOUNDED_HISTORICAL_WALLET_TRANSFER_BACKFILL_VERIFIED
-NEXT_SAFE_STEP=ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT_REQUIRES_EXPLICIT_USER_APPROVAL
+CURRENT_STAGE=ERA64J_HISTORICAL_TRANSFER_RECEIPT_AND_COST_ENRICHMENT
+ERA64_STATUS=ACTIVE_HISTORICAL_TRANSFER_RECEIPT_GAS_COST_ENRICHMENT_VERIFIED
+NEXT_SAFE_STEP=ERA64K_DEX_SWAP_DIRECTION_TOKEN_METADATA_AND_PRICE_CONTEXT_REQUIRES_EXPLICIT_USER_APPROVAL
 
-ERA64I completed a bounded historical BSC transfer-log backfill for canonical base and quote assets. Receipt, gas-cost, swap-direction, execution-price and closed-cycle enrichment remain pending.
+ERA64J completed real BSC transaction-receipt and gas-cost coverage for the sealed ERA64I historical transfer dataset. Swap direction, token metadata, price context and cost-complete closed trade cycles remain unresolved.

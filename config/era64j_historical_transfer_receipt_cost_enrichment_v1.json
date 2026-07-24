@@ -1,0 +1,57 @@
+{
+  "schema": "tokenoskobi.era64j.historical_transfer_receipt_cost_enrichment.config.v1",
+  "mode": "BOUNDED_READONLY_BSC_RECEIPT_FETCH_TO_DEDICATED_STAGING_ENRICHMENT",
+  "chain": {
+    "name": "BSC",
+    "chain_id": 56
+  },
+  "provider_config": "config/era63e_always_on_market_runtime_v1.json",
+  "source_control": "data/control/era64i_bounded_historical_wallet_event_backfill_v1.json",
+  "staging_database": "runtime/era64i/historical_wallet_transfer_staging_v1.sqlite3",
+  "source_table": "era64i_historical_wallet_transfer_staging_v1",
+  "enrichment_table": "era64j_historical_receipt_cost_enrichment_v1",
+  "rpc_method_allowlist": [
+    "eth_chainId",
+    "eth_getTransactionReceipt",
+    "eth_getTransactionByHash"
+  ],
+  "limits": {
+    "maximum_source_events": 500,
+    "maximum_source_transactions": 500,
+    "maximum_rpc_requests": 1200,
+    "maximum_runtime_seconds": 1200,
+    "request_timeout_seconds": 10,
+    "retries_per_endpoint": 1,
+    "retry_backoff_seconds": 0.25
+  },
+  "acceptance": {
+    "minimum_source_events": 367,
+    "minimum_receipt_coverage_ratio": 1.0,
+    "minimum_gas_cost_coverage_ratio": 1.0,
+    "maximum_missing_receipts": 0,
+    "maximum_block_mismatches": 0,
+    "maximum_invalid_cost_records": 0
+  },
+  "classification_policy": {
+    "receipt_gas_cost_enrichment_complete_when_full_coverage": true,
+    "performance_cost_enrichment_complete": false,
+    "swap_direction_classification_authorized": false,
+    "successful_wallet_classification_authorized": false,
+    "cluster_inference_authorized": false
+  },
+  "authority": {
+    "network_access": true,
+    "network_mode": "READ_ONLY_ALLOWLISTED_BSC_RPC",
+    "staging_database_write": true,
+    "production_database_write": false,
+    "runtime_service_mutation": false,
+    "panel_mutation": false,
+    "timer_mutation": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "wallet": false,
+    "signing": false,
+    "order_create": false,
+    "broadcast": false
+  }
+}
