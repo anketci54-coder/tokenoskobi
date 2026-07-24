@@ -1,0 +1,33 @@
+{
+  "schema": "tokenoskobi.era64g.bounded_staging_database_backfill.config.v1",
+  "mode": "LOCAL_STAGING_SQLITE_WRITE_FROM_SEALED_REAL_CANARY",
+  "chain": "BSC",
+  "chain_id": 56,
+  "source_artifact": "data/replay/era64f_bounded_readonly_wallet_event_canary_v1.json",
+  "staging_database": "runtime/era64g/wallet_events_staging_v1.sqlite3",
+  "maximum_source_events": 250,
+  "required_source_status": "REAL_WALLET_EVENT_CANARY_VERIFIED",
+  "deduplication_key": ["chain_id", "tx_hash", "log_index"],
+  "database_policy": {
+    "dedicated_staging_only": true,
+    "production_database_write": false,
+    "atomic_transaction_required": true,
+    "foreign_keys_required": true,
+    "integrity_check_required": true,
+    "raw_event_evidence_preserved": true
+  },
+  "authority": {
+    "blockchain_network_access": false,
+    "staging_database_write": true,
+    "production_database_write": false,
+    "runtime_service_mutation": false,
+    "panel_mutation": false,
+    "timer_mutation": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "wallet": false,
+    "signing": false,
+    "order_create": false,
+    "broadcast": false
+  }
+}

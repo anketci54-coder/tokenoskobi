@@ -1,8 +1,12 @@
 # 07 PROJECT HANDOFF
 
-CURRENT_STAGE=ERA64F_BOUNDED_READONLY_REAL_WALLET_EVENT_ACQUISITION_CANARY
-STATUS=ACTIVE_BOUNDED_READONLY_REAL_WALLET_EVENT_CANARY_VERIFIED
-ARTIFACT=data/control/era64f_bounded_readonly_wallet_event_canary_v1.json
-NEXT_SAFE_STEP=ERA64G_BOUNDED_STAGING_DATABASE_BACKFILL_REQUIRES_EXPLICIT_USER_APPROVAL
+CURRENT_STAGE=ERA64G_BOUNDED_STAGING_DATABASE_BACKFILL
+STATUS=ACTIVE_BOUNDED_STAGING_DATABASE_BACKFILL_VERIFIED
+ARTIFACT=data/control/era64g_bounded_staging_database_backfill_v1.json
+STAGING_DATABASE=runtime/era64g/wallet_events_staging_v1.sqlite3
+SOURCE_EVENT_COUNT=191
+STAGING_EVENT_COUNT=191
+PRODUCTION_DATABASE_WRITE_USED=false
+NEXT_SAFE_STEP=ERA64H_STAGING_REPLAY_AND_RELATIONSHIP_GRAPH_VALIDATION_REQUIRES_USER_APPROVAL
 
-ERA64F used only allowlisted read-only BSC RPC methods, scanned confirmed blocks, and captured `191` real wallet events. Database writes and every financial authority remained disabled. The next stage requires separate explicit approval before any staging database backfill.
+The ERA64F real canary events are now available in a dedicated local staging SQLite database with deterministic deduplication and preserved evidence. The next step is read-only replay and relationship-graph validation.

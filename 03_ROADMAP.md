@@ -2,8 +2,8 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=ERA64F_BOUNDED_READONLY_REAL_WALLET_EVENT_ACQUISITION_CANARY
-ERA64_STATUS=ACTIVE_BOUNDED_READONLY_REAL_WALLET_EVENT_CANARY_VERIFIED
-NEXT_SAFE_STEP=ERA64G_BOUNDED_STAGING_DATABASE_BACKFILL_REQUIRES_EXPLICIT_USER_APPROVAL
+CURRENT_STAGE=ERA64G_BOUNDED_STAGING_DATABASE_BACKFILL
+ERA64_STATUS=ACTIVE_BOUNDED_STAGING_DATABASE_BACKFILL_VERIFIED
+NEXT_SAFE_STEP=ERA64H_STAGING_REPLAY_AND_RELATIONSHIP_GRAPH_VALIDATION_REQUIRES_USER_APPROVAL
 
-ERA64F executed a bounded read-only BSC network canary and produced `191` real wallet events from `4` confirmed blocks. No database, runtime, service, timer, paper-trade or live-trade mutation was authorized.
+ERA64G transactionally imported the sealed real BSC wallet-event canary into a dedicated staging SQLite database. Production database writes and all financial authorities remain disabled.
