@@ -1,5 +1,29 @@
 # 03 ROADMAP - TOKENOSKOBI
 
+<!-- DYNAMIC_POSITION_SIZING_ROADMAP:BEGIN -->
+## Dinamik İşlem Büyüklüğü Düzeltmesi
+
+`LIVE_CANARY_TRADE_USD=1_TO_2` kalıcı sistem sınırı değildir ve bu anlamıyla yürürlükten kaldırılmıştır.
+
+```text
+POSITION_SIZE
+  = human policy envelope içinde
+    kullanılabilir canary wallet bakiyesi
+    + fırsat kalitesi ve confidence
+    + Risk Engine kararı
+    + likidite / price impact / slippage
+    + gas, fee, tax ve toplam maliyet oranı
+    + açık risk / günlük kalan risk bütçesi / drawdown
+    + ölçülmüş kapanmış işlem ve öğrenme kanıtı
+```
+
+- 1–2 USD yalnız isteğe bağlı ilk canary probe olabilir.
+- Sistem fırsat ve cüzdan koşullarına göre daha düşük veya daha yüksek pozisyon önerebilir.
+- Nihai üst sınırlar kullanıcı tarafından belirlenen işlem başı maksimum, günlük zarar ve toplam açık risk zarfıdır.
+- Risk Engine veto aşılamaz.
+- Bu düzeltme şu anda live authority açmaz; mevcut ürün tamamlama ve 1 Eylül hedef sırası değişmez.
+<!-- DYNAMIC_POSITION_SIZING_ROADMAP:END -->
+
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
 CURRENT_STAGE=TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE

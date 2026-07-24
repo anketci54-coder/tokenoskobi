@@ -1,5 +1,17 @@
 # 02 MANIFESTO - TOKENOSKOBI CONSTITUTION
 
+<!-- DYNAMIC_POSITION_SIZING_CONSTITUTION:BEGIN -->
+## DYNAMIC POSITION SIZING CONSTITUTION
+
+- Tokenoskobi kalıcı olarak 1–2 USD işlem büyüklüğüyle sınırlandırılamaz.
+- 1–2 USD yalnız ilk canlı doğrulamalarda kullanılabilecek isteğe bağlı küçük canary probe değeridir; sistem tavanı değildir.
+- İşlem büyüklüğü, insanın tanımladığı politika zarfı içinde kullanılabilir canary wallet bakiyesi, fırsat kalitesi, Risk Engine kararı, likidite, fiyat etkisi, slippage, gas/toplam maliyet, açık risk, günlük kalan risk bütçesi, drawdown ve ölçülmüş öğrenme kanıtıyla dinamik belirlenir.
+- Wallet bakiyesinin tamamı işlem sermayesi kabul edilemez; yalnız insan tarafından canary wallet’a ayrılmış bakiye kullanılabilir.
+- Tek kazanç otomatik büyütme yetkisi üretmez. Ölçek büyümesi ancak yeterli kapanmış işlem, maliyet-tam sonuç ve risk sınırlarıyla yapılır.
+- Risk Engine veto, insanın maksimum işlem/günlük zarar/toplam açık risk sınırları ve likidite-price-impact limitleri aşılmaz.
+- Bu politika tek başına paper veya live trade, wallet, signing, order ya da broadcast yetkisi açmaz.
+<!-- DYNAMIC_POSITION_SIZING_CONSTITUTION:END -->
+
 <!-- DEADLINE_LIVE_CANARY_LEARNING:BEGIN -->
 ## DEADLINE, LIVE CANARY AND LEARNING CONSTITUTION
 

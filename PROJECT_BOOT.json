@@ -8,10 +8,12 @@
     "do_not_give_code_unless_requested": true,
     "do_not_open_new_era_while_product_completion_lock_active": true,
     "do_not_replace_delivery_with_new_era_or_engine_bloat": true,
+    "do_not_treat_1_to_2_usd_as_permanent_system_cap": true,
     "external_ai_outputs_are_advisory_not_binding": true,
     "external_ai_outside_hot_path": true,
     "no_promises_without_proof": true,
     "paper_findings_before_speculative_perfection": true,
+    "position_size_must_follow_wallet_opportunity_risk_liquidity_and_human_policy": true,
     "prefer_short_direct_answers": true,
     "red_team_advisory_not_controlling": true,
     "reject_bloat_unless_opportunity_cost_positive": true,
@@ -76,7 +78,7 @@
       "boot contract changes"
     ]
   },
-  "boot_version": "3.5",
+  "boot_version": "3.6",
   "canonical_identity": {
     "doctrine": [
       "Defense like a fortress",
@@ -434,6 +436,52 @@
     },
     "replacement_rule": "Conflicting information replaces the old information in the owning file. Non-conflicting information is inserted into the correct section of the owning file."
   },
+  "dynamic_position_sizing_contract": {
+    "authority_note": "THIS_POLICY_DOES_NOT_ENABLE_PAPER_OR_LIVE_TRADE_WALLET_SIGNING_OR_ORDER_AUTHORITY",
+    "fixed_usd_cap": false,
+    "hard_bounds": [
+      "CANNOT_EXCEED_AVAILABLE_CANARY_WALLET_BALANCE",
+      "CANNOT_EXCEED_HUMAN_DEFINED_MAX_PER_TRADE",
+      "CANNOT_EXCEED_HUMAN_DEFINED_DAILY_LOSS_BUDGET",
+      "CANNOT_EXCEED_LIQUIDITY_AND_PRICE_IMPACT_LIMIT",
+      "CANNOT_BYPASS_RISK_ENGINE_VETO",
+      "CANNOT_AUTO_INCREASE_AFTER_SINGLE_WIN",
+      "CANNOT_USE_CORE_OR_RESERVE_WALLET_BALANCE"
+    ],
+    "human_controls": [
+      "MAX_PER_TRADE",
+      "MAX_DAILY_LOSS",
+      "MAX_TOTAL_OPEN_EXPOSURE",
+      "CANARY_WALLET_FUNDING",
+      "POLICY_ENVELOPE_AND_VETO"
+    ],
+    "id": "DYNAMIC_WALLET_OPPORTUNITY_RISK_BASED_POSITION_SIZING",
+    "initial_probe": {
+      "automatic_extension": false,
+      "optional": true,
+      "role": "OPTIONAL_EARLY_CANARY_PROBE_ONLY_NOT_A_SYSTEM_LIMIT",
+      "usd_range": "1_TO_2"
+    },
+    "permanent_1_to_2_usd_cap": false,
+    "position_size_owner": "POSITION_SIZING_ENGINE_INSIDE_HUMAN_DEFINED_POLICY_ENVELOPE",
+    "primary_inputs": [
+      "AVAILABLE_CANARY_WALLET_BALANCE",
+      "OPPORTUNITY_QUALITY_AND_CONFIDENCE",
+      "RISK_ENGINE_DECISION",
+      "LIQUIDITY_DEPTH",
+      "EXPECTED_PRICE_IMPACT",
+      "EXPECTED_SLIPPAGE",
+      "GAS_AND_TOTAL_EXECUTION_COST_RATIO",
+      "TOKEN_TAX_OR_TRANSFER_RESTRICTION",
+      "OPEN_EXPOSURE",
+      "DAILY_REMAINING_RISK_BUDGET",
+      "CURRENT_DRAWDOWN",
+      "LEARNING_AND_VALIDATION_STAGE"
+    ],
+    "recorded_at_utc": "2026-07-24T21:54:15.293713+00:00",
+    "scaling_rule": "SIZE_MAY_INCREASE_OR_DECREASE_FROM_MEASURED_WALLET_CAPACITY_OPPORTUNITY_QUALITY_LIQUIDITY_COST_AND_OUTCOME_EVIDENCE",
+    "status": "LOCKED_PLAN_ONLY_AUTHORITY_UNCHANGED"
+  },
   "engine_relationships": {
     "Evidence Engine": "Stores evidence for both Hunter and Prosecutor",
     "Guardian": "Final constitutional safety gate",
@@ -475,7 +523,7 @@
     "paper_trade_locked_until_explicit_phase": true,
     "runtime_is_current_state_authority": true
   },
-  "last_action": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE_CANONICAL_PLAN_SYNC",
+  "last_action": "DYNAMIC_POSITION_SIZING_POLICY_CORRECTION_SYNC",
   "live_canary_learning_contract": {
     "bounded_notional_required": true,
     "complete_evidence_outcome_loop_required": true,
@@ -658,8 +706,8 @@
     "status": "PERMANENT_CONSTITUTIONAL_FORMULA_BINDING",
     "updated_at_utc": "2026-07-08T16:48:01.474705+00:00"
   },
-  "updated_at": "2026-07-24T17:54:31.332165+00:00",
-  "updated_at_utc": "2026-07-24T18:38:08.126539+00:00",
+  "updated_at": "2026-07-24T21:54:15.293713+00:00",
+  "updated_at_utc": "2026-07-24T21:54:15.293713+00:00",
   "whale_intelligence": {
     "requirements": [
       "track significant whale wallet movements",

@@ -1,5 +1,31 @@
 # 05 ATLAS - TOKENOSKOBI / COINOSKOBI MASTER SYSTEM MAP
 
+<!-- DYNAMIC_POSITION_SIZING_FLOW:BEGIN -->
+## DYNAMIC POSITION SIZING FLOW
+
+```text
+CANARY WALLET AVAILABLE BALANCE
+  + OPPORTUNITY QUALITY / CONFIDENCE
+  + RISK ENGINE ALLOW / WAIT / BLOCK / REVIEW
+  + LIQUIDITY DEPTH / PRICE IMPACT / SLIPPAGE
+  + GAS / FEE / TAX / TOTAL COST RATIO
+  + OPEN EXPOSURE / DAILY REMAINING RISK / DRAWDOWN
+  + CLOSED-TRADE LEARNING EVIDENCE
+  -> POSITION SIZING ENGINE
+  -> HUMAN POLICY ENVELOPE
+       -> MAX PER TRADE
+       -> MAX DAILY LOSS
+       -> MAX TOTAL OPEN EXPOSURE
+  -> HUMAN APPROVAL / VETO
+```
+
+- 1–2 USD is an optional initial probe, not a permanent cap.
+- Core/reserve wallet balance is never treated as available trade capital.
+- A single win cannot auto-scale capital.
+- Risk Engine veto and liquidity/cost limits are absolute.
+- No paper/live/wallet/signing/order authority is created by sizing logic.
+<!-- DYNAMIC_POSITION_SIZING_FLOW:END -->
+
 <!-- DEADLINE_LIVE_CANARY_LEARNING_FLOW:BEGIN -->
 ## DEADLINE LIVE CANARY AND LEARNING FLOW
 

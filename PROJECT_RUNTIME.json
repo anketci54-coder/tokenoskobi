@@ -134,6 +134,52 @@
     "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
     "current_version_line": "V4",
     "delivery_deadline": "2026-09-01",
+    "dynamic_position_sizing_policy": {
+      "authority_note": "THIS_POLICY_DOES_NOT_ENABLE_PAPER_OR_LIVE_TRADE_WALLET_SIGNING_OR_ORDER_AUTHORITY",
+      "fixed_usd_cap": false,
+      "hard_bounds": [
+        "CANNOT_EXCEED_AVAILABLE_CANARY_WALLET_BALANCE",
+        "CANNOT_EXCEED_HUMAN_DEFINED_MAX_PER_TRADE",
+        "CANNOT_EXCEED_HUMAN_DEFINED_DAILY_LOSS_BUDGET",
+        "CANNOT_EXCEED_LIQUIDITY_AND_PRICE_IMPACT_LIMIT",
+        "CANNOT_BYPASS_RISK_ENGINE_VETO",
+        "CANNOT_AUTO_INCREASE_AFTER_SINGLE_WIN",
+        "CANNOT_USE_CORE_OR_RESERVE_WALLET_BALANCE"
+      ],
+      "human_controls": [
+        "MAX_PER_TRADE",
+        "MAX_DAILY_LOSS",
+        "MAX_TOTAL_OPEN_EXPOSURE",
+        "CANARY_WALLET_FUNDING",
+        "POLICY_ENVELOPE_AND_VETO"
+      ],
+      "id": "DYNAMIC_WALLET_OPPORTUNITY_RISK_BASED_POSITION_SIZING",
+      "initial_probe": {
+        "automatic_extension": false,
+        "optional": true,
+        "role": "OPTIONAL_EARLY_CANARY_PROBE_ONLY_NOT_A_SYSTEM_LIMIT",
+        "usd_range": "1_TO_2"
+      },
+      "permanent_1_to_2_usd_cap": false,
+      "position_size_owner": "POSITION_SIZING_ENGINE_INSIDE_HUMAN_DEFINED_POLICY_ENVELOPE",
+      "primary_inputs": [
+        "AVAILABLE_CANARY_WALLET_BALANCE",
+        "OPPORTUNITY_QUALITY_AND_CONFIDENCE",
+        "RISK_ENGINE_DECISION",
+        "LIQUIDITY_DEPTH",
+        "EXPECTED_PRICE_IMPACT",
+        "EXPECTED_SLIPPAGE",
+        "GAS_AND_TOTAL_EXECUTION_COST_RATIO",
+        "TOKEN_TAX_OR_TRANSFER_RESTRICTION",
+        "OPEN_EXPOSURE",
+        "DAILY_REMAINING_RISK_BUDGET",
+        "CURRENT_DRAWDOWN",
+        "LEARNING_AND_VALIDATION_STAGE"
+      ],
+      "recorded_at_utc": "2026-07-24T21:54:15.293713+00:00",
+      "scaling_rule": "SIZE_MAY_INCREASE_OR_DECREASE_FROM_MEASURED_WALLET_CAPACITY_OPPORTUNITY_QUALITY_LIQUIDITY_COST_AND_OUTCOME_EVIDENCE",
+      "status": "LOCKED_PLAN_ONLY_AUTHORITY_UNCHANGED"
+    },
     "emergency_patch_chain_removed": true,
     "empty_source_selection_behavior": "SUCCESS_NOOP_FAIL_CLOSED",
     "era24f_net_utility": -18.6667,
@@ -446,6 +492,7 @@
     "legacy_raw_runner_reference_present": false,
     "legacy_raw_runner_restore_authorized": false,
     "legacy_raw_runner_restore_forbidden": true,
+    "live_canary_fixed_trade_usd": false,
     "live_canary_target": "2026-09-01",
     "live_source_fetch_authorized": false,
     "live_trade_current_state": "DISABLED",
@@ -1007,6 +1054,52 @@
     "next_safe_step_unchanged": true,
     "normalized_at_utc": "2026-07-10T15:59:48.209051+00:00",
     "status": "CLOSED_VERIFIED"
+  },
+  "dynamic_position_sizing_policy": {
+    "authority_note": "THIS_POLICY_DOES_NOT_ENABLE_PAPER_OR_LIVE_TRADE_WALLET_SIGNING_OR_ORDER_AUTHORITY",
+    "fixed_usd_cap": false,
+    "hard_bounds": [
+      "CANNOT_EXCEED_AVAILABLE_CANARY_WALLET_BALANCE",
+      "CANNOT_EXCEED_HUMAN_DEFINED_MAX_PER_TRADE",
+      "CANNOT_EXCEED_HUMAN_DEFINED_DAILY_LOSS_BUDGET",
+      "CANNOT_EXCEED_LIQUIDITY_AND_PRICE_IMPACT_LIMIT",
+      "CANNOT_BYPASS_RISK_ENGINE_VETO",
+      "CANNOT_AUTO_INCREASE_AFTER_SINGLE_WIN",
+      "CANNOT_USE_CORE_OR_RESERVE_WALLET_BALANCE"
+    ],
+    "human_controls": [
+      "MAX_PER_TRADE",
+      "MAX_DAILY_LOSS",
+      "MAX_TOTAL_OPEN_EXPOSURE",
+      "CANARY_WALLET_FUNDING",
+      "POLICY_ENVELOPE_AND_VETO"
+    ],
+    "id": "DYNAMIC_WALLET_OPPORTUNITY_RISK_BASED_POSITION_SIZING",
+    "initial_probe": {
+      "automatic_extension": false,
+      "optional": true,
+      "role": "OPTIONAL_EARLY_CANARY_PROBE_ONLY_NOT_A_SYSTEM_LIMIT",
+      "usd_range": "1_TO_2"
+    },
+    "permanent_1_to_2_usd_cap": false,
+    "position_size_owner": "POSITION_SIZING_ENGINE_INSIDE_HUMAN_DEFINED_POLICY_ENVELOPE",
+    "primary_inputs": [
+      "AVAILABLE_CANARY_WALLET_BALANCE",
+      "OPPORTUNITY_QUALITY_AND_CONFIDENCE",
+      "RISK_ENGINE_DECISION",
+      "LIQUIDITY_DEPTH",
+      "EXPECTED_PRICE_IMPACT",
+      "EXPECTED_SLIPPAGE",
+      "GAS_AND_TOTAL_EXECUTION_COST_RATIO",
+      "TOKEN_TAX_OR_TRANSFER_RESTRICTION",
+      "OPEN_EXPOSURE",
+      "DAILY_REMAINING_RISK_BUDGET",
+      "CURRENT_DRAWDOWN",
+      "LEARNING_AND_VALIDATION_STAGE"
+    ],
+    "recorded_at_utc": "2026-07-24T21:54:15.293713+00:00",
+    "scaling_rule": "SIZE_MAY_INCREASE_OR_DECREASE_FROM_MEASURED_WALLET_CAPACITY_OPPORTUNITY_QUALITY_LIQUIDITY_COST_AND_OUTCOME_EVIDENCE",
+    "status": "LOCKED_PLAN_ONLY_AUTHORITY_UNCHANGED"
   },
   "era54_status": {
     "closed_at_utc": "2026-07-08T17:25:07+00:00",
@@ -1651,11 +1744,11 @@
     "state": "runtime/state/hot_intelligence_ingress_gateway_v1.json",
     "status": "CLOSED_VERIFIED_BOUND_RUNTIME"
   },
-  "last_action": "SEPTEMBER_1_PRODUCT_PAPER_AND_LIVE_CANARY_DEADLINE_PLAN_LOCK",
+  "last_action": "DYNAMIC_POSITION_SIZING_POLICY_CORRECTION_SYNC",
   "last_artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
   "last_closed_era": "ERA63",
   "last_completed": "ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION",
-  "last_result": "DEADLINE_AND_1_TO_2_USD_LIVE_CANARY_POLICY_CANONICALLY_LOCKED",
+  "last_result": "FIXED_1_TO_2_USD_CAP_REMOVED_DYNAMIC_POLICY_LOCKED",
   "last_verified_technical_baseline": {
     "gas_cost_enriched_event_count": 367,
     "live_trade": "DISABLED",
@@ -1701,6 +1794,8 @@
     "silent_production_self_modification": false,
     "status": "MANDATORY_NOT_YET_END_TO_END_VERIFIED"
   },
+  "live_canary_fixed_trade_usd": false,
+  "live_canary_initial_probe_usd": "OPTIONAL_1_TO_2_NOT_PERMANENT_CAP",
   "live_canary_policy": {
     "automatic_capital_expansion": false,
     "chain": "BSC",
@@ -1731,6 +1826,7 @@
     "unlimited_token_approval_forbidden": true,
     "wallet_funding_cap_usd": "USER_DEFINED_BEFORE_ACTIVATION"
   },
+  "live_canary_trade_size_policy": "DYNAMIC_WALLET_OPPORTUNITY_RISK_BASED_POSITION_SIZING",
   "mode": "DEADLINE_DRIVEN_USABLE_PRODUCT_COMPLETION",
   "news_active_panel_data_binding_state": {
     "artifact": "data/control/news_active_panel_data_binding_single_block_noapi_v1.json",
@@ -2353,7 +2449,7 @@
   "source": "news_v3_batch_01_runtime_direction_sync_v1",
   "status": "ACTIVE",
   "updated_at": "2026-07-24T07:44:44.641249+00:00",
-  "updated_at_utc": "2026-07-24T18:38:08.126539+00:00",
+  "updated_at_utc": "2026-07-24T21:54:15.293713+00:00",
   "work_unit": {
     "completed_substeps": [
       "ERA64A_EXISTING_WALLET_DATA_AND_CAPABILITY_AUDIT",

@@ -28,3 +28,8 @@ NEXT_SAFE_STEP=PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATIO
 ## Yeni pencerenin tek işi
 
 README boot protocolünü eksiksiz uygula ve yalnız `PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION` adımını yürüt. NEWS, panel URL/auth, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenliği güncel read-only kanıtla doğrula. Sonra takvimdeki bir sonraki görünür ürün teslimatına geç.
+
+
+## İşlem Büyüklüğü Düzeltmesi
+
+1–2 USD kalıcı sistem sınırı değildir. Yalnız isteğe bağlı ilk canary probe olabilir. Gerçek işlem büyüklüğü canary wallet bakiyesi, fırsat kalitesi, risk, likidite, slippage, fiyat etkisi, toplam maliyet, drawdown ve kapanmış işlem öğrenme kanıtına göre dinamik belirlenir. Kullanıcı maksimum işlem, günlük zarar ve toplam açık risk sınırlarını belirler. Bu kayıt mevcut authority durumunu değiştirmez.
