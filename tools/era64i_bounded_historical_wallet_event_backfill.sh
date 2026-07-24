@@ -122,6 +122,7 @@ cat > "$CONFIG" <<'JSON_CONFIG'
     "historical_block_span": 2048,
     "log_chunk_size": 16,
     "maximum_sampled_blocks_per_chunk": 1,
+    "log_query_sampling_mode": "MIDPOINT_BLOCK_PER_CHUNK_PROVIDER_LIMIT_SAFE",
     "maximum_logs_per_sampled_block": 6,
     "maximum_events": 768,
     "maximum_distinct_blocks": 128,
@@ -404,22 +405,41 @@ def evenly_select(items: list[Any],limit: int) -> list[Any]:
     return [items[index] for index in indices]
 
 def fetch_logs_for_chunk(client: RpcClient,tokens: list[str],start: int,end: int) -> tuple[list[dict[str,Any]],str|None,str]:
-    params={'fromBlock':hex(start),'toBlock':hex(end),'address':tokens,'topics':[TRANSFER_TOPIC]}
+    # Provider-safe deterministic sampling: query one midpoint block per configured chunk.
+    # This preserves the 2048-block historical distribution while preventing public RPC
+    # eth_getLogs result-limit failures on high-volume BSC base/quote tokens.
+    sampled_block=start+(end-start)//2
+    params={
+      'fromBlock':hex(sampled_block),'toBlock':hex(sampled_block),
+      'address':tokens,'topics':[TRANSFER_TOPIC]
+    }
     try:
         result=client.call('eth_getLogs',[params])
         if not isinstance(result,list):
             raise Era64IError('ETH_GET_LOGS_RESULT_NOT_LIST')
-        return [item for item in result if isinstance(item,dict)],client.last_endpoint_host,'COMBINED_TOKEN_FILTER'
+        return [item for item in result if isinstance(item,dict)],client.last_endpoint_host,'MIDPOINT_BLOCK_COMBINED_TOKEN_FILTER'
     except Era64IError as combined_error:
         merged=[]
         provider_host=None
         for token in tokens:
-            result=client.call('eth_getLogs',[{'fromBlock':hex(start),'toBlock':hex(end),'address':token,'topics':[TRANSFER_TOPIC]}])
+            result=client.call('eth_getLogs',[{
+              'fromBlock':hex(sampled_block),'toBlock':hex(sampled_block),
+              'address':token,'topics':[TRANSFER_TOPIC]
+            }])
             if not isinstance(result,list):
-                raise Era64IError('ETH_GET_LOGS_FALLBACK_RESULT_NOT_LIST') from combined_error
+                raise Era64IError('ETH_GET_LOGS_MIDPOINT_FALLBACK_RESULT_NOT_LIST') from combined_error
             merged.extend(item for item in result if isinstance(item,dict))
             provider_host=client.last_endpoint_host
-        return merged,provider_host,'PER_TOKEN_FALLBACK'
+        unique={}
+        for item in merged:
+            key=(
+              str(item.get('blockHash') or '').lower(),
+              str(item.get('transactionHash') or '').lower(),
+              str(item.get('logIndex') or '').lower(),
+              str(item.get('address') or '').lower(),
+            )
+            unique.setdefault(key,item)
+        return list(unique.values()),provider_host,'MIDPOINT_BLOCK_PER_TOKEN_FALLBACK'
 
 def log_sort_key(item: dict[str,Any]) -> tuple[Any,...]:
     try:
