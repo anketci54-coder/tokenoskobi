@@ -3,23 +3,28 @@
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
 CURRENT_STAGE=TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE
-STATUS=PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED
-PRODUCT_COMPLETION_LOCK=true
+STATUS=PRODUCT_COMPLETION_DEADLINE_LOCKED_2026_09_01
+PRODUCT_COMPLETION_DEADLINE=2026-09-01
 NO_NEW_ERA=true
-ERA64K_STATUS=DEFERRED_NOT_NEXT_STEP
+SCOPE_FREEZE=true
 NEXT_SAFE_STEP=PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION
 
-## Son Doğrulanmış Teknik Temel
+## Kesin yön
 
-- ERA64J doğrulandı: 172/172 test, 367 gerçek BSC olayı, 277 işlem ve tam receipt/gas-cost coverage.
-- Başarılı wallet sınıflandırması hazır değildir.
-- Paper runtime ve live trade kapalıdır; gerçek wallet/signing/order/financial authority sıfırdır.
-- `034b163` ürün builder denemesi `PAYLOAD_MISSING` ile durdu ve rollback edildi; ürün yüzeyi kurulmadı.
+1 Eylül 2026 tarihinde kullanılabilir ürün, tamamlanmış paper-trade test hattı ve BSC/PancakeSwap üzerinde işlem başına 1-2 USD bounded gerçek para canary başlangıcı hedeflenmiştir. Yeni ERA, alt ERA veya ürün dışı engine derinleştirmesi yoktur.
 
-## Yeni Pencerenin Tek Görevi
+## İlk canlı canary
 
-Önce `README.md` dosyasını okuyup mandatory canonical boot sırasını eksiksiz uygula. Local workspace erişimi varsa local workspace ve local Git, GitHub remote’dan önce doğrulansın. Boot tamamlandıktan sonra yalnız `PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION` yürütülsün.
+- BSC ve PancakeSwap V2/V3.
+- İşlem başına 1-2 USD.
+- Başlangıçta her işlem insan onaylı.
+- İzole wallet, tek açık pozisyon, exact approval, unlimited approval yasağı.
+- Live trade şu anda kapalıdır; 30-31 Ağustos go/no-go ve açık kullanıcı aktivasyonu gerekir.
 
-Bu adım read-only olacaktır ve şunları kanıtlayacaktır: NEWS katmanı canlı mı; panelin kesin canlı URL/auth yolu nedir ve telefondan açılıyor mu; Alchemy ve hibrit fallback zinciri çalışıyor mu; onchain-to-panel gecikmesi nedir; iç/dış güvenlik güncel olarak ne durumdadır.
+## Öğrenme gerçeği
 
-Yeni ERA, alt ERA, yeni canonical belge, engine derinleştirmesi, paper runtime, live trade veya finansal authority açılmayacaktır. Sonuç tek doğrulanmış tablo olarak kullanıcıya sunulacaktır.
+Öğrenme sistemi bugün uçtan uca doğrulanmış değildir. Zorunlu akış: pre-trade snapshot -> karar -> onay -> execution/receipt -> gerçek maliyetler -> exit/outcome -> hata sınıfı -> lesson candidate -> replay/test/red-team -> insan onayı -> kontrollü güncelleme. Bu akış kurulmadan kayıp yalnız giderdir; kurulduğunda ölçülebilir tecrübeye dönüşür.
+
+## Yeni pencerenin tek işi
+
+README boot protocolünü eksiksiz uygula ve yalnız `PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION` adımını yürüt. NEWS, panel URL/auth, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenliği güncel read-only kanıtla doğrula. Sonra takvimdeki bir sonraki görünür ürün teslimatına geç.

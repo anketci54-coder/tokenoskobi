@@ -1,5 +1,27 @@
 # 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
+<!-- SEPTEMBER_1_DEADLINE_DECISION:BEGIN -->
+## SEPTEMBER 1 PRODUCT, PAPER AND LIVE CANARY DEADLINE DECISION
+
+- Timestamp UTC: `2026-07-24T18:38:08.126539+00:00`
+- Status: `DEADLINE_PLAN_LOCKED`
+- Program: `TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE`
+- Product deadline: `2026-09-01`
+- Paper-trade validation window: `2026-08-23/2026-08-29`
+- Final security go/no-go: `2026-08-30/2026-08-31`
+- Target live canary start: `2026-09-01`
+- Live canary: `BSC_PANCAKESWAP_1_TO_2_USD_PER_TRADE`
+- Initial approval mode: `HUMAN_APPROVAL_EACH_TRADE`
+- Isolated wallet: `REQUIRED`
+- Unlimited token approvals: `FORBIDDEN`
+- Learning loop status: `MANDATORY_NOT_YET_END_TO_END_VERIFIED`
+- Current live trade: `DISABLED`
+- Current wallet/signing/order authority: `0`
+- New ERA opened: `false`
+- Next safe step: `PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION`
+- Note: The target is binding for delivery planning; this record does not prematurely enable live trading.
+<!-- SEPTEMBER_1_DEADLINE_DECISION:END -->
+
 <!-- PRODUCT_COMPLETION_PIVOT:BEGIN -->
 ## TOKENOSKOBI PRODUCT COMPLETION PIVOT DECISION
 

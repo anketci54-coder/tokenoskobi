@@ -1,5 +1,17 @@
 # 02 MANIFESTO - TOKENOSKOBI CONSTITUTION
 
+<!-- DEADLINE_LIVE_CANARY_LEARNING:BEGIN -->
+## DEADLINE, LIVE CANARY AND LEARNING CONSTITUTION
+
+- Usable product, paper-trade validation and initial bounded live canary target date is `2026-09-01`; the active date and schedule are owned by `PROJECT_RUNTIME.json`.
+- Deadline pressure may remove bloat and nonessential work, but may not fabricate evidence or silently expand wallet, signing, order or capital authority.
+- Initial live canary is BSC/PancakeSwap only, transaction notional is bounded to 1-2 USD, one open position, isolated canary wallet and exact-amount approvals.
+- Unlimited token approval, automatic capital growth and hidden trade-authority expansion are forbidden.
+- A monetary loss is counted as learning only when pre-trade evidence, decision, approval, execution, all costs, exit/outcome and error classification are stored and replayable.
+- The learning layer may propose rule, model or code changes; it may not silently modify production code or activate a change without replay, regression/red-team evidence and human approval.
+- The target date does not enable live trading today. Current live authority remains disabled until the final go/no-go and explicit user activation.
+<!-- DEADLINE_LIVE_CANARY_LEARNING:END -->
+
 <!-- PRODUCT_COMPLETION_CONSTITUTION:BEGIN -->
 ## PRODUCT COMPLETION AND DEFINITION OF DONE
 

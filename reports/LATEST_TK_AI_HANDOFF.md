@@ -4,12 +4,15 @@
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
 CURRENT_STAGE=TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE
-STATUS=PRODUCT_COMPLETION_MODE_ACTIVE_PLAN_LOCKED
+STATUS=PRODUCT_COMPLETION_DEADLINE_LOCKED_2026_09_01
+PRODUCT_COMPLETION_DEADLINE=2026-09-01
 NO_NEW_ERA=true
-ERA64K_STATUS=DEFERRED_NOT_NEXT_STEP
-LAST_VERIFIED_TECHNICAL_BASELINE=ERA64J_172_OF_172
-PRODUCT_SURFACE_DEPLOYED=false
+PAPER_TRADE_TARGET=2026-08-23_TO_2026-08-29
+LIVE_CANARY_TARGET=2026-09-01
+LIVE_CANARY_NOTIONAL_USD=1_TO_2
+CURRENT_LIVE_TRADE=DISABLED
+CURRENT_REAL_FINANCIAL_AUTHORITY=0
 NEXT_SAFE_STEP=PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION
 ```
 
-Tokenoskobi is now locked to user-visible product completion. The next window must boot from README and perform only the read-only live NEWS, panel, Alchemy/hybrid, latency and internal/external security truth verification. No financial authority is opened.
+Next window must boot from README and execute only the read-only NEWS, panel, Alchemy/hybrid, latency and internal/external security truth verification before product building continues.
