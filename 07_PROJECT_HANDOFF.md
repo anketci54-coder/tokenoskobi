@@ -15,3 +15,12 @@ Evidence:
 - `tests/test_era64_successful_wallet_foundation_v1.py`
 
 No network, database, panel, service, timer or real financial authority was opened.
+
+<!-- ERA64C_REAL_HISTORICAL_WALLET_REPLAY -->
+## ERA64 handoff
+
+- Current stage: `ERA64C_REAL_HISTORICAL_WALLET_REPLAY_AND_VALIDATION`
+- Result: `REAL_DATA_DISCOVERED_REPLAY_GAP_CONFIRMED`
+- Next: `ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR_REQUIRES_USER_APPROVAL`
+- Paper/live runtime: disabled
+- Real financial authority: zero

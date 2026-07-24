@@ -29,3 +29,8 @@ REAL_BROADCAST=false
 ```
 
 The resident ERA63E technical observation service remains active and read-only. ERA64C real historical replay is not authorized yet.
+
+<!-- ERA64C_REAL_HISTORICAL_WALLET_REPLAY -->
+## Current ERA64 state
+
+`ERA64C_REAL_HISTORICAL_WALLET_REPLAY_AND_VALIDATION` completed with `REAL_DATA_DISCOVERED_REPLAY_GAP_CONFIRMED`. Scanned rows: `840`. Closed cycles: `0`. All real financial authorities remain zero.

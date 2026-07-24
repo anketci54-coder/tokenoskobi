@@ -18,3 +18,10 @@ ERA68=UNATTENDED_COORDINATED_PAPER_RUNTIME
 ```
 
 ERA64B now provides deterministic wallet identity, evidence-preserving labels, bounded main/sub-wallet clustering, funding relationships, FIFO position-cycle reconstruction and cost-adjusted performance statistics. Historical real-data replay remains separately gated.
+
+<!-- ERA64C_REAL_HISTORICAL_WALLET_REPLAY -->
+## ERA64C real historical wallet replay
+
+- Status: `REAL_DATA_DISCOVERED_REPLAY_GAP_CONFIRMED`
+- Real SQLite sources: `1`
+- Next approval gate: `ERA64D_REAL_WALLET_EVENT_COVERAGE_GAP_REPAIR_REQUIRES_USER_APPROVAL`
