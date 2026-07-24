@@ -1,0 +1,52 @@
+{
+  "schema": "tokenoskobi.era64f.bounded_readonly_wallet_event_canary.config.v1",
+  "mode": "BOUNDED_READONLY_REAL_NETWORK_CANARY",
+  "chain": {
+    "name": "BSC",
+    "chain_id": 56,
+    "confirmation_depth": 12
+  },
+  "provider_config": "config/era63e_always_on_market_runtime_v1.json",
+  "rpc_method_allowlist": [
+    "eth_chainId",
+    "eth_blockNumber",
+    "eth_getBlockByNumber",
+    "eth_getTransactionReceipt"
+  ],
+  "limits": {
+    "block_span": 4,
+    "maximum_transactions_per_block": 24,
+    "maximum_receipts": 96,
+    "maximum_rpc_requests": 140,
+    "maximum_events": 1500,
+    "maximum_runtime_seconds": 180,
+    "request_timeout_seconds": 8,
+    "retries_per_endpoint": 1
+  },
+  "acceptance": {
+    "minimum_scanned_blocks": 1,
+    "minimum_receipts": 1,
+    "minimum_real_wallet_events": 1,
+    "maximum_duplicate_events": 0,
+    "maximum_authority_violations": 0
+  },
+  "authority": {
+    "network_access": true,
+    "network_mode": "READ_ONLY_ALLOWLISTED_BSC_RPC",
+    "database_write": false,
+    "runtime_mutation": false,
+    "panel_mutation": false,
+    "service_mutation": false,
+    "timer_mutation": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "wallet": false,
+    "signing": false,
+    "order_create": false,
+    "broadcast": false
+  },
+  "outputs": {
+    "detail": "data/replay/era64f_bounded_readonly_wallet_event_canary_v1.json",
+    "control": "data/control/era64f_bounded_readonly_wallet_event_canary_v1.json"
+  }
+}

@@ -2,8 +2,8 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=ERA64E_BOUNDED_REAL_WALLET_EVENT_ACQUISITION_AND_BACKFILL_PLAN
-ERA64_STATUS=ACTIVE_BOUNDED_ACQUISITION_BACKFILL_PLAN_LOCKED
-NEXT_SAFE_STEP=ERA64F_BOUNDED_READONLY_REAL_WALLET_EVENT_ACQUISITION_CANARY_REQUIRES_USER_APPROVAL
+CURRENT_STAGE=ERA64F_BOUNDED_READONLY_REAL_WALLET_EVENT_ACQUISITION_CANARY
+ERA64_STATUS=ACTIVE_BOUNDED_READONLY_REAL_WALLET_EVENT_CANARY_VERIFIED
+NEXT_SAFE_STEP=ERA64G_BOUNDED_STAGING_DATABASE_BACKFILL_REQUIRES_EXPLICIT_USER_APPROVAL
 
-ERA64E locks the bounded real-wallet event acquisition and historical backfill plan. No acquisition, network call, database write, runtime mutation, paper trade or live trade is authorized in this stage.
+ERA64F executed a bounded read-only BSC network canary and produced `191` real wallet events from `4` confirmed blocks. No database, runtime, service, timer, paper-trade or live-trade mutation was authorized.
