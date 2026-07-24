@@ -110,7 +110,7 @@ cat > "$CONFIG" <<'JSON_CONFIG'
   "rpc_method_allowlist": [
     "eth_chainId",
     "eth_blockNumber",
-    "eth_getLogs",
+    "eth_getTransactionReceipt",
     "eth_getBlockByNumber"
   ],
   "scope_tokens": [
@@ -120,11 +120,12 @@ cat > "$CONFIG" <<'JSON_CONFIG'
     "0xe9e7cea3dedca5984780bafc599bd69add087d56"
   ],
   "limits": {
-    "historical_block_span": 4096,
-    "log_chunk_size": 16,
+    "historical_block_span": 2048,
+    "log_chunk_size": 64,
     "maximum_sampled_blocks_per_chunk": 1,
     "maximum_wallet_scope": 16,
-    "log_query_sampling_mode": "WALLET_TOPIC_FILTER_WITH_ADAPTIVE_RANGE_SPLIT",
+    "maximum_receipts_per_sampled_block": 24,
+    "log_query_sampling_mode": "FULL_BLOCK_TRANSACTION_RECEIPT_SAMPLING_PROVIDER_SAFE",
     "maximum_logs_per_sampled_block": 12,
     "maximum_events": 768,
     "maximum_distinct_blocks": 128,
@@ -290,7 +291,7 @@ def validate_config(config: dict[str,Any],provider: dict[str,Any]) -> None:
         if authority.get(key) is not False:
             raise Era64IError(f'{key}:MUST_BE_FALSE')
     methods=config.get('rpc_method_allowlist')
-    if set(methods or [])!={'eth_chainId','eth_blockNumber','eth_getLogs','eth_getBlockByNumber'}:
+    if set(methods or [])!={'eth_chainId','eth_blockNumber','eth_getTransactionReceipt','eth_getBlockByNumber'}:
         raise Era64IError('RPC_METHOD_ALLOWLIST_INVALID')
     tokens=config.get('scope_tokens')
     if not isinstance(tokens,list) or not (1<=len(tokens)<=4):
@@ -307,6 +308,7 @@ def validate_config(config: dict[str,Any],provider: dict[str,Any]) -> None:
         raise Era64IError('BLOCK_SPAN_MUST_DIVIDE_BY_CHUNK')
     bounded_int(limits.get('maximum_sampled_blocks_per_chunk'),'maximum_sampled_blocks_per_chunk',1,4)
     bounded_int(limits.get('maximum_wallet_scope'),'maximum_wallet_scope',1,32)
+    bounded_int(limits.get('maximum_receipts_per_sampled_block'),'maximum_receipts_per_sampled_block',1,24)
     bounded_int(limits.get('maximum_logs_per_sampled_block'),'maximum_logs_per_sampled_block',1,16)
     bounded_int(limits.get('maximum_events'),'maximum_events',100,2000)
     bounded_int(limits.get('maximum_distinct_blocks'),'maximum_distinct_blocks',16,256)
@@ -383,14 +385,12 @@ class RpcClient:
                         raise Era64IError(f"RPC_ERROR:{result['error']}")
                     if 'result' not in result:
                         raise Era64IError('RPC_RESULT_MISSING')
-                    self.endpoint_index=(self.endpoint_index+offset)%count
+                    self.endpoint_index=(self.endpoint_index+offset+1)%count
                     self.last_endpoint_host=parsed.hostname
                     return result['result']
                 except (urllib.error.URLError,urllib.error.HTTPError,TimeoutError,OSError,json.JSONDecodeError,Era64IError) as exc:
                     last_error=f'{type(exc).__name__}:{exc}'
                     self.errors.append(f'{parsed.hostname}:{method}:{last_error}')
-                    if method=='eth_getLogs' and ('limit exceeded' in str(exc).lower() or '-32005' in str(exc)):
-                        raise Era64IError('RPC_LOG_LIMIT_EXCEEDED') from exc
                     if attempt<self.retries:
                         time.sleep(min(self.backoff*(2**attempt),2.0))
         raise Era64IError(f'ALL_RPC_ENDPOINTS_FAILED:{method}:{last_error}')
@@ -409,45 +409,68 @@ def evenly_select(items: list[Any],limit: int) -> list[Any]:
             indices.append(position)
     return [items[index] for index in indices]
 
-def wallet_topic(address: str) -> str:
-    normalized=normalize_address(address)
-    if normalized is None:
-        raise Era64IError('WALLET_TOPIC_ADDRESS_INVALID')
-    return '0x'+'0'*24+normalized[2:]
+def transaction_hash(item: Any) -> str | None:
+    if isinstance(item,dict):
+        return normalize_hash(item.get('hash'))
+    return normalize_hash(item)
 
-def fetch_logs_for_chunk(client: RpcClient,tokens: list[str],wallets: list[str],start: int,end: int) -> tuple[list[dict[str,Any]],str|None,str]:
+def transaction_wallet_priority(item: Any,wallets: set[str]) -> tuple[int,str]:
+    tx_hash=transaction_hash(item) or '0x'+'f'*64
+    if not isinstance(item,dict):
+        return (1,tx_hash)
+    src=normalize_address(item.get('from'))
+    dst=normalize_address(item.get('to'))
+    return (0 if src in wallets or dst in wallets else 1,tx_hash)
+
+def fetch_logs_for_chunk(
+    client: RpcClient,
+    tokens: list[str],
+    wallets: list[str],
+    start: int,
+    end: int,
+    maximum_receipts: int,
+) -> tuple[list[dict[str,Any]],str|None,str]:
     if not wallets:
         raise Era64IError('WALLET_SCOPE_EMPTY')
-
-    def query(direction: str,query_tokens: list[str],query_wallets: list[str],query_start: int,query_end: int) -> list[dict[str,Any]]:
-        wallet_topics=[wallet_topic(item) for item in query_wallets]
-        topics=[TRANSFER_TOPIC,wallet_topics] if direction=='OUT' else [TRANSFER_TOPIC,None,wallet_topics]
-        params={
-          'fromBlock':hex(query_start),'toBlock':hex(query_end),
-          'address':query_tokens,'topics':topics,
-        }
-        try:
-            result=client.call('eth_getLogs',[params])
-            if not isinstance(result,list):
-                raise Era64IError('ETH_GET_LOGS_RESULT_NOT_LIST')
-            return [item for item in result if isinstance(item,dict)]
-        except Era64IError as exc:
-            if 'RPC_LOG_LIMIT_EXCEEDED' not in str(exc):
-                raise
-            if query_start<query_end:
-                midpoint=(query_start+query_end)//2
-                return query(direction,query_tokens,query_wallets,query_start,midpoint)+query(direction,query_tokens,query_wallets,midpoint+1,query_end)
-            if len(query_wallets)>1:
-                midpoint=len(query_wallets)//2
-                return query(direction,query_tokens,query_wallets[:midpoint],query_start,query_end)+query(direction,query_tokens,query_wallets[midpoint:],query_start,query_end)
-            if len(query_tokens)>1:
-                midpoint=len(query_tokens)//2
-                return query(direction,query_tokens[:midpoint],query_wallets,query_start,query_end)+query(direction,query_tokens[midpoint:],query_wallets,query_start,query_end)
-            raise Era64IError('RPC_LOG_LIMIT_EXCEEDED_AT_MINIMUM_QUERY') from exc
-
+    sampled_block=start+(end-start)//2
+    block=client.call('eth_getBlockByNumber',[hex(sampled_block),True])
+    if not isinstance(block,dict):
+        raise Era64IError('SAMPLED_BLOCK_NOT_OBJECT')
+    if as_hex_int(block.get('number'),'sampled_block.number')!=sampled_block:
+        raise Era64IError('SAMPLED_BLOCK_NUMBER_MISMATCH')
+    transactions=block.get('transactions')
+    if not isinstance(transactions,list):
+        raise Era64IError('SAMPLED_BLOCK_TRANSACTIONS_NOT_LIST')
+    wallet_set={item for item in wallets if normalize_address(item) is not None}
+    ordered=sorted(transactions,key=lambda item:transaction_wallet_priority(item,wallet_set))
+    prioritized=[item for item in ordered if transaction_wallet_priority(item,wallet_set)[0]==0]
+    remainder=[item for item in ordered if transaction_wallet_priority(item,wallet_set)[0]!=0]
+    chosen=prioritized[:maximum_receipts]
+    remaining=maximum_receipts-len(chosen)
+    if remaining>0:
+        chosen.extend(evenly_select(remainder,remaining))
+    token_set=set(tokens)
     merged=[]
-    for direction in ('OUT','IN'):
-        merged.extend(query(direction,tokens,wallets,start,end))
+    for transaction in chosen:
+        tx_hash=transaction_hash(transaction)
+        if tx_hash is None:
+            continue
+        receipt=client.call('eth_getTransactionReceipt',[tx_hash])
+        if not isinstance(receipt,dict):
+            raise Era64IError('TRANSACTION_RECEIPT_NOT_OBJECT')
+        logs=receipt.get('logs')
+        if not isinstance(logs,list):
+            raise Era64IError('TRANSACTION_RECEIPT_LOGS_NOT_LIST')
+        for item in logs:
+            if not isinstance(item,dict):
+                continue
+            token=normalize_address(item.get('address'))
+            topics=item.get('topics')
+            if token not in token_set:
+                continue
+            if not isinstance(topics,list) or len(topics)<3 or str(topics[0]).lower()!=TRANSFER_TOPIC:
+                continue
+            merged.append(item)
     unique={}
     for item in merged:
         key=(
@@ -457,7 +480,7 @@ def fetch_logs_for_chunk(client: RpcClient,tokens: list[str],wallets: list[str],
           str(item.get('address') or '').lower(),
         )
         unique.setdefault(key,item)
-    return sorted(unique.values(),key=log_sort_key),client.last_endpoint_host,'WALLET_TOPIC_FILTER_ADAPTIVE_RANGE_SPLIT'
+    return sorted(unique.values(),key=log_sort_key),client.last_endpoint_host,'FULL_BLOCK_TRANSACTION_RECEIPT_SAMPLING'
 
 def log_sort_key(item: dict[str,Any]) -> tuple[Any,...]:
     try:
@@ -661,6 +684,7 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
     start_block=end_block-span+1
     chunk_size=int(config['limits']['log_chunk_size'])
     max_blocks_per_chunk=int(config['limits']['maximum_sampled_blocks_per_chunk'])
+    max_receipts_per_block=int(config['limits']['maximum_receipts_per_sampled_block'])
     max_logs_per_block=int(config['limits']['maximum_logs_per_sampled_block'])
     max_events=int(config['limits']['maximum_events'])
     max_blocks=int(config['limits']['maximum_distinct_blocks'])
@@ -692,7 +716,7 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
         if time.monotonic()-started>max_runtime:
             raise Era64IError('MAXIMUM_RUNTIME_SECONDS_EXCEEDED_DURING_LOG_SCAN')
         chunk_end=min(end_block,chunk_start+chunk_size-1)
-        logs,host,filter_mode=fetch_logs_for_chunk(client,tokens,wallet_scope,chunk_start,chunk_end)
+        logs,host,filter_mode=fetch_logs_for_chunk(client,tokens,wallet_scope,chunk_start,chunk_end,max_receipts_per_block)
         raw_log_count+=len(logs)
         sampled=sample_chunk_logs(logs,max_blocks_per_chunk,max_logs_per_block)
         accepted_in_chunk=0
