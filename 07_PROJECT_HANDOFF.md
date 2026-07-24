@@ -2,28 +2,16 @@
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=ERA64A_EXISTING_WALLET_DATA_AND_CAPABILITY_AUDIT
-CURRENT_STATUS=OPEN_SCOPE_LOCKED_AUDIT_COMPLETED
-NEXT_SAFE_STEP=ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION_BUILD_REQUIRES_USER_APPROVAL
+CURRENT_STAGE=ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION
+CURRENT_STATUS=ACTIVE_FOUNDATION_BUILT_VERIFIED
+NEXT_SAFE_STEP=ERA64C_REAL_HISTORICAL_WALLET_REPLAY_AND_VALIDATION_REQUIRES_USER_APPROVAL
 
-ERA63 is closed and GitHub-sealed. ERA64 is open with a locked scope and completed read-only evidence audit.
-
-## BUILD PRIORITY
-
-1. `WALLET_IDENTITY_AND_EVIDENCE_LABELS`
-2. `WALLET_RELATIONSHIP_AND_CLUSTER_GRAPH`
-3. `FUNDING_RELATIONSHIP_RECONSTRUCTION`
-4. `TRANSACTION_AND_TRANSFER_HISTORY`
-5. `POSITION_CYCLE_RECONSTRUCTION`
-6. `COST_ADJUSTED_PERFORMANCE_METRICS`
-7. `ENTRY_EXIT_QUALITY`
-8. `HISTORICAL_REPLAY_AND_VALIDATION`
-9. `READONLY_RUNTIME_AND_PANEL_BINDING`
-
-## BOUNDARY
-
-ERA64 implementation has not been authorized. Network access, database writes, runtime binding, panel changes, service changes and timer changes remain disabled. Paper/live trade and real wallet, signing, order and broadcast authority remain disabled.
+ERA64A evidence audit is complete. ERA64B built the deterministic local read-only successful-wallet foundation with evidence labels, relationship clusters, funding edges, FIFO position cycles and cost-adjusted statistical performance.
 
 Evidence:
 - `data/control/era64a_opening_scope_and_evidence_audit_v1.json`
-- `reports/LATEST_ERA64A_OPENING_SCOPE_AND_EVIDENCE_AUDIT.md`
+- `data/control/era64b_successful_wallet_statistics_and_cluster_foundation_v1.json`
+- `tools/era64_successful_wallet_foundation_v1.py`
+- `tests/test_era64_successful_wallet_foundation_v1.py`
+
+No network, database, panel, service, timer or real financial authority was opened.
