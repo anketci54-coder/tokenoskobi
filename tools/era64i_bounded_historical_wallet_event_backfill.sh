@@ -106,6 +106,7 @@ cat > "$CONFIG" <<'JSON_CONFIG'
     "historical_safety_lag_blocks": 512
   },
   "provider_config": "config/era63e_always_on_market_runtime_v1.json",
+  "wallet_scope_artifact": "data/replay/era64h_staging_replay_relationship_graph_v1.json",
   "rpc_method_allowlist": [
     "eth_chainId",
     "eth_blockNumber",
@@ -119,11 +120,12 @@ cat > "$CONFIG" <<'JSON_CONFIG'
     "0xe9e7cea3dedca5984780bafc599bd69add087d56"
   ],
   "limits": {
-    "historical_block_span": 2048,
+    "historical_block_span": 4096,
     "log_chunk_size": 16,
     "maximum_sampled_blocks_per_chunk": 1,
-    "log_query_sampling_mode": "MIDPOINT_BLOCK_PER_CHUNK_PROVIDER_LIMIT_SAFE",
-    "maximum_logs_per_sampled_block": 6,
+    "maximum_wallet_scope": 16,
+    "log_query_sampling_mode": "WALLET_TOPIC_FILTER_WITH_ADAPTIVE_RANGE_SPLIT",
+    "maximum_logs_per_sampled_block": 12,
     "maximum_events": 768,
     "maximum_distinct_blocks": 128,
     "maximum_rpc_requests": 900,
@@ -304,6 +306,7 @@ def validate_config(config: dict[str,Any],provider: dict[str,Any]) -> None:
     if span%chunk!=0:
         raise Era64IError('BLOCK_SPAN_MUST_DIVIDE_BY_CHUNK')
     bounded_int(limits.get('maximum_sampled_blocks_per_chunk'),'maximum_sampled_blocks_per_chunk',1,4)
+    bounded_int(limits.get('maximum_wallet_scope'),'maximum_wallet_scope',1,32)
     bounded_int(limits.get('maximum_logs_per_sampled_block'),'maximum_logs_per_sampled_block',1,16)
     bounded_int(limits.get('maximum_events'),'maximum_events',100,2000)
     bounded_int(limits.get('maximum_distinct_blocks'),'maximum_distinct_blocks',16,256)
@@ -386,6 +389,8 @@ class RpcClient:
                 except (urllib.error.URLError,urllib.error.HTTPError,TimeoutError,OSError,json.JSONDecodeError,Era64IError) as exc:
                     last_error=f'{type(exc).__name__}:{exc}'
                     self.errors.append(f'{parsed.hostname}:{method}:{last_error}')
+                    if method=='eth_getLogs' and ('limit exceeded' in str(exc).lower() or '-32005' in str(exc)):
+                        raise Era64IError('RPC_LOG_LIMIT_EXCEEDED') from exc
                     if attempt<self.retries:
                         time.sleep(min(self.backoff*(2**attempt),2.0))
         raise Era64IError(f'ALL_RPC_ENDPOINTS_FAILED:{method}:{last_error}')
@@ -404,42 +409,55 @@ def evenly_select(items: list[Any],limit: int) -> list[Any]:
             indices.append(position)
     return [items[index] for index in indices]
 
-def fetch_logs_for_chunk(client: RpcClient,tokens: list[str],start: int,end: int) -> tuple[list[dict[str,Any]],str|None,str]:
-    # Provider-safe deterministic sampling: query one midpoint block per configured chunk.
-    # This preserves the 2048-block historical distribution while preventing public RPC
-    # eth_getLogs result-limit failures on high-volume BSC base/quote tokens.
-    sampled_block=start+(end-start)//2
-    params={
-      'fromBlock':hex(sampled_block),'toBlock':hex(sampled_block),
-      'address':tokens,'topics':[TRANSFER_TOPIC]
-    }
-    try:
-        result=client.call('eth_getLogs',[params])
-        if not isinstance(result,list):
-            raise Era64IError('ETH_GET_LOGS_RESULT_NOT_LIST')
-        return [item for item in result if isinstance(item,dict)],client.last_endpoint_host,'MIDPOINT_BLOCK_COMBINED_TOKEN_FILTER'
-    except Era64IError as combined_error:
-        merged=[]
-        provider_host=None
-        for token in tokens:
-            result=client.call('eth_getLogs',[{
-              'fromBlock':hex(sampled_block),'toBlock':hex(sampled_block),
-              'address':token,'topics':[TRANSFER_TOPIC]
-            }])
+def wallet_topic(address: str) -> str:
+    normalized=normalize_address(address)
+    if normalized is None:
+        raise Era64IError('WALLET_TOPIC_ADDRESS_INVALID')
+    return '0x'+'0'*24+normalized[2:]
+
+def fetch_logs_for_chunk(client: RpcClient,tokens: list[str],wallets: list[str],start: int,end: int) -> tuple[list[dict[str,Any]],str|None,str]:
+    if not wallets:
+        raise Era64IError('WALLET_SCOPE_EMPTY')
+
+    def query(direction: str,query_tokens: list[str],query_wallets: list[str],query_start: int,query_end: int) -> list[dict[str,Any]]:
+        wallet_topics=[wallet_topic(item) for item in query_wallets]
+        topics=[TRANSFER_TOPIC,wallet_topics] if direction=='OUT' else [TRANSFER_TOPIC,None,wallet_topics]
+        params={
+          'fromBlock':hex(query_start),'toBlock':hex(query_end),
+          'address':query_tokens,'topics':topics,
+        }
+        try:
+            result=client.call('eth_getLogs',[params])
             if not isinstance(result,list):
-                raise Era64IError('ETH_GET_LOGS_MIDPOINT_FALLBACK_RESULT_NOT_LIST') from combined_error
-            merged.extend(item for item in result if isinstance(item,dict))
-            provider_host=client.last_endpoint_host
-        unique={}
-        for item in merged:
-            key=(
-              str(item.get('blockHash') or '').lower(),
-              str(item.get('transactionHash') or '').lower(),
-              str(item.get('logIndex') or '').lower(),
-              str(item.get('address') or '').lower(),
-            )
-            unique.setdefault(key,item)
-        return list(unique.values()),provider_host,'MIDPOINT_BLOCK_PER_TOKEN_FALLBACK'
+                raise Era64IError('ETH_GET_LOGS_RESULT_NOT_LIST')
+            return [item for item in result if isinstance(item,dict)]
+        except Era64IError as exc:
+            if 'RPC_LOG_LIMIT_EXCEEDED' not in str(exc):
+                raise
+            if query_start<query_end:
+                midpoint=(query_start+query_end)//2
+                return query(direction,query_tokens,query_wallets,query_start,midpoint)+query(direction,query_tokens,query_wallets,midpoint+1,query_end)
+            if len(query_wallets)>1:
+                midpoint=len(query_wallets)//2
+                return query(direction,query_tokens,query_wallets[:midpoint],query_start,query_end)+query(direction,query_tokens,query_wallets[midpoint:],query_start,query_end)
+            if len(query_tokens)>1:
+                midpoint=len(query_tokens)//2
+                return query(direction,query_tokens[:midpoint],query_wallets,query_start,query_end)+query(direction,query_tokens[midpoint:],query_wallets,query_start,query_end)
+            raise Era64IError('RPC_LOG_LIMIT_EXCEEDED_AT_MINIMUM_QUERY') from exc
+
+    merged=[]
+    for direction in ('OUT','IN'):
+        merged.extend(query(direction,tokens,wallets,start,end))
+    unique={}
+    for item in merged:
+        key=(
+          str(item.get('blockHash') or '').lower(),
+          str(item.get('transactionHash') or '').lower(),
+          str(item.get('logIndex') or '').lower(),
+          str(item.get('address') or '').lower(),
+        )
+        unique.setdefault(key,item)
+    return sorted(unique.values(),key=log_sort_key),client.last_endpoint_host,'WALLET_TOPIC_FILTER_ADAPTIVE_RANGE_SPLIT'
 
 def log_sort_key(item: dict[str,Any]) -> tuple[Any,...]:
     try:
@@ -648,6 +666,20 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
     max_blocks=int(config['limits']['maximum_distinct_blocks'])
     max_runtime=float(config['limits']['maximum_runtime_seconds'])
     tokens=[str(item).lower() for item in config['scope_tokens']]
+    wallet_scope_path=ROOT/str(config['wallet_scope_artifact'])
+    wallet_scope_source=json.loads(wallet_scope_path.read_text(encoding='utf-8'))
+    graph=wallet_scope_source.get('relationship_graph')
+    nodes=graph.get('nodes') if isinstance(graph,dict) else None
+    if not isinstance(nodes,list) or not nodes:
+        raise Era64IError('WALLET_SCOPE_GRAPH_NODES_EMPTY')
+    ranked=sorted(
+      (item for item in nodes if isinstance(item,dict) and normalize_address(item.get('address')) not in {None,ZERO_ADDRESS}),
+      key=lambda item:(-int(item.get('transfer_event_count',0)),-int(item.get('counterparty_count',0)),str(item.get('address')).lower()),
+    )
+    maximum_wallet_scope=int(config['limits']['maximum_wallet_scope'])
+    wallet_scope=[str(item['address']).lower() for item in ranked[:maximum_wallet_scope]]
+    if len(wallet_scope)<1 or len(set(wallet_scope))!=len(wallet_scope):
+        raise Era64IError('WALLET_SCOPE_INVALID')
     selected:dict[tuple[int,str,int],dict[str,Any]]={}
     selected_block_hosts:dict[int,str]={}
     scanned_chunks=[]
@@ -655,10 +687,12 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
     filter_modes=Counter()
     raw_log_count=0
     for chunk_start in range(start_block,end_block+1,chunk_size):
+        if len(selected)>=max_events:
+            break
         if time.monotonic()-started>max_runtime:
             raise Era64IError('MAXIMUM_RUNTIME_SECONDS_EXCEEDED_DURING_LOG_SCAN')
         chunk_end=min(end_block,chunk_start+chunk_size-1)
-        logs,host,filter_mode=fetch_logs_for_chunk(client,tokens,chunk_start,chunk_end)
+        logs,host,filter_mode=fetch_logs_for_chunk(client,tokens,wallet_scope,chunk_start,chunk_end)
         raw_log_count+=len(logs)
         sampled=sample_chunk_logs(logs,max_blocks_per_chunk,max_logs_per_block)
         accepted_in_chunk=0
@@ -759,7 +793,9 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
       'network_mode':'READ_ONLY_ALLOWLISTED_BSC_RPC','staging_database_write_used':True,
       'production_database_write_used':False,'database':database,'scan':scan,
       'distinct_wallet_count':len(wallets),'distinct_token_count':len(token_counts),
-      'scope_tokens':tokens,'token_event_counts':dict(sorted(token_counts.items())),
+      'scope_tokens':tokens,'wallet_scope_artifact':str(config['wallet_scope_artifact']),
+      'wallet_scope_count':len(wallet_scope),'wallet_scope':wallet_scope,
+      'token_event_counts':dict(sorted(token_counts.items())),
       'sampled_block_event_counts':{str(key):block_counts[key] for key in sorted(block_counts)},
       'rpc_request_count':client.request_count,'provider_host':client.last_endpoint_host,
       'provider_error_tail':client.errors[-30:],'filter_mode_counts':dict(sorted(filter_modes.items())),
@@ -789,7 +825,8 @@ def run(config_path: Path,database_path: Path) -> tuple[dict[str,Any],dict[str,A
       'selected_event_count':len(events),'inserted_event_count':database['inserted_event_count'],
       'deduplicated_event_count':database['deduplicated_event_count'],
       'staging_event_count':database['database_event_count'],'distinct_wallet_count':len(wallets),
-      'distinct_token_count':len(token_counts),'rpc_request_count':client.request_count,
+      'distinct_token_count':len(token_counts),'wallet_scope_count':len(wallet_scope),
+      'rpc_request_count':client.request_count,
       'network_access_used':True,'staging_database_write_used':True,
       'production_database_write_used':False,'database_integrity_check':database['database_integrity_check'],
       'database_sha256':database['database_sha256'],'event_set_hash':detail['event_set_hash'],
@@ -824,6 +861,7 @@ def main() -> int:
     print(f"STAGING_EVENT_COUNT={control['staging_event_count']}")
     print(f"DISTINCT_WALLET_COUNT={control['distinct_wallet_count']}")
     print(f"DISTINCT_TOKEN_COUNT={control['distinct_token_count']}")
+    print(f"WALLET_SCOPE_COUNT={control['wallet_scope_count']}")
     print(f"RPC_REQUEST_COUNT={control['rpc_request_count']}")
     print('NETWORK_ACCESS_USED=true')
     print('STAGING_DATABASE_WRITE_USED=true')
@@ -972,7 +1010,7 @@ cat > "$REPORT" <<'MD_REPORT'
 
 STATUS=BOUNDED_HISTORICAL_WALLET_TRANSFER_BACKFILL_VERIFIED
 
-ERA64I performs a bounded historical BSC scan using allowlisted read-only RPC methods. It samples ERC-20 Transfer logs for canonical BSC base and quote assets across a 2,048-block historical range and writes only to a dedicated ERA64I staging SQLite database.
+ERA64I performs a bounded historical BSC scan using allowlisted read-only RPC methods. It samples ERC-20 Transfer logs for canonical BSC base and quote assets across a bounded 4,096-block historical range using wallet-topic filters and writes only to a dedicated ERA64I staging SQLite database.
 
 The dataset is real and non-synthetic. It preserves transaction hash, log index, block number, verified block timestamp, token address, transfer endpoints, raw amount, provider provenance and evidence hashes. It does not yet include transaction receipts, gas costs, swap direction, execution price or closed trade cycles. Therefore successful-wallet classification remains blocked.
 
