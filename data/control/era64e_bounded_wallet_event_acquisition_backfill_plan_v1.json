@@ -1,0 +1,117 @@
+{
+  "acquisition_order": [
+    "VERIFY_ALLOWLISTED_BSC_READONLY_RPC_AND_CHAIN_ID",
+    "SELECT_FIXED_HISTORICAL_BLOCK_WINDOW",
+    "COLLECT_NATIVE_AND_TOKEN_TRANSFER_EVENTS_READONLY",
+    "NORMALIZE_WALLET_AND_TOKEN_IDENTITIES",
+    "ENRICH_RECEIPT_GAS_AND_EXECUTION_COST_FIELDS",
+    "DERIVE_SWAP_SIDE_AND_EXECUTION_PRICE_ONLY_WHEN_EVIDENCE_COMPLETE",
+    "BUILD_RELATIONSHIP_EVENTS_WITH_TRANSACTION_EVIDENCE",
+    "VALIDATE_DEDUPLICATION_AND_REORG_SAFETY",
+    "WRITE_ONLY_TO_STAGING_AFTER_SEPARATE_APPROVAL",
+    "REPLAY_SUCCESSFUL_WALLET_STATISTICS_READONLY"
+  ],
+  "authority": {
+    "broadcast": false,
+    "database_write": false,
+    "live_trade": false,
+    "network_access": false,
+    "order_create": false,
+    "panel_mutation": false,
+    "paper_trade": false,
+    "runtime_mutation": false,
+    "service_mutation": false,
+    "signing": false,
+    "timer_mutation": false,
+    "wallet": false
+  },
+  "canary_limits": {
+    "maximum_blocks": 5000,
+    "maximum_retries_per_request": 3,
+    "maximum_rpc_requests": 800,
+    "maximum_runtime_seconds": 900,
+    "maximum_transactions": 2000,
+    "maximum_wallets": 64,
+    "minimum_confirmation_depth": 12
+  },
+  "candidate_source_table_count": 8,
+  "database_write_used": false,
+  "empty_candidate_table_count": 8,
+  "event_contracts": {
+    "wallet_label": [
+      "chain",
+      "wallet_address",
+      "known_name",
+      "entity_type",
+      "label_confidence",
+      "evidence_source",
+      "observed_at_utc"
+    ],
+    "wallet_relationship": [
+      "chain",
+      "from_address",
+      "to_address",
+      "relation_type",
+      "tx_hash",
+      "block_number",
+      "block_time_utc",
+      "evidence_source"
+    ],
+    "wallet_trade": [
+      "chain",
+      "wallet_address",
+      "token_address",
+      "side",
+      "quantity",
+      "execution_price",
+      "trading_fee",
+      "gas_cost",
+      "tx_hash",
+      "block_number",
+      "block_time_utc"
+    ],
+    "wallet_transfer": [
+      "chain",
+      "from_address",
+      "to_address",
+      "token_address",
+      "amount_raw",
+      "tx_hash",
+      "block_number",
+      "block_time_utc"
+    ]
+  },
+  "execution_started": false,
+  "fail_closed_rules": [
+    "MISSING_TX_HASH_REJECT",
+    "MISSING_BLOCK_NUMBER_REJECT",
+    "MISSING_TIMESTAMP_REJECT",
+    "INVALID_WALLET_REJECT",
+    "UNRESOLVED_TOKEN_DECIMALS_REJECT_VALUE_DERIVATION",
+    "MISSING_COST_FIELDS_BLOCK_PERFORMANCE_CLASSIFICATION",
+    "RPC_CHAIN_ID_MISMATCH_ABORT",
+    "REQUEST_BUDGET_EXCEEDED_ABORT",
+    "REORG_DEPTH_EXCEEDED_ABORT",
+    "DATABASE_WRITE_WITHOUT_SEPARATE_APPROVAL_ABORT"
+  ],
+  "gap_statement": "SOURCE_TABLES_AND_CLASSIFICATION_ARE_READY_BUT_REAL_WALLET_EVENTS_HAVE_NOT_BEEN_ACQUIRED",
+  "network_access_used": false,
+  "next_safe_step": "ERA64F_BOUNDED_READONLY_REAL_WALLET_EVENT_ACQUISITION_CANARY_REQUIRES_USER_APPROVAL",
+  "plan_hash": "5cdf0e9c7a48b5e93883d53d1d6bd71cd151b527162d2396795022db4c8479ca",
+  "real_data": true,
+  "required_gates": {
+    "chain_id_must_equal_bsc": true,
+    "historical_window_fixed_before_execution": true,
+    "no_live_or_paper_authority": true,
+    "performance_classification_requires_cost_complete_closed_cycles": true,
+    "raw_evidence_preserved": true,
+    "request_budget_enforced": true,
+    "user_approval_before_database_write": true,
+    "user_approval_before_network_canary": true
+  },
+  "schema": "tokenoskobi.era64e.bounded_wallet_event_acquisition_backfill_plan.v1",
+  "source_contract_ready": true,
+  "status": "BOUNDED_REAL_WALLET_EVENT_ACQUISITION_BACKFILL_PLAN_LOCKED",
+  "synthetic_data": false,
+  "timestamp_utc": "2026-07-24T09:41:00.496001+00:00"
+}

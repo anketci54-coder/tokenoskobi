@@ -6,16 +6,16 @@
     "do_not_comment_unless_asked": true,
     "do_not_give_code_unless_requested": true,
     "external_ai_outputs_are_advisory_not_binding": true,
+    "external_ai_outside_hot_path": true,
     "no_promises_without_proof": true,
+    "paper_findings_before_speculative_perfection": true,
     "prefer_short_direct_answers": true,
+    "red_team_advisory_not_controlling": true,
     "reject_bloat_unless_opportunity_cost_positive": true,
     "require_user_approval_for_any_negative_tradeoff": true,
     "risk_analysis_before_repo_change": true,
     "say_unknown_when_unknown": true,
-    "use_era24f_formula_for_opportunity_cost": true,
-    "paper_findings_before_speculative_perfection": true,
-    "red_team_advisory_not_controlling": true,
-    "external_ai_outside_hot_path": true
+    "use_era24f_formula_for_opportunity_cost": true
   },
   "boot_architecture": {
     "current_state_forbidden_in_boot": true,
@@ -94,9 +94,9 @@
     "one_sentence": "Tokenoskobi is a risk-first intelligence, decision and bounded autonomous execution system operating only after validation inside a human-defined policy envelope.",
     "trade_authority": {
       "human": "policy_envelope_and_veto",
-      "risk_engine": "absolute_veto",
-      "paper": "simulation_after_validation",
       "live": "separately_locked",
+      "paper": "simulation_after_validation",
+      "risk_engine": "absolute_veto",
       "self_expansion": "forbidden"
     }
   },
@@ -283,15 +283,15 @@
       "ai_trade_authority": 0,
       "human_approval_required": true,
       "live_trade_locked": true,
+      "live_trade_locked_until_separate_validation": true,
       "no_runtime_db_panel_service_timer_mutation_without_explicit_scope": true,
       "paper_trade_locked_until_explicit_phase": true,
-      "runtime_is_source_of_truth": true,
-      "paper_trade_zero_real_funds": true,
       "paper_trade_may_run_unattended_after_validation": true,
-      "real_wallet_authority": 0,
-      "real_signing_authority": 0,
+      "paper_trade_zero_real_funds": true,
       "real_order_broadcast_authority": 0,
-      "live_trade_locked_until_separate_validation": true
+      "real_signing_authority": 0,
+      "real_wallet_authority": 0,
+      "runtime_is_source_of_truth": true
     },
     "startup_prompt": "README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.",
     "startup_read_order": [
@@ -399,6 +399,7 @@
       }
     ]
   },
+  "current_checkpoint": "ERA64E_BOUNDED_ACQUISITION_BACKFILL_PLAN_LOCKED",
   "documentation_contract": {
     "format_rule": "Existing writing style, heading order, spacing and formatting remain unchanged unless explicitly approved by the user.",
     "no_new_canonical_file_when_owner_exists": true,
@@ -459,6 +460,7 @@
     "paper_trade_locked_until_explicit_phase": true,
     "runtime_is_current_state_authority": true
   },
+  "last_action": "ERA64E_BOUNDED_REAL_WALLET_EVENT_ACQUISITION_AND_BACKFILL_PLAN",
   "new_window_startup_test": {
     "must_answer": [
       "README single-entry boot contract",
@@ -479,6 +481,12 @@
     ],
     "pass_score": "15/15"
   },
+  "next_safe_step": "ERA64F_BOUNDED_READONLY_REAL_WALLET_EVENT_ACQUISITION_CANARY_REQUIRES_USER_APPROVAL",
+  "open_risks": [
+    "REAL_WALLET_EVENT_TABLES_EMPTY",
+    "NETWORK_CANARY_NOT_AUTHORIZED",
+    "DATABASE_WRITE_NOT_AUTHORIZED"
+  ],
   "project": {
     "local_path": "/root/tokenoskobi_clean_v1",
     "name": "Tokenoskobi",
@@ -598,7 +606,7 @@
     "updated_at_utc": "2026-07-08T16:48:01.474705+00:00"
   },
   "updated_at": "2026-07-13T18:30:52.472318+00:00",
-  "updated_at_utc": "2026-07-13T18:30:52.472318+00:00",
+  "updated_at_utc": "2026-07-24T09:41:01.385204+00:00",
   "whale_intelligence": {
     "requirements": [
       "track significant whale wallet movements",

@@ -1,0 +1,61 @@
+{
+  "schema": "tokenoskobi.era64.bounded_wallet_event_acquisition_backfill_plan.v1",
+  "mode": "PLAN_ONLY_NO_ACQUISITION",
+  "chain": "BSC",
+  "source_policy": {
+    "real_data_only": true,
+    "synthetic_data_allowed": false,
+    "historical_backfill_first": true,
+    "bounded_canary_required": true,
+    "allowlisted_readonly_rpc_required": true,
+    "database_write_authorized": false,
+    "network_access_authorized_in_this_stage": false
+  },
+  "event_contracts": {
+    "wallet_transfer": ["chain", "from_address", "to_address", "token_address", "amount_raw", "tx_hash", "block_number", "block_time_utc"],
+    "wallet_label": ["chain", "wallet_address", "known_name", "entity_type", "label_confidence", "evidence_source", "observed_at_utc"],
+    "wallet_trade": ["chain", "wallet_address", "token_address", "side", "quantity", "execution_price", "trading_fee", "gas_cost", "tx_hash", "block_number", "block_time_utc"],
+    "wallet_relationship": ["chain", "from_address", "to_address", "relation_type", "tx_hash", "block_number", "block_time_utc", "evidence_source"]
+  },
+  "canary_limits": {
+    "maximum_blocks": 5000,
+    "maximum_wallets": 64,
+    "maximum_transactions": 2000,
+    "maximum_rpc_requests": 800,
+    "maximum_runtime_seconds": 900,
+    "maximum_retries_per_request": 3,
+    "minimum_confirmation_depth": 12
+  },
+  "deduplication_keys": {
+    "wallet_transfer": ["chain", "tx_hash", "from_address", "to_address", "token_address", "amount_raw"],
+    "wallet_label": ["chain", "wallet_address", "known_name", "evidence_source"],
+    "wallet_trade": ["chain", "tx_hash", "wallet_address", "token_address", "side"],
+    "wallet_relationship": ["chain", "tx_hash", "from_address", "to_address", "relation_type"]
+  },
+  "fail_closed_rules": [
+    "MISSING_TX_HASH_REJECT",
+    "MISSING_BLOCK_NUMBER_REJECT",
+    "MISSING_TIMESTAMP_REJECT",
+    "INVALID_WALLET_REJECT",
+    "UNRESOLVED_TOKEN_DECIMALS_REJECT_VALUE_DERIVATION",
+    "MISSING_COST_FIELDS_BLOCK_PERFORMANCE_CLASSIFICATION",
+    "RPC_CHAIN_ID_MISMATCH_ABORT",
+    "REQUEST_BUDGET_EXCEEDED_ABORT",
+    "REORG_DEPTH_EXCEEDED_ABORT",
+    "DATABASE_WRITE_WITHOUT_SEPARATE_APPROVAL_ABORT"
+  ],
+  "authority": {
+    "network_access": false,
+    "database_write": false,
+    "runtime_mutation": false,
+    "panel_mutation": false,
+    "service_mutation": false,
+    "timer_mutation": false,
+    "paper_trade": false,
+    "live_trade": false,
+    "wallet": false,
+    "signing": false,
+    "order_create": false,
+    "broadcast": false
+  }
+}
