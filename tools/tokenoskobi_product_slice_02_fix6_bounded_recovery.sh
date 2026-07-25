@@ -28,6 +28,19 @@ rollback(){ rc=$?; trap - ERR INT TERM; set +e; stop_shadow; if ((NGINX_TOUCHED)
 trap rollback ERR INT TERM
 
 port_gate(){ lines="$(ss -ltnp 2>/dev/null|awk '$4~/:8096$/{print}')"; [[ -n "$lines" ]]||fail PORT_8096_NOT_LISTENING; grep -q '127.0.0.1:8096'<<<"$lines"||fail PORT_8096_NOT_LOOPBACK; ! grep -Eq '0\.0\.0\.0:8096|\[::\]:8096'<<<"$lines"||fail PORT_8096_PUBLIC; say "$lines"; }
+wait_local_ready(){
+  for _ in {1..60}; do
+    if systemctl is-active --quiet "$SERVICE" 2>/dev/null \
+      && ss -ltnp 2>/dev/null | awk '$4 ~ /:8096$/ {print}' | grep -q '127.0.0.1:8096' \
+      && [[ "$(code http://127.0.0.1:8096/)" == 200 ]] \
+      && [[ "$(code http://127.0.0.1:8096/healthz)" == 200 ]]; then
+      say SERVICE_READY_AFTER_RESTART=true
+      return 0
+    fi
+    sleep .5
+  done
+  fail PORT_8096_NOT_READY_AFTER_RESTART
+}
 
 preflight(){
   [[ -d .git ]]||fail REPOSITORY_NOT_FOUND
@@ -88,7 +101,7 @@ apply(){
   install -m0644 "$UNIT" "/etc/systemd/system/$SERVICE"; SERVICE_TOUCHED=1; systemctl daemon-reload; systemctl restart "$SERVICE"
   for _ in {1..30}; do NEW_PID="$(systemctl show "$SERVICE" -p MainPID --value 2>/dev/null||true)"; [[ -d /proc/$NEW_PID && "$NEW_PID" != "$OLD_PID" ]]&&break; sleep .5; done
   systemctl is-active --quiet "$SERVICE"||fail SERVICE_RESTART_FAILED; [[ "$NEW_PID" != "$OLD_PID" ]]||fail PID_NOT_CHANGED
-  tr '\0' ' '</proc/$NEW_PID/cmdline|grep -Fq "$ROOT/$SERVER"||fail NEW_PROCESS_PATH_BAD; port_gate
+  tr '\0' ' '</proc/$NEW_PID/cmdline|grep -Fq "$ROOT/$SERVER"||fail NEW_PROCESS_PATH_BAD; wait_local_ready; port_gate
   [[ "$(code http://127.0.0.1:8096/healthz)" == 200 ]]||fail NEW_HEALTH_BAD
   c="$(curl -sS --max-time 150 -o "$BACKUP/local.json" -w '%{http_code}' -H 'Content-Type: application/json' --data '{"token_address":"'"$SMOKE"'"}' http://127.0.0.1:8096/api/v1/analyze 2>/dev/null||true)"; [[ "$c" == 200 ]]||fail LOCAL_API_$c; python3 "$HELPER" verify-packet "$BACKUP/local.json"
   [[ "$(extcode)" == 500 ]]&&repair_nginx||[[ "$(extcode)" == 401 ]]||fail EXTERNAL_STATE_CHANGED
