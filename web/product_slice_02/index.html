@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tokenoskobi — Tek Token Karar Paketi</title>
+<style>
+:root{color-scheme:dark;--bg:#070b12;--panel:#0f1724;--line:#263449;--muted:#8fa2bb;--text:#eef5ff;--good:#42d392;--warn:#f6c65b;--bad:#ff6b75;--info:#64b5ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,#15263b 0,#070b12 42%);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:18px}.top{display:flex;gap:14px;justify-content:space-between;align-items:center;margin-bottom:16px}.brand{font-size:21px;font-weight:800}.sub{color:var(--muted);font-size:13px}
+.badges{display:flex;gap:7px;flex-wrap:wrap}.badge{border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:12px;background:#0b1220}.off{color:var(--warn)}
+.search{display:grid;grid-template-columns:1fr auto;gap:10px;background:rgba(15,23,36,.92);border:1px solid var(--line);border-radius:16px;padding:14px;position:sticky;top:8px;z-index:2}
+input{width:100%;border:1px solid #34465f;border-radius:11px;background:#080d16;color:var(--text);padding:13px;font:inherit}button{border:0;border-radius:11px;padding:0 20px;background:var(--info);color:#001426;font-weight:800;cursor:pointer}
+#status{margin:12px 2px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.card{grid-column:span 4;background:rgba(15,23,36,.94);border:1px solid var(--line);border-radius:15px;padding:14px;min-height:120px}.wide{grid-column:span 8}.full{grid-column:1/-1}
+h2{font-size:14px;margin:0 0 10px;color:#cfe2fa;text-transform:uppercase;letter-spacing:.08em}.verdict{font-size:38px;font-weight:900}.ALLOW{color:var(--good)}.BLOCK{color:var(--bad)}.REVIEW,.WAIT{color:var(--warn)}
+.muted{color:var(--muted)}.row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #1d2a3c;padding:7px 0}.row:first-of-type{border-top:0}.k{color:var(--muted)}.v{text-align:right;word-break:break-word}
+.frames{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.frame{border:1px solid var(--line);border-radius:10px;padding:9px;text-align:center}.up{color:var(--good)}.down{color:var(--bad)}
+pre{white-space:pre-wrap;word-break:break-word;font-size:12px;color:#bcd0e8;max-height:420px;overflow:auto}ul{margin:7px 0;padding-left:20px}.empty{color:var(--muted);padding:32px;text-align:center}
+@media(max-width:780px){.top{align-items:flex-start;flex-direction:column}.search{grid-template-columns:1fr}.search button{height:45px}.card,.wide{grid-column:1/-1}.frames{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><div class="brand">TOKENOSKOBİ · TEK TOKEN KARAR PAKETİ</div><div class="sub">Gerçek BSC verisi · Kanıt önce · Eksik veri açıkça gösterilir</div></div>
+    <div class="badges"><span class="badge">BSC</span><span class="badge off">PAPER KAPALI</span><span class="badge off">LIVE KAPALI</span><span class="badge">AI YETKİSİ 0</span></div>
+  </div>
+  <form class="search" id="form">
+    <input id="address" autocomplete="off" spellcheck="false" placeholder="BSC token kontrat adresi: 0x…">
+    <button type="submit">ANALİZ ET</button>
+  </form>
+  <div id="status">Token adresi girilmedi.</div>
+  <div id="out" class="grid"><div class="card full empty">Karar paketi burada oluşacak.</div></div>
+</div>
+<script>
+const $=s=>document.querySelector(s), esc=v=>String(v??"—").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=v=>v==null?"VERİ YETERSİZ":new Intl.NumberFormat("tr-TR",{style:"currency",currency:"USD",maximumFractionDigits:6}).format(v);
+const rows=items=>items.map(([k,v])=>`<div class="row"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></div>`).join("");
+const list=items=>items?.length?`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:`<div class="muted">Yok</div>`;
+function render(p){
+ const d=p.decision,c=p.contract,m=p.market.primary_pool||{},t=p.technical.timeframes||{},n=p.news||{};
+ const frames=["1m","5m","15m","1h","4h","1d"].map(x=>{const z=t[x]||{};let cls=z.trend==="YUKARI"?"up":z.trend==="ASAGI"?"down":"";return `<div class="frame"><b>${x}</b><div class="${cls}">${esc(z.status==="OK"?(z.change_pct+"% · "+z.trend):"VERİ YETERSİZ")}</div></div>`}).join("");
+ $("#out").innerHTML=`
+ <section class="card"><h2>Karar</h2><div class="verdict ${esc(d.verdict)}">${esc(d.verdict)}</div>${rows([["Risk",d.risk_score_0_100+"/100"],["Güven",d.confidence_0_100+"/100"],["Pozisyon",d.position_sizing.status]])}</section>
+ <section class="card wide"><h2>Token</h2>${rows([["Adres",p.token_address],["Ad",c.name||"VERİ YETERSİZ"],["Sembol",c.symbol||"VERİ YETERSİZ"],["Decimals",c.decimals??"VERİ YETERSİZ"],["Toplam arz",c.total_supply??"VERİ YETERSİZ"],["Kod",c.code_present?c.code_bytes+" byte":"YOK"],["RPC",c.provider+" · "+c.provider_endpoint]])}</section>
+ <section class="card"><h2>Piyasa</h2>${rows([["DEX",m.dex||"VERİ YETERSİZ"],["Pool",m.pool_address||"VERİ YETERSİZ"],["Fiyat",money(m.token_price_usd)],["Likidite",money(m.reserve_usd)],["24s hacim",money(m.volume_usd?.h24)],["Pool sayısı",p.market.pool_count??0]])}</section>
+ <section class="card wide"><h2>Teknik zaman dilimleri</h2><div class="frames">${frames}</div></section>
+ <section class="card"><h2>NEWS</h2>${rows([["Durum",n.status||"VERİ YETERSİZ"],["Güncellik",n.freshness||"BİLİNMİYOR"],["Yaş",n.age_hours==null?"VERİ YETERSİZ":n.age_hours+" saat"],["Eşleşme",n.matches?.length??0]])}</section>
+ <section class="card"><h2>Hard block</h2>${list(d.hard_blocks)}</section>
+ <section class="card"><h2>İnceleme nedenleri</h2>${list(d.review_reasons)}</section>
+ <section class="card"><h2>Uyarılar</h2>${list(d.warnings)}</section>
+ <section class="card full"><h2>Veri kalitesi</h2>${rows([["Eksik veri",p.data_quality.missing.length?p.data_quality.missing.join(", "):"Yok"],["Kural",p.data_quality.policy],["Süre",p.elapsed_ms+" ms"],["Analiz ID",p.analysis_id]])}</section>
+ <section class="card full"><h2>Ham kanıt paketi</h2><pre>${esc(JSON.stringify(p,null,2))}</pre></section>`;
+}
+$("#form").addEventListener("submit",async e=>{
+ e.preventDefault();const a=$("#address").value.trim();
+ $("#status").textContent="Gerçek veriler okunuyor…";$("#out").innerHTML='<div class="card full empty">Analiz sürüyor.</div>';
+ try{const r=await fetch(`api/v1/analyze?address=${encodeURIComponent(a)}`,{cache:"no-store"});const j=await r.json();if(!r.ok||!j.ok)throw new Error(j.error||"ANALİZ BAŞARISIZ");render(j.packet);$("#status").textContent=`${j.packet.generated_at_utc} · ${j.packet.decision.verdict} · finansal yetki 0`;}
+ catch(err){$("#status").textContent=err.message;$("#out").innerHTML=`<div class="card full empty">${esc(err.message)}</div>`;}
+});
+</script>
+</body>
+</html>
