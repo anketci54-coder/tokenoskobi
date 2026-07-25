@@ -6,7 +6,14 @@ PAYLOAD="tools/.tokenoskobi_product_slice_01_payload_v1.zlib"
 INNER="/tmp/tokenoskobi_product_slice_01_live_truth_verification_inner.sh"
 EXPECTED_ORIGINAL_SHA256="f5a585781ddc8d2f9799d86b0db6f07c0c9e2704b37ee1d80e2e168ad7f3eae4"
 
-[[ -f "$PAYLOAD" ]] || { echo "BLOCKED=PAYLOAD_MISSING:$PAYLOAD"; exit 1; }
+# A failed inner-run rollback can remove the tracked payload from the working tree.
+# Restore the exact payload from origin/main before validating it.
+if [[ ! -f "$PAYLOAD" ]]; then
+  git show "origin/main:$PAYLOAD" > "$PAYLOAD"
+  echo "PRODUCT_SLICE_01_PAYLOAD=RESTORED_FROM_ORIGIN_MAIN"
+fi
+
+[[ -s "$PAYLOAD" ]] || { echo "BLOCKED=PAYLOAD_MISSING_OR_EMPTY:$PAYLOAD"; exit 1; }
 
 python3 <<'PY'
 import base64
