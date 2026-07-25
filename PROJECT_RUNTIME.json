@@ -129,8 +129,8 @@
     "critical_capability_required": true,
     "critical_reserved_session_slots": 4,
     "current_era": "ERA64",
-    "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
-    "current_status": "PRODUCT_COMPLETION_DEADLINE_LOCKED_2026_09_01",
+    "current_stage": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+    "current_status": "PRODUCT_SLICE_01_VERIFIED_WITH_BLOCKERS",
     "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
     "current_version_line": "V4",
     "delivery_deadline": "2026-09-01",
@@ -528,7 +528,7 @@
       "status": "MERGED_AND_POST_MERGE_SEALED",
       "updated_at_utc": "2026-07-15T04:54:32.381505+00:00"
     },
-    "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+    "next_safe_step": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
     "option_b_authorized": false,
     "p0_f1_closed": true,
     "paper_runtime_enabled": false,
@@ -945,7 +945,7 @@
     "evidence": "data/control/pre_era57_repo_pipeline_hygiene_closure_v1.json",
     "severity": "NONE"
   },
-  "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+  "current_stage": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
   "current_state": {
     "active_work_unit": {
       "id": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
@@ -989,7 +989,7 @@
     "master_state_is_human_summary": true,
     "runtime_is_primary_machine_authority": true
   },
-  "current_status": "PRODUCT_COMPLETION_DEADLINE_LOCKED_2026_09_01",
+  "current_status": "PRODUCT_SLICE_01_VERIFIED_WITH_BLOCKERS",
   "current_version": "V4",
   "current_version_label": "Coordinated Intelligence and Paper-Trading Proving Ground",
   "current_work_unit": {
@@ -1748,7 +1748,7 @@
   "last_artifact": "data/control/a30_crash_recovery_post_merge_closure_v1.json",
   "last_closed_era": "ERA63",
   "last_completed": "ERA64B_SUCCESSFUL_WALLET_STATISTICS_AND_CLUSTER_FOUNDATION",
-  "last_result": "FIXED_1_TO_2_USD_CAP_REMOVED_DYNAMIC_POLICY_LOCKED",
+  "last_result": "VERIFIED_WITH_BLOCKERS",
   "last_verified_technical_baseline": {
     "gas_cost_enriched_event_count": 367,
     "live_trade": "DISABLED",
@@ -2114,7 +2114,7 @@
     "summary_market": 39,
     "warnings": []
   },
-  "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+  "next_safe_step": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
   "no_new_era_until_product_completion": true,
   "open_risks": [
     "PRODUCT_SURFACE_NOT_DEPLOYED",
@@ -2412,6 +2412,78 @@
     "title": "Tokenoskobi Kullanılabilir Ürün Dikey Dilimi",
     "user_visible_acceptance_required_for_progress": true
   },
+  "product_slice_01_live_truth": {
+    "artifact": "data/control/product_slice_01_live_truth_verification_v1.json",
+    "findings": {
+      "critical": [
+        "PANEL_8096_EXTERNALLY_BOUND"
+      ],
+      "high": [
+        "PANEL_AUTH_NOT_PROVEN",
+        "NEWS_NOT_FRESH_WITHIN_6H",
+        "ALCHEMY_HTTP_NOT_WORKING",
+        "ALCHEMY_WEBSOCKET_NOT_CONFIGURED",
+        "UFW_NOT_ACTIVE"
+      ],
+      "medium": [
+        "FAIL2BAN_NOT_ACTIVE",
+        "SSH_PASSWORD_AUTH_ENABLED",
+        "SSH_ROOT_LOGIN_PERMITTED",
+        "NGINX_RATE_LIMIT_MISSING"
+      ],
+      "verified": [
+        "LOCAL_PANEL_RESPONDING",
+        "HTTPS_PANEL_REACHABLE",
+        "PUBLIC_RPC_FALLBACK_OK"
+      ]
+    },
+    "next_safe_step": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
+    "report": "reports/LATEST_PRODUCT_SLICE_01_LIVE_TRUTH_VERIFICATION.md",
+    "status": "VERIFIED_WITH_BLOCKERS",
+    "summary": {
+      "alchemy_http": false,
+      "alchemy_ws": false,
+      "critical": 1,
+      "fail2ban": false,
+      "high": 5,
+      "hybrid": false,
+      "latest_provider_block": 112037113,
+      "medium": 4,
+      "news": {
+        "news_raw_feed_events": {
+          "age_sec": 1056200.5,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 416,
+          "newest": "2026-07-13T05:24:22+00:00"
+        },
+        "news_score_events_v1": {
+          "age_sec": 1054913.2,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 226,
+          "newest": "2026-07-13T05:45:49.250851+00:00"
+        },
+        "news_signal_events": {
+          "age_sec": 1054913.2,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 226,
+          "newest": "2026-07-13T05:45:49.250851+00:00"
+        },
+        "news_token_match_events": {
+          "age_sec": 1054913.2,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 226,
+          "newest": "2026-07-13T05:45:49.250851+00:00"
+        }
+      },
+      "news_active": true,
+      "panel_8096_external": true,
+      "panel_auth": false,
+      "panel_https": true,
+      "panel_local": true,
+      "public_rpc_ok": 4,
+      "ufw": false
+    }
+  },
   "project_status": "V4_ERA64_ACTIVE",
   "recent_event": {
     "event": "ERA63_FINAL_TECHNICAL_LINE_CLOSURE",
@@ -2449,7 +2521,7 @@
   "source": "news_v3_batch_01_runtime_direction_sync_v1",
   "status": "ACTIVE",
   "updated_at": "2026-07-24T07:44:44.641249+00:00",
-  "updated_at_utc": "2026-07-24T21:54:15.293713+00:00",
+  "updated_at_utc": "2026-07-25T10:47:42.482535+00:00",
   "work_unit": {
     "completed_substeps": [
       "ERA64A_EXISTING_WALLET_DATA_AND_CAPABILITY_AUDIT",

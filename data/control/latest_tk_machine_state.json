@@ -839,7 +839,7 @@
   "control_artifact": "data/control/era62c_local_synthetic_and_replay_verification_v1.json",
   "created_at_utc": "2026-07-13T14:27:40.170589+00:00",
   "current_era": "ERA64",
-  "current_stage": "TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE",
+  "current_stage": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
   "current_state": {
     "active_work_unit": null,
     "authority": "PROJECT_RUNTIME.json",
@@ -854,7 +854,7 @@
     "runtime_status": "GENERAL_RUNTIME_HARDENING_CLOSED_VERIFIED"
   },
   "current_state_authority": "PROJECT_RUNTIME.json",
-  "current_status": "PRODUCT_COMPLETION_DEADLINE_LOCKED_2026_09_01",
+  "current_status": "PRODUCT_SLICE_01_VERIFIED_WITH_BLOCKERS",
   "current_version": "V4",
   "current_version_label": "Autonomous Intelligence / Multi-Agent Command",
   "deadline_schedule": [
@@ -2395,7 +2395,7 @@
   },
   "matrix_test": "tests/era62c_synthetic_replay_matrix_v1.py",
   "network_access": false,
-  "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
+  "next_safe_step": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
   "no_new_era": true,
   "observation_runtime_enabled": true,
   "opening_artifact": "data/control/era62a_opening_scope_lock_v1.json",
@@ -2558,6 +2558,78 @@
     "tests_docs_schemas_and_standalone_engines_are_not_product_completion": true,
     "title": "Tokenoskobi Kullanılabilir Ürün Dikey Dilimi",
     "user_visible_acceptance_required_for_progress": true
+  },
+  "product_slice_01_live_truth": {
+    "artifact": "data/control/product_slice_01_live_truth_verification_v1.json",
+    "findings": {
+      "critical": [
+        "PANEL_8096_EXTERNALLY_BOUND"
+      ],
+      "high": [
+        "PANEL_AUTH_NOT_PROVEN",
+        "NEWS_NOT_FRESH_WITHIN_6H",
+        "ALCHEMY_HTTP_NOT_WORKING",
+        "ALCHEMY_WEBSOCKET_NOT_CONFIGURED",
+        "UFW_NOT_ACTIVE"
+      ],
+      "medium": [
+        "FAIL2BAN_NOT_ACTIVE",
+        "SSH_PASSWORD_AUTH_ENABLED",
+        "SSH_ROOT_LOGIN_PERMITTED",
+        "NGINX_RATE_LIMIT_MISSING"
+      ],
+      "verified": [
+        "LOCAL_PANEL_RESPONDING",
+        "HTTPS_PANEL_REACHABLE",
+        "PUBLIC_RPC_FALLBACK_OK"
+      ]
+    },
+    "next_safe_step": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
+    "report": "reports/LATEST_PRODUCT_SLICE_01_LIVE_TRUTH_VERIFICATION.md",
+    "status": "VERIFIED_WITH_BLOCKERS",
+    "summary": {
+      "alchemy_http": false,
+      "alchemy_ws": false,
+      "critical": 1,
+      "fail2ban": false,
+      "high": 5,
+      "hybrid": false,
+      "latest_provider_block": 112037113,
+      "medium": 4,
+      "news": {
+        "news_raw_feed_events": {
+          "age_sec": 1056200.5,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 416,
+          "newest": "2026-07-13T05:24:22+00:00"
+        },
+        "news_score_events_v1": {
+          "age_sec": 1054913.2,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 226,
+          "newest": "2026-07-13T05:45:49.250851+00:00"
+        },
+        "news_signal_events": {
+          "age_sec": 1054913.2,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 226,
+          "newest": "2026-07-13T05:45:49.250851+00:00"
+        },
+        "news_token_match_events": {
+          "age_sec": 1054913.2,
+          "best_db": "data/tokenoskobi_clean_v1.sqlite",
+          "max_count": 226,
+          "newest": "2026-07-13T05:45:49.250851+00:00"
+        }
+      },
+      "news_active": true,
+      "panel_8096_external": true,
+      "panel_auth": false,
+      "panel_https": true,
+      "panel_local": true,
+      "public_rpc_ok": 4,
+      "ufw": false
+    }
   },
   "production_runtime_binding": false,
   "project": {
