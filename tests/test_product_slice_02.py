@@ -16,8 +16,8 @@ SERVER = Path(
     )
 )
 SPEC = importlib.util.spec_from_file_location("product_slice_02", SERVER)
-MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC and SPEC.loader
+MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 
 BASE = "0x" + "a" * 40
@@ -114,6 +114,35 @@ class ProductSlice02Tests(unittest.TestCase):
         self.assertIsNone(row["price_usd"])
         self.assertFalse(row["orientation_verified"])
 
+    def test_market_token_endpoint_price_source(self):
+        original = MODULE.request
+
+        def fake(url, body=None):
+            if "/pools?" in url:
+                return {"data": [pool_item()]}
+            if url.endswith("/" + BASE):
+                return {
+                    "data": {
+                        "attributes": {
+                            "name": "Base",
+                            "symbol": "BASE",
+                            "price_usd": "571.05",
+                            "market_cap_usd": "1",
+                            "fdv_usd": "1",
+                        }
+                    }
+                }
+            raise AssertionError(url)
+
+        MODULE.request = fake
+        try:
+            result = MODULE.market(BASE)
+        finally:
+            MODULE.request = original
+
+        self.assertEqual(result["token"]["price_usd"], 571.05)
+        self.assertEqual(result["token"]["price_source"], "TOKEN_ENDPOINT")
+
     def test_market_price_fallback_from_oriented_pool(self):
         original = MODULE.request
 
@@ -136,6 +165,36 @@ class ProductSlice02Tests(unittest.TestCase):
             "SELECTED_POOL_ORIENTED_FALLBACK",
         )
         self.assertTrue(result["target_orientation_verified"])
+
+    def test_market_null_token_price_uses_oriented_fallback(self):
+        original = MODULE.request
+
+        def fake(url, body=None):
+            if "/pools?" in url:
+                return {"data": [pool_item()]}
+            if url.endswith("/" + BASE):
+                return {
+                    "data": {
+                        "attributes": {
+                            "name": "Base",
+                            "symbol": "BASE",
+                            "price_usd": None,
+                        }
+                    }
+                }
+            raise AssertionError(url)
+
+        MODULE.request = fake
+        try:
+            result = MODULE.market(BASE)
+        finally:
+            MODULE.request = original
+
+        self.assertEqual(result["token"]["price_usd"], 571.05)
+        self.assertEqual(
+            result["token"]["price_source"],
+            "SELECTED_POOL_ORIENTED_FALLBACK",
+        )
 
     def test_market_does_not_fallback_from_unoriented_pool(self):
         original = MODULE.request
@@ -200,6 +259,22 @@ class ProductSlice02Tests(unittest.TestCase):
                 for row in result.values()
             )
         )
+
+    def test_decide_accepts_consistent_target(self):
+        technical = {
+            key: {"status": "OK", "target_token_address": BASE, "last": 571.0}
+            for key in ("1m", "5m", "15m", "1h")
+        }
+        decision = MODULE.decide(
+            {"code_exists": True},
+            valid_market(),
+            technical,
+            {"fresh": True},
+            {"public_rpc_ok": 1, "hybrid_ready": True},
+        )
+        self.assertEqual(decision["decision"], "ALLOW")
+        self.assertEqual(decision["data_quality"], "SUFFICIENT")
+        self.assertIn("TARGET_ASSET_ORIENTATION_VERIFIED", decision["evidence"])
 
     def test_decide_blocks_wrong_target(self):
         technical = {
