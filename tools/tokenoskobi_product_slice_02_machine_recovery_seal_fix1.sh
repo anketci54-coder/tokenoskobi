@@ -75,7 +75,7 @@ rep(
 )
 rep(
  "PY\n\npython3 - <<'PY'\nimport json",
- "PY\n\npython3 - <<'PY'\nfrom pathlib import Path\np=Path('config/nginx/panel.coinoskobi.xyz.conf')\nlines=p.read_text(encoding='utf-8').splitlines()\np.write_text('\\\\n'.join(line.rstrip(' \\\\t') for line in lines)+'\\\\n',encoding='utf-8')\nprint('NGINX_REPO_TRAILING_WHITESPACE_NORMALIZED=PASS')\nPY\n\npython3 - <<'PY'\nimport json",
+ "PY\n\npython3 - <<'PY'\nfrom pathlib import Path\np=Path('config/nginx/panel.coinoskobi.xyz.conf')\nlines=p.read_text(encoding='utf-8').splitlines()\np.write_text('\\n'.join(line.rstrip(' \\t') for line in lines)+'\\n',encoding='utf-8')\nprint('NGINX_REPO_TRAILING_WHITESPACE_NORMALIZED=PASS')\nPY\n\npython3 - <<'PY'\nimport json",
  'NGINX_WHITESPACE_NORMALIZATION',
 )
 rep(
