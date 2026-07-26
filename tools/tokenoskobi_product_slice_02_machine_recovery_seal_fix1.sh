@@ -74,6 +74,11 @@ rep(
  'EVIDENCE_HEAD',
 )
 rep(
+ "PY\n\npython3 - <<'PY'\nimport json",
+ "PY\n\npython3 - <<'PY'\nfrom pathlib import Path\np=Path('config/nginx/panel.coinoskobi.xyz.conf')\nlines=p.read_text(encoding='utf-8').splitlines()\np.write_text('\\\\n'.join(line.rstrip(' \\\\t') for line in lines)+'\\\\n',encoding='utf-8')\nprint('NGINX_REPO_TRAILING_WHITESPACE_NORMALIZED=PASS')\nPY\n\npython3 - <<'PY'\nimport json",
+ 'NGINX_WHITESPACE_NORMALIZATION',
+)
+rep(
  '  tools/tokenoskobi_product_slice_02_machine_recovery_seal.sh \\\n  data/control/product_slice_02_single_token_decision_packet_v1.json',
  '  tools/tokenoskobi_product_slice_02_machine_recovery_seal.sh \\\n  '+fix_path+' \\\n  data/control/product_slice_02_single_token_decision_packet_v1.json',
  'GIT_ADD_LIST',
