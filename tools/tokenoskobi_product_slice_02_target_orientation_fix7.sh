@@ -23,10 +23,11 @@ import os
 p=Path(os.environ['TEMP'])
 s=p.read_text(encoding='utf-8')
 
-def rep(old,new,label):
+def rep(old,new,label,expected=1):
     global s
-    if s.count(old)!=1:
-        raise SystemExit('BLOCKED=FIX7_PATCH_ANCHOR_'+label)
+    count=s.count(old)
+    if count!=expected:
+        raise SystemExit('BLOCKED=FIX7_PATCH_ANCHOR_'+label+'_COUNT_'+str(count))
     s=s.replace(old,new,1)
 
 rep(
@@ -47,17 +48,10 @@ rep(
 'FALLBACK_TEST',
 )
 
-rep(
-"x=json.load(open(os.environ['RESULT']));token=os.environ['WBNB'];m=x['market'];p=m['selected_pool'];t=x['technical_timeframes'];price=float(m['token']['price_usd']);pool_price=float(p['price_usd']);ok=[v for v in t.values() if v.get('status')=='OK']",
-"x=json.load(open(os.environ['RESULT']));token=os.environ['WBNB'];m=x['market'];p=m['selected_pool'];t=x['technical_timeframes'];price=float(m['token']['price_usd']);pool_price=float(p['price_usd']);ok=[v for v in t.values() if v.get('status')=='OK'];assert m['token'].get('price_source') in ('TOKEN_ENDPOINT','SELECTED_POOL_ORIENTED_FALLBACK')",
-'VALIDATION_PRICE_SOURCE_FIRST',
-)
-
-rep(
-"x=json.load(open(os.environ['RESULT']));token=os.environ['WBNB'];m=x['market'];p=m['selected_pool'];t=x['technical_timeframes'];price=float(m['token']['price_usd']);pool_price=float(p['price_usd']);ok=[v for v in t.values() if v.get('status')=='OK']",
-"x=json.load(open(os.environ['RESULT']));token=os.environ['WBNB'];m=x['market'];p=m['selected_pool'];t=x['technical_timeframes'];price=float(m['token']['price_usd']);pool_price=float(p['price_usd']);ok=[v for v in t.values() if v.get('status')=='OK'];assert m['token'].get('price_source') in ('TOKEN_ENDPOINT','SELECTED_POOL_ORIENTED_FALLBACK')",
-'VALIDATION_PRICE_SOURCE_SECOND',
-)
+validation_old="x=json.load(open(os.environ['RESULT']));token=os.environ['WBNB'];m=x['market'];p=m['selected_pool'];t=x['technical_timeframes'];price=float(m['token']['price_usd']);pool_price=float(p['price_usd']);ok=[v for v in t.values() if v.get('status')=='OK']"
+validation_new="x=json.load(open(os.environ['RESULT']));token=os.environ['WBNB'];m=x['market'];p=m['selected_pool'];t=x['technical_timeframes'];price=float(m['token']['price_usd']);pool_price=float(p['price_usd']);ok=[v for v in t.values() if v.get('status')=='OK'];assert m['token'].get('price_source') in ('TOKEN_ENDPOINT','SELECTED_POOL_ORIENTED_FALLBACK')"
+rep(validation_old,validation_new,'VALIDATION_PRICE_SOURCE_FIRST',2)
+rep(validation_old,validation_new,'VALIDATION_PRICE_SOURCE_SECOND',1)
 
 rep(
 "print('SHADOW_TARGET_ORIENTATION=PASS');print('SHADOW_TARGET_SIDE='+p['target_side']);print('SHADOW_TOKEN_PRICE_USD='+str(price));print('SHADOW_POOL_TARGET_PRICE_USD='+str(pool_price));print('SHADOW_TECH_OK='+str(len(ok)));print('SHADOW_DECISION='+x['decision']['decision'])",
