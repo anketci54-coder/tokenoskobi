@@ -1,5 +1,27 @@
 # 05 ATLAS - TOKENOSKOBI / COINOSKOBI MASTER SYSTEM MAP
 
+<!-- PRODUCT_SLICE_02_RUNTIME_PATH:BEGIN -->
+## PRODUCT SLICE 02 RUNTIME PATH
+
+```text
+PHONE / BROWSER
+  -> HTTPS panel.coinoskobi.xyz
+  -> BASIC AUTH
+  -> NGINX ROOT REVERSE PROXY
+  -> 127.0.0.1:8096
+  -> PRODUCT SLICE 02 READ-ONLY SERVER
+  -> BSC RPC + GECKOTERMINAL + LOCAL NEWS READ
+  -> ALLOW / WAIT / REVIEW / BLOCK
+  -> HUMAN ACTION REQUIRED
+```
+
+- Static alias shadow routes were removed.
+- The Python source is present on disk and restart verified.
+- The service binds only to loopback.
+- Paper/live/wallet/signing/order/broadcast authority remains disabled.
+- Phone-authenticated product acceptance remains a separate gate.
+<!-- PRODUCT_SLICE_02_RUNTIME_PATH:END -->
+
 <!-- DYNAMIC_POSITION_SIZING_FLOW:BEGIN -->
 ## DYNAMIC POSITION SIZING FLOW
 

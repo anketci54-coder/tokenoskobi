@@ -1,14 +1,12 @@
 [Unit]
-Description=Tokenoskobi Product Slice 02 Read-Only Single Token Decision Packet
+Description=Tokenoskobi Product Slice 02 Read-Only Decision Packet
 After=network-online.target
 Wants=network-online.target
-
 [Service]
 Type=simple
 User=root
 WorkingDirectory=/root/tokenoskobi_clean_v1
-Environment=PYTHONDONTWRITEBYTECODE=1
-ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/tokenoskobi_product_slice_02_api.py
+ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/tokenoskobi_product_slice_02_server.py
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true
@@ -17,7 +15,6 @@ ProtectSystem=strict
 ProtectHome=read-only
 ReadOnlyPaths=/root/tokenoskobi_clean_v1
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
-LockPersonality=true
-
+CapabilityBoundingSet=
 [Install]
 WantedBy=multi-user.target
