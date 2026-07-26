@@ -7,6 +7,7 @@ import math
 import os
 import re
 import sqlite3
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -48,6 +49,7 @@ GT_LOCK = GT_RATE_DIR / "tokenoskobi_geckoterminal_rate.lock"
 GT_STATE = GT_RATE_DIR / "tokenoskobi_geckoterminal_rate.state"
 GT_MIN_INTERVAL_SEC = 6.5
 GT_MAX_ATTEMPTS = 4
+GT_THREAD_LOCK = threading.Lock()
 
 
 def now() -> str:
@@ -68,21 +70,24 @@ def is_geckoterminal(url: str) -> bool:
 
 def geckoterminal_slot() -> None:
     GT_RATE_DIR.mkdir(parents=True, exist_ok=True)
-    with GT_LOCK.open("a+", encoding="utf-8") as lock:
-        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
-        last = 0.0
-        try:
-            last = float(GT_STATE.read_text(encoding="utf-8").strip() or 0)
-        except (OSError, ValueError):
-            pass
-        delay = GT_MIN_INTERVAL_SEC - (time.time() - last)
-        if delay > 0:
-            time.sleep(delay)
-        stamp = time.time()
-        temp_state = GT_STATE.with_suffix(".state.tmp")
-        temp_state.write_text(str(stamp), encoding="utf-8")
-        os.replace(temp_state, GT_STATE)
-        fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+    with GT_THREAD_LOCK:
+        with GT_LOCK.open("a+", encoding="utf-8") as lock:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+            last = 0.0
+            try:
+                last = float(GT_STATE.read_text(encoding="utf-8").strip() or 0)
+            except (OSError, ValueError):
+                pass
+            delay = GT_MIN_INTERVAL_SEC - (time.time() - last)
+            if delay > 0:
+                time.sleep(delay)
+            stamp = time.time()
+            temporary = GT_STATE.with_name(
+                f"{GT_STATE.name}.{os.getpid()}.{threading.get_ident()}.tmp"
+            )
+            temporary.write_text(str(stamp), encoding="utf-8")
+            os.replace(temporary, GT_STATE)
+            fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
 
 
 def request(url: str, body: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -94,17 +99,17 @@ def request(url: str, body: dict[str, Any] | None = None) -> dict[str, Any]:
         headers["Content-Type"] = "application/json"
         method = "POST"
 
-    attempts = GT_MAX_ATTEMPTS if is_geckoterminal(url) else 1
+    gecko = is_geckoterminal(url)
+    attempts = GT_MAX_ATTEMPTS if gecko else 1
     for attempt in range(1, attempts + 1):
-        if is_geckoterminal(url):
+        if gecko:
             geckoterminal_slot()
         query = urllib.request.Request(url, data=data, headers=headers, method=method)
         try:
             with urllib.request.urlopen(query, timeout=CFG["timeout_sec"]) as response:
                 return json.loads(response.read(2_000_000))
         except urllib.error.HTTPError as exc:
-            retryable = is_geckoterminal(url) and exc.code == 429 and attempt < attempts
-            if not retryable:
+            if not (gecko and exc.code == 429 and attempt < attempts):
                 raise
             retry_after = exc.headers.get("Retry-After") if exc.headers else None
             try:
@@ -135,8 +140,7 @@ def providers() -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     selected = None
     urls: list[tuple[str, str]] = []
-    alchemy_url = alchemy()
-    if alchemy_url:
+    if alchemy_url := alchemy():
         urls.append(("alchemy", alchemy_url))
     urls += [(f"public_{index + 1}", url) for index, url in enumerate(CFG["rpc"])]
 
@@ -249,8 +253,7 @@ def contract(token: str, provider_state: dict[str, Any]) -> dict[str, Any]:
 
 def relationship_address(item: dict[str, Any], key: str) -> str | None:
     relationship = ((item.get("relationships") or {}).get(key) or {}).get("data") or {}
-    relationship_id = str(relationship.get("id") or "")
-    candidate = relationship_id.rsplit("_", 1)[-1].lower()
+    candidate = str(relationship.get("id") or "").rsplit("_", 1)[-1].lower()
     return candidate if ADDR.fullmatch(candidate) else None
 
 
@@ -309,8 +312,9 @@ def market(token: str) -> dict[str, Any]:
             "price_usd": num(attributes.get("price_usd")),
             "market_cap_usd": num(attributes.get("market_cap_usd")),
             "fdv_usd": num(attributes.get("fdv_usd")),
-            "price_source": "TOKEN_ENDPOINT",
         }
+        if output["token"]["price_usd"] is not None:
+            output["token"]["price_source"] = "TOKEN_ENDPOINT"
         output["available"] = True
     except Exception as exc:
         output["errors"].append(f"TOKEN:{type(exc).__name__}:{str(exc)[:100]}")
@@ -353,9 +357,7 @@ def market(token: str) -> dict[str, Any]:
     return output
 
 
-def technical_row(
-    payload: dict[str, Any], token: str
-) -> tuple[list[float], str]:
+def technical_row(payload: dict[str, Any], token: str) -> tuple[list[float], str]:
     metadata = payload.get("meta") or {}
     base_address = str((metadata.get("base") or {}).get("address") or "").lower()
     quote_address = str((metadata.get("quote") or {}).get("address") or "").lower()
@@ -363,7 +365,10 @@ def technical_row(
         raise ValueError("TARGET_TOKEN_NOT_IN_OHLCV_META")
     side = "base" if token == base_address else "quote"
     rows = payload["data"]["attributes"]["ohlcv_list"]
-    closes = [num(row[4]) for row in rows if len(row) >= 6 and num(row[4]) is not None]
+    closes: list[float] = []
+    for row in rows:
+        if len(row) >= 6 and (close := num(row[4])) is not None:
+            closes.append(close)
     return list(reversed(closes)), side
 
 
@@ -376,8 +381,6 @@ def tech(pool: str | None, token: str) -> dict[str, Any]:
         "4h": ("hour", 4),
         "1d": ("day", 1),
     }
-    output: dict[str, Any] = {}
-    base = "https://api.geckoterminal.com/api/v2"
     token = token.lower()
     if not pool:
         return {
@@ -385,6 +388,8 @@ def tech(pool: str | None, token: str) -> dict[str, Any]:
             for key in specs
         }
 
+    output: dict[str, Any] = {}
+    base = "https://api.geckoterminal.com/api/v2"
     for key, (timeframe, aggregate) in specs.items():
         try:
             selector = urllib.parse.quote(token, safe="")
@@ -664,7 +669,7 @@ def analyze(token: str) -> dict[str, Any]:
         if key != "url"
     } or None
     return {
-        "schema": "tokenoskobi.product_slice_02.packet.v2",
+        "schema": "tokenoskobi.product_slice_02.packet.v1",
         "generated_at_utc": now(),
         "chain": "BSC",
         "token_address": token,
@@ -686,7 +691,7 @@ def analyze(token: str) -> dict[str, Any]:
     }
 
 
-HTML = """<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tokenoskobi</title><style>body{margin:0;background:#091019;color:#e8eef5;font-family:system-ui}.w{max-width:1100px;margin:auto;padding:18px}.box{background:#111b27;border:1px solid #2a3b4e;border-radius:15px;padding:18px;margin:12px 0}input,button{padding:14px;border-radius:10px;border:1px solid #3b5068;background:#0b131c;color:white;font-size:16px}input{width:min(720px,70%)}button{background:#dbeaff;color:#06101a;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{background:#0b131c;border-radius:12px;padding:13px}.ALLOW{color:#75eca2}.WAIT{color:#ffd173}.REVIEW{color:#ffa56d}.BLOCK{color:#ff7784}pre{white-space:pre-wrap;word-break:break-word}@media(max-width:700px){.grid{grid-template-columns:1fr}input{width:100%;margin-bottom:8px}}</style></head><body><main class="w"><h2>TOKENOSKOBİ — Tek Token Karar Paketi</h2><div class="box">BSC token adresi: <input id="a" placeholder="0x…"><button onclick="go()">Analiz Et</button><p id="s"></p></div><div id="r"></div></main><script>const e=x=>String(x??'—').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));async function go(){s.textContent='Gerçek veriler toplanıyor…';r.innerHTML='';try{let z=await fetch('/api/v1/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token_address:a.value.trim()})}),d=await z.json();if(!z.ok)throw Error(d.error);let q=d.decision,m=d.contract.metadata,p=d.market.selected_pool||{},t=d.market.token||{};r.innerHTML=`<div class="grid"><div class="card"><b>Karar</b><h1 class="${e(q.decision)}">${e(q.decision)}</h1>${e(q.data_quality)}</div><div class="card"><b>Risk</b><h1>${e(q.risk_score)}/100</h1></div><div class="card"><b>Token</b><h1>${e(m.symbol)}</h1>${e(m.name)}</div></div><div class="box"><b>Fiyat / Likidite</b><p>${e(t.price_usd)} USD / ${e(p.reserve_usd)} USD</p><small>Fiyat kaynağı: ${e(t.price_source)}</small><p><b>Uyarılar</b><br>${e(q.warnings.join(' • '))}</p><p><b>Kanıt</b><br>${e(q.evidence.join(' • '))}</p></div><details class="box"><summary>Ham paket</summary><pre>${e(JSON.stringify(d,null,2))}</pre></details>`;s.textContent='Karar paketi üretildi';}catch(x){s.textContent=x.message}}</script></body></html>"""
+HTML = """<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tokenoskobi</title><style>body{margin:0;background:#091019;color:#e8eef5;font-family:system-ui}.w{max-width:1100px;margin:auto;padding:18px}.box{background:#111b27;border:1px solid #2a3b4e;border-radius:15px;padding:18px;margin:12px 0}input,button{padding:14px;border-radius:10px;border:1px solid #3b5068;background:#0b131c;color:white;font-size:16px}input{width:min(720px,70%)}button{background:#dbeaff;color:#06101a;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{background:#0b131c;border-radius:12px;padding:13px}.ALLOW{color:#75eca2}.WAIT{color:#ffd173}.REVIEW{color:#ffa56d}.BLOCK{color:#ff7784}pre{white-space:pre-wrap;word-break:break-word}@media(max-width:700px){.grid{grid-template-columns:1fr}input{width:100%;margin-bottom:8px}}</style></head><body><main class="w"><h2>TOKENOSKOBİ — Tek Token Karar Paketi</h2><div class="box">BSC token adresi: <input id="a" placeholder="0x…"><button id="b" onclick="go()">Analiz Et</button><p id="s"></p></div><div id="r"></div></main><script>const a=document.getElementById('a'),b=document.getElementById('b'),s=document.getElementById('s'),r=document.getElementById('r'),e=x=>String(x??'—').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));async function go(){b.disabled=true;s.textContent='Gerçek veriler toplanıyor…';r.innerHTML='';try{let z=await fetch('/api/v1/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token_address:a.value.trim()})}),d=await z.json();if(!z.ok)throw Error(d.error);let q=d.decision,m=d.contract.metadata,p=d.market.selected_pool||{},t=d.market.token||{};r.innerHTML=`<div class="grid"><div class="card"><b>Karar</b><h1 class="${e(q.decision)}">${e(q.decision)}</h1>${e(q.data_quality)}</div><div class="card"><b>Risk</b><h1>${e(q.risk_score)}/100</h1></div><div class="card"><b>Token</b><h1>${e(m.symbol)}</h1>${e(m.name)}</div></div><div class="box"><b>Fiyat / Likidite</b><p>${e(t.price_usd)} USD / ${e(p.reserve_usd)} USD</p><small>Fiyat kaynağı: ${e(t.price_source)}</small><p><b>Uyarılar</b><br>${e(q.warnings.join(' • '))}</p><p><b>Kanıt</b><br>${e(q.evidence.join(' • '))}</p></div><details class="box"><summary>Ham paket</summary><pre>${e(JSON.stringify(d,null,2))}</pre></details>`;s.textContent='Karar paketi üretildi';}catch(x){s.textContent=x.message}finally{b.disabled=false}}</script></body></html>"""
 
 
 class H(BaseHTTPRequestHandler):
@@ -694,7 +699,10 @@ class H(BaseHTTPRequestHandler):
         pass
 
     def sendj(
-        self, code: int, obj: dict[str, Any] | str, content_type: str = "application/json; charset=utf-8"
+        self,
+        code: int,
+        obj: dict[str, Any] | str,
+        content_type: str = "application/json; charset=utf-8",
     ) -> None:
         body = (
             json.dumps(obj, ensure_ascii=False) if not isinstance(obj, str) else obj
@@ -721,7 +729,8 @@ class H(BaseHTTPRequestHandler):
             return self.sendj(404, {"error": "NOT_FOUND"})
         try:
             length = int(self.headers.get("Content-Length", "0"))
-            assert 0 < length <= 4096
+            if not 0 < length <= 4096:
+                return self.sendj(400, {"error": "INVALID_REQUEST_SIZE"})
             payload = json.loads(self.rfile.read(length))
             token_address = payload.get("token_address", "")
             if not ADDR.fullmatch(token_address):
