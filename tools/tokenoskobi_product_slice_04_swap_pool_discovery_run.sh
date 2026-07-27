@@ -57,11 +57,26 @@ REPO_STATUS_BEFORE="$(git status --porcelain=v1 --untracked-files=all)"
 ENRICHMENT_RESULT_HASH="$(python3 - "$ENRICHMENT" <<'PY'
 import json,sys
 from pathlib import Path
+
+def require(condition, code):
+    if not condition:
+        print(f'BLOCKED={code}', file=sys.stderr)
+        raise SystemExit(1)
+
 p=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
-assert p.get('schema')=='tokenoskobi.product_slice_04.candidate_enrichment.v1'
-assert p.get('status')=='CANDIDATE_INPUT_AND_TOKEN_METADATA_ENRICHMENT_VERIFIED'
-assert len(p.get('transactions') or [])==14
-assert len(p.get('token_metadata') or [])==3
+require(p.get('schema')=='tokenoskobi.product_slice_04.candidate_enrichment.v1','ENRICHMENT_SCHEMA_INVALID')
+require(p.get('status')=='CANDIDATE_INPUT_AND_TOKEN_METADATA_ENRICHMENT_VERIFIED_WITH_ARCHIVE_FALLBACK_POLICY','ENRICHMENT_STATUS_INVALID')
+require(len(p.get('transactions') or [])==14,'ENRICHMENT_TRANSACTION_COUNT_INVALID')
+require(len(p.get('token_metadata') or [])==3,'ENRICHMENT_TOKEN_METADATA_COUNT_INVALID')
+policy=p.get('metadata_temporal_policy')
+require(isinstance(policy,dict),'ENRICHMENT_TEMPORAL_POLICY_MISSING')
+require(policy.get('historical_block_attempt_required') is True,'HISTORICAL_METADATA_ATTEMPT_NOT_RECORDED')
+require(policy.get('fallback_allowed_only_for_archive_state_unavailable_errors') is True,'ARCHIVE_FALLBACK_NOT_FAIL_CLOSED')
+require(policy.get('fallback_target')=='latest','ARCHIVE_FALLBACK_TARGET_INVALID')
+require(policy.get('historical_metadata_verified_count')==0,'HISTORICAL_METADATA_COUNT_CHANGED')
+require(policy.get('latest_metadata_fallback_count')==3,'LATEST_METADATA_FALLBACK_COUNT_CHANGED')
+require(policy.get('historical_transaction_and_receipt_identity_preserved') is True,'HISTORICAL_TRANSACTION_RECEIPT_IDENTITY_NOT_PRESERVED')
+require(policy.get('token_amount_normalization_ready') is True,'TOKEN_NORMALIZATION_NOT_READY')
 print(p.get('result_hash') or '')
 PY
 )"
@@ -70,6 +85,9 @@ printf 'LOCAL_HEAD=%s\n' "$(git rev-parse HEAD)"
 printf 'ORIGIN_MAIN=%s\n' "$(git rev-parse origin/main)"
 printf 'SOURCE_DATABASE_SHA256=%s\n' "$(sha256_file "$DB")"
 printf 'ENRICHMENT_RESULT_HASH=%s\n' "$ENRICHMENT_RESULT_HASH"
+printf 'ENRICHMENT_STATUS=ARCHIVE_FALLBACK_POLICY_VERIFIED\n'
+printf 'HISTORICAL_METADATA_VERIFIED_COUNT=0\n'
+printf 'LATEST_METADATA_ARCHIVE_FALLBACK_COUNT=3\n'
 printf 'PRODUCT_PID=%s\n' "$PRODUCT_PID_BEFORE"
 printf 'PRODUCT_NRESTARTS=%s\n' "$PRODUCT_NRESTARTS_BEFORE"
 printf 'DISCOVERY_SCOPE=14_CANDIDATE_RECEIPTS_RECOGNIZED_SWAP_TOPICS_POOL_INTROSPECTION\n'
