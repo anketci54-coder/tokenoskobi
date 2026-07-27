@@ -210,6 +210,8 @@ def decode_transfer_log(log: dict[str, Any]) -> dict[str, Any] | None:
         return None
     if normalize_hash(topics[0]) != TRANSFER_TOPIC:
         return None
+    if len(topics) == 4:
+        return None
     if len(topics) != 3:
         raise Slice04TargetedRouteError('TRANSFER_TOPIC_COUNT_INVALID')
     data = validate_hex(log.get('data') or '', 'transfer.data')
@@ -457,15 +459,16 @@ def run(
             if verified:
                 protocol_events.append(event_row)
         route = classify_transaction_route(actor_net, protocol_events, recognized_count, unverified_count)
+        tx_to = normalize_address(tx['tx_to'], allow_empty=True)
         records.append({
             'tx_hash': tx_hash,
             'block_number': int(tx['block_number']),
             'transaction_index': int(tx['transaction_index']),
             'block_time_utc': str(tx['block_time_utc']),
             'actor': actor,
-            'transaction_target': normalize_address(tx['tx_to'], allow_empty=True),
+            'transaction_target': tx_to,
             'selector': str(tx['selector']),
-            'self_call': actor == normalize_address(tx['tx_to']),
+            'self_call': bool(tx_to and actor == tx_to),
             'receipt_status': int(receipt_row['receipt_status']),
             'gas_cost_wei': str(receipt_row['gas_cost_wei']),
             'receipt_evidence_hash': str(receipt_row['evidence_hash']),
