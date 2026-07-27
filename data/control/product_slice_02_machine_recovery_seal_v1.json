@@ -1,10 +1,10 @@
 {
   "schema": "tokenoskobi.product_slice_02.machine_recovery_seal.v1",
-  "generated_at_utc": "2026-07-26T08:06:12Z",
+  "generated_at_utc": "2026-07-27T06:30:21Z",
   "source_head_before_commit": "e2c867d4fc14ed67af0ea096563a4f768e51c06e",
   "fix6_evidence_head": "4b67cd0e3f631a9fb1e3de5fde831fd882f22e9d",
   "stage": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
-  "status": "PRODUCT_SLICE_02_MACHINE_RECOVERED_PHONE_ACCEPTANCE_PENDING",
+  "status": "PRODUCT_SLICE_02_CLOSED_VERIFIED_PHONE_ACCEPTED_GITHUB_SEALED",
   "classification": "VALID_DEPLOYMENT_MACHINE_VERIFIED_PHONE_ACCEPTANCE_PENDING",
   "source_reconstructed": true,
   "source_restart_verified": true,
@@ -17,8 +17,8 @@
   "external_api_unauth_http": 401,
   "external_health_http": 200,
   "basic_auth_enforced": true,
-  "phone_acceptance": "NOT_REPORTED_NOT_AUTOMATION_VERIFIED",
-  "unit_tests": "5/5_PASS",
+  "phone_acceptance": "AUTHENTICATED_USER_ACCEPTED_WBNB_AND_USDT",
+  "unit_tests": "18/18_OK",
   "smoke_decision": "ALLOW",
   "smoke_data_quality": "SUFFICIENT",
   "paper_trade": "DISABLED",
@@ -27,11 +27,56 @@
   "risk_engine_veto": true,
   "human_action_required": true,
   "canonical_claim_limit": "MACHINE_RECOVERY_ONLY_NOT_USER_ACCEPTANCE",
-  "next_safe_step": "PHONE_AUTHENTICATED_PRODUCT_SLICE_02_ACCEPTANCE",
+  "next_safe_step": "NEXT_WORK_UNIT_PLAN",
   "artifacts": [
     "data/control/product_slice_02_single_token_decision_packet_v1.json",
     "data/control/product_slice_02_smoke_analysis_v1.json",
     "data/control/product_slice_02_nginx_route_recovery_v1.json",
     "reports/LATEST_PRODUCT_SLICE_02_SINGLE_TOKEN_DECISION_PACKET.md"
-  ]
+  ],
+  "phone_acceptance_closure": {
+    "schema": "tokenoskobi.product_slice_02.phone_acceptance_closure.v1",
+    "closed_at_utc": "2026-07-27T06:30:21Z",
+    "status": "PRODUCT_SLICE_02_CLOSED_VERIFIED_PHONE_ACCEPTED_GITHUB_SEALED",
+    "next_safe_step": "NEXT_WORK_UNIT_PLAN",
+    "machine_acceptance": {
+      "wbnb": {
+        "token_price_usd": 574.43,
+        "pool_price_usd": 574.45,
+        "technical_ok": 6,
+        "decision": "ALLOW",
+        "risk_score": 30,
+        "data_quality": "SUFFICIENT"
+      },
+      "usdt": {
+        "token_price_usd": 1.0002049066,
+        "pool_price_usd": 0.994472302371372,
+        "technical_ok": 3,
+        "decision": "ALLOW",
+        "risk_score": 35,
+        "data_quality": "SUFFICIENT"
+      }
+    },
+    "phone_acceptance": {
+      "wbnb": {
+        "visible_price_usd": 574.1,
+        "decision": "ALLOW",
+        "risk_score": 30,
+        "data_quality": "SUFFICIENT"
+      },
+      "usdt": {
+        "visible_price_usd": 0.9958780199,
+        "decision": "ALLOW",
+        "risk_score": 35,
+        "data_quality": "SUFFICIENT"
+      }
+    },
+    "systemd_hardening_preserved": true,
+    "nginx_timeout_seconds": 600,
+    "paper_trade": "DISABLED",
+    "live_trade": "DISABLED",
+    "real_financial_authority": 0,
+    "issue": 12,
+    "pull_request": 14
+  }
 }

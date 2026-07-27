@@ -1,22 +1,18 @@
 # 04 ALMANAC - TOKENOSKOBI / COINOSKOBI MASTER ALMANAC
 
 <!-- PRODUCT_SLICE_02_MACHINE_RECOVERY:BEGIN -->
-## Product Slice 02 Machine Recovery
+## Product Slice 02 Final Acceptance
 
-- Timestamp UTC: `2026-07-26T08:06:12Z`
-- Status: `PRODUCT_SLICE_02_MACHINE_RECOVERED_PHONE_ACCEPTANCE_PENDING`
-- Source reconstructed and restart verified: `true`
-- Service: `active`, PID `2108810`, `127.0.0.1:8096`
-- Local root/health: `200/200`
-- External panel/API unauthenticated: `401/401`
-- External health: `200`
-- Nginx static-shadow HTTP 500: `FIXED`
-- Basic Auth: `ENFORCED`
-- Unit tests: `5/5 PASS`
-- Phone acceptance: `NOT_REPORTED_NOT_AUTOMATION_VERIFIED`
-- Paper/live/wallet/signing/order/trade authority: `DISABLED / 0`
-- Artifact: `data/control/product_slice_02_machine_recovery_seal_v1.json`
-- Next: `PHONE_AUTHENTICATED_PRODUCT_SLICE_02_ACCEPTANCE`
+- Closed UTC: `2026-07-27T06:30:21Z`
+- Status: `PRODUCT_SLICE_02_CLOSED_VERIFIED_PHONE_ACCEPTED_GITHUB_SEALED`
+- WBNB phone: `574.1 USD / ALLOW / 30 / SUFFICIENT`
+- USDT phone: `0.9958780199 USD / ALLOW / 35 / SUFFICIENT`
+- Target-token orientation: `VERIFIED`
+- Unit tests: `18/18 OK`
+- Systemd hardening: `PRESERVED`
+- Nginx timeout: `600s`
+- Paper/live authority: `DISABLED / 0`
+- Next: `NEXT_WORK_UNIT_PLAN`
 <!-- PRODUCT_SLICE_02_MACHINE_RECOVERY:END -->
 
 <!-- PRODUCT_SLICE_01_TRUTH:BEGIN -->
