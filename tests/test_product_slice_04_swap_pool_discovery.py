@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import os
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -29,6 +31,40 @@ def int_word(value: int) -> str:
     if value < 0:
         value = (1 << 256) + value
     return value.to_bytes(32, 'big').hex()
+
+
+def valid_enrichment_payload() -> dict:
+    transactions = [
+        {'tx_hash': '0x' + f'{index:064x}'}
+        for index in range(1, 15)
+    ]
+    metadata = [
+        {
+            'token_address': '0x' + f'{index:040x}',
+            'metadata_temporal_mode': 'LATEST_STATE_FALLBACK_ARCHIVE_UNAVAILABLE',
+            'historical_state_verified': False,
+            'archive_fallback_used': True,
+            'effective_block_tag': 'latest',
+        }
+        for index in range(1, 4)
+    ]
+    return {
+        'schema': 'tokenoskobi.product_slice_04.candidate_enrichment.v1',
+        'status': module.EXPECTED_ENRICHMENT_STATUS,
+        'result_hash': module.EXPECTED_ENRICHMENT_RESULT_HASH,
+        'metadata_temporal_policy': {
+            'historical_block_attempt_required': True,
+            'fallback_allowed_only_for_archive_state_unavailable_errors': True,
+            'fallback_target': 'latest',
+            'historical_metadata_verified_count': 0,
+            'latest_metadata_fallback_count': 3,
+            'historical_transaction_and_receipt_identity_preserved': True,
+            'token_amount_normalization_ready': True,
+            'metadata_temporal_limit_explicit': True,
+        },
+        'transactions': transactions,
+        'token_metadata': metadata,
+    }
 
 
 class ProductSlice04SwapPoolDiscoveryTests(unittest.TestCase):
@@ -109,6 +145,33 @@ class ProductSlice04SwapPoolDiscoveryTests(unittest.TestCase):
             'live_trade', 'wallet', 'signing', 'order_create', 'broadcast',
         ):
             self.assertFalse(module.AUTHORITY[key], key)
+
+    def test_archive_fallback_enrichment_contract_is_accepted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'enrichment.json'
+            path.write_text(json.dumps(valid_enrichment_payload()), encoding='utf-8')
+            result = module.load_enrichment(path)
+        self.assertEqual(len(result['tx_map']), 14)
+        self.assertEqual(len(result['metadata_map']), 3)
+        self.assertEqual(result['result_hash'], module.EXPECTED_ENRICHMENT_RESULT_HASH)
+
+    def test_archive_fallback_enrichment_rejects_wrong_counts(self):
+        payload = valid_enrichment_payload()
+        payload['metadata_temporal_policy']['latest_metadata_fallback_count'] = 2
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'enrichment.json'
+            path.write_text(json.dumps(payload), encoding='utf-8')
+            with self.assertRaises(module.Slice04SwapDiscoveryError):
+                module.load_enrichment(path)
+
+    def test_archive_fallback_enrichment_rejects_wrong_result_hash(self):
+        payload = valid_enrichment_payload()
+        payload['result_hash'] = '0' * 64
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'enrichment.json'
+            path.write_text(json.dumps(payload), encoding='utf-8')
+            with self.assertRaises(module.Slice04SwapDiscoveryError):
+                module.load_enrichment(path)
 
 
 if __name__ == '__main__':
