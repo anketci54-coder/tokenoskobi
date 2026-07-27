@@ -1,5 +1,5 @@
 [Unit]
-Description=Tokenoskobi Product Slice 02 Read-Only Decision Packet
+Description=Tokenoskobi Product Slice 03 Human Decision History
 After=network-online.target
 Wants=network-online.target
 
@@ -7,9 +7,10 @@ Wants=network-online.target
 Type=simple
 User=root
 WorkingDirectory=/root/tokenoskobi_clean_v1
-ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/tokenoskobi_product_slice_02_server.py
+ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/tokenoskobi_product_slice_03_server.py
 Restart=on-failure
 RestartSec=3
+UMask=0077
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
@@ -17,7 +18,10 @@ ProtectHome=read-only
 ReadOnlyPaths=/root/tokenoskobi_clean_v1
 RuntimeDirectory=tokenoskobi-product-slice-02
 RuntimeDirectoryMode=0700
+StateDirectory=tokenoskobi-product-slice-03
+StateDirectoryMode=0700
 Environment=TOKENOSKOBI_GT_RATE_DIR=/run/tokenoskobi-product-slice-02
+Environment=TOKENOSKOBI_SLICE03_STATE_DIR=/var/lib/tokenoskobi-product-slice-03
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
 CapabilityBoundingSet=
 
