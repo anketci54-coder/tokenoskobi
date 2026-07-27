@@ -1,5 +1,29 @@
 # 05 ATLAS - TOKENOSKOBI / COINOSKOBI MASTER SYSTEM MAP
 
+<!-- PRODUCT_SLICE_03_RUNTIME_PATH:BEGIN -->
+## PRODUCT SLICE 03 RUNTIME PATH
+
+```text
+AUTHENTICATED PHONE / BROWSER
+  -> TOKEN ANALYSIS AND ADVISORY DECISION
+  -> IMMUTABLE SHA-256 EVIDENCE PACKET
+  -> HASH-CHAINED APPEND-ONLY EVENT LOG
+  -> HUMAN WAIT / ACCEPT / REJECT / REVIEW
+  -> DECISION REVISION WITHOUT DELETION
+  -> EXACT PACKET REOPEN
+  -> USER-TRIGGERED TARGET-ORIENTED OUTCOME OBSERVATION
+  -> HISTORY DISPLAY
+```
+
+- Persistent state is owned by systemd `StateDirectory=tokenoskobi-product-slice-03`.
+- Repository remains read-only; state directory mode is `0700`, packet/event modes are `0600`.
+- Basic Auth actor is recorded in decision and outcome events.
+- Outcome recording requires a human decision and links to its exact event hash.
+- Repeated outcome requests append observations; previous evidence is never overwritten.
+- Paper/live/wallet/signing/order/broadcast authority remains disabled.
+<!-- PRODUCT_SLICE_03_RUNTIME_PATH:END -->
+
+
 <!-- PRODUCT_SLICE_02_RUNTIME_PATH:BEGIN -->
 ## PRODUCT SLICE 02 RUNTIME PATH
 
