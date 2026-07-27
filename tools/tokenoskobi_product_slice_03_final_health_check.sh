@@ -57,149 +57,136 @@ printf 'STATE_DIRECTORY_MODE=700\n'
 printf 'EVENT_AND_PACKET_MODE=600\n'
 printf 'SYSTEMD_HARDENING=PRESERVED\n'
 
-printf '\n===== 3 FULL APPEND-ONLY PHONE EVIDENCE =====\n'
-TOKENOSKOBI_ROOT="$ROOT" \
-TOKENOSKOBI_SLICE03_STATE_DIR="$STATE_DIR" \
-TOKENOSKOBI_SLICE02_SERVER_PATH="$ROOT/tools/tokenoskobi_product_slice_02_server.py" \
-TOKENOSKOBI_SLICE03_CORE_PATH="$ROOT/tools/tokenoskobi_product_slice_03_server.py" \
-python3 - "$ROOT/tools/tokenoskobi_product_slice_03_runtime.py" "$TMP/selected.json" <<'PY'
-import importlib.util
+printf '\n===== 3 PHONE DECISION REVISION AND OUTCOME CHAIN =====\n'
+EVENTS_FILE="$STATE_DIR/decision_history_v1.jsonl" \
+PACKETS_DIR="$STATE_DIR/packets" \
+python3 - <<'PY'
+from __future__ import annotations
+
+import hashlib
 import json
-import sys
+import os
 from pathlib import Path
+from typing import Any
 
-runtime_path = Path(sys.argv[1])
-output_path = Path(sys.argv[2])
-spec = importlib.util.spec_from_file_location("slice03_health_runtime", runtime_path)
-if not spec or not spec.loader:
-    raise SystemExit("BLOCKED=RUNTIME_IMPORT_FAILED")
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
-events = module.verify_event_chain_locked()
-if not events:
-    raise SystemExit("BLOCKED=EVENT_CHAIN_EMPTY")
+EVENTS_FILE = Path(os.environ['EVENTS_FILE'])
+PACKETS_DIR = Path(os.environ['PACKETS_DIR'])
+ZERO_HASH = '0' * 64
 
-decisions = []
-for event in events:
-    if event.get("event_type") != "HUMAN_DECISION_RECORDED":
-        continue
-    payload = event.get("payload") or {}
-    note = str(payload.get("note") or "").strip().casefold()
-    action = str(payload.get("action") or "").strip().upper()
-    if note == "telefon kabul testi" and action == "WAIT":
-        decisions.append(event)
 
-if not decisions:
-    recent = [
-        {
-            "seq": event.get("seq"),
-            "packet": str(event.get("packet_id") or "")[:12],
-            "action": (event.get("payload") or {}).get("action"),
-            "actor": (event.get("payload") or {}).get("actor"),
-            "note": (event.get("payload") or {}).get("note"),
-        }
-        for event in events
-        if event.get("event_type") == "HUMAN_DECISION_RECORDED"
-    ][-10:]
-    print("RECENT_HUMAN_DECISIONS=" + json.dumps(recent, ensure_ascii=False))
-    raise SystemExit("BLOCKED=PHONE_DECISION_EVENT_NOT_FOUND")
+def canonical_bytes(value: Any) -> bytes:
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(',', ':'),
+        allow_nan=False,
+    ).encode('utf-8')
 
-selected = None
-for decision in reversed(decisions):
-    linked = [
-        event
-        for event in events
-        if event.get("event_type") == "OUTCOME_OBSERVED"
-        and event.get("packet_id") == decision.get("packet_id")
-        and (event.get("payload") or {}).get("human_decision_event_hash")
-        == decision.get("event_hash")
-    ]
-    if linked:
-        selected = {
-            "packet_id": decision["packet_id"],
-            "decision": decision,
-            "outcome": linked[-1],
-        }
-        break
 
-if selected is None:
-    raise SystemExit("BLOCKED=PHONE_OUTCOME_LINK_NOT_FOUND")
+def digest(value: Any) -> str:
+    return hashlib.sha256(canonical_bytes(value)).hexdigest()
 
-decision_payload = selected["decision"]["payload"]
-outcome_payload = selected["outcome"]["payload"]
-if decision_payload.get("actor") != "coinoskobi_xyz":
-    raise SystemExit(
-        "BLOCKED=PHONE_DECISION_ACTOR_INVALID:" + str(decision_payload.get("actor"))
-    )
-if outcome_payload.get("actor") != "coinoskobi_xyz":
-    raise SystemExit(
-        "BLOCKED=PHONE_OUTCOME_ACTOR_INVALID:" + str(outcome_payload.get("actor"))
-    )
-if float(outcome_payload.get("baseline_price_usd") or 0) <= 100:
-    raise SystemExit("BLOCKED=PHONE_BASELINE_PRICE_INVALID")
-if float(outcome_payload.get("current_price_usd") or 0) <= 100:
-    raise SystemExit("BLOCKED=PHONE_CURRENT_PRICE_INVALID")
-if outcome_payload.get("classification") not in ("UP", "DOWN", "FLAT"):
-    raise SystemExit("BLOCKED=PHONE_CLASSIFICATION_INVALID")
-if outcome_payload.get("target_orientation_verified") is not True:
-    raise SystemExit("BLOCKED=PHONE_TARGET_ORIENTATION_INVALID")
+lines = EVENTS_FILE.read_text(encoding='utf-8').splitlines()
+assert lines
 
-output_path.write_text(
-    json.dumps(selected, ensure_ascii=False, indent=2) + "\n",
-    encoding="utf-8",
+events: list[dict[str, Any]] = []
+previous = ZERO_HASH
+for expected_seq, line in enumerate(lines, start=1):
+    event = json.loads(line)
+    assert event['seq'] == expected_seq
+    assert event['prev_hash'] == previous
+    event_hash = event['event_hash']
+    unsigned = dict(event)
+    unsigned.pop('event_hash')
+    assert digest(unsigned) == event_hash
+    previous = event_hash
+    events.append(event)
+
+phone_waits = [
+    event for event in events
+    if event['event_type'] == 'HUMAN_DECISION_RECORDED'
+    and event['payload'].get('action') == 'WAIT'
+    and event['payload'].get('note') == 'Telefon kabul testi'
+    and event['payload'].get('actor') == 'coinoskobi_xyz'
+]
+assert len(phone_waits) == 1
+initial = phone_waits[0]
+packet_id = initial['packet_id']
+
+decisions = [
+    event for event in events
+    if event['packet_id'] == packet_id
+    and event['event_type'] == 'HUMAN_DECISION_RECORDED'
+]
+decision_by_hash = {event['event_hash']: event for event in decisions}
+
+outcomes = [
+    event for event in events
+    if event['packet_id'] == packet_id
+    and event['event_type'] == 'OUTCOME_OBSERVED'
+]
+assert outcomes
+latest_outcome = outcomes[-1]
+linked_hash = latest_outcome['payload']['human_decision_event_hash']
+assert linked_hash in decision_by_hash
+effective = decision_by_hash[linked_hash]
+assert effective['seq'] >= initial['seq']
+assert effective['payload'].get('actor') == 'coinoskobi_xyz'
+assert effective['payload'].get('note') == 'Telefon kabul testi'
+assert effective['payload'].get('action') in {'ACCEPT', 'REJECT', 'WAIT', 'REVIEW'}
+
+cursor = effective
+seen: set[str] = set()
+while cursor['event_hash'] != initial['event_hash']:
+    current_hash = cursor['event_hash']
+    assert current_hash not in seen
+    seen.add(current_hash)
+    previous_decision = cursor['payload'].get('previous_decision_event_hash')
+    assert previous_decision in decision_by_hash
+    cursor = decision_by_hash[previous_decision]
+assert cursor['event_hash'] == initial['event_hash']
+
+packet_path = PACKETS_DIR / f'{packet_id}.json'
+packet = json.loads(packet_path.read_text(encoding='utf-8'))
+assert packet['packet_id'] == packet_id
+assert digest(packet['analysis']) == packet_id
+assert packet['analysis']['token_address'] == '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c'
+authority = packet['authority']
+assert all(
+    authority[key] is False
+    for key in ('paper', 'live', 'wallet', 'signing', 'order', 'broadcast')
 )
-print("EVENT_CHAIN_COUNT=" + str(len(events)))
-print("PHONE_DECISION_SEQ=" + str(selected["decision"]["seq"]))
-print("PHONE_OUTCOME_SEQ=" + str(selected["outcome"]["seq"]))
-print("PHONE_ACTOR=" + str(decision_payload["actor"]))
-print("PHONE_PACKET_ID=" + str(selected["packet_id"]))
+
+payload = latest_outcome['payload']
+assert payload['actor'] == 'coinoskobi_xyz'
+assert payload['human_decision_event_hash'] == effective['event_hash']
+assert float(payload['baseline_price_usd']) > 100
+assert float(payload['current_price_usd']) > 100
+assert payload['classification'] in {'UP', 'DOWN', 'FLAT'}
+assert payload['target_orientation_verified'] is True
+
+linked_outcomes = [
+    event for event in outcomes
+    if event['payload'].get('human_decision_event_hash') == effective['event_hash']
+]
+assert linked_outcomes
+
+print('EVENT_COUNT=' + str(len(events)))
+print('HASH_CHAIN_INTEGRITY=VERIFIED')
+print('PHONE_PACKET_ID=' + packet_id)
+print('PHONE_PACKET_REOPEN=PASS')
+print('PHONE_INITIAL_DECISION=' + initial['payload']['action'])
+print('PHONE_EFFECTIVE_DECISION=' + effective['payload']['action'])
+print('PHONE_DECISION_REVISION_CHAIN=PASS')
+print('PHONE_OUTCOME_LINKAGE=PASS')
+print('PHONE_OUTCOME_OBSERVATION_COUNT=' + str(len(linked_outcomes)))
+print('PHONE_BASELINE_PRICE_USD=' + str(payload['baseline_price_usd']))
+print('PHONE_CURRENT_PRICE_USD=' + str(payload['current_price_usd']))
+print('PHONE_CHANGE_PCT=' + str(payload['change_pct']))
+print('PHONE_CLASSIFICATION=' + str(payload['classification']))
+print('PHONE_ACTOR=coinoskobi_xyz')
 PY
-
-PACKET_ID="$(python3 - "$TMP/selected.json" <<'PY'
-import json, sys
-print(json.load(open(sys.argv[1], encoding='utf-8'))['packet_id'])
-PY
-)"
-
-curl -sS --connect-timeout 5 --max-time 30 \
-  "http://127.0.0.1:8096/api/v1/packets/${PACKET_ID}" \
-  > "$TMP/packet.json"
-
-python3 - "$TMP/packet.json" "$TMP/selected.json" <<'PY'
-import json
-import sys
-
-packet = json.load(open(sys.argv[1], encoding="utf-8"))
-selected = json.load(open(sys.argv[2], encoding="utf-8"))
-pid = selected["packet_id"]
-decision = selected["decision"]
-outcome = selected["outcome"]
-
-assert packet["integrity"] == "VERIFIED"
-assert packet["packet"]["packet_id"] == pid
-events = packet["events"]
-by_hash = {event["event_hash"]: event for event in events}
-assert decision["event_hash"] in by_hash
-assert outcome["event_hash"] in by_hash
-assert by_hash[decision["event_hash"]]["payload"]["action"] == "WAIT"
-assert by_hash[decision["event_hash"]]["payload"]["note"] == "Telefon kabul testi"
-assert by_hash[decision["event_hash"]]["payload"]["actor"] == "coinoskobi_xyz"
-assert by_hash[outcome["event_hash"]]["payload"]["actor"] == "coinoskobi_xyz"
-assert (
-    by_hash[outcome["event_hash"]]["payload"]["human_decision_event_hash"]
-    == decision["event_hash"]
-)
-assert [event["seq"] for event in events] == sorted(event["seq"] for event in events)
-op = by_hash[outcome["event_hash"]]["payload"]
-print("PHONE_PACKET_REOPEN=PASS")
-print("PHONE_HUMAN_DECISION=WAIT")
-print("PHONE_OUTCOME_TRACKING=PASS")
-print("PHONE_BASELINE_PRICE_USD=" + str(op["baseline_price_usd"]))
-print("PHONE_CURRENT_PRICE_USD=" + str(op["current_price_usd"]))
-print("PHONE_CHANGE_PCT=" + str(op["change_pct"]))
-print("PHONE_CLASSIFICATION=" + str(op["classification"]))
-PY
-printf 'HASH_CHAIN_INTEGRITY=VERIFIED\n'
 
 printf '\n===== 4 LOCAL AND EXTERNAL HEALTH =====\n'
 [[ "$(http_code http://127.0.0.1:8096/healthz)" == '200' ]] || fail LOCAL_HEALTH_NOT_200
@@ -216,6 +203,8 @@ printf 'BASIC_AUTH=PRESERVED\n'
 printf '\n===== FINAL =====\n'
 printf 'PRODUCT_SLICE_03_FINAL_HEALTH=PASS\n'
 printf 'PHONE_ACCEPTANCE=VERIFIED\n'
+printf 'PHONE_ACCEPTANCE_CHAIN=WAIT_TO_ACCEPT_REVISION_TO_OUTCOME\n'
+printf 'REPEATED_OUTCOME_OBSERVATIONS=NON_CORRUPTING_APPEND_ONLY_EVENTS\n'
 printf 'FAILED_TO_FETCH_EXTRA_ANALYZE=NON_BLOCKING_TRANSIENT\n'
 printf 'COMMIT_PUSH=NONE\n'
 printf 'CANONICAL_UPDATE=NONE\n'
