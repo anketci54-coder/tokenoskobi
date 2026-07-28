@@ -109,7 +109,7 @@ def adaptive_fetch(
                 raise
             if current_start == current_end:
                 raise base.Slice04HistoricalReverseScanError(
-                    f'ETH_GET_LOGS_LIMIT_AT_SINGLE_BLOCK:{current_start}'
+                    f'ETH_GET_LOGS_LIMIT_AT_SINGLE_ACTOR_SINGLE_BLOCK:{current_start}'
                 ) from exc
             midpoint = (current_start + current_end) // 2
             pending.insert(0, (midpoint + 1, current_end))
@@ -141,18 +141,128 @@ def group_filter_for_actors(
     direction: str,
     actor_topics: list[str],
 ) -> dict[str, Any]:
-    if not actor_topics:
+    normalized = sorted(set(str(item).lower() for item in actor_topics if str(item).strip()))
+    if not normalized:
         raise base.Slice04HistoricalReverseScanError('ADAPTIVE_GROUP_ACTORS_EMPTY')
+    topic_value: str | list[str] = normalized[0] if len(normalized) == 1 else normalized
     value = dict(original_filter)
     topics = list(value.get('topics') or [])
     if direction == 'OUT' and len(topics) == 2:
-        topics[1] = sorted(set(actor_topics))
+        topics[1] = topic_value
     elif direction == 'IN' and len(topics) == 3 and topics[1] is None:
-        topics[2] = sorted(set(actor_topics))
+        topics[2] = topic_value
     else:
         raise base.Slice04HistoricalReverseScanError('ADAPTIVE_GROUP_FILTER_INVALID')
     value['topics'] = topics
     return value
+
+
+def partition_actor_topics(actor_topics: list[str], maximum_group_size: int | None) -> list[list[str]]:
+    normalized = sorted(set(str(item).lower() for item in actor_topics if str(item).strip()))
+    if not normalized:
+        raise base.Slice04HistoricalReverseScanError('ADAPTIVE_GROUP_ACTORS_EMPTY')
+    if maximum_group_size is None or maximum_group_size <= 0 or len(normalized) <= maximum_group_size:
+        return [normalized]
+    return [normalized[index:index + maximum_group_size] for index in range(0, len(normalized), maximum_group_size)]
+
+
+def adaptive_fetch_grouped(
+    call_once: Callable[[dict[str, Any]], Any],
+    original_filter: dict[str, Any],
+    direction: str,
+    actor_topics: list[str],
+    *,
+    preferred_span: int | None = None,
+    preferred_actor_group_size: int | None = None,
+    maximum_grouped_logs: int = MAX_GROUPED_LOGS_PER_CHUNK,
+) -> tuple[list[dict[str, Any]], int, int, int | None, int | None]:
+    start, end = parse_filter_range(original_filter)
+    block_ranges: list[tuple[int, int]] = []
+    if preferred_span is not None and preferred_span > 0 and end - start + 1 > preferred_span:
+        cursor = start
+        while cursor <= end:
+            sub_end = min(cursor + preferred_span - 1, end)
+            block_ranges.append((cursor, sub_end))
+            cursor = sub_end + 1
+    else:
+        block_ranges.append((start, end))
+
+    topic_groups = partition_actor_topics(actor_topics, preferred_actor_group_size)
+    pending: list[tuple[int, int, list[str]]] = [
+        (range_start, range_end, list(group))
+        for range_start, range_end in block_ranges
+        for group in topic_groups
+    ]
+    output: list[dict[str, Any]] = []
+    block_split_count = 0
+    actor_split_count = 0
+    learned_span = preferred_span
+    learned_actor_group_size = preferred_actor_group_size
+
+    while pending:
+        current_start, current_end, current_topics = pending.pop(0)
+        current_filter = group_filter_for_actors(
+            with_range(original_filter, current_start, current_end),
+            direction,
+            current_topics,
+        )
+        try:
+            result = call_once(current_filter)
+        except base.Slice04HistoricalReverseScanError as exc:
+            if not is_limit_exceeded_error(exc):
+                raise
+            if len(current_topics) > 1:
+                midpoint = len(current_topics) // 2
+                pending.insert(0, (current_start, current_end, current_topics[midpoint:]))
+                pending.insert(0, (current_start, current_end, current_topics[:midpoint]))
+                actor_split_count += 1
+                continue
+            if current_start < current_end:
+                midpoint = (current_start + current_end) // 2
+                pending.insert(0, (midpoint + 1, current_end, current_topics))
+                pending.insert(0, (current_start, midpoint, current_topics))
+                block_split_count += 1
+                continue
+            raise base.Slice04HistoricalReverseScanError(
+                f'ETH_GET_LOGS_LIMIT_AT_SINGLE_ACTOR_SINGLE_BLOCK:{current_start}'
+            ) from exc
+
+        if not isinstance(result, list):
+            raise base.Slice04HistoricalReverseScanError('ADAPTIVE_ETH_GET_LOGS_RESULT_NOT_LIST')
+        if len(result) > maximum_grouped_logs:
+            if len(current_topics) > 1:
+                midpoint = len(current_topics) // 2
+                pending.insert(0, (current_start, current_end, current_topics[midpoint:]))
+                pending.insert(0, (current_start, current_end, current_topics[:midpoint]))
+                actor_split_count += 1
+                continue
+            if current_start < current_end:
+                midpoint = (current_start + current_end) // 2
+                pending.insert(0, (midpoint + 1, current_end, current_topics))
+                pending.insert(0, (current_start, midpoint, current_topics))
+                block_split_count += 1
+                continue
+            raise base.Slice04HistoricalReverseScanError('ADAPTIVE_SINGLE_ACTOR_SINGLE_BLOCK_LOG_SCOPE_EXCEEDED')
+
+        successful_span = current_end - current_start + 1
+        successful_group_size = len(current_topics)
+        learned_span = successful_span if learned_span is None else min(learned_span, successful_span)
+        learned_actor_group_size = (
+            successful_group_size
+            if learned_actor_group_size is None
+            else min(learned_actor_group_size, successful_group_size)
+        )
+        output.extend(result)
+        if len(output) > maximum_grouped_logs:
+            raise base.Slice04HistoricalReverseScanError('ADAPTIVE_GROUPED_LOG_SCOPE_EXCEEDED')
+
+    return (
+        dedupe_logs(output),
+        block_split_count,
+        actor_split_count,
+        learned_span,
+        learned_actor_group_size,
+    )
 
 
 def filter_logs_for_actor(logs: list[dict[str, Any]], direction: str, actor_topic: str) -> list[dict[str, Any]]:
@@ -185,7 +295,9 @@ class AdaptiveGroupedRpcClient(OriginalRpcClient):
         self.group_cache: dict[tuple[str, str, int, int], list[dict[str, Any]]] = {}
         self.actor_cache: dict[tuple[str, str, str, int, int], list[dict[str, Any]]] = {}
         self.preferred_span: int | None = None
-        self.adaptive_split_count = 0
+        self.preferred_actor_group_size: int | None = None
+        self.adaptive_block_split_count = 0
+        self.adaptive_actor_split_count = 0
 
     def _raw_get_logs(self, log_filter: dict[str, Any]) -> Any:
         return super().call('eth_getLogs', [log_filter])
@@ -217,15 +329,24 @@ class AdaptiveGroupedRpcClient(OriginalRpcClient):
             actor_topics = self.group_topics.get((token, direction))
             if not actor_topics or actor_topic not in actor_topics:
                 raise base.Slice04HistoricalReverseScanError('ADAPTIVE_ANCHOR_GROUP_MISSING')
-            grouped_filter = group_filter_for_actors(original_filter, direction, actor_topics)
-            logs, splits, learned = adaptive_fetch(
+            logs, block_splits, actor_splits, learned_span, learned_group_size = adaptive_fetch_grouped(
                 self._raw_get_logs,
-                grouped_filter,
+                original_filter,
+                direction,
+                actor_topics,
                 preferred_span=self.preferred_span,
+                preferred_actor_group_size=self.preferred_actor_group_size,
             )
-            self.adaptive_split_count += splits
-            if learned is not None:
-                self.preferred_span = learned if self.preferred_span is None else min(self.preferred_span, learned)
+            self.adaptive_block_split_count += block_splits
+            self.adaptive_actor_split_count += actor_splits
+            if learned_span is not None:
+                self.preferred_span = learned_span if self.preferred_span is None else min(self.preferred_span, learned_span)
+            if learned_group_size is not None:
+                self.preferred_actor_group_size = (
+                    learned_group_size
+                    if self.preferred_actor_group_size is None
+                    else min(self.preferred_actor_group_size, learned_group_size)
+                )
             self.group_cache[group_key] = logs
 
         actor_logs = filter_logs_for_actor(self.group_cache[group_key], direction, actor_topic)
@@ -236,7 +357,7 @@ class AdaptiveGroupedRpcClient(OriginalRpcClient):
                 preferred_span=self.preferred_span,
                 maximum_grouped_logs=base.MAX_LOGS_PER_QUERY,
             )
-            self.adaptive_split_count += splits
+            self.adaptive_block_split_count += splits
             if learned is not None:
                 self.preferred_span = learned if self.preferred_span is None else min(self.preferred_span, learned)
             actor_logs = logs
