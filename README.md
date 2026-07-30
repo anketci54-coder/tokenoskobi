@@ -359,57 +359,40 @@ Paper trade is zero-real-funds simulation authority. Live trade is real wallet, 
 <!-- PAPER_LIVE_AUTHORITY_SPLIT:END -->
 
 <!-- CANONICAL_BOOT_V4:BEGIN -->
-## CANONICAL BOOT V4 — LOCAL, ACTIVE BRANCH AND CALENDAR RESOLUTION
+## CANONICAL BOOT V4.2 — TEK GİRİŞ, ACTIVE BRANCH, TAKVİM VE DRIFT DENETİMİ
 
 Yeni pencereye yalnız şu talimat verilir:
 
 > `README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.`
 
-Bu talimat şu işlemlerin tamamını otomatik başlatır:
+README özeti boot değildir. Mandatory read order 12/12 otomatik tamamlanır. Local workspace varsa local kaynak GitHub'dan üstündür. Local yoksa `main` sealed baseline olarak okunur ve açık aktif PR/work branch aynı 12 dosya setiyle ayrıca okunur.
 
-1. README içindeki mandatory read order 12/12 tamamlanır; README özetiyle durulmaz.
-2. Local workspace varsa local workspace ve local Git, GitHub'dan önce doğrulanır.
-3. Local yoksa GitHub `main` sealed baseline olarak okunur.
-4. Açık aktif PR/work branch varsa aynı canonical dosya seti o branch üzerinde de okunur.
-5. Sealed main ile aktif, unmerged çalışma ayrı raporlanır.
-6. Local DB, `/var/lib` evidence, servis, test ve commit edilmemiş çalışma local erişim olmadan VERIFIED sayılmaz.
-7. Remote branch'in son commit'i gerçek local `NEXT_SAFE_STEP` olarak tahmin edilmez.
-8. Plan, gerçekleşen ve tahmin birbirine karıştırılmaz.
+### Canonical drift denetimi
 
-### Source-of-truth
+Boot sırasında `PROJECT_RUNTIME.json` içindeki iki owner kayıt zorunlu okunur:
 
 ```text
-LOCAL_WORKSPACE
-> LOCAL_GIT
-> GITHUB_MAIN_SEALED_BASELINE
-> GITHUB_ACTIVE_WORK_BRANCH
-> AI_MEMORY
+CURRENT_STATE_OWNER=canonical_current_state_v4
+DRIFT_STATUS_OWNER=canonical_drift_status_v4
 ```
 
-### Zorunlu takvim çözümü
+Yalnız `canonical_drift_status_v4.unresolved_items` içindeki kayıtlar aktif drift sayılır. Tarihsel kapanışlarda bulunan eski `next_safe_step` değerleri current pointer değildir ve warning üretemez.
 
-Her boot sonunda sistem tarihi ve canonical roadmap kullanılarak şunlar ayrıca çıkarılır:
+Boot çıktısına şunlar eklenir:
 
 ```text
-CURRENT_DATE=
-PLANNED_STAGE_BY_TODAY=
-VERIFIED_ACTUAL_STAGE=
-ACTIVE_IN_PROGRESS_STAGE=
-SCHEDULE_STATUS=
-TARGET_DATE=2026-09-01
-CANONICAL_TARGET_BY_TARGET_DATE=
-FORECAST_BY_TARGET_DATE=
-FORECAST_CONFIDENCE=
-CRITICAL_PATH=
-MAIN_BLOCKERS=
-CALENDAR_RESULT=
+CANONICAL_DRIFT_STATUS=
+SCHEMA_GAPS=
+OWNER_DUPLICATION_STATUS=
 ```
 
-Yüzde, gecikme günü veya teslim garantisi canonical veride yoksa uydurulmaz. Live canary ayrı insan onayı olmadan açılmaz.
+`PROJECT_BOOT.json` current state taşımaz. Current state yalnız Runtime owner kaydından, takvim master roadmap JSON'dan, history append-only kayıttan okunur.
 
-### Kod teslim biçimi
+### Takvim
 
-Kullanıcı kod veya sunucu komutu istediğinde varsayılan teslim biçimi:
+Plan, gerçekleşen ve tahmin ayrı raporlanır. Hedef tarih `2026-09-01`; canlı canary bütün önceki kapılar ve ayrı insan onayına bağlıdır.
+
+### Kod teslimi
 
 ```text
 CODE_DELIVERY_MODE=DOWNLOADABLE_SH_ARTIFACT
@@ -418,10 +401,5 @@ FULL_CODE_IN_CHAT=false
 SINGLE_SELF_CONTAINED_FILE=true
 ```
 
-- Kodun tamamı sohbet gövdesine yazılmaz.
-- İndirilebilir tek bir `.sh` dosyası oluşturulur.
-- Sohbette yalnız kısa amaç, indirme bağlantısı, SHA-256, minimal çalıştırma talimatı ve beklenen ana çıktı alanları verilir.
-- Dosya SSH-safe, mobile/4G-safe, rollback-aware ve yanlış hostta herhangi bir yazma yapmadan duracak biçimde hazırlanır.
-- Kullanıcı açıkça “kodu sohbet içine yaz” demedikçe inline tam kod verilmez.
-- Dosya üretme aracı yoksa tam kod dökülmez; `FILE_DELIVERY_UNAVAILABLE` denir.
+Tam kod kullanıcı açıkça inline istemedikçe sohbet gövdesine yazılmaz.
 <!-- CANONICAL_BOOT_V4:END -->
