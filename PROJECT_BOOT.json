@@ -56,6 +56,7 @@
     },
     "rule": "RUNTIME owns current state. BOOT owns stable identity and rules. HISTORY owns append-only historical events."
   },
+  "boot_contract_updated_at_utc": "2026-07-30T06:22:58.925219+00:00",
   "boot_update_policy": {
     "current_state_owner": "PROJECT_RUNTIME.json",
     "do_not_update_for": [
@@ -78,7 +79,94 @@
       "boot contract changes"
     ]
   },
-  "boot_version": "3.6",
+  "boot_version": "3.8",
+  "canonical_boot_v4": {
+    "calendar_behavior": {
+      "current_date_source": "SYSTEM_DATE",
+      "do_not_invent_percentages_or_delay_days": true,
+      "mandatory_target_date": "2026-09-01",
+      "separate_plan_actual_forecast": true,
+      "timeline_sources": [
+        "data/tokenoskobi_v1_v8_master_era_roadmap.json",
+        "PROJECT_RUNTIME.json",
+        "PROJECT_HISTORY.json",
+        "03_ROADMAP.md",
+        "04_ALMANAC.md"
+      ]
+    },
+    "code_delivery_policy": {
+      "artifact_unavailable_behavior": "DO_NOT_DUMP_FULL_CODE; REPORT_FILE_DELIVERY_UNAVAILABLE",
+      "chat_may_include_only": [
+        "short_purpose",
+        "download_link",
+        "sha256",
+        "minimal_run_instruction",
+        "expected_output_keys"
+      ],
+      "default_mode": "DOWNLOADABLE_SH_ARTIFACT",
+      "file_extension": ".sh",
+      "full_code_in_chat": false,
+      "inline_code_exception": "ONLY_WHEN_USER_EXPLICITLY_REQUESTS_INLINE_CODE",
+      "single_self_contained_file": true,
+      "ssh_safety_required": true,
+      "wrong_host_guard_before_any_write": true
+    },
+    "local_first": true,
+    "mandatory_boot_output": [
+      "BOOT_MODE",
+      "REPOSITORY_SOURCE",
+      "LOCAL_WORKSPACE_ACCESS",
+      "CANONICAL_FILES_READ",
+      "LOCAL_BRANCH",
+      "LOCAL_HEAD",
+      "ORIGIN_MAIN",
+      "ACTIVE_WORK_BRANCH",
+      "ACTIVE_WORK_BRANCH_HEAD",
+      "REPOSITORY_SYNC",
+      "CURRENT_VERSION",
+      "CURRENT_ERA",
+      "SEALED_MAIN_STAGE",
+      "ACTIVE_WORK_STAGE",
+      "ACTIVE_WORK_UNIT",
+      "WORK_UNIT_STATUS",
+      "LAST_COMPLETED",
+      "NEXT_SAFE_STEP",
+      "OPEN_BLOCKERS",
+      "LOCAL_ONLY_EVIDENCE_STATUS",
+      "AUTHORITY_LOCKS",
+      "PR_STATUS",
+      "ISSUE_STATUS",
+      "STALE_LEGACY_POINTERS",
+      "CONTRADICTIONS",
+      "BOOT_RESULT"
+    ],
+    "mandatory_calendar_output": [
+      "CURRENT_DATE",
+      "PLANNED_STAGE_BY_TODAY",
+      "VERIFIED_ACTUAL_STAGE",
+      "ACTIVE_IN_PROGRESS_STAGE",
+      "SCHEDULE_STATUS",
+      "TARGET_DATE",
+      "CANONICAL_TARGET_BY_TARGET_DATE",
+      "FORECAST_BY_TARGET_DATE",
+      "FORECAST_CONFIDENCE",
+      "CRITICAL_PATH",
+      "MAIN_BLOCKERS",
+      "CALENDAR_RESULT"
+    ],
+    "mandatory_read_order_auto_continues": true,
+    "readme_only_is_not_boot_complete": true,
+    "remote_only_behavior": {
+      "discover_open_active_work_branch": true,
+      "do_not_infer_local_next_step_from_remote_last_commit": true,
+      "local_only_evidence_is_unverified_without_local_access": true,
+      "read_active_branch_canonical_set": true,
+      "read_main_as_sealed_baseline": true,
+      "report_main_and_active_branch_separately": true
+    },
+    "single_entry_prompt": "README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.",
+    "version": "4.1"
+  },
   "canonical_identity": {
     "doctrine": [
       "Defense like a fortress",
