@@ -41,13 +41,20 @@ POSITION_SIZE
 
 CURRENT_VERSION=V4
 CURRENT_ERA=ERA64
-CURRENT_STAGE=TOKENOSKOBI_USABLE_PRODUCT_VERTICAL_SLICE
-CURRENT_STATUS=PRODUCT_COMPLETION_DEADLINE_LOCKED_2026_09_01
+SEALED_MAIN_STAGE=PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING
+SEALED_MAIN_STATUS=PRODUCT_SLICE_03_CLOSED_VERIFIED_PHONE_ACCEPTED_GITHUB_SEALED
+CURRENT_STAGE=PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE
+CURRENT_STATUS=ACTIVE_IN_PROGRESS_NOT_CLOSED
+ACTIVE_WORK_BRANCH=agent/product-slice-04-real-closed-loop
+NEXT_PLANNED_STAGE=PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE
+NEXT_SAFE_STEP=PRODUCT_SLICE_04_SINGLE_TRANSACTION_RELAY_POOL_SETTLEMENT_RECONCILIATION
 PRODUCT_COMPLETION_DEADLINE=2026-09-01
 NO_NEW_ERA=true
 SCOPE_FREEZE=true
 ERA64K_STATUS=DEFERRED_NOT_NEXT_STEP
-NEXT_SAFE_STEP=PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION
+CANONICAL_DRIFT_STATUS=CLEAN_NO_ACTIVE_POINTER_DRIFT
+SCHEMA_GAPS=NONE
+OWNER_DUPLICATION_STATUS=CLEAN_SINGLE_OWNER_SUMMARIES
 
 ## Kesin teslim hedefi
 
@@ -81,7 +88,7 @@ Tokenoskobi kullanılabilir ürün döngüsü, paper-trade testleri ve ilk bound
 Kaybedilen para ancak pre-trade veri snapshotı, karar, insan onayı, quote, receipt, gerçek gas/fee/slippage/tax, exit/outcome ve hata sınıfı kaydedilip replay edilebiliyorsa tecrübeye dönüşür. Sistem bu veriden değişiklik önerir; production kodunu veya trade yetkisini kendiliğinden değiştirmez. Değişiklik replay, regression/red-team ve insan onayından sonra uygulanır.
 
 <!-- PRODUCT_CALENDAR_2026_09_01:BEGIN -->
-## ÜRÜN TAKVİMİ — BUGÜN VE 1 EYLÜL 2026
+## ÜRÜN TAKVİMİ — PLAN / GERÇEKLEŞEN / TAHMİN
 
 ```text
 CURRENT_DATE=2026-07-30
@@ -93,15 +100,9 @@ TARGET_DATE=2026-09-01
 CANONICAL_TARGET_BY_TARGET_DATE=PRODUCT_SLICE_08_LIVE_CANARY_START
 FORECAST_BY_TARGET_DATE=PRODUCT_SLICE_08_LIVE_CANARY_START_CONDITIONAL_ON_ALL_PRIOR_GATES
 FORECAST_CONFIDENCE=MEDIUM
+CANONICAL_DRIFT_STATUS=CLEAN_NO_ACTIVE_POINTER_DRIFT
+SCHEMA_GAPS=NONE
 ```
 
-Plan: 1 Eylül 2026 tarihinde Product Slice 08 live canary başlangıç kapısına ulaşmaktır. Bu hedef garanti değildir; Slice 04–07 kapıları ve ayrı insan onayı zorunludur.
-
-Kritik yol:
-
-1. Slice 04 settlement/FIFO/evidence graph/panel/telefon kabulü
-2. Slice 05 Harekât Subayı, AI konseyi, self-healing ve operasyonel istihbarat
-3. Slice 06 en az 7 günlük sınırlı paper-trade koşusu
-4. Slice 07 son güvenlik go/no-go
-5. Slice 08 için ayrı insan onayı ve bounded live canary başlangıcı
+Kritik yol: Slice 04 settlement/FIFO/evidence graph/panel/telefon → Slice 05 → Slice 06 yedi günlük paper run → Slice 07 security go/no-go → Slice 08 ayrı insan onayı.
 <!-- PRODUCT_CALENDAR_2026_09_01:END -->

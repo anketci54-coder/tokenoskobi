@@ -56,7 +56,7 @@
     },
     "rule": "RUNTIME owns current state. BOOT owns stable identity and rules. HISTORY owns append-only historical events."
   },
-  "boot_contract_updated_at_utc": "2026-07-30T06:23:01.252946+00:00",
+  "boot_contract_updated_at_utc": "2026-07-30T11:22:57.702750+00:00",
   "boot_update_policy": {
     "current_state_owner": "PROJECT_RUNTIME.json",
     "do_not_update_for": [
@@ -79,30 +79,35 @@
       "boot contract changes"
     ]
   },
-  "boot_version": "3.8",
+  "boot_version": "3.9",
   "canonical_boot_v4": {
     "calendar_behavior": {
       "current_date_source": "SYSTEM_DATE",
       "do_not_invent_percentages_or_delay_days": true,
       "mandatory_target_date": "2026-09-01",
-      "separate_plan_actual_forecast": true,
-      "timeline_sources": [
-        "data/tokenoskobi_v1_v8_master_era_roadmap.json",
-        "PROJECT_RUNTIME.json",
-        "PROJECT_HISTORY.json",
-        "03_ROADMAP.md",
-        "04_ALMANAC.md"
-      ]
+      "separate_plan_actual_forecast": true
+    },
+    "canonical_drift_audit": {
+      "current_pointer_paths_only": [
+        "PROJECT_RUNTIME.json.canonical_current_state_v4",
+        "PROJECT_RUNTIME.json.canonical_runtime_pointer",
+        "PROJECT_RUNTIME.json.product_completion_program",
+        "03_ROADMAP.md.CURRENT_DIRECTION",
+        "06_PROJECT_MASTER_STATE.md.CURRENT_SUMMARY",
+        "07_PROJECT_HANDOFF.md.CURRENT_HANDOFF"
+      ],
+      "current_state_owner_path": "PROJECT_RUNTIME.json.canonical_current_state_v4",
+      "do_not_report_resolved_legacy_history_as_active_warning": true,
+      "historical_pointer_values_are_not_current_drift": true,
+      "required_outputs": [
+        "CANONICAL_DRIFT_STATUS",
+        "SCHEMA_GAPS",
+        "OWNER_DUPLICATION_STATUS"
+      ],
+      "runtime_owner_path": "PROJECT_RUNTIME.json.canonical_drift_status_v4"
     },
     "code_delivery_policy": {
       "artifact_unavailable_behavior": "DO_NOT_DUMP_FULL_CODE; REPORT_FILE_DELIVERY_UNAVAILABLE",
-      "chat_may_include_only": [
-        "short_purpose",
-        "download_link",
-        "sha256",
-        "minimal_run_instruction",
-        "expected_output_keys"
-      ],
       "default_mode": "DOWNLOADABLE_SH_ARTIFACT",
       "file_extension": ".sh",
       "full_code_in_chat": false,
@@ -112,48 +117,6 @@
       "wrong_host_guard_before_any_write": true
     },
     "local_first": true,
-    "mandatory_boot_output": [
-      "BOOT_MODE",
-      "REPOSITORY_SOURCE",
-      "LOCAL_WORKSPACE_ACCESS",
-      "CANONICAL_FILES_READ",
-      "LOCAL_BRANCH",
-      "LOCAL_HEAD",
-      "ORIGIN_MAIN",
-      "ACTIVE_WORK_BRANCH",
-      "ACTIVE_WORK_BRANCH_HEAD",
-      "REPOSITORY_SYNC",
-      "CURRENT_VERSION",
-      "CURRENT_ERA",
-      "SEALED_MAIN_STAGE",
-      "ACTIVE_WORK_STAGE",
-      "ACTIVE_WORK_UNIT",
-      "WORK_UNIT_STATUS",
-      "LAST_COMPLETED",
-      "NEXT_SAFE_STEP",
-      "OPEN_BLOCKERS",
-      "LOCAL_ONLY_EVIDENCE_STATUS",
-      "AUTHORITY_LOCKS",
-      "PR_STATUS",
-      "ISSUE_STATUS",
-      "STALE_LEGACY_POINTERS",
-      "CONTRADICTIONS",
-      "BOOT_RESULT"
-    ],
-    "mandatory_calendar_output": [
-      "CURRENT_DATE",
-      "PLANNED_STAGE_BY_TODAY",
-      "VERIFIED_ACTUAL_STAGE",
-      "ACTIVE_IN_PROGRESS_STAGE",
-      "SCHEDULE_STATUS",
-      "TARGET_DATE",
-      "CANONICAL_TARGET_BY_TARGET_DATE",
-      "FORECAST_BY_TARGET_DATE",
-      "FORECAST_CONFIDENCE",
-      "CRITICAL_PATH",
-      "MAIN_BLOCKERS",
-      "CALENDAR_RESULT"
-    ],
     "mandatory_read_order_auto_continues": true,
     "readme_only_is_not_boot_complete": true,
     "remote_only_behavior": {
@@ -165,7 +128,7 @@
       "report_main_and_active_branch_separately": true
     },
     "single_entry_prompt": "README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.",
-    "version": "4.1"
+    "version": "4.2"
   },
   "canonical_identity": {
     "doctrine": [
@@ -496,7 +459,6 @@
       }
     ]
   },
-  "current_checkpoint": "TOKENOSKOBI_PRODUCT_COMPLETION_PLAN_LOCKED",
   "deadline_delivery_contract": {
     "current_deadline_owner": "PROJECT_RUNTIME.json",
     "deadline_must_be_respected": true,
@@ -611,7 +573,6 @@
     "paper_trade_locked_until_explicit_phase": true,
     "runtime_is_current_state_authority": true
   },
-  "last_action": "DYNAMIC_POSITION_SIZING_POLICY_CORRECTION_SYNC",
   "live_canary_learning_contract": {
     "bounded_notional_required": true,
     "complete_evidence_outcome_loop_required": true,
@@ -642,16 +603,6 @@
     ],
     "pass_score": "15/15"
   },
-  "next_safe_step": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
-  "open_risks": [
-    "PRODUCT_SURFACE_NOT_DEPLOYED",
-    "NEWS_LIVE_HEALTH_NOT_REVERIFIED",
-    "PANEL_URL_AND_AUTH_NOT_REVERIFIED",
-    "ALCHEMY_HYBRID_RUNTIME_NOT_REVERIFIED",
-    "INTERNAL_EXTERNAL_SECURITY_NOT_REVERIFIED",
-    "SUCCESSFUL_WALLET_CLASSIFICATION_NOT_READY",
-    "CHATBOT_AI_COUNCIL_SELF_HEALING_NOT_BOUND"
-  ],
   "product_delivery_contract": {
     "completion_definition": [
       "Canlı panel URL telefondan açılır.",
@@ -730,6 +681,19 @@
     ],
     "rule": "Local server state overrides GitHub Remote and AI memory."
   },
+  "stable_only_enforcement": {
+    "current_state_forbidden": true,
+    "current_state_owner": "PROJECT_RUNTIME.json",
+    "forbidden_top_level_keys": [
+      "current_checkpoint",
+      "last_action",
+      "next_safe_step",
+      "open_risks",
+      "updated_at"
+    ],
+    "history_owner": "PROJECT_HISTORY.json",
+    "roadmap_owner": "data/tokenoskobi_v1_v8_master_era_roadmap.json"
+  },
   "tokenoskobi_motto_opportunity_cost_doctrine": {
     "decision_gate": {
       "accept_if": [
@@ -794,7 +758,6 @@
     "status": "PERMANENT_CONSTITUTIONAL_FORMULA_BINDING",
     "updated_at_utc": "2026-07-08T16:48:01.474705+00:00"
   },
-  "updated_at": "2026-07-24T21:54:15.293713+00:00",
   "updated_at_utc": "2026-07-24T21:54:15.293713+00:00",
   "whale_intelligence": {
     "requirements": [

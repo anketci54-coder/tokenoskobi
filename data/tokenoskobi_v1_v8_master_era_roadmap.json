@@ -12,11 +12,8 @@
   "canonical_schedule_snapshot": {
     "active_in_progress_stage": "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE",
     "active_order": 4,
-    "canonical_target_completion_gate": "İlk gerçek işlem; karar, pre-trade snapshot, execution ve outcome kanıtı panelde kayıtlıdır",
-    "canonical_target_deliverable": "BSC PancakeSwap üzerinde işlem başına 1-2 USD, insan onaylı, izole wallet ile gerçek para canary başlangıcı",
     "canonical_target_order": 8,
     "canonical_target_stage": "PRODUCT_SLICE_08_LIVE_CANARY_START",
-    "completed_stage_variance": 1,
     "critical_path": [
       "PRODUCT_SLICE_04_TARGET_TRANSACTION_SETTLEMENT_RECONCILIATION",
       "PRODUCT_SLICE_04_FIFO_CLOSED_LOOP_EVIDENCE",
@@ -29,8 +26,6 @@
     "current_project_date": "2026-07-30",
     "forecast_by_target_date": "PRODUCT_SLICE_08_LIVE_CANARY_START_CONDITIONAL_ON_ALL_PRIOR_GATES",
     "forecast_confidence": "MEDIUM",
-    "forecast_risk": "MEDIUM",
-    "forecast_rule": "PLAN_ACTUAL_FORECAST_ARE_SEPARATE; LIVE_CANARY_REQUIRES_SEPARATE_HUMAN_APPROVAL",
     "forecast_status": "ON_TRACK_WITH_CRITICAL_GATES",
     "planned_order_by_today": 2,
     "planned_stage_by_today": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
@@ -38,6 +33,20 @@
     "target_date": "2026-09-01",
     "verified_sealed_order": 3,
     "verified_sealed_stage": "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING"
+  },
+  "canonical_schema_status_v4": {
+    "missing_fields": [],
+    "required_product_slice_fields": [
+      "id",
+      "order",
+      "window",
+      "purpose",
+      "acceptance",
+      "depends_on",
+      "connects_to"
+    ],
+    "status": "COMPLETE",
+    "validated_at_utc": "2026-07-30T11:22:53.600180+00:00"
   },
   "closure_update_rule": {
     "conditional_navigation_updates": [
@@ -103,6 +112,7 @@
     "live_canary_trade_size_policy": "DYNAMIC_WALLET_OPPORTUNITY_RISK_BASED_POSITION_SIZING",
     "new_era_opened": false,
     "new_work_unit_opened": true,
+    "next_planned_stage": "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE",
     "next_safe_step": "PRODUCT_SLICE_04_SINGLE_TRANSACTION_RELAY_POOL_SETTLEMENT_RECONCILIATION",
     "previous_era": "ERA61",
     "previous_era_closure_head": "11f05676f69c4f301e3756daa5d7cddb86120a4d",
@@ -111,73 +121,138 @@
     "sealed_main_status": "PRODUCT_SLICE_03_CLOSED_VERIFIED_PHONE_ACCEPTED_GITHUB_SEALED",
     "state_authority": "PROJECT_RUNTIME.json",
     "status": "DEADLINE_LOCKED_PRODUCT_COMPLETION",
-    "updated_at_utc": "2026-07-30T06:22:57.635110+00:00"
+    "updated_at_utc": "2026-07-30T11:22:53.600180+00:00"
   },
   "current_state_authority": "PROJECT_RUNTIME.json",
   "deadline_schedule": [
     {
+      "acceptance": "Tek güncel gerçeklik tablosu ve kullanıcı kabulü",
       "completion_gate": "Tek güncel gerçeklik tablosu ve kullanıcı kabulü",
+      "connects_to": [
+        "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET"
+      ],
       "deliverable": "NEWS canlılığı, kesin panel URL/auth, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenlik read-only doğrulaması",
+      "depends_on": [
+        "SEALED_PRODUCT_FOUNDATION_AND_EXISTING_RUNTIME_BASELINE"
+      ],
       "id": "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION",
       "order": 1,
+      "purpose": "NEWS canlılığı, kesin panel URL/auth, Alchemy hibrit bağlantısı, onchain gecikmesi ve iç/dış güvenlik read-only doğrulaması",
       "window": "2026-07-25/2026-07-27"
     },
     {
+      "acceptance": "Telefon üzerinden canlı URL kullanıcı kabulü",
       "completion_gate": "Telefon üzerinden canlı URL kullanıcı kabulü",
+      "connects_to": [
+        "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING"
+      ],
       "deliverable": "Canlı BSC token giriş ekranı, gerçek karar paketi, 1m/5m/15m/1h/4h/1d online teknik analiz ve VERI_YETERSIZ davranışı",
+      "depends_on": [
+        "PRODUCT_SLICE_01_READONLY_LIVE_TRUTH_AND_PANEL_ACCESS_VERIFICATION"
+      ],
       "id": "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET",
       "order": 2,
+      "purpose": "Canlı BSC token giriş ekranı, gerçek karar paketi, 1m/5m/15m/1h/4h/1d online teknik analiz ve VERI_YETERSIZ davranışı",
       "window": "2026-07-28/2026-08-05"
     },
     {
+      "acceptance": "Kaydedilen karar geçmişten doğrulanarak açılır",
       "closed_at_utc": "2026-07-27T09:27:38Z",
       "completion_gate": "Kaydedilen karar geçmişten doğrulanarak açılır",
       "completion_gate_verified": true,
+      "connects_to": [
+        "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE"
+      ],
       "deliverable": "İnsan kararı, append-only geçmiş, tekrar açılabilir kanıt paketi ve sonuç takibi",
+      "depends_on": [
+        "PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET"
+      ],
       "id": "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING",
       "order": 3,
       "phone_acceptance_chain": "WAIT_TO_ACCEPT_REVISION_TO_OUTCOME",
+      "purpose": "İnsan kararı, append-only geçmiş, tekrar açılabilir kanıt paketi ve sonuç takibi",
       "status": "PRODUCT_SLICE_03_CLOSED_VERIFIED_PHONE_ACCEPTED_GITHUB_SEALED",
       "user_visible_acceptance": true,
       "window": "2026-08-06/2026-08-10"
     },
     {
+      "acceptance": "En az bir gerçek kapalı döngü ve kanıt grafiği uçtan uca doğrulanır",
       "completion_gate": "En az bir gerçek kapalı döngü ve kanıt grafiği uçtan uca doğrulanır",
+      "connects_to": [
+        "PRODUCT_SLICE_05_HAREKAT_SUBAYI_AI_COUNCIL_SELF_HEALING_AND_OPERATIONAL_INTELLIGENCE"
+      ],
       "current_verified_gate": "RELAY_SETTLEMENT_FIFO_RECONSTRUCTION_LOCAL_EVIDENCE_VERIFIED",
       "deliverable": "DEX swap yönü, router/pool, metadata/decimals, fiyat ve tam maliyet; başarılı wallet ölçümü; CEX balina akışı; Obsidian tarzı kanıt grafiği",
+      "depends_on": [
+        "PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING"
+      ],
       "id": "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE",
       "next_safe_step": "PRODUCT_SLICE_04_SINGLE_TRANSACTION_RELAY_POOL_SETTLEMENT_RECONCILIATION",
       "order": 4,
+      "purpose": "DEX swap yönü, router/pool, metadata/decimals, fiyat ve tam maliyet; başarılı wallet ölçümü; CEX balina akışı; Obsidian tarzı kanıt grafiği",
       "status": "ACTIVE_IN_PROGRESS_NOT_CLOSED",
       "updated_at_utc": "2026-07-30T06:22:57.635110+00:00",
       "window": "2026-08-11/2026-08-17"
     },
     {
+      "acceptance": "Kullanıcıya gerçek sistem olayı üzerinden açıklama ve onarım önerisi gelir",
       "completion_gate": "Kullanıcıya gerçek sistem olayı üzerinden açıklama ve onarım önerisi gelir",
+      "connects_to": [
+        "PRODUCT_SLICE_06_LIMITED_PAPER_TRADE"
+      ],
       "deliverable": "Chatbot, advisory AI konseyi, arıza teşhis/diff/test önerisi ve DEX-operasyonel teknoloji/saldırı istihbaratı opportunity-cost döngüsü",
+      "depends_on": [
+        "PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE"
+      ],
       "id": "PRODUCT_SLICE_05_HAREKAT_SUBAYI_AI_COUNCIL_SELF_HEALING_AND_OPERATIONAL_INTELLIGENCE",
       "order": 5,
+      "purpose": "Chatbot, advisory AI konseyi, arıza teşhis/diff/test önerisi ve DEX-operasyonel teknoloji/saldırı istihbaratı opportunity-cost döngüsü",
       "window": "2026-08-18/2026-08-22"
     },
     {
+      "acceptance": "En az 7 günlük sürekli koşu, kapanmış simülasyon döngüleri ve hata/restart testleri",
       "completion_gate": "En az 7 günlük sürekli koşu, kapanmış simülasyon döngüleri ve hata/restart testleri",
+      "connects_to": [
+        "PRODUCT_SLICE_07_FINAL_SECURITY_GO_NO_GO"
+      ],
       "deliverable": "Gerçek fiyat, gas, fee, slippage ve gecikme kullanan kesintisiz sınırlı paper trade",
+      "depends_on": [
+        "PRODUCT_SLICE_05_HAREKAT_SUBAYI_AI_COUNCIL_SELF_HEALING_AND_OPERATIONAL_INTELLIGENCE"
+      ],
       "id": "PRODUCT_SLICE_06_LIMITED_PAPER_TRADE",
       "order": 6,
+      "purpose": "Gerçek fiyat, gas, fee, slippage ve gecikme kullanan kesintisiz sınırlı paper trade",
       "window": "2026-08-23/2026-08-29"
     },
     {
+      "acceptance": "Kritik/yüksek açık yok; kullanıcı canlı canary aktivasyonunu ayrıca onaylar",
       "completion_gate": "Kritik/yüksek açık yok; kullanıcı canlı canary aktivasyonunu ayrıca onaylar",
+      "connects_to": [
+        "PRODUCT_SLICE_08_LIVE_CANARY_START"
+      ],
       "deliverable": "Signer/wallet izolasyonu, kill switch, exact approvals, backup/recovery ve son go/no-go",
+      "depends_on": [
+        "PRODUCT_SLICE_06_LIMITED_PAPER_TRADE"
+      ],
       "id": "PRODUCT_SLICE_07_FINAL_SECURITY_GO_NO_GO",
       "order": 7,
+      "purpose": "Signer/wallet izolasyonu, kill switch, exact approvals, backup/recovery ve son go/no-go",
       "window": "2026-08-30/2026-08-31"
     },
     {
+      "acceptance": "İlk gerçek işlem; karar, pre-trade snapshot, execution ve outcome kanıtı panelde kayıtlıdır",
       "completion_gate": "İlk gerçek işlem; karar, pre-trade snapshot, execution ve outcome kanıtı panelde kayıtlıdır",
+      "connects_to": [
+        "POST_CANARY_EVIDENCE_OUTCOME_AND_LEARNING_LOOP"
+      ],
       "deliverable": "BSC PancakeSwap üzerinde işlem başına 1-2 USD, insan onaylı, izole wallet ile gerçek para canary başlangıcı",
+      "depends_on": [
+        "PRODUCT_SLICE_07_FINAL_SECURITY_GO_NO_GO",
+        "EXPLICIT_USER_LIVE_CANARY_ACTIVATION"
+      ],
       "id": "PRODUCT_SLICE_08_LIVE_CANARY_START",
       "order": 8,
+      "purpose": "BSC PancakeSwap üzerinde işlem başına 1-2 USD, insan onaylı, izole wallet ile gerçek para canary başlangıcı",
       "window": "2026-09-01"
     }
   ],
@@ -1027,7 +1102,7 @@
     "pr_merged": false,
     "source_database_sha256": "99b990df8ebb50096d8ae46c1ab772f7187851ef877ccb8e5d5a0edb9ab0bd6b",
     "status": "ACTIVE_IN_PROGRESS_NOT_CLOSED",
-    "updated_at_utc": "2026-07-30T06:22:57.635110+00:00"
+    "updated_at_utc": "2026-07-30T11:22:53.600180+00:00"
   },
   "schema": "tokenoskobi_os_full_v1_v8_master_roadmap_v2",
   "self_bootable_boot_policy": {
