@@ -898,3 +898,21 @@ Rules:
 - Cluster confidence is explicit and fail-closed when evidence is incomplete or conflicting.
 - Successful-wallet context cannot create paper/live trade, wallet, signing, order or broadcast authority.
 <!-- ERA64_SUCCESSFUL_WALLET_INTELLIGENCE_FLOW:END -->
+
+<!-- MULTI_DEX_ADAPTER_EVIDENCE_GRAPH:BEGIN -->
+## MULTI-DEX ADAPTER VE EVIDENCE GRAPH MİMARİSİ
+
+```text
+DEX_PROTOCOL_ADAPTER_REGISTRY
+├── Uniswap V2              PRESERVED
+├── Uniswap V3              PRESERVED
+├── PancakeSwap V2          PRESERVED
+├── PancakeSwap V3          PRESERVED
+├── Uniswap V4              ACTIVE_EVIDENCE_ADAPTER
+├── Relay                   ROUTER_SETTLEMENT_LAYER_SEPARATE_FROM_POOL
+├── 1inch                   PLANNED_AGGREGATOR_ADAPTER_FAIL_CLOSED
+└── Curve/DODO/Balancer/... EXTENSIBLE_FAIL_CLOSED
+```
+
+Aggregator/router akışı underlying pool adapterından ayrı tutulur. Protokol kimliği; resmî ABI/event semantiği, resmî deployment ve transaction bloğundaki onchain kontrat ilişkisi birlikte doğrulanmadan atanmaz.
+<!-- MULTI_DEX_ADAPTER_EVIDENCE_GRAPH:END -->

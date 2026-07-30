@@ -403,3 +403,13 @@ SINGLE_SELF_CONTAINED_FILE=true
 
 Tam kod kullanıcı açıkça inline istemedikçe sohbet gövdesine yazılmaz.
 <!-- CANONICAL_BOOT_V4:END -->
+
+<!-- ACTIVE_WORK_CONTINUATION_V4:BEGIN -->
+## ACTIVE WORK CONTINUATION POINTER
+
+README current state kopyası değildir. Güncel aktif çalışma için mandatory read order tamamlanır ve `PROJECT_RUNTIME.json` içindeki `canonical_current_state_v4` owner kaydı okunur.
+
+Remote-only boot sırasında açık aktif PR/work branch keşfedilir; aynı canonical dosya seti o branch üzerinde de okunur. Sealed main ile aktif çalışma ayrı raporlanır.
+
+Local erişim varsa runtime kaydı local Git, DB ve evidence ile yeniden doğrulanır. Local yoksa active branch kaydı remote-committed evidence olarak raporlanır; local runtime varsayılmaz.
+<!-- ACTIVE_WORK_CONTINUATION_V4:END -->
