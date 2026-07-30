@@ -756,3 +756,23 @@ Final doctrine:
 
 Paper authority may create only simulated orders, fills, positions, costs, P&L and drawdown. Real wallet, signing, broadcast and capital authority remain locked. Human defines the policy envelope; Risk Engine has veto; the system cannot expand its own authority. Paper findings outrank speculative perfection work.
 <!-- BOUNDED_AUTONOMY:END -->
+
+<!-- PLAN_ACTUAL_FORECAST_DOCTRINE:BEGIN -->
+## PLAN / GERÇEKLEŞEN / TAHMİN DOKTRİNİ
+
+- Roadmap planı, doğrulanmış gerçekleşen ve projeksiyon aynı şey değildir.
+- Bir aşama yalnız completion gate, test, audit, kullanıcı kabulü ve gerekli seal tamamlandıysa kapalı sayılır.
+- Local-only DB, evidence, servis ve test sonuçları local erişim olmadan doğrulanmış sayılmaz.
+- Takvim yüzdesi veya gecikme günü canonical veriden hesaplanamıyorsa uydurulmaz.
+- 1 Eylül canlı canary hedefi ayrı insan onayı, Risk Engine veto ve bütün önceki güvenlik kapılarına bağlıdır.
+<!-- PLAN_ACTUAL_FORECAST_DOCTRINE:END -->
+
+<!-- CODE_DELIVERY_ARTIFACT_POLICY:BEGIN -->
+## KOD TESLİM ARTEFAKTI POLİTİKASI
+
+- Kullanıcı kod veya sunucu komutu istediğinde varsayılan teslim biçimi indirilebilir tek `.sh` dosyasıdır.
+- Tam kod sohbet gövdesine yazılmaz; bu kural pencere şişmesini ve kopyalama hatalarını azaltır.
+- Sohbet yalnız kısa amaç, indirme bağlantısı, SHA-256 ve minimal çalıştırma talimatı içerir.
+- Her `.sh` dosyası yanlış host kontrolünü herhangi bir yazmadan önce yapar; SSH oturumunu açık bırakır ve rollback-aware çalışır.
+- Inline tam kod yalnız kullanıcı bunu açıkça isterse verilebilir.
+<!-- CODE_DELIVERY_ARTIFACT_POLICY:END -->

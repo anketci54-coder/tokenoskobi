@@ -357,3 +357,81 @@ README remains a boot pointer. Current state is read only from `PROJECT_RUNTIME.
 
 Paper trade is zero-real-funds simulation authority. Live trade is real wallet, signing, broadcast and capital authority. Paper may run unattended only after build and validation. External AI and red team are advisory and outside the synchronous hot path.
 <!-- PAPER_LIVE_AUTHORITY_SPLIT:END -->
+
+<!-- CANONICAL_BOOT_V4:BEGIN -->
+## CANONICAL BOOT V4 — LOCAL, ACTIVE BRANCH AND CALENDAR RESOLUTION
+
+Yeni pencereye yalnız şu talimat verilir:
+
+> `README.md dosyasını oku ve içindeki canonical boot protocolünü eksiksiz uygula. Hafızaya göre karar verme.`
+
+Bu talimat şu işlemlerin tamamını otomatik başlatır:
+
+1. README içindeki mandatory read order 12/12 tamamlanır; README özetiyle durulmaz.
+2. Local workspace varsa local workspace ve local Git, GitHub'dan önce doğrulanır.
+3. Local yoksa GitHub `main` sealed baseline olarak okunur.
+4. Açık aktif PR/work branch varsa aynı canonical dosya seti o branch üzerinde de okunur.
+5. Sealed main ile aktif, unmerged çalışma ayrı raporlanır.
+6. Local DB, `/var/lib` evidence, servis, test ve commit edilmemiş çalışma local erişim olmadan VERIFIED sayılmaz.
+7. Remote branch'in son commit'i gerçek local `NEXT_SAFE_STEP` olarak tahmin edilmez.
+8. Plan, gerçekleşen ve tahmin birbirine karıştırılmaz.
+
+### Source-of-truth
+
+```text
+LOCAL_WORKSPACE
+> LOCAL_GIT
+> GITHUB_MAIN_SEALED_BASELINE
+> GITHUB_ACTIVE_WORK_BRANCH
+> AI_MEMORY
+```
+
+### Zorunlu takvim çözümü
+
+Her boot sonunda sistem tarihi ve canonical roadmap kullanılarak şunlar ayrıca çıkarılır:
+
+```text
+CURRENT_DATE=
+PLANNED_STAGE_BY_TODAY=
+VERIFIED_ACTUAL_STAGE=
+ACTIVE_IN_PROGRESS_STAGE=
+SCHEDULE_STATUS=
+TARGET_DATE=2026-09-01
+CANONICAL_TARGET_BY_TARGET_DATE=
+FORECAST_BY_TARGET_DATE=
+FORECAST_CONFIDENCE=
+CRITICAL_PATH=
+MAIN_BLOCKERS=
+CALENDAR_RESULT=
+```
+
+Yüzde, gecikme günü veya teslim garantisi canonical veride yoksa uydurulmaz. Live canary ayrı insan onayı olmadan açılmaz.
+
+### Kod teslim biçimi
+
+Kullanıcı kod veya sunucu komutu istediğinde varsayılan teslim biçimi:
+
+```text
+CODE_DELIVERY_MODE=DOWNLOADABLE_SH_ARTIFACT
+FILE_EXTENSION=.sh
+FULL_CODE_IN_CHAT=false
+SINGLE_SELF_CONTAINED_FILE=true
+```
+
+- Kodun tamamı sohbet gövdesine yazılmaz.
+- İndirilebilir tek bir `.sh` dosyası oluşturulur.
+- Sohbette yalnız kısa amaç, indirme bağlantısı, SHA-256, minimal çalıştırma talimatı ve beklenen ana çıktı alanları verilir.
+- Dosya SSH-safe, mobile/4G-safe, rollback-aware ve yanlış hostta herhangi bir yazma yapmadan duracak biçimde hazırlanır.
+- Kullanıcı açıkça “kodu sohbet içine yaz” demedikçe inline tam kod verilmez.
+- Dosya üretme aracı yoksa tam kod dökülmez; `FILE_DELIVERY_UNAVAILABLE` denir.
+<!-- CANONICAL_BOOT_V4:END -->
+
+<!-- ACTIVE_WORK_CONTINUATION_V4:BEGIN -->
+## ACTIVE WORK CONTINUATION POINTER
+
+README current state kopyası değildir. Güncel aktif çalışma için mandatory read order tamamlanır ve `PROJECT_RUNTIME.json` içindeki `canonical_current_state_v4` owner kaydı okunur.
+
+Remote-only boot sırasında açık aktif PR/work branch keşfedilir; aynı canonical dosya seti o branch üzerinde de okunur. Sealed main ile aktif çalışma ayrı raporlanır.
+
+Local erişim varsa runtime kaydı local Git, DB ve evidence ile yeniden doğrulanır. Local yoksa active branch kaydı remote-committed evidence olarak raporlanır; local runtime varsayılmaz.
+<!-- ACTIVE_WORK_CONTINUATION_V4:END -->

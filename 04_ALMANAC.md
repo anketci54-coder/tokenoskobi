@@ -6488,3 +6488,28 @@ Real historical wallet evidence was scanned read-only and replay validation comp
 ## 2026-07-24T09:17:06.900854+00:00 — ERA64D
 
 The real SQLite wallet-event gap was repaired at the schema-classification and source-contract layer. Status: `REAL_WALLET_EVENT_COVERAGE_REPAIRED_SOURCE_CONTRACT_READY`. Tests: `108/108_VERIFIED`.
+
+<!-- SLICE04_VERIFIED_EVIDENCE_LEDGER:BEGIN -->
+## PRODUCT SLICE 04 — DOĞRULANMIŞ ARA KANIT DEFTERİ
+
+Bu kayıt Product Slice 04 kapanışı değildir.
+
+```text
+CURRENT_VERIFIED_GATE=RELAY_SETTLEMENT_FIFO_RECONSTRUCTION_LOCAL_EVIDENCE_VERIFIED
+SOURCE_DATABASE_SHA256=99b990df8ebb50096d8ae46c1ab772f7187851ef877ccb8e5d5a0edb9ab0bd6b
+POOL_MANAGER=0x28e2ea090877bf75740558f6bfb36a5ffee9e9df
+POOL_ID=0x8321c1f53959b14ece4b5400e60aeac59e7b6b8bac446f2f0a89b9e84e68a08a
+CLOSED_LOOP_CONFIRMED=false
+NEXT_SAFE_STEP=PRODUCT_SLICE_04_SINGLE_TRANSACTION_RELAY_POOL_SETTLEMENT_RECONCILIATION
+```
+
+| Evidence | Durum | result_hash |
+|---|---|---|
+| `relay_settlement_fifo_reconstruction_v1.json` | VERIFIED | `6427fe82a3dc8358881594431f0755df864482994d393ea8f5cabbadfc4145aa` |
+| `targeted_historical_reverse_scan_v1.json` | VERIFIED | `68c73f5e41a05aea96ba359d497c02be8be810c50aa7fdcc468d2294277ae3dd` |
+| `top_candidate_pair_route_decode_v1.json` | VERIFIED | `e2f379045b16f773fef9fa730b44372af394bfc1920a77a57882d96ff4ed705a` |
+| `top_pair_receipt_topic_contract_classification_v1.json` | VERIFIED | `597b705ad56abf61d079fd5745139e8f62f94a397bd83924436940e7da93b172` |
+| `uniswap_v4_balance_delta_sign_repair_v1.json` | VERIFIED | `56998e4ebe17d42ba89d8674be1a4c489b0da038389767ce05c86243dcc584de` |
+| `uniswap_v4_full_initialize_scan_v1.json` | VERIFIED | `0d21798eb7b49e0160874e9717b9e22ca8bfce74d2833c315f4ad5f78ce62818` |
+| `uniswap_v4_pool_route_decode_v1.json` | VERIFIED | `0cf0d617ca430c678435016980f4fd2deeff4030c1f068b933bc418edf404a1a` |
+<!-- SLICE04_VERIFIED_EVIDENCE_LEDGER:END -->

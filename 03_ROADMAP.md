@@ -79,3 +79,29 @@ Tokenoskobi kullanılabilir ürün döngüsü, paper-trade testleri ve ilk bound
 ## Öğrenme şartı
 
 Kaybedilen para ancak pre-trade veri snapshotı, karar, insan onayı, quote, receipt, gerçek gas/fee/slippage/tax, exit/outcome ve hata sınıfı kaydedilip replay edilebiliyorsa tecrübeye dönüşür. Sistem bu veriden değişiklik önerir; production kodunu veya trade yetkisini kendiliğinden değiştirmez. Değişiklik replay, regression/red-team ve insan onayından sonra uygulanır.
+
+<!-- PRODUCT_CALENDAR_2026_09_01:BEGIN -->
+## ÜRÜN TAKVİMİ — BUGÜN VE 1 EYLÜL 2026
+
+```text
+CURRENT_DATE=2026-07-30
+PLANNED_STAGE_BY_TODAY=PRODUCT_SLICE_02_SINGLE_TOKEN_INPUT_AND_REAL_DECISION_PACKET
+VERIFIED_ACTUAL_STAGE=PRODUCT_SLICE_03_HUMAN_APPROVAL_DECISION_HISTORY_AND_OUTCOME_TRACKING
+ACTIVE_IN_PROGRESS_STAGE=PRODUCT_SLICE_04_DEX_WALLET_CEX_GRAPH_AND_PERFORMANCE
+SCHEDULE_STATUS=AHEAD_OF_PLAN
+TARGET_DATE=2026-09-01
+CANONICAL_TARGET_BY_TARGET_DATE=PRODUCT_SLICE_08_LIVE_CANARY_START
+FORECAST_BY_TARGET_DATE=PRODUCT_SLICE_08_LIVE_CANARY_START_CONDITIONAL_ON_ALL_PRIOR_GATES
+FORECAST_CONFIDENCE=MEDIUM
+```
+
+Plan: 1 Eylül 2026 tarihinde Product Slice 08 live canary başlangıç kapısına ulaşmaktır. Bu hedef garanti değildir; Slice 04–07 kapıları ve ayrı insan onayı zorunludur.
+
+Kritik yol:
+
+1. Slice 04 settlement/FIFO/evidence graph/panel/telefon kabulü
+2. Slice 05 Harekât Subayı, AI konseyi, self-healing ve operasyonel istihbarat
+3. Slice 06 en az 7 günlük sınırlı paper-trade koşusu
+4. Slice 07 son güvenlik go/no-go
+5. Slice 08 için ayrı insan onayı ve bounded live canary başlangıcı
+<!-- PRODUCT_CALENDAR_2026_09_01:END -->
