@@ -23,3 +23,19 @@ FULL_CODE_IN_CHAT=false
 Tarihsel dosyalardaki eski next-step değerleri current pointer değildir. Aktif drift yalnız `PROJECT_RUNTIME.json.canonical_drift_status_v4.unresolved_items` alanından okunur.
 
 Yeni ERA açılmaz. Slice 04 kapatılmaz veya merge edilmez. Protokol/miktar semantiği kanıtsız atanmaz; açıklanmayan fark kâr sayılmaz.
+
+<!-- PRODUCT_SLICE_04_CLOSED_LOOP_CHECKPOINT:BEGIN -->
+## PRODUCT SLICE 04 — TEK GERÇEK İŞLEM KAPALI DÖNGÜ KONTROL NOKTASI
+
+```text
+TRANSACTION=0x3d516b2c6ccee0235ec7a81303de7e04cf667972639a881b4dc6fc602cd70f5a
+FULL_INTERNAL_CALL_CHAIN_PROVEN=true
+TOKEN_BALANCE_DELTA_PROVEN=true
+ECONOMIC_INPUT_OUTPUT_RECONCILED=true
+CLOSED_LOOP_CONFIRMED=true
+PRODUCT_SLICE_04_CLOSED=false
+NEXT_SAFE_STEP=PRODUCT_SLICE_04_EVIDENCE_GRAPH_PERSISTENCE_PANEL_PHONE_ACCEPTANCE
+```
+
+Bu kayıt yalnız doğrulanmış tek işlem kapalı döngü kontrol noktasıdır; Product Slice 04 nihai kapanışı değildir. Paper/live trade, wallet, signing, order ve broadcast yetkileri açılmadı.
+<!-- PRODUCT_SLICE_04_CLOSED_LOOP_CHECKPOINT:END -->
