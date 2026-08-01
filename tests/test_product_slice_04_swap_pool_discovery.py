@@ -33,6 +33,30 @@ def int_word(value: int) -> str:
     return value.to_bytes(32, 'big').hex()
 
 
+
+import importlib.util as _archive_importlib_util
+from pathlib import Path as _ArchivePath
+
+_archive_contract_path = (
+    _ArchivePath(__file__).resolve().parents[1]
+    / "tools"
+    / "tokenoskobi_product_slice_04_swap_pool_discovery_archive_contract.py"
+)
+_archive_contract_spec = _archive_importlib_util.spec_from_file_location(
+    "product_slice_04_swap_pool_discovery_archive_contract",
+    _archive_contract_path,
+)
+if (
+    _archive_contract_spec is None
+    or _archive_contract_spec.loader is None
+):
+    raise RuntimeError("ARCHIVE_CONTRACT_MODULE_LOAD_FAILED")
+
+archive_module = _archive_importlib_util.module_from_spec(
+    _archive_contract_spec
+)
+_archive_contract_spec.loader.exec_module(archive_module)
+
 def valid_enrichment_payload() -> dict:
     transactions = [
         {'tx_hash': '0x' + f'{index:064x}'}
@@ -50,8 +74,8 @@ def valid_enrichment_payload() -> dict:
     ]
     return {
         'schema': 'tokenoskobi.product_slice_04.candidate_enrichment.v1',
-        'status': module.EXPECTED_ENRICHMENT_STATUS,
-        'result_hash': module.EXPECTED_ENRICHMENT_RESULT_HASH,
+        'status': archive_module.EXPECTED_ENRICHMENT_STATUS,
+        'result_hash': archive_module.EXPECTED_ENRICHMENT_RESULT_HASH,
         'metadata_temporal_policy': {
             'historical_block_attempt_required': True,
             'fallback_allowed_only_for_archive_state_unavailable_errors': True,
@@ -136,6 +160,46 @@ class ProductSlice04SwapPoolDiscoveryTests(unittest.TestCase):
         self.assertTrue(result['matched'])
         self.assertEqual(result['status'], 'EXACT_PAIR')
 
+    def test_actor_flow_subset_is_rejected(self):
+        token0 = '0x' + '7' * 40
+        token1 = '0x' + '8' * 40
+        tx = {'actor_flow': {'token_flows': [{'token_address': token0}]}}
+        result = module.actor_flow_pair_match(tx, token0, token1)
+        self.assertFalse(result['matched'])
+        self.assertEqual(result['status'], 'PARTIAL_OR_NON_PAIR')
+
+    def test_actor_flow_superset_is_rejected(self):
+        token0 = '0x' + '7' * 40
+        token1 = '0x' + '8' * 40
+        token2 = '0x' + '9' * 40
+        tx = {
+            'actor_flow': {
+                'token_flows': [
+                    {'token_address': token0},
+                    {'token_address': token1},
+                    {'token_address': token2},
+                ]
+            }
+        }
+        result = module.actor_flow_pair_match(tx, token0, token1)
+        self.assertFalse(result['matched'])
+        self.assertEqual(result['status'], 'PARTIAL_OR_NON_PAIR')
+
+    def test_actor_flow_duplicate_token_rows_are_rejected(self):
+        token0 = '0x' + '7' * 40
+        token1 = '0x' + '8' * 40
+        tx = {
+            'actor_flow': {
+                'token_flows': [
+                    {'token_address': token0},
+                    {'token_address': token0},
+                ]
+            }
+        }
+        result = module.actor_flow_pair_match(tx, token0, token1)
+        self.assertFalse(result['matched'])
+        self.assertEqual(result['status'], 'PARTIAL_OR_NON_PAIR')
+
     def test_authority_boundary(self):
         self.assertTrue(module.AUTHORITY['network_access'])
         self.assertTrue(module.AUTHORITY['staging_file_write'])
@@ -150,10 +214,10 @@ class ProductSlice04SwapPoolDiscoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'enrichment.json'
             path.write_text(json.dumps(valid_enrichment_payload()), encoding='utf-8')
-            result = module.load_enrichment(path)
+            result = archive_module.load_enrichment(path)
         self.assertEqual(len(result['tx_map']), 14)
         self.assertEqual(len(result['metadata_map']), 3)
-        self.assertEqual(result['result_hash'], module.EXPECTED_ENRICHMENT_RESULT_HASH)
+        self.assertEqual(result['result_hash'], archive_module.EXPECTED_ENRICHMENT_RESULT_HASH)
 
     def test_archive_fallback_enrichment_rejects_wrong_counts(self):
         payload = valid_enrichment_payload()
@@ -161,8 +225,8 @@ class ProductSlice04SwapPoolDiscoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'enrichment.json'
             path.write_text(json.dumps(payload), encoding='utf-8')
-            with self.assertRaises(module.Slice04SwapDiscoveryError):
-                module.load_enrichment(path)
+            with self.assertRaises(archive_module.Slice04SwapDiscoveryError):
+                archive_module.load_enrichment(path)
 
     def test_archive_fallback_enrichment_rejects_wrong_result_hash(self):
         payload = valid_enrichment_payload()
@@ -170,8 +234,8 @@ class ProductSlice04SwapPoolDiscoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'enrichment.json'
             path.write_text(json.dumps(payload), encoding='utf-8')
-            with self.assertRaises(module.Slice04SwapDiscoveryError):
-                module.load_enrichment(path)
+            with self.assertRaises(archive_module.Slice04SwapDiscoveryError):
+                archive_module.load_enrichment(path)
 
 
 if __name__ == '__main__':

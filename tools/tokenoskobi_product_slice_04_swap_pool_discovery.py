@@ -456,12 +456,21 @@ def actor_flow_pair_match(tx: dict[str, Any], token0: str, token1: str) -> dict[
     rows = flow.get('token_flows') if isinstance(flow, dict) else None
     if not isinstance(rows, list):
         return {'status': 'ACTOR_FLOW_MISSING', 'matched': False, 'actor_flow_tokens': []}
-    tokens = sorted({normalize_address(row.get('token_address')) for row in rows})
-    matched = bool(tokens) and set(tokens).issubset({token0, token1})
+
+    expected_pair = {normalize_address(token0), normalize_address(token1)}
+    tokens = [normalize_address(row.get('token_address')) for row in rows]
+    unique_tokens = sorted(set(tokens))
+
+    matched = (
+        len(expected_pair) == 2
+        and len(tokens) == 2
+        and len(unique_tokens) == 2
+        and set(unique_tokens) == expected_pair
+    )
     return {
         'status': 'EXACT_PAIR' if matched else 'PARTIAL_OR_NON_PAIR',
         'matched': matched,
-        'actor_flow_tokens': tokens,
+        'actor_flow_tokens': unique_tokens,
     }
 
 

@@ -154,7 +154,8 @@ def event_edge(event: dict[str, Any]) -> dict[str, Any]:
 
 def weak_component_count(edges: list[dict[str, Any]]) -> int:
     undirected: dict[str, set[str]] = defaultdict(set)
-    for edge in edges:
+    for item in edges:
+        edge = item if 'source_token' in item else event_edge(item)
         source = edge['source_token']
         target = edge['target_token']
         undirected[source].add(target)
@@ -178,7 +179,8 @@ def weak_component_count(edges: list[dict[str, Any]]) -> int:
 def has_directed_cycle(edges: list[dict[str, Any]]) -> bool:
     adjacency: dict[str, set[str]] = defaultdict(set)
     nodes: set[str] = set()
-    for edge in edges:
+    for item in edges:
+        edge = item if 'source_token' in item else event_edge(item)
         source = edge['source_token']
         target = edge['target_token']
         adjacency[source].add(target)
@@ -211,7 +213,7 @@ def classify_transaction(tx: dict[str, Any]) -> dict[str, Any]:
     exact_raw_amounts = exact_token_set and all(actor_net[token] == swap_net[token] for token in actor_net)
     single_endpoint_pair = len(actor_out) == 1 and len(actor_in) == 1
     cycle_present = has_directed_cycle(events)
-    component_count = weak_component_count(edges)
+    component_count = weak_component_count(events)
     if single_endpoint_pair and exact_raw_amounts:
         classification = 'SELF_CALL_SIMPLE_TWO_TOKEN_ROUTE_VERIFIED'
     elif exact_raw_amounts and cycle_present:
