@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import importlib.util
+import json
 import unittest
 from pathlib import Path
 
@@ -78,6 +79,20 @@ def receipt():
 
 
 class RelayV4SemanticVerificationTests(unittest.TestCase):
+    def test_canonical_contract_allowlist_binds_official_v4_manager(self):
+        path = MODULE_PATH.parents[1] / "config/product_slice_04_factory_allowlist_v1.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        entry = module.validate_contract_allowlist(value)
+        self.assertEqual(entry["role"], "POOL_MANAGER")
+        self.assertEqual(entry["allowed_event_types"], ["UNISWAP_V4_SWAP"])
+
+    def test_contract_allowlist_rejects_wrong_manager(self):
+        path = MODULE_PATH.parents[1] / "config/product_slice_04_factory_allowlist_v1.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["managers"] = {"0x" + "1" * 40: next(iter(value["managers"].values()))}
+        with self.assertRaisesRegex(module.SemanticVerificationError, "CONTRACT_ALLOWLIST_MANAGER_SCOPE_INVALID"):
+            module.validate_contract_allowlist(value)
+
     def test_exact_receipt_verifies_route_but_not_pnl(self):
         result = module.validate_receipt(receipt())
         self.assertEqual(result["v4_swap"]["pool_id"], module.POOL_ID)

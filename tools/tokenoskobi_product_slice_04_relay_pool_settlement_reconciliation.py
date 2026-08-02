@@ -14,12 +14,15 @@ DEFAULT_SOURCE = Path("/var/lib/tokenoskobi-product-slice-04/relay_settlement_fi
 DEFAULT_ALLOWLIST = ROOT / "config/product_slice_04_factory_allowlist_v1.json"
 DEFAULT_OUTPUT = Path("/var/lib/tokenoskobi-product-slice-04/relay_pool_settlement_reconciliation_v1.json")
 EXPECTED_SOURCE_SHA256 = "2cdd9503385afbcf3159a92be477e907eff6f3313ca3514d4dca444450e87f19"
-EXPECTED_ALLOWLIST_SHA256 = "17308d6cd17fe2eb538d3cead016b6755ccb07b41682306c24d7dbc55c8bc8af"
+EXPECTED_ALLOWLIST_SHA256 = "77cdc2332ceb9638e4b75736dbc71ef3e2e8cacb666464bad5cba240f7cbdc82"
 EXPECTED_FACTORY_EVENTS = {
     "0x0bfbcf9fa4f9c56b0f40a671ad40e0805a091865": ("PANCAKE_V3_EXTENDED_SWAP",),
     "0x8909dc15e40173ff4699343b6eb8132c65e18ec6": ("V2_SWAP",),
     "0xca143ce32fe78f1f7019d7d551a6402fc5350c73": ("V2_SWAP",),
     "0xdb1d10011ad0ff90774d0c6bb92e5c5c8b4461f7": ("V3_SWAP",),
+}
+EXPECTED_MANAGER_EVENTS = {
+    "0x28e2ea090877bf75740558f6bfb36a5ffee9e9df": ("UNISWAP_V4_SWAP",),
 }
 TARGET_TX = "0x3d516b2c6ccee0235ec7a81303de7e04cf667972639a881b4dc6fc602cd70f5a"
 ACTOR = "0x7983a402e111002259072d600c5bf7bc709193b4"
@@ -103,6 +106,16 @@ def validate_allowlist(payload: dict[str, Any]) -> None:
         allowed = entry.get("allowed_event_types")
         if not isinstance(allowed, list) or tuple(allowed) != expected_events:
             raise ReconciliationError(f"ALLOWLIST_EVENT_TYPES_INVALID:{address}")
+    managers = payload.get("managers")
+    if not isinstance(managers, dict) or set(managers) != set(EXPECTED_MANAGER_EVENTS):
+        raise ReconciliationError("ALLOWLIST_MANAGER_SCOPE_INVALID")
+    for address, expected_events in EXPECTED_MANAGER_EVENTS.items():
+        entry = managers.get(address)
+        if not isinstance(entry, dict) or entry.get("role") != "POOL_MANAGER":
+            raise ReconciliationError("ALLOWLIST_MANAGER_ENTRY_INVALID")
+        allowed = entry.get("allowed_event_types")
+        if not isinstance(allowed, list) or tuple(allowed) != expected_events:
+            raise ReconciliationError(f"ALLOWLIST_MANAGER_EVENT_TYPES_INVALID:{address}")
     policy = payload.get("policy")
     required_policy = {
         "closed_loop_requires_strict_pair_direction_and_amount_match": True,
@@ -234,7 +247,8 @@ def run(source_path: Path, allowlist_path: Path, output_path: Path) -> dict[str,
                    "block_evidence_hash": str(transaction.get("block_evidence_hash") or "")},
         "factory_allowlist": {"path": str(allowlist_path), "sha256": allowlist_hash,
                               "schema": allowlist["schema"], "chain": allowlist["chain"],
-                              "chain_id": allowlist["chain_id"], "factory_count": len(allowlist["factories"])},
+                              "chain_id": allowlist["chain_id"], "factory_count": len(allowlist["factories"]),
+                              "manager_count": len(allowlist["managers"])},
         "reconciliation": reconciliation,
         "canonical_claims": {"settlement_transfer_ledger_reconciled": True, "route_verified": False,
                              "cost_basis_complete": False, "pnl_complete": False,

@@ -15,6 +15,7 @@ from typing import Any
 
 ROOT = Path("/root/tokenoskobi_clean_v1")
 DEFAULT_PROVIDER = ROOT / "config/era63e_always_on_market_runtime_v1.json"
+DEFAULT_CONTRACT_ALLOWLIST = ROOT / "config/product_slice_04_factory_allowlist_v1.json"
 DEFAULT_RECONCILIATION = Path("/var/lib/tokenoskobi-product-slice-04/relay_pool_settlement_reconciliation_v1.json")
 DEFAULT_RECEIPT = Path("/var/lib/tokenoskobi-product-slice-04/relay_v4_target_receipt_v1.json")
 DEFAULT_OUTPUT = Path("/var/lib/tokenoskobi-product-slice-04/relay_v4_route_semantic_verification_v1.json")
@@ -226,6 +227,29 @@ def validate_reconciliation(value: dict[str, Any]) -> None:
         raise SemanticVerificationError("RECONCILIATION_TARGET_INVALID")
 
 
+def validate_contract_allowlist(value: dict[str, Any]) -> dict[str, Any]:
+    if value.get("schema") != "tokenoskobi.product_slice_04.factory_allowlist.v1":
+        raise SemanticVerificationError("CONTRACT_ALLOWLIST_SCHEMA_INVALID")
+    if value.get("chain") != "BSC" or value.get("chain_id") != 56:
+        raise SemanticVerificationError("CONTRACT_ALLOWLIST_CHAIN_INVALID")
+    managers = value.get("managers")
+    if not isinstance(managers, dict) or set(managers) != {UNISWAP_V4_POOL_MANAGER}:
+        raise SemanticVerificationError("CONTRACT_ALLOWLIST_MANAGER_SCOPE_INVALID")
+    entry = managers[UNISWAP_V4_POOL_MANAGER]
+    expected = {
+        "allowed_event_types": ["UNISWAP_V4_SWAP"],
+        "official_source_kind": "PROTOCOL_DEVELOPER_DOCS",
+        "official_source_url": "https://developers.uniswap.org/docs/protocols/v4/deployments",
+        "protocol_id": "UNISWAP_V4",
+        "protocol_name": "Uniswap",
+        "role": "POOL_MANAGER",
+        "version": "V4",
+    }
+    if entry != expected:
+        raise SemanticVerificationError("CONTRACT_ALLOWLIST_MANAGER_ENTRY_INVALID")
+    return entry
+
+
 def validate_provider(value: dict[str, Any]) -> dict[str, Any]:
     rpc = value.get("rpc")
     if not isinstance(rpc, dict) or rpc.get("chain_id") != 56:
@@ -357,6 +381,8 @@ def run(reconciliation_path: Path, provider_path: Path, receipt_path: Path,
         output_path: Path, *, fetch: bool) -> dict[str, Any]:
     reconciliation = read_object(reconciliation_path, "RECONCILIATION")
     validate_reconciliation(reconciliation)
+    contract_allowlist = read_object(DEFAULT_CONTRACT_ALLOWLIST, "CONTRACT_ALLOWLIST")
+    manager_entry = validate_contract_allowlist(contract_allowlist)
     provider_host = "OFFLINE_RECEIPT"
     if fetch:
         receipt, provider_host = fetch_receipt(provider_path)
@@ -373,6 +399,12 @@ def run(reconciliation_path: Path, provider_path: Path, receipt_path: Path,
         "provider_host": provider_host,
         "receipt_hash": canonical_hash(receipt),
         "official_allowlist": OFFICIAL_ALLOWLIST,
+        "canonical_contract_allowlist": {
+            "path": str(DEFAULT_CONTRACT_ALLOWLIST),
+            "hash": canonical_hash(contract_allowlist),
+            "manager": UNISWAP_V4_POOL_MANAGER,
+            "manager_entry": manager_entry,
+        },
         "decoded_evidence": decoded,
         "canonical_claims": {
             "settlement_transfer_ledger_reconciled": True,

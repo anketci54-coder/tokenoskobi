@@ -20,9 +20,13 @@ def allowlist_fixture():
         address: {"allowed_event_types": list(events)}
         for address, events in module.EXPECTED_FACTORY_EVENTS.items()
     }
+    managers = {
+        address: {"allowed_event_types": list(events), "role": "POOL_MANAGER"}
+        for address, events in module.EXPECTED_MANAGER_EVENTS.items()
+    }
     return {
         "schema": "tokenoskobi.product_slice_04.factory_allowlist.v1",
-        "chain": "BSC", "chain_id": 56, "factories": factories,
+        "chain": "BSC", "chain_id": 56, "factories": factories, "managers": managers,
         "policy": {
             "closed_loop_requires_strict_pair_direction_and_amount_match": True,
             "official_protocol_source_required": True,
@@ -116,6 +120,26 @@ class RelayPoolSettlementReconciliationTests(unittest.TestCase):
             value = allowlist_fixture(); mutate(value)
             with self.assertRaisesRegex(module.ReconciliationError, "ALLOWLIST_FACTORY_SCOPE_INVALID"):
                 module.validate_allowlist(value)
+
+    def test_missing_or_extra_manager_fails_closed(self):
+        for mutate in (
+            lambda d: d["managers"].pop(next(iter(d["managers"]))),
+            lambda d: d["managers"].update({
+                "0x" + "2" * 40: {"allowed_event_types": ["UNISWAP_V4_SWAP"], "role": "POOL_MANAGER"}
+            }),
+        ):
+            value = allowlist_fixture(); mutate(value)
+            with self.assertRaisesRegex(module.ReconciliationError, "ALLOWLIST_MANAGER_SCOPE_INVALID"):
+                module.validate_allowlist(value)
+
+    def test_manager_role_and_event_type_are_strict(self):
+        address = next(iter(module.EXPECTED_MANAGER_EVENTS))
+        value = allowlist_fixture(); value["managers"][address]["role"] = "FACTORY"
+        with self.assertRaisesRegex(module.ReconciliationError, "ALLOWLIST_MANAGER_ENTRY_INVALID"):
+            module.validate_allowlist(value)
+        value = allowlist_fixture(); value["managers"][address]["allowed_event_types"] = ["V3_SWAP"]
+        with self.assertRaisesRegex(module.ReconciliationError, "ALLOWLIST_MANAGER_EVENT_TYPES_INVALID"):
+            module.validate_allowlist(value)
 
     def test_changed_or_duplicate_event_type_fails_closed(self):
         address = next(iter(module.EXPECTED_FACTORY_EVENTS))
