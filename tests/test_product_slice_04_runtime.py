@@ -73,11 +73,23 @@ class Slice04RuntimeTests(unittest.TestCase):
     def test_panel_loader_is_self_contained_and_dom_ready(self):
         source = (REPO / "tools/tokenoskobi_product_slice_04_runtime.py").read_text(encoding="utf-8")
         self.assertIn("return self.send_json(200, read_graph())", source)
+        self.assertIn("return self.send_json(200, health_payload())", source)
         self.assertIn("DOMContentLoaded", S04.GRAPH_PANEL)
         self.assertIn("fetch('/api/v1/evidence-graph'", S04.GRAPH_PANEL)
         self.assertIn("slice04Esc", S04.GRAPH_PANEL)
         self.assertNotIn("await api('/api/v1/evidence-graph')", S04.GRAPH_PANEL)
         self.assertNotIn("esc(n.kind)", S04.GRAPH_PANEL)
+
+    def test_health_payload_reports_slice04_and_graph_integrity(self):
+        graph = S04.persist_graph()
+        payload = S04.health_payload()
+        self.assertTrue(payload["ok"])
+        self.assertEqual(payload["product_slice"], "04")
+        self.assertEqual(payload["runtime"], "tokenoskobi_product_slice_04_runtime.py")
+        self.assertEqual(payload["history_integrity"], "VERIFIED")
+        self.assertEqual(payload["evidence_graph_integrity"], "VERIFIED")
+        self.assertEqual(payload["graph_hash"], graph["graph_hash"])
+        self.assertEqual(payload["source_checkpoint_hash"], graph["source_checkpoint_hash"])
 
     def test_systemd_draft_binds_slice04_runtime_without_losing_slice03_state(self):
         unit = (REPO / "systemd_drafts/tokenoskobi-product-slice-02.service").read_text(encoding="utf-8")

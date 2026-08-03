@@ -112,6 +112,22 @@ def read_graph() -> dict[str, Any]:
     return existing
 
 
+def health_payload() -> dict[str, Any]:
+    events = CORE.verify_event_chain()
+    graph = read_graph()
+    return {
+        "ok": True,
+        "product_slice": "04",
+        "runtime": "tokenoskobi_product_slice_04_runtime.py",
+        "history_integrity": "VERIFIED",
+        "evidence_graph_integrity": "VERIFIED",
+        "event_count": len(events),
+        "graph_hash": graph["graph_hash"],
+        "source_checkpoint_hash": graph["source_checkpoint_hash"],
+        "authority": "ADVISORY_AND_HUMAN_RECORD_ONLY",
+    }
+
+
 GRAPH_PANEL = """<section class=\"box\"><div class=\"row\"><h3>Kanıt Grafiği</h3><button onclick=\"loadGraph()\">Yenile</button></div><p class=\"muted\">Gerçek closed-loop işleminden, değişmez checkpoint kanıtıyla üretilir. Kimlik iddiası yapılmaz.</p><div id=\"evidenceGraph\" class=\"graph\">Yükleniyor…</div></section><style>.graph{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.node{border:1px solid #486681;border-radius:999px;padding:14px;text-align:center;background:#0b131c}.edge{font-size:12px;color:#9fc8ed;padding:4px;word-break:break-word}@media(max-width:700px){.graph{grid-template-columns:1fr}.node{border-radius:14px}}</style><script>function slice04Esc(value){return String(value==null?'':value).replace(/[&<>\"']/g,function(char){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[char]})}async function loadGraph(){let el=document.getElementById('evidenceGraph');if(!el)return;try{let response=await fetch('/api/v1/evidence-graph',{cache:'no-store'}),d=await response.json();if(!response.ok)throw new Error(d.error||'EVIDENCE_GRAPH_LOAD_FAILED');let nodes=d.nodes||[],edges=d.edges||[];el.innerHTML=nodes.map(n=>'<div class=\"node\"><b>'+slice04Esc(n.kind)+'</b><br>'+slice04Esc(n.label)+'</div>').join('')+'<div style=\"grid-column:1/-1\">'+edges.map(e=>'<div class=\"edge\">'+slice04Esc(e.from)+' → '+slice04Esc(e.relation)+' → '+slice04Esc(e.to)+(e.amount?' · '+slice04Esc(e.amount):'')+'</div>').join('')+'</div>'}catch(e){el.textContent=e.message||'EVIDENCE_GRAPH_LOAD_FAILED'}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadGraph,{once:true})}else{loadGraph()}</script>"""
 HTML = CORE.HTML.replace("</main><script>", GRAPH_PANEL + "</main><script>")
 
@@ -120,6 +136,8 @@ class Handler(SLICE03.Handler):
     def do_GET(self) -> None:
         path = CORE.urllib.parse.urlsplit(self.path).path
         try:
+            if path == "/healthz":
+                return self.send_json(200, health_payload())
             if path == "/api/v1/evidence-graph":
                 return self.send_json(200, read_graph())
             if path in ("/", "/panel", "/panel/", "/panel/panel_v2", "/panel/panel_v2/"):
