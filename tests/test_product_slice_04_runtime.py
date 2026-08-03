@@ -79,6 +79,15 @@ class Slice04RuntimeTests(unittest.TestCase):
         self.assertNotIn("await api('/api/v1/evidence-graph')", S04.GRAPH_PANEL)
         self.assertNotIn("esc(n.kind)", S04.GRAPH_PANEL)
 
+    def test_systemd_draft_binds_slice04_runtime_without_losing_slice03_state(self):
+        unit = (REPO / "systemd_drafts/tokenoskobi-product-slice-02.service").read_text(encoding="utf-8")
+        self.assertIn("ExecStart=/usr/bin/python3 /root/tokenoskobi_clean_v1/tools/tokenoskobi_product_slice_04_runtime.py", unit)
+        self.assertIn("StateDirectory=tokenoskobi-product-slice-03 tokenoskobi-product-slice-04", unit)
+        self.assertIn("TOKENOSKOBI_SLICE03_STATE_DIR=/var/lib/tokenoskobi-product-slice-03", unit)
+        self.assertIn("TOKENOSKOBI_SLICE04_GRAPH_PATH=/var/lib/tokenoskobi-product-slice-04/evidence_graph_v1.json", unit)
+        self.assertIn("ReadOnlyPaths=/root/tokenoskobi_clean_v1", unit)
+        self.assertIn("ProtectSystem=strict", unit)
+
 
 if __name__ == "__main__":
     unittest.main()
