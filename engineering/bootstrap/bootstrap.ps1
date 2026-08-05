@@ -56,6 +56,10 @@ else{
 
 Write-Host ""
 Write-Host "[5/7] Checking Health Check..."
+Write-Host ""
+Write-Host "[Repository Validator]"
+
+python engineering\health\repository_validator.py
 
 if(Test-Path "tools\tokenoskobi_healthcheck.py"){
     python tools\tokenoskobi_healthcheck.py
