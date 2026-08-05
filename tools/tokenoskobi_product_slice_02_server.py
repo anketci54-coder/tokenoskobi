@@ -17,7 +17,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(os.getenv("TOKENOSKOBI_ROOT", "/root/tokenoskobi_clean_v1"))
+from core.platform.paths import get_root
+ROOT = get_root()
 CFG = json.loads((ROOT / "config/product_slice_02_v1.json").read_text(encoding="utf-8"))
 if os.getenv("TOKENOSKOBI_PRODUCT_SLICE_02_PORT"):
     CFG = dict(CFG)
