@@ -16,7 +16,7 @@ import sys
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from tools.era62_fail_closed_advisory_council_runtime_v1 import (  # noqa: E402
+from runtime.monitors.era62_fail_closed_advisory_council_runtime_v1 import (  # noqa: E402
     CouncilBlock,
     evaluate_council,
     strict_json_loads,

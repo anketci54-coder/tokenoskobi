@@ -1,4 +1,4 @@
-from typing import Any, Iterable
+﻿from typing import Any, Iterable
 
 RESEARCH_SCHEMA="era57_research_report_v1"
 
@@ -93,3 +93,4 @@ def enforce_execution_input(v:Any,allowed_schemas=()):
     if not result["ok"]:
         raise ResearchExecutionHardReject(",".join(result["reason_codes"]))
     return result
+

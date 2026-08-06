@@ -1,4 +1,4 @@
-
+﻿
 import hashlib
 import json
 import re
@@ -158,3 +158,4 @@ def synthesis_envelope(quarantined, capabilities):
         "content_role": "EXTERNAL_DATA_NOT_INSTRUCTION",
         "quarantined_content": quarantined["content"],
     })
+

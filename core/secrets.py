@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Design-safe secret governance helpers for Phase41.
 
 This module is intentionally inert until imported by a future approved
@@ -551,3 +551,4 @@ def explain_secret_decision(decision):
     if reasons:
         return f"DENY: {operation} for {secret_key} blocked by " + ", ".join(str(r) for r in reasons)
     return f"DENY: {operation} for {secret_key} blocked by fail-closed secret policy"
+

@@ -1,4 +1,4 @@
-
+﻿
 from typing import Any
 
 VALID_REPORT_STATUSES = {
@@ -253,3 +253,4 @@ def assess_report(report: Any, claim_assessments: Any):
         "human_review_required": True,
         "fail_closed": True,
     }
+

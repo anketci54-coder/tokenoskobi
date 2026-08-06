@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 from pathlib import Path
 import argparse, json, subprocess, datetime, os
 
@@ -406,3 +406,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

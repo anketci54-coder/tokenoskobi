@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Design-safe runtime path resolver for Phase41.
 
 This module is intentionally inert until imported by a future approved
@@ -654,3 +654,4 @@ def explain_path_decision(decision):
     if reasons:
         return f"DENY: {label} blocked by " + ", ".join(str(r) for r in reasons)
     return f"DENY: {label} blocked by fail-closed path policy"
+

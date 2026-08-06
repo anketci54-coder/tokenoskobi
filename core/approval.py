@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Design-safe approval evaluator for Phase41.
 
 This module is intentionally inert until imported by a future approved
@@ -540,3 +540,4 @@ def evaluate_approval(
             "fail_closed": True,
         },
     )
+

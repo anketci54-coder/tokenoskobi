@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.era64_real_historical_wallet_replay_v1 import (
+from scripts.legacy.era64_real_historical_wallet_replay_v1 import (
     as_timestamp,
     bounded_graph_events,
     extract_relation,

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 from .identity import (
     normalize_chain,
     normalize_address,
@@ -234,3 +234,4 @@ def detect_duplicate_identities(rows, key_fields):
         else:
             seen[key] = idx
     return duplicates
+

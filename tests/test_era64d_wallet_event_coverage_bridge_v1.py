@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.era64_wallet_event_coverage_bridge_v1 import (
+from scripts.legacy.era64_wallet_event_coverage_bridge_v1 import (
     AUTHORITY,
     classify_schema,
     inspect_database,

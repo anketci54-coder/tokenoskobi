@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 import hashlib
 import re
 from datetime import datetime, timezone
@@ -115,3 +115,4 @@ def canonical_pair_identity(chain, token_address, pair_address, source="MANUAL_P
         "source": "" if source is None else str(source).strip(),
         "dex_name": "" if dex_name is None else str(dex_name).strip(),
     }
+

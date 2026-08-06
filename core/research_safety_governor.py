@@ -1,4 +1,4 @@
-
+﻿
 from datetime import datetime, timezone
 from typing import Any
 import hashlib
@@ -321,3 +321,4 @@ def evaluate_iteration(
             rules["paid_api_authorized"],
         "fail_closed":True
     }
+

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 from __future__ import annotations
 
 import json
@@ -248,3 +248,4 @@ def evaluate_runtime_stage(
 
 def enforce_runtime_stage(stage: str, **kwargs: Any) -> dict[str, Any]:
     return evaluate_runtime_stage(stage, **kwargs)
+

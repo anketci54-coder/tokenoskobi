@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 from .identity import normalize_chain
 
 SOURCE_TRUST = {
@@ -41,3 +41,4 @@ def route_from_quality(hard_fail=False, medium_risk=False, high_opportunity=Fals
     if high_opportunity:
         return "MICRO_OBSERVE"
     return "WATCH_ONLY"
+

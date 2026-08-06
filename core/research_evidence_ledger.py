@@ -1,4 +1,4 @@
-
+﻿
 import hashlib
 import json
 import re
@@ -198,3 +198,4 @@ def append_evidence(
         "auto_delete":False,
         "partial_output_actionable":False
     }
+

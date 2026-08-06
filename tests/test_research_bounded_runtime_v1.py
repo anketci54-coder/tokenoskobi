@@ -17,7 +17,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
     Ed25519PrivateKey,
 )
 
-import tools.runtime_research_bounded_v1 as runtime_module
+import runtime.core.runtime_research_bounded_v1 as runtime_module
 
 from core.research_content_quarantine import (
     DISABLED_CAPABILITIES,
@@ -26,7 +26,7 @@ from core.research_content_quarantine import (
 from core.research_execution_firewall import (
     RESEARCH_SCHEMA,
 )
-from tools.runtime_research_bounded_v1 import (
+from runtime.core.runtime_research_bounded_v1 import (
     AUDIT_STORE_PATH,
     BoundedResearchRuntime,
     CAPABILITY_AUDIENCE,

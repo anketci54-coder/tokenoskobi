@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Fail-closed authority evaluator for Tokenoskobi.
 
 This module is side-effect free. It classifies a requested operation, validates
@@ -239,3 +239,4 @@ def explain_authority_decision(decision: Any) -> str:
         return f"ALLOW: authority permits {op}"
     reasons = decision.get("reason_codes") or ["deny-by-default authority"]
     return f"DENY: {op} blocked by " + ", ".join(map(str, reasons))
+
