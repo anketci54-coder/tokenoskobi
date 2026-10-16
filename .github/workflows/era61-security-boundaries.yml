@@ -2,16 +2,9 @@ name: ERA61 Security Boundaries
 
 on:
   pull_request:
-    paths:
-      - "core/**"
-      - "config/authority_state_v1.json"
-      - "config/runtime_stage_grants_v1.json"
-      - "tools/**"
-      - "tests/test_era61_*.py"
-      - ".github/workflows/era61-security-boundaries.yml"
   push:
-    branches:
-      - era61-core-security-hardening
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -19,33 +12,27 @@ permissions:
 jobs:
   security-boundaries:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Compile hardened modules
+      - name: Install test dependencies
+        run: python -m pip install -r requirements-test.txt
+      - name: Compile Python sources
+        run: python -m compileall -q core services scripts tests engineering tokenoskobi_kernel.py
+      - name: Offline regression and authority boundary tests
+        run: python -B -m unittest discover -s tests -v
+      - name: Checkout health and smoke checks
         run: |
-          python -m py_compile \
-            core/authority.py \
-            core/runtime_policy_authority_gate.py \
-            core/research_execution_firewall.py \
-            tools/system_center_live_producer_v1.py
-      - name: Authority financial boundary tests
-        run: python tests/test_era61_authority_financial_boundaries.py
-      - name: Runtime gate adversarial tests
-        run: python tests/test_era61_runtime_gate_adversarial.py
-      - name: Dynamic execution surface test
-        run: python -m unittest tests.test_era61_repository_security_surface.Era61RepositorySecuritySurfaceTests.test_no_shell_true_or_dynamic_execution -v
-      - name: Authority fail-open marker test
-        run: python -m unittest tests.test_era61_repository_security_surface.Era61RepositorySecuritySurfaceTests.test_no_authority_fail_open_markers -v
-      - name: Direct financial execution call test
-        run: python -m unittest tests.test_era61_repository_security_surface.Era61RepositorySecuritySurfaceTests.test_no_direct_financial_execution_calls -v
-      - name: Research execution firewall test
-        run: python -m unittest tests.test_era61_repository_security_surface.Era61RepositorySecuritySurfaceTests.test_research_execution_firewall_has_empty_execution_allowlist -v
+          python -B scripts/engineering/tokenoskobi_healthcheck.py --report /tmp/tokenoskobi-health.json
+          python -B engineering/tests/smoke_test.py
+      - name: Product entry points on isolated loopback ports
+        run: python -B engineering/tests/product_runtime_smoke.py
+      - name: HTTP lifecycle and restart persistence with offline providers
+        run: python -B -m engineering.tests.product_e2e

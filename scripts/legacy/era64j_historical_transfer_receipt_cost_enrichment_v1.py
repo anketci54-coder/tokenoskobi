@@ -14,7 +14,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
+from core.platform.paths import get_root
+
+ROOT = get_root()
 HASH_LENGTH=66
 ADDRESS_LENGTH=42
 

@@ -3,10 +3,10 @@ import json
 import unittest
 from pathlib import Path
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
+ROOT=Path(__file__).resolve().parents[1]
 CONFIG=ROOT/'config/era64f_bounded_readonly_wallet_event_canary_v1.json'
 CONTROL=ROOT/'data/control/era64f_bounded_readonly_wallet_event_canary_v1.json'
-ENGINE=ROOT/'tools/era64f_bounded_readonly_wallet_event_canary_v1.py'
+ENGINE=ROOT/'scripts/legacy/era64f_bounded_readonly_wallet_event_canary_v1.py'
 
 spec=importlib.util.spec_from_file_location('era64f_canary',ENGINE)
 module=importlib.util.module_from_spec(spec)

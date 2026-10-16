@@ -1,4 +1,5 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
+Set-Location (Join-Path $PSScriptRoot "..\..")
 
 Write-Host ""
 Write-Host "==============================================="
@@ -61,11 +62,13 @@ Write-Host "[Repository Validator]"
 
 python engineering\health\repository_validator.py
 
-if(Test-Path "tools\tokenoskobi_healthcheck.py"){
-    python tools\tokenoskobi_healthcheck.py
+if(Test-Path "scripts\engineering\tokenoskobi_healthcheck.py"){
+    python scripts\engineering\tokenoskobi_healthcheck.py
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 else{
     Write-Host "Health check missing."
+    exit 1
 }
 
 Write-Host ""

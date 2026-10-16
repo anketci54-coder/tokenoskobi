@@ -9,11 +9,13 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Callable
 
-ROOT = Path(os.getenv("TOKENOSKOBI_ROOT", "/root/tokenoskobi_clean_v1"))
+from core.platform.paths import get_root
+
+ROOT = get_root()
 CORE_PATH = Path(
     os.getenv(
         "TOKENOSKOBI_SLICE03_CORE_PATH",
-        ROOT / "tools/tokenoskobi_product_slice_03_server.py",
+        Path(__file__).with_name("tokenoskobi_product_slice_03_server.py"),
     )
 )
 SPEC = importlib.util.spec_from_file_location(

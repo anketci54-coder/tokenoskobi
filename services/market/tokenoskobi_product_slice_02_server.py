@@ -12,6 +12,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from contextlib import closing
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -358,7 +359,9 @@ def market(token: str) -> dict[str, Any]:
     return output
 
 
-def technical_row(payload: dict[str, Any], token: str) -> tuple[list[float], str]:
+def technical_row(
+    payload: dict[str, Any], token: str, max_age_sec: float = 120,
+) -> tuple[list[float], str]:
     metadata = payload.get("meta") or {}
     base_address = str((metadata.get("base") or {}).get("address") or "").lower()
     quote_address = str((metadata.get("quote") or {}).get("address") or "").lower()
@@ -367,9 +370,25 @@ def technical_row(payload: dict[str, Any], token: str) -> tuple[list[float], str
     side = "base" if token == base_address else "quote"
     rows = payload["data"]["attributes"]["ohlcv_list"]
     closes: list[float] = []
+    observed_at = time.time()
+    previous_timestamp = None
     for row in rows:
-        if len(row) >= 6 and (close := num(row[4])) is not None:
-            closes.append(close)
+        if not isinstance(row, (list, tuple)) or len(row) < 6:
+            raise ValueError("OHLCV_ROW_INVALID")
+        timestamp, close = num(row[0]), num(row[4])
+        if timestamp is None or isinstance(row[0], bool) or timestamp <= 0:
+            raise ValueError("OHLCV_TIMESTAMP_INVALID")
+        if timestamp > observed_at:
+            raise ValueError("OHLCV_TIMESTAMP_FUTURE")
+        if previous_timestamp is None:
+            if observed_at - timestamp > max_age_sec:
+                raise ValueError("OHLCV_STALE")
+        elif timestamp >= previous_timestamp:
+            raise ValueError("OHLCV_TIMESTAMP_ORDER_INVALID")
+        if close is None or isinstance(row[4], bool) or close <= 0:
+            raise ValueError("OHLCV_PRICE_INVALID")
+        previous_timestamp = timestamp
+        closes.append(close)
     return list(reversed(closes)), side
 
 
@@ -398,7 +417,8 @@ def tech(pool: str | None, token: str) -> dict[str, Any]:
                 f"{base}/networks/bsc/pools/{pool}/ohlcv/{timeframe}"
                 f"?aggregate={aggregate}&limit=100&currency=usd&token={selector}"
             )
-            closes, side = technical_row(request(url), token)
+            period_sec = {"minute": 60, "hour": 3600, "day": 86400}[timeframe] * aggregate
+            closes, side = technical_row(request(url), token, max_age_sec=2 * period_sec)
             if len(closes) < 3:
                 output[key] = {
                     "status": "VERI_YETERSIZ",
@@ -438,9 +458,9 @@ def tech(pool: str | None, token: str) -> dict[str, Any]:
 def news(token: str, metadata: dict[str, Any]) -> dict[str, Any]:
     terms = {token.lower()}
     terms |= {
-        str(metadata.get(key)).lower()
+        str(metadata.get(key)).strip().lower()
         for key in ("name", "symbol")
-        if metadata.get(key)
+        if metadata.get(key) and str(metadata[key]).strip()
     }
     database = next((path for path in DBS if path.exists()), None)
     output: dict[str, Any] = {
@@ -452,58 +472,70 @@ def news(token: str, metadata: dict[str, Any]) -> dict[str, Any]:
     if not database:
         return output
 
-    latest = 0.0
     try:
-        connection = sqlite3.connect(f"file:{database}?mode=ro", uri=True)
-        connection.execute("PRAGMA query_only=ON")
-        for table in TABLES:
-            if not connection.execute(
-                "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)
-            ).fetchone():
-                continue
-            columns = [
-                column[1]
-                for column in connection.execute(f'PRAGMA table_info("{table}")')
-            ]
-            for row in connection.execute(
-                f'SELECT * FROM "{table}" ORDER BY rowid DESC LIMIT 100'
-            ):
-                record = {
-                    columns[index]: (
-                        row[index]
-                        if isinstance(row[index], (str, int, float, type(None)))
-                        else str(row[index])
-                    )
-                    for index in range(len(columns))
-                }
-                blob = json.dumps(record, ensure_ascii=False).lower()
-                if any(term in blob for term in terms) and len(output["matches"]) < 20:
-                    output["matches"].append({"table": table, "record": record})
-                for value in record.values():
-                    if isinstance(value, str):
-                        try:
-                            timestamp = datetime.fromisoformat(
-                                value.replace("Z", "+00:00")
-                            ).timestamp()
-                            if timestamp > latest:
-                                latest = timestamp
-                                output["latest"] = datetime.fromtimestamp(
-                                    timestamp, timezone.utc
-                                ).isoformat()
-                        except Exception:
-                            pass
-        connection.close()
+        with closing(sqlite3.connect(f"file:{database}?mode=ro", uri=True)) as connection:
+            return _read_news(connection, terms, output)
     except Exception as exc:
         output["error"] = f"{type(exc).__name__}:{str(exc)[:120]}"
+    return output
 
+
+def _read_news(connection, terms: set[str], output: dict[str, Any]) -> dict[str, Any]:
+    """Only a matching record's publication time can establish freshness."""
+    latest = 0.0
+    observed_at = time.time()
+    matchers = [re.compile(r"(?<![a-z0-9_])" + re.escape(term) + r"(?![a-z0-9_])")
+                for term in terms]
+    connection.execute("PRAGMA query_only=ON")
+    for table in TABLES:
+        if not connection.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)
+        ).fetchone():
+            continue
+        columns = [
+            column[1]
+            for column in connection.execute(f'PRAGMA table_info("{table}")')
+        ]
+        for row in connection.execute(
+            f'SELECT * FROM "{table}" ORDER BY rowid DESC LIMIT 100'
+        ):
+            record = {
+                columns[index]: (
+                    row[index]
+                    if isinstance(row[index], (str, int, float, type(None)))
+                    else str(row[index])
+                )
+                for index in range(len(columns))
+            }
+            text_values = [value.lower() for value in record.values() if isinstance(value, str)]
+            if not any(pattern.search(value) for pattern in matchers for value in text_values):
+                continue
+            if len(output["matches"]) < 20:
+                output["matches"].append({"table": table, "record": record})
+            # A fetch/processing timestamp must not refresh an old article.
+            value = record.get("published_at_utc") or record.get("published_at")
+            if not isinstance(value, str):
+                continue
+            try:
+                published = datetime.fromisoformat(value.replace("Z", "+00:00"))
+                if published.tzinfo is None or published.utcoffset() is None:
+                    continue
+                timestamp = published.timestamp()
+            except (ValueError, OverflowError):
+                continue
+            if latest < timestamp <= observed_at:
+                latest = timestamp
+                output["latest"] = published.astimezone(timezone.utc).isoformat()
     if latest:
-        output["age_sec"] = round(time.time() - latest, 1)
-        output["fresh"] = output["age_sec"] <= CFG["news_stale_sec"]
+        age = observed_at - latest
+        output["age_sec"] = round(age, 1)
+        output["fresh"] = 0 <= age <= CFG["news_stale_sec"]
     return output
 
 
 def ratio_ok(left: float | None, right: float | None, low: float, high: float) -> bool:
-    return bool(left is not None and right not in (None, 0) and low <= left / right <= high)
+    return bool(left is not None and right is not None and left > 0 and right > 0
+                and low <= left / right <= high)
 
 
 def decide(
@@ -614,15 +646,6 @@ def decide(
         score += 5
 
     score = max(0, min(100, score))
-    decision = (
-        "BLOCK"
-        if blockers
-        else "REVIEW"
-        if len(warnings) >= 3 or score >= 65
-        else "WAIT"
-        if score >= 45
-        else "ALLOW"
-    )
     quality = (
         "SUFFICIENT"
         if contract_state.get("code_exists") is True
@@ -634,6 +657,15 @@ def decide(
         and not wrong_price
         and valid_technical >= 2
         else "VERI_YETERSIZ"
+    )
+    decision = (
+        "BLOCK"
+        if blockers
+        else "REVIEW"
+        if quality != "SUFFICIENT" or len(warnings) >= 3 or score >= 65
+        else "WAIT"
+        if score >= 45
+        else "ALLOW"
     )
     return {
         "decision": decision,

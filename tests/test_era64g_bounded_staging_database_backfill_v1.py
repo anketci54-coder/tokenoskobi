@@ -4,20 +4,24 @@ import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from staging_fixtures import canary_database
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
-SPEC=importlib.util.spec_from_file_location('era64g',ROOT/'tools/era64g_bounded_staging_database_backfill_v1.py')
+ROOT=Path(__file__).resolve().parents[1]
+SPEC=importlib.util.spec_from_file_location('era64g',ROOT/'scripts/legacy/era64g_bounded_staging_database_backfill_v1.py')
 MODULE=importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 CONFIG=ROOT/'config/era64g_bounded_staging_database_backfill_v1.json'
 SOURCE=ROOT/'data/replay/era64f_bounded_readonly_wallet_event_canary_v1.json'
 CONTROL=ROOT/'data/control/era64g_bounded_staging_database_backfill_v1.json'
-DB=ROOT/'runtime/era64g/wallet_events_staging_v1.sqlite3'
 
 class Era64GTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.fixture = cls.enterClassContext(canary_database())
+        cls.database = cls.fixture.database
+        cls.enterClassContext(patch.object(MODULE, "ROOT", cls.fixture.root))
         cls.config=json.loads(CONFIG.read_text(encoding='utf-8'))
         cls.control=json.loads(CONTROL.read_text(encoding='utf-8'))
         cls.source=json.loads(SOURCE.read_text(encoding='utf-8'))
@@ -44,7 +48,7 @@ class Era64GTests(unittest.TestCase):
         self.assertEqual(self.control['token_transfer_event_count'],174)
 
     def test_05_database_integrity_and_unique_key(self):
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             self.assertEqual(conn.execute('PRAGMA integrity_check').fetchone()[0],'ok')
             total=conn.execute('SELECT COUNT(*) FROM era64g_wallet_event_staging_v1').fetchone()[0]
@@ -54,7 +58,7 @@ class Era64GTests(unittest.TestCase):
             conn.close()
 
     def test_06_idempotent_import(self):
-        with tempfile.TemporaryDirectory(dir=ROOT/'runtime/era64g') as tmp:
+        with tempfile.TemporaryDirectory(dir=self.fixture.root/'runtime/era64g') as tmp:
             path=Path(tmp)/'test.sqlite3'
             first=MODULE.import_events(CONFIG,SOURCE,path)
             second=MODULE.import_events(CONFIG,SOURCE,path)
@@ -80,7 +84,7 @@ class Era64GTests(unittest.TestCase):
             MODULE.normalize_event(event)
 
     def test_10_raw_evidence_and_hash_preserved(self):
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             row=conn.execute('SELECT raw_event_json,evidence_hash,source_artifact_sha256 FROM era64g_wallet_event_staging_v1 LIMIT 1').fetchone()
             self.assertTrue(json.loads(row[0])['event_uid'])

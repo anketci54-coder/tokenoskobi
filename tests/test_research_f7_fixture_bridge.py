@@ -13,7 +13,7 @@ fixture = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fixture)
 
 
-class Tests(unittest.TestCase):
+class Tests(fixture.ResearchRuntimeTestCase):
     def test_claim_text_change_blocks_reuse(self):
         def flow(second_text):
             runtime = fixture.runtime()

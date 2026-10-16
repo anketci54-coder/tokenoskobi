@@ -4,13 +4,14 @@ import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from staging_fixtures import historical_database
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
+ROOT=Path(__file__).resolve().parents[1]
 CONFIG=ROOT/'config/era64i_bounded_historical_wallet_event_backfill_v1.json'
 CONTROL=ROOT/'data/control/era64i_bounded_historical_wallet_event_backfill_v1.json'
 DETAIL=ROOT/'data/replay/era64i_bounded_historical_wallet_event_backfill_v1.json'
-DB=ROOT/'runtime/era64i/historical_wallet_transfer_staging_v1.sqlite3'
-TOOL=ROOT/'tools/era64i_bounded_historical_wallet_event_backfill_v1.py'
+TOOL=ROOT/'scripts/legacy/era64i_bounded_historical_wallet_event_backfill_v1.py'
 SPEC=importlib.util.spec_from_file_location('era64i',TOOL)
 MODULE=importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -19,6 +20,9 @@ SPEC.loader.exec_module(MODULE)
 class Era64ITests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.fixture = cls.enterClassContext(historical_database())
+        cls.database = cls.fixture.database
+        cls.enterClassContext(patch.object(MODULE, "ROOT", cls.fixture.root))
         cls.config=json.loads(CONFIG.read_text(encoding='utf-8'))
         cls.control=json.loads(CONTROL.read_text(encoding='utf-8'))
         cls.detail=json.loads(DETAIL.read_text(encoding='utf-8'))
@@ -54,20 +58,20 @@ class Era64ITests(unittest.TestCase):
 
     def test_05_database_integrity_and_unique_key(self):
         self.assertEqual(self.control['database_integrity_check'],'ok')
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             conn.execute('PRAGMA query_only=ON')
             total=conn.execute('SELECT COUNT(*) FROM era64i_historical_wallet_transfer_staging_v1').fetchone()[0]
             unique=conn.execute('SELECT COUNT(*) FROM (SELECT chain_id,tx_hash,log_index FROM era64i_historical_wallet_transfer_staging_v1 GROUP BY chain_id,tx_hash,log_index)').fetchone()[0]
             self.assertEqual(total,unique)
-            self.assertEqual(total,self.control['staging_event_count'])
+            self.assertEqual(total, 3)  # three known synthetic fixture transfers
         finally:
             conn.close()
 
     def test_06_event_provenance_and_timestamps_are_complete(self):
         self.assertEqual(self.detail['scan']['missing_timestamp_event_count'],0)
         self.assertEqual(self.detail['scan']['missing_provenance_event_count'],0)
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             missing=conn.execute("SELECT COUNT(*) FROM era64i_historical_wallet_transfer_staging_v1 WHERE block_time_utc='' OR source_provider_host='' OR evidence_hash=''").fetchone()[0]
             self.assertEqual(missing,0)
@@ -82,7 +86,7 @@ class Era64ITests(unittest.TestCase):
           '0xe9e7cea3dedca5984780bafc599bd69add087d56',
         }
         self.assertEqual(set(self.config['scope_tokens']),expected)
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             observed={row[0] for row in conn.execute('SELECT DISTINCT token_address FROM era64i_historical_wallet_transfer_staging_v1')}
             self.assertTrue(observed.issubset(expected))
@@ -90,11 +94,11 @@ class Era64ITests(unittest.TestCase):
             conn.close()
 
     def test_08_zero_address_is_not_counted_as_wallet(self):
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             wallets={row[0] for row in conn.execute('SELECT from_address FROM era64i_historical_wallet_transfer_staging_v1 UNION SELECT to_address FROM era64i_historical_wallet_transfer_staging_v1')}
             expected=len(wallets-{MODULE.ZERO_ADDRESS})
-            self.assertEqual(self.control['distinct_wallet_count'],expected)
+            self.assertEqual(expected, 2)  # mint address excluded from the fixture
         finally:
             conn.close()
 

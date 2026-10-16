@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 from pathlib import Path
 import argparse, json, subprocess, datetime, os
 
@@ -85,17 +85,14 @@ def semantic_registry(obj):
 def ensure_kernel_graph_files():
     core_files = [
         "README.md",
-        "PROJECT_BOOT.json",
+        "AGENTS.md",
         "PROJECT_RUNTIME.json",
         "PROJECT_HISTORY.json",
         "TOKENOSKOBI_OS_REGISTRY.json",
         "tokenoskobi_kernel.py",
-        "02_MANIFESTO.md",
-        "03_ROADMAP.md",
-        "04_ALMANAC.md",
-        "05_ATLAS.md",
-        "06_PROJECT_MASTER_STATE.md",
-        "07_PROJECT_HANDOFF.md",
+        "docs/canonical/MANIFESTO.md",
+        "docs/canonical/SYSTEM_MAP.md",
+        ".agents/skills/tokenoskobi-core/SKILL.md",
         "data/tokenoskobi_v1_v8_master_era_roadmap.json",
     ]
     excluded_parts = {".git", "archive", "backups", "__pycache__"}
@@ -107,7 +104,7 @@ def ensure_kernel_graph_files():
         "data/early_warning/",
         "reports/",
     )
-    active_prefixes = ("tools/", "deploy/", "public/", "data/control/")
+    active_prefixes = ("core/", "services/", "scripts/", "deploy/", "public/", "data/control/")
 
     runtime_used = []
     for f in ROOT.rglob("*"):
@@ -199,7 +196,6 @@ def collect(full=False):
 
     graphs = {}
     if full:
-        ensure_kernel_graph_files()
         graphs = {
             "active_execution_graph": load_json("data/control/ACTIVE_EXECUTION_GRAPH.json"),
             "active_dependency_graph": load_json("data/control/ACTIVE_DEPENDENCY_GRAPH.json"),
@@ -211,8 +207,19 @@ def collect(full=False):
             "used_by_runtime_index": load_json("data/control/USED_BY_RUNTIME_INDEX.json")
         }
 
-    active_work_unit = runtime.get("current_work_unit") or runtime.get("current_state", {}).get("active_work_unit") or {}
-    next_safe_step = runtime.get("next_safe_step") or runtime.get("current_state", {}).get("next_safe_step")
+    owner = runtime.get("canonical_current_state_v4") or {}
+    if owner:
+        active_work_unit = {
+            "id": owner.get("active_work_unit"),
+            "stage": owner.get("active_work_stage"),
+            "status": owner.get("closure_state"),
+            "last_completed_step": owner.get("last_completed"),
+            "next_step": owner.get("next_safe_step"),
+        }
+        next_safe_step = owner.get("next_safe_step")
+    else:
+        active_work_unit = runtime.get("current_work_unit") or runtime.get("current_state", {}).get("active_work_unit") or {}
+        next_safe_step = runtime.get("next_safe_step") or runtime.get("current_state", {}).get("next_safe_step")
 
     kernel = {
         "kernel": "TOKENOSKOBI_KERNEL_V1",
@@ -230,7 +237,8 @@ def collect(full=False):
             "generated_registry_dirty_ignored": True
         },
         "boot_files": {
-            "PROJECT_BOOT.json": file_exists("PROJECT_BOOT.json"),
+            "README.md": file_exists("README.md"),
+            "AGENTS.md": file_exists("AGENTS.md"),
             "PROJECT_RUNTIME.json": file_exists("PROJECT_RUNTIME.json"),
             "PROJECT_HISTORY.json": file_exists("PROJECT_HISTORY.json")
         },
@@ -243,9 +251,8 @@ def collect(full=False):
         },
         "known_facts": {
             "mirror_mode": "SERVER_WORKSPACE_EQUALS_GITHUB_MAIN",
-            "current_priority": "TOKENOSKOBI_KERNEL_V1_AND_CORE_OS_CLEANUP",
-            "era33_status": "ARCHITECTURE_DEFINED_VALIDATION_IN_PROGRESS",
-            "era33_next": "PHASE3_CONTAMINATION_AUDITOR",
+            "current_priority": active_work_unit.get("id"),
+            "current_stage": owner.get("active_work_stage"),
             "core_problem": "repository contains code plus archive/audit/runtime outputs; kernel is being added to make system self-describing"
         },
         "architecture": {
@@ -317,8 +324,7 @@ def print_human(k):
     print("TIMERS      :", k["inventory_summary"].get("timers_found"))
     print()
     print("PRIORITY    :", k["known_facts"]["current_priority"])
-    print("ERA33       :", k["known_facts"]["era33_status"])
-    print("ERA33 NEXT  :", k["known_facts"]["era33_next"])
+    print("STAGE       :", k["known_facts"]["current_stage"])
     print("=" * 80)
 
 def print_ai(k):
@@ -353,24 +359,12 @@ def print_ai(k):
     print(f"- next_step: {aw.get('next_step')}")
     print(f"- next_safe_step: {c.get('next_safe_step')}")
     print("")
-    print("CURRENT PRIORITY ORDER:")
-    print("1. Harden Tokenoskobi Kernel / Registry.")
-    print("2. Build Core Isolation Map.")
-    print("3. Build Lifecycle Controller.")
-    print("4. Then resume ERA33 Phase3 Contamination Auditor.")
-    print("")
-    print("ARCHITECTURE DIRECTION:")
-    print("- Tokenoskobi is moving to Kernel + Registry + Core Freeze + Plugin architecture.")
-    print("- Layers: CONSTITUTION, BOOT, CORE, RUNTIME, STATE, CONFIG, PLUGINS, WORKSPACE, ARCHIVE.")
-    print("- New ERA work must become plugin-based.")
-    print("- CORE must not change unless CORE_UPGRADE is explicitly opened.")
-    print("- Repository must not become a temporary workspace.")
-    print("")
-    print("IMPORTANT FINDINGS:")
-    print("- tk ai uses FASTPATH. Use tk machine for full recursive inventory and graph details.")
-    print("- tk registry skips writing when semantic registry content is unchanged.")
-    print("- Real code duplicates: 0 according to REAL_CODE_DUPLICATES.json.")
-    print("- Repository bloat is mainly data/docs/backups/audit outputs, not Python code.")
+    print("CURRENT PRIORITY:")
+    print("-", k["known_facts"]["current_priority"])
+    print("- Stage:", k["known_facts"]["current_stage"])
+    print("- Next safe step:", c.get("next_safe_step"))
+    print("- Source: PROJECT_RUNTIME.json canonical_current_state_v4.")
+    print("- Historical status and local checks do not prove production readiness.")
     print("")
     print("KNOWN COMMANDS:")
     print("- tk           => human status")
@@ -382,7 +376,7 @@ def print_ai(k):
     print("WHAT THE NEXT AI SHOULD DO FIRST:")
     print("- Confirm it understood the current state.")
     print("- Do not propose a new ERA.")
-    print("- If asked to continue, continue with Kernel/Registry hardening or Core Isolation, not random audits.")
+    print("- Follow the current state owner and the explicit user request.")
     print("=" * 72)
 
 def main():
@@ -393,6 +387,8 @@ def main():
     ap.add_argument("--write-registry", action="store_true")
     args = ap.parse_args()
     full = bool(args.machine or args.write_registry)
+    if args.write_registry:
+        ensure_kernel_graph_files()
     k = collect(full=full)
     if args.write_registry:
         stable_registry_write(k)

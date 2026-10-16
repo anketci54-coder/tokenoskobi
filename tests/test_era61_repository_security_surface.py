@@ -21,7 +21,11 @@ SECURITY_CRITICAL_FILES = (
     ROOT / "core" / "authority.py",
     ROOT / "core" / "runtime_policy_authority_gate.py",
     ROOT / "core" / "research_execution_firewall.py",
-    ROOT / "tools" / "system_center_live_producer_v1.py",
+    ROOT / "services" / "system" / "system_center_live_producer_v1.py",
+    ROOT / "services/market/tokenoskobi_product_slice_02_server.py",
+    ROOT / "services/market/tokenoskobi_product_slice_03_server.py",
+    ROOT / "services/market/tokenoskobi_product_slice_03_runtime.py",
+    ROOT / "services/research/runtime_research_bounded_v1.py",
 )
 
 FINANCIAL_CALL_NAMES = {
@@ -70,7 +74,7 @@ class Era61RepositorySecuritySurfaceTests(unittest.TestCase):
     def test_no_shell_true_or_dynamic_execution(self):
         findings = []
         for path in security_critical_python_files():
-            source = path.read_text(encoding="utf-8")
+            source = path.read_text(encoding="utf-8-sig")
             tree = ast.parse(source, filename=str(path))
             for node in ast.walk(tree):
                 if not isinstance(node, ast.Call):
@@ -102,7 +106,7 @@ class Era61RepositorySecuritySurfaceTests(unittest.TestCase):
     def test_no_authority_fail_open_markers(self):
         findings = []
         for path in security_critical_python_files():
-            lowered = path.read_text(encoding="utf-8").lower()
+            lowered = path.read_text(encoding="utf-8-sig").lower()
             for marker in FAIL_OPEN_MARKERS:
                 if marker in lowered:
                     findings.append(f"{path.relative_to(ROOT)}:{marker}")
@@ -115,7 +119,7 @@ class Era61RepositorySecuritySurfaceTests(unittest.TestCase):
         findings = []
         for path in security_critical_python_files():
             tree = ast.parse(
-                path.read_text(encoding="utf-8"), filename=str(path)
+                path.read_text(encoding="utf-8-sig"), filename=str(path)
             )
             for node in ast.walk(tree):
                 if not isinstance(node, ast.Call):

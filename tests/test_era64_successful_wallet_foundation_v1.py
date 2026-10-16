@@ -6,9 +6,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
-
-from era64_successful_wallet_foundation_v1 import (
+from scripts.legacy.era64_successful_wallet_foundation_v1 import (
     WalletFoundationError,
     build_foundation,
     build_relationship_graph,
@@ -120,7 +118,7 @@ class Era64SuccessfulWalletFoundationTests(unittest.TestCase):
         self.assertEqual(build_foundation(payload), build_foundation(json.loads(json.dumps(payload))))
 
     def test_12_source_has_no_network_db_or_dynamic_execution(self):
-        source = (ROOT / "tools/era64_successful_wallet_foundation_v1.py").read_text(encoding="utf-8")
+        source = (ROOT / "scripts/legacy/era64_successful_wallet_foundation_v1.py").read_text(encoding="utf-8")
         forbidden = ["subprocess", "os.system", "shell=True", "eval(", "exec(", "requests.", "urllib", "sqlite3", "websocket"]
         self.assertFalse(any(token in source for token in forbidden))
 

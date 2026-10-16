@@ -16,11 +16,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(os.getenv("TOKENOSKOBI_ROOT", "/root/tokenoskobi_clean_v1"))
+from core.platform.paths import get_root
+
+ROOT = get_root()
 SLICE02_PATH = Path(
     os.getenv(
         "TOKENOSKOBI_SLICE02_SERVER_PATH",
-        ROOT / "tools/tokenoskobi_product_slice_02_server.py",
+        Path(__file__).with_name("tokenoskobi_product_slice_02_server.py"),
     )
 )
 SPEC = importlib.util.spec_from_file_location("tokenoskobi_product_slice_02_runtime", SLICE02_PATH)

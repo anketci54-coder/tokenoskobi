@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-DEFAULT_ROOT = Path.cwd()
+DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def get_root() -> Path:
@@ -12,7 +12,7 @@ def get_root() -> Path:
 
     Priority:
     1. TOKENOSKOBI_ROOT environment variable
-    2. Current working directory
+    2. Repository containing this module (independent of working directory)
     """
     value = os.getenv("TOKENOSKOBI_ROOT")
     if value:

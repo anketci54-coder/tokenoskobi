@@ -4,17 +4,16 @@ import argparse
 import hashlib
 import json
 import sqlite3
-import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT / "tools") not in sys.path:
-    sys.path.insert(0, str(ROOT / "tools"))
+from core.platform.paths import get_root
 
-from era64_successful_wallet_foundation_v1 import (  # noqa: E402
+ROOT = get_root()
+
+from scripts.legacy.era64_successful_wallet_foundation_v1 import (  # noqa: E402
     AUTHORITY,
     WalletFoundationError,
     build_relationship_graph,

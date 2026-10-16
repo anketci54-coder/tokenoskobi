@@ -1,11 +1,11 @@
-﻿from pathlib import Path
+from pathlib import Path
 
-ROOT = Path.cwd()
+ROOT = Path(__file__).resolve().parents[2]
 
 FILES = [
     "tokenoskobi_kernel.py",
-    "tools/tokenoskobi_product_slice_02_server.py",
-    "tools/tokenoskobi_product_slice_03_server.py",
+    "services/market/tokenoskobi_product_slice_02_server.py",
+    "services/market/tokenoskobi_product_slice_03_server.py",
     "core/platform/file_lock.py",
 ]
 

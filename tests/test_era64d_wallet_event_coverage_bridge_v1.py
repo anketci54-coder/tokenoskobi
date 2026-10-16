@@ -132,7 +132,7 @@ class Era64DWalletCoverageBridgeTests(unittest.TestCase):
         self.assertFalse(any(AUTHORITY.values()))
 
     def test_12_source_has_no_network_db_write_or_dynamic_execution(self):
-        source = Path('tools/era64_wallet_event_coverage_bridge_v1.py').read_text(encoding='utf-8')
+        source = Path('scripts/legacy/era64_wallet_event_coverage_bridge_v1.py').read_text(encoding='utf-8')
         for forbidden in ('requests.', 'urllib.', 'subprocess', 'os.system', 'shell=True', 'eval(', 'exec(', 'INSERT INTO', 'UPDATE ', 'DELETE FROM'):
             self.assertNotIn(forbidden, source)
         self.assertIn('?mode=ro', source)

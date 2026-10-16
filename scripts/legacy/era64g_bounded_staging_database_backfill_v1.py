@@ -10,7 +10,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
+from core.platform.paths import get_root
+
+ROOT = get_root()
 ADDRESS_RE=re.compile(r'^0x[0-9a-f]{40}$')
 HASH_RE=re.compile(r'^0x[0-9a-f]{64}$')
 EVIDENCE_RE=re.compile(r'^[0-9a-f]{64}$')

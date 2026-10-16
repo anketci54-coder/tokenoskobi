@@ -9,6 +9,7 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import patch
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -17,7 +18,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
     Ed25519PrivateKey,
 )
 
-import runtime.core.runtime_research_bounded_v1 as runtime_module
+import services.research.runtime_research_bounded_v1 as runtime_module
 
 from core.research_content_quarantine import (
     DISABLED_CAPABILITIES,
@@ -26,7 +27,7 @@ from core.research_content_quarantine import (
 from core.research_execution_firewall import (
     RESEARCH_SCHEMA,
 )
-from runtime.core.runtime_research_bounded_v1 import (
+from services.research.runtime_research_bounded_v1 import (
     AUDIT_STORE_PATH,
     BoundedResearchRuntime,
     CAPABILITY_AUDIENCE,
@@ -341,7 +342,61 @@ def internal_event(correlation_id):
 
     return None
 
-class Tests(unittest.TestCase):
+class ResearchRuntimeTestCase(unittest.TestCase):
+    """Generate a real signed trust bundle in a temporary test directory."""
+
+    def setUp(self):
+        global PRIVATE_KEY_PATH, AUDIT_STORE_PATH
+        super().setUp()
+        temporary = tempfile.TemporaryDirectory(prefix="tokenoskobi_research_test_")
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        private_key_path = root / "private.pem"
+        key = Ed25519PrivateKey.generate()
+        private_key_path.write_bytes(key.private_bytes(
+            serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
+            serialization.NoEncryption(),
+        ))
+        public = key.public_key()
+        public_path = root / "public.pem"
+        public_path.write_bytes(public.public_bytes(
+            serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo,
+        ))
+        fingerprint = hashlib.sha256(public.public_bytes(
+            serialization.Encoding.DER, serialization.PublicFormat.SubjectPublicKeyInfo,
+        )).hexdigest()
+        fingerprint_path = root / "fingerprint.sha256"
+        fingerprint_path.write_text(fingerprint)
+        now = int(time.time())
+        manifest = {
+            "schema": MANIFEST_SCHEMA, "sequence": 1,
+            "issued_at_epoch": now - 1, "expires_at_epoch": now + 3600,
+            "audience": CAPABILITY_AUDIENCE,
+            "registry_sha256": runtime_module._PINNED_REGISTRY_SHA256,
+            "runtime_policy_sha256": runtime_module._PINNED_POLICY_SHA256,
+            "task_policy_sha256": runtime_module._PINNED_TASK_POLICY_SHA256,
+            "public_key_fingerprint_sha256": fingerprint,
+        }
+        manifest_path = root / "manifest.json"
+        manifest_path.write_bytes(canonical(manifest))
+        signature_path = root / "manifest.sig"
+        signature_path.write_text(base64.b64encode(key.sign(canonical(manifest))).decode())
+        audit_path = root / "audit.jsonl"
+        old_private, old_audit = PRIVATE_KEY_PATH, AUDIT_STORE_PATH
+        def restore_paths():
+            global PRIVATE_KEY_PATH, AUDIT_STORE_PATH
+            PRIVATE_KEY_PATH, AUDIT_STORE_PATH = old_private, old_audit
+        self.addCleanup(restore_paths)
+        PRIVATE_KEY_PATH, AUDIT_STORE_PATH = private_key_path, audit_path
+        self.enterContext(patch.multiple(
+            runtime_module,
+            PUBLIC_KEY_PATH=public_path, PUBLIC_KEY_FINGERPRINT_PATH=fingerprint_path,
+            SIGNED_MANIFEST_PATH=manifest_path, SIGNED_MANIFEST_SIGNATURE_PATH=signature_path,
+            AUDIT_STORE_PATH=audit_path,
+        ))
+
+
+class Tests(ResearchRuntimeTestCase):
     def test_signed_manifest_boot(self):
         item = runtime()
 

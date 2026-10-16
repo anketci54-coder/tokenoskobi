@@ -3,13 +3,14 @@ import json
 import sqlite3
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from staging_fixtures import canary_database
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
+ROOT=Path(__file__).resolve().parents[1]
 CONFIG=ROOT/'config/era64h_staging_replay_relationship_graph_v1.json'
 CONTROL=ROOT/'data/control/era64h_staging_replay_relationship_graph_validation_v1.json'
 DETAIL=ROOT/'data/replay/era64h_staging_replay_relationship_graph_v1.json'
-DB=ROOT/'runtime/era64g/wallet_events_staging_v1.sqlite3'
-TOOL=ROOT/'tools/era64h_staging_replay_relationship_graph_v1.py'
+TOOL=ROOT/'scripts/legacy/era64h_staging_replay_relationship_graph_v1.py'
 SPEC=importlib.util.spec_from_file_location('era64h',TOOL)
 MODULE=importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -18,6 +19,9 @@ SPEC.loader.exec_module(MODULE)
 class Era64HTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.fixture = cls.enterClassContext(canary_database())
+        cls.database = cls.fixture.database
+        cls.enterClassContext(patch.object(MODULE, "ROOT", cls.fixture.root))
         cls.config=json.loads(CONFIG.read_text(encoding='utf-8'))
         cls.control=json.loads(CONTROL.read_text(encoding='utf-8'))
         cls.detail=json.loads(DETAIL.read_text(encoding='utf-8'))
@@ -53,7 +57,7 @@ class Era64HTests(unittest.TestCase):
     def test_06_evidence_is_complete_and_unique(self):
         self.assertEqual(self.control['evidence_complete_event_count'],191)
         self.assertEqual(self.detail['evidence_incomplete_event_count'],0)
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             total=conn.execute('SELECT COUNT(*) FROM era64g_wallet_event_staging_v1').fetchone()[0]
             unique=conn.execute('SELECT COUNT(*) FROM (SELECT chain_id,tx_hash,log_index FROM era64g_wallet_event_staging_v1 GROUP BY chain_id,tx_hash,log_index)').fetchone()[0]

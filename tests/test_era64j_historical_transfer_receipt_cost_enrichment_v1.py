@@ -3,13 +3,14 @@ import json
 import sqlite3
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from staging_fixtures import historical_database
 
-ROOT=Path('/root/tokenoskobi_clean_v1')
+ROOT=Path(__file__).resolve().parents[1]
 CONFIG=ROOT/'config/era64j_historical_transfer_receipt_cost_enrichment_v1.json'
 CONTROL=ROOT/'data/control/era64j_historical_transfer_receipt_cost_enrichment_v1.json'
 DETAIL=ROOT/'data/replay/era64j_historical_transfer_receipt_cost_enrichment_v1.json'
-DB=ROOT/'runtime/era64i/historical_wallet_transfer_staging_v1.sqlite3'
-TOOL=ROOT/'tools/era64j_historical_transfer_receipt_cost_enrichment_v1.py'
+TOOL=ROOT/'scripts/legacy/era64j_historical_transfer_receipt_cost_enrichment_v1.py'
 SPEC=importlib.util.spec_from_file_location('era64j',TOOL)
 MODULE=importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -18,6 +19,9 @@ SPEC.loader.exec_module(MODULE)
 class Era64JTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.fixture = cls.enterClassContext(historical_database())
+        cls.database = cls.fixture.database
+        cls.enterClassContext(patch.object(MODULE, "ROOT", cls.fixture.root))
         cls.config=json.loads(CONFIG.read_text(encoding='utf-8'))
         cls.control=json.loads(CONTROL.read_text(encoding='utf-8'))
         cls.detail=json.loads(DETAIL.read_text(encoding='utf-8'))
@@ -51,18 +55,18 @@ class Era64JTests(unittest.TestCase):
 
     def test_05_database_integrity_and_unique_receipts(self):
         self.assertEqual(self.control['database_integrity_check'],'ok')
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             conn.execute('PRAGMA query_only=ON')
             total=conn.execute('SELECT COUNT(*) FROM era64j_historical_receipt_cost_enrichment_v1').fetchone()[0]
             unique=conn.execute('SELECT COUNT(DISTINCT tx_hash) FROM era64j_historical_receipt_cost_enrichment_v1').fetchone()[0]
             self.assertEqual(total,unique)
-            self.assertEqual(total,self.control['staging_receipt_count'])
+            self.assertEqual(total, 2)  # two known synthetic fixture transactions
         finally:
             conn.close()
 
     def test_06_gas_cost_invariant(self):
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             rows=conn.execute('SELECT gas_used,effective_gas_price_wei,gas_cost_wei FROM era64j_historical_receipt_cost_enrichment_v1').fetchall()
             self.assertTrue(rows)
@@ -74,7 +78,7 @@ class Era64JTests(unittest.TestCase):
 
     def test_07_receipt_linkage_matches_source(self):
         self.assertEqual(self.control['block_mismatch_count'],0)
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             mismatch=conn.execute('''
               SELECT COUNT(*)
@@ -87,7 +91,7 @@ class Era64JTests(unittest.TestCase):
             conn.close()
 
     def test_08_receipt_provenance_is_complete(self):
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             missing=conn.execute("SELECT COUNT(*) FROM era64j_historical_receipt_cost_enrichment_v1 WHERE source_provider_host='' OR evidence_hash='' OR raw_receipt_json=''").fetchone()[0]
             self.assertEqual(missing,0)
@@ -100,7 +104,7 @@ class Era64JTests(unittest.TestCase):
 
     def test_10_source_flags_remain_immutable_zero(self):
         self.assertTrue(self.control['source_flags_immutable_zero'])
-        conn=sqlite3.connect(f'file:{DB}?mode=ro',uri=True)
+        conn=sqlite3.connect(f'file:{self.database}?mode=ro',uri=True)
         try:
             changed=conn.execute('SELECT COUNT(*) FROM era64i_historical_wallet_transfer_staging_v1 WHERE cost_enriched!=0 OR receipt_enriched!=0').fetchone()[0]
             self.assertEqual(changed,0)

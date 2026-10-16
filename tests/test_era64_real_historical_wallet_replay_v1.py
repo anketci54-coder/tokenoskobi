@@ -87,7 +87,7 @@ class Era64RealHistoricalReplayTests(unittest.TestCase):
             self.assertEqual(summary["closed_cycle_count"],1)
 
     def test_10_authority_and_source_are_safe(self):
-        source=Path("tools/era64_real_historical_wallet_replay_v1.py").read_text(encoding="utf-8")
+        source=Path("scripts/legacy/era64_real_historical_wallet_replay_v1.py").read_text(encoding="utf-8")
         for forbidden in ("requests.","urllib.","subprocess", "os.system", "shell=True", "eval(", "exec("):
             self.assertNotIn(forbidden,source)
         with tempfile.TemporaryDirectory() as td:

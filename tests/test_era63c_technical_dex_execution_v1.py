@@ -10,7 +10,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE_PATH = ROOT / "tools" / "era63_technical_dex_execution_v1.py"
+ENGINE_PATH = ROOT / "scripts" / "legacy" / "era63_technical_dex_execution_v1.py"
 CONFIG_PATH = ROOT / "config" / "era63c_technical_dex_execution_v1.json"
 
 spec = importlib.util.spec_from_file_location("era63c_engine", ENGINE_PATH)

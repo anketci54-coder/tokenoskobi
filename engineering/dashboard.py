@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 TOOLS = [
     ("Repository Validator", "engineering/health/repository_validator.py"),
-    ("Health Check", "tools/tokenoskobi_healthcheck.py"),
+    ("Health Check", "scripts/engineering/tokenoskobi_healthcheck.py"),
     ("Repository Inventory", "engineering/health/repository_inventory.py"),
     ("Repository Intelligence", "engineering/health/repository_intelligence.py"),
 ]

@@ -6,27 +6,28 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+IMPORT_TEMP = tempfile.TemporaryDirectory(prefix="tokenoskobi_product03_runtime_test_")
 os.environ.setdefault("TOKENOSKOBI_ROOT", str(REPO))
 os.environ.setdefault(
     "TOKENOSKOBI_GT_RATE_DIR",
-    tempfile.mkdtemp(prefix="tokenoskobi_gt_slice03_runtime_test_"),
+    str(Path(IMPORT_TEMP.name) / "rate"),
 )
 os.environ.setdefault(
     "TOKENOSKOBI_SLICE03_STATE_DIR",
-    tempfile.mkdtemp(prefix="tokenoskobi_slice03_runtime_import_"),
+    str(Path(IMPORT_TEMP.name) / "state"),
 )
 os.environ.setdefault(
     "TOKENOSKOBI_SLICE02_SERVER_PATH",
-    str(REPO / "tools/tokenoskobi_product_slice_02_server.py"),
+    str(REPO / "services/market/tokenoskobi_product_slice_02_server.py"),
 )
 os.environ.setdefault(
     "TOKENOSKOBI_SLICE03_CORE_PATH",
-    str(REPO / "tools/tokenoskobi_product_slice_03_server.py"),
+    str(REPO / "services/market/tokenoskobi_product_slice_03_server.py"),
 )
 RUNTIME_PATH = Path(
     os.getenv(
         "TOKENOSKOBI_SLICE03_RUNTIME_PATH",
-        REPO / "tools/tokenoskobi_product_slice_03_runtime.py",
+        REPO / "services/market/tokenoskobi_product_slice_03_runtime.py",
     )
 )
 SPEC = importlib.util.spec_from_file_location(

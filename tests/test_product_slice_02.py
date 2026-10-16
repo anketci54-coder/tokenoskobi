@@ -2,17 +2,19 @@ import importlib.util
 import os
 import tempfile
 import unittest
+import time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+IMPORT_TEMP = tempfile.TemporaryDirectory(prefix="tokenoskobi_product02_test_")
 os.environ.setdefault("TOKENOSKOBI_ROOT", str(REPO))
 os.environ.setdefault(
-    "TOKENOSKOBI_GT_RATE_DIR", tempfile.mkdtemp(prefix="tokenoskobi_gt_test_")
+    "TOKENOSKOBI_GT_RATE_DIR", str(Path(IMPORT_TEMP.name) / "rate")
 )
 SERVER = Path(
     os.getenv(
         "TOKENOSKOBI_SLICE02_SERVER_PATH",
-        REPO / "tools/tokenoskobi_product_slice_02_server.py",
+        REPO / "services/market/tokenoskobi_product_slice_02_server.py",
     )
 )
 SPEC = importlib.util.spec_from_file_location("product_slice_02", SERVER)
@@ -50,9 +52,9 @@ def ohlcv_payload(base=BASE, quote=QUOTE, close=571.0):
         "data": {
             "attributes": {
                 "ohlcv_list": [
-                    [3, close, close, close, close + 2, 100],
-                    [2, close, close, close, close + 1, 90],
-                    [1, close, close, close, close, 80],
+                    [int(time.time()) - 10, close, close, close, close + 2, 100],
+                    [int(time.time()) - 70, close, close, close, close + 1, 90],
+                    [int(time.time()) - 130, close, close, close, close, 80],
                 ]
             }
         },

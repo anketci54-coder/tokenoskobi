@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RUNTIME_PATH = ROOT / "tools" / "era63d_market_technical_runtime_v1.py"
+RUNTIME_PATH = ROOT / "scripts" / "legacy" / "era63d_market_technical_runtime_v1.py"
 CONFIG_PATH = ROOT / "config" / "era63d_market_technical_runtime_v1.json"
 
 spec = importlib.util.spec_from_file_location("era63d_runtime", RUNTIME_PATH)
@@ -259,9 +259,9 @@ class Era63DRuntimeTests(unittest.TestCase):
             self.assertNotIn(forbidden, source)
 
     def test_17_systemd_units_remain_observation_only(self):
-        service = (ROOT / "systemd_drafts/tokenoskobi-era63d-market-technical.service").read_text(encoding="utf-8")
-        timer = (ROOT / "systemd_drafts/tokenoskobi-era63d-market-technical.timer").read_text(encoding="utf-8")
-        self.assertIn("era63d_market_technical_runtime_v1.py", service)
+        service = (ROOT / "config/systemd/tokenoskobi-era63d-market-technical.service").read_text(encoding="utf-8")
+        timer = (ROOT / "config/systemd/tokenoskobi-era63d-market-technical.timer").read_text(encoding="utf-8")
+        self.assertIn("-m scripts.legacy.era63d_market_technical_runtime_v1", service)
         self.assertNotIn("bash -c", service)
         self.assertNotIn("sh -c", service)
         self.assertIn("OnUnitActiveSec=15min", timer)

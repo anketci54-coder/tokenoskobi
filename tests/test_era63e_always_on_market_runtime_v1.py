@@ -5,12 +5,14 @@ import ast
 import copy
 import importlib.util
 import json
+import tempfile
 import time
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE_PATH = ROOT / 'tools' / 'era63e_always_on_market_runtime_v1.py'
+ENGINE_PATH = ROOT / 'scripts' / 'legacy' / 'era63e_always_on_market_runtime_v1.py'
 CONFIG_PATH = ROOT / 'config' / 'era63e_always_on_market_runtime_v1.json'
 spec = importlib.util.spec_from_file_location('era63e_always_on', ENGINE_PATH)
 module = importlib.util.module_from_spec(spec)
@@ -42,6 +44,10 @@ class Era63EAlwaysOnTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.config = json.loads(CONFIG_PATH.read_text(encoding='utf-8'))
+
+    def setUp(self):
+        temporary = self.enterContext(tempfile.TemporaryDirectory(prefix='tokenoskobi_era63e_test_'))
+        self.enterContext(patch.object(module, 'ROOT', Path(temporary)))
 
     def test_01_config_is_always_on_observation_only(self):
         module.validate_config(self.config)
@@ -98,9 +104,9 @@ class Era63EAlwaysOnTests(unittest.TestCase):
             return {'provider': 'TEST', 'successful_pool_count': 2, 'request_count': 4}
         runtime = module.AlwaysOnRuntime(self.config, rpc=FakeRpc(), market_refresh=refresh)
         runtime.process_block(raw_block(100, 1000), now_monotonic=1.0)
-        deadline = time.monotonic() + 2
-        while runtime.state['refresh_in_progress'] and time.monotonic() < deadline:
-            time.sleep(0.01)
+        self.assertIsNotNone(runtime.refresh_thread)
+        runtime.refresh_thread.join(timeout=2)
+        self.assertFalse(runtime.refresh_thread.is_alive())
         self.assertEqual(runtime.state['block_event_count'], 1)
         self.assertEqual(runtime.state['full_refresh_count'], 1)
         self.assertEqual(len(calls), 1)
@@ -138,7 +144,7 @@ class Era63EAlwaysOnTests(unittest.TestCase):
         self.assertEqual(methods, {'eth_chainId', 'eth_blockNumber', 'eth_getBlockByNumber'})
 
     def test_14_systemd_is_service_not_timer(self):
-        unit = (ROOT / 'systemd_drafts' / 'tokenoskobi-era63e-always-on-market.service').read_text(encoding='utf-8')
+        unit = (ROOT / 'config/systemd' / 'tokenoskobi-era63e-always-on-market.service').read_text(encoding='utf-8')
         self.assertIn('Restart=always', unit)
         self.assertNotIn('[Timer]', unit)
         self.assertNotIn('OnUnitActiveSec', unit)
