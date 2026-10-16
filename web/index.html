@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tokenoskobi · Token analizi</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1019;--panel:#121e2d;--line:#304159;--muted:#a8b8cd;--ink:#edf4ff;--accent:#a9d4ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1120px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px}
+h1,h2,h3,p{margin:0 0 12px}h1{font-size:26px}h2{font-size:20px}h3{font-size:16px}small,.muted{color:var(--muted)}
+.box,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;min-width:0;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid .card{margin-bottom:0}.grid{margin-bottom:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row h2{margin:0;margin-right:auto}.badge{border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:13px}
+label{display:block;margin-bottom:8px}input,button,textarea,select{font:inherit;border-radius:8px;padding:12px;border:1px solid var(--line)}
+input,textarea,select{background:#091320;color:var(--ink)}input{flex:1;min-width:0}textarea{width:100%;min-height:86px;resize:vertical;margin:8px 0}
+button{cursor:pointer;background:var(--accent);color:#0a1c30;font-weight:650}button.secondary{background:transparent;color:var(--ink)}button:disabled{opacity:.5;cursor:wait}
+:focus-visible{outline:3px solid #f7cf70;outline-offset:3px}.status{min-height:24px;margin-top:12px;overflow-wrap:anywhere}
+.ALLOW,.ACCEPT{color:#8df0b1}.BLOCK,.REJECT{color:#ff98a4}.REVIEW,.WAIT{color:#ffd58b}.verdict{font-size:36px;font-weight:750;margin:6px 0}
+.facts{display:grid;grid-template-columns:minmax(100px,1fr) 2fr;gap:7px 16px;margin:0}.facts dt{color:var(--muted)}.facts dd{margin:0;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;max-height:440px;overflow:auto}ul{padding-left:22px;margin:8px 0}summary{cursor:pointer}
+.frames{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.frame{background:#091320;padding:12px;border-radius:8px;overflow-wrap:anywhere}.frame b{display:block}
+.history p{overflow-wrap:anywhere}.empty{padding:22px;color:var(--muted);text-align:center}.danger{border-color:#c86170}
+@media(max-width:700px){main{padding:14px}header{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.frames{grid-template-columns:repeat(2,minmax(0,1fr))}.search{flex-direction:column;align-items:stretch}input{width:100%}.box,.card{padding:16px}.facts{grid-template-columns:1fr}.facts dd{margin-bottom:8px}}
+</style>
+</head>
+<body><main>
+<header><div><h1>TOKENOSKOBİ</h1><p class="muted">BSC token analizi, karar geçmişi ve sonuç takibi</p></div><span class="badge" id="connection">Bağlantı kontrol ediliyor…</span></header>
+<section class="box">
+<form id="form"><label for="a">BSC token kontrat adresi</label><div class="row search"><input id="a" placeholder="0x…" required pattern="0x[a-fA-F0-9]{40}" autocomplete="off" spellcheck="false" aria-describedby="addressHelp"><button id="analyze" type="submit">Analiz Et</button></div></form>
+<p id="addressHelp" class="muted">42 karakterlik kontrat adresini girin. Analiz, dış kaynakların hız sınırları nedeniyle zaman alabilir.</p>
+<p class="muted">Kararlar danışma niteliğindedir. Kabul kaydı işlem veya emir oluşturmaz.</p>
+<div id="status" class="status" role="status" aria-live="polite">Analiz için bir token adresi girin.</div>
+</section>
+<div id="result" aria-live="polite"></div>
+<section class="box" id="historySection"><div class="row"><h2>Karar geçmişi</h2><label for="limit" class="muted">Son kayıtlar</label><select id="limit"><option>20</option><option>50</option><option>100</option></select><button id="refresh" class="secondary">Yenile</button></div><div id="history" class="status">Yükleniyor…</div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const esc=x=>String(x??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const labels={ALLOW:'Uygun',BLOCK:'Engellendi',REVIEW:'İnceleme gerekli',WAIT:'Bekle',ACCEPT:'Kabul',REJECT:'Ret'};
+let currentPacket=null, currentAnalysis=null, busy=false, historyEnabled=false;
+function price(x){if(x===null||x===undefined||x==='')return 'VERİ YETERSİZ';const n=Number(x);return Number.isFinite(n)?n.toLocaleString('tr-TR',{maximumFractionDigits:10}):'VERİ YETERSİZ'}
+function items(values){return values?.length?'<ul>'+values.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'<p class="muted">Yok</p>'}
+function facts(values){return '<dl class="facts">'+values.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')+'</dl>'}
+function errorText(code){return ({INVALID_BSC_TOKEN_ADDRESS:'Geçerli bir BSC kontrat adresi girin.',HUMAN_DECISION_REQUIRED_BEFORE_OUTCOME:'Önce bu paket için bir karar kaydedin.',HISTORY_INTEGRITY_FAILED:'Geçmişin bütünlüğü doğrulanamadı. Kayıtları koruyun ve servis günlüğünü kontrol edin.',ANALYSIS_BUSY:'Başka bir analiz sürüyor. Tamamlandıktan sonra yeniden deneyin.'})[code]||code||'İstek tamamlanamadı.'}
+async function api(url,opt={}){const response=await fetch(url,{cache:'no-store',...opt});if(!(response.headers.get('content-type')||'').includes('application/json'))throw Error('Sunucuya erişilemiyor (HTTP '+response.status+').');const data=await response.json();if(!response.ok)throw Error(errorText(data.error));return data}
+const post=(url,payload)=>api(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+function setBusy(value){busy=value;for(const b of document.querySelectorAll('button'))b.disabled=value}
+async function action(message,work){if(busy)return;setBusy(true);$('status').textContent=message;try{await work()}catch(e){$('status').textContent=e.message}finally{setBusy(false)}}
+function renderAnalysis(d,reopened=false){
+ currentAnalysis=d;currentPacket=(d.history&&d.history.packet_id)||((d.packet||{}).packet_id)||null;
+ const p=d.packet?d.packet.analysis:d,q=p.decision||{},meta=(p.contract||{}).metadata||{},market=p.market||{},token=market.token||{},pool=market.selected_pool||{},news=p.news||{};
+ const frames=['1m','5m','15m','1h','4h','1d'].map(name=>{const t=(p.technical_timeframes||{})[name]||{};return `<div class="frame"><b>${name}</b>${t.status==='OK'?esc(price(t.change_pct))+'%<br>'+esc(t.trend):'VERİ YETERSİZ'}</div>`}).join('');
+ const controls=currentPacket?`<section class="box"><h2>İnsan kararı</h2><label for="note">Karar notu (isteğe bağlı)</label><textarea id="note" maxlength="500"></textarea><div class="row"><button data-action="ACCEPT">Kabul</button><button data-action="REJECT">Reddet</button><button data-action="WAIT">Bekle</button><button data-action="REVIEW">İncele</button><button data-outcome="${esc(currentPacket)}" class="secondary">Sonucu Güncelle</button></div><p class="muted">${reopened?'Kayıtlı paket açıldı.':'Paket geçmişe kaydedildi.'} Karar kaydı finansal işlem başlatmaz.</p></section>`:'';
+ $('result').innerHTML=`<div class="grid"><section class="card"><h2>Karar</h2><div class="verdict ${esc(q.decision)}">${esc(labels[q.decision]||q.decision)}</div><span>${esc(q.decision)} · ${esc(q.data_quality)}</span></section><section class="card"><h2>Risk</h2><div class="verdict">${esc(q.risk_score??'—')}<small>/100</small></div></section><section class="card"><h2>Token</h2><div class="verdict">${esc(meta.symbol||token.symbol)}</div>${esc(meta.name||token.name)}</section></div>
+ <section class="box"><h2>Piyasa ve kaynak</h2>${facts([['Token',p.token_address],['Fiyat',price(token.price_usd)+' USD'],['Likidite',price(pool.reserve_usd)+' USD'],['Fiyat kaynağı',token.price_source],['Havuz',pool.address],['Analiz zamanı',p.generated_at_utc]])}</section>
+ <div class="grid"><section class="card ${q.blockers?.length?'danger':''}"><h2>Engelleme nedenleri</h2>${items(q.blockers)}</section><section class="card"><h2>Uyarılar</h2>${items(q.warnings)}</section><section class="card"><h2>Kanıtlar</h2>${items(q.evidence)}</section></div>
+ <section class="box"><h2>Teknik zaman dilimleri</h2><div class="frames">${frames}</div></section>
+ <section class="box"><h2>Haber verisi</h2>${facts([['Durum',news.fresh?'Güncel eşleşme var':'Güncel kanıt yok'],['Son yayın',news.latest||'VERİ YETERSİZ']])}</section>
+ ${controls}<section class="box"><div class="row"><h2>Kanıt paketi</h2><button id="download" class="secondary">JSON indir</button></div><details><summary>Ham veriyi göster</summary><pre>${esc(JSON.stringify(d,null,2))}</pre></details></section>`;
+}
+async function analyze(){const address=$('a').value.trim();if(!/^0x[a-fA-F0-9]{40}$/.test(address)){$('status').textContent=errorText('INVALID_BSC_TOKEN_ADDRESS');return}await action('Kaynaklar okunuyor; analiz hazırlanıyor…',async()=>{const data=await post('/api/v1/analyze',{token_address:address});renderAnalysis(data);$('status').textContent='Analiz tamamlandı.';await loadHistory()})}
+async function human(choice){if(!currentPacket)return;await action('Karar kaydediliyor…',async()=>{await post('/api/v1/decisions',{packet_id:currentPacket,action:choice,note:$('note').value||null});$('status').textContent=(labels[choice]||choice)+' kararı kaydedildi.';await loadHistory()})}
+async function outcome(pid){await action('Güncel fiyat gözleniyor…',async()=>{const data=await post('/api/v1/outcomes/observe',{packet_id:pid}),p=data.event.payload;$('status').textContent='Gözlenen fiyat: '+price(p.current_price_usd)+' USD · Değişim: '+price(p.change_pct)+'%';await loadHistory()})}
+async function reopen(pid){await action('Paket açılıyor…',async()=>{renderAnalysis(await api('/api/v1/packets/'+pid),true);$('status').textContent='Kayıtlı paket açıldı.';window.scrollTo({top:0,behavior:'smooth'})})}
+async function loadHistory(){if(!historyEnabled)return;try{const data=await api('/api/v1/history?limit='+encodeURIComponent($('limit').value||'20'));$('history').innerHTML=(data.records||[]).map(x=>{const s=x.summary||{},h=(x.latest_human_decision||{}).payload||{},o=(x.latest_outcome||{}).payload||{};return `<article class="box history"><h3>${esc(s.symbol)} · ${esc(labels[s.system_decision]||s.system_decision)} · Risk ${esc(s.risk_score)}</h3><p>${price(s.price_usd)} USD · ${esc(s.generated_at_utc)}</p><p>İnsan kararı: ${esc(labels[h.action]||h.action||'Henüz yok')}${h.note?' · '+esc(h.note):''}</p><p>Sonuç: ${o.current_price_usd==null?'Henüz gözlenmedi':price(o.current_price_usd)+' USD · '+price(o.change_pct)+'%'}</p><div class="row"><button data-reopen="${esc(x.packet_id)}" class="secondary">Paketi Aç</button>${h.action?`<button data-outcome="${esc(x.packet_id)}" class="secondary">Sonucu Güncelle</button>`:''}</div></article>`}).join('')||'<p class="empty">Henüz analiz kaydı yok. İlk tokeninizi yukarıdan analiz edin.</p>'}catch(e){$('history').textContent=e.message}}
+function download(){if(!currentAnalysis)return;const link=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(currentAnalysis,null,2)],{type:'application/json'}));link.href=url;link.download='tokenoskobi-'+(currentPacket||'analysis')+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+$('form').addEventListener('submit',e=>{e.preventDefault();analyze()});
+$('refresh').addEventListener('click',()=>action('Geçmiş yenileniyor…',async()=>{await loadHistory();$('status').textContent='Geçmiş yenilendi.'}));
+$('limit').addEventListener('change',loadHistory);
+for(const id of ['result','history'])$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b||busy)return;if(b.dataset.action)human(b.dataset.action);else if(b.dataset.outcome)outcome(b.dataset.outcome);else if(b.dataset.reopen)reopen(b.dataset.reopen);else if(b.id==='download')download()});
+async function initialize(){try{const health=await api('/healthz');historyEnabled=health.product_slice==='03';$('historySection').hidden=!historyEnabled;$('connection').textContent=historyEnabled?'Servis hazır · Geçmiş doğrulandı':'Servis hazır · Analiz modu';await loadHistory()}catch(e){$('connection').textContent='Servis kontrolü başarısız';$('history').textContent=e.message;$('status').textContent=e.message}}
+initialize();
+</script>
+</body>
+</html>

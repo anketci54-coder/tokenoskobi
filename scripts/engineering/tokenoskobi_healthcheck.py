@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPOSITORY_ROOT))
+from services.market.config import validate_config
 
 
 def health_checks(root: Path) -> dict:
@@ -37,6 +39,8 @@ def health_checks(root: Path) -> dict:
         "Slice03 Runtime": "services/market/tokenoskobi_product_slice_03_runtime.py",
         "Market Configuration": "config/product_slice_02_v1.json",
         "Runtime State": "PROJECT_RUNTIME.json",
+        "Panel": "web/index.html",
+        "Launcher": "tokenoskobi.py",
     }
     for title, relative in required.items():
         check(title, (root / relative).is_file(), relative)
@@ -46,6 +50,8 @@ def health_checks(root: Path) -> dict:
             value = json.loads((root / relative).read_text(encoding="utf-8-sig"))
             if not isinstance(value, dict):
                 raise ValueError("expected a JSON object")
+            if title == "Market Configuration":
+                validate_config(value)
         except (OSError, ValueError) as exc:
             check(title, False, str(exc))
     check("POSIX File Lock", importlib.util.find_spec("fcntl") is not None,

@@ -31,7 +31,9 @@ def running_product(module: str, root: Path, arguments=()):
         })
         base = f"http://127.0.0.1:{port}"
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-        process = subprocess.Popen([sys.executable, "-B", "-m", module, *arguments],
+        command = ([str(ROOT / "start.sh"), *arguments] if module == "start.sh" else
+                   [sys.executable, "-B", "-m", module, *arguments])
+        process = subprocess.Popen(command,
                                    cwd=root, env=env, stdout=log, stderr=log)
         try:
             deadline = time.monotonic() + 10
@@ -56,6 +58,8 @@ def running_product(module: str, root: Path, arguments=()):
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait(timeout=5)
+            if module == "start.sh":
+                assert process.returncode == 0, "Launcher did not shut down cleanly"
 
 
 def smoke(module: str) -> None:
@@ -77,7 +81,26 @@ def smoke(module: str) -> None:
                     payload = json.load(error)
                 assert error.code == 400, (error.code, payload)
                 assert "INVALID" in payload["error"], payload
-            if module.endswith("slice_03_runtime"):
+            for raw in (b'[]', b'null', b'{', b'\xff', b'{"token_address": 2}'):
+                request = urllib.request.Request(base + "/api/v1/analyze", method="POST",
+                    data=raw, headers={"Content-Type": "application/json"})
+                try:
+                    opener.open(request, timeout=2)
+                    raise AssertionError("Malformed request was accepted")
+                except urllib.error.HTTPError as error:
+                    with error:
+                        assert error.code == 400, (raw, error.code, error.read())
+            for headers in ({"Content-Type": "text/plain"},
+                            {"Content-Type": "application/json", "Origin": "https://unrelated.example"}):
+                request = urllib.request.Request(base + "/api/v1/analyze", method="POST",
+                    data=b'{"token_address":"0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}', headers=headers)
+                try:
+                    opener.open(request, timeout=2)
+                    raise AssertionError("Foreign-origin or form submission accepted")
+                except urllib.error.HTTPError as error:
+                    with error:
+                        assert error.code == 400, (headers, error.code, error.read())
+            if module.endswith("slice_03_runtime") or module == "start.sh":
                 with opener.open(base + "/healthz", timeout=2) as response:
                     assert json.load(response)["event_count"] == 0
             print(f"{module}: health, panel, invalid-input rejection PASS")
@@ -85,5 +108,5 @@ def smoke(module: str) -> None:
 
 if __name__ == "__main__":
     for target in ("services.market.tokenoskobi_product_slice_02_server",
-                   "services.market.tokenoskobi_product_slice_03_runtime"):
+                   "services.market.tokenoskobi_product_slice_03_runtime", "start.sh"):
         smoke(target)

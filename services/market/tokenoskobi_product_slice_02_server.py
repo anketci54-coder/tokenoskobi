@@ -18,12 +18,15 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-from core.platform.paths import get_root
+from core.platform.paths import get_root, product_cache_dir
+from services.market.config import validate_config
+from services.market.request_validation import validate_json_headers
 ROOT = get_root()
 CFG = json.loads((ROOT / "config/product_slice_02_v1.json").read_text(encoding="utf-8"))
 if os.getenv("TOKENOSKOBI_PRODUCT_SLICE_02_PORT"):
     CFG = dict(CFG)
     CFG["port"] = int(os.environ["TOKENOSKOBI_PRODUCT_SLICE_02_PORT"])
+validate_config(CFG)
 
 ADDR = re.compile(r"^0x[a-fA-F0-9]{40}$")
 SEL = {
@@ -46,7 +49,7 @@ TABLES = (
     "news_score_events_v1",
 )
 
-GT_RATE_DIR = Path(os.getenv("TOKENOSKOBI_GT_RATE_DIR", "/run"))
+GT_RATE_DIR = product_cache_dir()
 GT_LOCK = GT_RATE_DIR / "tokenoskobi_geckoterminal_rate.lock"
 GT_STATE = GT_RATE_DIR / "tokenoskobi_geckoterminal_rate.state"
 GT_MIN_INTERVAL_SEC = 6.5
@@ -724,10 +727,14 @@ def analyze(token: str) -> dict[str, Any]:
     }
 
 
-HTML = """<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tokenoskobi</title><style>body{margin:0;background:#091019;color:#e8eef5;font-family:system-ui}.w{max-width:1100px;margin:auto;padding:18px}.box{background:#111b27;border:1px solid #2a3b4e;border-radius:15px;padding:18px;margin:12px 0}input,button{padding:14px;border-radius:10px;border:1px solid #3b5068;background:#0b131c;color:white;font-size:16px}input{width:min(720px,70%)}button{background:#dbeaff;color:#06101a;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{background:#0b131c;border-radius:12px;padding:13px}.ALLOW{color:#75eca2}.WAIT{color:#ffd173}.REVIEW{color:#ffa56d}.BLOCK{color:#ff7784}pre{white-space:pre-wrap;word-break:break-word}@media(max-width:700px){.grid{grid-template-columns:1fr}input{width:100%;margin-bottom:8px}}</style></head><body><main class="w"><h2>TOKENOSKOBİ — Tek Token Karar Paketi</h2><div class="box">BSC token adresi: <input id="a" placeholder="0x…"><button id="b" onclick="go()">Analiz Et</button><p id="s"></p></div><div id="r"></div></main><script>const a=document.getElementById('a'),b=document.getElementById('b'),s=document.getElementById('s'),r=document.getElementById('r'),e=x=>String(x??'—').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));async function go(){b.disabled=true;s.textContent='Gerçek veriler toplanıyor…';r.innerHTML='';try{let z=await fetch('/api/v1/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token_address:a.value.trim()})}),d=await z.json();if(!z.ok)throw Error(d.error);let q=d.decision,m=d.contract.metadata,p=d.market.selected_pool||{},t=d.market.token||{};r.innerHTML=`<div class="grid"><div class="card"><b>Karar</b><h1 class="${e(q.decision)}">${e(q.decision)}</h1>${e(q.data_quality)}</div><div class="card"><b>Risk</b><h1>${e(q.risk_score)}/100</h1></div><div class="card"><b>Token</b><h1>${e(m.symbol)}</h1>${e(m.name)}</div></div><div class="box"><b>Fiyat / Likidite</b><p>${e(t.price_usd)} USD / ${e(p.reserve_usd)} USD</p><small>Fiyat kaynağı: ${e(t.price_source)}</small><p><b>Uyarılar</b><br>${e(q.warnings.join(' • '))}</p><p><b>Kanıt</b><br>${e(q.evidence.join(' • '))}</p></div><details class="box"><summary>Ham paket</summary><pre>${e(JSON.stringify(d,null,2))}</pre></details>`;s.textContent='Karar paketi üretildi';}catch(x){s.textContent=x.message}finally{b.disabled=false}}</script></body></html>"""
+HTML = (Path(__file__).resolve().parents[2] / "web/index.html").read_text(encoding="utf-8")
 
 
 class H(BaseHTTPRequestHandler):
+    def setup(self) -> None:
+        super().setup()
+        self.connection.settimeout(15)
+
     def log_message(self, *_: Any) -> None:
         pass
 
@@ -761,13 +768,22 @@ class H(BaseHTTPRequestHandler):
         if urllib.parse.urlsplit(self.path).path != "/api/v1/analyze":
             return self.sendj(404, {"error": "NOT_FOUND"})
         try:
+            validate_json_headers(self.headers)
+        except ValueError as exc:
+            return self.sendj(400, {"error": str(exc)})
+        try:
             length = int(self.headers.get("Content-Length", "0"))
             if not 0 < length <= 4096:
                 return self.sendj(400, {"error": "INVALID_REQUEST_SIZE"})
             payload = json.loads(self.rfile.read(length))
+            if not isinstance(payload, dict):
+                return self.sendj(400, {"error": "JSON_OBJECT_REQUIRED"})
             token_address = payload.get("token_address", "")
-            if not ADDR.fullmatch(token_address):
+            if not isinstance(token_address, str) or not ADDR.fullmatch(token_address):
                 return self.sendj(400, {"error": "INVALID_BSC_TOKEN_ADDRESS"})
+        except (ValueError, UnicodeDecodeError):
+            return self.sendj(400, {"error": "INVALID_JSON_OR_CONTENT_LENGTH"})
+        try:
             self.sendj(200, analyze(token_address))
         except Exception as exc:
             self.sendj(
@@ -781,9 +797,6 @@ class H(BaseHTTPRequestHandler):
 
 AUTHORITY = CFG["authority"]
 if __name__ == "__main__":
-    assert CFG["host"] == "127.0.0.1"
-    assert all(
-        AUTHORITY[key] is False
-        for key in ("paper", "live", "wallet", "signing", "order", "broadcast")
-    )
-    ThreadingHTTPServer((CFG["host"], CFG["port"]), H).serve_forever()
+    validate_config(CFG)
+    with ThreadingHTTPServer((CFG["host"], CFG["port"]), H) as server:
+        server.serve_forever()

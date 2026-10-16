@@ -1,5 +1,6 @@
 """Offline regressions for evidence quality at the market decision boundary."""
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from datetime import datetime, timezone
@@ -117,7 +118,7 @@ class NewsFreshnessTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             database = root / "news.sqlite"
-            with sqlite3.connect(database) as connection:
+            with closing(sqlite3.connect(database)) as connection, connection:
                 connection.execute("CREATE TABLE news_raw_feed_events "
                                    "(title TEXT, published_at_utc TEXT, fetched_at_utc TEXT)")
                 connection.executemany("INSERT INTO news_raw_feed_events VALUES (?, ?, ?)", rows)

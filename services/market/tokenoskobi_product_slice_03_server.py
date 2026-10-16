@@ -16,7 +16,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-from core.platform.paths import get_root
+from core.platform.paths import get_root, product_state_dir
+from services.market.config import validate_config
+from services.market.request_validation import validate_json_headers
 
 ROOT = get_root()
 SLICE02_PATH = Path(
@@ -100,14 +102,7 @@ def configure_state_dir(path: Path | str) -> None:
     LOCK_FILE = STATE_DIR / "decision_history_v1.lock"
 
 
-configure_state_dir(
-    Path(
-        os.getenv(
-            "TOKENOSKOBI_SLICE03_STATE_DIR",
-            "/var/lib/tokenoskobi-product-slice-03",
-        )
-    )
-)
+configure_state_dir(product_state_dir())
 
 
 def ensure_state() -> None:
@@ -218,7 +213,7 @@ def verify_event_chain() -> list[dict[str, Any]]:
             raise HistoryCorruption("EVENT_LOG_BLANK_LINE")
         try:
             event = json.loads(line)
-        except json.JSONDecodeError as exc:
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise HistoryCorruption("EVENT_LOG_INVALID_JSON") from exc
         if not isinstance(event, dict):
             raise HistoryCorruption("EVENT_NOT_OBJECT")
@@ -514,48 +509,14 @@ def packet_response(packet_id: str) -> dict[str, Any]:
     }
 
 
-HTML = r"""<!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tokenoskobi</title>
-<style>
-body{margin:0;background:#091019;color:#e8eef5;font-family:system-ui}.w{max-width:1100px;margin:auto;padding:18px}
-.box{background:#111b27;border:1px solid #2a3b4e;border-radius:15px;padding:18px;margin:12px 0}
-input,button,textarea{padding:13px;border-radius:10px;border:1px solid #3b5068;background:#0b131c;color:white;font-size:15px}
-input{width:min(720px,70%)}textarea{width:calc(100% - 28px);min-height:55px}button{background:#dbeaff;color:#06101a;font-weight:800;margin:3px}
-button:disabled{opacity:.45}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.card{background:#0b131c;border-radius:12px;padding:13px}.ALLOW,.ACCEPT{color:#75eca2}.WAIT{color:#ffd173}
-.REVIEW{color:#ffa56d}.BLOCK,.REJECT{color:#ff7784}.muted{color:#9aabba;font-size:13px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}pre{white-space:pre-wrap;word-break:break-word}
-.history{border-left:4px solid #3b5068}.selected{border-left-color:#75eca2}
-@media(max-width:700px){.grid{grid-template-columns:1fr}input{width:100%;box-sizing:border-box;margin-bottom:8px}}
-</style></head><body><main class="w">
-<h2>TOKENOSKOBİ — Karar, Geçmiş ve Sonuç</h2>
-<div class="box"><b>BSC token adresi</b><div class="row"><input id="a" placeholder="0x…"><button id="analyze">Analiz Et</button></div><p id="status"></p></div>
-<div id="result"></div>
-<div class="box"><div class="row"><h3>Karar Geçmişi</h3><button id="refresh">Yenile</button></div><div id="history"></div></div>
-</main><script>
-const $=id=>document.getElementById(id), esc=x=>String(x??'—').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
-let currentPacket=null;
-async function api(url,opt={}){let r=await fetch(url,opt),ct=r.headers.get('content-type')||'',d;if(ct.includes('application/json'))d=await r.json();else throw Error('SUNUCU_JSON_DONMEDI_HTTP_'+r.status);if(!r.ok)throw Error(d.error||d.detail||('HTTP_'+r.status));return d}
-function price(x){let n=Number(x);return Number.isFinite(n)?n.toLocaleString('tr-TR',{maximumFractionDigits:10}):'—'}
-function renderAnalysis(d,reopened=false){currentPacket=(d.history&&d.history.packet_id)||((d.packet||{}).packet_id)||currentPacket;let p=d.packet?d.packet.analysis:d,q=p.decision||{},m=(p.contract||{}).metadata||{},market=p.market||{},t=market.token||{},pool=market.selected_pool||{},pid=currentPacket||'';
-$('result').innerHTML=`<div class="grid"><div class="card"><b>Karar</b><h1 class="${esc(q.decision)}">${esc(q.decision)}</h1>${esc(q.data_quality)}</div><div class="card"><b>Risk</b><h1>${esc(q.risk_score)}/100</h1></div><div class="card"><b>Token</b><h1>${esc(m.symbol||t.symbol)}</h1>${esc(m.name||t.name)}</div></div>
-<div class="box selected"><b>Fiyat / Likidite</b><p>${price(t.price_usd)} USD / ${price(pool.reserve_usd)} USD</p><small>Fiyat kaynağı: ${esc(t.price_source)} · Paket: ${esc(pid.slice(0,12))}…</small>
-<p><b>Uyarılar</b><br>${esc((q.warnings||[]).join(' • '))}</p><p><b>Kanıt</b><br>${esc((q.evidence||[]).join(' • '))}</p>
-<textarea id="note" maxlength="500" placeholder="İsteğe bağlı karar notu"></textarea>
-<div class="row"><button onclick="human('ACCEPT')">Kabul</button><button onclick="human('REJECT')">Reddet</button><button onclick="human('WAIT')">Bekle</button><button onclick="human('REVIEW')">İncele</button><button onclick="outcome('${esc(pid)}')">Sonucu Güncelle</button></div>
-<p id="actionStatus" class="muted">${reopened?'Kayıtlı kanıt paketi açıldı':'Paket değiştirilemez olarak kaydedildi'}</p></div>
-<details class="box"><summary>Ham paket</summary><pre>${esc(JSON.stringify(d,null,2))}</pre></details>`}
-async function analyze(){let b=$('analyze');b.disabled=true;$('status').textContent='Gerçek veriler toplanıyor ve paket mühürleniyor…';$('result').innerHTML='';try{let d=await api('/api/v1/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token_address:$('a').value.trim()})});renderAnalysis(d);$('status').textContent='Karar paketi üretildi ve geçmişe eklendi';await loadHistory()}catch(e){$('status').textContent=e.message}finally{b.disabled=false}}
-async function human(action){if(!currentPacket)return;let el=$('actionStatus');el.textContent='İnsan kararı kaydediliyor…';try{await api('/api/v1/decisions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({packet_id:currentPacket,action,note:($('note')||{}).value||null})});el.textContent=action+' kararı append-only geçmişe kaydedildi; işlem yapılmadı';await loadHistory()}catch(e){el.textContent=e.message}}
-async function outcome(pid){let el=$('actionStatus');if(el)el.textContent='Güncel fiyat sonucu alınıyor…';try{let d=await api('/api/v1/outcomes/observe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({packet_id:pid})});let p=d.event.payload;if(el)el.textContent='Sonuç: '+price(p.current_price_usd)+' USD · '+price(p.change_pct)+'% · '+p.classification;await loadHistory()}catch(e){if(el)el.textContent=e.message;else alert(e.message)}}
-async function reopen(pid){try{let d=await api('/api/v1/packets/'+pid);currentPacket=pid;renderAnalysis(d,true);window.scrollTo({top:0,behavior:'smooth'})}catch(e){alert(e.message)}}
-async function loadHistory(){try{let d=await api('/api/v1/history?limit=20'),rows=d.records||[];$('history').innerHTML=rows.length?rows.map(x=>{let s=x.summary||{},h=(x.latest_human_decision||{}).payload||{},o=(x.latest_outcome||{}).payload||{};return `<div class="box history"><b>${esc(s.symbol)} · ${esc(s.system_decision)} · Risk ${esc(s.risk_score)}</b><p>${price(s.price_usd)} USD · ${esc(s.generated_at_utc)}</p><p>İnsan: <span class="${esc(h.action)}">${esc(h.action||'KAYIT YOK')}</span>${h.note?' · '+esc(h.note):''}</p><p>Sonuç: ${o.current_price_usd==null?'KAYIT YOK':price(o.current_price_usd)+' USD · '+price(o.change_pct)+'% · '+esc(o.classification)}</p><button onclick="reopen('${esc(x.packet_id)}')">Paketi Aç</button><button onclick="outcome('${esc(x.packet_id)}')">Sonucu Güncelle</button></div>`}).join(''):'Henüz kayıt yok';}catch(e){$('history').textContent=e.message}}
-$('analyze').onclick=analyze;$('refresh').onclick=loadHistory;loadHistory();
-</script></body></html>"""
+HTML = (Path(__file__).resolve().parents[2] / "web/index.html").read_text(encoding="utf-8")
 
 
 class Handler(BaseHTTPRequestHandler):
+    def setup(self) -> None:
+        super().setup()
+        self.connection.settimeout(15)
+
     def log_message(self, *_: Any) -> None:
         pass
 
@@ -582,6 +543,10 @@ class Handler(BaseHTTPRequestHandler):
 
     def read_json(self, maximum: int = 16384) -> dict[str, Any]:
         try:
+            validate_json_headers(self.headers)
+        except ValueError as exc:
+            raise ValidationError(str(exc)) from exc
+        try:
             length = int(self.headers.get("Content-Length", "0"))
         except ValueError as exc:
             raise ValidationError("INVALID_CONTENT_LENGTH") from exc
@@ -589,7 +554,7 @@ class Handler(BaseHTTPRequestHandler):
             raise ValidationError("INVALID_REQUEST_SIZE")
         try:
             value = json.loads(self.rfile.read(length))
-        except json.JSONDecodeError as exc:
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise ValidationError("INVALID_JSON") from exc
         if not isinstance(value, dict):
             raise ValidationError("JSON_OBJECT_REQUIRED")
@@ -675,11 +640,7 @@ class Handler(BaseHTTPRequestHandler):
 
 AUTHORITY = CFG["authority"]
 if __name__ == "__main__":
-    assert CFG["host"] == "127.0.0.1"
-    assert all(
-        AUTHORITY[key] is False
-        for key in ("paper", "live", "wallet", "signing", "order", "broadcast")
-    )
+    validate_config(CFG)
     ensure_state()
     verify_event_chain()
     ThreadingHTTPServer((CFG["host"], CFG["port"]), Handler).serve_forever()

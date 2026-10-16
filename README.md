@@ -5,6 +5,73 @@ paketleri. Ürün servislerinin tek kod kaynağı `services/market/` dizinidir.
 Kararlar danışma niteliğindedir; canlı işlem, cüzdan, imzalama, emir ve yayın yetkisi
 vermez. Paper yetkisi de ürün yapılandırmasında kapalıdır.
 
+## Hızlı başlangıç
+
+Linux, macOS veya WSL üzerinde Python 3.11–3.13 gerekir. Depo kökünde:
+
+```bash
+./start.sh
+```
+
+Tarayıcıdan **http://127.0.0.1:8096** adresini açın. Panelin çalışması için ek Python
+paketi veya API anahtarı gerekmez. Analiz sırasında internet erişimi gerekir;
+sağlayıcı hataları ve eksik kanıtlar karar paketinde gösterilir. Sağlık kontrolü
+yalnız uygulamayı ve kayıt bütünlüğünü doğrular; sağlayıcı erişimini doğrulamaz.
+
+Panelde BSC token adresiyle analiz yapabilir, engelleme nedenlerini görebilir,
+kararınızı notuyla kaydedebilir, sonucu güncelleyebilir ve kanıt paketini JSON
+olarak indirebilirsiniz. Geçmiş, uygulama kapatılıp açıldığında korunur.
+
+```bash
+./start.sh --port 8097 --state-dir "$HOME/.local/state/tokenoskobi/product-slice-03"
+python3 -B tokenoskobi.py check
+```
+
+Araştırma/haber araçları ve tüm testler için izole ortam kurulumu:
+
+```bash
+./setup.sh
+.venv/bin/python -B tokenoskobi.py test
+```
+
+`setup.sh`, yalnız `cryptography` ve `jsonschema` bağımlılıklarını kurar.
+`start.sh` varsa `.venv` Python'unu kullanır. Panel JavaScript testi için Node.js
+gerekir; Node.js yoksa bu tek kontrol atlanır ve test çıktısında bildirilir.
+`Ctrl+C` ile servis durdurulur.
+
+İsteğe bağlı Chromium testi analiz, karar, sonuç, JSON indirme, sayfa yenileme ve
+1280/390/320 piksel ekran kontrollerini çalıştırır. Yerelde çalıştırmak için:
+
+```bash
+npm install --prefix /tmp/tokenoskobi-browser playwright@1.64.1
+node /tmp/tokenoskobi-browser/node_modules/playwright/cli.js install chromium --with-deps
+TOKENOSKOBI_PLAYWRIGHT_MODULE=/tmp/tokenoskobi-browser/node_modules/playwright \
+  node engineering/tests/browser_e2e.cjs
+```
+
+| Ayar | Davranış |
+| --- | --- |
+| `TOKENOSKOBI_PRODUCT_SLICE_02_PORT` | HTTP portu; `--port` bunu geçersiz kılar. |
+| `TOKENOSKOBI_SLICE03_STATE_DIR` | Kalıcı karar geçmişi; `--state-dir` bunu geçersiz kılar. |
+| `XDG_STATE_HOME` | Açık kayıt yolu yoksa `<değer>/tokenoskobi/product-slice-03`. |
+| Varsayılan kayıt yolu | Eski `/var/lib/tokenoskobi-product-slice-03` varsa korunur; yoksa `~/.local/state/tokenoskobi/product-slice-03`. |
+| `TOKENOSKOBI_GT_RATE_DIR` | Sağlayıcı hız sınırı kilitlerinin dizini. Varsayılan: `$XDG_CACHE_HOME/tokenoskobi` veya `~/.cache/tokenoskobi`. |
+| `BSC_ALCHEMY_URL` | İsteğe bağlı RPC adresi. Anahtarları Git'e eklemeyin. |
+
+Eski kayıt dizinine erişim hatası alırsanız mevcut geçmişin yedeğini alıp sahipliğini
+düzeltin veya açıkça başka bir `--state-dir` seçin. Başka dizin seçmek mevcut
+geçmişi taşımaz. Yedek almak için servisi durdurup **kayıt dizininin tamamını**
+kopyalayın; paketler ve olay zinciri birlikte korunmalıdır.
+
+Sürekli çalıştırma için [kullanıcı systemd servisi](config/systemd/tokenoskobi-product.service)
+mevcuttur. Şablondaki depo ve kayıt yollarını kendi kurulumunuza göre düzenleyin,
+`~/.config/systemd/user/` altına kopyalayın ve `systemctl --user daemon-reload`
+ardından `systemctl --user enable --now tokenoskobi-product.service` çalıştırın.
+Mevcut kurulumdaki kayıt dizinini şablonda da aynı tutun.
+Uzak erişim için [Nginx şablonu](deploy/nginx/coinoskobi_panel_8096_proxy.conf.template)
+kimlik doğrulaması ister; alan adı, parola dosyası ve HTTPS kurulmalıdır.
+Depodaki şablonlar mevcut sunuculara otomatik uygulanmaz.
+
 ## Başlangıç ve kaynak sırası
 
 Yerel çalışma alanı ve Git durumu, GitHub kopyasından ve sohbet hafızasından önce
@@ -83,6 +150,7 @@ güncel hale getirmez.
 
 - `core/`: yetki, doğrulama, kaynak ve platform sınırları.
 - `services/market/`: ürün servislerinin tek uygulaması.
+- `web/index.html`: her iki ürün servisi için ortak panel.
 - `services/research/`: imzalı güven kökü gerektiren sınırlı araştırma motoru.
 - `services/system/`: yetki kontrolüyle korunan sistem üreticisi.
 - `scripts/legacy/`: mevcut testlerin kullandığı tarihsel motorlar ve araçlar.
@@ -94,6 +162,9 @@ Kopya ürün/kernel uygulamaları, kullanılmayan eski API/dağıtım kopyası v
 üretilmiş dosya envanterleri kaldırılmıştır. Önceki içerikler Git geçmişinden
 alınabilir. Silinmiş ama testleri korunan motorlar Git geçmişinden yeni paket
 konumlarına kurtarılmıştır. Üretilen rapor ve envanterler kaynak kod değildir.
+Kullanılmayan ML bağımlılıkları, eski uyumsuz panel ve `core/registry/` altındaki
+kopya proje durum dosyaları da kaldırılmıştır. Kök dizindeki proje kayıtları ile
+testlerin başvurduğu tarihsel kanıtlar korunur.
 
 GitHub Actions tüm PR'larda ve `main` güncellemelerinde aynı test takımını,
 sağlık kontrolünü ve A30 çökme/kurtarma kontrollerini çalıştırır.

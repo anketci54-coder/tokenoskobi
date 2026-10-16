@@ -13,6 +13,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -80,7 +81,7 @@ def check_lifecycle():
     with tempfile.TemporaryDirectory(prefix="tokenoskobi_e2e_") as directory:
         root = Path(directory)
         (root / "price").write_text("100")
-        with sqlite3.connect(root / "news.sqlite") as connection:
+        with closing(sqlite3.connect(root / "news.sqlite")) as connection, connection:
             connection.execute("CREATE TABLE news_raw_feed_events (title TEXT, published_at_utc TEXT)")
             connection.execute("INSERT INTO news_raw_feed_events VALUES (?, ?)",
                                (TOKEN, datetime.now(timezone.utc).isoformat()))

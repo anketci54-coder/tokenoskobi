@@ -1,0 +1,22 @@
+# User service: install in ~/.config/systemd/user/ and adjust the checkout path.
+[Unit]
+Description=Tokenoskobi advisory panel and decision history
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/tokenoskobi
+ExecStart=/usr/bin/python3 -B %h/tokenoskobi/tokenoskobi.py serve
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=TOKENOSKOBI_SLICE03_STATE_DIR=%h/.local/state/tokenoskobi/product-slice-03
+Environment=TOKENOSKOBI_GT_RATE_DIR=%h/.cache/tokenoskobi
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=yes
+PrivateTmp=yes
+UMask=0077
+
+[Install]
+WantedBy=default.target

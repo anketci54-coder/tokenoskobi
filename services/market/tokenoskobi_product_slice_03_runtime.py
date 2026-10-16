@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from core.platform.paths import get_root
+from services.market.config import validate_config
 
 ROOT = get_root()
 CORE_PATH = Path(
@@ -306,18 +307,7 @@ class Handler(CORE.Handler):
 
 AUTHORITY = CORE.AUTHORITY
 if __name__ == "__main__":
-    assert CORE.CFG["host"] == "127.0.0.1"
-    assert all(
-        AUTHORITY[key] is False
-        for key in (
-            "paper",
-            "live",
-            "wallet",
-            "signing",
-            "order",
-            "broadcast",
-        )
-    )
+    validate_config(CORE.CFG)
     CORE.ensure_state()
     verify_event_chain_locked()
     ThreadingHTTPServer(
