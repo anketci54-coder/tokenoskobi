@@ -188,6 +188,8 @@ def observe_outcome(packet_id: str, actor: Any = None) -> dict[str, Any]:
 
     current_market = CORE.SLICE02.market(token)
     selected = current_market.get("selected_pool") or {}
+    if not CORE.SLICE02.pool_is_verified(selected, token):
+        raise CORE.ValidationError("CURRENT_POOL_PROVENANCE_UNVERIFIED")
     current = CORE.finite_number(
         (current_market.get("token") or {}).get("price_usd")
     )

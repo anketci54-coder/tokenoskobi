@@ -1,4 +1,5 @@
 """Bounded loopback smoke test of both product entry points, without live APIs."""
+import http.client
 import json
 import os
 import socket
@@ -7,6 +8,7 @@ import sys
 import tempfile
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from contextlib import contextmanager
 from pathlib import Path
@@ -15,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 @contextmanager
-def running_product(module: str, root: Path, arguments=()):
+def running_product(module: str, root: Path, arguments=(), environment=None):
     """Start an isolated subprocess and always reap it, including on failure."""
     with (root / "server.log").open("w+") as log:
         with socket.socket() as reservation:
@@ -29,6 +31,7 @@ def running_product(module: str, root: Path, arguments=()):
             "TOKENOSKOBI_SLICE03_STATE_DIR": str(root / "state"),
             "TOKENOSKOBI_GT_RATE_DIR": str(root / "rate"),
         })
+        env.update(environment or {})
         base = f"http://127.0.0.1:{port}"
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         command = ([str(ROOT / "start.sh"), *arguments] if module == "start.sh" else
@@ -60,6 +63,53 @@ def running_product(module: str, root: Path, arguments=()):
                 process.wait(timeout=5)
             if module == "start.sh":
                 assert process.returncode == 0, "Launcher did not shut down cleanly"
+
+
+def raw_http(base, method, path, headers, payload=None):
+    connection = http.client.HTTPConnection("127.0.0.1", urllib.parse.urlsplit(base).port, timeout=3)
+    try:
+        connection.putrequest(method, path, skip_host=True, skip_accept_encoding=True)
+        for name, value in headers:
+            connection.putheader(name, value)
+        body = None if payload is None else json.dumps(payload).encode()
+        if body is not None:
+            connection.putheader("Content-Type", "application/json")
+            connection.putheader("Content-Length", str(len(body)))
+        connection.endheaders(body)
+        response = connection.getresponse()
+        body = response.read()
+        if response.getheader("Content-Type", "").startswith("application/json"):
+            body = json.loads(body)
+        return response.status, body
+    finally:
+        connection.close()
+
+
+def check_request_trust(base):
+    host = urllib.parse.urlsplit(base).netloc
+    for headers in ([("Host", host)], [("Host", host), ("Origin", f"http://{host}")]):
+        assert raw_http(base, "GET", "/healthz", headers)[0] == 200
+    cases = (
+        ([("Host", "attacker.example")], "UNTRUSTED_HOST"),
+        ([("Host", "attacker.example"), ("Origin", "http://attacker.example")], "UNTRUSTED_HOST"),
+        ([("Host", "attacker.example"), ("X-Forwarded-Host", host),
+          ("X-Forwarded-Proto", "https")], "UNTRUSTED_HOST"),
+        ([], "UNTRUSTED_HOST"),
+        ([("Host", host), ("Host", host)], "DUPLICATE_SECURITY_HEADER"),
+        ([("Host", host), ("Origin", f"http://{host}"),
+          ("Origin", f"http://{host}")], "DUPLICATE_SECURITY_HEADER"),
+        ([("Host", host), ("Origin", "null")], "CROSS_ORIGIN_REQUEST_REJECTED"),
+        ([("Host", host), ("Origin", f"https://{host}")], "CROSS_ORIGIN_REQUEST_REJECTED"),
+        ([("Host", host), ("Origin", f"http://{host}/path")], "CROSS_ORIGIN_REQUEST_REJECTED"),
+    )
+    for method, paths in (("GET", ("/", "/healthz", "/api/v1/history", "/api/v1/packets/" + "a" * 64)),
+                          ("POST", ("/api/v1/analyze", "/api/v1/decisions", "/api/v1/outcomes/observe"))):
+        for path in paths:
+            for headers, error in cases:
+                status, body = raw_http(base, method, path, headers,
+                                        {"token_address": "invalid"} if method == "POST" else None)
+                assert status == 400, (method, path, headers, status)
+                assert body.get("error") == error, (method, path, headers, body)
 
 
 def smoke(module: str) -> None:
@@ -103,10 +153,33 @@ def smoke(module: str) -> None:
             if module.endswith("slice_03_runtime") or module == "start.sh":
                 with opener.open(base + "/healthz", timeout=2) as response:
                     assert json.load(response)["event_count"] == 0
-            print(f"{module}: health, panel, invalid-input rejection PASS")
+            check_request_trust(base)
+            print(f"{module}: health, panel, invalid input, 63 Host/Origin rejection probes PASS")
+
+
+def proxy_smoke():
+    with tempfile.TemporaryDirectory(prefix="tokenoskobi_proxy_smoke_") as directory:
+        root = Path(directory)
+        (root / "config").mkdir()
+        config = json.loads((ROOT / "config/product_slice_02_v1.json").read_text())
+        config["trusted_origins"] = ["https://panel.example", "https://second.example"]
+        (root / "config/product_slice_02_v1.json").write_text(json.dumps(config))
+        with running_product("start.sh", root, environment={"TOKENOSKOBI_ROOT": directory}) as (base, _):
+            headers = [("Host", "panel.example"), ("Origin", "https://panel.example")]
+            assert raw_http(base, "GET", "/healthz", headers)[0] == 200
+            status, body = raw_http(base, "POST", "/api/v1/analyze", headers, {"token_address": "invalid"})
+            assert (status, body["error"]) == (400, "INVALID_BSC_TOKEN_ADDRESS"), body
+            for origin in ("http://panel.example", "https://second.example"):
+                for method in ("GET", "POST"):
+                    status, body = raw_http(base, method, "/healthz", [("Host", "panel.example"), ("Origin", origin)], {})
+                    assert (status, body["error"]) == (400, "CROSS_ORIGIN_REQUEST_REJECTED"), body
+            assert raw_http(base, "GET", "/healthz", [("Host", "panel.example")])[0] == 200
+        print("start.sh: explicitly trusted HTTPS proxy origin, scheme/authority mismatch rejection PASS")
 
 
 if __name__ == "__main__":
     for target in ("services.market.tokenoskobi_product_slice_02_server",
+                   "services.market.tokenoskobi_product_slice_03_server",
                    "services.market.tokenoskobi_product_slice_03_runtime", "start.sh"):
         smoke(target)
+    proxy_smoke()

@@ -51,6 +51,8 @@ class ProductUsabilityTests(unittest.TestCase):
                        XDG_CACHE_HOME=directory + "/cache")
             result = subprocess.run([
                 sys.executable, "-B", "-c",
+                "from pathlib import Path; from core.platform import paths; "
+                "paths.LEGACY_PRODUCT_STATE_DIR = Path('absent-legacy'); "
                 "from services.market import tokenoskobi_product_slice_03_runtime as r; "
                 "r.CORE.ensure_state(); r.CORE.SLICE02.geckoterminal_slot(); "
                 "print(r.CORE.STATE_DIR); print(r.CORE.SLICE02.GT_RATE_DIR)",
@@ -106,6 +108,7 @@ class ProductUsabilityTests(unittest.TestCase):
                 handler = object.__new__(market.H)
                 handler.path = "/api/v1/analyze"
                 handler.headers = {"Content-Length": str(len(payload)),
+                                   "Host": f"127.0.0.1:{market.CFG['port']}",
                                    "Content-Type": "application/json"}
                 handler.rfile = io.BytesIO(payload)
                 replies = []

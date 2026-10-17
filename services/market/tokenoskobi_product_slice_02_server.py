@@ -20,7 +20,8 @@ from typing import Any
 
 from core.platform.paths import get_root, product_cache_dir
 from services.market.config import validate_config
-from services.market.request_validation import validate_json_headers
+from services.market.dex_policy import PoolVerifier, pool_is_verified, target_policy
+from services.market.request_validation import validate_json_headers, validate_request_headers
 ROOT = get_root()
 CFG = json.loads((ROOT / "config/product_slice_02_v1.json").read_text(encoding="utf-8"))
 if os.getenv("TOKENOSKOBI_PRODUCT_SLICE_02_PORT"):
@@ -258,7 +259,10 @@ def contract(token: str, provider_state: dict[str, Any]) -> dict[str, Any]:
 
 def relationship_address(item: dict[str, Any], key: str) -> str | None:
     relationship = ((item.get("relationships") or {}).get(key) or {}).get("data") or {}
-    candidate = str(relationship.get("id") or "").rsplit("_", 1)[-1].lower()
+    identity = str(relationship.get("id") or "").lower()
+    if not identity.startswith("bsc_"):
+        return None
+    candidate = identity[4:]
     return candidate if ADDR.fullmatch(candidate) else None
 
 
@@ -282,7 +286,11 @@ def oriented_pool(item: dict[str, Any], token: str) -> dict[str, Any]:
         )
 
     return {
-        "address": attributes.get("address") or item.get("id", "").split("_")[-1],
+        "address": str(attributes.get("address") or item.get("id", "").split("_")[-1]).lower(),
+        "network": "bsc" if base and quote and (
+            not item.get("id") or item["id"].lower() == "bsc_" + str(attributes.get("address") or "").lower()
+        ) else None,
+        "provider_dex_id": (((item.get("relationships") or {}).get("dex") or {}).get("data") or {}).get("id"),
         "name": attributes.get("name"),
         "reserve_usd": num(attributes.get("reserve_in_usd")),
         "price_usd": target_price,
@@ -298,10 +306,13 @@ def oriented_pool(item: dict[str, Any], token: str) -> dict[str, Any]:
     }
 
 
-def market(token: str) -> dict[str, Any]:
+def market(token: str, provider_state: dict[str, Any] | None = None) -> dict[str, Any]:
+    token = token.lower()
     base = "https://api.geckoterminal.com/api/v2"
     output: dict[str, Any] = {
         "available": False,
+        "target_token_address": token,
+        "target_policy": target_policy(token),
         "token": {},
         "pools": [],
         "selected_pool": None,
@@ -314,12 +325,9 @@ def market(token: str) -> dict[str, Any]:
         output["token"] = {
             "name": attributes.get("name"),
             "symbol": attributes.get("symbol"),
-            "price_usd": num(attributes.get("price_usd")),
-            "market_cap_usd": num(attributes.get("market_cap_usd")),
-            "fdv_usd": num(attributes.get("fdv_usd")),
         }
-        if output["token"]["price_usd"] is not None:
-            output["token"]["price_source"] = "TOKEN_ENDPOINT"
+        # The token endpoint aggregates other pools. Only verified selected-pool
+        # prices may enter this product's market/technical/observation path.
         output["available"] = True
     except Exception as exc:
         output["errors"].append(f"TOKEN:{type(exc).__name__}:{str(exc)[:100]}")
@@ -331,31 +339,32 @@ def market(token: str) -> dict[str, Any]:
                 f"{base}/networks/bsc/tokens/{token}/pools?page=1"
             ).get("data", [])
         ]
-        rows.sort(
-            key=lambda row: (
-                1 if row.get("orientation_verified") else 0,
-                row.get("reserve_usd") or 0,
-            ),
-            reverse=True,
-        )
-        oriented = [row for row in rows if row.get("orientation_verified")]
-        output["pools"] = rows[:8]
-        output["selected_pool"] = oriented[0] if oriented else None
-        output["target_orientation_verified"] = bool(oriented)
+        if provider_state is None:
+            provider_state = providers()
+        verifier = PoolVerifier(rpc, provider_state.get("selected"))
+        for row in rows:
+            row["provenance"] = verifier.verify(row)
+        eligible = [row for row in rows if pool_is_verified(row, token)]
+        eligible.sort(key=lambda row: row.get("reserve_usd") or 0, reverse=True)
+        rejected = [row for row in rows if not pool_is_verified(row, token)]
+        output["pools"] = eligible[:8]
+        output["rejected_pools"] = rejected[:20]
+        output["rejected_pool_count"] = len(rejected)
+        output["selected_pool"] = eligible[0] if eligible else None
+        output["target_orientation_verified"] = bool(eligible)
         output["available"] = output["available"] or bool(rows)
 
         selected = output.get("selected_pool") or {}
         token_row = output.setdefault("token", {})
         if (
-            selected.get("orientation_verified")
-            and token_row.get("price_usd") is None
+            pool_is_verified(selected, token)
             and selected.get("price_usd") is not None
         ):
             token_row["price_usd"] = selected["price_usd"]
-            token_row["price_source"] = "SELECTED_POOL_ORIENTED_FALLBACK"
+            token_row["price_source"] = "VERIFIED_PANCAKESWAP_POOL"
 
-        if rows and not oriented:
-            output["errors"].append("TARGET_ASSET_ORIENTATION_UNVERIFIED")
+        if not eligible:
+            output["errors"].append("NO_VERIFIED_PANCAKESWAP_POOL")
     except Exception as exc:
         output["errors"].append(f"POOLS:{type(exc).__name__}:{str(exc)[:100]}")
 
@@ -564,11 +573,21 @@ def decide(
         score += 20
 
     selected = market_state.get("selected_pool") or {}
-    target = selected.get("target_token_address")
+    target = market_state.get("target_token_address") or selected.get("target_token_address")
+    provenance_verified = pool_is_verified(selected, target)
+    if provenance_verified:
+        evidence.append("BSC_PANCAKESWAP_POOL_PROVENANCE_VERIFIED")
+    else:
+        blockers.append("POOL_PROVENANCE_UNVERIFIED")
+        score = 100
+    stable_target = target_policy(target)["status"] == "STABLECOIN_TARGET_EXCLUDED"
+    if stable_target:
+        blockers.append("STABLECOIN_TARGET_EXCLUDED")
+        score = 100
     orientation = bool(
         market_state.get("target_orientation_verified")
         and selected.get("orientation_verified")
-        and target
+        and target and selected.get("target_token_address") == target
     )
     if orientation:
         evidence.append("TARGET_ASSET_ORIENTATION_VERIFIED")
@@ -603,6 +622,8 @@ def decide(
         evidence.append("TARGET_PRICE_FROM_ORIENTED_POOL_FALLBACK")
     elif price_source == "TOKEN_ENDPOINT":
         evidence.append("TARGET_PRICE_FROM_TOKEN_ENDPOINT")
+    elif price_source == "VERIFIED_PANCAKESWAP_POOL":
+        evidence.append("TARGET_PRICE_FROM_VERIFIED_PANCAKESWAP_POOL")
 
     wrong_target = sum(
         1
@@ -644,7 +665,8 @@ def decide(
     if not provider_state["hybrid_ready"]:
         warnings.append("ALCHEMY_HYBRID_NOT_READY")
         score += 5
-    if not news_state["fresh"]:
+    news_fresh = news_state.get("fresh") is True
+    if not news_fresh:
         warnings.append("NEWS_STALE_OR_UNAVAILABLE")
         score += 5
 
@@ -653,12 +675,15 @@ def decide(
         "SUFFICIENT"
         if contract_state.get("code_exists") is True
         and liquidity is not None
+        and provenance_verified
+        and not stable_target
         and orientation
         and token_price is not None
         and pool_price is not None
         and not wrong_target
         and not wrong_price
         and valid_technical >= 2
+        and news_fresh
         else "VERI_YETERSIZ"
     )
     decision = (
@@ -685,7 +710,7 @@ def analyze(token: str) -> dict[str, Any]:
     token = token.lower()
     provider_state = providers()
     contract_state = contract(token, provider_state)
-    market_state = market(token)
+    market_state = market(token, provider_state)
     metadata = contract_state["metadata"]
     metadata["name"] = metadata.get("name") or (market_state.get("token") or {}).get("name")
     metadata["symbol"] = metadata.get("symbol") or (market_state.get("token") or {}).get(
@@ -757,6 +782,10 @@ class H(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:
+        try:
+            validate_request_headers(self.headers, CFG)
+        except ValueError as exc:
+            return self.sendj(400, {"error": str(exc)})
         path = urllib.parse.urlsplit(self.path).path
         if path == "/healthz":
             return self.sendj(200, {"ok": True, "authority": "READ_ONLY_ADVISORY"})
@@ -765,12 +794,12 @@ class H(BaseHTTPRequestHandler):
         self.sendj(404, {"error": "NOT_FOUND"})
 
     def do_POST(self) -> None:
-        if urllib.parse.urlsplit(self.path).path != "/api/v1/analyze":
-            return self.sendj(404, {"error": "NOT_FOUND"})
         try:
-            validate_json_headers(self.headers)
+            validate_json_headers(self.headers, CFG)
         except ValueError as exc:
             return self.sendj(400, {"error": str(exc)})
+        if urllib.parse.urlsplit(self.path).path != "/api/v1/analyze":
+            return self.sendj(404, {"error": "NOT_FOUND"})
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if not 0 < length <= 4096:

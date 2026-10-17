@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from services.market import tokenoskobi_product_slice_02_server as market
+from engineering.tests.pancakeswap_fixture import verified_pool
 
 TOKEN = "0x" + "a" * 40
 QUOTE = "0x" + "b" * 40
@@ -30,7 +31,7 @@ def decision_inputs():
         {
             "token": {"price_usd": 100, "price_source": "TOKEN_ENDPOINT"},
             "selected_pool": {
-                "target_token_address": TOKEN, "orientation_verified": True,
+                **verified_pool(TOKEN, QUOTE, POOL),
                 "price_usd": 100, "reserve_usd": 100_000,
             },
             "target_orientation_verified": True,

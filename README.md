@@ -53,7 +53,7 @@ TOKENOSKOBI_PLAYWRIGHT_MODULE=/tmp/tokenoskobi-browser/node_modules/playwright \
 | --- | --- |
 | `TOKENOSKOBI_PRODUCT_SLICE_02_PORT` | HTTP portu; `--port` bunu geçersiz kılar. |
 | `TOKENOSKOBI_SLICE03_STATE_DIR` | Kalıcı karar geçmişi; `--state-dir` bunu geçersiz kılar. |
-| `XDG_STATE_HOME` | Açık kayıt yolu yoksa `<değer>/tokenoskobi/product-slice-03`. |
+| `XDG_STATE_HOME` | Açık kayıt yolu ve eski kayıt dizini yoksa `<değer>/tokenoskobi/product-slice-03`. |
 | Varsayılan kayıt yolu | Eski `/var/lib/tokenoskobi-product-slice-03` varsa korunur; yoksa `~/.local/state/tokenoskobi/product-slice-03`. |
 | `TOKENOSKOBI_GT_RATE_DIR` | Sağlayıcı hız sınırı kilitlerinin dizini. Varsayılan: `$XDG_CACHE_HOME/tokenoskobi` veya `~/.cache/tokenoskobi`. |
 | `BSC_ALCHEMY_URL` | İsteğe bağlı RPC adresi. Anahtarları Git'e eklemeyin. |
@@ -62,6 +62,8 @@ Eski kayıt dizinine erişim hatası alırsanız mevcut geçmişin yedeğini al�
 düzeltin veya açıkça başka bir `--state-dir` seçin. Başka dizin seçmek mevcut
 geçmişi taşımaz. Yedek almak için servisi durdurup **kayıt dizininin tamamını**
 kopyalayın; paketler ve olay zinciri birlikte korunmalıdır.
+Eski dizin erişilemezse veya seçilen olay zinciri bozuksa başka bir kayıt dizinine
+otomatik geçilmez. Açık `--state-dir` seçimi eski dizine göre önceliklidir.
 
 Sürekli çalıştırma için [kullanıcı systemd servisi](config/systemd/tokenoskobi-product.service)
 mevcuttur. Şablondaki depo ve kayıt yollarını kendi kurulumunuza göre düzenleyin,
@@ -71,6 +73,11 @@ Mevcut kurulumdaki kayıt dizinini şablonda da aynı tutun.
 Uzak erişim için [Nginx şablonu](deploy/nginx/coinoskobi_panel_8096_proxy.conf.template)
 kimlik doğrulaması ister; alan adı, parola dosyası ve HTTPS kurulmalıdır.
 Depodaki şablonlar mevcut sunuculara otomatik uygulanmaz.
+GET ve POST isteklerinde Host ve varsa Origin yapılandırmaya göre doğrulanır.
+Varsayılan güven yalnız yerel HTTP adreslerini kapsar. HTTPS proxy alan adını
+`config/product_slice_02_v1.json` içinde örneğin
+`"trusted_origins": ["https://panel.example"]` ile açıkça tanımlayın.
+İletilen Host/protokol başlıkları güven vermez; proxy kimlik doğrulaması ayrıca gerekir.
 
 ## Başlangıç ve kaynak sırası
 
@@ -145,6 +152,35 @@ sırasız veya tekrar eden zaman damgalarını ve pozitif olmayan kapanışları
 Yetersiz kanıt `ALLOW` üretemez. Haber güncelliği yalnız tokenla eşleşen kaydın
 saat dilimi içeren yayın tarihinden hesaplanır; yeniden indirme zamanı eski haberi
 güncel hale getirmez.
+Eksik veya eski haber `VERI_YETERSIZ` üretir ve `ALLOW` veremez. Alchemy isteğe
+bağlıdır; diğer gerekli kanıtlar yeterliyse public BSC RPC ile `ALLOW` mümkündür.
+
+Ürün yalnız BSC (chain ID 56) PancakeSwap V2/V3 havuzlarını seçer. Likidite
+sıralamasından önce aynı blokta havuz/factory/router kodu, router `factory()`,
+havuz `factory()`/`token0()`/`token1()` ve factory `getPair()` veya `getPool()`
+kaydı doğrulanır; V3 ücret değeri de bağlanır. Kaynağı bilinmeyen veya RPC ile
+doğrulanamayan havuz seçilemez ve `ALLOW` üretemez. Reddedilen havuzlar gerekçeleriyle
+pakette tutulur. DEX etiketleri ve havuz adları doğrulama yerine geçmez.
+Fiyat ve teknik analiz yalnız seçilmiş doğrulanmış havuzdan gelir; token uç
+noktasının diğer havuzları birleştiren fiyatı kullanılmaz. Sonuç gözlemleri de
+güncel havuz kaynağını doğrular; önceki paketler değiştirilmez.
+
+[Yerel politika](services/market/dex_policy.py), resmi PancakeSwap
+[V2](https://developer.pancakeswap.finance/contracts/v2/addresses) ve
+[V3](https://developer.pancakeswap.finance/contracts/v3/addresses) deployment
+adreslerini sabitler. Stable hedefler zincir/adres eşleşmesiyle dışlanır;
+stable quote varlıkları kullanılabilir. Registry, 2026-10-16 tarihinde kaynakları
+kontrol edilmiş 10 BSC adresi içerir: USDT, USDC, BUSD, DAI, TUSD (yeni/eski),
+FDUSD, VAI, lisUSD ve USD1. Liste kapsamlı bir stablecoin sınıflandırması değildir;
+listede olmamak varlığın stable olmadığına veya güvenli olduğuna dair kanıt sayılmaz.
+Sembol, isim veya fiyat eşitliği stable sınıflandırması oluşturmaz.
+
+CEX piyasa verisi ve CEX bağlayıcıları ürün yolunun kapsamı dışındadır. Bir varlığın
+ayrıca CEX'te listelenmesi onu dışlamaz. RPC yanıtlarının doğruluğu ile GeckoTerminal
+fiyat/likidite/mum verisi kanıt bağımlılıklarıdır; kod rezerv tutarını bağımsız zincir
+verisiyle doğruladığını iddia etmez. `ALLOW` yalnız danışma çıktısıdır; canlı işlem,
+cüzdan, imza, emir ve yayın yetkileri kapalı kalır. Test fixture'ları canlı BSC
+doğrulaması değildir.
 
 ## Dizinler ve temizlik
 

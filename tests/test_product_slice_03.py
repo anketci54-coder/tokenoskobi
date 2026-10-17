@@ -5,6 +5,8 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
+from engineering.tests.pancakeswap_fixture import verified_pool
 
 REPO = Path(__file__).resolve().parents[1]
 IMPORT_TEMP = tempfile.TemporaryDirectory(prefix="tokenoskobi_product03_test_")
@@ -117,8 +119,7 @@ class ProductSlice03Tests(unittest.TestCase):
             },
             "selected_pool": {
                 "price_usd": pool_price,
-                "target_token_address": token,
-                "orientation_verified": True,
+                **verified_pool(token, "0x" + "b" * 40, "0x" + "c" * 40),
             },
             "target_orientation_verified": True,
         }
@@ -261,6 +262,16 @@ class ProductSlice03Tests(unittest.TestCase):
         self.assertEqual(payload["change_pct"], 10.0)
         self.assertTrue(payload["target_orientation_verified"])
         self.assertEqual(payload["classification"], "UP")
+
+    def test_outcome_rejects_unverified_current_pool_without_writing_history(self):
+        packet_id = self.create()["history"]["packet_id"]
+        current = self.current_market()
+        current["selected_pool"].pop("provenance")
+        before = MODULE.EVENTS_FILE.read_bytes()
+        with patch.object(MODULE.SLICE02, "market", return_value=current), \
+                self.assertRaisesRegex(MODULE.ValidationError, "CURRENT_POOL_PROVENANCE_UNVERIFIED"):
+            MODULE.observe_outcome(packet_id)
+        self.assertEqual(MODULE.EVENTS_FILE.read_bytes(), before)
 
     def test_outcome_fails_closed_on_price_mismatch(self):
         packet_id = self.create()["history"]["packet_id"]

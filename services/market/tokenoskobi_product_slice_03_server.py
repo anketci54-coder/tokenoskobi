@@ -18,7 +18,7 @@ from typing import Any
 
 from core.platform.paths import get_root, product_state_dir
 from services.market.config import validate_config
-from services.market.request_validation import validate_json_headers
+from services.market.request_validation import validate_json_headers, validate_request_headers
 
 ROOT = get_root()
 SLICE02_PATH = Path(
@@ -411,6 +411,8 @@ def observe_outcome(packet_id: str) -> dict[str, Any]:
 
     current_market = SLICE02.market(token)
     selected = current_market.get("selected_pool") or {}
+    if not SLICE02.pool_is_verified(selected, token):
+        raise ValidationError("CURRENT_POOL_PROVENANCE_UNVERIFIED")
     current = finite_number(
         (current_market.get("token") or {}).get("price_usd")
     )
@@ -543,7 +545,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def read_json(self, maximum: int = 16384) -> dict[str, Any]:
         try:
-            validate_json_headers(self.headers)
+            validate_json_headers(self.headers, CFG)
         except ValueError as exc:
             raise ValidationError(str(exc)) from exc
         try:
@@ -580,6 +582,10 @@ class Handler(BaseHTTPRequestHandler):
         split = urllib.parse.urlsplit(self.path)
         path = split.path
         try:
+            try:
+                validate_request_headers(self.headers, CFG)
+            except ValueError as exc:
+                raise ValidationError(str(exc)) from exc
             if path == "/healthz":
                 events = verify_event_chain()
                 return self.send_json(

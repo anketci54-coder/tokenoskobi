@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
+from engineering.tests.pancakeswap_fixture import verified_pool
 
 REPO = Path(__file__).resolve().parents[1]
 IMPORT_TEMP = tempfile.TemporaryDirectory(prefix="tokenoskobi_product03_runtime_test_")
@@ -124,8 +126,7 @@ class ProductSlice03RuntimeTests(unittest.TestCase):
             },
             "selected_pool": {
                 "price_usd": 110.0,
-                "target_token_address": TOKEN,
-                "orientation_verified": True,
+                **verified_pool(TOKEN, "0x" + "b" * 40, "0x" + "c" * 40),
             },
             "target_orientation_verified": True,
         }
@@ -201,6 +202,17 @@ class ProductSlice03RuntimeTests(unittest.TestCase):
                 RUNTIME.observe_outcome(packet_id, "user")
         finally:
             CORE.SLICE02.market = original
+
+    def test_outcome_rejects_unverified_current_pool_without_writing_history(self):
+        packet_id = self.create()["history"]["packet_id"]
+        RUNTIME.record_human_decision(packet_id, "ACCEPT", actor="user")
+        current = self.market()
+        current["selected_pool"].pop("provenance")
+        before = CORE.EVENTS_FILE.read_bytes()
+        with patch.object(CORE.SLICE02, "market", return_value=current), \
+                self.assertRaisesRegex(CORE.ValidationError, "CURRENT_POOL_PROVENANCE_UNVERIFIED"):
+            RUNTIME.observe_outcome(packet_id)
+        self.assertEqual(CORE.EVENTS_FILE.read_bytes(), before)
 
     def test_outcome_persists_actor_and_decision_hash(self):
         packet_id = self.create()["history"]["packet_id"]

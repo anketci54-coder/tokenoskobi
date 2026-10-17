@@ -4,6 +4,8 @@ import tempfile
 import unittest
 import time
 from pathlib import Path
+from unittest.mock import patch
+from engineering.tests.pancakeswap_fixture import BscPoolFixture, verified_pool
 
 REPO = Path(__file__).resolve().parents[1]
 IMPORT_TEMP = tempfile.TemporaryDirectory(prefix="tokenoskobi_product02_test_")
@@ -67,6 +69,7 @@ def ohlcv_payload(base=BASE, quote=QUOTE, close=571.0):
 
 def valid_market():
     selected = MODULE.oriented_pool(pool_item(), BASE)
+    selected["provenance"] = verified_pool(BASE, QUOTE, POOL)["provenance"]
     return {
         "token": {"price_usd": 571.05, "price_source": "TOKEN_ENDPOINT"},
         "selected_pool": selected,
@@ -75,6 +78,13 @@ def valid_market():
 
 
 class ProductSlice02Tests(unittest.TestCase):
+    def setUp(self):
+        self.provider = {"selected": {"name": "fixture", "url": "fixture://bsc"}}
+        fixture = BscPoolFixture({POOL: {"version": "v2", "tokens": (BASE, QUOTE)}})
+        self.rpc_patch = patch.object(MODULE, "rpc", side_effect=fixture)
+        self.rpc_patch.start()
+        self.addCleanup(self.rpc_patch.stop)
+
     def test_address(self):
         self.assertTrue(MODULE.ADDR.fullmatch(BASE))
         self.assertFalse(MODULE.ADDR.fullmatch("0x12"))
@@ -116,7 +126,7 @@ class ProductSlice02Tests(unittest.TestCase):
         self.assertIsNone(row["price_usd"])
         self.assertFalse(row["orientation_verified"])
 
-    def test_market_token_endpoint_price_source(self):
+    def test_market_price_comes_only_from_verified_pool(self):
         original = MODULE.request
 
         def fake(url, body=None):
@@ -138,12 +148,12 @@ class ProductSlice02Tests(unittest.TestCase):
 
         MODULE.request = fake
         try:
-            result = MODULE.market(BASE)
+            result = MODULE.market(BASE, self.provider)
         finally:
             MODULE.request = original
 
         self.assertEqual(result["token"]["price_usd"], 571.05)
-        self.assertEqual(result["token"]["price_source"], "TOKEN_ENDPOINT")
+        self.assertEqual(result["token"]["price_source"], "VERIFIED_PANCAKESWAP_POOL")
 
     def test_market_price_fallback_from_oriented_pool(self):
         original = MODULE.request
@@ -157,14 +167,14 @@ class ProductSlice02Tests(unittest.TestCase):
 
         MODULE.request = fake
         try:
-            result = MODULE.market(BASE)
+            result = MODULE.market(BASE, self.provider)
         finally:
             MODULE.request = original
 
         self.assertEqual(result["token"]["price_usd"], 571.05)
         self.assertEqual(
             result["token"]["price_source"],
-            "SELECTED_POOL_ORIENTED_FALLBACK",
+            "VERIFIED_PANCAKESWAP_POOL",
         )
         self.assertTrue(result["target_orientation_verified"])
 
@@ -188,14 +198,14 @@ class ProductSlice02Tests(unittest.TestCase):
 
         MODULE.request = fake
         try:
-            result = MODULE.market(BASE)
+            result = MODULE.market(BASE, self.provider)
         finally:
             MODULE.request = original
 
         self.assertEqual(result["token"]["price_usd"], 571.05)
         self.assertEqual(
             result["token"]["price_source"],
-            "SELECTED_POOL_ORIENTED_FALLBACK",
+            "VERIFIED_PANCAKESWAP_POOL",
         )
 
     def test_market_does_not_fallback_from_unoriented_pool(self):
@@ -210,7 +220,7 @@ class ProductSlice02Tests(unittest.TestCase):
 
         MODULE.request = fake
         try:
-            result = MODULE.market(BASE)
+            result = MODULE.market(BASE, self.provider)
         finally:
             MODULE.request = original
 

@@ -2,6 +2,8 @@
 import math
 from urllib.parse import urlsplit
 
+from services.market.request_validation import parse_origin
+
 FINANCIAL_AUTHORITIES = ("paper", "live", "wallet", "signing", "order", "broadcast")
 
 
@@ -33,4 +35,12 @@ def validate_config(value):
         parsed = urlsplit(endpoint)
         if parsed.scheme != "https" or not parsed.hostname:
             raise ValueError("CONFIG_RPC_HTTPS_URL_REQUIRED")
+    origins = value.get("trusted_origins", [])
+    if not isinstance(origins, list):
+        raise ValueError("CONFIG_TRUSTED_ORIGINS_INVALID")
+    for origin in origins:
+        try:
+            parse_origin(origin)
+        except ValueError as exc:
+            raise ValueError("CONFIG_TRUSTED_ORIGINS_INVALID") from exc
     return value
