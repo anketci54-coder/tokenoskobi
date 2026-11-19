@@ -482,13 +482,56 @@ def news(token: str, metadata: dict[str, Any]) -> dict[str, Any]:
         "latest": None,
     }
     if not database:
-        return output
+        return _news_verdict(output)
 
     try:
         with closing(sqlite3.connect(f"file:{database}?mode=ro", uri=True)) as connection:
-            return _read_news(connection, terms, output)
+            return _news_verdict(_read_news(connection, terms, output))
     except Exception as exc:
         output["error"] = f"{type(exc).__name__}:{str(exc)[:120]}"
+    return _news_verdict(output)
+
+
+NEWS_REASONS = (
+    "NEWS_DB_MISSING",
+    "NEWS_READ_ERROR",
+    "NEWS_NO_MATCH",
+    "NEWS_NO_PUBLISHED_AT",
+    "NEWS_STALE",
+)
+NEWS_LEGACY_WARNING = "NEWS_STALE_OR_UNAVAILABLE"
+
+
+def _news_verdict(output: dict[str, Any]) -> dict[str, Any]:
+    """Explain why news evidence is missing. Diagnostic only: never changes `fresh`."""
+    if output.get("fresh") is True:
+        output["reason"] = None
+        output["hint"] = None
+        return output
+    if not output.get("database"):
+        reason = "NEWS_DB_MISSING"
+        hint = ("Haber veritabanı bulunamadı. Haber toplayıcı bu makinede çalışmamış "
+                "olabilir; veritabanı gelene kadar karar VERI_YETERSIZ kalır.")
+    elif output.get("error"):
+        reason = "NEWS_READ_ERROR"
+        hint = ("Haber veritabanı okunamadı. Dosya yolunu ve izinleri kontrol edin; "
+                "ayrıntı 'error' alanında.")
+    elif not output.get("matches"):
+        reason = "NEWS_NO_MATCH"
+        hint = ("Veritabanı okundu ama bu token için eşleşen haber yok. Bu bir hata "
+                "değil; güncel kanıt yok demektir.")
+    elif not output.get("latest"):
+        reason = "NEWS_NO_PUBLISHED_AT"
+        hint = ("Eşleşen kayıt var ama geçerli bir yayın zamanı yok (eksik, saat dilimsiz "
+                "ya da gelecekte). Tazelik kanıtlanamadı.")
+    else:
+        reason = "NEWS_STALE"
+        age = output.get("age_sec")
+        age_text = f"{age / 3600:.1f} saat" if isinstance(age, (int, float)) else "bilinmiyor"
+        hint = (f"En yeni eşleşen haber eski (yaş: {age_text}, eşik: "
+                f"{CFG['news_stale_sec']} sn). Daha yeni haber gelince güncellenir.")
+    output["reason"] = reason
+    output["hint"] = hint
     return output
 
 
@@ -667,7 +710,8 @@ def decide(
         score += 5
     news_fresh = news_state.get("fresh") is True
     if not news_fresh:
-        warnings.append("NEWS_STALE_OR_UNAVAILABLE")
+        reason = news_state.get("reason")
+        warnings.append(reason if reason in NEWS_REASONS else NEWS_LEGACY_WARNING)
         score += 5
 
     score = max(0, min(100, score))
