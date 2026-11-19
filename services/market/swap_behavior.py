@@ -10,6 +10,7 @@ import time
 from statistics import median
 from typing import Any, Callable
 
+from services.market.dex_policy import DEPLOYMENTS
 from services.market.token_controls import keccak256, selector
 
 TRANSFER_TOPIC = "0x" + keccak256(b"Transfer(address,address,uint256)").hex()
@@ -18,6 +19,10 @@ TOKEN0_CALL = "0x" + selector("token0()")
 TOKEN1_CALL = "0x" + selector("token1()")
 RESERVES_CALL = "0x" + selector("getReserves()")
 ROUTER_V2 = "0x10ed43c718714eb63d5aa57b78b54704e256024e"
+ROUTER_LABELS = {
+    DEPLOYMENTS["v2"][1]: "PANCAKE_V2_ROUTER",
+    DEPLOYMENTS["v3"][1]: "PANCAKE_V3_ROUTER",
+}
 SELL_ROUTER_SELECTORS = {
     selector(signature)
     for signature in (
@@ -30,14 +35,17 @@ SELL_ROUTER_SELECTORS = {
 LOOKBACK_STEPS = (3000, 1000, 300)
 MIN_BUYS_FOR_SELL_SIGNAL = 10
 MIN_TAX_SAMPLES = 3
+MIN_FEE_DETECTIONS = 2
 MAX_SAMPLES = 8
+MAX_SELL_SAMPLES = 12
 BUDGET_SEC = 15.0
 
 LIMITS = (
     "Bunlar son işlemlerden yapılan TAHMİNLERDİR, simülasyon değildir. Az işlem varsa "
     "VERİ YETERSİZ çıkar. Satış gözlenmesi, herkesin satabildiği anlamına gelmez; vergi "
-    "tahmini yalnızca doğrudan Pancake V2 router işlemlerinden ölçülür. Ölçülemeyen UNKNOWN "
-    "sayılır, güvenli sayılmaz."
+    "tahmini yalnızca doğrudan Pancake V2 router işlemlerinden ölçülür; ayrı transferle "
+    "alınan vergi ek olarak aranır, ama bulunamaması vergi olmadığını göstermez. Ölçülemeyen "
+    "UNKNOWN sayılır, güvenli sayılmaz."
 )
 
 
@@ -102,34 +110,110 @@ def buy_tax_sample(swap: dict[str, Any], receipt: Any, token: str, pair: str) ->
         return None
 
 
-def sell_tax_sample(swap: dict[str, Any], tx: Any, token: str) -> float | None:
-    """Fraction lost between the router call's amountIn and what the pair received.
-
-    Only for a direct single-hop Pancake V2 router sell of this token, so the
-    calldata amount is the seller's gross amount.
-    """
+def sell_tax_outcome(swap: dict[str, Any], tx: Any, token: str) -> tuple[float | None, str]:
+    """(tax fraction or None, reason). Fraction lost between the router call's amountIn
+    and what the pair received; only for a direct single-hop Pancake V2 router sell of
+    this token, so the calldata amount is the seller's gross amount."""
     try:
-        if swap["sender"] != ROUTER_V2 or (tx.get("to") or "").lower() != ROUTER_V2:
-            return None
+        if swap["sender"] != ROUTER_V2:
+            return None, "SENDER_NOT_V2_ROUTER"
+        if (tx.get("to") or "").lower() != ROUTER_V2:
+            return None, "TX_NOT_TO_V2_ROUTER"
         data = tx.get("input")
         if not isinstance(data, str) or data[2:10] not in SELL_ROUTER_SELECTORS:
-            return None
+            return None, "UNKNOWN_FUNCTION"
         args = data[10:]
         if len(args) < 64 * 5:
-            return None
+            return None, "BAD_CALLDATA"
         gross = int(args[0:64], 16)
         position = int(args[128:192], 16) * 2
         if int(args[position : position + 64], 16) != 2:
-            return None
+            return None, "MULTI_HOP"
         first = "0x" + args[position + 64 + 24 : position + 128]
         if first.lower() != token:
-            return None
+            return None, "FIRST_TOKEN_MISMATCH"
         net = swap["target_in"]
         if gross <= 0 or net <= 0 or net > gross:
-            return None
-        return 1 - net / gross
+            return None, "AMOUNT_INCONSISTENT"
+        return 1 - net / gross, "OK"
     except (AttributeError, KeyError, TypeError, ValueError):
-        return None
+        return None, "BAD_CALLDATA"
+
+
+def sell_tax_sample(swap: dict[str, Any], tx: Any, token: str) -> float | None:
+    return sell_tax_outcome(swap, tx, token)[0]
+
+
+def sell_fee_event_outcome(
+    swap: dict[str, Any], receipt: Any, token: str, pool: str
+) -> tuple[str, float | None]:
+    """Router-independent: look for a separate fee Transfer by the seller in the same tx.
+
+    FEE: a fee transfer was found (fraction = fee / (fee + net received by the pair)).
+    NO_FEE_TRANSFER: the layout was clear and no fee transfer exists. This does NOT prove
+    zero tax (reflection tokens take fees without a separate Transfer event).
+    INCONCLUSIVE: anything ambiguous (several swaps, split routes, pool-like recipients).
+    """
+    inconclusive = ("INCONCLUSIVE", None)
+    try:
+        logs = receipt.get("logs") or []
+        pool_swaps = [
+            log for log in logs
+            if (log.get("address") or "").lower() == pool
+            and (log.get("topics") or [""])[0].lower() == SWAP_TOPIC
+        ]
+        if len(pool_swaps) != 1:
+            return inconclusive
+        transfers = []
+        for log in logs:
+            topics = log.get("topics") or []
+            if (log.get("address") or "").lower() != token or len(topics) != 3:
+                continue
+            if topics[0].lower() == TRANSFER_TOPIC:
+                transfers.append((_addr(topics[1]), _addr(topics[2]), int(log["data"], 16)))
+        into_pool = [t for t in transfers if t[1] == pool]
+        if len(into_pool) != 1:
+            return inconclusive
+        payer, _, net = into_pool[0]
+        if net <= 0 or net != swap["target_in"]:
+            return inconclusive
+        fees = [t for t in transfers if t[0] == payer and t[1] != pool]
+        recipients = {t[1] for t in fees}
+        for log in logs:
+            address = (log.get("address") or "").lower()
+            topics = log.get("topics") or [""]
+            if address in recipients and address != token and topics[0].lower() != TRANSFER_TOPIC:
+                return inconclusive  # a recipient that acts like a pool or router
+        fee = sum(t[2] for t in fees)
+        if fee <= 0:
+            return "NO_FEE_TRANSFER", 0.0
+        return "FEE", fee / (net + fee)
+    except (AttributeError, KeyError, TypeError, ValueError):
+        return inconclusive
+
+
+def summarize_fee_events(outcomes: list[tuple[str, float | None]]) -> dict[str, Any]:
+    fees = [value for kind, value in outcomes if kind == "FEE" and value is not None]
+    clear = sum(1 for kind, _ in outcomes if kind == "NO_FEE_TRANSFER")
+    inconclusive = sum(1 for kind, _ in outcomes if kind == "INCONCLUSIVE")
+    base = {"detected": len(fees), "not_detected": clear, "inconclusive": inconclusive,
+            "median_pct": None, "max_pct": None}
+    if len(fees) >= MIN_FEE_DETECTIONS:
+        return {**base, "status": "DETECTED",
+                "median_pct": round(median(fees) * 100, 2), "max_pct": round(max(fees) * 100, 2)}
+    if not fees and clear >= MIN_TAX_SAMPLES:
+        return {**base, "status": "NOT_DETECTED"}
+    return {**base, "status": "UNKNOWN"}
+
+
+def top_senders(swaps: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
+    """Which contracts called the pool (labels only for deployments the project knows)."""
+    counts: dict[str, int] = {}
+    for swap in swaps:
+        counts[swap["sender"]] = counts.get(swap["sender"], 0) + 1
+    ranked = sorted(counts.items(), key=lambda item: (-item[1], item[0]))[:limit]
+    return [{"address": address, "label": ROUTER_LABELS.get(address), "count": count}
+            for address, count in ranked]
 
 
 def summarize_tax(samples: list[float]) -> dict[str, Any]:
@@ -203,19 +287,32 @@ def collect_swap_behavior(
         if value is not None:
             buy_samples.append(value)
     sell_samples: list[float] = []
+    fee_outcomes: list[tuple[str, float | None]] = []
+    skips: dict[str, int] = {}
     seen = set()
     for swap in reversed(sells):
-        if len(sell_samples) >= MAX_SAMPLES or clock() > deadline:
+        if len(fee_outcomes) >= MAX_SELL_SAMPLES or clock() > deadline:
             break
         if swap["tx"] in seen:
             continue
         seen.add(swap["tx"])
-        try:
-            value = sell_tax_sample(swap, rpc("eth_getTransactionByHash", [swap["tx"]]), token)
-        except Exception:
-            continue
+        if swap["sender"] == ROUTER_V2:
+            try:
+                value, reason = sell_tax_outcome(
+                    swap, rpc("eth_getTransactionByHash", [swap["tx"]]), token)
+            except Exception:
+                value, reason = None, "TX_UNAVAILABLE"
+        else:
+            value, reason = None, "SENDER_NOT_V2_ROUTER"
         if value is not None:
             sell_samples.append(value)
+        else:
+            skips[reason] = skips.get(reason, 0) + 1
+        try:
+            fee_outcomes.append(sell_fee_event_outcome(
+                swap, rpc("eth_getTransactionReceipt", [swap["tx"]]), token, pool))
+        except Exception:
+            fee_outcomes.append(("INCONCLUSIVE", None))
 
     if sells:
         ability = "SELLS_OBSERVED"
@@ -233,5 +330,8 @@ def collect_swap_behavior(
         "sell_ability": ability,
         "buy_tax": summarize_tax(buy_samples),
         "sell_tax": summarize_tax(sell_samples),
+        "sell_tax_skips": skips,
+        "sell_fee_events": summarize_fee_events(fee_outcomes),
+        "sell_senders": top_senders(sells),
         "limits": LIMITS,
     }
