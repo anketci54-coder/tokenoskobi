@@ -22,6 +22,7 @@ from core.platform.paths import get_root, product_cache_dir
 from services.market.config import validate_config
 from services.market.dex_policy import PoolVerifier, pool_is_verified, target_policy
 from services.market.request_validation import validate_json_headers, validate_request_headers
+from services.market.token_controls import collect_controls
 ROOT = get_root()
 CFG = json.loads((ROOT / "config/product_slice_02_v1.json").read_text(encoding="utf-8"))
 if os.getenv("TOKENOSKOBI_PRODUCT_SLICE_02_PORT"):
@@ -226,6 +227,7 @@ def contract(token: str, provider_state: dict[str, Any]) -> dict[str, Any]:
         output["errors"].append("NO_RPC")
         return output
 
+    code = None
     try:
         code = rpc(selected["url"], "eth_getCode", [token, "latest"])
         output["code_exists"] = code not in ("0x", "0x0", "")
@@ -254,6 +256,20 @@ def contract(token: str, provider_state: dict[str, Any]) -> dict[str, Any]:
         ),
         "owner": address(raw["owner"]),
     }
+    # Advisory hints only: they never feed decide(). Unknown is reported, not hidden.
+    output["controls"] = None
+    if output["code_exists"] is True:
+        url = selected["url"]
+        try:
+            output["controls"] = collect_controls(
+                code,
+                raw["owner"],
+                lambda data: rpc(url, "eth_call", [{"to": token, "data": data}, "latest"]),
+                lambda addr: rpc(url, "eth_getCode", [addr, "latest"]),
+                lambda slot: rpc(url, "eth_getStorageAt", [token, slot, "latest"]),
+            )
+        except Exception as exc:
+            output["errors"].append("CONTROLS:" + f"{type(exc).__name__}:{str(exc)[:100]}")
     return output
 
 
