@@ -213,5 +213,71 @@ class RequiredNewsTests(unittest.TestCase):
                     self.assertEqual(result["decision"], "ALLOW" if age == 60 else "REVIEW")
 
 
+class NewsReasonTests(unittest.TestCase):
+    """Distinct causes for missing news; the gate itself must not loosen."""
+
+    def read_news(self, database, setup=None):
+        if setup:
+            with closing(sqlite3.connect(database)) as connection, connection:
+                setup(connection)
+        with patch.object(market, "ROOT", database.parent), patch.object(market, "DBS", [database]), \
+                patch.object(market.time, "time", return_value=NOW):
+            return market.news(TOKEN, {})
+
+    def decide_with(self, news):
+        values = decision_inputs()
+        values[3] = news
+        values[4] = {"public_rpc_ok": 1, "hybrid_ready": False}
+        return market.decide(*values)
+
+    def test_each_cause_gets_its_own_code_and_hint(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            table = "CREATE TABLE news_raw_feed_events (title TEXT, published_at_utc TEXT)"
+
+            with patch.object(market, "ROOT", root), patch.object(market, "DBS", [root / "yok.sqlite"]):
+                missing = market.news(TOKEN, {})
+            bad = root / "bad.sqlite"
+            bad.write_bytes(b"not a sqlite file" * 50)
+            broken = self.read_news(bad)
+            empty = self.read_news(root / "empty.sqlite", lambda c: c.execute(table))
+
+            def no_time(c):
+                c.execute(table)
+                c.execute("INSERT INTO news_raw_feed_events VALUES (?, NULL)", (TOKEN,))
+
+            def old(c):
+                c.execute(table)
+                stamp = datetime.fromtimestamp(
+                    NOW - market.CFG["news_stale_sec"] - 7200, timezone.utc).isoformat()
+                c.execute("INSERT INTO news_raw_feed_events VALUES (?, ?)", (TOKEN, stamp))
+
+            untimed = self.read_news(root / "untimed.sqlite", no_time)
+            stale = self.read_news(root / "stale.sqlite", old)
+
+        cases = {
+            "NEWS_DB_MISSING": missing, "NEWS_READ_ERROR": broken, "NEWS_NO_MATCH": empty,
+            "NEWS_NO_PUBLISHED_AT": untimed, "NEWS_STALE": stale,
+        }
+        for code, state in cases.items():
+            with self.subTest(code=code):
+                self.assertEqual(state["reason"], code)
+                self.assertTrue(state["hint"])
+                self.assertIs(state["fresh"], False)
+                result = self.decide_with(state)
+                self.assertIn(code, result["warnings"])
+                self.assertNotIn("NEWS_STALE_OR_UNAVAILABLE", result["warnings"])
+                self.assertEqual(result["data_quality"], "VERI_YETERSIZ")
+                self.assertNotEqual(result["decision"], "ALLOW")
+        self.assertIn("saat", stale["hint"])
+
+    def test_fresh_news_has_no_reason_and_unknown_reason_falls_back(self):
+        fresh = {"fresh": True, "reason": None, "hint": None}
+        self.assertEqual(self.decide_with(fresh)["decision"], "ALLOW")
+        result = self.decide_with({"fresh": False, "reason": "ATTACKER_TEXT"})
+        self.assertIn("NEWS_STALE_OR_UNAVAILABLE", result["warnings"])
+        self.assertNotIn("ATTACKER_TEXT", result["warnings"])
+
+
 if __name__ == "__main__":
     unittest.main()
