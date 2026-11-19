@@ -227,6 +227,105 @@ class CollectTests(unittest.TestCase):
         self.assertEqual(result["buy_tax"]["status"], "UNKNOWN")
 
 
+AGG = "0x" + "66" * 20
+SELLER = "0x" + "77" * 20
+
+
+def sell_receipt(net, fee, extra_logs=()):
+    pool_swap = {"address": POOL, "topics": [sb.SWAP_TOPIC, pad(AGG), pad(AGG)],
+                 "data": "0x" + word(net) + word(0) + word(0) + word(4)}
+    logs = [pool_swap, transfer_log(SELLER, POOL, net)]
+    if fee:
+        logs.append(transfer_log(SELLER, FEE, fee))
+    return {"logs": logs + list(extra_logs)}
+
+
+def sell_swap(net, sender=AGG):
+    return {"kind": "sell", "sender": sender, "to": sender, "target_in": net, "target_out": 0, "tx": "0xs"}
+
+
+class SellDiagnosticsTests(unittest.TestCase):
+    def test_outcome_reasons_are_specific(self):
+        good_tx = {"to": sb.ROUTER_V2, "input": sell_input(1000, [TOK, WBNB])}
+        base = sell_swap(950, sender=sb.ROUTER_V2)
+        cases = {
+            "SENDER_NOT_V2_ROUTER": (sell_swap(950), good_tx),
+            "TX_NOT_TO_V2_ROUTER": (base, {**good_tx, "to": FEE}),
+            "UNKNOWN_FUNCTION": (base, {**good_tx, "input": sell_input(1000, [TOK, WBNB], "foo(uint256)")}),
+            "MULTI_HOP": (base, {**good_tx, "input": sell_input(1000, [TOK, WBNB, FEE])}),
+            "FIRST_TOKEN_MISMATCH": (base, {**good_tx, "input": sell_input(1000, [FEE, WBNB])}),
+            "AMOUNT_INCONSISTENT": (sell_swap(2000, sender=sb.ROUTER_V2), good_tx),
+            "BAD_CALLDATA": (base, None),
+        }
+        for reason, (swap, tx) in cases.items():
+            with self.subTest(reason=reason):
+                self.assertEqual(sb.sell_tax_outcome(swap, tx, TOK), (None, reason))
+        value, reason = sb.sell_tax_outcome(base, good_tx, TOK)
+        self.assertEqual(reason, "OK")
+        self.assertAlmostEqual(value, 0.05)
+
+    def test_fee_transfer_is_detected_without_a_router(self):
+        kind, value = sb.sell_fee_event_outcome(sell_swap(920), sell_receipt(920, 80), TOK, POOL)
+        self.assertEqual(kind, "FEE")
+        self.assertAlmostEqual(value, 0.08)
+
+    def test_clear_layout_without_fee_is_not_called_zero_tax(self):
+        self.assertEqual(sb.sell_fee_event_outcome(sell_swap(1000), sell_receipt(1000, 0), TOK, POOL),
+                         ("NO_FEE_TRANSFER", 0.0))
+
+    def test_ambiguous_layouts_are_inconclusive(self):
+        base = sell_receipt(920, 80)
+        two_swaps = {"logs": base["logs"] + [base["logs"][0]]}
+        two_into_pool = {"logs": base["logs"] + [transfer_log(SELLER, POOL, 5)]}
+        pool_like_recipient = sell_receipt(920, 80, extra_logs=[
+            {"address": FEE, "topics": ["0x" + "ab" * 32], "data": "0x"}])
+        cases = {
+            "two_swaps": (sell_swap(920), two_swaps),
+            "two_transfers_into_pool": (sell_swap(920), two_into_pool),
+            "net_differs_from_swap": (sell_swap(900), base),
+            "pool_like_recipient": (sell_swap(920), pool_like_recipient),
+            "no_receipt": (sell_swap(920), None),
+            "empty_receipt": (sell_swap(920), {}),
+        }
+        for name, (swap, receipt) in cases.items():
+            with self.subTest(name=name):
+                self.assertEqual(sb.sell_fee_event_outcome(swap, receipt, TOK, POOL), ("INCONCLUSIVE", None))
+
+    def test_fee_summary_thresholds(self):
+        detected = sb.summarize_fee_events([("FEE", 0.08), ("FEE", 0.10), ("INCONCLUSIVE", None)])
+        self.assertEqual((detected["status"], detected["median_pct"], detected["max_pct"],
+                          detected["detected"], detected["inconclusive"]), ("DETECTED", 9.0, 10.0, 2, 1))
+        clear = ("NO_FEE_TRANSFER", 0.0)
+        self.assertEqual(sb.summarize_fee_events([clear] * 3)["status"], "NOT_DETECTED")
+        self.assertEqual(sb.summarize_fee_events([clear] * 2)["status"], "UNKNOWN")
+        self.assertEqual(sb.summarize_fee_events([("FEE", 0.1)] + [clear] * 5)["status"], "UNKNOWN")
+        self.assertEqual(sb.summarize_fee_events([])["status"], "UNKNOWN")
+
+    def test_top_senders_label_only_known_routers(self):
+        swaps = [sell_swap(1, sender=sb.ROUTER_V2)] * 3 + [sell_swap(1)] * 2
+        self.assertEqual(sb.top_senders(swaps), [
+            {"address": sb.ROUTER_V2, "label": "PANCAKE_V2_ROUTER", "count": 3},
+            {"address": AGG, "label": None, "count": 2}])
+
+    def test_aggregator_sells_report_why_and_still_find_the_fee(self):
+        buy_logs, receipts = taxed_buys(4, tax_pct=0)
+        sell_logs = [swap_log(f"0xs{i}", AGG, AGG, 920, 0, 0, 4) for i in range(4)]
+        receipts = {**receipts, **{f"0xs{i}": sell_receipt(920, 80) for i in range(4)}}
+        result = sb.collect_swap_behavior(TOK, POOL, Chain(logs=buy_logs + sell_logs, receipts=receipts))
+        self.assertEqual((result["sell_tax"]["status"], result["sell_tax"]["samples"]), ("UNKNOWN", 0))
+        self.assertEqual(result["sell_tax_skips"], {"SENDER_NOT_V2_ROUTER": 4})
+        fee = result["sell_fee_events"]
+        self.assertEqual((fee["status"], fee["median_pct"], fee["detected"]), ("DETECTED", 8.0, 4))
+        self.assertEqual(result["sell_senders"], [{"address": AGG, "label": None, "count": 4}])
+
+    def test_unreadable_transactions_are_inconclusive_with_a_reason(self):
+        sell_logs, _ = taxed_sells(4, tax_pct=5)
+        result = sb.collect_swap_behavior(TOK, POOL, Chain(logs=sell_logs))
+        self.assertEqual(result["sell_tax_skips"], {"TX_UNAVAILABLE": 4})
+        self.assertEqual(result["sell_fee_events"]["status"], "UNKNOWN")
+        self.assertEqual(result["sell_fee_events"]["inconclusive"], 4)
+
+
 class ServerIntegrationTests(unittest.TestCase):
     def test_wrapper_returns_observed_behavior(self):
         logs, receipts = taxed_buys(12)
