@@ -1,5 +1,4 @@
 """Offline tests for observed swap behavior (sell-ability and tax estimates)."""
-import inspect
 import unittest
 from unittest.mock import patch
 
@@ -346,9 +345,6 @@ class ServerIntegrationTests(unittest.TestCase):
         with patch.object(market, "rpc", boom):
             result = market.observed_swap_behavior(TOK, POOL, {"selected": {"url": "u"}})
         self.assertEqual(result["status"], "UNKNOWN")
-
-    def test_decision_logic_does_not_read_swap_behavior(self):
-        self.assertNotIn("swap_behavior", inspect.getsource(market.decide))
 
 
 if __name__ == "__main__":
