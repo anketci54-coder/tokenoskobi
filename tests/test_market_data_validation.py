@@ -25,9 +25,30 @@ def candles(timestamps):
     }
 
 
+def healthy_controls():
+    return {
+        "owner": {"status": "OWNER_RENOUNCED", "address": "0x" + "0" * 40, "source": "owner()"},
+        "proxy": {"status": "EIP1967_PROXY_NOT_DETECTED", "implementation": None},
+        "selector_hints": [], "selector_scan": "OK", "limits": "x",
+    }
+
+
+def healthy_swap_state():
+    unknown_tax = {"status": "UNKNOWN", "median_pct": None, "max_pct": None, "samples": 0}
+    measured = {"status": "ESTIMATED", "median_pct": 0.0, "max_pct": 0.0, "samples": 8}
+    return {
+        "status": "OK", "reason": None, "window_blocks": 3000, "buys": 20, "sells": 20,
+        "unique_buyers": 15, "sell_ability": "SELLS_OBSERVED",
+        "buy_tax": dict(measured), "sell_tax": dict(measured),
+        "sell_tax_skips": {}, "sell_fee_events": {**unknown_tax, "detected": 0,
+                                                   "not_detected": 0, "inconclusive": 0},
+        "sell_senders": [], "limits": "x",
+    }
+
+
 def decision_inputs():
     return [
-        {"code_exists": True},
+        {"code_exists": True, "controls": healthy_controls()},
         {
             "token": {"price_usd": 100, "price_source": "TOKEN_ENDPOINT"},
             "selected_pool": {
@@ -40,6 +61,7 @@ def decision_inputs():
          for key in ("1m", "5m", "15m", "1h")},
         {"fresh": True},
         {"public_rpc_ok": True, "hybrid_ready": True},
+        healthy_swap_state(),
     ]
 
 

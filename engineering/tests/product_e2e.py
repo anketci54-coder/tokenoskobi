@@ -25,6 +25,50 @@ from engineering.tests.pancakeswap_fixture import BscPoolFixture
 TOKEN = "0x" + "a" * 40
 QUOTE = "0x55d398326f99059ff775485246999027b3197955"
 POOL = "0x" + "c" * 40
+ROUTER_V2 = "0x10ed43c718714eb63d5aa57b78b54704e256024e"
+SWAP_TOPIC = "0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822"
+TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+RESERVES_CALL = "0x0902f1ac"
+
+
+def _pad(address):
+    return "0x" + "0" * 24 + address[2:]
+
+
+def _word(value):
+    return format(value, "064x")
+
+
+def fixture_chain_evidence(method, params):
+    """Synthetic V2 swap history for TOKEN (token1): 4 taxless buys and 4 taxless sells.
+
+    Returns None for methods it does not own. Synthetic transport only.
+    """
+    from services.market.token_controls import selector
+
+    buyers = ["0x" + format(0x400000 + i, "040x") for i in range(4)]
+    if method == "eth_getStorageAt":
+        return "0x" + "0" * 64
+    if method == "eth_getLogs":
+        logs = [{"topics": [SWAP_TOPIC, _pad(ROUTER_V2), _pad(buyers[i])],
+                 "data": "0x" + _word(5) + _word(0) + _word(0) + _word(1000),
+                 "transactionHash": f"0xb{i}"} for i in range(4)]
+        logs += [{"topics": [SWAP_TOPIC, _pad(ROUTER_V2), _pad(ROUTER_V2)],
+                  "data": "0x" + _word(0) + _word(1000) + _word(5) + _word(0),
+                  "transactionHash": f"0xs{i}"} for i in range(4)]
+        return logs
+    if method == "eth_getTransactionReceipt":
+        tx = params[0]
+        if tx.startswith("0xb"):
+            buyer = buyers[int(tx[2:][1:])]
+            return {"logs": [{"address": TOKEN, "topics": [TRANSFER_TOPIC, _pad(POOL), _pad(buyer)],
+                              "data": "0x" + _word(1000)}]}
+        return {"logs": []}
+    if method == "eth_getTransactionByHash":
+        words = [1000, 0, 0xA0, int(ROUTER_V2, 16), 9999999999, 2, int(TOKEN, 16), int(QUOTE, 16)]
+        sig = "swapExactTokensForETHSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)"
+        return {"to": ROUTER_V2, "input": "0x" + selector(sig) + "".join(_word(w) for w in words)}
+    return None
 
 
 def serve_fixture(root: Path):
@@ -44,7 +88,12 @@ def serve_fixture(root: Path):
             pools[POOL]["factory"] = "0x" + "d" * 40 if (root / "unverified").exists() else None
             values = {"eth_chainId": "0x38", "eth_blockNumber": "0x100000",
                       "eth_getCode": "0x6000"}
+            evidence = fixture_chain_evidence(body["method"], body["params"])
+            if evidence is not None:
+                return {"result": evidence}
             if body["method"] == "eth_call":
+                if body["params"][0]["to"] == POOL and body["params"][0]["data"] == RESERVES_CALL:
+                    return {"result": "0x" + _word(1) * 3}
                 if body["params"][0]["to"] == POOL:
                     return {"result": pool_rpc(url, body["method"], body["params"])}
                 if body["params"][0]["data"] not in market.SEL.values():

@@ -160,14 +160,17 @@ class ContractIntegrationTests(unittest.TestCase):
         self.assertIs(state["code_exists"], False)
         self.assertIsNone(state["controls"])
 
-    def test_controls_never_change_the_decision(self):
+    def test_risky_controls_only_tighten_the_decision(self):
         baseline = market.decide(*decision_inputs())
+        self.assertEqual(baseline["decision"], "ALLOW")
         values = decision_inputs()
         values[0] = {**values[0], "controls": {
             "owner": {"status": "OWNER_ACTIVE_EOA", "address": OWNER_ADDR},
             "proxy": {"status": "EIP1967_PROXY_DETECTED", "implementation": OWNER_ADDR},
             "selector_hints": ["MINT_SELECTOR_PRESENT"], "selector_scan": "OK", "limits": "x"}}
-        self.assertEqual(market.decide(*values), baseline)
+        risky = market.decide(*values)
+        self.assertEqual(risky["decision"], "REVIEW")
+        self.assertGreater(risky["risk_score"], baseline["risk_score"])
 
 
 if __name__ == "__main__":

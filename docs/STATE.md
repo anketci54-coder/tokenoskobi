@@ -18,7 +18,7 @@ Otomatik alım satım yalnızca en sonda, ölçülü başarı kanıtlanırsa ve 
 - Her commit/push öncesi sahibinden açık onay al. main'e doğrudan push yok, PR'ı sahibi birleştirir.
 
 ## Doğrulanmış durum
-- main: 9bcbb94 (PR #19 ve #20 birleşti). 378 birim testi, smoke ve e2e geçiyor.
+- main: 07efa8a (PR #19 ile #24 arası birleşti). PR C (karar bağlama) bu PR ile gelir. Birim testleri ve e2e geçiyor.
 - Test komutları: `python3 -B -m unittest discover -s tests` ve
   `python3 -B -m engineering.tests.product_e2e`. Smoke komutu bu belgede doğrulanmadı.
 - PR #20: haber "bilinmiyor" durumları ayrı neden koduna ayrıldı (NEWS_DB_MISSING,
@@ -30,13 +30,13 @@ Otomatik alım satım yalnızca en sonda, ölçülü başarı kanıtlanırsa ve 
 ## Bilinen sorunlar
 1. Haber veritabanı (data/tokenoskobi*.sqlite) bu makinede yok, ALLOW bu yüzden hiç çıkmaz.
    Haber toplayıcı yok (services/news yalnızca normalleştirme ve doğrulama).
-2. "Risk" skoru token riskini ölçmüyor (honeypot, vergi, sahip yetkisi, mint, kilit yok).
+2. Token riski kısmen ölçülüyor (PR #22-#24 ve PR C): sahip/proxy/mint ipucu, satış gözlemi, alım-satım vergisi tahmini. Eksikler: likidite kilidi, gerçek satış simülasyonu, dağılım/yoğunlaşma. Satım vergisi büyük ve toplayıcıyla işlem gören token'larda (örn. CAKE) ölçülemiyor, UNKNOWN sayılıyor.
 3. Fiyat çapraz kontrolü tautolojik, TARGET_PRICE_SOURCE_MISMATCH tetiklenemez.
 4. Haber eşleşmesi gevşek ve kontrattan gelen name/symbol'e dayanıyor (manipüle edilebilir).
 5. Analiz en az ~52 sn (6 mum çağrısı x 6,5 sn bekleme). Testler dilim anahtarlarına bağlı.
 6. Rezerv ve fiyat GeckoTerminal'den, zincirden değil. Yalnızca havuz kimliği zincirde doğrulanıyor.
 7. Her yazma ve /healthz tüm olay zincirini baştan doğruluyor (ölçekte yavaşlar).
-8. owner() sıfır adres ile "owner() yok/hata" ayrımı yok, ikisi de None (PR A'da ayrılacak).
+8. (Çözüldü, PR #22) owner() sıfır adres ile "owner() yok/hata" artık ayrı durumlar.
 9. Alchemy: URL yoksa ve URL var ama çağrı başarısızsa (ör. kota) ayrı nedenler koddan
    ayrılabilir görünüyor, şu an tek uyarı (ALCHEMY_HYBRID_NOT_READY). Alchemy isteğe bağlı,
    kotası bitti, halka açık RPC yedeği çalışıyor.
@@ -86,7 +86,14 @@ canlı işleme geçilmez. X ve N sahibi tarafından belirlenecek.
 5. Durdurma kriteri için X ve N değerleri.
 
 ## Sıradaki iş
-PR A: sahip durumu (OWNER_RENOUNCED / ACTIVE_CONTRACT / ACTIVE_EOA / UNKNOWN), EIP-1967 proxy
-tespiti, bytecode'da tehlikeli fonksiyon seçicisi ipucu. Yalnızca uyarı/kanıt üretir, karar
-kuralını gevşetmez. Seçiciler için saf-Python keccak256 yazılır ve bilinen vektörlerle doğrulanır
-(ağ kapalıysa paket kurulamaz).
+İlerleme: Aşama 1 büyük ölçüde tamam (PR A #22, PR B #23, PR B2 #24, PR C).
+PR C kuralları (yalnızca sıkılaştırır): çok alım + hiç satış yok = BLOCK (HONEYPOT_SUSPECTED_NO_SELLS);
+ölçülen vergi >= %30 BLOCK, >= %10 uyarı; tek anahtarlı/bilinmeyen sahip, yükseltilebilir proxy,
+ölçülemeyen kontrol/satış/vergi = uyarı. SUFFICIENT için kontroller, satış gözlemi ve alım/satım
+vergisinin ölçülmüş olması gerekir. Yeni kanıt hiçbir zaman skoru düşürmez.
+Sonraki adaylar:
+1. Küçük/yeni token ile canlı doğrulama (sahibi deneyecek): ayrı-transfer ve calldata yöntemleri
+   hedef durumda çalışıyor mu? CAKE'te çalışmadığı biliniyor.
+2. "INCONCLUSIVE" nedenlerini kodlamak (sell_fee_events belirsiz işlem nedenleri).
+3. Gerçek satış simülasyonu (gerçek bir sahipten eth_call): RPC desteğinin canlı sınanması gerekir.
+4. Aşama 2: BSC yeni havuz yakalama (PairCreated), hızlı elek, "neden atıldı" logu.

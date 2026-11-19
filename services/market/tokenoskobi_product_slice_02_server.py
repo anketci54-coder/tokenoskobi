@@ -610,12 +610,43 @@ def ratio_ok(left: float | None, right: float | None, low: float, high: float) -
                 and low <= left / right <= high)
 
 
+TAX_WARN_PCT = 10.0
+TAX_BLOCK_PCT = 30.0
+
+
+def _dict(value: Any) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def observed_taxes(swap: dict[str, Any]) -> dict[str, float | None]:
+    """Highest measured tax per side from observed swaps; None when not measured.
+
+    Only ESTIMATED / DETECTED results count. NOT_DETECTED and UNKNOWN are not
+    measurements and never become 0.
+    """
+    result: dict[str, float | None] = {"buy": None, "sell": None}
+
+    def add(side: str, value: Any) -> None:
+        number = num(value)
+        if number is not None and (result[side] is None or number > result[side]):
+            result[side] = number
+
+    if _dict(swap.get("buy_tax")).get("status") == "ESTIMATED":
+        add("buy", swap["buy_tax"].get("median_pct"))
+    if _dict(swap.get("sell_tax")).get("status") == "ESTIMATED":
+        add("sell", swap["sell_tax"].get("median_pct"))
+    if _dict(swap.get("sell_fee_events")).get("status") == "DETECTED":
+        add("sell", swap["sell_fee_events"].get("median_pct"))
+    return result
+
+
 def decide(
     contract_state: dict[str, Any],
     market_state: dict[str, Any],
     technical_state: dict[str, Any],
     news_state: dict[str, Any],
     provider_state: dict[str, Any],
+    swap_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     blockers: list[str] = []
     warnings: list[str] = []
@@ -731,6 +762,74 @@ def decide(
         warnings.append(reason if reason in NEWS_REASONS else NEWS_LEGACY_WARNING)
         score += 5
 
+    # Token-level evidence. Rules only tighten: no new evidence ever lowers the score,
+    # and anything unmeasured is a warning, never neutral or safe.
+    controls = _dict(contract_state.get("controls"))
+    if not controls:
+        warnings.append("TOKEN_CONTROLS_UNVERIFIED")
+        score += 10
+    else:
+        owner_status = _dict(controls.get("owner")).get("status")
+        proxy_status = _dict(controls.get("proxy")).get("status")
+        hints = controls.get("selector_hints")
+        hints = hints if isinstance(hints, list) else []
+        if owner_status == "OWNER_RENOUNCED":
+            evidence.append("OWNER_RENOUNCED")
+        elif owner_status == "OWNER_ACTIVE_CONTRACT":
+            evidence.append("OWNER_ACTIVE_CONTRACT")
+        elif owner_status == "OWNER_ACTIVE_EOA":
+            warnings.append("OWNER_ACTIVE_EOA")
+            score += 10
+        else:
+            warnings.append("OWNER_UNVERIFIED")
+            score += 5
+        if proxy_status == "EIP1967_PROXY_DETECTED":
+            warnings.append("PROXY_UPGRADEABLE")
+            score += 10
+        elif proxy_status == "EIP1967_PROXY_NOT_DETECTED":
+            evidence.append("EIP1967_PROXY_NOT_DETECTED")
+        else:
+            warnings.append("PROXY_UNVERIFIED")
+            score += 5
+        if "MINT_SELECTOR_PRESENT" in hints:
+            if owner_status in ("OWNER_RENOUNCED", "OWNER_ACTIVE_CONTRACT"):
+                evidence.append("MINT_HINT_PRESENT")
+            else:
+                warnings.append("MINT_HINT_WITH_UNVERIFIED_OWNER")
+                score += 5
+
+    swap = _dict(swap_state)
+    swap_ok = swap.get("status") == "OK"
+    ability = swap.get("sell_ability") if swap_ok else None
+    if ability == "NO_SELLS_OBSERVED":
+        blockers.append("HONEYPOT_SUSPECTED_NO_SELLS")
+        score = 100
+    elif ability == "SELLS_OBSERVED":
+        evidence.append("SELLS_OBSERVED")
+    else:
+        warnings.append("SELL_BEHAVIOR_UNVERIFIED")
+        score += 10
+    taxes = observed_taxes(swap) if swap_ok else {"buy": None, "sell": None}
+    for side in ("buy", "sell"):
+        pct = taxes[side]
+        if pct is None:
+            continue
+        if pct >= TAX_BLOCK_PCT:
+            blockers.append(f"{side.upper()}_TAX_VERY_HIGH")
+            score = 100
+        elif pct >= TAX_WARN_PCT:
+            warnings.append(f"{side.upper()}_TAX_HIGH")
+            score += 10
+        else:
+            evidence.append(f"{side.upper()}_TAX_MEASURED_LOW")
+    if ability == "SELLS_OBSERVED" and taxes["sell"] is None:
+        warnings.append("SELL_TAX_UNMEASURED")
+        score += 5
+    token_level_ok = bool(
+        controls and ability == "SELLS_OBSERVED"
+        and taxes["buy"] is not None and taxes["sell"] is not None
+    )
+
     score = max(0, min(100, score))
     quality = (
         "SUFFICIENT"
@@ -745,6 +844,7 @@ def decide(
         and not wrong_price
         and valid_technical >= 2
         and news_fresh
+        and token_level_ok
         else "VERI_YETERSIZ"
     )
     decision = (
@@ -800,7 +900,7 @@ def analyze(token: str) -> dict[str, Any]:
         token, (market_state.get("selected_pool") or {}).get("address"), provider_state
     )
     decision = decide(
-        contract_state, market_state, technical_state, news_state, provider_state
+        contract_state, market_state, technical_state, news_state, provider_state, swap_state
     )
     safe_provider = {
         key: value for key, value in provider_state.items() if key != "selected"
