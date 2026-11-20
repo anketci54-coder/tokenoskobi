@@ -273,22 +273,34 @@ class WatchTests(Base):
         self.assertEqual(low, 0.0)
         self.assertGreater(high, 0.25)
 
-    def test_survival_table_counts_only_known_outcomes(self):
+    def test_survival_cohort_is_everyone_watched_for_the_full_horizon(self):
         pairs = ["0x" + f"{i:040x}" for i in range(1, 5)]
         for pair in pairs:
             self.add_kept(pair, 1000.0)
-        # A pulled after 5 min, B pulled after 90 min, C survived 2 h, D observed only 20 min.
+        # A pulled after 5 min, B pulled after 90 min; C and D still alive.
         self.store.mark_pulled(pairs[0], "x", 1000.0 + 300, 10.0, 0.0)
         self.store.mark_pulled(pairs[1], "x", 1000.0 + 5400, 10.0, 0.0)
-        now = 1000.0 + 7200
-        table = {r["horizon"]: r for r in pw.survival_table(self.store, now)}
-        self.assertEqual((table[10]["pulled"], table[10]["n"]), (1, 4))   # A pulled; B, C, D all lived 10 min
-        self.assertEqual((table[60]["pulled"], table[60]["n"]), (1, 4))   # B survived past 60 min
-        self.assertEqual((table[180]["pulled"], table[180]["n"]), (2, 2))  # C, D seen only 120 min: unknown
-        self.store.db.execute("UPDATE pairs SET watch_until = ? WHERE pair = ?", (1000.0 + 1200, pairs[3]))
-        self.store.db.commit()
-        table = {r["horizon"]: r for r in pw.survival_table(self.store, 1000.0 + 1300)}
-        self.assertEqual(table[30]["n"], 2)  # A and B pulled-or-known; the 20-min watchers are excluded
+        table = {r["horizon"]: r for r in pw.survival_table(self.store, 1000.0 + 7200)}
+        self.assertEqual((table[10]["pulled"], table[10]["n"]), (1, 4))
+        self.assertEqual((table[60]["pulled"], table[60]["n"]), (1, 4))
+        self.assertEqual((table[180]["pulled"], table[180]["n"]), (0, 0))  # nobody watched 3 h yet
+
+    def test_early_pulls_do_not_inflate_the_rate_while_survivors_are_still_young(self):
+        # Regression: 3 pulls at 5 min, 7 survivors kept 20 min ago. Horizon 30 must not read 100%.
+        pairs = ["0x" + f"{i:040x}" for i in range(20, 30)]
+        for pair in pairs:
+            self.add_kept(pair, 1000.0)
+        for pair in pairs[:3]:
+            self.store.mark_pulled(pair, "x", 1000.0 + 300, 10.0, 0.0)
+        table = {r["horizon"]: r for r in pw.survival_table(self.store, 1000.0 + 1200)}
+        self.assertEqual((table[30]["pulled"], table[30]["n"]), (0, 0))  # no one watched 30 min yet
+        self.assertEqual((table[10]["pulled"], table[10]["n"]), (3, 10))
+
+    def test_watch_window_end_counts_as_full_observation(self):
+        pair = "0x" + "9" * 40
+        self.add_kept(pair, 1000.0)
+        table = {r["horizon"]: r for r in pw.survival_table(self.store, 1000.0 + pw.WATCH_HOURS * 3600 + 99999)}
+        self.assertEqual((table[180]["pulled"], table[180]["n"]), (0, 1))
 
     def test_empty_table_says_no_sample(self):
         text = pw.report(self.store, now=5000.0)
