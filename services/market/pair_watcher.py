@@ -460,6 +460,21 @@ def report(store: Store, now: float | None = None, min_age_min: float = CANDIDAT
     return "\n".join(lines + (["  yok"] if not kept else []))
 
 
+def pick_public_rpc(urls: list[str], call: Callable[[str, str, list[Any]], Any]) -> str:
+    """First public BSC endpoint that answers as chain 56.
+
+    The watcher makes many calls, so it never uses the metered Alchemy key; that quota is kept for
+    the panel's analyses.
+    """
+    for url in urls:
+        try:
+            if int(call(url, "eth_chainId", []), 16) == 56:
+                return url
+        except Exception:
+            continue
+    raise RuntimeError("NO_PUBLIC_RPC")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Pancake V2 yeni havuz yakalayıcı (salt okunur)")
     parser.add_argument("--state-dir", default=str(Path.home() / ".local/state/tokenoskobi/watcher"))
@@ -482,10 +497,7 @@ def main(argv: list[str] | None = None) -> int:
         while True:
             try:
                 if url is None:
-                    selected = market.providers().get("selected")
-                    if not selected:
-                        raise RuntimeError("NO_RPC")
-                    url = selected["url"]
+                    url = pick_public_rpc(market.CFG["rpc"], market.rpc)
                 summary = run_once(store, lambda method, params: market.rpc(url, method, params))
                 print(datetime.now(timezone.utc).strftime("%H:%M:%S"), json.dumps(summary), flush=True)
             except KeyboardInterrupt:

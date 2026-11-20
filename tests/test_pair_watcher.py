@@ -61,6 +61,23 @@ class Base(unittest.TestCase):
         return self.store.db.execute("SELECT * FROM pairs WHERE pair=?", (pair,)).fetchone()
 
 
+class PublicRpcTests(unittest.TestCase):
+    def test_first_answering_bsc_endpoint_wins_and_alchemy_is_never_asked(self):
+        asked = []
+        def call(url, method, params):
+            asked.append(url)
+            if url == "https://down":
+                raise OSError("down")
+            return "0x1" if url == "https://eth" else "0x38"
+        urls = ["https://down", "https://eth", "https://bsc", "https://other"]
+        self.assertEqual(pw.pick_public_rpc(urls, call), "https://bsc")
+        self.assertEqual(asked, ["https://down", "https://eth", "https://bsc"])
+
+    def test_no_public_endpoint_is_an_error(self):
+        with self.assertRaisesRegex(RuntimeError, "NO_PUBLIC_RPC"):
+            pw.pick_public_rpc(["https://a"], lambda *a: (_ for _ in ()).throw(OSError("x")))
+
+
 class ParseTests(unittest.TestCase):
     def test_topic_literal(self):
         self.assertEqual(pw.PAIR_CREATED_TOPIC,
