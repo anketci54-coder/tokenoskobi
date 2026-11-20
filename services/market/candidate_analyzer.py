@@ -128,7 +128,9 @@ def report(store: Store) -> str:
     latest = db.execute("SELECT * FROM analyses WHERE status='OK' ORDER BY analyzed_at DESC LIMIT 10").fetchall()
     for row in latest:
         blockers = ", ".join(json.loads(row["blockers"] or "[]")[:3]) or "-"
+        warnings = ", ".join(json.loads(row["warnings"] or "[]")[:6]) or "-"
         lines.append(f"  {row['token']}  {row['decision']}  risk {row['risk']}  engel: {blockers}")
+        lines.append(f"    uyarılar: {warnings}")
     errors = db.execute("SELECT token, error, attempts FROM analyses WHERE status='ERROR' LIMIT 5").fetchall()
     if errors:
         lines += ["", "Hatalar (yeniden denenecek veya vazgeçildi):"]

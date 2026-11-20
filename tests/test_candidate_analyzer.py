@@ -66,6 +66,12 @@ class AnalyzeTests(Base):
         text = ca.report(self.store)
         self.assertIn("BLOCK", text)
         self.assertIn(TOK, text)
+    def test_report_lists_warnings(self):
+        self.keep("0x" + "1" * 40, TOK)
+        reply = answer("REVIEW", 30, blockers=())
+        reply["decision"]["warnings"] = ["NEWS_DB_MISSING", "OWNER_UNVERIFIED"]
+        ca.step(self.store, lambda t: reply, self.NOW)
+        self.assertIn("uyarılar: NEWS_DB_MISSING, OWNER_UNVERIFIED", ca.report(self.store))
 
     def test_errors_back_off_and_stop_after_max_attempts(self):
         self.keep("0x" + "1" * 40, TOK)
