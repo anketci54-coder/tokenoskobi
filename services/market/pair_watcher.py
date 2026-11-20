@@ -51,7 +51,8 @@ CREATE TABLE IF NOT EXISTS pairs(
   block INTEGER, seen_at REAL, status TEXT, reason TEXT, detail TEXT,
   attempts INTEGER DEFAULT 0, errors INTEGER DEFAULT 0, due_at REAL,
   decided_at REAL, controls TEXT,
-  peak REAL, last_liq REAL, watch_due REAL, watch_until REAL);
+  peak REAL, last_liq REAL, watch_due REAL, watch_until REAL,
+  kept_at REAL, backfilled REAL);
 CREATE INDEX IF NOT EXISTS pairs_due ON pairs(status, due_at);
 CREATE TABLE IF NOT EXISTS cursor(id INTEGER PRIMARY KEY CHECK(id = 1), block INTEGER);
 CREATE TABLE IF NOT EXISTS drop_stats(day TEXT, reason TEXT, count INTEGER,
@@ -95,7 +96,7 @@ class Store:
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript(SCHEMA)
         have = {r["name"] for r in self.db.execute("PRAGMA table_info(pairs)")}
-        for col in ("peak", "last_liq", "watch_due", "watch_until"):
+        for col in ("peak", "last_liq", "watch_due", "watch_until", "kept_at", "backfilled"):
             if col not in have:
                 self.db.execute(f"ALTER TABLE pairs ADD COLUMN {col} REAL")
         self.db.commit()
@@ -111,7 +112,7 @@ class Store:
             return self.db.execute(
                 "UPDATE pairs SET peak = CAST(substr(detail, 1, instr(detail, ' ') - 1) AS REAL),"
                 " last_liq = CAST(substr(detail, 1, instr(detail, ' ') - 1) AS REAL),"
-                " watch_due = ?, watch_until = decided_at + ?"
+                " watch_due = ?, watch_until = decided_at + ?, kept_at = decided_at, backfilled = 1"
                 " WHERE status = 'KEPT' AND watch_due IS NULL AND watch_until IS NULL"
                 " AND peak IS NULL AND instr(detail, ' ') > 1",
                 (now, WATCH_HOURS * 3600)).rowcount
@@ -147,11 +148,11 @@ class Store:
         with self.db:
             self.db.execute(
                 "UPDATE pairs SET status=?, reason=?, detail=?, decided_at=?, controls=?, due_at=NULL,"
-                " peak=?, last_liq=?, watch_due=?, watch_until=? WHERE pair=?",
+                " peak=?, last_liq=?, watch_due=?, watch_until=?, kept_at=? WHERE pair=?",
                 (status, reason, detail, now, json.dumps(controls) if controls else None,
                  liquidity if watch else None, liquidity if watch else None,
                  now + WATCH_INTERVAL_SEC if watch else None,
-                 now + WATCH_HOURS * 3600 if watch else None, pair))
+                 now + WATCH_HOURS * 3600 if watch else None, now if watch else None, pair))
 
     def watch_rows(self, now: float, limit: int) -> list[sqlite3.Row]:
         return self.db.execute(
@@ -361,6 +362,23 @@ def report(store: Store) -> str:
     for row in db.execute("SELECT reason, SUM(count) AS n FROM drop_stats GROUP BY reason"):
         totals[row["reason"]] = totals.get(row["reason"], 0) + row["n"]
     lines += [f"  {reason}: {count}" for reason, count in sorted(totals.items(), key=lambda i: -i[1])] or ["  yok"]
+    kept_n = db.execute("SELECT COUNT(*) FROM pairs WHERE status='KEPT'").fetchone()[0]
+    pulled_n = db.execute("SELECT COUNT(*) FROM pairs WHERE status='PULLED'").fetchone()[0]
+    lines += ["", "Eleği geçenlerin akıbeti:"]
+    if kept_n + pulled_n:
+        share = 100.0 * pulled_n / (kept_n + pulled_n)
+        lines.append(f"  eleği geçen: {kept_n + pulled_n} · likiditesi çekilen: {pulled_n} (%{share:.1f}) · hâlâ ayakta: {kept_n}")
+        gaps = sorted((r["g"] for r in db.execute(
+            "SELECT (decided_at - kept_at) / 60.0 AS g FROM pairs WHERE status='PULLED'"
+            " AND kept_at IS NOT NULL AND backfilled IS NULL")))
+        if gaps:
+            lines.append(f"  çekilme süresi (dk, canlı izlenenler): en kısa {gaps[0]:.0f} · ortanca "
+                         f"{gaps[len(gaps) // 2]:.0f} · en uzun {gaps[-1]:.0f} ({len(gaps)} kayıt)")
+        old = db.execute("SELECT COUNT(*) FROM pairs WHERE status='PULLED' AND backfilled = 1").fetchone()[0]
+        if old:
+            lines.append(f"  not: {old} kaydın çekilme zamanı bilinmiyor (izleme sonradan başladı); süreye katılmadı")
+    else:
+        lines.append("  yok")
     lines += ["", "Likiditesi çekilenler (PULLED):"]
     pulled = db.execute("SELECT target, detail, decided_at FROM pairs WHERE status='PULLED' "
                         "ORDER BY decided_at DESC LIMIT 10").fetchall()
