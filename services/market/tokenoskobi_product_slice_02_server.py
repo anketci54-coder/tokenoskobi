@@ -40,6 +40,7 @@ SEL = {
     "owner": "0x8da5cb5b",
 }
 DBS = [
+    ROOT / "data/tokenoskobi_news.sqlite",
     ROOT / "data/tokenoskobi_clean_v1.sqlite",
     ROOT / "data/tokenoskobi_v1.sqlite",
     ROOT / "data/tokenoskobi.sqlite",
@@ -503,7 +504,11 @@ def news(token: str, metadata: dict[str, Any]) -> dict[str, Any]:
 
     try:
         with closing(sqlite3.connect(f"file:{database}?mode=ro", uri=True)) as connection:
-            return _news_verdict(_read_news(connection, terms, output))
+            result = _read_news(connection, terms, output)
+            if not result.get("matches") and result.get("fresh") is not True:
+                result["scan"] = _scan_state(connection)
+                result["scanned_clean"] = result["scan"].get("clean") is True
+            return _news_verdict(result)
     except Exception as exc:
         output["error"] = f"{type(exc).__name__}:{str(exc)[:120]}"
     return _news_verdict(output)
@@ -517,6 +522,31 @@ NEWS_REASONS = (
     "NEWS_STALE",
 )
 NEWS_LEGACY_WARNING = "NEWS_STALE_OR_UNAVAILABLE"
+NEWS_SCAN_FRESH_SEC = 3600.0
+
+
+def _scan_state(connection) -> dict[str, Any]:
+    """Did the collector recently read enough sources? Only then is "no match" a measurement."""
+    try:
+        if not connection.execute("SELECT 1 FROM sqlite_master WHERE type='table'"
+                                  " AND name='news_collector_runs'").fetchone():
+            return {"clean": False, "why": "NO_COLLECTOR_HEARTBEAT"}
+        row = connection.execute("SELECT run_at, sources_ok, min_ok FROM news_collector_runs"
+                                 " ORDER BY run_at DESC LIMIT 1").fetchone()
+    except Exception:
+        return {"clean": False, "why": "HEARTBEAT_UNREADABLE"}
+    if not row:
+        return {"clean": False, "why": "NO_COLLECTOR_RUN"}
+    try:
+        run_at, ok, min_ok = float(row[0]), int(row[1]), int(row[2])
+    except (TypeError, ValueError):
+        return {"clean": False, "why": "HEARTBEAT_INVALID"}
+    age = time.time() - run_at
+    if not 0 <= age <= NEWS_SCAN_FRESH_SEC:
+        return {"clean": False, "why": "SCAN_STALE", "age_sec": round(age, 1)}
+    if min_ok < 1 or ok < min_ok:
+        return {"clean": False, "why": "TOO_FEW_SOURCES", "sources_ok": ok, "min_ok": min_ok}
+    return {"clean": True, "age_sec": round(age, 1), "sources_ok": ok}
 
 
 def _news_verdict(output: dict[str, Any]) -> dict[str, Any]:
@@ -533,6 +563,10 @@ def _news_verdict(output: dict[str, Any]) -> dict[str, Any]:
         reason = "NEWS_READ_ERROR"
         hint = ("Haber veritabanı okunamadı. Dosya yolunu ve izinleri kontrol edin; "
                 "ayrıntı 'error' alanında.")
+    elif output.get("scanned_clean") is True:
+        reason = "NEWS_SCANNED_NO_MATCH"
+        hint = ("Haber kaynakları son 1 saatte tarandı ve bu token için haber çıkmadı. Bu bir "
+                "olumlu kanıt değil, yalnızca 'ölçüldü, haber yok' demektir.")
     elif not output.get("matches"):
         reason = "NEWS_NO_MATCH"
         hint = ("Veritabanı okundu ama bu token için eşleşen haber yok. Bu bir hata "
@@ -757,7 +791,10 @@ def decide(
         warnings.append("ALCHEMY_HYBRID_NOT_READY")
         score += 5
     news_fresh = news_state.get("fresh") is True
-    if not news_fresh:
+    news_scanned_clean = not news_fresh and news_state.get("scanned_clean") is True
+    if news_scanned_clean:
+        evidence.append("NEWS_SCANNED_NO_MATCH")  # measured "nothing found"; adds no risk, no safety
+    elif not news_fresh:
         reason = news_state.get("reason")
         warnings.append(reason if reason in NEWS_REASONS else NEWS_LEGACY_WARNING)
         score += 5
@@ -843,7 +880,7 @@ def decide(
         and not wrong_target
         and not wrong_price
         and valid_technical >= 2
-        and news_fresh
+        and (news_fresh or news_scanned_clean)
         and token_level_ok
         else "VERI_YETERSIZ"
     )
