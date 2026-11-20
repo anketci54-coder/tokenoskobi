@@ -99,6 +99,22 @@ class Store:
             if col not in have:
                 self.db.execute(f"ALTER TABLE pairs ADD COLUMN {col} REAL")
         self.db.commit()
+        self.backfill_watch(time.time())
+
+    def backfill_watch(self, now: float) -> int:
+        """Put KEPT pairs that predate the watch columns under watch.
+
+        Their first liquidity (written in `detail` when they were kept) becomes the peak. Rows whose
+        window already ended get one last check and then stop.
+        """
+        with self.db:
+            return self.db.execute(
+                "UPDATE pairs SET peak = CAST(substr(detail, 1, instr(detail, ' ') - 1) AS REAL),"
+                " last_liq = CAST(substr(detail, 1, instr(detail, ' ') - 1) AS REAL),"
+                " watch_due = ?, watch_until = decided_at + ?"
+                " WHERE status = 'KEPT' AND watch_due IS NULL AND watch_until IS NULL"
+                " AND peak IS NULL AND instr(detail, ' ') > 1",
+                (now, WATCH_HOURS * 3600)).rowcount
 
     def close(self) -> None:
         self.db.close()

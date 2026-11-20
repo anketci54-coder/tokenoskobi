@@ -224,6 +224,22 @@ class WatchTests(Base):
         self.assertEqual(row["status"], "KEPT")
         self.assertIsNone(row["watch_due"])
 
+    def test_kept_rows_from_before_the_watch_are_backfilled(self):
+        target, quote, _ = pw.classify_new_pair(WBNB, TOK)
+        self.store.add({"now": 0.0, "items": [{
+            "pair": PAIR, "target": target, "quote": quote, "token0": WBNB, "token1": TOK,
+            "block": 1, "status": "NEW", "reason": None, "detail": None, "due_at": 0.0}]}, 1)
+        with self.store.db:  # old-style KEPT row: no watch columns filled
+            self.store.db.execute("UPDATE pairs SET status='KEPT', detail='8.7437 WBNB',"
+                                  " decided_at=1000 WHERE pair=?", (PAIR,))
+        self.assertEqual(self.store.backfill_watch(5000.0), 1)
+        row = self.row()
+        self.assertEqual((row["peak"], row["watch_due"]), (8.7437, 5000.0))
+        self.assertEqual(row["watch_until"], 1000 + pw.WATCH_HOURS * 3600)
+        self.assertEqual(self.store.backfill_watch(6000.0), 0)  # idempotent
+        out = pw.check_watch(self.store, FakeRpc(res=reserves(10**18, 1)), 5001.0)
+        self.assertEqual(out["PULLED"], 1)
+
     def test_old_database_is_migrated(self):
         import sqlite3
         tmp = tempfile.TemporaryDirectory()
