@@ -277,7 +277,7 @@ class ProductSlice02Tests(unittest.TestCase):
             key: {"status": "OK", "target_token_address": BASE, "last": 571.0}
             for key in ("1m", "5m", "15m", "1h")
         }
-        from tests.test_market_data_validation import healthy_controls, healthy_swap_state
+        from tests.test_market_data_validation import healthy_controls, healthy_lp_state, healthy_swap_state
         decision = MODULE.decide(
             {"code_exists": True, "controls": healthy_controls()},
             valid_market(),
@@ -285,6 +285,7 @@ class ProductSlice02Tests(unittest.TestCase):
             {"fresh": True},
             {"public_rpc_ok": 1, "hybrid_ready": True},
             healthy_swap_state(),
+            healthy_lp_state(),
         )
         self.assertEqual(decision["decision"], "ALLOW")
         self.assertEqual(decision["data_quality"], "SUFFICIENT")

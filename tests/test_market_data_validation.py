@@ -46,6 +46,11 @@ def healthy_swap_state():
     }
 
 
+def healthy_lp_state(burned_pct=100.0):
+    return {"status": "OK", "pool": POOL, "total_supply": "1000000", "burned_pct": burned_pct,
+            "zero_pct": burned_pct, "dead_pct": 0.0, "limits": "x"}
+
+
 def decision_inputs():
     return [
         {"code_exists": True, "controls": healthy_controls()},
@@ -62,6 +67,7 @@ def decision_inputs():
         {"fresh": True},
         {"public_rpc_ok": True, "hybrid_ready": True},
         healthy_swap_state(),
+        healthy_lp_state(),
     ]
 
 
