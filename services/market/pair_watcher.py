@@ -44,6 +44,9 @@ WATCH_INTERVAL_SEC = 300.0
 WATCH_HOURS = 24
 PULL_FRACTION = 0.5  # liquidity below half of its peak = pulled
 WATCHES_PER_LOOP = 100
+HORIZONS_MIN = (10, 30, 60, 180)
+CANDIDATE_MIN_AGE_MIN = 60  # tunable guess; pick from the survival table, not from this number
+CANDIDATE_KEEP_FRACTION = 0.9
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS pairs(
@@ -350,8 +353,49 @@ def run_once(store: Store, rpc: Rpc, now: float | None = None) -> dict[str, Any]
     return {"found": found, **checked, "pruned": pruned}
 
 
-def report(store: Store) -> str:
+def wilson(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
+    """95% Wilson score interval for a proportion (n > 0)."""
+    p = successes / n
+    denom = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / denom
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / denom
+    return max(0.0, centre - half), min(1.0, centre + half)
+
+
+def survival_table(store: Store, now: float) -> list[dict[str, Any]]:
+    """P(liquidity pulled within H minutes of being kept), live-watched pairs only.
+
+    A pair counts toward horizon H only if its outcome by H is known: it was pulled by H, or it was
+    observed for at least H minutes without being pulled. Pairs observed for less than H are left out.
+    Detection time is the first 5-minute check that saw the pull, so times are upper bounds.
+    """
+    rows = store.db.execute(
+        "SELECT status, kept_at, decided_at, watch_until FROM pairs WHERE kept_at IS NOT NULL"
+        " AND backfilled IS NULL AND status IN ('KEPT', 'PULLED')").fetchall()
+    table = []
+    for horizon in HORIZONS_MIN:
+        events = known = 0
+        for row in rows:
+            if row["status"] == "PULLED":
+                gap = (row["decided_at"] - row["kept_at"]) / 60.0
+                if gap <= horizon:
+                    events += 1
+                    known += 1
+                else:
+                    known += 1  # survived at least up to horizon
+            else:
+                end = min(now, row["watch_until"] or now)
+                if (end - row["kept_at"]) / 60.0 >= horizon:
+                    known += 1
+        table.append({"horizon": horizon, "n": known, "pulled": events,
+                      "ci": wilson(events, known) if known else None})
+    return table
+
+
+def report(store: Store, now: float | None = None, min_age_min: float = CANDIDATE_MIN_AGE_MIN,
+           keep_fraction: float = CANDIDATE_KEEP_FRACTION) -> str:
     db = store.db
+    now = time.time() if now is None else now
     lines = ["Havuz yakalayıcı raporu", ""]
     for row in db.execute("SELECT status, COUNT(*) AS n FROM pairs GROUP BY status ORDER BY status"):
         lines.append(f"  {row['status']}: {row['n']}")
@@ -379,6 +423,23 @@ def report(store: Store) -> str:
             lines.append(f"  not: {old} kaydın çekilme zamanı bilinmiyor (izleme sonradan başladı); süreye katılmadı")
     else:
         lines.append("  yok")
+    lines += ["", "Çekilme olasılığı (canlı izlenenler; %95 güven aralığı; örnek azsa geniş çıkar):"]
+    for row in survival_table(store, now):
+        if row["n"] == 0:
+            lines.append(f"  {row['horizon']} dk içinde: henüz örnek yok")
+        else:
+            low, high = row["ci"]
+            lines.append(f"  {row['horizon']} dk içinde: %{100 * row['pulled'] / row['n']:.1f} "
+                         f"(aralık %{100 * low:.1f}–%{100 * high:.1f}; {row['pulled']}/{row['n']} örnek)")
+    lines += ["", f"Adaylar (≥{min_age_min:g} dk ayakta ve likidite ≥ zirvenin %{100 * keep_fraction:.0f}'i):"]
+    candidates = db.execute(
+        "SELECT target, detail, last_liq, peak, COALESCE(kept_at, decided_at) AS since FROM pairs"
+        " WHERE status='KEPT' AND peak > 0 AND last_liq >= peak * ? AND ? - COALESCE(kept_at, decided_at) >= ?"
+        " ORDER BY since", (keep_fraction, now, min_age_min * 60)).fetchall()
+    lines.append(f"  toplam {len(candidates)} aday")
+    for row in candidates[:10]:
+        lines.append(f"  {row['target']}  {(now - row['since']) / 60:.0f} dk  "
+                     f"{row['last_liq']:.2f}/{row['peak']:.2f} (şimdiki/zirve)")
     lines += ["", "Likiditesi çekilenler (PULLED):"]
     pulled = db.execute("SELECT target, detail, decided_at FROM pairs WHERE status='PULLED' "
                         "ORDER BY decided_at DESC LIMIT 10").fetchall()
@@ -401,11 +462,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--interval", type=float, default=15.0)
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--report", action="store_true")
+    parser.add_argument("--min-age", type=float, default=CANDIDATE_MIN_AGE_MIN,
+                        help="aday için en az dakika (yalnızca rapor)")
+    parser.add_argument("--keep-fraction", type=float, default=CANDIDATE_KEEP_FRACTION,
+                        help="aday için zirveye göre en az likidite oranı (yalnızca rapor)")
     args = parser.parse_args(argv)
     store = Store(Path(args.state_dir).expanduser() / "pairs.sqlite")
     with closing(store):
         if args.report:
-            print(report(store))
+            print(report(store, min_age_min=args.min_age, keep_fraction=args.keep_fraction))
             return 0
         from services.market import tokenoskobi_product_slice_02_server as market
 
