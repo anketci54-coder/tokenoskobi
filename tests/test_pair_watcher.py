@@ -240,6 +240,24 @@ class WatchTests(Base):
         out = pw.check_watch(self.store, FakeRpc(res=reserves(10**18, 1)), 5001.0)
         self.assertEqual(out["PULLED"], 1)
 
+    def test_report_summarises_outcome_and_time_to_pull(self):
+        self.keep(10, now=1000.0)
+        pw.check_watch(self.store, FakeRpc(res=reserves(10**18, 1)), 1000.0 + 600)
+        text = pw.report(self.store)
+        self.assertIn("eleği geçen: 1 · likiditesi çekilen: 1 (%100.0) · hâlâ ayakta: 0", text)
+        self.assertIn("ortanca 10", text)
+
+    def test_backfilled_pull_is_not_given_a_time(self):
+        self.keep(10, now=1000.0)
+        with self.store.db:
+            self.store.db.execute("UPDATE pairs SET watch_due=NULL, watch_until=NULL, peak=NULL,"
+                                  " kept_at=NULL, detail='10.0000 WBNB' WHERE pair=?", (PAIR,))
+        self.store.backfill_watch(5000.0)
+        pw.check_watch(self.store, FakeRpc(res=reserves(10**18, 1)), 5001.0)
+        text = pw.report(self.store)
+        self.assertNotIn("çekilme süresi", text)
+        self.assertIn("1 kaydın çekilme zamanı bilinmiyor", text)
+
     def test_old_database_is_migrated(self):
         import sqlite3
         tmp = tempfile.TemporaryDirectory()
@@ -255,7 +273,7 @@ class WatchTests(Base):
         store = pw.Store(path)
         self.addCleanup(store.close)
         cols = {r["name"] for r in store.db.execute("PRAGMA table_info(pairs)")}
-        self.assertTrue({"peak", "last_liq", "watch_due", "watch_until"} <= cols)
+        self.assertTrue({"peak", "last_liq", "watch_due", "watch_until", "kept_at", "backfilled"} <= cols)
 
 
 class PruneAndReportTests(Base):
