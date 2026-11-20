@@ -40,13 +40,18 @@ MAX_ERRORS = 5
 CHECKS_PER_LOOP = 50
 RETAIN_DROPPED_DAYS = 7
 PRUNE_EVERY_SEC = 3600.0
+WATCH_INTERVAL_SEC = 300.0
+WATCH_HOURS = 24
+PULL_FRACTION = 0.5  # liquidity below half of its peak = pulled
+WATCHES_PER_LOOP = 100
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS pairs(
   pair TEXT PRIMARY KEY, target TEXT, quote TEXT, token0 TEXT, token1 TEXT,
   block INTEGER, seen_at REAL, status TEXT, reason TEXT, detail TEXT,
   attempts INTEGER DEFAULT 0, errors INTEGER DEFAULT 0, due_at REAL,
-  decided_at REAL, controls TEXT);
+  decided_at REAL, controls TEXT,
+  peak REAL, last_liq REAL, watch_due REAL, watch_until REAL);
 CREATE INDEX IF NOT EXISTS pairs_due ON pairs(status, due_at);
 CREATE TABLE IF NOT EXISTS cursor(id INTEGER PRIMARY KEY CHECK(id = 1), block INTEGER);
 CREATE TABLE IF NOT EXISTS drop_stats(day TEXT, reason TEXT, count INTEGER,
@@ -89,6 +94,11 @@ class Store:
         self.db.row_factory = sqlite3.Row
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript(SCHEMA)
+        have = {r["name"] for r in self.db.execute("PRAGMA table_info(pairs)")}
+        for col in ("peak", "last_liq", "watch_due", "watch_until"):
+            if col not in have:
+                self.db.execute(f"ALTER TABLE pairs ADD COLUMN {col} REAL")
+        self.db.commit()
 
     def close(self) -> None:
         self.db.close()
@@ -116,12 +126,36 @@ class Store:
             (now, limit)).fetchall()
 
     def decide(self, pair: str, status: str, reason: str, detail: str, now: float,
-               controls: dict[str, Any] | None = None) -> None:
+               controls: dict[str, Any] | None = None, liquidity: float | None = None) -> None:
+        watch = status == "KEPT" and liquidity is not None
         with self.db:
             self.db.execute(
-                "UPDATE pairs SET status=?, reason=?, detail=?, decided_at=?, controls=?, due_at=NULL"
-                " WHERE pair=?",
-                (status, reason, detail, now, json.dumps(controls) if controls else None, pair))
+                "UPDATE pairs SET status=?, reason=?, detail=?, decided_at=?, controls=?, due_at=NULL,"
+                " peak=?, last_liq=?, watch_due=?, watch_until=? WHERE pair=?",
+                (status, reason, detail, now, json.dumps(controls) if controls else None,
+                 liquidity if watch else None, liquidity if watch else None,
+                 now + WATCH_INTERVAL_SEC if watch else None,
+                 now + WATCH_HOURS * 3600 if watch else None, pair))
+
+    def watch_rows(self, now: float, limit: int) -> list[sqlite3.Row]:
+        return self.db.execute(
+            "SELECT * FROM pairs WHERE status='KEPT' AND watch_due IS NOT NULL AND watch_due <= ?"
+            " ORDER BY watch_due LIMIT ?", (now, limit)).fetchall()
+
+    def watch_update(self, pair: str, *, peak: float, liq: float, due: float | None) -> None:
+        with self.db:
+            self.db.execute("UPDATE pairs SET peak=?, last_liq=?, watch_due=? WHERE pair=?",
+                            (peak, liq, due, pair))
+
+    def watch_delay(self, pair: str, due: float) -> None:
+        with self.db:
+            self.db.execute("UPDATE pairs SET watch_due=? WHERE pair=?", (due, pair))
+
+    def mark_pulled(self, pair: str, detail: str, now: float, peak: float, liq: float) -> None:
+        with self.db:
+            self.db.execute(
+                "UPDATE pairs SET status='PULLED', reason='LIQUIDITY_PULLED', detail=?, decided_at=?,"
+                " peak=?, last_liq=?, watch_due=NULL WHERE pair=?", (detail, now, peak, liq, pair))
 
     def reschedule(self, pair: str, due_at: float, *, attempts: int, errors: int) -> None:
         with self.db:
@@ -190,14 +224,14 @@ def _reserves(raw: Any) -> tuple[int, int] | None:
     return int(raw[2:66], 16), int(raw[66:130], 16)
 
 
-def check_pair(row: sqlite3.Row, rpc: Rpc) -> tuple[str, str, str, dict[str, Any] | None]:
-    """(outcome, reason, detail, controls). outcome: DROP | KEEP | WAIT. May raise."""
+def check_pair(row: sqlite3.Row, rpc: Rpc) -> tuple[str, str, str, dict[str, Any] | None, float | None]:
+    """(outcome, reason, detail, controls, liquidity). outcome: DROP | KEEP | WAIT. May raise."""
     target, pair, quote = row["target"], row["pair"], row["quote"]
     code = rpc("eth_getCode", [target, "latest"])
     if not isinstance(code, str):
         raise RuntimeError("GETCODE_BAD_RESULT")
     if code in ("0x", "0x0", ""):
-        return "DROP", "NO_CODE", "no contract code at target", None
+        return "DROP", "NO_CODE", "no contract code at target", None, None
     reserves = _reserves(rpc("eth_call", [{"to": pair, "data": RESERVES_CALL}, "latest"]))
     if reserves is None:
         raise RuntimeError("RESERVES_UNREADABLE")
@@ -205,9 +239,9 @@ def check_pair(row: sqlite3.Row, rpc: Rpc) -> tuple[str, str, str, dict[str, Any
     liquidity = quote_reserve / 1e18
     symbol = QUOTES[quote]
     if liquidity <= 0:
-        return "WAIT", "NO_LIQUIDITY_YET", f"0 {symbol}", None
+        return "WAIT", "NO_LIQUIDITY_YET", f"0 {symbol}", None, None
     if liquidity < MIN_LIQUIDITY[quote]:
-        return "DROP", "LIQUIDITY_TOO_LOW", f"{liquidity:.4f} {symbol} < {MIN_LIQUIDITY[quote]:g}", None
+        return "DROP", "LIQUIDITY_TOO_LOW", f"{liquidity:.4f} {symbol} < {MIN_LIQUIDITY[quote]:g}", None, liquidity
 
     def call(data: str) -> Any:
         return rpc("eth_call", [{"to": target, "data": data}, "latest"])
@@ -222,15 +256,15 @@ def check_pair(row: sqlite3.Row, rpc: Rpc) -> tuple[str, str, str, dict[str, Any
         lambda slot: rpc("eth_getStorageAt", [target, slot, "latest"]))
     if (controls["owner"]["status"] == "OWNER_ACTIVE_EOA"
             and "MINT_SELECTOR_PRESENT" in controls["selector_hints"]):
-        return "DROP", "MINT_UNDER_SINGLE_KEY", f"{liquidity:.4f} {symbol}", controls
-    return "KEEP", "LIQUIDITY_OK", f"{liquidity:.4f} {symbol}", controls
+        return "DROP", "MINT_UNDER_SINGLE_KEY", f"{liquidity:.4f} {symbol}", controls, liquidity
+    return "KEEP", "LIQUIDITY_OK", f"{liquidity:.4f} {symbol}", controls, liquidity
 
 
 def check_due(store: Store, rpc: Rpc, now: float, limit: int = CHECKS_PER_LOOP) -> dict[str, int]:
     counts = {"KEPT": 0, "DROPPED": 0, "WAITING": 0, "ERRORS": 0}
     for row in store.due(now, limit):
         try:
-            outcome, reason, detail, controls = check_pair(row, rpc)
+            outcome, reason, detail, controls, liquidity = check_pair(row, rpc)
         except Exception as exc:
             errors = row["errors"] + 1
             counts["ERRORS"] += 1
@@ -254,8 +288,35 @@ def check_due(store: Store, rpc: Rpc, now: float, limit: int = CHECKS_PER_LOOP) 
             store.decide(row["pair"], "DROPPED", reason, detail, now, controls)
             counts["DROPPED"] += 1
         else:
-            store.decide(row["pair"], "KEPT", reason, detail, now, controls)
+            store.decide(row["pair"], "KEPT", reason, detail, now, controls, liquidity)
             counts["KEPT"] += 1
+    return counts
+
+
+def check_watch(store: Store, rpc: Rpc, now: float, limit: int = WATCHES_PER_LOOP) -> dict[str, int]:
+    """Re-read liquidity of KEPT pairs; a drop below half of the peak marks the pair PULLED."""
+    counts = {"WATCHED": 0, "PULLED": 0, "WATCH_ERRORS": 0}
+    for row in store.watch_rows(now, limit):
+        try:
+            reserves = _reserves(rpc("eth_call", [{"to": row["pair"], "data": RESERVES_CALL}, "latest"]))
+            if reserves is None:
+                raise RuntimeError("RESERVES_UNREADABLE")
+        except Exception:
+            # Unreadable is not "fine" and not "pulled": try again soon, never change the status.
+            counts["WATCH_ERRORS"] += 1
+            store.watch_delay(row["pair"], now + ERROR_RETRY_SEC)
+            continue
+        quote_reserve = reserves[0] if row["token0"] == row["quote"] else reserves[1]
+        liq = quote_reserve / 1e18
+        peak = max(row["peak"] or 0.0, liq)
+        symbol = QUOTES[row["quote"]]
+        if peak > 0 and liq < peak * PULL_FRACTION:
+            store.mark_pulled(row["pair"], f"{peak:.4f} -> {liq:.4f} {symbol}", now, peak, liq)
+            counts["PULLED"] += 1
+            continue
+        ended = row["watch_until"] is not None and now >= row["watch_until"]
+        store.watch_update(row["pair"], peak=peak, liq=liq, due=None if ended else now + WATCH_INTERVAL_SEC)
+        counts["WATCHED"] += 1
     return counts
 
 
@@ -263,6 +324,7 @@ def run_once(store: Store, rpc: Rpc, now: float | None = None) -> dict[str, Any]
     now = time.time() if now is None else now
     found = scan(store, rpc, now)
     checked = check_due(store, rpc, now)
+    checked.update(check_watch(store, rpc, now))
     pruned = 0
     last = store.meta("last_prune")
     if last is None or now - last >= PRUNE_EVERY_SEC:
@@ -283,6 +345,13 @@ def report(store: Store) -> str:
     for row in db.execute("SELECT reason, SUM(count) AS n FROM drop_stats GROUP BY reason"):
         totals[row["reason"]] = totals.get(row["reason"], 0) + row["n"]
     lines += [f"  {reason}: {count}" for reason, count in sorted(totals.items(), key=lambda i: -i[1])] or ["  yok"]
+    lines += ["", "Likiditesi çekilenler (PULLED):"]
+    pulled = db.execute("SELECT target, detail, decided_at FROM pairs WHERE status='PULLED' "
+                        "ORDER BY decided_at DESC LIMIT 10").fetchall()
+    for row in pulled:
+        when = datetime.fromtimestamp(row["decided_at"], timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+        lines.append(f"  {row['target']}  {row['detail']}  ({when} UTC)")
+    lines += ["  yok"] if not pulled else []
     lines += ["", "Son kalanlar (KEPT):"]
     kept = db.execute("SELECT target, quote, detail, decided_at FROM pairs WHERE status='KEPT' "
                       "ORDER BY decided_at DESC LIMIT 10").fetchall()

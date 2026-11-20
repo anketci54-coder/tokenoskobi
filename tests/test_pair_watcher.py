@@ -165,6 +165,83 @@ class CheckTests(Base):
         self.assertEqual(self.row()["errors"], 1)
 
 
+class WatchTests(Base):
+    def keep(self, liq_wbnb=10, now=1000.0):
+        target, quote, _ = pw.classify_new_pair(WBNB, TOK)
+        self.store.add({"now": 0.0, "items": [{
+            "pair": PAIR, "target": target, "quote": quote, "token0": WBNB, "token1": TOK,
+            "block": 1, "status": "NEW", "reason": None, "detail": None, "due_at": 0.0}]}, 1)
+        self.store.decide(PAIR, "KEPT", "LIQUIDITY_OK", "x", now, None, float(liq_wbnb))
+
+    def test_kept_pair_gets_a_watch_schedule(self):
+        self.keep()
+        row = self.row()
+        self.assertEqual((row["peak"], row["last_liq"]), (10.0, 10.0))
+        self.assertEqual(row["watch_due"], 1000.0 + pw.WATCH_INTERVAL_SEC)
+
+    def test_not_due_is_not_read(self):
+        self.keep()
+        rpc = FakeRpc(res=reserves(0, 0))
+        self.assertEqual(pw.check_watch(self.store, rpc, 1001.0)["PULLED"], 0)
+        self.assertEqual(rpc.calls, [])
+
+    def test_big_drop_marks_pulled(self):
+        self.keep(10)
+        now = 1000.0 + pw.WATCH_INTERVAL_SEC + 1
+        out = pw.check_watch(self.store, FakeRpc(res=reserves(2 * 10**18, 10**30)), now)
+        self.assertEqual(out["PULLED"], 1)
+        row = self.row()
+        self.assertEqual((row["status"], row["reason"]), ("PULLED", "LIQUIDITY_PULLED"))
+        self.assertIn("10.0000 -> 2.0000", row["detail"])
+        self.assertIn(TOK, pw.report(self.store))
+
+    def test_small_dip_is_not_pulled_and_peak_follows_growth(self):
+        self.keep(10)
+        now = 1000.0 + pw.WATCH_INTERVAL_SEC + 1
+        pw.check_watch(self.store, FakeRpc(res=reserves(8 * 10**18, 1)), now)
+        self.assertEqual(self.row()["status"], "KEPT")
+        now += pw.WATCH_INTERVAL_SEC + 1
+        pw.check_watch(self.store, FakeRpc(res=reserves(30 * 10**18, 1)), now)
+        self.assertEqual(self.row()["peak"], 30.0)
+        now += pw.WATCH_INTERVAL_SEC + 1
+        pw.check_watch(self.store, FakeRpc(res=reserves(14 * 10**18, 1)), now)
+        self.assertEqual(self.row()["status"], "PULLED")
+
+    def test_unreadable_reserves_neither_pull_nor_clear(self):
+        self.keep()
+        now = 1000.0 + pw.WATCH_INTERVAL_SEC + 1
+        for rpc in (FakeRpc(res="0x"), FakeRpc(fail="eth_call")):
+            out = pw.check_watch(self.store, rpc, now)
+            self.assertEqual(out["WATCH_ERRORS"], 1)
+            self.assertEqual(self.row()["status"], "KEPT")
+            now += pw.ERROR_RETRY_SEC + 1
+
+    def test_watch_ends_after_window(self):
+        self.keep()
+        now = 1000.0 + pw.WATCH_HOURS * 3600 + 1
+        pw.check_watch(self.store, FakeRpc(res=reserves(10 * 10**18, 1)), now)
+        row = self.row()
+        self.assertEqual(row["status"], "KEPT")
+        self.assertIsNone(row["watch_due"])
+
+    def test_old_database_is_migrated(self):
+        import sqlite3
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        path = Path(tmp.name) / "old.sqlite"
+        db = sqlite3.connect(path)
+        db.execute("CREATE TABLE pairs(pair TEXT PRIMARY KEY, target TEXT, quote TEXT, token0 TEXT,"
+                   " token1 TEXT, block INTEGER, seen_at REAL, status TEXT, reason TEXT, detail TEXT,"
+                   " attempts INTEGER DEFAULT 0, errors INTEGER DEFAULT 0, due_at REAL,"
+                   " decided_at REAL, controls TEXT)")
+        db.commit()
+        db.close()
+        store = pw.Store(path)
+        self.addCleanup(store.close)
+        cols = {r["name"] for r in store.db.execute("PRAGMA table_info(pairs)")}
+        self.assertTrue({"peak", "last_liq", "watch_due", "watch_until"} <= cols)
+
+
 class PruneAndReportTests(Base):
     def test_prune_folds_old_drops_into_stats(self):
         old = 1_000_000.0
