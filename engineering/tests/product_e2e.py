@@ -46,7 +46,15 @@ def fixture_chain_evidence(method, params):
     """
     from services.market.token_controls import selector
 
+    from services.market.lp_status import BALANCE_OF_SELECTOR, DEAD_ADDRESS, TOTAL_SUPPLY_CALL
+
     buyers = ["0x" + format(0x400000 + i, "040x") for i in range(4)]
+    if method == "eth_call" and params[0]["to"] == POOL:
+        data = params[0]["data"]
+        if data == TOTAL_SUPPLY_CALL:
+            return "0x" + _word(1_000_000)
+        if data.startswith(BALANCE_OF_SELECTOR):  # 95% of the LP supply is burned
+            return "0x" + _word(950_000 if data[-40:] == DEAD_ADDRESS[2:] else 0)
     if method == "eth_getStorageAt":
         return "0x" + "0" * 64
     if method == "eth_getLogs":

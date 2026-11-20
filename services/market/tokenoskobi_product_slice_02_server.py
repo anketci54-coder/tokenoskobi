@@ -22,6 +22,7 @@ from core.platform.paths import get_root, product_cache_dir
 from services.market.config import validate_config
 from services.market.dex_policy import PoolVerifier, pool_is_verified, target_policy
 from services.market.request_validation import validate_json_headers, validate_request_headers
+from services.market.lp_status import collect_lp, unavailable as lp_unavailable
 from services.market.swap_behavior import collect_swap_behavior, unavailable
 from services.market.token_controls import collect_controls
 ROOT = get_root()
@@ -646,6 +647,7 @@ def ratio_ok(left: float | None, right: float | None, low: float, high: float) -
 
 TAX_WARN_PCT = 10.0
 TAX_BLOCK_PCT = 30.0
+LP_BURNED_OK_PCT = 90.0  # share of LP supply at burn addresses that counts as "cannot be pulled"
 
 
 def _dict(value: Any) -> dict[str, Any]:
@@ -681,6 +683,7 @@ def decide(
     news_state: dict[str, Any],
     provider_state: dict[str, Any],
     swap_state: dict[str, Any] | None = None,
+    lp_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     blockers: list[str] = []
     warnings: list[str] = []
@@ -862,8 +865,22 @@ def decide(
     if ability == "SELLS_OBSERVED" and taxes["sell"] is None:
         warnings.append("SELL_TAX_UNMEASURED")
         score += 5
+    lp = _dict(lp_state)
+    raw_pct = lp.get("burned_pct")
+    # Only a real number counts; a string such as "100" is malformed data, not a measurement.
+    lp_pct = (float(raw_pct) if lp.get("status") == "OK" and type(raw_pct) in (int, float)
+              and math.isfinite(raw_pct) and 0 <= raw_pct <= 100 else None)
+    lp_burned = lp_pct is not None and lp_pct >= LP_BURNED_OK_PCT
+    if lp_burned:
+        evidence.append("LP_BURNED")
+    elif lp_pct is not None:
+        warnings.append("LP_NOT_BURNED")  # may still be locked in a contract we do not recognise
+        score += 10
+    else:
+        warnings.append("LP_STATUS_UNVERIFIED")
+        score += 5
     token_level_ok = bool(
-        controls and ability == "SELLS_OBSERVED"
+        controls and ability == "SELLS_OBSERVED" and lp_burned
         and taxes["buy"] is not None and taxes["sell"] is not None
     )
 
@@ -921,6 +938,15 @@ def observed_swap_behavior(
         return state
 
 
+def observed_lp_status(pool: str | None, provider_state: dict[str, Any]) -> dict[str, Any]:
+    selected = provider_state.get("selected")
+    if not selected or not isinstance(pool, str) or not ADDR.match(pool):
+        return lp_unavailable("NO_RPC_OR_POOL")
+    return collect_lp(
+        pool, lambda to, data: rpc(selected["url"], "eth_call", [{"to": to, "data": data}, "latest"])
+    )
+
+
 def analyze(token: str) -> dict[str, Any]:
     token = token.lower()
     provider_state = providers()
@@ -936,8 +962,9 @@ def analyze(token: str) -> dict[str, Any]:
     swap_state = observed_swap_behavior(
         token, (market_state.get("selected_pool") or {}).get("address"), provider_state
     )
+    lp_state = observed_lp_status((market_state.get("selected_pool") or {}).get("address"), provider_state)
     decision = decide(
-        contract_state, market_state, technical_state, news_state, provider_state, swap_state
+        contract_state, market_state, technical_state, news_state, provider_state, swap_state, lp_state
     )
     safe_provider = {
         key: value for key, value in provider_state.items() if key != "selected"
@@ -958,6 +985,7 @@ def analyze(token: str) -> dict[str, Any]:
         "technical_timeframes": technical_state,
         "news": news_state,
         "swap_behavior": swap_state,
+        "lp_status": lp_state,
         "decision": decision,
         "authority": {
             "paper": False,

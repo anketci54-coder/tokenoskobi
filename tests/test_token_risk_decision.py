@@ -146,6 +146,8 @@ class OnlyTightenTests(unittest.TestCase):
             swap(buy_tax=tax("ESTIMATED", 12.0)),
             swap(sell_tax=tax("ESTIMATED", 40.0)),
             swap(sell_tax=tax("UNKNOWN")),
+            lambda v: v.__setitem__(6, {"status": "OK", "burned_pct": 5.0}),
+            lambda v: v.__setitem__(6, None),
             lambda v: v.__setitem__(5, None),
             lambda v: v[0].pop("controls"),
         ]
