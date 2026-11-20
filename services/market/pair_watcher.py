@@ -365,8 +365,9 @@ def wilson(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
 def survival_table(store: Store, now: float) -> list[dict[str, Any]]:
     """P(liquidity pulled within H minutes of being kept), live-watched pairs only.
 
-    A pair counts toward horizon H only if its outcome by H is known: it was pulled by H, or it was
-    observed for at least H minutes without being pulled. Pairs observed for less than H are left out.
+    The cohort for horizon H is every pair that has been watched for at least H minutes (kept at
+    least H minutes ago, or watched to the end of its window). Counting only pairs whose outcome is
+    already known would over-count pulls, because pulls become known sooner than survivals.
     Detection time is the first 5-minute check that saw the pull, so times are upper bounds.
     """
     rows = store.db.execute(
@@ -374,21 +375,18 @@ def survival_table(store: Store, now: float) -> list[dict[str, Any]]:
         " AND backfilled IS NULL AND status IN ('KEPT', 'PULLED')").fetchall()
     table = []
     for horizon in HORIZONS_MIN:
-        events = known = 0
+        cohort = events = 0
         for row in rows:
-            if row["status"] == "PULLED":
-                gap = (row["decided_at"] - row["kept_at"]) / 60.0
-                if gap <= horizon:
-                    events += 1
-                    known += 1
-                else:
-                    known += 1  # survived at least up to horizon
-            else:
-                end = min(now, row["watch_until"] or now)
-                if (end - row["kept_at"]) / 60.0 >= horizon:
-                    known += 1
-        table.append({"horizon": horizon, "n": known, "pulled": events,
-                      "ci": wilson(events, known) if known else None})
+            end = now
+            if row["status"] == "KEPT" and row["watch_until"] is not None:
+                end = min(now, row["watch_until"])
+            if (end - row["kept_at"]) / 60.0 < horizon:
+                continue  # not watched for the full horizon yet
+            cohort += 1
+            if row["status"] == "PULLED" and (row["decided_at"] - row["kept_at"]) / 60.0 <= horizon:
+                events += 1
+        table.append({"horizon": horizon, "n": cohort, "pulled": events,
+                      "ci": wilson(events, cohort) if cohort else None})
     return table
 
 
@@ -433,13 +431,13 @@ def report(store: Store, now: float | None = None, min_age_min: float = CANDIDAT
                          f"(aralık %{100 * low:.1f}–%{100 * high:.1f}; {row['pulled']}/{row['n']} örnek)")
     lines += ["", f"Adaylar (≥{min_age_min:g} dk ayakta ve likidite ≥ zirvenin %{100 * keep_fraction:.0f}'i):"]
     candidates = db.execute(
-        "SELECT target, detail, last_liq, peak, COALESCE(kept_at, decided_at) AS since FROM pairs"
+        "SELECT target, quote, detail, last_liq, peak, COALESCE(kept_at, decided_at) AS since FROM pairs"
         " WHERE status='KEPT' AND peak > 0 AND last_liq >= peak * ? AND ? - COALESCE(kept_at, decided_at) >= ?"
         " ORDER BY since", (keep_fraction, now, min_age_min * 60)).fetchall()
     lines.append(f"  toplam {len(candidates)} aday")
     for row in candidates[:10]:
         lines.append(f"  {row['target']}  {(now - row['since']) / 60:.0f} dk  "
-                     f"{row['last_liq']:.2f}/{row['peak']:.2f} (şimdiki/zirve)")
+                     f"{row['last_liq']:.2f}/{row['peak']:.2f} {QUOTES.get(row['quote'], '?')} (şimdiki/zirve)")
     lines += ["", "Likiditesi çekilenler (PULLED):"]
     pulled = db.execute("SELECT target, detail, decided_at FROM pairs WHERE status='PULLED' "
                         "ORDER BY decided_at DESC LIMIT 10").fetchall()
