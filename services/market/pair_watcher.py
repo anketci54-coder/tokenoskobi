@@ -390,6 +390,15 @@ def survival_table(store: Store, now: float) -> list[dict[str, Any]]:
     return table
 
 
+def candidate_rows(store: Store, now: float, min_age_min: float = CANDIDATE_MIN_AGE_MIN,
+                   keep_fraction: float = CANDIDATE_KEEP_FRACTION) -> list[sqlite3.Row]:
+    """KEPT pairs that lived long enough and still hold most of their peak liquidity, oldest first."""
+    return store.db.execute(
+        "SELECT target, quote, detail, last_liq, peak, COALESCE(kept_at, decided_at) AS since FROM pairs"
+        " WHERE status='KEPT' AND peak > 0 AND last_liq >= peak * ? AND ? - COALESCE(kept_at, decided_at) >= ?"
+        " ORDER BY since", (keep_fraction, now, min_age_min * 60)).fetchall()
+
+
 def report(store: Store, now: float | None = None, min_age_min: float = CANDIDATE_MIN_AGE_MIN,
            keep_fraction: float = CANDIDATE_KEEP_FRACTION) -> str:
     db = store.db
@@ -430,10 +439,7 @@ def report(store: Store, now: float | None = None, min_age_min: float = CANDIDAT
             lines.append(f"  {row['horizon']} dk içinde: %{100 * row['pulled'] / row['n']:.1f} "
                          f"(aralık %{100 * low:.1f}–%{100 * high:.1f}; {row['pulled']}/{row['n']} örnek)")
     lines += ["", f"Adaylar (≥{min_age_min:g} dk ayakta ve likidite ≥ zirvenin %{100 * keep_fraction:.0f}'i):"]
-    candidates = db.execute(
-        "SELECT target, quote, detail, last_liq, peak, COALESCE(kept_at, decided_at) AS since FROM pairs"
-        " WHERE status='KEPT' AND peak > 0 AND last_liq >= peak * ? AND ? - COALESCE(kept_at, decided_at) >= ?"
-        " ORDER BY since", (keep_fraction, now, min_age_min * 60)).fetchall()
+    candidates = candidate_rows(store, now, min_age_min, keep_fraction)
     lines.append(f"  toplam {len(candidates)} aday")
     for row in candidates[:10]:
         lines.append(f"  {row['target']}  {(now - row['since']) / 60:.0f} dk  "
