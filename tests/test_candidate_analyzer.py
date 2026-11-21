@@ -66,6 +66,31 @@ class AnalyzeTests(Base):
         text = ca.report(self.store)
         self.assertIn("BLOCK", text)
         self.assertIn(TOK, text)
+    def test_report_counts_warnings_and_why_layers_did_not_measure(self):
+        for i, (pair, token) in enumerate((("0x" + "1" * 40, TOK), ("0x" + "2" * 40, TOK2))):
+            self.keep(pair, token)
+        def post(token):
+            reply = answer("REVIEW", 50, blockers=())
+            reply["decision"]["warnings"] = ["SELL_BEHAVIOR_UNVERIFIED", "LP_NOT_BURNED"]
+            reply["swap_behavior"] = {"status": "UNKNOWN", "reason": "POOL_NOT_V2_PAIR"}
+            reply["lp_status"] = {"status": "UNKNOWN", "reason": "POOL_NOT_V2_PAIR"}
+            return reply
+        ca.step(self.store, post, self.NOW)
+        ca.step(self.store, post, self.NOW)
+        text = ca.report(self.store)
+        self.assertIn("SELL_BEHAVIOR_UNVERIFIED: 2 (%100)", text)
+        self.assertIn("UNKNOWN:POOL_NOT_V2_PAIR: 2", text)
+
+    def test_old_table_is_migrated_and_old_rows_are_labelled(self):
+        self.store.db.executescript("DROP TABLE analyses; CREATE TABLE analyses(token TEXT PRIMARY KEY,"
+                                    " analyzed_at REAL, status TEXT, decision TEXT, risk INTEGER, quality TEXT,"
+                                    " packet_id TEXT, blockers TEXT, warnings TEXT, error TEXT,"
+                                    " attempts INTEGER DEFAULT 0, next_try REAL);")
+        self.store.db.execute("INSERT INTO analyses(token, status, decision, warnings) VALUES('0xa','OK','REVIEW','[]')")
+        self.store.db.commit()
+        ca.ensure_table(self.store)
+        self.assertIn("eski kayıt (bilinmiyor): 1", ca.report(self.store))
+
     def test_report_lists_warnings(self):
         self.keep("0x" + "1" * 40, TOK)
         reply = answer("REVIEW", 30, blockers=())
