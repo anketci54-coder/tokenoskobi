@@ -27,8 +27,9 @@ SCHEMA = """
 CREATE TABLE IF NOT EXISTS analyses(
   token TEXT PRIMARY KEY, analyzed_at REAL, status TEXT, decision TEXT, risk INTEGER,
   quality TEXT, packet_id TEXT, blockers TEXT, warnings TEXT, error TEXT,
-  attempts INTEGER DEFAULT 0, next_try REAL);
+  attempts INTEGER DEFAULT 0, next_try REAL, sell_state TEXT, lp_state TEXT);
 """
+EXTRA_COLUMNS = ("sell_state", "lp_state")
 MAX_ATTEMPTS = 3
 RETRY_BASE_SEC = 600.0
 PANEL_DOWN_SLEEP_SEC = 60.0
@@ -57,6 +58,10 @@ def panel_post(token: str) -> dict[str, Any]:
 
 def ensure_table(store: Store) -> None:
     store.db.executescript(SCHEMA)
+    have = {r["name"] for r in store.db.execute("PRAGMA table_info(analyses)")}
+    for column in EXTRA_COLUMNS:
+        if column not in have:
+            store.db.execute(f"ALTER TABLE analyses ADD COLUMN {column} TEXT")
     store.db.commit()
 
 
@@ -70,6 +75,14 @@ def pick(store: Store, now: float, min_age_min: float, keep_fraction: float) -> 
         if known["status"] == "ERROR" and known["attempts"] < MAX_ATTEMPTS and known["next_try"] <= now:
             return row["target"]
     return None
+
+
+def _state_label(block: Any, *keys: str) -> str | None:
+    """Short, safe text for why a layer did or did not measure (status plus reason or ability)."""
+    if not isinstance(block, dict):
+        return "MISSING"
+    parts = [str(block.get(key))[:40] for key in keys if isinstance(block.get(key), (str, int, float))]
+    return ":".join(parts) or "MISSING"
 
 
 def analyze_one(store: Store, token: str, post: Post, now: float) -> str:
@@ -95,14 +108,17 @@ def analyze_one(store: Store, token: str, post: Post, now: float) -> str:
         return "ERROR"
     store.db.execute(
         "INSERT INTO analyses(token, analyzed_at, status, decision, risk, quality, packet_id,"
-        " blockers, warnings, attempts) VALUES(?,?,?,?,?,?,?,?,?,?)"
+        " blockers, warnings, attempts, sell_state, lp_state) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
         " ON CONFLICT(token) DO UPDATE SET analyzed_at=excluded.analyzed_at, status='OK',"
         " decision=excluded.decision, risk=excluded.risk, quality=excluded.quality,"
         " packet_id=excluded.packet_id, blockers=excluded.blockers, warnings=excluded.warnings,"
-        " error=NULL, attempts=excluded.attempts",
+        " error=NULL, attempts=excluded.attempts, sell_state=excluded.sell_state,"
+        " lp_state=excluded.lp_state",
         (token, now, "OK", decision.get("decision"), decision.get("risk_score"),
          decision.get("data_quality"), packet_id, json.dumps(decision.get("blockers") or []),
-         json.dumps(decision.get("warnings") or []), attempts))
+         json.dumps(decision.get("warnings") or []), attempts,
+         _state_label(result.get("swap_behavior"), "status", "reason", "sell_ability"),
+         _state_label(result.get("lp_status"), "status", "reason")))
     store.db.commit()
     return "OK"
 
@@ -124,6 +140,20 @@ def report(store: Store) -> str:
         lines.append(f"  {row['status']} {row['decision'] or ''}: {row['n']}")
     if not rows:
         lines.append("  henüz analiz yok")
+    ok_total = db.execute("SELECT COUNT(*) FROM analyses WHERE status='OK'").fetchone()[0]
+    if ok_total:
+        counts: dict[str, int] = {}
+        for row in db.execute("SELECT warnings FROM analyses WHERE status='OK'"):
+            for warning in set(json.loads(row["warnings"] or "[]")):
+                counts[warning] = counts.get(warning, 0) + 1
+        lines += ["", f"En sık uyarılar ({ok_total} analiz içinde):"]
+        lines += [f"  {name}: {n} (%{100 * n / ok_total:.0f})"
+                  for name, n in sorted(counts.items(), key=lambda i: -i[1])[:8]]
+        for title, column in (("Satış davranışı durumları:", "sell_state"), ("LP durumları:", "lp_state")):
+            lines += ["", title]
+            for row in db.execute(f"SELECT {column} AS v, COUNT(*) AS n FROM analyses WHERE status='OK'"
+                                  f" GROUP BY v ORDER BY n DESC LIMIT 6"):
+                lines.append(f"  {row['v'] or 'eski kayıt (bilinmiyor)'}: {row['n']}")
     lines += ["", "Son analizler:"]
     latest = db.execute("SELECT * FROM analyses WHERE status='OK' ORDER BY analyzed_at DESC LIMIT 10").fetchall()
     for row in latest:
