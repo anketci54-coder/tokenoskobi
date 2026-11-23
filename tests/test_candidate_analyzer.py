@@ -119,6 +119,37 @@ class AnalyzeTests(Base):
         self.assertEqual(self.store.db.execute("SELECT COUNT(*) FROM analyses").fetchone()[0], 0)
         self.assertEqual(ca.step(self.store, lambda t: answer(), self.NOW + 5), "OK")
 
+    def test_unmeasured_swap_layer_is_retried_later_but_only_a_bounded_number_of_times(self):
+        self.keep("0x" + "1" * 40, TOK)
+        def post(token):
+            reply = answer("REVIEW", 50, blockers=())
+            reply["swap_behavior"] = {"status": "UNKNOWN", "reason": "LOGS_UNAVAILABLE"}
+            return reply
+        now = self.NOW
+        runs = 0
+        for _ in range(6):
+            if ca.step(self.store, post, now) == "OK":
+                runs += 1
+            self.assertEqual(ca.step(self.store, post, now), "IDLE")  # not again right away
+            now += ca.REMEASURE_AFTER_SEC + 1
+        self.assertEqual(runs, ca.MAX_ANALYSES_PER_TOKEN)
+
+    def test_measured_swap_layer_is_not_repeated_and_old_rows_are_retried(self):
+        self.keep("0x" + "1" * 40, TOK)
+        self.keep("0x" + "2" * 40, TOK2)
+        def post(token):
+            reply = answer("REVIEW", 50, blockers=())
+            reply["swap_behavior"] = {"status": "OK", "sell_ability": "SELLS_OBSERVED"}
+            return reply
+        self.assertEqual(ca.step(self.store, post, self.NOW), "OK")
+        self.assertEqual(ca.step(self.store, post, self.NOW), "OK")
+        later = self.NOW + 10 * ca.REMEASURE_AFTER_SEC
+        self.assertEqual(ca.step(self.store, post, later), "IDLE")
+        self.store.db.execute("UPDATE analyses SET sell_state=NULL WHERE token=?", (TOK,))  # an old row
+        self.store.db.commit()
+        self.assertEqual(ca.step(self.store, post, later), "OK")
+        self.assertEqual(ca.step(self.store, post, later), "IDLE")
+
     def test_malformed_response_is_an_error_not_a_verdict(self):
         self.keep("0x" + "1" * 40, TOK)
         self.assertEqual(ca.step(self.store, lambda t: {"decision": {}}, self.NOW), "ERROR")

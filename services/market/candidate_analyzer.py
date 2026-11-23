@@ -33,6 +33,8 @@ EXTRA_COLUMNS = ("sell_state", "lp_state")
 MAX_ATTEMPTS = 3
 RETRY_BASE_SEC = 600.0
 PANEL_DOWN_SLEEP_SEC = 60.0
+REMEASURE_AFTER_SEC = 1800.0  # an analysis whose swap layer did not measure is retried after this long
+MAX_ANALYSES_PER_TOKEN = 3
 
 Post = Callable[[str], dict[str, Any]]
 
@@ -65,6 +67,11 @@ def ensure_table(store: Store) -> None:
     store.db.commit()
 
 
+def _swap_unmeasured(sell_state: str | None) -> bool:
+    """True when the swap layer gave no measurement (or the row predates the diagnostic column)."""
+    return sell_state is None or sell_state.startswith(("UNKNOWN", "MISSING"))
+
+
 def pick(store: Store, now: float, min_age_min: float, keep_fraction: float) -> str | None:
     done = {r["token"]: r for r in store.db.execute("SELECT * FROM analyses")}
     for row in sorted(candidate_rows(store, now, min_age_min, keep_fraction),
@@ -74,6 +81,10 @@ def pick(store: Store, now: float, min_age_min: float, keep_fraction: float) -> 
             return row["target"]
         if known["status"] == "ERROR" and known["attempts"] < MAX_ATTEMPTS and known["next_try"] <= now:
             return row["target"]
+        if (known["status"] == "OK" and known["attempts"] < MAX_ANALYSES_PER_TOKEN
+                and _swap_unmeasured(known["sell_state"])
+                and now - (known["analyzed_at"] or 0) >= REMEASURE_AFTER_SEC):
+            return row["target"]  # swap layer failed or predates diagnostics: measure again, bounded
     return None
 
 
