@@ -27,6 +27,11 @@ class BacktestTests(unittest.TestCase):
         r = self.row("PULLED", 0.5 * H, 24 * H)
         self.assertTrue(bt.outcome_at(r, 60, now=2 * H))
 
+    def test_pull_outside_watch_window_is_unknown_not_counted(self):
+        # izleme ufku kapsamıyorsa çekilmiş olsa bile sayılmaz: yoksa yalnızca çekilenler görünür (yanlılık)
+        r = self.row("PULLED", 0.5 * H, 0.9 * H)
+        self.assertIsNone(bt.outcome_at(r, 60, now=30 * H))
+
     def test_pull_after_window_is_not_pulled_for_that_window(self):
         r = self.row("PULLED", 3 * H, 24 * H)
         self.assertFalse(bt.outcome_at(r, 60, now=5 * H))
@@ -36,6 +41,7 @@ class BacktestTests(unittest.TestCase):
 
     def test_watch_ended_before_window_is_unknown_not_survived(self):
         self.assertIsNone(bt.outcome_at(self.row("KEPT", None, 2 * H), 360, now=30 * H))
+        self.assertIsNone(bt.outcome_at(self.row("PULLED", 1 * H, 2 * H), 360, now=30 * H))
 
     def test_survived_full_window(self):
         self.assertFalse(bt.outcome_at(self.row("KEPT", None, 24 * H), 360, now=30 * H))

@@ -20,18 +20,15 @@ MIN_SAMPLE = 30
 
 
 def outcome_at(row: sqlite3.Row, horizon_min: int, now: float) -> bool | None:
-    """True = likidite bu sürede çekildi, False = çekilmedi, None = bilinmiyor (tahmin etmiyoruz)."""
+    """True = likidite bu sürede çekildi, False = çekilmedi, None = bilinmiyor (tahmin etmiyoruz).
+
+    Bir analizin o ufukta ölçülebilir olması SONUCA bağlı değildir: izleme penceresi (watch_until) ufku
+    kapsamalı ve ufuk geçmiş olmalı. Aksi halde yalnızca çekilenler görülür ve oran şişer (hayatta kalma yanlılığı).
+    """
     end = row["analyzed_at"] + horizon_min * 60
-    if row["status"] == "PULLED" and row["decided_at"] is not None and row["decided_at"] <= end:
-        return True
-    if now < end:
+    if now < end or row["watch_until"] is None or row["watch_until"] < end:
         return None
-    if row["status"] == "PULLED":
-        return False           # çekilme pencereden sonra fark edildi
-    watched_until = row["watch_until"]
-    if watched_until is None or watched_until < end:
-        return None            # izleme pencereden önce bitti: görmedik
-    return False
+    return row["status"] == "PULLED" and row["decided_at"] is not None and row["decided_at"] <= end
 
 
 def report(db: sqlite3.Connection, now: float | None = None) -> str:
