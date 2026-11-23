@@ -22,6 +22,7 @@ from core.platform.paths import get_root, product_cache_dir
 from services.market.config import validate_config
 from services.market.dex_policy import PoolVerifier, pool_is_verified, target_policy
 from services.market.request_validation import validate_json_headers, validate_request_headers
+from services.market.rpc_choice import pick_public_rpc
 from services.market.lp_status import collect_lp, unavailable as lp_unavailable
 from services.market.swap_behavior import collect_swap_behavior, unavailable
 from services.market.token_controls import collect_controls
@@ -925,13 +926,13 @@ def observed_swap_behavior(
     token: str, pool: str | None, provider_state: dict[str, Any]
 ) -> dict[str, Any]:
     """Advisory hint from recent swaps; never feeds decide(). Failure means UNKNOWN."""
-    selected = provider_state.get("selected")
-    if not selected or not isinstance(pool, str) or not ADDR.match(pool):
+    if not provider_state.get("selected") or not isinstance(pool, str) or not ADDR.match(pool):
         return unavailable("NO_RPC_OR_POOL")
     try:
-        return collect_swap_behavior(
-            token, pool, lambda method, params: rpc(selected["url"], method, params)
-        )
+        # Swap analysis reads many log ranges. Metered keys (Alchemy's free plan allows only 10-block
+        # eth_getLogs ranges) are the wrong tool, so it always uses a public BSC endpoint.
+        url = pick_public_rpc(CFG["rpc"], rpc)
+        return collect_swap_behavior(token, pool, lambda method, params: rpc(url, method, params))
     except Exception as exc:
         state = unavailable("COLLECT_ERROR")
         state["error"] = f"{type(exc).__name__}:{str(exc)[:100]}"
