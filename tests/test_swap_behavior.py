@@ -326,12 +326,31 @@ class SellDiagnosticsTests(unittest.TestCase):
 
 
 class ServerIntegrationTests(unittest.TestCase):
-    def test_wrapper_returns_observed_behavior(self):
+    def test_wrapper_returns_observed_behavior_over_a_public_endpoint_only(self):
         logs, receipts = taxed_buys(12)
         chain = Chain(logs=logs, receipts=receipts)
-        with patch.object(market, "rpc", lambda url, method, params: chain(method, params)):
-            result = market.observed_swap_behavior(TOK, POOL, {"selected": {"url": "u"}})
+        urls = []
+        def fake(url, method, params):
+            urls.append(url)
+            if url == "https://metered-key":
+                raise AssertionError("the metered endpoint must not be used for swap analysis")
+            return "0x38" if method == "eth_chainId" else chain(method, params)
+        with patch.object(market, "rpc", fake):
+            result = market.observed_swap_behavior(TOK, POOL, {"selected": {"url": "https://metered-key"}})
         self.assertEqual((result["status"], result["sell_ability"]), ("OK", "NO_SELLS_OBSERVED"))
+        self.assertNotIn("https://metered-key", urls)
+        self.assertTrue(set(urls) <= set(market.CFG["rpc"]))
+
+    def test_wrapper_with_no_public_endpoint_is_unknown_not_a_fallback_to_the_key(self):
+        urls = []
+        def fake(url, method, params):
+            urls.append(url)
+            return "0x1"  # wrong chain everywhere
+        with patch.object(market, "rpc", fake):
+            result = market.observed_swap_behavior(TOK, POOL, {"selected": {"url": "https://metered-key"}})
+        self.assertEqual((result["status"], result["reason"]), ("UNKNOWN", "COLLECT_ERROR"))
+        self.assertIn("NO_PUBLIC_RPC", result["error"])
+        self.assertNotIn("https://metered-key", urls)
 
     def test_wrapper_without_rpc_or_pool_is_unknown(self):
         for state, pool in (({}, POOL), ({"selected": None}, POOL), ({"selected": {"url": "u"}}, None),

@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from services.market.dex_policy import DEPLOYMENTS
+from services.market.rpc_choice import pick_public_rpc  # noqa: F401  (re-exported for callers and tests)
 from services.market.swap_behavior import RESERVES_CALL
 from services.market.token_controls import OWNER_SELECTORS, collect_controls, keccak256
 
@@ -458,21 +459,6 @@ def report(store: Store, now: float | None = None, min_age_min: float = CANDIDAT
         when = datetime.fromtimestamp(row["decided_at"], timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
         lines.append(f"  {row['target']}  {row['detail']}  ({when} UTC)")
     return "\n".join(lines + (["  yok"] if not kept else []))
-
-
-def pick_public_rpc(urls: list[str], call: Callable[[str, str, list[Any]], Any]) -> str:
-    """First public BSC endpoint that answers as chain 56.
-
-    The watcher makes many calls, so it never uses the metered Alchemy key; that quota is kept for
-    the panel's analyses.
-    """
-    for url in urls:
-        try:
-            if int(call(url, "eth_chainId", []), 16) == 56:
-                return url
-        except Exception:
-            continue
-    raise RuntimeError("NO_PUBLIC_RPC")
 
 
 def main(argv: list[str] | None = None) -> int:
