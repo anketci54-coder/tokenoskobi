@@ -8,10 +8,11 @@ H = 3600.0
 
 def db_with(rows):
     db = sqlite3.connect(":memory:")
-    db.execute("CREATE TABLE analyses(token TEXT, analyzed_at REAL, status TEXT, decision TEXT)")
+    db.execute("CREATE TABLE analyses(token TEXT, analyzed_at REAL, status TEXT, decision TEXT, warnings TEXT)")
     db.execute("CREATE TABLE pairs(target TEXT, status TEXT, decided_at REAL, watch_until REAL)")
-    for i, (decision, analyzed_at, status, decided_at, watch_until) in enumerate(rows):
-        db.execute("INSERT INTO analyses VALUES(?,?,?,?)", (f"t{i}", analyzed_at, "OK", decision))
+    for i, (decision, analyzed_at, status, decided_at, watch_until, *w) in enumerate(rows):
+        warn = w[0] if w else "[]"
+        db.execute("INSERT INTO analyses VALUES(?,?,?,?,?)", (f"t{i}", analyzed_at, "OK", decision, warn))
         db.execute("INSERT INTO pairs VALUES(?,?,?,?)", (f"t{i}", status, decided_at, watch_until))
     return db
 
@@ -55,6 +56,19 @@ class BacktestTests(unittest.TestCase):
         self.assertIn("2 örnek · likidite çekilen %50", review)
         self.assertIn("örnek az", review)
         self.assertIn("WAIT:\n  analiz yok", text)
+
+    def test_factor_split_and_overlap_rule(self):
+        pulled = [("REVIEW", 0.0, "PULLED", 0.2 * H, 24 * H, '["LP_NOT_BURNED"]')] * 12
+        kept = [("REVIEW", 0.0, "KEPT", None, 24 * H, "[]")] * 12
+        text = bt.report(db_with(pulled + kept), now=30 * H)
+        self.assertIn("LP_NOT_BURNED: var %100 (12) ↔ yok %0 (12) · uyarı VARKEN daha çok çekilmiş", text)
+        mixed = [("REVIEW", 0.0, "PULLED" if i % 2 else "KEPT", 0.2 * H if i % 2 else None, 24 * H,
+                  '["X"]' if i < 12 else "[]") for i in range(24)]
+        self.assertIn("fark gösterilemedi", bt.report(db_with(mixed), now=30 * H))
+
+    def test_small_groups_are_not_shown(self):
+        rows = [("REVIEW", 0.0, "KEPT", None, 24 * H, '["Z"]')] * 3 + [("REVIEW", 0.0, "KEPT", None, 24 * H, "[]")] * 20
+        self.assertIn("en az 10 örneği olan uyarı yok", bt.report(db_with(rows), now=30 * H))
 
     def test_missing_table_is_reported_not_crashed(self):
         self.assertIn("bulunamadı", bt.report(sqlite3.connect(":memory:")))
