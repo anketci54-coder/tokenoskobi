@@ -20,8 +20,10 @@ from contextlib import closing
 from pathlib import Path
 from typing import Any, Callable
 
+from services.market import outcome_tracker
 from services.market.pair_watcher import (CANDIDATE_KEEP_FRACTION, CANDIDATE_MIN_AGE_MIN, Store,
                                           candidate_rows)
+from services.market.rpc_choice import pick_public_rpc
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS analyses(
@@ -194,14 +196,22 @@ def main(argv: list[str] | None = None) -> int:
         if args.report:
             print(report(store))
             return 0
+        from services.market import tokenoskobi_product_slice_02_server as market
+        rpc_url: str | None = None
         while True:
             outcome = "IDLE"
             try:
                 outcome = step(store, panel_post, time.time(), args.min_age, args.keep_fraction)
                 print(time.strftime("%H:%M:%S", time.gmtime()), outcome, flush=True)
+                if rpc_url is None:
+                    rpc_url = pick_public_rpc(market.CFG["rpc"], market.rpc)
+                tracked = outcome_tracker.step(store, lambda method, params: market.rpc(rpc_url, method, params))
+                if any(tracked.values()):
+                    print(time.strftime("%H:%M:%S", time.gmtime()), "sonuç takibi", json.dumps(tracked), flush=True)
             except KeyboardInterrupt:
                 return 0
             except Exception as exc:
+                rpc_url = None  # choose a working endpoint again next round
                 print(f"HATA {type(exc).__name__}: {str(exc)[:120]}", file=sys.stderr, flush=True)
             if args.once:
                 return 0
