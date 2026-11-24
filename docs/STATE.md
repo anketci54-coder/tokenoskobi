@@ -1,7 +1,7 @@
 # Tokenoskobi: Güncel Durum (STATE)
 
 Yeni oturum/ajan için kısa başlangıç belgesi. Önce bunu, sonra AGENTS.md'yi oku. Güncel tut.
-Son güncelleme: 2026-11-19. Taslaktır, sahibi onaylayana kadar karar yerine geçmez.
+Son güncelleme: 2026-11-24 (main 869d9f2, PR #48'e kadar). Taslaktır, sahibi onaylayana kadar karar yerine geçmez.
 
 ## Amaç
 BSC token analizi yapan, zamanla kendini ölçen ve öğrenen bir karar/istihbarat sistemi.
@@ -17,33 +17,50 @@ Otomatik alım satım yalnızca en sonda, ölçülü başarı kanıtlanırsa ve 
 - Seed phrase, özel anahtar, API anahtarı: yazma, isteme, repoya koyma (.secrets/ ve .gitignore).
 - Her commit/push öncesi sahibinden açık onay al. main'e doğrudan push yok, PR'ı sahibi birleştirir.
 
-## Doğrulanmış durum
-- main: 07efa8a (PR #19 ile #24 arası birleşti). PR C (karar bağlama) bu PR ile gelir. Birim testleri ve e2e geçiyor.
-- Test komutları: `python3 -B -m unittest discover -s tests` ve
-  `python3 -B -m engineering.tests.product_e2e`. Smoke komutu bu belgede doğrulanmadı.
-- PR #20: haber "bilinmiyor" durumları ayrı neden koduna ayrıldı (NEWS_DB_MISSING,
-  NEWS_READ_ERROR, NEWS_NO_MATCH, NEWS_NO_PUBLISHED_AT, NEWS_STALE) ve panelde gösteriliyor.
-  Canlıda CAKE analizinde NEWS_DB_MISSING doğrulandı. Karar yine VERI_YETERSIZ.
-- Çekirdek: tokenoskobi.py, web/index.html, services/market/ (slice_02 analiz,
-  slice_03_server, slice_03_runtime, dex_policy.py, request_validation.py, config.py).
+## Doğrulanmış durum (2026-11-24)
+- main: 869d9f2. Son çalıştırmada 550 birim testi ve e2e geçti. Komutlar:
+  `python3 -B -m unittest discover -s tests` ve `python3 -B -m engineering.tests.product_e2e`.
+- VPS: /root/tokenoskobi, root altında systemd servisleri: `tokenoskobi` (panel), `-watcher`, `-analyzer`, `-news`.
+  Alan adı panel.tokenoskobi.site (nginx + certbot, `proxy_read_timeout 300s`; `trusted_origins` config'te).
+  Güncelleme: `cd /root/tokenoskobi && git pull && systemctl restart <servis>`.
+- Durum dizini: ~/.local/state/tokenoskobi/watcher/pairs.sqlite (SQLite, WAL). Tüm raporlar buradan okur.
+- Alchemy ücretsiz katmanı eth_getLogs'u 10 blokla sınırlıyor; zincir okumaları halka açık RPC ile yapılır
+  (`CFG["rpc"]`, `pick_public_rpc`). Alchemy anahtarı sohbette geçti, sahibine iptal etmesi söylendi (doğrulanmadı).
+
+## Modüller (services/market/)
+| Modül | İş |
+|---|---|
+| pair_watcher.py | PancakeSwap V2 PairCreated yakalar, likidite eleği, 24 saat likidite izleme, sağ kalma tablosu, aday listesi, likidite zaman serisi (`liq_series`, 30 gün) |
+| candidate_analyzer.py | Sağ kalan adayları yerel panelin /api/v1/analyze'ına gönderir, `analyses` tablosuna yazar, otomatik yeniden dener; `--report` |
+| outcome_tracker.py | Her analizden sonra havuz baseline'ı alır, 1/6/24 saatte fiyat ve likidite değişimini ölçer; karar sınıfına göre rapor (salt okunur rapor: `python3 -m services.market.outcome_tracker`) |
+| backtest_report.py | Eski analizlerin kararı ↔ sonradan likidite çekilmesi; uyarıya göre bölüm. Yalnızca likidite |
+| chain_history.py | Zincirdeki Sync olaylarından likidite geri kurar, watcher kaydıyla karşılaştırır (30/30 tuttu) |
+| history_lab.py | Aday eşiklerini (yaş × koruma) zincir geçmişiyle dener. `--fetch` yeni iki tabloya yazar (`hist_fetch`, `hist_events`) |
+| news_collector.py | RSS/Atom toplayıcı, data/tokenoskobi_news.sqlite; "tarandı, eşleşme yok" taze ise ölçüm sayılır |
+| lp_status.py | LP'nin sıfır/dEaD adreslerindeki payı; ALLOW için %90 yanık şartı (eşik doğrulanmadı) |
+| rpc_choice.py | `pick_public_rpc`: chainId 56 yanıtlayan ilk halka açık RPC |
+
+## Ölçüm bulguları (küçük örnekler; kesin değil)
+- Likidite eleğini geçen yeni çiftlerin ~%98,5'inin likiditesi çekiliyor. Doğumdan sonra çekilmiş pay: 10 dk %21,
+  30 dk %87, 60 dk %96,7, 180 dk %97,6 (tam ufuk kohortu, Wilson aralıklı).
+- Geçmiş test (121 eski analiz): REVIEW kararlarının likiditesi 1 saatte %13, 6 saatte %51 çekildi.
+  LP yakılmamış %69 ↔ yakılmış %17; sahip aktif cüzdan %80 ↔ değil %38. Aralıklar geniş, örnek ~75.
+- Sonuç takibi (24 Kasım): REVIEW 6 saat %33 (n=21, "örnek az"). Ölçülmüş ALLOW yok; karar sınıfları başına 30 örnek şartı.
+- Zincir geçmişi: publicnode ~300.000 blok geriye Sync verdi, ~800.000 blokta boş döndü. Boş dönüş "çekilmedi" demek DEĞİL.
+- History lab hızı ~0,75 havuz/dk (kaba). 42 havuzda 60 dk adayı 1; eşik kararı için örnek yetersiz.
+- Dağılım: 147 analizde ALLOW 1, REVIEW 124, BLOCK 14, WAIT 8. En sık engel: LP yanmamış, düşük likidite, satış doğrulanamadı.
 
 ## Bilinen sorunlar
-1. Haber veritabanı (data/tokenoskobi*.sqlite) bu makinede yok, ALLOW bu yüzden hiç çıkmaz.
-   Haber toplayıcı yok (services/news yalnızca normalleştirme ve doğrulama).
-2. Token riski kısmen ölçülüyor (PR #22-#24 ve PR C): sahip/proxy/mint ipucu, satış gözlemi, alım-satım vergisi tahmini. Eksikler: likidite kilidi, gerçek satış simülasyonu, dağılım/yoğunlaşma. Satım vergisi büyük ve toplayıcıyla işlem gören token'larda (örn. CAKE) ölçülemiyor, UNKNOWN sayılıyor.
-3. Fiyat çapraz kontrolü tautolojik, TARGET_PRICE_SOURCE_MISMATCH tetiklenemez.
-4. Haber eşleşmesi gevşek ve kontrattan gelen name/symbol'e dayanıyor (manipüle edilebilir).
-5. Analiz en az ~52 sn (6 mum çağrısı x 6,5 sn bekleme). Testler dilim anahtarlarına bağlı.
-6. Rezerv ve fiyat GeckoTerminal'den, zincirden değil. Yalnızca havuz kimliği zincirde doğrulanıyor.
-7. Her yazma ve /healthz tüm olay zincirini baştan doğruluyor (ölçekte yavaşlar).
-8. (Çözüldü, PR #22) owner() sıfır adres ile "owner() yok/hata" artık ayrı durumlar.
-9. Alchemy: URL yoksa ve URL var ama çağrı başarısızsa (ör. kota) ayrı nedenler koddan
-   ayrılabilir görünüyor, şu an tek uyarı (ALCHEMY_HYBRID_NOT_READY). Alchemy isteğe bağlı,
-   kotası bitti, halka açık RPC yedeği çalışıyor.
-10. Balina/cüzdan: services/whale boş. Mantık scripts/legacy altında, bilinen hatalar:
-    SELL_EXCEEDS_POSITION gerçek geçmişte hata atar, SHARED_COUNTERPARTY güveni (0,68) kümeleme
-    eşiğinin (0,65) üstünde (alakasız cüzdanlar birleşebilir), performans mantığı iki dosyada kopya.
-    Zincirden cüzdan işlemi toplayan veri katmanı yok.
+1. Fiyat geçmişi kaydedilmiyor; geçmiş testler yalnızca likidite (çekilme ≠ fiyat çöküşü). Fiyat ivmesi ve alım/satım dengesi kuralı yok.
+2. V3 havuzları swap/LP katmanında desteklenmiyor. Panel en yüksek likiditeli havuzu seçer, bu V3 olabilir ve watcher'ın V2 çiftinden farklı olabilir.
+3. LP bilinmeyen kilit kontratlarında tutuluyorsa tanınmaz; böyle token ALLOW'a çıkamaz.
+4. Haber kaynaklarından Rekt News HTTP 500 veriyordu; 3 kaynaktan 2'si çalışıyor ve `min_sources_ok` tam sınırda.
+5. Aday akışı yavaş (~saatte 1-2). Eşik/kural değişikliği için veri haftalar alabilir.
+6. history_lab okunamayan havuzları (~%13) evrenden çıkarır; bunlar çok işlemli havuzlarsa ayakta kalanlar eksik temsil edilebilir (kontrol edilecek).
+7. Fiyat çapraz kontrolü tautolojik; haber eşleşmesi gevşek (name/symbol'e dayanır); analiz ~52 sn sürer.
+8. Her yazma ve /healthz tüm olay zincirini baştan doğruluyor (ölçekte yavaşlar).
+9. Balina/cüzdan: services/whale boş; scripts/legacy altındaki mantıkta bilinen hatalar var (SELL_EXCEEDS_POSITION, SHARED_COUNTERPARTY eşiği, çift kopya).
+10. Satım vergisi büyük ve toplayıcıyla işlem gören tokenlarda (örn. CAKE) ölçülemez, UNKNOWN sayılır.
 
 ## Verilmiş kararlar
 - Mum çağrılarını azaltma: şimdilik YAPILMAYACAK.
@@ -56,7 +73,7 @@ Otomatik alım satım yalnızca en sonda, ölçülü başarı kanıtlanırsa ve 
 |---|---|---|
 | 0 | Temel: olay zinciri performansı, depolama tasarımı | Sıfır |
 | 1 | Risk motoru: PR A (sahip, proxy, fonksiyon izi), PR B (vergi/honeypot simülasyonu), PR C (skoru kanıta bağlama) | Sıfır |
-| 2 | BSC yeni havuz yakalama (PairCreated), hızlı elek ve "neden atıldı" logu, yeni token geçmiş veritabanı | Sıfır |
+| 2 | BSC yeni havuz yakalama (PairCreated), hızlı elek ve "neden atıldı" logu, yeni token geçmiş veritabanı (YAPILDI: watcher, analyzer, sonuç takibi, geçmiş testleri) | Sıfır |
 | 3 | DEX skoru: hacim, likidite derinliği, alım/satım dengesi, momentum | Sıfır |
 | 4 | Telegram uyarıları, haber akışı, panelde chat | Sıfır |
 | 5 | Balina/cüzdan grafiği (etiketli, belirli cüzdanlar) | Sıfır |
@@ -86,14 +103,10 @@ canlı işleme geçilmez. X ve N sahibi tarafından belirlenecek.
 5. Durdurma kriteri için X ve N değerleri.
 
 ## Sıradaki iş
-İlerleme: Aşama 1 büyük ölçüde tamam (PR A #22, PR B #23, PR B2 #24, PR C).
-PR C kuralları (yalnızca sıkılaştırır): çok alım + hiç satış yok = BLOCK (HONEYPOT_SUSPECTED_NO_SELLS);
-ölçülen vergi >= %30 BLOCK, >= %10 uyarı; tek anahtarlı/bilinmeyen sahip, yükseltilebilir proxy,
-ölçülemeyen kontrol/satış/vergi = uyarı. SUFFICIENT için kontroller, satış gözlemi ve alım/satım
-vergisinin ölçülmüş olması gerekir. Yeni kanıt hiçbir zaman skoru düşürmez.
-Sonraki adaylar:
-1. Küçük/yeni token ile canlı doğrulama (sahibi deneyecek): ayrı-transfer ve calldata yöntemleri
-   hedef durumda çalışıyor mu? CAKE'te çalışmadığı biliniyor.
-2. "INCONCLUSIVE" nedenlerini kodlamak (sell_fee_events belirsiz işlem nedenleri).
-3. Gerçek satış simülasyonu (gerçek bir sahipten eth_call): RPC desteğinin canlı sınanması gerekir.
-4. Aşama 2: BSC yeni havuz yakalama (PairCreated), hızlı elek, "neden atıldı" logu.
+1. history_lab çekiminin sonucuna bak (`python3 -m services.market.history_lab | tail -22`): aday sayısı eşik yorumu için yeterli mi, hata oranı %20'yi geçiyor mu.
+2. Sonuç takibi ve backtest raporlarını birkaç günde bir çalıştır; her karar sınıfında 30 örneğe ulaşınca yorumla.
+3. Veri destekliyorsa kuralları yalnızca sıkılaştır (örn. aktif cüzdan sahibi ALLOW'u engellesin). Veri olmadan kural değiştirme.
+4. Fiyat ivmesi/çöküş kuralı ve alım/satım dengesi sinyali (sonuç takibinde fiyat verisi birikince, rakamla).
+5. Paneli (taslak hazır, sahibi ile onaylanmış yön yok) gerçek verilere bağla; salt okunur, işlem düğmesi yok.
+6. Rekt News kaynağını değiştir veya yeniden dene; V3 desteği; LP kilit kontratı tanıma; %90 LP eşiğini veriyle doğrula.
+7. Telegram/sohbet, balina takibi, paper trading, öğrenme: sonraki aşamalar, otomatik işlem ayrı karar.
