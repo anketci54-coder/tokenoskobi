@@ -18,6 +18,7 @@ SYNC_TOPIC = "0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1
 SPAN_BLOCKS = 5000            # bir istekte istenen blok aralığı (publicnode'da çalıştığı görüldü)
 WINDOW_BLOCKS = 20000         # doğum bloğundan sonra bakılan pencere
 MAX_AGE_BLOCKS = 250000       # bundan eski havuza bakılmaz (sunucu geçmişi sınırlı; 300 bin çalıştı, 800 bin çalışmadı)
+HEAD_MARGIN = 50              # kamu RPC birden çok sunucuya dağılır; biri birkaç blok geride olabilir
 TOLERANCE = 0.95              # zincir zirvesi, watcher'ın kaydettiği zirvenin bunun altına düşerse "tutmuyor"
 
 Rpc = Callable[[str, list[Any]], Any]
@@ -57,13 +58,13 @@ def check(store: Store, rpc: Rpc, limit: int = 10) -> str:
         " AND peak > 0 AND block >= ? ORDER BY block DESC LIMIT ?", (head - MAX_AGE_BLOCKS, limit)).fetchall()
     lines = ["Zincir geçmişi doğrulaması (salt okunur)", "",
              f"  bakılan havuz: {len(rows)} (yaşı ≤ {MAX_AGE_BLOCKS} blok)"]
-    matched = mismatched = nodata = 0
+    matched = mismatched = nodata = unreadable = 0
     for row in rows:
         short = row["pair"][:8] + "…" + row["pair"][-4:]
         try:
-            events = fetch_sync(rpc, row["pair"], row["block"], min(head, row["block"] + WINDOW_BLOCKS))
+            events = fetch_sync(rpc, row["pair"], row["block"], min(head - HEAD_MARGIN, row["block"] + WINDOW_BLOCKS))
         except Exception as exc:
-            nodata += 1
+            unreadable += 1
             lines.append(f"  {short}: okunamadı ({str(exc)[:60]})")
             continue
         if not events:
@@ -76,7 +77,7 @@ def check(store: Store, rpc: Rpc, limit: int = 10) -> str:
         mismatched += not ok
         lines.append(f"  {short}: {len(events)} olay · zincir zirvesi {chain_peak:.2f} · watcher zirvesi {row['peak']:.2f}"
                      f" · {'TUTUYOR' if ok else 'TUTMUYOR'}")
-    lines += ["", f"Özet: tutan {matched} · tutmayan {mismatched} · veri yok {nodata}",
+    lines += ["", f"Özet: tutan {matched} · tutmayan {mismatched} · veri yok {nodata} · okunamadı {unreadable}",
               "Not: zincir zirvesi, 5 dakikalık örnekleme arasındaki tepeleri de görür; watcher zirvesinden DÜŞÜK olmamalı."]
     return "\n".join(lines)
 
