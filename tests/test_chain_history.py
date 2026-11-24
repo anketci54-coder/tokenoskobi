@@ -63,7 +63,7 @@ class CheckTests(unittest.TestCase):
     def test_matching_history_is_reported_as_matching(self):
         text = ch.check(self.store, FakeChain([sync_log(999_010, 10 * E18, 1), sync_log(999_500, 12 * E18, 1)]))
         self.assertIn("TUTUYOR", text)
-        self.assertIn("tutan 1 · tutmayan 0 · veri yok 0", text)
+        self.assertIn("tutan 1 · tutmayan 0 · veri yok 0 · okunamadı 0", text)
 
     def test_chain_lower_than_watcher_is_a_mismatch(self):
         text = ch.check(self.store, FakeChain([sync_log(999_010, 2 * E18, 1)]))
@@ -73,6 +73,14 @@ class CheckTests(unittest.TestCase):
         text = ch.check(self.store, FakeChain([]))
         self.assertIn("veri yok", text)
         self.assertIn("DEĞİL", text)
+
+    def test_never_asks_beyond_head_minus_margin_and_unreadable_is_counted_apart(self):
+        chain = FakeChain([sync_log(999_010, 10 * E18, 1)], head=999_100)
+        ch.check(self.store, chain)
+        self.assertLessEqual(max(hi for _, hi in chain.requests), 999_100 - ch.HEAD_MARGIN)
+        text = ch.check(self.store, lambda m, p: hex(999_100) if m == "eth_blockNumber" else (_ for _ in ()).throw(RuntimeError("boom")))
+        self.assertIn("okunamadı 1", text)
+        self.assertIn("veri yok 0", text)
 
     def test_too_old_pairs_are_skipped(self):
         text = ch.check(self.store, FakeChain([], head=999_000 + ch.MAX_AGE_BLOCKS + 10))
