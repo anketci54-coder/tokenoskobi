@@ -233,6 +233,28 @@ class WatchTests(Base):
             self.assertEqual(self.row()["status"], "KEPT")
             now += pw.ERROR_RETRY_SEC + 1
 
+    def test_every_successful_reading_is_recorded_including_the_pull(self):
+        self.keep(10)
+        now = 1000.0 + pw.WATCH_INTERVAL_SEC + 1
+        pw.check_watch(self.store, FakeRpc(res=reserves(8 * 10**18, 1)), now)
+        now += pw.WATCH_INTERVAL_SEC + 1
+        pw.check_watch(self.store, FakeRpc(res=reserves(2 * 10**18, 1)), now)
+        points = [tuple(r) for r in self.store.db.execute("SELECT t, liq FROM liq_series ORDER BY t")]
+        self.assertEqual(points, [(1301.0, 8.0), (1602.0, 2.0)])
+        self.assertEqual(self.row()["status"], "PULLED")
+
+    def test_unreadable_reading_records_nothing(self):
+        self.keep()
+        pw.check_watch(self.store, FakeRpc(res="0x"), 1000.0 + pw.WATCH_INTERVAL_SEC + 1)
+        self.assertEqual(self.store.db.execute("SELECT COUNT(*) FROM liq_series").fetchone()[0], 0)
+
+    def test_series_is_pruned_after_retention_and_shown_in_report(self):
+        self.store.record_point(PAIR, 100.0, 5.0)
+        self.assertIn("1 nokta · 1 havuz", pw.report(self.store, now=100.0 + 3600))
+        self.store.prune(100.0 + (pw.SERIES_RETAIN_DAYS + 1) * 86400)
+        self.assertEqual(self.store.db.execute("SELECT COUNT(*) FROM liq_series").fetchone()[0], 0)
+        self.assertIn("henüz kayıt yok", pw.report(self.store, now=100.0))
+
     def test_watch_ends_after_window(self):
         self.keep()
         now = 1000.0 + pw.WATCH_HOURS * 3600 + 1

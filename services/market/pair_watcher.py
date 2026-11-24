@@ -40,6 +40,7 @@ MAX_LIQUIDITY_ATTEMPTS = 3
 MAX_ERRORS = 5
 CHECKS_PER_LOOP = 50
 RETAIN_DROPPED_DAYS = 7
+SERIES_RETAIN_DAYS = 30  # liquidity time series kept for backtests, then deleted
 PRUNE_EVERY_SEC = 3600.0
 WATCH_INTERVAL_SEC = 300.0
 WATCH_HOURS = 24
@@ -62,6 +63,8 @@ CREATE TABLE IF NOT EXISTS cursor(id INTEGER PRIMARY KEY CHECK(id = 1), block IN
 CREATE TABLE IF NOT EXISTS drop_stats(day TEXT, reason TEXT, count INTEGER,
   PRIMARY KEY(day, reason));
 CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value REAL);
+CREATE TABLE IF NOT EXISTS liq_series(pair TEXT, t REAL, liq REAL, PRIMARY KEY(pair, t)) WITHOUT ROWID;
+CREATE INDEX IF NOT EXISTS liq_series_t ON liq_series(t);
 """
 
 
@@ -168,6 +171,11 @@ class Store:
             self.db.execute("UPDATE pairs SET peak=?, last_liq=?, watch_due=? WHERE pair=?",
                             (peak, liq, due, pair))
 
+    def record_point(self, pair: str, t: float, liq: float) -> None:
+        """One liquidity reading (quote reserve) for later backtests. Never changes any status."""
+        with self.db:
+            self.db.execute("INSERT OR REPLACE INTO liq_series(pair, t, liq) VALUES(?,?,?)", (pair, t, liq))
+
     def watch_delay(self, pair: str, due: float) -> None:
         with self.db:
             self.db.execute("UPDATE pairs SET watch_due=? WHERE pair=?", (due, pair))
@@ -198,6 +206,7 @@ class Store:
                     (row["day"], row["reason"], row["n"]))
             deleted = self.db.execute(
                 "DELETE FROM pairs WHERE status='DROPPED' AND decided_at < ?", (cutoff,)).rowcount
+            self.db.execute("DELETE FROM liq_series WHERE t < ?", (now - SERIES_RETAIN_DAYS * 86400,))
         return deleted
 
     def meta(self, key: str) -> float | None:
@@ -329,6 +338,7 @@ def check_watch(store: Store, rpc: Rpc, now: float, limit: int = WATCHES_PER_LOO
             continue
         quote_reserve = reserves[0] if row["token0"] == row["quote"] else reserves[1]
         liq = quote_reserve / 1e18
+        store.record_point(row["pair"], now, liq)
         peak = max(row["peak"] or 0.0, liq)
         symbol = QUOTES[row["quote"]]
         if peak > 0 and liq < peak * PULL_FRACTION:
@@ -416,6 +426,9 @@ def report(store: Store, now: float | None = None, min_age_min: float = CANDIDAT
     lines += [f"  {reason}: {count}" for reason, count in sorted(totals.items(), key=lambda i: -i[1])] or ["  yok"]
     kept_n = db.execute("SELECT COUNT(*) FROM pairs WHERE status='KEPT'").fetchone()[0]
     pulled_n = db.execute("SELECT COUNT(*) FROM pairs WHERE status='PULLED'").fetchone()[0]
+    points, pairs_n, first = db.execute("SELECT COUNT(*), COUNT(DISTINCT pair), MIN(t) FROM liq_series").fetchone()
+    lines += ["", "Likidite zaman serisi (geçmiş test için):",
+              f"  {points} nokta · {pairs_n} havuz" + (f" · ilk kayıt {(now - first) / 3600:.1f} saat önce" if first else " · henüz kayıt yok")]
     lines += ["", "Eleği geçenlerin akıbeti:"]
     if kept_n + pulled_n:
         share = 100.0 * pulled_n / (kept_n + pulled_n)
