@@ -89,6 +89,8 @@ class FetchAndReportTests(unittest.TestCase):
         self.assertEqual(chain.calls, calls)   # bir daha çekilmez
         text = hl.report(self.store, 60.0)
         self.assertIn("evren: 1 havuz", text)
+        self.assertIn("1 / 1 havuz 6 saat sonunda hâlâ ayakta", text)
+        self.assertIn("1/1 (%100)", text)
         self.assertIn("örnek az", text)
 
     def test_errors_retry_then_stop_and_are_not_in_the_universe(self):
