@@ -327,6 +327,31 @@ class ProductSlice03Tests(unittest.TestCase):
         ):
             MODULE.history_records(101)
 
+    def test_overview_routes_are_served_by_the_live_handler(self):
+        import threading
+        import urllib.request
+        from http.server import ThreadingHTTPServer
+        with patch.object(MODULE.SLICE02, "WATCHER_STATE_DIR", Path(self.temp.name) / "yok"):
+            server = ThreadingHTTPServer(("127.0.0.1", 0), MODULE.Handler)
+            threading.Thread(target=server.serve_forever, daemon=True).start()
+            try:
+                base = f"http://127.0.0.1:{server.server_address[1]}"
+                host = {"Host": f"127.0.0.1:{MODULE.CFG['port']}"}   # sunucu Host'u yapılandırmadaki porta göre doğrular
+
+                def get(path):
+                    return urllib.request.urlopen(urllib.request.Request(base + path, headers=host), timeout=5)
+
+                with get("/overview") as page:
+                    self.assertEqual(page.status, 200)
+                    self.assertIn("Kontrol Merkezi", page.read().decode())
+                with get("/api/v1/overview") as api:
+                    data = json.loads(api.read())
+                self.assertIs(data["available"], False)
+                self.assertIn("generated_at", data)
+            finally:
+                server.shutdown()
+                server.server_close()
+
     def test_config_authority_remains_zero(self):
         self.assertTrue(
             all(
