@@ -20,6 +20,7 @@ from typing import Any
 
 from core.platform.paths import get_root, product_cache_dir
 from services.market.config import validate_config
+from services.market.overview_data import snapshot as overview_snapshot
 from services.market.dex_policy import PoolVerifier, pool_is_verified, target_policy
 from services.market.request_validation import validate_json_headers, validate_request_headers
 from services.market.rpc_choice import pick_public_rpc
@@ -1001,6 +1002,8 @@ def analyze(token: str) -> dict[str, Any]:
 
 
 HTML = (Path(__file__).resolve().parents[2] / "web/index.html").read_text(encoding="utf-8")
+OVERVIEW_HTML = (Path(__file__).resolve().parents[2] / "web/overview.html").read_text(encoding="utf-8")
+WATCHER_STATE_DIR = Path(os.getenv("TOKENOSKOBI_WATCHER_STATE_DIR") or Path.home() / ".local/state/tokenoskobi/watcher")
 
 
 class H(BaseHTTPRequestHandler):
@@ -1039,6 +1042,13 @@ class H(BaseHTTPRequestHandler):
             return self.sendj(200, {"ok": True, "authority": "READ_ONLY_ADVISORY"})
         if path in ("/", "/panel", "/panel/", "/panel/panel_v2", "/panel/panel_v2/"):
             return self.sendj(200, HTML, "text/html; charset=utf-8")
+        if path in ("/overview", "/overview/"):
+            return self.sendj(200, OVERVIEW_HTML, "text/html; charset=utf-8")
+        if path == "/api/v1/overview":
+            try:
+                return self.sendj(200, overview_snapshot(WATCHER_STATE_DIR, ROOT / "data/tokenoskobi_news.sqlite"))
+            except Exception as exc:
+                return self.sendj(500, {"error": "OVERVIEW_FAILED", "detail": f"{type(exc).__name__}:{str(exc)[:140]}"})
         self.sendj(404, {"error": "NOT_FOUND"})
 
     def do_POST(self) -> None:
