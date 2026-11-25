@@ -66,6 +66,14 @@ class BacktestTests(unittest.TestCase):
                   '["X"]' if i < 12 else "[]") for i in range(24)]
         self.assertIn("fark gösterilemedi", bt.report(db_with(mixed), now=30 * H))
 
+    def test_combination_table_separates_linked_warnings(self):
+        rows = ([("REVIEW", 0.0, "PULLED", 0.2 * H, 24 * H, '["LP_NOT_BURNED","OWNER_ACTIVE_EOA"]')] * 3
+                + [("REVIEW", 0.0, "KEPT", None, 24 * H, "[]")] * 4)
+        text = bt.report(db_with(rows), now=30 * H)
+        self.assertIn("LP yakılmamış · sahip aktif cüzdan: 3 örnek · çekilen %100", text)
+        self.assertIn("LP yakılmış · sahip aktif cüzdan değil: 4 örnek · çekilen %0", text)
+        self.assertIn("LP yakılmış · sahip aktif cüzdan: örnek yok", text)
+
     def test_small_groups_are_not_shown(self):
         rows = [("REVIEW", 0.0, "KEPT", None, 24 * H, '["Z"]')] * 3 + [("REVIEW", 0.0, "KEPT", None, 24 * H, "[]")] * 20
         self.assertIn("en az 10 örneği olan uyarı yok", bt.report(db_with(rows), now=30 * H))
