@@ -608,6 +608,15 @@ class Handler(BaseHTTPRequestHandler):
                 except ValueError as exc:
                     raise ValidationError("INVALID_HISTORY_LIMIT") from exc
                 return self.send_json(200, history_records(limit))
+            if path in ("/overview", "/overview/"):
+                return self.send_json(200, SLICE02.OVERVIEW_HTML, "text/html; charset=utf-8")
+            if path == "/api/v1/overview":
+                return self.send_json(
+                    200,
+                    SLICE02.overview_snapshot(
+                        SLICE02.WATCHER_STATE_DIR, ROOT / "data/tokenoskobi_news.sqlite"
+                    ),
+                )
             prefix = "/api/v1/packets/"
             if path.startswith(prefix):
                 packet_id = path[len(prefix) :]
