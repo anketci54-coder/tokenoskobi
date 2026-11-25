@@ -136,11 +136,12 @@ def report(store: Store, blocks_per_min: float) -> str:
         curves.setdefault(row["pair"], []).append((row["block"], row["liq"]))
     lines += [f"  evren: {len(pairs)} havuz (sonuca bakılarak seçilmedi; olayı olmayan/okunamayan dışarıda)", "",
               f"Aday olmak için şart ↔ sonuç ({HORIZON_MIN // 60} saat içinde likidite çekilmesi)",
-              "  yaş   koruma  aday(%evren)  çekilen%(aralık)             ayakta kalanların kaçı aday sayıldı"]
+              "  yaş   koruma  aday(%evren)  çekilen%(aralık)             ayakta kalanlardan kaçı aday sayıldı"]
     for age in AGES_MIN:
         results = {keep: [simulate(curves[p["pair"]], p["block"], blocks_per_min, age, keep) for p in pairs]
                    for keep in KEEPS}
         survivors = sum(r["survived"] for r in results[KEEPS[0]])
+        lines.append(f"  -- yaş {age} dk: {survivors} / {len(pairs)} havuz {HORIZON_MIN // 60} saat sonunda hâlâ ayakta (çekilmemiş)")
         for keep in KEEPS:
             res = results[keep]
             cands = [r for r in res if r["candidate"]]
@@ -152,7 +153,7 @@ def report(store: Store, blocks_per_min: float) -> str:
             else:
                 share = "aday yok"
             note = "  (örnek az)" if len(cands) < MIN_SAMPLE else ""
-            recall = f"%{100 * kept_alive / survivors:.0f}" if survivors else "-"
+            recall = f"{kept_alive}/{survivors} (%{100 * kept_alive / survivors:.0f})" if survivors else "-"
             lines.append(f"  {age:>3} dk  %{int(keep * 100):<5}  {len(cands):>4} (%{100 * len(cands) / len(res):.0f})"
                          f"    {share:<26} {recall}{note}")
     lines += ["", "Okuma: 'çekilen%' ne kadar düşükse şart o kadar güvenli; 'ayakta kalanların kaçı aday' ne kadar yüksekse",
