@@ -28,6 +28,7 @@ h2{font-size:18px;margin-bottom:4px}
 .bar i{display:block;height:100%;border-radius:6px}
 .item{margin-bottom:14px}
 .item .top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px}
+.item .top.stack{flex-direction:column;align-items:flex-start;gap:4px}
 .tag{padding:3px 10px;border-radius:7px;font-weight:700;font-size:14px;white-space:nowrap}
 .ALLOW{background:#173a30;color:var(--ok)} .REVIEW{background:#41300f;color:var(--wn)} .WAIT{background:#12263f;color:#8fb4ff} .BLOCK{background:#43202a;color:#ffa3af}
 .cols{display:flex;flex-wrap:wrap;gap:14px} .cols>.pn{flex:1 1 440px}
@@ -117,11 +118,11 @@ function sunk(r){
   return "%" + Math.round(100 * r.events / r.n) + " (" + r.n + " tokenden " + r.events + ") battı" + (r.enough ? "" : " · az örnek, kesin değil");
 }
 function tag(d){ const t = el("span", "tag " + d, DEC[d] ? DEC[d].name : d); t.title = DEC[d] ? DEC[d].help : ""; return t; }
-function rows(list, empty){
+function rows(list, empty, stack){
   const box = el("div");
   if(!list.length){ box.appendChild(el("div", "mu", empty)); return box; }
   list.forEach(r => {
-    const item = el("div", "item"), top = el("div", "top");
+    const item = el("div", "item"), top = el("div", stack ? "top stack" : "top");
     top.appendChild(r.left); top.appendChild(el("span", "", r.right));
     item.appendChild(top);
     if(r.bar !== undefined){ const bar = el("div", "bar"), fill = el("i"); fill.style.width = r.bar + "%"; fill.style.background = r.color; bar.appendChild(fill); item.appendChild(bar); }
@@ -157,8 +158,8 @@ function render(d){
   sv.appendChild(d.survival ? rows(d.survival.filter(r => r.n).map(r => { const alive = Math.round(100 * (1 - r.events / r.n));
     return {left: el("b", "", when(r.horizon).replace("sonra", "sonra")), right: "100 tokenden " + alive + "'inin parası hâlâ havuzda", bar: alive, color: "#34f0be"}; }), "Henüz ölçüm yok") : el("div", "mu", "Veri yok"));
   const oc = clear($("outcomes")), bt = clear($("backtest"));
-  oc.appendChild(d.outcomes ? rows(resultRows(d.outcomes), "Henüz ölçüm yok. Ölçümler incelemeden 1 saat sonra başlar.") : el("div", "mu", "Veri yok"));
-  bt.appendChild(d.backtest ? rows(resultRows(d.backtest), "Henüz ölçüm yok") : el("div", "mu", "Veri yok"));
+  oc.appendChild(d.outcomes ? rows(resultRows(d.outcomes), "Henüz ölçüm yok. Ölçümler incelemeden 1 saat sonra başlar.", true) : el("div", "mu", "Veri yok"));
+  bt.appendChild(d.backtest ? rows(resultRows(d.backtest), "Henüz ölçüm yok", true) : el("div", "mu", "Veri yok"));
   const rc = clear($("recent"));
   if(!d.recent.length) rc.appendChild(el("div", "mu", "Henüz inceleme yok"));
   d.recent.forEach(r => {
