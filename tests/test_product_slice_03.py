@@ -343,7 +343,7 @@ class ProductSlice03Tests(unittest.TestCase):
 
                 with get("/overview") as page:
                     self.assertEqual(page.status, 200)
-                    self.assertIn("Kontrol Merkezi", page.read().decode())
+                    self.assertIn("Durum Paneli", page.read().decode())
                 with get("/api/v1/overview") as api:
                     data = json.loads(api.read())
                 self.assertIs(data["available"], False)
