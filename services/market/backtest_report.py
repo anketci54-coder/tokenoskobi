@@ -88,7 +88,24 @@ def factors(rows: list[sqlite3.Row], now: float, horizon: int = FACTOR_HORIZON_M
         lines.append(f"  {name}: var %{100 * a / len(with_w):.0f} ({len(with_w)}) ↔ yok %{100 * b / len(without):.0f} ({len(without)}) · {verdict}")
     if not shown:
         lines.append(f"  her iki grupta da en az {MIN_GROUP} örneği olan uyarı yok")
+    lines += combo(measured)
     lines.append("  Not: korelasyon nedensellik değil; eski kayıtlar LP/satış ölçümünden önceydi, o uyarılar karışık olabilir.")
+    return lines
+
+
+def combo(measured: list[tuple[set[str], bool]]) -> list[str]:
+    """Birbirine bağlı iki uyarıyı birlikte ayırır: LP yakılmamış x sahip aktif cüzdan."""
+    lines = ["", "İki uyarı birlikte (LP yakılmamış × sahip aktif cüzdan):"]
+    for lp in (False, True):
+        for eoa in (False, True):
+            g = [o for ws, o in measured if ("LP_NOT_BURNED" in ws) == lp and ("OWNER_ACTIVE_EOA" in ws) == eoa]
+            name = f"LP {'yakılmamış' if lp else 'yakılmış'} · sahip {'aktif cüzdan' if eoa else 'aktif cüzdan değil'}"
+            if not g:
+                lines.append(f"  {name}: örnek yok")
+                continue
+            low, high = wilson(sum(g), len(g))
+            note = "  (örnek az, yorum yapma)" if len(g) < MIN_SAMPLE else ""
+            lines.append(f"  {name}: {len(g)} örnek · çekilen %{100 * sum(g) / len(g):.0f} (aralık %{100 * low:.0f}–%{100 * high:.0f}){note}")
     return lines
 
 

@@ -908,6 +908,7 @@ def decide(
         if blockers
         else "REVIEW"
         if quality != "SUFFICIENT" or len(warnings) >= 3 or score >= 65
+        or "OWNER_ACTIVE_EOA" in warnings
         else "WAIT"
         if score >= 45
         else "ALLOW"

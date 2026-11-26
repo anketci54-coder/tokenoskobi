@@ -95,6 +95,13 @@ class MarketEvidenceTests(unittest.TestCase):
                     del values[1]["selected_pool"]["reserve_usd"]
                 self.assertNotEqual(market.decide(*values)["decision"], "ALLOW")
 
+    def test_active_eoa_owner_cannot_allow(self):
+        values = decision_inputs()
+        values[0]["controls"]["owner"] = {"status": "OWNER_ACTIVE_EOA"}
+        result = market.decide(*values)
+        self.assertNotEqual(result["decision"], "ALLOW")
+        self.assertIn("OWNER_ACTIVE_EOA", result["warnings"])
+
     def test_complete_evidence_still_allows(self):
         self.assertEqual(market.decide(*decision_inputs())["decision"], "ALLOW")
 
